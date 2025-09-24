@@ -80,14 +80,14 @@ class TestInvoices:
             },
             access_pass={
                 "title": "title",
-                "product_tax_code_id": "product_tax_code_id",
+                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
-            access_pass_id="access_pass_id",
+            access_pass_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
             email_address="email_address",
-            member_id="member_id",
-            payment_token_id="payment_token_id",
+            member_id="mber_xxxxxxxxxxxxx",
+            payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
@@ -167,7 +167,7 @@ class TestInvoices:
     @parametrize
     def test_method_list(self, client: Whopsdk) -> None:
         invoice = client.invoices.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])
 
@@ -175,7 +175,7 @@ class TestInvoices:
     @parametrize
     def test_method_list_with_all_params(self, client: Whopsdk) -> None:
         invoice = client.invoices.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             direction="asc",
@@ -194,7 +194,7 @@ class TestInvoices:
     @parametrize
     def test_raw_response_list(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -206,7 +206,7 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_list(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -322,14 +322,14 @@ class TestAsyncInvoices:
             },
             access_pass={
                 "title": "title",
-                "product_tax_code_id": "product_tax_code_id",
+                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
-            access_pass_id="access_pass_id",
+            access_pass_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
             email_address="email_address",
-            member_id="member_id",
-            payment_token_id="payment_token_id",
+            member_id="mber_xxxxxxxxxxxxx",
+            payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
@@ -409,7 +409,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])
 
@@ -417,7 +417,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             direction="asc",
@@ -436,7 +436,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -448,7 +448,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

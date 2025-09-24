@@ -75,11 +75,11 @@ class TestCourseLessonInteractions:
             after="after",
             before="before",
             completed=True,
-            course_id="course_id",
+            course_id="cors_xxxxxxxxxxxxx",
             first=0,
             last=0,
-            lesson_id="lesson_id",
-            user_id="user_id",
+            lesson_id="lesn_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(CourseLessonInteractionListResponse, course_lesson_interaction, path=["response"])
 
@@ -166,11 +166,11 @@ class TestAsyncCourseLessonInteractions:
             after="after",
             before="before",
             completed=True,
-            course_id="course_id",
+            course_id="cors_xxxxxxxxxxxxx",
             first=0,
             last=0,
-            lesson_id="lesson_id",
-            user_id="user_id",
+            lesson_id="lesn_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(CourseLessonInteractionListResponse, course_lesson_interaction, path=["response"])
 

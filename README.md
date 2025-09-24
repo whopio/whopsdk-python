@@ -124,7 +124,7 @@ from whopsdk import Whopsdk
 client = Whopsdk()
 
 invoices = client.invoices.list(
-    company_id="company_id",
+    company_id="biz_xxxxxxxxxxxxxx",
     filters={},
 )
 print(invoices.filters)
