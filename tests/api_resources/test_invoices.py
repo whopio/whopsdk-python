@@ -84,7 +84,6 @@ class TestInvoices:
             },
             access_pass_id="access_pass_id",
             charge_buyer_fee=True,
-            client_mutation_id="client_mutation_id",
             customer_name="customer_name",
             email_address="email_address",
             member_id="member_id",
@@ -221,16 +220,7 @@ class TestInvoices:
     @parametrize
     def test_method_void(self, client: Whopsdk) -> None:
         invoice = client.invoices.void(
-            id="id",
-        )
-        assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_void_with_all_params(self, client: Whopsdk) -> None:
-        invoice = client.invoices.void(
-            id="id",
-            client_mutation_id="client_mutation_id",
+            "id",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
 
@@ -238,7 +228,7 @@ class TestInvoices:
     @parametrize
     def test_raw_response_void(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.void(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -250,7 +240,7 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_void(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.void(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -265,7 +255,7 @@ class TestInvoices:
     def test_path_params_void(self, client: Whopsdk) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.invoices.with_raw_response.void(
-                id="",
+                "",
             )
 
 
@@ -336,7 +326,6 @@ class TestAsyncInvoices:
             },
             access_pass_id="access_pass_id",
             charge_buyer_fee=True,
-            client_mutation_id="client_mutation_id",
             customer_name="customer_name",
             email_address="email_address",
             member_id="member_id",
@@ -473,16 +462,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_void(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.void(
-            id="id",
-        )
-        assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_void_with_all_params(self, async_client: AsyncWhopsdk) -> None:
-        invoice = await async_client.invoices.void(
-            id="id",
-            client_mutation_id="client_mutation_id",
+            "id",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
 
@@ -490,7 +470,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.void(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -502,7 +482,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_void(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.void(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -517,5 +497,5 @@ class TestAsyncInvoices:
     async def test_path_params_void(self, async_client: AsyncWhopsdk) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.invoices.with_raw_response.void(
-                id="",
+                "",
             )

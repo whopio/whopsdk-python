@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import invoice_list_params, invoice_void_params, invoice_create_params
+from ..types import invoice_list_params, invoice_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -56,7 +56,6 @@ class InvoicesResource(SyncAPIResource):
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
         access_pass_id: Optional[str] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
-        client_mutation_id: Optional[str] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
@@ -86,8 +85,6 @@ class InvoicesResource(SyncAPIResource):
               create an invoice for an existing product.
 
           charge_buyer_fee: Whether or not to charge the customer a buyer fee.
-
-          client_mutation_id: A unique identifier for the client performing the mutation.
 
           customer_name: The name of the customer to create this invoice for. This is required if you
               want to create an invoice for a customer who does not have a member of your
@@ -121,7 +118,6 @@ class InvoicesResource(SyncAPIResource):
                     "access_pass": access_pass,
                     "access_pass_id": access_pass_id,
                     "charge_buyer_fee": charge_buyer_fee,
-                    "client_mutation_id": client_mutation_id,
                     "customer_name": customer_name,
                     "email_address": email_address,
                     "member_id": member_id,
@@ -242,7 +238,6 @@ class InvoicesResource(SyncAPIResource):
         self,
         id: str,
         *,
-        client_mutation_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -254,8 +249,6 @@ class InvoicesResource(SyncAPIResource):
         Void an invoice
 
         Args:
-          client_mutation_id: A unique identifier for the client performing the mutation.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -268,7 +261,6 @@ class InvoicesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/invoices/{id}/void",
-            body=maybe_transform({"client_mutation_id": client_mutation_id}, invoice_void_params.InvoiceVoidParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -305,7 +297,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
         access_pass_id: Optional[str] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
-        client_mutation_id: Optional[str] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
@@ -335,8 +326,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
               create an invoice for an existing product.
 
           charge_buyer_fee: Whether or not to charge the customer a buyer fee.
-
-          client_mutation_id: A unique identifier for the client performing the mutation.
 
           customer_name: The name of the customer to create this invoice for. This is required if you
               want to create an invoice for a customer who does not have a member of your
@@ -370,7 +359,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "access_pass": access_pass,
                     "access_pass_id": access_pass_id,
                     "charge_buyer_fee": charge_buyer_fee,
-                    "client_mutation_id": client_mutation_id,
                     "customer_name": customer_name,
                     "email_address": email_address,
                     "member_id": member_id,
@@ -491,7 +479,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        client_mutation_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -503,8 +490,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Void an invoice
 
         Args:
-          client_mutation_id: A unique identifier for the client performing the mutation.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -517,9 +502,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             f"/invoices/{id}/void",
-            body=await async_maybe_transform(
-                {"client_mutation_id": client_mutation_id}, invoice_void_params.InvoiceVoidParams
-            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
