@@ -76,8 +76,8 @@ class TestCourseLessonInteractions:
             before="before",
             completed=True,
             course_id="cors_xxxxxxxxxxxxx",
-            first=0,
-            last=0,
+            first=42,
+            last=42,
             lesson_id="lesn_xxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -167,8 +167,8 @@ class TestAsyncCourseLessonInteractions:
             before="before",
             completed=True,
             course_id="cors_xxxxxxxxxxxxx",
-            first=0,
-            last=0,
+            first=42,
+            last=42,
             lesson_id="lesn_xxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
