@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import course_lesson_interaction_list_params, course_lesson_interaction_retrieve_params
+from ..types import course_lesson_interaction_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -46,9 +46,8 @@ class CourseLessonInteractionsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        path_id: str,
+        id: str,
         *,
-        query_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -66,19 +65,12 @@ class CourseLessonInteractionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/course_lesson_interactions/{path_id}",
+            f"/course_lesson_interactions/{id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"query_id": query_id},
-                    course_lesson_interaction_retrieve_params.CourseLessonInteractionRetrieveParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CourseLessonInteractionRetrieveResponse,
         )
@@ -158,9 +150,8 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        path_id: str,
+        id: str,
         *,
-        query_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,19 +169,12 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/course_lesson_interactions/{path_id}",
+            f"/course_lesson_interactions/{id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"query_id": query_id},
-                    course_lesson_interaction_retrieve_params.CourseLessonInteractionRetrieveParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CourseLessonInteractionRetrieveResponse,
         )
