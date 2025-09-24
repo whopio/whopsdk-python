@@ -68,10 +68,11 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceCreateResponse]:
-        """Args:
-          collection_method: The method of collection for this invoice.
+        """
+        Creates an invoice
 
-        If using charge_automatically, you
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
           due_date: The date the invoice is due, if applicable.
@@ -146,6 +147,8 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
+        Retrieves an invoice by ID or token
+
         Args:
           extra_headers: Send extra headers
 
@@ -184,6 +187,8 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
         """
+        Lists invoices
+
         Args:
           company_id: The ID of the company to list invoices for
 
@@ -246,6 +251,8 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceVoidResponse]:
         """
+        Void an invoice
+
         Args:
           client_mutation_id: A unique identifier for the client performing the mutation.
 
@@ -310,10 +317,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceCreateResponse]:
-        """Args:
-          collection_method: The method of collection for this invoice.
+        """
+        Creates an invoice
 
-        If using charge_automatically, you
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
           due_date: The date the invoice is due, if applicable.
@@ -388,6 +396,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
+        Retrieves an invoice by ID or token
+
         Args:
           extra_headers: Send extra headers
 
@@ -426,6 +436,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
         """
+        Lists invoices
+
         Args:
           company_id: The ID of the company to list invoices for
 
@@ -488,6 +500,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceVoidResponse]:
         """
+        Void an invoice
+
         Args:
           client_mutation_id: A unique identifier for the client performing the mutation.
 
