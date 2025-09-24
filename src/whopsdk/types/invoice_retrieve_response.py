@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["InvoiceRetrieveResponse", "CurrentPlan", "Member"]
+__all__ = ["InvoiceRetrieveResponse", "CurrentPlan", "User"]
 
 
 class CurrentPlan(BaseModel):
@@ -104,18 +104,15 @@ class CurrentPlan(BaseModel):
     """The formatted price (including currency) for the plan."""
 
 
-class Member(BaseModel):
+class User(BaseModel):
     id: str
-    """The internal ID of the user account for the member."""
-
-    email: Optional[str] = None
-    """The digital mailing address of the member."""
+    """The internal ID of the user."""
 
     name: Optional[str] = None
-    """The written name of the member."""
+    """The name of the user from their Whop account."""
 
-    username: Optional[str] = None
-    """The whop username of the member."""
+    username: str
+    """The username of the user from their Whop account."""
 
 
 class InvoiceRetrieveResponse(BaseModel):
@@ -137,11 +134,11 @@ class InvoiceRetrieveResponse(BaseModel):
     fetch_invoice_token: str
     """The token to fetch the invoice."""
 
-    member: Optional[Member] = None
-    """The member that the invoice was created for."""
-
     number: str
     """The number of the invoice."""
 
     status: Literal["open", "paid", "past_due", "void"]
     """The status of the invoice."""
+
+    user: Optional[User] = None
+    """The user that the invoice was created for."""
