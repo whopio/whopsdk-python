@@ -10,60 +10,25 @@ __all__ = ["CourseLessonInteractionListParams"]
 
 class CourseLessonInteractionListParams(TypedDict, total=False):
     after: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """Returns the elements in the list that come after the specified cursor."""
 
     before: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
 
     completed: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Whether the lesson has been completed by the user"""
 
     course_id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the course to list course lesson interactions for"""
 
     first: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """Returns the first _n_ elements from the list."""
 
     last: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """Returns the last _n_ elements from the list."""
 
     lesson_id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the lesson to list course lesson interactions for"""
 
     user_id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the user to list course lesson interactions for"""

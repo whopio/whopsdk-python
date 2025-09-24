@@ -9,97 +9,57 @@ __all__ = ["CourseLessonInteractionListResponse", "Data", "DataLesson", "DataUse
 
 class DataLesson(BaseModel):
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the lesson"""
 
     title: str
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The title of the lesson"""
 
 
 class DataUser(BaseModel):
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The internal ID of the user."""
 
     name: Optional[str] = None
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The name of the user from their Whop account."""
 
     username: str
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The username of the user from their Whop account."""
 
 
 class Data(BaseModel):
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the lesson interaction"""
 
     completed: bool
-    """Represents `true` or `false` values."""
+    """Whether the lesson has been completed by the user"""
 
     created_at: int
-    """A valid timestamp in seconds, transported as an integer"""
+    """When the interaction was created"""
 
     lesson: DataLesson
-    """A lesson from the courses app"""
+    """The lesson this interaction is for"""
 
     user: DataUser
-    """An object representing a (sanitized) user of the site."""
+    """The user who interacted with the lesson"""
 
 
 class PageInfo(BaseModel):
     end_cursor: Optional[str] = None
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """When paginating forwards, the cursor to continue."""
 
     has_next_page: bool
-    """Represents `true` or `false` values."""
+    """When paginating forwards, are there more items?"""
 
     has_previous_page: bool
-    """Represents `true` or `false` values."""
+    """When paginating backwards, are there more items?"""
 
     start_cursor: Optional[str] = None
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """When paginating backwards, the cursor to continue."""
 
 
 class CourseLessonInteractionListResponse(BaseModel):
     data: Optional[List[Optional[Data]]] = None
+    """A list of nodes."""
 
     page_info: PageInfo
-    """Information about pagination in a connection."""
+    """Information to aid in pagination."""

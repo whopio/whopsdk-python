@@ -10,129 +10,103 @@ __all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodS
 
 class InvoiceCreateParams(TypedDict, total=False):
     collection_method: Required[Literal["send_invoice", "charge_automatically"]]
-    """The method of collection for an invoice."""
+    """The method of collection for this invoice.
+
+    If using charge_automatically, you must provide a payment_token.
+    """
 
     due_date: Required[int]
-    """A valid timestamp in seconds, transported as an integer"""
+    """The date the invoice is due, if applicable."""
 
     plan: Required[Plan]
     """The properties of the plan to create for this invoice."""
 
     access_pass: Optional[AccessPass]
-    """The properties of the access pass to create for this invoice."""
+    """The properties of the access pass to create for this invoice.
+
+    Include this if you want to create an invoice for a new product.
+    """
 
     access_pass_id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
+    """The access pass ID to create this invoice for.
 
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
+    Include this if you want to create an invoice for an existing product.
     """
 
     charge_buyer_fee: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Whether or not to charge the customer a buyer fee."""
 
     client_mutation_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """A unique identifier for the client performing the mutation."""
 
     customer_name: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
+    """The name of the customer to create this invoice for.
 
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    This is required if you want to create an invoice for a customer who does not
+    have a member of your company yet.
     """
 
     email_address: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
+    """The email address to create this invoice for.
 
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    This is required if you want to create an invoice for a user who does not have a
+    member of your company yet.
     """
 
     member_id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
+    """The member ID to create this invoice for.
 
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
+    Include this if you want to create an invoice for an existing member. If you do
+    not have a member ID, you must provide an email_address and customer_name.
     """
 
     payment_token_id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
+    """The payment token ID to use for this invoice.
 
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
+    If using charge_automatically, you must provide a payment_token.
     """
 
 
 class PlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
+    """The type of the custom field."""
 
     name: Required[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The name of the custom field."""
 
     id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the custom field (if being updated)"""
 
     order: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """The order of the field."""
 
     placeholder: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The placeholder value of the field."""
 
     required: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Whether or not the field is required."""
 
 
 class PlanReleaseMethodSettings(TypedDict, total=False):
     expires_at: Optional[int]
-    """A valid timestamp in seconds, transported as an integer"""
+    """When the raffle will expire"""
 
     max_entries: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """The maximum number of entries allowed for the raffle or waitlist"""
 
     nft_weighted_entries: Optional[bool]
-    """Represents `true` or `false` values."""
+    """
+    If this is enabled, the raffle will get entries based off of how many NFTs the
+    user owns
+    """
 
     starts_at: Optional[int]
-    """A valid timestamp in seconds, transported as an integer"""
+    """When the raffle will start"""
 
 
 class Plan(TypedDict, total=False):
     ach_payments: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Whether or not ACH payments are accepted"""
 
     base_currency: Optional[
         Literal[
@@ -222,114 +196,81 @@ class Plan(TypedDict, total=False):
             "btc",
         ]
     ]
-    """The available currencies on the platform"""
+    """The respective currency identifier for the plan."""
 
     billing_period: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """The interval at which the plan charges (renewal plans)."""
 
     card_payments: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Whether or not card payments are accepted"""
 
     coinbase_commerce_accepted: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Marks whether coinbase commerce payments are/aren't accepted."""
 
     custom_fields: Optional[Iterable[PlanCustomField]]
+    """An array of custom field objects."""
 
     description: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The description of the plan."""
 
     expiration_days: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """The interval at which the plan charges (expiration plans)."""
 
     initial_price: Optional[float]
-    """A float that can be a string"""
+    """An additional amount charged upon first purchase."""
 
     internal_notes: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """A personal description or notes section for the business."""
 
     offer_cancel_discount: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Whether or not to offer a discount to cancel a subscription."""
 
     paypal_accepted: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Marks whether paypal payments are/aren't accepted."""
 
     plan_type: Optional[Literal["renewal", "one_time"]]
-    """The type of plan that can be attached to an access pass"""
+    """Indicates if the plan is a one time payment or recurring."""
 
     platform_balance_accepted: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Marks whether platform balance payments are/aren't accepted."""
 
     redirect_url: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The URL to redirect the customer to after purchase."""
 
     release_method: Optional[Literal["buy_now", "waitlist", "raffle"]]
-    """The methods of how a plan can be released (including raffles and waitlists)."""
+    """This is the release method the business uses to sell this plan."""
 
     release_method_settings: Optional[PlanReleaseMethodSettings]
+    """Configurable settings on how this plan is released."""
 
     renewal_price: Optional[float]
-    """A float that can be a string"""
+    """The amount the customer is charged every billing period."""
 
     split_pay_required_payments: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """The number of payments required before pausing the subscription."""
 
     splitit_accepted: Optional[bool]
-    """Represents `true` or `false` values."""
+    """
+    Marks whether payments using splitit, a payment processor, are/aren't accepted
+    for the plan.
+    """
 
     stock: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """The number of units available for purchase."""
 
     trial_period_days: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Represents `true` or `false` values."""
+    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]]
-    """Visibility of a resource"""
+    """Shows or hides the plan from public/business view."""
 
 
 class AccessPass(TypedDict, total=False):
     title: Required[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The title of the access pass."""
 
     product_tax_code_id: Optional[str]
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the product tax code to apply to this access pass."""
