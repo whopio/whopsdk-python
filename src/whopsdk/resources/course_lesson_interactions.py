@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import course_lesson_interaction_list_params
+from ..types import course_lesson_interaction_list_params, course_lesson_interaction_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,6 +19,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.course_lesson_interaction_list_response import CourseLessonInteractionListResponse
+from ..types.course_lesson_interaction_retrieve_response import CourseLessonInteractionRetrieveResponse
 
 __all__ = ["CourseLessonInteractionsResource", "AsyncCourseLessonInteractionsResource"]
 
@@ -42,6 +43,45 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/whopsdk-python#with_streaming_response
         """
         return CourseLessonInteractionsResourceWithStreamingResponse(self)
+
+    def retrieve(
+        self,
+        path_id: str,
+        *,
+        query_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonInteractionRetrieveResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        return self._get(
+            f"/course_lesson_interactions/{path_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"query_id": query_id},
+                    course_lesson_interaction_retrieve_params.CourseLessonInteractionRetrieveParams,
+                ),
+            ),
+            cast_to=CourseLessonInteractionRetrieveResponse,
+        )
 
     def list(
         self,
@@ -116,6 +156,45 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         """
         return AsyncCourseLessonInteractionsResourceWithStreamingResponse(self)
 
+    async def retrieve(
+        self,
+        path_id: str,
+        *,
+        query_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonInteractionRetrieveResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        return await self._get(
+            f"/course_lesson_interactions/{path_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"query_id": query_id},
+                    course_lesson_interaction_retrieve_params.CourseLessonInteractionRetrieveParams,
+                ),
+            ),
+            cast_to=CourseLessonInteractionRetrieveResponse,
+        )
+
     async def list(
         self,
         *,
@@ -173,6 +252,9 @@ class CourseLessonInteractionsResourceWithRawResponse:
     def __init__(self, course_lesson_interactions: CourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
+        self.retrieve = to_raw_response_wrapper(
+            course_lesson_interactions.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             course_lesson_interactions.list,
         )
@@ -182,6 +264,9 @@ class AsyncCourseLessonInteractionsResourceWithRawResponse:
     def __init__(self, course_lesson_interactions: AsyncCourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
+        self.retrieve = async_to_raw_response_wrapper(
+            course_lesson_interactions.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             course_lesson_interactions.list,
         )
@@ -191,6 +276,9 @@ class CourseLessonInteractionsResourceWithStreamingResponse:
     def __init__(self, course_lesson_interactions: CourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
+        self.retrieve = to_streamed_response_wrapper(
+            course_lesson_interactions.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             course_lesson_interactions.list,
         )
@@ -200,6 +288,9 @@ class AsyncCourseLessonInteractionsResourceWithStreamingResponse:
     def __init__(self, course_lesson_interactions: AsyncCourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
+        self.retrieve = async_to_streamed_response_wrapper(
+            course_lesson_interactions.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             course_lesson_interactions.list,
         )
