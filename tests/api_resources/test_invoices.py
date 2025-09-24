@@ -27,7 +27,7 @@ class TestInvoices:
     def test_method_create(self, client: Whopsdk) -> None:
         invoice = client.invoices.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={},
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
@@ -37,11 +37,11 @@ class TestInvoices:
     def test_method_create_with_all_params(self, client: Whopsdk) -> None:
         invoice = client.invoices.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={
                 "ach_payments": True,
                 "base_currency": "usd",
-                "billing_period": 0,
+                "billing_period": 42,
                 "card_payments": True,
                 "coinbase_commerce_accepted": True,
                 "custom_fields": [
@@ -49,14 +49,14 @@ class TestInvoices:
                         "field_type": "text",
                         "name": "name",
                         "id": "id",
-                        "order": 0,
+                        "order": 42,
                         "placeholder": "placeholder",
                         "required": True,
                     }
                 ],
                 "description": "description",
-                "expiration_days": 0,
-                "initial_price": 0,
+                "expiration_days": 42,
+                "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "offer_cancel_discount": True,
                 "paypal_accepted": True,
@@ -65,16 +65,16 @@ class TestInvoices:
                 "redirect_url": "redirect_url",
                 "release_method": "buy_now",
                 "release_method_settings": {
-                    "expires_at": 0,
-                    "max_entries": 0,
+                    "expires_at": 1701406800,
+                    "max_entries": 42,
                     "nft_weighted_entries": True,
-                    "starts_at": 0,
+                    "starts_at": 1701406800,
                 },
-                "renewal_price": 0,
-                "split_pay_required_payments": 0,
+                "renewal_price": 6.9,
+                "split_pay_required_payments": 42,
                 "splitit_accepted": True,
-                "stock": 0,
-                "trial_period_days": 0,
+                "stock": 42,
+                "trial_period_days": 42,
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
@@ -96,7 +96,7 @@ class TestInvoices:
     def test_raw_response_create(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={},
         )
 
@@ -110,7 +110,7 @@ class TestInvoices:
     def test_streaming_response_create(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={},
         ) as response:
             assert not response.is_closed
@@ -184,8 +184,8 @@ class TestInvoices:
                 "collection_methods": ["send_invoice"],
                 "statuses": ["open"],
             },
-            first=0,
-            last=0,
+            first=42,
+            last=42,
             order="id",
         )
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])
@@ -269,7 +269,7 @@ class TestAsyncInvoices:
     async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={},
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
@@ -279,11 +279,11 @@ class TestAsyncInvoices:
     async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={
                 "ach_payments": True,
                 "base_currency": "usd",
-                "billing_period": 0,
+                "billing_period": 42,
                 "card_payments": True,
                 "coinbase_commerce_accepted": True,
                 "custom_fields": [
@@ -291,14 +291,14 @@ class TestAsyncInvoices:
                         "field_type": "text",
                         "name": "name",
                         "id": "id",
-                        "order": 0,
+                        "order": 42,
                         "placeholder": "placeholder",
                         "required": True,
                     }
                 ],
                 "description": "description",
-                "expiration_days": 0,
-                "initial_price": 0,
+                "expiration_days": 42,
+                "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "offer_cancel_discount": True,
                 "paypal_accepted": True,
@@ -307,16 +307,16 @@ class TestAsyncInvoices:
                 "redirect_url": "redirect_url",
                 "release_method": "buy_now",
                 "release_method_settings": {
-                    "expires_at": 0,
-                    "max_entries": 0,
+                    "expires_at": 1701406800,
+                    "max_entries": 42,
                     "nft_weighted_entries": True,
-                    "starts_at": 0,
+                    "starts_at": 1701406800,
                 },
-                "renewal_price": 0,
-                "split_pay_required_payments": 0,
+                "renewal_price": 6.9,
+                "split_pay_required_payments": 42,
                 "splitit_accepted": True,
-                "stock": 0,
-                "trial_period_days": 0,
+                "stock": 42,
+                "trial_period_days": 42,
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
@@ -338,7 +338,7 @@ class TestAsyncInvoices:
     async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={},
         )
 
@@ -352,7 +352,7 @@ class TestAsyncInvoices:
     async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.create(
             collection_method="send_invoice",
-            due_date=0,
+            due_date=1701406800,
             plan={},
         ) as response:
             assert not response.is_closed
@@ -426,8 +426,8 @@ class TestAsyncInvoices:
                 "collection_methods": ["send_invoice"],
                 "statuses": ["open"],
             },
-            first=0,
-            last=0,
+            first=42,
+            last=42,
             order="id",
         )
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])

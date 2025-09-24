@@ -75,8 +75,8 @@ class TestAccessPasses:
             access_pass_type="regular",
             after="after",
             before="before",
-            first=0,
-            last=0,
+            first=42,
+            last=42,
         )
         assert_matches_type(AccessPassListResponse, access_pass, path=["response"])
 
@@ -170,8 +170,8 @@ class TestAsyncAccessPasses:
             access_pass_type="regular",
             after="after",
             before="before",
-            first=0,
-            last=0,
+            first=42,
+            last=42,
         )
         assert_matches_type(AccessPassListResponse, access_pass, path=["response"])
 
