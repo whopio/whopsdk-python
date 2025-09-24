@@ -56,6 +56,8 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteractionRetrieveResponse:
         """
+        Retrieves a course lesson interaction by ID
+
         Args:
           extra_headers: Send extra headers
 
@@ -94,6 +96,8 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteractionListResponse:
         """
+        Lists course lesson interactions
+
         Args:
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -176,6 +180,8 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteractionRetrieveResponse:
         """
+        Retrieves a course lesson interaction by ID
+
         Args:
           extra_headers: Send extra headers
 
@@ -214,6 +220,8 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteractionListResponse:
         """
+        Lists course lesson interactions
+
         Args:
           after: Returns the elements in the list that come after the specified cursor.
 
