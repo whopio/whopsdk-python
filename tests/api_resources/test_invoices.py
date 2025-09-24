@@ -125,7 +125,7 @@ class TestInvoices:
     @parametrize
     def test_method_retrieve(self, client: Whopsdk) -> None:
         invoice = client.invoices.retrieve(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
@@ -133,7 +133,7 @@ class TestInvoices:
     @parametrize
     def test_raw_response_retrieve(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.retrieve(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -145,7 +145,7 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.retrieve(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -220,7 +220,7 @@ class TestInvoices:
     @parametrize
     def test_method_void(self, client: Whopsdk) -> None:
         invoice = client.invoices.void(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
 
@@ -228,7 +228,7 @@ class TestInvoices:
     @parametrize
     def test_raw_response_void(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.void(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -240,7 +240,7 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_void(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.void(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -367,7 +367,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.retrieve(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
@@ -375,7 +375,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.retrieve(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -387,7 +387,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.retrieve(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -462,7 +462,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_void(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.void(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
 
@@ -470,7 +470,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.void(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -482,7 +482,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_void(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.void(
-            "id",
+            "inv_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
