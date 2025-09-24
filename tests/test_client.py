@@ -724,7 +724,7 @@ class TestWhopsdk:
         respx_mock.get("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.invoices.with_streaming_response.list(company_id="company_id").__enter__()
+            client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -734,7 +734,7 @@ class TestWhopsdk:
         respx_mock.get("/invoices").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.invoices.with_streaming_response.list(company_id="company_id").__enter__()
+            client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -763,7 +763,7 @@ class TestWhopsdk:
 
         respx_mock.get("/invoices").mock(side_effect=retry_handler)
 
-        response = client.invoices.with_raw_response.list(company_id="company_id")
+        response = client.invoices.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -788,7 +788,7 @@ class TestWhopsdk:
         respx_mock.get("/invoices").mock(side_effect=retry_handler)
 
         response = client.invoices.with_raw_response.list(
-            company_id="company_id", extra_headers={"x-stainless-retry-count": Omit()}
+            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -813,7 +813,7 @@ class TestWhopsdk:
         respx_mock.get("/invoices").mock(side_effect=retry_handler)
 
         response = client.invoices.with_raw_response.list(
-            company_id="company_id", extra_headers={"x-stainless-retry-count": "42"}
+            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1554,7 +1554,7 @@ class TestAsyncWhopsdk:
         respx_mock.get("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.invoices.with_streaming_response.list(company_id="company_id").__aenter__()
+            await async_client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -1564,7 +1564,7 @@ class TestAsyncWhopsdk:
         respx_mock.get("/invoices").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.invoices.with_streaming_response.list(company_id="company_id").__aenter__()
+            await async_client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1594,7 +1594,7 @@ class TestAsyncWhopsdk:
 
         respx_mock.get("/invoices").mock(side_effect=retry_handler)
 
-        response = await client.invoices.with_raw_response.list(company_id="company_id")
+        response = await client.invoices.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1620,7 +1620,7 @@ class TestAsyncWhopsdk:
         respx_mock.get("/invoices").mock(side_effect=retry_handler)
 
         response = await client.invoices.with_raw_response.list(
-            company_id="company_id", extra_headers={"x-stainless-retry-count": Omit()}
+            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1646,7 +1646,7 @@ class TestAsyncWhopsdk:
         respx_mock.get("/invoices").mock(side_effect=retry_handler)
 
         response = await client.invoices.with_raw_response.list(
-            company_id="company_id", extra_headers={"x-stainless-retry-count": "42"}
+            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

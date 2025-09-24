@@ -12,7 +12,7 @@ class DataCurrentPlan(BaseModel):
     id: str
     """The internal ID of the plan."""
 
-    base_currency: Literal[
+    currency: Literal[
         "usd",
         "sgd",
         "inr",
