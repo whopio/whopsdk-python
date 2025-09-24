@@ -10,8 +10,4 @@ __all__ = ["InvoiceVoidParams"]
 
 class InvoiceVoidParams(TypedDict, total=False):
     client_mutation_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """A unique identifier for the client performing the mutation."""

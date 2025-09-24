@@ -10,14 +10,7 @@ __all__ = ["InvoiceRetrieveResponse", "CurrentPlan", "Member"]
 
 class CurrentPlan(BaseModel):
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The internal ID of the plan."""
 
     base_currency: Literal[
         "usd",
@@ -105,92 +98,50 @@ class CurrentPlan(BaseModel):
         "rub",
         "btc",
     ]
-    """The available currencies on the platform"""
+    """The respective currency identifier for the plan."""
 
     formatted_price: str
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The formatted price (including currency) for the plan."""
 
 
 class Member(BaseModel):
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The internal ID of the user account for the member."""
 
     email: Optional[str] = None
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The digital mailing address of the member."""
 
     name: Optional[str] = None
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The written name of the member."""
 
     username: Optional[str] = None
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The whop username of the member."""
 
 
 class InvoiceRetrieveResponse(BaseModel):
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the invoice."""
 
     created_at: int
-    """A valid timestamp in seconds, transported as an integer"""
+    """The date the invoice was created."""
 
     current_plan: CurrentPlan
-    """A plan for an access pass."""
+    """The plan that the invoice was created for."""
 
     due_date: Optional[int] = None
-    """A valid timestamp in seconds, transported as an integer"""
+    """The date the invoice is due."""
 
     email_address: Optional[str] = None
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The email address that the invoice was created for."""
 
     fetch_invoice_token: str
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The token to fetch the invoice."""
 
     member: Optional[Member] = None
-    """A user of the site."""
+    """The member that the invoice was created for."""
 
     number: str
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """The number of the invoice."""
 
     status: Literal["open", "paid", "past_due", "void"]
-    """The different statuses an invoice can be in"""
+    """The status of the invoice."""

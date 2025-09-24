@@ -93,40 +93,23 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteractionListResponse:
-        """Args:
-          after: Represents textual data as UTF-8 character sequences.
+        """
+        Args:
+          after: Returns the elements in the list that come after the specified cursor.
 
-        This type is most often
-              used by GraphQL to represent free-form human-readable text.
+          before: Returns the elements in the list that come before the specified cursor.
 
-          before: Represents textual data as UTF-8 character sequences. This type is most often
-              used by GraphQL to represent free-form human-readable text.
+          completed: Whether the lesson has been completed by the user
 
-          completed: Represents `true` or `false` values.
+          course_id: The ID of the course to list course lesson interactions for
 
-          course_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
-              refetch an object or as key for a cache. The ID type appears in a JSON response
-              as a String; however, it is not intended to be human-readable. When expected as
-              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
-              input value will be accepted as an ID.
+          first: Returns the first _n_ elements from the list.
 
-          first: Represents non-fractional signed whole numeric values. Int can represent values
-              between -(2^31) and 2^31 - 1.
+          last: Returns the last _n_ elements from the list.
 
-          last: Represents non-fractional signed whole numeric values. Int can represent values
-              between -(2^31) and 2^31 - 1.
+          lesson_id: The ID of the lesson to list course lesson interactions for
 
-          lesson_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
-              refetch an object or as key for a cache. The ID type appears in a JSON response
-              as a String; however, it is not intended to be human-readable. When expected as
-              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
-              input value will be accepted as an ID.
-
-          user_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
-              refetch an object or as key for a cache. The ID type appears in a JSON response
-              as a String; however, it is not intended to be human-readable. When expected as
-              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
-              input value will be accepted as an ID.
+          user_id: The ID of the user to list course lesson interactions for
 
           extra_headers: Send extra headers
 
@@ -230,40 +213,23 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteractionListResponse:
-        """Args:
-          after: Represents textual data as UTF-8 character sequences.
+        """
+        Args:
+          after: Returns the elements in the list that come after the specified cursor.
 
-        This type is most often
-              used by GraphQL to represent free-form human-readable text.
+          before: Returns the elements in the list that come before the specified cursor.
 
-          before: Represents textual data as UTF-8 character sequences. This type is most often
-              used by GraphQL to represent free-form human-readable text.
+          completed: Whether the lesson has been completed by the user
 
-          completed: Represents `true` or `false` values.
+          course_id: The ID of the course to list course lesson interactions for
 
-          course_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
-              refetch an object or as key for a cache. The ID type appears in a JSON response
-              as a String; however, it is not intended to be human-readable. When expected as
-              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
-              input value will be accepted as an ID.
+          first: Returns the first _n_ elements from the list.
 
-          first: Represents non-fractional signed whole numeric values. Int can represent values
-              between -(2^31) and 2^31 - 1.
+          last: Returns the last _n_ elements from the list.
 
-          last: Represents non-fractional signed whole numeric values. Int can represent values
-              between -(2^31) and 2^31 - 1.
+          lesson_id: The ID of the lesson to list course lesson interactions for
 
-          lesson_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
-              refetch an object or as key for a cache. The ID type appears in a JSON response
-              as a String; however, it is not intended to be human-readable. When expected as
-              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
-              input value will be accepted as an ID.
-
-          user_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
-              refetch an object or as key for a cache. The ID type appears in a JSON response
-              as a String; however, it is not intended to be human-readable. When expected as
-              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
-              input value will be accepted as an ID.
+          user_id: The ID of the user to list course lesson interactions for
 
           extra_headers: Send extra headers
 

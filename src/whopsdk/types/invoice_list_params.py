@@ -12,54 +12,36 @@ __all__ = ["InvoiceListParams", "Filters"]
 
 class InvoiceListParams(TypedDict, total=False):
     company_id: Required[str]
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """The ID of the company to list invoices for"""
 
     after: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """Returns the elements in the list that come after the specified cursor."""
 
     before: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
 
     direction: Optional[Literal["asc", "desc"]]
-    """The direction of the sort."""
+    """The direction to sort the invoices by"""
 
     filters: Optional[Filters]
-    """Filters for the invoices table."""
+    """The filters to apply to the invoices"""
 
     first: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """Returns the first _n_ elements from the list."""
 
     last: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
+    """Returns the last _n_ elements from the list."""
 
     order: Optional[Literal["id", "created_at", "due_date"]]
-    """Which columns can be used to sort."""
+    """The order to sort the invoices by"""
 
 
 class Filters(TypedDict, total=False):
     access_pass_ids: Optional[SequenceNotStr[str]]
+    """The access pass IDs to filter the invoices by"""
 
     collection_methods: Optional[List[Literal["send_invoice", "charge_automatically"]]]
+    """The collection methods to filter the invoices by"""
 
     statuses: Optional[List[Literal["open", "paid", "past_due", "void"]]]
+    """The statuses to filter the invoices by"""
