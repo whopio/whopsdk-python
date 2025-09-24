@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import invoice_list_params, invoice_void_params, invoice_create_params, invoice_retrieve_params
+from ..types import invoice_list_params, invoice_void_params, invoice_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -104,9 +104,8 @@ class InvoicesResource(SyncAPIResource):
 
     def retrieve(
         self,
-        path_id: str,
+        id: str,
         *,
-        query_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -124,16 +123,12 @@ class InvoicesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/invoices/{path_id}",
+            f"/invoices/{id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query_id": query_id}, invoice_retrieve_params.InvoiceRetrieveParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=InvoiceRetrieveResponse,
         )
@@ -192,9 +187,8 @@ class InvoicesResource(SyncAPIResource):
 
     def void(
         self,
-        path_id: str,
+        id: str,
         *,
-        body_id: str,
         client_mutation_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -213,17 +207,11 @@ class InvoicesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/invoices/{path_id}/void",
-            body=maybe_transform(
-                {
-                    "body_id": body_id,
-                    "client_mutation_id": client_mutation_id,
-                },
-                invoice_void_params.InvoiceVoidParams,
-            ),
+            f"/invoices/{id}/void",
+            body=maybe_transform({"client_mutation_id": client_mutation_id}, invoice_void_params.InvoiceVoidParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -308,9 +296,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        path_id: str,
+        id: str,
         *,
-        query_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -328,18 +315,12 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/invoices/{path_id}",
+            f"/invoices/{id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"query_id": query_id}, invoice_retrieve_params.InvoiceRetrieveParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=InvoiceRetrieveResponse,
         )
@@ -398,9 +379,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
     async def void(
         self,
-        path_id: str,
+        id: str,
         *,
-        body_id: str,
         client_mutation_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -419,16 +399,12 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/invoices/{path_id}/void",
+            f"/invoices/{id}/void",
             body=await async_maybe_transform(
-                {
-                    "body_id": body_id,
-                    "client_mutation_id": client_mutation_id,
-                },
-                invoice_void_params.InvoiceVoidParams,
+                {"client_mutation_id": client_mutation_id}, invoice_void_params.InvoiceVoidParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

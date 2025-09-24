@@ -24,8 +24,7 @@ class TestCourseLessonInteractions:
     @parametrize
     def test_method_retrieve(self, client: Whopsdk) -> None:
         course_lesson_interaction = client.course_lesson_interactions.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
         assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
 
@@ -33,8 +32,7 @@ class TestCourseLessonInteractions:
     @parametrize
     def test_raw_response_retrieve(self, client: Whopsdk) -> None:
         response = client.course_lesson_interactions.with_raw_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -46,8 +44,7 @@ class TestCourseLessonInteractions:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
         with client.course_lesson_interactions.with_streaming_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -60,10 +57,9 @@ class TestCourseLessonInteractions:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whopsdk) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.course_lesson_interactions.with_raw_response.retrieve(
-                path_id="",
-                query_id="id",
+                "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -119,8 +115,7 @@ class TestAsyncCourseLessonInteractions:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
         assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
 
@@ -128,8 +123,7 @@ class TestAsyncCourseLessonInteractions:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.course_lesson_interactions.with_raw_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -141,8 +135,7 @@ class TestAsyncCourseLessonInteractions:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.course_lesson_interactions.with_streaming_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -155,10 +148,9 @@ class TestAsyncCourseLessonInteractions:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.course_lesson_interactions.with_raw_response.retrieve(
-                path_id="",
-                query_id="id",
+                "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")

@@ -131,8 +131,7 @@ class TestInvoices:
     @parametrize
     def test_method_retrieve(self, client: Whopsdk) -> None:
         invoice = client.invoices.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
@@ -140,8 +139,7 @@ class TestInvoices:
     @parametrize
     def test_raw_response_retrieve(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -153,8 +151,7 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -167,10 +164,9 @@ class TestInvoices:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whopsdk) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.invoices.with_raw_response.retrieve(
-                path_id="",
-                query_id="id",
+                "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -230,8 +226,7 @@ class TestInvoices:
     @parametrize
     def test_method_void(self, client: Whopsdk) -> None:
         invoice = client.invoices.void(
-            path_id="id",
-            body_id="id",
+            id="id",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
 
@@ -239,8 +234,7 @@ class TestInvoices:
     @parametrize
     def test_method_void_with_all_params(self, client: Whopsdk) -> None:
         invoice = client.invoices.void(
-            path_id="id",
-            body_id="id",
+            id="id",
             client_mutation_id="client_mutation_id",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
@@ -249,8 +243,7 @@ class TestInvoices:
     @parametrize
     def test_raw_response_void(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.void(
-            path_id="id",
-            body_id="id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -262,8 +255,7 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_void(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.void(
-            path_id="id",
-            body_id="id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -276,10 +268,9 @@ class TestInvoices:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_void(self, client: Whopsdk) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.invoices.with_raw_response.void(
-                path_id="",
-                body_id="id",
+                id="",
             )
 
 
@@ -397,8 +388,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
@@ -406,8 +396,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -419,8 +408,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.retrieve(
-            path_id="id",
-            query_id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -433,10 +421,9 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.invoices.with_raw_response.retrieve(
-                path_id="",
-                query_id="id",
+                "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -496,8 +483,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_void(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.void(
-            path_id="id",
-            body_id="id",
+            id="id",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
 
@@ -505,8 +491,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_void_with_all_params(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.void(
-            path_id="id",
-            body_id="id",
+            id="id",
             client_mutation_id="client_mutation_id",
         )
         assert_matches_type(Optional[InvoiceVoidResponse], invoice, path=["response"])
@@ -515,8 +500,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.void(
-            path_id="id",
-            body_id="id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -528,8 +512,7 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_void(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.void(
-            path_id="id",
-            body_id="id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -542,8 +525,7 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_void(self, async_client: AsyncWhopsdk) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.invoices.with_raw_response.void(
-                path_id="",
-                body_id="id",
+                id="",
             )
