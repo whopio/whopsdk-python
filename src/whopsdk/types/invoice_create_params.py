@@ -36,9 +36,6 @@ class InvoiceCreateParams(TypedDict, total=False):
     charge_buyer_fee: Optional[bool]
     """Whether or not to charge the customer a buyer fee."""
 
-    client_mutation_id: Optional[str]
-    """A unique identifier for the client performing the mutation."""
-
     customer_name: Optional[str]
     """The name of the customer to create this invoice for.
 

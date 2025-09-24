@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from .invoice_list_params import InvoiceListParams as InvoiceListParams
-from .invoice_void_params import InvoiceVoidParams as InvoiceVoidParams
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_list_response import InvoiceListResponse as InvoiceListResponse
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
