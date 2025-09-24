@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import invoice_list_params, invoice_create_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -17,9 +20,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.invoice_list_response import InvoiceListResponse
-from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.invoice_create_response import InvoiceCreateResponse
-from ..types.invoice_retrieve_response import InvoiceRetrieveResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -47,6 +48,7 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
+        input: invoice_create_params.Input,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -54,25 +56,6 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceCreateResponse]:
-        return self._post(
-            "/invoices",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InvoiceCreateResponse,
-        )
-
-    def retrieve(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -83,19 +66,26 @@ class InvoicesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._get(
-            f"/invoices/{id}",
+        return self._post(
+            "/invoices",
+            body=maybe_transform({"input": input}, invoice_create_params.InvoiceCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InvoiceRetrieveResponse,
+            cast_to=InvoiceCreateResponse,
         )
 
     def list(
         self,
         *,
+        company_id: str,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
+        filters: Optional[invoice_list_params.Filters] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -103,25 +93,6 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
-        return self._get(
-            "/invoices",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InvoiceListResponse,
-        )
-
-    def void(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[InvoiceVoidResponse]:
         """
         Args:
           extra_headers: Send extra headers
@@ -132,14 +103,28 @@ class InvoicesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            f"/invoices/{id}/void",
+        return self._get(
+            "/invoices",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "company_id": company_id,
+                        "after": after,
+                        "before": before,
+                        "direction": direction,
+                        "filters": filters,
+                        "first": first,
+                        "last": last,
+                        "order": order,
+                    },
+                    invoice_list_params.InvoiceListParams,
+                ),
             ),
-            cast_to=InvoiceVoidResponse,
+            cast_to=InvoiceListResponse,
         )
 
 
@@ -166,6 +151,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        input: invoice_create_params.Input,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -173,25 +159,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceCreateResponse]:
-        return await self._post(
-            "/invoices",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InvoiceCreateResponse,
-        )
-
-    async def retrieve(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -202,19 +169,26 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._get(
-            f"/invoices/{id}",
+        return await self._post(
+            "/invoices",
+            body=await async_maybe_transform({"input": input}, invoice_create_params.InvoiceCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InvoiceRetrieveResponse,
+            cast_to=InvoiceCreateResponse,
         )
 
     async def list(
         self,
         *,
+        company_id: str,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
+        filters: Optional[invoice_list_params.Filters] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -222,25 +196,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
-        return await self._get(
-            "/invoices",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InvoiceListResponse,
-        )
-
-    async def void(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[InvoiceVoidResponse]:
         """
         Args:
           extra_headers: Send extra headers
@@ -251,14 +206,28 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
-            f"/invoices/{id}/void",
+        return await self._get(
+            "/invoices",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "company_id": company_id,
+                        "after": after,
+                        "before": before,
+                        "direction": direction,
+                        "filters": filters,
+                        "first": first,
+                        "last": last,
+                        "order": order,
+                    },
+                    invoice_list_params.InvoiceListParams,
+                ),
             ),
-            cast_to=InvoiceVoidResponse,
+            cast_to=InvoiceListResponse,
         )
 
 
@@ -269,14 +238,8 @@ class InvoicesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             invoices.create,
         )
-        self.retrieve = to_raw_response_wrapper(
-            invoices.retrieve,
-        )
         self.list = to_raw_response_wrapper(
             invoices.list,
-        )
-        self.void = to_raw_response_wrapper(
-            invoices.void,
         )
 
 
@@ -287,14 +250,8 @@ class AsyncInvoicesResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             invoices.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            invoices.retrieve,
-        )
         self.list = async_to_raw_response_wrapper(
             invoices.list,
-        )
-        self.void = async_to_raw_response_wrapper(
-            invoices.void,
         )
 
 
@@ -305,14 +262,8 @@ class InvoicesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             invoices.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            invoices.retrieve,
-        )
         self.list = to_streamed_response_wrapper(
             invoices.list,
-        )
-        self.void = to_streamed_response_wrapper(
-            invoices.void,
         )
 
 
@@ -323,12 +274,6 @@ class AsyncInvoicesResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             invoices.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            invoices.retrieve,
-        )
         self.list = async_to_streamed_response_wrapper(
             invoices.list,
-        )
-        self.void = async_to_streamed_response_wrapper(
-            invoices.void,
         )
