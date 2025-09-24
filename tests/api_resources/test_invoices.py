@@ -71,11 +71,6 @@ class TestInvoices:
                     "starts_at": 0,
                 },
                 "renewal_price": 0,
-                "requirements": {
-                    "custom_password": "custom_password",
-                    "email_required": True,
-                    "ownership_of_access_passes": ["string"],
-                },
                 "split_pay_required_payments": 0,
                 "splitit_accepted": True,
                 "stock": 0,
@@ -328,11 +323,6 @@ class TestAsyncInvoices:
                     "starts_at": 0,
                 },
                 "renewal_price": 0,
-                "requirements": {
-                    "custom_password": "custom_password",
-                    "email_required": True,
-                    "ownership_of_access_passes": ["string"],
-                },
                 "split_pay_required_payments": 0,
                 "splitit_accepted": True,
                 "stock": 0,
