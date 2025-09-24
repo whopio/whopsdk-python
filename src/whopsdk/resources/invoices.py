@@ -70,6 +70,43 @@ class InvoicesResource(SyncAPIResource):
     ) -> Optional[InvoiceCreateResponse]:
         """
         Args:
+          collection_method: The method of collection for an invoice.
+
+          due_date: A valid timestamp in seconds, transported as an integer
+
+          plan: The properties of the plan to create for this invoice.
+
+          access_pass: The properties of the access pass to create for this invoice.
+
+          access_pass_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
+          charge_buyer_fee: Represents `true` or `false` values.
+
+          client_mutation_id: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          customer_name: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          email_address: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          member_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
+          payment_token_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -151,8 +188,33 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
-        """
-        Args:
+        """Args:
+          company_id: Represents a unique identifier that is Base64 obfuscated.
+
+        It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
+          after: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          before: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          direction: The direction of the sort.
+
+          filters: Filters for the invoices table.
+
+          first: Represents non-fractional signed whole numeric values. Int can represent values
+              between -(2^31) and 2^31 - 1.
+
+          last: Represents non-fractional signed whole numeric values. Int can represent values
+              between -(2^31) and 2^31 - 1.
+
+          order: Which columns can be used to sort.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -197,8 +259,12 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceVoidResponse]:
-        """
-        Args:
+        """Args:
+          client_mutation_id: Represents textual data as UTF-8 character sequences.
+
+        This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -262,6 +328,43 @@ class AsyncInvoicesResource(AsyncAPIResource):
     ) -> Optional[InvoiceCreateResponse]:
         """
         Args:
+          collection_method: The method of collection for an invoice.
+
+          due_date: A valid timestamp in seconds, transported as an integer
+
+          plan: The properties of the plan to create for this invoice.
+
+          access_pass: The properties of the access pass to create for this invoice.
+
+          access_pass_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
+          charge_buyer_fee: Represents `true` or `false` values.
+
+          client_mutation_id: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          customer_name: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          email_address: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          member_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
+          payment_token_id: Represents a unique identifier that is Base64 obfuscated. It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -343,8 +446,33 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
-        """
-        Args:
+        """Args:
+          company_id: Represents a unique identifier that is Base64 obfuscated.
+
+        It is often used to
+              refetch an object or as key for a cache. The ID type appears in a JSON response
+              as a String; however, it is not intended to be human-readable. When expected as
+              an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`)
+              input value will be accepted as an ID.
+
+          after: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          before: Represents textual data as UTF-8 character sequences. This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
+          direction: The direction of the sort.
+
+          filters: Filters for the invoices table.
+
+          first: Represents non-fractional signed whole numeric values. Int can represent values
+              between -(2^31) and 2^31 - 1.
+
+          last: Represents non-fractional signed whole numeric values. Int can represent values
+              between -(2^31) and 2^31 - 1.
+
+          order: Which columns can be used to sort.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -389,8 +517,12 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[InvoiceVoidResponse]:
-        """
-        Args:
+        """Args:
+          client_mutation_id: Represents textual data as UTF-8 character sequences.
+
+        This type is most often
+              used by GraphQL to represent free-form human-readable text.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

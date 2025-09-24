@@ -10,6 +10,14 @@ __all__ = ["InvoiceRetrieveResponse", "CurrentPlan", "Member"]
 
 class CurrentPlan(BaseModel):
     id: str
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     base_currency: Literal[
         "usd",
@@ -97,35 +105,92 @@ class CurrentPlan(BaseModel):
         "rub",
         "btc",
     ]
+    """The available currencies on the platform"""
 
     formatted_price: str
+    """Represents textual data as UTF-8 character sequences.
+
+    This type is most often used by GraphQL to represent free-form human-readable
+    text.
+    """
 
 
 class Member(BaseModel):
     id: str
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     email: Optional[str] = None
+    """Represents textual data as UTF-8 character sequences.
+
+    This type is most often used by GraphQL to represent free-form human-readable
+    text.
+    """
 
     name: Optional[str] = None
+    """Represents textual data as UTF-8 character sequences.
+
+    This type is most often used by GraphQL to represent free-form human-readable
+    text.
+    """
 
     username: Optional[str] = None
+    """Represents textual data as UTF-8 character sequences.
+
+    This type is most often used by GraphQL to represent free-form human-readable
+    text.
+    """
 
 
 class InvoiceRetrieveResponse(BaseModel):
     id: str
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     created_at: int
+    """A valid timestamp in seconds, transported as an integer"""
 
     current_plan: CurrentPlan
+    """A plan for an access pass."""
 
     due_date: Optional[int] = None
+    """A valid timestamp in seconds, transported as an integer"""
 
     email_address: Optional[str] = None
+    """Represents textual data as UTF-8 character sequences.
+
+    This type is most often used by GraphQL to represent free-form human-readable
+    text.
+    """
 
     fetch_invoice_token: str
+    """Represents textual data as UTF-8 character sequences.
+
+    This type is most often used by GraphQL to represent free-form human-readable
+    text.
+    """
 
     member: Optional[Member] = None
+    """A user of the site."""
 
     number: str
+    """Represents textual data as UTF-8 character sequences.
+
+    This type is most often used by GraphQL to represent free-form human-readable
+    text.
+    """
 
     status: Literal["open", "paid", "past_due", "void"]
+    """The different statuses an invoice can be in"""
