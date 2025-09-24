@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import invoices, course_lesson_interactions
+from .resources import invoices, companies, access_passes, course_lesson_interactions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -37,6 +37,8 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Whopsdk", 
 class Whopsdk(SyncAPIClient):
     invoices: invoices.InvoicesResource
     course_lesson_interactions: course_lesson_interactions.CourseLessonInteractionsResource
+    access_passes: access_passes.AccessPassesResource
+    companies: companies.CompaniesResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -92,6 +94,8 @@ class Whopsdk(SyncAPIClient):
 
         self.invoices = invoices.InvoicesResource(self)
         self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResource(self)
+        self.access_passes = access_passes.AccessPassesResource(self)
+        self.companies = companies.CompaniesResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -216,6 +220,8 @@ class Whopsdk(SyncAPIClient):
 class AsyncWhopsdk(AsyncAPIClient):
     invoices: invoices.AsyncInvoicesResource
     course_lesson_interactions: course_lesson_interactions.AsyncCourseLessonInteractionsResource
+    access_passes: access_passes.AsyncAccessPassesResource
+    companies: companies.AsyncCompaniesResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -271,6 +277,8 @@ class AsyncWhopsdk(AsyncAPIClient):
 
         self.invoices = invoices.AsyncInvoicesResource(self)
         self.course_lesson_interactions = course_lesson_interactions.AsyncCourseLessonInteractionsResource(self)
+        self.access_passes = access_passes.AsyncAccessPassesResource(self)
+        self.companies = companies.AsyncCompaniesResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -398,6 +406,8 @@ class WhopsdkWithRawResponse:
         self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResourceWithRawResponse(
             client.course_lesson_interactions
         )
+        self.access_passes = access_passes.AccessPassesResourceWithRawResponse(client.access_passes)
+        self.companies = companies.CompaniesResourceWithRawResponse(client.companies)
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -408,6 +418,8 @@ class AsyncWhopsdkWithRawResponse:
                 client.course_lesson_interactions
             )
         )
+        self.access_passes = access_passes.AsyncAccessPassesResourceWithRawResponse(client.access_passes)
+        self.companies = companies.AsyncCompaniesResourceWithRawResponse(client.companies)
 
 
 class WhopsdkWithStreamedResponse:
@@ -418,6 +430,8 @@ class WhopsdkWithStreamedResponse:
                 client.course_lesson_interactions
             )
         )
+        self.access_passes = access_passes.AccessPassesResourceWithStreamingResponse(client.access_passes)
+        self.companies = companies.CompaniesResourceWithStreamingResponse(client.companies)
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -428,6 +442,8 @@ class AsyncWhopsdkWithStreamedResponse:
                 client.course_lesson_interactions
             )
         )
+        self.access_passes = access_passes.AsyncAccessPassesResourceWithStreamingResponse(client.access_passes)
+        self.companies = companies.AsyncCompaniesResourceWithStreamingResponse(client.companies)
 
 
 Client = Whopsdk

@@ -33,3 +33,28 @@ Methods:
 
 - <code title="get /course_lesson_interactions/{id}">client.course_lesson_interactions.<a href="./src/whopsdk/resources/course_lesson_interactions.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/course_lesson_interaction_retrieve_response.py">CourseLessonInteractionRetrieveResponse</a></code>
 - <code title="get /course_lesson_interactions">client.course_lesson_interactions.<a href="./src/whopsdk/resources/course_lesson_interactions.py">list</a>(\*\*<a href="src/whopsdk/types/course_lesson_interaction_list_params.py">params</a>) -> <a href="./src/whopsdk/types/course_lesson_interaction_list_response.py">CourseLessonInteractionListResponse</a></code>
+
+# AccessPasses
+
+Types:
+
+```python
+from whopsdk.types import AccessPassRetrieveResponse, AccessPassListResponse
+```
+
+Methods:
+
+- <code title="get /access_passes/{id}">client.access_passes.<a href="./src/whopsdk/resources/access_passes.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/access_pass_retrieve_response.py">AccessPassRetrieveResponse</a></code>
+- <code title="get /access_passes">client.access_passes.<a href="./src/whopsdk/resources/access_passes.py">list</a>(\*\*<a href="src/whopsdk/types/access_pass_list_params.py">params</a>) -> <a href="./src/whopsdk/types/access_pass_list_response.py">AccessPassListResponse</a></code>
+
+# Companies
+
+Types:
+
+```python
+from whopsdk.types import CompanyRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /companies/{id}">client.companies.<a href="./src/whopsdk/resources/companies.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/company_retrieve_response.py">CompanyRetrieveResponse</a></code>
