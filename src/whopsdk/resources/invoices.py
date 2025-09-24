@@ -48,7 +48,17 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        input: invoice_create_params.Input,
+        collection_method: Literal["send_invoice", "charge_automatically"],
+        due_date: int,
+        plan: invoice_create_params.Plan,
+        access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
+        access_pass_id: Optional[str] | Omit = omit,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        client_mutation_id: Optional[str] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        email_address: Optional[str] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,7 +78,22 @@ class InvoicesResource(SyncAPIResource):
         """
         return self._post(
             "/invoices",
-            body=maybe_transform({"input": input}, invoice_create_params.InvoiceCreateParams),
+            body=maybe_transform(
+                {
+                    "collection_method": collection_method,
+                    "due_date": due_date,
+                    "plan": plan,
+                    "access_pass": access_pass,
+                    "access_pass_id": access_pass_id,
+                    "charge_buyer_fee": charge_buyer_fee,
+                    "client_mutation_id": client_mutation_id,
+                    "customer_name": customer_name,
+                    "email_address": email_address,
+                    "member_id": member_id,
+                    "payment_token_id": payment_token_id,
+                },
+                invoice_create_params.InvoiceCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -151,7 +176,17 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        input: invoice_create_params.Input,
+        collection_method: Literal["send_invoice", "charge_automatically"],
+        due_date: int,
+        plan: invoice_create_params.Plan,
+        access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
+        access_pass_id: Optional[str] | Omit = omit,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        client_mutation_id: Optional[str] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        email_address: Optional[str] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,7 +206,22 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         return await self._post(
             "/invoices",
-            body=await async_maybe_transform({"input": input}, invoice_create_params.InvoiceCreateParams),
+            body=await async_maybe_transform(
+                {
+                    "collection_method": collection_method,
+                    "due_date": due_date,
+                    "plan": plan,
+                    "access_pass": access_pass,
+                    "access_pass_id": access_pass_id,
+                    "charge_buyer_fee": charge_buyer_fee,
+                    "client_mutation_id": client_mutation_id,
+                    "customer_name": customer_name,
+                    "email_address": email_address,
+                    "member_id": member_id,
+                    "payment_token_id": payment_token_id,
+                },
+                invoice_create_params.InvoiceCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

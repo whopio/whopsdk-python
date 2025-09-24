@@ -21,11 +21,9 @@ class TestInvoices:
     @parametrize
     def test_method_create(self, client: Whopsdk) -> None:
         invoice = client.invoices.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {},
-            },
+            collection_method="send_invoice",
+            due_date=0,
+            plan={},
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
@@ -33,62 +31,64 @@ class TestInvoices:
     @parametrize
     def test_method_create_with_all_params(self, client: Whopsdk) -> None:
         invoice = client.invoices.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {
-                    "ach_payments": True,
-                    "base_currency": "usd",
-                    "billing_period": 0,
-                    "card_payments": True,
-                    "coinbase_commerce_accepted": True,
-                    "custom_fields": [
-                        {
-                            "field_type": "text",
-                            "name": "name",
-                            "id": "id",
-                            "order": 0,
-                            "placeholder": "placeholder",
-                            "required": True,
-                        }
-                    ],
-                    "description": "description",
-                    "expiration_days": 0,
-                    "initial_price": {},
-                    "internal_notes": "internal_notes",
-                    "offer_cancel_discount": True,
-                    "paypal_accepted": True,
-                    "plan_type": "renewal",
-                    "platform_balance_accepted": True,
-                    "redirect_url": "redirect_url",
-                    "release_method": "buy_now",
-                    "release_method_settings": {
-                        "expires_at": 0,
-                        "max_entries": 0,
-                        "nft_weighted_entries": True,
-                        "starts_at": 0,
-                    },
-                    "renewal_price": {},
-                    "requirements": {},
-                    "split_pay_required_payments": 0,
-                    "splitit_accepted": True,
-                    "stock": 0,
-                    "trial_period_days": 0,
-                    "unlimited_stock": True,
-                    "visibility": "visible",
+            collection_method="send_invoice",
+            due_date=0,
+            plan={
+                "ach_payments": True,
+                "base_currency": "usd",
+                "billing_period": 0,
+                "card_payments": True,
+                "coinbase_commerce_accepted": True,
+                "custom_fields": [
+                    {
+                        "field_type": "text",
+                        "name": "name",
+                        "id": "id",
+                        "order": 0,
+                        "placeholder": "placeholder",
+                        "required": True,
+                    }
+                ],
+                "description": "description",
+                "expiration_days": 0,
+                "initial_price": 0,
+                "internal_notes": "internal_notes",
+                "offer_cancel_discount": True,
+                "paypal_accepted": True,
+                "plan_type": "renewal",
+                "platform_balance_accepted": True,
+                "redirect_url": "redirect_url",
+                "release_method": "buy_now",
+                "release_method_settings": {
+                    "expires_at": 0,
+                    "max_entries": 0,
+                    "nft_weighted_entries": True,
+                    "starts_at": 0,
                 },
-                "access_pass": {
-                    "title": "title",
-                    "product_tax_code_id": "product_tax_code_id",
+                "renewal_price": 0,
+                "requirements": {
+                    "custom_password": "custom_password",
+                    "email_required": True,
+                    "ownership_of_access_passes": ["string"],
                 },
-                "access_pass_id": "access_pass_id",
-                "charge_buyer_fee": True,
-                "client_mutation_id": "client_mutation_id",
-                "customer_name": "customer_name",
-                "email_address": "email_address",
-                "member_id": "member_id",
-                "payment_token_id": "payment_token_id",
+                "split_pay_required_payments": 0,
+                "splitit_accepted": True,
+                "stock": 0,
+                "trial_period_days": 0,
+                "unlimited_stock": True,
+                "visibility": "visible",
             },
+            access_pass={
+                "title": "title",
+                "product_tax_code_id": "product_tax_code_id",
+            },
+            access_pass_id="access_pass_id",
+            charge_buyer_fee=True,
+            client_mutation_id="client_mutation_id",
+            customer_name="customer_name",
+            email_address="email_address",
+            member_id="member_id",
+            payment_token_id="payment_token_id",
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
@@ -96,11 +96,9 @@ class TestInvoices:
     @parametrize
     def test_raw_response_create(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {},
-            },
+            collection_method="send_invoice",
+            due_date=0,
+            plan={},
         )
 
         assert response.is_closed is True
@@ -112,11 +110,9 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_create(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {},
-            },
+            collection_method="send_invoice",
+            due_date=0,
+            plan={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -189,11 +185,9 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {},
-            },
+            collection_method="send_invoice",
+            due_date=0,
+            plan={},
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
@@ -201,62 +195,64 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {
-                    "ach_payments": True,
-                    "base_currency": "usd",
-                    "billing_period": 0,
-                    "card_payments": True,
-                    "coinbase_commerce_accepted": True,
-                    "custom_fields": [
-                        {
-                            "field_type": "text",
-                            "name": "name",
-                            "id": "id",
-                            "order": 0,
-                            "placeholder": "placeholder",
-                            "required": True,
-                        }
-                    ],
-                    "description": "description",
-                    "expiration_days": 0,
-                    "initial_price": {},
-                    "internal_notes": "internal_notes",
-                    "offer_cancel_discount": True,
-                    "paypal_accepted": True,
-                    "plan_type": "renewal",
-                    "platform_balance_accepted": True,
-                    "redirect_url": "redirect_url",
-                    "release_method": "buy_now",
-                    "release_method_settings": {
-                        "expires_at": 0,
-                        "max_entries": 0,
-                        "nft_weighted_entries": True,
-                        "starts_at": 0,
-                    },
-                    "renewal_price": {},
-                    "requirements": {},
-                    "split_pay_required_payments": 0,
-                    "splitit_accepted": True,
-                    "stock": 0,
-                    "trial_period_days": 0,
-                    "unlimited_stock": True,
-                    "visibility": "visible",
+            collection_method="send_invoice",
+            due_date=0,
+            plan={
+                "ach_payments": True,
+                "base_currency": "usd",
+                "billing_period": 0,
+                "card_payments": True,
+                "coinbase_commerce_accepted": True,
+                "custom_fields": [
+                    {
+                        "field_type": "text",
+                        "name": "name",
+                        "id": "id",
+                        "order": 0,
+                        "placeholder": "placeholder",
+                        "required": True,
+                    }
+                ],
+                "description": "description",
+                "expiration_days": 0,
+                "initial_price": 0,
+                "internal_notes": "internal_notes",
+                "offer_cancel_discount": True,
+                "paypal_accepted": True,
+                "plan_type": "renewal",
+                "platform_balance_accepted": True,
+                "redirect_url": "redirect_url",
+                "release_method": "buy_now",
+                "release_method_settings": {
+                    "expires_at": 0,
+                    "max_entries": 0,
+                    "nft_weighted_entries": True,
+                    "starts_at": 0,
                 },
-                "access_pass": {
-                    "title": "title",
-                    "product_tax_code_id": "product_tax_code_id",
+                "renewal_price": 0,
+                "requirements": {
+                    "custom_password": "custom_password",
+                    "email_required": True,
+                    "ownership_of_access_passes": ["string"],
                 },
-                "access_pass_id": "access_pass_id",
-                "charge_buyer_fee": True,
-                "client_mutation_id": "client_mutation_id",
-                "customer_name": "customer_name",
-                "email_address": "email_address",
-                "member_id": "member_id",
-                "payment_token_id": "payment_token_id",
+                "split_pay_required_payments": 0,
+                "splitit_accepted": True,
+                "stock": 0,
+                "trial_period_days": 0,
+                "unlimited_stock": True,
+                "visibility": "visible",
             },
+            access_pass={
+                "title": "title",
+                "product_tax_code_id": "product_tax_code_id",
+            },
+            access_pass_id="access_pass_id",
+            charge_buyer_fee=True,
+            client_mutation_id="client_mutation_id",
+            customer_name="customer_name",
+            email_address="email_address",
+            member_id="member_id",
+            payment_token_id="payment_token_id",
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
@@ -264,11 +260,9 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {},
-            },
+            collection_method="send_invoice",
+            due_date=0,
+            plan={},
         )
 
         assert response.is_closed is True
@@ -280,11 +274,9 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.create(
-            input={
-                "collection_method": "send_invoice",
-                "due_date": 0,
-                "plan": {},
-            },
+            collection_method="send_invoice",
+            due_date=0,
+            plan={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
