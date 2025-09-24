@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import course_lesson_interaction_list_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -15,7 +19,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.course_lesson_interaction_list_response import CourseLessonInteractionListResponse
-from ..types.course_lesson_interaction_retrieve_response import CourseLessonInteractionRetrieveResponse
 
 __all__ = ["CourseLessonInteractionsResource", "AsyncCourseLessonInteractionsResource"]
 
@@ -40,17 +43,24 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         """
         return CourseLessonInteractionsResourceWithStreamingResponse(self)
 
-    def retrieve(
+    def list(
         self,
-        id: str,
         *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        completed: Optional[bool] | Omit = omit,
+        course_id: Optional[str] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        lesson_id: Optional[str] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteractionRetrieveResponse:
+    ) -> CourseLessonInteractionListResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -61,30 +71,26 @@ class CourseLessonInteractionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._get(
-            f"/course_lesson_interactions/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CourseLessonInteractionRetrieveResponse,
-        )
-
-    def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteractionListResponse:
         return self._get(
             "/course_lesson_interactions",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "completed": completed,
+                        "course_id": course_id,
+                        "first": first,
+                        "last": last,
+                        "lesson_id": lesson_id,
+                        "user_id": user_id,
+                    },
+                    course_lesson_interaction_list_params.CourseLessonInteractionListParams,
+                ),
             ),
             cast_to=CourseLessonInteractionListResponse,
         )
@@ -110,17 +116,24 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         """
         return AsyncCourseLessonInteractionsResourceWithStreamingResponse(self)
 
-    async def retrieve(
+    async def list(
         self,
-        id: str,
         *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        completed: Optional[bool] | Omit = omit,
+        course_id: Optional[str] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        lesson_id: Optional[str] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteractionRetrieveResponse:
+    ) -> CourseLessonInteractionListResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -131,30 +144,26 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._get(
-            f"/course_lesson_interactions/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CourseLessonInteractionRetrieveResponse,
-        )
-
-    async def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteractionListResponse:
         return await self._get(
             "/course_lesson_interactions",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "completed": completed,
+                        "course_id": course_id,
+                        "first": first,
+                        "last": last,
+                        "lesson_id": lesson_id,
+                        "user_id": user_id,
+                    },
+                    course_lesson_interaction_list_params.CourseLessonInteractionListParams,
+                ),
             ),
             cast_to=CourseLessonInteractionListResponse,
         )
@@ -164,9 +173,6 @@ class CourseLessonInteractionsResourceWithRawResponse:
     def __init__(self, course_lesson_interactions: CourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
-        self.retrieve = to_raw_response_wrapper(
-            course_lesson_interactions.retrieve,
-        )
         self.list = to_raw_response_wrapper(
             course_lesson_interactions.list,
         )
@@ -176,9 +182,6 @@ class AsyncCourseLessonInteractionsResourceWithRawResponse:
     def __init__(self, course_lesson_interactions: AsyncCourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
-        self.retrieve = async_to_raw_response_wrapper(
-            course_lesson_interactions.retrieve,
-        )
         self.list = async_to_raw_response_wrapper(
             course_lesson_interactions.list,
         )
@@ -188,9 +191,6 @@ class CourseLessonInteractionsResourceWithStreamingResponse:
     def __init__(self, course_lesson_interactions: CourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
-        self.retrieve = to_streamed_response_wrapper(
-            course_lesson_interactions.retrieve,
-        )
         self.list = to_streamed_response_wrapper(
             course_lesson_interactions.list,
         )
@@ -200,9 +200,6 @@ class AsyncCourseLessonInteractionsResourceWithStreamingResponse:
     def __init__(self, course_lesson_interactions: AsyncCourseLessonInteractionsResource) -> None:
         self._course_lesson_interactions = course_lesson_interactions
 
-        self.retrieve = async_to_streamed_response_wrapper(
-            course_lesson_interactions.retrieve,
-        )
         self.list = async_to_streamed_response_wrapper(
             course_lesson_interactions.list,
         )
