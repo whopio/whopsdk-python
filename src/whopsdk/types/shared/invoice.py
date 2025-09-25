@@ -2,9 +2,9 @@
 
 from typing import Optional
 
+from .currency import Currency
 from ..._models import BaseModel
-from ..currency import Currency
-from ..invoice_status import InvoiceStatus
+from .invoice_status import InvoiceStatus
 
 __all__ = ["Invoice", "CurrentPlan", "User"]
 
