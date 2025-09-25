@@ -9,7 +9,7 @@ __all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodS
 
 
 class InvoiceCreateParams(TypedDict, total=False):
-    collection_method: Required[Literal["send_invoice", "charge_automatically"]]
+    collection_method: Required[Optional[Literal["send_invoice", "charge_automatically"]]]
     """The method of collection for this invoice.
 
     If using charge_automatically, you must provide a payment_token.
