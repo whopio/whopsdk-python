@@ -114,6 +114,77 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Pagination
+
+List methods in the Whopsdk API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from whopsdk import Whopsdk
+
+client = Whopsdk()
+
+all_invoices = []
+# Automatically fetches more pages as needed.
+for invoice in client.invoices.list(
+    company_id="biz_xxxxxxxxxxxxxx",
+):
+    # Do something with invoice here
+    all_invoices.append(invoice)
+print(all_invoices)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from whopsdk import AsyncWhopsdk
+
+client = AsyncWhopsdk()
+
+
+async def main() -> None:
+    all_invoices = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for invoice in client.invoices.list(
+        company_id="biz_xxxxxxxxxxxxxx",
+    ):
+        all_invoices.append(invoice)
+    print(all_invoices)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.invoices.list(
+    company_id="biz_xxxxxxxxxxxxxx",
+)
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.data)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.invoices.list(
+    company_id="biz_xxxxxxxxxxxxxx",
+)
+
+print(f"next page cursor: {first_page.page_info.end_cursor}")  # => "next page cursor: ..."
+for invoice in first_page.data:
+    print(invoice.id)
+
+# Remove `await` for non-async usage.
+```
+
 ## Nested params
 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
