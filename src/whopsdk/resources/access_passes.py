@@ -58,7 +58,7 @@ class AccessPassesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccessPass:
         """
-        Retrieves an access pass by ID
+        Retrieves an access pass by ID or route
 
         Args:
           extra_headers: Send extra headers
@@ -175,7 +175,7 @@ class AsyncAccessPassesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccessPass:
         """
-        Retrieves an access pass by ID
+        Retrieves an access pass by ID or route
 
         Args:
           extra_headers: Send extra headers
