@@ -26,7 +26,9 @@ class SocialLink(BaseModel):
     url: str
     """The URL"""
 
-    website: Literal["x", "instagram", "facebook", "tiktok", "youtube", "linkedin", "twitch", "website"]
+    website: Optional[Literal["x", "instagram", "facebook", "tiktok", "youtube", "linkedin", "twitch", "website"]] = (
+        None
+    )
     """The website"""
 
 

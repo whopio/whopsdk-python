@@ -50,7 +50,7 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        collection_method: Literal["send_invoice", "charge_automatically"],
+        collection_method: Optional[Literal["send_invoice", "charge_automatically"]],
         due_date: int,
         plan: invoice_create_params.Plan,
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
@@ -291,7 +291,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        collection_method: Literal["send_invoice", "charge_automatically"],
+        collection_method: Optional[Literal["send_invoice", "charge_automatically"]],
         due_date: int,
         plan: invoice_create_params.Plan,
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
