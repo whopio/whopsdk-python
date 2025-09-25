@@ -9,10 +9,7 @@ import pytest
 
 from whopsdk import Whopsdk, AsyncWhopsdk
 from tests.utils import assert_matches_type
-from whopsdk.types import (
-    InvoiceVoidResponse,
-    InvoiceCreateResponse,
-)
+from whopsdk.types import InvoiceVoidResponse, InvoiceCreateResponse
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
 from whopsdk.types.shared import Invoice, InvoiceListItem
 

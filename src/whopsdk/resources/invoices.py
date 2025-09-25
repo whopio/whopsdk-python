@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import CollectionMethod, invoice_list_params, invoice_create_params
+from ..types import invoice_list_params, invoice_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,9 +21,9 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.invoice import Invoice
-from ..types.collection_method import CollectionMethod
 from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.invoice_create_response import InvoiceCreateResponse
+from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]

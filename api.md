@@ -4,11 +4,16 @@
 from whopsdk.types import (
     AccessPass,
     AccessPassListItem,
+    BusinessTypes,
+    CollectionMethod,
     Company,
     CourseLessonInteraction,
     CourseLessonInteractionListItem,
+    Currency,
+    IndustryTypes,
     Invoice,
     InvoiceListItem,
+    InvoiceStatus,
     PageInfo,
 )
 ```
@@ -18,13 +23,7 @@ from whopsdk.types import (
 Types:
 
 ```python
-from whopsdk.types import (
-    CollectionMethod,
-    Currency,
-    InvoiceStatus,
-    InvoiceCreateResponse,
-    InvoiceVoidResponse,
-)
+from whopsdk.types import InvoiceCreateResponse, InvoiceVoidResponse
 ```
 
 Methods:
@@ -42,12 +41,6 @@ Methods:
 - <code title="get /course_lesson_interactions">client.course_lesson_interactions.<a href="./src/whopsdk/resources/course_lesson_interactions.py">list</a>(\*\*<a href="src/whopsdk/types/course_lesson_interaction_list_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/course_lesson_interaction_list_item.py">SyncCursorPage[Optional[CourseLessonInteractionListItem]]</a></code>
 
 # AccessPasses
-
-Types:
-
-```python
-from whopsdk.types import BusinessTypes, IndustryTypes
-```
 
 Methods:
 

@@ -5,8 +5,8 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-from .currency import Currency
-from .collection_method import CollectionMethod
+from .shared.currency import Currency
+from .shared.collection_method import CollectionMethod
 
 __all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodSettings", "AccessPass"]
 

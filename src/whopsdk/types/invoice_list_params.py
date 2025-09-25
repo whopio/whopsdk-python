@@ -6,8 +6,8 @@ from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .invoice_status import InvoiceStatus
-from .collection_method import CollectionMethod
+from .shared.invoice_status import InvoiceStatus
+from .shared.collection_method import CollectionMethod
 
 __all__ = ["InvoiceListParams", "Filters"]
 

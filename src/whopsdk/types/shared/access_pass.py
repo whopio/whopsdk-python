@@ -3,8 +3,8 @@
 from typing import Optional
 
 from ..._models import BaseModel
-from ..business_types import BusinessTypes
-from ..industry_types import IndustryTypes
+from .business_types import BusinessTypes
+from .industry_types import IndustryTypes
 
 __all__ = ["AccessPass", "OwnerUser"]
 
