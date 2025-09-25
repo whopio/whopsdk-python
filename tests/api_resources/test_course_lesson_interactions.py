@@ -9,10 +9,8 @@ import pytest
 
 from whopsdk import Whopsdk, AsyncWhopsdk
 from tests.utils import assert_matches_type
-from whopsdk.types import (
-    CourseLessonInteractionListResponse,
-    CourseLessonInteractionRetrieveResponse,
-)
+from whopsdk.types import CourseLessonInteractionListResponse
+from whopsdk.types.shared import CourseLessonInteraction
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -26,7 +24,7 @@ class TestCourseLessonInteractions:
         course_lesson_interaction = client.course_lesson_interactions.retrieve(
             "crsli_xxxxxxxxxxxx",
         )
-        assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
+        assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -38,7 +36,7 @@ class TestCourseLessonInteractions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         course_lesson_interaction = response.parse()
-        assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
+        assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -50,7 +48,7 @@ class TestCourseLessonInteractions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             course_lesson_interaction = response.parse()
-            assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
+            assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -117,7 +115,7 @@ class TestAsyncCourseLessonInteractions:
         course_lesson_interaction = await async_client.course_lesson_interactions.retrieve(
             "crsli_xxxxxxxxxxxx",
         )
-        assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
+        assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -129,7 +127,7 @@ class TestAsyncCourseLessonInteractions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         course_lesson_interaction = await response.parse()
-        assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
+        assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -141,7 +139,7 @@ class TestAsyncCourseLessonInteractions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             course_lesson_interaction = await response.parse()
-            assert_matches_type(CourseLessonInteractionRetrieveResponse, course_lesson_interaction, path=["response"])
+            assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

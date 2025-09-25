@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import invoice_list_params, invoice_create_params
+from ..types import CollectionMethod, invoice_list_params, invoice_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,10 +19,11 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.shared.invoice import Invoice
+from ..types.collection_method import CollectionMethod
 from ..types.invoice_list_response import InvoiceListResponse
 from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.invoice_create_response import InvoiceCreateResponse
-from ..types.invoice_retrieve_response import InvoiceRetrieveResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -50,7 +51,7 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        collection_method: Optional[Literal["send_invoice", "charge_automatically"]],
+        collection_method: Optional[CollectionMethod],
         due_date: int,
         plan: invoice_create_params.Plan,
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
@@ -141,7 +142,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceRetrieveResponse:
+    ) -> Invoice:
         """
         Retrieves an invoice by ID or token
 
@@ -161,7 +162,7 @@ class InvoicesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InvoiceRetrieveResponse,
+            cast_to=Invoice,
         )
 
     def list(
@@ -291,7 +292,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        collection_method: Optional[Literal["send_invoice", "charge_automatically"]],
+        collection_method: Optional[CollectionMethod],
         due_date: int,
         plan: invoice_create_params.Plan,
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
@@ -382,7 +383,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceRetrieveResponse:
+    ) -> Invoice:
         """
         Retrieves an invoice by ID or token
 
@@ -402,7 +403,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InvoiceRetrieveResponse,
+            cast_to=Invoice,
         )
 
     async def list(

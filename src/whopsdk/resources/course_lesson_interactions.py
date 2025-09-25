@@ -18,8 +18,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.shared.course_lesson_interaction import CourseLessonInteraction
 from ..types.course_lesson_interaction_list_response import CourseLessonInteractionListResponse
-from ..types.course_lesson_interaction_retrieve_response import CourseLessonInteractionRetrieveResponse
 
 __all__ = ["CourseLessonInteractionsResource", "AsyncCourseLessonInteractionsResource"]
 
@@ -54,7 +54,7 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteractionRetrieveResponse:
+    ) -> CourseLessonInteraction:
         """
         Retrieves a course lesson interaction by ID
 
@@ -74,7 +74,7 @@ class CourseLessonInteractionsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CourseLessonInteractionRetrieveResponse,
+            cast_to=CourseLessonInteraction,
         )
 
     def list(
@@ -178,7 +178,7 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteractionRetrieveResponse:
+    ) -> CourseLessonInteraction:
         """
         Retrieves a course lesson interaction by ID
 
@@ -198,7 +198,7 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CourseLessonInteractionRetrieveResponse,
+            cast_to=CourseLessonInteraction,
         )
 
     async def list(

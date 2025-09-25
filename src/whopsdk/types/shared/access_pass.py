@@ -1,16 +1,26 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 
-from .._models import BaseModel
-from .business_types import BusinessTypes
-from .industry_types import IndustryTypes
-from .shared.page_info import PageInfo
+from ..._models import BaseModel
+from ..business_types import BusinessTypes
+from ..industry_types import IndustryTypes
 
-__all__ = ["AccessPassListResponse", "Data"]
+__all__ = ["AccessPass", "OwnerUser"]
 
 
-class Data(BaseModel):
+class OwnerUser(BaseModel):
+    id: str
+    """The internal ID of the user."""
+
+    name: Optional[str] = None
+    """The name of the user from their Whop account."""
+
+    username: str
+    """The username of the user from their Whop account."""
+
+
+class AccessPass(BaseModel):
     id: str
     """The internal ID of the public access pass."""
 
@@ -26,6 +36,9 @@ class Data(BaseModel):
     member_count: int
     """The number of active users for this access pass."""
 
+    owner_user: OwnerUser
+    """The user that owns the access pass (company owner)."""
+
     published_reviews_count: int
     """The number of reviews that have been published for the access pass."""
 
@@ -40,11 +53,3 @@ class Data(BaseModel):
 
     verified: bool
     """Whether this product is Whop verified."""
-
-
-class AccessPassListResponse(BaseModel):
-    data: Optional[List[Optional[Data]]] = None
-    """A list of nodes."""
-
-    page_info: PageInfo
-    """Information to aid in pagination."""

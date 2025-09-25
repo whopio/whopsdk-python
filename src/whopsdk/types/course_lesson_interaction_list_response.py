@@ -3,8 +3,9 @@
 from typing import List, Optional
 
 from .._models import BaseModel
+from .shared.page_info import PageInfo
 
-__all__ = ["CourseLessonInteractionListResponse", "Data", "DataLesson", "DataUser", "PageInfo"]
+__all__ = ["CourseLessonInteractionListResponse", "Data", "DataLesson", "DataUser"]
 
 
 class DataLesson(BaseModel):
@@ -41,20 +42,6 @@ class Data(BaseModel):
 
     user: DataUser
     """The user who interacted with the lesson"""
-
-
-class PageInfo(BaseModel):
-    end_cursor: Optional[str] = None
-    """When paginating forwards, the cursor to continue."""
-
-    has_next_page: bool
-    """When paginating forwards, are there more items?"""
-
-    has_previous_page: bool
-    """When paginating backwards, are there more items?"""
-
-    start_cursor: Optional[str] = None
-    """When paginating backwards, the cursor to continue."""
 
 
 class CourseLessonInteractionListResponse(BaseModel):

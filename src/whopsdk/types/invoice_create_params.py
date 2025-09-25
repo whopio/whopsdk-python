@@ -5,11 +5,14 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .currency import Currency
+from .collection_method import CollectionMethod
+
 __all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodSettings", "AccessPass"]
 
 
 class InvoiceCreateParams(TypedDict, total=False):
-    collection_method: Required[Optional[Literal["send_invoice", "charge_automatically"]]]
+    collection_method: Required[Optional[CollectionMethod]]
     """The method of collection for this invoice.
 
     If using charge_automatically, you must provide a payment_token.
@@ -105,94 +108,7 @@ class Plan(TypedDict, total=False):
     ach_payments: Optional[bool]
     """Whether or not ACH payments are accepted"""
 
-    base_currency: Optional[
-        Literal[
-            "usd",
-            "sgd",
-            "inr",
-            "aud",
-            "brl",
-            "cad",
-            "dkk",
-            "eur",
-            "nok",
-            "gbp",
-            "sek",
-            "chf",
-            "hkd",
-            "huf",
-            "jpy",
-            "mxn",
-            "myr",
-            "pln",
-            "czk",
-            "nzd",
-            "aed",
-            "eth",
-            "ape",
-            "cop",
-            "ron",
-            "thb",
-            "bgn",
-            "idr",
-            "dop",
-            "php",
-            "try",
-            "krw",
-            "twd",
-            "vnd",
-            "pkr",
-            "clp",
-            "uyu",
-            "ars",
-            "zar",
-            "dzd",
-            "tnd",
-            "mad",
-            "kes",
-            "kwd",
-            "jod",
-            "all",
-            "xcd",
-            "amd",
-            "bsd",
-            "bhd",
-            "bob",
-            "bam",
-            "khr",
-            "crc",
-            "xof",
-            "egp",
-            "etb",
-            "gmd",
-            "ghs",
-            "gtq",
-            "gyd",
-            "ils",
-            "jmd",
-            "mop",
-            "mga",
-            "mur",
-            "mdl",
-            "mnt",
-            "nad",
-            "ngn",
-            "mkd",
-            "omr",
-            "pyg",
-            "pen",
-            "qar",
-            "rwf",
-            "sar",
-            "rsd",
-            "lkr",
-            "tzs",
-            "ttd",
-            "uzs",
-            "rub",
-            "btc",
-        ]
-    ]
+    base_currency: Optional[Currency]
     """The respective currency identifier for the plan."""
 
     billing_period: Optional[int]

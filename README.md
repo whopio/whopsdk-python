@@ -36,7 +36,7 @@ client = Whopsdk(
 )
 
 invoices = client.invoices.list(
-    company_id="REPLACE_ME",
+    company_id="biz_xxxxxxxxxxxxxx",
 )
 print(invoices.data)
 ```
@@ -62,7 +62,7 @@ client = AsyncWhopsdk(
 
 async def main() -> None:
     invoices = await client.invoices.list(
-        company_id="REPLACE_ME",
+        company_id="biz_xxxxxxxxxxxxxx",
     )
     print(invoices.data)
 
@@ -97,7 +97,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         invoices = await client.invoices.list(
-            company_id="REPLACE_ME",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
         print(invoices.data)
 
@@ -147,7 +147,7 @@ client = Whopsdk()
 
 try:
     client.invoices.list(
-        company_id="REPLACE_ME",
+        company_id="biz_xxxxxxxxxxxxxx",
     )
 except whopsdk.APIConnectionError as e:
     print("The server could not be reached")
@@ -192,7 +192,7 @@ client = Whopsdk(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).invoices.list(
-    company_id="REPLACE_ME",
+    company_id="biz_xxxxxxxxxxxxxx",
 )
 ```
 
@@ -217,7 +217,7 @@ client = Whopsdk(
 
 # Override per-request:
 client.with_options(timeout=5.0).invoices.list(
-    company_id="REPLACE_ME",
+    company_id="biz_xxxxxxxxxxxxxx",
 )
 ```
 
@@ -260,7 +260,7 @@ from whopsdk import Whopsdk
 
 client = Whopsdk()
 response = client.invoices.with_raw_response.list(
-    company_id="REPLACE_ME",
+    company_id="biz_xxxxxxxxxxxxxx",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -280,7 +280,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.invoices.with_streaming_response.list(
-    company_id="REPLACE_ME",
+    company_id="biz_xxxxxxxxxxxxxx",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
