@@ -3,66 +3,14 @@
 from typing import List, Optional
 
 from .._models import BaseModel
-from .currency import Currency
-from .invoice_status import InvoiceStatus
 from .shared.page_info import PageInfo
+from .shared.invoice_list_item import InvoiceListItem
 
-__all__ = ["InvoiceListResponse", "Data", "DataCurrentPlan", "DataUser"]
-
-
-class DataCurrentPlan(BaseModel):
-    id: str
-    """The internal ID of the plan."""
-
-    currency: Optional[Currency] = None
-    """The respective currency identifier for the plan."""
-
-    formatted_price: str
-    """The formatted price (including currency) for the plan."""
-
-
-class DataUser(BaseModel):
-    id: str
-    """The internal ID of the user."""
-
-    name: Optional[str] = None
-    """The name of the user from their Whop account."""
-
-    username: str
-    """The username of the user from their Whop account."""
-
-
-class Data(BaseModel):
-    id: str
-    """The ID of the invoice."""
-
-    created_at: int
-    """The date the invoice was created."""
-
-    current_plan: DataCurrentPlan
-    """The plan that the invoice was created for."""
-
-    due_date: Optional[int] = None
-    """The date the invoice is due."""
-
-    email_address: Optional[str] = None
-    """The email address that the invoice was created for."""
-
-    fetch_invoice_token: str
-    """The token to fetch the invoice."""
-
-    number: str
-    """The number of the invoice."""
-
-    status: Optional[InvoiceStatus] = None
-    """The status of the invoice."""
-
-    user: Optional[DataUser] = None
-    """The user that the invoice was created for."""
+__all__ = ["InvoiceListResponse"]
 
 
 class InvoiceListResponse(BaseModel):
-    data: Optional[List[Optional[Data]]] = None
+    data: Optional[List[Optional[InvoiceListItem]]] = None
     """A list of nodes."""
 
     page_info: PageInfo

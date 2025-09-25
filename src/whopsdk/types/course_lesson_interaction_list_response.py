@@ -4,48 +4,13 @@ from typing import List, Optional
 
 from .._models import BaseModel
 from .shared.page_info import PageInfo
+from .shared.course_lesson_interaction_list_item import CourseLessonInteractionListItem
 
-__all__ = ["CourseLessonInteractionListResponse", "Data", "DataLesson", "DataUser"]
-
-
-class DataLesson(BaseModel):
-    id: str
-    """The ID of the lesson"""
-
-    title: str
-    """The title of the lesson"""
-
-
-class DataUser(BaseModel):
-    id: str
-    """The internal ID of the user."""
-
-    name: Optional[str] = None
-    """The name of the user from their Whop account."""
-
-    username: str
-    """The username of the user from their Whop account."""
-
-
-class Data(BaseModel):
-    id: str
-    """The ID of the lesson interaction"""
-
-    completed: bool
-    """Whether the lesson has been completed by the user"""
-
-    created_at: int
-    """When the interaction was created"""
-
-    lesson: DataLesson
-    """The lesson this interaction is for"""
-
-    user: DataUser
-    """The user who interacted with the lesson"""
+__all__ = ["CourseLessonInteractionListResponse"]
 
 
 class CourseLessonInteractionListResponse(BaseModel):
-    data: Optional[List[Optional[Data]]] = None
+    data: Optional[List[Optional[CourseLessonInteractionListItem]]] = None
     """A list of nodes."""
 
     page_info: PageInfo

@@ -7,7 +7,10 @@ from .shared import (
     Invoice as Invoice,
     PageInfo as PageInfo,
     AccessPass as AccessPass,
+    InvoiceListItem as InvoiceListItem,
+    AccessPassListItem as AccessPassListItem,
     CourseLessonInteraction as CourseLessonInteraction,
+    CourseLessonInteractionListItem as CourseLessonInteractionListItem,
 )
 from .currency import Currency as Currency
 from .business_types import BusinessTypes as BusinessTypes

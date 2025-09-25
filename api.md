@@ -1,7 +1,16 @@
 # Shared Types
 
 ```python
-from whopsdk.types import AccessPass, Company, CourseLessonInteraction, Invoice, PageInfo
+from whopsdk.types import (
+    AccessPass,
+    AccessPassListItem,
+    Company,
+    CourseLessonInteraction,
+    CourseLessonInteractionListItem,
+    Invoice,
+    InvoiceListItem,
+    PageInfo,
+)
 ```
 
 # Invoices

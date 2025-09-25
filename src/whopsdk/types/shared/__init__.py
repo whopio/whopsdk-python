@@ -4,4 +4,7 @@ from .company import Company as Company
 from .invoice import Invoice as Invoice
 from .page_info import PageInfo as PageInfo
 from .access_pass import AccessPass as AccessPass
+from .invoice_list_item import InvoiceListItem as InvoiceListItem
+from .access_pass_list_item import AccessPassListItem as AccessPassListItem
 from .course_lesson_interaction import CourseLessonInteraction as CourseLessonInteraction
+from .course_lesson_interaction_list_item import CourseLessonInteractionListItem as CourseLessonInteractionListItem
