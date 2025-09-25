@@ -9,7 +9,7 @@ import httpx
 
 from ..types import access_pass_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -18,9 +18,10 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.access_pass import AccessPass
-from ..types.access_pass_list_response import AccessPassListResponse
+from ..types.shared.access_pass_list_item import AccessPassListItem
 
 __all__ = ["AccessPassesResource", "AsyncAccessPassesResource"]
 
@@ -93,7 +94,7 @@ class AccessPassesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccessPassListResponse:
+    ) -> SyncCursorPage[Optional[AccessPassListItem]]:
         """
         Lists access passes for a company
 
@@ -118,8 +119,9 @@ class AccessPassesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/access_passes",
+            page=SyncCursorPage[Optional[AccessPassListItem]],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -137,7 +139,7 @@ class AccessPassesResource(SyncAPIResource):
                     access_pass_list_params.AccessPassListParams,
                 ),
             ),
-            cast_to=AccessPassListResponse,
+            model=AccessPassListItem,
         )
 
 
@@ -194,7 +196,7 @@ class AsyncAccessPassesResource(AsyncAPIResource):
             cast_to=AccessPass,
         )
 
-    async def list(
+    def list(
         self,
         *,
         company_id: str,
@@ -209,7 +211,7 @@ class AsyncAccessPassesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccessPassListResponse:
+    ) -> AsyncPaginator[Optional[AccessPassListItem], AsyncCursorPage[Optional[AccessPassListItem]]]:
         """
         Lists access passes for a company
 
@@ -234,14 +236,15 @@ class AsyncAccessPassesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/access_passes",
+            page=AsyncCursorPage[Optional[AccessPassListItem]],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "company_id": company_id,
                         "access_pass_type": access_pass_type,
@@ -253,7 +256,7 @@ class AsyncAccessPassesResource(AsyncAPIResource):
                     access_pass_list_params.AccessPassListParams,
                 ),
             ),
-            cast_to=AccessPassListResponse,
+            model=AccessPassListItem,
         )
 
 

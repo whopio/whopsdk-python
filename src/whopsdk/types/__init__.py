@@ -19,14 +19,9 @@ from .invoice_status import InvoiceStatus as InvoiceStatus
 from .collection_method import CollectionMethod as CollectionMethod
 from .invoice_list_params import InvoiceListParams as InvoiceListParams
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
-from .invoice_list_response import InvoiceListResponse as InvoiceListResponse
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .access_pass_list_params import AccessPassListParams as AccessPassListParams
 from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse
-from .access_pass_list_response import AccessPassListResponse as AccessPassListResponse
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
-)
-from .course_lesson_interaction_list_response import (
-    CourseLessonInteractionListResponse as CourseLessonInteractionListResponse,
 )
