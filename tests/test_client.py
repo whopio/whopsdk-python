@@ -22,7 +22,7 @@ from whopsdk import Whopsdk, AsyncWhopsdk, APIResponseValidationError
 from whopsdk._types import Omit
 from whopsdk._utils import asyncify
 from whopsdk._models import BaseModel, FinalRequestOptions
-from whopsdk._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from whopsdk._exceptions import APIStatusError, APIResponseValidationError
 from whopsdk._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -48,14 +48,6 @@ def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
 
 def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
-
-
-def _get_open_connections(client: Whopsdk | AsyncWhopsdk) -> int:
-    transport = client._client._transport
-    assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
-
-    pool = transport._pool
-    return len(pool._requests)
 
 
 class TestWhopsdk:
@@ -717,25 +709,6 @@ class TestWhopsdk:
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
-
-    @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Whopsdk) -> None:
-        respx_mock.get("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
-
-        with pytest.raises(APITimeoutError):
-            client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__enter__()
-
-        assert _get_open_connections(self.client) == 0
-
-    @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Whopsdk) -> None:
-        respx_mock.get("/invoices").mock(return_value=httpx.Response(500))
-
-        with pytest.raises(APIStatusError):
-            client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__enter__()
-        assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
@@ -1545,27 +1518,6 @@ class TestAsyncWhopsdk:
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
-
-    @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncWhopsdk
-    ) -> None:
-        respx_mock.get("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
-
-        with pytest.raises(APITimeoutError):
-            await async_client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__aenter__()
-
-        assert _get_open_connections(self.client) == 0
-
-    @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncWhopsdk) -> None:
-        respx_mock.get("/invoices").mock(return_value=httpx.Response(500))
-
-        with pytest.raises(APIStatusError):
-            await async_client.invoices.with_streaming_response.list(company_id="biz_xxxxxxxxxxxxxx").__aenter__()
-        assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)

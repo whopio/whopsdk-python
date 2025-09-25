@@ -35,10 +35,10 @@ client = Whopsdk(
     api_key=os.environ.get("WHOPSDK_API_KEY"),  # This is the default and can be omitted
 )
 
-invoices = client.invoices.list(
+page = client.invoices.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
-print(invoices.data)
+print(page.data)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -61,10 +61,10 @@ client = AsyncWhopsdk(
 
 
 async def main() -> None:
-    invoices = await client.invoices.list(
+    page = await client.invoices.list(
         company_id="biz_xxxxxxxxxxxxxx",
     )
-    print(invoices.data)
+    print(page.data)
 
 
 asyncio.run(main())
@@ -96,10 +96,10 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        invoices = await client.invoices.list(
+        page = await client.invoices.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        print(invoices.data)
+        print(page.data)
 
 
 asyncio.run(main())
@@ -123,11 +123,11 @@ from whopsdk import Whopsdk
 
 client = Whopsdk()
 
-invoices = client.invoices.list(
+page = client.invoices.list(
     company_id="biz_xxxxxxxxxxxxxx",
     filters={},
 )
-print(invoices.filters)
+print(page.data)
 ```
 
 ## Handling errors
@@ -265,7 +265,7 @@ response = client.invoices.with_raw_response.list(
 print(response.headers.get('X-My-Header'))
 
 invoice = response.parse()  # get the object that `invoices.list()` would have returned
-print(invoice.data)
+print(invoice.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/whopsdk-python/tree/main/src/whopsdk/_response.py) object.

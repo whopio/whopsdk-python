@@ -18,12 +18,13 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.invoice import Invoice
 from ..types.collection_method import CollectionMethod
-from ..types.invoice_list_response import InvoiceListResponse
 from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.invoice_create_response import InvoiceCreateResponse
+from ..types.shared.invoice_list_item import InvoiceListItem
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -182,7 +183,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceListResponse:
+    ) -> SyncCursorPage[Optional[InvoiceListItem]]:
         """
         Lists invoices
 
@@ -211,8 +212,9 @@ class InvoicesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/invoices",
+            page=SyncCursorPage[Optional[InvoiceListItem]],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -232,7 +234,7 @@ class InvoicesResource(SyncAPIResource):
                     invoice_list_params.InvoiceListParams,
                 ),
             ),
-            cast_to=InvoiceListResponse,
+            model=InvoiceListItem,
         )
 
     def void(
@@ -406,7 +408,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=Invoice,
         )
 
-    async def list(
+    def list(
         self,
         *,
         company_id: str,
@@ -423,7 +425,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceListResponse:
+    ) -> AsyncPaginator[Optional[InvoiceListItem], AsyncCursorPage[Optional[InvoiceListItem]]]:
         """
         Lists invoices
 
@@ -452,14 +454,15 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/invoices",
+            page=AsyncCursorPage[Optional[InvoiceListItem]],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "company_id": company_id,
                         "after": after,
@@ -473,7 +476,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     invoice_list_params.InvoiceListParams,
                 ),
             ),
-            cast_to=InvoiceListResponse,
+            model=InvoiceListItem,
         )
 
     async def void(
