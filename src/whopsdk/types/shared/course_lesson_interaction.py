@@ -2,9 +2,9 @@
 
 from typing import Optional
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
-__all__ = ["CourseLessonInteractionRetrieveResponse", "Lesson", "User"]
+__all__ = ["CourseLessonInteraction", "Lesson", "User"]
 
 
 class Lesson(BaseModel):
@@ -26,7 +26,7 @@ class User(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class CourseLessonInteractionRetrieveResponse(BaseModel):
+class CourseLessonInteraction(BaseModel):
     id: str
     """The ID of the lesson interaction"""
 

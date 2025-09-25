@@ -19,8 +19,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.shared.access_pass import AccessPass
 from ..types.access_pass_list_response import AccessPassListResponse
-from ..types.access_pass_retrieve_response import AccessPassRetrieveResponse
 
 __all__ = ["AccessPassesResource", "AsyncAccessPassesResource"]
 
@@ -55,7 +55,7 @@ class AccessPassesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccessPassRetrieveResponse:
+    ) -> AccessPass:
         """
         Retrieves an access pass by ID
 
@@ -75,7 +75,7 @@ class AccessPassesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AccessPassRetrieveResponse,
+            cast_to=AccessPass,
         )
 
     def list(
@@ -171,7 +171,7 @@ class AsyncAccessPassesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccessPassRetrieveResponse:
+    ) -> AccessPass:
         """
         Retrieves an access pass by ID
 
@@ -191,7 +191,7 @@ class AsyncAccessPassesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AccessPassRetrieveResponse,
+            cast_to=AccessPass,
         )
 
     async def list(

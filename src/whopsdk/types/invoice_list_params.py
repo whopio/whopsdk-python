@@ -6,6 +6,8 @@ from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
+from .invoice_status import InvoiceStatus
+from .collection_method import CollectionMethod
 
 __all__ = ["InvoiceListParams", "Filters"]
 
@@ -40,8 +42,8 @@ class Filters(TypedDict, total=False):
     access_pass_ids: Optional[SequenceNotStr[str]]
     """The access pass IDs to filter the invoices by"""
 
-    collection_methods: Optional[List[Optional[Literal["send_invoice", "charge_automatically"]]]]
+    collection_methods: Optional[List[Optional[CollectionMethod]]]
     """The collection methods to filter the invoices by"""
 
-    statuses: Optional[List[Optional[Literal["open", "paid", "past_due", "void"]]]]
+    statuses: Optional[List[Optional[InvoiceStatus]]]
     """The statuses to filter the invoices by"""

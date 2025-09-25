@@ -9,7 +9,8 @@ import pytest
 
 from whopsdk import Whopsdk, AsyncWhopsdk
 from tests.utils import assert_matches_type
-from whopsdk.types import AccessPassListResponse, AccessPassRetrieveResponse
+from whopsdk.types import AccessPassListResponse
+from whopsdk.types.shared import AccessPass
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,7 +24,7 @@ class TestAccessPasses:
         access_pass = client.access_passes.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AccessPassRetrieveResponse, access_pass, path=["response"])
+        assert_matches_type(AccessPass, access_pass, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -35,7 +36,7 @@ class TestAccessPasses:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         access_pass = response.parse()
-        assert_matches_type(AccessPassRetrieveResponse, access_pass, path=["response"])
+        assert_matches_type(AccessPass, access_pass, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -47,7 +48,7 @@ class TestAccessPasses:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             access_pass = response.parse()
-            assert_matches_type(AccessPassRetrieveResponse, access_pass, path=["response"])
+            assert_matches_type(AccessPass, access_pass, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -118,7 +119,7 @@ class TestAsyncAccessPasses:
         access_pass = await async_client.access_passes.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AccessPassRetrieveResponse, access_pass, path=["response"])
+        assert_matches_type(AccessPass, access_pass, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -130,7 +131,7 @@ class TestAsyncAccessPasses:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         access_pass = await response.parse()
-        assert_matches_type(AccessPassRetrieveResponse, access_pass, path=["response"])
+        assert_matches_type(AccessPass, access_pass, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -142,7 +143,7 @@ class TestAsyncAccessPasses:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             access_pass = await response.parse()
-            assert_matches_type(AccessPassRetrieveResponse, access_pass, path=["response"])
+            assert_matches_type(AccessPass, access_pass, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -14,7 +14,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.company_retrieve_response import CompanyRetrieveResponse
+from ..types.shared.company import Company
 
 __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
@@ -49,7 +49,7 @@ class CompaniesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyRetrieveResponse:
+    ) -> Company:
         """
         Retrieves an company by ID
 
@@ -69,7 +69,7 @@ class CompaniesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompanyRetrieveResponse,
+            cast_to=Company,
         )
 
 
@@ -103,7 +103,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyRetrieveResponse:
+    ) -> Company:
         """
         Retrieves an company by ID
 
@@ -123,7 +123,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompanyRetrieveResponse,
+            cast_to=Company,
         )
 
 

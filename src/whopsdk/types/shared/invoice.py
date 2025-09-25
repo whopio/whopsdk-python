@@ -1,16 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 
-from .._models import BaseModel
-from .currency import Currency
-from .invoice_status import InvoiceStatus
-from .shared.page_info import PageInfo
+from ..._models import BaseModel
+from ..currency import Currency
+from ..invoice_status import InvoiceStatus
 
-__all__ = ["InvoiceListResponse", "Data", "DataCurrentPlan", "DataUser"]
+__all__ = ["Invoice", "CurrentPlan", "User"]
 
 
-class DataCurrentPlan(BaseModel):
+class CurrentPlan(BaseModel):
     id: str
     """The internal ID of the plan."""
 
@@ -21,7 +20,7 @@ class DataCurrentPlan(BaseModel):
     """The formatted price (including currency) for the plan."""
 
 
-class DataUser(BaseModel):
+class User(BaseModel):
     id: str
     """The internal ID of the user."""
 
@@ -32,14 +31,14 @@ class DataUser(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class Data(BaseModel):
+class Invoice(BaseModel):
     id: str
     """The ID of the invoice."""
 
     created_at: int
     """The date the invoice was created."""
 
-    current_plan: DataCurrentPlan
+    current_plan: CurrentPlan
     """The plan that the invoice was created for."""
 
     due_date: Optional[int] = None
@@ -57,13 +56,5 @@ class Data(BaseModel):
     status: Optional[InvoiceStatus] = None
     """The status of the invoice."""
 
-    user: Optional[DataUser] = None
+    user: Optional[User] = None
     """The user that the invoice was created for."""
-
-
-class InvoiceListResponse(BaseModel):
-    data: Optional[List[Optional[Data]]] = None
-    """A list of nodes."""
-
-    page_info: PageInfo
-    """Information to aid in pagination."""
