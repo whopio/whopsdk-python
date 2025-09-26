@@ -53,6 +53,7 @@ class InvoicesResource(SyncAPIResource):
         self,
         *,
         collection_method: Optional[CollectionMethod],
+        company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
@@ -75,6 +76,8 @@ class InvoicesResource(SyncAPIResource):
         Args:
           collection_method: The method of collection for this invoice. If using charge_automatically, you
               must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
 
           due_date: The date the invoice is due, if applicable.
 
@@ -115,6 +118,7 @@ class InvoicesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "collection_method": collection_method,
+                    "company_id": company_id,
                     "due_date": due_date,
                     "plan": plan,
                     "access_pass": access_pass,
@@ -295,6 +299,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         self,
         *,
         collection_method: Optional[CollectionMethod],
+        company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
         access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
@@ -317,6 +322,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Args:
           collection_method: The method of collection for this invoice. If using charge_automatically, you
               must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
 
           due_date: The date the invoice is due, if applicable.
 
@@ -357,6 +364,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "collection_method": collection_method,
+                    "company_id": company_id,
                     "due_date": due_date,
                     "plan": plan,
                     "access_pass": access_pass,

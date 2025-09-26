@@ -18,6 +18,9 @@ class InvoiceCreateParams(TypedDict, total=False):
     If using charge_automatically, you must provide a payment_token.
     """
 
+    company_id: Required[str]
+    """The company ID to create this invoice for."""
+
     due_date: Required[int]
     """The date the invoice is due, if applicable."""
 
@@ -68,7 +71,7 @@ class InvoiceCreateParams(TypedDict, total=False):
 
 
 class PlanCustomField(TypedDict, total=False):
-    field_type: Required[Literal["text"]]
+    field_type: Required[Optional[Literal["text"]]]
     """The type of the custom field."""
 
     name: Required[str]
