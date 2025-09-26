@@ -24,6 +24,7 @@ class TestInvoices:
     def test_method_create(self, client: Whopsdk) -> None:
         invoice = client.invoices.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={},
         )
@@ -34,6 +35,7 @@ class TestInvoices:
     def test_method_create_with_all_params(self, client: Whopsdk) -> None:
         invoice = client.invoices.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={
                 "ach_payments": True,
@@ -93,6 +95,7 @@ class TestInvoices:
     def test_raw_response_create(self, client: Whopsdk) -> None:
         response = client.invoices.with_raw_response.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={},
         )
@@ -107,6 +110,7 @@ class TestInvoices:
     def test_streaming_response_create(self, client: Whopsdk) -> None:
         with client.invoices.with_streaming_response.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={},
         ) as response:
@@ -266,6 +270,7 @@ class TestAsyncInvoices:
     async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={},
         )
@@ -276,6 +281,7 @@ class TestAsyncInvoices:
     async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={
                 "ach_payments": True,
@@ -335,6 +341,7 @@ class TestAsyncInvoices:
     async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.invoices.with_raw_response.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={},
         )
@@ -349,6 +356,7 @@ class TestAsyncInvoices:
     async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.invoices.with_streaming_response.create(
             collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
             due_date=1701406800,
             plan={},
         ) as response:
