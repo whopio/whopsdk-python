@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, TypedDict
 from .shared.currency import Currency
 from .shared.collection_method import CollectionMethod
 
-__all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodSettings", "AccessPass"]
+__all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodSettings", "Product"]
 
 
 class InvoiceCreateParams(TypedDict, total=False):
@@ -26,18 +26,6 @@ class InvoiceCreateParams(TypedDict, total=False):
 
     plan: Required[Plan]
     """The properties of the plan to create for this invoice."""
-
-    access_pass: Optional[AccessPass]
-    """The properties of the access pass to create for this invoice.
-
-    Include this if you want to create an invoice for a new product.
-    """
-
-    access_pass_id: Optional[str]
-    """The access pass ID to create this invoice for.
-
-    Include this if you want to create an invoice for an existing product.
-    """
 
     charge_buyer_fee: Optional[bool]
     """Whether or not to charge the customer a buyer fee."""
@@ -67,6 +55,18 @@ class InvoiceCreateParams(TypedDict, total=False):
     """The payment token ID to use for this invoice.
 
     If using charge_automatically, you must provide a payment_token.
+    """
+
+    product: Optional[Product]
+    """The properties of the access pass to create for this invoice.
+
+    Include this if you want to create an invoice for a new product.
+    """
+
+    product_id: Optional[str]
+    """The access pass ID to create this invoice for.
+
+    Include this if you want to create an invoice for an existing product.
     """
 
 
@@ -184,7 +184,7 @@ class Plan(TypedDict, total=False):
     """Shows or hides the plan from public/business view."""
 
 
-class AccessPass(TypedDict, total=False):
+class Product(TypedDict, total=False):
     title: Required[str]
     """The title of the access pass."""
 

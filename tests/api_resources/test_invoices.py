@@ -77,16 +77,16 @@ class TestInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
-            access_pass={
-                "title": "title",
-                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-            },
-            access_pass_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
             email_address="email_address",
             member_id="mber_xxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
+            product={
+                "title": "title",
+                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
+            },
+            product_id="prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
@@ -323,16 +323,16 @@ class TestAsyncInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
-            access_pass={
-                "title": "title",
-                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-            },
-            access_pass_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
             email_address="email_address",
             member_id="mber_xxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
+            product={
+                "title": "title",
+                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
+            },
+            product_id="prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(Optional[InvoiceCreateResponse], invoice, path=["response"])
 
