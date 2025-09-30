@@ -60,8 +60,6 @@ class ProductsResource(SyncAPIResource):
         """
         Retrieves a product by ID or route
 
-        Required permissions:
-
         Args:
           extra_headers: Send extra headers
 
@@ -182,8 +180,6 @@ class AsyncProductsResource(AsyncAPIResource):
     ) -> Optional[Product]:
         """
         Retrieves a product by ID or route
-
-        Required permissions:
 
         Args:
           extra_headers: Send extra headers
