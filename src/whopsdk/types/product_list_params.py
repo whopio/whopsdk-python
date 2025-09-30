@@ -18,11 +18,17 @@ class ProductListParams(TypedDict, total=False):
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
+    direction: Optional[Literal["asc", "desc"]]
+    """The direction of the sort."""
+
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
+
+    order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]]
+    """The ways a relation of AccessPasses can be ordered"""
 
     product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
     """The type of products to filter by"""
