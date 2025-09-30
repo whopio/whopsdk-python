@@ -12,7 +12,6 @@ from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     Omit,
-    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -22,9 +21,9 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import invoices, companies, course_lesson_interactions
+from .resources import invoices, products, companies, course_lesson_interactions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError
+from ._exceptions import WhopsdkError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -37,12 +36,13 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Whopsdk", 
 class Whopsdk(SyncAPIClient):
     invoices: invoices.InvoicesResource
     course_lesson_interactions: course_lesson_interactions.CourseLessonInteractionsResource
+    products: products.ProductsResource
     companies: companies.CompaniesResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
     # client options
-    api_key: str | None
+    api_key: str
 
     def __init__(
         self,
@@ -69,10 +69,14 @@ class Whopsdk(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Whopsdk client instance.
 
-        This automatically infers the `api_key` argument from the `WHOPSDK_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WHOP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("WHOPSDK_API_KEY")
+            api_key = os.environ.get("WHOP_API_KEY")
+        if api_key is None:
+            raise WhopsdkError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the WHOP_API_KEY environment variable"
+            )
         self.api_key = api_key
 
         if base_url is None:
@@ -93,6 +97,7 @@ class Whopsdk(SyncAPIClient):
 
         self.invoices = invoices.InvoicesResource(self)
         self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResource(self)
+        self.products = products.ProductsResource(self)
         self.companies = companies.CompaniesResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
@@ -106,8 +111,6 @@ class Whopsdk(SyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
-        if api_key is None:
-            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -118,17 +121,6 @@ class Whopsdk(SyncAPIClient):
             "X-Stainless-Async": "false",
             **self._custom_headers,
         }
-
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
 
     def copy(
         self,
@@ -218,12 +210,13 @@ class Whopsdk(SyncAPIClient):
 class AsyncWhopsdk(AsyncAPIClient):
     invoices: invoices.AsyncInvoicesResource
     course_lesson_interactions: course_lesson_interactions.AsyncCourseLessonInteractionsResource
+    products: products.AsyncProductsResource
     companies: companies.AsyncCompaniesResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
     # client options
-    api_key: str | None
+    api_key: str
 
     def __init__(
         self,
@@ -250,10 +243,14 @@ class AsyncWhopsdk(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncWhopsdk client instance.
 
-        This automatically infers the `api_key` argument from the `WHOPSDK_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WHOP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("WHOPSDK_API_KEY")
+            api_key = os.environ.get("WHOP_API_KEY")
+        if api_key is None:
+            raise WhopsdkError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the WHOP_API_KEY environment variable"
+            )
         self.api_key = api_key
 
         if base_url is None:
@@ -274,6 +271,7 @@ class AsyncWhopsdk(AsyncAPIClient):
 
         self.invoices = invoices.AsyncInvoicesResource(self)
         self.course_lesson_interactions = course_lesson_interactions.AsyncCourseLessonInteractionsResource(self)
+        self.products = products.AsyncProductsResource(self)
         self.companies = companies.AsyncCompaniesResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
@@ -287,8 +285,6 @@ class AsyncWhopsdk(AsyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
-        if api_key is None:
-            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -299,17 +295,6 @@ class AsyncWhopsdk(AsyncAPIClient):
             "X-Stainless-Async": f"async:{get_async_library()}",
             **self._custom_headers,
         }
-
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
 
     def copy(
         self,
@@ -402,6 +387,7 @@ class WhopsdkWithRawResponse:
         self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResourceWithRawResponse(
             client.course_lesson_interactions
         )
+        self.products = products.ProductsResourceWithRawResponse(client.products)
         self.companies = companies.CompaniesResourceWithRawResponse(client.companies)
 
 
@@ -413,6 +399,7 @@ class AsyncWhopsdkWithRawResponse:
                 client.course_lesson_interactions
             )
         )
+        self.products = products.AsyncProductsResourceWithRawResponse(client.products)
         self.companies = companies.AsyncCompaniesResourceWithRawResponse(client.companies)
 
 
@@ -424,6 +411,7 @@ class WhopsdkWithStreamedResponse:
                 client.course_lesson_interactions
             )
         )
+        self.products = products.ProductsResourceWithStreamingResponse(client.products)
         self.companies = companies.CompaniesResourceWithStreamingResponse(client.companies)
 
 
@@ -435,6 +423,7 @@ class AsyncWhopsdkWithStreamedResponse:
                 client.course_lesson_interactions
             )
         )
+        self.products = products.AsyncProductsResourceWithStreamingResponse(client.products)
         self.companies = companies.AsyncCompaniesResourceWithStreamingResponse(client.companies)
 
 
