@@ -89,8 +89,10 @@ class ProductsResource(SyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
         product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
         | Omit = omit,
         visibilities: Optional[
@@ -122,9 +124,13 @@ class ProductsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
+          direction: The direction of the sort.
+
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          order: The ways a relation of AccessPasses can be ordered
 
           product_types: The type of products to filter by
 
@@ -151,8 +157,10 @@ class ProductsResource(SyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "product_types": product_types,
                         "visibilities": visibilities,
                     },
@@ -226,8 +234,10 @@ class AsyncProductsResource(AsyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
         product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
         | Omit = omit,
         visibilities: Optional[
@@ -259,9 +269,13 @@ class AsyncProductsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
+          direction: The direction of the sort.
+
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          order: The ways a relation of AccessPasses can be ordered
 
           product_types: The type of products to filter by
 
@@ -288,8 +302,10 @@ class AsyncProductsResource(AsyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "product_types": product_types,
                         "visibilities": visibilities,
                     },
