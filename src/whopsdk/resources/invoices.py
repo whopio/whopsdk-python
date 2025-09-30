@@ -52,7 +52,7 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        collection_method: Optional[CollectionMethod],
+        collection_method: CollectionMethod,
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
@@ -198,7 +198,7 @@ class InvoicesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction to sort the invoices by
+          direction: The direction of the sort.
 
           filters: The filters to apply to the invoices
 
@@ -206,7 +206,7 @@ class InvoicesResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to sort the invoices by
+          order: Which columns can be used to sort.
 
           extra_headers: Send extra headers
 
@@ -298,7 +298,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        collection_method: Optional[CollectionMethod],
+        collection_method: CollectionMethod,
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
@@ -444,7 +444,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction to sort the invoices by
+          direction: The direction of the sort.
 
           filters: The filters to apply to the invoices
 
@@ -452,7 +452,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to sort the invoices by
+          order: Which columns can be used to sort.
 
           extra_headers: Send extra headers
 

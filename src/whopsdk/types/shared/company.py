@@ -28,9 +28,7 @@ class SocialLink(BaseModel):
     url: str
     """The URL"""
 
-    website: Optional[Literal["x", "instagram", "facebook", "tiktok", "youtube", "linkedin", "twitch", "website"]] = (
-        None
-    )
+    website: Literal["x", "instagram", "facebook", "tiktok", "youtube", "linkedin", "twitch", "website"]
     """The website"""
 
 
@@ -39,13 +37,13 @@ class Company(BaseModel):
     """The ID (tag) of the company."""
 
     business_type: Optional[BusinessTypes] = None
-    """The type of business the company is."""
+    """The different business types a company can be."""
 
     created_at: int
     """When the company was created (signed up)"""
 
     industry_type: Optional[IndustryTypes] = None
-    """The specific industry the company operates in."""
+    """The different industry types a company can be in."""
 
     member_count: int
     """The number of members in the company."""
