@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .business_types import BusinessTypes
@@ -18,6 +19,9 @@ class ProductListItem(BaseModel):
 
     created_at: int
     """When the access pass was created."""
+
+    headline: Optional[str] = None
+    """The headline of the access pass."""
 
     industry_type: Optional[IndustryTypes] = None
     """The different industry types a company can be in."""
@@ -39,3 +43,6 @@ class ProductListItem(BaseModel):
 
     verified: bool
     """Whether this product is Whop verified."""
+
+    visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]] = None
+    """Visibility of a resource"""
