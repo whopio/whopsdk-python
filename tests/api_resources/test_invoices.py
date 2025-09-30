@@ -128,7 +128,7 @@ class TestInvoices:
         invoice = client.invoices.retrieve(
             "inv_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Invoice, invoice, path=["response"])
+        assert_matches_type(Optional[Invoice], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -140,7 +140,7 @@ class TestInvoices:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         invoice = response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
+        assert_matches_type(Optional[Invoice], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -152,7 +152,7 @@ class TestInvoices:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             invoice = response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
+            assert_matches_type(Optional[Invoice], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -374,7 +374,7 @@ class TestAsyncInvoices:
         invoice = await async_client.invoices.retrieve(
             "inv_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Invoice, invoice, path=["response"])
+        assert_matches_type(Optional[Invoice], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -386,7 +386,7 @@ class TestAsyncInvoices:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         invoice = await response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
+        assert_matches_type(Optional[Invoice], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -398,7 +398,7 @@ class TestAsyncInvoices:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             invoice = await response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
+            assert_matches_type(Optional[Invoice], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

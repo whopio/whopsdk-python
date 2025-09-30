@@ -52,7 +52,7 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        collection_method: CollectionMethod,
+        collection_method: Optional[CollectionMethod],
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
@@ -73,9 +73,13 @@ class InvoicesResource(SyncAPIResource):
         """
         Creates an invoice
 
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: The method of collection for an invoice.
 
           company_id: The company ID to create this invoice for.
 
@@ -147,9 +151,14 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Invoice:
+    ) -> Optional[Invoice]:
         """
         Retrieves an invoice by ID or token
+
+        Required permissions:
+
+        - `invoice:basic:read`
+        - `plan:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -190,6 +199,11 @@ class InvoicesResource(SyncAPIResource):
     ) -> SyncCursorPage[Optional[InvoiceListItem]]:
         """
         Lists invoices
+
+        Required permissions:
+
+        - `invoice:basic:read`
+        - `plan:basic:read`
 
         Args:
           company_id: The ID of the company to list invoices for
@@ -255,6 +269,10 @@ class InvoicesResource(SyncAPIResource):
         """
         Void an invoice
 
+        Required permissions:
+
+        - `invoice:update`
+
         Args:
           extra_headers: Send extra headers
 
@@ -298,7 +316,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        collection_method: CollectionMethod,
+        collection_method: Optional[CollectionMethod],
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
@@ -319,9 +337,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         Creates an invoice
 
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: The method of collection for an invoice.
 
           company_id: The company ID to create this invoice for.
 
@@ -393,9 +415,14 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Invoice:
+    ) -> Optional[Invoice]:
         """
         Retrieves an invoice by ID or token
+
+        Required permissions:
+
+        - `invoice:basic:read`
+        - `plan:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -436,6 +463,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
     ) -> AsyncPaginator[Optional[InvoiceListItem], AsyncCursorPage[Optional[InvoiceListItem]]]:
         """
         Lists invoices
+
+        Required permissions:
+
+        - `invoice:basic:read`
+        - `plan:basic:read`
 
         Args:
           company_id: The ID of the company to list invoices for
@@ -500,6 +532,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
     ) -> Optional[InvoiceVoidResponse]:
         """
         Void an invoice
+
+        Required permissions:
+
+        - `invoice:update`
 
         Args:
           extra_headers: Send extra headers
