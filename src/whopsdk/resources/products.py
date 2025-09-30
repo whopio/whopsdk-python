@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -60,6 +60,10 @@ class ProductsResource(SyncAPIResource):
         """
         Retrieves a product by ID or route
 
+        Required permissions:
+
+        - `access_pass:basic:read`
+
         Args:
           extra_headers: Send extra headers
 
@@ -87,7 +91,16 @@ class ProductsResource(SyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        product_type: Optional[Literal["regular", "app", "experience_upsell", "api_only"]] | Omit = omit,
+        product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
+        | Omit = omit,
+        visibilities: Optional[
+            List[
+                Optional[
+                    Literal["visible", "hidden", "archived", "quick_link", "all", "not_quick_link", "not_archived"]
+                ]
+            ]
+        ]
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -113,7 +126,9 @@ class ProductsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          product_type: The different types an access pass can be.
+          product_types: The type of products to filter by
+
+          visibilities: The visibility of the products to filter by
 
           extra_headers: Send extra headers
 
@@ -138,7 +153,8 @@ class ProductsResource(SyncAPIResource):
                         "before": before,
                         "first": first,
                         "last": last,
-                        "product_type": product_type,
+                        "product_types": product_types,
+                        "visibilities": visibilities,
                     },
                     product_list_params.ProductListParams,
                 ),
@@ -181,6 +197,10 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         Retrieves a product by ID or route
 
+        Required permissions:
+
+        - `access_pass:basic:read`
+
         Args:
           extra_headers: Send extra headers
 
@@ -208,7 +228,16 @@ class AsyncProductsResource(AsyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        product_type: Optional[Literal["regular", "app", "experience_upsell", "api_only"]] | Omit = omit,
+        product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
+        | Omit = omit,
+        visibilities: Optional[
+            List[
+                Optional[
+                    Literal["visible", "hidden", "archived", "quick_link", "all", "not_quick_link", "not_archived"]
+                ]
+            ]
+        ]
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -234,7 +263,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          product_type: The different types an access pass can be.
+          product_types: The type of products to filter by
+
+          visibilities: The visibility of the products to filter by
 
           extra_headers: Send extra headers
 
@@ -259,7 +290,8 @@ class AsyncProductsResource(AsyncAPIResource):
                         "before": before,
                         "first": first,
                         "last": last,
-                        "product_type": product_type,
+                        "product_types": product_types,
+                        "visibilities": visibilities,
                     },
                     product_list_params.ProductListParams,
                 ),

@@ -77,7 +77,8 @@ class TestProducts:
             before="before",
             first=42,
             last=42,
-            product_type="regular",
+            product_types=["regular"],
+            visibilities=["visible"],
         )
         assert_matches_type(SyncCursorPage[Optional[ProductListItem]], product, path=["response"])
 
@@ -172,7 +173,8 @@ class TestAsyncProducts:
             before="before",
             first=42,
             last=42,
-            product_type="regular",
+            product_types=["regular"],
+            visibilities=["visible"],
         )
         assert_matches_type(AsyncCursorPage[Optional[ProductListItem]], product, path=["response"])
 

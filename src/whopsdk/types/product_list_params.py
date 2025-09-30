@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["ProductListParams"]
@@ -24,5 +24,10 @@ class ProductListParams(TypedDict, total=False):
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
-    product_type: Optional[Literal["regular", "app", "experience_upsell", "api_only"]]
-    """The different types an access pass can be."""
+    product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
+    """The type of products to filter by"""
+
+    visibilities: Optional[
+        List[Optional[Literal["visible", "hidden", "archived", "quick_link", "all", "not_quick_link", "not_archived"]]]
+    ]
+    """The visibility of the products to filter by"""
