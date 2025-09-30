@@ -56,13 +56,13 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
-        access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
-        access_pass_id: Optional[str] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
+        product: Optional[invoice_create_params.Product] | Omit = omit,
+        product_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -83,12 +83,6 @@ class InvoicesResource(SyncAPIResource):
 
           plan: The properties of the plan to create for this invoice.
 
-          access_pass: The properties of the access pass to create for this invoice. Include this if
-              you want to create an invoice for a new product.
-
-          access_pass_id: The access pass ID to create this invoice for. Include this if you want to
-              create an invoice for an existing product.
-
           charge_buyer_fee: Whether or not to charge the customer a buyer fee.
 
           customer_name: The name of the customer to create this invoice for. This is required if you
@@ -104,6 +98,12 @@ class InvoicesResource(SyncAPIResource):
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
+
+          product: The properties of the access pass to create for this invoice. Include this if
+              you want to create an invoice for a new product.
+
+          product_id: The access pass ID to create this invoice for. Include this if you want to
+              create an invoice for an existing product.
 
           extra_headers: Send extra headers
 
@@ -121,13 +121,13 @@ class InvoicesResource(SyncAPIResource):
                     "company_id": company_id,
                     "due_date": due_date,
                     "plan": plan,
-                    "access_pass": access_pass,
-                    "access_pass_id": access_pass_id,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
                     "email_address": email_address,
                     "member_id": member_id,
                     "payment_token_id": payment_token_id,
+                    "product": product,
+                    "product_id": product_id,
                 },
                 invoice_create_params.InvoiceCreateParams,
             ),
@@ -302,13 +302,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
-        access_pass: Optional[invoice_create_params.AccessPass] | Omit = omit,
-        access_pass_id: Optional[str] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
+        product: Optional[invoice_create_params.Product] | Omit = omit,
+        product_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -329,12 +329,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           plan: The properties of the plan to create for this invoice.
 
-          access_pass: The properties of the access pass to create for this invoice. Include this if
-              you want to create an invoice for a new product.
-
-          access_pass_id: The access pass ID to create this invoice for. Include this if you want to
-              create an invoice for an existing product.
-
           charge_buyer_fee: Whether or not to charge the customer a buyer fee.
 
           customer_name: The name of the customer to create this invoice for. This is required if you
@@ -350,6 +344,12 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
+
+          product: The properties of the access pass to create for this invoice. Include this if
+              you want to create an invoice for a new product.
+
+          product_id: The access pass ID to create this invoice for. Include this if you want to
+              create an invoice for an existing product.
 
           extra_headers: Send extra headers
 
@@ -367,13 +367,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "company_id": company_id,
                     "due_date": due_date,
                     "plan": plan,
-                    "access_pass": access_pass,
-                    "access_pass_id": access_pass_id,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
                     "email_address": email_address,
                     "member_id": member_id,
                     "payment_token_id": payment_token_id,
+                    "product": product,
+                    "product_id": product_id,
                 },
                 invoice_create_params.InvoiceCreateParams,
             ),

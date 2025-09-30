@@ -2,8 +2,6 @@
 
 ```python
 from whopsdk.types import (
-    AccessPass,
-    AccessPassListItem,
     BusinessTypes,
     CollectionMethod,
     Company,
@@ -39,13 +37,6 @@ Methods:
 
 - <code title="get /course_lesson_interactions/{id}">client.course_lesson_interactions.<a href="./src/whopsdk/resources/course_lesson_interactions.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/course_lesson_interaction.py">CourseLessonInteraction</a></code>
 - <code title="get /course_lesson_interactions">client.course_lesson_interactions.<a href="./src/whopsdk/resources/course_lesson_interactions.py">list</a>(\*\*<a href="src/whopsdk/types/course_lesson_interaction_list_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/course_lesson_interaction_list_item.py">SyncCursorPage[Optional[CourseLessonInteractionListItem]]</a></code>
-
-# AccessPasses
-
-Methods:
-
-- <code title="get /access_passes/{id}">client.access_passes.<a href="./src/whopsdk/resources/access_passes.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/access_pass.py">AccessPass</a></code>
-- <code title="get /access_passes">client.access_passes.<a href="./src/whopsdk/resources/access_passes.py">list</a>(\*\*<a href="src/whopsdk/types/access_pass_list_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/access_pass_list_item.py">SyncCursorPage[Optional[AccessPassListItem]]</a></code>
 
 # Companies
 

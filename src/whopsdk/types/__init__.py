@@ -7,20 +7,17 @@ from .shared import (
     Invoice as Invoice,
     Currency as Currency,
     PageInfo as PageInfo,
-    AccessPass as AccessPass,
     BusinessTypes as BusinessTypes,
     IndustryTypes as IndustryTypes,
     InvoiceStatus as InvoiceStatus,
     InvoiceListItem as InvoiceListItem,
     CollectionMethod as CollectionMethod,
-    AccessPassListItem as AccessPassListItem,
     CourseLessonInteraction as CourseLessonInteraction,
     CourseLessonInteractionListItem as CourseLessonInteractionListItem,
 )
 from .invoice_list_params import InvoiceListParams as InvoiceListParams
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
-from .access_pass_list_params import AccessPassListParams as AccessPassListParams
 from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
