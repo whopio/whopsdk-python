@@ -8,6 +8,14 @@ from .invoices import (
     InvoicesResourceWithStreamingResponse,
     AsyncInvoicesResourceWithStreamingResponse,
 )
+from .products import (
+    ProductsResource,
+    AsyncProductsResource,
+    ProductsResourceWithRawResponse,
+    AsyncProductsResourceWithRawResponse,
+    ProductsResourceWithStreamingResponse,
+    AsyncProductsResourceWithStreamingResponse,
+)
 from .companies import (
     CompaniesResource,
     AsyncCompaniesResource,
@@ -38,6 +46,12 @@ __all__ = [
     "AsyncCourseLessonInteractionsResourceWithRawResponse",
     "CourseLessonInteractionsResourceWithStreamingResponse",
     "AsyncCourseLessonInteractionsResourceWithStreamingResponse",
+    "ProductsResource",
+    "AsyncProductsResource",
+    "ProductsResourceWithRawResponse",
+    "AsyncProductsResourceWithRawResponse",
+    "ProductsResourceWithStreamingResponse",
+    "AsyncProductsResourceWithStreamingResponse",
     "CompaniesResource",
     "AsyncCompaniesResource",
     "CompaniesResourceWithRawResponse",

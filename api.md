@@ -13,6 +13,8 @@ from whopsdk.types import (
     InvoiceListItem,
     InvoiceStatus,
     PageInfo,
+    Product,
+    ProductListItem,
 )
 ```
 
@@ -37,6 +39,13 @@ Methods:
 
 - <code title="get /course_lesson_interactions/{id}">client.course_lesson_interactions.<a href="./src/whopsdk/resources/course_lesson_interactions.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/course_lesson_interaction.py">Optional[CourseLessonInteraction]</a></code>
 - <code title="get /course_lesson_interactions">client.course_lesson_interactions.<a href="./src/whopsdk/resources/course_lesson_interactions.py">list</a>(\*\*<a href="src/whopsdk/types/course_lesson_interaction_list_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/course_lesson_interaction_list_item.py">SyncCursorPage[Optional[CourseLessonInteractionListItem]]</a></code>
+
+# Products
+
+Methods:
+
+- <code title="get /products/{id}">client.products.<a href="./src/whopsdk/resources/products.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/product.py">Optional[Product]</a></code>
+- <code title="get /products">client.products.<a href="./src/whopsdk/resources/products.py">list</a>(\*\*<a href="src/whopsdk/types/product_list_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/product_list_item.py">SyncCursorPage[Optional[ProductListItem]]</a></code>
 
 # Companies
 
