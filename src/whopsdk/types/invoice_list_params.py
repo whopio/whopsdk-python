@@ -23,7 +23,7 @@ class InvoiceListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     direction: Optional[Literal["asc", "desc"]]
-    """The direction to sort the invoices by"""
+    """The direction of the sort."""
 
     filters: Optional[Filters]
     """The filters to apply to the invoices"""
@@ -35,15 +35,15 @@ class InvoiceListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     order: Optional[Literal["id", "created_at", "due_date"]]
-    """The order to sort the invoices by"""
+    """Which columns can be used to sort."""
 
 
 class Filters(TypedDict, total=False):
     access_pass_ids: Optional[SequenceNotStr[str]]
     """The access pass IDs to filter the invoices by"""
 
-    collection_methods: Optional[List[Optional[CollectionMethod]]]
+    collection_methods: Optional[List[CollectionMethod]]
     """The collection methods to filter the invoices by"""
 
-    statuses: Optional[List[Optional[InvoiceStatus]]]
+    statuses: Optional[List[InvoiceStatus]]
     """The statuses to filter the invoices by"""

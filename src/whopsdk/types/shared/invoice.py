@@ -13,7 +13,7 @@ class CurrentPlan(BaseModel):
     id: str
     """The internal ID of the plan."""
 
-    currency: Optional[Currency] = None
+    currency: Currency
     """The respective currency identifier for the plan."""
 
     formatted_price: str
@@ -53,7 +53,7 @@ class Invoice(BaseModel):
     number: str
     """The number of the invoice."""
 
-    status: Optional[InvoiceStatus] = None
+    status: InvoiceStatus
     """The status of the invoice."""
 
     user: Optional[User] = None

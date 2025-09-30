@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Literal, TypeAlias
 
 __all__ = ["CollectionMethod"]
 
-CollectionMethod: TypeAlias = Optional[Literal["send_invoice", "charge_automatically"]]
+CollectionMethod: TypeAlias = Literal["send_invoice", "charge_automatically"]

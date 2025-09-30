@@ -12,7 +12,7 @@ __all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodS
 
 
 class InvoiceCreateParams(TypedDict, total=False):
-    collection_method: Required[Optional[CollectionMethod]]
+    collection_method: Required[CollectionMethod]
     """The method of collection for this invoice.
 
     If using charge_automatically, you must provide a payment_token.
@@ -71,7 +71,7 @@ class InvoiceCreateParams(TypedDict, total=False):
 
 
 class PlanCustomField(TypedDict, total=False):
-    field_type: Required[Optional[Literal["text"]]]
+    field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
     name: Required[str]
@@ -112,7 +112,7 @@ class Plan(TypedDict, total=False):
     """Whether or not ACH payments are accepted"""
 
     base_currency: Optional[Currency]
-    """The respective currency identifier for the plan."""
+    """The available currencies on the platform"""
 
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
@@ -145,7 +145,7 @@ class Plan(TypedDict, total=False):
     """Marks whether paypal payments are/aren't accepted."""
 
     plan_type: Optional[Literal["renewal", "one_time"]]
-    """Indicates if the plan is a one time payment or recurring."""
+    """The type of plan that can be attached to an access pass"""
 
     platform_balance_accepted: Optional[bool]
     """Marks whether platform balance payments are/aren't accepted."""
@@ -154,7 +154,7 @@ class Plan(TypedDict, total=False):
     """The URL to redirect the customer to after purchase."""
 
     release_method: Optional[Literal["buy_now", "waitlist", "raffle"]]
-    """This is the release method the business uses to sell this plan."""
+    """The methods of how a plan can be released (including raffles and waitlists)."""
 
     release_method_settings: Optional[PlanReleaseMethodSettings]
     """Configurable settings on how this plan is released."""
@@ -181,7 +181,7 @@ class Plan(TypedDict, total=False):
     """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]]
-    """Shows or hides the plan from public/business view."""
+    """Visibility of a resource"""
 
 
 class Product(TypedDict, total=False):
