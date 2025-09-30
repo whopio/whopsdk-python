@@ -55,9 +55,14 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteraction:
+    ) -> Optional[CourseLessonInteraction]:
         """
         Retrieves a course lesson interaction by ID
+
+        Required permissions:
+
+        - `course_lesson_interaction:read`
+        - `courses:read`
 
         Args:
           extra_headers: Send extra headers
@@ -98,6 +103,11 @@ class CourseLessonInteractionsResource(SyncAPIResource):
     ) -> SyncCursorPage[Optional[CourseLessonInteractionListItem]]:
         """
         Lists course lesson interactions
+
+        Required permissions:
+
+        - `course_lesson_interaction:read`
+        - `courses:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -180,9 +190,14 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CourseLessonInteraction:
+    ) -> Optional[CourseLessonInteraction]:
         """
         Retrieves a course lesson interaction by ID
+
+        Required permissions:
+
+        - `course_lesson_interaction:read`
+        - `courses:read`
 
         Args:
           extra_headers: Send extra headers
@@ -225,6 +240,11 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
     ]:
         """
         Lists course lesson interactions
+
+        Required permissions:
+
+        - `course_lesson_interaction:read`
+        - `courses:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.

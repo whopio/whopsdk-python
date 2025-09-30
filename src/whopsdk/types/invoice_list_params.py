@@ -42,8 +42,8 @@ class Filters(TypedDict, total=False):
     access_pass_ids: Optional[SequenceNotStr[str]]
     """The access pass IDs to filter the invoices by"""
 
-    collection_methods: Optional[List[CollectionMethod]]
+    collection_methods: Optional[List[Optional[CollectionMethod]]]
     """The collection methods to filter the invoices by"""
 
-    statuses: Optional[List[InvoiceStatus]]
+    statuses: Optional[List[Optional[InvoiceStatus]]]
     """The statuses to filter the invoices by"""

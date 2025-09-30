@@ -12,11 +12,8 @@ __all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodS
 
 
 class InvoiceCreateParams(TypedDict, total=False):
-    collection_method: Required[CollectionMethod]
-    """The method of collection for this invoice.
-
-    If using charge_automatically, you must provide a payment_token.
-    """
+    collection_method: Required[Optional[CollectionMethod]]
+    """The method of collection for an invoice."""
 
     company_id: Required[str]
     """The company ID to create this invoice for."""
@@ -71,7 +68,7 @@ class InvoiceCreateParams(TypedDict, total=False):
 
 
 class PlanCustomField(TypedDict, total=False):
-    field_type: Required[Literal["text"]]
+    field_type: Required[Optional[Literal["text"]]]
     """The type of the custom field."""
 
     name: Required[str]

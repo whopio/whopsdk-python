@@ -13,8 +13,8 @@ class CurrentPlan(BaseModel):
     id: str
     """The internal ID of the plan."""
 
-    currency: Currency
-    """The respective currency identifier for the plan."""
+    currency: Optional[Currency] = None
+    """The available currencies on the platform"""
 
     formatted_price: str
     """The formatted price (including currency) for the plan."""
@@ -53,8 +53,8 @@ class InvoiceListItem(BaseModel):
     number: str
     """The number of the invoice."""
 
-    status: InvoiceStatus
-    """The status of the invoice."""
+    status: Optional[InvoiceStatus] = None
+    """The different statuses an invoice can be in"""
 
     user: Optional[User] = None
     """The user that the invoice was created for."""
