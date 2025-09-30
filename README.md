@@ -28,12 +28,9 @@ pip install git+ssh://git@github.com/stainless-sdks/whopsdk-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from whopsdk import Whopsdk
 
-client = Whopsdk(
-    api_key=os.environ.get("WHOPSDK_API_KEY"),  # This is the default and can be omitted
-)
+client = Whopsdk()
 
 page = client.invoices.list(
     company_id="biz_xxxxxxxxxxxxxx",
@@ -51,13 +48,10 @@ so that your API Key is not stored in source control.
 Simply import `AsyncWhopsdk` instead of `Whopsdk` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from whopsdk import AsyncWhopsdk
 
-client = AsyncWhopsdk(
-    api_key=os.environ.get("WHOPSDK_API_KEY"),  # This is the default and can be omitted
-)
+client = AsyncWhopsdk()
 
 
 async def main() -> None:
@@ -93,7 +87,6 @@ from whopsdk import AsyncWhopsdk
 
 async def main() -> None:
     async with AsyncWhopsdk(
-        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         page = await client.invoices.list(
