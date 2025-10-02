@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .visibility import Visibility
 from .business_types import BusinessTypes
 from .industry_types import IndustryTypes
 
@@ -44,5 +44,5 @@ class ProductListItem(BaseModel):
     verified: bool
     """Whether this product is Whop verified."""
 
-    visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]] = None
+    visibility: Optional[Visibility] = None
     """Visibility of a resource"""

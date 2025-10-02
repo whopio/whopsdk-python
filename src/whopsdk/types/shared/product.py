@@ -4,8 +4,11 @@ from typing import Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .custom_cta import CustomCta
+from .visibility import Visibility
 from .business_types import BusinessTypes
 from .industry_types import IndustryTypes
+from .global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = ["Product", "Company", "OwnerUser", "ProductTaxCode"]
 
@@ -56,23 +59,7 @@ class Product(BaseModel):
     created_at: int
     """When the access pass was created."""
 
-    custom_cta: Optional[
-        Literal[
-            "get_access",
-            "join",
-            "order_now",
-            "shop_now",
-            "call_now",
-            "donate_now",
-            "contact_us",
-            "sign_up",
-            "subscribe",
-            "purchase",
-            "get_offer",
-            "apply_now",
-            "complete_order",
-        ]
-    ] = None
+    custom_cta: Optional[CustomCta] = None
     """The different types of custom CTAs that can be selected."""
 
     custom_cta_url: Optional[str] = None
@@ -90,7 +77,7 @@ class Product(BaseModel):
     marketplace global affiliate program.
     """
 
-    global_affiliate_status: Optional[Literal["enabled", "disabled"]] = None
+    global_affiliate_status: Optional[GlobalAffiliateStatus] = None
     """The different statuses of the global affiliate program for an access pass."""
 
     headline: Optional[str] = None
@@ -105,7 +92,7 @@ class Product(BaseModel):
     marketplace member affiliate program.
     """
 
-    member_affiliate_status: Optional[Literal["enabled", "disabled"]] = None
+    member_affiliate_status: Optional[GlobalAffiliateStatus] = None
     """The different statuses of the global affiliate program for an access pass."""
 
     member_count: int
@@ -132,5 +119,5 @@ class Product(BaseModel):
     verified: bool
     """Whether this product is Whop verified."""
 
-    visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]] = None
+    visibility: Optional[Visibility] = None
     """Visibility of a resource"""

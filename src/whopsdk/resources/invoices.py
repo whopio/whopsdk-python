@@ -21,6 +21,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.invoice import Invoice
+from ..types.shared.direction import Direction
 from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.invoice_create_response import InvoiceCreateResponse
 from ..types.shared.collection_method import CollectionMethod
@@ -185,7 +186,7 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         filters: Optional[invoice_list_params.Filters] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -449,7 +450,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         filters: Optional[invoice_list_params.Filters] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
