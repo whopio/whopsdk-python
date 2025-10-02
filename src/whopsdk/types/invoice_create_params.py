@@ -6,6 +6,9 @@ from typing import Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .shared.currency import Currency
+from .shared.plan_type import PlanType
+from .shared.visibility import Visibility
+from .shared.release_method import ReleaseMethod
 from .shared.collection_method import CollectionMethod
 
 __all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodSettings", "Product"]
@@ -141,7 +144,7 @@ class Plan(TypedDict, total=False):
     paypal_accepted: Optional[bool]
     """Marks whether paypal payments are/aren't accepted."""
 
-    plan_type: Optional[Literal["renewal", "one_time"]]
+    plan_type: Optional[PlanType]
     """The type of plan that can be attached to an access pass"""
 
     platform_balance_accepted: Optional[bool]
@@ -150,7 +153,7 @@ class Plan(TypedDict, total=False):
     redirect_url: Optional[str]
     """The URL to redirect the customer to after purchase."""
 
-    release_method: Optional[Literal["buy_now", "waitlist", "raffle"]]
+    release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released (including raffles and waitlists)."""
 
     release_method_settings: Optional[PlanReleaseMethodSettings]
@@ -177,7 +180,7 @@ class Plan(TypedDict, total=False):
     unlimited_stock: Optional[bool]
     """Limits/doesn't limit the number of units available for purchase."""
 
-    visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]]
+    visibility: Optional[Visibility]
     """Visibility of a resource"""
 
 

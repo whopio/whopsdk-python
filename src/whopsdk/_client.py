@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import invoices, products, companies, course_lesson_interactions
+from .resources import apps, invoices, products, webhooks, companies, course_lesson_interactions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import WhopsdkError, APIStatusError
 from ._base_client import (
@@ -34,20 +34,24 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Whopsdk", 
 
 
 class Whopsdk(SyncAPIClient):
+    apps: apps.AppsResource
     invoices: invoices.InvoicesResource
     course_lesson_interactions: course_lesson_interactions.CourseLessonInteractionsResource
     products: products.ProductsResource
     companies: companies.CompaniesResource
+    webhooks: webhooks.WebhooksResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
     # client options
     api_key: str
+    webhook_key: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        webhook_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -69,7 +73,9 @@ class Whopsdk(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Whopsdk client instance.
 
-        This automatically infers the `api_key` argument from the `WHOP_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `WHOP_API_KEY`
+        - `webhook_key` from `WHOP_WEBHOOK_SECRET`
         """
         if api_key is None:
             api_key = os.environ.get("WHOP_API_KEY")
@@ -78,6 +84,10 @@ class Whopsdk(SyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the WHOP_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if webhook_key is None:
+            webhook_key = os.environ.get("WHOP_WEBHOOK_SECRET")
+        self.webhook_key = webhook_key
 
         if base_url is None:
             base_url = os.environ.get("WHOPSDK_BASE_URL")
@@ -95,10 +105,12 @@ class Whopsdk(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.apps = apps.AppsResource(self)
         self.invoices = invoices.InvoicesResource(self)
         self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResource(self)
         self.products = products.ProductsResource(self)
         self.companies = companies.CompaniesResource(self)
+        self.webhooks = webhooks.WebhooksResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -126,6 +138,7 @@ class Whopsdk(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        webhook_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -160,6 +173,7 @@ class Whopsdk(SyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            webhook_key=webhook_key or self.webhook_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -208,20 +222,24 @@ class Whopsdk(SyncAPIClient):
 
 
 class AsyncWhopsdk(AsyncAPIClient):
+    apps: apps.AsyncAppsResource
     invoices: invoices.AsyncInvoicesResource
     course_lesson_interactions: course_lesson_interactions.AsyncCourseLessonInteractionsResource
     products: products.AsyncProductsResource
     companies: companies.AsyncCompaniesResource
+    webhooks: webhooks.AsyncWebhooksResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
     # client options
     api_key: str
+    webhook_key: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        webhook_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -243,7 +261,9 @@ class AsyncWhopsdk(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncWhopsdk client instance.
 
-        This automatically infers the `api_key` argument from the `WHOP_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `WHOP_API_KEY`
+        - `webhook_key` from `WHOP_WEBHOOK_SECRET`
         """
         if api_key is None:
             api_key = os.environ.get("WHOP_API_KEY")
@@ -252,6 +272,10 @@ class AsyncWhopsdk(AsyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the WHOP_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if webhook_key is None:
+            webhook_key = os.environ.get("WHOP_WEBHOOK_SECRET")
+        self.webhook_key = webhook_key
 
         if base_url is None:
             base_url = os.environ.get("WHOPSDK_BASE_URL")
@@ -269,10 +293,12 @@ class AsyncWhopsdk(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.apps = apps.AsyncAppsResource(self)
         self.invoices = invoices.AsyncInvoicesResource(self)
         self.course_lesson_interactions = course_lesson_interactions.AsyncCourseLessonInteractionsResource(self)
         self.products = products.AsyncProductsResource(self)
         self.companies = companies.AsyncCompaniesResource(self)
+        self.webhooks = webhooks.AsyncWebhooksResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -300,6 +326,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        webhook_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -334,6 +361,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            webhook_key=webhook_key or self.webhook_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -383,6 +411,7 @@ class AsyncWhopsdk(AsyncAPIClient):
 
 class WhopsdkWithRawResponse:
     def __init__(self, client: Whopsdk) -> None:
+        self.apps = apps.AppsResourceWithRawResponse(client.apps)
         self.invoices = invoices.InvoicesResourceWithRawResponse(client.invoices)
         self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResourceWithRawResponse(
             client.course_lesson_interactions
@@ -393,6 +422,7 @@ class WhopsdkWithRawResponse:
 
 class AsyncWhopsdkWithRawResponse:
     def __init__(self, client: AsyncWhopsdk) -> None:
+        self.apps = apps.AsyncAppsResourceWithRawResponse(client.apps)
         self.invoices = invoices.AsyncInvoicesResourceWithRawResponse(client.invoices)
         self.course_lesson_interactions = (
             course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithRawResponse(
@@ -405,6 +435,7 @@ class AsyncWhopsdkWithRawResponse:
 
 class WhopsdkWithStreamedResponse:
     def __init__(self, client: Whopsdk) -> None:
+        self.apps = apps.AppsResourceWithStreamingResponse(client.apps)
         self.invoices = invoices.InvoicesResourceWithStreamingResponse(client.invoices)
         self.course_lesson_interactions = (
             course_lesson_interactions.CourseLessonInteractionsResourceWithStreamingResponse(
@@ -417,6 +448,7 @@ class WhopsdkWithStreamedResponse:
 
 class AsyncWhopsdkWithStreamedResponse:
     def __init__(self, client: AsyncWhopsdk) -> None:
+        self.apps = apps.AsyncAppsResourceWithStreamingResponse(client.apps)
         self.invoices = invoices.AsyncInvoicesResourceWithStreamingResponse(client.invoices)
         self.course_lesson_interactions = (
             course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithStreamingResponse(

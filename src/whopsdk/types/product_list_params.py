@@ -5,6 +5,9 @@ from __future__ import annotations
 from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .shared.direction import Direction
+from .shared.access_pass_type import AccessPassType
+
 __all__ = ["ProductListParams"]
 
 
@@ -18,7 +21,7 @@ class ProductListParams(TypedDict, total=False):
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
-    direction: Optional[Literal["asc", "desc"]]
+    direction: Optional[Direction]
     """The direction of the sort."""
 
     first: Optional[int]
@@ -30,7 +33,7 @@ class ProductListParams(TypedDict, total=False):
     order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]]
     """The ways a relation of AccessPasses can be ordered"""
 
-    product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
+    product_types: Optional[List[Optional[AccessPassType]]]
     """The type of products to filter by"""
 
     visibilities: Optional[

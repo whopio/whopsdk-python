@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .apps import (
+    AppsResource,
+    AsyncAppsResource,
+    AppsResourceWithRawResponse,
+    AsyncAppsResourceWithRawResponse,
+    AppsResourceWithStreamingResponse,
+    AsyncAppsResourceWithStreamingResponse,
+)
 from .invoices import (
     InvoicesResource,
     AsyncInvoicesResource,
@@ -16,6 +24,7 @@ from .products import (
     ProductsResourceWithStreamingResponse,
     AsyncProductsResourceWithStreamingResponse,
 )
+from .webhooks import WebhooksResource, AsyncWebhooksResource
 from .companies import (
     CompaniesResource,
     AsyncCompaniesResource,
@@ -34,6 +43,12 @@ from .course_lesson_interactions import (
 )
 
 __all__ = [
+    "AppsResource",
+    "AsyncAppsResource",
+    "AppsResourceWithRawResponse",
+    "AsyncAppsResourceWithRawResponse",
+    "AppsResourceWithStreamingResponse",
+    "AsyncAppsResourceWithStreamingResponse",
     "InvoicesResource",
     "AsyncInvoicesResource",
     "InvoicesResourceWithRawResponse",
@@ -58,4 +73,6 @@ __all__ = [
     "AsyncCompaniesResourceWithRawResponse",
     "CompaniesResourceWithStreamingResponse",
     "AsyncCompaniesResourceWithStreamingResponse",
+    "WebhooksResource",
+    "AsyncWebhooksResource",
 ]

@@ -6,6 +6,7 @@ from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
+from .shared.direction import Direction
 from .shared.invoice_status import InvoiceStatus
 from .shared.collection_method import CollectionMethod
 
@@ -22,7 +23,7 @@ class InvoiceListParams(TypedDict, total=False):
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
-    direction: Optional[Literal["asc", "desc"]]
+    direction: Optional[Direction]
     """The direction of the sort."""
 
     filters: Optional[Filters]

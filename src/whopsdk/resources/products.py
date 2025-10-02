@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import product_list_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
+from ..types import product_list_params, product_create_params, product_update_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,7 +21,15 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.product import Product
+from ..types.shared.direction import Direction
+from ..types.shared.custom_cta import CustomCta
+from ..types.shared.visibility import Visibility
+from ..types.shared.business_types import BusinessTypes
+from ..types.shared.industry_types import IndustryTypes
+from ..types.product_delete_response import ProductDeleteResponse
+from ..types.shared.access_pass_type import AccessPassType
 from ..types.shared.product_list_item import ProductListItem
+from ..types.shared.global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = ["ProductsResource", "AsyncProductsResource"]
 
@@ -45,6 +53,136 @@ class ProductsResource(SyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/whopsdk-python#with_streaming_response
         """
         return ProductsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        company_id: str,
+        title: str,
+        access_pass_type: Optional[AccessPassType] | Omit = omit,
+        banner_image: Optional[product_create_params.BannerImage] | Omit = omit,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        custom_cta: Optional[CustomCta] | Omit = omit,
+        custom_cta_url: Optional[str] | Omit = omit,
+        custom_statement_descriptor: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        experience_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        global_affiliate_percentage: Optional[float] | Omit = omit,
+        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        headline: Optional[str] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
+        member_affiliate_percentage: Optional[float] | Omit = omit,
+        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
+        product_highlights: Optional[Iterable[product_create_params.ProductHighlight]] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
+        redirect_purchase_url: Optional[str] | Omit = omit,
+        route: Optional[str] | Omit = omit,
+        visibility: Optional[Visibility] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[Product]:
+        """
+        Creates a new Product
+
+        Required permissions:
+
+        - `access_pass:create`
+        - `access_pass:basic:read`
+
+        Args:
+          company_id: The ID of the company to create the access pass for.
+
+          title: The title of the access pass.
+
+          access_pass_type: The different types an access pass can be.
+
+          banner_image: A banner image for the access pass in png, jpeg format
+
+          business_type: The different business types a company can be.
+
+          custom_cta: The different types of custom CTAs that can be selected.
+
+          custom_cta_url: The custom call to action URL for the access pass.
+
+          custom_statement_descriptor: The custom statement descriptor for the access pass i.e. WHOP\\**SPORTS, must be
+              between 5 and 22 characters, contain at least one letter, and not contain any of
+              the following characters: <, >, \\,, ', "
+
+          description: A written description of the access pass.
+
+          experience_ids: An array of experience IDs that this pass has
+
+          global_affiliate_percentage: The percentage of the revenue that goes to the global affiliate program.
+
+          global_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          headline: The headline of the access pass.
+
+          industry_type: The different industry types a company can be in.
+
+          member_affiliate_percentage: The percentage of the revenue that goes to the member affiliate program.
+
+          member_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          plan_options: The details to assign an autogenerated plan.
+
+          product_highlights: The product highlights for the access pass.
+
+          product_tax_code_id: The ID of the product tax code to apply to this access pass.
+
+          redirect_purchase_url: The URL to redirect the customer to after a purchase.
+
+          route: The route of the access pass.
+
+          visibility: Visibility of a resource
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/products",
+            body=maybe_transform(
+                {
+                    "company_id": company_id,
+                    "title": title,
+                    "access_pass_type": access_pass_type,
+                    "banner_image": banner_image,
+                    "business_type": business_type,
+                    "custom_cta": custom_cta,
+                    "custom_cta_url": custom_cta_url,
+                    "custom_statement_descriptor": custom_statement_descriptor,
+                    "description": description,
+                    "experience_ids": experience_ids,
+                    "global_affiliate_percentage": global_affiliate_percentage,
+                    "global_affiliate_status": global_affiliate_status,
+                    "headline": headline,
+                    "industry_type": industry_type,
+                    "member_affiliate_percentage": member_affiliate_percentage,
+                    "member_affiliate_status": member_affiliate_status,
+                    "plan_options": plan_options,
+                    "product_highlights": product_highlights,
+                    "product_tax_code_id": product_tax_code_id,
+                    "redirect_purchase_url": redirect_purchase_url,
+                    "route": route,
+                    "visibility": visibility,
+                },
+                product_create_params.ProductCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
 
     def retrieve(
         self,
@@ -83,18 +221,130 @@ class ProductsResource(SyncAPIResource):
             cast_to=Product,
         )
 
+    def update(
+        self,
+        id: str,
+        *,
+        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        custom_cta: Optional[CustomCta] | Omit = omit,
+        custom_cta_url: Optional[str] | Omit = omit,
+        custom_statement_descriptor: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        global_affiliate_percentage: Optional[float] | Omit = omit,
+        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        headline: Optional[str] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
+        member_affiliate_percentage: Optional[float] | Omit = omit,
+        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
+        redirect_purchase_url: Optional[str] | Omit = omit,
+        route: Optional[str] | Omit = omit,
+        title: Optional[str] | Omit = omit,
+        visibility: Optional[Visibility] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[Product]:
+        """
+        Updates an existing Product
+
+        Required permissions:
+
+        - `access_pass:update`
+        - `access_pass:basic:read`
+
+        Args:
+          banner_image: A banner image for the access pass in png, jpeg format
+
+          business_type: The different business types a company can be.
+
+          custom_cta: The different types of custom CTAs that can be selected.
+
+          custom_cta_url: The custom call to action URL for the access pass.
+
+          custom_statement_descriptor: The custom statement descriptor for the access pass i.e. WHOP\\**SPORTS, must be
+              between 5 and 22 characters, contain at least one letter, and not contain any of
+              the following characters: <, >, \\,, ', "
+
+          description: A written description of the access pass.
+
+          global_affiliate_percentage: The percentage of the revenue that goes to the global affiliate program.
+
+          global_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          headline: The headline of the access pass.
+
+          industry_type: The different industry types a company can be in.
+
+          member_affiliate_percentage: The percentage of the revenue that goes to the member affiliate program.
+
+          member_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          product_tax_code_id: The ID of the product tax code to apply to this access pass.
+
+          redirect_purchase_url: The URL to redirect the customer to after a purchase.
+
+          route: The route of the access pass.
+
+          title: The title of the access pass.
+
+          visibility: Visibility of a resource
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            f"/products/{id}",
+            body=maybe_transform(
+                {
+                    "banner_image": banner_image,
+                    "business_type": business_type,
+                    "custom_cta": custom_cta,
+                    "custom_cta_url": custom_cta_url,
+                    "custom_statement_descriptor": custom_statement_descriptor,
+                    "description": description,
+                    "global_affiliate_percentage": global_affiliate_percentage,
+                    "global_affiliate_status": global_affiliate_status,
+                    "headline": headline,
+                    "industry_type": industry_type,
+                    "member_affiliate_percentage": member_affiliate_percentage,
+                    "member_affiliate_status": member_affiliate_status,
+                    "product_tax_code_id": product_tax_code_id,
+                    "redirect_purchase_url": redirect_purchase_url,
+                    "route": route,
+                    "title": title,
+                    "visibility": visibility,
+                },
+                product_update_params.ProductUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
+
     def list(
         self,
         *,
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
-        product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
-        | Omit = omit,
+        product_types: Optional[List[Optional[AccessPassType]]] | Omit = omit,
         visibilities: Optional[
             List[
                 Optional[
@@ -170,6 +420,43 @@ class ProductsResource(SyncAPIResource):
             model=ProductListItem,
         )
 
+    def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[ProductDeleteResponse]:
+        """
+        Deletes an existing Product
+
+        Required permissions:
+
+        - `access_pass:delete`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/products/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductDeleteResponse,
+        )
+
 
 class AsyncProductsResource(AsyncAPIResource):
     @cached_property
@@ -190,6 +477,136 @@ class AsyncProductsResource(AsyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/whopsdk-python#with_streaming_response
         """
         return AsyncProductsResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        company_id: str,
+        title: str,
+        access_pass_type: Optional[AccessPassType] | Omit = omit,
+        banner_image: Optional[product_create_params.BannerImage] | Omit = omit,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        custom_cta: Optional[CustomCta] | Omit = omit,
+        custom_cta_url: Optional[str] | Omit = omit,
+        custom_statement_descriptor: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        experience_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        global_affiliate_percentage: Optional[float] | Omit = omit,
+        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        headline: Optional[str] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
+        member_affiliate_percentage: Optional[float] | Omit = omit,
+        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
+        product_highlights: Optional[Iterable[product_create_params.ProductHighlight]] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
+        redirect_purchase_url: Optional[str] | Omit = omit,
+        route: Optional[str] | Omit = omit,
+        visibility: Optional[Visibility] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[Product]:
+        """
+        Creates a new Product
+
+        Required permissions:
+
+        - `access_pass:create`
+        - `access_pass:basic:read`
+
+        Args:
+          company_id: The ID of the company to create the access pass for.
+
+          title: The title of the access pass.
+
+          access_pass_type: The different types an access pass can be.
+
+          banner_image: A banner image for the access pass in png, jpeg format
+
+          business_type: The different business types a company can be.
+
+          custom_cta: The different types of custom CTAs that can be selected.
+
+          custom_cta_url: The custom call to action URL for the access pass.
+
+          custom_statement_descriptor: The custom statement descriptor for the access pass i.e. WHOP\\**SPORTS, must be
+              between 5 and 22 characters, contain at least one letter, and not contain any of
+              the following characters: <, >, \\,, ', "
+
+          description: A written description of the access pass.
+
+          experience_ids: An array of experience IDs that this pass has
+
+          global_affiliate_percentage: The percentage of the revenue that goes to the global affiliate program.
+
+          global_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          headline: The headline of the access pass.
+
+          industry_type: The different industry types a company can be in.
+
+          member_affiliate_percentage: The percentage of the revenue that goes to the member affiliate program.
+
+          member_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          plan_options: The details to assign an autogenerated plan.
+
+          product_highlights: The product highlights for the access pass.
+
+          product_tax_code_id: The ID of the product tax code to apply to this access pass.
+
+          redirect_purchase_url: The URL to redirect the customer to after a purchase.
+
+          route: The route of the access pass.
+
+          visibility: Visibility of a resource
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/products",
+            body=await async_maybe_transform(
+                {
+                    "company_id": company_id,
+                    "title": title,
+                    "access_pass_type": access_pass_type,
+                    "banner_image": banner_image,
+                    "business_type": business_type,
+                    "custom_cta": custom_cta,
+                    "custom_cta_url": custom_cta_url,
+                    "custom_statement_descriptor": custom_statement_descriptor,
+                    "description": description,
+                    "experience_ids": experience_ids,
+                    "global_affiliate_percentage": global_affiliate_percentage,
+                    "global_affiliate_status": global_affiliate_status,
+                    "headline": headline,
+                    "industry_type": industry_type,
+                    "member_affiliate_percentage": member_affiliate_percentage,
+                    "member_affiliate_status": member_affiliate_status,
+                    "plan_options": plan_options,
+                    "product_highlights": product_highlights,
+                    "product_tax_code_id": product_tax_code_id,
+                    "redirect_purchase_url": redirect_purchase_url,
+                    "route": route,
+                    "visibility": visibility,
+                },
+                product_create_params.ProductCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
 
     async def retrieve(
         self,
@@ -228,18 +645,130 @@ class AsyncProductsResource(AsyncAPIResource):
             cast_to=Product,
         )
 
+    async def update(
+        self,
+        id: str,
+        *,
+        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        custom_cta: Optional[CustomCta] | Omit = omit,
+        custom_cta_url: Optional[str] | Omit = omit,
+        custom_statement_descriptor: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        global_affiliate_percentage: Optional[float] | Omit = omit,
+        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        headline: Optional[str] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
+        member_affiliate_percentage: Optional[float] | Omit = omit,
+        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
+        redirect_purchase_url: Optional[str] | Omit = omit,
+        route: Optional[str] | Omit = omit,
+        title: Optional[str] | Omit = omit,
+        visibility: Optional[Visibility] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[Product]:
+        """
+        Updates an existing Product
+
+        Required permissions:
+
+        - `access_pass:update`
+        - `access_pass:basic:read`
+
+        Args:
+          banner_image: A banner image for the access pass in png, jpeg format
+
+          business_type: The different business types a company can be.
+
+          custom_cta: The different types of custom CTAs that can be selected.
+
+          custom_cta_url: The custom call to action URL for the access pass.
+
+          custom_statement_descriptor: The custom statement descriptor for the access pass i.e. WHOP\\**SPORTS, must be
+              between 5 and 22 characters, contain at least one letter, and not contain any of
+              the following characters: <, >, \\,, ', "
+
+          description: A written description of the access pass.
+
+          global_affiliate_percentage: The percentage of the revenue that goes to the global affiliate program.
+
+          global_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          headline: The headline of the access pass.
+
+          industry_type: The different industry types a company can be in.
+
+          member_affiliate_percentage: The percentage of the revenue that goes to the member affiliate program.
+
+          member_affiliate_status: The different statuses of the global affiliate program for an access pass.
+
+          product_tax_code_id: The ID of the product tax code to apply to this access pass.
+
+          redirect_purchase_url: The URL to redirect the customer to after a purchase.
+
+          route: The route of the access pass.
+
+          title: The title of the access pass.
+
+          visibility: Visibility of a resource
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            f"/products/{id}",
+            body=await async_maybe_transform(
+                {
+                    "banner_image": banner_image,
+                    "business_type": business_type,
+                    "custom_cta": custom_cta,
+                    "custom_cta_url": custom_cta_url,
+                    "custom_statement_descriptor": custom_statement_descriptor,
+                    "description": description,
+                    "global_affiliate_percentage": global_affiliate_percentage,
+                    "global_affiliate_status": global_affiliate_status,
+                    "headline": headline,
+                    "industry_type": industry_type,
+                    "member_affiliate_percentage": member_affiliate_percentage,
+                    "member_affiliate_status": member_affiliate_status,
+                    "product_tax_code_id": product_tax_code_id,
+                    "redirect_purchase_url": redirect_purchase_url,
+                    "route": route,
+                    "title": title,
+                    "visibility": visibility,
+                },
+                product_update_params.ProductUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
+
     def list(
         self,
         *,
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Literal["asc", "desc"]] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
-        product_types: Optional[List[Optional[Literal["regular", "app", "experience_upsell", "api_only"]]]]
-        | Omit = omit,
+        product_types: Optional[List[Optional[AccessPassType]]] | Omit = omit,
         visibilities: Optional[
             List[
                 Optional[
@@ -315,16 +844,62 @@ class AsyncProductsResource(AsyncAPIResource):
             model=ProductListItem,
         )
 
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[ProductDeleteResponse]:
+        """
+        Deletes an existing Product
+
+        Required permissions:
+
+        - `access_pass:delete`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/products/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductDeleteResponse,
+        )
+
 
 class ProductsResourceWithRawResponse:
     def __init__(self, products: ProductsResource) -> None:
         self._products = products
 
+        self.create = to_raw_response_wrapper(
+            products.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             products.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            products.update,
+        )
         self.list = to_raw_response_wrapper(
             products.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            products.delete,
         )
 
 
@@ -332,11 +907,20 @@ class AsyncProductsResourceWithRawResponse:
     def __init__(self, products: AsyncProductsResource) -> None:
         self._products = products
 
+        self.create = async_to_raw_response_wrapper(
+            products.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             products.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            products.update,
+        )
         self.list = async_to_raw_response_wrapper(
             products.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            products.delete,
         )
 
 
@@ -344,11 +928,20 @@ class ProductsResourceWithStreamingResponse:
     def __init__(self, products: ProductsResource) -> None:
         self._products = products
 
+        self.create = to_streamed_response_wrapper(
+            products.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             products.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            products.update,
+        )
         self.list = to_streamed_response_wrapper(
             products.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            products.delete,
         )
 
 
@@ -356,9 +949,18 @@ class AsyncProductsResourceWithStreamingResponse:
     def __init__(self, products: AsyncProductsResource) -> None:
         self._products = products
 
+        self.create = async_to_streamed_response_wrapper(
+            products.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             products.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            products.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             products.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            products.delete,
         )
