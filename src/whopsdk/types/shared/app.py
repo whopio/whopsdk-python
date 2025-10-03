@@ -5,7 +5,7 @@ from typing import List, Optional
 from ..._models import BaseModel
 from .app_statuses import AppStatuses
 
-__all__ = ["App", "APIKey", "RequestedPermission", "RequestedPermissionPermissionAction", "Stats"]
+__all__ = ["App", "APIKey", "Company", "Creator", "RequestedPermission", "RequestedPermissionPermissionAction", "Stats"]
 
 
 class APIKey(BaseModel):
@@ -17,6 +17,25 @@ class APIKey(BaseModel):
 
     created_at: int
     """When this API key was created at"""
+
+
+class Company(BaseModel):
+    id: str
+    """The ID (tag) of the company."""
+
+    title: str
+    """The title of the company."""
+
+
+class Creator(BaseModel):
+    id: str
+    """The internal ID of the user."""
+
+    name: Optional[str] = None
+    """The name of the user from their Whop account."""
+
+    username: str
+    """The username of the user from their Whop account."""
 
 
 class RequestedPermissionPermissionAction(BaseModel):
@@ -72,6 +91,12 @@ class App(BaseModel):
 
     base_url: Optional[str] = None
     """The base url of the app"""
+
+    company: Company
+    """The company that owns the app"""
+
+    creator: Creator
+    """The creator of the app"""
 
     dashboard_path: Optional[str] = None
     """The path part for a specific view of the app.
