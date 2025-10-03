@@ -13,17 +13,22 @@ from whopsdk.types import (
     Currency,
     CustomCta,
     Direction,
+    Entry,
+    EntryStatus,
     GlobalAffiliateStatus,
     IndustryTypes,
     Invoice,
     InvoiceListItem,
     InvoiceStatus,
     PageInfo,
+    Plan,
     PlanType,
     Product,
     ProductListItem,
     ReleaseMethod,
+    TaxType,
     Visibility,
+    VisibilityFilter,
 )
 ```
 
@@ -99,3 +104,34 @@ from whopsdk.types import (
     UnwrapWebhookEvent,
 )
 ```
+
+# Plans
+
+Types:
+
+```python
+from whopsdk.types import PlanListResponse, PlanDeleteResponse
+```
+
+Methods:
+
+- <code title="post /plans">client.plans.<a href="./src/whopsdk/resources/plans.py">create</a>(\*\*<a href="src/whopsdk/types/plan_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/plan.py">Optional[Plan]</a></code>
+- <code title="get /plans/{id}">client.plans.<a href="./src/whopsdk/resources/plans.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/plan.py">Optional[Plan]</a></code>
+- <code title="patch /plans/{id}">client.plans.<a href="./src/whopsdk/resources/plans.py">update</a>(id, \*\*<a href="src/whopsdk/types/plan_update_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/plan.py">Optional[Plan]</a></code>
+- <code title="get /plans">client.plans.<a href="./src/whopsdk/resources/plans.py">list</a>(\*\*<a href="src/whopsdk/types/plan_list_params.py">params</a>) -> <a href="./src/whopsdk/types/plan_list_response.py">SyncCursorPage[Optional[PlanListResponse]]</a></code>
+- <code title="delete /plans/{id}">client.plans.<a href="./src/whopsdk/resources/plans.py">delete</a>(id) -> <a href="./src/whopsdk/types/plan_delete_response.py">Optional[PlanDeleteResponse]</a></code>
+
+# Entries
+
+Types:
+
+```python
+from whopsdk.types import EntryListResponse, EntryApproveResponse
+```
+
+Methods:
+
+- <code title="get /entries/{id}">client.entries.<a href="./src/whopsdk/resources/entries.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/entry.py">Optional[Entry]</a></code>
+- <code title="get /entries">client.entries.<a href="./src/whopsdk/resources/entries.py">list</a>(\*\*<a href="src/whopsdk/types/entry_list_params.py">params</a>) -> <a href="./src/whopsdk/types/entry_list_response.py">SyncCursorPage[Optional[EntryListResponse]]</a></code>
+- <code title="post /entries/{id}/approve">client.entries.<a href="./src/whopsdk/resources/entries.py">approve</a>(id) -> <a href="./src/whopsdk/types/entry_approve_response.py">EntryApproveResponse</a></code>
+- <code title="post /entries/{id}/deny">client.entries.<a href="./src/whopsdk/resources/entries.py">deny</a>(id) -> <a href="./src/whopsdk/types/shared/entry.py">Optional[Entry]</a></code>

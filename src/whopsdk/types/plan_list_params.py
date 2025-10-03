@@ -5,16 +5,18 @@ from __future__ import annotations
 from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared.direction import Direction
-from .shared.access_pass_type import AccessPassType
+from .shared.plan_type import PlanType
+from .shared.release_method import ReleaseMethod
 from .shared.visibility_filter import VisibilityFilter
 
-__all__ = ["ProductListParams"]
+__all__ = ["PlanListParams"]
 
 
-class ProductListParams(TypedDict, total=False):
+class PlanListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to filter products by"""
+    """The ID of the company"""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -31,11 +33,17 @@ class ProductListParams(TypedDict, total=False):
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
-    order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]]
-    """The ways a relation of AccessPasses can be ordered"""
+    order: Optional[Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]]
+    """The ways a relation of Plans can be ordered"""
 
-    product_types: Optional[List[Optional[AccessPassType]]]
-    """The type of products to filter by"""
+    plan_types: Optional[List[Optional[PlanType]]]
+    """The plan type to filter the plans by"""
+
+    product_ids: Optional[SequenceNotStr[str]]
+    """The access pass IDs to filter the plans by"""
+
+    release_methods: Optional[List[Optional[ReleaseMethod]]]
+    """The release method to filter the plans by"""
 
     visibilities: Optional[List[Optional[VisibilityFilter]]]
-    """The visibility of the products to filter by"""
+    """The visibility to filter the plans by"""

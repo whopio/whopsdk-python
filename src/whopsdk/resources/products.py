@@ -29,6 +29,7 @@ from ..types.shared.industry_types import IndustryTypes
 from ..types.product_delete_response import ProductDeleteResponse
 from ..types.shared.access_pass_type import AccessPassType
 from ..types.shared.product_list_item import ProductListItem
+from ..types.shared.visibility_filter import VisibilityFilter
 from ..types.shared.global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = ["ProductsResource", "AsyncProductsResource"]
@@ -345,14 +346,7 @@ class ProductsResource(SyncAPIResource):
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
         product_types: Optional[List[Optional[AccessPassType]]] | Omit = omit,
-        visibilities: Optional[
-            List[
-                Optional[
-                    Literal["visible", "hidden", "archived", "quick_link", "all", "not_quick_link", "not_archived"]
-                ]
-            ]
-        ]
-        | Omit = omit,
+        visibilities: Optional[List[Optional[VisibilityFilter]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -769,14 +763,7 @@ class AsyncProductsResource(AsyncAPIResource):
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
         product_types: Optional[List[Optional[AccessPassType]]] | Omit = omit,
-        visibilities: Optional[
-            List[
-                Optional[
-                    Literal["visible", "hidden", "archived", "quick_link", "all", "not_quick_link", "not_archived"]
-                ]
-            ]
-        ]
-        | Omit = omit,
+        visibilities: Optional[List[Optional[VisibilityFilter]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

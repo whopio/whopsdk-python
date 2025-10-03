@@ -1,0 +1,380 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+import os
+from typing import Any, Optional, cast
+
+import pytest
+
+from whopsdk import Whopsdk, AsyncWhopsdk
+from tests.utils import assert_matches_type
+from whopsdk.types import EntryListResponse, EntryApproveResponse
+from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
+from whopsdk.types.shared import Entry
+
+base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
+
+
+class TestEntries:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_retrieve(self, client: Whopsdk) -> None:
+        entry = client.entries.retrieve(
+            "entry_xxxxxxxxxxxx",
+        )
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+        response = client.entries.with_raw_response.retrieve(
+            "entry_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = response.parse()
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+        with client.entries.with_streaming_response.retrieve(
+            "entry_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = response.parse()
+            assert_matches_type(Optional[Entry], entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.entries.with_raw_response.retrieve(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_list(self, client: Whopsdk) -> None:
+        entry = client.entries.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+        entry = client.entries.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+            after="after",
+            before="before",
+            direction="asc",
+            first=42,
+            last=42,
+            order="id",
+            plan_ids=["string"],
+            product_ids=["string"],
+            statuses=["drafted"],
+        )
+        assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: Whopsdk) -> None:
+        response = client.entries.with_raw_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = response.parse()
+        assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: Whopsdk) -> None:
+        with client.entries.with_streaming_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = response.parse()
+            assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_approve(self, client: Whopsdk) -> None:
+        entry = client.entries.approve(
+            "entry_xxxxxxxxxxxx",
+        )
+        assert_matches_type(EntryApproveResponse, entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_approve(self, client: Whopsdk) -> None:
+        response = client.entries.with_raw_response.approve(
+            "entry_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = response.parse()
+        assert_matches_type(EntryApproveResponse, entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_approve(self, client: Whopsdk) -> None:
+        with client.entries.with_streaming_response.approve(
+            "entry_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = response.parse()
+            assert_matches_type(EntryApproveResponse, entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_approve(self, client: Whopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.entries.with_raw_response.approve(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_deny(self, client: Whopsdk) -> None:
+        entry = client.entries.deny(
+            "entry_xxxxxxxxxxxx",
+        )
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_deny(self, client: Whopsdk) -> None:
+        response = client.entries.with_raw_response.deny(
+            "entry_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = response.parse()
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_deny(self, client: Whopsdk) -> None:
+        with client.entries.with_streaming_response.deny(
+            "entry_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = response.parse()
+            assert_matches_type(Optional[Entry], entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_deny(self, client: Whopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.entries.with_raw_response.deny(
+                "",
+            )
+
+
+class TestAsyncEntries:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+        entry = await async_client.entries.retrieve(
+            "entry_xxxxxxxxxxxx",
+        )
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.entries.with_raw_response.retrieve(
+            "entry_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = await response.parse()
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.entries.with_streaming_response.retrieve(
+            "entry_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = await response.parse()
+            assert_matches_type(Optional[Entry], entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.entries.with_raw_response.retrieve(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+        entry = await async_client.entries.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+        entry = await async_client.entries.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+            after="after",
+            before="before",
+            direction="asc",
+            first=42,
+            last=42,
+            order="id",
+            plan_ids=["string"],
+            product_ids=["string"],
+            statuses=["drafted"],
+        )
+        assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.entries.with_raw_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = await response.parse()
+        assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.entries.with_streaming_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = await response.parse()
+            assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_approve(self, async_client: AsyncWhopsdk) -> None:
+        entry = await async_client.entries.approve(
+            "entry_xxxxxxxxxxxx",
+        )
+        assert_matches_type(EntryApproveResponse, entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_approve(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.entries.with_raw_response.approve(
+            "entry_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = await response.parse()
+        assert_matches_type(EntryApproveResponse, entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_approve(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.entries.with_streaming_response.approve(
+            "entry_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = await response.parse()
+            assert_matches_type(EntryApproveResponse, entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_approve(self, async_client: AsyncWhopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.entries.with_raw_response.approve(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_deny(self, async_client: AsyncWhopsdk) -> None:
+        entry = await async_client.entries.deny(
+            "entry_xxxxxxxxxxxx",
+        )
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_deny(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.entries.with_raw_response.deny(
+            "entry_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entry = await response.parse()
+        assert_matches_type(Optional[Entry], entry, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_deny(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.entries.with_streaming_response.deny(
+            "entry_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entry = await response.parse()
+            assert_matches_type(Optional[Entry], entry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_deny(self, async_client: AsyncWhopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.entries.with_raw_response.deny(
+                "",
+            )

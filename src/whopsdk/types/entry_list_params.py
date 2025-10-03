@@ -5,16 +5,16 @@ from __future__ import annotations
 from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared.direction import Direction
-from .shared.access_pass_type import AccessPassType
-from .shared.visibility_filter import VisibilityFilter
+from .shared.entry_status import EntryStatus
 
-__all__ = ["ProductListParams"]
+__all__ = ["EntryListParams"]
 
 
-class ProductListParams(TypedDict, total=False):
+class EntryListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to filter products by"""
+    """The ID of the company"""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -31,11 +31,14 @@ class ProductListParams(TypedDict, total=False):
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
-    order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]]
-    """The ways a relation of AccessPasses can be ordered"""
+    order: Optional[Literal["id", "created_at"]]
+    """Which columns can be used to sort."""
 
-    product_types: Optional[List[Optional[AccessPassType]]]
-    """The type of products to filter by"""
+    plan_ids: Optional[SequenceNotStr[str]]
+    """The plan IDs to filter the entries by"""
 
-    visibilities: Optional[List[Optional[VisibilityFilter]]]
-    """The visibility of the products to filter by"""
+    product_ids: Optional[SequenceNotStr[str]]
+    """The access pass IDs to filter the entries by"""
+
+    statuses: Optional[List[Optional[EntryStatus]]]
+    """The statuses to filter the entries by"""

@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import apps, invoices, products, webhooks, companies, course_lesson_interactions
+from .resources import apps, plans, entries, invoices, products, webhooks, companies, course_lesson_interactions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import WhopsdkError, APIStatusError
 from ._base_client import (
@@ -40,6 +40,8 @@ class Whopsdk(SyncAPIClient):
     products: products.ProductsResource
     companies: companies.CompaniesResource
     webhooks: webhooks.WebhooksResource
+    plans: plans.PlansResource
+    entries: entries.EntriesResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -111,6 +113,8 @@ class Whopsdk(SyncAPIClient):
         self.products = products.ProductsResource(self)
         self.companies = companies.CompaniesResource(self)
         self.webhooks = webhooks.WebhooksResource(self)
+        self.plans = plans.PlansResource(self)
+        self.entries = entries.EntriesResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -228,6 +232,8 @@ class AsyncWhopsdk(AsyncAPIClient):
     products: products.AsyncProductsResource
     companies: companies.AsyncCompaniesResource
     webhooks: webhooks.AsyncWebhooksResource
+    plans: plans.AsyncPlansResource
+    entries: entries.AsyncEntriesResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -299,6 +305,8 @@ class AsyncWhopsdk(AsyncAPIClient):
         self.products = products.AsyncProductsResource(self)
         self.companies = companies.AsyncCompaniesResource(self)
         self.webhooks = webhooks.AsyncWebhooksResource(self)
+        self.plans = plans.AsyncPlansResource(self)
+        self.entries = entries.AsyncEntriesResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -418,6 +426,8 @@ class WhopsdkWithRawResponse:
         )
         self.products = products.ProductsResourceWithRawResponse(client.products)
         self.companies = companies.CompaniesResourceWithRawResponse(client.companies)
+        self.plans = plans.PlansResourceWithRawResponse(client.plans)
+        self.entries = entries.EntriesResourceWithRawResponse(client.entries)
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -431,6 +441,8 @@ class AsyncWhopsdkWithRawResponse:
         )
         self.products = products.AsyncProductsResourceWithRawResponse(client.products)
         self.companies = companies.AsyncCompaniesResourceWithRawResponse(client.companies)
+        self.plans = plans.AsyncPlansResourceWithRawResponse(client.plans)
+        self.entries = entries.AsyncEntriesResourceWithRawResponse(client.entries)
 
 
 class WhopsdkWithStreamedResponse:
@@ -444,6 +456,8 @@ class WhopsdkWithStreamedResponse:
         )
         self.products = products.ProductsResourceWithStreamingResponse(client.products)
         self.companies = companies.CompaniesResourceWithStreamingResponse(client.companies)
+        self.plans = plans.PlansResourceWithStreamingResponse(client.plans)
+        self.entries = entries.EntriesResourceWithStreamingResponse(client.entries)
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -457,6 +471,8 @@ class AsyncWhopsdkWithStreamedResponse:
         )
         self.products = products.AsyncProductsResourceWithStreamingResponse(client.products)
         self.companies = companies.AsyncCompaniesResourceWithStreamingResponse(client.companies)
+        self.plans = plans.AsyncPlansResourceWithStreamingResponse(client.plans)
+        self.entries = entries.AsyncEntriesResourceWithStreamingResponse(client.entries)
 
 
 Client = Whopsdk
