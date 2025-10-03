@@ -8,6 +8,22 @@ from .apps import (
     AppsResourceWithStreamingResponse,
     AsyncAppsResourceWithStreamingResponse,
 )
+from .plans import (
+    PlansResource,
+    AsyncPlansResource,
+    PlansResourceWithRawResponse,
+    AsyncPlansResourceWithRawResponse,
+    PlansResourceWithStreamingResponse,
+    AsyncPlansResourceWithStreamingResponse,
+)
+from .entries import (
+    EntriesResource,
+    AsyncEntriesResource,
+    EntriesResourceWithRawResponse,
+    AsyncEntriesResourceWithRawResponse,
+    EntriesResourceWithStreamingResponse,
+    AsyncEntriesResourceWithStreamingResponse,
+)
 from .invoices import (
     InvoicesResource,
     AsyncInvoicesResource,
@@ -75,4 +91,16 @@ __all__ = [
     "AsyncCompaniesResourceWithStreamingResponse",
     "WebhooksResource",
     "AsyncWebhooksResource",
+    "PlansResource",
+    "AsyncPlansResource",
+    "PlansResourceWithRawResponse",
+    "AsyncPlansResourceWithRawResponse",
+    "PlansResourceWithStreamingResponse",
+    "AsyncPlansResourceWithStreamingResponse",
+    "EntriesResource",
+    "AsyncEntriesResource",
+    "EntriesResourceWithRawResponse",
+    "AsyncEntriesResourceWithRawResponse",
+    "EntriesResourceWithStreamingResponse",
+    "AsyncEntriesResourceWithStreamingResponse",
 ]
