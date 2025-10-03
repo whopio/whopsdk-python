@@ -6,4 +6,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["ReleaseMethod"]
 
-ReleaseMethod: TypeAlias = Literal["buy_now", "waitlist", "raffle"]
+ReleaseMethod: TypeAlias = Literal["buy_now", "waitlist"]
