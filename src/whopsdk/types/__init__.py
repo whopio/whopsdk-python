@@ -15,6 +15,7 @@ from .shared import (
     PlanType as PlanType,
     CustomCta as CustomCta,
     Direction as Direction,
+    ForumPost as ForumPost,
     Visibility as Visibility,
     AppStatuses as AppStatuses,
     EntryStatus as EntryStatus,
@@ -50,8 +51,11 @@ from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_update_params import ProductUpdateParams as ProductUpdateParams
 from .entry_approve_response import EntryApproveResponse as EntryApproveResponse
+from .forum_post_list_params import ForumPostListParams as ForumPostListParams
 from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
+from .forum_post_create_params import ForumPostCreateParams as ForumPostCreateParams
+from .forum_post_list_response import ForumPostListResponse as ForumPostListResponse
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent as InvoiceCreatedWebhookEvent

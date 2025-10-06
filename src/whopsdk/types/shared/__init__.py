@@ -12,6 +12,7 @@ from .direction import Direction as Direction
 from .page_info import PageInfo as PageInfo
 from .plan_type import PlanType as PlanType
 from .custom_cta import CustomCta as CustomCta
+from .forum_post import ForumPost as ForumPost
 from .visibility import Visibility as Visibility
 from .app_statuses import AppStatuses as AppStatuses
 from .entry_status import EntryStatus as EntryStatus
