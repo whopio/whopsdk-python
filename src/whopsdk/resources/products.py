@@ -63,6 +63,7 @@ class ProductsResource(SyncAPIResource):
         access_pass_type: Optional[AccessPassType] | Omit = omit,
         banner_image: Optional[product_create_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
@@ -105,6 +106,8 @@ class ProductsResource(SyncAPIResource):
           banner_image: A banner image for the access pass in png, jpeg format
 
           business_type: The different business types a company can be.
+
+          collect_shipping_address: Whether or not to collect shipping information at checkout from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
 
@@ -159,6 +162,7 @@ class ProductsResource(SyncAPIResource):
                     "access_pass_type": access_pass_type,
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
@@ -228,6 +232,7 @@ class ProductsResource(SyncAPIResource):
         *,
         banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
@@ -262,6 +267,8 @@ class ProductsResource(SyncAPIResource):
           banner_image: A banner image for the access pass in png, jpeg format
 
           business_type: The different business types a company can be.
+
+          collect_shipping_address: Whether or not to collect shipping information at checkout from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
 
@@ -311,6 +318,7 @@ class ProductsResource(SyncAPIResource):
                 {
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
@@ -480,6 +488,7 @@ class AsyncProductsResource(AsyncAPIResource):
         access_pass_type: Optional[AccessPassType] | Omit = omit,
         banner_image: Optional[product_create_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
@@ -522,6 +531,8 @@ class AsyncProductsResource(AsyncAPIResource):
           banner_image: A banner image for the access pass in png, jpeg format
 
           business_type: The different business types a company can be.
+
+          collect_shipping_address: Whether or not to collect shipping information at checkout from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
 
@@ -576,6 +587,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "access_pass_type": access_pass_type,
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
@@ -645,6 +657,7 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
@@ -679,6 +692,8 @@ class AsyncProductsResource(AsyncAPIResource):
           banner_image: A banner image for the access pass in png, jpeg format
 
           business_type: The different business types a company can be.
+
+          collect_shipping_address: Whether or not to collect shipping information at checkout from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
 
@@ -728,6 +743,7 @@ class AsyncProductsResource(AsyncAPIResource):
                 {
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
