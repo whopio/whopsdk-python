@@ -15,6 +15,7 @@ from whopsdk.types import (
     Direction,
     Entry,
     EntryStatus,
+    ForumPost,
     GlobalAffiliateStatus,
     IndustryTypes,
     Invoice,
@@ -135,3 +136,17 @@ Methods:
 - <code title="get /entries">client.entries.<a href="./src/whopsdk/resources/entries.py">list</a>(\*\*<a href="src/whopsdk/types/entry_list_params.py">params</a>) -> <a href="./src/whopsdk/types/entry_list_response.py">SyncCursorPage[Optional[EntryListResponse]]</a></code>
 - <code title="post /entries/{id}/approve">client.entries.<a href="./src/whopsdk/resources/entries.py">approve</a>(id) -> <a href="./src/whopsdk/types/entry_approve_response.py">EntryApproveResponse</a></code>
 - <code title="post /entries/{id}/deny">client.entries.<a href="./src/whopsdk/resources/entries.py">deny</a>(id) -> <a href="./src/whopsdk/types/shared/entry.py">Optional[Entry]</a></code>
+
+# ForumPosts
+
+Types:
+
+```python
+from whopsdk.types import ForumPostListResponse
+```
+
+Methods:
+
+- <code title="post /forum_posts">client.forum_posts.<a href="./src/whopsdk/resources/forum_posts.py">create</a>(\*\*<a href="src/whopsdk/types/forum_post_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/forum_post.py">Optional[ForumPost]</a></code>
+- <code title="get /forum_posts/{id}">client.forum_posts.<a href="./src/whopsdk/resources/forum_posts.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/forum_post.py">Optional[ForumPost]</a></code>
+- <code title="get /forum_posts">client.forum_posts.<a href="./src/whopsdk/resources/forum_posts.py">list</a>(\*\*<a href="src/whopsdk/types/forum_post_list_params.py">params</a>) -> <a href="./src/whopsdk/types/forum_post_list_response.py">SyncCursorPage[Optional[ForumPostListResponse]]</a></code>

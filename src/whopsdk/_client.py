@@ -21,7 +21,17 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import apps, plans, entries, invoices, products, webhooks, companies, course_lesson_interactions
+from .resources import (
+    apps,
+    plans,
+    entries,
+    invoices,
+    products,
+    webhooks,
+    companies,
+    forum_posts,
+    course_lesson_interactions,
+)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import WhopsdkError, APIStatusError
 from ._base_client import (
@@ -42,6 +52,7 @@ class Whopsdk(SyncAPIClient):
     webhooks: webhooks.WebhooksResource
     plans: plans.PlansResource
     entries: entries.EntriesResource
+    forum_posts: forum_posts.ForumPostsResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -115,6 +126,7 @@ class Whopsdk(SyncAPIClient):
         self.webhooks = webhooks.WebhooksResource(self)
         self.plans = plans.PlansResource(self)
         self.entries = entries.EntriesResource(self)
+        self.forum_posts = forum_posts.ForumPostsResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -234,6 +246,7 @@ class AsyncWhopsdk(AsyncAPIClient):
     webhooks: webhooks.AsyncWebhooksResource
     plans: plans.AsyncPlansResource
     entries: entries.AsyncEntriesResource
+    forum_posts: forum_posts.AsyncForumPostsResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -307,6 +320,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         self.webhooks = webhooks.AsyncWebhooksResource(self)
         self.plans = plans.AsyncPlansResource(self)
         self.entries = entries.AsyncEntriesResource(self)
+        self.forum_posts = forum_posts.AsyncForumPostsResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -428,6 +442,7 @@ class WhopsdkWithRawResponse:
         self.companies = companies.CompaniesResourceWithRawResponse(client.companies)
         self.plans = plans.PlansResourceWithRawResponse(client.plans)
         self.entries = entries.EntriesResourceWithRawResponse(client.entries)
+        self.forum_posts = forum_posts.ForumPostsResourceWithRawResponse(client.forum_posts)
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -443,6 +458,7 @@ class AsyncWhopsdkWithRawResponse:
         self.companies = companies.AsyncCompaniesResourceWithRawResponse(client.companies)
         self.plans = plans.AsyncPlansResourceWithRawResponse(client.plans)
         self.entries = entries.AsyncEntriesResourceWithRawResponse(client.entries)
+        self.forum_posts = forum_posts.AsyncForumPostsResourceWithRawResponse(client.forum_posts)
 
 
 class WhopsdkWithStreamedResponse:
@@ -458,6 +474,7 @@ class WhopsdkWithStreamedResponse:
         self.companies = companies.CompaniesResourceWithStreamingResponse(client.companies)
         self.plans = plans.PlansResourceWithStreamingResponse(client.plans)
         self.entries = entries.EntriesResourceWithStreamingResponse(client.entries)
+        self.forum_posts = forum_posts.ForumPostsResourceWithStreamingResponse(client.forum_posts)
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -473,6 +490,7 @@ class AsyncWhopsdkWithStreamedResponse:
         self.companies = companies.AsyncCompaniesResourceWithStreamingResponse(client.companies)
         self.plans = plans.AsyncPlansResourceWithStreamingResponse(client.plans)
         self.entries = entries.AsyncEntriesResourceWithStreamingResponse(client.entries)
+        self.forum_posts = forum_posts.AsyncForumPostsResourceWithStreamingResponse(client.forum_posts)
 
 
 Client = Whopsdk

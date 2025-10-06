@@ -49,6 +49,14 @@ from .companies import (
     CompaniesResourceWithStreamingResponse,
     AsyncCompaniesResourceWithStreamingResponse,
 )
+from .forum_posts import (
+    ForumPostsResource,
+    AsyncForumPostsResource,
+    ForumPostsResourceWithRawResponse,
+    AsyncForumPostsResourceWithRawResponse,
+    ForumPostsResourceWithStreamingResponse,
+    AsyncForumPostsResourceWithStreamingResponse,
+)
 from .course_lesson_interactions import (
     CourseLessonInteractionsResource,
     AsyncCourseLessonInteractionsResource,
@@ -103,4 +111,10 @@ __all__ = [
     "AsyncEntriesResourceWithRawResponse",
     "EntriesResourceWithStreamingResponse",
     "AsyncEntriesResourceWithStreamingResponse",
+    "ForumPostsResource",
+    "AsyncForumPostsResource",
+    "ForumPostsResourceWithRawResponse",
+    "AsyncForumPostsResourceWithRawResponse",
+    "ForumPostsResourceWithStreamingResponse",
+    "AsyncForumPostsResourceWithStreamingResponse",
 ]
