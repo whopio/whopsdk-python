@@ -21,6 +21,9 @@ class ProductUpdateParams(TypedDict, total=False):
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
 
+    collect_shipping_address: Optional[bool]
+    """Whether or not to collect shipping information at checkout from the customer."""
+
     custom_cta: Optional[CustomCta]
     """The different types of custom CTAs that can be selected."""
 
