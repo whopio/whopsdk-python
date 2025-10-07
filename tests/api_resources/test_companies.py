@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -23,7 +23,7 @@ class TestCompanies:
         company = client.companies.retrieve(
             "biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Company], company, path=["response"])
+        assert_matches_type(Company, company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -35,7 +35,7 @@ class TestCompanies:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         company = response.parse()
-        assert_matches_type(Optional[Company], company, path=["response"])
+        assert_matches_type(Company, company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -47,7 +47,7 @@ class TestCompanies:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             company = response.parse()
-            assert_matches_type(Optional[Company], company, path=["response"])
+            assert_matches_type(Company, company, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -71,7 +71,7 @@ class TestAsyncCompanies:
         company = await async_client.companies.retrieve(
             "biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Company], company, path=["response"])
+        assert_matches_type(Company, company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -83,7 +83,7 @@ class TestAsyncCompanies:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         company = await response.parse()
-        assert_matches_type(Optional[Company], company, path=["response"])
+        assert_matches_type(Company, company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -95,7 +95,7 @@ class TestAsyncCompanies:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             company = await response.parse()
-            assert_matches_type(Optional[Company], company, path=["response"])
+            assert_matches_type(Company, company, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

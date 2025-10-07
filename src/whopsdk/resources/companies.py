@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
 from .._types import Body, Query, Headers, NotGiven, not_given
@@ -51,7 +49,7 @@ class CompaniesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Company]:
+    ) -> Company:
         """
         Retrieves an company by ID
 
@@ -109,7 +107,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Company]:
+    ) -> Company:
         """
         Retrieves an company by ID
 

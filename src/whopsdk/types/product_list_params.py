@@ -34,8 +34,8 @@ class ProductListParams(TypedDict, total=False):
     order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]]
     """The ways a relation of AccessPasses can be ordered"""
 
-    product_types: Optional[List[Optional[AccessPassType]]]
+    product_types: Optional[List[AccessPassType]]
     """The type of products to filter by"""
 
-    visibilities: Optional[List[Optional[VisibilityFilter]]]
+    visibilities: Optional[List[VisibilityFilter]]
     """The visibility of the products to filter by"""

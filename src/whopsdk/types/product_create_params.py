@@ -111,7 +111,7 @@ class BannerImage(TypedDict, total=False):
 
 
 class PlanOptionsCustomField(TypedDict, total=False):
-    field_type: Required[Optional[Literal["text"]]]
+    field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
     name: Required[str]
@@ -163,8 +163,8 @@ class ProductHighlight(TypedDict, total=False):
     qualification or benefits, 170 for who this is for, 140 for pricing features).
     """
 
-    highlight_type: Required[Optional[Literal["qualification", "benefit", "who_this_is_for", "pricing_feature"]]]
-    """Types of product highlight"""
+    highlight_type: Required[Literal["qualification", "benefit", "who_this_is_for", "pricing_feature"]]
+    """The type of this highlight."""
 
     title: Optional[str]
     """The title of the product highlight, if applicable."""

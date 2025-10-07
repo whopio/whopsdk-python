@@ -29,7 +29,7 @@ class TestPlans:
             company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -65,7 +65,7 @@ class TestPlans:
             trial_period_days=42,
             visibility="visible",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -78,7 +78,7 @@ class TestPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -91,7 +91,7 @@ class TestPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(Optional[Plan], plan, path=["response"])
+            assert_matches_type(Plan, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -101,7 +101,7 @@ class TestPlans:
         plan = client.plans.retrieve(
             "plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -113,7 +113,7 @@ class TestPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -125,7 +125,7 @@ class TestPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(Optional[Plan], plan, path=["response"])
+            assert_matches_type(Plan, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -143,7 +143,7 @@ class TestPlans:
         plan = client.plans.update(
             id="plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -177,7 +177,7 @@ class TestPlans:
             trial_period_days=42,
             visibility="visible",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -189,7 +189,7 @@ class TestPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -201,7 +201,7 @@ class TestPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(Optional[Plan], plan, path=["response"])
+            assert_matches_type(Plan, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -271,7 +271,7 @@ class TestPlans:
         plan = client.plans.delete(
             "plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[PlanDeleteResponse], plan, path=["response"])
+        assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -283,7 +283,7 @@ class TestPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(Optional[PlanDeleteResponse], plan, path=["response"])
+        assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -295,7 +295,7 @@ class TestPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(Optional[PlanDeleteResponse], plan, path=["response"])
+            assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -320,7 +320,7 @@ class TestAsyncPlans:
             company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -356,7 +356,7 @@ class TestAsyncPlans:
             trial_period_days=42,
             visibility="visible",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -369,7 +369,7 @@ class TestAsyncPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -382,7 +382,7 @@ class TestAsyncPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(Optional[Plan], plan, path=["response"])
+            assert_matches_type(Plan, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -392,7 +392,7 @@ class TestAsyncPlans:
         plan = await async_client.plans.retrieve(
             "plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -404,7 +404,7 @@ class TestAsyncPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -416,7 +416,7 @@ class TestAsyncPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(Optional[Plan], plan, path=["response"])
+            assert_matches_type(Plan, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -434,7 +434,7 @@ class TestAsyncPlans:
         plan = await async_client.plans.update(
             id="plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -468,7 +468,7 @@ class TestAsyncPlans:
             trial_period_days=42,
             visibility="visible",
         )
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -480,7 +480,7 @@ class TestAsyncPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(Optional[Plan], plan, path=["response"])
+        assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -492,7 +492,7 @@ class TestAsyncPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(Optional[Plan], plan, path=["response"])
+            assert_matches_type(Plan, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -562,7 +562,7 @@ class TestAsyncPlans:
         plan = await async_client.plans.delete(
             "plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[PlanDeleteResponse], plan, path=["response"])
+        assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -574,7 +574,7 @@ class TestAsyncPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(Optional[PlanDeleteResponse], plan, path=["response"])
+        assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -586,7 +586,7 @@ class TestAsyncPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(Optional[PlanDeleteResponse], plan, path=["response"])
+            assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

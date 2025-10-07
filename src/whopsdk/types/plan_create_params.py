@@ -71,7 +71,7 @@ class PlanCreateParams(TypedDict, total=False):
 
 
 class CustomField(TypedDict, total=False):
-    field_type: Required[Optional[Literal["text"]]]
+    field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
     name: Required[str]

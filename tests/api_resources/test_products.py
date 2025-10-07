@@ -28,7 +28,7 @@ class TestProducts:
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -85,7 +85,7 @@ class TestProducts:
             route="route",
             visibility="visible",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -98,7 +98,7 @@ class TestProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = response.parse()
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -111,7 +111,7 @@ class TestProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = response.parse()
-            assert_matches_type(Optional[Product], product, path=["response"])
+            assert_matches_type(Product, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -121,7 +121,7 @@ class TestProducts:
         product = client.products.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -133,7 +133,7 @@ class TestProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = response.parse()
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -145,7 +145,7 @@ class TestProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = response.parse()
-            assert_matches_type(Optional[Product], product, path=["response"])
+            assert_matches_type(Product, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -163,7 +163,7 @@ class TestProducts:
         product = client.products.update(
             id="prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -192,7 +192,7 @@ class TestProducts:
             title="title",
             visibility="visible",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -204,7 +204,7 @@ class TestProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = response.parse()
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -216,7 +216,7 @@ class TestProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = response.parse()
-            assert_matches_type(Optional[Product], product, path=["response"])
+            assert_matches_type(Product, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -284,7 +284,7 @@ class TestProducts:
         product = client.products.delete(
             "prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[ProductDeleteResponse], product, path=["response"])
+        assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -296,7 +296,7 @@ class TestProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = response.parse()
-        assert_matches_type(Optional[ProductDeleteResponse], product, path=["response"])
+        assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -308,7 +308,7 @@ class TestProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = response.parse()
-            assert_matches_type(Optional[ProductDeleteResponse], product, path=["response"])
+            assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -333,7 +333,7 @@ class TestAsyncProducts:
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -390,7 +390,7 @@ class TestAsyncProducts:
             route="route",
             visibility="visible",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -403,7 +403,7 @@ class TestAsyncProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = await response.parse()
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -416,7 +416,7 @@ class TestAsyncProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = await response.parse()
-            assert_matches_type(Optional[Product], product, path=["response"])
+            assert_matches_type(Product, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -426,7 +426,7 @@ class TestAsyncProducts:
         product = await async_client.products.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -438,7 +438,7 @@ class TestAsyncProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = await response.parse()
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -450,7 +450,7 @@ class TestAsyncProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = await response.parse()
-            assert_matches_type(Optional[Product], product, path=["response"])
+            assert_matches_type(Product, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -468,7 +468,7 @@ class TestAsyncProducts:
         product = await async_client.products.update(
             id="prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -497,7 +497,7 @@ class TestAsyncProducts:
             title="title",
             visibility="visible",
         )
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -509,7 +509,7 @@ class TestAsyncProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = await response.parse()
-        assert_matches_type(Optional[Product], product, path=["response"])
+        assert_matches_type(Product, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -521,7 +521,7 @@ class TestAsyncProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = await response.parse()
-            assert_matches_type(Optional[Product], product, path=["response"])
+            assert_matches_type(Product, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -589,7 +589,7 @@ class TestAsyncProducts:
         product = await async_client.products.delete(
             "prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[ProductDeleteResponse], product, path=["response"])
+        assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -601,7 +601,7 @@ class TestAsyncProducts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         product = await response.parse()
-        assert_matches_type(Optional[ProductDeleteResponse], product, path=["response"])
+        assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -613,7 +613,7 @@ class TestAsyncProducts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             product = await response.parse()
-            assert_matches_type(Optional[ProductDeleteResponse], product, path=["response"])
+            assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

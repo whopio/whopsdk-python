@@ -25,8 +25,8 @@ class CustomField(BaseModel):
     id: str
     """The internal ID of the given custom field"""
 
-    field_type: Optional[Literal["text"]] = None
-    """The type of the custom field."""
+    field_type: Literal["text"]
+    """What type of input field to use."""
 
     name: str
     """The title/header of the custom field."""
@@ -70,8 +70,8 @@ class Plan(BaseModel):
     created_at: int
     """When the plan was created."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    currency: Currency
+    """The respective currency identifier for the plan."""
 
     custom_fields: List[CustomField]
     """The custom fields for the plan."""
@@ -94,8 +94,8 @@ class Plan(BaseModel):
     member_count: Optional[int] = None
     """The number of members for the plan."""
 
-    plan_type: Optional[PlanType] = None
-    """The type of plan that can be attached to an access pass"""
+    plan_type: PlanType
+    """Indicates if the plan is a one time payment or recurring."""
 
     product: Optional[Product] = None
     """The access pass for the plan."""
@@ -103,17 +103,14 @@ class Plan(BaseModel):
     purchase_link: str
     """The direct link to purchase the access pass."""
 
-    release_method: Optional[ReleaseMethod] = None
-    """The methods of how a plan can be released."""
+    release_method: ReleaseMethod
+    """This is the release method the business uses to sell this plan."""
 
     renewal_price: float
     """The price a person has to pay for a plan on the renewal purchase."""
 
-    tax_type: Optional[TaxType] = None
-    """
-    Whether or not the tax is included in a plan's price (or if it hasn't been set
-    up)
-    """
+    tax_type: TaxType
+    """The tax type for the plan."""
 
     trial_period_days: Optional[int] = None
     """The number of free trial days added before a renewal plan."""
@@ -121,5 +118,5 @@ class Plan(BaseModel):
     updated_at: int
     """When the plan was last updated."""
 
-    visibility: Optional[Visibility] = None
-    """Visibility of a resource"""
+    visibility: Visibility
+    """Shows or hides the plan from public/business view."""

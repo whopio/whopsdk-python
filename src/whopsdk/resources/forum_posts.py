@@ -65,7 +65,7 @@ class ForumPostsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ForumPost]:
+    ) -> ForumPost:
         """
         Create a new forum post
 
@@ -140,7 +140,7 @@ class ForumPostsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ForumPost]:
+    ) -> ForumPost:
         """
         Retrieves a forum post by ID
 
@@ -278,7 +278,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ForumPost]:
+    ) -> ForumPost:
         """
         Create a new forum post
 
@@ -353,7 +353,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ForumPost]:
+    ) -> ForumPost:
         """
         Retrieves a forum post by ID
 

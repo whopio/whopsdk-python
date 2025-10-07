@@ -62,8 +62,8 @@ class Entry(BaseModel):
     product: Optional[Product] = None
     """The access pass tied to this entry, if there is one."""
 
-    status: Optional[EntryStatus] = None
-    """The status of an entry to a waitlist."""
+    status: EntryStatus
+    """The status of the entry."""
 
     user: User
     """The user who created the entry."""
