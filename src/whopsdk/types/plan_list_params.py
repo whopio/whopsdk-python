@@ -36,14 +36,14 @@ class PlanListParams(TypedDict, total=False):
     order: Optional[Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]]
     """The ways a relation of Plans can be ordered"""
 
-    plan_types: Optional[List[Optional[PlanType]]]
+    plan_types: Optional[List[PlanType]]
     """The plan type to filter the plans by"""
 
     product_ids: Optional[SequenceNotStr[str]]
     """The access pass IDs to filter the plans by"""
 
-    release_methods: Optional[List[Optional[ReleaseMethod]]]
+    release_methods: Optional[List[ReleaseMethod]]
     """The release method to filter the plans by"""
 
-    visibilities: Optional[List[Optional[VisibilityFilter]]]
+    visibilities: Optional[List[VisibilityFilter]]
     """The visibility to filter the plans by"""

@@ -53,7 +53,7 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        collection_method: Optional[CollectionMethod],
+        collection_method: CollectionMethod,
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
@@ -70,7 +70,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[InvoiceCreateResponse]:
+    ) -> InvoiceCreateResponse:
         """
         Creates an invoice
 
@@ -80,7 +80,8 @@ class InvoicesResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for an invoice.
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
 
           company_id: The company ID to create this invoice for.
 
@@ -152,7 +153,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Invoice]:
+    ) -> Invoice:
         """
         Retrieves an invoice by ID or token
 
@@ -266,7 +267,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[InvoiceVoidResponse]:
+    ) -> InvoiceVoidResponse:
         """
         Void an invoice
 
@@ -317,7 +318,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        collection_method: Optional[CollectionMethod],
+        collection_method: CollectionMethod,
         company_id: str,
         due_date: int,
         plan: invoice_create_params.Plan,
@@ -334,7 +335,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[InvoiceCreateResponse]:
+    ) -> InvoiceCreateResponse:
         """
         Creates an invoice
 
@@ -344,7 +345,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for an invoice.
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
 
           company_id: The company ID to create this invoice for.
 
@@ -416,7 +418,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Invoice]:
+    ) -> Invoice:
         """
         Retrieves an invoice by ID or token
 
@@ -530,7 +532,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[InvoiceVoidResponse]:
+    ) -> InvoiceVoidResponse:
         """
         Void an invoice
 

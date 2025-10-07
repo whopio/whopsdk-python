@@ -74,8 +74,14 @@ class AppListResponse(BaseModel):
     name: str
     """The name of the app"""
 
-    status: Optional[AppStatuses] = None
-    """The status of an experience interface"""
+    status: AppStatuses
+    """If the status is live, the app is visible on Whop discovery.
+
+    In order to be live, you need to set the name, icon, and description. Being
+    unlisted or hidden means it's not visible on Whop but you can still install the
+    app via direct link. To remove the app from whop discovery, you should set the
+    status to unlisted.
+    """
 
     verified: bool
     """Whether this app has been verified by Whop.

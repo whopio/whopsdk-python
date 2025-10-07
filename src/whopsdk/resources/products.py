@@ -87,7 +87,7 @@ class ProductsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Product]:
+    ) -> Product:
         """
         Creates a new Product
 
@@ -199,7 +199,7 @@ class ProductsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Product]:
+    ) -> Product:
         """
         Retrieves a product by ID or route
 
@@ -254,7 +254,7 @@ class ProductsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Product]:
+    ) -> Product:
         """
         Updates an existing Product
 
@@ -353,8 +353,8 @@ class ProductsResource(SyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
-        product_types: Optional[List[Optional[AccessPassType]]] | Omit = omit,
-        visibilities: Optional[List[Optional[VisibilityFilter]]] | Omit = omit,
+        product_types: Optional[List[AccessPassType]] | Omit = omit,
+        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -432,7 +432,7 @@ class ProductsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ProductDeleteResponse]:
+    ) -> ProductDeleteResponse:
         """
         Deletes an existing Product
 
@@ -512,7 +512,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Product]:
+    ) -> Product:
         """
         Creates a new Product
 
@@ -624,7 +624,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Product]:
+    ) -> Product:
         """
         Retrieves a product by ID or route
 
@@ -679,7 +679,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Product]:
+    ) -> Product:
         """
         Updates an existing Product
 
@@ -778,8 +778,8 @@ class AsyncProductsResource(AsyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
-        product_types: Optional[List[Optional[AccessPassType]]] | Omit = omit,
-        visibilities: Optional[List[Optional[VisibilityFilter]]] | Omit = omit,
+        product_types: Optional[List[AccessPassType]] | Omit = omit,
+        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -857,7 +857,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ProductDeleteResponse]:
+    ) -> ProductDeleteResponse:
         """
         Deletes an existing Product
 

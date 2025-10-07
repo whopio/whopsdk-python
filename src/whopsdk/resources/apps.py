@@ -60,7 +60,7 @@ class AppsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[App]:
+    ) -> App:
         """
         Create a new App
 
@@ -110,7 +110,7 @@ class AppsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[App]:
+    ) -> App:
         """
         Retrieves an app by ID
 
@@ -149,7 +149,7 @@ class AppsResource(SyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        required_scopes: Optional[List[Optional[Literal["read_user"]]]] | Omit = omit,
+        required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -157,7 +157,7 @@ class AppsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[App]:
+    ) -> App:
         """
         Update an existing App
 
@@ -342,7 +342,7 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[App]:
+    ) -> App:
         """
         Create a new App
 
@@ -392,7 +392,7 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[App]:
+    ) -> App:
         """
         Retrieves an app by ID
 
@@ -431,7 +431,7 @@ class AsyncAppsResource(AsyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        required_scopes: Optional[List[Optional[Literal["read_user"]]]] | Omit = omit,
+        required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -439,7 +439,7 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[App]:
+    ) -> App:
         """
         Update an existing App
 

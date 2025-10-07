@@ -25,7 +25,7 @@ class TestForumPosts:
         forum_post = client.forum_posts.create(
             experience_id="exp_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -54,7 +54,7 @@ class TestForumPosts:
             },
             title="title",
         )
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -66,7 +66,7 @@ class TestForumPosts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         forum_post = response.parse()
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -78,7 +78,7 @@ class TestForumPosts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             forum_post = response.parse()
-            assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+            assert_matches_type(ForumPost, forum_post, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -88,7 +88,7 @@ class TestForumPosts:
         forum_post = client.forum_posts.retrieve(
             "id",
         )
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -100,7 +100,7 @@ class TestForumPosts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         forum_post = response.parse()
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -112,7 +112,7 @@ class TestForumPosts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             forum_post = response.parse()
-            assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+            assert_matches_type(ForumPost, forum_post, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -184,7 +184,7 @@ class TestAsyncForumPosts:
         forum_post = await async_client.forum_posts.create(
             experience_id="exp_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -213,7 +213,7 @@ class TestAsyncForumPosts:
             },
             title="title",
         )
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -225,7 +225,7 @@ class TestAsyncForumPosts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         forum_post = await response.parse()
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -237,7 +237,7 @@ class TestAsyncForumPosts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             forum_post = await response.parse()
-            assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+            assert_matches_type(ForumPost, forum_post, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -247,7 +247,7 @@ class TestAsyncForumPosts:
         forum_post = await async_client.forum_posts.retrieve(
             "id",
         )
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -259,7 +259,7 @@ class TestAsyncForumPosts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         forum_post = await response.parse()
-        assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+        assert_matches_type(ForumPost, forum_post, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -271,7 +271,7 @@ class TestAsyncForumPosts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             forum_post = await response.parse()
-            assert_matches_type(Optional[ForumPost], forum_post, path=["response"])
+            assert_matches_type(ForumPost, forum_post, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

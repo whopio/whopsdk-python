@@ -35,7 +35,7 @@ class AppUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """The name of the app"""
 
-    required_scopes: Optional[List[Optional[Literal["read_user"]]]]
+    required_scopes: Optional[List[Literal["read_user"]]]
     """The scopes that the app will request off of users when a user installs the app."""
 
     status: Optional[AppStatuses]

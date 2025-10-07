@@ -12,5 +12,5 @@ class InvoiceCreateResponse(BaseModel):
     checkout_job_id: Optional[str] = None
     """The ID of the checkout job that was created for this invoice."""
 
-    invoice: Optional[Invoice] = None
-    """A statement that defines an amount due by a customer."""
+    invoice: Invoice
+    """The invoice that was created for this invoice."""

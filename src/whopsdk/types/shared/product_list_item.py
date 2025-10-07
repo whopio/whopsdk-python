@@ -44,5 +44,5 @@ class ProductListItem(BaseModel):
     verified: bool
     """Whether this product is Whop verified."""
 
-    visibility: Optional[Visibility] = None
-    """Visibility of a resource"""
+    visibility: Visibility
+    """This access pass will/will not be displayed publicly."""

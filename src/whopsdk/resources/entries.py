@@ -59,7 +59,7 @@ class EntriesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Entry]:
+    ) -> Entry:
         """
         Retrieves an entry by ID
 
@@ -99,7 +99,7 @@ class EntriesResource(SyncAPIResource):
         order: Optional[Literal["id", "created_at"]] | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[Optional[EntryStatus]]] | Omit = omit,
+        statuses: Optional[List[EntryStatus]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,7 +218,7 @@ class EntriesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Entry]:
+    ) -> Entry:
         """
         Deny an entry
 
@@ -278,7 +278,7 @@ class AsyncEntriesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Entry]:
+    ) -> Entry:
         """
         Retrieves an entry by ID
 
@@ -318,7 +318,7 @@ class AsyncEntriesResource(AsyncAPIResource):
         order: Optional[Literal["id", "created_at"]] | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[Optional[EntryStatus]]] | Omit = omit,
+        statuses: Optional[List[EntryStatus]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -437,7 +437,7 @@ class AsyncEntriesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Entry]:
+    ) -> Entry:
         """
         Deny an entry
 

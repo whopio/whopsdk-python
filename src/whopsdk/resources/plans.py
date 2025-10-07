@@ -80,7 +80,7 @@ class PlansResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Plan]:
+    ) -> Plan:
         """
         Create a new Plan
 
@@ -174,7 +174,7 @@ class PlansResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Plan]:
+    ) -> Plan:
         """
         Retrieves a plan by ID
 
@@ -225,7 +225,7 @@ class PlansResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Plan]:
+    ) -> Plan:
         """
         Update an existing Plan
 
@@ -313,10 +313,10 @@ class PlansResource(SyncAPIResource):
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]]
         | Omit = omit,
-        plan_types: Optional[List[Optional[PlanType]]] | Omit = omit,
+        plan_types: Optional[List[PlanType]] | Omit = omit,
         product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        release_methods: Optional[List[Optional[ReleaseMethod]]] | Omit = omit,
-        visibilities: Optional[List[Optional[VisibilityFilter]]] | Omit = omit,
+        release_methods: Optional[List[ReleaseMethod]] | Omit = omit,
+        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -400,7 +400,7 @@ class PlansResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[PlanDeleteResponse]:
+    ) -> PlanDeleteResponse:
         """
         Delete an existing Plan
 
@@ -474,7 +474,7 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Plan]:
+    ) -> Plan:
         """
         Create a new Plan
 
@@ -568,7 +568,7 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Plan]:
+    ) -> Plan:
         """
         Retrieves a plan by ID
 
@@ -619,7 +619,7 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Plan]:
+    ) -> Plan:
         """
         Update an existing Plan
 
@@ -707,10 +707,10 @@ class AsyncPlansResource(AsyncAPIResource):
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]]
         | Omit = omit,
-        plan_types: Optional[List[Optional[PlanType]]] | Omit = omit,
+        plan_types: Optional[List[PlanType]] | Omit = omit,
         product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        release_methods: Optional[List[Optional[ReleaseMethod]]] | Omit = omit,
-        visibilities: Optional[List[Optional[VisibilityFilter]]] | Omit = omit,
+        release_methods: Optional[List[ReleaseMethod]] | Omit = omit,
+        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -794,7 +794,7 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[PlanDeleteResponse]:
+    ) -> PlanDeleteResponse:
         """
         Delete an existing Plan
 

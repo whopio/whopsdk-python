@@ -42,8 +42,8 @@ class ProductTaxCode(BaseModel):
     name: str
     """The name of the product tax code."""
 
-    product_type: Optional[Literal["physical", "digital", "services"]] = None
-    """The product_type of the ProductTaxCode"""
+    product_type: Literal["physical", "digital", "services"]
+    """The type of product this tax code applies to."""
 
 
 class Product(BaseModel):
@@ -59,8 +59,8 @@ class Product(BaseModel):
     created_at: int
     """When the access pass was created."""
 
-    custom_cta: Optional[CustomCta] = None
-    """The different types of custom CTAs that can be selected."""
+    custom_cta: CustomCta
+    """The custom call to action for the access pass."""
 
     custom_cta_url: Optional[str] = None
     """The custom call to action URL for the access pass, if any."""
@@ -77,8 +77,8 @@ class Product(BaseModel):
     marketplace global affiliate program.
     """
 
-    global_affiliate_status: Optional[GlobalAffiliateStatus] = None
-    """The different statuses of the global affiliate program for an access pass."""
+    global_affiliate_status: GlobalAffiliateStatus
+    """The status of the global affiliate program for this access pass."""
 
     headline: Optional[str] = None
     """The headline of the access pass."""
@@ -92,8 +92,8 @@ class Product(BaseModel):
     marketplace member affiliate program.
     """
 
-    member_affiliate_status: Optional[GlobalAffiliateStatus] = None
-    """The different statuses of the global affiliate program for an access pass."""
+    member_affiliate_status: GlobalAffiliateStatus
+    """The status of the member affiliate program for this access pass."""
 
     member_count: int
     """The number of active users for this access pass."""
@@ -119,5 +119,5 @@ class Product(BaseModel):
     verified: bool
     """Whether this product is Whop verified."""
 
-    visibility: Optional[Visibility] = None
-    """Visibility of a resource"""
+    visibility: Visibility
+    """This access pass will/will not be displayed publicly."""
