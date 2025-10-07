@@ -147,7 +147,7 @@ class PlanOptions(TypedDict, total=False):
     """The type of plan that can be attached to an access pass"""
 
     release_method: Optional[ReleaseMethod]
-    """The methods of how a plan can be released (including raffles and waitlists)."""
+    """The methods of how a plan can be released."""
 
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period."""
