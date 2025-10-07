@@ -24,6 +24,7 @@ from ..types.shared.app import App
 from ..types.shared.direction import Direction
 from ..types.app_list_response import AppListResponse
 from ..types.shared.app_statuses import AppStatuses
+from ..types.shared.app_view_type import AppViewType
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
 
@@ -241,7 +242,7 @@ class AppsResource(SyncAPIResource):
         | Omit = omit,
         query: Optional[str] | Omit = omit,
         verified_apps_only: Optional[bool] | Omit = omit,
-        view_type: Optional[Literal["hub", "discover", "dash", "dashboard", "analytics"]] | Omit = omit,
+        view_type: Optional[AppViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -523,7 +524,7 @@ class AsyncAppsResource(AsyncAPIResource):
         | Omit = omit,
         query: Optional[str] | Omit = omit,
         verified_apps_only: Optional[bool] | Omit = omit,
-        view_type: Optional[Literal["hub", "discover", "dash", "dashboard", "analytics"]] | Omit = omit,
+        view_type: Optional[AppViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -4,7 +4,12 @@
 from whopsdk.types import (
     AccessPassType,
     App,
+    AppBuild,
+    AppBuildPlatforms,
+    AppBuildStatuses,
     AppStatuses,
+    AppViewType,
+    AuthorizedUserRoles,
     BusinessTypes,
     CollectionMethod,
     Company,
@@ -21,6 +26,8 @@ from whopsdk.types import (
     Invoice,
     InvoiceListItem,
     InvoiceStatus,
+    Membership,
+    MembershipStatus,
     PageInfo,
     Plan,
     PlanType,
@@ -28,6 +35,7 @@ from whopsdk.types import (
     ProductListItem,
     ReleaseMethod,
     TaxType,
+    Transfer,
     Visibility,
     VisibilityFilter,
 )
@@ -150,3 +158,72 @@ Methods:
 - <code title="post /forum_posts">client.forum_posts.<a href="./src/whopsdk/resources/forum_posts.py">create</a>(\*\*<a href="src/whopsdk/types/forum_post_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/forum_post.py">ForumPost</a></code>
 - <code title="get /forum_posts/{id}">client.forum_posts.<a href="./src/whopsdk/resources/forum_posts.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/forum_post.py">ForumPost</a></code>
 - <code title="get /forum_posts">client.forum_posts.<a href="./src/whopsdk/resources/forum_posts.py">list</a>(\*\*<a href="src/whopsdk/types/forum_post_list_params.py">params</a>) -> <a href="./src/whopsdk/types/forum_post_list_response.py">SyncCursorPage[Optional[ForumPostListResponse]]</a></code>
+
+# Transfers
+
+Types:
+
+```python
+from whopsdk.types import TransferListResponse
+```
+
+Methods:
+
+- <code title="post /transfers">client.transfers.<a href="./src/whopsdk/resources/transfers.py">create</a>(\*\*<a href="src/whopsdk/types/transfer_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/transfer.py">Transfer</a></code>
+- <code title="get /transfers/{id}">client.transfers.<a href="./src/whopsdk/resources/transfers.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/transfer.py">Transfer</a></code>
+- <code title="get /transfers">client.transfers.<a href="./src/whopsdk/resources/transfers.py">list</a>(\*\*<a href="src/whopsdk/types/transfer_list_params.py">params</a>) -> <a href="./src/whopsdk/types/transfer_list_response.py">SyncCursorPage[Optional[TransferListResponse]]</a></code>
+
+# LedgerAccounts
+
+Types:
+
+```python
+from whopsdk.types import LedgerAccountRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /ledger_accounts/{id}">client.ledger_accounts.<a href="./src/whopsdk/resources/ledger_accounts.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/ledger_account_retrieve_response.py">LedgerAccountRetrieveResponse</a></code>
+
+# Memberships
+
+Types:
+
+```python
+from whopsdk.types import MembershipListResponse
+```
+
+Methods:
+
+- <code title="get /memberships/{id}">client.memberships.<a href="./src/whopsdk/resources/memberships.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/membership.py">Membership</a></code>
+- <code title="patch /memberships/{id}">client.memberships.<a href="./src/whopsdk/resources/memberships.py">update</a>(id, \*\*<a href="src/whopsdk/types/membership_update_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/membership.py">Membership</a></code>
+- <code title="get /memberships">client.memberships.<a href="./src/whopsdk/resources/memberships.py">list</a>(\*\*<a href="src/whopsdk/types/membership_list_params.py">params</a>) -> <a href="./src/whopsdk/types/membership_list_response.py">SyncCursorPage[Optional[MembershipListResponse]]</a></code>
+- <code title="post /memberships/{id}/cancel">client.memberships.<a href="./src/whopsdk/resources/memberships.py">cancel</a>(id, \*\*<a href="src/whopsdk/types/membership_cancel_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/membership.py">Membership</a></code>
+
+# AuthorizedUsers
+
+Types:
+
+```python
+from whopsdk.types import AuthorizedUserRetrieveResponse, AuthorizedUserListResponse
+```
+
+Methods:
+
+- <code title="get /authorized_users/{id}">client.authorized_users.<a href="./src/whopsdk/resources/authorized_users.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/authorized_user_retrieve_response.py">AuthorizedUserRetrieveResponse</a></code>
+- <code title="get /authorized_users">client.authorized_users.<a href="./src/whopsdk/resources/authorized_users.py">list</a>(\*\*<a href="src/whopsdk/types/authorized_user_list_params.py">params</a>) -> <a href="./src/whopsdk/types/authorized_user_list_response.py">SyncCursorPage[Optional[AuthorizedUserListResponse]]</a></code>
+
+# AppBuilds
+
+Types:
+
+```python
+from whopsdk.types import AppBuildListResponse
+```
+
+Methods:
+
+- <code title="post /app_builds">client.app_builds.<a href="./src/whopsdk/resources/app_builds.py">create</a>(\*\*<a href="src/whopsdk/types/app_build_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/app_build.py">AppBuild</a></code>
+- <code title="get /app_builds/{id}">client.app_builds.<a href="./src/whopsdk/resources/app_builds.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/app_build.py">AppBuild</a></code>
+- <code title="get /app_builds">client.app_builds.<a href="./src/whopsdk/resources/app_builds.py">list</a>(\*\*<a href="src/whopsdk/types/app_build_list_params.py">params</a>) -> <a href="./src/whopsdk/types/app_build_list_response.py">SyncCursorPage[Optional[AppBuildListResponse]]</a></code>
+- <code title="post /app_builds/{id}/promote">client.app_builds.<a href="./src/whopsdk/resources/app_builds.py">promote</a>(id) -> <a href="./src/whopsdk/types/shared/app_build.py">AppBuild</a></code>

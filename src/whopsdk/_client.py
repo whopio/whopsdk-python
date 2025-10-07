@@ -29,7 +29,12 @@ from .resources import (
     products,
     webhooks,
     companies,
+    transfers,
+    app_builds,
     forum_posts,
+    memberships,
+    ledger_accounts,
+    authorized_users,
     course_lesson_interactions,
 )
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
@@ -53,6 +58,11 @@ class Whopsdk(SyncAPIClient):
     plans: plans.PlansResource
     entries: entries.EntriesResource
     forum_posts: forum_posts.ForumPostsResource
+    transfers: transfers.TransfersResource
+    ledger_accounts: ledger_accounts.LedgerAccountsResource
+    memberships: memberships.MembershipsResource
+    authorized_users: authorized_users.AuthorizedUsersResource
+    app_builds: app_builds.AppBuildsResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -127,6 +137,11 @@ class Whopsdk(SyncAPIClient):
         self.plans = plans.PlansResource(self)
         self.entries = entries.EntriesResource(self)
         self.forum_posts = forum_posts.ForumPostsResource(self)
+        self.transfers = transfers.TransfersResource(self)
+        self.ledger_accounts = ledger_accounts.LedgerAccountsResource(self)
+        self.memberships = memberships.MembershipsResource(self)
+        self.authorized_users = authorized_users.AuthorizedUsersResource(self)
+        self.app_builds = app_builds.AppBuildsResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -247,6 +262,11 @@ class AsyncWhopsdk(AsyncAPIClient):
     plans: plans.AsyncPlansResource
     entries: entries.AsyncEntriesResource
     forum_posts: forum_posts.AsyncForumPostsResource
+    transfers: transfers.AsyncTransfersResource
+    ledger_accounts: ledger_accounts.AsyncLedgerAccountsResource
+    memberships: memberships.AsyncMembershipsResource
+    authorized_users: authorized_users.AsyncAuthorizedUsersResource
+    app_builds: app_builds.AsyncAppBuildsResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -321,6 +341,11 @@ class AsyncWhopsdk(AsyncAPIClient):
         self.plans = plans.AsyncPlansResource(self)
         self.entries = entries.AsyncEntriesResource(self)
         self.forum_posts = forum_posts.AsyncForumPostsResource(self)
+        self.transfers = transfers.AsyncTransfersResource(self)
+        self.ledger_accounts = ledger_accounts.AsyncLedgerAccountsResource(self)
+        self.memberships = memberships.AsyncMembershipsResource(self)
+        self.authorized_users = authorized_users.AsyncAuthorizedUsersResource(self)
+        self.app_builds = app_builds.AsyncAppBuildsResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -443,6 +468,11 @@ class WhopsdkWithRawResponse:
         self.plans = plans.PlansResourceWithRawResponse(client.plans)
         self.entries = entries.EntriesResourceWithRawResponse(client.entries)
         self.forum_posts = forum_posts.ForumPostsResourceWithRawResponse(client.forum_posts)
+        self.transfers = transfers.TransfersResourceWithRawResponse(client.transfers)
+        self.ledger_accounts = ledger_accounts.LedgerAccountsResourceWithRawResponse(client.ledger_accounts)
+        self.memberships = memberships.MembershipsResourceWithRawResponse(client.memberships)
+        self.authorized_users = authorized_users.AuthorizedUsersResourceWithRawResponse(client.authorized_users)
+        self.app_builds = app_builds.AppBuildsResourceWithRawResponse(client.app_builds)
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -459,6 +489,11 @@ class AsyncWhopsdkWithRawResponse:
         self.plans = plans.AsyncPlansResourceWithRawResponse(client.plans)
         self.entries = entries.AsyncEntriesResourceWithRawResponse(client.entries)
         self.forum_posts = forum_posts.AsyncForumPostsResourceWithRawResponse(client.forum_posts)
+        self.transfers = transfers.AsyncTransfersResourceWithRawResponse(client.transfers)
+        self.ledger_accounts = ledger_accounts.AsyncLedgerAccountsResourceWithRawResponse(client.ledger_accounts)
+        self.memberships = memberships.AsyncMembershipsResourceWithRawResponse(client.memberships)
+        self.authorized_users = authorized_users.AsyncAuthorizedUsersResourceWithRawResponse(client.authorized_users)
+        self.app_builds = app_builds.AsyncAppBuildsResourceWithRawResponse(client.app_builds)
 
 
 class WhopsdkWithStreamedResponse:
@@ -475,6 +510,11 @@ class WhopsdkWithStreamedResponse:
         self.plans = plans.PlansResourceWithStreamingResponse(client.plans)
         self.entries = entries.EntriesResourceWithStreamingResponse(client.entries)
         self.forum_posts = forum_posts.ForumPostsResourceWithStreamingResponse(client.forum_posts)
+        self.transfers = transfers.TransfersResourceWithStreamingResponse(client.transfers)
+        self.ledger_accounts = ledger_accounts.LedgerAccountsResourceWithStreamingResponse(client.ledger_accounts)
+        self.memberships = memberships.MembershipsResourceWithStreamingResponse(client.memberships)
+        self.authorized_users = authorized_users.AuthorizedUsersResourceWithStreamingResponse(client.authorized_users)
+        self.app_builds = app_builds.AppBuildsResourceWithStreamingResponse(client.app_builds)
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -491,6 +531,13 @@ class AsyncWhopsdkWithStreamedResponse:
         self.plans = plans.AsyncPlansResourceWithStreamingResponse(client.plans)
         self.entries = entries.AsyncEntriesResourceWithStreamingResponse(client.entries)
         self.forum_posts = forum_posts.AsyncForumPostsResourceWithStreamingResponse(client.forum_posts)
+        self.transfers = transfers.AsyncTransfersResourceWithStreamingResponse(client.transfers)
+        self.ledger_accounts = ledger_accounts.AsyncLedgerAccountsResourceWithStreamingResponse(client.ledger_accounts)
+        self.memberships = memberships.AsyncMembershipsResourceWithStreamingResponse(client.memberships)
+        self.authorized_users = authorized_users.AsyncAuthorizedUsersResourceWithStreamingResponse(
+            client.authorized_users
+        )
+        self.app_builds = app_builds.AsyncAppBuildsResourceWithStreamingResponse(client.app_builds)
 
 
 Client = Whopsdk
