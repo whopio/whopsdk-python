@@ -57,13 +57,13 @@ class Entry(BaseModel):
     """Responses collected from the user when submitting their entry."""
 
     plan: Optional[Plan] = None
-    """The plan (waitlist/raffle) the entry if for."""
+    """The waitlist plan the entry if for."""
 
     product: Optional[Product] = None
     """The access pass tied to this entry, if there is one."""
 
     status: Optional[EntryStatus] = None
-    """The status of an entry to a waitlist or raffle."""
+    """The status of an entry to a waitlist."""
 
     user: User
     """The user who created the entry."""

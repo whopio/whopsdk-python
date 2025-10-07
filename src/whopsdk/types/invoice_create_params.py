@@ -11,7 +11,7 @@ from .shared.visibility import Visibility
 from .shared.release_method import ReleaseMethod
 from .shared.collection_method import CollectionMethod
 
-__all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "PlanReleaseMethodSettings", "Product"]
+__all__ = ["InvoiceCreateParams", "Plan", "PlanCustomField", "Product"]
 
 
 class InvoiceCreateParams(TypedDict, total=False):
@@ -90,23 +90,6 @@ class PlanCustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class PlanReleaseMethodSettings(TypedDict, total=False):
-    expires_at: Optional[int]
-    """When the raffle will expire"""
-
-    max_entries: Optional[int]
-    """The maximum number of entries allowed for the raffle or waitlist"""
-
-    nft_weighted_entries: Optional[bool]
-    """
-    If this is enabled, the raffle will get entries based off of how many NFTs the
-    user owns
-    """
-
-    starts_at: Optional[int]
-    """When the raffle will start"""
-
-
 class Plan(TypedDict, total=False):
     ach_payments: Optional[bool]
     """Whether or not ACH payments are accepted"""
@@ -154,10 +137,7 @@ class Plan(TypedDict, total=False):
     """The URL to redirect the customer to after purchase."""
 
     release_method: Optional[ReleaseMethod]
-    """The methods of how a plan can be released (including raffles and waitlists)."""
-
-    release_method_settings: Optional[PlanReleaseMethodSettings]
-    """Configurable settings on how this plan is released."""
+    """The methods of how a plan can be released."""
 
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period."""

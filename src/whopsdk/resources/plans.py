@@ -64,12 +64,14 @@ class PlansResource(SyncAPIResource):
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
+        image: Optional[plan_create_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -103,6 +105,8 @@ class PlansResource(SyncAPIResource):
 
           expiration_days: The interval at which the plan charges (expiration plans).
 
+          image: An image for the plan. This will be visible on the product page to customers.
+
           initial_price: An additional amount charged upon first purchase.
 
           internal_notes: A personal description or notes section for the business.
@@ -112,9 +116,11 @@ class PlansResource(SyncAPIResource):
 
           plan_type: The type of plan that can be attached to an access pass
 
-          release_method: The methods of how a plan can be released (including raffles and waitlists).
+          release_method: The methods of how a plan can be released.
 
           renewal_price: The amount the customer is charged every billing period.
+
+          title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
@@ -139,12 +145,14 @@ class PlansResource(SyncAPIResource):
                     "custom_fields": custom_fields,
                     "description": description,
                     "expiration_days": expiration_days,
+                    "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "override_tax_type": override_tax_type,
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
+                    "title": title,
                     "trial_period_days": trial_period_days,
                     "visibility": visibility,
                 },
@@ -202,11 +210,13 @@ class PlansResource(SyncAPIResource):
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
+        image: Optional[plan_update_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -236,6 +246,8 @@ class PlansResource(SyncAPIResource):
 
           expiration_days: The interval at which the plan charges (expiration plans).
 
+          image: An image for the plan. This will be visible on the product page to customers.
+
           initial_price: An additional amount charged upon first purchase.
 
           internal_notes: A personal description or notes section for the business.
@@ -246,6 +258,8 @@ class PlansResource(SyncAPIResource):
               up)
 
           renewal_price: The amount the customer is charged every billing period.
+
+          title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
@@ -270,11 +284,13 @@ class PlansResource(SyncAPIResource):
                     "custom_fields": custom_fields,
                     "description": description,
                     "expiration_days": expiration_days,
+                    "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "renewal_price": renewal_price,
+                    "title": title,
                     "trial_period_days": trial_period_days,
                     "visibility": visibility,
                 },
@@ -442,12 +458,14 @@ class AsyncPlansResource(AsyncAPIResource):
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
+        image: Optional[plan_create_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -481,6 +499,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           expiration_days: The interval at which the plan charges (expiration plans).
 
+          image: An image for the plan. This will be visible on the product page to customers.
+
           initial_price: An additional amount charged upon first purchase.
 
           internal_notes: A personal description or notes section for the business.
@@ -490,9 +510,11 @@ class AsyncPlansResource(AsyncAPIResource):
 
           plan_type: The type of plan that can be attached to an access pass
 
-          release_method: The methods of how a plan can be released (including raffles and waitlists).
+          release_method: The methods of how a plan can be released.
 
           renewal_price: The amount the customer is charged every billing period.
+
+          title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
@@ -517,12 +539,14 @@ class AsyncPlansResource(AsyncAPIResource):
                     "custom_fields": custom_fields,
                     "description": description,
                     "expiration_days": expiration_days,
+                    "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "override_tax_type": override_tax_type,
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
+                    "title": title,
                     "trial_period_days": trial_period_days,
                     "visibility": visibility,
                 },
@@ -580,11 +604,13 @@ class AsyncPlansResource(AsyncAPIResource):
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
+        image: Optional[plan_update_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -614,6 +640,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           expiration_days: The interval at which the plan charges (expiration plans).
 
+          image: An image for the plan. This will be visible on the product page to customers.
+
           initial_price: An additional amount charged upon first purchase.
 
           internal_notes: A personal description or notes section for the business.
@@ -624,6 +652,8 @@ class AsyncPlansResource(AsyncAPIResource):
               up)
 
           renewal_price: The amount the customer is charged every billing period.
+
+          title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
@@ -648,11 +678,13 @@ class AsyncPlansResource(AsyncAPIResource):
                     "custom_fields": custom_fields,
                     "description": description,
                     "expiration_days": expiration_days,
+                    "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "renewal_price": renewal_price,
+                    "title": title,
                     "trial_period_days": trial_period_days,
                     "visibility": visibility,
                 },

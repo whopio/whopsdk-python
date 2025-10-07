@@ -104,7 +104,7 @@ class Plan(BaseModel):
     """The direct link to purchase the access pass."""
 
     release_method: Optional[ReleaseMethod] = None
-    """The methods of how a plan can be released (including raffles and waitlists)."""
+    """The methods of how a plan can be released."""
 
     renewal_price: float
     """The price a person has to pay for a plan on the renewal purchase."""
