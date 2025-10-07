@@ -6,6 +6,7 @@ from typing import Optional
 from typing_extensions import Literal, TypedDict
 
 from .shared.direction import Direction
+from .shared.app_view_type import AppViewType
 
 __all__ = ["AppListParams"]
 
@@ -49,5 +50,5 @@ class AppListParams(TypedDict, total=False):
     Use this to populate a 'featured apps' section on the app store.
     """
 
-    view_type: Optional[Literal["hub", "discover", "dash", "dashboard", "analytics"]]
+    view_type: Optional[AppViewType]
     """The different types of an app view"""
