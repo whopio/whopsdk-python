@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-from .shared.currency import Currency
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
 from .shared.release_method import ReleaseMethod
@@ -94,20 +93,8 @@ class PlanCustomField(TypedDict, total=False):
 
 
 class Plan(TypedDict, total=False):
-    ach_payments: Optional[bool]
-    """Whether or not ACH payments are accepted"""
-
-    base_currency: Optional[Currency]
-    """The available currencies on the platform"""
-
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
-
-    card_payments: Optional[bool]
-    """Whether or not card payments are accepted"""
-
-    coinbase_commerce_accepted: Optional[bool]
-    """Marks whether coinbase commerce payments are/aren't accepted."""
 
     custom_fields: Optional[Iterable[PlanCustomField]]
     """An array of custom field objects."""
@@ -124,20 +111,8 @@ class Plan(TypedDict, total=False):
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
 
-    offer_cancel_discount: Optional[bool]
-    """Whether or not to offer a discount to cancel a subscription."""
-
-    paypal_accepted: Optional[bool]
-    """Marks whether paypal payments are/aren't accepted."""
-
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to an access pass"""
-
-    platform_balance_accepted: Optional[bool]
-    """Marks whether platform balance payments are/aren't accepted."""
-
-    redirect_url: Optional[str]
-    """The URL to redirect the customer to after purchase."""
 
     release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released."""
@@ -145,23 +120,8 @@ class Plan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period."""
 
-    split_pay_required_payments: Optional[int]
-    """The number of payments required before pausing the subscription."""
-
-    splitit_accepted: Optional[bool]
-    """
-    Marks whether payments using splitit, a payment processor, are/aren't accepted
-    for the plan.
-    """
-
-    stock: Optional[int]
-    """The number of units available for purchase."""
-
     trial_period_days: Optional[int]
     """The number of free trial days added before a renewal plan."""
-
-    unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

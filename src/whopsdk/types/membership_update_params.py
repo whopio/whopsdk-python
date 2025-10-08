@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import TypedDict
 
 __all__ = ["MembershipUpdateParams"]
 
 
 class MembershipUpdateParams(TypedDict, total=False):
-    metadata: Optional[object]
+    metadata: Optional[Dict[str, object]]
     """The metadata to update the membership with."""

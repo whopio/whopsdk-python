@@ -100,7 +100,7 @@ class Plan(BaseModel):
     product: Optional[Product] = None
     """The access pass for the plan."""
 
-    purchase_link: str
+    purchase_url: str
     """The direct link to purchase the access pass."""
 
     release_method: ReleaseMethod

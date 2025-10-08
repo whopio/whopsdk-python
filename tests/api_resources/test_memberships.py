@@ -76,7 +76,7 @@ class TestMemberships:
     def test_method_update_with_all_params(self, client: Whopsdk) -> None:
         membership = client.memberships.update(
             id="mem_xxxxxxxxxxxxxx",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -281,7 +281,7 @@ class TestAsyncMemberships:
     async def test_method_update_with_all_params(self, async_client: AsyncWhopsdk) -> None:
         membership = await async_client.memberships.update(
             id="mem_xxxxxxxxxxxxxx",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Membership, membership, path=["response"])
 
