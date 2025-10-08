@@ -36,6 +36,7 @@ from .resources import (
     memberships,
     ledger_accounts,
     authorized_users,
+    checkout_configurations,
     course_lesson_interactions,
 )
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
@@ -65,6 +66,7 @@ class Whopsdk(SyncAPIClient):
     authorized_users: authorized_users.AuthorizedUsersResource
     app_builds: app_builds.AppBuildsResource
     shipments: shipments.ShipmentsResource
+    checkout_configurations: checkout_configurations.CheckoutConfigurationsResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -145,6 +147,7 @@ class Whopsdk(SyncAPIClient):
         self.authorized_users = authorized_users.AuthorizedUsersResource(self)
         self.app_builds = app_builds.AppBuildsResource(self)
         self.shipments = shipments.ShipmentsResource(self)
+        self.checkout_configurations = checkout_configurations.CheckoutConfigurationsResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -271,6 +274,7 @@ class AsyncWhopsdk(AsyncAPIClient):
     authorized_users: authorized_users.AsyncAuthorizedUsersResource
     app_builds: app_builds.AsyncAppBuildsResource
     shipments: shipments.AsyncShipmentsResource
+    checkout_configurations: checkout_configurations.AsyncCheckoutConfigurationsResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -351,6 +355,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         self.authorized_users = authorized_users.AsyncAuthorizedUsersResource(self)
         self.app_builds = app_builds.AsyncAppBuildsResource(self)
         self.shipments = shipments.AsyncShipmentsResource(self)
+        self.checkout_configurations = checkout_configurations.AsyncCheckoutConfigurationsResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -479,6 +484,9 @@ class WhopsdkWithRawResponse:
         self.authorized_users = authorized_users.AuthorizedUsersResourceWithRawResponse(client.authorized_users)
         self.app_builds = app_builds.AppBuildsResourceWithRawResponse(client.app_builds)
         self.shipments = shipments.ShipmentsResourceWithRawResponse(client.shipments)
+        self.checkout_configurations = checkout_configurations.CheckoutConfigurationsResourceWithRawResponse(
+            client.checkout_configurations
+        )
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -501,6 +509,9 @@ class AsyncWhopsdkWithRawResponse:
         self.authorized_users = authorized_users.AsyncAuthorizedUsersResourceWithRawResponse(client.authorized_users)
         self.app_builds = app_builds.AsyncAppBuildsResourceWithRawResponse(client.app_builds)
         self.shipments = shipments.AsyncShipmentsResourceWithRawResponse(client.shipments)
+        self.checkout_configurations = checkout_configurations.AsyncCheckoutConfigurationsResourceWithRawResponse(
+            client.checkout_configurations
+        )
 
 
 class WhopsdkWithStreamedResponse:
@@ -523,6 +534,9 @@ class WhopsdkWithStreamedResponse:
         self.authorized_users = authorized_users.AuthorizedUsersResourceWithStreamingResponse(client.authorized_users)
         self.app_builds = app_builds.AppBuildsResourceWithStreamingResponse(client.app_builds)
         self.shipments = shipments.ShipmentsResourceWithStreamingResponse(client.shipments)
+        self.checkout_configurations = checkout_configurations.CheckoutConfigurationsResourceWithStreamingResponse(
+            client.checkout_configurations
+        )
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -547,6 +561,9 @@ class AsyncWhopsdkWithStreamedResponse:
         )
         self.app_builds = app_builds.AsyncAppBuildsResourceWithStreamingResponse(client.app_builds)
         self.shipments = shipments.AsyncShipmentsResourceWithStreamingResponse(client.shipments)
+        self.checkout_configurations = checkout_configurations.AsyncCheckoutConfigurationsResourceWithStreamingResponse(
+            client.checkout_configurations
+        )
 
 
 Client = Whopsdk
