@@ -7,6 +7,7 @@ from .company import Company as Company
 from .invoice import Invoice as Invoice
 from .product import Product as Product
 from .currency import Currency as Currency
+from .shipment import Shipment as Shipment
 from .tax_type import TaxType as TaxType
 from .transfer import Transfer as Transfer
 from .app_build import AppBuild as AppBuild
@@ -24,13 +25,16 @@ from .business_types import BusinessTypes as BusinessTypes
 from .industry_types import IndustryTypes as IndustryTypes
 from .invoice_status import InvoiceStatus as InvoiceStatus
 from .release_method import ReleaseMethod as ReleaseMethod
+from .shipment_status import ShipmentStatus as ShipmentStatus
 from .access_pass_type import AccessPassType as AccessPassType
+from .shipment_carrier import ShipmentCarrier as ShipmentCarrier
 from .collection_method import CollectionMethod as CollectionMethod
 from .invoice_list_item import InvoiceListItem as InvoiceListItem
 from .membership_status import MembershipStatus as MembershipStatus
 from .product_list_item import ProductListItem as ProductListItem
 from .visibility_filter import VisibilityFilter as VisibilityFilter
 from .app_build_statuses import AppBuildStatuses as AppBuildStatuses
+from .shipment_substatus import ShipmentSubstatus as ShipmentSubstatus
 from .app_build_platforms import AppBuildPlatforms as AppBuildPlatforms
 from .authorized_user_roles import AuthorizedUserRoles as AuthorizedUserRoles
 from .global_affiliate_status import GlobalAffiliateStatus as GlobalAffiliateStatus
