@@ -138,9 +138,9 @@ class ShipmentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         payment_id: Optional[str] | Omit = omit,
@@ -161,11 +161,11 @@ class ShipmentsResource(SyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the company
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the company
 
           first: Returns the first _n_ elements from the list.
 
@@ -193,9 +193,9 @@ class ShipmentsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "first": first,
                         "last": last,
                         "payment_id": payment_id,
@@ -321,9 +321,9 @@ class AsyncShipmentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         payment_id: Optional[str] | Omit = omit,
@@ -344,11 +344,11 @@ class AsyncShipmentsResource(AsyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the company
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the company
 
           first: Returns the first _n_ elements from the list.
 
@@ -376,9 +376,9 @@ class AsyncShipmentsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "first": first,
                         "last": last,
                         "payment_id": payment_id,
