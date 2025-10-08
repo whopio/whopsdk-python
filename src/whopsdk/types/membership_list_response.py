@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 
 from .._models import BaseModel
 from .shared.currency import Currency
@@ -76,10 +76,13 @@ class MembershipListResponse(BaseModel):
     Software app.
     """
 
+    manage_url: Optional[str] = None
+    """The URL for the customer to manage their membership."""
+
     member: Optional[Member] = None
     """The Member that this Membership belongs to."""
 
-    metadata: object
+    metadata: Dict[str, object]
     """A JSON object used to store software licensing information. Ex. HWID"""
 
     plan: Plan
