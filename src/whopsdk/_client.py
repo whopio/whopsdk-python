@@ -29,6 +29,7 @@ from .resources import (
     products,
     webhooks,
     companies,
+    shipments,
     transfers,
     app_builds,
     forum_posts,
@@ -63,6 +64,7 @@ class Whopsdk(SyncAPIClient):
     memberships: memberships.MembershipsResource
     authorized_users: authorized_users.AuthorizedUsersResource
     app_builds: app_builds.AppBuildsResource
+    shipments: shipments.ShipmentsResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -142,6 +144,7 @@ class Whopsdk(SyncAPIClient):
         self.memberships = memberships.MembershipsResource(self)
         self.authorized_users = authorized_users.AuthorizedUsersResource(self)
         self.app_builds = app_builds.AppBuildsResource(self)
+        self.shipments = shipments.ShipmentsResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -267,6 +270,7 @@ class AsyncWhopsdk(AsyncAPIClient):
     memberships: memberships.AsyncMembershipsResource
     authorized_users: authorized_users.AsyncAuthorizedUsersResource
     app_builds: app_builds.AsyncAppBuildsResource
+    shipments: shipments.AsyncShipmentsResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -346,6 +350,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         self.memberships = memberships.AsyncMembershipsResource(self)
         self.authorized_users = authorized_users.AsyncAuthorizedUsersResource(self)
         self.app_builds = app_builds.AsyncAppBuildsResource(self)
+        self.shipments = shipments.AsyncShipmentsResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -473,6 +478,7 @@ class WhopsdkWithRawResponse:
         self.memberships = memberships.MembershipsResourceWithRawResponse(client.memberships)
         self.authorized_users = authorized_users.AuthorizedUsersResourceWithRawResponse(client.authorized_users)
         self.app_builds = app_builds.AppBuildsResourceWithRawResponse(client.app_builds)
+        self.shipments = shipments.ShipmentsResourceWithRawResponse(client.shipments)
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -494,6 +500,7 @@ class AsyncWhopsdkWithRawResponse:
         self.memberships = memberships.AsyncMembershipsResourceWithRawResponse(client.memberships)
         self.authorized_users = authorized_users.AsyncAuthorizedUsersResourceWithRawResponse(client.authorized_users)
         self.app_builds = app_builds.AsyncAppBuildsResourceWithRawResponse(client.app_builds)
+        self.shipments = shipments.AsyncShipmentsResourceWithRawResponse(client.shipments)
 
 
 class WhopsdkWithStreamedResponse:
@@ -515,6 +522,7 @@ class WhopsdkWithStreamedResponse:
         self.memberships = memberships.MembershipsResourceWithStreamingResponse(client.memberships)
         self.authorized_users = authorized_users.AuthorizedUsersResourceWithStreamingResponse(client.authorized_users)
         self.app_builds = app_builds.AppBuildsResourceWithStreamingResponse(client.app_builds)
+        self.shipments = shipments.ShipmentsResourceWithStreamingResponse(client.shipments)
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -538,6 +546,7 @@ class AsyncWhopsdkWithStreamedResponse:
             client.authorized_users
         )
         self.app_builds = app_builds.AsyncAppBuildsResourceWithStreamingResponse(client.app_builds)
+        self.shipments = shipments.AsyncShipmentsResourceWithStreamingResponse(client.shipments)
 
 
 Client = Whopsdk

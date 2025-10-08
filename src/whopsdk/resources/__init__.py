@@ -49,6 +49,14 @@ from .companies import (
     CompaniesResourceWithStreamingResponse,
     AsyncCompaniesResourceWithStreamingResponse,
 )
+from .shipments import (
+    ShipmentsResource,
+    AsyncShipmentsResource,
+    ShipmentsResourceWithRawResponse,
+    AsyncShipmentsResourceWithRawResponse,
+    ShipmentsResourceWithStreamingResponse,
+    AsyncShipmentsResourceWithStreamingResponse,
+)
 from .transfers import (
     TransfersResource,
     AsyncTransfersResource,
@@ -187,4 +195,10 @@ __all__ = [
     "AsyncAppBuildsResourceWithRawResponse",
     "AppBuildsResourceWithStreamingResponse",
     "AsyncAppBuildsResourceWithStreamingResponse",
+    "ShipmentsResource",
+    "AsyncShipmentsResource",
+    "ShipmentsResourceWithRawResponse",
+    "AsyncShipmentsResourceWithRawResponse",
+    "ShipmentsResourceWithStreamingResponse",
+    "AsyncShipmentsResourceWithStreamingResponse",
 ]

@@ -34,6 +34,10 @@ from whopsdk.types import (
     Product,
     ProductListItem,
     ReleaseMethod,
+    Shipment,
+    ShipmentCarrier,
+    ShipmentStatus,
+    ShipmentSubstatus,
     TaxType,
     Transfer,
     Visibility,
@@ -227,3 +231,17 @@ Methods:
 - <code title="get /app_builds/{id}">client.app_builds.<a href="./src/whopsdk/resources/app_builds.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/app_build.py">AppBuild</a></code>
 - <code title="get /app_builds">client.app_builds.<a href="./src/whopsdk/resources/app_builds.py">list</a>(\*\*<a href="src/whopsdk/types/app_build_list_params.py">params</a>) -> <a href="./src/whopsdk/types/app_build_list_response.py">SyncCursorPage[Optional[AppBuildListResponse]]</a></code>
 - <code title="post /app_builds/{id}/promote">client.app_builds.<a href="./src/whopsdk/resources/app_builds.py">promote</a>(id) -> <a href="./src/whopsdk/types/shared/app_build.py">AppBuild</a></code>
+
+# Shipments
+
+Types:
+
+```python
+from whopsdk.types import ShipmentListResponse
+```
+
+Methods:
+
+- <code title="post /shipments">client.shipments.<a href="./src/whopsdk/resources/shipments.py">create</a>(\*\*<a href="src/whopsdk/types/shipment_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/shipment.py">Shipment</a></code>
+- <code title="get /shipments/{id}">client.shipments.<a href="./src/whopsdk/resources/shipments.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/shipment.py">Shipment</a></code>
+- <code title="get /shipments">client.shipments.<a href="./src/whopsdk/resources/shipments.py">list</a>(\*\*<a href="src/whopsdk/types/shipment_list_params.py">params</a>) -> <a href="./src/whopsdk/types/shipment_list_response.py">SyncCursorPage[Optional[ShipmentListResponse]]</a></code>
