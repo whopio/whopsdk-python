@@ -105,6 +105,14 @@ from .authorized_users import (
     AuthorizedUsersResourceWithStreamingResponse,
     AsyncAuthorizedUsersResourceWithStreamingResponse,
 )
+from .checkout_configurations import (
+    CheckoutConfigurationsResource,
+    AsyncCheckoutConfigurationsResource,
+    CheckoutConfigurationsResourceWithRawResponse,
+    AsyncCheckoutConfigurationsResourceWithRawResponse,
+    CheckoutConfigurationsResourceWithStreamingResponse,
+    AsyncCheckoutConfigurationsResourceWithStreamingResponse,
+)
 from .course_lesson_interactions import (
     CourseLessonInteractionsResource,
     AsyncCourseLessonInteractionsResource,
@@ -201,4 +209,10 @@ __all__ = [
     "AsyncShipmentsResourceWithRawResponse",
     "ShipmentsResourceWithStreamingResponse",
     "AsyncShipmentsResourceWithStreamingResponse",
+    "CheckoutConfigurationsResource",
+    "AsyncCheckoutConfigurationsResource",
+    "CheckoutConfigurationsResourceWithRawResponse",
+    "AsyncCheckoutConfigurationsResourceWithRawResponse",
+    "CheckoutConfigurationsResourceWithStreamingResponse",
+    "AsyncCheckoutConfigurationsResourceWithStreamingResponse",
 ]

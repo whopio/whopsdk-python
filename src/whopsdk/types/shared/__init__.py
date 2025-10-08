@@ -37,6 +37,7 @@ from .app_build_statuses import AppBuildStatuses as AppBuildStatuses
 from .shipment_substatus import ShipmentSubstatus as ShipmentSubstatus
 from .app_build_platforms import AppBuildPlatforms as AppBuildPlatforms
 from .authorized_user_roles import AuthorizedUserRoles as AuthorizedUserRoles
+from .checkout_configuration import CheckoutConfiguration as CheckoutConfiguration
 from .global_affiliate_status import GlobalAffiliateStatus as GlobalAffiliateStatus
 from .course_lesson_interaction import CourseLessonInteraction as CourseLessonInteraction
 from .course_lesson_interaction_list_item import CourseLessonInteractionListItem as CourseLessonInteractionListItem

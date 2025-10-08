@@ -11,6 +11,7 @@ from whopsdk.types import (
     AppViewType,
     AuthorizedUserRoles,
     BusinessTypes,
+    CheckoutConfiguration,
     CollectionMethod,
     Company,
     CourseLessonInteraction,
@@ -245,3 +246,17 @@ Methods:
 - <code title="post /shipments">client.shipments.<a href="./src/whopsdk/resources/shipments.py">create</a>(\*\*<a href="src/whopsdk/types/shipment_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/shipment.py">Shipment</a></code>
 - <code title="get /shipments/{id}">client.shipments.<a href="./src/whopsdk/resources/shipments.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/shipment.py">Shipment</a></code>
 - <code title="get /shipments">client.shipments.<a href="./src/whopsdk/resources/shipments.py">list</a>(\*\*<a href="src/whopsdk/types/shipment_list_params.py">params</a>) -> <a href="./src/whopsdk/types/shipment_list_response.py">SyncCursorPage[Optional[ShipmentListResponse]]</a></code>
+
+# CheckoutConfigurations
+
+Types:
+
+```python
+from whopsdk.types import CheckoutConfigurationListResponse
+```
+
+Methods:
+
+- <code title="post /checkout_configurations">client.checkout_configurations.<a href="./src/whopsdk/resources/checkout_configurations.py">create</a>(\*\*<a href="src/whopsdk/types/checkout_configuration_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
+- <code title="get /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whopsdk/resources/checkout_configurations.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
+- <code title="get /checkout_configurations">client.checkout_configurations.<a href="./src/whopsdk/resources/checkout_configurations.py">list</a>(\*\*<a href="src/whopsdk/types/checkout_configuration_list_params.py">params</a>) -> <a href="./src/whopsdk/types/checkout_configuration_list_response.py">SyncCursorPage[Optional[CheckoutConfigurationListResponse]]</a></code>
