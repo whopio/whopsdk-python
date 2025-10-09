@@ -5,6 +5,7 @@ from .plan import Plan as Plan
 from .entry import Entry as Entry
 from .company import Company as Company
 from .invoice import Invoice as Invoice
+from .payment import Payment as Payment
 from .product import Product as Product
 from .currency import Currency as Currency
 from .shipment import Shipment as Shipment
@@ -17,6 +18,7 @@ from .plan_type import PlanType as PlanType
 from .custom_cta import CustomCta as CustomCta
 from .forum_post import ForumPost as ForumPost
 from .membership import Membership as Membership
+from .promo_type import PromoType as PromoType
 from .visibility import Visibility as Visibility
 from .app_statuses import AppStatuses as AppStatuses
 from .entry_status import EntryStatus as EntryStatus
@@ -27,6 +29,7 @@ from .business_types import BusinessTypes as BusinessTypes
 from .dms_post_types import DmsPostTypes as DmsPostTypes
 from .industry_types import IndustryTypes as IndustryTypes
 from .invoice_status import InvoiceStatus as InvoiceStatus
+from .receipt_status import ReceiptStatus as ReceiptStatus
 from .release_method import ReleaseMethod as ReleaseMethod
 from .shipment_status import ShipmentStatus as ShipmentStatus
 from .access_pass_type import AccessPassType as AccessPassType
@@ -41,6 +44,7 @@ from .shipment_substatus import ShipmentSubstatus as ShipmentSubstatus
 from .app_build_platforms import AppBuildPlatforms as AppBuildPlatforms
 from .authorized_user_roles import AuthorizedUserRoles as AuthorizedUserRoles
 from .checkout_configuration import CheckoutConfiguration as CheckoutConfiguration
+from .friendly_receipt_status import FriendlyReceiptStatus as FriendlyReceiptStatus
 from .global_affiliate_status import GlobalAffiliateStatus as GlobalAffiliateStatus
 from .course_lesson_interaction import CourseLessonInteraction as CourseLessonInteraction
 from .course_lesson_interaction_list_item import CourseLessonInteractionListItem as CourseLessonInteractionListItem

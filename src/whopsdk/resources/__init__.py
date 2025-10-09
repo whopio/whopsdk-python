@@ -48,6 +48,14 @@ from .messages import (
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
 )
+from .payments import (
+    PaymentsResource,
+    AsyncPaymentsResource,
+    PaymentsResourceWithRawResponse,
+    AsyncPaymentsResourceWithRawResponse,
+    PaymentsResourceWithStreamingResponse,
+    AsyncPaymentsResourceWithStreamingResponse,
+)
 from .products import (
     ProductsResource,
     AsyncProductsResource,
@@ -257,4 +265,10 @@ __all__ = [
     "AsyncUsersResourceWithRawResponse",
     "UsersResourceWithStreamingResponse",
     "AsyncUsersResourceWithStreamingResponse",
+    "PaymentsResource",
+    "AsyncPaymentsResource",
+    "PaymentsResourceWithRawResponse",
+    "AsyncPaymentsResourceWithRawResponse",
+    "PaymentsResourceWithStreamingResponse",
+    "AsyncPaymentsResourceWithStreamingResponse",
 ]

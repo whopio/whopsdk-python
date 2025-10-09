@@ -23,6 +23,7 @@ from whopsdk.types import (
     Entry,
     EntryStatus,
     ForumPost,
+    FriendlyReceiptStatus,
     GlobalAffiliateStatus,
     IndustryTypes,
     Invoice,
@@ -31,10 +32,13 @@ from whopsdk.types import (
     Membership,
     MembershipStatus,
     PageInfo,
+    Payment,
     Plan,
     PlanType,
     Product,
     ProductListItem,
+    PromoType,
+    ReceiptStatus,
     ReleaseMethod,
     Shipment,
     ShipmentCarrier,
@@ -301,3 +305,18 @@ from whopsdk.types import UserRetrieveResponse
 Methods:
 
 - <code title="get /users/{id}">client.users.<a href="./src/whopsdk/resources/users.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/user_retrieve_response.py">UserRetrieveResponse</a></code>
+
+# Payments
+
+Types:
+
+```python
+from whopsdk.types import PaymentListResponse
+```
+
+Methods:
+
+- <code title="get /payments/{id}">client.payments.<a href="./src/whopsdk/resources/payments.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/payment.py">Payment</a></code>
+- <code title="get /payments">client.payments.<a href="./src/whopsdk/resources/payments.py">list</a>(\*\*<a href="src/whopsdk/types/payment_list_params.py">params</a>) -> <a href="./src/whopsdk/types/payment_list_response.py">SyncCursorPage[Optional[PaymentListResponse]]</a></code>
+- <code title="post /payments/{id}/refund">client.payments.<a href="./src/whopsdk/resources/payments.py">refund</a>(id, \*\*<a href="src/whopsdk/types/payment_refund_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/payment.py">Payment</a></code>
+- <code title="post /payments/{id}/retry">client.payments.<a href="./src/whopsdk/resources/payments.py">retry</a>(id) -> <a href="./src/whopsdk/types/shared/payment.py">Payment</a></code>
