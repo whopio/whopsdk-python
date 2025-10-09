@@ -1,0 +1,83 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import List, Optional
+
+from .._models import BaseModel
+from .shared.dms_post_types import DmsPostTypes
+
+__all__ = ["MessageListResponse", "Poll", "PollOption", "PollVote", "ReactionCount", "User"]
+
+
+class PollOption(BaseModel):
+    id: str
+    """The ID of the poll option"""
+
+    text: str
+    """The text of the poll option"""
+
+
+class Poll(BaseModel):
+    options: Optional[List[PollOption]] = None
+    """The options for the poll"""
+
+
+class PollVote(BaseModel):
+    count: int
+    """The number of users who reacted"""
+
+    option_id: Optional[str] = None
+    """The reaction that was used"""
+
+
+class ReactionCount(BaseModel):
+    count: int
+    """The number of users who reacted"""
+
+    emoji: Optional[str] = None
+    """The emoji that was used in shortcode format (:heart:)"""
+
+
+class User(BaseModel):
+    id: str
+    """The internal ID of the user."""
+
+    name: Optional[str] = None
+    """The name of the user from their Whop account."""
+
+    username: str
+    """The username of the user from their Whop account."""
+
+
+class MessageListResponse(BaseModel):
+    id: str
+    """The unique identifier for the entity"""
+
+    content: Optional[str] = None
+    """The content of the message in Markdown format"""
+
+    is_edited: bool
+    """Whether the message has been edited"""
+
+    is_pinned: bool
+    """Whether this message is pinned"""
+
+    message_type: DmsPostTypes
+    """The type of post"""
+
+    poll: Optional[Poll] = None
+    """The poll for this message"""
+
+    poll_votes: List[PollVote]
+    """The reaction counts for this message"""
+
+    reaction_counts: List[ReactionCount]
+    """The reaction counts for this message"""
+
+    replying_to_message_id: Optional[str] = None
+    """The ID of the message this is replying to, if applicable"""
+
+    user: User
+    """The user who sent this message"""
+
+    view_count: Optional[int] = None
+    """The number of times this message has been viewed"""

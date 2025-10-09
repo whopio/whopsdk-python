@@ -19,6 +19,7 @@ from whopsdk.types import (
     Currency,
     CustomCta,
     Direction,
+    DmsPostTypes,
     Entry,
     EntryStatus,
     ForumPost,
@@ -43,6 +44,8 @@ from whopsdk.types import (
     Transfer,
     Visibility,
     VisibilityFilter,
+    WhoCanPost,
+    WhoCanReact,
 )
 ```
 
@@ -260,3 +263,29 @@ Methods:
 - <code title="post /checkout_configurations">client.checkout_configurations.<a href="./src/whopsdk/resources/checkout_configurations.py">create</a>(\*\*<a href="src/whopsdk/types/checkout_configuration_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
 - <code title="get /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whopsdk/resources/checkout_configurations.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
 - <code title="get /checkout_configurations">client.checkout_configurations.<a href="./src/whopsdk/resources/checkout_configurations.py">list</a>(\*\*<a href="src/whopsdk/types/checkout_configuration_list_params.py">params</a>) -> <a href="./src/whopsdk/types/checkout_configuration_list_response.py">SyncCursorPage[Optional[CheckoutConfigurationListResponse]]</a></code>
+
+# Messages
+
+Types:
+
+```python
+from whopsdk.types import MessageRetrieveResponse, MessageListResponse
+```
+
+Methods:
+
+- <code title="get /messages/{id}">client.messages.<a href="./src/whopsdk/resources/messages.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/message_retrieve_response.py">MessageRetrieveResponse</a></code>
+- <code title="get /messages">client.messages.<a href="./src/whopsdk/resources/messages.py">list</a>(\*\*<a href="src/whopsdk/types/message_list_params.py">params</a>) -> <a href="./src/whopsdk/types/message_list_response.py">SyncCursorPage[Optional[MessageListResponse]]</a></code>
+
+# ChatChannels
+
+Types:
+
+```python
+from whopsdk.types import ChatChannelRetrieveResponse, ChatChannelListResponse
+```
+
+Methods:
+
+- <code title="get /chat_channels/{id}">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/chat_channel_retrieve_response.py">ChatChannelRetrieveResponse</a></code>
+- <code title="get /chat_channels">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">list</a>(\*\*<a href="src/whopsdk/types/chat_channel_list_params.py">params</a>) -> <a href="./src/whopsdk/types/chat_channel_list_response.py">SyncCursorPage[Optional[ChatChannelListResponse]]</a></code>
