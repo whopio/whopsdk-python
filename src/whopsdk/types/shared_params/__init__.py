@@ -12,6 +12,7 @@ from .app_view_type import AppViewType as AppViewType
 from .business_types import BusinessTypes as BusinessTypes
 from .industry_types import IndustryTypes as IndustryTypes
 from .invoice_status import InvoiceStatus as InvoiceStatus
+from .receipt_status import ReceiptStatus as ReceiptStatus
 from .release_method import ReleaseMethod as ReleaseMethod
 from .access_pass_type import AccessPassType as AccessPassType
 from .collection_method import CollectionMethod as CollectionMethod
@@ -20,4 +21,5 @@ from .visibility_filter import VisibilityFilter as VisibilityFilter
 from .app_build_statuses import AppBuildStatuses as AppBuildStatuses
 from .app_build_platforms import AppBuildPlatforms as AppBuildPlatforms
 from .authorized_user_roles import AuthorizedUserRoles as AuthorizedUserRoles
+from .friendly_receipt_status import FriendlyReceiptStatus as FriendlyReceiptStatus
 from .global_affiliate_status import GlobalAffiliateStatus as GlobalAffiliateStatus
