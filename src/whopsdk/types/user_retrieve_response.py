@@ -1,0 +1,24 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import Optional
+
+from .._models import BaseModel
+
+__all__ = ["UserRetrieveResponse"]
+
+
+class UserRetrieveResponse(BaseModel):
+    id: str
+    """The internal ID of the user."""
+
+    bio: Optional[str] = None
+    """The user's bio"""
+
+    created_at: int
+    """When the user was created."""
+
+    name: Optional[str] = None
+    """The name of the user from their Whop account."""
+
+    username: str
+    """The username of the user from their Whop account."""
