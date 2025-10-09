@@ -78,6 +78,7 @@ from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
 from .shipment_list_response import ShipmentListResponse as ShipmentListResponse
 from .transfer_create_params import TransferCreateParams as TransferCreateParams
 from .transfer_list_response import TransferListResponse as TransferListResponse
+from .user_retrieve_response import UserRetrieveResponse as UserRetrieveResponse
 from .app_build_create_params import AppBuildCreateParams as AppBuildCreateParams
 from .app_build_list_response import AppBuildListResponse as AppBuildListResponse
 from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse

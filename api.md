@@ -289,3 +289,15 @@ Methods:
 
 - <code title="get /chat_channels/{id}">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/chat_channel_retrieve_response.py">ChatChannelRetrieveResponse</a></code>
 - <code title="get /chat_channels">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">list</a>(\*\*<a href="src/whopsdk/types/chat_channel_list_params.py">params</a>) -> <a href="./src/whopsdk/types/chat_channel_list_response.py">SyncCursorPage[Optional[ChatChannelListResponse]]</a></code>
+
+# Users
+
+Types:
+
+```python
+from whopsdk.types import UserRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /users/{id}">client.users.<a href="./src/whopsdk/resources/users.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/user_retrieve_response.py">UserRetrieveResponse</a></code>
