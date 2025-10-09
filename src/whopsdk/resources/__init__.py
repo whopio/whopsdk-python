@@ -32,6 +32,14 @@ from .invoices import (
     InvoicesResourceWithStreamingResponse,
     AsyncInvoicesResourceWithStreamingResponse,
 )
+from .messages import (
+    MessagesResource,
+    AsyncMessagesResource,
+    MessagesResourceWithRawResponse,
+    AsyncMessagesResourceWithRawResponse,
+    MessagesResourceWithStreamingResponse,
+    AsyncMessagesResourceWithStreamingResponse,
+)
 from .products import (
     ProductsResource,
     AsyncProductsResource,
@@ -88,6 +96,14 @@ from .memberships import (
     AsyncMembershipsResourceWithRawResponse,
     MembershipsResourceWithStreamingResponse,
     AsyncMembershipsResourceWithStreamingResponse,
+)
+from .chat_channels import (
+    ChatChannelsResource,
+    AsyncChatChannelsResource,
+    ChatChannelsResourceWithRawResponse,
+    AsyncChatChannelsResourceWithRawResponse,
+    ChatChannelsResourceWithStreamingResponse,
+    AsyncChatChannelsResourceWithStreamingResponse,
 )
 from .ledger_accounts import (
     LedgerAccountsResource,
@@ -215,4 +231,16 @@ __all__ = [
     "AsyncCheckoutConfigurationsResourceWithRawResponse",
     "CheckoutConfigurationsResourceWithStreamingResponse",
     "AsyncCheckoutConfigurationsResourceWithStreamingResponse",
+    "MessagesResource",
+    "AsyncMessagesResource",
+    "MessagesResourceWithRawResponse",
+    "AsyncMessagesResourceWithRawResponse",
+    "MessagesResourceWithStreamingResponse",
+    "AsyncMessagesResourceWithStreamingResponse",
+    "ChatChannelsResource",
+    "AsyncChatChannelsResource",
+    "ChatChannelsResourceWithRawResponse",
+    "AsyncChatChannelsResourceWithRawResponse",
+    "ChatChannelsResourceWithStreamingResponse",
+    "AsyncChatChannelsResourceWithStreamingResponse",
 ]
