@@ -31,5 +31,8 @@ class SupportChannelRetrieveResponse(BaseModel):
     customer_user: Optional[CustomerUser] = None
     """The customer user if this is a support chat"""
 
+    last_message_at: Optional[int] = None
+    """When the last message was sent"""
+
     resolved_at: Optional[int] = None
     """When the support ticket was resolved (null if unresolved)"""
