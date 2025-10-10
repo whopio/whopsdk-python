@@ -85,6 +85,9 @@ class Membership(BaseModel):
     metadata: Dict[str, object]
     """A JSON object used to store software licensing information. Ex. HWID"""
 
+    payment_collection_paused: bool
+    """Whether the membership's payments are currently paused."""
+
     plan: Plan
     """The Plan this Membership is for."""
 
