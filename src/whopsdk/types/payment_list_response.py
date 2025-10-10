@@ -9,7 +9,17 @@ from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
 from .shared.friendly_receipt_status import FriendlyReceiptStatus
 
-__all__ = ["PaymentListResponse", "BillingAddress", "Company", "Membership", "Plan", "Product", "PromoCode", "User"]
+__all__ = [
+    "PaymentListResponse",
+    "BillingAddress",
+    "Company",
+    "Member",
+    "Membership",
+    "Plan",
+    "Product",
+    "PromoCode",
+    "User",
+]
 
 
 class BillingAddress(BaseModel):
@@ -44,6 +54,14 @@ class Company(BaseModel):
 
     title: str
     """The written name of the company."""
+
+
+class Member(BaseModel):
+    id: str
+    """The ID of the member"""
+
+    phone: Optional[str] = None
+    """The phone number for the member, if available."""
 
 
 class Membership(BaseModel):
@@ -143,6 +161,9 @@ class PaymentListResponse(BaseModel):
 
     last_payment_attempt: Optional[int] = None
     """The time of the last payment attempt."""
+
+    member: Optional[Member] = None
+    """The member attached to this receipt."""
 
     membership: Optional[Membership] = None
     """The membership attached to this receipt."""

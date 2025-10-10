@@ -71,6 +71,7 @@ class PaymentsResource(SyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -140,6 +141,7 @@ class PaymentsResource(SyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -238,6 +240,7 @@ class PaymentsResource(SyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -283,6 +286,7 @@ class PaymentsResource(SyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -325,6 +329,7 @@ class PaymentsResource(SyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -388,6 +393,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -457,6 +463,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -555,6 +562,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -602,6 +610,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
@@ -644,6 +653,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `access_pass:basic:read`
         - `member:email:read`
         - `member:basic:read`
+        - `member:phone:read`
         - `promo_code:basic:read`
 
         Args:
