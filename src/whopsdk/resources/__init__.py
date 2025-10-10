@@ -137,6 +137,14 @@ from .authorized_users import (
     AuthorizedUsersResourceWithStreamingResponse,
     AsyncAuthorizedUsersResourceWithStreamingResponse,
 )
+from .support_channels import (
+    SupportChannelsResource,
+    AsyncSupportChannelsResource,
+    SupportChannelsResourceWithRawResponse,
+    AsyncSupportChannelsResourceWithRawResponse,
+    SupportChannelsResourceWithStreamingResponse,
+    AsyncSupportChannelsResourceWithStreamingResponse,
+)
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
     AsyncCheckoutConfigurationsResource,
@@ -271,4 +279,10 @@ __all__ = [
     "AsyncPaymentsResourceWithRawResponse",
     "PaymentsResourceWithStreamingResponse",
     "AsyncPaymentsResourceWithStreamingResponse",
+    "SupportChannelsResource",
+    "AsyncSupportChannelsResource",
+    "SupportChannelsResourceWithRawResponse",
+    "AsyncSupportChannelsResourceWithRawResponse",
+    "SupportChannelsResourceWithStreamingResponse",
+    "AsyncSupportChannelsResourceWithStreamingResponse",
 ]

@@ -5,6 +5,7 @@ from .plan import Plan as Plan
 from .entry import Entry as Entry
 from .company import Company as Company
 from .invoice import Invoice as Invoice
+from .message import Message as Message
 from .payment import Payment as Payment
 from .product import Product as Product
 from .currency import Currency as Currency

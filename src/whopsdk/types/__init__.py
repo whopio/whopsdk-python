@@ -8,6 +8,7 @@ from .shared import (
     Entry as Entry,
     Company as Company,
     Invoice as Invoice,
+    Message as Message,
     Payment as Payment,
     Product as Product,
     TaxType as TaxType,
@@ -73,6 +74,7 @@ from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .app_build_list_params import AppBuildListParams as AppBuildListParams
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
+from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_list_response import MessageListResponse as MessageListResponse
 from .payment_list_response import PaymentListResponse as PaymentListResponse
 from .payment_refund_params import PaymentRefundParams as PaymentRefundParams
@@ -96,17 +98,19 @@ from .forum_post_list_response import ForumPostListResponse as ForumPostListResp
 from .membership_cancel_params import MembershipCancelParams as MembershipCancelParams
 from .membership_list_response import MembershipListResponse as MembershipListResponse
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams
-from .message_retrieve_response import MessageRetrieveResponse as MessageRetrieveResponse
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
+from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
 from .authorized_user_list_response import AuthorizedUserListResponse as AuthorizedUserListResponse
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent as InvoiceCreatedWebhookEvent
+from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
 from .chat_channel_retrieve_response import ChatChannelRetrieveResponse as ChatChannelRetrieveResponse
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .ledger_account_retrieve_response import LedgerAccountRetrieveResponse as LedgerAccountRetrieveResponse
 from .authorized_user_retrieve_response import AuthorizedUserRetrieveResponse as AuthorizedUserRetrieveResponse
+from .support_channel_retrieve_response import SupportChannelRetrieveResponse as SupportChannelRetrieveResponse
 from .checkout_configuration_list_params import CheckoutConfigurationListParams as CheckoutConfigurationListParams
 from .checkout_configuration_create_params import CheckoutConfigurationCreateParams as CheckoutConfigurationCreateParams
 from .checkout_configuration_list_response import CheckoutConfigurationListResponse as CheckoutConfigurationListResponse
