@@ -194,3 +194,6 @@ class Payment(BaseModel):
 
     user: Optional[User] = None
     """The user that made this payment."""
+
+    voidable: bool
+    """Whether the payment can be voided."""
