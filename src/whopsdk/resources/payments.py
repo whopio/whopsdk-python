@@ -304,6 +304,48 @@ class PaymentsResource(SyncAPIResource):
             cast_to=Payment,
         )
 
+    def void(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """
+        Voids a payment
+
+        Required permissions:
+
+        - `payment:manage`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `promo_code:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/payments/{id}/void",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Payment,
+        )
+
 
 class AsyncPaymentsResource(AsyncAPIResource):
     @cached_property
@@ -581,6 +623,48 @@ class AsyncPaymentsResource(AsyncAPIResource):
             cast_to=Payment,
         )
 
+    async def void(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """
+        Voids a payment
+
+        Required permissions:
+
+        - `payment:manage`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `promo_code:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/payments/{id}/void",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Payment,
+        )
+
 
 class PaymentsResourceWithRawResponse:
     def __init__(self, payments: PaymentsResource) -> None:
@@ -597,6 +681,9 @@ class PaymentsResourceWithRawResponse:
         )
         self.retry = to_raw_response_wrapper(
             payments.retry,
+        )
+        self.void = to_raw_response_wrapper(
+            payments.void,
         )
 
 
@@ -616,6 +703,9 @@ class AsyncPaymentsResourceWithRawResponse:
         self.retry = async_to_raw_response_wrapper(
             payments.retry,
         )
+        self.void = async_to_raw_response_wrapper(
+            payments.void,
+        )
 
 
 class PaymentsResourceWithStreamingResponse:
@@ -634,6 +724,9 @@ class PaymentsResourceWithStreamingResponse:
         self.retry = to_streamed_response_wrapper(
             payments.retry,
         )
+        self.void = to_streamed_response_wrapper(
+            payments.void,
+        )
 
 
 class AsyncPaymentsResourceWithStreamingResponse:
@@ -651,4 +744,7 @@ class AsyncPaymentsResourceWithStreamingResponse:
         )
         self.retry = async_to_streamed_response_wrapper(
             payments.retry,
+        )
+        self.void = async_to_streamed_response_wrapper(
+            payments.void,
         )

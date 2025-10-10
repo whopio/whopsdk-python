@@ -22,6 +22,7 @@ from whopsdk.types import (
     DmsPostTypes,
     Entry,
     EntryStatus,
+    Experience,
     ForumPost,
     FriendlyReceiptStatus,
     GlobalAffiliateStatus,
@@ -212,6 +213,8 @@ Methods:
 - <code title="patch /memberships/{id}">client.memberships.<a href="./src/whopsdk/resources/memberships.py">update</a>(id, \*\*<a href="src/whopsdk/types/membership_update_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/membership.py">Membership</a></code>
 - <code title="get /memberships">client.memberships.<a href="./src/whopsdk/resources/memberships.py">list</a>(\*\*<a href="src/whopsdk/types/membership_list_params.py">params</a>) -> <a href="./src/whopsdk/types/membership_list_response.py">SyncCursorPage[Optional[MembershipListResponse]]</a></code>
 - <code title="post /memberships/{id}/cancel">client.memberships.<a href="./src/whopsdk/resources/memberships.py">cancel</a>(id, \*\*<a href="src/whopsdk/types/membership_cancel_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/membership.py">Membership</a></code>
+- <code title="post /memberships/{id}/pause">client.memberships.<a href="./src/whopsdk/resources/memberships.py">pause</a>(id, \*\*<a href="src/whopsdk/types/membership_pause_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/membership.py">Membership</a></code>
+- <code title="post /memberships/{id}/resume">client.memberships.<a href="./src/whopsdk/resources/memberships.py">resume</a>(id) -> <a href="./src/whopsdk/types/shared/membership.py">Membership</a></code>
 
 # AuthorizedUsers
 
@@ -322,6 +325,7 @@ Methods:
 - <code title="get /payments">client.payments.<a href="./src/whopsdk/resources/payments.py">list</a>(\*\*<a href="src/whopsdk/types/payment_list_params.py">params</a>) -> <a href="./src/whopsdk/types/payment_list_response.py">SyncCursorPage[Optional[PaymentListResponse]]</a></code>
 - <code title="post /payments/{id}/refund">client.payments.<a href="./src/whopsdk/resources/payments.py">refund</a>(id, \*\*<a href="src/whopsdk/types/payment_refund_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/payment.py">Payment</a></code>
 - <code title="post /payments/{id}/retry">client.payments.<a href="./src/whopsdk/resources/payments.py">retry</a>(id) -> <a href="./src/whopsdk/types/shared/payment.py">Payment</a></code>
+- <code title="post /payments/{id}/void">client.payments.<a href="./src/whopsdk/resources/payments.py">void</a>(id) -> <a href="./src/whopsdk/types/shared/payment.py">Payment</a></code>
 
 # SupportChannels
 
@@ -335,3 +339,21 @@ Methods:
 
 - <code title="get /support_channels/{id}">client.support_channels.<a href="./src/whopsdk/resources/support_channels.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/support_channel_retrieve_response.py">SupportChannelRetrieveResponse</a></code>
 - <code title="get /support_channels">client.support_channels.<a href="./src/whopsdk/resources/support_channels.py">list</a>(\*\*<a href="src/whopsdk/types/support_channel_list_params.py">params</a>) -> <a href="./src/whopsdk/types/support_channel_list_response.py">SyncCursorPage[Optional[SupportChannelListResponse]]</a></code>
+
+# Experiences
+
+Types:
+
+```python
+from whopsdk.types import ExperienceListResponse, ExperienceDeleteResponse
+```
+
+Methods:
+
+- <code title="post /experiences">client.experiences.<a href="./src/whopsdk/resources/experiences.py">create</a>(\*\*<a href="src/whopsdk/types/experience_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/experience.py">Experience</a></code>
+- <code title="get /experiences/{id}">client.experiences.<a href="./src/whopsdk/resources/experiences.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/experience.py">Experience</a></code>
+- <code title="patch /experiences/{id}">client.experiences.<a href="./src/whopsdk/resources/experiences.py">update</a>(id, \*\*<a href="src/whopsdk/types/experience_update_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/experience.py">Experience</a></code>
+- <code title="get /experiences">client.experiences.<a href="./src/whopsdk/resources/experiences.py">list</a>(\*\*<a href="src/whopsdk/types/experience_list_params.py">params</a>) -> <a href="./src/whopsdk/types/experience_list_response.py">SyncCursorPage[Optional[ExperienceListResponse]]</a></code>
+- <code title="delete /experiences/{id}">client.experiences.<a href="./src/whopsdk/resources/experiences.py">delete</a>(id) -> <a href="./src/whopsdk/types/experience_delete_response.py">ExperienceDeleteResponse</a></code>
+- <code title="post /experiences/{id}/attach">client.experiences.<a href="./src/whopsdk/resources/experiences.py">attach</a>(id, \*\*<a href="src/whopsdk/types/experience_attach_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/experience.py">Experience</a></code>
+- <code title="post /experiences/{id}/detach">client.experiences.<a href="./src/whopsdk/resources/experiences.py">detach</a>(id, \*\*<a href="src/whopsdk/types/experience_detach_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/experience.py">Experience</a></code>

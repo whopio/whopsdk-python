@@ -22,6 +22,7 @@ from .shared import (
     Direction as Direction,
     ForumPost as ForumPost,
     PromoType as PromoType,
+    Experience as Experience,
     Membership as Membership,
     Visibility as Visibility,
     WhoCanPost as WhoCanPost,
@@ -81,6 +82,7 @@ from .payment_refund_params import PaymentRefundParams as PaymentRefundParams
 from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_update_params import ProductUpdateParams as ProductUpdateParams
 from .entry_approve_response import EntryApproveResponse as EntryApproveResponse
+from .experience_list_params import ExperienceListParams as ExperienceListParams
 from .forum_post_list_params import ForumPostListParams as ForumPostListParams
 from .membership_list_params import MembershipListParams as MembershipListParams
 from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
@@ -91,14 +93,21 @@ from .user_retrieve_response import UserRetrieveResponse as UserRetrieveResponse
 from .app_build_create_params import AppBuildCreateParams as AppBuildCreateParams
 from .app_build_list_response import AppBuildListResponse as AppBuildListResponse
 from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse
+from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
+from .experience_attach_params import ExperienceAttachParams as ExperienceAttachParams
+from .experience_create_params import ExperienceCreateParams as ExperienceCreateParams
+from .experience_detach_params import ExperienceDetachParams as ExperienceDetachParams
+from .experience_list_response import ExperienceListResponse as ExperienceListResponse
+from .experience_update_params import ExperienceUpdateParams as ExperienceUpdateParams
 from .forum_post_create_params import ForumPostCreateParams as ForumPostCreateParams
 from .forum_post_list_response import ForumPostListResponse as ForumPostListResponse
 from .membership_cancel_params import MembershipCancelParams as MembershipCancelParams
 from .membership_list_response import MembershipListResponse as MembershipListResponse
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
+from .experience_delete_response import ExperienceDeleteResponse as ExperienceDeleteResponse
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams

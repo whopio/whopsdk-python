@@ -220,6 +220,99 @@ class TestMemberships:
                 id="",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_pause(self, client: Whopsdk) -> None:
+        membership = client.memberships.pause(
+            id="mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_pause_with_all_params(self, client: Whopsdk) -> None:
+        membership = client.memberships.pause(
+            id="mem_xxxxxxxxxxxxxx",
+            void_payments=True,
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_pause(self, client: Whopsdk) -> None:
+        response = client.memberships.with_raw_response.pause(
+            id="mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_pause(self, client: Whopsdk) -> None:
+        with client.memberships.with_streaming_response.pause(
+            id="mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_pause(self, client: Whopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.memberships.with_raw_response.pause(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_resume(self, client: Whopsdk) -> None:
+        membership = client.memberships.resume(
+            "mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_resume(self, client: Whopsdk) -> None:
+        response = client.memberships.with_raw_response.resume(
+            "mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_resume(self, client: Whopsdk) -> None:
+        with client.memberships.with_streaming_response.resume(
+            "mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_resume(self, client: Whopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.memberships.with_raw_response.resume(
+                "",
+            )
+
 
 class TestAsyncMemberships:
     parametrize = pytest.mark.parametrize(
@@ -423,4 +516,97 @@ class TestAsyncMemberships:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.memberships.with_raw_response.cancel(
                 id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_pause(self, async_client: AsyncWhopsdk) -> None:
+        membership = await async_client.memberships.pause(
+            id="mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_pause_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+        membership = await async_client.memberships.pause(
+            id="mem_xxxxxxxxxxxxxx",
+            void_payments=True,
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_pause(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.memberships.with_raw_response.pause(
+            id="mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = await response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_pause(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.memberships.with_streaming_response.pause(
+            id="mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = await response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_pause(self, async_client: AsyncWhopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.memberships.with_raw_response.pause(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_resume(self, async_client: AsyncWhopsdk) -> None:
+        membership = await async_client.memberships.resume(
+            "mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_resume(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.memberships.with_raw_response.resume(
+            "mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = await response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_resume(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.memberships.with_streaming_response.resume(
+            "mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = await response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_resume(self, async_client: AsyncWhopsdk) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.memberships.with_raw_response.resume(
+                "",
             )

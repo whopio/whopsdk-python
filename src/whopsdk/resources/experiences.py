@@ -2,18 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
-    membership_list_params,
-    membership_pause_params,
-    membership_cancel_params,
-    membership_update_params,
+    experience_list_params,
+    experience_attach_params,
+    experience_create_params,
+    experience_detach_params,
+    experience_update_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -25,33 +26,85 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.direction import Direction
-from ..types.shared.membership import Membership
-from ..types.membership_list_response import MembershipListResponse
-from ..types.shared.membership_status import MembershipStatus
+from ..types.shared.experience import Experience
+from ..types.experience_list_response import ExperienceListResponse
+from ..types.experience_delete_response import ExperienceDeleteResponse
 
-__all__ = ["MembershipsResource", "AsyncMembershipsResource"]
+__all__ = ["ExperiencesResource", "AsyncExperiencesResource"]
 
 
-class MembershipsResource(SyncAPIResource):
+class ExperiencesResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> MembershipsResourceWithRawResponse:
+    def with_raw_response(self) -> ExperiencesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return MembershipsResourceWithRawResponse(self)
+        return ExperiencesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> MembershipsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ExperiencesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/whopsdk-python#with_streaming_response
         """
-        return MembershipsResourceWithStreamingResponse(self)
+        return ExperiencesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        app_id: str,
+        company_id: str,
+        name: Optional[str] | Omit = omit,
+        section_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Experience:
+        """
+        Required permissions:
+
+        - `experience:create`
+
+        Args:
+          app_id: The ID of the app to create the experience for
+
+          company_id: The ID of the company to create the experience for
+
+          name: The name of the experience
+
+          section_id: The ID of the section to create the experience in
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/experiences",
+            body=maybe_transform(
+                {
+                    "app_id": app_id,
+                    "company_id": company_id,
+                    "name": name,
+                    "section_id": section_id,
+                },
+                experience_create_params.ExperienceCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Experience,
+        )
 
     def retrieve(
         self,
@@ -63,13 +116,9 @@ class MembershipsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> Experience:
         """
-        Retrieves a membership by ID or license key
-
-        Required permissions:
-
-        - `member:basic:read`
+        Retrieves an experience by ID
 
         Args:
           extra_headers: Send extra headers
@@ -83,35 +132,44 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/memberships/{id}",
+            f"/experiences/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=Experience,
         )
 
     def update(
         self,
         id: str,
         *,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        access_level: Optional[Literal["public", "private"]] | Omit = omit,
+        logo: Optional[experience_update_params.Logo] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        order: Optional[str] | Omit = omit,
+        section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> Experience:
         """
-        Update a membership
-
         Required permissions:
 
-        - `member:manage`
-        - `member:basic:read`
+        - `experience:update`
 
         Args:
-          metadata: The metadata to update the membership with.
+          access_level: The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE).
+
+          logo: The logo for the experience
+
+          name: The name of the experience.
+
+          order: The order of the experience in the section.
+
+          section_id: The ID of the section to update.
 
           extra_headers: Send extra headers
 
@@ -124,87 +182,61 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/memberships/{id}",
-            body=maybe_transform({"metadata": metadata}, membership_update_params.MembershipUpdateParams),
+            f"/experiences/{id}",
+            body=maybe_transform(
+                {
+                    "access_level": access_level,
+                    "logo": logo,
+                    "name": name,
+                    "order": order,
+                    "section_id": section_id,
+                },
+                experience_update_params.ExperienceUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=Experience,
         )
 
     def list(
         self,
         *,
         company_id: str,
-        access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
+        app_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        cancel_options: Optional[
-            List[
-                Literal[
-                    "too_expensive",
-                    "switching",
-                    "missing_features",
-                    "technical_issues",
-                    "bad_experience",
-                    "other",
-                    "testing",
-                ]
-            ]
-        ]
-        | Omit = omit,
-        created_after: Optional[int] | Omit = omit,
-        created_before: Optional[int] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
-        | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[MembershipStatus]] | Omit = omit,
+        product_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[MembershipListResponse]]:
+    ) -> SyncCursorPage[Optional[ExperienceListResponse]]:
         """
-        Lists memberships
+        Lists experiences for a company
 
         Required permissions:
 
-        - `member:basic:read`
+        - `experience:hidden_experience:read`
 
         Args:
-          company_id: The ID of the company to list memberships for
-
-          access_pass_ids: The access pass IDs to filter the memberships by
+          company_id: The ID of the company to filter experiences by
 
           after: Returns the elements in the list that come after the specified cursor.
 
+          app_id: The ID of the app to filter experiences by
+
           before: Returns the elements in the list that come before the specified cursor.
-
-          cancel_options: The cancel options to filter the memberships by
-
-          created_after: The minimum creation date to filter by
-
-          created_before: The maximum creation date to filter by
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
-
-          plan_ids: The plan IDs to filter the memberships by
-
-          promo_code_ids: The promo code IDs to filter the memberships by
-
-          statuses: The membership status to filter the memberships by
+          product_id: The ID of the product to filter experiences by
 
           extra_headers: Send extra headers
 
@@ -215,8 +247,8 @@ class MembershipsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/memberships",
-            page=SyncCursorPage[Optional[MembershipListResponse]],
+            "/experiences",
+            page=SyncCursorPage[Optional[ExperienceListResponse]],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -225,115 +257,20 @@ class MembershipsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "company_id": company_id,
-                        "access_pass_ids": access_pass_ids,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
-                        "cancel_options": cancel_options,
-                        "created_after": created_after,
-                        "created_before": created_before,
-                        "direction": direction,
                         "first": first,
                         "last": last,
-                        "order": order,
-                        "plan_ids": plan_ids,
-                        "promo_code_ids": promo_code_ids,
-                        "statuses": statuses,
+                        "product_id": product_id,
                     },
-                    membership_list_params.MembershipListParams,
+                    experience_list_params.ExperienceListParams,
                 ),
             ),
-            model=MembershipListResponse,
+            model=ExperienceListResponse,
         )
 
-    def cancel(
-        self,
-        id: str,
-        *,
-        cancellation_mode: Optional[Literal["at_period_end", "immediate"]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
-        """
-        Cancels a membership either immediately or at the end of the current billing
-        period
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:basic:read`
-
-        Args:
-          cancellation_mode: The mode of cancellation for a membership
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            f"/memberships/{id}/cancel",
-            body=maybe_transform(
-                {"cancellation_mode": cancellation_mode}, membership_cancel_params.MembershipCancelParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Membership,
-        )
-
-    def pause(
-        self,
-        id: str,
-        *,
-        void_payments: Optional[bool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
-        """
-        Pauses a membership's payments
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:basic:read`
-
-        Args:
-          void_payments: Whether to void past_due payments associated with the membership to prevent
-              future payment attempts.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            f"/memberships/{id}/pause",
-            body=maybe_transform({"void_payments": void_payments}, membership_pause_params.MembershipPauseParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Membership,
-        )
-
-    def resume(
+    def delete(
         self,
         id: str,
         *,
@@ -343,14 +280,11 @@ class MembershipsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> ExperienceDeleteResponse:
         """
-        Resumes a membership's payments
-
         Required permissions:
 
-        - `member:manage`
-        - `member:basic:read`
+        - `experience:delete`
 
         Args:
           extra_headers: Send extra headers
@@ -363,34 +297,171 @@ class MembershipsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            f"/memberships/{id}/resume",
+        return self._delete(
+            f"/experiences/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=ExperienceDeleteResponse,
+        )
+
+    def attach(
+        self,
+        id: str,
+        *,
+        product_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Experience:
+        """
+        Adds an experience to an product, making it accessible to the product's
+        customers.
+
+        Required permissions:
+
+        - `experience:attach`
+
+        Args:
+          product_id: The ID of the Access Pass to add the Experience to.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/experiences/{id}/attach",
+            body=maybe_transform({"product_id": product_id}, experience_attach_params.ExperienceAttachParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Experience,
+        )
+
+    def detach(
+        self,
+        id: str,
+        *,
+        product_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Experience:
+        """
+        Removes an experience from an product, making it inaccessible to the product's
+        customers.
+
+        Required permissions:
+
+        - `experience:detach`
+
+        Args:
+          product_id: The ID of the Access Pass to add the Experience to.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/experiences/{id}/detach",
+            body=maybe_transform({"product_id": product_id}, experience_detach_params.ExperienceDetachParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Experience,
         )
 
 
-class AsyncMembershipsResource(AsyncAPIResource):
+class AsyncExperiencesResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncMembershipsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncExperiencesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncMembershipsResourceWithRawResponse(self)
+        return AsyncExperiencesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncMembershipsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncExperiencesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/whopsdk-python#with_streaming_response
         """
-        return AsyncMembershipsResourceWithStreamingResponse(self)
+        return AsyncExperiencesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        app_id: str,
+        company_id: str,
+        name: Optional[str] | Omit = omit,
+        section_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Experience:
+        """
+        Required permissions:
+
+        - `experience:create`
+
+        Args:
+          app_id: The ID of the app to create the experience for
+
+          company_id: The ID of the company to create the experience for
+
+          name: The name of the experience
+
+          section_id: The ID of the section to create the experience in
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/experiences",
+            body=await async_maybe_transform(
+                {
+                    "app_id": app_id,
+                    "company_id": company_id,
+                    "name": name,
+                    "section_id": section_id,
+                },
+                experience_create_params.ExperienceCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Experience,
+        )
 
     async def retrieve(
         self,
@@ -402,13 +473,9 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> Experience:
         """
-        Retrieves a membership by ID or license key
-
-        Required permissions:
-
-        - `member:basic:read`
+        Retrieves an experience by ID
 
         Args:
           extra_headers: Send extra headers
@@ -422,35 +489,44 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/memberships/{id}",
+            f"/experiences/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=Experience,
         )
 
     async def update(
         self,
         id: str,
         *,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        access_level: Optional[Literal["public", "private"]] | Omit = omit,
+        logo: Optional[experience_update_params.Logo] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        order: Optional[str] | Omit = omit,
+        section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> Experience:
         """
-        Update a membership
-
         Required permissions:
 
-        - `member:manage`
-        - `member:basic:read`
+        - `experience:update`
 
         Args:
-          metadata: The metadata to update the membership with.
+          access_level: The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE).
+
+          logo: The logo for the experience
+
+          name: The name of the experience.
+
+          order: The order of the experience in the section.
+
+          section_id: The ID of the section to update.
 
           extra_headers: Send extra headers
 
@@ -463,87 +539,61 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/memberships/{id}",
-            body=await async_maybe_transform({"metadata": metadata}, membership_update_params.MembershipUpdateParams),
+            f"/experiences/{id}",
+            body=await async_maybe_transform(
+                {
+                    "access_level": access_level,
+                    "logo": logo,
+                    "name": name,
+                    "order": order,
+                    "section_id": section_id,
+                },
+                experience_update_params.ExperienceUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=Experience,
         )
 
     def list(
         self,
         *,
         company_id: str,
-        access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
+        app_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        cancel_options: Optional[
-            List[
-                Literal[
-                    "too_expensive",
-                    "switching",
-                    "missing_features",
-                    "technical_issues",
-                    "bad_experience",
-                    "other",
-                    "testing",
-                ]
-            ]
-        ]
-        | Omit = omit,
-        created_after: Optional[int] | Omit = omit,
-        created_before: Optional[int] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
-        | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[MembershipStatus]] | Omit = omit,
+        product_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[MembershipListResponse], AsyncCursorPage[Optional[MembershipListResponse]]]:
+    ) -> AsyncPaginator[Optional[ExperienceListResponse], AsyncCursorPage[Optional[ExperienceListResponse]]]:
         """
-        Lists memberships
+        Lists experiences for a company
 
         Required permissions:
 
-        - `member:basic:read`
+        - `experience:hidden_experience:read`
 
         Args:
-          company_id: The ID of the company to list memberships for
-
-          access_pass_ids: The access pass IDs to filter the memberships by
+          company_id: The ID of the company to filter experiences by
 
           after: Returns the elements in the list that come after the specified cursor.
 
+          app_id: The ID of the app to filter experiences by
+
           before: Returns the elements in the list that come before the specified cursor.
-
-          cancel_options: The cancel options to filter the memberships by
-
-          created_after: The minimum creation date to filter by
-
-          created_before: The maximum creation date to filter by
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
-
-          plan_ids: The plan IDs to filter the memberships by
-
-          promo_code_ids: The promo code IDs to filter the memberships by
-
-          statuses: The membership status to filter the memberships by
+          product_id: The ID of the product to filter experiences by
 
           extra_headers: Send extra headers
 
@@ -554,8 +604,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/memberships",
-            page=AsyncCursorPage[Optional[MembershipListResponse]],
+            "/experiences",
+            page=AsyncCursorPage[Optional[ExperienceListResponse]],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -564,49 +614,76 @@ class AsyncMembershipsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "company_id": company_id,
-                        "access_pass_ids": access_pass_ids,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
-                        "cancel_options": cancel_options,
-                        "created_after": created_after,
-                        "created_before": created_before,
-                        "direction": direction,
                         "first": first,
                         "last": last,
-                        "order": order,
-                        "plan_ids": plan_ids,
-                        "promo_code_ids": promo_code_ids,
-                        "statuses": statuses,
+                        "product_id": product_id,
                     },
-                    membership_list_params.MembershipListParams,
+                    experience_list_params.ExperienceListParams,
                 ),
             ),
-            model=MembershipListResponse,
+            model=ExperienceListResponse,
         )
 
-    async def cancel(
+    async def delete(
         self,
         id: str,
         *,
-        cancellation_mode: Optional[Literal["at_period_end", "immediate"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> ExperienceDeleteResponse:
         """
-        Cancels a membership either immediately or at the end of the current billing
-        period
+        Required permissions:
+
+        - `experience:delete`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/experiences/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExperienceDeleteResponse,
+        )
+
+    async def attach(
+        self,
+        id: str,
+        *,
+        product_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Experience:
+        """
+        Adds an experience to an product, making it accessible to the product's
+        customers.
 
         Required permissions:
 
-        - `member:manage`
-        - `member:basic:read`
+        - `experience:attach`
 
         Args:
-          cancellation_mode: The mode of cancellation for a membership
+          product_id: The ID of the Access Pass to add the Experience to.
 
           extra_headers: Send extra headers
 
@@ -619,39 +696,38 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/memberships/{id}/cancel",
+            f"/experiences/{id}/attach",
             body=await async_maybe_transform(
-                {"cancellation_mode": cancellation_mode}, membership_cancel_params.MembershipCancelParams
+                {"product_id": product_id}, experience_attach_params.ExperienceAttachParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=Experience,
         )
 
-    async def pause(
+    async def detach(
         self,
         id: str,
         *,
-        void_payments: Optional[bool] | Omit = omit,
+        product_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> Experience:
         """
-        Pauses a membership's payments
+        Removes an experience from an product, making it inaccessible to the product's
+        customers.
 
         Required permissions:
 
-        - `member:manage`
-        - `member:basic:read`
+        - `experience:detach`
 
         Args:
-          void_payments: Whether to void past_due payments associated with the membership to prevent
-              future payment attempts.
+          product_id: The ID of the Access Pass to add the Experience to.
 
           extra_headers: Send extra headers
 
@@ -664,146 +740,120 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/memberships/{id}/pause",
+            f"/experiences/{id}/detach",
             body=await async_maybe_transform(
-                {"void_payments": void_payments}, membership_pause_params.MembershipPauseParams
+                {"product_id": product_id}, experience_detach_params.ExperienceDetachParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
-        )
-
-    async def resume(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
-        """
-        Resumes a membership's payments
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:basic:read`
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
-            f"/memberships/{id}/resume",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Membership,
+            cast_to=Experience,
         )
 
 
-class MembershipsResourceWithRawResponse:
-    def __init__(self, memberships: MembershipsResource) -> None:
-        self._memberships = memberships
+class ExperiencesResourceWithRawResponse:
+    def __init__(self, experiences: ExperiencesResource) -> None:
+        self._experiences = experiences
 
+        self.create = to_raw_response_wrapper(
+            experiences.create,
+        )
         self.retrieve = to_raw_response_wrapper(
-            memberships.retrieve,
+            experiences.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            memberships.update,
+            experiences.update,
         )
         self.list = to_raw_response_wrapper(
-            memberships.list,
+            experiences.list,
         )
-        self.cancel = to_raw_response_wrapper(
-            memberships.cancel,
+        self.delete = to_raw_response_wrapper(
+            experiences.delete,
         )
-        self.pause = to_raw_response_wrapper(
-            memberships.pause,
+        self.attach = to_raw_response_wrapper(
+            experiences.attach,
         )
-        self.resume = to_raw_response_wrapper(
-            memberships.resume,
+        self.detach = to_raw_response_wrapper(
+            experiences.detach,
         )
 
 
-class AsyncMembershipsResourceWithRawResponse:
-    def __init__(self, memberships: AsyncMembershipsResource) -> None:
-        self._memberships = memberships
+class AsyncExperiencesResourceWithRawResponse:
+    def __init__(self, experiences: AsyncExperiencesResource) -> None:
+        self._experiences = experiences
 
+        self.create = async_to_raw_response_wrapper(
+            experiences.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
-            memberships.retrieve,
+            experiences.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            memberships.update,
+            experiences.update,
         )
         self.list = async_to_raw_response_wrapper(
-            memberships.list,
+            experiences.list,
         )
-        self.cancel = async_to_raw_response_wrapper(
-            memberships.cancel,
+        self.delete = async_to_raw_response_wrapper(
+            experiences.delete,
         )
-        self.pause = async_to_raw_response_wrapper(
-            memberships.pause,
+        self.attach = async_to_raw_response_wrapper(
+            experiences.attach,
         )
-        self.resume = async_to_raw_response_wrapper(
-            memberships.resume,
+        self.detach = async_to_raw_response_wrapper(
+            experiences.detach,
         )
 
 
-class MembershipsResourceWithStreamingResponse:
-    def __init__(self, memberships: MembershipsResource) -> None:
-        self._memberships = memberships
+class ExperiencesResourceWithStreamingResponse:
+    def __init__(self, experiences: ExperiencesResource) -> None:
+        self._experiences = experiences
 
+        self.create = to_streamed_response_wrapper(
+            experiences.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
-            memberships.retrieve,
+            experiences.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            memberships.update,
+            experiences.update,
         )
         self.list = to_streamed_response_wrapper(
-            memberships.list,
+            experiences.list,
         )
-        self.cancel = to_streamed_response_wrapper(
-            memberships.cancel,
+        self.delete = to_streamed_response_wrapper(
+            experiences.delete,
         )
-        self.pause = to_streamed_response_wrapper(
-            memberships.pause,
+        self.attach = to_streamed_response_wrapper(
+            experiences.attach,
         )
-        self.resume = to_streamed_response_wrapper(
-            memberships.resume,
+        self.detach = to_streamed_response_wrapper(
+            experiences.detach,
         )
 
 
-class AsyncMembershipsResourceWithStreamingResponse:
-    def __init__(self, memberships: AsyncMembershipsResource) -> None:
-        self._memberships = memberships
+class AsyncExperiencesResourceWithStreamingResponse:
+    def __init__(self, experiences: AsyncExperiencesResource) -> None:
+        self._experiences = experiences
 
+        self.create = async_to_streamed_response_wrapper(
+            experiences.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
-            memberships.retrieve,
+            experiences.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            memberships.update,
+            experiences.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            memberships.list,
+            experiences.list,
         )
-        self.cancel = async_to_streamed_response_wrapper(
-            memberships.cancel,
+        self.delete = async_to_streamed_response_wrapper(
+            experiences.delete,
         )
-        self.pause = async_to_streamed_response_wrapper(
-            memberships.pause,
+        self.attach = async_to_streamed_response_wrapper(
+            experiences.attach,
         )
-        self.resume = async_to_streamed_response_wrapper(
-            memberships.resume,
+        self.detach = async_to_streamed_response_wrapper(
+            experiences.detach,
         )
