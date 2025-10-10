@@ -9,8 +9,9 @@ import pytest
 
 from whopsdk import Whopsdk, AsyncWhopsdk
 from tests.utils import assert_matches_type
-from whopsdk.types import MessageListResponse, MessageRetrieveResponse
+from whopsdk.types import MessageListResponse
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
+from whopsdk.types.shared import Message
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,11 +21,69 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_create(self, client: Whopsdk) -> None:
+        message = client.messages.create(
+            content="content",
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Whopsdk) -> None:
+        message = client.messages.create(
+            content="content",
+            attachments=[
+                {
+                    "id": "id",
+                    "direct_upload_id": "direct_upload_id",
+                }
+            ],
+            channel_id="channel_id",
+            experience_id="exp_xxxxxxxxxxxxxx",
+            poll={
+                "options": [
+                    {
+                        "id": "id",
+                        "text": "text",
+                    }
+                ]
+            },
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Whopsdk) -> None:
+        response = client.messages.with_raw_response.create(
+            content="content",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Whopsdk) -> None:
+        with client.messages.with_streaming_response.create(
+            content="content",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert_matches_type(Message, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_retrieve(self, client: Whopsdk) -> None:
         message = client.messages.retrieve(
             "id",
         )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
+        assert_matches_type(Message, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -36,7 +95,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
+        assert_matches_type(Message, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -48,7 +107,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(MessageRetrieveResponse, message, path=["response"])
+            assert_matches_type(Message, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -114,11 +173,69 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
+        message = await async_client.messages.create(
+            content="content",
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+        message = await async_client.messages.create(
+            content="content",
+            attachments=[
+                {
+                    "id": "id",
+                    "direct_upload_id": "direct_upload_id",
+                }
+            ],
+            channel_id="channel_id",
+            experience_id="exp_xxxxxxxxxxxxxx",
+            poll={
+                "options": [
+                    {
+                        "id": "id",
+                        "text": "text",
+                    }
+                ]
+            },
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.messages.with_raw_response.create(
+            content="content",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.messages.with_streaming_response.create(
+            content="content",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(Message, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
         message = await async_client.messages.retrieve(
             "id",
         )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
+        assert_matches_type(Message, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -130,7 +247,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
+        assert_matches_type(Message, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -142,7 +259,7 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(MessageRetrieveResponse, message, path=["response"])
+            assert_matches_type(Message, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

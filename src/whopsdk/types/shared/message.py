@@ -2,10 +2,10 @@
 
 from typing import List, Optional
 
-from .._models import BaseModel
-from .shared.dms_post_types import DmsPostTypes
+from ..._models import BaseModel
+from .dms_post_types import DmsPostTypes
 
-__all__ = ["MessageRetrieveResponse", "Poll", "PollOption", "PollVote", "ReactionCount", "User"]
+__all__ = ["Message", "Poll", "PollOption", "PollVote", "ReactionCount", "User"]
 
 
 class PollOption(BaseModel):
@@ -48,7 +48,7 @@ class User(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class MessageRetrieveResponse(BaseModel):
+class Message(BaseModel):
     id: str
     """The unique identifier for the entity"""
 

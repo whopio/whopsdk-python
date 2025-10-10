@@ -40,6 +40,7 @@ from .resources import (
     chat_channels,
     ledger_accounts,
     authorized_users,
+    support_channels,
     checkout_configurations,
     course_lesson_interactions,
 )
@@ -75,6 +76,7 @@ class Whopsdk(SyncAPIClient):
     chat_channels: chat_channels.ChatChannelsResource
     users: users.UsersResource
     payments: payments.PaymentsResource
+    support_channels: support_channels.SupportChannelsResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -160,6 +162,7 @@ class Whopsdk(SyncAPIClient):
         self.chat_channels = chat_channels.ChatChannelsResource(self)
         self.users = users.UsersResource(self)
         self.payments = payments.PaymentsResource(self)
+        self.support_channels = support_channels.SupportChannelsResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -291,6 +294,7 @@ class AsyncWhopsdk(AsyncAPIClient):
     chat_channels: chat_channels.AsyncChatChannelsResource
     users: users.AsyncUsersResource
     payments: payments.AsyncPaymentsResource
+    support_channels: support_channels.AsyncSupportChannelsResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -376,6 +380,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         self.chat_channels = chat_channels.AsyncChatChannelsResource(self)
         self.users = users.AsyncUsersResource(self)
         self.payments = payments.AsyncPaymentsResource(self)
+        self.support_channels = support_channels.AsyncSupportChannelsResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -511,6 +516,7 @@ class WhopsdkWithRawResponse:
         self.chat_channels = chat_channels.ChatChannelsResourceWithRawResponse(client.chat_channels)
         self.users = users.UsersResourceWithRawResponse(client.users)
         self.payments = payments.PaymentsResourceWithRawResponse(client.payments)
+        self.support_channels = support_channels.SupportChannelsResourceWithRawResponse(client.support_channels)
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -540,6 +546,7 @@ class AsyncWhopsdkWithRawResponse:
         self.chat_channels = chat_channels.AsyncChatChannelsResourceWithRawResponse(client.chat_channels)
         self.users = users.AsyncUsersResourceWithRawResponse(client.users)
         self.payments = payments.AsyncPaymentsResourceWithRawResponse(client.payments)
+        self.support_channels = support_channels.AsyncSupportChannelsResourceWithRawResponse(client.support_channels)
 
 
 class WhopsdkWithStreamedResponse:
@@ -569,6 +576,7 @@ class WhopsdkWithStreamedResponse:
         self.chat_channels = chat_channels.ChatChannelsResourceWithStreamingResponse(client.chat_channels)
         self.users = users.UsersResourceWithStreamingResponse(client.users)
         self.payments = payments.PaymentsResourceWithStreamingResponse(client.payments)
+        self.support_channels = support_channels.SupportChannelsResourceWithStreamingResponse(client.support_channels)
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -600,6 +608,9 @@ class AsyncWhopsdkWithStreamedResponse:
         self.chat_channels = chat_channels.AsyncChatChannelsResourceWithStreamingResponse(client.chat_channels)
         self.users = users.AsyncUsersResourceWithStreamingResponse(client.users)
         self.payments = payments.AsyncPaymentsResourceWithStreamingResponse(client.payments)
+        self.support_channels = support_channels.AsyncSupportChannelsResourceWithStreamingResponse(
+            client.support_channels
+        )
 
 
 Client = Whopsdk
