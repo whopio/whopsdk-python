@@ -97,6 +97,14 @@ from .app_builds import (
     AppBuildsResourceWithStreamingResponse,
     AsyncAppBuildsResourceWithStreamingResponse,
 )
+from .experiences import (
+    ExperiencesResource,
+    AsyncExperiencesResource,
+    ExperiencesResourceWithRawResponse,
+    AsyncExperiencesResourceWithRawResponse,
+    ExperiencesResourceWithStreamingResponse,
+    AsyncExperiencesResourceWithStreamingResponse,
+)
 from .forum_posts import (
     ForumPostsResource,
     AsyncForumPostsResource,
@@ -285,4 +293,10 @@ __all__ = [
     "AsyncSupportChannelsResourceWithRawResponse",
     "SupportChannelsResourceWithStreamingResponse",
     "AsyncSupportChannelsResourceWithStreamingResponse",
+    "ExperiencesResource",
+    "AsyncExperiencesResource",
+    "ExperiencesResourceWithRawResponse",
+    "AsyncExperiencesResourceWithRawResponse",
+    "ExperiencesResourceWithStreamingResponse",
+    "AsyncExperiencesResourceWithStreamingResponse",
 ]

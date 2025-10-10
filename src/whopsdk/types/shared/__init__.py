@@ -17,6 +17,7 @@ from .direction import Direction as Direction
 from .page_info import PageInfo as PageInfo
 from .plan_type import PlanType as PlanType
 from .custom_cta import CustomCta as CustomCta
+from .experience import Experience as Experience
 from .forum_post import ForumPost as ForumPost
 from .membership import Membership as Membership
 from .promo_type import PromoType as PromoType
