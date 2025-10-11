@@ -11,6 +11,7 @@ from whopsdk.types import (
     AppViewType,
     AuthorizedUserRoles,
     BusinessTypes,
+    ChatChannel,
     CheckoutConfiguration,
     CollectionMethod,
     Company,
@@ -46,6 +47,7 @@ from whopsdk.types import (
     ShipmentCarrier,
     ShipmentStatus,
     ShipmentSubstatus,
+    SupportChannel,
     TaxType,
     Transfer,
     Visibility,
@@ -291,12 +293,13 @@ Methods:
 Types:
 
 ```python
-from whopsdk.types import ChatChannelRetrieveResponse, ChatChannelListResponse
+from whopsdk.types import ChatChannelListResponse
 ```
 
 Methods:
 
-- <code title="get /chat_channels/{id}">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/chat_channel_retrieve_response.py">ChatChannelRetrieveResponse</a></code>
+- <code title="get /chat_channels/{id}">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/chat_channel.py">ChatChannel</a></code>
+- <code title="patch /chat_channels/{id}">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">update</a>(id, \*\*<a href="src/whopsdk/types/chat_channel_update_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/chat_channel.py">ChatChannel</a></code>
 - <code title="get /chat_channels">client.chat_channels.<a href="./src/whopsdk/resources/chat_channels.py">list</a>(\*\*<a href="src/whopsdk/types/chat_channel_list_params.py">params</a>) -> <a href="./src/whopsdk/types/chat_channel_list_response.py">SyncCursorPage[Optional[ChatChannelListResponse]]</a></code>
 
 # Users
@@ -332,12 +335,13 @@ Methods:
 Types:
 
 ```python
-from whopsdk.types import SupportChannelRetrieveResponse, SupportChannelListResponse
+from whopsdk.types import SupportChannelListResponse
 ```
 
 Methods:
 
-- <code title="get /support_channels/{id}">client.support_channels.<a href="./src/whopsdk/resources/support_channels.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/support_channel_retrieve_response.py">SupportChannelRetrieveResponse</a></code>
+- <code title="post /support_channels">client.support_channels.<a href="./src/whopsdk/resources/support_channels.py">create</a>(\*\*<a href="src/whopsdk/types/support_channel_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/support_channel.py">SupportChannel</a></code>
+- <code title="get /support_channels/{id}">client.support_channels.<a href="./src/whopsdk/resources/support_channels.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/support_channel.py">SupportChannel</a></code>
 - <code title="get /support_channels">client.support_channels.<a href="./src/whopsdk/resources/support_channels.py">list</a>(\*\*<a href="src/whopsdk/types/support_channel_list_params.py">params</a>) -> <a href="./src/whopsdk/types/support_channel_list_response.py">SyncCursorPage[Optional[SupportChannelListResponse]]</a></code>
 
 # Experiences

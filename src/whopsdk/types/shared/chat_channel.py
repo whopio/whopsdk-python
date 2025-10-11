@@ -2,11 +2,11 @@
 
 from typing import List, Optional
 
-from .._models import BaseModel
-from .shared.who_can_post import WhoCanPost
-from .shared.who_can_react import WhoCanReact
+from ..._models import BaseModel
+from .who_can_post import WhoCanPost
+from .who_can_react import WhoCanReact
 
-__all__ = ["ChatChannelRetrieveResponse", "Experience"]
+__all__ = ["ChatChannel", "Experience"]
 
 
 class Experience(BaseModel):
@@ -17,7 +17,7 @@ class Experience(BaseModel):
     """The written name of the description."""
 
 
-class ChatChannelRetrieveResponse(BaseModel):
+class ChatChannel(BaseModel):
     id: str
     """The unique identifier for the entity"""
 

@@ -9,11 +9,9 @@ import pytest
 
 from whopsdk import Whopsdk, AsyncWhopsdk
 from tests.utils import assert_matches_type
-from whopsdk.types import (
-    SupportChannelListResponse,
-    SupportChannelRetrieveResponse,
-)
+from whopsdk.types import SupportChannelListResponse
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
+from whopsdk.types.shared import SupportChannel
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,11 +21,48 @@ class TestSupportChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_create(self, client: Whopsdk) -> None:
+        support_channel = client.support_channels.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Whopsdk) -> None:
+        response = client.support_channels.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        support_channel = response.parse()
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Whopsdk) -> None:
+        with client.support_channels.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            support_channel = response.parse()
+            assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_retrieve(self, client: Whopsdk) -> None:
         support_channel = client.support_channels.retrieve(
             "id",
         )
-        assert_matches_type(SupportChannelRetrieveResponse, support_channel, path=["response"])
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -39,7 +74,7 @@ class TestSupportChannels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         support_channel = response.parse()
-        assert_matches_type(SupportChannelRetrieveResponse, support_channel, path=["response"])
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -51,7 +86,7 @@ class TestSupportChannels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             support_channel = response.parse()
-            assert_matches_type(SupportChannelRetrieveResponse, support_channel, path=["response"])
+            assert_matches_type(SupportChannel, support_channel, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -122,11 +157,48 @@ class TestAsyncSupportChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
+        support_channel = await async_client.support_channels.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
+        response = await async_client.support_channels.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        support_channel = await response.parse()
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
+        async with async_client.support_channels.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            support_channel = await response.parse()
+            assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
         support_channel = await async_client.support_channels.retrieve(
             "id",
         )
-        assert_matches_type(SupportChannelRetrieveResponse, support_channel, path=["response"])
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -138,7 +210,7 @@ class TestAsyncSupportChannels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         support_channel = await response.parse()
-        assert_matches_type(SupportChannelRetrieveResponse, support_channel, path=["response"])
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -150,7 +222,7 @@ class TestAsyncSupportChannels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             support_channel = await response.parse()
-            assert_matches_type(SupportChannelRetrieveResponse, support_channel, path=["response"])
+            assert_matches_type(SupportChannel, support_channel, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

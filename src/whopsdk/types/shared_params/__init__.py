@@ -8,7 +8,9 @@ from .custom_cta import CustomCta as CustomCta
 from .visibility import Visibility as Visibility
 from .app_statuses import AppStatuses as AppStatuses
 from .entry_status import EntryStatus as EntryStatus
+from .who_can_post import WhoCanPost as WhoCanPost
 from .app_view_type import AppViewType as AppViewType
+from .who_can_react import WhoCanReact as WhoCanReact
 from .business_types import BusinessTypes as BusinessTypes
 from .industry_types import IndustryTypes as IndustryTypes
 from .invoice_status import InvoiceStatus as InvoiceStatus

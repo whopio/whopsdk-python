@@ -2,9 +2,9 @@
 
 from typing import Optional
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
-__all__ = ["SupportChannelRetrieveResponse", "CustomerUser"]
+__all__ = ["SupportChannel", "CustomerUser"]
 
 
 class CustomerUser(BaseModel):
@@ -18,7 +18,7 @@ class CustomerUser(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class SupportChannelRetrieveResponse(BaseModel):
+class SupportChannel(BaseModel):
     id: str
     """The unique identifier for the entity"""
 

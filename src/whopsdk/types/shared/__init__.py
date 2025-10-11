@@ -23,6 +23,7 @@ from .membership import Membership as Membership
 from .promo_type import PromoType as PromoType
 from .visibility import Visibility as Visibility
 from .app_statuses import AppStatuses as AppStatuses
+from .chat_channel import ChatChannel as ChatChannel
 from .entry_status import EntryStatus as EntryStatus
 from .who_can_post import WhoCanPost as WhoCanPost
 from .app_view_type import AppViewType as AppViewType
@@ -34,6 +35,7 @@ from .invoice_status import InvoiceStatus as InvoiceStatus
 from .receipt_status import ReceiptStatus as ReceiptStatus
 from .release_method import ReleaseMethod as ReleaseMethod
 from .shipment_status import ShipmentStatus as ShipmentStatus
+from .support_channel import SupportChannel as SupportChannel
 from .access_pass_type import AccessPassType as AccessPassType
 from .shipment_carrier import ShipmentCarrier as ShipmentCarrier
 from .collection_method import CollectionMethod as CollectionMethod

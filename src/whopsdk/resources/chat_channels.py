@@ -6,9 +6,9 @@ from typing import Optional
 
 import httpx
 
-from ..types import chat_channel_list_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
+from ..types import chat_channel_list_params, chat_channel_update_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -19,8 +19,10 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.chat_channel import ChatChannel
+from ..types.shared.who_can_post import WhoCanPost
+from ..types.shared.who_can_react import WhoCanReact
 from ..types.chat_channel_list_response import ChatChannelListResponse
-from ..types.chat_channel_retrieve_response import ChatChannelRetrieveResponse
 
 __all__ = ["ChatChannelsResource", "AsyncChatChannelsResource"]
 
@@ -55,7 +57,7 @@ class ChatChannelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatChannelRetrieveResponse:
+    ) -> ChatChannel:
         """
         Retrieves a chat channel
 
@@ -79,7 +81,73 @@ class ChatChannelsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatChannelRetrieveResponse,
+            cast_to=ChatChannel,
+        )
+
+    def update(
+        self,
+        id: str,
+        *,
+        ban_media: Optional[bool] | Omit = omit,
+        ban_urls: Optional[bool] | Omit = omit,
+        banned_words: Optional[SequenceNotStr[str]] | Omit = omit,
+        user_posts_cooldown_seconds: Optional[int] | Omit = omit,
+        who_can_post: Optional[WhoCanPost] | Omit = omit,
+        who_can_react: Optional[WhoCanReact] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatChannel:
+        """
+        Updates a chat channel
+
+        Required permissions:
+
+        - `chat:moderate`
+
+        Args:
+          ban_media: Whether media uploads are banned in this chat
+
+          ban_urls: Whether URLs are banned in this chat
+
+          banned_words: List of banned words for this chat
+
+          user_posts_cooldown_seconds: The cooldown period in seconds between user posts
+
+          who_can_post: Who can post on a chat feed
+
+          who_can_react: Who can react on a chat feed
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            f"/chat_channels/{id}",
+            body=maybe_transform(
+                {
+                    "ban_media": ban_media,
+                    "ban_urls": ban_urls,
+                    "banned_words": banned_words,
+                    "user_posts_cooldown_seconds": user_posts_cooldown_seconds,
+                    "who_can_post": who_can_post,
+                    "who_can_react": who_can_react,
+                },
+                chat_channel_update_params.ChatChannelUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatChannel,
         )
 
     def list(
@@ -180,7 +248,7 @@ class AsyncChatChannelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatChannelRetrieveResponse:
+    ) -> ChatChannel:
         """
         Retrieves a chat channel
 
@@ -204,7 +272,73 @@ class AsyncChatChannelsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatChannelRetrieveResponse,
+            cast_to=ChatChannel,
+        )
+
+    async def update(
+        self,
+        id: str,
+        *,
+        ban_media: Optional[bool] | Omit = omit,
+        ban_urls: Optional[bool] | Omit = omit,
+        banned_words: Optional[SequenceNotStr[str]] | Omit = omit,
+        user_posts_cooldown_seconds: Optional[int] | Omit = omit,
+        who_can_post: Optional[WhoCanPost] | Omit = omit,
+        who_can_react: Optional[WhoCanReact] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatChannel:
+        """
+        Updates a chat channel
+
+        Required permissions:
+
+        - `chat:moderate`
+
+        Args:
+          ban_media: Whether media uploads are banned in this chat
+
+          ban_urls: Whether URLs are banned in this chat
+
+          banned_words: List of banned words for this chat
+
+          user_posts_cooldown_seconds: The cooldown period in seconds between user posts
+
+          who_can_post: Who can post on a chat feed
+
+          who_can_react: Who can react on a chat feed
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            f"/chat_channels/{id}",
+            body=await async_maybe_transform(
+                {
+                    "ban_media": ban_media,
+                    "ban_urls": ban_urls,
+                    "banned_words": banned_words,
+                    "user_posts_cooldown_seconds": user_posts_cooldown_seconds,
+                    "who_can_post": who_can_post,
+                    "who_can_react": who_can_react,
+                },
+                chat_channel_update_params.ChatChannelUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatChannel,
         )
 
     def list(
@@ -282,6 +416,9 @@ class ChatChannelsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             chat_channels.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            chat_channels.update,
+        )
         self.list = to_raw_response_wrapper(
             chat_channels.list,
         )
@@ -293,6 +430,9 @@ class AsyncChatChannelsResourceWithRawResponse:
 
         self.retrieve = async_to_raw_response_wrapper(
             chat_channels.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            chat_channels.update,
         )
         self.list = async_to_raw_response_wrapper(
             chat_channels.list,
@@ -306,6 +446,9 @@ class ChatChannelsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             chat_channels.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            chat_channels.update,
+        )
         self.list = to_streamed_response_wrapper(
             chat_channels.list,
         )
@@ -317,6 +460,9 @@ class AsyncChatChannelsResourceWithStreamingResponse:
 
         self.retrieve = async_to_streamed_response_wrapper(
             chat_channels.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            chat_channels.update,
         )
         self.list = async_to_streamed_response_wrapper(
             chat_channels.list,
