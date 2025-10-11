@@ -7,9 +7,9 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import support_channel_list_params
+from ..types import support_channel_list_params, support_channel_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,8 +21,8 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.direction import Direction
+from ..types.shared.support_channel import SupportChannel
 from ..types.support_channel_list_response import SupportChannelListResponse
-from ..types.support_channel_retrieve_response import SupportChannelRetrieveResponse
 
 __all__ = ["SupportChannelsResource", "AsyncSupportChannelsResource"]
 
@@ -47,6 +47,55 @@ class SupportChannelsResource(SyncAPIResource):
         """
         return SupportChannelsResourceWithStreamingResponse(self)
 
+    def create(
+        self,
+        *,
+        company_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SupportChannel:
+        """Create a new support channel for a user in a bot.
+
+        If one already exists, it will
+        return the existing one.
+
+        Required permissions:
+
+        - `support_chat:create`
+
+        Args:
+          company_id: The ID of the company to create the support chat in
+
+          user_id: The ID of the user to create the support chat for
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/support_channels",
+            body=maybe_transform(
+                {
+                    "company_id": company_id,
+                    "user_id": user_id,
+                },
+                support_channel_create_params.SupportChannelCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SupportChannel,
+        )
+
     def retrieve(
         self,
         id: str,
@@ -57,7 +106,7 @@ class SupportChannelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SupportChannelRetrieveResponse:
+    ) -> SupportChannel:
         """
         Retrieves a support channel
 
@@ -81,7 +130,7 @@ class SupportChannelsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SupportChannelRetrieveResponse,
+            cast_to=SupportChannel,
         )
 
     def list(
@@ -182,6 +231,55 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         """
         return AsyncSupportChannelsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        company_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SupportChannel:
+        """Create a new support channel for a user in a bot.
+
+        If one already exists, it will
+        return the existing one.
+
+        Required permissions:
+
+        - `support_chat:create`
+
+        Args:
+          company_id: The ID of the company to create the support chat in
+
+          user_id: The ID of the user to create the support chat for
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/support_channels",
+            body=await async_maybe_transform(
+                {
+                    "company_id": company_id,
+                    "user_id": user_id,
+                },
+                support_channel_create_params.SupportChannelCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SupportChannel,
+        )
+
     async def retrieve(
         self,
         id: str,
@@ -192,7 +290,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SupportChannelRetrieveResponse:
+    ) -> SupportChannel:
         """
         Retrieves a support channel
 
@@ -216,7 +314,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SupportChannelRetrieveResponse,
+            cast_to=SupportChannel,
         )
 
     def list(
@@ -301,6 +399,9 @@ class SupportChannelsResourceWithRawResponse:
     def __init__(self, support_channels: SupportChannelsResource) -> None:
         self._support_channels = support_channels
 
+        self.create = to_raw_response_wrapper(
+            support_channels.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             support_channels.retrieve,
         )
@@ -313,6 +414,9 @@ class AsyncSupportChannelsResourceWithRawResponse:
     def __init__(self, support_channels: AsyncSupportChannelsResource) -> None:
         self._support_channels = support_channels
 
+        self.create = async_to_raw_response_wrapper(
+            support_channels.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             support_channels.retrieve,
         )
@@ -325,6 +429,9 @@ class SupportChannelsResourceWithStreamingResponse:
     def __init__(self, support_channels: SupportChannelsResource) -> None:
         self._support_channels = support_channels
 
+        self.create = to_streamed_response_wrapper(
+            support_channels.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             support_channels.retrieve,
         )
@@ -337,6 +444,9 @@ class AsyncSupportChannelsResourceWithStreamingResponse:
     def __init__(self, support_channels: AsyncSupportChannelsResource) -> None:
         self._support_channels = support_channels
 
+        self.create = async_to_streamed_response_wrapper(
+            support_channels.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             support_channels.retrieve,
         )
