@@ -51,7 +51,7 @@ class CompaniesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieves an company by ID
+        Retrieves an company by ID or its url route
 
         Required permissions:
 
@@ -109,7 +109,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieves an company by ID
+        Retrieves an company by ID or its url route
 
         Required permissions:
 
