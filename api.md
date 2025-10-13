@@ -41,6 +41,7 @@ from whopsdk.types import (
     Product,
     ProductListItem,
     PromoType,
+    Reaction,
     ReceiptStatus,
     ReleaseMethod,
     Shipment,
@@ -361,3 +362,17 @@ Methods:
 - <code title="delete /experiences/{id}">client.experiences.<a href="./src/whopsdk/resources/experiences.py">delete</a>(id) -> <a href="./src/whopsdk/types/experience_delete_response.py">ExperienceDeleteResponse</a></code>
 - <code title="post /experiences/{id}/attach">client.experiences.<a href="./src/whopsdk/resources/experiences.py">attach</a>(id, \*\*<a href="src/whopsdk/types/experience_attach_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/experience.py">Experience</a></code>
 - <code title="post /experiences/{id}/detach">client.experiences.<a href="./src/whopsdk/resources/experiences.py">detach</a>(id, \*\*<a href="src/whopsdk/types/experience_detach_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/experience.py">Experience</a></code>
+
+# Reactions
+
+Types:
+
+```python
+from whopsdk.types import ReactionListResponse
+```
+
+Methods:
+
+- <code title="post /reactions">client.reactions.<a href="./src/whopsdk/resources/reactions.py">create</a>(\*\*<a href="src/whopsdk/types/reaction_create_params.py">params</a>) -> <a href="./src/whopsdk/types/shared/reaction.py">Reaction</a></code>
+- <code title="get /reactions/{id}">client.reactions.<a href="./src/whopsdk/resources/reactions.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/shared/reaction.py">Reaction</a></code>
+- <code title="get /reactions">client.reactions.<a href="./src/whopsdk/resources/reactions.py">list</a>(\*\*<a href="src/whopsdk/types/reaction_list_params.py">params</a>) -> <a href="./src/whopsdk/types/reaction_list_response.py">SyncCursorPage[ReactionListResponse]</a></code>
