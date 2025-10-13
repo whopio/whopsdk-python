@@ -73,6 +73,14 @@ from .companies import (
     CompaniesResourceWithStreamingResponse,
     AsyncCompaniesResourceWithStreamingResponse,
 )
+from .reactions import (
+    ReactionsResource,
+    AsyncReactionsResource,
+    ReactionsResourceWithRawResponse,
+    AsyncReactionsResourceWithRawResponse,
+    ReactionsResourceWithStreamingResponse,
+    AsyncReactionsResourceWithStreamingResponse,
+)
 from .shipments import (
     ShipmentsResource,
     AsyncShipmentsResource,
@@ -299,4 +307,10 @@ __all__ = [
     "AsyncExperiencesResourceWithRawResponse",
     "ExperiencesResourceWithStreamingResponse",
     "AsyncExperiencesResourceWithStreamingResponse",
+    "ReactionsResource",
+    "AsyncReactionsResource",
+    "ReactionsResourceWithRawResponse",
+    "AsyncReactionsResourceWithRawResponse",
+    "ReactionsResourceWithStreamingResponse",
+    "AsyncReactionsResourceWithStreamingResponse",
 ]

@@ -9,6 +9,7 @@ from .message import Message as Message
 from .payment import Payment as Payment
 from .product import Product as Product
 from .currency import Currency as Currency
+from .reaction import Reaction as Reaction
 from .shipment import Shipment as Shipment
 from .tax_type import TaxType as TaxType
 from .transfer import Transfer as Transfer

@@ -32,6 +32,7 @@ from .resources import (
     products,
     webhooks,
     companies,
+    reactions,
     shipments,
     transfers,
     app_builds,
@@ -79,6 +80,7 @@ class Whopsdk(SyncAPIClient):
     payments: payments.PaymentsResource
     support_channels: support_channels.SupportChannelsResource
     experiences: experiences.ExperiencesResource
+    reactions: reactions.ReactionsResource
     with_raw_response: WhopsdkWithRawResponse
     with_streaming_response: WhopsdkWithStreamedResponse
 
@@ -166,6 +168,7 @@ class Whopsdk(SyncAPIClient):
         self.payments = payments.PaymentsResource(self)
         self.support_channels = support_channels.SupportChannelsResource(self)
         self.experiences = experiences.ExperiencesResource(self)
+        self.reactions = reactions.ReactionsResource(self)
         self.with_raw_response = WhopsdkWithRawResponse(self)
         self.with_streaming_response = WhopsdkWithStreamedResponse(self)
 
@@ -299,6 +302,7 @@ class AsyncWhopsdk(AsyncAPIClient):
     payments: payments.AsyncPaymentsResource
     support_channels: support_channels.AsyncSupportChannelsResource
     experiences: experiences.AsyncExperiencesResource
+    reactions: reactions.AsyncReactionsResource
     with_raw_response: AsyncWhopsdkWithRawResponse
     with_streaming_response: AsyncWhopsdkWithStreamedResponse
 
@@ -386,6 +390,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         self.payments = payments.AsyncPaymentsResource(self)
         self.support_channels = support_channels.AsyncSupportChannelsResource(self)
         self.experiences = experiences.AsyncExperiencesResource(self)
+        self.reactions = reactions.AsyncReactionsResource(self)
         self.with_raw_response = AsyncWhopsdkWithRawResponse(self)
         self.with_streaming_response = AsyncWhopsdkWithStreamedResponse(self)
 
@@ -523,6 +528,7 @@ class WhopsdkWithRawResponse:
         self.payments = payments.PaymentsResourceWithRawResponse(client.payments)
         self.support_channels = support_channels.SupportChannelsResourceWithRawResponse(client.support_channels)
         self.experiences = experiences.ExperiencesResourceWithRawResponse(client.experiences)
+        self.reactions = reactions.ReactionsResourceWithRawResponse(client.reactions)
 
 
 class AsyncWhopsdkWithRawResponse:
@@ -554,6 +560,7 @@ class AsyncWhopsdkWithRawResponse:
         self.payments = payments.AsyncPaymentsResourceWithRawResponse(client.payments)
         self.support_channels = support_channels.AsyncSupportChannelsResourceWithRawResponse(client.support_channels)
         self.experiences = experiences.AsyncExperiencesResourceWithRawResponse(client.experiences)
+        self.reactions = reactions.AsyncReactionsResourceWithRawResponse(client.reactions)
 
 
 class WhopsdkWithStreamedResponse:
@@ -585,6 +592,7 @@ class WhopsdkWithStreamedResponse:
         self.payments = payments.PaymentsResourceWithStreamingResponse(client.payments)
         self.support_channels = support_channels.SupportChannelsResourceWithStreamingResponse(client.support_channels)
         self.experiences = experiences.ExperiencesResourceWithStreamingResponse(client.experiences)
+        self.reactions = reactions.ReactionsResourceWithStreamingResponse(client.reactions)
 
 
 class AsyncWhopsdkWithStreamedResponse:
@@ -620,6 +628,7 @@ class AsyncWhopsdkWithStreamedResponse:
             client.support_channels
         )
         self.experiences = experiences.AsyncExperiencesResourceWithStreamingResponse(client.experiences)
+        self.reactions = reactions.AsyncReactionsResourceWithStreamingResponse(client.reactions)
 
 
 Client = Whopsdk
