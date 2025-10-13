@@ -169,7 +169,7 @@ class MembershipsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[MembershipListResponse]]:
+    ) -> SyncCursorPage[MembershipListResponse]:
         """
         Lists memberships
 
@@ -216,7 +216,7 @@ class MembershipsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/memberships",
-            page=SyncCursorPage[Optional[MembershipListResponse]],
+            page=SyncCursorPage[MembershipListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -508,7 +508,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[MembershipListResponse], AsyncCursorPage[Optional[MembershipListResponse]]]:
+    ) -> AsyncPaginator[MembershipListResponse, AsyncCursorPage[MembershipListResponse]]:
         """
         Lists memberships
 
@@ -555,7 +555,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/memberships",
-            page=AsyncCursorPage[Optional[MembershipListResponse]],
+            page=AsyncCursorPage[MembershipListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

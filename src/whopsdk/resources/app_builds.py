@@ -166,7 +166,7 @@ class AppBuildsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[AppBuildListResponse]]:
+    ) -> SyncCursorPage[AppBuildListResponse]:
         """
         Lists app builds for an app
 
@@ -199,7 +199,7 @@ class AppBuildsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/app_builds",
-            page=SyncCursorPage[Optional[AppBuildListResponse]],
+            page=SyncCursorPage[AppBuildListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -397,7 +397,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[AppBuildListResponse], AsyncCursorPage[Optional[AppBuildListResponse]]]:
+    ) -> AsyncPaginator[AppBuildListResponse, AsyncCursorPage[AppBuildListResponse]]:
         """
         Lists app builds for an app
 
@@ -430,7 +430,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/app_builds",
-            page=AsyncCursorPage[Optional[AppBuildListResponse]],
+            page=AsyncCursorPage[AppBuildListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

@@ -155,7 +155,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[MessageListResponse]]:
+    ) -> SyncCursorPage[MessageListResponse]:
         """
         Lists messages inside a channel
 
@@ -184,7 +184,7 @@ class MessagesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/messages",
-            page=SyncCursorPage[Optional[MessageListResponse]],
+            page=SyncCursorPage[MessageListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -335,7 +335,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[MessageListResponse], AsyncCursorPage[Optional[MessageListResponse]]]:
+    ) -> AsyncPaginator[MessageListResponse, AsyncCursorPage[MessageListResponse]]:
         """
         Lists messages inside a channel
 
@@ -364,7 +364,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/messages",
-            page=AsyncCursorPage[Optional[MessageListResponse]],
+            page=AsyncCursorPage[MessageListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

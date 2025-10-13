@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -125,7 +125,7 @@ class TestMessages:
         message = client.messages.list(
             channel_id="channel_id",
         )
-        assert_matches_type(SyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+        assert_matches_type(SyncCursorPage[MessageListResponse], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -137,7 +137,7 @@ class TestMessages:
             first=42,
             last=42,
         )
-        assert_matches_type(SyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+        assert_matches_type(SyncCursorPage[MessageListResponse], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -149,7 +149,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+        assert_matches_type(SyncCursorPage[MessageListResponse], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -161,7 +161,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+            assert_matches_type(SyncCursorPage[MessageListResponse], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -277,7 +277,7 @@ class TestAsyncMessages:
         message = await async_client.messages.list(
             channel_id="channel_id",
         )
-        assert_matches_type(AsyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+        assert_matches_type(AsyncCursorPage[MessageListResponse], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -289,7 +289,7 @@ class TestAsyncMessages:
             first=42,
             last=42,
         )
-        assert_matches_type(AsyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+        assert_matches_type(AsyncCursorPage[MessageListResponse], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -301,7 +301,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+        assert_matches_type(AsyncCursorPage[MessageListResponse], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -313,6 +313,6 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[MessageListResponse]], message, path=["response"])
+            assert_matches_type(AsyncCursorPage[MessageListResponse], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True

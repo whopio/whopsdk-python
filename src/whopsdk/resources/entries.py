@@ -106,7 +106,7 @@ class EntriesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[EntryListResponse]]:
+    ) -> SyncCursorPage[EntryListResponse]:
         """
         Lists entries for a company
 
@@ -146,7 +146,7 @@ class EntriesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/entries",
-            page=SyncCursorPage[Optional[EntryListResponse]],
+            page=SyncCursorPage[EntryListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -325,7 +325,7 @@ class AsyncEntriesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[EntryListResponse], AsyncCursorPage[Optional[EntryListResponse]]]:
+    ) -> AsyncPaginator[EntryListResponse, AsyncCursorPage[EntryListResponse]]:
         """
         Lists entries for a company
 
@@ -365,7 +365,7 @@ class AsyncEntriesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/entries",
-            page=AsyncCursorPage[Optional[EntryListResponse]],
+            page=AsyncCursorPage[EntryListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

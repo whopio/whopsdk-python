@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -65,7 +65,7 @@ class TestCourseLessonInteractions:
     def test_method_list(self, client: Whopsdk) -> None:
         course_lesson_interaction = client.course_lesson_interactions.list()
         assert_matches_type(
-            SyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+            SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -82,7 +82,7 @@ class TestCourseLessonInteractions:
             user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(
-            SyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+            SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -94,7 +94,7 @@ class TestCourseLessonInteractions:
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         course_lesson_interaction = response.parse()
         assert_matches_type(
-            SyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+            SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -106,7 +106,7 @@ class TestCourseLessonInteractions:
 
             course_lesson_interaction = response.parse()
             assert_matches_type(
-                SyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+                SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
             )
 
         assert cast(Any, response.is_closed) is True
@@ -164,7 +164,7 @@ class TestAsyncCourseLessonInteractions:
     async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.list()
         assert_matches_type(
-            AsyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+            AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -181,7 +181,7 @@ class TestAsyncCourseLessonInteractions:
             user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(
-            AsyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+            AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -193,7 +193,7 @@ class TestAsyncCourseLessonInteractions:
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         course_lesson_interaction = await response.parse()
         assert_matches_type(
-            AsyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+            AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -205,7 +205,7 @@ class TestAsyncCourseLessonInteractions:
 
             course_lesson_interaction = await response.parse()
             assert_matches_type(
-                AsyncCursorPage[Optional[CourseLessonInteractionListItem]], course_lesson_interaction, path=["response"]
+                AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
             )
 
         assert cast(Any, response.is_closed) is True

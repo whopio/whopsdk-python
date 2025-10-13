@@ -100,7 +100,7 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[CourseLessonInteractionListItem]]:
+    ) -> SyncCursorPage[CourseLessonInteractionListItem]:
         """
         Lists course lesson interactions
 
@@ -136,7 +136,7 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/course_lesson_interactions",
-            page=SyncCursorPage[Optional[CourseLessonInteractionListItem]],
+            page=SyncCursorPage[CourseLessonInteractionListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -235,9 +235,7 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[
-        Optional[CourseLessonInteractionListItem], AsyncCursorPage[Optional[CourseLessonInteractionListItem]]
-    ]:
+    ) -> AsyncPaginator[CourseLessonInteractionListItem, AsyncCursorPage[CourseLessonInteractionListItem]]:
         """
         Lists course lesson interactions
 
@@ -273,7 +271,7 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/course_lesson_interactions",
-            page=AsyncCursorPage[Optional[CourseLessonInteractionListItem]],
+            page=AsyncCursorPage[CourseLessonInteractionListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

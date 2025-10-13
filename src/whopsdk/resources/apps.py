@@ -249,7 +249,7 @@ class AppsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[AppListResponse]]:
+    ) -> SyncCursorPage[AppListResponse]:
         """
         Fetches a list of apps
 
@@ -285,7 +285,7 @@ class AppsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/apps",
-            page=SyncCursorPage[Optional[AppListResponse]],
+            page=SyncCursorPage[AppListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -531,7 +531,7 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[AppListResponse], AsyncCursorPage[Optional[AppListResponse]]]:
+    ) -> AsyncPaginator[AppListResponse, AsyncCursorPage[AppListResponse]]:
         """
         Fetches a list of apps
 
@@ -567,7 +567,7 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/apps",
-            page=AsyncCursorPage[Optional[AppListResponse]],
+            page=AsyncCursorPage[AppListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

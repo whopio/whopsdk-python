@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -120,7 +120,7 @@ class TestMemberships:
         membership = client.memberships.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+        assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -141,7 +141,7 @@ class TestMemberships:
             promo_code_ids=["string"],
             statuses=["trialing"],
         )
-        assert_matches_type(SyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+        assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -153,7 +153,7 @@ class TestMemberships:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         membership = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+        assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -165,7 +165,7 @@ class TestMemberships:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             membership = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+            assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -418,7 +418,7 @@ class TestAsyncMemberships:
         membership = await async_client.memberships.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+        assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -439,7 +439,7 @@ class TestAsyncMemberships:
             promo_code_ids=["string"],
             statuses=["trialing"],
         )
-        assert_matches_type(AsyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+        assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -451,7 +451,7 @@ class TestAsyncMemberships:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         membership = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+        assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -463,7 +463,7 @@ class TestAsyncMemberships:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             membership = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[MembershipListResponse]], membership, path=["response"])
+            assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

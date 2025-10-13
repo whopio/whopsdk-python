@@ -215,7 +215,7 @@ class ExperiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[ExperienceListResponse]]:
+    ) -> SyncCursorPage[ExperienceListResponse]:
         """
         Lists experiences for a company
 
@@ -248,7 +248,7 @@ class ExperiencesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/experiences",
-            page=SyncCursorPage[Optional[ExperienceListResponse]],
+            page=SyncCursorPage[ExperienceListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -572,7 +572,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[ExperienceListResponse], AsyncCursorPage[Optional[ExperienceListResponse]]]:
+    ) -> AsyncPaginator[ExperienceListResponse, AsyncCursorPage[ExperienceListResponse]]:
         """
         Lists experiences for a company
 
@@ -605,7 +605,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/experiences",
-            page=AsyncCursorPage[Optional[ExperienceListResponse]],
+            page=AsyncCursorPage[ExperienceListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

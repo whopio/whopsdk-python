@@ -198,7 +198,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[InvoiceListItem]]:
+    ) -> SyncCursorPage[InvoiceListItem]:
         """
         Lists invoices
 
@@ -234,7 +234,7 @@ class InvoicesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/invoices",
-            page=SyncCursorPage[Optional[InvoiceListItem]],
+            page=SyncCursorPage[InvoiceListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -463,7 +463,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[InvoiceListItem], AsyncCursorPage[Optional[InvoiceListItem]]]:
+    ) -> AsyncPaginator[InvoiceListItem, AsyncCursorPage[InvoiceListItem]]:
         """
         Lists invoices
 
@@ -499,7 +499,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/invoices",
-            page=AsyncCursorPage[Optional[InvoiceListItem]],
+            page=AsyncCursorPage[InvoiceListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

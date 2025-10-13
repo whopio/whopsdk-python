@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -176,7 +176,7 @@ class TestExperiences:
         experience = client.experiences.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+        assert_matches_type(SyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -190,7 +190,7 @@ class TestExperiences:
             last=42,
             product_id="prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+        assert_matches_type(SyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -202,7 +202,7 @@ class TestExperiences:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         experience = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+        assert_matches_type(SyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -214,7 +214,7 @@ class TestExperiences:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             experience = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+            assert_matches_type(SyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -512,7 +512,7 @@ class TestAsyncExperiences:
         experience = await async_client.experiences.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+        assert_matches_type(AsyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -526,7 +526,7 @@ class TestAsyncExperiences:
             last=42,
             product_id="prod_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+        assert_matches_type(AsyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -538,7 +538,7 @@ class TestAsyncExperiences:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         experience = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+        assert_matches_type(AsyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -550,7 +550,7 @@ class TestAsyncExperiences:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             experience = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[ExperienceListResponse]], experience, path=["response"])
+            assert_matches_type(AsyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

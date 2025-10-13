@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -67,7 +67,7 @@ class TestPayments:
         payment = client.payments.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+        assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -90,7 +90,7 @@ class TestPayments:
             statuses=["draft"],
             substatuses=["auto_refunded"],
         )
-        assert_matches_type(SyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+        assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -102,7 +102,7 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+        assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -114,7 +114,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+            assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -307,7 +307,7 @@ class TestAsyncPayments:
         payment = await async_client.payments.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+        assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -330,7 +330,7 @@ class TestAsyncPayments:
             statuses=["draft"],
             substatuses=["auto_refunded"],
         )
-        assert_matches_type(AsyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+        assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -342,7 +342,7 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+        assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -354,7 +354,7 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[PaymentListResponse]], payment, path=["response"])
+            assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
