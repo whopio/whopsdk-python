@@ -323,7 +323,7 @@ class PlansResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[PlanListResponse]]:
+    ) -> SyncCursorPage[PlanListResponse]:
         """
         Lists plans for a company
 
@@ -364,7 +364,7 @@ class PlansResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/plans",
-            page=SyncCursorPage[Optional[PlanListResponse]],
+            page=SyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -717,7 +717,7 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[PlanListResponse], AsyncCursorPage[Optional[PlanListResponse]]]:
+    ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
         """
         Lists plans for a company
 
@@ -758,7 +758,7 @@ class AsyncPlansResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/plans",
-            page=AsyncCursorPage[Optional[PlanListResponse]],
+            page=AsyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -121,7 +121,7 @@ class TestTransfers:
     @parametrize
     def test_method_list(self, client: Whopsdk) -> None:
         transfer = client.transfers.list()
-        assert_matches_type(SyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+        assert_matches_type(SyncCursorPage[TransferListResponse], transfer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -136,7 +136,7 @@ class TestTransfers:
             order="amount",
             origin_id="origin_id",
         )
-        assert_matches_type(SyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+        assert_matches_type(SyncCursorPage[TransferListResponse], transfer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -146,7 +146,7 @@ class TestTransfers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         transfer = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+        assert_matches_type(SyncCursorPage[TransferListResponse], transfer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -156,7 +156,7 @@ class TestTransfers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             transfer = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+            assert_matches_type(SyncCursorPage[TransferListResponse], transfer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -268,7 +268,7 @@ class TestAsyncTransfers:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
         transfer = await async_client.transfers.list()
-        assert_matches_type(AsyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+        assert_matches_type(AsyncCursorPage[TransferListResponse], transfer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -283,7 +283,7 @@ class TestAsyncTransfers:
             order="amount",
             origin_id="origin_id",
         )
-        assert_matches_type(AsyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+        assert_matches_type(AsyncCursorPage[TransferListResponse], transfer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -293,7 +293,7 @@ class TestAsyncTransfers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         transfer = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+        assert_matches_type(AsyncCursorPage[TransferListResponse], transfer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -303,6 +303,6 @@ class TestAsyncTransfers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             transfer = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[TransferListResponse]], transfer, path=["response"])
+            assert_matches_type(AsyncCursorPage[TransferListResponse], transfer, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -159,7 +159,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[CheckoutConfigurationListResponse]]:
+    ) -> SyncCursorPage[CheckoutConfigurationListResponse]:
         """
         Lists checkout configurations
 
@@ -192,7 +192,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/checkout_configurations",
-            page=SyncCursorPage[Optional[CheckoutConfigurationListResponse]],
+            page=SyncCursorPage[CheckoutConfigurationListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -348,9 +348,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[
-        Optional[CheckoutConfigurationListResponse], AsyncCursorPage[Optional[CheckoutConfigurationListResponse]]
-    ]:
+    ) -> AsyncPaginator[CheckoutConfigurationListResponse, AsyncCursorPage[CheckoutConfigurationListResponse]]:
         """
         Lists checkout configurations
 
@@ -383,7 +381,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/checkout_configurations",
-            page=AsyncCursorPage[Optional[CheckoutConfigurationListResponse]],
+            page=AsyncCursorPage[CheckoutConfigurationListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

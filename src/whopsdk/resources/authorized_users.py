@@ -100,7 +100,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[AuthorizedUserListResponse]]:
+    ) -> SyncCursorPage[AuthorizedUserListResponse]:
         """
         Lists authorized users
 
@@ -134,7 +134,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/authorized_users",
-            page=SyncCursorPage[Optional[AuthorizedUserListResponse]],
+            page=SyncCursorPage[AuthorizedUserListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -231,7 +231,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[AuthorizedUserListResponse], AsyncCursorPage[Optional[AuthorizedUserListResponse]]]:
+    ) -> AsyncPaginator[AuthorizedUserListResponse, AsyncCursorPage[AuthorizedUserListResponse]]:
         """
         Lists authorized users
 
@@ -265,7 +265,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/authorized_users",
-            page=AsyncCursorPage[Optional[AuthorizedUserListResponse]],
+            page=AsyncCursorPage[AuthorizedUserListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

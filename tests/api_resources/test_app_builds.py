@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -122,7 +122,7 @@ class TestAppBuilds:
         app_build = client.app_builds.list(
             app_id="app_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+        assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -136,7 +136,7 @@ class TestAppBuilds:
             platform="ios",
             status="draft",
         )
-        assert_matches_type(SyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+        assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -148,7 +148,7 @@ class TestAppBuilds:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         app_build = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+        assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -160,7 +160,7 @@ class TestAppBuilds:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             app_build = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+            assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -315,7 +315,7 @@ class TestAsyncAppBuilds:
         app_build = await async_client.app_builds.list(
             app_id="app_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+        assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -329,7 +329,7 @@ class TestAsyncAppBuilds:
             platform="ios",
             status="draft",
         )
-        assert_matches_type(AsyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+        assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -341,7 +341,7 @@ class TestAsyncAppBuilds:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         app_build = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+        assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -353,7 +353,7 @@ class TestAsyncAppBuilds:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             app_build = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[AppBuildListResponse]], app_build, path=["response"])
+            assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

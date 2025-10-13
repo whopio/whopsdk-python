@@ -151,7 +151,7 @@ class ShipmentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[ShipmentListResponse]]:
+    ) -> SyncCursorPage[ShipmentListResponse]:
         """
         Lists shipments for a payment
 
@@ -185,7 +185,7 @@ class ShipmentsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/shipments",
-            page=SyncCursorPage[Optional[ShipmentListResponse]],
+            page=SyncCursorPage[ShipmentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -334,7 +334,7 @@ class AsyncShipmentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[ShipmentListResponse], AsyncCursorPage[Optional[ShipmentListResponse]]]:
+    ) -> AsyncPaginator[ShipmentListResponse, AsyncCursorPage[ShipmentListResponse]]:
         """
         Lists shipments for a payment
 
@@ -368,7 +368,7 @@ class AsyncShipmentsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/shipments",
-            page=AsyncCursorPage[Optional[ShipmentListResponse]],
+            page=AsyncCursorPage[ShipmentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

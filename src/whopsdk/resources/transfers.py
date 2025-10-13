@@ -167,7 +167,7 @@ class TransfersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[TransferListResponse]]:
+    ) -> SyncCursorPage[TransferListResponse]:
         """
         Lists transfers
 
@@ -204,7 +204,7 @@ class TransfersResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/transfers",
-            page=SyncCursorPage[Optional[TransferListResponse]],
+            page=SyncCursorPage[TransferListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -367,7 +367,7 @@ class AsyncTransfersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[TransferListResponse], AsyncCursorPage[Optional[TransferListResponse]]]:
+    ) -> AsyncPaginator[TransferListResponse, AsyncCursorPage[TransferListResponse]]:
         """
         Lists transfers
 
@@ -404,7 +404,7 @@ class AsyncTransfersResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/transfers",
-            page=AsyncCursorPage[Optional[TransferListResponse]],
+            page=AsyncCursorPage[TransferListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

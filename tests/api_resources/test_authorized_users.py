@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -69,7 +69,7 @@ class TestAuthorizedUsers:
         authorized_user = client.authorized_users.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"])
+        assert_matches_type(SyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -83,7 +83,7 @@ class TestAuthorizedUsers:
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"])
+        assert_matches_type(SyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -95,7 +95,7 @@ class TestAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"])
+        assert_matches_type(SyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -107,9 +107,7 @@ class TestAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = response.parse()
-            assert_matches_type(
-                SyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"]
-            )
+            assert_matches_type(SyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -167,7 +165,7 @@ class TestAsyncAuthorizedUsers:
         authorized_user = await async_client.authorized_users.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"])
+        assert_matches_type(AsyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -181,7 +179,7 @@ class TestAsyncAuthorizedUsers:
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"])
+        assert_matches_type(AsyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -193,7 +191,7 @@ class TestAsyncAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"])
+        assert_matches_type(AsyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -205,8 +203,6 @@ class TestAsyncAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = await response.parse()
-            assert_matches_type(
-                AsyncCursorPage[Optional[AuthorizedUserListResponse]], authorized_user, path=["response"]
-            )
+            assert_matches_type(AsyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -150,7 +150,7 @@ class SupportChannelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[SupportChannelListResponse]]:
+    ) -> SyncCursorPage[SupportChannelListResponse]:
         """
         Lists chat channels inside a company
 
@@ -187,7 +187,7 @@ class SupportChannelsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/support_channels",
-            page=SyncCursorPage[Optional[SupportChannelListResponse]],
+            page=SyncCursorPage[SupportChannelListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -334,7 +334,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[SupportChannelListResponse], AsyncCursorPage[Optional[SupportChannelListResponse]]]:
+    ) -> AsyncPaginator[SupportChannelListResponse, AsyncCursorPage[SupportChannelListResponse]]:
         """
         Lists chat channels inside a company
 
@@ -371,7 +371,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/support_channels",
-            page=AsyncCursorPage[Optional[SupportChannelListResponse]],
+            page=AsyncCursorPage[SupportChannelListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

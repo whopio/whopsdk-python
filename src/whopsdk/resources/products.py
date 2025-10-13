@@ -361,7 +361,7 @@ class ProductsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[ProductListItem]]:
+    ) -> SyncCursorPage[ProductListItem]:
         """
         Lists products for a company
 
@@ -398,7 +398,7 @@ class ProductsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/products",
-            page=SyncCursorPage[Optional[ProductListItem]],
+            page=SyncCursorPage[ProductListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -786,7 +786,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[ProductListItem], AsyncCursorPage[Optional[ProductListItem]]]:
+    ) -> AsyncPaginator[ProductListItem, AsyncCursorPage[ProductListItem]]:
         """
         Lists products for a company
 
@@ -823,7 +823,7 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/products",
-            page=AsyncCursorPage[Optional[ProductListItem]],
+            page=AsyncCursorPage[ProductListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

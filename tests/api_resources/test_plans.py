@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -219,7 +219,7 @@ class TestPlans:
         plan = client.plans.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -237,7 +237,7 @@ class TestPlans:
             release_methods=["buy_now"],
             visibilities=["visible"],
         )
-        assert_matches_type(SyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -249,7 +249,7 @@ class TestPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -261,7 +261,7 @@ class TestPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+            assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -510,7 +510,7 @@ class TestAsyncPlans:
         plan = await async_client.plans.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -528,7 +528,7 @@ class TestAsyncPlans:
             release_methods=["buy_now"],
             visibilities=["visible"],
         )
-        assert_matches_type(AsyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -540,7 +540,7 @@ class TestAsyncPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -552,7 +552,7 @@ class TestAsyncPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[PlanListResponse]], plan, path=["response"])
+            assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -105,7 +105,7 @@ class TestShipments:
     @parametrize
     def test_method_list(self, client: Whopsdk) -> None:
         shipment = client.shipments.list()
-        assert_matches_type(SyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+        assert_matches_type(SyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -119,7 +119,7 @@ class TestShipments:
             payment_id="pay_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+        assert_matches_type(SyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -129,7 +129,7 @@ class TestShipments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shipment = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+        assert_matches_type(SyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -139,7 +139,7 @@ class TestShipments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shipment = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+            assert_matches_type(SyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -235,7 +235,7 @@ class TestAsyncShipments:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
         shipment = await async_client.shipments.list()
-        assert_matches_type(AsyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+        assert_matches_type(AsyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -249,7 +249,7 @@ class TestAsyncShipments:
             payment_id="pay_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+        assert_matches_type(AsyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -259,7 +259,7 @@ class TestAsyncShipments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shipment = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+        assert_matches_type(AsyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -269,6 +269,6 @@ class TestAsyncShipments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shipment = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[ShipmentListResponse]], shipment, path=["response"])
+            assert_matches_type(AsyncCursorPage[ShipmentListResponse], shipment, path=["response"])
 
         assert cast(Any, response.is_closed) is True

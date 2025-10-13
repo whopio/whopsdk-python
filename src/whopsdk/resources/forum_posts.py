@@ -183,7 +183,7 @@ class ForumPostsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[ForumPostListResponse]]:
+    ) -> SyncCursorPage[ForumPostListResponse]:
         """
         Lists forum posts
 
@@ -216,7 +216,7 @@ class ForumPostsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/forum_posts",
-            page=SyncCursorPage[Optional[ForumPostListResponse]],
+            page=SyncCursorPage[ForumPostListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -396,7 +396,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[ForumPostListResponse], AsyncCursorPage[Optional[ForumPostListResponse]]]:
+    ) -> AsyncPaginator[ForumPostListResponse, AsyncCursorPage[ForumPostListResponse]]:
         """
         Lists forum posts
 
@@ -429,7 +429,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/forum_posts",
-            page=AsyncCursorPage[Optional[ForumPostListResponse]],
+            page=AsyncCursorPage[ForumPostListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

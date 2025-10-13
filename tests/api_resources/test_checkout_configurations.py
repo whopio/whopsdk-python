@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -141,7 +141,7 @@ class TestCheckoutConfigurations:
             company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(
-            SyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+            SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -157,7 +157,7 @@ class TestCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
         )
         assert_matches_type(
-            SyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+            SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -171,7 +171,7 @@ class TestCheckoutConfigurations:
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = response.parse()
         assert_matches_type(
-            SyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+            SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -185,7 +185,7 @@ class TestCheckoutConfigurations:
 
             checkout_configuration = response.parse()
             assert_matches_type(
-                SyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+                SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
             )
 
         assert cast(Any, response.is_closed) is True
@@ -316,7 +316,7 @@ class TestAsyncCheckoutConfigurations:
             company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(
-            AsyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+            AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -332,7 +332,7 @@ class TestAsyncCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
         )
         assert_matches_type(
-            AsyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+            AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -346,7 +346,7 @@ class TestAsyncCheckoutConfigurations:
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = await response.parse()
         assert_matches_type(
-            AsyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+            AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
         )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -360,7 +360,7 @@ class TestAsyncCheckoutConfigurations:
 
             checkout_configuration = await response.parse()
             assert_matches_type(
-                AsyncCursorPage[Optional[CheckoutConfigurationListResponse]], checkout_configuration, path=["response"]
+                AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
             )
 
         assert cast(Any, response.is_closed) is True

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -152,7 +152,7 @@ class TestInvoices:
         invoice = client.invoices.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+        assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -171,7 +171,7 @@ class TestInvoices:
             last=42,
             order="id",
         )
-        assert_matches_type(SyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+        assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -183,7 +183,7 @@ class TestInvoices:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         invoice = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+        assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -195,7 +195,7 @@ class TestInvoices:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             invoice = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+            assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -380,7 +380,7 @@ class TestAsyncInvoices:
         invoice = await async_client.invoices.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+        assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -399,7 +399,7 @@ class TestAsyncInvoices:
             last=42,
             order="id",
         )
-        assert_matches_type(AsyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+        assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -411,7 +411,7 @@ class TestAsyncInvoices:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         invoice = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+        assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -423,7 +423,7 @@ class TestAsyncInvoices:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             invoice = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[InvoiceListItem]], invoice, path=["response"])
+            assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -104,7 +104,7 @@ class TestSupportChannels:
         support_channel = client.support_channels.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"])
+        assert_matches_type(SyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -119,7 +119,7 @@ class TestSupportChannels:
             open=True,
             order="created_at",
         )
-        assert_matches_type(SyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"])
+        assert_matches_type(SyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -131,7 +131,7 @@ class TestSupportChannels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         support_channel = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"])
+        assert_matches_type(SyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -143,9 +143,7 @@ class TestSupportChannels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             support_channel = response.parse()
-            assert_matches_type(
-                SyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"]
-            )
+            assert_matches_type(SyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -240,7 +238,7 @@ class TestAsyncSupportChannels:
         support_channel = await async_client.support_channels.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"])
+        assert_matches_type(AsyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -255,7 +253,7 @@ class TestAsyncSupportChannels:
             open=True,
             order="created_at",
         )
-        assert_matches_type(AsyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"])
+        assert_matches_type(AsyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -267,7 +265,7 @@ class TestAsyncSupportChannels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         support_channel = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"])
+        assert_matches_type(AsyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -279,8 +277,6 @@ class TestAsyncSupportChannels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             support_channel = await response.parse()
-            assert_matches_type(
-                AsyncCursorPage[Optional[SupportChannelListResponse]], support_channel, path=["response"]
-            )
+            assert_matches_type(AsyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
         assert cast(Any, response.is_closed) is True

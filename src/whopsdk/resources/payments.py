@@ -130,7 +130,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[Optional[PaymentListResponse]]:
+    ) -> SyncCursorPage[PaymentListResponse]:
         """
         Lists payments
 
@@ -187,7 +187,7 @@ class PaymentsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/payments",
-            page=SyncCursorPage[Optional[PaymentListResponse]],
+            page=SyncCursorPage[PaymentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -452,7 +452,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Optional[PaymentListResponse], AsyncCursorPage[Optional[PaymentListResponse]]]:
+    ) -> AsyncPaginator[PaymentListResponse, AsyncCursorPage[PaymentListResponse]]:
         """
         Lists payments
 
@@ -509,7 +509,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/payments",
-            page=AsyncCursorPage[Optional[PaymentListResponse]],
+            page=AsyncCursorPage[PaymentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

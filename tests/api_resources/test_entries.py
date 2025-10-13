@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -67,7 +67,7 @@ class TestEntries:
         entry = client.entries.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+        assert_matches_type(SyncCursorPage[EntryListResponse], entry, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -84,7 +84,7 @@ class TestEntries:
             product_ids=["string"],
             statuses=["drafted"],
         )
-        assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+        assert_matches_type(SyncCursorPage[EntryListResponse], entry, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -96,7 +96,7 @@ class TestEntries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         entry = response.parse()
-        assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+        assert_matches_type(SyncCursorPage[EntryListResponse], entry, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -108,7 +108,7 @@ class TestEntries:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             entry = response.parse()
-            assert_matches_type(SyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+            assert_matches_type(SyncCursorPage[EntryListResponse], entry, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -250,7 +250,7 @@ class TestAsyncEntries:
         entry = await async_client.entries.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+        assert_matches_type(AsyncCursorPage[EntryListResponse], entry, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -267,7 +267,7 @@ class TestAsyncEntries:
             product_ids=["string"],
             statuses=["drafted"],
         )
-        assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+        assert_matches_type(AsyncCursorPage[EntryListResponse], entry, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -279,7 +279,7 @@ class TestAsyncEntries:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         entry = await response.parse()
-        assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+        assert_matches_type(AsyncCursorPage[EntryListResponse], entry, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -291,7 +291,7 @@ class TestAsyncEntries:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             entry = await response.parse()
-            assert_matches_type(AsyncCursorPage[Optional[EntryListResponse]], entry, path=["response"])
+            assert_matches_type(AsyncCursorPage[EntryListResponse], entry, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
