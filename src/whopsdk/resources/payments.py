@@ -244,7 +244,7 @@ class PaymentsResource(SyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          partial_amount: refund_payment | An amount if the refund is supposed to be partial.
+          partial_amount: An amount if the refund is supposed to be partial.
 
           extra_headers: Send extra headers
 
@@ -566,7 +566,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          partial_amount: refund_payment | An amount if the refund is supposed to be partial.
+          partial_amount: An amount if the refund is supposed to be partial.
 
           extra_headers: Send extra headers
 

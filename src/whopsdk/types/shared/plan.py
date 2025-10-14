@@ -48,10 +48,10 @@ class Invoice(BaseModel):
 
 class Product(BaseModel):
     id: str
-    """The internal ID of the public access pass."""
+    """The internal ID of the public product."""
 
     title: str
-    """The title of the access pass. Use for Whop 4.0."""
+    """The title of the product. Use for Whop 4.0."""
 
 
 class Plan(BaseModel):
@@ -101,7 +101,7 @@ class Plan(BaseModel):
     """The access pass for the plan."""
 
     purchase_url: str
-    """The direct link to purchase the access pass."""
+    """The direct link to purchase the product."""
 
     release_method: ReleaseMethod
     """This is the release method the business uses to sell this plan."""

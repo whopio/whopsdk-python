@@ -59,10 +59,10 @@ class SupportChannelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SupportChannel:
-        """Create a new support channel for a user in a bot.
+        """Create a new support channel for a user in a company.
 
-        If one already exists, it will
-        return the existing one.
+        If one already exists, it
+        will return the existing one.
 
         Required permissions:
 
@@ -243,10 +243,10 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SupportChannel:
-        """Create a new support channel for a user in a bot.
+        """Create a new support channel for a user in a company.
 
-        If one already exists, it will
-        return the existing one.
+        If one already exists, it
+        will return the existing one.
 
         Required permissions:
 

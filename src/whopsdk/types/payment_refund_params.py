@@ -10,4 +10,4 @@ __all__ = ["PaymentRefundParams"]
 
 class PaymentRefundParams(TypedDict, total=False):
     partial_amount: Optional[float]
-    """refund_payment | An amount if the refund is supposed to be partial."""
+    """An amount if the refund is supposed to be partial."""

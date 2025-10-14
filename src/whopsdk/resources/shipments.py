@@ -67,7 +67,7 @@ class ShipmentsResource(SyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the bot to create the shipment for
+          company_id: The ID of the company to create the shipment for
 
           payment_id: The ID of the payment to create the shipment for
 
@@ -250,7 +250,7 @@ class AsyncShipmentsResource(AsyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the bot to create the shipment for
+          company_id: The ID of the company to create the shipment for
 
           payment_id: The ID of the payment to create the shipment for
 

@@ -105,11 +105,11 @@ class InvoicesResource(SyncAPIResource):
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
-          product: The properties of the access pass to create for this invoice. Include this if
-              you want to create an invoice for a new product.
+          product: The properties of the product to create for this invoice. Include this if you
+              want to create an invoice for a new product.
 
-          product_id: The access pass ID to create this invoice for. Include this if you want to
-              create an invoice for an existing product.
+          product_id: The product ID to create this invoice for. Include this if you want to create an
+              invoice for an existing product.
 
           extra_headers: Send extra headers
 
@@ -370,11 +370,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
-          product: The properties of the access pass to create for this invoice. Include this if
-              you want to create an invoice for a new product.
+          product: The properties of the product to create for this invoice. Include this if you
+              want to create an invoice for a new product.
 
-          product_id: The access pass ID to create this invoice for. Include this if you want to
-              create an invoice for an existing product.
+          product_id: The product ID to create this invoice for. Include this if you want to create an
+              invoice for an existing product.
 
           extra_headers: Send extra headers
 

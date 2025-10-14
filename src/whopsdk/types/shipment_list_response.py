@@ -12,7 +12,7 @@ __all__ = ["ShipmentListResponse", "Payment"]
 
 class Payment(BaseModel):
     id: str
-    """The receipt ID"""
+    """The payment ID"""
 
 
 class ShipmentListResponse(BaseModel):

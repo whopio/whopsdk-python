@@ -48,25 +48,25 @@ class ProductTaxCode(BaseModel):
 
 class Product(BaseModel):
     id: str
-    """The internal ID of the public access pass."""
+    """The internal ID of the public product."""
 
     business_type: Optional[BusinessTypes] = None
     """The different business types a company can be."""
 
     company: Company
-    """A short type of the company that this access pass belongs to."""
+    """A short type of the company that this product belongs to."""
 
     created_at: int
-    """When the access pass was created."""
+    """When the product was created."""
 
     custom_cta: CustomCta
-    """The custom call to action for the access pass."""
+    """The custom call to action for the product."""
 
     custom_cta_url: Optional[str] = None
-    """The custom call to action URL for the access pass, if any."""
+    """The custom call to action URL for the product, if any."""
 
     custom_statement_descriptor: Optional[str] = None
-    """The custom statement descriptor for the access pass."""
+    """The custom statement descriptor for the product."""
 
     description: Optional[str] = None
     """A short description of what the company offers or does."""
@@ -78,10 +78,10 @@ class Product(BaseModel):
     """
 
     global_affiliate_status: GlobalAffiliateStatus
-    """The status of the global affiliate program for this access pass."""
+    """The status of the global affiliate program for this product."""
 
     headline: Optional[str] = None
-    """The headline of the access pass."""
+    """The headline of the product."""
 
     industry_type: Optional[IndustryTypes] = None
     """The different industry types a company can be in."""
@@ -93,31 +93,31 @@ class Product(BaseModel):
     """
 
     member_affiliate_status: GlobalAffiliateStatus
-    """The status of the member affiliate program for this access pass."""
+    """The status of the member affiliate program for this product."""
 
     member_count: int
-    """The number of active users for this access pass."""
+    """The number of active users for this product."""
 
     owner_user: OwnerUser
-    """The user that owns the access pass (company owner)."""
+    """The user that owns the product (company owner)."""
 
     product_tax_code: Optional[ProductTaxCode] = None
-    """The product tax code for the access pass, if any."""
+    """The product tax code for the product, if any."""
 
     published_reviews_count: int
-    """The number of reviews that have been published for the access pass."""
+    """The number of reviews that have been published for the product."""
 
     route: str
-    """The route of the access pass."""
+    """The route of the product."""
 
     title: str
-    """The title of the access pass. Use for Whop 4.0."""
+    """The title of the product. Use for Whop 4.0."""
 
     updated_at: int
-    """When the access pass was updated."""
+    """When the product was updated."""
 
     verified: bool
     """Whether this product is Whop verified."""
 
     visibility: Visibility
-    """This access pass will/will not be displayed publicly."""
+    """This product will/will not be displayed publicly."""

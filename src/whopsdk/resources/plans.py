@@ -93,7 +93,7 @@ class PlansResource(SyncAPIResource):
         Args:
           company_id: The company the plan should be created for.
 
-          product_id: The access pass the plan is related to.
+          product_id: The product the plan is related to.
 
           billing_period: The interval at which the plan charges (renewal plans).
 
@@ -348,7 +348,7 @@ class PlansResource(SyncAPIResource):
 
           plan_types: The plan type to filter the plans by
 
-          product_ids: The access pass IDs to filter the plans by
+          product_ids: The product IDs to filter the plans by
 
           release_methods: The release method to filter the plans by
 
@@ -487,7 +487,7 @@ class AsyncPlansResource(AsyncAPIResource):
         Args:
           company_id: The company the plan should be created for.
 
-          product_id: The access pass the plan is related to.
+          product_id: The product the plan is related to.
 
           billing_period: The interval at which the plan charges (renewal plans).
 
@@ -742,7 +742,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           plan_types: The plan type to filter the plans by
 
-          product_ids: The access pass IDs to filter the plans by
+          product_ids: The product IDs to filter the plans by
 
           release_methods: The release method to filter the plans by
 

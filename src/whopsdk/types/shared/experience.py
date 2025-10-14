@@ -28,13 +28,13 @@ class Company(BaseModel):
 
 class Product(BaseModel):
     id: str
-    """The internal ID of the public access pass."""
+    """The internal ID of the public product."""
 
     route: str
-    """The route of the access pass."""
+    """The route of the product."""
 
     title: str
-    """The title of the access pass. Use for Whop 4.0."""
+    """The title of the product. Use for Whop 4.0."""
 
 
 class Experience(BaseModel):
