@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
+from .shared.direction import Direction
+
 __all__ = ["MessageListParams"]
 
 
@@ -17,6 +19,9 @@ class MessageListParams(TypedDict, total=False):
 
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
+
+    direction: Optional[Direction]
+    """The direction of the sort."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
