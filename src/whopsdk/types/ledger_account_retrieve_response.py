@@ -6,7 +6,7 @@ from typing_extensions import Literal, TypeAlias
 from .._models import BaseModel
 from .shared.currency import Currency
 
-__all__ = ["LedgerAccountRetrieveResponse", "Balance", "Owner", "OwnerUnionMember0", "OwnerUnionMember1"]
+__all__ = ["LedgerAccountRetrieveResponse", "Balance", "Owner", "OwnerUser", "OwnerCompany"]
 
 
 class Balance(BaseModel):
@@ -23,21 +23,21 @@ class Balance(BaseModel):
     """The amount of the balance that is reserved."""
 
 
-class OwnerUnionMember0(BaseModel):
+class OwnerUser(BaseModel):
     id: str
     """The internal ID of the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
 
-    typename: Literal["PublicProfileUser"]
+    typename: Literal["User"]
     """The typename of this object"""
 
     username: str
     """The username of the user from their Whop account."""
 
 
-class OwnerUnionMember1(BaseModel):
+class OwnerCompany(BaseModel):
     id: str
     """The ID (tag) of the company."""
 
@@ -47,11 +47,11 @@ class OwnerUnionMember1(BaseModel):
     title: str
     """The title of the company."""
 
-    typename: Literal["PublicCompany"]
+    typename: Literal["Company"]
     """The typename of this object"""
 
 
-Owner: TypeAlias = Union[Optional[OwnerUnionMember0], Optional[OwnerUnionMember1]]
+Owner: TypeAlias = Union[Optional[OwnerUser], Optional[OwnerCompany]]
 
 
 class LedgerAccountRetrieveResponse(BaseModel):

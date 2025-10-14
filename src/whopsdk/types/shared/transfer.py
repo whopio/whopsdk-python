@@ -6,32 +6,24 @@ from typing_extensions import Literal, TypeAlias
 from .currency import Currency
 from ..._models import BaseModel
 
-__all__ = [
-    "Transfer",
-    "Destination",
-    "DestinationUnionMember0",
-    "DestinationUnionMember1",
-    "Origin",
-    "OriginUnionMember0",
-    "OriginUnionMember1",
-]
+__all__ = ["Transfer", "Destination", "DestinationUser", "DestinationCompany", "Origin", "OriginUser", "OriginCompany"]
 
 
-class DestinationUnionMember0(BaseModel):
+class DestinationUser(BaseModel):
     id: str
     """The internal ID of the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
 
-    typename: Literal["PublicProfileUser"]
+    typename: Literal["User"]
     """The typename of this object"""
 
     username: str
     """The username of the user from their Whop account."""
 
 
-class DestinationUnionMember1(BaseModel):
+class DestinationCompany(BaseModel):
     id: str
     """The ID (tag) of the company."""
 
@@ -41,28 +33,28 @@ class DestinationUnionMember1(BaseModel):
     title: str
     """The title of the company."""
 
-    typename: Literal["PublicCompany"]
+    typename: Literal["Company"]
     """The typename of this object"""
 
 
-Destination: TypeAlias = Union[Optional[DestinationUnionMember0], Optional[DestinationUnionMember1]]
+Destination: TypeAlias = Union[Optional[DestinationUser], Optional[DestinationCompany]]
 
 
-class OriginUnionMember0(BaseModel):
+class OriginUser(BaseModel):
     id: str
     """The internal ID of the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
 
-    typename: Literal["PublicProfileUser"]
+    typename: Literal["User"]
     """The typename of this object"""
 
     username: str
     """The username of the user from their Whop account."""
 
 
-class OriginUnionMember1(BaseModel):
+class OriginCompany(BaseModel):
     id: str
     """The ID (tag) of the company."""
 
@@ -72,11 +64,11 @@ class OriginUnionMember1(BaseModel):
     title: str
     """The title of the company."""
 
-    typename: Literal["PublicCompany"]
+    typename: Literal["Company"]
     """The typename of this object"""
 
 
-Origin: TypeAlias = Union[Optional[OriginUnionMember0], Optional[OriginUnionMember1]]
+Origin: TypeAlias = Union[Optional[OriginUser], Optional[OriginCompany]]
 
 
 class Transfer(BaseModel):
