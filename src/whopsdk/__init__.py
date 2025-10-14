@@ -5,14 +5,14 @@ import typing as _t
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes, omit, not_given
 from ._utils import file_from_path
-from ._client import Client, Stream, Timeout, Whopsdk, Transport, AsyncClient, AsyncStream, AsyncWhopsdk, RequestOptions
+from ._client import Whop, Client, Stream, Timeout, AsyncWhop, Transport, AsyncClient, AsyncStream, RequestOptions
 from ._models import BaseModel
 from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
-    WhopsdkError,
+    WhopError,
     ConflictError,
     NotFoundError,
     APIStatusError,
@@ -42,7 +42,7 @@ __all__ = [
     "not_given",
     "Omit",
     "omit",
-    "WhopsdkError",
+    "WhopError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -63,8 +63,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "Whopsdk",
-    "AsyncWhopsdk",
+    "Whop",
+    "AsyncWhop",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",

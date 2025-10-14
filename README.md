@@ -1,9 +1,9 @@
-# Whopsdk Python API library
+# Whop Python API library
 
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/whopsdk.svg?label=pypi%20(stable))](https://pypi.org/project/whopsdk/)
 
-The Whopsdk Python library provides convenient access to the Whopsdk REST API from any Python 3.8+
+The Whop Python library provides convenient access to the Whop REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.whop.com](https://docs.whop.com/apps). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -29,14 +29,14 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
     api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
 )
 
-page = client.invoices.list(
+page = client.payments.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
 print(page.data)
@@ -49,21 +49,21 @@ so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncWhopsdk` instead of `Whopsdk` and use `await` with each API call:
+Simply import `AsyncWhop` instead of `Whop` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from whopsdk import AsyncWhopsdk
+from whopsdk import AsyncWhop
 
-client = AsyncWhopsdk(
+client = AsyncWhop(
     app_id="app_xxxxxxxxxxxxxx",
     api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
 )
 
 
 async def main() -> None:
-    page = await client.invoices.list(
+    page = await client.payments.list(
         company_id="biz_xxxxxxxxxxxxxx",
     )
     print(page.data)
@@ -90,16 +90,16 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 ```python
 import asyncio
 from whopsdk import DefaultAioHttpClient
-from whopsdk import AsyncWhopsdk
+from whopsdk import AsyncWhop
 
 
 async def main() -> None:
-    async with AsyncWhopsdk(
+    async with AsyncWhop(
         app_id="app_xxxxxxxxxxxxxx",
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        page = await client.invoices.list(
+        page = await client.payments.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
         print(page.data)
@@ -119,46 +119,46 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Pagination
 
-List methods in the Whopsdk API are paginated.
+List methods in the Whop API are paginated.
 
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
 )
 
-all_invoices = []
+all_payments = []
 # Automatically fetches more pages as needed.
-for invoice in client.invoices.list(
+for payment in client.payments.list(
     company_id="biz_xxxxxxxxxxxxxx",
 ):
-    # Do something with invoice here
-    all_invoices.append(invoice)
-print(all_invoices)
+    # Do something with payment here
+    all_payments.append(payment)
+print(all_payments)
 ```
 
 Or, asynchronously:
 
 ```python
 import asyncio
-from whopsdk import AsyncWhopsdk
+from whopsdk import AsyncWhop
 
-client = AsyncWhopsdk(
+client = AsyncWhop(
     app_id="app_xxxxxxxxxxxxxx",
 )
 
 
 async def main() -> None:
-    all_invoices = []
+    all_payments = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for invoice in client.invoices.list(
+    async for payment in client.payments.list(
         company_id="biz_xxxxxxxxxxxxxx",
     ):
-        all_invoices.append(invoice)
-    print(all_invoices)
+        all_payments.append(payment)
+    print(all_payments)
 
 
 asyncio.run(main())
@@ -167,7 +167,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.invoices.list(
+first_page = await client.payments.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
 if first_page.has_next_page():
@@ -181,13 +181,13 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.invoices.list(
+first_page = await client.payments.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
 
 print(f"next page cursor: {first_page.page_info.end_cursor}")  # => "next page cursor: ..."
-for invoice in first_page.data:
-    print(invoice.id)
+for payment in first_page.data:
+    print(payment.id)
 
 # Remove `await` for non-async usage.
 ```
@@ -197,17 +197,17 @@ for invoice in first_page.data:
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
 )
 
-page = client.invoices.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-    filters={},
+app = client.apps.update(
+    id="app_xxxxxxxxxxxxxx",
+    icon={},
 )
-print(page.data)
+print(app.icon)
 ```
 
 ## Handling errors
@@ -221,14 +221,14 @@ All errors inherit from `whopsdk.APIError`.
 
 ```python
 import whopsdk
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
 )
 
 try:
-    client.invoices.list(
+    client.payments.list(
         company_id="biz_xxxxxxxxxxxxxx",
     )
 except whopsdk.APIConnectionError as e:
@@ -264,17 +264,17 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
 # Configure the default for all requests:
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
     # default is 2
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).invoices.list(
+client.with_options(max_retries=5).payments.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
 ```
@@ -285,23 +285,23 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
 # Configure the default for all requests:
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).invoices.list(
+client.with_options(timeout=5.0).payments.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
 ```
@@ -316,10 +316,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `WHOPSDK_LOG` to `info`.
+You can enable logging by setting the environment variable `WHOP_LOG` to `info`.
 
 ```shell
-$ export WHOPSDK_LOG=info
+$ export WHOP_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -341,18 +341,18 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
 )
-response = client.invoices.with_raw_response.list(
+response = client.payments.with_raw_response.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
 print(response.headers.get('X-My-Header'))
 
-invoice = response.parse()  # get the object that `invoices.list()` would have returned
-print(invoice.id)
+payment = response.parse()  # get the object that `payments.list()` would have returned
+print(payment.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/whopsdk-python/tree/main/src/whopsdk/_response.py) object.
@@ -366,7 +366,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.invoices.with_streaming_response.list(
+with client.payments.with_streaming_response.list(
     company_id="biz_xxxxxxxxxxxxxx",
 ) as response:
     print(response.headers.get("X-My-Header"))
@@ -421,11 +421,11 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from whopsdk import Whopsdk, DefaultHttpxClient
+from whopsdk import Whop, DefaultHttpxClient
 
-client = Whopsdk(
+client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
-    # Or use the `WHOPSDK_BASE_URL` env var
+    # Or use the `WHOP_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -445,9 +445,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
-with Whopsdk(
+with Whop(
     app_id="app_xxxxxxxxxxxxxx",
 ) as client:
   # make requests here

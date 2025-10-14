@@ -14,7 +14,7 @@ def _basic_config() -> None:
 
 
 def setup_logging() -> None:
-    env = os.environ.get("WHOPSDK_LOG")
+    env = os.environ.get("WHOP_LOG")
     if env == "debug":
         _basic_config()
         logger.setLevel(logging.DEBUG)

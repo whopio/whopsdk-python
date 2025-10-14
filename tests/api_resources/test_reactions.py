@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import ReactionListResponse
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -21,7 +21,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create(self, client: Whopsdk) -> None:
+    def test_method_create(self, client: Whop) -> None:
         reaction = client.reactions.create(
             resource_id="resource_id",
         )
@@ -29,7 +29,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_create_with_all_params(self, client: Whop) -> None:
         reaction = client.reactions.create(
             resource_id="resource_id",
             emoji="emoji",
@@ -38,7 +38,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Whopsdk) -> None:
+    def test_raw_response_create(self, client: Whop) -> None:
         response = client.reactions.with_raw_response.create(
             resource_id="resource_id",
         )
@@ -50,7 +50,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Whopsdk) -> None:
+    def test_streaming_response_create(self, client: Whop) -> None:
         with client.reactions.with_streaming_response.create(
             resource_id="resource_id",
         ) as response:
@@ -64,7 +64,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         reaction = client.reactions.retrieve(
             "reac_xxxxxxxxxxxxxxxxxxxxxx",
         )
@@ -72,7 +72,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.reactions.with_raw_response.retrieve(
             "reac_xxxxxxxxxxxxxxxxxxxxxx",
         )
@@ -84,7 +84,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.reactions.with_streaming_response.retrieve(
             "reac_xxxxxxxxxxxxxxxxxxxxxx",
         ) as response:
@@ -98,7 +98,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.reactions.with_raw_response.retrieve(
                 "",
@@ -106,7 +106,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whopsdk) -> None:
+    def test_method_list(self, client: Whop) -> None:
         reaction = client.reactions.list(
             resource_id="resource_id",
         )
@@ -114,7 +114,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_list_with_all_params(self, client: Whop) -> None:
         reaction = client.reactions.list(
             resource_id="resource_id",
             after="after",
@@ -126,7 +126,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whopsdk) -> None:
+    def test_raw_response_list(self, client: Whop) -> None:
         response = client.reactions.with_raw_response.list(
             resource_id="resource_id",
         )
@@ -138,7 +138,7 @@ class TestReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whopsdk) -> None:
+    def test_streaming_response_list(self, client: Whop) -> None:
         with client.reactions.with_streaming_response.list(
             resource_id="resource_id",
         ) as response:
@@ -158,7 +158,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.create(
             resource_id="resource_id",
         )
@@ -166,7 +166,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.create(
             resource_id="resource_id",
             emoji="emoji",
@@ -175,7 +175,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.reactions.with_raw_response.create(
             resource_id="resource_id",
         )
@@ -187,7 +187,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.reactions.with_streaming_response.create(
             resource_id="resource_id",
         ) as response:
@@ -201,7 +201,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.retrieve(
             "reac_xxxxxxxxxxxxxxxxxxxxxx",
         )
@@ -209,7 +209,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.reactions.with_raw_response.retrieve(
             "reac_xxxxxxxxxxxxxxxxxxxxxx",
         )
@@ -221,7 +221,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.reactions.with_streaming_response.retrieve(
             "reac_xxxxxxxxxxxxxxxxxxxxxx",
         ) as response:
@@ -235,7 +235,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.reactions.with_raw_response.retrieve(
                 "",
@@ -243,7 +243,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.list(
             resource_id="resource_id",
         )
@@ -251,7 +251,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.list(
             resource_id="resource_id",
             after="after",
@@ -263,7 +263,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.reactions.with_raw_response.list(
             resource_id="resource_id",
         )
@@ -275,7 +275,7 @@ class TestAsyncReactions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.reactions.with_streaming_response.list(
             resource_id="resource_id",
         ) as response:

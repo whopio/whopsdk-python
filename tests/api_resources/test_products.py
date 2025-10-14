@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import (
     ProductDeleteResponse,
@@ -23,7 +23,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create(self, client: Whopsdk) -> None:
+    def test_method_create(self, client: Whop) -> None:
         product = client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -32,7 +32,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_create_with_all_params(self, client: Whop) -> None:
         product = client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -89,7 +89,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Whopsdk) -> None:
+    def test_raw_response_create(self, client: Whop) -> None:
         response = client.products.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -102,7 +102,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Whopsdk) -> None:
+    def test_streaming_response_create(self, client: Whop) -> None:
         with client.products.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -117,7 +117,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         product = client.products.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
@@ -125,7 +125,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.products.with_raw_response.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
@@ -137,7 +137,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.products.with_streaming_response.retrieve(
             "prod_xxxxxxxxxxxxx",
         ) as response:
@@ -151,7 +151,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.products.with_raw_response.retrieve(
                 "",
@@ -159,7 +159,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update(self, client: Whopsdk) -> None:
+    def test_method_update(self, client: Whop) -> None:
         product = client.products.update(
             id="prod_xxxxxxxxxxxxx",
         )
@@ -167,7 +167,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_update_with_all_params(self, client: Whop) -> None:
         product = client.products.update(
             id="prod_xxxxxxxxxxxxx",
             banner_image={
@@ -196,7 +196,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update(self, client: Whopsdk) -> None:
+    def test_raw_response_update(self, client: Whop) -> None:
         response = client.products.with_raw_response.update(
             id="prod_xxxxxxxxxxxxx",
         )
@@ -208,7 +208,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update(self, client: Whopsdk) -> None:
+    def test_streaming_response_update(self, client: Whop) -> None:
         with client.products.with_streaming_response.update(
             id="prod_xxxxxxxxxxxxx",
         ) as response:
@@ -222,7 +222,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update(self, client: Whopsdk) -> None:
+    def test_path_params_update(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.products.with_raw_response.update(
                 id="",
@@ -230,7 +230,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whopsdk) -> None:
+    def test_method_list(self, client: Whop) -> None:
         product = client.products.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -238,7 +238,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_list_with_all_params(self, client: Whop) -> None:
         product = client.products.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -254,7 +254,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whopsdk) -> None:
+    def test_raw_response_list(self, client: Whop) -> None:
         response = client.products.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -266,7 +266,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whopsdk) -> None:
+    def test_streaming_response_list(self, client: Whop) -> None:
         with client.products.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
@@ -280,7 +280,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_delete(self, client: Whopsdk) -> None:
+    def test_method_delete(self, client: Whop) -> None:
         product = client.products.delete(
             "prod_xxxxxxxxxxxxx",
         )
@@ -288,7 +288,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_delete(self, client: Whopsdk) -> None:
+    def test_raw_response_delete(self, client: Whop) -> None:
         response = client.products.with_raw_response.delete(
             "prod_xxxxxxxxxxxxx",
         )
@@ -300,7 +300,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_delete(self, client: Whopsdk) -> None:
+    def test_streaming_response_delete(self, client: Whop) -> None:
         with client.products.with_streaming_response.delete(
             "prod_xxxxxxxxxxxxx",
         ) as response:
@@ -314,7 +314,7 @@ class TestProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_delete(self, client: Whopsdk) -> None:
+    def test_path_params_delete(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.products.with_raw_response.delete(
                 "",
@@ -328,7 +328,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -337,7 +337,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -394,7 +394,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -407,7 +407,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
@@ -422,7 +422,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
@@ -430,7 +430,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.retrieve(
             "prod_xxxxxxxxxxxxx",
         )
@@ -442,7 +442,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.retrieve(
             "prod_xxxxxxxxxxxxx",
         ) as response:
@@ -456,7 +456,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.products.with_raw_response.retrieve(
                 "",
@@ -464,7 +464,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
             id="prod_xxxxxxxxxxxxx",
         )
@@ -472,7 +472,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
             id="prod_xxxxxxxxxxxxx",
             banner_image={
@@ -501,7 +501,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.update(
             id="prod_xxxxxxxxxxxxx",
         )
@@ -513,7 +513,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.update(
             id="prod_xxxxxxxxxxxxx",
         ) as response:
@@ -527,7 +527,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.products.with_raw_response.update(
                 id="",
@@ -535,7 +535,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -543,7 +543,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -559,7 +559,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -571,7 +571,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
@@ -585,7 +585,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.delete(
             "prod_xxxxxxxxxxxxx",
         )
@@ -593,7 +593,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.delete(
             "prod_xxxxxxxxxxxxx",
         )
@@ -605,7 +605,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.delete(
             "prod_xxxxxxxxxxxxx",
         ) as response:
@@ -619,7 +619,7 @@ class TestAsyncProducts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.products.with_raw_response.delete(
                 "",

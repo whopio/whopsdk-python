@@ -10,7 +10,7 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from whopsdk import Whopsdk, AsyncWhopsdk, DefaultAioHttpClient
+from whopsdk import Whop, AsyncWhop, DefaultAioHttpClient
 from whopsdk._utils import is_dict
 
 if TYPE_CHECKING:
@@ -50,17 +50,17 @@ app_id = "app_xxxxxxxxxxxxxx"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[Whopsdk]:
+def client(request: FixtureRequest) -> Iterator[Whop]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=strict) as client:
+    with Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWhopsdk]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWhop]:
     param = getattr(request, "param", True)
 
     # defaults
@@ -79,7 +79,7 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWhopsdk]:
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
 
-    async with AsyncWhopsdk(
+    async with AsyncWhop(
         base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=strict, http_client=http_client
     ) as client:
         yield client

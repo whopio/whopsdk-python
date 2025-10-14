@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import ChatChannelListResponse
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -21,7 +21,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         chat_channel = client.chat_channels.retrieve(
             "id",
         )
@@ -29,7 +29,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.chat_channels.with_raw_response.retrieve(
             "id",
         )
@@ -41,7 +41,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.chat_channels.with_streaming_response.retrieve(
             "id",
         ) as response:
@@ -55,7 +55,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.chat_channels.with_raw_response.retrieve(
                 "",
@@ -63,7 +63,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update(self, client: Whopsdk) -> None:
+    def test_method_update(self, client: Whop) -> None:
         chat_channel = client.chat_channels.update(
             id="id",
         )
@@ -71,7 +71,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_update_with_all_params(self, client: Whop) -> None:
         chat_channel = client.chat_channels.update(
             id="id",
             ban_media=True,
@@ -85,7 +85,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update(self, client: Whopsdk) -> None:
+    def test_raw_response_update(self, client: Whop) -> None:
         response = client.chat_channels.with_raw_response.update(
             id="id",
         )
@@ -97,7 +97,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update(self, client: Whopsdk) -> None:
+    def test_streaming_response_update(self, client: Whop) -> None:
         with client.chat_channels.with_streaming_response.update(
             id="id",
         ) as response:
@@ -111,7 +111,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update(self, client: Whopsdk) -> None:
+    def test_path_params_update(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.chat_channels.with_raw_response.update(
                 id="",
@@ -119,7 +119,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whopsdk) -> None:
+    def test_method_list(self, client: Whop) -> None:
         chat_channel = client.chat_channels.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -127,7 +127,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_list_with_all_params(self, client: Whop) -> None:
         chat_channel = client.chat_channels.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -140,7 +140,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whopsdk) -> None:
+    def test_raw_response_list(self, client: Whop) -> None:
         response = client.chat_channels.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -152,7 +152,7 @@ class TestChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whopsdk) -> None:
+    def test_streaming_response_list(self, client: Whop) -> None:
         with client.chat_channels.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
@@ -172,7 +172,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         chat_channel = await async_client.chat_channels.retrieve(
             "id",
         )
@@ -180,7 +180,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.chat_channels.with_raw_response.retrieve(
             "id",
         )
@@ -192,7 +192,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.chat_channels.with_streaming_response.retrieve(
             "id",
         ) as response:
@@ -206,7 +206,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.chat_channels.with_raw_response.retrieve(
                 "",
@@ -214,7 +214,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
         chat_channel = await async_client.chat_channels.update(
             id="id",
         )
@@ -222,7 +222,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         chat_channel = await async_client.chat_channels.update(
             id="id",
             ban_media=True,
@@ -236,7 +236,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.chat_channels.with_raw_response.update(
             id="id",
         )
@@ -248,7 +248,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.chat_channels.with_streaming_response.update(
             id="id",
         ) as response:
@@ -262,7 +262,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.chat_channels.with_raw_response.update(
                 id="",
@@ -270,7 +270,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
         chat_channel = await async_client.chat_channels.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -278,7 +278,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         chat_channel = await async_client.chat_channels.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -291,7 +291,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.chat_channels.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -303,7 +303,7 @@ class TestAsyncChatChannels:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.chat_channels.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:

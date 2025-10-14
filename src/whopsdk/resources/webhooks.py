@@ -7,7 +7,7 @@ from typing import Mapping, cast
 
 from .._models import construct_type
 from .._resource import SyncAPIResource, AsyncAPIResource
-from .._exceptions import WhopsdkError
+from .._exceptions import WhopError
 from ..types.unwrap_webhook_event import UnwrapWebhookEvent
 
 __all__ = ["WebhooksResource", "AsyncWebhooksResource"]
@@ -18,7 +18,7 @@ class WebhooksResource(SyncAPIResource):
         try:
             from standardwebhooks import Webhook
         except ImportError as exc:
-            raise WhopsdkError("You need to install `whopsdk[webhooks]` to use this method") from exc
+            raise WhopError("You need to install `whopsdk[webhooks]` to use this method") from exc
 
         if key is None:
             key = self._client.webhook_key
@@ -46,7 +46,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         try:
             from standardwebhooks import Webhook
         except ImportError as exc:
-            raise WhopsdkError("You need to install `whopsdk[webhooks]` to use this method") from exc
+            raise WhopError("You need to install `whopsdk[webhooks]` to use this method") from exc
 
         if key is None:
             key = self._client.webhook_key
