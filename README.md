@@ -32,6 +32,7 @@ import os
 from whopsdk import Whopsdk
 
 client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
     api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -56,6 +57,7 @@ import asyncio
 from whopsdk import AsyncWhopsdk
 
 client = AsyncWhopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
     api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -93,6 +95,7 @@ from whopsdk import AsyncWhopsdk
 
 async def main() -> None:
     async with AsyncWhopsdk(
+        app_id="app_xxxxxxxxxxxxxx",
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
@@ -123,7 +126,9 @@ This library provides auto-paginating iterators with each list response, so you 
 ```python
 from whopsdk import Whopsdk
 
-client = Whopsdk()
+client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
+)
 
 all_invoices = []
 # Automatically fetches more pages as needed.
@@ -141,7 +146,9 @@ Or, asynchronously:
 import asyncio
 from whopsdk import AsyncWhopsdk
 
-client = AsyncWhopsdk()
+client = AsyncWhopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
+)
 
 
 async def main() -> None:
@@ -192,7 +199,9 @@ Nested parameters are dictionaries, typed using `TypedDict`, for example:
 ```python
 from whopsdk import Whopsdk
 
-client = Whopsdk()
+client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
+)
 
 page = client.invoices.list(
     company_id="biz_xxxxxxxxxxxxxx",
@@ -214,7 +223,9 @@ All errors inherit from `whopsdk.APIError`.
 import whopsdk
 from whopsdk import Whopsdk
 
-client = Whopsdk()
+client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
+)
 
 try:
     client.invoices.list(
@@ -257,6 +268,7 @@ from whopsdk import Whopsdk
 
 # Configure the default for all requests:
 client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
     # default is 2
     max_retries=0,
 )
@@ -277,12 +289,14 @@ from whopsdk import Whopsdk
 
 # Configure the default for all requests:
 client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
 client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -329,7 +343,9 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from whopsdk import Whopsdk
 
-client = Whopsdk()
+client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
+)
 response = client.invoices.with_raw_response.list(
     company_id="biz_xxxxxxxxxxxxxx",
 )
@@ -408,6 +424,7 @@ import httpx
 from whopsdk import Whopsdk, DefaultHttpxClient
 
 client = Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
     # Or use the `WHOPSDK_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
@@ -430,7 +447,9 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from whopsdk import Whopsdk
 
-with Whopsdk() as client:
+with Whopsdk(
+    app_id="app_xxxxxxxxxxxxxx",
+) as client:
   # make requests here
   ...
 

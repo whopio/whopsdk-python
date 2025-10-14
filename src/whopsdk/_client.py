@@ -87,12 +87,14 @@ class Whopsdk(SyncAPIClient):
     # client options
     api_key: str
     webhook_key: str | None
+    app_id: str
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
         webhook_key: str | None = None,
+        app_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -117,6 +119,7 @@ class Whopsdk(SyncAPIClient):
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `api_key` from `WHOP_API_KEY`
         - `webhook_key` from `WHOP_WEBHOOK_SECRET`
+        - `app_id` from `WHOP_APP_ID`
         """
         if api_key is None:
             api_key = os.environ.get("WHOP_API_KEY")
@@ -129,6 +132,14 @@ class Whopsdk(SyncAPIClient):
         if webhook_key is None:
             webhook_key = os.environ.get("WHOP_WEBHOOK_SECRET")
         self.webhook_key = webhook_key
+
+        if app_id is None:
+            app_id = os.environ.get("WHOP_APP_ID")
+        if app_id is None:
+            raise WhopsdkError(
+                "The app_id client option must be set either by passing app_id to the client or by setting the WHOP_APP_ID environment variable"
+            )
+        self.app_id = app_id
 
         if base_url is None:
             base_url = os.environ.get("WHOPSDK_BASE_URL")
@@ -189,6 +200,7 @@ class Whopsdk(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "X-Whop-App-Id": self.app_id,
             **self._custom_headers,
         }
 
@@ -197,6 +209,7 @@ class Whopsdk(SyncAPIClient):
         *,
         api_key: str | None = None,
         webhook_key: str | None = None,
+        app_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -232,6 +245,7 @@ class Whopsdk(SyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             webhook_key=webhook_key or self.webhook_key,
+            app_id=app_id or self.app_id,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -309,12 +323,14 @@ class AsyncWhopsdk(AsyncAPIClient):
     # client options
     api_key: str
     webhook_key: str | None
+    app_id: str
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
         webhook_key: str | None = None,
+        app_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -339,6 +355,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `api_key` from `WHOP_API_KEY`
         - `webhook_key` from `WHOP_WEBHOOK_SECRET`
+        - `app_id` from `WHOP_APP_ID`
         """
         if api_key is None:
             api_key = os.environ.get("WHOP_API_KEY")
@@ -351,6 +368,14 @@ class AsyncWhopsdk(AsyncAPIClient):
         if webhook_key is None:
             webhook_key = os.environ.get("WHOP_WEBHOOK_SECRET")
         self.webhook_key = webhook_key
+
+        if app_id is None:
+            app_id = os.environ.get("WHOP_APP_ID")
+        if app_id is None:
+            raise WhopsdkError(
+                "The app_id client option must be set either by passing app_id to the client or by setting the WHOP_APP_ID environment variable"
+            )
+        self.app_id = app_id
 
         if base_url is None:
             base_url = os.environ.get("WHOPSDK_BASE_URL")
@@ -411,6 +436,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Whop-App-Id": self.app_id,
             **self._custom_headers,
         }
 
@@ -419,6 +445,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         *,
         api_key: str | None = None,
         webhook_key: str | None = None,
+        app_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -454,6 +481,7 @@ class AsyncWhopsdk(AsyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             webhook_key=webhook_key or self.webhook_key,
+            app_id=app_id or self.app_id,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
