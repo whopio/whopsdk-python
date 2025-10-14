@@ -1,8 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from ..._utils import PropertyInfo
 from .currency import Currency
 from ..._models import BaseModel
 
@@ -37,7 +38,9 @@ class DestinationCompany(BaseModel):
     """The typename of this object"""
 
 
-Destination: TypeAlias = Union[Optional[DestinationUser], Optional[DestinationCompany]]
+Destination: TypeAlias = Annotated[
+    Union[Optional[DestinationUser], Optional[DestinationCompany]], PropertyInfo(discriminator="typename")
+]
 
 
 class OriginUser(BaseModel):
@@ -68,7 +71,9 @@ class OriginCompany(BaseModel):
     """The typename of this object"""
 
 
-Origin: TypeAlias = Union[Optional[OriginUser], Optional[OriginCompany]]
+Origin: TypeAlias = Annotated[
+    Union[Optional[OriginUser], Optional[OriginCompany]], PropertyInfo(discriminator="typename")
+]
 
 
 class Transfer(BaseModel):

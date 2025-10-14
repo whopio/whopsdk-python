@@ -1,8 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
 from .shared.currency import Currency
 
@@ -51,7 +52,7 @@ class OwnerCompany(BaseModel):
     """The typename of this object"""
 
 
-Owner: TypeAlias = Union[Optional[OwnerUser], Optional[OwnerCompany]]
+Owner: TypeAlias = Annotated[Union[Optional[OwnerUser], Optional[OwnerCompany]], PropertyInfo(discriminator="typename")]
 
 
 class LedgerAccountRetrieveResponse(BaseModel):
