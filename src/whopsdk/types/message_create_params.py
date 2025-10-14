@@ -9,17 +9,14 @@ __all__ = ["MessageCreateParams", "Attachment", "Poll", "PollOption"]
 
 
 class MessageCreateParams(TypedDict, total=False):
+    channel_id: Required[str]
+    """The ID of the channel or experience to send to."""
+
     content: Required[str]
     """The content of the message in Markdown format."""
 
     attachments: Optional[Iterable[Attachment]]
     """The attachments for this message, such as videos or images."""
-
-    channel_id: Optional[str]
-    """The ID of the channel to send to."""
-
-    experience_id: Optional[str]
-    """The ID of the chat experience to send the message in."""
 
     poll: Optional[Poll]
     """The poll for this message"""

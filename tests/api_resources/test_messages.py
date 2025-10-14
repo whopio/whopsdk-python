@@ -23,6 +23,7 @@ class TestMessages:
     @parametrize
     def test_method_create(self, client: Whopsdk) -> None:
         message = client.messages.create(
+            channel_id="channel_id",
             content="content",
         )
         assert_matches_type(Message, message, path=["response"])
@@ -31,6 +32,7 @@ class TestMessages:
     @parametrize
     def test_method_create_with_all_params(self, client: Whopsdk) -> None:
         message = client.messages.create(
+            channel_id="channel_id",
             content="content",
             attachments=[
                 {
@@ -38,8 +40,6 @@ class TestMessages:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            channel_id="channel_id",
-            experience_id="exp_xxxxxxxxxxxxxx",
             poll={
                 "options": [
                     {
@@ -55,6 +55,7 @@ class TestMessages:
     @parametrize
     def test_raw_response_create(self, client: Whopsdk) -> None:
         response = client.messages.with_raw_response.create(
+            channel_id="channel_id",
             content="content",
         )
 
@@ -67,6 +68,7 @@ class TestMessages:
     @parametrize
     def test_streaming_response_create(self, client: Whopsdk) -> None:
         with client.messages.with_streaming_response.create(
+            channel_id="channel_id",
             content="content",
         ) as response:
             assert not response.is_closed
@@ -134,6 +136,7 @@ class TestMessages:
             channel_id="channel_id",
             after="after",
             before="before",
+            direction="asc",
             first=42,
             last=42,
         )
@@ -175,6 +178,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
         message = await async_client.messages.create(
+            channel_id="channel_id",
             content="content",
         )
         assert_matches_type(Message, message, path=["response"])
@@ -183,6 +187,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
         message = await async_client.messages.create(
+            channel_id="channel_id",
             content="content",
             attachments=[
                 {
@@ -190,8 +195,6 @@ class TestAsyncMessages:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            channel_id="channel_id",
-            experience_id="exp_xxxxxxxxxxxxxx",
             poll={
                 "options": [
                     {
@@ -207,6 +210,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
         response = await async_client.messages.with_raw_response.create(
+            channel_id="channel_id",
             content="content",
         )
 
@@ -219,6 +223,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
         async with async_client.messages.with_streaming_response.create(
+            channel_id="channel_id",
             content="content",
         ) as response:
             assert not response.is_closed
@@ -286,6 +291,7 @@ class TestAsyncMessages:
             channel_id="channel_id",
             after="after",
             before="before",
+            direction="asc",
             first=42,
             last=42,
         )

@@ -20,6 +20,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.message import Message
+from ..types.shared.direction import Direction
 from ..types.message_list_response import MessageListResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
@@ -48,10 +49,9 @@ class MessagesResource(SyncAPIResource):
     def create(
         self,
         *,
+        channel_id: str,
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        channel_id: Optional[str] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -68,13 +68,11 @@ class MessagesResource(SyncAPIResource):
         - `chat:message:create`
 
         Args:
+          channel_id: The ID of the channel or experience to send to.
+
           content: The content of the message in Markdown format.
 
           attachments: The attachments for this message, such as videos or images.
-
-          channel_id: The ID of the channel to send to.
-
-          experience_id: The ID of the chat experience to send the message in.
 
           poll: The poll for this message
 
@@ -90,10 +88,9 @@ class MessagesResource(SyncAPIResource):
             "/messages",
             body=maybe_transform(
                 {
+                    "channel_id": channel_id,
                     "content": content,
                     "attachments": attachments,
-                    "channel_id": channel_id,
-                    "experience_id": experience_id,
                     "poll": poll,
                 },
                 message_create_params.MessageCreateParams,
@@ -147,6 +144,7 @@ class MessagesResource(SyncAPIResource):
         channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -169,6 +167,8 @@ class MessagesResource(SyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
@@ -195,6 +195,7 @@ class MessagesResource(SyncAPIResource):
                         "channel_id": channel_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
                     },
@@ -228,10 +229,9 @@ class AsyncMessagesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        channel_id: str,
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        channel_id: Optional[str] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -248,13 +248,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         - `chat:message:create`
 
         Args:
+          channel_id: The ID of the channel or experience to send to.
+
           content: The content of the message in Markdown format.
 
           attachments: The attachments for this message, such as videos or images.
-
-          channel_id: The ID of the channel to send to.
-
-          experience_id: The ID of the chat experience to send the message in.
 
           poll: The poll for this message
 
@@ -270,10 +268,9 @@ class AsyncMessagesResource(AsyncAPIResource):
             "/messages",
             body=await async_maybe_transform(
                 {
+                    "channel_id": channel_id,
                     "content": content,
                     "attachments": attachments,
-                    "channel_id": channel_id,
-                    "experience_id": experience_id,
                     "poll": poll,
                 },
                 message_create_params.MessageCreateParams,
@@ -327,6 +324,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -349,6 +347,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
@@ -375,6 +375,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                         "channel_id": channel_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
                     },
