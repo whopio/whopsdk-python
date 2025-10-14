@@ -12,37 +12,37 @@ __all__ = ["ProductListItem"]
 
 class ProductListItem(BaseModel):
     id: str
-    """The internal ID of the public access pass."""
+    """The internal ID of the public product."""
 
     business_type: Optional[BusinessTypes] = None
     """The different business types a company can be."""
 
     created_at: int
-    """When the access pass was created."""
+    """When the product was created."""
 
     headline: Optional[str] = None
-    """The headline of the access pass."""
+    """The headline of the product."""
 
     industry_type: Optional[IndustryTypes] = None
     """The different industry types a company can be in."""
 
     member_count: int
-    """The number of active users for this access pass."""
+    """The number of active users for this product."""
 
     published_reviews_count: int
-    """The number of reviews that have been published for the access pass."""
+    """The number of reviews that have been published for the product."""
 
     route: str
-    """The route of the access pass."""
+    """The route of the product."""
 
     title: str
-    """The title of the access pass. Use for Whop 4.0."""
+    """The title of the product. Use for Whop 4.0."""
 
     updated_at: int
-    """When the access pass was updated."""
+    """When the product was updated."""
 
     verified: bool
     """Whether this product is Whop verified."""
 
     visibility: Visibility
-    """This access pass will/will not be displayed publicly."""
+    """This product will/will not be displayed publicly."""

@@ -35,7 +35,7 @@ class ForumPostListResponse(BaseModel):
     """Whether this forum post is pinned"""
 
     is_poster_admin: bool
-    """Whether the user that sent the post is an admin of the bot"""
+    """Whether the user that sent the post is an admin of the company"""
 
     like_count: Optional[int] = None
     """The number of likes this post has received"""

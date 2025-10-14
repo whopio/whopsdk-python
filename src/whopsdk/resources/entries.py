@@ -132,7 +132,7 @@ class EntriesResource(SyncAPIResource):
 
           plan_ids: The plan IDs to filter the entries by
 
-          product_ids: The access pass IDs to filter the entries by
+          product_ids: The product IDs to filter the entries by
 
           statuses: The statuses to filter the entries by
 
@@ -351,7 +351,7 @@ class AsyncEntriesResource(AsyncAPIResource):
 
           plan_ids: The plan IDs to filter the entries by
 
-          product_ids: The access pass IDs to filter the entries by
+          product_ids: The product IDs to filter the entries by
 
           statuses: The statuses to filter the entries by
 

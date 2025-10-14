@@ -79,13 +79,13 @@ class Plan(BaseModel):
 
 class Product(BaseModel):
     id: str
-    """The internal ID of the public access pass."""
+    """The internal ID of the public product."""
 
     route: str
-    """The route of the access pass."""
+    """The route of the product."""
 
     title: str
-    """The title of the access pass. Use for Whop 4.0."""
+    """The title of the product. Use for Whop 4.0."""
 
 
 class PromoCode(BaseModel):
@@ -124,10 +124,10 @@ class User(BaseModel):
 
 class PaymentListResponse(BaseModel):
     id: str
-    """The receipt ID"""
+    """The payment ID"""
 
     amount_after_fees: float
-    """How much the receipt is for after fees"""
+    """How much the payment is for after fees"""
 
     auto_refunded: bool
     """Whether this payment was auto refunded or not"""
@@ -145,10 +145,10 @@ class PaymentListResponse(BaseModel):
     """The last 4 digits of the card used to make the payment."""
 
     company: Optional[Company] = None
-    """The company for the receipt."""
+    """The company for the payment."""
 
     created_at: int
-    """The datetime the receipt was created"""
+    """The datetime the payment was created"""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -163,13 +163,13 @@ class PaymentListResponse(BaseModel):
     """The time of the last payment attempt."""
 
     member: Optional[Member] = None
-    """The member attached to this receipt."""
+    """The member attached to this payment."""
 
     membership: Optional[Membership] = None
-    """The membership attached to this receipt."""
+    """The membership attached to this payment."""
 
     paid_at: Optional[int] = None
-    """The datetime the receipt was paid"""
+    """The datetime the payment was paid"""
 
     payment_method_type: Optional[str] = None
     """Returns the type of payment method used for the payment, if available.
@@ -178,13 +178,13 @@ class PaymentListResponse(BaseModel):
     """
 
     plan: Optional[Plan] = None
-    """The plan attached to this receipt."""
+    """The plan attached to this payment."""
 
     product: Optional[Product] = None
-    """The access pass attached to this receipt."""
+    """The access pass attached to this payment."""
 
     promo_code: Optional[PromoCode] = None
-    """The promo code used for this receipt."""
+    """The promo code used for this payment."""
 
     refundable: bool
     """Whether the payment can be refunded."""
@@ -202,7 +202,7 @@ class PaymentListResponse(BaseModel):
     """The status of a receipt"""
 
     substatus: FriendlyReceiptStatus
-    """The friendly status of the receipt."""
+    """The friendly status of the payment."""
 
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""

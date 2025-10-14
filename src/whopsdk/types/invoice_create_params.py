@@ -60,13 +60,13 @@ class InvoiceCreateParams(TypedDict, total=False):
     """
 
     product: Optional[Product]
-    """The properties of the access pass to create for this invoice.
+    """The properties of the product to create for this invoice.
 
     Include this if you want to create an invoice for a new product.
     """
 
     product_id: Optional[str]
-    """The access pass ID to create this invoice for.
+    """The product ID to create this invoice for.
 
     Include this if you want to create an invoice for an existing product.
     """
@@ -129,7 +129,7 @@ class Plan(TypedDict, total=False):
 
 class Product(TypedDict, total=False):
     title: Required[str]
-    """The title of the access pass."""
+    """The title of the product."""
 
     product_tax_code_id: Optional[str]
-    """The ID of the product tax code to apply to this access pass."""
+    """The ID of the product tax code to apply to this product."""

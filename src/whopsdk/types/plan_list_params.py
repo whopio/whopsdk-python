@@ -40,7 +40,7 @@ class PlanListParams(TypedDict, total=False):
     """The plan type to filter the plans by"""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """The access pass IDs to filter the plans by"""
+    """The product IDs to filter the plans by"""
 
     release_methods: Optional[List[ReleaseMethod]]
     """The release method to filter the plans by"""

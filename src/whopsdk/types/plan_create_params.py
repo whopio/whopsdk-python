@@ -19,7 +19,7 @@ class PlanCreateParams(TypedDict, total=False):
     """The company the plan should be created for."""
 
     product_id: Required[str]
-    """The access pass the plan is related to."""
+    """The product the plan is related to."""
 
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""

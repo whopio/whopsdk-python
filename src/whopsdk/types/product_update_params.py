@@ -16,7 +16,7 @@ __all__ = ["ProductUpdateParams", "BannerImage"]
 
 class ProductUpdateParams(TypedDict, total=False):
     banner_image: Optional[BannerImage]
-    """A banner image for the access pass in png, jpeg format"""
+    """A banner image for the product in png, jpeg format"""
 
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
@@ -28,17 +28,17 @@ class ProductUpdateParams(TypedDict, total=False):
     """The different types of custom CTAs that can be selected."""
 
     custom_cta_url: Optional[str]
-    """The custom call to action URL for the access pass."""
+    """The custom call to action URL for the product."""
 
     custom_statement_descriptor: Optional[str]
-    """The custom statement descriptor for the access pass i.e.
+    """The custom statement descriptor for the product i.e.
 
     WHOP\\**SPORTS, must be between 5 and 22 characters, contain at least one letter,
     and not contain any of the following characters: <, >, \\,, ', "
     """
 
     description: Optional[str]
-    """A written description of the access pass."""
+    """A written description of the product."""
 
     global_affiliate_percentage: Optional[float]
     """The percentage of the revenue that goes to the global affiliate program."""
@@ -47,7 +47,7 @@ class ProductUpdateParams(TypedDict, total=False):
     """The different statuses of the global affiliate program for an access pass."""
 
     headline: Optional[str]
-    """The headline of the access pass."""
+    """The headline of the product."""
 
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
@@ -59,16 +59,16 @@ class ProductUpdateParams(TypedDict, total=False):
     """The different statuses of the global affiliate program for an access pass."""
 
     product_tax_code_id: Optional[str]
-    """The ID of the product tax code to apply to this access pass."""
+    """The ID of the product tax code to apply to this product."""
 
     redirect_purchase_url: Optional[str]
     """The URL to redirect the customer to after a purchase."""
 
     route: Optional[str]
-    """The route of the access pass."""
+    """The route of the product."""
 
     title: Optional[str]
-    """The title of the access pass."""
+    """The title of the product."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

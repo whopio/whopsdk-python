@@ -38,7 +38,7 @@ class EntryListParams(TypedDict, total=False):
     """The plan IDs to filter the entries by"""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """The access pass IDs to filter the entries by"""
+    """The product IDs to filter the entries by"""
 
     statuses: Optional[List[EntryStatus]]
     """The statuses to filter the entries by"""
