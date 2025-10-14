@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 import pytest
 import standardwebhooks
 
-from whopsdk import Whopsdk
+from whopsdk import Whop
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -16,7 +16,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestWebhooks:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    def test_method_unwrap(self, client: Whopsdk) -> None:
+    def test_method_unwrap(self, client: Whop) -> None:
         key = b"secret"
         hook = standardwebhooks.Webhook(key)
 
@@ -50,7 +50,7 @@ class TestAsyncWebhooks:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    def test_method_unwrap(self, client: Whopsdk) -> None:
+    def test_method_unwrap(self, client: Whop) -> None:
         key = b"secret"
         hook = standardwebhooks.Webhook(key)
 

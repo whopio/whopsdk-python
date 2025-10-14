@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import AppBuildListResponse
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -21,7 +21,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create(self, client: Whopsdk) -> None:
+    def test_method_create(self, client: Whop) -> None:
         app_build = client.app_builds.create(
             attachment={},
             checksum="checksum",
@@ -31,7 +31,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_create_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.create(
             attachment={
                 "id": "id",
@@ -46,7 +46,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Whopsdk) -> None:
+    def test_raw_response_create(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.create(
             attachment={},
             checksum="checksum",
@@ -60,7 +60,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Whopsdk) -> None:
+    def test_streaming_response_create(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.create(
             attachment={},
             checksum="checksum",
@@ -76,7 +76,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         app_build = client.app_builds.retrieve(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -84,7 +84,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.retrieve(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -96,7 +96,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.retrieve(
             "apbu_xxxxxxxxxxxxx",
         ) as response:
@@ -110,7 +110,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.app_builds.with_raw_response.retrieve(
                 "",
@@ -118,7 +118,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whopsdk) -> None:
+    def test_method_list(self, client: Whop) -> None:
         app_build = client.app_builds.list(
             app_id="app_xxxxxxxxxxxxxx",
         )
@@ -126,7 +126,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_list_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.list(
             app_id="app_xxxxxxxxxxxxxx",
             after="after",
@@ -140,7 +140,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whopsdk) -> None:
+    def test_raw_response_list(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.list(
             app_id="app_xxxxxxxxxxxxxx",
         )
@@ -152,7 +152,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whopsdk) -> None:
+    def test_streaming_response_list(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.list(
             app_id="app_xxxxxxxxxxxxxx",
         ) as response:
@@ -166,7 +166,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_promote(self, client: Whopsdk) -> None:
+    def test_method_promote(self, client: Whop) -> None:
         app_build = client.app_builds.promote(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -174,7 +174,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_promote(self, client: Whopsdk) -> None:
+    def test_raw_response_promote(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.promote(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -186,7 +186,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_promote(self, client: Whopsdk) -> None:
+    def test_streaming_response_promote(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.promote(
             "apbu_xxxxxxxxxxxxx",
         ) as response:
@@ -200,7 +200,7 @@ class TestAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_promote(self, client: Whopsdk) -> None:
+    def test_path_params_promote(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.app_builds.with_raw_response.promote(
                 "",
@@ -214,7 +214,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
             attachment={},
             checksum="checksum",
@@ -224,7 +224,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
             attachment={
                 "id": "id",
@@ -239,7 +239,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.create(
             attachment={},
             checksum="checksum",
@@ -253,7 +253,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.create(
             attachment={},
             checksum="checksum",
@@ -269,7 +269,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.retrieve(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -277,7 +277,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.retrieve(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -289,7 +289,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.retrieve(
             "apbu_xxxxxxxxxxxxx",
         ) as response:
@@ -303,7 +303,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.app_builds.with_raw_response.retrieve(
                 "",
@@ -311,7 +311,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.list(
             app_id="app_xxxxxxxxxxxxxx",
         )
@@ -319,7 +319,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.list(
             app_id="app_xxxxxxxxxxxxxx",
             after="after",
@@ -333,7 +333,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.list(
             app_id="app_xxxxxxxxxxxxxx",
         )
@@ -345,7 +345,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.list(
             app_id="app_xxxxxxxxxxxxxx",
         ) as response:
@@ -359,7 +359,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_promote(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_promote(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.promote(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -367,7 +367,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_promote(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_promote(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.promote(
             "apbu_xxxxxxxxxxxxx",
         )
@@ -379,7 +379,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_promote(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_promote(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.promote(
             "apbu_xxxxxxxxxxxxx",
         ) as response:
@@ -393,7 +393,7 @@ class TestAsyncAppBuilds:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_promote(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_promote(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.app_builds.with_raw_response.promote(
                 "",

@@ -1,11 +1,11 @@
 [project]
 name = "whopsdk"
 version = "0.0.1"
-description = "The official Python library for the whopsdk API"
+description = "The official Python library for the Whop API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Whopsdk", email = "" },
+{ name = "Whop", email = "" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",

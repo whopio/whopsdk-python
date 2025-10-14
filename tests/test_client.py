@@ -18,11 +18,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from whopsdk import Whopsdk, AsyncWhopsdk, APIResponseValidationError
+from whopsdk import Whop, AsyncWhop, APIResponseValidationError
 from whopsdk._types import Omit
 from whopsdk._utils import asyncify
 from whopsdk._models import BaseModel, FinalRequestOptions
-from whopsdk._exceptions import WhopsdkError, APIStatusError, APIResponseValidationError
+from whopsdk._exceptions import WhopError, APIStatusError, APIResponseValidationError
 from whopsdk._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -51,8 +51,8 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-class TestWhopsdk:
-    client = Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+class TestWhop:
+    client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -103,7 +103,7 @@ class TestWhopsdk:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = Whopsdk(
+        client = Whop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -141,7 +141,7 @@ class TestWhopsdk:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = Whopsdk(
+        client = Whop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -271,7 +271,7 @@ class TestWhopsdk:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Whopsdk(
+        client = Whop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -286,7 +286,7 @@ class TestWhopsdk:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Whopsdk(
+            client = Whop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -300,7 +300,7 @@ class TestWhopsdk:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Whopsdk(
+            client = Whop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -314,7 +314,7 @@ class TestWhopsdk:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Whopsdk(
+            client = Whop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -329,7 +329,7 @@ class TestWhopsdk:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                Whopsdk(
+                Whop(
                     base_url=base_url,
                     api_key=api_key,
                     app_id=app_id,
@@ -338,7 +338,7 @@ class TestWhopsdk:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = Whopsdk(
+        client = Whop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -349,7 +349,7 @@ class TestWhopsdk:
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = Whopsdk(
+        client2 = Whop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -364,17 +364,17 @@ class TestWhopsdk:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(WhopsdkError):
+        with pytest.raises(WhopError):
             with update_env(**{"WHOP_API_KEY": Omit()}):
-                client2 = Whopsdk(base_url=base_url, api_key=None, app_id=app_id, _strict_response_validation=True)
+                client2 = Whop(base_url=base_url, api_key=None, app_id=app_id, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = Whopsdk(
+        client = Whop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -492,7 +492,7 @@ class TestWhopsdk:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: Whopsdk) -> None:
+    def test_multipart_repeating_array(self, client: Whop) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="post",
@@ -579,7 +579,7 @@ class TestWhopsdk:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Whopsdk(
+        client = Whop(
             base_url="https://example.com/from_init", api_key=api_key, app_id=app_id, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -589,20 +589,20 @@ class TestWhopsdk:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(WHOPSDK_BASE_URL="http://localhost:5000/from/env"):
-            client = Whopsdk(api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        with update_env(WHOP_BASE_URL="http://localhost:5000/from/env"):
+            client = Whop(api_key=api_key, app_id=app_id, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            Whopsdk(
+            Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
                 _strict_response_validation=True,
             ),
-            Whopsdk(
+            Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
@@ -612,7 +612,7 @@ class TestWhopsdk:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: Whopsdk) -> None:
+    def test_base_url_trailing_slash(self, client: Whop) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -625,13 +625,13 @@ class TestWhopsdk:
     @pytest.mark.parametrize(
         "client",
         [
-            Whopsdk(
+            Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
                 _strict_response_validation=True,
             ),
-            Whopsdk(
+            Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
@@ -641,7 +641,7 @@ class TestWhopsdk:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: Whopsdk) -> None:
+    def test_base_url_no_trailing_slash(self, client: Whop) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -654,13 +654,13 @@ class TestWhopsdk:
     @pytest.mark.parametrize(
         "client",
         [
-            Whopsdk(
+            Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
                 _strict_response_validation=True,
             ),
-            Whopsdk(
+            Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
@@ -670,7 +670,7 @@ class TestWhopsdk:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: Whopsdk) -> None:
+    def test_absolute_request_url(self, client: Whop) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -681,7 +681,7 @@ class TestWhopsdk:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -692,7 +692,7 @@ class TestWhopsdk:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -713,7 +713,7 @@ class TestWhopsdk:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Whopsdk(
+            Whop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -728,12 +728,12 @@ class TestWhopsdk:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        strict_client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=False)
+        client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -761,7 +761,7 @@ class TestWhopsdk:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = Whopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -774,7 +774,7 @@ class TestWhopsdk:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: Whopsdk,
+        client: Whop,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -792,9 +792,9 @@ class TestWhopsdk:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/invoices").mock(side_effect=retry_handler)
+        respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = client.invoices.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
+        response = client.payments.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -802,9 +802,7 @@ class TestWhopsdk:
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_omit_retry_count_header(
-        self, client: Whopsdk, failures_before_success: int, respx_mock: MockRouter
-    ) -> None:
+    def test_omit_retry_count_header(self, client: Whop, failures_before_success: int, respx_mock: MockRouter) -> None:
         client = client.with_options(max_retries=4)
 
         nb_retries = 0
@@ -816,9 +814,9 @@ class TestWhopsdk:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/invoices").mock(side_effect=retry_handler)
+        respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = client.invoices.with_raw_response.list(
+        response = client.payments.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -828,7 +826,7 @@ class TestWhopsdk:
     @mock.patch("whopsdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: Whopsdk, failures_before_success: int, respx_mock: MockRouter
+        self, client: Whop, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -841,9 +839,9 @@ class TestWhopsdk:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/invoices").mock(side_effect=retry_handler)
+        respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = client.invoices.with_raw_response.list(
+        response = client.payments.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": "42"}
         )
 
@@ -899,8 +897,8 @@ class TestWhopsdk:
         assert exc_info.value.response.headers["Location"] == f"{base_url}/redirected"
 
 
-class TestAsyncWhopsdk:
-    client = AsyncWhopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+class TestAsyncWhop:
+    client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -953,7 +951,7 @@ class TestAsyncWhopsdk:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncWhopsdk(
+        client = AsyncWhop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -991,7 +989,7 @@ class TestAsyncWhopsdk:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncWhopsdk(
+        client = AsyncWhop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -1121,7 +1119,7 @@ class TestAsyncWhopsdk:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncWhopsdk(
+        client = AsyncWhop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -1136,7 +1134,7 @@ class TestAsyncWhopsdk:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncWhopsdk(
+            client = AsyncWhop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -1150,7 +1148,7 @@ class TestAsyncWhopsdk:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncWhopsdk(
+            client = AsyncWhop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -1164,7 +1162,7 @@ class TestAsyncWhopsdk:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncWhopsdk(
+            client = AsyncWhop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -1179,7 +1177,7 @@ class TestAsyncWhopsdk:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncWhopsdk(
+                AsyncWhop(
                     base_url=base_url,
                     api_key=api_key,
                     app_id=app_id,
@@ -1188,7 +1186,7 @@ class TestAsyncWhopsdk:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncWhopsdk(
+        client = AsyncWhop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -1199,7 +1197,7 @@ class TestAsyncWhopsdk:
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncWhopsdk(
+        client2 = AsyncWhop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -1214,17 +1212,17 @@ class TestAsyncWhopsdk:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = AsyncWhopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(WhopsdkError):
+        with pytest.raises(WhopError):
             with update_env(**{"WHOP_API_KEY": Omit()}):
-                client2 = AsyncWhopsdk(base_url=base_url, api_key=None, app_id=app_id, _strict_response_validation=True)
+                client2 = AsyncWhop(base_url=base_url, api_key=None, app_id=app_id, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = AsyncWhopsdk(
+        client = AsyncWhop(
             base_url=base_url,
             api_key=api_key,
             app_id=app_id,
@@ -1342,7 +1340,7 @@ class TestAsyncWhopsdk:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncWhopsdk) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncWhop) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="post",
@@ -1429,7 +1427,7 @@ class TestAsyncWhopsdk:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncWhopsdk(
+        client = AsyncWhop(
             base_url="https://example.com/from_init", api_key=api_key, app_id=app_id, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1439,20 +1437,20 @@ class TestAsyncWhopsdk:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(WHOPSDK_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncWhopsdk(api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        with update_env(WHOP_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncWhop(api_key=api_key, app_id=app_id, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncWhopsdk(
+            AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
                 _strict_response_validation=True,
             ),
-            AsyncWhopsdk(
+            AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
@@ -1462,7 +1460,7 @@ class TestAsyncWhopsdk:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncWhopsdk) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncWhop) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1475,13 +1473,13 @@ class TestAsyncWhopsdk:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncWhopsdk(
+            AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
                 _strict_response_validation=True,
             ),
-            AsyncWhopsdk(
+            AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
@@ -1491,7 +1489,7 @@ class TestAsyncWhopsdk:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncWhopsdk) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncWhop) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1504,13 +1502,13 @@ class TestAsyncWhopsdk:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncWhopsdk(
+            AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
                 _strict_response_validation=True,
             ),
-            AsyncWhopsdk(
+            AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 app_id=app_id,
@@ -1520,7 +1518,7 @@ class TestAsyncWhopsdk:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncWhopsdk) -> None:
+    def test_absolute_request_url(self, client: AsyncWhop) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1531,7 +1529,7 @@ class TestAsyncWhopsdk:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncWhopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1543,7 +1541,7 @@ class TestAsyncWhopsdk:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncWhopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1565,7 +1563,7 @@ class TestAsyncWhopsdk:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncWhopsdk(
+            AsyncWhop(
                 base_url=base_url,
                 api_key=api_key,
                 app_id=app_id,
@@ -1581,14 +1579,12 @@ class TestAsyncWhopsdk:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncWhopsdk(
-            base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True
-        )
+        strict_client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncWhopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=False)
+        client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1617,7 +1613,7 @@ class TestAsyncWhopsdk:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncWhopsdk(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -1631,7 +1627,7 @@ class TestAsyncWhopsdk:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncWhopsdk,
+        async_client: AsyncWhop,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1649,9 +1645,9 @@ class TestAsyncWhopsdk:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/invoices").mock(side_effect=retry_handler)
+        respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = await client.invoices.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
+        response = await client.payments.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1661,7 +1657,7 @@ class TestAsyncWhopsdk:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncWhopsdk, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncWhop, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1674,9 +1670,9 @@ class TestAsyncWhopsdk:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/invoices").mock(side_effect=retry_handler)
+        respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = await client.invoices.with_raw_response.list(
+        response = await client.payments.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1687,7 +1683,7 @@ class TestAsyncWhopsdk:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncWhopsdk, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncWhop, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1700,9 +1696,9 @@ class TestAsyncWhopsdk:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/invoices").mock(side_effect=retry_handler)
+        respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = await client.invoices.with_raw_response.list(
+        response = await client.payments.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": "42"}
         )
 

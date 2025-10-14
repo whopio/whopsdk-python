@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import (
     CheckoutConfigurationListResponse,
@@ -23,13 +23,13 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create(self, client: Whopsdk) -> None:
+    def test_method_create(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.create()
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_create_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.create(
             affiliate_code="affiliate_code",
             metadata={"foo": "bar"},
@@ -72,7 +72,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Whopsdk) -> None:
+    def test_raw_response_create(self, client: Whop) -> None:
         response = client.checkout_configurations.with_raw_response.create()
 
         assert response.is_closed is True
@@ -82,7 +82,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Whopsdk) -> None:
+    def test_streaming_response_create(self, client: Whop) -> None:
         with client.checkout_configurations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -94,7 +94,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.retrieve(
             "ch_xxxxxxxxxxxxxxx",
         )
@@ -102,7 +102,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.checkout_configurations.with_raw_response.retrieve(
             "ch_xxxxxxxxxxxxxxx",
         )
@@ -114,7 +114,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.checkout_configurations.with_streaming_response.retrieve(
             "ch_xxxxxxxxxxxxxxx",
         ) as response:
@@ -128,7 +128,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.checkout_configurations.with_raw_response.retrieve(
                 "",
@@ -136,7 +136,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whopsdk) -> None:
+    def test_method_list(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -146,7 +146,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_list_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -162,7 +162,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whopsdk) -> None:
+    def test_raw_response_list(self, client: Whop) -> None:
         response = client.checkout_configurations.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -176,7 +176,7 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whopsdk) -> None:
+    def test_streaming_response_list(self, client: Whop) -> None:
         with client.checkout_configurations.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
@@ -198,13 +198,13 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.create()
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.create(
             affiliate_code="affiliate_code",
             metadata={"foo": "bar"},
@@ -247,7 +247,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.checkout_configurations.with_raw_response.create()
 
         assert response.is_closed is True
@@ -257,7 +257,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.checkout_configurations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -269,7 +269,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.retrieve(
             "ch_xxxxxxxxxxxxxxx",
         )
@@ -277,7 +277,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.checkout_configurations.with_raw_response.retrieve(
             "ch_xxxxxxxxxxxxxxx",
         )
@@ -289,7 +289,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.checkout_configurations.with_streaming_response.retrieve(
             "ch_xxxxxxxxxxxxxxx",
         ) as response:
@@ -303,7 +303,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.checkout_configurations.with_raw_response.retrieve(
                 "",
@@ -311,7 +311,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -321,7 +321,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -337,7 +337,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.checkout_configurations.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -351,7 +351,7 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.checkout_configurations.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:

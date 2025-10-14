@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import LedgerAccountRetrieveResponse
 
@@ -19,7 +19,7 @@ class TestLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         ledger_account = client.ledger_accounts.retrieve(
             "ldgr_xxxxxxxxxxxxx",
         )
@@ -27,7 +27,7 @@ class TestLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.ledger_accounts.with_raw_response.retrieve(
             "ldgr_xxxxxxxxxxxxx",
         )
@@ -39,7 +39,7 @@ class TestLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.ledger_accounts.with_streaming_response.retrieve(
             "ldgr_xxxxxxxxxxxxx",
         ) as response:
@@ -53,7 +53,7 @@ class TestLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.ledger_accounts.with_raw_response.retrieve(
                 "",
@@ -67,7 +67,7 @@ class TestAsyncLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         ledger_account = await async_client.ledger_accounts.retrieve(
             "ldgr_xxxxxxxxxxxxx",
         )
@@ -75,7 +75,7 @@ class TestAsyncLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.ledger_accounts.with_raw_response.retrieve(
             "ldgr_xxxxxxxxxxxxx",
         )
@@ -87,7 +87,7 @@ class TestAsyncLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.ledger_accounts.with_streaming_response.retrieve(
             "ldgr_xxxxxxxxxxxxx",
         ) as response:
@@ -101,7 +101,7 @@ class TestAsyncLedgerAccounts:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.ledger_accounts.with_raw_response.retrieve(
                 "",

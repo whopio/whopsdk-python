@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import (
     ExperienceListResponse,
@@ -24,7 +24,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create(self, client: Whopsdk) -> None:
+    def test_method_create(self, client: Whop) -> None:
         experience = client.experiences.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -33,7 +33,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_create_with_all_params(self, client: Whop) -> None:
         experience = client.experiences.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -44,7 +44,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Whopsdk) -> None:
+    def test_raw_response_create(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -57,7 +57,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Whopsdk) -> None:
+    def test_streaming_response_create(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -72,7 +72,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         experience = client.experiences.retrieve(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -80,7 +80,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.retrieve(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -92,7 +92,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.retrieve(
             "exp_xxxxxxxxxxxxxx",
         ) as response:
@@ -106,7 +106,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.experiences.with_raw_response.retrieve(
                 "",
@@ -114,7 +114,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update(self, client: Whopsdk) -> None:
+    def test_method_update(self, client: Whop) -> None:
         experience = client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
         )
@@ -122,7 +122,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_update_with_all_params(self, client: Whop) -> None:
         experience = client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
@@ -138,7 +138,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update(self, client: Whopsdk) -> None:
+    def test_raw_response_update(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.update(
             id="exp_xxxxxxxxxxxxxx",
         )
@@ -150,7 +150,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update(self, client: Whopsdk) -> None:
+    def test_streaming_response_update(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.update(
             id="exp_xxxxxxxxxxxxxx",
         ) as response:
@@ -164,7 +164,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update(self, client: Whopsdk) -> None:
+    def test_path_params_update(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.experiences.with_raw_response.update(
                 id="",
@@ -172,7 +172,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whopsdk) -> None:
+    def test_method_list(self, client: Whop) -> None:
         experience = client.experiences.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -180,7 +180,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_list_with_all_params(self, client: Whop) -> None:
         experience = client.experiences.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -194,7 +194,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whopsdk) -> None:
+    def test_raw_response_list(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -206,7 +206,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whopsdk) -> None:
+    def test_streaming_response_list(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
@@ -220,7 +220,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_delete(self, client: Whopsdk) -> None:
+    def test_method_delete(self, client: Whop) -> None:
         experience = client.experiences.delete(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -228,7 +228,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_delete(self, client: Whopsdk) -> None:
+    def test_raw_response_delete(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.delete(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -240,7 +240,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_delete(self, client: Whopsdk) -> None:
+    def test_streaming_response_delete(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.delete(
             "exp_xxxxxxxxxxxxxx",
         ) as response:
@@ -254,7 +254,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_delete(self, client: Whopsdk) -> None:
+    def test_path_params_delete(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.experiences.with_raw_response.delete(
                 "",
@@ -262,7 +262,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_attach(self, client: Whopsdk) -> None:
+    def test_method_attach(self, client: Whop) -> None:
         experience = client.experiences.attach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -271,7 +271,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_attach(self, client: Whopsdk) -> None:
+    def test_raw_response_attach(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.attach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -284,7 +284,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_attach(self, client: Whopsdk) -> None:
+    def test_streaming_response_attach(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.attach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -299,7 +299,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_attach(self, client: Whopsdk) -> None:
+    def test_path_params_attach(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.experiences.with_raw_response.attach(
                 id="",
@@ -308,7 +308,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_detach(self, client: Whopsdk) -> None:
+    def test_method_detach(self, client: Whop) -> None:
         experience = client.experiences.detach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -317,7 +317,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_detach(self, client: Whopsdk) -> None:
+    def test_raw_response_detach(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.detach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -330,7 +330,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_detach(self, client: Whopsdk) -> None:
+    def test_streaming_response_detach(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.detach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -345,7 +345,7 @@ class TestExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_detach(self, client: Whopsdk) -> None:
+    def test_path_params_detach(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.experiences.with_raw_response.detach(
                 id="",
@@ -360,7 +360,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -369,7 +369,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -380,7 +380,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -393,7 +393,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
@@ -408,7 +408,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.retrieve(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -416,7 +416,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.retrieve(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -428,7 +428,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.retrieve(
             "exp_xxxxxxxxxxxxxx",
         ) as response:
@@ -442,7 +442,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.experiences.with_raw_response.retrieve(
                 "",
@@ -450,7 +450,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
         )
@@ -458,7 +458,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
@@ -474,7 +474,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.update(
             id="exp_xxxxxxxxxxxxxx",
         )
@@ -486,7 +486,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.update(
             id="exp_xxxxxxxxxxxxxx",
         ) as response:
@@ -500,7 +500,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.experiences.with_raw_response.update(
                 id="",
@@ -508,7 +508,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -516,7 +516,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
@@ -530,7 +530,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         )
@@ -542,7 +542,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
@@ -556,7 +556,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.delete(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -564,7 +564,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.delete(
             "exp_xxxxxxxxxxxxxx",
         )
@@ -576,7 +576,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.delete(
             "exp_xxxxxxxxxxxxxx",
         ) as response:
@@ -590,7 +590,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.experiences.with_raw_response.delete(
                 "",
@@ -598,7 +598,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_attach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_attach(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.attach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -607,7 +607,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_attach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_attach(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.attach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -620,7 +620,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_attach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_attach(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.attach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -635,7 +635,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_attach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_attach(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.experiences.with_raw_response.attach(
                 id="",
@@ -644,7 +644,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_detach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_detach(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.detach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -653,7 +653,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_detach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_detach(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.detach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -666,7 +666,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_detach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_detach(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.detach(
             id="exp_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
@@ -681,7 +681,7 @@ class TestAsyncExperiences:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_detach(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_detach(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.experiences.with_raw_response.detach(
                 id="",

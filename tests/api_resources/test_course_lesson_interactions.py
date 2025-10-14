@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whopsdk, AsyncWhopsdk
+from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
 from whopsdk.types.shared import CourseLessonInteraction, CourseLessonInteractionListItem
@@ -20,7 +20,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Whopsdk) -> None:
+    def test_method_retrieve(self, client: Whop) -> None:
         course_lesson_interaction = client.course_lesson_interactions.retrieve(
             "crsli_xxxxxxxxxxxx",
         )
@@ -28,7 +28,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Whopsdk) -> None:
+    def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.course_lesson_interactions.with_raw_response.retrieve(
             "crsli_xxxxxxxxxxxx",
         )
@@ -40,7 +40,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Whopsdk) -> None:
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.course_lesson_interactions.with_streaming_response.retrieve(
             "crsli_xxxxxxxxxxxx",
         ) as response:
@@ -54,7 +54,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Whopsdk) -> None:
+    def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.course_lesson_interactions.with_raw_response.retrieve(
                 "",
@@ -62,7 +62,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whopsdk) -> None:
+    def test_method_list(self, client: Whop) -> None:
         course_lesson_interaction = client.course_lesson_interactions.list()
         assert_matches_type(
             SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
@@ -70,7 +70,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whopsdk) -> None:
+    def test_method_list_with_all_params(self, client: Whop) -> None:
         course_lesson_interaction = client.course_lesson_interactions.list(
             after="after",
             before="before",
@@ -87,7 +87,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whopsdk) -> None:
+    def test_raw_response_list(self, client: Whop) -> None:
         response = client.course_lesson_interactions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -99,7 +99,7 @@ class TestCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whopsdk) -> None:
+    def test_streaming_response_list(self, client: Whop) -> None:
         with client.course_lesson_interactions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -119,7 +119,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.retrieve(
             "crsli_xxxxxxxxxxxx",
         )
@@ -127,7 +127,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.course_lesson_interactions.with_raw_response.retrieve(
             "crsli_xxxxxxxxxxxx",
         )
@@ -139,7 +139,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.course_lesson_interactions.with_streaming_response.retrieve(
             "crsli_xxxxxxxxxxxx",
         ) as response:
@@ -153,7 +153,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWhopsdk) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.course_lesson_interactions.with_raw_response.retrieve(
                 "",
@@ -161,7 +161,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.list()
         assert_matches_type(
             AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
@@ -169,7 +169,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhopsdk) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.list(
             after="after",
             before="before",
@@ -186,7 +186,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.course_lesson_interactions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -198,7 +198,7 @@ class TestAsyncCourseLessonInteractions:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhopsdk) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.course_lesson_interactions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

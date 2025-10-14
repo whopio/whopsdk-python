@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class WhopsdkError(Exception):
+class WhopError(Exception):
     pass
 
 
-class APIError(WhopsdkError):
+class APIError(WhopError):
     message: str
     request: httpx.Request
 
