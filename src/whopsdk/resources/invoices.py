@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -55,7 +56,7 @@ class InvoicesResource(SyncAPIResource):
         *,
         collection_method: CollectionMethod,
         company_id: str,
-        due_date: int,
+        due_date: Union[str, datetime],
         plan: invoice_create_params.Plan,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
@@ -320,7 +321,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         *,
         collection_method: CollectionMethod,
         company_id: str,
-        due_date: int,
+        due_date: Union[str, datetime],
         plan: invoice_create_params.Plan,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,

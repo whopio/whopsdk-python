@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Union, Iterable, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from .._utils import PropertyInfo
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
 from .shared.release_method import ReleaseMethod
@@ -23,7 +25,7 @@ class InvoiceCreateParams(TypedDict, total=False):
     company_id: Required[str]
     """The company ID to create this invoice for."""
 
-    due_date: Required[int]
+    due_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """The date the invoice is due, if applicable."""
 
     plan: Required[Plan]

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .shared.shipment_status import ShipmentStatus
@@ -22,10 +23,10 @@ class ShipmentListResponse(BaseModel):
     carrier: ShipmentCarrier
     """The carrier of the shipment"""
 
-    created_at: int
+    created_at: datetime
     """The date and time the shipment was created"""
 
-    delivery_estimate: Optional[int] = None
+    delivery_estimate: Optional[datetime] = None
     """The delivery estimate of the shipment"""
 
     payment: Payment
@@ -43,5 +44,5 @@ class ShipmentListResponse(BaseModel):
     tracking_code: str
     """The tracking code of the shipment"""
 
-    updated_at: int
+    updated_at: datetime
     """The date and time the shipment was last updated"""

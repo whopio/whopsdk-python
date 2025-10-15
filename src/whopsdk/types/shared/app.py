@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 
 from ..._models import BaseModel
 from .app_statuses import AppStatuses
@@ -15,7 +16,7 @@ class APIKey(BaseModel):
     token: str
     """This is the API key used to authenticate requests"""
 
-    created_at: int
+    created_at: datetime
     """When this API key was created at"""
 
 

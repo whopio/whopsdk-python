@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -39,7 +40,7 @@ class Company(BaseModel):
     business_type: Optional[BusinessTypes] = None
     """The different business types a company can be."""
 
-    created_at: int
+    created_at: datetime
     """When the company was created (signed up)"""
 
     industry_type: Optional[IndustryTypes] = None
@@ -63,7 +64,7 @@ class Company(BaseModel):
     title: str
     """The title of the company."""
 
-    updated_at: int
+    updated_at: datetime
     """The time the company was last updated."""
 
     verified: bool

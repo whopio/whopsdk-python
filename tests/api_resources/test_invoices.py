@@ -10,6 +10,7 @@ import pytest
 from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import InvoiceVoidResponse, InvoiceCreateResponse
+from whopsdk._utils import parse_datetime
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
 from whopsdk.types.shared import Invoice, InvoiceListItem
 
@@ -25,7 +26,7 @@ class TestInvoices:
         invoice = client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={},
         )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
@@ -36,7 +37,7 @@ class TestInvoices:
         invoice = client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -78,7 +79,7 @@ class TestInvoices:
         response = client.invoices.with_raw_response.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={},
         )
 
@@ -93,7 +94,7 @@ class TestInvoices:
         with client.invoices.with_streaming_response.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={},
         ) as response:
             assert not response.is_closed
@@ -253,7 +254,7 @@ class TestAsyncInvoices:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={},
         )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
@@ -264,7 +265,7 @@ class TestAsyncInvoices:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -306,7 +307,7 @@ class TestAsyncInvoices:
         response = await async_client.invoices.with_raw_response.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={},
         )
 
@@ -321,7 +322,7 @@ class TestAsyncInvoices:
         async with async_client.invoices.with_streaming_response.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=1701406800,
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan={},
         ) as response:
             assert not response.is_closed

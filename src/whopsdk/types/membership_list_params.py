@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 from .shared.direction import Direction
 from .shared.membership_status import MembershipStatus
 
@@ -40,10 +42,10 @@ class MembershipListParams(TypedDict, total=False):
     ]
     """The cancel options to filter the memberships by"""
 
-    created_after: Optional[int]
+    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The minimum creation date to filter by"""
 
-    created_before: Optional[int]
+    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The maximum creation date to filter by"""
 
     direction: Optional[Direction]

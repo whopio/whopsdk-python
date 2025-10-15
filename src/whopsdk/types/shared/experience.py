@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 
 from ..._models import BaseModel
 
@@ -47,7 +48,7 @@ class Experience(BaseModel):
     company: Company
     """The company that owns this experience."""
 
-    created_at: int
+    created_at: datetime
     """The timestamp of when this experience was created."""
 
     name: str

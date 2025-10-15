@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .currency import Currency
 from ..._models import BaseModel
@@ -35,13 +36,13 @@ class InvoiceListItem(BaseModel):
     id: str
     """The ID of the invoice."""
 
-    created_at: int
+    created_at: datetime
     """The date the invoice was created."""
 
     current_plan: CurrentPlan
     """The plan that the invoice was created for."""
 
-    due_date: Optional[int] = None
+    due_date: Optional[datetime] = None
     """The date the invoice is due."""
 
     email_address: Optional[str] = None

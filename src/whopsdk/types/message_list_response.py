@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .shared.dms_post_types import DmsPostTypes
@@ -55,6 +56,9 @@ class MessageListResponse(BaseModel):
     content: Optional[str] = None
     """The content of the message in Markdown format"""
 
+    created_at: datetime
+    """The timestamp when the post was created"""
+
     is_edited: bool
     """Whether the message has been edited"""
 
@@ -75,6 +79,9 @@ class MessageListResponse(BaseModel):
 
     replying_to_message_id: Optional[str] = None
     """The ID of the message this is replying to, if applicable"""
+
+    updated_at: datetime
+    """The timestamp when the post was last updated"""
 
     user: User
     """The user who sent this message"""
