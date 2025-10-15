@@ -308,12 +308,13 @@ Methods:
 Types:
 
 ```python
-from whopsdk.types import UserRetrieveResponse
+from whopsdk.types import UserRetrieveResponse, UserCheckAccessResponse
 ```
 
 Methods:
 
 - <code title="get /users/{id}">client.users.<a href="./src/whopsdk/resources/users.py">retrieve</a>(id) -> <a href="./src/whopsdk/types/user_retrieve_response.py">UserRetrieveResponse</a></code>
+- <code title="get /users/{id}/access/{resource_id}">client.users.<a href="./src/whopsdk/resources/users.py">check_access</a>(resource_id, \*, id) -> <a href="./src/whopsdk/types/user_check_access_response.py">UserCheckAccessResponse</a></code>
 
 # Payments
 

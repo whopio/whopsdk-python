@@ -15,6 +15,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.user_retrieve_response import UserRetrieveResponse
+from ..types.user_check_access_response import UserCheckAccessResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
 
@@ -72,6 +73,42 @@ class UsersResource(SyncAPIResource):
             cast_to=UserRetrieveResponse,
         )
 
+    def check_access(
+        self,
+        resource_id: str,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserCheckAccessResponse:
+        """
+        Check if a user has access (and their access level) to a resource
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not resource_id:
+            raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
+        return self._get(
+            f"/users/{id}/access/{resource_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserCheckAccessResponse,
+        )
+
 
 class AsyncUsersResource(AsyncAPIResource):
     @cached_property
@@ -126,6 +163,42 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=UserRetrieveResponse,
         )
 
+    async def check_access(
+        self,
+        resource_id: str,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserCheckAccessResponse:
+        """
+        Check if a user has access (and their access level) to a resource
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not resource_id:
+            raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
+        return await self._get(
+            f"/users/{id}/access/{resource_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserCheckAccessResponse,
+        )
+
 
 class UsersResourceWithRawResponse:
     def __init__(self, users: UsersResource) -> None:
@@ -133,6 +206,9 @@ class UsersResourceWithRawResponse:
 
         self.retrieve = to_raw_response_wrapper(
             users.retrieve,
+        )
+        self.check_access = to_raw_response_wrapper(
+            users.check_access,
         )
 
 
@@ -143,6 +219,9 @@ class AsyncUsersResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             users.retrieve,
         )
+        self.check_access = async_to_raw_response_wrapper(
+            users.check_access,
+        )
 
 
 class UsersResourceWithStreamingResponse:
@@ -152,6 +231,9 @@ class UsersResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             users.retrieve,
         )
+        self.check_access = to_streamed_response_wrapper(
+            users.check_access,
+        )
 
 
 class AsyncUsersResourceWithStreamingResponse:
@@ -160,4 +242,7 @@ class AsyncUsersResourceWithStreamingResponse:
 
         self.retrieve = async_to_streamed_response_wrapper(
             users.retrieve,
+        )
+        self.check_access = async_to_streamed_response_wrapper(
+            users.check_access,
         )
