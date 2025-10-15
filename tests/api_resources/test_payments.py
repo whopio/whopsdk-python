@@ -10,6 +10,7 @@ import pytest
 from whopsdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whopsdk.types import PaymentListResponse
+from whopsdk._utils import parse_datetime
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
 from whopsdk.types.shared import Payment
 
@@ -77,8 +78,8 @@ class TestPayments:
             after="after",
             before="before",
             billing_reasons=["subscription_create"],
-            created_after=1701406800,
-            created_before=1701406800,
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             currencies=["usd"],
             direction="asc",
             first=42,
@@ -317,8 +318,8 @@ class TestAsyncPayments:
             after="after",
             before="before",
             billing_reasons=["subscription_create"],
-            created_after=1701406800,
-            created_before=1701406800,
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             currencies=["usd"],
             direction="asc",
             first=42,

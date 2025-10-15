@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -56,7 +57,7 @@ class Product(BaseModel):
     company: Company
     """A short type of the company that this product belongs to."""
 
-    created_at: int
+    created_at: datetime
     """When the product was created."""
 
     custom_cta: CustomCta
@@ -113,7 +114,7 @@ class Product(BaseModel):
     title: str
     """The title of the product. Use for Whop 4.0."""
 
-    updated_at: int
+    updated_at: datetime
     """When the product was updated."""
 
     verified: bool

@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -153,8 +154,8 @@ class MembershipsResource(SyncAPIResource):
             ]
         ]
         | Omit = omit,
-        created_after: Optional[int] | Omit = omit,
-        created_before: Optional[int] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -492,8 +493,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
             ]
         ]
         | Omit = omit,
-        created_after: Optional[int] | Omit = omit,
-        created_before: Optional[int] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,

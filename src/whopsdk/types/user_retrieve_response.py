@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .._models import BaseModel
 
@@ -14,7 +15,7 @@ class UserRetrieveResponse(BaseModel):
     bio: Optional[str] = None
     """The user's bio"""
 
-    created_at: int
+    created_at: datetime
     """When the user was created."""
 
     name: Optional[str] = None

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .shared.entry_status import EntryStatus
@@ -39,7 +40,7 @@ class EntryListResponse(BaseModel):
     id: str
     """The internal ID of the entry."""
 
-    created_at: Optional[int] = None
+    created_at: Optional[datetime] = None
     """When the entry was created."""
 
     plan: Optional[Plan] = None

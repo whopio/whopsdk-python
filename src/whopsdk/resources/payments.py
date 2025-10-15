@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -112,8 +113,8 @@ class PaymentsResource(SyncAPIResource):
             ]
         ]
         | Omit = omit,
-        created_after: Optional[int] | Omit = omit,
-        created_before: Optional[int] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         currencies: Optional[List[Currency]] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
@@ -434,8 +435,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
             ]
         ]
         | Omit = omit,
-        created_after: Optional[int] | Omit = omit,
-        created_before: Optional[int] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         currencies: Optional[List[Currency]] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,

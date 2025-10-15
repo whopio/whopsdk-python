@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .currency import Currency
 from ..._models import BaseModel
@@ -137,19 +138,19 @@ class Payment(BaseModel):
     company: Optional[Company] = None
     """The company for the payment."""
 
-    created_at: int
+    created_at: datetime
     """The datetime the payment was created"""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
 
-    dispute_alerted_at: Optional[int] = None
+    dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
 
     failure_message: Optional[str] = None
     """If the payment failed, the reason for the failure."""
 
-    last_payment_attempt: Optional[int] = None
+    last_payment_attempt: Optional[datetime] = None
     """The time of the last payment attempt."""
 
     member: Optional[Member] = None
@@ -158,7 +159,7 @@ class Payment(BaseModel):
     membership: Optional[Membership] = None
     """The membership attached to this payment."""
 
-    paid_at: Optional[int] = None
+    paid_at: Optional[datetime] = None
     """The datetime the payment was paid"""
 
     payment_method_type: Optional[str] = None
@@ -182,7 +183,7 @@ class Payment(BaseModel):
     refunded_amount: Optional[float] = None
     """The payment refund amount(if applicable)."""
 
-    refunded_at: Optional[int] = None
+    refunded_at: Optional[datetime] = None
     """When the payment was refunded (if applicable)."""
 
     retryable: bool

@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 from .shared.currency import Currency
 from .shared.direction import Direction
 from .shared.receipt_status import ReceiptStatus
@@ -33,10 +35,10 @@ class PaymentListParams(TypedDict, total=False):
     ]
     """The billing reason for the payment"""
 
-    created_after: Optional[int]
+    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The minimum creation date to filter by"""
 
-    created_before: Optional[int]
+    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The maximum creation date to filter by"""
 
     currencies: Optional[List[Currency]]

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
@@ -83,7 +84,7 @@ class Transfer(BaseModel):
     amount: float
     """The amount of the credit transaction transfer"""
 
-    created_at: int
+    created_at: datetime
     """The timestamp when the credit transaction transfer was created"""
 
     currency: Currency

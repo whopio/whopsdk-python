@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whopsdk.types import (
     MembershipListResponse,
 )
+from whopsdk._utils import parse_datetime
 from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
 from whopsdk.types.shared import Membership
 
@@ -131,8 +132,8 @@ class TestMemberships:
             after="after",
             before="before",
             cancel_options=["too_expensive"],
-            created_after=1701406800,
-            created_before=1701406800,
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,
@@ -429,8 +430,8 @@ class TestAsyncMemberships:
             after="after",
             before="before",
             cancel_options=["too_expensive"],
-            created_after=1701406800,
-            created_before=1701406800,
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,

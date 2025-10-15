@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .shared.currency import Currency
@@ -15,7 +16,7 @@ class TransferListResponse(BaseModel):
     amount: float
     """The amount of the credit transaction transfer"""
 
-    created_at: int
+    created_at: datetime
     """The timestamp when the credit transaction transfer was created"""
 
     currency: Currency

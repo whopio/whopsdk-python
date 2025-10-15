@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .shared.currency import Currency
@@ -54,7 +55,7 @@ class MembershipListResponse(BaseModel):
     Only applies for memberships that have a renewal plan.
     """
 
-    canceled_at: Optional[int] = None
+    canceled_at: Optional[datetime] = None
     """The epoch timestamp of when the customer initiated a cancellation."""
 
     cancellation_reason: Optional[str] = None
@@ -63,7 +64,7 @@ class MembershipListResponse(BaseModel):
     company: Company
     """The Company this Membership belongs to."""
 
-    created_at: int
+    created_at: datetime
     """The timestamp, in seconds, that this Membership was created at."""
 
     currency: Optional[Currency] = None
@@ -94,13 +95,13 @@ class MembershipListResponse(BaseModel):
     promo_code: Optional[PromoCode] = None
     """The Promo Code that is currently applied to this Membership."""
 
-    renewal_period_end: Optional[int] = None
+    renewal_period_end: Optional[datetime] = None
     """
     The timestamp in seconds at which the current billing cycle for this
     subscription ends. Only applies for memberships that have a renewal plan.
     """
 
-    renewal_period_start: Optional[int] = None
+    renewal_period_start: Optional[datetime] = None
     """
     The timestamp in seconds at which the current billing cycle for this
     subscription start. Only applies for memberships that have a renewal plan.
@@ -109,7 +110,7 @@ class MembershipListResponse(BaseModel):
     status: MembershipStatus
     """The status of the membership."""
 
-    updated_at: int
+    updated_at: datetime
     """A timestamp of when the membership was last updated"""
 
     user: Optional[User] = None

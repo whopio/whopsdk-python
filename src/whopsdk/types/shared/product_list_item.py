@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from ..._models import BaseModel
 from .visibility import Visibility
@@ -17,7 +18,7 @@ class ProductListItem(BaseModel):
     business_type: Optional[BusinessTypes] = None
     """The different business types a company can be."""
 
-    created_at: int
+    created_at: datetime
     """When the product was created."""
 
     headline: Optional[str] = None
@@ -38,7 +39,7 @@ class ProductListItem(BaseModel):
     title: str
     """The title of the product. Use for Whop 4.0."""
 
-    updated_at: int
+    updated_at: datetime
     """When the product was updated."""
 
     verified: bool

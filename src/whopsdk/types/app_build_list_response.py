@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .shared.app_view_type import AppViewType
@@ -20,7 +21,7 @@ class AppBuildListResponse(BaseModel):
     that is submitted. It is a SHA256 hash of the app build file.
     """
 
-    created_at: int
+    created_at: datetime
     """When this app build was created."""
 
     file_url: str

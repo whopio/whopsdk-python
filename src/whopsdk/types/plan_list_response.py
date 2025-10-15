@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .shared.currency import Currency
@@ -42,7 +43,7 @@ class PlanListResponse(BaseModel):
     company: Optional[Company] = None
     """The company for the plan."""
 
-    created_at: int
+    created_at: datetime
     """When the plan was created."""
 
     currency: Currency
@@ -84,7 +85,7 @@ class PlanListResponse(BaseModel):
     trial_period_days: Optional[int] = None
     """The number of free trial days added before a renewal plan."""
 
-    updated_at: int
+    updated_at: datetime
     """When the plan was last updated."""
 
     visibility: Visibility
