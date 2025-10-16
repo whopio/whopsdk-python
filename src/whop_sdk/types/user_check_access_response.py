@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing_extensions import Literal
-
 from .._models import BaseModel
+from .shared.access_level import AccessLevel
 
 __all__ = ["UserCheckAccessResponse"]
 
 
 class UserCheckAccessResponse(BaseModel):
-    access_level: Literal["no_access", "admin", "customer"]
+    access_level: AccessLevel
     """The permission level of the user"""
 
     has_access: bool

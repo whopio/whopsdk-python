@@ -6,6 +6,7 @@ from .direction import Direction as Direction
 from .plan_type import PlanType as PlanType
 from .custom_cta import CustomCta as CustomCta
 from .visibility import Visibility as Visibility
+from .access_level import AccessLevel as AccessLevel
 from .app_statuses import AppStatuses as AppStatuses
 from .entry_status import EntryStatus as EntryStatus
 from .who_can_post import WhoCanPost as WhoCanPost
@@ -16,12 +17,17 @@ from .industry_types import IndustryTypes as IndustryTypes
 from .invoice_status import InvoiceStatus as InvoiceStatus
 from .receipt_status import ReceiptStatus as ReceiptStatus
 from .release_method import ReleaseMethod as ReleaseMethod
+from .member_statuses import MemberStatuses as MemberStatuses
 from .access_pass_type import AccessPassType as AccessPassType
 from .collection_method import CollectionMethod as CollectionMethod
 from .membership_status import MembershipStatus as MembershipStatus
 from .visibility_filter import VisibilityFilter as VisibilityFilter
 from .app_build_statuses import AppBuildStatuses as AppBuildStatuses
+from .who_can_post_types import WhoCanPostTypes as WhoCanPostTypes
 from .app_build_platforms import AppBuildPlatforms as AppBuildPlatforms
 from .authorized_user_roles import AuthorizedUserRoles as AuthorizedUserRoles
+from .who_can_comment_types import WhoCanCommentTypes as WhoCanCommentTypes
 from .friendly_receipt_status import FriendlyReceiptStatus as FriendlyReceiptStatus
 from .global_affiliate_status import GlobalAffiliateStatus as GlobalAffiliateStatus
+from .member_most_recent_actions import MemberMostRecentActions as MemberMostRecentActions
+from .email_notification_preferences import EmailNotificationPreferences as EmailNotificationPreferences
