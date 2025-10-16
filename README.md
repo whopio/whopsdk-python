@@ -26,7 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from whopsdk import Whop
+from whop_sdk import Whop
 
 client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -51,7 +51,7 @@ Simply import `AsyncWhop` instead of `Whop` and use `await` with each API call:
 ```python
 import os
 import asyncio
-from whopsdk import AsyncWhop
+from whop_sdk import AsyncWhop
 
 client = AsyncWhop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -86,8 +86,8 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 
 ```python
 import asyncio
-from whopsdk import DefaultAioHttpClient
-from whopsdk import AsyncWhop
+from whop_sdk import DefaultAioHttpClient
+from whop_sdk import AsyncWhop
 
 
 async def main() -> None:
@@ -121,7 +121,7 @@ List methods in the Whop API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from whopsdk import Whop
+from whop_sdk import Whop
 
 client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -141,7 +141,7 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from whopsdk import AsyncWhop
+from whop_sdk import AsyncWhop
 
 client = AsyncWhop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -194,7 +194,7 @@ for payment in first_page.data:
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from whopsdk import Whop
+from whop_sdk import Whop
 
 client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -209,16 +209,16 @@ print(app.icon)
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `whopsdk.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `whop_sdk.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `whopsdk.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `whop_sdk.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `whopsdk.APIError`.
+All errors inherit from `whop_sdk.APIError`.
 
 ```python
-import whopsdk
-from whopsdk import Whop
+import whop_sdk
+from whop_sdk import Whop
 
 client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -228,12 +228,12 @@ try:
     client.payments.list(
         company_id="biz_xxxxxxxxxxxxxx",
     )
-except whopsdk.APIConnectionError as e:
+except whop_sdk.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except whopsdk.RateLimitError as e:
+except whop_sdk.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except whopsdk.APIStatusError as e:
+except whop_sdk.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -261,7 +261,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from whopsdk import Whop
+from whop_sdk import Whop
 
 # Configure the default for all requests:
 client = Whop(
@@ -282,7 +282,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from whopsdk import Whop
+from whop_sdk import Whop
 
 # Configure the default for all requests:
 client = Whop(
@@ -338,7 +338,7 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from whopsdk import Whop
+from whop_sdk import Whop
 
 client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -352,9 +352,9 @@ payment = response.parse()  # get the object that `payments.list()` would have r
 print(payment.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/whopio/whopsdk-python/tree/main/src/whopsdk/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/whopio/whopsdk-python/tree/main/src/whop_sdk/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/whopio/whopsdk-python/tree/main/src/whopsdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/whopio/whopsdk-python/tree/main/src/whop_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -418,7 +418,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from whopsdk import Whop, DefaultHttpxClient
+from whop_sdk import Whop, DefaultHttpxClient
 
 client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -442,7 +442,7 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from whopsdk import Whop
+from whop_sdk import Whop
 
 with Whop(
     app_id="app_xxxxxxxxxxxxxx",
@@ -472,8 +472,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import whopsdk
-print(whopsdk.__version__)
+import whop_sdk
+print(whop_sdk.__version__)
 ```
 
 ## Requirements

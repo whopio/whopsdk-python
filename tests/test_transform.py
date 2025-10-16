@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from whopsdk._types import Base64FileInput, omit, not_given
-from whopsdk._utils import (
+from whop_sdk._types import Base64FileInput, omit, not_given
+from whop_sdk._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from whopsdk._compat import PYDANTIC_V1
-from whopsdk._models import BaseModel
+from whop_sdk._compat import PYDANTIC_V1
+from whop_sdk._models import BaseModel
 
 _T = TypeVar("_T")
 
