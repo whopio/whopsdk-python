@@ -18,7 +18,7 @@ class WebhooksResource(SyncAPIResource):
         try:
             from standardwebhooks import Webhook
         except ImportError as exc:
-            raise WhopError("You need to install `whopsdk[webhooks]` to use this method") from exc
+            raise WhopError("You need to install `whop-sdk[webhooks]` to use this method") from exc
 
         if key is None:
             key = self._client.webhook_key
@@ -46,7 +46,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         try:
             from standardwebhooks import Webhook
         except ImportError as exc:
-            raise WhopError("You need to install `whopsdk[webhooks]` to use this method") from exc
+            raise WhopError("You need to install `whop-sdk[webhooks]` to use this method") from exc
 
         if key is None:
             key = self._client.webhook_key
