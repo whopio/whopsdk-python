@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from whopsdk._types import FileTypes
-from whopsdk._utils import extract_files
+from whop_sdk._types import FileTypes
+from whop_sdk._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

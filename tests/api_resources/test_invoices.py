@@ -7,12 +7,15 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whop, AsyncWhop
+from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whopsdk.types import InvoiceVoidResponse, InvoiceCreateResponse
-from whopsdk._utils import parse_datetime
-from whopsdk.pagination import SyncCursorPage, AsyncCursorPage
-from whopsdk.types.shared import Invoice, InvoiceListItem
+from whop_sdk.types import (
+    InvoiceVoidResponse,
+    InvoiceCreateResponse,
+)
+from whop_sdk._utils import parse_datetime
+from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
+from whop_sdk.types.shared import Invoice, InvoiceListItem
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from whopsdk._utils import PropertyInfo
-from whopsdk._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
-from whopsdk._models import BaseModel, construct_type
+from whop_sdk._utils import PropertyInfo
+from whop_sdk._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
+from whop_sdk._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):
