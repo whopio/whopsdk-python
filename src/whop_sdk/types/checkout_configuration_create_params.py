@@ -16,19 +16,19 @@ __all__ = ["CheckoutConfigurationCreateParams", "Plan", "PlanCustomField", "Plan
 
 class CheckoutConfigurationCreateParams(TypedDict, total=False):
     affiliate_code: Optional[str]
-    """The affiliate code to use for the checkout session"""
+    """The affiliate code to use for the checkout configuration"""
 
     metadata: Optional[Dict[str, object]]
-    """The metadata to use for the checkout session"""
+    """The metadata to use for the checkout configuration"""
 
     plan: Optional[Plan]
-    """Pass this object to create a new plan for this checkout session"""
+    """Pass this object to create a new plan for this checkout configuration"""
 
     plan_id: Optional[str]
-    """The ID of the plan to use for the checkout session"""
+    """The ID of the plan to use for the checkout configuration"""
 
     redirect_url: Optional[str]
-    """The URL to redirect the user to after the checkout session is created"""
+    """The URL to redirect the user to after the checkout configuration is created"""
 
 
 class PlanCustomField(TypedDict, total=False):

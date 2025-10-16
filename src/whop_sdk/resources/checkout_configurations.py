@@ -62,7 +62,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CheckoutConfiguration:
         """
-        Creates a new checkout session
+        Creates a new checkout configuration
 
         Required permissions:
 
@@ -70,15 +70,15 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         - `plan:create`
 
         Args:
-          affiliate_code: The affiliate code to use for the checkout session
+          affiliate_code: The affiliate code to use for the checkout configuration
 
-          metadata: The metadata to use for the checkout session
+          metadata: The metadata to use for the checkout configuration
 
-          plan: Pass this object to create a new plan for this checkout session
+          plan: Pass this object to create a new plan for this checkout configuration
 
-          plan_id: The ID of the plan to use for the checkout session
+          plan_id: The ID of the plan to use for the checkout configuration
 
-          redirect_url: The URL to redirect the user to after the checkout session is created
+          redirect_url: The URL to redirect the user to after the checkout configuration is created
 
           extra_headers: Send extra headers
 
@@ -251,7 +251,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CheckoutConfiguration:
         """
-        Creates a new checkout session
+        Creates a new checkout configuration
 
         Required permissions:
 
@@ -259,15 +259,15 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         - `plan:create`
 
         Args:
-          affiliate_code: The affiliate code to use for the checkout session
+          affiliate_code: The affiliate code to use for the checkout configuration
 
-          metadata: The metadata to use for the checkout session
+          metadata: The metadata to use for the checkout configuration
 
-          plan: Pass this object to create a new plan for this checkout session
+          plan: Pass this object to create a new plan for this checkout configuration
 
-          plan_id: The ID of the plan to use for the checkout session
+          plan_id: The ID of the plan to use for the checkout configuration
 
-          redirect_url: The URL to redirect the user to after the checkout session is created
+          redirect_url: The URL to redirect the user to after the checkout configuration is created
 
           extra_headers: Send extra headers
 
