@@ -33,7 +33,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/whopsdk-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
         return CheckoutConfigurationsResourceWithRawResponse(self)
 
@@ -42,7 +42,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/whopsdk-python#with_streaming_response
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return CheckoutConfigurationsResourceWithStreamingResponse(self)
 
@@ -222,7 +222,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/whopsdk-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
         return AsyncCheckoutConfigurationsResourceWithRawResponse(self)
 
@@ -231,7 +231,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/whopsdk-python#with_streaming_response
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return AsyncCheckoutConfigurationsResourceWithStreamingResponse(self)
 
