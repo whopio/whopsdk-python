@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from whopsdk import Whop, AsyncWhop
-from whopsdk._streaming import Stream, AsyncStream, ServerSentEvent
+from whop_sdk import Whop, AsyncWhop
+from whop_sdk._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

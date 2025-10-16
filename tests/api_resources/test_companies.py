@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from whopsdk import Whop, AsyncWhop
+from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whopsdk.types.shared import Company
+from whop_sdk.types.shared import Company
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
