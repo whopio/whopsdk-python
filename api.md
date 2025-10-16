@@ -2,6 +2,7 @@
 
 ```python
 from whop_sdk.types import (
+    AccessLevel,
     AccessPassType,
     App,
     AppBuild,
@@ -21,9 +22,11 @@ from whop_sdk.types import (
     CustomCta,
     Direction,
     DmsPostTypes,
+    EmailNotificationPreferences,
     Entry,
     EntryStatus,
     Experience,
+    Forum,
     ForumPost,
     FriendlyReceiptStatus,
     GlobalAffiliateStatus,
@@ -31,6 +34,8 @@ from whop_sdk.types import (
     Invoice,
     InvoiceListItem,
     InvoiceStatus,
+    MemberMostRecentActions,
+    MemberStatuses,
     Membership,
     MembershipStatus,
     Message,
@@ -53,7 +58,9 @@ from whop_sdk.types import (
     Transfer,
     Visibility,
     VisibilityFilter,
+    WhoCanCommentTypes,
     WhoCanPost,
+    WhoCanPostTypes,
     WhoCanReact,
 )
 ```
@@ -377,3 +384,30 @@ Methods:
 - <code title="post /reactions">client.reactions.<a href="./src/whop_sdk/resources/reactions.py">create</a>(\*\*<a href="src/whop_sdk/types/reaction_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/reaction.py">Reaction</a></code>
 - <code title="get /reactions/{id}">client.reactions.<a href="./src/whop_sdk/resources/reactions.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/reaction.py">Reaction</a></code>
 - <code title="get /reactions">client.reactions.<a href="./src/whop_sdk/resources/reactions.py">list</a>(\*\*<a href="src/whop_sdk/types/reaction_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/reaction_list_response.py">SyncCursorPage[ReactionListResponse]</a></code>
+
+# Members
+
+Types:
+
+```python
+from whop_sdk.types import MemberRetrieveResponse, MemberListResponse
+```
+
+Methods:
+
+- <code title="get /members/{id}">client.members.<a href="./src/whop_sdk/resources/members.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/member_retrieve_response.py">MemberRetrieveResponse</a></code>
+- <code title="get /members">client.members.<a href="./src/whop_sdk/resources/members.py">list</a>(\*\*<a href="src/whop_sdk/types/member_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/member_list_response.py">SyncCursorPage[MemberListResponse]</a></code>
+
+# Forums
+
+Types:
+
+```python
+from whop_sdk.types import ForumListResponse
+```
+
+Methods:
+
+- <code title="get /forums/{id}">client.forums.<a href="./src/whop_sdk/resources/forums.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/forum.py">Forum</a></code>
+- <code title="patch /forums/{id}">client.forums.<a href="./src/whop_sdk/resources/forums.py">update</a>(id, \*\*<a href="src/whop_sdk/types/forum_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/forum.py">Forum</a></code>
+- <code title="get /forums">client.forums.<a href="./src/whop_sdk/resources/forums.py">list</a>(\*\*<a href="src/whop_sdk/types/forum_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/forum_list_response.py">SyncCursorPage[ForumListResponse]</a></code>

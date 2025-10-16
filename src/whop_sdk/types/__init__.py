@@ -6,6 +6,7 @@ from .shared import (
     App as App,
     Plan as Plan,
     Entry as Entry,
+    Forum as Forum,
     Company as Company,
     Invoice as Invoice,
     Message as Message,
@@ -27,6 +28,7 @@ from .shared import (
     Membership as Membership,
     Visibility as Visibility,
     WhoCanPost as WhoCanPost,
+    AccessLevel as AccessLevel,
     AppStatuses as AppStatuses,
     AppViewType as AppViewType,
     ChatChannel as ChatChannel,
@@ -39,22 +41,27 @@ from .shared import (
     ReceiptStatus as ReceiptStatus,
     ReleaseMethod as ReleaseMethod,
     AccessPassType as AccessPassType,
+    MemberStatuses as MemberStatuses,
     ShipmentStatus as ShipmentStatus,
     SupportChannel as SupportChannel,
     InvoiceListItem as InvoiceListItem,
     ProductListItem as ProductListItem,
     ShipmentCarrier as ShipmentCarrier,
+    WhoCanPostTypes as WhoCanPostTypes,
     AppBuildStatuses as AppBuildStatuses,
     CollectionMethod as CollectionMethod,
     MembershipStatus as MembershipStatus,
     VisibilityFilter as VisibilityFilter,
     AppBuildPlatforms as AppBuildPlatforms,
     ShipmentSubstatus as ShipmentSubstatus,
+    WhoCanCommentTypes as WhoCanCommentTypes,
     AuthorizedUserRoles as AuthorizedUserRoles,
     CheckoutConfiguration as CheckoutConfiguration,
     FriendlyReceiptStatus as FriendlyReceiptStatus,
     GlobalAffiliateStatus as GlobalAffiliateStatus,
     CourseLessonInteraction as CourseLessonInteraction,
+    MemberMostRecentActions as MemberMostRecentActions,
+    EmailNotificationPreferences as EmailNotificationPreferences,
     CourseLessonInteractionListItem as CourseLessonInteractionListItem,
 )
 from .app_list_params import AppListParams as AppListParams
@@ -63,14 +70,19 @@ from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams
 from .entry_list_params import EntryListParams as EntryListParams
+from .forum_list_params import ForumListParams as ForumListParams
+from .member_list_params import MemberListParams as MemberListParams
 from .plan_create_params import PlanCreateParams as PlanCreateParams
 from .plan_list_response import PlanListResponse as PlanListResponse
 from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .entry_list_response import EntryListResponse as EntryListResponse
+from .forum_list_response import ForumListResponse as ForumListResponse
+from .forum_update_params import ForumUpdateParams as ForumUpdateParams
 from .invoice_list_params import InvoiceListParams as InvoiceListParams
 from .message_list_params import MessageListParams as MessageListParams
 from .payment_list_params import PaymentListParams as PaymentListParams
 from .product_list_params import ProductListParams as ProductListParams
+from .member_list_response import MemberListResponse as MemberListResponse
 from .plan_delete_response import PlanDeleteResponse as PlanDeleteResponse
 from .reaction_list_params import ReactionListParams as ReactionListParams
 from .shipment_list_params import ShipmentListParams as ShipmentListParams
@@ -109,6 +121,7 @@ from .experience_list_response import ExperienceListResponse as ExperienceListRe
 from .experience_update_params import ExperienceUpdateParams as ExperienceUpdateParams
 from .forum_post_create_params import ForumPostCreateParams as ForumPostCreateParams
 from .forum_post_list_response import ForumPostListResponse as ForumPostListResponse
+from .member_retrieve_response import MemberRetrieveResponse as MemberRetrieveResponse
 from .membership_cancel_params import MembershipCancelParams as MembershipCancelParams
 from .membership_list_response import MembershipListResponse as MembershipListResponse
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams

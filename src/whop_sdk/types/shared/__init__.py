@@ -3,6 +3,7 @@
 from .app import App as App
 from .plan import Plan as Plan
 from .entry import Entry as Entry
+from .forum import Forum as Forum
 from .company import Company as Company
 from .invoice import Invoice as Invoice
 from .message import Message as Message
@@ -23,6 +24,7 @@ from .forum_post import ForumPost as ForumPost
 from .membership import Membership as Membership
 from .promo_type import PromoType as PromoType
 from .visibility import Visibility as Visibility
+from .access_level import AccessLevel as AccessLevel
 from .app_statuses import AppStatuses as AppStatuses
 from .chat_channel import ChatChannel as ChatChannel
 from .entry_status import EntryStatus as EntryStatus
@@ -35,6 +37,7 @@ from .industry_types import IndustryTypes as IndustryTypes
 from .invoice_status import InvoiceStatus as InvoiceStatus
 from .receipt_status import ReceiptStatus as ReceiptStatus
 from .release_method import ReleaseMethod as ReleaseMethod
+from .member_statuses import MemberStatuses as MemberStatuses
 from .shipment_status import ShipmentStatus as ShipmentStatus
 from .support_channel import SupportChannel as SupportChannel
 from .access_pass_type import AccessPassType as AccessPassType
@@ -46,10 +49,14 @@ from .product_list_item import ProductListItem as ProductListItem
 from .visibility_filter import VisibilityFilter as VisibilityFilter
 from .app_build_statuses import AppBuildStatuses as AppBuildStatuses
 from .shipment_substatus import ShipmentSubstatus as ShipmentSubstatus
+from .who_can_post_types import WhoCanPostTypes as WhoCanPostTypes
 from .app_build_platforms import AppBuildPlatforms as AppBuildPlatforms
 from .authorized_user_roles import AuthorizedUserRoles as AuthorizedUserRoles
+from .who_can_comment_types import WhoCanCommentTypes as WhoCanCommentTypes
 from .checkout_configuration import CheckoutConfiguration as CheckoutConfiguration
 from .friendly_receipt_status import FriendlyReceiptStatus as FriendlyReceiptStatus
 from .global_affiliate_status import GlobalAffiliateStatus as GlobalAffiliateStatus
 from .course_lesson_interaction import CourseLessonInteraction as CourseLessonInteraction
+from .member_most_recent_actions import MemberMostRecentActions as MemberMostRecentActions
+from .email_notification_preferences import EmailNotificationPreferences as EmailNotificationPreferences
 from .course_lesson_interaction_list_item import CourseLessonInteractionListItem as CourseLessonInteractionListItem
