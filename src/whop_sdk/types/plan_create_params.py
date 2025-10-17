@@ -40,7 +40,11 @@ class PlanCreateParams(TypedDict, total=False):
     """An image for the plan. This will be visible on the product page to customers."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase."""
+    """An additional amount charged upon first purchase.
+
+    Use only if a one time payment OR you want to charge an additional amount on top
+    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    """
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
@@ -58,7 +62,11 @@ class PlanCreateParams(TypedDict, total=False):
     """The methods of how a plan can be released."""
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period."""
+    """The amount the customer is charged every billing period.
+
+    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
+    $10.43
+    """
 
     title: Optional[str]
     """The title of the plan. This will be visible on the product page to customers."""
