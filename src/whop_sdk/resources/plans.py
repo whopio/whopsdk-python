@@ -107,7 +107,9 @@ class PlansResource(SyncAPIResource):
 
           image: An image for the plan. This will be visible on the product page to customers.
 
-          initial_price: An additional amount charged upon first purchase.
+          initial_price: An additional amount charged upon first purchase. Use only if a one time payment
+              OR you want to charge an additional amount on top of the renewal price. Provided
+              as a number in dollars. Eg: 10.43 for $10.43
 
           internal_notes: A personal description or notes section for the business.
 
@@ -118,7 +120,8 @@ class PlansResource(SyncAPIResource):
 
           release_method: The methods of how a plan can be released.
 
-          renewal_price: The amount the customer is charged every billing period.
+          renewal_price: The amount the customer is charged every billing period. Use only if a recurring
+              payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
           title: The title of the plan. This will be visible on the product page to customers.
 
@@ -501,7 +504,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
           image: An image for the plan. This will be visible on the product page to customers.
 
-          initial_price: An additional amount charged upon first purchase.
+          initial_price: An additional amount charged upon first purchase. Use only if a one time payment
+              OR you want to charge an additional amount on top of the renewal price. Provided
+              as a number in dollars. Eg: 10.43 for $10.43
 
           internal_notes: A personal description or notes section for the business.
 
@@ -512,7 +517,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           release_method: The methods of how a plan can be released.
 
-          renewal_price: The amount the customer is charged every billing period.
+          renewal_price: The amount the customer is charged every billing period. Use only if a recurring
+              payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
           title: The title of the plan. This will be visible on the product page to customers.
 
