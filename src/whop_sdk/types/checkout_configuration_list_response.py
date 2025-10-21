@@ -47,7 +47,7 @@ class CheckoutConfigurationListResponse(BaseModel):
     id: str
     """The ID of the checkout configuration"""
 
-    affiliate_code: str
+    affiliate_code: Optional[str] = None
     """The affiliate code to use for the checkout configuration"""
 
     company_id: str
@@ -62,5 +62,5 @@ class CheckoutConfigurationListResponse(BaseModel):
     purchase_url: str
     """The URL to redirect the user to after the checkout configuration is created"""
 
-    redirect_url: str
+    redirect_url: Optional[str] = None
     """The URL to redirect the user to after the checkout configuration is created"""
