@@ -134,6 +134,11 @@ from whop_sdk.types import (
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
     InvoiceVoidedWebhookEvent,
+    MembershipActivatedWebhookEvent,
+    MembershipDeactivatedWebhookEvent,
+    PaymentSucceededWebhookEvent,
+    PaymentFailedWebhookEvent,
+    PaymentPendingWebhookEvent,
     UnwrapWebhookEvent,
 )
 ```
