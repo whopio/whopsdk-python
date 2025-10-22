@@ -5,7 +5,23 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["CourseLessonInteraction", "Lesson", "User"]
+__all__ = ["CourseLessonInteraction", "Course", "CourseExperience", "Lesson", "User"]
+
+
+class CourseExperience(BaseModel):
+    id: str
+    """The unique ID representing this experience"""
+
+
+class Course(BaseModel):
+    id: str
+    """The ID of the course. Looks like cors_XXX"""
+
+    experience: CourseExperience
+    """The experience that the course belongs to"""
+
+    title: Optional[str] = None
+    """The title of the course"""
 
 
 class Lesson(BaseModel):
@@ -33,6 +49,9 @@ class CourseLessonInteraction(BaseModel):
 
     completed: bool
     """Whether the lesson has been completed by the user"""
+
+    course: Course
+    """The course for this lesson interaction"""
 
     created_at: datetime
     """When the interaction was created"""
