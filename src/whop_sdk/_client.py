@@ -25,7 +25,9 @@ from .resources import (
     apps,
     plans,
     users,
+    forums,
     entries,
+    members,
     invoices,
     messages,
     payments,
@@ -81,6 +83,8 @@ class Whop(SyncAPIClient):
     support_channels: support_channels.SupportChannelsResource
     experiences: experiences.ExperiencesResource
     reactions: reactions.ReactionsResource
+    members: members.MembersResource
+    forums: forums.ForumsResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -180,6 +184,8 @@ class Whop(SyncAPIClient):
         self.support_channels = support_channels.SupportChannelsResource(self)
         self.experiences = experiences.ExperiencesResource(self)
         self.reactions = reactions.ReactionsResource(self)
+        self.members = members.MembersResource(self)
+        self.forums = forums.ForumsResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
@@ -317,6 +323,8 @@ class AsyncWhop(AsyncAPIClient):
     support_channels: support_channels.AsyncSupportChannelsResource
     experiences: experiences.AsyncExperiencesResource
     reactions: reactions.AsyncReactionsResource
+    members: members.AsyncMembersResource
+    forums: forums.AsyncForumsResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -416,6 +424,8 @@ class AsyncWhop(AsyncAPIClient):
         self.support_channels = support_channels.AsyncSupportChannelsResource(self)
         self.experiences = experiences.AsyncExperiencesResource(self)
         self.reactions = reactions.AsyncReactionsResource(self)
+        self.members = members.AsyncMembersResource(self)
+        self.forums = forums.AsyncForumsResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
@@ -557,6 +567,8 @@ class WhopWithRawResponse:
         self.support_channels = support_channels.SupportChannelsResourceWithRawResponse(client.support_channels)
         self.experiences = experiences.ExperiencesResourceWithRawResponse(client.experiences)
         self.reactions = reactions.ReactionsResourceWithRawResponse(client.reactions)
+        self.members = members.MembersResourceWithRawResponse(client.members)
+        self.forums = forums.ForumsResourceWithRawResponse(client.forums)
 
 
 class AsyncWhopWithRawResponse:
@@ -589,6 +601,8 @@ class AsyncWhopWithRawResponse:
         self.support_channels = support_channels.AsyncSupportChannelsResourceWithRawResponse(client.support_channels)
         self.experiences = experiences.AsyncExperiencesResourceWithRawResponse(client.experiences)
         self.reactions = reactions.AsyncReactionsResourceWithRawResponse(client.reactions)
+        self.members = members.AsyncMembersResourceWithRawResponse(client.members)
+        self.forums = forums.AsyncForumsResourceWithRawResponse(client.forums)
 
 
 class WhopWithStreamedResponse:
@@ -621,6 +635,8 @@ class WhopWithStreamedResponse:
         self.support_channels = support_channels.SupportChannelsResourceWithStreamingResponse(client.support_channels)
         self.experiences = experiences.ExperiencesResourceWithStreamingResponse(client.experiences)
         self.reactions = reactions.ReactionsResourceWithStreamingResponse(client.reactions)
+        self.members = members.MembersResourceWithStreamingResponse(client.members)
+        self.forums = forums.ForumsResourceWithStreamingResponse(client.forums)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -657,6 +673,8 @@ class AsyncWhopWithStreamedResponse:
         )
         self.experiences = experiences.AsyncExperiencesResourceWithStreamingResponse(client.experiences)
         self.reactions = reactions.AsyncReactionsResourceWithStreamingResponse(client.reactions)
+        self.members = members.AsyncMembersResourceWithStreamingResponse(client.members)
+        self.forums = forums.AsyncForumsResourceWithStreamingResponse(client.forums)
 
 
 Client = Whop

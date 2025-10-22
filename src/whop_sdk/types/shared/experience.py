@@ -5,12 +5,27 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["Experience", "App", "Company", "Product"]
+__all__ = ["Experience", "App", "AppIcon", "Company", "Image", "Product"]
+
+
+class AppIcon(BaseModel):
+    url: Optional[str] = None
+    """This is the URL you use to render optimized attachments on the client.
+
+    This should be used for apps.
+    """
 
 
 class App(BaseModel):
     id: str
     """The ID of the app"""
+
+    icon: Optional[AppIcon] = None
+    """The icon for the app.
+
+    This icon is shown on discovery, on the product page, on checkout, and as a
+    default icon for the experiences.
+    """
 
     name: str
     """The name of the app"""
@@ -25,6 +40,14 @@ class Company(BaseModel):
 
     title: str
     """The title of the company."""
+
+
+class Image(BaseModel):
+    url: Optional[str] = None
+    """This is the URL you use to render optimized attachments on the client.
+
+    This should be used for apps.
+    """
 
 
 class Product(BaseModel):
@@ -50,6 +73,9 @@ class Experience(BaseModel):
 
     created_at: datetime
     """The timestamp of when this experience was created."""
+
+    image: Optional[Image] = None
+    """The logo for the experience."""
 
     name: str
     """The written name of the description."""

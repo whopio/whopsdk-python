@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.0.2 (2025-10-22)
+
+Full Changelog: [v0.0.1...v0.0.2](https://github.com/whopio/whopsdk-python/compare/v0.0.1...v0.0.2)
+
+### Features
+
+* **api:** api update ([2d9ebee](https://github.com/whopio/whopsdk-python/commit/2d9ebeebfa02aed3ec8b515d0e5b11de07062a38))
+* **api:** api update ([5663cf4](https://github.com/whopio/whopsdk-python/commit/5663cf45944bf6f9d236b7a77aac23ce7f17fb61))
+* **api:** api update ([d3d6d23](https://github.com/whopio/whopsdk-python/commit/d3d6d2364fbac6ec7e828471093c27e5bdba8527))
+* **api:** api update ([f05be6f](https://github.com/whopio/whopsdk-python/commit/f05be6fd65bbd8fca4400d2e38e727153a72de43))
+* **api:** api update ([cb2935f](https://github.com/whopio/whopsdk-python/commit/cb2935feaef3aa0fe324bf2bb2bb193c96b12275))
+* **api:** api update ([d66c088](https://github.com/whopio/whopsdk-python/commit/d66c08873a123a5b65a5fa6f17e66ec6668e37a3))
+* **api:** manual updates ([e0bea9f](https://github.com/whopio/whopsdk-python/commit/e0bea9ff169b03e85ba7111ccd7cbe1f4a1eb4cf))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([a946c15](https://github.com/whopio/whopsdk-python/commit/a946c15a8d418258f8d259714e725922e44c9389))
+
 ## 0.0.1 (2025-10-16)
 
 Full Changelog: [v0.0.1...v0.0.1](https://github.com/whopio/whopsdk-python/compare/v0.0.1...v0.0.1)

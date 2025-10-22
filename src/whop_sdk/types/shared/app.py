@@ -6,7 +6,16 @@ from datetime import datetime
 from ..._models import BaseModel
 from .app_statuses import AppStatuses
 
-__all__ = ["App", "APIKey", "Company", "Creator", "RequestedPermission", "RequestedPermissionPermissionAction", "Stats"]
+__all__ = [
+    "App",
+    "APIKey",
+    "Company",
+    "Creator",
+    "Icon",
+    "RequestedPermission",
+    "RequestedPermissionPermissionAction",
+    "Stats",
+]
 
 
 class APIKey(BaseModel):
@@ -37,6 +46,14 @@ class Creator(BaseModel):
 
     username: str
     """The username of the user from their Whop account."""
+
+
+class Icon(BaseModel):
+    url: Optional[str] = None
+    """This is the URL you use to render optimized attachments on the client.
+
+    This should be used for apps.
+    """
 
 
 class RequestedPermissionPermissionAction(BaseModel):
@@ -128,6 +145,13 @@ class App(BaseModel):
 
     This is the template part of the url after the base domain. Eg:
     /experiences/[experienceId]
+    """
+
+    icon: Optional[Icon] = None
+    """The icon for the app.
+
+    This icon is shown on discovery, on the product page, on checkout, and as a
+    default icon for the experiences.
     """
 
     name: str

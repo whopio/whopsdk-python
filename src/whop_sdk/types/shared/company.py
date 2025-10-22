@@ -8,7 +8,15 @@ from ..._models import BaseModel
 from .business_types import BusinessTypes
 from .industry_types import IndustryTypes
 
-__all__ = ["Company", "OwnerUser", "SocialLink"]
+__all__ = ["Company", "Logo", "OwnerUser", "SocialLink"]
+
+
+class Logo(BaseModel):
+    url: Optional[str] = None
+    """This is the URL you use to render optimized attachments on the client.
+
+    This should be used for apps.
+    """
 
 
 class OwnerUser(BaseModel):
@@ -43,8 +51,14 @@ class Company(BaseModel):
     created_at: datetime
     """When the company was created (signed up)"""
 
+    description: Optional[str] = None
+    """The creator pitch for the company."""
+
     industry_type: Optional[IndustryTypes] = None
     """The different industry types a company can be in."""
+
+    logo: Optional[Logo] = None
+    """The company's logo."""
 
     member_count: int
     """The number of members in the company."""

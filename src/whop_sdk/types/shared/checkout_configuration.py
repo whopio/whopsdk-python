@@ -45,22 +45,22 @@ class Plan(BaseModel):
 
 class CheckoutConfiguration(BaseModel):
     id: str
-    """The ID of the checkout session"""
+    """The ID of the checkout configuration"""
 
-    affiliate_code: str
-    """The affiliate code to use for the checkout session"""
+    affiliate_code: Optional[str] = None
+    """The affiliate code to use for the checkout configuration"""
 
     company_id: str
-    """The ID of the company to use for the checkout session"""
+    """The ID of the company to use for the checkout configuration"""
 
     metadata: Dict[str, object]
-    """The metadata to use for the checkout session"""
+    """The metadata to use for the checkout configuration"""
 
     plan: Plan
-    """The plan to use for the checkout session"""
+    """The plan to use for the checkout configuration"""
 
     purchase_url: str
-    """The URL to redirect the user to after the checkout session is created"""
+    """The URL to redirect the user to after the checkout configuration is created"""
 
-    redirect_url: str
-    """The URL to redirect the user to after the checkout session is created"""
+    redirect_url: Optional[str] = None
+    """The URL to redirect the user to after the checkout configuration is created"""

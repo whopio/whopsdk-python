@@ -24,6 +24,14 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
+from .forums import (
+    ForumsResource,
+    AsyncForumsResource,
+    ForumsResourceWithRawResponse,
+    AsyncForumsResourceWithRawResponse,
+    ForumsResourceWithStreamingResponse,
+    AsyncForumsResourceWithStreamingResponse,
+)
 from .entries import (
     EntriesResource,
     AsyncEntriesResource,
@@ -31,6 +39,14 @@ from .entries import (
     AsyncEntriesResourceWithRawResponse,
     EntriesResourceWithStreamingResponse,
     AsyncEntriesResourceWithStreamingResponse,
+)
+from .members import (
+    MembersResource,
+    AsyncMembersResource,
+    MembersResourceWithRawResponse,
+    AsyncMembersResourceWithRawResponse,
+    MembersResourceWithStreamingResponse,
+    AsyncMembersResourceWithStreamingResponse,
 )
 from .invoices import (
     InvoicesResource,
@@ -313,4 +329,16 @@ __all__ = [
     "AsyncReactionsResourceWithRawResponse",
     "ReactionsResourceWithStreamingResponse",
     "AsyncReactionsResourceWithStreamingResponse",
+    "MembersResource",
+    "AsyncMembersResource",
+    "MembersResourceWithRawResponse",
+    "AsyncMembersResourceWithRawResponse",
+    "MembersResourceWithStreamingResponse",
+    "AsyncMembersResourceWithStreamingResponse",
+    "ForumsResource",
+    "AsyncForumsResource",
+    "ForumsResourceWithRawResponse",
+    "AsyncForumsResourceWithRawResponse",
+    "ForumsResourceWithStreamingResponse",
+    "AsyncForumsResourceWithStreamingResponse",
 ]
