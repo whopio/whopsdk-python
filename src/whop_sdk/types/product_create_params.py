@@ -13,10 +13,9 @@ from .shared.visibility import Visibility
 from .shared.business_types import BusinessTypes
 from .shared.industry_types import IndustryTypes
 from .shared.release_method import ReleaseMethod
-from .shared.access_pass_type import AccessPassType
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["ProductCreateParams", "BannerImage", "PlanOptions", "PlanOptionsCustomField", "ProductHighlight"]
+__all__ = ["ProductCreateParams", "PlanOptions", "PlanOptionsCustomField", "ProductHighlight"]
 
 
 class ProductCreateParams(TypedDict, total=False):
@@ -25,12 +24,6 @@ class ProductCreateParams(TypedDict, total=False):
 
     title: Required[str]
     """The title of the product."""
-
-    access_pass_type: Optional[AccessPassType]
-    """The different types an access pass can be."""
-
-    banner_image: Optional[BannerImage]
-    """A banner image for the product in png, jpeg format"""
 
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
@@ -92,22 +85,6 @@ class ProductCreateParams(TypedDict, total=False):
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
-
-
-class BannerImage(TypedDict, total=False):
-    id: Optional[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-    direct_upload_id: Optional[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
 
 
 class PlanOptionsCustomField(TypedDict, total=False):

@@ -21,6 +21,14 @@ class ProductListItem(BaseModel):
     created_at: datetime
     """When the product was created."""
 
+    external_identifier: Optional[str] = None
+    """A unique identifier used to create or update products.
+
+    When provided on product creation endpoints, we’ll look up an existing product
+    by this identifier — if it exists, we’ll update it; if not, we’ll create a new
+    one.
+    """
+
     headline: Optional[str] = None
     """The headline of the product."""
 
