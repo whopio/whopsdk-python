@@ -6,7 +6,7 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import message_list_params, message_create_params, message_update_params
+from ..types import Languages, course_list_params, course_create_params, course_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,62 +19,63 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.message import Message
-from ..types.shared.direction import Direction
-from ..types.message_list_response import MessageListResponse
+from ..types.course import Course
+from ..types.languages import Languages
+from ..types.course_list_response import CourseListResponse
+from ..types.course_delete_response import CourseDeleteResponse
 
-__all__ = ["MessagesResource", "AsyncMessagesResource"]
+__all__ = ["CoursesResource", "AsyncCoursesResource"]
 
 
-class MessagesResource(SyncAPIResource):
+class CoursesResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> MessagesResourceWithRawResponse:
+    def with_raw_response(self) -> CoursesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return MessagesResourceWithRawResponse(self)
+        return CoursesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> MessagesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> CoursesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return MessagesResourceWithStreamingResponse(self)
+        return CoursesResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        channel_id: str,
-        content: str,
-        attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        poll: Optional[message_create_params.Poll] | Omit = omit,
+        experience_id: str,
+        title: str,
+        tagline: Optional[str] | Omit = omit,
+        thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> Course:
         """
-        Creates a new message
+        Creates a new course module in an experience
 
         Required permissions:
 
-        - `chat:message:create`
+        - `courses:update`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
+          experience_id: The ID of the experience to create the course in
 
-          content: The content of the message in Markdown format.
+          title: The title of the course
 
-          attachments: The attachments for this message, such as videos or images.
+          tagline: The tagline of the course
 
-          poll: The poll for this message
+          thumbnail: The thumbnail for the course in png, jpeg, or gif format
 
           extra_headers: Send extra headers
 
@@ -85,20 +86,20 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/messages",
+            "/courses",
             body=maybe_transform(
                 {
-                    "channel_id": channel_id,
-                    "content": content,
-                    "attachments": attachments,
-                    "poll": poll,
+                    "experience_id": experience_id,
+                    "title": title,
+                    "tagline": tagline,
+                    "thumbnail": thumbnail,
                 },
-                message_create_params.MessageCreateParams,
+                course_create_params.CourseCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=Course,
         )
 
     def retrieve(
@@ -111,13 +112,13 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> Course:
         """
-        Retrieves a message
+        Retrieves a course by ID
 
         Required permissions:
 
-        - `chat:read`
+        - `courses:read`
 
         Args:
           extra_headers: Send extra headers
@@ -131,36 +132,57 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/messages/{id}",
+            f"/courses/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=Course,
         )
 
     def update(
         self,
         id: str,
         *,
-        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
-        content: Optional[str] | Omit = omit,
-        is_pinned: Optional[bool] | Omit = omit,
+        certificate_after_completion_enabled: Optional[bool] | Omit = omit,
+        chapters: Optional[Iterable[course_update_params.Chapter]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        language: Optional[Languages] | Omit = omit,
+        require_completing_lessons_in_order: Optional[bool] | Omit = omit,
+        tagline: Optional[str] | Omit = omit,
+        thumbnail: Optional[course_update_params.Thumbnail] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> Course:
         """
-        Updates an existing message
+        Updates a course
+
+        Required permissions:
+
+        - `courses:update`
 
         Args:
-          attachments: The attachments for this message
+          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
+              all lessons
 
-          content: The content of the message in Markdown format
+          chapters: The chapters and lessons to update
 
-          is_pinned: Whether this message is pinned
+          description: A short description of the course
+
+          language: The available languages for a course
+
+          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
+              moving on to the next one
+
+          tagline: A short tagline for the course
+
+          thumbnail: The thumbnail for the course in png, jpeg, or gif format
+
+          title: The title of the course
 
           extra_headers: Send extra headers
 
@@ -173,28 +195,33 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/messages/{id}",
+            f"/courses/{id}",
             body=maybe_transform(
                 {
-                    "attachments": attachments,
-                    "content": content,
-                    "is_pinned": is_pinned,
+                    "certificate_after_completion_enabled": certificate_after_completion_enabled,
+                    "chapters": chapters,
+                    "description": description,
+                    "language": language,
+                    "require_completing_lessons_in_order": require_completing_lessons_in_order,
+                    "tagline": tagline,
+                    "thumbnail": thumbnail,
+                    "title": title,
                 },
-                message_update_params.MessageUpdateParams,
+                course_update_params.CourseUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=Course,
         )
 
     def list(
         self,
         *,
-        channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
+        experience_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -203,22 +230,22 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[MessageListResponse]:
+    ) -> SyncCursorPage[CourseListResponse]:
         """
-        Lists messages inside a channel
+        Lists courses for an experience or company
 
         Required permissions:
 
-        - `chat:read`
+        - `courses:read`
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          company_id: The ID of the company
+
+          experience_id: The ID of the experience
 
           first: Returns the first _n_ elements from the list.
 
@@ -233,8 +260,8 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/messages",
-            page=SyncCursorPage[MessageListResponse],
+            "/courses",
+            page=SyncCursorPage[CourseListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -242,69 +269,106 @@ class MessagesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "channel_id": channel_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
+                        "company_id": company_id,
+                        "experience_id": experience_id,
                         "first": first,
                         "last": last,
                     },
-                    message_list_params.MessageListParams,
+                    course_list_params.CourseListParams,
                 ),
             ),
-            model=MessageListResponse,
+            model=CourseListResponse,
         )
 
-
-class AsyncMessagesResource(AsyncAPIResource):
-    @cached_property
-    def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
-        """
-        This property can be used as a prefix for any HTTP method call to return
-        the raw response object instead of the parsed content.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
-        """
-        return AsyncMessagesResourceWithRawResponse(self)
-
-    @cached_property
-    def with_streaming_response(self) -> AsyncMessagesResourceWithStreamingResponse:
-        """
-        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
-        """
-        return AsyncMessagesResourceWithStreamingResponse(self)
-
-    async def create(
+    def delete(
         self,
+        id: str,
         *,
-        channel_id: str,
-        content: str,
-        attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        poll: Optional[message_create_params.Poll] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> CourseDeleteResponse:
         """
-        Creates a new message
+        Deletes a course
 
         Required permissions:
 
-        - `chat:message:create`
+        - `courses:update`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
+          extra_headers: Send extra headers
 
-          content: The content of the message in Markdown format.
+          extra_query: Add additional query parameters to the request
 
-          attachments: The attachments for this message, such as videos or images.
+          extra_body: Add additional JSON properties to the request
 
-          poll: The poll for this message
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/courses/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseDeleteResponse,
+        )
+
+
+class AsyncCoursesResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncCoursesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncCoursesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncCoursesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
+        """
+        return AsyncCoursesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        experience_id: str,
+        title: str,
+        tagline: Optional[str] | Omit = omit,
+        thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Course:
+        """
+        Creates a new course module in an experience
+
+        Required permissions:
+
+        - `courses:update`
+
+        Args:
+          experience_id: The ID of the experience to create the course in
+
+          title: The title of the course
+
+          tagline: The tagline of the course
+
+          thumbnail: The thumbnail for the course in png, jpeg, or gif format
 
           extra_headers: Send extra headers
 
@@ -315,20 +379,20 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/messages",
+            "/courses",
             body=await async_maybe_transform(
                 {
-                    "channel_id": channel_id,
-                    "content": content,
-                    "attachments": attachments,
-                    "poll": poll,
+                    "experience_id": experience_id,
+                    "title": title,
+                    "tagline": tagline,
+                    "thumbnail": thumbnail,
                 },
-                message_create_params.MessageCreateParams,
+                course_create_params.CourseCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=Course,
         )
 
     async def retrieve(
@@ -341,13 +405,13 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> Course:
         """
-        Retrieves a message
+        Retrieves a course by ID
 
         Required permissions:
 
-        - `chat:read`
+        - `courses:read`
 
         Args:
           extra_headers: Send extra headers
@@ -361,36 +425,57 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/messages/{id}",
+            f"/courses/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=Course,
         )
 
     async def update(
         self,
         id: str,
         *,
-        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
-        content: Optional[str] | Omit = omit,
-        is_pinned: Optional[bool] | Omit = omit,
+        certificate_after_completion_enabled: Optional[bool] | Omit = omit,
+        chapters: Optional[Iterable[course_update_params.Chapter]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        language: Optional[Languages] | Omit = omit,
+        require_completing_lessons_in_order: Optional[bool] | Omit = omit,
+        tagline: Optional[str] | Omit = omit,
+        thumbnail: Optional[course_update_params.Thumbnail] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> Course:
         """
-        Updates an existing message
+        Updates a course
+
+        Required permissions:
+
+        - `courses:update`
 
         Args:
-          attachments: The attachments for this message
+          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
+              all lessons
 
-          content: The content of the message in Markdown format
+          chapters: The chapters and lessons to update
 
-          is_pinned: Whether this message is pinned
+          description: A short description of the course
+
+          language: The available languages for a course
+
+          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
+              moving on to the next one
+
+          tagline: A short tagline for the course
+
+          thumbnail: The thumbnail for the course in png, jpeg, or gif format
+
+          title: The title of the course
 
           extra_headers: Send extra headers
 
@@ -403,28 +488,33 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/messages/{id}",
+            f"/courses/{id}",
             body=await async_maybe_transform(
                 {
-                    "attachments": attachments,
-                    "content": content,
-                    "is_pinned": is_pinned,
+                    "certificate_after_completion_enabled": certificate_after_completion_enabled,
+                    "chapters": chapters,
+                    "description": description,
+                    "language": language,
+                    "require_completing_lessons_in_order": require_completing_lessons_in_order,
+                    "tagline": tagline,
+                    "thumbnail": thumbnail,
+                    "title": title,
                 },
-                message_update_params.MessageUpdateParams,
+                course_update_params.CourseUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=Course,
         )
 
     def list(
         self,
         *,
-        channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
+        experience_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -433,22 +523,22 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[MessageListResponse, AsyncCursorPage[MessageListResponse]]:
+    ) -> AsyncPaginator[CourseListResponse, AsyncCursorPage[CourseListResponse]]:
         """
-        Lists messages inside a channel
+        Lists courses for an experience or company
 
         Required permissions:
 
-        - `chat:read`
+        - `courses:read`
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          company_id: The ID of the company
+
+          experience_id: The ID of the experience
 
           first: Returns the first _n_ elements from the list.
 
@@ -463,8 +553,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/messages",
-            page=AsyncCursorPage[MessageListResponse],
+            "/courses",
+            page=AsyncCursorPage[CourseListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -472,87 +562,136 @@ class AsyncMessagesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "channel_id": channel_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
+                        "company_id": company_id,
+                        "experience_id": experience_id,
                         "first": first,
                         "last": last,
                     },
-                    message_list_params.MessageListParams,
+                    course_list_params.CourseListParams,
                 ),
             ),
-            model=MessageListResponse,
+            model=CourseListResponse,
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseDeleteResponse:
+        """
+        Deletes a course
+
+        Required permissions:
+
+        - `courses:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/courses/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseDeleteResponse,
         )
 
 
-class MessagesResourceWithRawResponse:
-    def __init__(self, messages: MessagesResource) -> None:
-        self._messages = messages
+class CoursesResourceWithRawResponse:
+    def __init__(self, courses: CoursesResource) -> None:
+        self._courses = courses
 
         self.create = to_raw_response_wrapper(
-            messages.create,
+            courses.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            messages.retrieve,
+            courses.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            messages.update,
+            courses.update,
         )
         self.list = to_raw_response_wrapper(
-            messages.list,
+            courses.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            courses.delete,
         )
 
 
-class AsyncMessagesResourceWithRawResponse:
-    def __init__(self, messages: AsyncMessagesResource) -> None:
-        self._messages = messages
+class AsyncCoursesResourceWithRawResponse:
+    def __init__(self, courses: AsyncCoursesResource) -> None:
+        self._courses = courses
 
         self.create = async_to_raw_response_wrapper(
-            messages.create,
+            courses.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            messages.retrieve,
+            courses.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            messages.update,
+            courses.update,
         )
         self.list = async_to_raw_response_wrapper(
-            messages.list,
+            courses.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            courses.delete,
         )
 
 
-class MessagesResourceWithStreamingResponse:
-    def __init__(self, messages: MessagesResource) -> None:
-        self._messages = messages
+class CoursesResourceWithStreamingResponse:
+    def __init__(self, courses: CoursesResource) -> None:
+        self._courses = courses
 
         self.create = to_streamed_response_wrapper(
-            messages.create,
+            courses.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            messages.retrieve,
+            courses.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            messages.update,
+            courses.update,
         )
         self.list = to_streamed_response_wrapper(
-            messages.list,
+            courses.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            courses.delete,
         )
 
 
-class AsyncMessagesResourceWithStreamingResponse:
-    def __init__(self, messages: AsyncMessagesResource) -> None:
-        self._messages = messages
+class AsyncCoursesResourceWithStreamingResponse:
+    def __init__(self, courses: AsyncCoursesResource) -> None:
+        self._courses = courses
 
         self.create = async_to_streamed_response_wrapper(
-            messages.create,
+            courses.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            messages.retrieve,
+            courses.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            messages.update,
+            courses.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            messages.list,
+            courses.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            courses.delete,
         )
