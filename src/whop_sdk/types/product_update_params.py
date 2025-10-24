@@ -11,7 +11,7 @@ from .shared.business_types import BusinessTypes
 from .shared.industry_types import IndustryTypes
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["ProductUpdateParams", "BannerImage"]
+__all__ = ["ProductUpdateParams", "BannerImage", "StorePageConfig"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
@@ -67,6 +67,9 @@ class ProductUpdateParams(TypedDict, total=False):
     route: Optional[str]
     """The route of the product."""
 
+    store_page_config: Optional[StorePageConfig]
+    """Configuration for a product on the company's store page."""
+
     title: Optional[str]
     """The title of the product."""
 
@@ -88,3 +91,11 @@ class BannerImage(TypedDict, total=False):
     It is the ID of the direct upload that was created when uploading the file to S3
     via the mediaDirectUpload mutation.
     """
+
+
+class StorePageConfig(TypedDict, total=False):
+    custom_cta: Optional[str]
+    """Custom call-to-action text for the product's store page."""
+
+    show_price: Optional[bool]
+    """Whether or not to show the price on the product's store page."""
