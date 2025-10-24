@@ -22,7 +22,7 @@ class PlanCreateParams(TypedDict, total=False):
     """The product the plan is related to."""
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     currency: Optional[Currency]
     """The available currencies on the platform"""

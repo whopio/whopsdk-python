@@ -49,7 +49,10 @@ class Invoice(BaseModel):
     """The email address that the invoice was created for."""
 
     fetch_invoice_token: str
-    """The token to fetch the invoice."""
+    """
+    A signed token that allows fetching the invoice data publically without being
+    authenticated.
+    """
 
     number: str
     """The number of the invoice."""
