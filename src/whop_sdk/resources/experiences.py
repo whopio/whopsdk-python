@@ -402,7 +402,15 @@ class ExperiencesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
-        """
+        """Duplicates an existing experience.
+
+        The name will be copied, unless provided. The
+        new experience will be attached to the same products as the original experience.
+        If duplicating a Forum or Chat experience, the new experience will have the same
+        settings as the original experience, e.g. who can post, who can comment, etc. No
+        content, e.g. posts, messages, lessons from within the original experience will
+        be copied.
+
         Required permissions:
 
         - `experience:create`
@@ -802,7 +810,15 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
-        """
+        """Duplicates an existing experience.
+
+        The name will be copied, unless provided. The
+        new experience will be attached to the same products as the original experience.
+        If duplicating a Forum or Chat experience, the new experience will have the same
+        settings as the original experience, e.g. who can post, who can comment, etc. No
+        content, e.g. posts, messages, lessons from within the original experience will
+        be copied.
+
         Required permissions:
 
         - `experience:create`
