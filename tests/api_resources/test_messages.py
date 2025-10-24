@@ -9,7 +9,9 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import MessageListResponse
+from whop_sdk.types import (
+    MessageListResponse,
+)
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Message
 
@@ -119,6 +121,64 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.messages.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update(self, client: Whop) -> None:
+        message = client.messages.update(
+            id="id",
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Whop) -> None:
+        message = client.messages.update(
+            id="id",
+            attachments=[
+                {
+                    "id": "id",
+                    "direct_upload_id": "direct_upload_id",
+                }
+            ],
+            content="content",
+            is_pinned=True,
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Whop) -> None:
+        response = client.messages.with_raw_response.update(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Whop) -> None:
+        with client.messages.with_streaming_response.update(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert_matches_type(Message, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.messages.with_raw_response.update(
+                id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -274,6 +334,64 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.messages.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
+        message = await async_client.messages.update(
+            id="id",
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
+        message = await async_client.messages.update(
+            id="id",
+            attachments=[
+                {
+                    "id": "id",
+                    "direct_upload_id": "direct_upload_id",
+                }
+            ],
+            content="content",
+            is_pinned=True,
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
+        response = await async_client.messages.with_raw_response.update(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(Message, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
+        async with async_client.messages.with_streaming_response.update(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(Message, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.messages.with_raw_response.update(
+                id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
