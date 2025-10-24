@@ -61,10 +61,12 @@ class TestPlans:
             plan_type="renewal",
             release_method="buy_now",
             renewal_price=6.9,
+            stock=42,
             strike_through_initial_price=6.9,
             strike_through_renewal_price=6.9,
             title="title",
             trial_period_days=42,
+            unlimited_stock=True,
             visibility="visible",
         )
         assert_matches_type(Plan, plan, path=["response"])
@@ -175,10 +177,12 @@ class TestPlans:
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             renewal_price=6.9,
+            stock=42,
             strike_through_initial_price=6.9,
             strike_through_renewal_price=6.9,
             title="title",
             trial_period_days=42,
+            unlimited_stock=True,
             visibility="visible",
         )
         assert_matches_type(Plan, plan, path=["response"])
@@ -356,10 +360,12 @@ class TestAsyncPlans:
             plan_type="renewal",
             release_method="buy_now",
             renewal_price=6.9,
+            stock=42,
             strike_through_initial_price=6.9,
             strike_through_renewal_price=6.9,
             title="title",
             trial_period_days=42,
+            unlimited_stock=True,
             visibility="visible",
         )
         assert_matches_type(Plan, plan, path=["response"])
@@ -470,10 +476,12 @@ class TestAsyncPlans:
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             renewal_price=6.9,
+            stock=42,
             strike_through_initial_price=6.9,
             strike_through_renewal_price=6.9,
             title="title",
             trial_period_days=42,
+            unlimited_stock=True,
             visibility="visible",
         )
         assert_matches_type(Plan, plan, path=["response"])
