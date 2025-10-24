@@ -97,7 +97,7 @@ class PlansResource(SyncAPIResource):
 
           product_id: The product the plan is related to.
 
-          billing_period: The interval at which the plan charges (renewal plans).
+          billing_period: The interval in days at which the plan charges (renewal plans).
 
           currency: The available currencies on the platform
 
@@ -514,7 +514,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           product_id: The product the plan is related to.
 
-          billing_period: The interval at which the plan charges (renewal plans).
+          billing_period: The interval in days at which the plan charges (renewal plans).
 
           currency: The available currencies on the platform
 

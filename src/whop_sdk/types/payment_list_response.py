@@ -103,7 +103,7 @@ class PromoCode(BaseModel):
     """The specific code used to apply the promo at checkout."""
 
     number_of_intervals: Optional[int] = None
-    """The number of billing cycles the promo is applied for."""
+    """The number of months the promo is applied for."""
 
     promo_type: PromoType
     """The type (% or flat amount) of the promo."""
@@ -197,7 +197,7 @@ class PaymentListResponse(BaseModel):
     """When the payment was refunded (if applicable)."""
 
     retryable: bool
-    """Whether the payment can be retried."""
+    """A payment can be retried if the associated membership is past due"""
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""

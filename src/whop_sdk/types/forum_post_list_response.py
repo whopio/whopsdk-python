@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .._models import BaseModel
 
@@ -28,6 +29,9 @@ class ForumPostListResponse(BaseModel):
     content: Optional[str] = None
     """The content of the forum post in Markdown format"""
 
+    created_at: datetime
+    """The timestamp when the post was created"""
+
     is_edited: bool
     """Whether the forum post has been edited"""
 
@@ -45,6 +49,9 @@ class ForumPostListResponse(BaseModel):
 
     title: Optional[str] = None
     """The title of the forum post"""
+
+    updated_at: datetime
+    """The timestamp when the post was last updated"""
 
     user: User
     """The user who created this forum post"""
