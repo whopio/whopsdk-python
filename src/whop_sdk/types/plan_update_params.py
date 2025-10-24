@@ -49,6 +49,9 @@ class PlanUpdateParams(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period."""
 
+    stock: Optional[int]
+    """The number of units available for purchase."""
+
     strike_through_initial_price: Optional[float]
     """The price to display with a strikethrough for the initial price.
 
@@ -66,6 +69,9 @@ class PlanUpdateParams(TypedDict, total=False):
 
     trial_period_days: Optional[int]
     """The number of free trial days added before a renewal plan."""
+
+    unlimited_stock: Optional[bool]
+    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

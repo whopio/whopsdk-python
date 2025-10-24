@@ -71,10 +71,12 @@ class PlansResource(SyncAPIResource):
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
+        unlimited_stock: Optional[bool] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -125,6 +127,8 @@ class PlansResource(SyncAPIResource):
           renewal_price: The amount the customer is charged every billing period. Use only if a recurring
               payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
+          stock: The number of units available for purchase.
+
           strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
               number in dollars. Eg: 19.99 for $19.99
 
@@ -134,6 +138,8 @@ class PlansResource(SyncAPIResource):
           title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
+
+          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
 
           visibility: Visibility of a resource
 
@@ -163,10 +169,12 @@ class PlansResource(SyncAPIResource):
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
+                    "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
                     "title": title,
                     "trial_period_days": trial_period_days,
+                    "unlimited_stock": unlimited_stock,
                     "visibility": visibility,
                 },
                 plan_create_params.PlanCreateParams,
@@ -229,10 +237,12 @@ class PlansResource(SyncAPIResource):
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
+        unlimited_stock: Optional[bool] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -274,6 +284,8 @@ class PlansResource(SyncAPIResource):
 
           renewal_price: The amount the customer is charged every billing period.
 
+          stock: The number of units available for purchase.
+
           strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
               number in dollars. Eg: 19.99 for $19.99
 
@@ -283,6 +295,8 @@ class PlansResource(SyncAPIResource):
           title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
+
+          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
 
           visibility: Visibility of a resource
 
@@ -311,10 +325,12 @@ class PlansResource(SyncAPIResource):
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "renewal_price": renewal_price,
+                    "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
                     "title": title,
                     "trial_period_days": trial_period_days,
+                    "unlimited_stock": unlimited_stock,
                     "visibility": visibility,
                 },
                 plan_update_params.PlanUpdateParams,
@@ -488,10 +504,12 @@ class AsyncPlansResource(AsyncAPIResource):
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
+        unlimited_stock: Optional[bool] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -542,6 +560,8 @@ class AsyncPlansResource(AsyncAPIResource):
           renewal_price: The amount the customer is charged every billing period. Use only if a recurring
               payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
+          stock: The number of units available for purchase.
+
           strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
               number in dollars. Eg: 19.99 for $19.99
 
@@ -551,6 +571,8 @@ class AsyncPlansResource(AsyncAPIResource):
           title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
+
+          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
 
           visibility: Visibility of a resource
 
@@ -580,10 +602,12 @@ class AsyncPlansResource(AsyncAPIResource):
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
+                    "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
                     "title": title,
                     "trial_period_days": trial_period_days,
+                    "unlimited_stock": unlimited_stock,
                     "visibility": visibility,
                 },
                 plan_create_params.PlanCreateParams,
@@ -646,10 +670,12 @@ class AsyncPlansResource(AsyncAPIResource):
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
+        unlimited_stock: Optional[bool] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -691,6 +717,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           renewal_price: The amount the customer is charged every billing period.
 
+          stock: The number of units available for purchase.
+
           strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
               number in dollars. Eg: 19.99 for $19.99
 
@@ -700,6 +728,8 @@ class AsyncPlansResource(AsyncAPIResource):
           title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
+
+          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
 
           visibility: Visibility of a resource
 
@@ -728,10 +758,12 @@ class AsyncPlansResource(AsyncAPIResource):
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "renewal_price": renewal_price,
+                    "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
                     "title": title,
                     "trial_period_days": trial_period_days,
+                    "unlimited_stock": unlimited_stock,
                     "visibility": visibility,
                 },
                 plan_update_params.PlanUpdateParams,
