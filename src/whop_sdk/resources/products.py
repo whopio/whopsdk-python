@@ -238,6 +238,7 @@ class ProductsResource(SyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -290,6 +291,8 @@ class ProductsResource(SyncAPIResource):
 
           route: The route of the product.
 
+          store_page_config: Configuration for a product on the company's store page.
+
           title: The title of the product.
 
           visibility: Visibility of a resource
@@ -324,6 +327,7 @@ class ProductsResource(SyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -655,6 +659,7 @@ class AsyncProductsResource(AsyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -707,6 +712,8 @@ class AsyncProductsResource(AsyncAPIResource):
 
           route: The route of the product.
 
+          store_page_config: Configuration for a product on the company's store page.
+
           title: The title of the product.
 
           visibility: Visibility of a resource
@@ -741,6 +748,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,
                 },
