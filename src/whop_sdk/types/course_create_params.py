@@ -15,6 +15,9 @@ class CourseCreateParams(TypedDict, total=False):
     title: Required[str]
     """The title of the course"""
 
+    cover_image: Optional[str]
+    """The cover image URL of the course"""
+
     tagline: Optional[str]
     """The tagline of the course"""
 

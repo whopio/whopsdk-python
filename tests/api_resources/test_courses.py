@@ -37,6 +37,7 @@ class TestCourses:
         course = client.courses.create(
             experience_id="exp_xxxxxxxxxxxxxx",
             title="title",
+            cover_image="cover_image",
             tagline="tagline",
             thumbnail={
                 "id": "id",
@@ -144,6 +145,7 @@ class TestCourses:
                     ],
                 }
             ],
+            cover_image="cover_image",
             description="description",
             language="en",
             require_completing_lessons_in_order=True,
@@ -294,6 +296,7 @@ class TestAsyncCourses:
         course = await async_client.courses.create(
             experience_id="exp_xxxxxxxxxxxxxx",
             title="title",
+            cover_image="cover_image",
             tagline="tagline",
             thumbnail={
                 "id": "id",
@@ -401,6 +404,7 @@ class TestAsyncCourses:
                     ],
                 }
             ],
+            cover_image="cover_image",
             description="description",
             language="en",
             require_completing_lessons_in_order=True,

@@ -20,6 +20,9 @@ class CourseUpdateParams(TypedDict, total=False):
     chapters: Optional[Iterable[Chapter]]
     """The chapters and lessons to update"""
 
+    cover_image: Optional[str]
+    """The cover image URL of the course"""
+
     description: Optional[str]
     """A short description of the course"""
 

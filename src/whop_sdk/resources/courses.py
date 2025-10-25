@@ -52,6 +52,7 @@ class CoursesResource(SyncAPIResource):
         *,
         experience_id: str,
         title: str,
+        cover_image: Optional[str] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -73,6 +74,8 @@ class CoursesResource(SyncAPIResource):
 
           title: The title of the course
 
+          cover_image: The cover image URL of the course
+
           tagline: The tagline of the course
 
           thumbnail: The thumbnail for the course in png, jpeg, or gif format
@@ -91,6 +94,7 @@ class CoursesResource(SyncAPIResource):
                 {
                     "experience_id": experience_id,
                     "title": title,
+                    "cover_image": cover_image,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
                 },
@@ -145,6 +149,7 @@ class CoursesResource(SyncAPIResource):
         *,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         chapters: Optional[Iterable[course_update_params.Chapter]] | Omit = omit,
+        cover_image: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         language: Optional[Languages] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
@@ -170,6 +175,8 @@ class CoursesResource(SyncAPIResource):
               all lessons
 
           chapters: The chapters and lessons to update
+
+          cover_image: The cover image URL of the course
 
           description: A short description of the course
 
@@ -200,6 +207,7 @@ class CoursesResource(SyncAPIResource):
                 {
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "chapters": chapters,
+                    "cover_image": cover_image,
                     "description": description,
                     "language": language,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
@@ -345,6 +353,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         *,
         experience_id: str,
         title: str,
+        cover_image: Optional[str] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -366,6 +375,8 @@ class AsyncCoursesResource(AsyncAPIResource):
 
           title: The title of the course
 
+          cover_image: The cover image URL of the course
+
           tagline: The tagline of the course
 
           thumbnail: The thumbnail for the course in png, jpeg, or gif format
@@ -384,6 +395,7 @@ class AsyncCoursesResource(AsyncAPIResource):
                 {
                     "experience_id": experience_id,
                     "title": title,
+                    "cover_image": cover_image,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
                 },
@@ -438,6 +450,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         *,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         chapters: Optional[Iterable[course_update_params.Chapter]] | Omit = omit,
+        cover_image: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         language: Optional[Languages] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
@@ -463,6 +476,8 @@ class AsyncCoursesResource(AsyncAPIResource):
               all lessons
 
           chapters: The chapters and lessons to update
+
+          cover_image: The cover image URL of the course
 
           description: A short description of the course
 
@@ -493,6 +508,7 @@ class AsyncCoursesResource(AsyncAPIResource):
                 {
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "chapters": chapters,
+                    "cover_image": cover_image,
                     "description": description,
                     "language": language,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
