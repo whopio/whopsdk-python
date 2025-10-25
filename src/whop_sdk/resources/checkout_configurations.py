@@ -68,6 +68,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
         - `checkout_configuration:create`
         - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
 
         Args:
           affiliate_code: The affiliate code to use for the checkout configuration
@@ -257,6 +259,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
         - `checkout_configuration:create`
         - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
 
         Args:
           affiliate_code: The affiliate code to use for the checkout configuration

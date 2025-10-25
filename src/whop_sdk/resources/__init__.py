@@ -32,6 +32,14 @@ from .forums import (
     ForumsResourceWithStreamingResponse,
     AsyncForumsResourceWithStreamingResponse,
 )
+from .courses import (
+    CoursesResource,
+    AsyncCoursesResource,
+    CoursesResourceWithRawResponse,
+    AsyncCoursesResourceWithRawResponse,
+    CoursesResourceWithStreamingResponse,
+    AsyncCoursesResourceWithStreamingResponse,
+)
 from .entries import (
     EntriesResource,
     AsyncEntriesResource,
@@ -145,6 +153,14 @@ from .memberships import (
     MembershipsResourceWithStreamingResponse,
     AsyncMembershipsResourceWithStreamingResponse,
 )
+from .promo_codes import (
+    PromoCodesResource,
+    AsyncPromoCodesResource,
+    PromoCodesResourceWithRawResponse,
+    AsyncPromoCodesResourceWithRawResponse,
+    PromoCodesResourceWithStreamingResponse,
+    AsyncPromoCodesResourceWithStreamingResponse,
+)
 from .chat_channels import (
     ChatChannelsResource,
     AsyncChatChannelsResource,
@@ -152,6 +168,22 @@ from .chat_channels import (
     AsyncChatChannelsResourceWithRawResponse,
     ChatChannelsResourceWithStreamingResponse,
     AsyncChatChannelsResourceWithStreamingResponse,
+)
+from .course_lessons import (
+    CourseLessonsResource,
+    AsyncCourseLessonsResource,
+    CourseLessonsResourceWithRawResponse,
+    AsyncCourseLessonsResourceWithRawResponse,
+    CourseLessonsResourceWithStreamingResponse,
+    AsyncCourseLessonsResourceWithStreamingResponse,
+)
+from .course_chapters import (
+    CourseChaptersResource,
+    AsyncCourseChaptersResource,
+    CourseChaptersResourceWithRawResponse,
+    AsyncCourseChaptersResourceWithRawResponse,
+    CourseChaptersResourceWithStreamingResponse,
+    AsyncCourseChaptersResourceWithStreamingResponse,
 )
 from .ledger_accounts import (
     LedgerAccountsResource,
@@ -341,4 +373,28 @@ __all__ = [
     "AsyncForumsResourceWithRawResponse",
     "ForumsResourceWithStreamingResponse",
     "AsyncForumsResourceWithStreamingResponse",
+    "PromoCodesResource",
+    "AsyncPromoCodesResource",
+    "PromoCodesResourceWithRawResponse",
+    "AsyncPromoCodesResourceWithRawResponse",
+    "PromoCodesResourceWithStreamingResponse",
+    "AsyncPromoCodesResourceWithStreamingResponse",
+    "CoursesResource",
+    "AsyncCoursesResource",
+    "CoursesResourceWithRawResponse",
+    "AsyncCoursesResourceWithRawResponse",
+    "CoursesResourceWithStreamingResponse",
+    "AsyncCoursesResourceWithStreamingResponse",
+    "CourseChaptersResource",
+    "AsyncCourseChaptersResource",
+    "CourseChaptersResourceWithRawResponse",
+    "AsyncCourseChaptersResourceWithRawResponse",
+    "CourseChaptersResourceWithStreamingResponse",
+    "AsyncCourseChaptersResourceWithStreamingResponse",
+    "CourseLessonsResource",
+    "AsyncCourseLessonsResource",
+    "CourseLessonsResourceWithRawResponse",
+    "AsyncCourseLessonsResourceWithRawResponse",
+    "CourseLessonsResourceWithStreamingResponse",
+    "AsyncCourseLessonsResourceWithStreamingResponse",
 ]

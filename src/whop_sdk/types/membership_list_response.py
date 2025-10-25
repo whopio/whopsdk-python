@@ -7,7 +7,7 @@ from .._models import BaseModel
 from .shared.currency import Currency
 from .shared.membership_status import MembershipStatus
 
-__all__ = ["MembershipListResponse", "Company", "Member", "Plan", "PromoCode", "User"]
+__all__ = ["MembershipListResponse", "Company", "Member", "Plan", "Product", "PromoCode", "User"]
 
 
 class Company(BaseModel):
@@ -26,6 +26,14 @@ class Member(BaseModel):
 class Plan(BaseModel):
     id: str
     """The internal ID of the plan."""
+
+
+class Product(BaseModel):
+    id: str
+    """The internal ID of the public product."""
+
+    title: str
+    """The title of the product. Use for Whop 4.0."""
 
 
 class PromoCode(BaseModel):
@@ -91,6 +99,9 @@ class MembershipListResponse(BaseModel):
 
     plan: Plan
     """The Plan this Membership is for."""
+
+    product: Product
+    """The Product this Membership grants access to."""
 
     promo_code: Optional[PromoCode] = None
     """The Promo Code that is currently applied to this Membership."""

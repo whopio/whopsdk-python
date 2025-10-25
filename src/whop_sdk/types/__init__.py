@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .course import Course as Course
+from .lesson import Lesson as Lesson
 from .shared import (
     App as App,
     Plan as Plan,
@@ -64,6 +66,11 @@ from .shared import (
     EmailNotificationPreferences as EmailNotificationPreferences,
     CourseLessonInteractionListItem as CourseLessonInteractionListItem,
 )
+from .languages import Languages as Languages
+from .promo_code import PromoCode as PromoCode
+from .lesson_types import LessonTypes as LessonTypes
+from .course_chapter import CourseChapter as CourseChapter
+from .promo_duration import PromoDuration as PromoDuration
 from .app_list_params import AppListParams as AppListParams
 from .plan_list_params import PlanListParams as PlanListParams
 from .app_create_params import AppCreateParams as AppCreateParams
@@ -71,6 +78,8 @@ from .app_list_response import AppListResponse as AppListResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams
 from .entry_list_params import EntryListParams as EntryListParams
 from .forum_list_params import ForumListParams as ForumListParams
+from .promo_code_status import PromoCodeStatus as PromoCodeStatus
+from .course_list_params import CourseListParams as CourseListParams
 from .member_list_params import MemberListParams as MemberListParams
 from .plan_create_params import PlanCreateParams as PlanCreateParams
 from .plan_list_response import PlanListResponse as PlanListResponse
@@ -79,9 +88,13 @@ from .entry_list_response import EntryListResponse as EntryListResponse
 from .forum_list_response import ForumListResponse as ForumListResponse
 from .forum_update_params import ForumUpdateParams as ForumUpdateParams
 from .invoice_list_params import InvoiceListParams as InvoiceListParams
+from .lesson_visibilities import LessonVisibilities as LessonVisibilities
 from .message_list_params import MessageListParams as MessageListParams
 from .payment_list_params import PaymentListParams as PaymentListParams
 from .product_list_params import ProductListParams as ProductListParams
+from .course_create_params import CourseCreateParams as CourseCreateParams
+from .course_list_response import CourseListResponse as CourseListResponse
+from .course_update_params import CourseUpdateParams as CourseUpdateParams
 from .member_list_response import MemberListResponse as MemberListResponse
 from .plan_delete_response import PlanDeleteResponse as PlanDeleteResponse
 from .reaction_list_params import ReactionListParams as ReactionListParams
@@ -93,14 +106,17 @@ from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_list_response import MessageListResponse as MessageListResponse
+from .message_update_params import MessageUpdateParams as MessageUpdateParams
 from .payment_list_response import PaymentListResponse as PaymentListResponse
 from .payment_refund_params import PaymentRefundParams as PaymentRefundParams
 from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_update_params import ProductUpdateParams as ProductUpdateParams
+from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
 from .entry_approve_response import EntryApproveResponse as EntryApproveResponse
 from .experience_list_params import ExperienceListParams as ExperienceListParams
 from .forum_post_list_params import ForumPostListParams as ForumPostListParams
 from .membership_list_params import MembershipListParams as MembershipListParams
+from .promo_code_list_params import PromoCodeListParams as PromoCodeListParams
 from .reaction_create_params import ReactionCreateParams as ReactionCreateParams
 from .reaction_list_response import ReactionListResponse as ReactionListResponse
 from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
@@ -121,28 +137,44 @@ from .experience_list_response import ExperienceListResponse as ExperienceListRe
 from .experience_update_params import ExperienceUpdateParams as ExperienceUpdateParams
 from .forum_post_create_params import ForumPostCreateParams as ForumPostCreateParams
 from .forum_post_list_response import ForumPostListResponse as ForumPostListResponse
+from .forum_post_update_params import ForumPostUpdateParams as ForumPostUpdateParams
 from .member_retrieve_response import MemberRetrieveResponse as MemberRetrieveResponse
 from .membership_cancel_params import MembershipCancelParams as MembershipCancelParams
 from .membership_list_response import MembershipListResponse as MembershipListResponse
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams
+from .promo_code_create_params import PromoCodeCreateParams as PromoCodeCreateParams
+from .promo_code_list_response import PromoCodeListResponse as PromoCodeListResponse
+from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
+from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
+from .course_chapter_list_params import CourseChapterListParams as CourseChapterListParams
 from .entry_denied_webhook_event import EntryDeniedWebhookEvent as EntryDeniedWebhookEvent
 from .experience_delete_response import ExperienceDeleteResponse as ExperienceDeleteResponse
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
+from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
+from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
+from .course_lesson_list_response import CourseLessonListResponse as CourseLessonListResponse
+from .course_lesson_update_params import CourseLessonUpdateParams as CourseLessonUpdateParams
 from .entry_created_webhook_event import EntryCreatedWebhookEvent as EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent as EntryDeletedWebhookEvent
+from .experience_duplicate_params import ExperienceDuplicateParams as ExperienceDuplicateParams
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
+from .course_chapter_create_params import CourseChapterCreateParams as CourseChapterCreateParams
+from .course_chapter_list_response import CourseChapterListResponse as CourseChapterListResponse
+from .course_chapter_update_params import CourseChapterUpdateParams as CourseChapterUpdateParams
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent as EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFailedWebhookEvent
 from .authorized_user_list_response import AuthorizedUserListResponse as AuthorizedUserListResponse
+from .course_lesson_delete_response import CourseLessonDeleteResponse as CourseLessonDeleteResponse
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent as InvoiceCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent as PaymentPendingWebhookEvent
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
+from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent as PaymentSucceededWebhookEvent
 from .ledger_account_retrieve_response import LedgerAccountRetrieveResponse as LedgerAccountRetrieveResponse

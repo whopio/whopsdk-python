@@ -62,7 +62,21 @@ class LedgerAccountRetrieveResponse(BaseModel):
     balances: List[Balance]
     """The balances associated with the account."""
 
-    ledger_account_audit_status: Optional[Literal["reserves_imposed", "requested_more_information"]] = None
+    ledger_account_audit_status: Optional[
+        Literal[
+            "pending",
+            "approved",
+            "reserves_imposed",
+            "suspended",
+            "ignored",
+            "rejected",
+            "requested_more_information",
+            "information_submitted",
+            "requested_tos_violation_correction",
+            "clawback_attempted",
+            "awaiting_sales_review",
+        ]
+    ] = None
     """The different statuses a LedgerAccountAudit can be"""
 
     ledger_type: Literal["primary", "pool"]

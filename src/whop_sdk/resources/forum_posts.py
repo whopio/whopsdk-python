@@ -6,7 +6,7 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import forum_post_list_params, forum_post_create_params
+from ..types import forum_post_list_params, forum_post_create_params, forum_post_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -161,6 +161,61 @@ class ForumPostsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
             f"/forum_posts/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ForumPost,
+        )
+
+    def update(
+        self,
+        id: str,
+        *,
+        attachments: Optional[Iterable[forum_post_update_params.Attachment]] | Omit = omit,
+        content: Optional[str] | Omit = omit,
+        is_pinned: Optional[bool] | Omit = omit,
+        title: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ForumPost:
+        """
+        Update an existing forum post
+
+        Args:
+          attachments: The attachments for this post
+
+          content: This is the main body of the post in Markdown format. Hidden if paywalled and
+              user hasn't purchased access to it.
+
+          is_pinned: Whether the post is pinned. You can only pin a top level posts (not comments).
+
+          title: The title of the post. Only visible if paywalled.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            f"/forum_posts/{id}",
+            body=maybe_transform(
+                {
+                    "attachments": attachments,
+                    "content": content,
+                    "is_pinned": is_pinned,
+                    "title": title,
+                },
+                forum_post_update_params.ForumPostUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -380,6 +435,61 @@ class AsyncForumPostsResource(AsyncAPIResource):
             cast_to=ForumPost,
         )
 
+    async def update(
+        self,
+        id: str,
+        *,
+        attachments: Optional[Iterable[forum_post_update_params.Attachment]] | Omit = omit,
+        content: Optional[str] | Omit = omit,
+        is_pinned: Optional[bool] | Omit = omit,
+        title: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ForumPost:
+        """
+        Update an existing forum post
+
+        Args:
+          attachments: The attachments for this post
+
+          content: This is the main body of the post in Markdown format. Hidden if paywalled and
+              user hasn't purchased access to it.
+
+          is_pinned: Whether the post is pinned. You can only pin a top level posts (not comments).
+
+          title: The title of the post. Only visible if paywalled.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            f"/forum_posts/{id}",
+            body=await async_maybe_transform(
+                {
+                    "attachments": attachments,
+                    "content": content,
+                    "is_pinned": is_pinned,
+                    "title": title,
+                },
+                forum_post_update_params.ForumPostUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ForumPost,
+        )
+
     def list(
         self,
         *,
@@ -462,6 +572,9 @@ class ForumPostsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             forum_posts.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            forum_posts.update,
+        )
         self.list = to_raw_response_wrapper(
             forum_posts.list,
         )
@@ -476,6 +589,9 @@ class AsyncForumPostsResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             forum_posts.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            forum_posts.update,
         )
         self.list = async_to_raw_response_wrapper(
             forum_posts.list,
@@ -492,6 +608,9 @@ class ForumPostsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             forum_posts.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            forum_posts.update,
+        )
         self.list = to_streamed_response_wrapper(
             forum_posts.list,
         )
@@ -506,6 +625,9 @@ class AsyncForumPostsResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             forum_posts.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            forum_posts.update,
         )
         self.list = async_to_streamed_response_wrapper(
             forum_posts.list,

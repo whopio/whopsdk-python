@@ -352,6 +352,57 @@ class TestExperiences:
                 product_id="prod_xxxxxxxxxxxxx",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_duplicate(self, client: Whop) -> None:
+        experience = client.experiences.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Experience, experience, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_duplicate_with_all_params(self, client: Whop) -> None:
+        experience = client.experiences.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+            name="name",
+        )
+        assert_matches_type(Experience, experience, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_duplicate(self, client: Whop) -> None:
+        response = client.experiences.with_raw_response.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        experience = response.parse()
+        assert_matches_type(Experience, experience, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_duplicate(self, client: Whop) -> None:
+        with client.experiences.with_streaming_response.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            experience = response.parse()
+            assert_matches_type(Experience, experience, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_duplicate(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.experiences.with_raw_response.duplicate(
+                id="",
+            )
+
 
 class TestAsyncExperiences:
     parametrize = pytest.mark.parametrize(
@@ -686,4 +737,55 @@ class TestAsyncExperiences:
             await async_client.experiences.with_raw_response.detach(
                 id="",
                 product_id="prod_xxxxxxxxxxxxx",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_duplicate(self, async_client: AsyncWhop) -> None:
+        experience = await async_client.experiences.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Experience, experience, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_duplicate_with_all_params(self, async_client: AsyncWhop) -> None:
+        experience = await async_client.experiences.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+            name="name",
+        )
+        assert_matches_type(Experience, experience, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_duplicate(self, async_client: AsyncWhop) -> None:
+        response = await async_client.experiences.with_raw_response.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        experience = await response.parse()
+        assert_matches_type(Experience, experience, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_duplicate(self, async_client: AsyncWhop) -> None:
+        async with async_client.experiences.with_streaming_response.duplicate(
+            id="exp_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            experience = await response.parse()
+            assert_matches_type(Experience, experience, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_duplicate(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.experiences.with_raw_response.duplicate(
+                id="",
             )

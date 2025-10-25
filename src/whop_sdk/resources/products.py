@@ -60,8 +60,6 @@ class ProductsResource(SyncAPIResource):
         *,
         company_id: str,
         title: str,
-        access_pass_type: Optional[AccessPassType] | Omit = omit,
-        banner_image: Optional[product_create_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
@@ -100,10 +98,6 @@ class ProductsResource(SyncAPIResource):
           company_id: The ID of the company to create the product for.
 
           title: The title of the product.
-
-          access_pass_type: The different types an access pass can be.
-
-          banner_image: A banner image for the product in png, jpeg format
 
           business_type: The different business types a company can be.
 
@@ -159,8 +153,6 @@ class ProductsResource(SyncAPIResource):
                 {
                     "company_id": company_id,
                     "title": title,
-                    "access_pass_type": access_pass_type,
-                    "banner_image": banner_image,
                     "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
@@ -246,6 +238,7 @@ class ProductsResource(SyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -298,6 +291,8 @@ class ProductsResource(SyncAPIResource):
 
           route: The route of the product.
 
+          store_page_config: Configuration for a product on the company's store page.
+
           title: The title of the product.
 
           visibility: Visibility of a resource
@@ -332,6 +327,7 @@ class ProductsResource(SyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -485,8 +481,6 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         company_id: str,
         title: str,
-        access_pass_type: Optional[AccessPassType] | Omit = omit,
-        banner_image: Optional[product_create_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
@@ -525,10 +519,6 @@ class AsyncProductsResource(AsyncAPIResource):
           company_id: The ID of the company to create the product for.
 
           title: The title of the product.
-
-          access_pass_type: The different types an access pass can be.
-
-          banner_image: A banner image for the product in png, jpeg format
 
           business_type: The different business types a company can be.
 
@@ -584,8 +574,6 @@ class AsyncProductsResource(AsyncAPIResource):
                 {
                     "company_id": company_id,
                     "title": title,
-                    "access_pass_type": access_pass_type,
-                    "banner_image": banner_image,
                     "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
@@ -671,6 +659,7 @@ class AsyncProductsResource(AsyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -723,6 +712,8 @@ class AsyncProductsResource(AsyncAPIResource):
 
           route: The route of the product.
 
+          store_page_config: Configuration for a product on the company's store page.
+
           title: The title of the product.
 
           visibility: Visibility of a resource
@@ -757,6 +748,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,
                 },

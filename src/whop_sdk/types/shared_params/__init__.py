@@ -5,6 +5,7 @@ from .tax_type import TaxType as TaxType
 from .direction import Direction as Direction
 from .plan_type import PlanType as PlanType
 from .custom_cta import CustomCta as CustomCta
+from .promo_type import PromoType as PromoType
 from .visibility import Visibility as Visibility
 from .access_level import AccessLevel as AccessLevel
 from .app_statuses import AppStatuses as AppStatuses

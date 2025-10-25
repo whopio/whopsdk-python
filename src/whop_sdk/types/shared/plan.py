@@ -110,11 +110,20 @@ class Plan(BaseModel):
     renewal_price: float
     """The price a person has to pay for a plan on the renewal purchase."""
 
+    stock: Optional[int] = None
+    """An un-used field - do not use."""
+
     tax_type: TaxType
     """The tax type for the plan."""
 
+    title: Optional[str] = None
+    """The title of the plan. This will be visible on the product page to customers."""
+
     trial_period_days: Optional[int] = None
     """The number of free trial days added before a renewal plan."""
+
+    unlimited_stock: bool
+    """Limits/doesn't limit the number of units available for purchase."""
 
     updated_at: datetime
     """When the plan was last updated."""

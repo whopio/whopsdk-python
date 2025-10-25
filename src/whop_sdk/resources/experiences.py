@@ -13,6 +13,7 @@ from ..types import (
     experience_create_params,
     experience_detach_params,
     experience_update_params,
+    experience_duplicate_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
@@ -389,6 +390,53 @@ class ExperiencesResource(SyncAPIResource):
             cast_to=Experience,
         )
 
+    def duplicate(
+        self,
+        id: str,
+        *,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Experience:
+        """Duplicates an existing experience.
+
+        The name will be copied, unless provided. The
+        new experience will be attached to the same products as the original experience.
+        If duplicating a Forum or Chat experience, the new experience will have the same
+        settings as the original experience, e.g. who can post, who can comment, etc. No
+        content, e.g. posts, messages, lessons from within the original experience will
+        be copied.
+
+        Required permissions:
+
+        - `experience:create`
+
+        Args:
+          name: The name of the new experience
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/experiences/{id}/duplicate",
+            body=maybe_transform({"name": name}, experience_duplicate_params.ExperienceDuplicateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Experience,
+        )
+
 
 class AsyncExperiencesResource(AsyncAPIResource):
     @cached_property
@@ -750,6 +798,53 @@ class AsyncExperiencesResource(AsyncAPIResource):
             cast_to=Experience,
         )
 
+    async def duplicate(
+        self,
+        id: str,
+        *,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Experience:
+        """Duplicates an existing experience.
+
+        The name will be copied, unless provided. The
+        new experience will be attached to the same products as the original experience.
+        If duplicating a Forum or Chat experience, the new experience will have the same
+        settings as the original experience, e.g. who can post, who can comment, etc. No
+        content, e.g. posts, messages, lessons from within the original experience will
+        be copied.
+
+        Required permissions:
+
+        - `experience:create`
+
+        Args:
+          name: The name of the new experience
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/experiences/{id}/duplicate",
+            body=await async_maybe_transform({"name": name}, experience_duplicate_params.ExperienceDuplicateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Experience,
+        )
+
 
 class ExperiencesResourceWithRawResponse:
     def __init__(self, experiences: ExperiencesResource) -> None:
@@ -775,6 +870,9 @@ class ExperiencesResourceWithRawResponse:
         )
         self.detach = to_raw_response_wrapper(
             experiences.detach,
+        )
+        self.duplicate = to_raw_response_wrapper(
+            experiences.duplicate,
         )
 
 
@@ -803,6 +901,9 @@ class AsyncExperiencesResourceWithRawResponse:
         self.detach = async_to_raw_response_wrapper(
             experiences.detach,
         )
+        self.duplicate = async_to_raw_response_wrapper(
+            experiences.duplicate,
+        )
 
 
 class ExperiencesResourceWithStreamingResponse:
@@ -830,6 +931,9 @@ class ExperiencesResourceWithStreamingResponse:
         self.detach = to_streamed_response_wrapper(
             experiences.detach,
         )
+        self.duplicate = to_streamed_response_wrapper(
+            experiences.duplicate,
+        )
 
 
 class AsyncExperiencesResourceWithStreamingResponse:
@@ -856,4 +960,7 @@ class AsyncExperiencesResourceWithStreamingResponse:
         )
         self.detach = async_to_streamed_response_wrapper(
             experiences.detach,
+        )
+        self.duplicate = async_to_streamed_response_wrapper(
+            experiences.duplicate,
         )

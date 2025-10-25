@@ -9,9 +9,12 @@ from .shared.currency import Currency
 from .shared.tax_type import TaxType
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
+from .shared.business_types import BusinessTypes
+from .shared.industry_types import IndustryTypes
 from .shared.release_method import ReleaseMethod
+from .shared.global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["CheckoutConfigurationCreateParams", "Plan", "PlanCustomField", "PlanImage"]
+__all__ = ["CheckoutConfigurationCreateParams", "Plan", "PlanCustomField", "PlanImage", "PlanProduct"]
 
 
 class CheckoutConfigurationCreateParams(TypedDict, total=False):
@@ -67,6 +70,59 @@ class PlanImage(TypedDict, total=False):
     """
 
 
+class PlanProduct(TypedDict, total=False):
+    external_identifier: Required[str]
+    """A unique ID used to find or create a product.
+
+    When provided during creation, we will look for an existing product with this
+    external identifier — if found, it will be updated; otherwise, a new product
+    will be created.
+    """
+
+    title: Required[str]
+    """The title of the product."""
+
+    business_type: Optional[BusinessTypes]
+    """The different business types a company can be."""
+
+    collect_shipping_address: Optional[bool]
+    """Whether or not to collect shipping information at checkout from the customer."""
+
+    custom_statement_descriptor: Optional[str]
+    """The custom statement descriptor for the product i.e.
+
+    WHOP\\**SPORTS, must be between 5 and 22 characters, contain at least one letter,
+    and not contain any of the following characters: <, >, \\,, ', "
+    """
+
+    description: Optional[str]
+    """A written description of the product."""
+
+    global_affiliate_percentage: Optional[float]
+    """The percentage of the revenue that goes to the global affiliate program."""
+
+    global_affiliate_status: Optional[GlobalAffiliateStatus]
+    """The different statuses of the global affiliate program for an access pass."""
+
+    headline: Optional[str]
+    """The headline of the product."""
+
+    industry_type: Optional[IndustryTypes]
+    """The different industry types a company can be in."""
+
+    product_tax_code_id: Optional[str]
+    """The ID of the product tax code to apply to this product."""
+
+    redirect_purchase_url: Optional[str]
+    """The URL to redirect the customer to after a purchase."""
+
+    route: Optional[str]
+    """The route of the product."""
+
+    visibility: Optional[Visibility]
+    """Visibility of a resource"""
+
+
 class Plan(TypedDict, total=False):
     company_id: Required[str]
     """The company the plan should be created for."""
@@ -110,8 +166,15 @@ class Plan(TypedDict, total=False):
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to an access pass"""
 
+    product: Optional[PlanProduct]
+    """Pass this object to create a new product for this plan.
+
+    We will use the product external identifier to find or create an existing
+    product.
+    """
+
     product_id: Optional[str]
-    """The product the plan is related to."""
+    """The product the plan is related to. Either this or product is required."""
 
     release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released."""
