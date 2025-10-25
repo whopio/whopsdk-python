@@ -83,7 +83,7 @@ class PlanListResponse(BaseModel):
     """The price a person has to pay for a plan on the renewal purchase."""
 
     stock: Optional[int] = None
-    """The number of units available for purchase. Only displayed to authorized actors"""
+    """An un-used field - do not use."""
 
     title: Optional[str] = None
     """The title of the plan. This will be visible on the product page to customers."""

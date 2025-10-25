@@ -111,7 +111,7 @@ class Plan(BaseModel):
     """The price a person has to pay for a plan on the renewal purchase."""
 
     stock: Optional[int] = None
-    """The number of units available for purchase. Only displayed to authorized actors"""
+    """An un-used field - do not use."""
 
     tax_type: TaxType
     """The tax type for the plan."""
