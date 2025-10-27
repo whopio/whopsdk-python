@@ -68,3 +68,6 @@ class MemberListParams(TypedDict, total=False):
 
     statuses: Optional[List[MemberStatuses]]
     """The statuses to filter the members by"""
+
+    user_ids: Optional[SequenceNotStr[str]]
+    """The user IDs to filter the members by"""

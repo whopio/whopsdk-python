@@ -68,3 +68,6 @@ class MembershipListParams(TypedDict, total=False):
 
     statuses: Optional[List[MembershipStatus]]
     """The membership status to filter the memberships by"""
+
+    user_ids: Optional[SequenceNotStr[str]]
+    """Only return memberships from these whop user ids"""

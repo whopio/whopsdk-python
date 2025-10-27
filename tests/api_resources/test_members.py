@@ -89,6 +89,7 @@ class TestMembers:
             promo_code_ids=["string"],
             query="query",
             statuses=["drafted"],
+            user_ids=["string"],
         )
         assert_matches_type(SyncCursorPage[MemberListResponse], member, path=["response"])
 
@@ -194,6 +195,7 @@ class TestAsyncMembers:
             promo_code_ids=["string"],
             query="query",
             statuses=["drafted"],
+            user_ids=["string"],
         )
         assert_matches_type(AsyncCursorPage[MemberListResponse], member, path=["response"])
 

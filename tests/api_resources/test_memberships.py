@@ -141,6 +141,7 @@ class TestMemberships:
             plan_ids=["string"],
             promo_code_ids=["string"],
             statuses=["trialing"],
+            user_ids=["string"],
         )
         assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
 
@@ -439,6 +440,7 @@ class TestAsyncMemberships:
             plan_ids=["string"],
             promo_code_ids=["string"],
             statuses=["trialing"],
+            user_ids=["string"],
         )
         assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
 
