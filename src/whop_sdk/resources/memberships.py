@@ -136,7 +136,6 @@ class MembershipsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
@@ -154,6 +153,7 @@ class MembershipsResource(SyncAPIResource):
             ]
         ]
         | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -180,8 +180,6 @@ class MembershipsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to list memberships for
-
           access_pass_ids: The access pass IDs to filter the memberships by
 
           after: Returns the elements in the list that come after the specified cursor.
@@ -189,6 +187,8 @@ class MembershipsResource(SyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           cancel_options: The cancel options to filter the memberships by
+
+          company_id: The ID of the company to list memberships for
 
           created_after: The minimum creation date to filter by
 
@@ -228,11 +228,11 @@ class MembershipsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -479,7 +479,6 @@ class AsyncMembershipsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
@@ -497,6 +496,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
             ]
         ]
         | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -523,8 +523,6 @@ class AsyncMembershipsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to list memberships for
-
           access_pass_ids: The access pass IDs to filter the memberships by
 
           after: Returns the elements in the list that come after the specified cursor.
@@ -532,6 +530,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           cancel_options: The cancel options to filter the memberships by
+
+          company_id: The ID of the company to list memberships for
 
           created_after: The minimum creation date to filter by
 
@@ -571,11 +571,11 @@ class AsyncMembershipsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,

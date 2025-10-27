@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -15,9 +15,6 @@ __all__ = ["MembershipListParams"]
 
 
 class MembershipListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The ID of the company to list memberships for"""
-
     access_pass_ids: Optional[SequenceNotStr[str]]
     """The access pass IDs to filter the memberships by"""
 
@@ -41,6 +38,9 @@ class MembershipListParams(TypedDict, total=False):
         ]
     ]
     """The cancel options to filter the memberships by"""
+
+    company_id: Optional[str]
+    """The ID of the company to list memberships for"""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The minimum creation date to filter by"""
