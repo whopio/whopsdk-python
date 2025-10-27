@@ -118,20 +118,18 @@ class TestMemberships:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        membership = client.memberships.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        membership = client.memberships.list()
         assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             access_pass_ids=["string"],
             after="after",
             before="before",
             cancel_options=["too_expensive"],
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
@@ -148,9 +146,7 @@ class TestMemberships:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.memberships.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = client.memberships.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -160,9 +156,7 @@ class TestMemberships:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.memberships.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        with client.memberships.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -417,20 +411,18 @@ class TestAsyncMemberships:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        membership = await async_client.memberships.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        membership = await async_client.memberships.list()
         assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             access_pass_ids=["string"],
             after="after",
             before="before",
             cancel_options=["too_expensive"],
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
@@ -447,9 +439,7 @@ class TestAsyncMemberships:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.memberships.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = await async_client.memberships.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -459,9 +449,7 @@ class TestAsyncMemberships:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.memberships.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        async with async_client.memberships.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
