@@ -267,6 +267,11 @@ class Payment(BaseModel):
             "id_bank_transfer",
             "demo_pay",
             "shop_pay",
+            "apple",
+            "sezzle",
+            "coinbase",
+            "splitit",
+            "unknown",
         ]
     ] = None
     """The different types of payment methods that can be used."""
