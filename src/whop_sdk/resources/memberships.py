@@ -164,6 +164,7 @@ class MembershipsResource(SyncAPIResource):
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         statuses: Optional[List[MembershipStatus]] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -207,6 +208,8 @@ class MembershipsResource(SyncAPIResource):
 
           statuses: The membership status to filter the memberships by
 
+          user_ids: Only return memberships from these whop user ids
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -239,6 +242,7 @@ class MembershipsResource(SyncAPIResource):
                         "plan_ids": plan_ids,
                         "promo_code_ids": promo_code_ids,
                         "statuses": statuses,
+                        "user_ids": user_ids,
                     },
                     membership_list_params.MembershipListParams,
                 ),
@@ -503,6 +507,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         statuses: Optional[List[MembershipStatus]] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -546,6 +551,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           statuses: The membership status to filter the memberships by
 
+          user_ids: Only return memberships from these whop user ids
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -578,6 +585,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
                         "plan_ids": plan_ids,
                         "promo_code_ids": promo_code_ids,
                         "statuses": statuses,
+                        "user_ids": user_ids,
                     },
                     membership_list_params.MembershipListParams,
                 ),
