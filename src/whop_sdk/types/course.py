@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .languages import Languages
@@ -74,6 +75,9 @@ class Course(BaseModel):
     chapters: List[Chapter]
     """The chapters in this course"""
 
+    created_at: datetime
+    """The timestamp of when the course was created"""
+
     description: Optional[str] = None
     """A short description of the course"""
 
@@ -100,3 +104,6 @@ class Course(BaseModel):
 
     title: Optional[str] = None
     """The title of the course"""
+
+    updated_at: datetime
+    """The timestamp of when the course was last updated"""
