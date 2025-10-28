@@ -29,6 +29,7 @@ from .resources import (
     courses,
     entries,
     members,
+    reviews,
     invoices,
     messages,
     payments,
@@ -93,6 +94,7 @@ class Whop(SyncAPIClient):
     courses: courses.CoursesResource
     course_chapters: course_chapters.CourseChaptersResource
     course_lessons: course_lessons.CourseLessonsResource
+    reviews: reviews.ReviewsResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -198,13 +200,14 @@ class Whop(SyncAPIClient):
         self.courses = courses.CoursesResource(self)
         self.course_chapters = course_chapters.CourseChaptersResource(self)
         self.course_lessons = course_lessons.CourseLessonsResource(self)
+        self.reviews = reviews.ReviewsResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
-        return Querystring(array_format="comma")
+        return Querystring(array_format="brackets")
 
     @property
     @override
@@ -341,6 +344,7 @@ class AsyncWhop(AsyncAPIClient):
     courses: courses.AsyncCoursesResource
     course_chapters: course_chapters.AsyncCourseChaptersResource
     course_lessons: course_lessons.AsyncCourseLessonsResource
+    reviews: reviews.AsyncReviewsResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -446,13 +450,14 @@ class AsyncWhop(AsyncAPIClient):
         self.courses = courses.AsyncCoursesResource(self)
         self.course_chapters = course_chapters.AsyncCourseChaptersResource(self)
         self.course_lessons = course_lessons.AsyncCourseLessonsResource(self)
+        self.reviews = reviews.AsyncReviewsResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
-        return Querystring(array_format="comma")
+        return Querystring(array_format="brackets")
 
     @property
     @override
@@ -593,6 +598,7 @@ class WhopWithRawResponse:
         self.courses = courses.CoursesResourceWithRawResponse(client.courses)
         self.course_chapters = course_chapters.CourseChaptersResourceWithRawResponse(client.course_chapters)
         self.course_lessons = course_lessons.CourseLessonsResourceWithRawResponse(client.course_lessons)
+        self.reviews = reviews.ReviewsResourceWithRawResponse(client.reviews)
 
 
 class AsyncWhopWithRawResponse:
@@ -631,6 +637,7 @@ class AsyncWhopWithRawResponse:
         self.courses = courses.AsyncCoursesResourceWithRawResponse(client.courses)
         self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithRawResponse(client.course_chapters)
         self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithRawResponse(client.course_lessons)
+        self.reviews = reviews.AsyncReviewsResourceWithRawResponse(client.reviews)
 
 
 class WhopWithStreamedResponse:
@@ -669,6 +676,7 @@ class WhopWithStreamedResponse:
         self.courses = courses.CoursesResourceWithStreamingResponse(client.courses)
         self.course_chapters = course_chapters.CourseChaptersResourceWithStreamingResponse(client.course_chapters)
         self.course_lessons = course_lessons.CourseLessonsResourceWithStreamingResponse(client.course_lessons)
+        self.reviews = reviews.ReviewsResourceWithStreamingResponse(client.reviews)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -711,6 +719,7 @@ class AsyncWhopWithStreamedResponse:
         self.courses = courses.AsyncCoursesResourceWithStreamingResponse(client.courses)
         self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithStreamingResponse(client.course_chapters)
         self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithStreamingResponse(client.course_lessons)
+        self.reviews = reviews.AsyncReviewsResourceWithStreamingResponse(client.reviews)
 
 
 Client = Whop

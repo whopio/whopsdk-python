@@ -8,6 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
+from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.direction import Direction
 from .shared.receipt_status import ReceiptStatus
@@ -26,13 +27,7 @@ class PaymentListParams(TypedDict, total=False):
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
-    billing_reasons: Optional[
-        List[
-            Literal[
-                "subscription_create", "subscription_cycle", "subscription_update", "one_time", "manual", "subscription"
-            ]
-        ]
-    ]
+    billing_reasons: Optional[List[BillingReasons]]
     """The billing reason for the payment"""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]

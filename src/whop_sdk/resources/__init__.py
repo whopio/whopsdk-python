@@ -56,6 +56,14 @@ from .members import (
     MembersResourceWithStreamingResponse,
     AsyncMembersResourceWithStreamingResponse,
 )
+from .reviews import (
+    ReviewsResource,
+    AsyncReviewsResource,
+    ReviewsResourceWithRawResponse,
+    AsyncReviewsResourceWithRawResponse,
+    ReviewsResourceWithStreamingResponse,
+    AsyncReviewsResourceWithStreamingResponse,
+)
 from .invoices import (
     InvoicesResource,
     AsyncInvoicesResource,
@@ -397,4 +405,10 @@ __all__ = [
     "AsyncCourseLessonsResourceWithRawResponse",
     "CourseLessonsResourceWithStreamingResponse",
     "AsyncCourseLessonsResourceWithStreamingResponse",
+    "ReviewsResource",
+    "AsyncReviewsResource",
+    "ReviewsResourceWithRawResponse",
+    "AsyncReviewsResourceWithRawResponse",
+    "ReviewsResourceWithStreamingResponse",
+    "AsyncReviewsResourceWithStreamingResponse",
 ]

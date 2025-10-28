@@ -340,7 +340,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import PaymentListResponse
+from whop_sdk.types import BillingReasons, CardBrands, PaymentMethodTypes, PaymentListResponse
 ```
 
 Methods:
@@ -500,3 +500,16 @@ Methods:
 - <code title="patch /course_lessons/{id}">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">update</a>(id, \*\*<a href="src/whop_sdk/types/course_lesson_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/lesson.py">Lesson</a></code>
 - <code title="get /course_lessons">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">list</a>(\*\*<a href="src/whop_sdk/types/course_lesson_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_lesson_list_response.py">SyncCursorPage[CourseLessonListResponse]</a></code>
 - <code title="delete /course_lessons/{id}">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">delete</a>(id) -> <a href="./src/whop_sdk/types/course_lesson_delete_response.py">CourseLessonDeleteResponse</a></code>
+
+# Reviews
+
+Types:
+
+```python
+from whop_sdk.types import ReviewStatus, ReviewRetrieveResponse, ReviewListResponse
+```
+
+Methods:
+
+- <code title="get /reviews/{id}">client.reviews.<a href="./src/whop_sdk/resources/reviews.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/review_retrieve_response.py">ReviewRetrieveResponse</a></code>
+- <code title="get /reviews">client.reviews.<a href="./src/whop_sdk/resources/reviews.py">list</a>(\*\*<a href="src/whop_sdk/types/review_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/review_list_response.py">SyncCursorPage[ReviewListResponse]</a></code>
