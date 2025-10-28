@@ -2,11 +2,13 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .card_brands import CardBrands
+from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.promo_type import PromoType
+from .payment_method_types import PaymentMethodTypes
 from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
 from .shared.friendly_receipt_status import FriendlyReceiptStatus
@@ -137,33 +139,10 @@ class PaymentListResponse(BaseModel):
     billing_address: Optional[BillingAddress] = None
     """The address of the user who made the payment."""
 
-    billing_reason: Optional[
-        Literal[
-            "subscription_create", "subscription_cycle", "subscription_update", "one_time", "manual", "subscription"
-        ]
-    ] = None
+    billing_reason: Optional[BillingReasons] = None
     """The reason why a specific payment was billed"""
 
-    card_brand: Optional[
-        Literal[
-            "mastercard",
-            "visa",
-            "amex",
-            "discover",
-            "unionpay",
-            "jcb",
-            "diners",
-            "link",
-            "troy",
-            "visadankort",
-            "visabancontact",
-            "china_union_pay",
-            "rupay",
-            "jcbrupay",
-            "elo",
-            "unknown",
-        ]
-    ] = None
+    card_brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
     card_last4: Optional[str] = None
@@ -196,94 +175,7 @@ class PaymentListResponse(BaseModel):
     paid_at: Optional[datetime] = None
     """The datetime the payment was paid"""
 
-    payment_method_type: Optional[
-        Literal[
-            "acss_debit",
-            "affirm",
-            "afterpay_clearpay",
-            "alipay",
-            "alma",
-            "amazon_pay",
-            "apple_pay",
-            "au_becs_debit",
-            "bacs_debit",
-            "bancontact",
-            "billie",
-            "blik",
-            "boleto",
-            "card",
-            "cashapp",
-            "crypto",
-            "eps",
-            "fpx",
-            "giropay",
-            "google_pay",
-            "grabpay",
-            "ideal",
-            "kakao_pay",
-            "klarna",
-            "konbini",
-            "kr_card",
-            "link",
-            "mobilepay",
-            "multibanco",
-            "naver_pay",
-            "nz_bank_account",
-            "oxxo",
-            "p24",
-            "pay_by_bank",
-            "payco",
-            "paynow",
-            "pix",
-            "promptpay",
-            "revolut_pay",
-            "samsung_pay",
-            "satispay",
-            "sepa_debit",
-            "sofort",
-            "swish",
-            "twint",
-            "us_bank_account",
-            "wechat_pay",
-            "zip",
-            "bizum",
-            "capchase_pay",
-            "kriya",
-            "mondu",
-            "ng_wallet",
-            "paypay",
-            "sequra",
-            "scalapay",
-            "vipps",
-            "custom",
-            "customer_balance",
-            "gopay",
-            "mb_way",
-            "ng_bank",
-            "ng_bank_transfer",
-            "ng_card",
-            "ng_market",
-            "ng_ussd",
-            "paypal",
-            "payto",
-            "qris",
-            "rechnung",
-            "south_korea_market",
-            "kr_market",
-            "shopeepay",
-            "upi",
-            "sunbit",
-            "netbanking",
-            "id_bank_transfer",
-            "demo_pay",
-            "shop_pay",
-            "apple",
-            "sezzle",
-            "coinbase",
-            "splitit",
-            "unknown",
-        ]
-    ] = None
+    payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
 
     plan: Optional[Plan] = None
