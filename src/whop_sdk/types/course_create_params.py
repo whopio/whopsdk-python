@@ -15,8 +15,20 @@ class CourseCreateParams(TypedDict, total=False):
     title: Required[str]
     """The title of the course"""
 
+    certificate_after_completion_enabled: Optional[bool]
+    """
+    Whether the course will award its students a PDF certificate after completing
+    all lessons
+    """
+
     cover_image: Optional[str]
     """The cover image URL of the course"""
+
+    require_completing_lessons_in_order: Optional[bool]
+    """
+    Whether the course requires students to complete the previous lesson before
+    moving on to the next one
+    """
 
     tagline: Optional[str]
     """The tagline of the course"""

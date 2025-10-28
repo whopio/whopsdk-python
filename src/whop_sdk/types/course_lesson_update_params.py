@@ -11,6 +11,7 @@ from .assessment_question_types import AssessmentQuestionTypes
 
 __all__ = [
     "CourseLessonUpdateParams",
+    "AssessmentCompletionRequirement",
     "AssessmentQuestion",
     "AssessmentQuestionImage",
     "AssessmentQuestionOption",
@@ -20,6 +21,9 @@ __all__ = [
 
 
 class CourseLessonUpdateParams(TypedDict, total=False):
+    assessment_completion_requirement: Optional[AssessmentCompletionRequirement]
+    """Completion requirements for quiz/knowledge check lessons"""
+
     assessment_questions: Optional[Iterable[AssessmentQuestion]]
     """Assessment questions for quiz/knowledge check lessons.
 
@@ -54,6 +58,20 @@ class CourseLessonUpdateParams(TypedDict, total=False):
     """The available visibilities for a lesson.
 
     Determines how / whether a lesson is visible to users.
+    """
+
+
+class AssessmentCompletionRequirement(TypedDict, total=False):
+    minimum_grade_percent: Optional[float]
+    """The minimum grade percentage required to pass (0-100).
+
+    Cannot be set together with minimum_questions_correct.
+    """
+
+    minimum_questions_correct: Optional[int]
+    """The minimum number of questions that must be answered correctly.
+
+    Cannot be set together with minimum_grade_percent.
     """
 
 
