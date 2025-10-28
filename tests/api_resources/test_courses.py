@@ -37,7 +37,9 @@ class TestCourses:
         course = client.courses.create(
             experience_id="exp_xxxxxxxxxxxxxx",
             title="title",
+            certificate_after_completion_enabled=True,
             cover_image="cover_image",
+            require_completing_lessons_in_order=True,
             tagline="tagline",
             thumbnail={
                 "id": "id",
@@ -296,7 +298,9 @@ class TestAsyncCourses:
         course = await async_client.courses.create(
             experience_id="exp_xxxxxxxxxxxxxx",
             title="title",
+            certificate_after_completion_enabled=True,
             cover_image="cover_image",
+            require_completing_lessons_in_order=True,
             tagline="tagline",
             thumbnail={
                 "id": "id",

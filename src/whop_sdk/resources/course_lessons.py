@@ -154,6 +154,8 @@ class CourseLessonsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        assessment_completion_requirement: Optional[course_lesson_update_params.AssessmentCompletionRequirement]
+        | Omit = omit,
         assessment_questions: Optional[Iterable[course_lesson_update_params.AssessmentQuestion]] | Omit = omit,
         attachments: Optional[Iterable[course_lesson_update_params.Attachment]] | Omit = omit,
         content: Optional[str] | Omit = omit,
@@ -178,6 +180,8 @@ class CourseLessonsResource(SyncAPIResource):
         - `courses:update`
 
         Args:
+          assessment_completion_requirement: Completion requirements for quiz/knowledge check lessons
+
           assessment_questions: Assessment questions for quiz/knowledge check lessons. Replaces all existing
               questions.
 
@@ -213,6 +217,7 @@ class CourseLessonsResource(SyncAPIResource):
             f"/course_lessons/{id}",
             body=maybe_transform(
                 {
+                    "assessment_completion_requirement": assessment_completion_requirement,
                     "assessment_questions": assessment_questions,
                     "attachments": attachments,
                     "content": content,
@@ -456,6 +461,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        assessment_completion_requirement: Optional[course_lesson_update_params.AssessmentCompletionRequirement]
+        | Omit = omit,
         assessment_questions: Optional[Iterable[course_lesson_update_params.AssessmentQuestion]] | Omit = omit,
         attachments: Optional[Iterable[course_lesson_update_params.Attachment]] | Omit = omit,
         content: Optional[str] | Omit = omit,
@@ -480,6 +487,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         - `courses:update`
 
         Args:
+          assessment_completion_requirement: Completion requirements for quiz/knowledge check lessons
+
           assessment_questions: Assessment questions for quiz/knowledge check lessons. Replaces all existing
               questions.
 
@@ -515,6 +524,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
             f"/course_lessons/{id}",
             body=await async_maybe_transform(
                 {
+                    "assessment_completion_requirement": assessment_completion_requirement,
                     "assessment_questions": assessment_questions,
                     "attachments": attachments,
                     "content": content,

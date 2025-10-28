@@ -126,6 +126,10 @@ class TestCourseLessons:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         course_lesson = client.course_lessons.update(
             id="lesn_xxxxxxxxxxxxx",
+            assessment_completion_requirement={
+                "minimum_grade_percent": 6.9,
+                "minimum_questions_correct": 42,
+            },
             assessment_questions=[
                 {
                     "correct_answer": "correct_answer",
@@ -391,6 +395,10 @@ class TestAsyncCourseLessons:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         course_lesson = await async_client.course_lessons.update(
             id="lesn_xxxxxxxxxxxxx",
+            assessment_completion_requirement={
+                "minimum_grade_percent": 6.9,
+                "minimum_questions_correct": 42,
+            },
             assessment_questions=[
                 {
                     "correct_answer": "correct_answer",
