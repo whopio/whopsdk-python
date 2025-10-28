@@ -4,8 +4,11 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .card_brands import CardBrands
+from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.promo_type import PromoType
+from .payment_method_types import PaymentMethodTypes
 from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
 from .shared.friendly_receipt_status import FriendlyReceiptStatus
@@ -103,7 +106,7 @@ class PromoCode(BaseModel):
     """The specific code used to apply the promo at checkout."""
 
     number_of_intervals: Optional[int] = None
-    """The number of billing cycles the promo is applied for."""
+    """The number of months the promo is applied for."""
 
     promo_type: PromoType
     """The type (% or flat amount) of the promo."""
@@ -136,11 +139,11 @@ class PaymentListResponse(BaseModel):
     billing_address: Optional[BillingAddress] = None
     """The address of the user who made the payment."""
 
-    billing_reason: Optional[str] = None
-    """The billing reason"""
+    billing_reason: Optional[BillingReasons] = None
+    """The reason why a specific payment was billed"""
 
-    card_brand: Optional[str] = None
-    """The type of card used as the payment method."""
+    card_brand: Optional[CardBrands] = None
+    """Possible card brands that a payment token can have"""
 
     card_last4: Optional[str] = None
     """The last 4 digits of the card used to make the payment."""
@@ -172,11 +175,8 @@ class PaymentListResponse(BaseModel):
     paid_at: Optional[datetime] = None
     """The datetime the payment was paid"""
 
-    payment_method_type: Optional[str] = None
-    """Returns the type of payment method used for the payment, if available.
-
-    Ex. klarna, affirm, card, cashapp
-    """
+    payment_method_type: Optional[PaymentMethodTypes] = None
+    """The different types of payment methods that can be used."""
 
     plan: Optional[Plan] = None
     """The plan attached to this payment."""
@@ -188,7 +188,10 @@ class PaymentListResponse(BaseModel):
     """The promo code used for this payment."""
 
     refundable: bool
-    """Whether the payment can be refunded."""
+    """
+    True only for payments that are `paid`, have not been fully refunded, and were
+    processed by a payment processor that allows refunds.
+    """
 
     refunded_amount: Optional[float] = None
     """The payment refund amount(if applicable)."""
@@ -197,7 +200,11 @@ class PaymentListResponse(BaseModel):
     """When the payment was refunded (if applicable)."""
 
     retryable: bool
-    """Whether the payment can be retried."""
+    """
+    True when the payment status is `open` and its membership is in one of the
+    retry-eligible states (`active`, `trialing`, `completed`, or `past_due`);
+    otherwise false. Used to decide if Whop can attempt the charge again.
+    """
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
@@ -218,4 +225,7 @@ class PaymentListResponse(BaseModel):
     """The user that made this payment."""
 
     voidable: bool
-    """Whether the payment can be voided."""
+    """
+    True when the payment is tied to a membership in `past_due`, the payment status
+    is `open`, and the processor allows voiding payments; otherwise false.
+    """

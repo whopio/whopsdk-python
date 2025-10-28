@@ -22,7 +22,7 @@ class PlanCreateParams(TypedDict, total=False):
     """The product the plan is related to."""
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     currency: Optional[Currency]
     """The available currencies on the platform"""
@@ -68,11 +68,29 @@ class PlanCreateParams(TypedDict, total=False):
     $10.43
     """
 
+    stock: Optional[int]
+    """The number of units available for purchase."""
+
+    strike_through_initial_price: Optional[float]
+    """The price to display with a strikethrough for the initial price.
+
+    Provided as a number in dollars. Eg: 19.99 for $19.99
+    """
+
+    strike_through_renewal_price: Optional[float]
+    """The price to display with a strikethrough for the renewal price.
+
+    Provided as a number in dollars. Eg: 19.99 for $19.99
+    """
+
     title: Optional[str]
     """The title of the plan. This will be visible on the product page to customers."""
 
     trial_period_days: Optional[int]
     """The number of free trial days added before a renewal plan."""
+
+    unlimited_stock: Optional[bool]
+    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

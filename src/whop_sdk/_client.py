@@ -26,8 +26,10 @@ from .resources import (
     plans,
     users,
     forums,
+    courses,
     entries,
     members,
+    reviews,
     invoices,
     messages,
     payments,
@@ -41,7 +43,10 @@ from .resources import (
     experiences,
     forum_posts,
     memberships,
+    promo_codes,
     chat_channels,
+    course_lessons,
+    course_chapters,
     ledger_accounts,
     authorized_users,
     support_channels,
@@ -85,6 +90,11 @@ class Whop(SyncAPIClient):
     reactions: reactions.ReactionsResource
     members: members.MembersResource
     forums: forums.ForumsResource
+    promo_codes: promo_codes.PromoCodesResource
+    courses: courses.CoursesResource
+    course_chapters: course_chapters.CourseChaptersResource
+    course_lessons: course_lessons.CourseLessonsResource
+    reviews: reviews.ReviewsResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -186,13 +196,18 @@ class Whop(SyncAPIClient):
         self.reactions = reactions.ReactionsResource(self)
         self.members = members.MembersResource(self)
         self.forums = forums.ForumsResource(self)
+        self.promo_codes = promo_codes.PromoCodesResource(self)
+        self.courses = courses.CoursesResource(self)
+        self.course_chapters = course_chapters.CourseChaptersResource(self)
+        self.course_lessons = course_lessons.CourseLessonsResource(self)
+        self.reviews = reviews.ReviewsResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
-        return Querystring(array_format="comma")
+        return Querystring(array_format="brackets")
 
     @property
     @override
@@ -325,6 +340,11 @@ class AsyncWhop(AsyncAPIClient):
     reactions: reactions.AsyncReactionsResource
     members: members.AsyncMembersResource
     forums: forums.AsyncForumsResource
+    promo_codes: promo_codes.AsyncPromoCodesResource
+    courses: courses.AsyncCoursesResource
+    course_chapters: course_chapters.AsyncCourseChaptersResource
+    course_lessons: course_lessons.AsyncCourseLessonsResource
+    reviews: reviews.AsyncReviewsResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -426,13 +446,18 @@ class AsyncWhop(AsyncAPIClient):
         self.reactions = reactions.AsyncReactionsResource(self)
         self.members = members.AsyncMembersResource(self)
         self.forums = forums.AsyncForumsResource(self)
+        self.promo_codes = promo_codes.AsyncPromoCodesResource(self)
+        self.courses = courses.AsyncCoursesResource(self)
+        self.course_chapters = course_chapters.AsyncCourseChaptersResource(self)
+        self.course_lessons = course_lessons.AsyncCourseLessonsResource(self)
+        self.reviews = reviews.AsyncReviewsResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
-        return Querystring(array_format="comma")
+        return Querystring(array_format="brackets")
 
     @property
     @override
@@ -569,6 +594,11 @@ class WhopWithRawResponse:
         self.reactions = reactions.ReactionsResourceWithRawResponse(client.reactions)
         self.members = members.MembersResourceWithRawResponse(client.members)
         self.forums = forums.ForumsResourceWithRawResponse(client.forums)
+        self.promo_codes = promo_codes.PromoCodesResourceWithRawResponse(client.promo_codes)
+        self.courses = courses.CoursesResourceWithRawResponse(client.courses)
+        self.course_chapters = course_chapters.CourseChaptersResourceWithRawResponse(client.course_chapters)
+        self.course_lessons = course_lessons.CourseLessonsResourceWithRawResponse(client.course_lessons)
+        self.reviews = reviews.ReviewsResourceWithRawResponse(client.reviews)
 
 
 class AsyncWhopWithRawResponse:
@@ -603,6 +633,11 @@ class AsyncWhopWithRawResponse:
         self.reactions = reactions.AsyncReactionsResourceWithRawResponse(client.reactions)
         self.members = members.AsyncMembersResourceWithRawResponse(client.members)
         self.forums = forums.AsyncForumsResourceWithRawResponse(client.forums)
+        self.promo_codes = promo_codes.AsyncPromoCodesResourceWithRawResponse(client.promo_codes)
+        self.courses = courses.AsyncCoursesResourceWithRawResponse(client.courses)
+        self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithRawResponse(client.course_chapters)
+        self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithRawResponse(client.course_lessons)
+        self.reviews = reviews.AsyncReviewsResourceWithRawResponse(client.reviews)
 
 
 class WhopWithStreamedResponse:
@@ -637,6 +672,11 @@ class WhopWithStreamedResponse:
         self.reactions = reactions.ReactionsResourceWithStreamingResponse(client.reactions)
         self.members = members.MembersResourceWithStreamingResponse(client.members)
         self.forums = forums.ForumsResourceWithStreamingResponse(client.forums)
+        self.promo_codes = promo_codes.PromoCodesResourceWithStreamingResponse(client.promo_codes)
+        self.courses = courses.CoursesResourceWithStreamingResponse(client.courses)
+        self.course_chapters = course_chapters.CourseChaptersResourceWithStreamingResponse(client.course_chapters)
+        self.course_lessons = course_lessons.CourseLessonsResourceWithStreamingResponse(client.course_lessons)
+        self.reviews = reviews.ReviewsResourceWithStreamingResponse(client.reviews)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -675,6 +715,11 @@ class AsyncWhopWithStreamedResponse:
         self.reactions = reactions.AsyncReactionsResourceWithStreamingResponse(client.reactions)
         self.members = members.AsyncMembersResourceWithStreamingResponse(client.members)
         self.forums = forums.AsyncForumsResourceWithStreamingResponse(client.forums)
+        self.promo_codes = promo_codes.AsyncPromoCodesResourceWithStreamingResponse(client.promo_codes)
+        self.courses = courses.AsyncCoursesResourceWithStreamingResponse(client.courses)
+        self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithStreamingResponse(client.course_chapters)
+        self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithStreamingResponse(client.course_lessons)
+        self.reviews = reviews.AsyncReviewsResourceWithStreamingResponse(client.reviews)
 
 
 Client = Whop

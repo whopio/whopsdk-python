@@ -191,6 +191,7 @@ Methods:
 
 - <code title="post /forum_posts">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">create</a>(\*\*<a href="src/whop_sdk/types/forum_post_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/forum_post.py">ForumPost</a></code>
 - <code title="get /forum_posts/{id}">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/forum_post.py">ForumPost</a></code>
+- <code title="patch /forum_posts/{id}">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">update</a>(id, \*\*<a href="src/whop_sdk/types/forum_post_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/forum_post.py">ForumPost</a></code>
 - <code title="get /forum_posts">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">list</a>(\*\*<a href="src/whop_sdk/types/forum_post_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/forum_post_list_response.py">SyncCursorPage[ForumPostListResponse]</a></code>
 
 # Transfers
@@ -304,6 +305,7 @@ Methods:
 
 - <code title="post /messages">client.messages.<a href="./src/whop_sdk/resources/messages.py">create</a>(\*\*<a href="src/whop_sdk/types/message_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/message.py">Message</a></code>
 - <code title="get /messages/{id}">client.messages.<a href="./src/whop_sdk/resources/messages.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/message.py">Message</a></code>
+- <code title="patch /messages/{id}">client.messages.<a href="./src/whop_sdk/resources/messages.py">update</a>(id, \*\*<a href="src/whop_sdk/types/message_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/message.py">Message</a></code>
 - <code title="get /messages">client.messages.<a href="./src/whop_sdk/resources/messages.py">list</a>(\*\*<a href="src/whop_sdk/types/message_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/message_list_response.py">SyncCursorPage[MessageListResponse]</a></code>
 
 # ChatChannels
@@ -338,7 +340,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import PaymentListResponse
+from whop_sdk.types import BillingReasons, CardBrands, PaymentMethodTypes, PaymentListResponse
 ```
 
 Methods:
@@ -380,6 +382,7 @@ Methods:
 - <code title="delete /experiences/{id}">client.experiences.<a href="./src/whop_sdk/resources/experiences.py">delete</a>(id) -> <a href="./src/whop_sdk/types/experience_delete_response.py">ExperienceDeleteResponse</a></code>
 - <code title="post /experiences/{id}/attach">client.experiences.<a href="./src/whop_sdk/resources/experiences.py">attach</a>(id, \*\*<a href="src/whop_sdk/types/experience_attach_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/experience.py">Experience</a></code>
 - <code title="post /experiences/{id}/detach">client.experiences.<a href="./src/whop_sdk/resources/experiences.py">detach</a>(id, \*\*<a href="src/whop_sdk/types/experience_detach_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/experience.py">Experience</a></code>
+- <code title="post /experiences/{id}/duplicate">client.experiences.<a href="./src/whop_sdk/resources/experiences.py">duplicate</a>(id, \*\*<a href="src/whop_sdk/types/experience_duplicate_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/experience.py">Experience</a></code>
 
 # Reactions
 
@@ -421,3 +424,92 @@ Methods:
 - <code title="get /forums/{id}">client.forums.<a href="./src/whop_sdk/resources/forums.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/forum.py">Forum</a></code>
 - <code title="patch /forums/{id}">client.forums.<a href="./src/whop_sdk/resources/forums.py">update</a>(id, \*\*<a href="src/whop_sdk/types/forum_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/forum.py">Forum</a></code>
 - <code title="get /forums">client.forums.<a href="./src/whop_sdk/resources/forums.py">list</a>(\*\*<a href="src/whop_sdk/types/forum_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/forum_list_response.py">SyncCursorPage[ForumListResponse]</a></code>
+
+# PromoCodes
+
+Types:
+
+```python
+from whop_sdk.types import (
+    PromoCode,
+    PromoCodeStatus,
+    PromoDuration,
+    PromoCodeListResponse,
+    PromoCodeDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /promo_codes">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">create</a>(\*\*<a href="src/whop_sdk/types/promo_code_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/promo_code.py">PromoCode</a></code>
+- <code title="get /promo_codes/{id}">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/promo_code.py">PromoCode</a></code>
+- <code title="get /promo_codes">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">list</a>(\*\*<a href="src/whop_sdk/types/promo_code_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/promo_code_list_response.py">SyncCursorPage[PromoCodeListResponse]</a></code>
+- <code title="delete /promo_codes/{id}">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">delete</a>(id) -> <a href="./src/whop_sdk/types/promo_code_delete_response.py">PromoCodeDeleteResponse</a></code>
+
+# Courses
+
+Types:
+
+```python
+from whop_sdk.types import Course, Languages, CourseListResponse, CourseDeleteResponse
+```
+
+Methods:
+
+- <code title="post /courses">client.courses.<a href="./src/whop_sdk/resources/courses.py">create</a>(\*\*<a href="src/whop_sdk/types/course_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/course.py">Course</a></code>
+- <code title="get /courses/{id}">client.courses.<a href="./src/whop_sdk/resources/courses.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/course.py">Course</a></code>
+- <code title="patch /courses/{id}">client.courses.<a href="./src/whop_sdk/resources/courses.py">update</a>(id, \*\*<a href="src/whop_sdk/types/course_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/course.py">Course</a></code>
+- <code title="get /courses">client.courses.<a href="./src/whop_sdk/resources/courses.py">list</a>(\*\*<a href="src/whop_sdk/types/course_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_list_response.py">SyncCursorPage[CourseListResponse]</a></code>
+- <code title="delete /courses/{id}">client.courses.<a href="./src/whop_sdk/resources/courses.py">delete</a>(id) -> <a href="./src/whop_sdk/types/course_delete_response.py">CourseDeleteResponse</a></code>
+
+# CourseChapters
+
+Types:
+
+```python
+from whop_sdk.types import CourseChapter, CourseChapterListResponse, CourseChapterDeleteResponse
+```
+
+Methods:
+
+- <code title="post /course_chapters">client.course_chapters.<a href="./src/whop_sdk/resources/course_chapters.py">create</a>(\*\*<a href="src/whop_sdk/types/course_chapter_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_chapter.py">CourseChapter</a></code>
+- <code title="get /course_chapters/{id}">client.course_chapters.<a href="./src/whop_sdk/resources/course_chapters.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/course_chapter.py">CourseChapter</a></code>
+- <code title="patch /course_chapters/{id}">client.course_chapters.<a href="./src/whop_sdk/resources/course_chapters.py">update</a>(id, \*\*<a href="src/whop_sdk/types/course_chapter_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_chapter.py">CourseChapter</a></code>
+- <code title="get /course_chapters">client.course_chapters.<a href="./src/whop_sdk/resources/course_chapters.py">list</a>(\*\*<a href="src/whop_sdk/types/course_chapter_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_chapter_list_response.py">SyncCursorPage[CourseChapterListResponse]</a></code>
+- <code title="delete /course_chapters/{id}">client.course_chapters.<a href="./src/whop_sdk/resources/course_chapters.py">delete</a>(id) -> <a href="./src/whop_sdk/types/course_chapter_delete_response.py">CourseChapterDeleteResponse</a></code>
+
+# CourseLessons
+
+Types:
+
+```python
+from whop_sdk.types import (
+    AssessmentQuestionTypes,
+    Lesson,
+    LessonTypes,
+    LessonVisibilities,
+    CourseLessonListResponse,
+    CourseLessonDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /course_lessons">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">create</a>(\*\*<a href="src/whop_sdk/types/course_lesson_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/lesson.py">Lesson</a></code>
+- <code title="get /course_lessons/{id}">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/lesson.py">Lesson</a></code>
+- <code title="patch /course_lessons/{id}">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">update</a>(id, \*\*<a href="src/whop_sdk/types/course_lesson_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/lesson.py">Lesson</a></code>
+- <code title="get /course_lessons">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">list</a>(\*\*<a href="src/whop_sdk/types/course_lesson_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_lesson_list_response.py">SyncCursorPage[CourseLessonListResponse]</a></code>
+- <code title="delete /course_lessons/{id}">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">delete</a>(id) -> <a href="./src/whop_sdk/types/course_lesson_delete_response.py">CourseLessonDeleteResponse</a></code>
+
+# Reviews
+
+Types:
+
+```python
+from whop_sdk.types import ReviewStatus, ReviewRetrieveResponse, ReviewListResponse
+```
+
+Methods:
+
+- <code title="get /reviews/{id}">client.reviews.<a href="./src/whop_sdk/resources/reviews.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/review_retrieve_response.py">ReviewRetrieveResponse</a></code>
+- <code title="get /reviews">client.reviews.<a href="./src/whop_sdk/resources/reviews.py">list</a>(\*\*<a href="src/whop_sdk/types/review_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/review_list_response.py">SyncCursorPage[ReviewListResponse]</a></code>

@@ -22,6 +22,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.payment import Payment
+from ..types.billing_reasons import BillingReasons
 from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.payment_list_response import PaymentListResponse
@@ -100,19 +101,7 @@ class PaymentsResource(SyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        billing_reasons: Optional[
-            List[
-                Literal[
-                    "subscription_create",
-                    "subscription_cycle",
-                    "subscription_update",
-                    "one_time",
-                    "manual",
-                    "subscription",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         currencies: Optional[List[Currency]] | Omit = omit,
@@ -422,19 +411,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        billing_reasons: Optional[
-            List[
-                Literal[
-                    "subscription_create",
-                    "subscription_cycle",
-                    "subscription_update",
-                    "one_time",
-                    "manual",
-                    "subscription",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         currencies: Optional[List[Currency]] | Omit = omit,

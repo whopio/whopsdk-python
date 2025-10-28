@@ -136,7 +136,6 @@ class MembershipsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
@@ -154,6 +153,7 @@ class MembershipsResource(SyncAPIResource):
             ]
         ]
         | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -164,6 +164,7 @@ class MembershipsResource(SyncAPIResource):
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         statuses: Optional[List[MembershipStatus]] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -179,8 +180,6 @@ class MembershipsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to list memberships for
-
           access_pass_ids: The access pass IDs to filter the memberships by
 
           after: Returns the elements in the list that come after the specified cursor.
@@ -188,6 +187,8 @@ class MembershipsResource(SyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           cancel_options: The cancel options to filter the memberships by
+
+          company_id: The ID of the company to list memberships for
 
           created_after: The minimum creation date to filter by
 
@@ -207,6 +208,8 @@ class MembershipsResource(SyncAPIResource):
 
           statuses: The membership status to filter the memberships by
 
+          user_ids: Only return memberships from these whop user ids
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -225,11 +228,11 @@ class MembershipsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -239,6 +242,7 @@ class MembershipsResource(SyncAPIResource):
                         "plan_ids": plan_ids,
                         "promo_code_ids": promo_code_ids,
                         "statuses": statuses,
+                        "user_ids": user_ids,
                     },
                     membership_list_params.MembershipListParams,
                 ),
@@ -475,7 +479,6 @@ class AsyncMembershipsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
@@ -493,6 +496,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
             ]
         ]
         | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -503,6 +507,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         statuses: Optional[List[MembershipStatus]] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -518,8 +523,6 @@ class AsyncMembershipsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to list memberships for
-
           access_pass_ids: The access pass IDs to filter the memberships by
 
           after: Returns the elements in the list that come after the specified cursor.
@@ -527,6 +530,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           cancel_options: The cancel options to filter the memberships by
+
+          company_id: The ID of the company to list memberships for
 
           created_after: The minimum creation date to filter by
 
@@ -546,6 +551,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           statuses: The membership status to filter the memberships by
 
+          user_ids: Only return memberships from these whop user ids
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -564,11 +571,11 @@ class AsyncMembershipsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -578,6 +585,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
                         "plan_ids": plan_ids,
                         "promo_code_ids": promo_code_ids,
                         "statuses": statuses,
+                        "user_ids": user_ids,
                     },
                     membership_list_params.MembershipListParams,
                 ),

@@ -6,7 +6,7 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import message_list_params, message_create_params
+from ..types import message_list_params, message_create_params, message_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -132,6 +132,56 @@ class MessagesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
             f"/messages/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Message,
+        )
+
+    def update(
+        self,
+        id: str,
+        *,
+        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
+        content: Optional[str] | Omit = omit,
+        is_pinned: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Message:
+        """
+        Updates an existing message
+
+        Args:
+          attachments: The attachments for this message
+
+          content: The content of the message in Markdown format
+
+          is_pinned: Whether this message is pinned
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            f"/messages/{id}",
+            body=maybe_transform(
+                {
+                    "attachments": attachments,
+                    "content": content,
+                    "is_pinned": is_pinned,
+                },
+                message_update_params.MessageUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -318,6 +368,56 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=Message,
         )
 
+    async def update(
+        self,
+        id: str,
+        *,
+        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
+        content: Optional[str] | Omit = omit,
+        is_pinned: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Message:
+        """
+        Updates an existing message
+
+        Args:
+          attachments: The attachments for this message
+
+          content: The content of the message in Markdown format
+
+          is_pinned: Whether this message is pinned
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            f"/messages/{id}",
+            body=await async_maybe_transform(
+                {
+                    "attachments": attachments,
+                    "content": content,
+                    "is_pinned": is_pinned,
+                },
+                message_update_params.MessageUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Message,
+        )
+
     def list(
         self,
         *,
@@ -396,6 +496,9 @@ class MessagesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             messages.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            messages.update,
+        )
         self.list = to_raw_response_wrapper(
             messages.list,
         )
@@ -410,6 +513,9 @@ class AsyncMessagesResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             messages.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            messages.update,
         )
         self.list = async_to_raw_response_wrapper(
             messages.list,
@@ -426,6 +532,9 @@ class MessagesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             messages.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            messages.update,
+        )
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
@@ -440,6 +549,9 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             messages.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            messages.update,
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,

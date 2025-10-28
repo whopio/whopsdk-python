@@ -36,11 +36,6 @@ class TestProducts:
         product = client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
-            access_pass_type="regular",
-            banner_image={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
             business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
@@ -189,6 +184,10 @@ class TestProducts:
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            store_page_config={
+                "custom_cta": "custom_cta",
+                "show_price": True,
+            },
             title="title",
             visibility="visible",
         )
@@ -341,11 +340,6 @@ class TestAsyncProducts:
         product = await async_client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
-            access_pass_type="regular",
-            banner_image={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
             business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
@@ -494,6 +488,10 @@ class TestAsyncProducts:
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            store_page_config={
+                "custom_cta": "custom_cta",
+                "show_price": True,
+            },
             title="title",
             visibility="visible",
         )
