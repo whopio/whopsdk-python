@@ -10,8 +10,9 @@ from ..._models import BaseModel
 from .plan_type import PlanType
 from .visibility import Visibility
 from .release_method import ReleaseMethod
+from ..payment_method_types import PaymentMethodTypes
 
-__all__ = ["Plan", "Company", "CustomField", "Invoice", "Product"]
+__all__ = ["Plan", "Company", "CustomField", "Invoice", "PaymentMethodConfiguration", "Product"]
 
 
 class Company(BaseModel):
@@ -45,6 +46,29 @@ class CustomField(BaseModel):
 class Invoice(BaseModel):
     id: str
     """The ID of the invoice."""
+
+
+class PaymentMethodConfiguration(BaseModel):
+    disabled: List[PaymentMethodTypes]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: List[PaymentMethodTypes]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: bool
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
+    """
 
 
 class Product(BaseModel):
@@ -94,6 +118,9 @@ class Plan(BaseModel):
 
     member_count: Optional[int] = None
     """The number of members for the plan."""
+
+    payment_method_configuration: Optional[PaymentMethodConfiguration] = None
+    """The explicit payment method configuration for the plan, if any."""
 
     plan_type: PlanType
     """Indicates if the plan is a one time payment or recurring."""
