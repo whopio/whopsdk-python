@@ -47,6 +47,7 @@ from .resources import (
     chat_channels,
     course_lessons,
     course_chapters,
+    course_students,
     ledger_accounts,
     authorized_users,
     support_channels,
@@ -95,6 +96,7 @@ class Whop(SyncAPIClient):
     course_chapters: course_chapters.CourseChaptersResource
     course_lessons: course_lessons.CourseLessonsResource
     reviews: reviews.ReviewsResource
+    course_students: course_students.CourseStudentsResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -201,6 +203,7 @@ class Whop(SyncAPIClient):
         self.course_chapters = course_chapters.CourseChaptersResource(self)
         self.course_lessons = course_lessons.CourseLessonsResource(self)
         self.reviews = reviews.ReviewsResource(self)
+        self.course_students = course_students.CourseStudentsResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
@@ -345,6 +348,7 @@ class AsyncWhop(AsyncAPIClient):
     course_chapters: course_chapters.AsyncCourseChaptersResource
     course_lessons: course_lessons.AsyncCourseLessonsResource
     reviews: reviews.AsyncReviewsResource
+    course_students: course_students.AsyncCourseStudentsResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -451,6 +455,7 @@ class AsyncWhop(AsyncAPIClient):
         self.course_chapters = course_chapters.AsyncCourseChaptersResource(self)
         self.course_lessons = course_lessons.AsyncCourseLessonsResource(self)
         self.reviews = reviews.AsyncReviewsResource(self)
+        self.course_students = course_students.AsyncCourseStudentsResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
@@ -599,6 +604,7 @@ class WhopWithRawResponse:
         self.course_chapters = course_chapters.CourseChaptersResourceWithRawResponse(client.course_chapters)
         self.course_lessons = course_lessons.CourseLessonsResourceWithRawResponse(client.course_lessons)
         self.reviews = reviews.ReviewsResourceWithRawResponse(client.reviews)
+        self.course_students = course_students.CourseStudentsResourceWithRawResponse(client.course_students)
 
 
 class AsyncWhopWithRawResponse:
@@ -638,6 +644,7 @@ class AsyncWhopWithRawResponse:
         self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithRawResponse(client.course_chapters)
         self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithRawResponse(client.course_lessons)
         self.reviews = reviews.AsyncReviewsResourceWithRawResponse(client.reviews)
+        self.course_students = course_students.AsyncCourseStudentsResourceWithRawResponse(client.course_students)
 
 
 class WhopWithStreamedResponse:
@@ -677,6 +684,7 @@ class WhopWithStreamedResponse:
         self.course_chapters = course_chapters.CourseChaptersResourceWithStreamingResponse(client.course_chapters)
         self.course_lessons = course_lessons.CourseLessonsResourceWithStreamingResponse(client.course_lessons)
         self.reviews = reviews.ReviewsResourceWithStreamingResponse(client.reviews)
+        self.course_students = course_students.CourseStudentsResourceWithStreamingResponse(client.course_students)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -720,6 +728,7 @@ class AsyncWhopWithStreamedResponse:
         self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithStreamingResponse(client.course_chapters)
         self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithStreamingResponse(client.course_lessons)
         self.reviews = reviews.AsyncReviewsResourceWithStreamingResponse(client.reviews)
+        self.course_students = course_students.AsyncCourseStudentsResourceWithStreamingResponse(client.course_students)
 
 
 Client = Whop

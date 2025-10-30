@@ -513,3 +513,16 @@ Methods:
 
 - <code title="get /reviews/{id}">client.reviews.<a href="./src/whop_sdk/resources/reviews.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/review_retrieve_response.py">ReviewRetrieveResponse</a></code>
 - <code title="get /reviews">client.reviews.<a href="./src/whop_sdk/resources/reviews.py">list</a>(\*\*<a href="src/whop_sdk/types/review_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/review_list_response.py">SyncCursorPage[ReviewListResponse]</a></code>
+
+# CourseStudents
+
+Types:
+
+```python
+from whop_sdk.types import CourseStudentRetrieveResponse, CourseStudentListResponse
+```
+
+Methods:
+
+- <code title="get /course_students/{id}">client.course_students.<a href="./src/whop_sdk/resources/course_students.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/course_student_retrieve_response.py">CourseStudentRetrieveResponse</a></code>
+- <code title="get /course_students">client.course_students.<a href="./src/whop_sdk/resources/course_students.py">list</a>(\*\*<a href="src/whop_sdk/types/course_student_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_student_list_response.py">SyncCursorPage[CourseStudentListResponse]</a></code>
