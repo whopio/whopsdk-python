@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .shared.currency import Currency
 from .shared.tax_type import TaxType
 from .shared.visibility import Visibility
+from .payment_method_types import PaymentMethodTypes
 
-__all__ = ["PlanUpdateParams", "CustomField", "Image"]
+__all__ = ["PlanUpdateParams", "CustomField", "Image", "PaymentMethodConfiguration"]
 
 
 class PlanUpdateParams(TypedDict, total=False):
@@ -44,6 +45,12 @@ class PlanUpdateParams(TypedDict, total=False):
     """
     Whether or not the tax is included in a plan's price (or if it hasn't been set
     up)
+    """
+
+    payment_method_configuration: Optional[PaymentMethodConfiguration]
+    """The explicit payment method configuration for the plan.
+
+    If sent as null, the custom configuration will be removed.
     """
 
     renewal_price: Optional[float]
@@ -110,4 +117,27 @@ class Image(TypedDict, total=False):
 
     It is the ID of the direct upload that was created when uploading the file to S3
     via the mediaDirectUpload mutation.
+    """
+
+
+class PaymentMethodConfiguration(TypedDict, total=False):
+    disabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: Required[bool]
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
     """

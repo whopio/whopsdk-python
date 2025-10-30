@@ -68,6 +68,7 @@ class PlansResource(SyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
+        payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
@@ -120,6 +121,9 @@ class PlansResource(SyncAPIResource):
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
+          payment_method_configuration: The explicit payment method configuration for the plan. If not provided, the
+              platform or company's defaults will apply.
+
           plan_type: The type of plan that can be attached to an access pass
 
           release_method: The methods of how a plan can be released.
@@ -166,6 +170,7 @@ class PlansResource(SyncAPIResource):
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "override_tax_type": override_tax_type,
+                    "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
@@ -236,6 +241,7 @@ class PlansResource(SyncAPIResource):
         internal_notes: Optional[str] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
+        payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
@@ -282,6 +288,9 @@ class PlansResource(SyncAPIResource):
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
+          payment_method_configuration: The explicit payment method configuration for the plan. If sent as null, the
+              custom configuration will be removed.
+
           renewal_price: The amount the customer is charged every billing period.
 
           stock: The number of units available for purchase.
@@ -324,6 +333,7 @@ class PlansResource(SyncAPIResource):
                     "internal_notes": internal_notes,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
+                    "payment_method_configuration": payment_method_configuration,
                     "renewal_price": renewal_price,
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
@@ -501,6 +511,7 @@ class AsyncPlansResource(AsyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
+        payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
@@ -553,6 +564,9 @@ class AsyncPlansResource(AsyncAPIResource):
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
+          payment_method_configuration: The explicit payment method configuration for the plan. If not provided, the
+              platform or company's defaults will apply.
+
           plan_type: The type of plan that can be attached to an access pass
 
           release_method: The methods of how a plan can be released.
@@ -599,6 +613,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "override_tax_type": override_tax_type,
+                    "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
@@ -669,6 +684,7 @@ class AsyncPlansResource(AsyncAPIResource):
         internal_notes: Optional[str] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
+        payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
@@ -715,6 +731,9 @@ class AsyncPlansResource(AsyncAPIResource):
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
+          payment_method_configuration: The explicit payment method configuration for the plan. If sent as null, the
+              custom configuration will be removed.
+
           renewal_price: The amount the customer is charged every billing period.
 
           stock: The number of units available for purchase.
@@ -757,6 +776,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "internal_notes": internal_notes,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
+                    "payment_method_configuration": payment_method_configuration,
                     "renewal_price": renewal_price,
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
