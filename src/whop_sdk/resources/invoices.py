@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
 from ..types import invoice_list_params, invoice_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -51,20 +51,19 @@ class InvoicesResource(SyncAPIResource):
         """
         return InvoicesResourceWithStreamingResponse(self)
 
+    @overload
     def create(
         self,
         *,
         collection_method: CollectionMethod,
         company_id: str,
         due_date: Union[str, datetime],
-        plan: invoice_create_params.Plan,
+        member_id: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
-        email_address: Optional[str] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
-        product: Optional[invoice_create_params.Product] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -88,7 +87,14 @@ class InvoicesResource(SyncAPIResource):
 
           due_date: The date the invoice is due, if applicable.
 
+          member_id: The member ID to create this invoice for. Include this if you want to create an
+              invoice for an existing member. If you do not have a member ID, you must provide
+              an email_address and customer_name.
+
           plan: The properties of the plan to create for this invoice.
+
+          product: The properties of the product to create for this invoice. Include this if you
+              want to create an invoice for a new product.
 
           charge_buyer_fee: Whether or not to charge the customer a buyer fee.
 
@@ -96,21 +102,8 @@ class InvoicesResource(SyncAPIResource):
               want to create an invoice for a customer who does not have a member of your
               company yet.
 
-          email_address: The email address to create this invoice for. This is required if you want to
-              create an invoice for a user who does not have a member of your company yet.
-
-          member_id: The member ID to create this invoice for. Include this if you want to create an
-              invoice for an existing member. If you do not have a member ID, you must provide
-              an email_address and customer_name.
-
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
-
-          product: The properties of the product to create for this invoice. Include this if you
-              want to create an invoice for a new product.
-
-          product_id: The product ID to create this invoice for. Include this if you want to create an
-              invoice for an existing product.
 
           extra_headers: Send extra headers
 
@@ -120,6 +113,230 @@ class InvoicesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        email_address: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
+        """
+        Creates an invoice
+
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
+
+          due_date: The date the invoice is due, if applicable.
+
+          email_address: The email address to create this invoice for. This is required if you want to
+              create an invoice for a user who does not have a member of your company yet.
+
+          plan: The properties of the plan to create for this invoice.
+
+          product: The properties of the product to create for this invoice. Include this if you
+              want to create an invoice for a new product.
+
+          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+
+          customer_name: The name of the customer to create this invoice for. This is required if you
+              want to create an invoice for a customer who does not have a member of your
+              company yet.
+
+          payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        member_id: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
+        product_id: str,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
+        """
+        Creates an invoice
+
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
+
+          due_date: The date the invoice is due, if applicable.
+
+          member_id: The member ID to create this invoice for. Include this if you want to create an
+              invoice for an existing member. If you do not have a member ID, you must provide
+              an email_address and customer_name.
+
+          plan: The properties of the plan to create for this invoice.
+
+          product_id: The product ID to create this invoice for. Include this if you want to create an
+              invoice for an existing product.
+
+          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+
+          customer_name: The name of the customer to create this invoice for. This is required if you
+              want to create an invoice for a customer who does not have a member of your
+              company yet.
+
+          payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        email_address: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
+        product_id: str,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
+        """
+        Creates an invoice
+
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
+
+          due_date: The date the invoice is due, if applicable.
+
+          email_address: The email address to create this invoice for. This is required if you want to
+              create an invoice for a user who does not have a member of your company yet.
+
+          plan: The properties of the plan to create for this invoice.
+
+          product_id: The product ID to create this invoice for. Include this if you want to create an
+              invoice for an existing product.
+
+          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+
+          customer_name: The name of the customer to create this invoice for. This is required if you
+              want to create an invoice for a customer who does not have a member of your
+              company yet.
+
+          payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(
+        ["collection_method", "company_id", "due_date", "member_id", "plan", "product"],
+        ["collection_method", "company_id", "due_date", "email_address", "plan", "product"],
+        ["collection_method", "company_id", "due_date", "member_id", "plan", "product_id"],
+        ["collection_method", "company_id", "due_date", "email_address", "plan", "product_id"],
+    )
+    def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        member_id: str | Omit = omit,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
+        | Omit = omit,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        email_address: str | Omit = omit,
+        product_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
         return self._post(
             "/invoices",
             body=maybe_transform(
@@ -127,13 +344,13 @@ class InvoicesResource(SyncAPIResource):
                     "collection_method": collection_method,
                     "company_id": company_id,
                     "due_date": due_date,
+                    "member_id": member_id,
                     "plan": plan,
+                    "product": product,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
-                    "email_address": email_address,
-                    "member_id": member_id,
                     "payment_token_id": payment_token_id,
-                    "product": product,
+                    "email_address": email_address,
                     "product_id": product_id,
                 },
                 invoice_create_params.InvoiceCreateParams,
@@ -316,20 +533,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         return AsyncInvoicesResourceWithStreamingResponse(self)
 
+    @overload
     async def create(
         self,
         *,
         collection_method: CollectionMethod,
         company_id: str,
         due_date: Union[str, datetime],
-        plan: invoice_create_params.Plan,
+        member_id: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
-        email_address: Optional[str] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
-        product: Optional[invoice_create_params.Product] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -353,7 +569,14 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           due_date: The date the invoice is due, if applicable.
 
+          member_id: The member ID to create this invoice for. Include this if you want to create an
+              invoice for an existing member. If you do not have a member ID, you must provide
+              an email_address and customer_name.
+
           plan: The properties of the plan to create for this invoice.
+
+          product: The properties of the product to create for this invoice. Include this if you
+              want to create an invoice for a new product.
 
           charge_buyer_fee: Whether or not to charge the customer a buyer fee.
 
@@ -361,21 +584,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
               want to create an invoice for a customer who does not have a member of your
               company yet.
 
-          email_address: The email address to create this invoice for. This is required if you want to
-              create an invoice for a user who does not have a member of your company yet.
-
-          member_id: The member ID to create this invoice for. Include this if you want to create an
-              invoice for an existing member. If you do not have a member ID, you must provide
-              an email_address and customer_name.
-
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
-
-          product: The properties of the product to create for this invoice. Include this if you
-              want to create an invoice for a new product.
-
-          product_id: The product ID to create this invoice for. Include this if you want to create an
-              invoice for an existing product.
 
           extra_headers: Send extra headers
 
@@ -385,6 +595,230 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        email_address: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
+        """
+        Creates an invoice
+
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
+
+          due_date: The date the invoice is due, if applicable.
+
+          email_address: The email address to create this invoice for. This is required if you want to
+              create an invoice for a user who does not have a member of your company yet.
+
+          plan: The properties of the plan to create for this invoice.
+
+          product: The properties of the product to create for this invoice. Include this if you
+              want to create an invoice for a new product.
+
+          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+
+          customer_name: The name of the customer to create this invoice for. This is required if you
+              want to create an invoice for a customer who does not have a member of your
+              company yet.
+
+          payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        member_id: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
+        product_id: str,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
+        """
+        Creates an invoice
+
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
+
+          due_date: The date the invoice is due, if applicable.
+
+          member_id: The member ID to create this invoice for. Include this if you want to create an
+              invoice for an existing member. If you do not have a member ID, you must provide
+              an email_address and customer_name.
+
+          plan: The properties of the plan to create for this invoice.
+
+          product_id: The product ID to create this invoice for. Include this if you want to create an
+              invoice for an existing product.
+
+          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+
+          customer_name: The name of the customer to create this invoice for. This is required if you
+              want to create an invoice for a customer who does not have a member of your
+              company yet.
+
+          payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        email_address: str,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
+        product_id: str,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
+        """
+        Creates an invoice
+
+        Required permissions:
+
+        - `invoice:create`
+        - `plan:basic:read`
+
+        Args:
+          collection_method: The method of collection for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          company_id: The company ID to create this invoice for.
+
+          due_date: The date the invoice is due, if applicable.
+
+          email_address: The email address to create this invoice for. This is required if you want to
+              create an invoice for a user who does not have a member of your company yet.
+
+          plan: The properties of the plan to create for this invoice.
+
+          product_id: The product ID to create this invoice for. Include this if you want to create an
+              invoice for an existing product.
+
+          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+
+          customer_name: The name of the customer to create this invoice for. This is required if you
+              want to create an invoice for a customer who does not have a member of your
+              company yet.
+
+          payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
+              must provide a payment_token.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(
+        ["collection_method", "company_id", "due_date", "member_id", "plan", "product"],
+        ["collection_method", "company_id", "due_date", "email_address", "plan", "product"],
+        ["collection_method", "company_id", "due_date", "member_id", "plan", "product_id"],
+        ["collection_method", "company_id", "due_date", "email_address", "plan", "product_id"],
+    )
+    async def create(
+        self,
+        *,
+        collection_method: CollectionMethod,
+        company_id: str,
+        due_date: Union[str, datetime],
+        member_id: str | Omit = omit,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
+        | Omit = omit,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        payment_token_id: Optional[str] | Omit = omit,
+        email_address: str | Omit = omit,
+        product_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateResponse:
         return await self._post(
             "/invoices",
             body=await async_maybe_transform(
@@ -392,13 +826,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "collection_method": collection_method,
                     "company_id": company_id,
                     "due_date": due_date,
+                    "member_id": member_id,
                     "plan": plan,
+                    "product": product,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
-                    "email_address": email_address,
-                    "member_id": member_id,
                     "payment_token_id": payment_token_id,
-                    "product": product,
+                    "email_address": email_address,
                     "product_id": product_id,
                 },
                 invoice_create_params.InvoiceCreateParams,

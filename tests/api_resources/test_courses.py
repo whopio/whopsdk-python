@@ -41,10 +41,7 @@ class TestCourses:
             cover_image="cover_image",
             require_completing_lessons_in_order=True,
             tagline="tagline",
-            thumbnail={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            thumbnail={"direct_upload_id": "direct_upload_id"},
         )
         assert_matches_type(Course, course, path=["response"])
 
@@ -152,10 +149,7 @@ class TestCourses:
             language="en",
             require_completing_lessons_in_order=True,
             tagline="tagline",
-            thumbnail={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            thumbnail={"direct_upload_id": "direct_upload_id"},
             title="title",
         )
         assert_matches_type(Course, course, path=["response"])
@@ -302,10 +296,7 @@ class TestAsyncCourses:
             cover_image="cover_image",
             require_completing_lessons_in_order=True,
             tagline="tagline",
-            thumbnail={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            thumbnail={"direct_upload_id": "direct_upload_id"},
         )
         assert_matches_type(Course, course, path=["response"])
 
@@ -413,10 +404,7 @@ class TestAsyncCourses:
             language="en",
             require_completing_lessons_in_order=True,
             tagline="tagline",
-            thumbnail={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            thumbnail={"direct_upload_id": "direct_upload_id"},
             title="title",
         )
         assert_matches_type(Course, course, path=["response"])
