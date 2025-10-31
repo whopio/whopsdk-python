@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -62,6 +62,12 @@ class Company(BaseModel):
 
     member_count: int
     """The number of members in the company."""
+
+    metadata: Optional[Dict[str, object]] = None
+    """
+    A key-value store of data for the account, created/updated by the platform that
+    made the account.
+    """
 
     owner_user: OwnerUser
     """The user who owns this company"""
