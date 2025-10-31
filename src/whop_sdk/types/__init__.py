@@ -88,6 +88,7 @@ from .plan_create_params import PlanCreateParams as PlanCreateParams
 from .plan_list_response import PlanListResponse as PlanListResponse
 from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .review_list_params import ReviewListParams as ReviewListParams
+from .company_list_params import CompanyListParams as CompanyListParams
 from .entry_list_response import EntryListResponse as EntryListResponse
 from .forum_list_response import ForumListResponse as ForumListResponse
 from .forum_update_params import ForumUpdateParams as ForumUpdateParams
@@ -108,6 +109,8 @@ from .shipment_list_params import ShipmentListParams as ShipmentListParams
 from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .app_build_list_params import AppBuildListParams as AppBuildListParams
+from .company_create_params import CompanyCreateParams as CompanyCreateParams
+from .company_list_response import CompanyListResponse as CompanyListResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .message_create_params import MessageCreateParams as MessageCreateParams
