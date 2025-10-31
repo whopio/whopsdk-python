@@ -48,6 +48,9 @@ class CourseLessonUpdateParams(TypedDict, total=False):
     main_pdf: Optional[MainPdf]
     """The main PDF file for this lesson"""
 
+    max_attempts: Optional[int]
+    """Maximum number of attempts allowed for assessments"""
+
     mux_asset_id: Optional[str]
     """The ID of the Mux asset to attach to this lesson for video lessons"""
 
