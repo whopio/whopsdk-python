@@ -45,7 +45,7 @@ class CourseLessonUpdateParams(TypedDict, total=False):
     lesson_type: Optional[LessonTypes]
     """The available types for a lesson"""
 
-    main_pdf: Optional[MainPdf]
+    main_pdf: MainPdf
     """The main PDF file for this lesson"""
 
     max_attempts: Optional[int]
@@ -78,20 +78,8 @@ class AssessmentCompletionRequirement(TypedDict, total=False):
     """
 
 
-class AssessmentQuestionImage(TypedDict, total=False):
-    id: Optional[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-    direct_upload_id: Optional[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
+class AssessmentQuestionImage(total=False):
+    pass
 
 
 class AssessmentQuestionOption(TypedDict, total=False):
@@ -126,7 +114,7 @@ class AssessmentQuestion(TypedDict, total=False):
     be created.
     """
 
-    image: Optional[AssessmentQuestionImage]
+    image: AssessmentQuestionImage
     """Optional image attachment for the question"""
 
     options: Optional[Iterable[AssessmentQuestionOption]]
@@ -149,17 +137,5 @@ class Attachment(TypedDict, total=False):
     """
 
 
-class MainPdf(TypedDict, total=False):
-    id: Optional[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-    direct_upload_id: Optional[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
+class MainPdf(total=False):
+    pass

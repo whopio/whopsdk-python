@@ -13,11 +13,7 @@ __all__ = ["AppBuildCreateParams", "Attachment"]
 
 class AppBuildCreateParams(TypedDict, total=False):
     attachment: Required[Attachment]
-    """Attachment input for the app build file.
-
-    This should be an upload in .zip format. The zip should contain at least one
-    main_js_bundle.hbc file and optionally an assets folder next to it.
-    """
+    """Input for an attachment"""
 
     checksum: Required[str]
     """Checksum of the app build file.
