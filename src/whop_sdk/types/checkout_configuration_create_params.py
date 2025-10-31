@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing import Dict, List, Iterable, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 from .shared.currency import Currency
 from .shared.tax_type import TaxType
@@ -17,33 +17,32 @@ from .shared.global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = [
     "CheckoutConfigurationCreateParams",
-    "CreateCheckoutSessionInputWithPlan",
-    "CreateCheckoutSessionInputWithPlanPlan",
-    "CreateCheckoutSessionInputWithPlanPlanCustomField",
-    "CreateCheckoutSessionInputWithPlanPlanImage",
-    "CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUploadID",
-    "CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID",
-    "CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration",
-    "CreateCheckoutSessionInputWithPlanPlanProduct",
-    "CreateCheckoutSessionInputWithPlanID",
+    "Plan",
+    "PlanCustomField",
+    "PlanImage",
+    "PlanPaymentMethodConfiguration",
+    "PlanProduct",
 ]
 
 
-class CreateCheckoutSessionInputWithPlan(TypedDict, total=False):
-    plan: Required[CreateCheckoutSessionInputWithPlanPlan]
-    """Pass this object to create a new plan for this checkout configuration"""
-
+class CheckoutConfigurationCreateParams(TypedDict, total=False):
     affiliate_code: Optional[str]
     """The affiliate code to use for the checkout configuration"""
 
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""
 
+    plan: Optional[Plan]
+    """Pass this object to create a new plan for this checkout configuration"""
+
+    plan_id: Optional[str]
+    """The ID of the plan to use for the checkout configuration"""
+
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
 
 
-class CreateCheckoutSessionInputWithPlanPlanCustomField(TypedDict, total=False):
+class PlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
@@ -63,8 +62,15 @@ class CreateCheckoutSessionInputWithPlanPlanCustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    direct_upload_id: Required[str]
+class PlanImage(TypedDict, total=False):
+    id: Optional[str]
+    """The ID of an existing attachment object.
+
+    Use this when updating a resource and keeping a subset of the attachments. Don't
+    use this unless you know what you're doing.
+    """
+
+    direct_upload_id: Optional[str]
     """This ID should be used the first time you upload an attachment.
 
     It is the ID of the direct upload that was created when uploading the file to S3
@@ -72,22 +78,7 @@ class CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUpload
     """
 
 
-class CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID(TypedDict, total=False):
-    id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-
-CreateCheckoutSessionInputWithPlanPlanImage: TypeAlias = Union[
-    CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUploadID,
-    CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID,
-]
-
-
-class CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration(TypedDict, total=False):
+class PlanPaymentMethodConfiguration(TypedDict, total=False):
     disabled: Required[List[PaymentMethodTypes]]
     """An array of payment method identifiers that are explicitly disabled.
 
@@ -110,7 +101,7 @@ class CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration(TypedDict
     """
 
 
-class CreateCheckoutSessionInputWithPlanPlanProduct(TypedDict, total=False):
+class PlanProduct(TypedDict, total=False):
     external_identifier: Required[str]
     """A unique ID used to find or create a product.
 
@@ -163,7 +154,7 @@ class CreateCheckoutSessionInputWithPlanPlanProduct(TypedDict, total=False):
     """Visibility of a resource"""
 
 
-class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
+class Plan(TypedDict, total=False):
     company_id: Required[str]
     """The company the plan should be created for."""
 
@@ -173,7 +164,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
-    custom_fields: Optional[Iterable[CreateCheckoutSessionInputWithPlanPlanCustomField]]
+    custom_fields: Optional[Iterable[PlanCustomField]]
     """An array of custom field objects."""
 
     description: Optional[str]
@@ -188,7 +179,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     already exists.
     """
 
-    image: Optional[CreateCheckoutSessionInputWithPlanPlanImage]
+    image: Optional[PlanImage]
     """An image for the plan. This will be visible on the product page to customers."""
 
     initial_price: Optional[float]
@@ -203,7 +194,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     up)
     """
 
-    payment_method_configuration: Optional[CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration]
+    payment_method_configuration: Optional[PlanPaymentMethodConfiguration]
     """The explicit payment method configuration for the plan.
 
     If not provided, the platform or company's defaults will apply.
@@ -212,7 +203,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to an access pass"""
 
-    product: Optional[CreateCheckoutSessionInputWithPlanPlanProduct]
+    product: Optional[PlanProduct]
     """Pass this object to create a new product for this plan.
 
     We will use the product external identifier to find or create an existing
@@ -236,22 +227,3 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
-
-
-class CreateCheckoutSessionInputWithPlanID(TypedDict, total=False):
-    plan_id: Required[str]
-    """The ID of the plan to use for the checkout configuration"""
-
-    affiliate_code: Optional[str]
-    """The affiliate code to use for the checkout configuration"""
-
-    metadata: Optional[Dict[str, object]]
-    """The metadata to use for the checkout configuration"""
-
-    redirect_url: Optional[str]
-    """The URL to redirect the user to after the checkout configuration is created"""
-
-
-CheckoutConfigurationCreateParams: TypeAlias = Union[
-    CreateCheckoutSessionInputWithPlan, CreateCheckoutSessionInputWithPlanID
-]

@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Iterable, Optional
+from typing_extensions import Required, TypedDict
 
 from .lesson_types import LessonTypes
 from .lesson_visibilities import LessonVisibilities
@@ -14,15 +14,9 @@ __all__ = [
     "AssessmentCompletionRequirement",
     "AssessmentQuestion",
     "AssessmentQuestionImage",
-    "AssessmentQuestionImageAttachmentInputWithDirectUploadID",
-    "AssessmentQuestionImageAttachmentInputWithID",
     "AssessmentQuestionOption",
     "Attachment",
-    "AttachmentAttachmentInputWithDirectUploadID",
-    "AttachmentAttachmentInputWithID",
     "MainPdf",
-    "MainPdfAttachmentInputWithDirectUploadID",
-    "MainPdfAttachmentInputWithID",
 ]
 
 
@@ -84,27 +78,20 @@ class AssessmentCompletionRequirement(TypedDict, total=False):
     """
 
 
-class AssessmentQuestionImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class AssessmentQuestionImageAttachmentInputWithID(TypedDict, total=False):
-    id: Required[str]
+class AssessmentQuestionImage(TypedDict, total=False):
+    id: Optional[str]
     """The ID of an existing attachment object.
 
     Use this when updating a resource and keeping a subset of the attachments. Don't
     use this unless you know what you're doing.
     """
 
+    direct_upload_id: Optional[str]
+    """This ID should be used the first time you upload an attachment.
 
-AssessmentQuestionImage: TypeAlias = Union[
-    AssessmentQuestionImageAttachmentInputWithDirectUploadID, AssessmentQuestionImageAttachmentInputWithID
-]
+    It is the ID of the direct upload that was created when uploading the file to S3
+    via the mediaDirectUpload mutation.
+    """
 
 
 class AssessmentQuestionOption(TypedDict, total=False):
@@ -146,8 +133,15 @@ class AssessmentQuestion(TypedDict, total=False):
     """The answer options for multiple choice/select questions"""
 
 
-class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    direct_upload_id: Required[str]
+class Attachment(TypedDict, total=False):
+    id: Optional[str]
+    """The ID of an existing attachment object.
+
+    Use this when updating a resource and keeping a subset of the attachments. Don't
+    use this unless you know what you're doing.
+    """
+
+    direct_upload_id: Optional[str]
     """This ID should be used the first time you upload an attachment.
 
     It is the ID of the direct upload that was created when uploading the file to S3
@@ -155,34 +149,17 @@ class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
     """
 
 
-class AttachmentAttachmentInputWithID(TypedDict, total=False):
-    id: Required[str]
+class MainPdf(TypedDict, total=False):
+    id: Optional[str]
     """The ID of an existing attachment object.
 
     Use this when updating a resource and keeping a subset of the attachments. Don't
     use this unless you know what you're doing.
     """
 
-
-Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, AttachmentAttachmentInputWithID]
-
-
-class MainPdfAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    direct_upload_id: Required[str]
+    direct_upload_id: Optional[str]
     """This ID should be used the first time you upload an attachment.
 
     It is the ID of the direct upload that was created when uploading the file to S3
     via the mediaDirectUpload mutation.
     """
-
-
-class MainPdfAttachmentInputWithID(TypedDict, total=False):
-    id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-
-MainPdf: TypeAlias = Union[MainPdfAttachmentInputWithDirectUploadID, MainPdfAttachmentInputWithID]

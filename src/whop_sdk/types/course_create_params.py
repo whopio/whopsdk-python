@@ -2,15 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Optional
+from typing_extensions import Required, TypedDict
 
-__all__ = [
-    "CourseCreateParams",
-    "Thumbnail",
-    "ThumbnailAttachmentInputWithDirectUploadID",
-    "ThumbnailAttachmentInputWithID",
-]
+__all__ = ["CourseCreateParams", "Thumbnail"]
 
 
 class CourseCreateParams(TypedDict, total=False):
@@ -42,22 +37,17 @@ class CourseCreateParams(TypedDict, total=False):
     """The thumbnail for the course in png, jpeg, or gif format"""
 
 
-class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class ThumbnailAttachmentInputWithID(TypedDict, total=False):
-    id: Required[str]
+class Thumbnail(TypedDict, total=False):
+    id: Optional[str]
     """The ID of an existing attachment object.
 
     Use this when updating a resource and keeping a subset of the attachments. Don't
     use this unless you know what you're doing.
     """
 
+    direct_upload_id: Optional[str]
+    """This ID should be used the first time you upload an attachment.
 
-Thumbnail: TypeAlias = Union[ThumbnailAttachmentInputWithDirectUploadID, ThumbnailAttachmentInputWithID]
+    It is the ID of the direct upload that was created when uploading the file to S3
+    via the mediaDirectUpload mutation.
+    """
