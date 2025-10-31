@@ -5,7 +5,12 @@ from __future__ import annotations
 from typing import Union, Iterable, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
 
-__all__ = ["MessageUpdateParams", "Attachment", "AttachmentDirectUploadID", "AttachmentID"]
+__all__ = [
+    "MessageUpdateParams",
+    "Attachment",
+    "AttachmentAttachmentInputWithDirectUploadID",
+    "AttachmentAttachmentInputWithID",
+]
 
 
 class MessageUpdateParams(TypedDict, total=False):
@@ -19,7 +24,7 @@ class MessageUpdateParams(TypedDict, total=False):
     """Whether this message is pinned"""
 
 
-class AttachmentDirectUploadID(TypedDict, total=False):
+class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -28,7 +33,7 @@ class AttachmentDirectUploadID(TypedDict, total=False):
     """
 
 
-class AttachmentID(TypedDict, total=False):
+class AttachmentAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -37,4 +42,4 @@ class AttachmentID(TypedDict, total=False):
     """
 
 
-Attachment: TypeAlias = Union[AttachmentDirectUploadID, AttachmentID]
+Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, AttachmentAttachmentInputWithID]

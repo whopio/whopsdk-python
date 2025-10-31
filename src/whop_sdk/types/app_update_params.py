@@ -7,7 +7,7 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .shared.app_statuses import AppStatuses
 
-__all__ = ["AppUpdateParams", "Icon", "IconDirectUploadID", "IconID"]
+__all__ = ["AppUpdateParams", "Icon", "IconAttachmentInputWithDirectUploadID", "IconAttachmentInputWithID"]
 
 
 class AppUpdateParams(TypedDict, total=False):
@@ -42,7 +42,7 @@ class AppUpdateParams(TypedDict, total=False):
     """The status of an experience interface"""
 
 
-class IconDirectUploadID(TypedDict, total=False):
+class IconAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -51,7 +51,7 @@ class IconDirectUploadID(TypedDict, total=False):
     """
 
 
-class IconID(TypedDict, total=False):
+class IconAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -60,4 +60,4 @@ class IconID(TypedDict, total=False):
     """
 
 
-Icon: TypeAlias = Union[IconDirectUploadID, IconID]
+Icon: TypeAlias = Union[IconAttachmentInputWithDirectUploadID, IconAttachmentInputWithID]

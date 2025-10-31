@@ -5,7 +5,14 @@ from __future__ import annotations
 from typing import Union, Iterable, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
 
-__all__ = ["MessageCreateParams", "Attachment", "AttachmentDirectUploadID", "AttachmentID", "Poll", "PollOption"]
+__all__ = [
+    "MessageCreateParams",
+    "Attachment",
+    "AttachmentAttachmentInputWithDirectUploadID",
+    "AttachmentAttachmentInputWithID",
+    "Poll",
+    "PollOption",
+]
 
 
 class MessageCreateParams(TypedDict, total=False):
@@ -22,7 +29,7 @@ class MessageCreateParams(TypedDict, total=False):
     """The poll for this message"""
 
 
-class AttachmentDirectUploadID(TypedDict, total=False):
+class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -31,7 +38,7 @@ class AttachmentDirectUploadID(TypedDict, total=False):
     """
 
 
-class AttachmentID(TypedDict, total=False):
+class AttachmentAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -40,7 +47,7 @@ class AttachmentID(TypedDict, total=False):
     """
 
 
-Attachment: TypeAlias = Union[AttachmentDirectUploadID, AttachmentID]
+Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, AttachmentAttachmentInputWithID]
 
 
 class PollOption(TypedDict, total=False):

@@ -14,24 +14,24 @@ from .shared.collection_method import CollectionMethod
 
 __all__ = [
     "InvoiceCreateParams",
-    "Variant0",
-    "Variant0Plan",
-    "Variant0PlanCustomField",
-    "Variant0Product",
-    "Variant1",
-    "Variant1Plan",
-    "Variant1PlanCustomField",
-    "Variant1Product",
-    "Variant2",
-    "Variant2Plan",
-    "Variant2PlanCustomField",
-    "Variant3",
-    "Variant3Plan",
-    "Variant3PlanCustomField",
+    "CreateInvoiceInputWithProductAndMemberID",
+    "CreateInvoiceInputWithProductAndMemberIDPlan",
+    "CreateInvoiceInputWithProductAndMemberIDPlanCustomField",
+    "CreateInvoiceInputWithProductAndMemberIDProduct",
+    "CreateInvoiceInputWithProductAndEmailAddress",
+    "CreateInvoiceInputWithProductAndEmailAddressPlan",
+    "CreateInvoiceInputWithProductAndEmailAddressPlanCustomField",
+    "CreateInvoiceInputWithProductAndEmailAddressProduct",
+    "CreateInvoiceInputWithProductIDAndMemberID",
+    "CreateInvoiceInputWithProductIDAndMemberIDPlan",
+    "CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField",
+    "CreateInvoiceInputWithProductIDAndEmailAddress",
+    "CreateInvoiceInputWithProductIDAndEmailAddressPlan",
+    "CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField",
 ]
 
 
-class Variant0(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """The method of collection for this invoice.
 
@@ -51,10 +51,10 @@ class Variant0(TypedDict, total=False):
     not have a member ID, you must provide an email_address and customer_name.
     """
 
-    plan: Required[Variant0Plan]
+    plan: Required[CreateInvoiceInputWithProductAndMemberIDPlan]
     """The properties of the plan to create for this invoice."""
 
-    product: Required[Variant0Product]
+    product: Required[CreateInvoiceInputWithProductAndMemberIDProduct]
     """The properties of the product to create for this invoice.
 
     Include this if you want to create an invoice for a new product.
@@ -77,7 +77,7 @@ class Variant0(TypedDict, total=False):
     """
 
 
-class Variant0PlanCustomField(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndMemberIDPlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
@@ -97,11 +97,11 @@ class Variant0PlanCustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class Variant0Plan(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
-    custom_fields: Optional[Iterable[Variant0PlanCustomField]]
+    custom_fields: Optional[Iterable[CreateInvoiceInputWithProductAndMemberIDPlanCustomField]]
     """An array of custom field objects."""
 
     description: Optional[str]
@@ -133,14 +133,20 @@ class Variant0Plan(TypedDict, total=False):
     $10.43
     """
 
+    stock: Optional[int]
+    """The number of units available for purchase."""
+
     trial_period_days: Optional[int]
     """The number of free trial days added before a renewal plan."""
+
+    unlimited_stock: Optional[bool]
+    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
 
 
-class Variant0Product(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndMemberIDProduct(TypedDict, total=False):
     title: Required[str]
     """The title of the product."""
 
@@ -148,7 +154,7 @@ class Variant0Product(TypedDict, total=False):
     """The ID of the product tax code to apply to this product."""
 
 
-class Variant1(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """The method of collection for this invoice.
 
@@ -168,10 +174,10 @@ class Variant1(TypedDict, total=False):
     member of your company yet.
     """
 
-    plan: Required[Variant1Plan]
+    plan: Required[CreateInvoiceInputWithProductAndEmailAddressPlan]
     """The properties of the plan to create for this invoice."""
 
-    product: Required[Variant1Product]
+    product: Required[CreateInvoiceInputWithProductAndEmailAddressProduct]
     """The properties of the product to create for this invoice.
 
     Include this if you want to create an invoice for a new product.
@@ -194,7 +200,7 @@ class Variant1(TypedDict, total=False):
     """
 
 
-class Variant1PlanCustomField(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndEmailAddressPlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
@@ -214,11 +220,11 @@ class Variant1PlanCustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class Variant1Plan(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
-    custom_fields: Optional[Iterable[Variant1PlanCustomField]]
+    custom_fields: Optional[Iterable[CreateInvoiceInputWithProductAndEmailAddressPlanCustomField]]
     """An array of custom field objects."""
 
     description: Optional[str]
@@ -250,14 +256,20 @@ class Variant1Plan(TypedDict, total=False):
     $10.43
     """
 
+    stock: Optional[int]
+    """The number of units available for purchase."""
+
     trial_period_days: Optional[int]
     """The number of free trial days added before a renewal plan."""
+
+    unlimited_stock: Optional[bool]
+    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
 
 
-class Variant1Product(TypedDict, total=False):
+class CreateInvoiceInputWithProductAndEmailAddressProduct(TypedDict, total=False):
     title: Required[str]
     """The title of the product."""
 
@@ -265,7 +277,7 @@ class Variant1Product(TypedDict, total=False):
     """The ID of the product tax code to apply to this product."""
 
 
-class Variant2(TypedDict, total=False):
+class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """The method of collection for this invoice.
 
@@ -285,7 +297,7 @@ class Variant2(TypedDict, total=False):
     not have a member ID, you must provide an email_address and customer_name.
     """
 
-    plan: Required[Variant2Plan]
+    plan: Required[CreateInvoiceInputWithProductIDAndMemberIDPlan]
     """The properties of the plan to create for this invoice."""
 
     product_id: Required[str]
@@ -311,7 +323,7 @@ class Variant2(TypedDict, total=False):
     """
 
 
-class Variant2PlanCustomField(TypedDict, total=False):
+class CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
@@ -331,11 +343,11 @@ class Variant2PlanCustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class Variant2Plan(TypedDict, total=False):
+class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
-    custom_fields: Optional[Iterable[Variant2PlanCustomField]]
+    custom_fields: Optional[Iterable[CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField]]
     """An array of custom field objects."""
 
     description: Optional[str]
@@ -367,14 +379,20 @@ class Variant2Plan(TypedDict, total=False):
     $10.43
     """
 
+    stock: Optional[int]
+    """The number of units available for purchase."""
+
     trial_period_days: Optional[int]
     """The number of free trial days added before a renewal plan."""
+
+    unlimited_stock: Optional[bool]
+    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
 
 
-class Variant3(TypedDict, total=False):
+class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """The method of collection for this invoice.
 
@@ -394,7 +412,7 @@ class Variant3(TypedDict, total=False):
     member of your company yet.
     """
 
-    plan: Required[Variant3Plan]
+    plan: Required[CreateInvoiceInputWithProductIDAndEmailAddressPlan]
     """The properties of the plan to create for this invoice."""
 
     product_id: Required[str]
@@ -420,7 +438,7 @@ class Variant3(TypedDict, total=False):
     """
 
 
-class Variant3PlanCustomField(TypedDict, total=False):
+class CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
@@ -440,11 +458,11 @@ class Variant3PlanCustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class Variant3Plan(TypedDict, total=False):
+class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False):
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
-    custom_fields: Optional[Iterable[Variant3PlanCustomField]]
+    custom_fields: Optional[Iterable[CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField]]
     """An array of custom field objects."""
 
     description: Optional[str]
@@ -476,11 +494,22 @@ class Variant3Plan(TypedDict, total=False):
     $10.43
     """
 
+    stock: Optional[int]
+    """The number of units available for purchase."""
+
     trial_period_days: Optional[int]
     """The number of free trial days added before a renewal plan."""
+
+    unlimited_stock: Optional[bool]
+    """Limits/doesn't limit the number of units available for purchase."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
 
 
-InvoiceCreateParams: TypeAlias = Union[Variant0, Variant1, Variant2, Variant3]
+InvoiceCreateParams: TypeAlias = Union[
+    CreateInvoiceInputWithProductAndMemberID,
+    CreateInvoiceInputWithProductAndEmailAddress,
+    CreateInvoiceInputWithProductIDAndMemberID,
+    CreateInvoiceInputWithProductIDAndEmailAddress,
+]

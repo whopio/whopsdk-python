@@ -5,7 +5,12 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
 
-__all__ = ["CourseCreateParams", "Thumbnail", "ThumbnailDirectUploadID", "ThumbnailID"]
+__all__ = [
+    "CourseCreateParams",
+    "Thumbnail",
+    "ThumbnailAttachmentInputWithDirectUploadID",
+    "ThumbnailAttachmentInputWithID",
+]
 
 
 class CourseCreateParams(TypedDict, total=False):
@@ -37,7 +42,7 @@ class CourseCreateParams(TypedDict, total=False):
     """The thumbnail for the course in png, jpeg, or gif format"""
 
 
-class ThumbnailDirectUploadID(TypedDict, total=False):
+class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -46,7 +51,7 @@ class ThumbnailDirectUploadID(TypedDict, total=False):
     """
 
 
-class ThumbnailID(TypedDict, total=False):
+class ThumbnailAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -55,4 +60,4 @@ class ThumbnailID(TypedDict, total=False):
     """
 
 
-Thumbnail: TypeAlias = Union[ThumbnailDirectUploadID, ThumbnailID]
+Thumbnail: TypeAlias = Union[ThumbnailAttachmentInputWithDirectUploadID, ThumbnailAttachmentInputWithID]
