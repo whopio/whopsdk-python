@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Dict, Optional
+
 import httpx
 
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import company_list_params, company_create_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -13,8 +17,11 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.company import Company
+from ..types.shared.direction import Direction
+from ..types.company_list_response import CompanyListResponse
 
 __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
@@ -38,6 +45,62 @@ class CompaniesResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return CompaniesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        email: str,
+        parent_company_id: str,
+        title: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Company:
+        """
+        Create a new sub company for your platform
+
+        Required permissions:
+
+        - `company:create_child`
+        - `company:basic:read`
+
+        Args:
+          email: The email of the user who the company will belong to.
+
+          parent_company_id: The company ID of the platform creating this company.
+
+          title: The name of the company being created.
+
+          metadata: Additional metadata for the account
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/companies",
+            body=maybe_transform(
+                {
+                    "email": email,
+                    "parent_company_id": parent_company_id,
+                    "title": title,
+                    "metadata": metadata,
+                },
+                company_create_params.CompanyCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Company,
+        )
 
     def retrieve(
         self,
@@ -76,6 +139,73 @@ class CompaniesResource(SyncAPIResource):
             cast_to=Company,
         )
 
+    def list(
+        self,
+        *,
+        parent_company_id: str,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[CompanyListResponse]:
+        """
+        Lists companies the current user has access to
+
+        Required permissions:
+
+        - `company:basic:read`
+
+        Args:
+          parent_company_id: The ID of the parent company to list sub companies for
+
+          after: Returns the elements in the list that come after the specified cursor.
+
+          before: Returns the elements in the list that come before the specified cursor.
+
+          direction: The direction of the sort.
+
+          first: Returns the first _n_ elements from the list.
+
+          last: Returns the last _n_ elements from the list.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/companies",
+            page=SyncCursorPage[CompanyListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "parent_company_id": parent_company_id,
+                        "after": after,
+                        "before": before,
+                        "direction": direction,
+                        "first": first,
+                        "last": last,
+                    },
+                    company_list_params.CompanyListParams,
+                ),
+            ),
+            model=CompanyListResponse,
+        )
+
 
 class AsyncCompaniesResource(AsyncAPIResource):
     @cached_property
@@ -96,6 +226,62 @@ class AsyncCompaniesResource(AsyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return AsyncCompaniesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        email: str,
+        parent_company_id: str,
+        title: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Company:
+        """
+        Create a new sub company for your platform
+
+        Required permissions:
+
+        - `company:create_child`
+        - `company:basic:read`
+
+        Args:
+          email: The email of the user who the company will belong to.
+
+          parent_company_id: The company ID of the platform creating this company.
+
+          title: The name of the company being created.
+
+          metadata: Additional metadata for the account
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/companies",
+            body=await async_maybe_transform(
+                {
+                    "email": email,
+                    "parent_company_id": parent_company_id,
+                    "title": title,
+                    "metadata": metadata,
+                },
+                company_create_params.CompanyCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Company,
+        )
 
     async def retrieve(
         self,
@@ -134,13 +320,86 @@ class AsyncCompaniesResource(AsyncAPIResource):
             cast_to=Company,
         )
 
+    def list(
+        self,
+        *,
+        parent_company_id: str,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[CompanyListResponse, AsyncCursorPage[CompanyListResponse]]:
+        """
+        Lists companies the current user has access to
+
+        Required permissions:
+
+        - `company:basic:read`
+
+        Args:
+          parent_company_id: The ID of the parent company to list sub companies for
+
+          after: Returns the elements in the list that come after the specified cursor.
+
+          before: Returns the elements in the list that come before the specified cursor.
+
+          direction: The direction of the sort.
+
+          first: Returns the first _n_ elements from the list.
+
+          last: Returns the last _n_ elements from the list.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/companies",
+            page=AsyncCursorPage[CompanyListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "parent_company_id": parent_company_id,
+                        "after": after,
+                        "before": before,
+                        "direction": direction,
+                        "first": first,
+                        "last": last,
+                    },
+                    company_list_params.CompanyListParams,
+                ),
+            ),
+            model=CompanyListResponse,
+        )
+
 
 class CompaniesResourceWithRawResponse:
     def __init__(self, companies: CompaniesResource) -> None:
         self._companies = companies
 
+        self.create = to_raw_response_wrapper(
+            companies.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             companies.retrieve,
+        )
+        self.list = to_raw_response_wrapper(
+            companies.list,
         )
 
 
@@ -148,8 +407,14 @@ class AsyncCompaniesResourceWithRawResponse:
     def __init__(self, companies: AsyncCompaniesResource) -> None:
         self._companies = companies
 
+        self.create = async_to_raw_response_wrapper(
+            companies.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             companies.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            companies.list,
         )
 
 
@@ -157,8 +422,14 @@ class CompaniesResourceWithStreamingResponse:
     def __init__(self, companies: CompaniesResource) -> None:
         self._companies = companies
 
+        self.create = to_streamed_response_wrapper(
+            companies.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             companies.retrieve,
+        )
+        self.list = to_streamed_response_wrapper(
+            companies.list,
         )
 
 
@@ -166,6 +437,12 @@ class AsyncCompaniesResourceWithStreamingResponse:
     def __init__(self, companies: AsyncCompaniesResource) -> None:
         self._companies = companies
 
+        self.create = async_to_streamed_response_wrapper(
+            companies.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             companies.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            companies.list,
         )
