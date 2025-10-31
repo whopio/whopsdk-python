@@ -165,10 +165,7 @@ class TestProducts:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         product = client.products.update(
             id="prod_xxxxxxxxxxxxx",
-            banner_image={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            banner_image={"direct_upload_id": "direct_upload_id"},
             business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
@@ -469,10 +466,7 @@ class TestAsyncProducts:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
             id="prod_xxxxxxxxxxxxx",
-            banner_image={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            banner_image={"direct_upload_id": "direct_upload_id"},
             business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",

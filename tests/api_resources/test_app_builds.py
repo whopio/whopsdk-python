@@ -23,7 +23,7 @@ class TestAppBuilds:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         app_build = client.app_builds.create(
-            attachment={},
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
         )
@@ -33,10 +33,7 @@ class TestAppBuilds:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.create(
-            attachment={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
             app_id="app_xxxxxxxxxxxxxx",
@@ -48,7 +45,7 @@ class TestAppBuilds:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.create(
-            attachment={},
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
         )
@@ -62,7 +59,7 @@ class TestAppBuilds:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.create(
-            attachment={},
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
         ) as response:
@@ -216,7 +213,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
-            attachment={},
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
         )
@@ -226,10 +223,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
-            attachment={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
             app_id="app_xxxxxxxxxxxxxx",
@@ -241,7 +235,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.create(
-            attachment={},
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
         )
@@ -255,7 +249,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.create(
-            attachment={},
+            attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
         ) as response:
