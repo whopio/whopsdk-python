@@ -162,6 +162,7 @@ class CourseLessonsResource(SyncAPIResource):
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
+        max_attempts: Optional[int] | Omit = omit,
         mux_asset_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[LessonVisibilities] | Omit = omit,
@@ -196,6 +197,8 @@ class CourseLessonsResource(SyncAPIResource):
 
           main_pdf: The main PDF file for this lesson
 
+          max_attempts: Maximum number of attempts allowed for assessments
+
           mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
 
           title: The title of the lesson
@@ -224,6 +227,7 @@ class CourseLessonsResource(SyncAPIResource):
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
                     "lesson_type": lesson_type,
                     "main_pdf": main_pdf,
+                    "max_attempts": max_attempts,
                     "mux_asset_id": mux_asset_id,
                     "title": title,
                     "visibility": visibility,
@@ -469,6 +473,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
+        max_attempts: Optional[int] | Omit = omit,
         mux_asset_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[LessonVisibilities] | Omit = omit,
@@ -503,6 +508,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
 
           main_pdf: The main PDF file for this lesson
 
+          max_attempts: Maximum number of attempts allowed for assessments
+
           mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
 
           title: The title of the lesson
@@ -531,6 +538,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
                     "lesson_type": lesson_type,
                     "main_pdf": main_pdf,
+                    "max_attempts": max_attempts,
                     "mux_asset_id": mux_asset_id,
                     "title": title,
                     "visibility": visibility,
