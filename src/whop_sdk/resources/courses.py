@@ -56,7 +56,7 @@ class CoursesResource(SyncAPIResource):
         cover_image: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
-        thumbnail: course_create_params.Thumbnail | Omit = omit,
+        thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -164,7 +164,7 @@ class CoursesResource(SyncAPIResource):
         language: Optional[Languages] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
-        thumbnail: course_update_params.Thumbnail | Omit = omit,
+        thumbnail: Optional[course_update_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -367,7 +367,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         cover_image: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
-        thumbnail: course_create_params.Thumbnail | Omit = omit,
+        thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -475,7 +475,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         language: Optional[Languages] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
-        thumbnail: course_update_params.Thumbnail | Omit = omit,
+        thumbnail: Optional[course_update_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

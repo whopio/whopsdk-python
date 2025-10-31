@@ -15,7 +15,7 @@ __all__ = ["ProductUpdateParams", "BannerImage", "StorePageConfig"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
-    banner_image: BannerImage
+    banner_image: Optional[BannerImage]
     """A banner image for the product in png, jpeg format"""
 
     business_type: Optional[BusinessTypes]
@@ -77,8 +77,20 @@ class ProductUpdateParams(TypedDict, total=False):
     """Visibility of a resource"""
 
 
-class BannerImage(total=False):
-    pass
+class BannerImage(TypedDict, total=False):
+    id: Optional[str]
+    """The ID of an existing attachment object.
+
+    Use this when updating a resource and keeping a subset of the attachments. Don't
+    use this unless you know what you're doing.
+    """
+
+    direct_upload_id: Optional[str]
+    """This ID should be used the first time you upload an attachment.
+
+    It is the ID of the direct upload that was created when uploading the file to S3
+    via the mediaDirectUpload mutation.
+    """
 
 
 class StorePageConfig(TypedDict, total=False):
