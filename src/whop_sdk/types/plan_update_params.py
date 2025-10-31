@@ -29,7 +29,7 @@ class PlanUpdateParams(TypedDict, total=False):
     expiration_days: Optional[int]
     """The interval at which the plan charges (expiration plans)."""
 
-    image: Image
+    image: Optional[Image]
     """An image for the plan. This will be visible on the product page to customers."""
 
     initial_price: Optional[float]
@@ -104,8 +104,20 @@ class CustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class Image(total=False):
-    pass
+class Image(TypedDict, total=False):
+    id: Optional[str]
+    """The ID of an existing attachment object.
+
+    Use this when updating a resource and keeping a subset of the attachments. Don't
+    use this unless you know what you're doing.
+    """
+
+    direct_upload_id: Optional[str]
+    """This ID should be used the first time you upload an attachment.
+
+    It is the ID of the direct upload that was created when uploading the file to S3
+    via the mediaDirectUpload mutation.
+    """
 
 
 class PaymentMethodConfiguration(TypedDict, total=False):
