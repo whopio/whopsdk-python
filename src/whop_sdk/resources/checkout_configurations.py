@@ -51,7 +51,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
     def create(
         self,
         *,
-        plan: checkout_configuration_create_params.Variant0Plan,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
@@ -139,7 +139,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
     def create(
         self,
         *,
-        plan: checkout_configuration_create_params.Variant0Plan | Omit = omit,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
@@ -302,7 +302,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        plan: checkout_configuration_create_params.Variant0Plan,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
@@ -390,7 +390,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        plan: checkout_configuration_create_params.Variant0Plan | Omit = omit,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,

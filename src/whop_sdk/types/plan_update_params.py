@@ -10,7 +10,14 @@ from .shared.tax_type import TaxType
 from .shared.visibility import Visibility
 from .payment_method_types import PaymentMethodTypes
 
-__all__ = ["PlanUpdateParams", "CustomField", "Image", "ImageDirectUploadID", "ImageID", "PaymentMethodConfiguration"]
+__all__ = [
+    "PlanUpdateParams",
+    "CustomField",
+    "Image",
+    "ImageAttachmentInputWithDirectUploadID",
+    "ImageAttachmentInputWithID",
+    "PaymentMethodConfiguration",
+]
 
 
 class PlanUpdateParams(TypedDict, total=False):
@@ -104,7 +111,7 @@ class CustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class ImageDirectUploadID(TypedDict, total=False):
+class ImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -113,7 +120,7 @@ class ImageDirectUploadID(TypedDict, total=False):
     """
 
 
-class ImageID(TypedDict, total=False):
+class ImageAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -122,7 +129,7 @@ class ImageID(TypedDict, total=False):
     """
 
 
-Image: TypeAlias = Union[ImageDirectUploadID, ImageID]
+Image: TypeAlias = Union[ImageAttachmentInputWithDirectUploadID, ImageAttachmentInputWithID]
 
 
 class PaymentMethodConfiguration(TypedDict, total=False):

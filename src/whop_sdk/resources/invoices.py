@@ -59,8 +59,8 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         member_id: str,
-        plan: invoice_create_params.Variant0Plan,
-        product: invoice_create_params.Variant0Product,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -123,8 +123,8 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         email_address: str,
-        plan: invoice_create_params.Variant1Plan,
-        product: invoice_create_params.Variant1Product,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -186,7 +186,7 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         member_id: str,
-        plan: invoice_create_params.Variant2Plan,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
@@ -250,7 +250,7 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         email_address: str,
-        plan: invoice_create_params.Variant3Plan,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
@@ -318,11 +318,13 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         member_id: str | Omit = omit,
-        plan: invoice_create_params.Variant0Plan
-        | invoice_create_params.Variant1Plan
-        | invoice_create_params.Variant2Plan
-        | invoice_create_params.Variant3Plan,
-        product: invoice_create_params.Variant0Product | invoice_create_params.Variant1Product | Omit = omit,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -539,8 +541,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         member_id: str,
-        plan: invoice_create_params.Variant0Plan,
-        product: invoice_create_params.Variant0Product,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -603,8 +605,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         email_address: str,
-        plan: invoice_create_params.Variant1Plan,
-        product: invoice_create_params.Variant1Product,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -666,7 +668,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         member_id: str,
-        plan: invoice_create_params.Variant2Plan,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
@@ -730,7 +732,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         email_address: str,
-        plan: invoice_create_params.Variant3Plan,
+        plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
@@ -798,11 +800,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         due_date: Union[str, datetime],
         member_id: str | Omit = omit,
-        plan: invoice_create_params.Variant0Plan
-        | invoice_create_params.Variant1Plan
-        | invoice_create_params.Variant2Plan
-        | invoice_create_params.Variant3Plan,
-        product: invoice_create_params.Variant0Product | invoice_create_params.Variant1Product | Omit = omit,
+        plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan
+        | invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
+        product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
+        | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,

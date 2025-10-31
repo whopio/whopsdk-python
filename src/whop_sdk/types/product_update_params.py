@@ -11,7 +11,13 @@ from .shared.business_types import BusinessTypes
 from .shared.industry_types import IndustryTypes
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["ProductUpdateParams", "BannerImage", "BannerImageDirectUploadID", "BannerImageID", "StorePageConfig"]
+__all__ = [
+    "ProductUpdateParams",
+    "BannerImage",
+    "BannerImageAttachmentInputWithDirectUploadID",
+    "BannerImageAttachmentInputWithID",
+    "StorePageConfig",
+]
 
 
 class ProductUpdateParams(TypedDict, total=False):
@@ -77,7 +83,7 @@ class ProductUpdateParams(TypedDict, total=False):
     """Visibility of a resource"""
 
 
-class BannerImageDirectUploadID(TypedDict, total=False):
+class BannerImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -86,7 +92,7 @@ class BannerImageDirectUploadID(TypedDict, total=False):
     """
 
 
-class BannerImageID(TypedDict, total=False):
+class BannerImageAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -95,7 +101,7 @@ class BannerImageID(TypedDict, total=False):
     """
 
 
-BannerImage: TypeAlias = Union[BannerImageDirectUploadID, BannerImageID]
+BannerImage: TypeAlias = Union[BannerImageAttachmentInputWithDirectUploadID, BannerImageAttachmentInputWithID]
 
 
 class StorePageConfig(TypedDict, total=False):

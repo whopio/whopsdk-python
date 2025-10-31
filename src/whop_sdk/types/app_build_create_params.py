@@ -8,7 +8,12 @@ from typing_extensions import Required, TypeAlias, TypedDict
 from .shared.app_view_type import AppViewType
 from .shared.app_build_platforms import AppBuildPlatforms
 
-__all__ = ["AppBuildCreateParams", "Attachment", "AttachmentDirectUploadID", "AttachmentID"]
+__all__ = [
+    "AppBuildCreateParams",
+    "Attachment",
+    "AttachmentAttachmentInputWithDirectUploadID",
+    "AttachmentAttachmentInputWithID",
+]
 
 
 class AppBuildCreateParams(TypedDict, total=False):
@@ -43,7 +48,7 @@ class AppBuildCreateParams(TypedDict, total=False):
     """
 
 
-class AttachmentDirectUploadID(TypedDict, total=False):
+class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -52,7 +57,7 @@ class AttachmentDirectUploadID(TypedDict, total=False):
     """
 
 
-class AttachmentID(TypedDict, total=False):
+class AttachmentAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -61,4 +66,4 @@ class AttachmentID(TypedDict, total=False):
     """
 
 
-Attachment: TypeAlias = Union[AttachmentDirectUploadID, AttachmentID]
+Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, AttachmentAttachmentInputWithID]

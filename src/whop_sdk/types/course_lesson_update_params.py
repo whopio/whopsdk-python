@@ -14,15 +14,15 @@ __all__ = [
     "AssessmentCompletionRequirement",
     "AssessmentQuestion",
     "AssessmentQuestionImage",
-    "AssessmentQuestionImageDirectUploadID",
-    "AssessmentQuestionImageID",
+    "AssessmentQuestionImageAttachmentInputWithDirectUploadID",
+    "AssessmentQuestionImageAttachmentInputWithID",
     "AssessmentQuestionOption",
     "Attachment",
-    "AttachmentDirectUploadID",
-    "AttachmentID",
+    "AttachmentAttachmentInputWithDirectUploadID",
+    "AttachmentAttachmentInputWithID",
     "MainPdf",
-    "MainPdfDirectUploadID",
-    "MainPdfID",
+    "MainPdfAttachmentInputWithDirectUploadID",
+    "MainPdfAttachmentInputWithID",
 ]
 
 
@@ -84,7 +84,7 @@ class AssessmentCompletionRequirement(TypedDict, total=False):
     """
 
 
-class AssessmentQuestionImageDirectUploadID(TypedDict, total=False):
+class AssessmentQuestionImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -93,7 +93,7 @@ class AssessmentQuestionImageDirectUploadID(TypedDict, total=False):
     """
 
 
-class AssessmentQuestionImageID(TypedDict, total=False):
+class AssessmentQuestionImageAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -102,7 +102,9 @@ class AssessmentQuestionImageID(TypedDict, total=False):
     """
 
 
-AssessmentQuestionImage: TypeAlias = Union[AssessmentQuestionImageDirectUploadID, AssessmentQuestionImageID]
+AssessmentQuestionImage: TypeAlias = Union[
+    AssessmentQuestionImageAttachmentInputWithDirectUploadID, AssessmentQuestionImageAttachmentInputWithID
+]
 
 
 class AssessmentQuestionOption(TypedDict, total=False):
@@ -144,7 +146,7 @@ class AssessmentQuestion(TypedDict, total=False):
     """The answer options for multiple choice/select questions"""
 
 
-class AttachmentDirectUploadID(TypedDict, total=False):
+class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -153,7 +155,7 @@ class AttachmentDirectUploadID(TypedDict, total=False):
     """
 
 
-class AttachmentID(TypedDict, total=False):
+class AttachmentAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -162,10 +164,10 @@ class AttachmentID(TypedDict, total=False):
     """
 
 
-Attachment: TypeAlias = Union[AttachmentDirectUploadID, AttachmentID]
+Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, AttachmentAttachmentInputWithID]
 
 
-class MainPdfDirectUploadID(TypedDict, total=False):
+class MainPdfAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -174,7 +176,7 @@ class MainPdfDirectUploadID(TypedDict, total=False):
     """
 
 
-class MainPdfID(TypedDict, total=False):
+class MainPdfAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -183,4 +185,4 @@ class MainPdfID(TypedDict, total=False):
     """
 
 
-MainPdf: TypeAlias = Union[MainPdfDirectUploadID, MainPdfID]
+MainPdf: TypeAlias = Union[MainPdfAttachmentInputWithDirectUploadID, MainPdfAttachmentInputWithID]

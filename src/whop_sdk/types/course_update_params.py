@@ -7,7 +7,14 @@ from typing_extensions import Required, TypeAlias, TypedDict
 
 from .languages import Languages
 
-__all__ = ["CourseUpdateParams", "Chapter", "ChapterLesson", "Thumbnail", "ThumbnailDirectUploadID", "ThumbnailID"]
+__all__ = [
+    "CourseUpdateParams",
+    "Chapter",
+    "ChapterLesson",
+    "Thumbnail",
+    "ThumbnailAttachmentInputWithDirectUploadID",
+    "ThumbnailAttachmentInputWithID",
+]
 
 
 class CourseUpdateParams(TypedDict, total=False):
@@ -73,7 +80,7 @@ class Chapter(TypedDict, total=False):
     """The lessons to update within this chapter"""
 
 
-class ThumbnailDirectUploadID(TypedDict, total=False):
+class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -82,7 +89,7 @@ class ThumbnailDirectUploadID(TypedDict, total=False):
     """
 
 
-class ThumbnailID(TypedDict, total=False):
+class ThumbnailAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -91,4 +98,4 @@ class ThumbnailID(TypedDict, total=False):
     """
 
 
-Thumbnail: TypeAlias = Union[ThumbnailDirectUploadID, ThumbnailID]
+Thumbnail: TypeAlias = Union[ThumbnailAttachmentInputWithDirectUploadID, ThumbnailAttachmentInputWithID]

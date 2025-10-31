@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-__all__ = ["ExperienceUpdateParams", "Logo", "LogoDirectUploadID", "LogoID"]
+__all__ = ["ExperienceUpdateParams", "Logo", "LogoAttachmentInputWithDirectUploadID", "LogoAttachmentInputWithID"]
 
 
 class ExperienceUpdateParams(TypedDict, total=False):
@@ -25,7 +25,7 @@ class ExperienceUpdateParams(TypedDict, total=False):
     """The ID of the section to update."""
 
 
-class LogoDirectUploadID(TypedDict, total=False):
+class LogoAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -34,7 +34,7 @@ class LogoDirectUploadID(TypedDict, total=False):
     """
 
 
-class LogoID(TypedDict, total=False):
+class LogoAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -43,4 +43,4 @@ class LogoID(TypedDict, total=False):
     """
 
 
-Logo: TypeAlias = Union[LogoDirectUploadID, LogoID]
+Logo: TypeAlias = Union[LogoAttachmentInputWithDirectUploadID, LogoAttachmentInputWithID]
