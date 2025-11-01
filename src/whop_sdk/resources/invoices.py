@@ -24,7 +24,6 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.invoice import Invoice
 from ..types.shared.direction import Direction
 from ..types.invoice_void_response import InvoiceVoidResponse
-from ..types.invoice_create_response import InvoiceCreateResponse
 from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
 
@@ -70,7 +69,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -134,7 +133,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -197,7 +196,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -261,7 +260,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -336,7 +335,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         return self._post(
             "/invoices",
             body=maybe_transform(
@@ -358,7 +357,7 @@ class InvoicesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InvoiceCreateResponse,
+            cast_to=Invoice,
         )
 
     def retrieve(
@@ -552,7 +551,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -616,7 +615,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -679,7 +678,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -743,7 +742,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         """
         Creates an invoice
 
@@ -818,7 +817,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceCreateResponse:
+    ) -> Invoice:
         return await self._post(
             "/invoices",
             body=await async_maybe_transform(
@@ -840,7 +839,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InvoiceCreateResponse,
+            cast_to=Invoice,
         )
 
     async def retrieve(
