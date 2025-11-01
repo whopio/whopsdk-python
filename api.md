@@ -85,12 +85,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import InvoiceCreateResponse, InvoiceVoidResponse
+from whop_sdk.types import InvoiceVoidResponse
 ```
 
 Methods:
 
-- <code title="post /invoices">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">create</a>(\*\*<a href="src/whop_sdk/types/invoice_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/invoice_create_response.py">InvoiceCreateResponse</a></code>
+- <code title="post /invoices">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">create</a>(\*\*<a href="src/whop_sdk/types/invoice_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/invoice.py">Invoice</a></code>
 - <code title="get /invoices/{id}">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/invoice.py">Invoice</a></code>
 - <code title="get /invoices">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">list</a>(\*\*<a href="src/whop_sdk/types/invoice_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/invoice_list_item.py">SyncCursorPage[InvoiceListItem]</a></code>
 - <code title="post /invoices/{id}/void">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">void</a>(id) -> <a href="./src/whop_sdk/types/invoice_void_response.py">InvoiceVoidResponse</a></code>

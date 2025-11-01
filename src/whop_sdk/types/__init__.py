@@ -135,7 +135,6 @@ from .transfer_list_response import TransferListResponse as TransferListResponse
 from .user_retrieve_response import UserRetrieveResponse as UserRetrieveResponse
 from .app_build_create_params import AppBuildCreateParams as AppBuildCreateParams
 from .app_build_list_response import AppBuildListResponse as AppBuildListResponse
-from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
