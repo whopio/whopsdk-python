@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 from .shared.currency import Currency
@@ -31,6 +31,9 @@ class TransferCreateParams(TypedDict, total=False):
 
     idempotence_key: Optional[str]
     """A unique key to ensure idempotence. Use a UUID or similar."""
+
+    metadata: Optional[Dict[str, object]]
+    """A hash of metadata to attach to the transfer."""
 
     notes: Optional[str]
     """Notes for the transfer. Maximum of 50 characters."""

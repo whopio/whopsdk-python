@@ -39,6 +39,7 @@ class TestTransfers:
             destination_id="destination_id",
             origin_id="origin_id",
             idempotence_key="idempotence_key",
+            metadata={"foo": "bar"},
             notes="notes",
         )
         assert_matches_type(Transfer, transfer, path=["response"])
@@ -186,6 +187,7 @@ class TestAsyncTransfers:
             destination_id="destination_id",
             origin_id="origin_id",
             idempotence_key="idempotence_key",
+            metadata={"foo": "bar"},
             notes="notes",
         )
         assert_matches_type(Transfer, transfer, path=["response"])

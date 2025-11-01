@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 from datetime import datetime
 
 from .currency import Currency
@@ -161,6 +161,12 @@ class Payment(BaseModel):
 
     membership: Optional[Membership] = None
     """The membership attached to this payment."""
+
+    metadata: Optional[Dict[str, object]] = None
+    """The custom metadata stored on this payment.
+
+    This will be copied the checkout configuration for which this payment was made
+    """
 
     paid_at: Optional[datetime] = None
     """The datetime the payment was paid"""

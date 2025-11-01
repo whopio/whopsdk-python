@@ -127,10 +127,7 @@ class TestApps:
             description="description",
             discover_path="discover_path",
             experience_path="experience_path",
-            icon={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            icon={"direct_upload_id": "direct_upload_id"},
             name="name",
             required_scopes=["read_user"],
             status="live",
@@ -330,10 +327,7 @@ class TestAsyncApps:
             description="description",
             discover_path="discover_path",
             experience_path="experience_path",
-            icon={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            icon={"direct_upload_id": "direct_upload_id"},
             name="name",
             required_scopes=["read_user"],
             status="live",

@@ -36,12 +36,7 @@ class TestMessages:
         message = client.messages.create(
             channel_id="channel_id",
             content="content",
-            attachments=[
-                {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
-                }
-            ],
+            attachments=[{"direct_upload_id": "direct_upload_id"}],
             poll={
                 "options": [
                     {
@@ -136,12 +131,7 @@ class TestMessages:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         message = client.messages.update(
             id="id",
-            attachments=[
-                {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
-                }
-            ],
+            attachments=[{"direct_upload_id": "direct_upload_id"}],
             content="content",
             is_pinned=True,
         )
@@ -249,12 +239,7 @@ class TestAsyncMessages:
         message = await async_client.messages.create(
             channel_id="channel_id",
             content="content",
-            attachments=[
-                {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
-                }
-            ],
+            attachments=[{"direct_upload_id": "direct_upload_id"}],
             poll={
                 "options": [
                     {
@@ -349,12 +334,7 @@ class TestAsyncMessages:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         message = await async_client.messages.update(
             id="id",
-            attachments=[
-                {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
-                }
-            ],
+            attachments=[{"direct_upload_id": "direct_upload_id"}],
             content="content",
             is_pinned=True,
         )

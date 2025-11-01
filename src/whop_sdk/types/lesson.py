@@ -40,8 +40,11 @@ class AssessmentQuestionOption(BaseModel):
     id: str
     """The ID of the assessment question option"""
 
-    is_correct: bool
-    """Whether this option is a correct answer"""
+    is_correct: Optional[bool] = None
+    """Whether this option is a correct answer.
+
+    Only visible to admins (users with courses:update permission)
+    """
 
     option_text: str
     """The text of the answer option"""
@@ -54,8 +57,12 @@ class AssessmentQuestion(BaseModel):
     id: str
     """The ID of the assessment question"""
 
-    correct_answer: str
-    """The correct answer for the question. Used for short answer questions"""
+    correct_answer: Optional[str] = None
+    """The correct answer for the question.
+
+    Used for short answer questions. Only visible to admins (users with
+    courses:update permission)
+    """
 
     created_at: datetime
     """When the question was created"""

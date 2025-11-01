@@ -61,8 +61,8 @@ class CourseLessonInteractionsResource(SyncAPIResource):
 
         Required permissions:
 
-        - `course_lesson_interaction:read`
         - `courses:read`
+        - `course_analytics:read`
 
         Args:
           extra_headers: Send extra headers
@@ -106,8 +106,8 @@ class CourseLessonInteractionsResource(SyncAPIResource):
 
         Required permissions:
 
-        - `course_lesson_interaction:read`
         - `courses:read`
+        - `course_analytics:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -196,8 +196,8 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
 
         Required permissions:
 
-        - `course_lesson_interaction:read`
         - `courses:read`
+        - `course_analytics:read`
 
         Args:
           extra_headers: Send extra headers
@@ -241,8 +241,8 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
 
         Required permissions:
 
-        - `course_lesson_interaction:read`
         - `courses:read`
+        - `course_analytics:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.

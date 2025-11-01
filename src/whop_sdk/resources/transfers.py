@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -56,6 +56,7 @@ class TransfersResource(SyncAPIResource):
         destination_id: str,
         origin_id: str,
         idempotence_key: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         notes: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -84,6 +85,8 @@ class TransfersResource(SyncAPIResource):
 
           idempotence_key: A unique key to ensure idempotence. Use a UUID or similar.
 
+          metadata: A hash of metadata to attach to the transfer.
+
           notes: Notes for the transfer. Maximum of 50 characters.
 
           extra_headers: Send extra headers
@@ -103,6 +106,7 @@ class TransfersResource(SyncAPIResource):
                     "destination_id": destination_id,
                     "origin_id": origin_id,
                     "idempotence_key": idempotence_key,
+                    "metadata": metadata,
                     "notes": notes,
                 },
                 transfer_create_params.TransferCreateParams,
@@ -256,6 +260,7 @@ class AsyncTransfersResource(AsyncAPIResource):
         destination_id: str,
         origin_id: str,
         idempotence_key: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         notes: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -284,6 +289,8 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           idempotence_key: A unique key to ensure idempotence. Use a UUID or similar.
 
+          metadata: A hash of metadata to attach to the transfer.
+
           notes: Notes for the transfer. Maximum of 50 characters.
 
           extra_headers: Send extra headers
@@ -303,6 +310,7 @@ class AsyncTransfersResource(AsyncAPIResource):
                     "destination_id": destination_id,
                     "origin_id": origin_id,
                     "idempotence_key": idempotence_key,
+                    "metadata": metadata,
                     "notes": notes,
                 },
                 transfer_create_params.TransferCreateParams,

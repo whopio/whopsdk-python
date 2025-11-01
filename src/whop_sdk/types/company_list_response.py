@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
-from ..._models import BaseModel
-from .business_types import BusinessTypes
-from .industry_types import IndustryTypes
+from .._models import BaseModel
+from .shared.business_types import BusinessTypes
+from .shared.industry_types import IndustryTypes
 
-__all__ = ["Company", "Logo", "OwnerUser", "SocialLink"]
+__all__ = ["CompanyListResponse", "Logo", "OwnerUser"]
 
 
 class Logo(BaseModel):
@@ -30,18 +29,7 @@ class OwnerUser(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class SocialLink(BaseModel):
-    id: str
-    """The ID"""
-
-    url: str
-    """The URL"""
-
-    website: Literal["x", "instagram", "facebook", "tiktok", "youtube", "linkedin", "twitch", "website"]
-    """The website"""
-
-
-class Company(BaseModel):
+class CompanyListResponse(BaseModel):
     id: str
     """The ID (tag) of the company."""
 
@@ -77,9 +65,6 @@ class Company(BaseModel):
 
     route: str
     """The slug/route of the company on the Whop site."""
-
-    social_links: List[SocialLink]
-    """The social media accounts of the company"""
 
     title: str
     """The title of the company."""

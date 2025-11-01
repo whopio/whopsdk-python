@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
@@ -98,6 +98,9 @@ class Transfer(BaseModel):
 
     fee_amount: Optional[float] = None
     """The decimal fee of the credit transaction transfer"""
+
+    metadata: Optional[Dict[str, object]] = None
+    """A hash of metadata attached to the transfer"""
 
     notes: Optional[str] = None
     """The notes of the credit transaction transfer"""

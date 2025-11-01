@@ -189,6 +189,8 @@ for payment in first_page.data:
 # Remove `await` for non-async usage.
 ```
 
+from datetime import datetime
+
 ## Nested params
 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
@@ -200,11 +202,15 @@ client = Whop(
     app_id="app_xxxxxxxxxxxxxx",
 )
 
-app = client.apps.update(
-    id="app_xxxxxxxxxxxxxx",
-    icon={},
+invoice = client.invoices.create(
+    collection_method="send_invoice",
+    company_id="biz_xxxxxxxxxxxxxx",
+    due_date=datetime.fromisoformat("2023-12-01T05:00:00.401"),
+    member_id="mber_xxxxxxxxxxxxx",
+    plan={},
+    product={"title": "title"},
 )
-print(app.icon)
+print(invoice.plan)
 ```
 
 ## Handling errors
