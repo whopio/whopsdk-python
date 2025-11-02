@@ -126,10 +126,7 @@ class TestExperiences:
         experience = client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
-            logo={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            logo={"direct_upload_id": "direct_upload_id"},
             name="name",
             order="123.45",
             section_id="section_id",
@@ -513,10 +510,7 @@ class TestAsyncExperiences:
         experience = await async_client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
-            logo={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
-            },
+            logo={"direct_upload_id": "direct_upload_id"},
             name="name",
             order="123.45",
             section_id="section_id",

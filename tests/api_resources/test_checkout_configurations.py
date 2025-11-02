@@ -23,16 +23,16 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create(self, client: Whop) -> None:
-        checkout_configuration = client.checkout_configurations.create()
+    def test_method_create_overload_1(self, client: Whop) -> None:
+        checkout_configuration = client.checkout_configurations.create(
+            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+        )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whop) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.create(
-            affiliate_code="affiliate_code",
-            metadata={"foo": "bar"},
             plan={
                 "company_id": "biz_xxxxxxxxxxxxxx",
                 "billing_period": 42,
@@ -50,13 +50,15 @@ class TestCheckoutConfigurations:
                 "description": "description",
                 "expiration_days": 42,
                 "force_create_new_plan": True,
-                "image": {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
-                },
+                "image": {"direct_upload_id": "direct_upload_id"},
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "override_tax_type": "inclusive",
+                "payment_method_configuration": {
+                    "disabled": ["acss_debit"],
+                    "enabled": ["acss_debit"],
+                    "include_platform_defaults": True,
+                },
                 "plan_type": "renewal",
                 "product": {
                     "external_identifier": "external_identifier",
@@ -81,15 +83,18 @@ class TestCheckoutConfigurations:
                 "trial_period_days": 42,
                 "visibility": "visible",
             },
-            plan_id="plan_xxxxxxxxxxxxx",
+            affiliate_code="affiliate_code",
+            metadata={"foo": "bar"},
             redirect_url="redirect_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Whop) -> None:
-        response = client.checkout_configurations.with_raw_response.create()
+    def test_raw_response_create_overload_1(self, client: Whop) -> None:
+        response = client.checkout_configurations.with_raw_response.create(
+            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -98,8 +103,55 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Whop) -> None:
-        with client.checkout_configurations.with_streaming_response.create() as response:
+    def test_streaming_response_create_overload_1(self, client: Whop) -> None:
+        with client.checkout_configurations.with_streaming_response.create(
+            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            checkout_configuration = response.parse()
+            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create_overload_2(self, client: Whop) -> None:
+        checkout_configuration = client.checkout_configurations.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params_overload_2(self, client: Whop) -> None:
+        checkout_configuration = client.checkout_configurations.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            affiliate_code="affiliate_code",
+            metadata={"foo": "bar"},
+            redirect_url="redirect_url",
+        )
+        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_create_overload_2(self, client: Whop) -> None:
+        response = client.checkout_configurations.with_raw_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        checkout_configuration = response.parse()
+        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_create_overload_2(self, client: Whop) -> None:
+        with client.checkout_configurations.with_streaming_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -214,16 +266,16 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncWhop) -> None:
-        checkout_configuration = await async_client.checkout_configurations.create()
+    async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
+        checkout_configuration = await async_client.checkout_configurations.create(
+            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+        )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.create(
-            affiliate_code="affiliate_code",
-            metadata={"foo": "bar"},
             plan={
                 "company_id": "biz_xxxxxxxxxxxxxx",
                 "billing_period": 42,
@@ -241,13 +293,15 @@ class TestAsyncCheckoutConfigurations:
                 "description": "description",
                 "expiration_days": 42,
                 "force_create_new_plan": True,
-                "image": {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
-                },
+                "image": {"direct_upload_id": "direct_upload_id"},
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "override_tax_type": "inclusive",
+                "payment_method_configuration": {
+                    "disabled": ["acss_debit"],
+                    "enabled": ["acss_debit"],
+                    "include_platform_defaults": True,
+                },
                 "plan_type": "renewal",
                 "product": {
                     "external_identifier": "external_identifier",
@@ -272,15 +326,18 @@ class TestAsyncCheckoutConfigurations:
                 "trial_period_days": 42,
                 "visibility": "visible",
             },
-            plan_id="plan_xxxxxxxxxxxxx",
+            affiliate_code="affiliate_code",
+            metadata={"foo": "bar"},
             redirect_url="redirect_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
-        response = await async_client.checkout_configurations.with_raw_response.create()
+    async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
+        response = await async_client.checkout_configurations.with_raw_response.create(
+            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -289,8 +346,55 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
-        async with async_client.checkout_configurations.with_streaming_response.create() as response:
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
+        async with async_client.checkout_configurations.with_streaming_response.create(
+            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            checkout_configuration = await response.parse()
+            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
+        checkout_configuration = await async_client.checkout_configurations.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
+        checkout_configuration = await async_client.checkout_configurations.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            affiliate_code="affiliate_code",
+            metadata={"foo": "bar"},
+            redirect_url="redirect_url",
+        )
+        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
+        response = await async_client.checkout_configurations.with_raw_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        checkout_configuration = await response.parse()
+        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
+        async with async_client.checkout_configurations.with_streaming_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

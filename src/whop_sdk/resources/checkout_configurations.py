@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
+from typing_extensions import overload
 
 import httpx
 
 from ..types import checkout_configuration_list_params, checkout_configuration_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -46,13 +47,13 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         """
         return CheckoutConfigurationsResourceWithStreamingResponse(self)
 
+    @overload
     def create(
         self,
         *,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
-        plan_id: Optional[str] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -72,13 +73,11 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         - `access_pass:update`
 
         Args:
+          plan: Pass this object to create a new plan for this checkout configuration
+
           affiliate_code: The affiliate code to use for the checkout configuration
 
           metadata: The metadata to use for the checkout configuration
-
-          plan: Pass this object to create a new plan for this checkout configuration
-
-          plan_id: The ID of the plan to use for the checkout configuration
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
@@ -90,15 +89,77 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        plan_id: str,
+        affiliate_code: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        redirect_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CheckoutConfiguration:
+        """
+        Creates a new checkout configuration
+
+        Required permissions:
+
+        - `checkout_configuration:create`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+
+        Args:
+          plan_id: The ID of the plan to use for the checkout configuration
+
+          affiliate_code: The affiliate code to use for the checkout configuration
+
+          metadata: The metadata to use for the checkout configuration
+
+          redirect_url: The URL to redirect the user to after the checkout configuration is created
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["plan"], ["plan_id"])
+    def create(
+        self,
+        *,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan | Omit = omit,
+        affiliate_code: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        redirect_url: Optional[str] | Omit = omit,
+        plan_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CheckoutConfiguration:
         return self._post(
             "/checkout_configurations",
             body=maybe_transform(
                 {
+                    "plan": plan,
                     "affiliate_code": affiliate_code,
                     "metadata": metadata,
-                    "plan": plan,
-                    "plan_id": plan_id,
                     "redirect_url": redirect_url,
+                    "plan_id": plan_id,
                 },
                 checkout_configuration_create_params.CheckoutConfigurationCreateParams,
             ),
@@ -237,13 +298,13 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         """
         return AsyncCheckoutConfigurationsResourceWithStreamingResponse(self)
 
+    @overload
     async def create(
         self,
         *,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
-        plan_id: Optional[str] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -263,13 +324,11 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         - `access_pass:update`
 
         Args:
+          plan: Pass this object to create a new plan for this checkout configuration
+
           affiliate_code: The affiliate code to use for the checkout configuration
 
           metadata: The metadata to use for the checkout configuration
-
-          plan: Pass this object to create a new plan for this checkout configuration
-
-          plan_id: The ID of the plan to use for the checkout configuration
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
@@ -281,15 +340,77 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        plan_id: str,
+        affiliate_code: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        redirect_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CheckoutConfiguration:
+        """
+        Creates a new checkout configuration
+
+        Required permissions:
+
+        - `checkout_configuration:create`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+
+        Args:
+          plan_id: The ID of the plan to use for the checkout configuration
+
+          affiliate_code: The affiliate code to use for the checkout configuration
+
+          metadata: The metadata to use for the checkout configuration
+
+          redirect_url: The URL to redirect the user to after the checkout configuration is created
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["plan"], ["plan_id"])
+    async def create(
+        self,
+        *,
+        plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan | Omit = omit,
+        affiliate_code: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        redirect_url: Optional[str] | Omit = omit,
+        plan_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CheckoutConfiguration:
         return await self._post(
             "/checkout_configurations",
             body=await async_maybe_transform(
                 {
+                    "plan": plan,
                     "affiliate_code": affiliate_code,
                     "metadata": metadata,
-                    "plan": plan,
-                    "plan_id": plan_id,
                     "redirect_url": redirect_url,
+                    "plan_id": plan_id,
                 },
                 checkout_configuration_create_params.CheckoutConfigurationCreateParams,
             ),

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Optional
 
 import httpx
 
-from ..types import company_list_params, company_create_params
+from ..types import course_student_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -19,88 +19,31 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.company import Company
-from ..types.shared.direction import Direction
-from ..types.company_list_response import CompanyListResponse
+from ..types.course_student_list_response import CourseStudentListResponse
+from ..types.course_student_retrieve_response import CourseStudentRetrieveResponse
 
-__all__ = ["CompaniesResource", "AsyncCompaniesResource"]
+__all__ = ["CourseStudentsResource", "AsyncCourseStudentsResource"]
 
 
-class CompaniesResource(SyncAPIResource):
+class CourseStudentsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> CompaniesResourceWithRawResponse:
+    def with_raw_response(self) -> CourseStudentsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return CompaniesResourceWithRawResponse(self)
+        return CourseStudentsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> CompaniesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> CourseStudentsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return CompaniesResourceWithStreamingResponse(self)
-
-    def create(
-        self,
-        *,
-        email: str,
-        parent_company_id: str,
-        title: str,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Company:
-        """
-        Create a new sub company for your platform
-
-        Required permissions:
-
-        - `company:create_child`
-        - `company:basic:read`
-
-        Args:
-          email: The email of the user who the company will belong to.
-
-          parent_company_id: The company ID of the platform creating this company.
-
-          title: The name of the company being created.
-
-          metadata: Additional metadata for the account
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/companies",
-            body=maybe_transform(
-                {
-                    "email": email,
-                    "parent_company_id": parent_company_id,
-                    "title": title,
-                    "metadata": metadata,
-                },
-                company_create_params.CompanyCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Company,
-        )
+        return CourseStudentsResourceWithStreamingResponse(self)
 
     def retrieve(
         self,
@@ -112,13 +55,14 @@ class CompaniesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Company:
+    ) -> CourseStudentRetrieveResponse:
         """
-        Retrieves an company by ID or its url route
+        Retrieves a course student by interaction ID
 
         Required permissions:
 
-        - `company:basic:read`
+        - `courses:read`
+        - `course_analytics:read`
 
         Args:
           extra_headers: Send extra headers
@@ -132,21 +76,21 @@ class CompaniesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/companies/{id}",
+            f"/course_students/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Company,
+            cast_to=CourseStudentRetrieveResponse,
         )
 
     def list(
         self,
         *,
-        parent_company_id: str,
+        course_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        keyword: Optional[str] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -154,24 +98,25 @@ class CompaniesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[CompanyListResponse]:
+    ) -> SyncCursorPage[CourseStudentListResponse]:
         """
-        Lists companies the current user has access to
+        Lists students for a course
 
         Required permissions:
 
-        - `company:basic:read`
+        - `courses:read`
+        - `course_analytics:read`
 
         Args:
-          parent_company_id: The ID of the parent company to list sub companies for
+          course_id: The ID of the course
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
-
           first: Returns the first _n_ elements from the list.
+
+          keyword: Filter students by name - returns students whose names match the keyword
 
           last: Returns the last _n_ elements from the list.
 
@@ -184,8 +129,8 @@ class CompaniesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/companies",
-            page=SyncCursorPage[CompanyListResponse],
+            "/course_students",
+            page=SyncCursorPage[CourseStudentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -193,95 +138,39 @@ class CompaniesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "parent_company_id": parent_company_id,
+                        "course_id": course_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
                         "first": first,
+                        "keyword": keyword,
                         "last": last,
                     },
-                    company_list_params.CompanyListParams,
+                    course_student_list_params.CourseStudentListParams,
                 ),
             ),
-            model=CompanyListResponse,
+            model=CourseStudentListResponse,
         )
 
 
-class AsyncCompaniesResource(AsyncAPIResource):
+class AsyncCourseStudentsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncCompaniesResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncCourseStudentsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncCompaniesResourceWithRawResponse(self)
+        return AsyncCourseStudentsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncCompaniesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncCourseStudentsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return AsyncCompaniesResourceWithStreamingResponse(self)
-
-    async def create(
-        self,
-        *,
-        email: str,
-        parent_company_id: str,
-        title: str,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Company:
-        """
-        Create a new sub company for your platform
-
-        Required permissions:
-
-        - `company:create_child`
-        - `company:basic:read`
-
-        Args:
-          email: The email of the user who the company will belong to.
-
-          parent_company_id: The company ID of the platform creating this company.
-
-          title: The name of the company being created.
-
-          metadata: Additional metadata for the account
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/companies",
-            body=await async_maybe_transform(
-                {
-                    "email": email,
-                    "parent_company_id": parent_company_id,
-                    "title": title,
-                    "metadata": metadata,
-                },
-                company_create_params.CompanyCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Company,
-        )
+        return AsyncCourseStudentsResourceWithStreamingResponse(self)
 
     async def retrieve(
         self,
@@ -293,13 +182,14 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Company:
+    ) -> CourseStudentRetrieveResponse:
         """
-        Retrieves an company by ID or its url route
+        Retrieves a course student by interaction ID
 
         Required permissions:
 
-        - `company:basic:read`
+        - `courses:read`
+        - `course_analytics:read`
 
         Args:
           extra_headers: Send extra headers
@@ -313,21 +203,21 @@ class AsyncCompaniesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/companies/{id}",
+            f"/course_students/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Company,
+            cast_to=CourseStudentRetrieveResponse,
         )
 
     def list(
         self,
         *,
-        parent_company_id: str,
+        course_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        keyword: Optional[str] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -335,24 +225,25 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[CompanyListResponse, AsyncCursorPage[CompanyListResponse]]:
+    ) -> AsyncPaginator[CourseStudentListResponse, AsyncCursorPage[CourseStudentListResponse]]:
         """
-        Lists companies the current user has access to
+        Lists students for a course
 
         Required permissions:
 
-        - `company:basic:read`
+        - `courses:read`
+        - `course_analytics:read`
 
         Args:
-          parent_company_id: The ID of the parent company to list sub companies for
+          course_id: The ID of the course
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
-
           first: Returns the first _n_ elements from the list.
+
+          keyword: Filter students by name - returns students whose names match the keyword
 
           last: Returns the last _n_ elements from the list.
 
@@ -365,8 +256,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/companies",
-            page=AsyncCursorPage[CompanyListResponse],
+            "/course_students",
+            page=AsyncCursorPage[CourseStudentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -374,75 +265,63 @@ class AsyncCompaniesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "parent_company_id": parent_company_id,
+                        "course_id": course_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
                         "first": first,
+                        "keyword": keyword,
                         "last": last,
                     },
-                    company_list_params.CompanyListParams,
+                    course_student_list_params.CourseStudentListParams,
                 ),
             ),
-            model=CompanyListResponse,
+            model=CourseStudentListResponse,
         )
 
 
-class CompaniesResourceWithRawResponse:
-    def __init__(self, companies: CompaniesResource) -> None:
-        self._companies = companies
+class CourseStudentsResourceWithRawResponse:
+    def __init__(self, course_students: CourseStudentsResource) -> None:
+        self._course_students = course_students
 
-        self.create = to_raw_response_wrapper(
-            companies.create,
-        )
         self.retrieve = to_raw_response_wrapper(
-            companies.retrieve,
+            course_students.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            companies.list,
+            course_students.list,
         )
 
 
-class AsyncCompaniesResourceWithRawResponse:
-    def __init__(self, companies: AsyncCompaniesResource) -> None:
-        self._companies = companies
+class AsyncCourseStudentsResourceWithRawResponse:
+    def __init__(self, course_students: AsyncCourseStudentsResource) -> None:
+        self._course_students = course_students
 
-        self.create = async_to_raw_response_wrapper(
-            companies.create,
-        )
         self.retrieve = async_to_raw_response_wrapper(
-            companies.retrieve,
+            course_students.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            companies.list,
+            course_students.list,
         )
 
 
-class CompaniesResourceWithStreamingResponse:
-    def __init__(self, companies: CompaniesResource) -> None:
-        self._companies = companies
+class CourseStudentsResourceWithStreamingResponse:
+    def __init__(self, course_students: CourseStudentsResource) -> None:
+        self._course_students = course_students
 
-        self.create = to_streamed_response_wrapper(
-            companies.create,
-        )
         self.retrieve = to_streamed_response_wrapper(
-            companies.retrieve,
+            course_students.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            companies.list,
+            course_students.list,
         )
 
 
-class AsyncCompaniesResourceWithStreamingResponse:
-    def __init__(self, companies: AsyncCompaniesResource) -> None:
-        self._companies = companies
+class AsyncCourseStudentsResourceWithStreamingResponse:
+    def __init__(self, course_students: AsyncCourseStudentsResource) -> None:
+        self._course_students = course_students
 
-        self.create = async_to_streamed_response_wrapper(
-            companies.create,
-        )
         self.retrieve = async_to_streamed_response_wrapper(
-            companies.retrieve,
+            course_students.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            companies.list,
+            course_students.list,
         )

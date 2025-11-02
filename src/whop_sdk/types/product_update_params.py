@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import TypedDict
+from typing import Union, Optional
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from .shared.custom_cta import CustomCta
 from .shared.visibility import Visibility
@@ -11,7 +11,13 @@ from .shared.business_types import BusinessTypes
 from .shared.industry_types import IndustryTypes
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["ProductUpdateParams", "BannerImage", "StorePageConfig"]
+__all__ = [
+    "ProductUpdateParams",
+    "BannerImage",
+    "BannerImageAttachmentInputWithDirectUploadID",
+    "BannerImageAttachmentInputWithID",
+    "StorePageConfig",
+]
 
 
 class ProductUpdateParams(TypedDict, total=False):
@@ -77,20 +83,25 @@ class ProductUpdateParams(TypedDict, total=False):
     """Visibility of a resource"""
 
 
-class BannerImage(TypedDict, total=False):
-    id: Optional[str]
+class BannerImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    direct_upload_id: Required[str]
+    """This ID should be used the first time you upload an attachment.
+
+    It is the ID of the direct upload that was created when uploading the file to S3
+    via the mediaDirectUpload mutation.
+    """
+
+
+class BannerImageAttachmentInputWithID(TypedDict, total=False):
+    id: Required[str]
     """The ID of an existing attachment object.
 
     Use this when updating a resource and keeping a subset of the attachments. Don't
     use this unless you know what you're doing.
     """
 
-    direct_upload_id: Optional[str]
-    """This ID should be used the first time you upload an attachment.
 
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
+BannerImage: TypeAlias = Union[BannerImageAttachmentInputWithDirectUploadID, BannerImageAttachmentInputWithID]
 
 
 class StorePageConfig(TypedDict, total=False):

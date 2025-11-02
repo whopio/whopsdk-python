@@ -84,9 +84,10 @@ PaymentMethodTypes: TypeAlias = Literal[
     "id_bank_transfer",
     "demo_pay",
     "shop_pay",
-    "apple",
     "sezzle",
     "coinbase",
     "splitit",
+    "platform_balance",
+    "apple",
     "unknown",
 ]

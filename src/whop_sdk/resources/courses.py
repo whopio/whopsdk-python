@@ -52,7 +52,9 @@ class CoursesResource(SyncAPIResource):
         *,
         experience_id: str,
         title: str,
+        certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         cover_image: Optional[str] | Omit = omit,
+        require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -74,7 +76,13 @@ class CoursesResource(SyncAPIResource):
 
           title: The title of the course
 
+          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
+              all lessons
+
           cover_image: The cover image URL of the course
+
+          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
+              moving on to the next one
 
           tagline: The tagline of the course
 
@@ -94,7 +102,9 @@ class CoursesResource(SyncAPIResource):
                 {
                     "experience_id": experience_id,
                     "title": title,
+                    "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "cover_image": cover_image,
+                    "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
                 },
@@ -353,7 +363,9 @@ class AsyncCoursesResource(AsyncAPIResource):
         *,
         experience_id: str,
         title: str,
+        certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         cover_image: Optional[str] | Omit = omit,
+        require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -375,7 +387,13 @@ class AsyncCoursesResource(AsyncAPIResource):
 
           title: The title of the course
 
+          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
+              all lessons
+
           cover_image: The cover image URL of the course
+
+          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
+              moving on to the next one
 
           tagline: The tagline of the course
 
@@ -395,7 +413,9 @@ class AsyncCoursesResource(AsyncAPIResource):
                 {
                     "experience_id": experience_id,
                     "title": title,
+                    "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "cover_image": cover_image,
+                    "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
                 },

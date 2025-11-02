@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing import Union, Iterable, Optional
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from .lesson_types import LessonTypes
 from .lesson_visibilities import LessonVisibilities
@@ -11,15 +11,25 @@ from .assessment_question_types import AssessmentQuestionTypes
 
 __all__ = [
     "CourseLessonUpdateParams",
+    "AssessmentCompletionRequirement",
     "AssessmentQuestion",
     "AssessmentQuestionImage",
+    "AssessmentQuestionImageAttachmentInputWithDirectUploadID",
+    "AssessmentQuestionImageAttachmentInputWithID",
     "AssessmentQuestionOption",
     "Attachment",
+    "AttachmentAttachmentInputWithDirectUploadID",
+    "AttachmentAttachmentInputWithID",
     "MainPdf",
+    "MainPdfAttachmentInputWithDirectUploadID",
+    "MainPdfAttachmentInputWithID",
 ]
 
 
 class CourseLessonUpdateParams(TypedDict, total=False):
+    assessment_completion_requirement: Optional[AssessmentCompletionRequirement]
+    """Completion requirements for quiz/knowledge check lessons"""
+
     assessment_questions: Optional[Iterable[AssessmentQuestion]]
     """Assessment questions for quiz/knowledge check lessons.
 
@@ -44,6 +54,9 @@ class CourseLessonUpdateParams(TypedDict, total=False):
     main_pdf: Optional[MainPdf]
     """The main PDF file for this lesson"""
 
+    max_attempts: Optional[int]
+    """Maximum number of attempts allowed for assessments"""
+
     mux_asset_id: Optional[str]
     """The ID of the Mux asset to attach to this lesson for video lessons"""
 
@@ -57,20 +70,41 @@ class CourseLessonUpdateParams(TypedDict, total=False):
     """
 
 
-class AssessmentQuestionImage(TypedDict, total=False):
-    id: Optional[str]
+class AssessmentCompletionRequirement(TypedDict, total=False):
+    minimum_grade_percent: Optional[float]
+    """The minimum grade percentage required to pass (0-100).
+
+    Cannot be set together with minimum_questions_correct.
+    """
+
+    minimum_questions_correct: Optional[int]
+    """The minimum number of questions that must be answered correctly.
+
+    Cannot be set together with minimum_grade_percent.
+    """
+
+
+class AssessmentQuestionImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    direct_upload_id: Required[str]
+    """This ID should be used the first time you upload an attachment.
+
+    It is the ID of the direct upload that was created when uploading the file to S3
+    via the mediaDirectUpload mutation.
+    """
+
+
+class AssessmentQuestionImageAttachmentInputWithID(TypedDict, total=False):
+    id: Required[str]
     """The ID of an existing attachment object.
 
     Use this when updating a resource and keeping a subset of the attachments. Don't
     use this unless you know what you're doing.
     """
 
-    direct_upload_id: Optional[str]
-    """This ID should be used the first time you upload an attachment.
 
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
+AssessmentQuestionImage: TypeAlias = Union[
+    AssessmentQuestionImageAttachmentInputWithDirectUploadID, AssessmentQuestionImageAttachmentInputWithID
+]
 
 
 class AssessmentQuestionOption(TypedDict, total=False):
@@ -112,15 +146,8 @@ class AssessmentQuestion(TypedDict, total=False):
     """The answer options for multiple choice/select questions"""
 
 
-class Attachment(TypedDict, total=False):
-    id: Optional[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-    direct_upload_id: Optional[str]
+class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
     It is the ID of the direct upload that was created when uploading the file to S3
@@ -128,17 +155,34 @@ class Attachment(TypedDict, total=False):
     """
 
 
-class MainPdf(TypedDict, total=False):
-    id: Optional[str]
+class AttachmentAttachmentInputWithID(TypedDict, total=False):
+    id: Required[str]
     """The ID of an existing attachment object.
 
     Use this when updating a resource and keeping a subset of the attachments. Don't
     use this unless you know what you're doing.
     """
 
-    direct_upload_id: Optional[str]
+
+Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, AttachmentAttachmentInputWithID]
+
+
+class MainPdfAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
     It is the ID of the direct upload that was created when uploading the file to S3
     via the mediaDirectUpload mutation.
     """
+
+
+class MainPdfAttachmentInputWithID(TypedDict, total=False):
+    id: Required[str]
+    """The ID of an existing attachment object.
+
+    Use this when updating a resource and keeping a subset of the attachments. Don't
+    use this unless you know what you're doing.
+    """
+
+
+MainPdf: TypeAlias = Union[MainPdfAttachmentInputWithDirectUploadID, MainPdfAttachmentInputWithID]

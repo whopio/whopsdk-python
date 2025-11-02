@@ -154,12 +154,15 @@ class CourseLessonsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        assessment_completion_requirement: Optional[course_lesson_update_params.AssessmentCompletionRequirement]
+        | Omit = omit,
         assessment_questions: Optional[Iterable[course_lesson_update_params.AssessmentQuestion]] | Omit = omit,
         attachments: Optional[Iterable[course_lesson_update_params.Attachment]] | Omit = omit,
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
+        max_attempts: Optional[int] | Omit = omit,
         mux_asset_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[LessonVisibilities] | Omit = omit,
@@ -178,6 +181,8 @@ class CourseLessonsResource(SyncAPIResource):
         - `courses:update`
 
         Args:
+          assessment_completion_requirement: Completion requirements for quiz/knowledge check lessons
+
           assessment_questions: Assessment questions for quiz/knowledge check lessons. Replaces all existing
               questions.
 
@@ -191,6 +196,8 @@ class CourseLessonsResource(SyncAPIResource):
           lesson_type: The available types for a lesson
 
           main_pdf: The main PDF file for this lesson
+
+          max_attempts: Maximum number of attempts allowed for assessments
 
           mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
 
@@ -213,12 +220,14 @@ class CourseLessonsResource(SyncAPIResource):
             f"/course_lessons/{id}",
             body=maybe_transform(
                 {
+                    "assessment_completion_requirement": assessment_completion_requirement,
                     "assessment_questions": assessment_questions,
                     "attachments": attachments,
                     "content": content,
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
                     "lesson_type": lesson_type,
                     "main_pdf": main_pdf,
+                    "max_attempts": max_attempts,
                     "mux_asset_id": mux_asset_id,
                     "title": title,
                     "visibility": visibility,
@@ -456,12 +465,15 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        assessment_completion_requirement: Optional[course_lesson_update_params.AssessmentCompletionRequirement]
+        | Omit = omit,
         assessment_questions: Optional[Iterable[course_lesson_update_params.AssessmentQuestion]] | Omit = omit,
         attachments: Optional[Iterable[course_lesson_update_params.Attachment]] | Omit = omit,
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
+        max_attempts: Optional[int] | Omit = omit,
         mux_asset_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[LessonVisibilities] | Omit = omit,
@@ -480,6 +492,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         - `courses:update`
 
         Args:
+          assessment_completion_requirement: Completion requirements for quiz/knowledge check lessons
+
           assessment_questions: Assessment questions for quiz/knowledge check lessons. Replaces all existing
               questions.
 
@@ -493,6 +507,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           lesson_type: The available types for a lesson
 
           main_pdf: The main PDF file for this lesson
+
+          max_attempts: Maximum number of attempts allowed for assessments
 
           mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
 
@@ -515,12 +531,14 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
             f"/course_lessons/{id}",
             body=await async_maybe_transform(
                 {
+                    "assessment_completion_requirement": assessment_completion_requirement,
                     "assessment_questions": assessment_questions,
                     "attachments": attachments,
                     "content": content,
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
                     "lesson_type": lesson_type,
                     "main_pdf": main_pdf,
+                    "max_attempts": max_attempts,
                     "mux_asset_id": mux_asset_id,
                     "title": title,
                     "visibility": visibility,

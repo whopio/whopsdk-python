@@ -193,6 +193,14 @@ from .course_chapters import (
     CourseChaptersResourceWithStreamingResponse,
     AsyncCourseChaptersResourceWithStreamingResponse,
 )
+from .course_students import (
+    CourseStudentsResource,
+    AsyncCourseStudentsResource,
+    CourseStudentsResourceWithRawResponse,
+    AsyncCourseStudentsResourceWithRawResponse,
+    CourseStudentsResourceWithStreamingResponse,
+    AsyncCourseStudentsResourceWithStreamingResponse,
+)
 from .ledger_accounts import (
     LedgerAccountsResource,
     AsyncLedgerAccountsResource,
@@ -411,4 +419,10 @@ __all__ = [
     "AsyncReviewsResourceWithRawResponse",
     "ReviewsResourceWithStreamingResponse",
     "AsyncReviewsResourceWithStreamingResponse",
+    "CourseStudentsResource",
+    "AsyncCourseStudentsResource",
+    "CourseStudentsResourceWithRawResponse",
+    "AsyncCourseStudentsResourceWithRawResponse",
+    "CourseStudentsResourceWithStreamingResponse",
+    "AsyncCourseStudentsResourceWithStreamingResponse",
 ]
