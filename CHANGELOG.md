@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.0.4 (2025-11-02)
+
+Full Changelog: [v0.0.3...v0.0.4](https://github.com/whopio/whopsdk-python/compare/v0.0.3...v0.0.4)
+
+### Features
+
+* **api:** api update ([5c98713](https://github.com/whopio/whopsdk-python/commit/5c9871316e99496b376745f4c0c445ed91fbc5ff))
+* **api:** api update ([1344dbd](https://github.com/whopio/whopsdk-python/commit/1344dbd388f18da71a835e26c1ff129c4f2af88b))
+* **api:** api update ([ada41bd](https://github.com/whopio/whopsdk-python/commit/ada41bd4789b62e343504736b0f0c780d9b681dc))
+* **api:** api update ([3acd9ba](https://github.com/whopio/whopsdk-python/commit/3acd9ba0a2b8de796a7594d11d834776e1b85a4e))
+* **api:** api update ([717c76c](https://github.com/whopio/whopsdk-python/commit/717c76cfbd419c9b5b3e72a6461c48fe39d5fe7b))
+* **api:** api update ([e822d09](https://github.com/whopio/whopsdk-python/commit/e822d098635e43ddd3f83552840571beab017ae3))
+* **api:** api update ([e9ef492](https://github.com/whopio/whopsdk-python/commit/e9ef492d44a107c3d7fa0bdd5bfc995a6d5b47cb))
+* **api:** api update ([b608c83](https://github.com/whopio/whopsdk-python/commit/b608c83c28ee3083146b117a58ef629c6975f9ca))
+* **api:** api update ([9c8303f](https://github.com/whopio/whopsdk-python/commit/9c8303f59856314034cdfa2d61f6f09a58278063))
+* **api:** api update ([b552085](https://github.com/whopio/whopsdk-python/commit/b5520851f953dbd0bc1bd957a1da8da8c855ccfb))
+* **api:** api update ([b81508a](https://github.com/whopio/whopsdk-python/commit/b81508ac837a961dc43640e6575c9773c24e7aa0))
+* **api:** api update ([76e5197](https://github.com/whopio/whopsdk-python/commit/76e5197d173a5ccee60aa3de015b50fd85c2dde6))
+* **api:** api update ([fd9a510](https://github.com/whopio/whopsdk-python/commit/fd9a510ba6479417e1edda733d27f2ee8ae08782))
+* **api:** manual updates ([d0ce0c8](https://github.com/whopio/whopsdk-python/commit/d0ce0c88a0e29fa8eb59f16c7c41db2321836bb4))
+* **api:** manual updates ([38d539e](https://github.com/whopio/whopsdk-python/commit/38d539ebdfefce7d18bd004fe7991efdab98784b))
+
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([017a47f](https://github.com/whopio/whopsdk-python/commit/017a47f6bdcc233e60e76c4d2aaad958e49cf5b9))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([de86810](https://github.com/whopio/whopsdk-python/commit/de8681036109e1f593fb33ad8d1116f7f2fc0ad2))
+
 ## 0.0.3 (2025-10-28)
 
 Full Changelog: [v0.0.2...v0.0.3](https://github.com/whopio/whopsdk-python/compare/v0.0.2...v0.0.3)
