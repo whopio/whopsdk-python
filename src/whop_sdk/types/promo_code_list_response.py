@@ -58,7 +58,7 @@ class PromoCodeListResponse(BaseModel):
     """Restricts promo use to only be applied once per customer."""
 
     product: Optional[Product] = None
-    """The access pass associated with the promo code."""
+    """The product this promo code applies to"""
 
     promo_duration_months: Optional[int] = None
     """The number of months the promo is applied for."""

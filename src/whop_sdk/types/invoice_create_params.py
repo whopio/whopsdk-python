@@ -121,7 +121,7 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     """A personal description or notes section for the business."""
 
     plan_type: Optional[PlanType]
-    """The type of plan that can be attached to an access pass"""
+    """The type of plan that can be attached to a product"""
 
     release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released."""
@@ -244,7 +244,7 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     """A personal description or notes section for the business."""
 
     plan_type: Optional[PlanType]
-    """The type of plan that can be attached to an access pass"""
+    """The type of plan that can be attached to a product"""
 
     release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released."""
@@ -367,7 +367,7 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """A personal description or notes section for the business."""
 
     plan_type: Optional[PlanType]
-    """The type of plan that can be attached to an access pass"""
+    """The type of plan that can be attached to a product"""
 
     release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released."""
@@ -482,7 +482,7 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     """A personal description or notes section for the business."""
 
     plan_type: Optional[PlanType]
-    """The type of plan that can be attached to an access pass"""
+    """The type of plan that can be attached to a product"""
 
     release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released."""

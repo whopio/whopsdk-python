@@ -125,7 +125,6 @@ class TestMemberships:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.list(
-            access_pass_ids=["string"],
             after="after",
             before="before",
             cancel_options=["too_expensive"],
@@ -137,6 +136,7 @@ class TestMemberships:
             last=42,
             order="id",
             plan_ids=["string"],
+            product_ids=["string"],
             promo_code_ids=["string"],
             statuses=["trialing"],
             user_ids=["string"],
@@ -418,7 +418,6 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.list(
-            access_pass_ids=["string"],
             after="after",
             before="before",
             cancel_options=["too_expensive"],
@@ -430,6 +429,7 @@ class TestAsyncMemberships:
             last=42,
             order="id",
             plan_ids=["string"],
+            product_ids=["string"],
             promo_code_ids=["string"],
             statuses=["trialing"],
             user_ids=["string"],

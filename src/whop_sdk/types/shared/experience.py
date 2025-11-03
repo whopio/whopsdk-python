@@ -84,9 +84,8 @@ class Experience(BaseModel):
     """The order of the experience in the section"""
 
     products: List[Product]
-    """The access passes that are associated with this experience.
+    """The products that this experience is attached to.
 
-    This should not be used unless you are trying to list all access passes the
-    experience has, for some reason. You probably don't want to use this though and
-    should be using accessPass.
+    This defines which set of customers have access and can view this experience. If
+    empty, this experience is only visible to authorized users of the company
     """

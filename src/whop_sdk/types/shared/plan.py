@@ -126,7 +126,7 @@ class Plan(BaseModel):
     """Indicates if the plan is a one time payment or recurring."""
 
     product: Optional[Product] = None
-    """The access pass for the plan."""
+    """The product that this plan belongs to."""
 
     purchase_url: str
     """The direct link to purchase the product."""

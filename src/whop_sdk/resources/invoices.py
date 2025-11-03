@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, overload
 
 import httpx
 
 from ..types import invoice_list_params, invoice_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -24,6 +24,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.invoice import Invoice
 from ..types.shared.direction import Direction
 from ..types.invoice_void_response import InvoiceVoidResponse
+from ..types.shared.invoice_status import InvoiceStatus
 from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
 
@@ -404,11 +405,13 @@ class InvoicesResource(SyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
-        filters: Optional[invoice_list_params.Filters] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
+        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        statuses: Optional[List[InvoiceStatus]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -431,15 +434,19 @@ class InvoicesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          collection_methods: Filter invoices by their collection method
 
-          filters: The filters to apply to the invoices
+          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
           order: Which columns can be used to sort.
+
+          product_ids: Return only invoices created for these specific product ids
+
+          statuses: The statuses to filter the invoices by
 
           extra_headers: Send extra headers
 
@@ -462,11 +469,13 @@ class InvoicesResource(SyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "collection_methods": collection_methods,
                         "direction": direction,
-                        "filters": filters,
                         "first": first,
                         "last": last,
                         "order": order,
+                        "product_ids": product_ids,
+                        "statuses": statuses,
                     },
                     invoice_list_params.InvoiceListParams,
                 ),
@@ -886,11 +895,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
-        filters: Optional[invoice_list_params.Filters] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
+        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        statuses: Optional[List[InvoiceStatus]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -913,15 +924,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          collection_methods: Filter invoices by their collection method
 
-          filters: The filters to apply to the invoices
+          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
           order: Which columns can be used to sort.
+
+          product_ids: Return only invoices created for these specific product ids
+
+          statuses: The statuses to filter the invoices by
 
           extra_headers: Send extra headers
 
@@ -944,11 +959,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "collection_methods": collection_methods,
                         "direction": direction,
-                        "filters": filters,
                         "first": first,
                         "last": last,
                         "order": order,
+                        "product_ids": product_ids,
+                        "statuses": statuses,
                     },
                     invoice_list_params.InvoiceListParams,
                 ),

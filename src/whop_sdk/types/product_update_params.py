@@ -50,7 +50,7 @@ class ProductUpdateParams(TypedDict, total=False):
     """The percentage of the revenue that goes to the global affiliate program."""
 
     global_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for an access pass."""
+    """The different statuses of the global affiliate program for a product."""
 
     headline: Optional[str]
     """The headline of the product."""
@@ -62,7 +62,7 @@ class ProductUpdateParams(TypedDict, total=False):
     """The percentage of the revenue that goes to the member affiliate program."""
 
     member_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for an access pass."""
+    """The different statuses of the global affiliate program for a product."""
 
     product_tax_code_id: Optional[str]
     """The ID of the product tax code to apply to this product."""
