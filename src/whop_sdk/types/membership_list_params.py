@@ -15,9 +15,6 @@ __all__ = ["MembershipListParams"]
 
 
 class MembershipListParams(TypedDict, total=False):
-    access_pass_ids: Optional[SequenceNotStr[str]]
-    """The access pass IDs to filter the memberships by"""
-
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -62,6 +59,9 @@ class MembershipListParams(TypedDict, total=False):
 
     plan_ids: Optional[SequenceNotStr[str]]
     """The plan IDs to filter the memberships by"""
+
+    product_ids: Optional[SequenceNotStr[str]]
+    """The product IDs to filter the memberships by"""
 
     promo_code_ids: Optional[SequenceNotStr[str]]
     """The promo code IDs to filter the memberships by"""

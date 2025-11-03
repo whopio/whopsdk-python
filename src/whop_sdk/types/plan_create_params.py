@@ -70,7 +70,7 @@ class PlanCreateParams(TypedDict, total=False):
     """
 
     plan_type: Optional[PlanType]
-    """The type of plan that can be attached to an access pass"""
+    """The type of plan that can be attached to a product"""
 
     release_method: Optional[ReleaseMethod]
     """The methods of how a plan can be released."""

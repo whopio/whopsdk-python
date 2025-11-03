@@ -10,7 +10,7 @@ from .shared.direction import Direction
 from .shared.invoice_status import InvoiceStatus
 from .shared.collection_method import CollectionMethod
 
-__all__ = ["InvoiceListParams", "Filters"]
+__all__ = ["InvoiceListParams"]
 
 
 class InvoiceListParams(TypedDict, total=False):
@@ -23,11 +23,11 @@ class InvoiceListParams(TypedDict, total=False):
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
+    collection_methods: Optional[List[CollectionMethod]]
+    """Filter invoices by their collection method"""
+
     direction: Optional[Direction]
     """The direction of the sort."""
-
-    filters: Optional[Filters]
-    """The filters to apply to the invoices"""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -38,13 +38,8 @@ class InvoiceListParams(TypedDict, total=False):
     order: Optional[Literal["id", "created_at", "due_date"]]
     """Which columns can be used to sort."""
 
-
-class Filters(TypedDict, total=False):
-    access_pass_ids: Optional[SequenceNotStr[str]]
-    """The access pass IDs to filter the invoices by"""
-
-    collection_methods: Optional[List[CollectionMethod]]
-    """The collection methods to filter the invoices by"""
+    product_ids: Optional[SequenceNotStr[str]]
+    """Return only invoices created for these specific product ids"""
 
     statuses: Optional[List[InvoiceStatus]]
     """The statuses to filter the invoices by"""

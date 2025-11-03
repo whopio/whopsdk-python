@@ -32,9 +32,9 @@ class MemberListResponse(BaseModel):
     access_level: AccessLevel
     """The access level of the product member.
 
-    If its admin, the member is an authorized user of the access pass. If its
-    customer, the member has a valid membership to the access pass. If its
-    no_access, the member does not have access to the access pass.
+    If its admin, the member is an authorized user of the company. If its customer,
+    the member has a valid membership to any product on the company. If its
+    no_access, the member does not have access to the product.
     """
 
     created_at: datetime

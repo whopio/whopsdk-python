@@ -136,7 +136,6 @@ class MembershipsResource(SyncAPIResource):
     def list(
         self,
         *,
-        access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         cancel_options: Optional[
@@ -162,6 +161,7 @@ class MembershipsResource(SyncAPIResource):
         order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
         | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         statuses: Optional[List[MembershipStatus]] | Omit = omit,
         user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -180,8 +180,6 @@ class MembershipsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          access_pass_ids: The access pass IDs to filter the memberships by
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
@@ -203,6 +201,8 @@ class MembershipsResource(SyncAPIResource):
           order: Which columns can be used to sort.
 
           plan_ids: The plan IDs to filter the memberships by
+
+          product_ids: The product IDs to filter the memberships by
 
           promo_code_ids: The promo code IDs to filter the memberships by
 
@@ -228,7 +228,6 @@ class MembershipsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
@@ -240,6 +239,7 @@ class MembershipsResource(SyncAPIResource):
                         "last": last,
                         "order": order,
                         "plan_ids": plan_ids,
+                        "product_ids": product_ids,
                         "promo_code_ids": promo_code_ids,
                         "statuses": statuses,
                         "user_ids": user_ids,
@@ -479,7 +479,6 @@ class AsyncMembershipsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         cancel_options: Optional[
@@ -505,6 +504,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
         | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         statuses: Optional[List[MembershipStatus]] | Omit = omit,
         user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -523,8 +523,6 @@ class AsyncMembershipsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          access_pass_ids: The access pass IDs to filter the memberships by
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
@@ -546,6 +544,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
           order: Which columns can be used to sort.
 
           plan_ids: The plan IDs to filter the memberships by
+
+          product_ids: The product IDs to filter the memberships by
 
           promo_code_ids: The promo code IDs to filter the memberships by
 
@@ -571,7 +571,6 @@ class AsyncMembershipsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
@@ -583,6 +582,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
                         "last": last,
                         "order": order,
                         "plan_ids": plan_ids,
+                        "product_ids": product_ids,
                         "promo_code_ids": promo_code_ids,
                         "statuses": statuses,
                         "user_ids": user_ids,

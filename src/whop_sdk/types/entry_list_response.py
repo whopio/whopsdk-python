@@ -47,7 +47,7 @@ class EntryListResponse(BaseModel):
     """The waitlist plan the entry if for."""
 
     product: Optional[Product] = None
-    """The access pass tied to this entry, if there is one."""
+    """The product tied to this entry, if there is one."""
 
     status: EntryStatus
     """The status of the entry."""

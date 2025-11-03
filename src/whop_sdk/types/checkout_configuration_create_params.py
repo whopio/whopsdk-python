@@ -142,7 +142,7 @@ class CreateCheckoutSessionInputWithPlanPlanProduct(TypedDict, total=False):
     """The percentage of the revenue that goes to the global affiliate program."""
 
     global_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for an access pass."""
+    """The different statuses of the global affiliate program for a product."""
 
     headline: Optional[str]
     """The headline of the product."""
@@ -210,7 +210,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     """
 
     plan_type: Optional[PlanType]
-    """The type of plan that can be attached to an access pass"""
+    """The type of plan that can be attached to a product"""
 
     product: Optional[CreateCheckoutSessionInputWithPlanPlanProduct]
     """Pass this object to create a new product for this plan.

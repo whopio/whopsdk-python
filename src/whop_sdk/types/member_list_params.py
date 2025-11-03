@@ -21,10 +21,7 @@ class MemberListParams(TypedDict, total=False):
     """The ID of the company to list members for"""
 
     access_level: Optional[AccessLevel]
-    """The access level a given user (or company) has to an access pass or company."""
-
-    access_pass_ids: Optional[SequenceNotStr[str]]
-    """The access pass IDs to filter the members by"""
+    """The access level a given user (or company) has to a product or company."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -55,6 +52,9 @@ class MemberListParams(TypedDict, total=False):
 
     plan_ids: Optional[SequenceNotStr[str]]
     """The plan IDs to filter the members by"""
+
+    product_ids: Optional[SequenceNotStr[str]]
+    """The product IDs to filter the members by"""
 
     promo_code_ids: Optional[SequenceNotStr[str]]
     """The promo code IDs to filter the members by"""
