@@ -51,7 +51,7 @@ class User(BaseModel):
 
 class Message(BaseModel):
     id: str
-    """The unique identifier for the entity"""
+    """The unique identifier of the resource."""
 
     content: Optional[str] = None
     """The content of the message in Markdown format"""
