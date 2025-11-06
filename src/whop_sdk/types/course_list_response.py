@@ -2,6 +2,7 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .languages import Languages
@@ -55,6 +56,9 @@ class CourseListResponse(BaseModel):
     captions in the right language
     """
 
+    order: str
+    """The order of the course within its experience"""
+
     require_completing_lessons_in_order: bool
     """
     Whether the course requires students to complete the previous lesson before
@@ -75,3 +79,9 @@ class CourseListResponse(BaseModel):
 
     updated_at: datetime
     """The timestamp of when the course was last updated"""
+
+    visibility: Literal["visible", "hidden"]
+    """The visibility of the course.
+
+    Determines how / whether this course is visible to users.
+    """

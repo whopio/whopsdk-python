@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -61,6 +62,9 @@ class CourseLessonsResource(SyncAPIResource):
         lesson_type: LessonTypes,
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
+        embed_id: Optional[str] | Omit = omit,
+        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
+        thumbnail: Optional[course_lesson_create_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -85,6 +89,12 @@ class CourseLessonsResource(SyncAPIResource):
 
           days_from_course_start_until_unlock: Days from course start until unlock
 
+          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+
+          embed_type: The type of embed for a lesson
+
+          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
+
           title: The title of the lesson
 
           extra_headers: Send extra headers
@@ -103,6 +113,9 @@ class CourseLessonsResource(SyncAPIResource):
                     "lesson_type": lesson_type,
                     "content": content,
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
+                    "embed_id": embed_id,
+                    "embed_type": embed_type,
+                    "thumbnail": thumbnail,
                     "title": title,
                 },
                 course_lesson_create_params.CourseLessonCreateParams,
@@ -160,10 +173,13 @@ class CourseLessonsResource(SyncAPIResource):
         attachments: Optional[Iterable[course_lesson_update_params.Attachment]] | Omit = omit,
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
+        embed_id: Optional[str] | Omit = omit,
+        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
         max_attempts: Optional[int] | Omit = omit,
         mux_asset_id: Optional[str] | Omit = omit,
+        thumbnail: Optional[course_lesson_update_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[LessonVisibilities] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -193,6 +209,10 @@ class CourseLessonsResource(SyncAPIResource):
 
           days_from_course_start_until_unlock: Days from course start until unlock
 
+          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+
+          embed_type: The type of embed for a lesson
+
           lesson_type: The available types for a lesson
 
           main_pdf: The main PDF file for this lesson
@@ -200,6 +220,8 @@ class CourseLessonsResource(SyncAPIResource):
           max_attempts: Maximum number of attempts allowed for assessments
 
           mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
+
+          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
 
           title: The title of the lesson
 
@@ -225,10 +247,13 @@ class CourseLessonsResource(SyncAPIResource):
                     "attachments": attachments,
                     "content": content,
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
+                    "embed_id": embed_id,
+                    "embed_type": embed_type,
                     "lesson_type": lesson_type,
                     "main_pdf": main_pdf,
                     "max_attempts": max_attempts,
                     "mux_asset_id": mux_asset_id,
+                    "thumbnail": thumbnail,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -372,6 +397,9 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         lesson_type: LessonTypes,
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
+        embed_id: Optional[str] | Omit = omit,
+        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
+        thumbnail: Optional[course_lesson_create_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -396,6 +424,12 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
 
           days_from_course_start_until_unlock: Days from course start until unlock
 
+          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+
+          embed_type: The type of embed for a lesson
+
+          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
+
           title: The title of the lesson
 
           extra_headers: Send extra headers
@@ -414,6 +448,9 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
                     "lesson_type": lesson_type,
                     "content": content,
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
+                    "embed_id": embed_id,
+                    "embed_type": embed_type,
+                    "thumbnail": thumbnail,
                     "title": title,
                 },
                 course_lesson_create_params.CourseLessonCreateParams,
@@ -471,10 +508,13 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         attachments: Optional[Iterable[course_lesson_update_params.Attachment]] | Omit = omit,
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
+        embed_id: Optional[str] | Omit = omit,
+        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
         max_attempts: Optional[int] | Omit = omit,
         mux_asset_id: Optional[str] | Omit = omit,
+        thumbnail: Optional[course_lesson_update_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[LessonVisibilities] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -504,6 +544,10 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
 
           days_from_course_start_until_unlock: Days from course start until unlock
 
+          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+
+          embed_type: The type of embed for a lesson
+
           lesson_type: The available types for a lesson
 
           main_pdf: The main PDF file for this lesson
@@ -511,6 +555,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           max_attempts: Maximum number of attempts allowed for assessments
 
           mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
+
+          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
 
           title: The title of the lesson
 
@@ -536,10 +582,13 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
                     "attachments": attachments,
                     "content": content,
                     "days_from_course_start_until_unlock": days_from_course_start_until_unlock,
+                    "embed_id": embed_id,
+                    "embed_type": embed_type,
                     "lesson_type": lesson_type,
                     "main_pdf": main_pdf,
                     "max_attempts": max_attempts,
                     "mux_asset_id": mux_asset_id,
+                    "thumbnail": thumbnail,
                     "title": title,
                     "visibility": visibility,
                 },

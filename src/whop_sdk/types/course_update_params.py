@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .languages import Languages
 
@@ -36,6 +36,12 @@ class CourseUpdateParams(TypedDict, total=False):
     language: Optional[Languages]
     """The available languages for a course"""
 
+    order: Optional[str]
+    """The decimal order position of the course within its experience.
+
+    Use fractional values (e.g., 1.5) to place between existing courses.
+    """
+
     require_completing_lessons_in_order: Optional[bool]
     """
     Whether the course requires students to complete the previous lesson before
@@ -50,6 +56,12 @@ class CourseUpdateParams(TypedDict, total=False):
 
     title: Optional[str]
     """The title of the course"""
+
+    visibility: Optional[Literal["visible", "hidden"]]
+    """The available visibilities for a course.
+
+    Determines how / whether a course is visible to users.
+    """
 
 
 class ChapterLesson(TypedDict, total=False):

@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .lesson_types import LessonTypes
@@ -15,6 +16,7 @@ __all__ = [
     "AssessmentQuestionOption",
     "Attachment",
     "MainPdf",
+    "Thumbnail",
     "VideoAsset",
 ]
 
@@ -117,6 +119,14 @@ class MainPdf(BaseModel):
     """
 
 
+class Thumbnail(BaseModel):
+    url: Optional[str] = None
+    """This is the URL you use to render optimized attachments on the client.
+
+    This should be used for apps.
+    """
+
+
 class VideoAsset(BaseModel):
     id: str
     """The ID of the Mux asset"""
@@ -144,6 +154,12 @@ class Lesson(BaseModel):
     days_from_course_start_until_unlock: Optional[int] = None
     """Number of days from course start until the lesson is unlocked"""
 
+    embed_id: Optional[str] = None
+    """ID for the embed (YouTube video ID or Loom share ID)"""
+
+    embed_type: Optional[Literal["youtube", "loom"]] = None
+    """The type of embed for a lesson"""
+
     lesson_type: LessonTypes
     """The type of the lesson (text, video, pdf, multi, quiz, knowledge_check)"""
 
@@ -152,6 +168,9 @@ class Lesson(BaseModel):
 
     order: int
     """The order of the lesson within its chapter"""
+
+    thumbnail: Optional[Thumbnail] = None
+    """The thumbnail for the lesson"""
 
     title: str
     """The title of the lesson"""
