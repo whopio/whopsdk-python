@@ -89,6 +89,5 @@ PaymentMethodTypes: TypeAlias = Literal[
     "splitit",
     "platform_balance",
     "apple",
-    "afterpay",
     "unknown",
 ]
