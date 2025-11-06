@@ -39,9 +39,11 @@ class TestCourses:
             title="title",
             certificate_after_completion_enabled=True,
             cover_image="cover_image",
+            order="123.45",
             require_completing_lessons_in_order=True,
             tagline="tagline",
             thumbnail={"direct_upload_id": "direct_upload_id"},
+            visibility="visible",
         )
         assert_matches_type(Course, course, path=["response"])
 
@@ -147,10 +149,12 @@ class TestCourses:
             cover_image="cover_image",
             description="description",
             language="en",
+            order="123.45",
             require_completing_lessons_in_order=True,
             tagline="tagline",
             thumbnail={"direct_upload_id": "direct_upload_id"},
             title="title",
+            visibility="visible",
         )
         assert_matches_type(Course, course, path=["response"])
 
@@ -294,9 +298,11 @@ class TestAsyncCourses:
             title="title",
             certificate_after_completion_enabled=True,
             cover_image="cover_image",
+            order="123.45",
             require_completing_lessons_in_order=True,
             tagline="tagline",
             thumbnail={"direct_upload_id": "direct_upload_id"},
+            visibility="visible",
         )
         assert_matches_type(Course, course, path=["response"])
 
@@ -402,10 +408,12 @@ class TestAsyncCourses:
             cover_image="cover_image",
             description="description",
             language="en",
+            order="123.45",
             require_completing_lessons_in_order=True,
             tagline="tagline",
             thumbnail={"direct_upload_id": "direct_upload_id"},
             title="title",
+            visibility="visible",
         )
         assert_matches_type(Course, course, path=["response"])
 

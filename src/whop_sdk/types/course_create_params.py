@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
     "CourseCreateParams",
@@ -29,6 +29,13 @@ class CourseCreateParams(TypedDict, total=False):
     cover_image: Optional[str]
     """The cover image URL of the course"""
 
+    order: Optional[str]
+    """The decimal order position of the course within its experience.
+
+    If not provided, it will be set to the next sequential order. Use fractional
+    values (e.g., 1.5) to place between existing courses.
+    """
+
     require_completing_lessons_in_order: Optional[bool]
     """
     Whether the course requires students to complete the previous lesson before
@@ -40,6 +47,12 @@ class CourseCreateParams(TypedDict, total=False):
 
     thumbnail: Optional[Thumbnail]
     """The thumbnail for the course in png, jpeg, or gif format"""
+
+    visibility: Optional[Literal["visible", "hidden"]]
+    """The available visibilities for a course.
+
+    Determines how / whether a course is visible to users.
+    """
 
 
 class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
