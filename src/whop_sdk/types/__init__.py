@@ -67,6 +67,7 @@ from .shared import (
     CourseLessonInteractionListItem as CourseLessonInteractionListItem,
 )
 from .languages import Languages as Languages
+from .embed_type import EmbedType as EmbedType
 from .promo_code import PromoCode as PromoCode
 from .card_brands import CardBrands as CardBrands
 from .lesson_types import LessonTypes as LessonTypes
@@ -89,6 +90,7 @@ from .plan_list_response import PlanListResponse as PlanListResponse
 from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .review_list_params import ReviewListParams as ReviewListParams
 from .company_list_params import CompanyListParams as CompanyListParams
+from .course_visibilities import CourseVisibilities as CourseVisibilities
 from .entry_list_response import EntryListResponse as EntryListResponse
 from .forum_list_response import ForumListResponse as ForumListResponse
 from .forum_update_params import ForumUpdateParams as ForumUpdateParams
@@ -155,6 +157,7 @@ from .promo_code_list_response import PromoCodeListResponse as PromoCodeListResp
 from .review_retrieve_response import ReviewRetrieveResponse as ReviewRetrieveResponse
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
+from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
 from .course_chapter_list_params import CourseChapterListParams as CourseChapterListParams
@@ -172,6 +175,7 @@ from .entry_created_webhook_event import EntryCreatedWebhookEvent as EntryCreate
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent as EntryDeletedWebhookEvent
 from .experience_duplicate_params import ExperienceDuplicateParams as ExperienceDuplicateParams
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
+from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .course_chapter_create_params import CourseChapterCreateParams as CourseChapterCreateParams
 from .course_chapter_list_response import CourseChapterListResponse as CourseChapterListResponse
 from .course_chapter_update_params import CourseChapterUpdateParams as CourseChapterUpdateParams

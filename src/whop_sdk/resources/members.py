@@ -95,7 +95,6 @@ class MembersResource(SyncAPIResource):
         *,
         company_id: str,
         access_level: Optional[AccessLevel] | Omit = omit,
-        access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
@@ -107,6 +106,7 @@ class MembersResource(SyncAPIResource):
         order: Optional[Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"]]
         | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         statuses: Optional[List[MemberStatuses]] | Omit = omit,
@@ -130,9 +130,7 @@ class MembersResource(SyncAPIResource):
         Args:
           company_id: The ID of the company to list members for
 
-          access_level: The access level a given user (or company) has to an access pass or company.
-
-          access_pass_ids: The access pass IDs to filter the members by
+          access_level: The access level a given user (or company) has to a product or company.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -153,6 +151,8 @@ class MembersResource(SyncAPIResource):
           order: Which columns can be used to sort.
 
           plan_ids: The plan IDs to filter the members by
+
+          product_ids: The product IDs to filter the members by
 
           promo_code_ids: The promo code IDs to filter the members by
 
@@ -183,7 +183,6 @@ class MembersResource(SyncAPIResource):
                     {
                         "company_id": company_id,
                         "access_level": access_level,
-                        "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -194,6 +193,7 @@ class MembersResource(SyncAPIResource):
                         "most_recent_actions": most_recent_actions,
                         "order": order,
                         "plan_ids": plan_ids,
+                        "product_ids": product_ids,
                         "promo_code_ids": promo_code_ids,
                         "query": query,
                         "statuses": statuses,
@@ -270,7 +270,6 @@ class AsyncMembersResource(AsyncAPIResource):
         *,
         company_id: str,
         access_level: Optional[AccessLevel] | Omit = omit,
-        access_pass_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
@@ -282,6 +281,7 @@ class AsyncMembersResource(AsyncAPIResource):
         order: Optional[Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"]]
         | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         query: Optional[str] | Omit = omit,
         statuses: Optional[List[MemberStatuses]] | Omit = omit,
@@ -305,9 +305,7 @@ class AsyncMembersResource(AsyncAPIResource):
         Args:
           company_id: The ID of the company to list members for
 
-          access_level: The access level a given user (or company) has to an access pass or company.
-
-          access_pass_ids: The access pass IDs to filter the members by
+          access_level: The access level a given user (or company) has to a product or company.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -328,6 +326,8 @@ class AsyncMembersResource(AsyncAPIResource):
           order: Which columns can be used to sort.
 
           plan_ids: The plan IDs to filter the members by
+
+          product_ids: The product IDs to filter the members by
 
           promo_code_ids: The promo code IDs to filter the members by
 
@@ -358,7 +358,6 @@ class AsyncMembersResource(AsyncAPIResource):
                     {
                         "company_id": company_id,
                         "access_level": access_level,
-                        "access_pass_ids": access_pass_ids,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -369,6 +368,7 @@ class AsyncMembersResource(AsyncAPIResource):
                         "most_recent_actions": most_recent_actions,
                         "order": order,
                         "plan_ids": plan_ids,
+                        "product_ids": product_ids,
                         "promo_code_ids": promo_code_ids,
                         "query": query,
                         "statuses": statuses,

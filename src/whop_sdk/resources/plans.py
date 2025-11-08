@@ -124,7 +124,7 @@ class PlansResource(SyncAPIResource):
           payment_method_configuration: The explicit payment method configuration for the plan. If not provided, the
               platform or company's defaults will apply.
 
-          plan_type: The type of plan that can be attached to an access pass
+          plan_type: The type of plan that can be attached to a product
 
           release_method: The methods of how a plan can be released.
 
@@ -567,7 +567,7 @@ class AsyncPlansResource(AsyncAPIResource):
           payment_method_configuration: The explicit payment method configuration for the plan. If not provided, the
               platform or company's defaults will apply.
 
-          plan_type: The type of plan that can be attached to an access pass
+          plan_type: The type of plan that can be attached to a product
 
           release_method: The methods of how a plan can be released.
 

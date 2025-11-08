@@ -21,7 +21,7 @@ class User(BaseModel):
 
 class ForumPost(BaseModel):
     id: str
-    """The unique identifier for the entity"""
+    """The unique identifier of the resource."""
 
     comment_count: int
     """The amount of comments on this post"""

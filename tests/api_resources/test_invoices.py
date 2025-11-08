@@ -435,15 +435,13 @@ class TestInvoices:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            collection_methods=["send_invoice"],
             direction="asc",
-            filters={
-                "access_pass_ids": ["string"],
-                "collection_methods": ["send_invoice"],
-                "statuses": ["open"],
-            },
             first=42,
             last=42,
             order="id",
+            product_ids=["string"],
+            statuses=["open"],
         )
         assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
@@ -936,15 +934,13 @@ class TestAsyncInvoices:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            collection_methods=["send_invoice"],
             direction="asc",
-            filters={
-                "access_pass_ids": ["string"],
-                "collection_methods": ["send_invoice"],
-                "statuses": ["open"],
-            },
             first=42,
             last=42,
             order="id",
+            product_ids=["string"],
+            statuses=["open"],
         )
         assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 

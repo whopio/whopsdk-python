@@ -6,7 +6,7 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import Languages, course_list_params, course_create_params, course_update_params
+from ..types import Languages, CourseVisibilities, course_list_params, course_create_params, course_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +21,7 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.course import Course
 from ..types.languages import Languages
+from ..types.course_visibilities import CourseVisibilities
 from ..types.course_list_response import CourseListResponse
 from ..types.course_delete_response import CourseDeleteResponse
 
@@ -54,9 +55,11 @@ class CoursesResource(SyncAPIResource):
         title: str,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         cover_image: Optional[str] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
+        visibility: Optional[CourseVisibilities] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -81,12 +84,19 @@ class CoursesResource(SyncAPIResource):
 
           cover_image: The cover image URL of the course
 
+          order: The decimal order position of the course within its experience. If not provided,
+              it will be set to the next sequential order. Use fractional values (e.g., 1.5)
+              to place between existing courses.
+
           require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
               moving on to the next one
 
           tagline: The tagline of the course
 
           thumbnail: The thumbnail for the course in png, jpeg, or gif format
+
+          visibility: The available visibilities for a course. Determines how / whether a course is
+              visible to users.
 
           extra_headers: Send extra headers
 
@@ -104,9 +114,11 @@ class CoursesResource(SyncAPIResource):
                     "title": title,
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "cover_image": cover_image,
+                    "order": order,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
+                    "visibility": visibility,
                 },
                 course_create_params.CourseCreateParams,
             ),
@@ -162,10 +174,12 @@ class CoursesResource(SyncAPIResource):
         cover_image: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         language: Optional[Languages] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_update_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        visibility: Optional[CourseVisibilities] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,6 +206,9 @@ class CoursesResource(SyncAPIResource):
 
           language: The available languages for a course
 
+          order: The decimal order position of the course within its experience. Use fractional
+              values (e.g., 1.5) to place between existing courses.
+
           require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
               moving on to the next one
 
@@ -200,6 +217,9 @@ class CoursesResource(SyncAPIResource):
           thumbnail: The thumbnail for the course in png, jpeg, or gif format
 
           title: The title of the course
+
+          visibility: The available visibilities for a course. Determines how / whether a course is
+              visible to users.
 
           extra_headers: Send extra headers
 
@@ -220,10 +240,12 @@ class CoursesResource(SyncAPIResource):
                     "cover_image": cover_image,
                     "description": description,
                     "language": language,
+                    "order": order,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
                     "title": title,
+                    "visibility": visibility,
                 },
                 course_update_params.CourseUpdateParams,
             ),
@@ -365,9 +387,11 @@ class AsyncCoursesResource(AsyncAPIResource):
         title: str,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         cover_image: Optional[str] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_create_params.Thumbnail] | Omit = omit,
+        visibility: Optional[CourseVisibilities] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -392,12 +416,19 @@ class AsyncCoursesResource(AsyncAPIResource):
 
           cover_image: The cover image URL of the course
 
+          order: The decimal order position of the course within its experience. If not provided,
+              it will be set to the next sequential order. Use fractional values (e.g., 1.5)
+              to place between existing courses.
+
           require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
               moving on to the next one
 
           tagline: The tagline of the course
 
           thumbnail: The thumbnail for the course in png, jpeg, or gif format
+
+          visibility: The available visibilities for a course. Determines how / whether a course is
+              visible to users.
 
           extra_headers: Send extra headers
 
@@ -415,9 +446,11 @@ class AsyncCoursesResource(AsyncAPIResource):
                     "title": title,
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "cover_image": cover_image,
+                    "order": order,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
+                    "visibility": visibility,
                 },
                 course_create_params.CourseCreateParams,
             ),
@@ -473,10 +506,12 @@ class AsyncCoursesResource(AsyncAPIResource):
         cover_image: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         language: Optional[Languages] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
         thumbnail: Optional[course_update_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        visibility: Optional[CourseVisibilities] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -503,6 +538,9 @@ class AsyncCoursesResource(AsyncAPIResource):
 
           language: The available languages for a course
 
+          order: The decimal order position of the course within its experience. Use fractional
+              values (e.g., 1.5) to place between existing courses.
+
           require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
               moving on to the next one
 
@@ -511,6 +549,9 @@ class AsyncCoursesResource(AsyncAPIResource):
           thumbnail: The thumbnail for the course in png, jpeg, or gif format
 
           title: The title of the course
+
+          visibility: The available visibilities for a course. Determines how / whether a course is
+              visible to users.
 
           extra_headers: Send extra headers
 
@@ -531,10 +572,12 @@ class AsyncCoursesResource(AsyncAPIResource):
                     "cover_image": cover_image,
                     "description": description,
                     "language": language,
+                    "order": order,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
                     "thumbnail": thumbnail,
                     "title": title,
+                    "visibility": visibility,
                 },
                 course_update_params.CourseUpdateParams,
             ),

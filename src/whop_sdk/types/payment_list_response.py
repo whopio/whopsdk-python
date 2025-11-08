@@ -188,7 +188,7 @@ class PaymentListResponse(BaseModel):
     """The plan attached to this payment."""
 
     product: Optional[Product] = None
-    """The access pass attached to this payment."""
+    """The product this payment was made for"""
 
     promo_code: Optional[PromoCode] = None
     """The promo code used for this payment."""
