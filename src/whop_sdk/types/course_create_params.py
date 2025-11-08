@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
+
+from .course_visibilities import CourseVisibilities
 
 __all__ = [
     "CourseCreateParams",
@@ -48,7 +50,7 @@ class CourseCreateParams(TypedDict, total=False):
     thumbnail: Optional[Thumbnail]
     """The thumbnail for the course in png, jpeg, or gif format"""
 
-    visibility: Optional[Literal["visible", "hidden"]]
+    visibility: Optional[CourseVisibilities]
     """The available visibilities for a course.
 
     Determines how / whether a course is visible to users.

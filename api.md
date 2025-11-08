@@ -459,7 +459,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Course, Languages, CourseListResponse, CourseDeleteResponse
+from whop_sdk.types import (
+    Course,
+    CourseVisibilities,
+    Languages,
+    CourseListResponse,
+    CourseDeleteResponse,
+)
 ```
 
 Methods:
@@ -493,6 +499,7 @@ Types:
 ```python
 from whop_sdk.types import (
     AssessmentQuestionTypes,
+    EmbedType,
     Lesson,
     LessonTypes,
     LessonVisibilities,
@@ -534,3 +541,15 @@ Methods:
 
 - <code title="get /course_students/{id}">client.course_students.<a href="./src/whop_sdk/resources/course_students.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/course_student_retrieve_response.py">CourseStudentRetrieveResponse</a></code>
 - <code title="get /course_students">client.course_students.<a href="./src/whop_sdk/resources/course_students.py">list</a>(\*\*<a href="src/whop_sdk/types/course_student_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_student_list_response.py">SyncCursorPage[CourseStudentListResponse]</a></code>
+
+# AccessTokens
+
+Types:
+
+```python
+from whop_sdk.types import AccessTokenCreateResponse
+```
+
+Methods:
+
+- <code title="post /access_tokens">client.access_tokens.<a href="./src/whop_sdk/resources/access_tokens.py">create</a>(\*\*<a href="src/whop_sdk/types/access_token_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/access_token_create_response.py">AccessTokenCreateResponse</a></code>

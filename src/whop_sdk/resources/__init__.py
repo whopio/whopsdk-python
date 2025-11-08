@@ -169,6 +169,14 @@ from .promo_codes import (
     PromoCodesResourceWithStreamingResponse,
     AsyncPromoCodesResourceWithStreamingResponse,
 )
+from .access_tokens import (
+    AccessTokensResource,
+    AsyncAccessTokensResource,
+    AccessTokensResourceWithRawResponse,
+    AsyncAccessTokensResourceWithRawResponse,
+    AccessTokensResourceWithStreamingResponse,
+    AsyncAccessTokensResourceWithStreamingResponse,
+)
 from .chat_channels import (
     ChatChannelsResource,
     AsyncChatChannelsResource,
@@ -425,4 +433,10 @@ __all__ = [
     "AsyncCourseStudentsResourceWithRawResponse",
     "CourseStudentsResourceWithStreamingResponse",
     "AsyncCourseStudentsResourceWithStreamingResponse",
+    "AccessTokensResource",
+    "AsyncAccessTokensResource",
+    "AccessTokensResourceWithRawResponse",
+    "AsyncAccessTokensResourceWithRawResponse",
+    "AccessTokensResourceWithStreamingResponse",
+    "AsyncAccessTokensResourceWithStreamingResponse",
 ]

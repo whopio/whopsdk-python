@@ -2,11 +2,11 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
 from .languages import Languages
 from .lesson_types import LessonTypes
+from .course_visibilities import CourseVisibilities
 
 __all__ = ["Course", "Chapter", "ChapterLesson", "Thumbnail"]
 
@@ -112,7 +112,7 @@ class Course(BaseModel):
     updated_at: datetime
     """The timestamp of when the course was last updated"""
 
-    visibility: Literal["visible", "hidden"]
+    visibility: CourseVisibilities
     """The visibility of the course.
 
     Determines how / whether this course is visible to users.
