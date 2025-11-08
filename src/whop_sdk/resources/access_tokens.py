@@ -59,19 +59,23 @@ class AccessTokensResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccessTokenCreateResponse:
-        """
-        Creates an access token for a user
+        """Creates an access token for a user to access a specific resource.
+
+        These access
+        tokens are designed to be used with Whop's embedded components.
 
         Args:
-          scoped_actions: Array of desired scoped actions for the access token.
+          scoped_actions: Array of desired scoped actions for the access token. This list must be a subset
+              of the API keys's existing permissions. Otherwise, an error will be raised.
 
-          target_resource_id: The ID of the target resource (Company or User) for which the access token is
-              being created.
+          target_resource_id: The ID of the target resource (Company, User, etc.) for which the access token
+              is being created.
 
-          target_resource_type: The type of the target resource (Company or User).
+          target_resource_type: The type of the target resource (company, user, product, experience, etc.).
 
           expires_at: The expiration timestamp for the access token. If not provided, a default
-              expiration time will be used.
+              expiration time of 1 hour will be used. The expiration can be set to a maximum
+              of 3 hours from the current time.
 
           extra_headers: Send extra headers
 
@@ -133,19 +137,23 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccessTokenCreateResponse:
-        """
-        Creates an access token for a user
+        """Creates an access token for a user to access a specific resource.
+
+        These access
+        tokens are designed to be used with Whop's embedded components.
 
         Args:
-          scoped_actions: Array of desired scoped actions for the access token.
+          scoped_actions: Array of desired scoped actions for the access token. This list must be a subset
+              of the API keys's existing permissions. Otherwise, an error will be raised.
 
-          target_resource_id: The ID of the target resource (Company or User) for which the access token is
-              being created.
+          target_resource_id: The ID of the target resource (Company, User, etc.) for which the access token
+              is being created.
 
-          target_resource_type: The type of the target resource (Company or User).
+          target_resource_type: The type of the target resource (company, user, product, experience, etc.).
 
           expires_at: The expiration timestamp for the access token. If not provided, a default
-              expiration time will be used.
+              expiration time of 1 hour will be used. The expiration can be set to a maximum
+              of 3 hours from the current time.
 
           extra_headers: Send extra headers
 
