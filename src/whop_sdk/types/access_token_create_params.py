@@ -14,19 +14,24 @@ __all__ = ["AccessTokenCreateParams"]
 
 class AccessTokenCreateParams(TypedDict, total=False):
     scoped_actions: Required[SequenceNotStr[str]]
-    """Array of desired scoped actions for the access token."""
+    """Array of desired scoped actions for the access token.
+
+    This list must be a subset of the API keys's existing permissions. Otherwise, an
+    error will be raised.
+    """
 
     target_resource_id: Required[str]
     """
-    The ID of the target resource (Company or User) for which the access token is
-    being created.
+    The ID of the target resource (Company, User, etc.) for which the access token
+    is being created.
     """
 
     target_resource_type: Required[Literal["company", "product", "experience", "app", "user"]]
-    """The type of the target resource (Company or User)."""
+    """The type of the target resource (company, user, product, experience, etc.)."""
 
     expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The expiration timestamp for the access token.
 
-    If not provided, a default expiration time will be used.
+    If not provided, a default expiration time of 1 hour will be used. The
+    expiration can be set to a maximum of 3 hours from the current time.
     """
