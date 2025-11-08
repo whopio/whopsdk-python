@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
+    EmbedType,
     LessonTypes,
     LessonVisibilities,
     course_lesson_list_params,
@@ -27,6 +27,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.lesson import Lesson
+from ..types.embed_type import EmbedType
 from ..types.lesson_types import LessonTypes
 from ..types.lesson_visibilities import LessonVisibilities
 from ..types.course_lesson_list_response import CourseLessonListResponse
@@ -63,7 +64,7 @@ class CourseLessonsResource(SyncAPIResource):
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         embed_id: Optional[str] | Omit = omit,
-        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
+        embed_type: Optional[EmbedType] | Omit = omit,
         thumbnail: Optional[course_lesson_create_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -174,7 +175,7 @@ class CourseLessonsResource(SyncAPIResource):
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         embed_id: Optional[str] | Omit = omit,
-        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
+        embed_type: Optional[EmbedType] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
         max_attempts: Optional[int] | Omit = omit,
@@ -398,7 +399,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         embed_id: Optional[str] | Omit = omit,
-        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
+        embed_type: Optional[EmbedType] | Omit = omit,
         thumbnail: Optional[course_lesson_create_params.Thumbnail] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -509,7 +510,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         content: Optional[str] | Omit = omit,
         days_from_course_start_until_unlock: Optional[int] | Omit = omit,
         embed_id: Optional[str] | Omit = omit,
-        embed_type: Optional[Literal["youtube", "loom"]] | Omit = omit,
+        embed_type: Optional[EmbedType] | Omit = omit,
         lesson_type: Optional[LessonTypes] | Omit = omit,
         main_pdf: Optional[course_lesson_update_params.MainPdf] | Omit = omit,
         max_attempts: Optional[int] | Omit = omit,

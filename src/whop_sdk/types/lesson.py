@@ -2,9 +2,9 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .embed_type import EmbedType
 from .lesson_types import LessonTypes
 from .lesson_visibilities import LessonVisibilities
 from .assessment_question_types import AssessmentQuestionTypes
@@ -157,7 +157,7 @@ class Lesson(BaseModel):
     embed_id: Optional[str] = None
     """ID for the embed (YouTube video ID or Loom share ID)"""
 
-    embed_type: Optional[Literal["youtube", "loom"]] = None
+    embed_type: Optional[EmbedType] = None
     """The type of embed for a lesson"""
 
     lesson_type: LessonTypes

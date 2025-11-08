@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from .languages import Languages
+from .course_visibilities import CourseVisibilities
 
 __all__ = [
     "CourseUpdateParams",
@@ -57,7 +58,7 @@ class CourseUpdateParams(TypedDict, total=False):
     title: Optional[str]
     """The title of the course"""
 
-    visibility: Optional[Literal["visible", "hidden"]]
+    visibility: Optional[CourseVisibilities]
     """The available visibilities for a course.
 
     Determines how / whether a course is visible to users.

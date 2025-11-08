@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .embed_type import EmbedType
 from .lesson_types import LessonTypes
 from .lesson_visibilities import LessonVisibilities
 
@@ -31,7 +31,7 @@ class CourseLessonListResponse(BaseModel):
     embed_id: Optional[str] = None
     """ID for the embed (YouTube video ID or Loom share ID)"""
 
-    embed_type: Optional[Literal["youtube", "loom"]] = None
+    embed_type: Optional[EmbedType] = None
     """The type of embed for a lesson"""
 
     lesson_type: LessonTypes

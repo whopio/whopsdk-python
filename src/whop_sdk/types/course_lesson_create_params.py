@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
+from .embed_type import EmbedType
 from .lesson_types import LessonTypes
 
 __all__ = [
@@ -31,7 +32,7 @@ class CourseLessonCreateParams(TypedDict, total=False):
     embed_id: Optional[str]
     """ID for the embed (YouTube video ID or Loom share ID)"""
 
-    embed_type: Optional[Literal["youtube", "loom"]]
+    embed_type: Optional[EmbedType]
     """The type of embed for a lesson"""
 
     thumbnail: Optional[Thumbnail]
