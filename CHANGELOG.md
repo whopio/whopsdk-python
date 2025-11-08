@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.0.5 (2025-11-08)
+
+Full Changelog: [v0.0.4...v0.0.5](https://github.com/whopio/whopsdk-python/compare/v0.0.4...v0.0.5)
+
+### Features
+
+* **api:** api update ([d2bbf5d](https://github.com/whopio/whopsdk-python/commit/d2bbf5dd17c2b7f8c3447e38d4a589866b4eb093))
+* **api:** api update ([ed935aa](https://github.com/whopio/whopsdk-python/commit/ed935aa1d99c0ab01fb66d63933b175f97a5e2cc))
+* **api:** api update ([7cd6ae4](https://github.com/whopio/whopsdk-python/commit/7cd6ae4f45fad7664b3d4244023b9e17503193c3))
+* **api:** api update ([e312f50](https://github.com/whopio/whopsdk-python/commit/e312f5055148b4e6bcb7a0ed8fd2d4b4af102d26))
+* **api:** api update ([9e367fe](https://github.com/whopio/whopsdk-python/commit/9e367fe893efc83acef84c92bfc1f7eebb95de59))
+* **api:** api update ([31f45a7](https://github.com/whopio/whopsdk-python/commit/31f45a7b1b748d30d7ee6d3a6f5587c20b8fe99d))
+* **api:** api update ([cb82b71](https://github.com/whopio/whopsdk-python/commit/cb82b71e38a35b52ed076ce4c4a52d4e59d5846a))
+* **api:** manual updates ([c4ca30f](https://github.com/whopio/whopsdk-python/commit/c4ca30f42b8f294d758b9a346557a4969a3abb15))
+
+
+### Chores
+
+* **internal:** fix test definition ([2c78dfd](https://github.com/whopio/whopsdk-python/commit/2c78dfd5871368e73205c29a8c0911fde7dd7f5b))
+* **internal:** grammar fix (it's -&gt; its) ([1417f6b](https://github.com/whopio/whopsdk-python/commit/1417f6ba4748087c500991492ff884558881c77c))
+
 ## 0.0.4 (2025-11-02)
 
 Full Changelog: [v0.0.3...v0.0.4](https://github.com/whopio/whopsdk-python/compare/v0.0.3...v0.0.4)
