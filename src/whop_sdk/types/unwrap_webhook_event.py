@@ -10,6 +10,8 @@ from .entry_deleted_webhook_event import EntryDeletedWebhookEvent
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent
+from .dispute_created_webhook_event import DisputeCreatedWebhookEvent
+from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
@@ -35,4 +37,6 @@ UnwrapWebhookEvent: TypeAlias = Union[
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,
     PaymentPendingWebhookEvent,
+    DisputeCreatedWebhookEvent,
+    DisputeUpdatedWebhookEvent,
 ]
