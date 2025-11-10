@@ -38,7 +38,6 @@ from .utils import update_env
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 api_key = "My API Key"
-app_id = "app_xxxxxxxxxxxxxx"
 
 
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
@@ -80,10 +79,6 @@ class TestWhop:
         assert copied.api_key == "another My API Key"
         assert client.api_key == "My API Key"
 
-        copied = client.copy(app_id="another app_xxxxxxxxxxxxxx")
-        assert copied.app_id == "another app_xxxxxxxxxxxxxx"
-        assert client.app_id == "app_xxxxxxxxxxxxxx"
-
     def test_copy_default_options(self, client: Whop) -> None:
         # options that have a default are overridden correctly
         copied = client.copy(max_retries=7)
@@ -102,11 +97,7 @@ class TestWhop:
 
     def test_copy_default_headers(self) -> None:
         client = Whop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -141,11 +132,7 @@ class TestWhop:
 
     def test_copy_default_query(self) -> None:
         client = Whop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_query={"foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -270,13 +257,7 @@ class TestWhop:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Whop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            timeout=httpx.Timeout(0),
-        )
+        client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -287,13 +268,7 @@ class TestWhop:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Whop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                http_client=http_client,
-            )
+            client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -303,13 +278,7 @@ class TestWhop:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Whop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                http_client=http_client,
-            )
+            client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -319,13 +288,7 @@ class TestWhop:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Whop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                http_client=http_client,
-            )
+            client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -339,18 +302,13 @@ class TestWhop:
                 Whop(
                     base_url=base_url,
                     api_key=api_key,
-                    app_id=app_id,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
         test_client = Whop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -359,7 +317,6 @@ class TestWhop:
         test_client2 = Whop(
             base_url=base_url,
             api_key=api_key,
-            app_id=app_id,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -374,22 +331,18 @@ class TestWhop:
         test_client2.close()
 
     def test_validate_headers(self) -> None:
-        client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(WhopError):
             with update_env(**{"WHOP_API_KEY": Omit()}):
-                client2 = Whop(base_url=base_url, api_key=None, app_id=app_id, _strict_response_validation=True)
+                client2 = Whop(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
         client = Whop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_query={"query_param": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -591,9 +544,7 @@ class TestWhop:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Whop(
-            base_url="https://example.com/from_init", api_key=api_key, app_id=app_id, _strict_response_validation=True
-        )
+        client = Whop(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -604,22 +555,16 @@ class TestWhop:
 
     def test_base_url_env(self) -> None:
         with update_env(WHOP_BASE_URL="http://localhost:5000/from/env"):
-            client = Whop(api_key=api_key, app_id=app_id, _strict_response_validation=True)
+            client = Whop(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
+            Whop(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-            ),
-            Whop(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                app_id=app_id,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -640,16 +585,10 @@ class TestWhop:
     @pytest.mark.parametrize(
         "client",
         [
+            Whop(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-            ),
-            Whop(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                app_id=app_id,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -670,16 +609,10 @@ class TestWhop:
     @pytest.mark.parametrize(
         "client",
         [
+            Whop(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Whop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-            ),
-            Whop(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                app_id=app_id,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -698,7 +631,7 @@ class TestWhop:
         client.close()
 
     def test_copied_client_does_not_close_http(self) -> None:
-        test_client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        test_client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not test_client.is_closed()
 
         copied = test_client.copy()
@@ -709,7 +642,7 @@ class TestWhop:
         assert not test_client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        test_client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        test_client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with test_client as c2:
             assert c2 is test_client
             assert not c2.is_closed()
@@ -730,13 +663,7 @@ class TestWhop:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Whop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                max_retries=cast(Any, None),
-            )
+            Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -745,12 +672,12 @@ class TestWhop:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        strict_client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        non_strict_client = Whop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=False)
+        non_strict_client = Whop(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = non_strict_client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -944,10 +871,6 @@ class TestAsyncWhop:
         assert copied.api_key == "another My API Key"
         assert async_client.api_key == "My API Key"
 
-        copied = async_client.copy(app_id="another app_xxxxxxxxxxxxxx")
-        assert copied.app_id == "another app_xxxxxxxxxxxxxx"
-        assert async_client.app_id == "app_xxxxxxxxxxxxxx"
-
     def test_copy_default_options(self, async_client: AsyncWhop) -> None:
         # options that have a default are overridden correctly
         copied = async_client.copy(max_retries=7)
@@ -966,11 +889,7 @@ class TestAsyncWhop:
 
     async def test_copy_default_headers(self) -> None:
         client = AsyncWhop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -1005,11 +924,7 @@ class TestAsyncWhop:
 
     async def test_copy_default_query(self) -> None:
         client = AsyncWhop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_query={"foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -1137,11 +1052,7 @@ class TestAsyncWhop:
 
     async def test_client_timeout_option(self) -> None:
         client = AsyncWhop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            timeout=httpx.Timeout(0),
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1154,11 +1065,7 @@ class TestAsyncWhop:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
             client = AsyncWhop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1170,11 +1077,7 @@ class TestAsyncWhop:
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
             client = AsyncWhop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1186,11 +1089,7 @@ class TestAsyncWhop:
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
             client = AsyncWhop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1205,18 +1104,13 @@ class TestAsyncWhop:
                 AsyncWhop(
                     base_url=base_url,
                     api_key=api_key,
-                    app_id=app_id,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     async def test_default_headers_option(self) -> None:
         test_client = AsyncWhop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -1225,7 +1119,6 @@ class TestAsyncWhop:
         test_client2 = AsyncWhop(
             base_url=base_url,
             api_key=api_key,
-            app_id=app_id,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -1240,22 +1133,18 @@ class TestAsyncWhop:
         await test_client2.close()
 
     def test_validate_headers(self) -> None:
-        client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        client = AsyncWhop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(WhopError):
             with update_env(**{"WHOP_API_KEY": Omit()}):
-                client2 = AsyncWhop(base_url=base_url, api_key=None, app_id=app_id, _strict_response_validation=True)
+                client2 = AsyncWhop(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     async def test_default_query_option(self) -> None:
         client = AsyncWhop(
-            base_url=base_url,
-            api_key=api_key,
-            app_id=app_id,
-            _strict_response_validation=True,
-            default_query={"query_param": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -1459,9 +1348,7 @@ class TestAsyncWhop:
         assert response.foo == 2
 
     async def test_base_url_setter(self) -> None:
-        client = AsyncWhop(
-            base_url="https://example.com/from_init", api_key=api_key, app_id=app_id, _strict_response_validation=True
-        )
+        client = AsyncWhop(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -1472,22 +1359,16 @@ class TestAsyncWhop:
 
     async def test_base_url_env(self) -> None:
         with update_env(WHOP_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncWhop(api_key=api_key, app_id=app_id, _strict_response_validation=True)
+            client = AsyncWhop(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
+            AsyncWhop(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-            ),
-            AsyncWhop(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                app_id=app_id,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1508,16 +1389,10 @@ class TestAsyncWhop:
     @pytest.mark.parametrize(
         "client",
         [
+            AsyncWhop(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-            ),
-            AsyncWhop(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                app_id=app_id,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1538,16 +1413,10 @@ class TestAsyncWhop:
     @pytest.mark.parametrize(
         "client",
         [
+            AsyncWhop(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             AsyncWhop(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-            ),
-            AsyncWhop(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                app_id=app_id,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1566,7 +1435,7 @@ class TestAsyncWhop:
         await client.close()
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        test_client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        test_client = AsyncWhop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not test_client.is_closed()
 
         copied = test_client.copy()
@@ -1578,7 +1447,7 @@ class TestAsyncWhop:
         assert not test_client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        test_client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        test_client = AsyncWhop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with test_client as c2:
             assert c2 is test_client
             assert not c2.is_closed()
@@ -1599,13 +1468,7 @@ class TestAsyncWhop:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncWhop(
-                base_url=base_url,
-                api_key=api_key,
-                app_id=app_id,
-                _strict_response_validation=True,
-                max_retries=cast(Any, None),
-            )
+            AsyncWhop(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     async def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -1614,14 +1477,12 @@ class TestAsyncWhop:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncWhop(base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=True)
+        strict_client = AsyncWhop(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        non_strict_client = AsyncWhop(
-            base_url=base_url, api_key=api_key, app_id=app_id, _strict_response_validation=False
-        )
+        non_strict_client = AsyncWhop(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await non_strict_client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
