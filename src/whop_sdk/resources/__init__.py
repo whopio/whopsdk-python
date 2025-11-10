@@ -185,6 +185,14 @@ from .chat_channels import (
     ChatChannelsResourceWithStreamingResponse,
     AsyncChatChannelsResourceWithStreamingResponse,
 )
+from .notifications import (
+    NotificationsResource,
+    AsyncNotificationsResource,
+    NotificationsResourceWithRawResponse,
+    AsyncNotificationsResourceWithRawResponse,
+    NotificationsResourceWithStreamingResponse,
+    AsyncNotificationsResourceWithStreamingResponse,
+)
 from .course_lessons import (
     CourseLessonsResource,
     AsyncCourseLessonsResource,
@@ -439,4 +447,10 @@ __all__ = [
     "AsyncAccessTokensResourceWithRawResponse",
     "AccessTokensResourceWithStreamingResponse",
     "AsyncAccessTokensResourceWithStreamingResponse",
+    "NotificationsResource",
+    "AsyncNotificationsResource",
+    "NotificationsResourceWithRawResponse",
+    "AsyncNotificationsResourceWithRawResponse",
+    "NotificationsResourceWithStreamingResponse",
+    "AsyncNotificationsResourceWithStreamingResponse",
 ]
