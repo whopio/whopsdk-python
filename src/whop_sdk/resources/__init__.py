@@ -64,6 +64,14 @@ from .reviews import (
     ReviewsResourceWithStreamingResponse,
     AsyncReviewsResourceWithStreamingResponse,
 )
+from .disputes import (
+    DisputesResource,
+    AsyncDisputesResource,
+    DisputesResourceWithRawResponse,
+    AsyncDisputesResourceWithRawResponse,
+    DisputesResourceWithStreamingResponse,
+    AsyncDisputesResourceWithStreamingResponse,
+)
 from .invoices import (
     InvoicesResource,
     AsyncInvoicesResource,
@@ -453,4 +461,10 @@ __all__ = [
     "AsyncNotificationsResourceWithRawResponse",
     "NotificationsResourceWithStreamingResponse",
     "AsyncNotificationsResourceWithStreamingResponse",
+    "DisputesResource",
+    "AsyncDisputesResource",
+    "DisputesResourceWithRawResponse",
+    "AsyncDisputesResourceWithRawResponse",
+    "DisputesResourceWithStreamingResponse",
+    "AsyncDisputesResourceWithStreamingResponse",
 ]
