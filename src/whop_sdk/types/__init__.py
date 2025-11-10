@@ -66,6 +66,7 @@ from .shared import (
     EmailNotificationPreferences as EmailNotificationPreferences,
     CourseLessonInteractionListItem as CourseLessonInteractionListItem,
 )
+from .dispute import Dispute as Dispute
 from .languages import Languages as Languages
 from .embed_type import EmbedType as EmbedType
 from .promo_code import PromoCode as PromoCode
@@ -76,6 +77,7 @@ from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
 from .app_list_params import AppListParams as AppListParams
 from .billing_reasons import BillingReasons as BillingReasons
+from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .plan_list_params import PlanListParams as PlanListParams
 from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
@@ -91,6 +93,7 @@ from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .review_list_params import ReviewListParams as ReviewListParams
 from .company_list_params import CompanyListParams as CompanyListParams
 from .course_visibilities import CourseVisibilities as CourseVisibilities
+from .dispute_list_params import DisputeListParams as DisputeListParams
 from .entry_list_response import EntryListResponse as EntryListResponse
 from .forum_list_response import ForumListResponse as ForumListResponse
 from .forum_update_params import ForumUpdateParams as ForumUpdateParams
@@ -113,6 +116,7 @@ from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .app_build_list_params import AppBuildListParams as AppBuildListParams
 from .company_create_params import CompanyCreateParams as CompanyCreateParams
 from .company_list_response import CompanyListResponse as CompanyListResponse
+from .dispute_list_response import DisputeListResponse as DisputeListResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .message_create_params import MessageCreateParams as MessageCreateParams
@@ -165,6 +169,7 @@ from .course_student_list_params import CourseStudentListParams as CourseStudent
 from .entry_denied_webhook_event import EntryDeniedWebhookEvent as EntryDeniedWebhookEvent
 from .experience_delete_response import ExperienceDeleteResponse as ExperienceDeleteResponse
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
+from .notification_create_params import NotificationCreateParams as NotificationCreateParams
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
@@ -182,14 +187,18 @@ from .course_chapter_update_params import CourseChapterUpdateParams as CourseCha
 from .course_student_list_response import CourseStudentListResponse as CourseStudentListResponse
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent as EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
+from .notification_create_response import NotificationCreateResponse as NotificationCreateResponse
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFailedWebhookEvent
 from .authorized_user_list_response import AuthorizedUserListResponse as AuthorizedUserListResponse
 from .course_lesson_delete_response import CourseLessonDeleteResponse as CourseLessonDeleteResponse
+from .dispute_created_webhook_event import DisputeCreatedWebhookEvent as DisputeCreatedWebhookEvent
+from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent as DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent as InvoiceCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent as PaymentPendingWebhookEvent
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
+from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent as PaymentSucceededWebhookEvent
 from .course_student_retrieve_response import CourseStudentRetrieveResponse as CourseStudentRetrieveResponse

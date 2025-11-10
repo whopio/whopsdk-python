@@ -152,6 +152,8 @@ from whop_sdk.types import (
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,
     PaymentPendingWebhookEvent,
+    DisputeCreatedWebhookEvent,
+    DisputeUpdatedWebhookEvent,
     UnwrapWebhookEvent,
 )
 ```
@@ -553,3 +555,30 @@ from whop_sdk.types import AccessTokenCreateResponse
 Methods:
 
 - <code title="post /access_tokens">client.access_tokens.<a href="./src/whop_sdk/resources/access_tokens.py">create</a>(\*\*<a href="src/whop_sdk/types/access_token_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/access_token_create_response.py">AccessTokenCreateResponse</a></code>
+
+# Notifications
+
+Types:
+
+```python
+from whop_sdk.types import NotificationCreateResponse
+```
+
+Methods:
+
+- <code title="post /notifications">client.notifications.<a href="./src/whop_sdk/resources/notifications.py">create</a>(\*\*<a href="src/whop_sdk/types/notification_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/notification_create_response.py">NotificationCreateResponse</a></code>
+
+# Disputes
+
+Types:
+
+```python
+from whop_sdk.types import Dispute, DisputeStatuses, DisputeListResponse
+```
+
+Methods:
+
+- <code title="get /disputes/{id}">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
+- <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_list_response.py">SyncCursorPage[DisputeListResponse]</a></code>
+- <code title="post /disputes/{id}/submit_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">submit_evidence</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
+- <code title="post /disputes/{id}/update_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">update_evidence</a>(id, \*\*<a href="src/whop_sdk/types/dispute_update_evidence_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>

@@ -64,6 +64,14 @@ from .reviews import (
     ReviewsResourceWithStreamingResponse,
     AsyncReviewsResourceWithStreamingResponse,
 )
+from .disputes import (
+    DisputesResource,
+    AsyncDisputesResource,
+    DisputesResourceWithRawResponse,
+    AsyncDisputesResourceWithRawResponse,
+    DisputesResourceWithStreamingResponse,
+    AsyncDisputesResourceWithStreamingResponse,
+)
 from .invoices import (
     InvoicesResource,
     AsyncInvoicesResource,
@@ -184,6 +192,14 @@ from .chat_channels import (
     AsyncChatChannelsResourceWithRawResponse,
     ChatChannelsResourceWithStreamingResponse,
     AsyncChatChannelsResourceWithStreamingResponse,
+)
+from .notifications import (
+    NotificationsResource,
+    AsyncNotificationsResource,
+    NotificationsResourceWithRawResponse,
+    AsyncNotificationsResourceWithRawResponse,
+    NotificationsResourceWithStreamingResponse,
+    AsyncNotificationsResourceWithStreamingResponse,
 )
 from .course_lessons import (
     CourseLessonsResource,
@@ -439,4 +455,16 @@ __all__ = [
     "AsyncAccessTokensResourceWithRawResponse",
     "AccessTokensResourceWithStreamingResponse",
     "AsyncAccessTokensResourceWithStreamingResponse",
+    "NotificationsResource",
+    "AsyncNotificationsResource",
+    "NotificationsResourceWithRawResponse",
+    "AsyncNotificationsResourceWithRawResponse",
+    "NotificationsResourceWithStreamingResponse",
+    "AsyncNotificationsResourceWithStreamingResponse",
+    "DisputesResource",
+    "AsyncDisputesResource",
+    "DisputesResourceWithRawResponse",
+    "AsyncDisputesResourceWithRawResponse",
+    "DisputesResourceWithStreamingResponse",
+    "AsyncDisputesResourceWithStreamingResponse",
 ]
