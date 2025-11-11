@@ -25,7 +25,10 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_method_create_overload_1(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.create(
-            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+            plan={
+                "company_id": "biz_xxxxxxxxxxxxxx",
+                "currency": "usd",
+            },
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -35,8 +38,8 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.create(
             plan={
                 "company_id": "biz_xxxxxxxxxxxxxx",
-                "billing_period": 42,
                 "currency": "usd",
+                "billing_period": 42,
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -93,7 +96,10 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_raw_response_create_overload_1(self, client: Whop) -> None:
         response = client.checkout_configurations.with_raw_response.create(
-            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+            plan={
+                "company_id": "biz_xxxxxxxxxxxxxx",
+                "currency": "usd",
+            },
         )
 
         assert response.is_closed is True
@@ -105,7 +111,10 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_streaming_response_create_overload_1(self, client: Whop) -> None:
         with client.checkout_configurations.with_streaming_response.create(
-            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+            plan={
+                "company_id": "biz_xxxxxxxxxxxxxx",
+                "currency": "usd",
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -268,7 +277,10 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.create(
-            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+            plan={
+                "company_id": "biz_xxxxxxxxxxxxxx",
+                "currency": "usd",
+            },
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -278,8 +290,8 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.create(
             plan={
                 "company_id": "biz_xxxxxxxxxxxxxx",
-                "billing_period": 42,
                 "currency": "usd",
+                "billing_period": 42,
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -336,7 +348,10 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         response = await async_client.checkout_configurations.with_raw_response.create(
-            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+            plan={
+                "company_id": "biz_xxxxxxxxxxxxxx",
+                "currency": "usd",
+            },
         )
 
         assert response.is_closed is True
@@ -348,7 +363,10 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         async with async_client.checkout_configurations.with_streaming_response.create(
-            plan={"company_id": "biz_xxxxxxxxxxxxxx"},
+            plan={
+                "company_id": "biz_xxxxxxxxxxxxxx",
+                "currency": "usd",
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

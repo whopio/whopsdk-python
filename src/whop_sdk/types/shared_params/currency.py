@@ -91,4 +91,5 @@ Currency: TypeAlias = Literal[
     "uzs",
     "rub",
     "btc",
+    "cny",
 ]

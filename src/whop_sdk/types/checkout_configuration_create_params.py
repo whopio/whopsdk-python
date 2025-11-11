@@ -167,11 +167,11 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     company_id: Required[str]
     """The company the plan should be created for."""
 
+    currency: Required[Currency]
+    """The respective currency identifier for the plan."""
+
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
-
-    currency: Optional[Currency]
-    """The available currencies on the platform"""
 
     custom_fields: Optional[Iterable[CreateCheckoutSessionInputWithPlanPlanCustomField]]
     """An array of custom field objects."""
