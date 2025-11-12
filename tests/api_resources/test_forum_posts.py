@@ -50,6 +50,7 @@ class TestForumPosts:
                 ]
             },
             title="title",
+            visibility="members_only",
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
@@ -138,6 +139,7 @@ class TestForumPosts:
             content="content",
             is_pinned=True,
             title="title",
+            visibility="members_only",
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
@@ -258,6 +260,7 @@ class TestAsyncForumPosts:
                 ]
             },
             title="title",
+            visibility="members_only",
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
@@ -346,6 +349,7 @@ class TestAsyncForumPosts:
             content="content",
             is_pinned=True,
             title="title",
+            visibility="members_only",
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 

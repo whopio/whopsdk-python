@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -59,6 +60,7 @@ class ForumPostsResource(SyncAPIResource):
         pinned: Optional[bool] | Omit = omit,
         poll: Optional[forum_post_create_params.Poll] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -99,6 +101,8 @@ class ForumPostsResource(SyncAPIResource):
 
           title: The title of the post. Only visible if paywalled.
 
+          visibility: The visibility types for forum posts
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -121,6 +125,7 @@ class ForumPostsResource(SyncAPIResource):
                     "pinned": pinned,
                     "poll": poll,
                     "title": title,
+                    "visibility": visibility,
                 },
                 forum_post_create_params.ForumPostCreateParams,
             ),
@@ -175,6 +180,7 @@ class ForumPostsResource(SyncAPIResource):
         content: Optional[str] | Omit = omit,
         is_pinned: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -195,6 +201,8 @@ class ForumPostsResource(SyncAPIResource):
 
           title: The title of the post. Only visible if paywalled.
 
+          visibility: The visibility types for forum posts
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -213,6 +221,7 @@ class ForumPostsResource(SyncAPIResource):
                     "content": content,
                     "is_pinned": is_pinned,
                     "title": title,
+                    "visibility": visibility,
                 },
                 forum_post_update_params.ForumPostUpdateParams,
             ),
@@ -327,6 +336,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         pinned: Optional[bool] | Omit = omit,
         poll: Optional[forum_post_create_params.Poll] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -367,6 +377,8 @@ class AsyncForumPostsResource(AsyncAPIResource):
 
           title: The title of the post. Only visible if paywalled.
 
+          visibility: The visibility types for forum posts
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -389,6 +401,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
                     "pinned": pinned,
                     "poll": poll,
                     "title": title,
+                    "visibility": visibility,
                 },
                 forum_post_create_params.ForumPostCreateParams,
             ),
@@ -443,6 +456,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         content: Optional[str] | Omit = omit,
         is_pinned: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -463,6 +477,8 @@ class AsyncForumPostsResource(AsyncAPIResource):
 
           title: The title of the post. Only visible if paywalled.
 
+          visibility: The visibility types for forum posts
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -481,6 +497,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
                     "content": content,
                     "is_pinned": is_pinned,
                     "title": title,
+                    "visibility": visibility,
                 },
                 forum_post_update_params.ForumPostUpdateParams,
             ),

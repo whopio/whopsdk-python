@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
     "ForumPostUpdateParams",
@@ -28,6 +28,9 @@ class ForumPostUpdateParams(TypedDict, total=False):
 
     title: Optional[str]
     """The title of the post. Only visible if paywalled."""
+
+    visibility: Optional[Literal["members_only", "globally_visible"]]
+    """The visibility types for forum posts"""
 
 
 class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
