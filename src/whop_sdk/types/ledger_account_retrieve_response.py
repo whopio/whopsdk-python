@@ -65,6 +65,7 @@ class LedgerAccountRetrieveResponse(BaseModel):
     ledger_account_audit_status: Optional[
         Literal[
             "pending",
+            "pending_ai_review",
             "approved",
             "reserves_imposed",
             "suspended",
