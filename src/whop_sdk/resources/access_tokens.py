@@ -65,8 +65,10 @@ class AccessTokensResource(SyncAPIResource):
         tokens are designed to be used with Whop's embedded components.
 
         Args:
-          scoped_actions: Array of desired scoped actions for the access token. This list must be a subset
-              of the API keys's existing permissions. Otherwise, an error will be raised.
+          scoped_actions: Array of desired scoped actions for the access token. If sent as an empty array,
+              all permissions from the API key making the request will be available on the
+              token. If sending an explicit list, they must be a subset of the API keys's
+              existing permissions. Otherwise, an error will be raised.
 
           target_resource_id: The ID of the target resource (Company, User, etc.) for which the access token
               is being created.
@@ -143,8 +145,10 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         tokens are designed to be used with Whop's embedded components.
 
         Args:
-          scoped_actions: Array of desired scoped actions for the access token. This list must be a subset
-              of the API keys's existing permissions. Otherwise, an error will be raised.
+          scoped_actions: Array of desired scoped actions for the access token. If sent as an empty array,
+              all permissions from the API key making the request will be available on the
+              token. If sending an explicit list, they must be a subset of the API keys's
+              existing permissions. Otherwise, an error will be raised.
 
           target_resource_id: The ID of the target resource (Company, User, etc.) for which the access token
               is being created.
