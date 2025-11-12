@@ -20,5 +20,6 @@ CardBrands: TypeAlias = Literal[
     "rupay",
     "jcbrupay",
     "elo",
+    "maestro",
     "unknown",
 ]
