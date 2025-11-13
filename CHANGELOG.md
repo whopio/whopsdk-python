@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.0.7 (2025-11-13)
+
+Full Changelog: [v0.0.6...v0.0.7](https://github.com/whopio/whopsdk-python/compare/v0.0.6...v0.0.7)
+
+### Features
+
+* **api:** api update ([29c0470](https://github.com/whopio/whopsdk-python/commit/29c04703ed65f1e2e25ba9eae629c60f0d1df57b))
+* **api:** api update ([a7d61a1](https://github.com/whopio/whopsdk-python/commit/a7d61a104751ca3f32ddbb2cbe80518d9d08df22))
+* **api:** api update ([a983f4b](https://github.com/whopio/whopsdk-python/commit/a983f4b99474c88cdca216f4dd53ddf016a6b5e6))
+* **api:** api update ([e437b9f](https://github.com/whopio/whopsdk-python/commit/e437b9fa0afcd08a03b70d682a3d6b46466b79d4))
+* **api:** api update ([7d45ca2](https://github.com/whopio/whopsdk-python/commit/7d45ca2f3f75af265c38907178be8c61f0285e06))
+* **api:** api update ([714c0ec](https://github.com/whopio/whopsdk-python/commit/714c0ecbca1c088ab5fa7d645e689d70cb068c5e))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([8a0daf7](https://github.com/whopio/whopsdk-python/commit/8a0daf7f0d0ef7bbbb7eb443c87d55fb016f14bb))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([975a27c](https://github.com/whopio/whopsdk-python/commit/975a27cb881df3eba6171df589d21ccf6e834c41))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([df4ee38](https://github.com/whopio/whopsdk-python/commit/df4ee3850bf6b1bfd580504cc56836a3cb34db98))
+
 ## 0.0.6 (2025-11-10)
 
 Full Changelog: [v0.0.5...v0.0.6](https://github.com/whopio/whopsdk-python/compare/v0.0.5...v0.0.6)
