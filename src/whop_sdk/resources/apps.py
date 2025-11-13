@@ -143,6 +143,7 @@ class AppsResource(SyncAPIResource):
         id: str,
         *,
         app_store_description: Optional[str] | Omit = omit,
+        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -169,6 +170,8 @@ class AppsResource(SyncAPIResource):
 
         Args:
           app_store_description: The description of the app for the app store in-depth app view.
+
+          app_type: The type of end-user an app is built for
 
           base_url: The base production url of the app
 
@@ -203,6 +206,7 @@ class AppsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "app_store_description": app_store_description,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "dashboard_path": dashboard_path,
                     "description": description,
@@ -425,6 +429,7 @@ class AsyncAppsResource(AsyncAPIResource):
         id: str,
         *,
         app_store_description: Optional[str] | Omit = omit,
+        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -451,6 +456,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
         Args:
           app_store_description: The description of the app for the app store in-depth app view.
+
+          app_type: The type of end-user an app is built for
 
           base_url: The base production url of the app
 
@@ -485,6 +492,7 @@ class AsyncAppsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "app_store_description": app_store_description,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "dashboard_path": dashboard_path,
                     "description": description,
