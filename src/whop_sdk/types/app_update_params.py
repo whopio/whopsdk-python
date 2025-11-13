@@ -14,6 +14,9 @@ class AppUpdateParams(TypedDict, total=False):
     app_store_description: Optional[str]
     """The description of the app for the app store in-depth app view."""
 
+    app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]]
+    """The type of end-user an app is built for"""
+
     base_url: Optional[str]
     """The base production url of the app"""
 
