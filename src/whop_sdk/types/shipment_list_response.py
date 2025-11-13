@@ -29,7 +29,7 @@ class ShipmentListResponse(BaseModel):
     delivery_estimate: Optional[datetime] = None
     """The delivery estimate of the shipment"""
 
-    payment: Payment
+    payment: Optional[Payment] = None
     """The payment of the shipment"""
 
     service: Optional[str] = None
