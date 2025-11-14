@@ -180,6 +180,7 @@ class TestApps:
     def test_method_list_with_all_params(self, client: Whop) -> None:
         app = client.apps.list(
             after="after",
+            app_type="b2b_app",
             before="before",
             company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
@@ -381,6 +382,7 @@ class TestAsyncApps:
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.list(
             after="after",
+            app_type="b2b_app",
             before="before",
             company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
