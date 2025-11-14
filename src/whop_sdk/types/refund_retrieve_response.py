@@ -2,7 +2,6 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
 from .card_brands import CardBrands
@@ -15,17 +14,10 @@ from .refund_reference_type import RefundReferenceType
 from .refund_reference_status import RefundReferenceStatus
 from .shared.membership_status import MembershipStatus
 
-__all__ = [
-    "RefundCreatedWebhookEvent",
-    "Data",
-    "DataPayment",
-    "DataPaymentMember",
-    "DataPaymentMembership",
-    "DataPaymentUser",
-]
+__all__ = ["RefundRetrieveResponse", "Payment", "PaymentMember", "PaymentMembership", "PaymentUser"]
 
 
-class DataPaymentMember(BaseModel):
+class PaymentMember(BaseModel):
     id: str
     """The ID of the member"""
 
@@ -33,7 +25,7 @@ class DataPaymentMember(BaseModel):
     """The phone number for the member, if available."""
 
 
-class DataPaymentMembership(BaseModel):
+class PaymentMembership(BaseModel):
     id: str
     """The internal ID of the membership."""
 
@@ -41,7 +33,7 @@ class DataPaymentMembership(BaseModel):
     """The state of the membership."""
 
 
-class DataPaymentUser(BaseModel):
+class PaymentUser(BaseModel):
     id: str
     """The internal ID of the user."""
 
@@ -55,7 +47,7 @@ class DataPaymentUser(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class DataPayment(BaseModel):
+class Payment(BaseModel):
     id: str
     """The payment ID"""
 
@@ -77,10 +69,10 @@ class DataPayment(BaseModel):
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
 
-    member: Optional[DataPaymentMember] = None
+    member: Optional[PaymentMember] = None
     """The member attached to this payment."""
 
-    membership: Optional[DataPaymentMembership] = None
+    membership: Optional[PaymentMembership] = None
     """The membership attached to this payment."""
 
     paid_at: Optional[datetime] = None
@@ -98,11 +90,11 @@ class DataPayment(BaseModel):
     usd_total: Optional[float] = None
     """The total in USD to show to the creator (excluding buyer fees)."""
 
-    user: Optional[DataPaymentUser] = None
+    user: Optional[PaymentUser] = None
     """The user that made this payment."""
 
 
-class Data(BaseModel):
+class RefundRetrieveResponse(BaseModel):
     id: str
     """The ID of the refund."""
 
@@ -115,7 +107,7 @@ class Data(BaseModel):
     currency: Currency
     """The currency of the refund."""
 
-    payment: Optional[DataPayment] = None
+    payment: Optional[Payment] = None
     """The payment associated with the refund."""
 
     provider: PaymentProvider
@@ -135,20 +127,3 @@ class Data(BaseModel):
 
     status: RefundStatus
     """The status of the refund."""
-
-
-class RefundCreatedWebhookEvent(BaseModel):
-    id: str
-    """A unique ID for every single webhook request"""
-
-    api_version: Literal["v1"]
-    """The API version for this webhook"""
-
-    data: Data
-    """An object representing a refund made on a payment."""
-
-    timestamp: datetime
-    """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
-
-    type: Literal["refund.created"]
-    """The webhook event type"""
