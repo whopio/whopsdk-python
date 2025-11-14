@@ -154,6 +154,8 @@ from whop_sdk.types import (
     PaymentPendingWebhookEvent,
     DisputeCreatedWebhookEvent,
     DisputeUpdatedWebhookEvent,
+    RefundCreatedWebhookEvent,
+    RefundUpdatedWebhookEvent,
     UnwrapWebhookEvent,
 )
 ```
