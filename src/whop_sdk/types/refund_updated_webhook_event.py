@@ -6,9 +6,13 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 from .card_brands import CardBrands
+from .refund_status import RefundStatus
 from .billing_reasons import BillingReasons
 from .shared.currency import Currency
+from .payment_provider import PaymentProvider
 from .payment_method_types import PaymentMethodTypes
+from .refund_reference_type import RefundReferenceType
+from .refund_reference_status import RefundReferenceStatus
 from .shared.membership_status import MembershipStatus
 
 __all__ = [
@@ -114,24 +118,22 @@ class Data(BaseModel):
     payment: Optional[DataPayment] = None
     """The payment associated with the refund."""
 
-    provider: Literal["stripe", "coinbase", "paypal", "apple", "sezzle", "splitit", "platform_balance", "multi_psp"]
+    provider: PaymentProvider
     """The provider of the refund."""
 
     provider_created_at: Optional[datetime] = None
     """The time the refund was created by the provider."""
 
-    reference_status: Optional[Literal["available", "pending", "unavailable"]] = None
+    reference_status: Optional[RefundReferenceStatus] = None
     """The status of the refund reference."""
 
-    reference_type: Optional[
-        Literal["acquirer_reference_number", "retrieval_reference_number", "system_trace_audit_number"]
-    ] = None
+    reference_type: Optional[RefundReferenceType] = None
     """The type of refund reference that was made available by the payment provider."""
 
     reference_value: Optional[str] = None
     """The value of the reference."""
 
-    status: Literal["pending", "requires_action", "succeeded", "failed", "canceled"]
+    status: RefundStatus
     """The status of the refund."""
 
 

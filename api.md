@@ -70,7 +70,7 @@ from whop_sdk.types import (
 Types:
 
 ```python
-from whop_sdk.types import AppListResponse
+from whop_sdk.types import AppType, AppListResponse
 ```
 
 Methods:
@@ -196,7 +196,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import ForumPostListResponse
+from whop_sdk.types import ForumPostVisibilityType, ForumPostListResponse
 ```
 
 Methods:
@@ -584,3 +584,23 @@ Methods:
 - <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_list_response.py">SyncCursorPage[DisputeListResponse]</a></code>
 - <code title="post /disputes/{id}/submit_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">submit_evidence</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
 - <code title="post /disputes/{id}/update_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">update_evidence</a>(id, \*\*<a href="src/whop_sdk/types/dispute_update_evidence_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
+
+# Refunds
+
+Types:
+
+```python
+from whop_sdk.types import (
+    PaymentProvider,
+    RefundReferenceStatus,
+    RefundReferenceType,
+    RefundStatus,
+    RefundRetrieveResponse,
+    RefundListResponse,
+)
+```
+
+Methods:
+
+- <code title="get /refunds/{id}">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/refund_retrieve_response.py">RefundRetrieveResponse</a></code>
+- <code title="get /refunds">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">list</a>(\*\*<a href="src/whop_sdk/types/refund_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/refund_list_response.py">SyncCursorPage[RefundListResponse]</a></code>

@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import app_list_params, app_create_params, app_update_params
+from ..types import AppType, app_list_params, app_create_params, app_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,6 +20,7 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.app_type import AppType
 from ..types.shared.app import App
 from ..types.shared.direction import Direction
 from ..types.app_list_response import AppListResponse
@@ -143,7 +144,7 @@ class AppsResource(SyncAPIResource):
         id: str,
         *,
         app_store_description: Optional[str] | Omit = omit,
-        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -229,7 +230,7 @@ class AppsResource(SyncAPIResource):
         self,
         *,
         after: Optional[str] | Omit = omit,
-        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         before: Optional[str] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -433,7 +434,7 @@ class AsyncAppsResource(AsyncAPIResource):
         id: str,
         *,
         app_store_description: Optional[str] | Omit = omit,
-        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -519,7 +520,7 @@ class AsyncAppsResource(AsyncAPIResource):
         self,
         *,
         after: Optional[str] | Omit = omit,
-        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         before: Optional[str] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
