@@ -229,6 +229,7 @@ class AppsResource(SyncAPIResource):
         self,
         *,
         after: Optional[str] | Omit = omit,
+        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
         before: Optional[str] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -259,6 +260,8 @@ class AppsResource(SyncAPIResource):
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
+
+          app_type: The type of end-user an app is built for
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -298,6 +301,7 @@ class AppsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "app_type": app_type,
                         "before": before,
                         "company_id": company_id,
                         "direction": direction,
@@ -515,6 +519,7 @@ class AsyncAppsResource(AsyncAPIResource):
         self,
         *,
         after: Optional[str] | Omit = omit,
+        app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]] | Omit = omit,
         before: Optional[str] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -545,6 +550,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
+
+          app_type: The type of end-user an app is built for
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -584,6 +591,7 @@ class AsyncAppsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "app_type": app_type,
                         "before": before,
                         "company_id": company_id,
                         "direction": direction,

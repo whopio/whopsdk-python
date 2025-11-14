@@ -15,6 +15,9 @@ class AppListParams(TypedDict, total=False):
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
+    app_type: Optional[Literal["b2b_app", "b2c_app", "company_app", "component"]]
+    """The type of end-user an app is built for"""
+
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
