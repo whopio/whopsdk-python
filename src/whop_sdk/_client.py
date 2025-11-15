@@ -29,6 +29,7 @@ from .resources import (
     courses,
     entries,
     members,
+    refunds,
     reviews,
     disputes,
     invoices,
@@ -103,6 +104,7 @@ class Whop(SyncAPIClient):
     access_tokens: access_tokens.AccessTokensResource
     notifications: notifications.NotificationsResource
     disputes: disputes.DisputesResource
+    refunds: refunds.RefundsResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -209,6 +211,7 @@ class Whop(SyncAPIClient):
         self.access_tokens = access_tokens.AccessTokensResource(self)
         self.notifications = notifications.NotificationsResource(self)
         self.disputes = disputes.DisputesResource(self)
+        self.refunds = refunds.RefundsResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
@@ -357,6 +360,7 @@ class AsyncWhop(AsyncAPIClient):
     access_tokens: access_tokens.AsyncAccessTokensResource
     notifications: notifications.AsyncNotificationsResource
     disputes: disputes.AsyncDisputesResource
+    refunds: refunds.AsyncRefundsResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -463,6 +467,7 @@ class AsyncWhop(AsyncAPIClient):
         self.access_tokens = access_tokens.AsyncAccessTokensResource(self)
         self.notifications = notifications.AsyncNotificationsResource(self)
         self.disputes = disputes.AsyncDisputesResource(self)
+        self.refunds = refunds.AsyncRefundsResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
@@ -615,6 +620,7 @@ class WhopWithRawResponse:
         self.access_tokens = access_tokens.AccessTokensResourceWithRawResponse(client.access_tokens)
         self.notifications = notifications.NotificationsResourceWithRawResponse(client.notifications)
         self.disputes = disputes.DisputesResourceWithRawResponse(client.disputes)
+        self.refunds = refunds.RefundsResourceWithRawResponse(client.refunds)
 
 
 class AsyncWhopWithRawResponse:
@@ -658,6 +664,7 @@ class AsyncWhopWithRawResponse:
         self.access_tokens = access_tokens.AsyncAccessTokensResourceWithRawResponse(client.access_tokens)
         self.notifications = notifications.AsyncNotificationsResourceWithRawResponse(client.notifications)
         self.disputes = disputes.AsyncDisputesResourceWithRawResponse(client.disputes)
+        self.refunds = refunds.AsyncRefundsResourceWithRawResponse(client.refunds)
 
 
 class WhopWithStreamedResponse:
@@ -701,6 +708,7 @@ class WhopWithStreamedResponse:
         self.access_tokens = access_tokens.AccessTokensResourceWithStreamingResponse(client.access_tokens)
         self.notifications = notifications.NotificationsResourceWithStreamingResponse(client.notifications)
         self.disputes = disputes.DisputesResourceWithStreamingResponse(client.disputes)
+        self.refunds = refunds.RefundsResourceWithStreamingResponse(client.refunds)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -748,6 +756,7 @@ class AsyncWhopWithStreamedResponse:
         self.access_tokens = access_tokens.AsyncAccessTokensResourceWithStreamingResponse(client.access_tokens)
         self.notifications = notifications.AsyncNotificationsResourceWithStreamingResponse(client.notifications)
         self.disputes = disputes.AsyncDisputesResourceWithStreamingResponse(client.disputes)
+        self.refunds = refunds.AsyncRefundsResourceWithStreamingResponse(client.refunds)
 
 
 Client = Whop

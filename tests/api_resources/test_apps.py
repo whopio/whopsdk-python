@@ -122,6 +122,7 @@ class TestApps:
         app = client.apps.update(
             id="app_xxxxxxxxxxxxxx",
             app_store_description="app_store_description",
+            app_type="b2b_app",
             base_url="https://example.com/path",
             dashboard_path="dashboard_path",
             description="description",
@@ -179,6 +180,7 @@ class TestApps:
     def test_method_list_with_all_params(self, client: Whop) -> None:
         app = client.apps.list(
             after="after",
+            app_type="b2b_app",
             before="before",
             company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
@@ -322,6 +324,7 @@ class TestAsyncApps:
         app = await async_client.apps.update(
             id="app_xxxxxxxxxxxxxx",
             app_store_description="app_store_description",
+            app_type="b2b_app",
             base_url="https://example.com/path",
             dashboard_path="dashboard_path",
             description="description",
@@ -379,6 +382,7 @@ class TestAsyncApps:
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.list(
             after="after",
+            app_type="b2b_app",
             before="before",
             company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",

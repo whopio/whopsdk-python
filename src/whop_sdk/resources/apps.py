@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import app_list_params, app_create_params, app_update_params
+from ..types import AppType, app_list_params, app_create_params, app_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,6 +20,7 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.app_type import AppType
 from ..types.shared.app import App
 from ..types.shared.direction import Direction
 from ..types.app_list_response import AppListResponse
@@ -143,6 +144,7 @@ class AppsResource(SyncAPIResource):
         id: str,
         *,
         app_store_description: Optional[str] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -169,6 +171,8 @@ class AppsResource(SyncAPIResource):
 
         Args:
           app_store_description: The description of the app for the app store in-depth app view.
+
+          app_type: The type of end-user an app is built for
 
           base_url: The base production url of the app
 
@@ -203,6 +207,7 @@ class AppsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "app_store_description": app_store_description,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "dashboard_path": dashboard_path,
                     "description": description,
@@ -225,6 +230,7 @@ class AppsResource(SyncAPIResource):
         self,
         *,
         after: Optional[str] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         before: Optional[str] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -255,6 +261,8 @@ class AppsResource(SyncAPIResource):
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
+
+          app_type: The type of end-user an app is built for
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -294,6 +302,7 @@ class AppsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "app_type": app_type,
                         "before": before,
                         "company_id": company_id,
                         "direction": direction,
@@ -425,6 +434,7 @@ class AsyncAppsResource(AsyncAPIResource):
         id: str,
         *,
         app_store_description: Optional[str] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -451,6 +461,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
         Args:
           app_store_description: The description of the app for the app store in-depth app view.
+
+          app_type: The type of end-user an app is built for
 
           base_url: The base production url of the app
 
@@ -485,6 +497,7 @@ class AsyncAppsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "app_store_description": app_store_description,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "dashboard_path": dashboard_path,
                     "description": description,
@@ -507,6 +520,7 @@ class AsyncAppsResource(AsyncAPIResource):
         self,
         *,
         after: Optional[str] | Omit = omit,
+        app_type: Optional[AppType] | Omit = omit,
         before: Optional[str] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -537,6 +551,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
+
+          app_type: The type of end-user an app is built for
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -576,6 +592,7 @@ class AsyncAppsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "app_type": app_type,
                         "before": before,
                         "company_id": company_id,
                         "direction": direction,

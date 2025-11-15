@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, TypedDict
 
+from .app_type import AppType
 from .shared.direction import Direction
 from .shared.app_view_type import AppViewType
 
@@ -14,6 +15,9 @@ __all__ = ["AppListParams"]
 class AppListParams(TypedDict, total=False):
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
+
+    app_type: Optional[AppType]
+    """The type of end-user an app is built for"""
 
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""

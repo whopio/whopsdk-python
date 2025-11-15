@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
+from ..app_type import AppType
 from .app_statuses import AppStatuses
 
 __all__ = [
@@ -106,6 +107,9 @@ class App(BaseModel):
 
     api_key: Optional[APIKey] = None
     """The API key for the app"""
+
+    app_type: AppType
+    """The type of end-user an app is built for"""
 
     base_url: Optional[str] = None
     """The base url of the app"""

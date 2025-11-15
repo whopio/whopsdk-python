@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 
 from .._models import BaseModel
 from .embed_type import EmbedType
@@ -24,6 +25,9 @@ class CourseLessonListResponse(BaseModel):
 
     content: Optional[str] = None
     """The content of the lesson"""
+
+    created_at: datetime
+    """The timestamp of when the lesson was created"""
 
     days_from_course_start_until_unlock: Optional[int] = None
     """Number of days from course start until the lesson is unlocked"""
