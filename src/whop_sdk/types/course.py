@@ -76,6 +76,9 @@ class Course(BaseModel):
     chapters: List[Chapter]
     """The chapters in this course"""
 
+    cover_image: Optional[str] = None
+    """The URL of the course's cover image, which is shown in course preview cards"""
+
     created_at: datetime
     """The timestamp of when the course was created"""
 

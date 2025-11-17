@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .embed_type import EmbedType
@@ -134,8 +135,38 @@ class VideoAsset(BaseModel):
     asset_id: Optional[str] = None
     """The Mux-provided ID of the asset"""
 
+    audio_only: bool
+    """Whether this asset contains only audio"""
+
+    created_at: datetime
+    """The time at which the Mux asset was created"""
+
+    duration_seconds: Optional[int] = None
+    """The duration of the video in seconds"""
+
+    finished_uploading_at: Optional[datetime] = None
+    """The time at which the video finished uploading"""
+
     playback_id: Optional[str] = None
     """The public playback ID of the Mux asset"""
+
+    signed_playback_id: Optional[str] = None
+    """The signed playback ID of the Mux asset"""
+
+    signed_storyboard_playback_token: Optional[str] = None
+    """The signed storyboard playback token of the Mux asset"""
+
+    signed_thumbnail_playback_token: Optional[str] = None
+    """The signed thumbnail playback token of the Mux asset"""
+
+    signed_video_playback_token: Optional[str] = None
+    """The signed video playback token of the Mux asset"""
+
+    status: Literal["uploading", "created", "ready"]
+    """The status of the Mux asset"""
+
+    updated_at: datetime
+    """The time at which the Mux asset was last updated"""
 
 
 class Lesson(BaseModel):
