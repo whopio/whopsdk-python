@@ -193,6 +193,7 @@ from .access_token_create_response import AccessTokenCreateResponse as AccessTok
 from .course_chapter_create_params import CourseChapterCreateParams as CourseChapterCreateParams
 from .course_chapter_list_response import CourseChapterListResponse as CourseChapterListResponse
 from .course_chapter_update_params import CourseChapterUpdateParams as CourseChapterUpdateParams
+from .course_lesson_start_response import CourseLessonStartResponse as CourseLessonStartResponse
 from .course_student_list_response import CourseStudentListResponse as CourseStudentListResponse
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent as EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
@@ -222,6 +223,15 @@ from .checkout_configuration_list_response import CheckoutConfigurationListRespo
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent as MembershipDeactivatedWebhookEvent
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
+)
+from .course_lesson_submit_assessment_params import (
+    CourseLessonSubmitAssessmentParams as CourseLessonSubmitAssessmentParams,
+)
+from .course_lesson_mark_as_completed_response import (
+    CourseLessonMarkAsCompletedResponse as CourseLessonMarkAsCompletedResponse,
+)
+from .course_lesson_submit_assessment_response import (
+    CourseLessonSubmitAssessmentResponse as CourseLessonSubmitAssessmentResponse,
 )
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,
