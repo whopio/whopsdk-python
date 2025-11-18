@@ -12,7 +12,10 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     Lesson,
     CourseLessonListResponse,
+    CourseLessonStartResponse,
     CourseLessonDeleteResponse,
+    CourseLessonMarkAsCompletedResponse,
+    CourseLessonSubmitAssessmentResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -281,6 +284,136 @@ class TestCourseLessons:
                 "",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_mark_as_completed(self, client: Whop) -> None:
+        course_lesson = client.course_lessons.mark_as_completed(
+            "lesson_id",
+        )
+        assert_matches_type(CourseLessonMarkAsCompletedResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_mark_as_completed(self, client: Whop) -> None:
+        response = client.course_lessons.with_raw_response.mark_as_completed(
+            "lesson_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        course_lesson = response.parse()
+        assert_matches_type(CourseLessonMarkAsCompletedResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_mark_as_completed(self, client: Whop) -> None:
+        with client.course_lessons.with_streaming_response.mark_as_completed(
+            "lesson_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            course_lesson = response.parse()
+            assert_matches_type(CourseLessonMarkAsCompletedResponse, course_lesson, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_mark_as_completed(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `lesson_id` but received ''"):
+            client.course_lessons.with_raw_response.mark_as_completed(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_start(self, client: Whop) -> None:
+        course_lesson = client.course_lessons.start(
+            "lesson_id",
+        )
+        assert_matches_type(CourseLessonStartResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_start(self, client: Whop) -> None:
+        response = client.course_lessons.with_raw_response.start(
+            "lesson_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        course_lesson = response.parse()
+        assert_matches_type(CourseLessonStartResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_start(self, client: Whop) -> None:
+        with client.course_lessons.with_streaming_response.start(
+            "lesson_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            course_lesson = response.parse()
+            assert_matches_type(CourseLessonStartResponse, course_lesson, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_start(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `lesson_id` but received ''"):
+            client.course_lessons.with_raw_response.start(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_submit_assessment(self, client: Whop) -> None:
+        course_lesson = client.course_lessons.submit_assessment(
+            lesson_id="lesson_id",
+            answers=[{"question_id": "question_id"}],
+        )
+        assert_matches_type(CourseLessonSubmitAssessmentResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_submit_assessment(self, client: Whop) -> None:
+        response = client.course_lessons.with_raw_response.submit_assessment(
+            lesson_id="lesson_id",
+            answers=[{"question_id": "question_id"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        course_lesson = response.parse()
+        assert_matches_type(CourseLessonSubmitAssessmentResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_submit_assessment(self, client: Whop) -> None:
+        with client.course_lessons.with_streaming_response.submit_assessment(
+            lesson_id="lesson_id",
+            answers=[{"question_id": "question_id"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            course_lesson = response.parse()
+            assert_matches_type(CourseLessonSubmitAssessmentResponse, course_lesson, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_submit_assessment(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `lesson_id` but received ''"):
+            client.course_lessons.with_raw_response.submit_assessment(
+                lesson_id="",
+                answers=[{"question_id": "question_id"}],
+            )
+
 
 class TestAsyncCourseLessons:
     parametrize = pytest.mark.parametrize(
@@ -544,4 +677,134 @@ class TestAsyncCourseLessons:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.course_lessons.with_raw_response.delete(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_mark_as_completed(self, async_client: AsyncWhop) -> None:
+        course_lesson = await async_client.course_lessons.mark_as_completed(
+            "lesson_id",
+        )
+        assert_matches_type(CourseLessonMarkAsCompletedResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_mark_as_completed(self, async_client: AsyncWhop) -> None:
+        response = await async_client.course_lessons.with_raw_response.mark_as_completed(
+            "lesson_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        course_lesson = await response.parse()
+        assert_matches_type(CourseLessonMarkAsCompletedResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_mark_as_completed(self, async_client: AsyncWhop) -> None:
+        async with async_client.course_lessons.with_streaming_response.mark_as_completed(
+            "lesson_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            course_lesson = await response.parse()
+            assert_matches_type(CourseLessonMarkAsCompletedResponse, course_lesson, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_mark_as_completed(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `lesson_id` but received ''"):
+            await async_client.course_lessons.with_raw_response.mark_as_completed(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_start(self, async_client: AsyncWhop) -> None:
+        course_lesson = await async_client.course_lessons.start(
+            "lesson_id",
+        )
+        assert_matches_type(CourseLessonStartResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_start(self, async_client: AsyncWhop) -> None:
+        response = await async_client.course_lessons.with_raw_response.start(
+            "lesson_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        course_lesson = await response.parse()
+        assert_matches_type(CourseLessonStartResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_start(self, async_client: AsyncWhop) -> None:
+        async with async_client.course_lessons.with_streaming_response.start(
+            "lesson_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            course_lesson = await response.parse()
+            assert_matches_type(CourseLessonStartResponse, course_lesson, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_start(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `lesson_id` but received ''"):
+            await async_client.course_lessons.with_raw_response.start(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_submit_assessment(self, async_client: AsyncWhop) -> None:
+        course_lesson = await async_client.course_lessons.submit_assessment(
+            lesson_id="lesson_id",
+            answers=[{"question_id": "question_id"}],
+        )
+        assert_matches_type(CourseLessonSubmitAssessmentResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_submit_assessment(self, async_client: AsyncWhop) -> None:
+        response = await async_client.course_lessons.with_raw_response.submit_assessment(
+            lesson_id="lesson_id",
+            answers=[{"question_id": "question_id"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        course_lesson = await response.parse()
+        assert_matches_type(CourseLessonSubmitAssessmentResponse, course_lesson, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_submit_assessment(self, async_client: AsyncWhop) -> None:
+        async with async_client.course_lessons.with_streaming_response.submit_assessment(
+            lesson_id="lesson_id",
+            answers=[{"question_id": "question_id"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            course_lesson = await response.parse()
+            assert_matches_type(CourseLessonSubmitAssessmentResponse, course_lesson, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_submit_assessment(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `lesson_id` but received ''"):
+            await async_client.course_lessons.with_raw_response.submit_assessment(
+                lesson_id="",
+                answers=[{"question_id": "question_id"}],
             )

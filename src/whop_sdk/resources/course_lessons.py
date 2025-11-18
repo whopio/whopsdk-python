@@ -13,6 +13,7 @@ from ..types import (
     course_lesson_list_params,
     course_lesson_create_params,
     course_lesson_update_params,
+    course_lesson_submit_assessment_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
@@ -31,7 +32,10 @@ from ..types.embed_type import EmbedType
 from ..types.lesson_types import LessonTypes
 from ..types.lesson_visibilities import LessonVisibilities
 from ..types.course_lesson_list_response import CourseLessonListResponse
+from ..types.course_lesson_start_response import CourseLessonStartResponse
 from ..types.course_lesson_delete_response import CourseLessonDeleteResponse
+from ..types.course_lesson_mark_as_completed_response import CourseLessonMarkAsCompletedResponse
+from ..types.course_lesson_submit_assessment_response import CourseLessonSubmitAssessmentResponse
 
 __all__ = ["CourseLessonsResource", "AsyncCourseLessonsResource"]
 
@@ -370,6 +374,111 @@ class CourseLessonsResource(SyncAPIResource):
             cast_to=CourseLessonDeleteResponse,
         )
 
+    def mark_as_completed(
+        self,
+        lesson_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonMarkAsCompletedResponse:
+        """
+        Marks a course lesson as completed
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not lesson_id:
+            raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
+        return self._post(
+            f"/course_lessons/{lesson_id}/mark_as_completed",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseLessonMarkAsCompletedResponse,
+        )
+
+    def start(
+        self,
+        lesson_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonStartResponse:
+        """
+        Starts a course lesson
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not lesson_id:
+            raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
+        return self._post(
+            f"/course_lessons/{lesson_id}/start",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseLessonStartResponse,
+        )
+
+    def submit_assessment(
+        self,
+        lesson_id: str,
+        *,
+        answers: Iterable[course_lesson_submit_assessment_params.Answer],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonSubmitAssessmentResponse:
+        """
+        Submits answers for a course assessment
+
+        Args:
+          answers: The answers to the assessment questions
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not lesson_id:
+            raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
+        return self._post(
+            f"/course_lessons/{lesson_id}/submit_assessment",
+            body=maybe_transform(
+                {"answers": answers}, course_lesson_submit_assessment_params.CourseLessonSubmitAssessmentParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseLessonSubmitAssessmentResponse,
+        )
+
 
 class AsyncCourseLessonsResource(AsyncAPIResource):
     @cached_property
@@ -705,6 +814,111 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
             cast_to=CourseLessonDeleteResponse,
         )
 
+    async def mark_as_completed(
+        self,
+        lesson_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonMarkAsCompletedResponse:
+        """
+        Marks a course lesson as completed
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not lesson_id:
+            raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
+        return await self._post(
+            f"/course_lessons/{lesson_id}/mark_as_completed",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseLessonMarkAsCompletedResponse,
+        )
+
+    async def start(
+        self,
+        lesson_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonStartResponse:
+        """
+        Starts a course lesson
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not lesson_id:
+            raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
+        return await self._post(
+            f"/course_lessons/{lesson_id}/start",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseLessonStartResponse,
+        )
+
+    async def submit_assessment(
+        self,
+        lesson_id: str,
+        *,
+        answers: Iterable[course_lesson_submit_assessment_params.Answer],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CourseLessonSubmitAssessmentResponse:
+        """
+        Submits answers for a course assessment
+
+        Args:
+          answers: The answers to the assessment questions
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not lesson_id:
+            raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
+        return await self._post(
+            f"/course_lessons/{lesson_id}/submit_assessment",
+            body=await async_maybe_transform(
+                {"answers": answers}, course_lesson_submit_assessment_params.CourseLessonSubmitAssessmentParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CourseLessonSubmitAssessmentResponse,
+        )
+
 
 class CourseLessonsResourceWithRawResponse:
     def __init__(self, course_lessons: CourseLessonsResource) -> None:
@@ -724,6 +938,15 @@ class CourseLessonsResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             course_lessons.delete,
+        )
+        self.mark_as_completed = to_raw_response_wrapper(
+            course_lessons.mark_as_completed,
+        )
+        self.start = to_raw_response_wrapper(
+            course_lessons.start,
+        )
+        self.submit_assessment = to_raw_response_wrapper(
+            course_lessons.submit_assessment,
         )
 
 
@@ -746,6 +969,15 @@ class AsyncCourseLessonsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             course_lessons.delete,
         )
+        self.mark_as_completed = async_to_raw_response_wrapper(
+            course_lessons.mark_as_completed,
+        )
+        self.start = async_to_raw_response_wrapper(
+            course_lessons.start,
+        )
+        self.submit_assessment = async_to_raw_response_wrapper(
+            course_lessons.submit_assessment,
+        )
 
 
 class CourseLessonsResourceWithStreamingResponse:
@@ -767,6 +999,15 @@ class CourseLessonsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             course_lessons.delete,
         )
+        self.mark_as_completed = to_streamed_response_wrapper(
+            course_lessons.mark_as_completed,
+        )
+        self.start = to_streamed_response_wrapper(
+            course_lessons.start,
+        )
+        self.submit_assessment = to_streamed_response_wrapper(
+            course_lessons.submit_assessment,
+        )
 
 
 class AsyncCourseLessonsResourceWithStreamingResponse:
@@ -787,4 +1028,13 @@ class AsyncCourseLessonsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             course_lessons.delete,
+        )
+        self.mark_as_completed = async_to_streamed_response_wrapper(
+            course_lessons.mark_as_completed,
+        )
+        self.start = async_to_streamed_response_wrapper(
+            course_lessons.start,
+        )
+        self.submit_assessment = async_to_streamed_response_wrapper(
+            course_lessons.submit_assessment,
         )
