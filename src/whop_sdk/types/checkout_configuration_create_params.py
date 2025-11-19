@@ -25,7 +25,9 @@ __all__ = [
     "CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID",
     "CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration",
     "CreateCheckoutSessionInputWithPlanPlanProduct",
+    "CreateCheckoutSessionInputWithPlanPaymentMethodConfiguration",
     "CreateCheckoutSessionInputWithPlanID",
+    "CreateCheckoutSessionInputWithPlanIDPaymentMethodConfiguration",
 ]
 
 
@@ -38,6 +40,16 @@ class CreateCheckoutSessionInputWithPlan(TypedDict, total=False):
 
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""
+
+    mode: Optional[Literal["payment", "setup"]]
+    """The different modes a checkout can be set to."""
+
+    payment_method_configuration: Optional[CreateCheckoutSessionInputWithPlanPaymentMethodConfiguration]
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not
+    provided, the platform or company's defaults will apply.
+    """
 
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
@@ -238,6 +250,29 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     """Visibility of a resource"""
 
 
+class CreateCheckoutSessionInputWithPlanPaymentMethodConfiguration(TypedDict, total=False):
+    disabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: Required[bool]
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
+    """
+
+
 class CreateCheckoutSessionInputWithPlanID(TypedDict, total=False):
     plan_id: Required[str]
     """The ID of the plan to use for the checkout configuration"""
@@ -248,8 +283,41 @@ class CreateCheckoutSessionInputWithPlanID(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""
 
+    mode: Optional[Literal["payment", "setup"]]
+    """The different modes a checkout can be set to."""
+
+    payment_method_configuration: Optional[CreateCheckoutSessionInputWithPlanIDPaymentMethodConfiguration]
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not
+    provided, the platform or company's defaults will apply.
+    """
+
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
+
+
+class CreateCheckoutSessionInputWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
+    disabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: Required[bool]
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
+    """
 
 
 CheckoutConfigurationCreateParams: TypeAlias = Union[

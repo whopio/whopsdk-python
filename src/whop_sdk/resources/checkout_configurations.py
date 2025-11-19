@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-from typing_extensions import overload
+from typing_extensions import Literal, overload
 
 import httpx
 
@@ -54,6 +54,11 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        mode: Optional[Literal["payment", "setup"]] | Omit = omit,
+        payment_method_configuration: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPaymentMethodConfiguration
+        ]
+        | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -71,6 +76,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         - `plan:create`
         - `access_pass:create`
         - `access_pass:update`
+        - `checkout_configuration:basic:read`
 
         Args:
           plan: Pass this object to create a new plan for this checkout configuration
@@ -78,6 +84,12 @@ class CheckoutConfigurationsResource(SyncAPIResource):
           affiliate_code: The affiliate code to use for the checkout configuration
 
           metadata: The metadata to use for the checkout configuration
+
+          mode: The different modes a checkout can be set to.
+
+          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
+              payment method configuration for the checkout session. If not provided, the
+              platform or company's defaults will apply.
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
@@ -98,6 +110,11 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        mode: Optional[Literal["payment", "setup"]] | Omit = omit,
+        payment_method_configuration: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanIDPaymentMethodConfiguration
+        ]
+        | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -115,6 +132,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         - `plan:create`
         - `access_pass:create`
         - `access_pass:update`
+        - `checkout_configuration:basic:read`
 
         Args:
           plan_id: The ID of the plan to use for the checkout configuration
@@ -122,6 +140,12 @@ class CheckoutConfigurationsResource(SyncAPIResource):
           affiliate_code: The affiliate code to use for the checkout configuration
 
           metadata: The metadata to use for the checkout configuration
+
+          mode: The different modes a checkout can be set to.
+
+          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
+              payment method configuration for the checkout session. If not provided, the
+              platform or company's defaults will apply.
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
@@ -142,6 +166,12 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        mode: Optional[Literal["payment", "setup"]] | Omit = omit,
+        payment_method_configuration: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPaymentMethodConfiguration
+        ]
+        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanIDPaymentMethodConfiguration]
+        | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -158,6 +188,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                     "plan": plan,
                     "affiliate_code": affiliate_code,
                     "metadata": metadata,
+                    "mode": mode,
+                    "payment_method_configuration": payment_method_configuration,
                     "redirect_url": redirect_url,
                     "plan_id": plan_id,
                 },
@@ -305,6 +337,11 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        mode: Optional[Literal["payment", "setup"]] | Omit = omit,
+        payment_method_configuration: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPaymentMethodConfiguration
+        ]
+        | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -322,6 +359,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         - `plan:create`
         - `access_pass:create`
         - `access_pass:update`
+        - `checkout_configuration:basic:read`
 
         Args:
           plan: Pass this object to create a new plan for this checkout configuration
@@ -329,6 +367,12 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
           affiliate_code: The affiliate code to use for the checkout configuration
 
           metadata: The metadata to use for the checkout configuration
+
+          mode: The different modes a checkout can be set to.
+
+          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
+              payment method configuration for the checkout session. If not provided, the
+              platform or company's defaults will apply.
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
@@ -349,6 +393,11 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        mode: Optional[Literal["payment", "setup"]] | Omit = omit,
+        payment_method_configuration: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanIDPaymentMethodConfiguration
+        ]
+        | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -366,6 +415,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         - `plan:create`
         - `access_pass:create`
         - `access_pass:update`
+        - `checkout_configuration:basic:read`
 
         Args:
           plan_id: The ID of the plan to use for the checkout configuration
@@ -373,6 +423,12 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
           affiliate_code: The affiliate code to use for the checkout configuration
 
           metadata: The metadata to use for the checkout configuration
+
+          mode: The different modes a checkout can be set to.
+
+          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
+              payment method configuration for the checkout session. If not provided, the
+              platform or company's defaults will apply.
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
@@ -393,6 +449,12 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        mode: Optional[Literal["payment", "setup"]] | Omit = omit,
+        payment_method_configuration: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanPaymentMethodConfiguration
+        ]
+        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputWithPlanIDPaymentMethodConfiguration]
+        | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -409,6 +471,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                     "plan": plan,
                     "affiliate_code": affiliate_code,
                     "metadata": metadata,
+                    "mode": mode,
+                    "payment_method_configuration": payment_method_configuration,
                     "redirect_url": redirect_url,
                     "plan_id": plan_id,
                 },

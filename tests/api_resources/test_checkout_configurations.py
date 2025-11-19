@@ -88,6 +88,12 @@ class TestCheckoutConfigurations:
             },
             affiliate_code="affiliate_code",
             metadata={"foo": "bar"},
+            mode="payment",
+            payment_method_configuration={
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
+                "include_platform_defaults": True,
+            },
             redirect_url="redirect_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
@@ -139,6 +145,12 @@ class TestCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
             metadata={"foo": "bar"},
+            mode="payment",
+            payment_method_configuration={
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
+                "include_platform_defaults": True,
+            },
             redirect_url="redirect_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
@@ -340,6 +352,12 @@ class TestAsyncCheckoutConfigurations:
             },
             affiliate_code="affiliate_code",
             metadata={"foo": "bar"},
+            mode="payment",
+            payment_method_configuration={
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
+                "include_platform_defaults": True,
+            },
             redirect_url="redirect_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
@@ -391,6 +409,12 @@ class TestAsyncCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
             metadata={"foo": "bar"},
+            mode="payment",
+            payment_method_configuration={
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
+                "include_platform_defaults": True,
+            },
             redirect_url="redirect_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])

@@ -53,10 +53,10 @@ class CheckoutConfiguration(BaseModel):
     company_id: str
     """The ID of the company to use for the checkout configuration"""
 
-    metadata: Dict[str, object]
+    metadata: Optional[Dict[str, object]] = None
     """The metadata to use for the checkout configuration"""
 
-    plan: Plan
+    plan: Optional[Plan] = None
     """The plan to use for the checkout configuration"""
 
     purchase_url: str
