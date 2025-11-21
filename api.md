@@ -70,7 +70,7 @@ from whop_sdk.types import (
 Types:
 
 ```python
-from whop_sdk.types import AppListResponse
+from whop_sdk.types import AppType, AppListResponse
 ```
 
 Methods:
@@ -154,6 +154,8 @@ from whop_sdk.types import (
     PaymentPendingWebhookEvent,
     DisputeCreatedWebhookEvent,
     DisputeUpdatedWebhookEvent,
+    RefundCreatedWebhookEvent,
+    RefundUpdatedWebhookEvent,
     UnwrapWebhookEvent,
 )
 ```
@@ -194,7 +196,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import ForumPostListResponse
+from whop_sdk.types import ForumPostVisibilityType, ForumPostListResponse
 ```
 
 Methods:
@@ -294,7 +296,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CheckoutConfigurationListResponse
+from whop_sdk.types import CheckoutModes, CheckoutConfigurationListResponse
 ```
 
 Methods:
@@ -507,6 +509,9 @@ from whop_sdk.types import (
     LessonVisibilities,
     CourseLessonListResponse,
     CourseLessonDeleteResponse,
+    CourseLessonMarkAsCompletedResponse,
+    CourseLessonStartResponse,
+    CourseLessonSubmitAssessmentResponse,
 )
 ```
 
@@ -517,6 +522,9 @@ Methods:
 - <code title="patch /course_lessons/{id}">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">update</a>(id, \*\*<a href="src/whop_sdk/types/course_lesson_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/lesson.py">Lesson</a></code>
 - <code title="get /course_lessons">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">list</a>(\*\*<a href="src/whop_sdk/types/course_lesson_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_lesson_list_response.py">SyncCursorPage[CourseLessonListResponse]</a></code>
 - <code title="delete /course_lessons/{id}">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">delete</a>(id) -> <a href="./src/whop_sdk/types/course_lesson_delete_response.py">CourseLessonDeleteResponse</a></code>
+- <code title="post /course_lessons/{lesson_id}/mark_as_completed">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">mark_as_completed</a>(lesson_id) -> <a href="./src/whop_sdk/types/course_lesson_mark_as_completed_response.py">CourseLessonMarkAsCompletedResponse</a></code>
+- <code title="post /course_lessons/{lesson_id}/start">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">start</a>(lesson_id) -> <a href="./src/whop_sdk/types/course_lesson_start_response.py">CourseLessonStartResponse</a></code>
+- <code title="post /course_lessons/{lesson_id}/submit_assessment">client.course_lessons.<a href="./src/whop_sdk/resources/course_lessons.py">submit_assessment</a>(lesson_id, \*\*<a href="src/whop_sdk/types/course_lesson_submit_assessment_params.py">params</a>) -> <a href="./src/whop_sdk/types/course_lesson_submit_assessment_response.py">CourseLessonSubmitAssessmentResponse</a></code>
 
 # Reviews
 
@@ -582,3 +590,43 @@ Methods:
 - <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_list_response.py">SyncCursorPage[DisputeListResponse]</a></code>
 - <code title="post /disputes/{id}/submit_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">submit_evidence</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
 - <code title="post /disputes/{id}/update_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">update_evidence</a>(id, \*\*<a href="src/whop_sdk/types/dispute_update_evidence_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
+
+# Refunds
+
+Types:
+
+```python
+from whop_sdk.types import (
+    PaymentProvider,
+    RefundReferenceStatus,
+    RefundReferenceType,
+    RefundStatus,
+    RefundRetrieveResponse,
+    RefundListResponse,
+)
+```
+
+Methods:
+
+- <code title="get /refunds/{id}">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/refund_retrieve_response.py">RefundRetrieveResponse</a></code>
+- <code title="get /refunds">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">list</a>(\*\*<a href="src/whop_sdk/types/refund_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/refund_list_response.py">SyncCursorPage[RefundListResponse]</a></code>
+
+# Withdrawals
+
+Types:
+
+```python
+from whop_sdk.types import (
+    WithdrawalFeeTypes,
+    WithdrawalSpeeds,
+    WithdrawalStatus,
+    WithdrawalTypes,
+    WithdrawalRetrieveResponse,
+    WithdrawalListResponse,
+)
+```
+
+Methods:
+
+- <code title="get /withdrawals/{id}">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/withdrawal_retrieve_response.py">WithdrawalRetrieveResponse</a></code>
+- <code title="get /withdrawals">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">list</a>(\*\*<a href="src/whop_sdk/types/withdrawal_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/withdrawal_list_response.py">SyncCursorPage[WithdrawalListResponse]</a></code>

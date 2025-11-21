@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import forum_post_list_params, forum_post_create_params, forum_post_update_params
+from ..types import (
+    ForumPostVisibilityType,
+    forum_post_list_params,
+    forum_post_create_params,
+    forum_post_update_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,6 +27,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.currency import Currency
 from ..types.shared.forum_post import ForumPost
 from ..types.forum_post_list_response import ForumPostListResponse
+from ..types.forum_post_visibility_type import ForumPostVisibilityType
 
 __all__ = ["ForumPostsResource", "AsyncForumPostsResource"]
 
@@ -60,7 +65,7 @@ class ForumPostsResource(SyncAPIResource):
         pinned: Optional[bool] | Omit = omit,
         poll: Optional[forum_post_create_params.Poll] | Omit = omit,
         title: Optional[str] | Omit = omit,
-        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
+        visibility: Optional[ForumPostVisibilityType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -180,7 +185,7 @@ class ForumPostsResource(SyncAPIResource):
         content: Optional[str] | Omit = omit,
         is_pinned: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
-        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
+        visibility: Optional[ForumPostVisibilityType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -336,7 +341,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         pinned: Optional[bool] | Omit = omit,
         poll: Optional[forum_post_create_params.Poll] | Omit = omit,
         title: Optional[str] | Omit = omit,
-        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
+        visibility: Optional[ForumPostVisibilityType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -456,7 +461,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         content: Optional[str] | Omit = omit,
         is_pinned: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
-        visibility: Optional[Literal["members_only", "globally_visible"]] | Omit = omit,
+        visibility: Optional[ForumPostVisibilityType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -1,14 +1,39 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 from .._models import BaseModel
+from .checkout_modes import CheckoutModes
 from .shared.currency import Currency
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
+from .payment_method_types import PaymentMethodTypes
 from .shared.release_method import ReleaseMethod
 
-__all__ = ["CheckoutConfigurationListResponse", "Plan"]
+__all__ = ["CheckoutConfigurationListResponse", "PaymentMethodConfiguration", "Plan"]
+
+
+class PaymentMethodConfiguration(BaseModel):
+    disabled: List[PaymentMethodTypes]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: List[PaymentMethodTypes]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: bool
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
+    """
 
 
 class Plan(BaseModel):
@@ -53,10 +78,20 @@ class CheckoutConfigurationListResponse(BaseModel):
     company_id: str
     """The ID of the company to use for the checkout configuration"""
 
-    metadata: Dict[str, object]
+    metadata: Optional[Dict[str, object]] = None
     """The metadata to use for the checkout configuration"""
 
-    plan: Plan
+    mode: CheckoutModes
+    """The mode of the checkout session."""
+
+    payment_method_configuration: Optional[PaymentMethodConfiguration] = None
+    """The explicit payment method configuration for the session, if any.
+
+    This currently only works in 'setup' mode. Use the plan's
+    payment_method_configuration for payment method.
+    """
+
+    plan: Optional[Plan] = None
     """The plan to use for the checkout configuration"""
 
     purchase_url: str

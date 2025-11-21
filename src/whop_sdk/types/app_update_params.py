@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .app_type import AppType
 from .shared.app_statuses import AppStatuses
 
 __all__ = ["AppUpdateParams", "Icon", "IconAttachmentInputWithDirectUploadID", "IconAttachmentInputWithID"]
@@ -13,6 +14,9 @@ __all__ = ["AppUpdateParams", "Icon", "IconAttachmentInputWithDirectUploadID", "
 class AppUpdateParams(TypedDict, total=False):
     app_store_description: Optional[str]
     """The description of the app for the app store in-depth app view."""
+
+    app_type: Optional[AppType]
+    """The type of end-user an app is built for"""
 
     base_url: Optional[str]
     """The base production url of the app"""

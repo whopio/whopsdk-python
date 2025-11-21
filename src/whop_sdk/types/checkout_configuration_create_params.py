@@ -17,20 +17,24 @@ from .shared.global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = [
     "CheckoutConfigurationCreateParams",
-    "CreateCheckoutSessionInputWithPlan",
-    "CreateCheckoutSessionInputWithPlanPlan",
-    "CreateCheckoutSessionInputWithPlanPlanCustomField",
-    "CreateCheckoutSessionInputWithPlanPlanImage",
-    "CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUploadID",
-    "CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID",
-    "CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration",
-    "CreateCheckoutSessionInputWithPlanPlanProduct",
-    "CreateCheckoutSessionInputWithPlanID",
+    "CreateCheckoutSessionInputModePaymentWithPlan",
+    "CreateCheckoutSessionInputModePaymentWithPlanPlan",
+    "CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField",
+    "CreateCheckoutSessionInputModePaymentWithPlanPlanImage",
+    "CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID",
+    "CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID",
+    "CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration",
+    "CreateCheckoutSessionInputModePaymentWithPlanPlanProduct",
+    "CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration",
+    "CreateCheckoutSessionInputModePaymentWithPlanID",
+    "CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration",
+    "CreateCheckoutSessionInputModeSetup",
+    "CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration",
 ]
 
 
-class CreateCheckoutSessionInputWithPlan(TypedDict, total=False):
-    plan: Required[CreateCheckoutSessionInputWithPlanPlan]
+class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
+    plan: Required[CreateCheckoutSessionInputModePaymentWithPlanPlan]
     """Pass this object to create a new plan for this checkout configuration"""
 
     affiliate_code: Optional[str]
@@ -39,11 +43,20 @@ class CreateCheckoutSessionInputWithPlan(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""
 
+    mode: Literal["payment"]
+
+    payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration]
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not
+    provided, the platform or company's defaults will apply.
+    """
+
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
 
 
-class CreateCheckoutSessionInputWithPlanPlanCustomField(TypedDict, total=False):
+class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
     """The type of the custom field."""
 
@@ -63,7 +76,7 @@ class CreateCheckoutSessionInputWithPlanPlanCustomField(TypedDict, total=False):
     """Whether or not the field is required."""
 
 
-class CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
+class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -72,7 +85,7 @@ class CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUpload
     """
 
 
-class CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID(TypedDict, total=False):
+class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID(TypedDict, total=False):
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -81,13 +94,13 @@ class CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID(TypedDict
     """
 
 
-CreateCheckoutSessionInputWithPlanPlanImage: TypeAlias = Union[
-    CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithDirectUploadID,
-    CreateCheckoutSessionInputWithPlanPlanImageAttachmentInputWithID,
+CreateCheckoutSessionInputModePaymentWithPlanPlanImage: TypeAlias = Union[
+    CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID,
+    CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID,
 ]
 
 
-class CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration(TypedDict, total=False):
+class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration(TypedDict, total=False):
     disabled: Required[List[PaymentMethodTypes]]
     """An array of payment method identifiers that are explicitly disabled.
 
@@ -110,7 +123,7 @@ class CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration(TypedDict
     """
 
 
-class CreateCheckoutSessionInputWithPlanPlanProduct(TypedDict, total=False):
+class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=False):
     external_identifier: Required[str]
     """A unique ID used to find or create a product.
 
@@ -163,7 +176,7 @@ class CreateCheckoutSessionInputWithPlanPlanProduct(TypedDict, total=False):
     """Visibility of a resource"""
 
 
-class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
+class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     company_id: Required[str]
     """The company the plan should be created for."""
 
@@ -173,7 +186,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
-    custom_fields: Optional[Iterable[CreateCheckoutSessionInputWithPlanPlanCustomField]]
+    custom_fields: Optional[Iterable[CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField]]
     """An array of custom field objects."""
 
     description: Optional[str]
@@ -188,7 +201,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     already exists.
     """
 
-    image: Optional[CreateCheckoutSessionInputWithPlanPlanImage]
+    image: Optional[CreateCheckoutSessionInputModePaymentWithPlanPlanImage]
     """An image for the plan. This will be visible on the product page to customers."""
 
     initial_price: Optional[float]
@@ -203,7 +216,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     up)
     """
 
-    payment_method_configuration: Optional[CreateCheckoutSessionInputWithPlanPlanPaymentMethodConfiguration]
+    payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration]
     """The explicit payment method configuration for the plan.
 
     If not provided, the platform or company's defaults will apply.
@@ -212,7 +225,7 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to a product"""
 
-    product: Optional[CreateCheckoutSessionInputWithPlanPlanProduct]
+    product: Optional[CreateCheckoutSessionInputModePaymentWithPlanPlanProduct]
     """Pass this object to create a new product for this plan.
 
     We will use the product external identifier to find or create an existing
@@ -238,7 +251,30 @@ class CreateCheckoutSessionInputWithPlanPlan(TypedDict, total=False):
     """Visibility of a resource"""
 
 
-class CreateCheckoutSessionInputWithPlanID(TypedDict, total=False):
+class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(TypedDict, total=False):
+    disabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: Required[bool]
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
+    """
+
+
+class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     plan_id: Required[str]
     """The ID of the plan to use for the checkout configuration"""
 
@@ -248,10 +284,90 @@ class CreateCheckoutSessionInputWithPlanID(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""
 
+    mode: Literal["payment"]
+
+    payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration]
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not
+    provided, the platform or company's defaults will apply.
+    """
+
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
 
 
+class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
+    disabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: Required[bool]
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
+    """
+
+
+class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
+    company_id: Required[str]
+    """The ID of the company for which to generate the checkout configuration.
+
+    Only required in setup mode.
+    """
+
+    mode: Required[Literal["setup"]]
+
+    metadata: Optional[Dict[str, object]]
+    """The metadata to use for the checkout configuration"""
+
+    payment_method_configuration: Optional[CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration]
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not
+    provided, the platform or company's defaults will apply.
+    """
+
+    redirect_url: Optional[str]
+    """The URL to redirect the user to after the checkout configuration is created"""
+
+
+class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):
+    disabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly disabled.
+
+    Only applies if the include_platform_defaults is true.
+    """
+
+    enabled: Required[List[PaymentMethodTypes]]
+    """An array of payment method identifiers that are explicitly enabled.
+
+    This means these payment methods will be shown on checkout. Example use case is
+    to only enable a specific payment method like cashapp, or extending the platform
+    defaults with additional methods.
+    """
+
+    include_platform_defaults: Required[bool]
+    """
+    Whether Whop's platform default payment method enablement settings are included
+    in this configuration. The full list of default payment methods can be found in
+    the documentation at docs.whop.com/payments.
+    """
+
+
 CheckoutConfigurationCreateParams: TypeAlias = Union[
-    CreateCheckoutSessionInputWithPlan, CreateCheckoutSessionInputWithPlanID
+    CreateCheckoutSessionInputModePaymentWithPlan,
+    CreateCheckoutSessionInputModePaymentWithPlanID,
+    CreateCheckoutSessionInputModeSetup,
 ]

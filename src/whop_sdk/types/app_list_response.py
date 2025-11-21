@@ -3,6 +3,7 @@
 from typing import Optional
 
 from .._models import BaseModel
+from .app_type import AppType
 from .shared.app_statuses import AppStatuses
 
 __all__ = ["AppListResponse", "Company", "Creator", "Icon"]
@@ -38,6 +39,9 @@ class Icon(BaseModel):
 class AppListResponse(BaseModel):
     id: str
     """The ID of the app"""
+
+    app_type: AppType
+    """The type of end-user an app is built for"""
 
     base_url: Optional[str] = None
     """The base url of the app"""
