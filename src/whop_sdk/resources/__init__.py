@@ -185,6 +185,14 @@ from .promo_codes import (
     PromoCodesResourceWithStreamingResponse,
     AsyncPromoCodesResourceWithStreamingResponse,
 )
+from .withdrawals import (
+    WithdrawalsResource,
+    AsyncWithdrawalsResource,
+    WithdrawalsResourceWithRawResponse,
+    AsyncWithdrawalsResourceWithRawResponse,
+    WithdrawalsResourceWithStreamingResponse,
+    AsyncWithdrawalsResourceWithStreamingResponse,
+)
 from .access_tokens import (
     AccessTokensResource,
     AsyncAccessTokensResource,
@@ -481,4 +489,10 @@ __all__ = [
     "AsyncRefundsResourceWithRawResponse",
     "RefundsResourceWithStreamingResponse",
     "AsyncRefundsResourceWithStreamingResponse",
+    "WithdrawalsResource",
+    "AsyncWithdrawalsResource",
+    "WithdrawalsResourceWithRawResponse",
+    "AsyncWithdrawalsResourceWithRawResponse",
+    "WithdrawalsResourceWithStreamingResponse",
+    "AsyncWithdrawalsResourceWithStreamingResponse",
 ]
