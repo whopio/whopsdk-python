@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Optional
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .checkout_modes import CheckoutModes
 from .shared.currency import Currency
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
@@ -81,7 +81,7 @@ class CheckoutConfigurationListResponse(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """The metadata to use for the checkout configuration"""
 
-    mode: Literal["payment", "setup"]
+    mode: CheckoutModes
     """The mode of the checkout session."""
 
     payment_method_configuration: Optional[PaymentMethodConfiguration] = None

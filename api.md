@@ -296,7 +296,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CheckoutConfigurationListResponse
+from whop_sdk.types import CheckoutModes, CheckoutConfigurationListResponse
 ```
 
 Methods:
@@ -610,3 +610,23 @@ Methods:
 
 - <code title="get /refunds/{id}">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/refund_retrieve_response.py">RefundRetrieveResponse</a></code>
 - <code title="get /refunds">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">list</a>(\*\*<a href="src/whop_sdk/types/refund_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/refund_list_response.py">SyncCursorPage[RefundListResponse]</a></code>
+
+# Withdrawals
+
+Types:
+
+```python
+from whop_sdk.types import (
+    WithdrawalFeeTypes,
+    WithdrawalSpeeds,
+    WithdrawalStatus,
+    WithdrawalTypes,
+    WithdrawalRetrieveResponse,
+    WithdrawalListResponse,
+)
+```
+
+Methods:
+
+- <code title="get /withdrawals/{id}">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/withdrawal_retrieve_response.py">WithdrawalRetrieveResponse</a></code>
+- <code title="get /withdrawals">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">list</a>(\*\*<a href="src/whop_sdk/types/withdrawal_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/withdrawal_list_response.py">SyncCursorPage[WithdrawalListResponse]</a></code>
