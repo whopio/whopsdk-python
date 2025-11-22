@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0 (2025-11-22)
+
+Full Changelog: [v0.0.8...v0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.8...v0.1.0)
+
+### Features
+
+* **api:** api update ([e4676c4](https://github.com/whopio/whopsdk-python/commit/e4676c4ec1f5c7ef3684e29eaaf5f82b96b1ae89))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([39d61e5](https://github.com/whopio/whopsdk-python/commit/39d61e5e3297137f7762465dd59418972f06161e))
+
 ## 0.0.8 (2025-11-21)
 
 Full Changelog: [v0.0.7...v0.0.8](https://github.com/whopio/whopsdk-python/compare/v0.0.7...v0.0.8)
