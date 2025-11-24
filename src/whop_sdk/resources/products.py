@@ -222,7 +222,6 @@ class ProductsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
@@ -257,8 +256,6 @@ class ProductsResource(SyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          banner_image: A banner image for the product in png, jpeg format
-
           business_type: The different business types a company can be.
 
           collect_shipping_address: Whether or not to collect shipping information at checkout from the customer.
@@ -311,7 +308,6 @@ class ProductsResource(SyncAPIResource):
             f"/products/{id}",
             body=maybe_transform(
                 {
-                    "banner_image": banner_image,
                     "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
@@ -643,7 +639,6 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
@@ -678,8 +673,6 @@ class AsyncProductsResource(AsyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          banner_image: A banner image for the product in png, jpeg format
-
           business_type: The different business types a company can be.
 
           collect_shipping_address: Whether or not to collect shipping information at checkout from the customer.
@@ -732,7 +725,6 @@ class AsyncProductsResource(AsyncAPIResource):
             f"/products/{id}",
             body=await async_maybe_transform(
                 {
-                    "banner_image": banner_image,
                     "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
