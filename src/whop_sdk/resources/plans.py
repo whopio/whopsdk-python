@@ -73,8 +73,6 @@ class PlansResource(SyncAPIResource):
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        strike_through_initial_price: Optional[float] | Omit = omit,
-        strike_through_renewal_price: Optional[float] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -108,7 +106,7 @@ class PlansResource(SyncAPIResource):
 
           description: The description of the plan.
 
-          expiration_days: The interval at which the plan charges (expiration plans).
+          expiration_days: The interval at which the plan expires and revokes access (expiration plans).
 
           image: An image for the plan. This will be visible on the product page to customers.
 
@@ -132,12 +130,6 @@ class PlansResource(SyncAPIResource):
               payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
           stock: The number of units available for purchase.
-
-          strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
-
-          strike_through_renewal_price: The price to display with a strikethrough for the renewal price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
 
           title: The title of the plan. This will be visible on the product page to customers.
 
@@ -175,8 +167,6 @@ class PlansResource(SyncAPIResource):
                     "release_method": release_method,
                     "renewal_price": renewal_price,
                     "stock": stock,
-                    "strike_through_initial_price": strike_through_initial_price,
-                    "strike_through_renewal_price": strike_through_renewal_price,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,
@@ -516,8 +506,6 @@ class AsyncPlansResource(AsyncAPIResource):
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        strike_through_initial_price: Optional[float] | Omit = omit,
-        strike_through_renewal_price: Optional[float] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -551,7 +539,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           description: The description of the plan.
 
-          expiration_days: The interval at which the plan charges (expiration plans).
+          expiration_days: The interval at which the plan expires and revokes access (expiration plans).
 
           image: An image for the plan. This will be visible on the product page to customers.
 
@@ -575,12 +563,6 @@ class AsyncPlansResource(AsyncAPIResource):
               payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
           stock: The number of units available for purchase.
-
-          strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
-
-          strike_through_renewal_price: The price to display with a strikethrough for the renewal price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
 
           title: The title of the plan. This will be visible on the product page to customers.
 
@@ -618,8 +600,6 @@ class AsyncPlansResource(AsyncAPIResource):
                     "release_method": release_method,
                     "renewal_price": renewal_price,
                     "stock": stock,
-                    "strike_through_initial_price": strike_through_initial_price,
-                    "strike_through_renewal_price": strike_through_renewal_price,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,

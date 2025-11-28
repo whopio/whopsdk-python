@@ -42,7 +42,7 @@ class PlanCreateParams(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """The interval at which the plan expires and revokes access (expiration plans)."""
 
     image: Optional[Image]
     """An image for the plan. This will be visible on the product page to customers."""
@@ -84,18 +84,6 @@ class PlanCreateParams(TypedDict, total=False):
 
     stock: Optional[int]
     """The number of units available for purchase."""
-
-    strike_through_initial_price: Optional[float]
-    """The price to display with a strikethrough for the initial price.
-
-    Provided as a number in dollars. Eg: 19.99 for $19.99
-    """
-
-    strike_through_renewal_price: Optional[float]
-    """The price to display with a strikethrough for the renewal price.
-
-    Provided as a number in dollars. Eg: 19.99 for $19.99
-    """
 
     title: Optional[str]
     """The title of the plan. This will be visible on the product page to customers."""
