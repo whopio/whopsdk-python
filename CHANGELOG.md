@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0 (2025-11-28)
+
+Full Changelog: [v0.0.8...v0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.8...v0.1.0)
+
+### Features
+
+* **api:** api update ([108b592](https://github.com/whopio/whopsdk-python/commit/108b592a049ef254ed532587e4a47394dedcecdc))
+* **api:** api update ([e4676c4](https://github.com/whopio/whopsdk-python/commit/e4676c4ec1f5c7ef3684e29eaaf5f82b96b1ae89))
+
+
+### Bug Fixes
+
+* ensure streams are always closed ([81413a5](https://github.com/whopio/whopsdk-python/commit/81413a51483adbd120e9fcf7670e7920b6579f9e))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([39d61e5](https://github.com/whopio/whopsdk-python/commit/39d61e5e3297137f7762465dd59418972f06161e))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([42667da](https://github.com/whopio/whopsdk-python/commit/42667da3ed531463c511b6c7dbe22fd2acb763b0))
+
 ## 0.0.8 (2025-11-21)
 
 Full Changelog: [v0.0.7...v0.0.8](https://github.com/whopio/whopsdk-python/compare/v0.0.7...v0.0.8)
