@@ -406,6 +406,8 @@ class InvoicesResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -435,6 +437,10 @@ class InvoicesResource(SyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           collection_methods: Filter invoices by their collection method
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           direction: The direction of the sort.
 
@@ -470,6 +476,8 @@ class InvoicesResource(SyncAPIResource):
                         "after": after,
                         "before": before,
                         "collection_methods": collection_methods,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
@@ -896,6 +904,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -925,6 +935,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           collection_methods: Filter invoices by their collection method
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           direction: The direction of the sort.
 
@@ -960,6 +974,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
                         "after": after,
                         "before": before,
                         "collection_methods": collection_methods,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,

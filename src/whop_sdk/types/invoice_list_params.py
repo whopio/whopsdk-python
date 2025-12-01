@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 from .shared.direction import Direction
 from .shared.invoice_status import InvoiceStatus
 from .shared.collection_method import CollectionMethod
@@ -25,6 +27,12 @@ class InvoiceListParams(TypedDict, total=False):
 
     collection_methods: Optional[List[CollectionMethod]]
     """Filter invoices by their collection method"""
+
+    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The minimum creation date to filter by"""
+
+    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The maximum creation date to filter by"""
 
     direction: Optional[Direction]
     """The direction of the sort."""

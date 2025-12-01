@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -159,6 +160,8 @@ class TransfersResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         destination_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
@@ -183,6 +186,10 @@ class TransfersResource(SyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           destination_id: Filter transfers to only those that were sent to this destination account.
               (user_xxx, biz_xxx, ldgr_xxx)
@@ -218,6 +225,8 @@ class TransfersResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "destination_id": destination_id,
                         "direction": direction,
                         "first": first,
@@ -363,6 +372,8 @@ class AsyncTransfersResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         destination_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
@@ -387,6 +398,10 @@ class AsyncTransfersResource(AsyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           destination_id: Filter transfers to only those that were sent to this destination account.
               (user_xxx, biz_xxx, ldgr_xxx)
@@ -422,6 +437,8 @@ class AsyncTransfersResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "destination_id": destination_id,
                         "direction": direction,
                         "first": first,

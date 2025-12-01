@@ -13,6 +13,7 @@ from whop_sdk.types import (
     PlanListResponse,
     PlanDeleteResponse,
 )
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Plan
 
@@ -64,8 +65,6 @@ class TestPlans:
             release_method="buy_now",
             renewal_price=6.9,
             stock=42,
-            strike_through_initial_price=6.9,
-            strike_through_renewal_price=6.9,
             title="title",
             trial_period_days=42,
             unlimited_stock=True,
@@ -240,6 +239,8 @@ class TestPlans:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,
@@ -367,8 +368,6 @@ class TestAsyncPlans:
             release_method="buy_now",
             renewal_price=6.9,
             stock=42,
-            strike_through_initial_price=6.9,
-            strike_through_renewal_price=6.9,
             title="title",
             trial_period_days=42,
             unlimited_stock=True,
@@ -543,6 +542,8 @@ class TestAsyncPlans:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,

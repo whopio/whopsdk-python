@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 
 import httpx
 
@@ -92,6 +93,8 @@ class RefundsResource(SyncAPIResource):
         payment_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -115,6 +118,10 @@ class RefundsResource(SyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           direction: The direction of the sort.
 
@@ -143,6 +150,8 @@ class RefundsResource(SyncAPIResource):
                         "payment_id": payment_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
@@ -220,6 +229,8 @@ class AsyncRefundsResource(AsyncAPIResource):
         payment_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -243,6 +254,10 @@ class AsyncRefundsResource(AsyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           direction: The direction of the sort.
 
@@ -271,6 +286,8 @@ class AsyncRefundsResource(AsyncAPIResource):
                         "payment_id": payment_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,

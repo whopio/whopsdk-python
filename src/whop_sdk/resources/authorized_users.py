@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 
 import httpx
 
@@ -90,6 +91,8 @@ class AuthorizedUsersResource(SyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         role: Optional[AuthorizedUserRoles] | Omit = omit,
@@ -115,6 +118,10 @@ class AuthorizedUsersResource(SyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           first: Returns the first _n_ elements from the list.
 
@@ -145,6 +152,8 @@ class AuthorizedUsersResource(SyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "first": first,
                         "last": last,
                         "role": role,
@@ -221,6 +230,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         role: Optional[AuthorizedUserRoles] | Omit = omit,
@@ -246,6 +257,10 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           first: Returns the first _n_ elements from the list.
 
@@ -276,6 +291,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "first": first,
                         "last": last,
                         "role": role,

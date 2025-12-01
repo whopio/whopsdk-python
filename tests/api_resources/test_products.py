@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     ProductDeleteResponse,
 )
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Product, ProductListItem
 
@@ -165,7 +166,6 @@ class TestProducts:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         product = client.products.update(
             id="prod_xxxxxxxxxxxxx",
-            banner_image={"direct_upload_id": "direct_upload_id"},
             business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
@@ -239,6 +239,8 @@ class TestProducts:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,
@@ -466,7 +468,6 @@ class TestAsyncProducts:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
             id="prod_xxxxxxxxxxxxx",
-            banner_image={"direct_upload_id": "direct_upload_id"},
             business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
@@ -540,6 +541,8 @@ class TestAsyncProducts:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,

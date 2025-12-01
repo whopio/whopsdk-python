@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, overload
 
 import httpx
@@ -297,6 +298,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -321,6 +324,10 @@ class CheckoutConfigurationsResource(SyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           direction: The direction of the sort.
 
@@ -351,6 +358,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
@@ -633,6 +642,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -657,6 +668,10 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           direction: The direction of the sort.
 
@@ -687,6 +702,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,

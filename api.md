@@ -630,3 +630,15 @@ Methods:
 
 - <code title="get /withdrawals/{id}">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/withdrawal_retrieve_response.py">WithdrawalRetrieveResponse</a></code>
 - <code title="get /withdrawals">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">list</a>(\*\*<a href="src/whop_sdk/types/withdrawal_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/withdrawal_list_response.py">SyncCursorPage[WithdrawalListResponse]</a></code>
+
+# AccountLinks
+
+Types:
+
+```python
+from whop_sdk.types import AccountLinkCreateResponse
+```
+
+Methods:
+
+- <code title="post /account_links">client.account_links.<a href="./src/whop_sdk/resources/account_links.py">create</a>(\*\*<a href="src/whop_sdk/types/account_link_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_link_create_response.py">AccountLinkCreateResponse</a></code>
