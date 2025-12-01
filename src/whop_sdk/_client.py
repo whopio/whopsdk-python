@@ -48,6 +48,7 @@ from .resources import (
     promo_codes,
     withdrawals,
     access_tokens,
+    account_links,
     chat_channels,
     notifications,
     course_lessons,
@@ -107,6 +108,7 @@ class Whop(SyncAPIClient):
     disputes: disputes.DisputesResource
     refunds: refunds.RefundsResource
     withdrawals: withdrawals.WithdrawalsResource
+    account_links: account_links.AccountLinksResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -215,6 +217,7 @@ class Whop(SyncAPIClient):
         self.disputes = disputes.DisputesResource(self)
         self.refunds = refunds.RefundsResource(self)
         self.withdrawals = withdrawals.WithdrawalsResource(self)
+        self.account_links = account_links.AccountLinksResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
@@ -365,6 +368,7 @@ class AsyncWhop(AsyncAPIClient):
     disputes: disputes.AsyncDisputesResource
     refunds: refunds.AsyncRefundsResource
     withdrawals: withdrawals.AsyncWithdrawalsResource
+    account_links: account_links.AsyncAccountLinksResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -473,6 +477,7 @@ class AsyncWhop(AsyncAPIClient):
         self.disputes = disputes.AsyncDisputesResource(self)
         self.refunds = refunds.AsyncRefundsResource(self)
         self.withdrawals = withdrawals.AsyncWithdrawalsResource(self)
+        self.account_links = account_links.AsyncAccountLinksResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
@@ -627,6 +632,7 @@ class WhopWithRawResponse:
         self.disputes = disputes.DisputesResourceWithRawResponse(client.disputes)
         self.refunds = refunds.RefundsResourceWithRawResponse(client.refunds)
         self.withdrawals = withdrawals.WithdrawalsResourceWithRawResponse(client.withdrawals)
+        self.account_links = account_links.AccountLinksResourceWithRawResponse(client.account_links)
 
 
 class AsyncWhopWithRawResponse:
@@ -672,6 +678,7 @@ class AsyncWhopWithRawResponse:
         self.disputes = disputes.AsyncDisputesResourceWithRawResponse(client.disputes)
         self.refunds = refunds.AsyncRefundsResourceWithRawResponse(client.refunds)
         self.withdrawals = withdrawals.AsyncWithdrawalsResourceWithRawResponse(client.withdrawals)
+        self.account_links = account_links.AsyncAccountLinksResourceWithRawResponse(client.account_links)
 
 
 class WhopWithStreamedResponse:
@@ -717,6 +724,7 @@ class WhopWithStreamedResponse:
         self.disputes = disputes.DisputesResourceWithStreamingResponse(client.disputes)
         self.refunds = refunds.RefundsResourceWithStreamingResponse(client.refunds)
         self.withdrawals = withdrawals.WithdrawalsResourceWithStreamingResponse(client.withdrawals)
+        self.account_links = account_links.AccountLinksResourceWithStreamingResponse(client.account_links)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -766,6 +774,7 @@ class AsyncWhopWithStreamedResponse:
         self.disputes = disputes.AsyncDisputesResourceWithStreamingResponse(client.disputes)
         self.refunds = refunds.AsyncRefundsResourceWithStreamingResponse(client.refunds)
         self.withdrawals = withdrawals.AsyncWithdrawalsResourceWithStreamingResponse(client.withdrawals)
+        self.account_links = account_links.AsyncAccountLinksResourceWithStreamingResponse(client.account_links)
 
 
 Client = Whop
