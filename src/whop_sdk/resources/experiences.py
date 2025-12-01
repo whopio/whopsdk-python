@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -207,6 +208,8 @@ class ExperiencesResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
@@ -232,6 +235,10 @@ class ExperiencesResource(SyncAPIResource):
           app_id: The ID of the app to filter experiences by
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           first: Returns the first _n_ elements from the list.
 
@@ -261,6 +268,8 @@ class ExperiencesResource(SyncAPIResource):
                         "after": after,
                         "app_id": app_id,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "first": first,
                         "last": last,
                         "product_id": product_id,
@@ -611,6 +620,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
@@ -636,6 +647,10 @@ class AsyncExperiencesResource(AsyncAPIResource):
           app_id: The ID of the app to filter experiences by
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           first: Returns the first _n_ elements from the list.
 
@@ -665,6 +680,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
                         "after": after,
                         "app_id": app_id,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "first": first,
                         "last": last,
                         "product_id": product_id,

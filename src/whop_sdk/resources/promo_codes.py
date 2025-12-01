@@ -197,6 +197,8 @@ class PromoCodesResource(SyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -223,6 +225,10 @@ class PromoCodesResource(SyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           first: Returns the first _n_ elements from the list.
 
@@ -255,6 +261,8 @@ class PromoCodesResource(SyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "first": first,
                         "last": last,
                         "plan_ids": plan_ids,
@@ -472,6 +480,8 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_after: Union[str, datetime, None] | Omit = omit,
+        created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -498,6 +508,10 @@ class AsyncPromoCodesResource(AsyncAPIResource):
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          created_after: The minimum creation date to filter by
+
+          created_before: The maximum creation date to filter by
 
           first: Returns the first _n_ elements from the list.
 
@@ -530,6 +544,8 @@ class AsyncPromoCodesResource(AsyncAPIResource):
                         "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "first": first,
                         "last": last,
                         "plan_ids": plan_ids,
