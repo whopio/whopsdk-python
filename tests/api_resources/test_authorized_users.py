@@ -13,6 +13,7 @@ from whop_sdk.types import (
     AuthorizedUserListResponse,
     AuthorizedUserRetrieveResponse,
 )
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -78,6 +79,8 @@ class TestAuthorizedUsers:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
             last=42,
             role="owner",
@@ -174,6 +177,8 @@ class TestAsyncAuthorizedUsers:
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
             last=42,
             role="owner",

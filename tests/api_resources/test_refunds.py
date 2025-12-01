@@ -10,6 +10,7 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import RefundListResponse, RefundRetrieveResponse
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -75,6 +76,8 @@ class TestRefunds:
             payment_id="pay_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,
@@ -170,6 +173,8 @@ class TestAsyncRefunds:
             payment_id="pay_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,

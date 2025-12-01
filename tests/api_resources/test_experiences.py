@@ -13,6 +13,7 @@ from whop_sdk.types import (
     ExperienceListResponse,
     ExperienceDeleteResponse,
 )
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Experience
 
@@ -183,6 +184,8 @@ class TestExperiences:
             after="after",
             app_id="app_xxxxxxxxxxxxxx",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
             last=42,
             product_id="prod_xxxxxxxxxxxxx",
@@ -567,6 +570,8 @@ class TestAsyncExperiences:
             after="after",
             app_id="app_xxxxxxxxxxxxxx",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
             last=42,
             product_id="prod_xxxxxxxxxxxxx",

@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing import Union, Optional
+from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
 
+from .._utils import PropertyInfo
 from .shared.direction import Direction
 
 __all__ = ["CheckoutConfigurationListParams"]
@@ -19,6 +21,12 @@ class CheckoutConfigurationListParams(TypedDict, total=False):
 
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
+
+    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The minimum creation date to filter by"""
+
+    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The maximum creation date to filter by"""
 
     direction: Optional[Direction]
     """The direction of the sort."""

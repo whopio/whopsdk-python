@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 from .shared.direction import Direction
 from .shared.plan_type import PlanType
 from .shared.release_method import ReleaseMethod
@@ -23,6 +25,12 @@ class PlanListParams(TypedDict, total=False):
 
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
+
+    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The minimum creation date to filter by"""
+
+    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The maximum creation date to filter by"""
 
     direction: Optional[Direction]
     """The direction of the sort."""
