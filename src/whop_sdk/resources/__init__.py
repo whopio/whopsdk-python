@@ -225,6 +225,14 @@ from .notifications import (
     NotificationsResourceWithStreamingResponse,
     AsyncNotificationsResourceWithStreamingResponse,
 )
+from .setup_intents import (
+    SetupIntentsResource,
+    AsyncSetupIntentsResource,
+    SetupIntentsResourceWithRawResponse,
+    AsyncSetupIntentsResourceWithRawResponse,
+    SetupIntentsResourceWithStreamingResponse,
+    AsyncSetupIntentsResourceWithStreamingResponse,
+)
 from .course_lessons import (
     CourseLessonsResource,
     AsyncCourseLessonsResource,
@@ -232,6 +240,14 @@ from .course_lessons import (
     AsyncCourseLessonsResourceWithRawResponse,
     CourseLessonsResourceWithStreamingResponse,
     AsyncCourseLessonsResourceWithStreamingResponse,
+)
+from .payment_tokens import (
+    PaymentTokensResource,
+    AsyncPaymentTokensResource,
+    PaymentTokensResourceWithRawResponse,
+    AsyncPaymentTokensResourceWithRawResponse,
+    PaymentTokensResourceWithStreamingResponse,
+    AsyncPaymentTokensResourceWithStreamingResponse,
 )
 from .course_chapters import (
     CourseChaptersResource,
@@ -509,4 +525,16 @@ __all__ = [
     "AsyncAccountLinksResourceWithRawResponse",
     "AccountLinksResourceWithStreamingResponse",
     "AsyncAccountLinksResourceWithStreamingResponse",
+    "SetupIntentsResource",
+    "AsyncSetupIntentsResource",
+    "SetupIntentsResourceWithRawResponse",
+    "AsyncSetupIntentsResourceWithRawResponse",
+    "SetupIntentsResourceWithStreamingResponse",
+    "AsyncSetupIntentsResourceWithStreamingResponse",
+    "PaymentTokensResource",
+    "AsyncPaymentTokensResource",
+    "PaymentTokensResourceWithRawResponse",
+    "AsyncPaymentTokensResourceWithRawResponse",
+    "PaymentTokensResourceWithStreamingResponse",
+    "AsyncPaymentTokensResourceWithStreamingResponse",
 ]
