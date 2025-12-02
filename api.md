@@ -659,3 +659,16 @@ Methods:
 
 - <code title="get /setup_intents/{id}">client.setup_intents.<a href="./src/whop_sdk/resources/setup_intents.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/setup_intent.py">SetupIntent</a></code>
 - <code title="get /setup_intents">client.setup_intents.<a href="./src/whop_sdk/resources/setup_intents.py">list</a>(\*\*<a href="src/whop_sdk/types/setup_intent_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/setup_intent_list_response.py">SyncCursorPage[SetupIntentListResponse]</a></code>
+
+# PaymentMethods
+
+Types:
+
+```python
+from whop_sdk.types import PaymentMethodRetrieveResponse, PaymentMethodListResponse
+```
+
+Methods:
+
+- <code title="get /payment_methods/{id}">client.payment_methods.<a href="./src/whop_sdk/resources/payment_methods.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/payment_method_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_retrieve_response.py">PaymentMethodRetrieveResponse</a></code>
+- <code title="get /payment_methods">client.payment_methods.<a href="./src/whop_sdk/resources/payment_methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payment_method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_list_response.py">SyncCursorPage[PaymentMethodListResponse]</a></code>

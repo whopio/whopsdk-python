@@ -265,6 +265,14 @@ from .ledger_accounts import (
     LedgerAccountsResourceWithStreamingResponse,
     AsyncLedgerAccountsResourceWithStreamingResponse,
 )
+from .payment_methods import (
+    PaymentMethodsResource,
+    AsyncPaymentMethodsResource,
+    PaymentMethodsResourceWithRawResponse,
+    AsyncPaymentMethodsResourceWithRawResponse,
+    PaymentMethodsResourceWithStreamingResponse,
+    AsyncPaymentMethodsResourceWithStreamingResponse,
+)
 from .authorized_users import (
     AuthorizedUsersResource,
     AsyncAuthorizedUsersResource,
@@ -523,4 +531,10 @@ __all__ = [
     "AsyncSetupIntentsResourceWithRawResponse",
     "SetupIntentsResourceWithStreamingResponse",
     "AsyncSetupIntentsResourceWithStreamingResponse",
+    "PaymentMethodsResource",
+    "AsyncPaymentMethodsResource",
+    "PaymentMethodsResourceWithRawResponse",
+    "AsyncPaymentMethodsResourceWithRawResponse",
+    "PaymentMethodsResourceWithStreamingResponse",
+    "AsyncPaymentMethodsResourceWithStreamingResponse",
 ]
