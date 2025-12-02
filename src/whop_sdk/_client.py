@@ -53,7 +53,6 @@ from .resources import (
     notifications,
     setup_intents,
     course_lessons,
-    payment_tokens,
     course_chapters,
     course_students,
     ledger_accounts,
@@ -112,7 +111,6 @@ class Whop(SyncAPIClient):
     withdrawals: withdrawals.WithdrawalsResource
     account_links: account_links.AccountLinksResource
     setup_intents: setup_intents.SetupIntentsResource
-    payment_tokens: payment_tokens.PaymentTokensResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -223,7 +221,6 @@ class Whop(SyncAPIClient):
         self.withdrawals = withdrawals.WithdrawalsResource(self)
         self.account_links = account_links.AccountLinksResource(self)
         self.setup_intents = setup_intents.SetupIntentsResource(self)
-        self.payment_tokens = payment_tokens.PaymentTokensResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
@@ -376,7 +373,6 @@ class AsyncWhop(AsyncAPIClient):
     withdrawals: withdrawals.AsyncWithdrawalsResource
     account_links: account_links.AsyncAccountLinksResource
     setup_intents: setup_intents.AsyncSetupIntentsResource
-    payment_tokens: payment_tokens.AsyncPaymentTokensResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -487,7 +483,6 @@ class AsyncWhop(AsyncAPIClient):
         self.withdrawals = withdrawals.AsyncWithdrawalsResource(self)
         self.account_links = account_links.AsyncAccountLinksResource(self)
         self.setup_intents = setup_intents.AsyncSetupIntentsResource(self)
-        self.payment_tokens = payment_tokens.AsyncPaymentTokensResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
@@ -644,7 +639,6 @@ class WhopWithRawResponse:
         self.withdrawals = withdrawals.WithdrawalsResourceWithRawResponse(client.withdrawals)
         self.account_links = account_links.AccountLinksResourceWithRawResponse(client.account_links)
         self.setup_intents = setup_intents.SetupIntentsResourceWithRawResponse(client.setup_intents)
-        self.payment_tokens = payment_tokens.PaymentTokensResourceWithRawResponse(client.payment_tokens)
 
 
 class AsyncWhopWithRawResponse:
@@ -692,7 +686,6 @@ class AsyncWhopWithRawResponse:
         self.withdrawals = withdrawals.AsyncWithdrawalsResourceWithRawResponse(client.withdrawals)
         self.account_links = account_links.AsyncAccountLinksResourceWithRawResponse(client.account_links)
         self.setup_intents = setup_intents.AsyncSetupIntentsResourceWithRawResponse(client.setup_intents)
-        self.payment_tokens = payment_tokens.AsyncPaymentTokensResourceWithRawResponse(client.payment_tokens)
 
 
 class WhopWithStreamedResponse:
@@ -740,7 +733,6 @@ class WhopWithStreamedResponse:
         self.withdrawals = withdrawals.WithdrawalsResourceWithStreamingResponse(client.withdrawals)
         self.account_links = account_links.AccountLinksResourceWithStreamingResponse(client.account_links)
         self.setup_intents = setup_intents.SetupIntentsResourceWithStreamingResponse(client.setup_intents)
-        self.payment_tokens = payment_tokens.PaymentTokensResourceWithStreamingResponse(client.payment_tokens)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -792,7 +784,6 @@ class AsyncWhopWithStreamedResponse:
         self.withdrawals = withdrawals.AsyncWithdrawalsResourceWithStreamingResponse(client.withdrawals)
         self.account_links = account_links.AsyncAccountLinksResourceWithStreamingResponse(client.account_links)
         self.setup_intents = setup_intents.AsyncSetupIntentsResourceWithStreamingResponse(client.setup_intents)
-        self.payment_tokens = payment_tokens.AsyncPaymentTokensResourceWithStreamingResponse(client.payment_tokens)
 
 
 Client = Whop

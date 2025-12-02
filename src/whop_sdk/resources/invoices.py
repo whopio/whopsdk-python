@@ -63,6 +63,7 @@ class InvoicesResource(SyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -101,6 +102,9 @@ class InvoicesResource(SyncAPIResource):
           customer_name: The name of the customer to create this invoice for. This is required if you
               want to create an invoice for a customer who does not have a member of your
               company yet.
+
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -127,6 +131,7 @@ class InvoicesResource(SyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -165,6 +170,9 @@ class InvoicesResource(SyncAPIResource):
               want to create an invoice for a customer who does not have a member of your
               company yet.
 
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
+
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
@@ -190,6 +198,7 @@ class InvoicesResource(SyncAPIResource):
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -229,6 +238,9 @@ class InvoicesResource(SyncAPIResource):
               want to create an invoice for a customer who does not have a member of your
               company yet.
 
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
+
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
@@ -254,6 +266,7 @@ class InvoicesResource(SyncAPIResource):
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -291,6 +304,9 @@ class InvoicesResource(SyncAPIResource):
           customer_name: The name of the customer to create this invoice for. This is required if you
               want to create an invoice for a customer who does not have a member of your
               company yet.
+
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -327,6 +343,7 @@ class InvoicesResource(SyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         email_address: str | Omit = omit,
         product_id: str | Omit = omit,
@@ -349,6 +366,7 @@ class InvoicesResource(SyncAPIResource):
                     "product": product,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
+                    "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,
                     "email_address": email_address,
                     "product_id": product_id,
@@ -561,6 +579,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -599,6 +618,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
           customer_name: The name of the customer to create this invoice for. This is required if you
               want to create an invoice for a customer who does not have a member of your
               company yet.
+
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -625,6 +647,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -663,6 +686,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
               want to create an invoice for a customer who does not have a member of your
               company yet.
 
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
+
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
@@ -688,6 +714,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -727,6 +754,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
               want to create an invoice for a customer who does not have a member of your
               company yet.
 
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
+
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
 
@@ -752,6 +782,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         product_id: str,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -789,6 +820,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
           customer_name: The name of the customer to create this invoice for. This is required if you
               want to create an invoice for a customer who does not have a member of your
               company yet.
+
+          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
+              you must provide a payment_method_id.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -825,6 +859,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         email_address: str | Omit = omit,
         product_id: str | Omit = omit,
@@ -847,6 +882,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "product": product,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
+                    "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,
                     "email_address": email_address,
                     "product_id": product_id,

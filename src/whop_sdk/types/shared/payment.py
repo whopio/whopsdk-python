@@ -19,8 +19,8 @@ __all__ = [
     "Company",
     "Member",
     "Membership",
-    "PaymentToken",
-    "PaymentTokenCard",
+    "PaymentMethod",
+    "PaymentMethodCard",
     "Plan",
     "Product",
     "PromoCode",
@@ -78,7 +78,7 @@ class Membership(BaseModel):
     """The state of the membership."""
 
 
-class PaymentTokenCard(BaseModel):
+class PaymentMethodCard(BaseModel):
     brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
@@ -92,21 +92,20 @@ class PaymentTokenCard(BaseModel):
     """Last four digits of the card."""
 
 
-class PaymentToken(BaseModel):
+class PaymentMethod(BaseModel):
     id: str
-    """The ID of the payment token"""
+    """The ID of the payment method"""
 
-    card: Optional[PaymentTokenCard] = None
+    card: Optional[PaymentMethodCard] = None
     """
-    The card data associated with the payment token, if its a debit or credit card
-    token.
+    The card data associated with the payment method, if its a debit or credit card.
     """
 
     created_at: datetime
-    """The date and time the payment token was created"""
+    """The date and time the payment method was created"""
 
     payment_method_type: PaymentMethodTypes
-    """The payment method type of the payment token"""
+    """The payment method type of the payment method"""
 
 
 class Plan(BaseModel):
@@ -214,11 +213,11 @@ class Payment(BaseModel):
     paid_at: Optional[datetime] = None
     """The datetime the payment was paid"""
 
+    payment_method: Optional[PaymentMethod] = None
+    """The payment method used for the payment, if available."""
+
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
-
-    payment_token: Optional[PaymentToken] = None
-    """The payment token used for the payment, if available."""
 
     plan: Optional[Plan] = None
     """The plan attached to this payment."""
