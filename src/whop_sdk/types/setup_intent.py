@@ -14,8 +14,8 @@ __all__ = [
     "Company",
     "Member",
     "MemberUser",
-    "PaymentToken",
-    "PaymentTokenCard",
+    "PaymentMethod",
+    "PaymentMethodCard",
 ]
 
 
@@ -51,7 +51,7 @@ class Member(BaseModel):
     """The user for this member, if any."""
 
 
-class PaymentTokenCard(BaseModel):
+class PaymentMethodCard(BaseModel):
     brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
@@ -65,21 +65,20 @@ class PaymentTokenCard(BaseModel):
     """Last four digits of the card."""
 
 
-class PaymentToken(BaseModel):
+class PaymentMethod(BaseModel):
     id: str
-    """The ID of the payment token"""
+    """The ID of the payment method"""
 
-    card: Optional[PaymentTokenCard] = None
+    card: Optional[PaymentMethodCard] = None
     """
-    The card data associated with the payment token, if its a debit or credit card
-    token.
+    The card data associated with the payment method, if its a debit or credit card.
     """
 
     created_at: datetime
-    """The date and time the payment token was created"""
+    """The date and time the payment method was created"""
 
     payment_method_type: PaymentMethodTypes
-    """The payment method type of the payment token"""
+    """The payment method type of the payment method"""
 
 
 class SetupIntent(BaseModel):
@@ -104,8 +103,8 @@ class SetupIntent(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """The metadata associated with the setup intent"""
 
-    payment_token: Optional[PaymentToken] = None
-    """The payment token created during the setup, if available."""
+    payment_method: Optional[PaymentMethod] = None
+    """The payment method created during the setup, if available."""
 
     status: SetupIntentStatus
     """The status of the setup intent"""

@@ -241,14 +241,6 @@ from .course_lessons import (
     CourseLessonsResourceWithStreamingResponse,
     AsyncCourseLessonsResourceWithStreamingResponse,
 )
-from .payment_tokens import (
-    PaymentTokensResource,
-    AsyncPaymentTokensResource,
-    PaymentTokensResourceWithRawResponse,
-    AsyncPaymentTokensResourceWithRawResponse,
-    PaymentTokensResourceWithStreamingResponse,
-    AsyncPaymentTokensResourceWithStreamingResponse,
-)
 from .course_chapters import (
     CourseChaptersResource,
     AsyncCourseChaptersResource,
@@ -531,10 +523,4 @@ __all__ = [
     "AsyncSetupIntentsResourceWithRawResponse",
     "SetupIntentsResourceWithStreamingResponse",
     "AsyncSetupIntentsResourceWithStreamingResponse",
-    "PaymentTokensResource",
-    "AsyncPaymentTokensResource",
-    "PaymentTokensResourceWithRawResponse",
-    "AsyncPaymentTokensResourceWithRawResponse",
-    "PaymentTokensResourceWithStreamingResponse",
-    "AsyncPaymentTokensResourceWithStreamingResponse",
 ]

@@ -28,8 +28,8 @@ class CreatePaymentInputWithPlan(TypedDict, total=False):
     member_id: Required[str]
     """The ID of the member to create the payment for."""
 
-    payment_token_id: Required[str]
-    """The ID of the payment token to use for the payment.
+    payment_method_id: Required[str]
+    """The ID of the payment method to use for the payment.
 
     It must be connected to the Member being charged.
     """
@@ -149,8 +149,8 @@ class CreatePaymentInputWithPlanID(TypedDict, total=False):
     member_id: Required[str]
     """The ID of the member to create the payment for."""
 
-    payment_token_id: Required[str]
-    """The ID of the payment token to use for the payment.
+    payment_method_id: Required[str]
+    """The ID of the payment method to use for the payment.
 
     It must be connected to the Member being charged.
     """

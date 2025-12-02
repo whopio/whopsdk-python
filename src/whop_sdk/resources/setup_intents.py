@@ -59,7 +59,11 @@ class SetupIntentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetupIntent:
         """
-        Retrieves a Setup Intent by ID
+        A setup intent is an object used to securely collect and store a member’s
+        payment method for future use without charging them immediately. It handles
+        authentication steps up front so future off-session payments can be completed
+        smoothly. This ensures the payment method is verified and ready for later
+        billing.
 
         Required permissions:
 
@@ -105,7 +109,11 @@ class SetupIntentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[SetupIntentListResponse]:
         """
-        Lists Setup Intents
+        A setup intent is an object used to securely collect and store a member’s
+        payment method for future use without charging them immediately. It handles
+        authentication steps up front so future off-session payments can be completed
+        smoothly. This ensures the payment method is verified and ready for later
+        billing.
 
         Required permissions:
 
@@ -196,7 +204,11 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetupIntent:
         """
-        Retrieves a Setup Intent by ID
+        A setup intent is an object used to securely collect and store a member’s
+        payment method for future use without charging them immediately. It handles
+        authentication steps up front so future off-session payments can be completed
+        smoothly. This ensures the payment method is verified and ready for later
+        billing.
 
         Required permissions:
 
@@ -242,7 +254,11 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[SetupIntentListResponse, AsyncCursorPage[SetupIntentListResponse]]:
         """
-        Lists Setup Intents
+        A setup intent is an object used to securely collect and store a member’s
+        payment method for future use without charging them immediately. It handles
+        authentication steps up front so future off-session payments can be completed
+        smoothly. This ensures the payment method is verified and ready for later
+        billing.
 
         Required permissions:
 

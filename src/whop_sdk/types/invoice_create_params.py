@@ -70,6 +70,12 @@ class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
     have a member of your company yet.
     """
 
+    payment_method_id: Optional[str]
+    """The payment method ID to use for this invoice.
+
+    If using charge_automatically, you must provide a payment_method_id.
+    """
+
     payment_token_id: Optional[str]
     """The payment token ID to use for this invoice.
 
@@ -191,6 +197,12 @@ class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
 
     This is required if you want to create an invoice for a customer who does not
     have a member of your company yet.
+    """
+
+    payment_method_id: Optional[str]
+    """The payment method ID to use for this invoice.
+
+    If using charge_automatically, you must provide a payment_method_id.
     """
 
     payment_token_id: Optional[str]
@@ -316,6 +328,12 @@ class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     have a member of your company yet.
     """
 
+    payment_method_id: Optional[str]
+    """The payment method ID to use for this invoice.
+
+    If using charge_automatically, you must provide a payment_method_id.
+    """
+
     payment_token_id: Optional[str]
     """The payment token ID to use for this invoice.
 
@@ -429,6 +447,12 @@ class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
 
     This is required if you want to create an invoice for a customer who does not
     have a member of your company yet.
+    """
+
+    payment_method_id: Optional[str]
+    """The payment method ID to use for this invoice.
+
+    If using charge_automatically, you must provide a payment_method_id.
     """
 
     payment_token_id: Optional[str]
