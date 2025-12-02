@@ -55,6 +55,7 @@ class AppBuildsResource(SyncAPIResource):
         attachment: app_build_create_params.Attachment,
         checksum: str,
         platform: AppBuildPlatforms,
+        ai_prompt_id: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
         supported_app_view_types: Optional[List[AppViewType]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -82,6 +83,8 @@ class AppBuildsResource(SyncAPIResource):
 
           platform: The platform of the app build (ios, android, web)
 
+          ai_prompt_id: The id of the ai prompt that created this build
+
           app_id: The ID of the app to create a build for. By default the current app from the api
               key is used.
 
@@ -103,6 +106,7 @@ class AppBuildsResource(SyncAPIResource):
                     "attachment": attachment,
                     "checksum": checksum,
                     "platform": platform,
+                    "ai_prompt_id": ai_prompt_id,
                     "app_id": app_id,
                     "supported_app_view_types": supported_app_view_types,
                 },
@@ -294,6 +298,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         attachment: app_build_create_params.Attachment,
         checksum: str,
         platform: AppBuildPlatforms,
+        ai_prompt_id: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
         supported_app_view_types: Optional[List[AppViewType]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -321,6 +326,8 @@ class AsyncAppBuildsResource(AsyncAPIResource):
 
           platform: The platform of the app build (ios, android, web)
 
+          ai_prompt_id: The id of the ai prompt that created this build
+
           app_id: The ID of the app to create a build for. By default the current app from the api
               key is used.
 
@@ -342,6 +349,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
                     "attachment": attachment,
                     "checksum": checksum,
                     "platform": platform,
+                    "ai_prompt_id": ai_prompt_id,
                     "app_id": app_id,
                     "supported_app_view_types": supported_app_view_types,
                 },

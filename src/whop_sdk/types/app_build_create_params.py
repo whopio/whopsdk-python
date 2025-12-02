@@ -34,6 +34,9 @@ class AppBuildCreateParams(TypedDict, total=False):
     platform: Required[AppBuildPlatforms]
     """The platform of the app build (ios, android, web)"""
 
+    ai_prompt_id: Optional[str]
+    """The id of the ai prompt that created this build"""
+
     app_id: Optional[str]
     """The ID of the app to create a build for.
 
