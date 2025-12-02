@@ -19,7 +19,10 @@ from .payment_pending_webhook_event import PaymentPendingWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
+from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent
+from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
+from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
 from .course_lesson_interaction_completed_webhook_event import CourseLessonInteractionCompletedWebhookEvent
 
 __all__ = ["UnwrapWebhookEvent"]
@@ -35,6 +38,9 @@ UnwrapWebhookEvent: TypeAlias = Union[
     EntryApprovedWebhookEvent,
     EntryDeniedWebhookEvent,
     EntryDeletedWebhookEvent,
+    SetupIntentRequiresActionWebhookEvent,
+    SetupIntentSucceededWebhookEvent,
+    SetupIntentCanceledWebhookEvent,
     CourseLessonInteractionCompletedWebhookEvent,
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,

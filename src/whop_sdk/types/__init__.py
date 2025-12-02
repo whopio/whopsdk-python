@@ -228,9 +228,11 @@ from .ledger_account_retrieve_response import LedgerAccountRetrieveResponse as L
 from .authorized_user_retrieve_response import AuthorizedUserRetrieveResponse as AuthorizedUserRetrieveResponse
 from .checkout_configuration_list_params import CheckoutConfigurationListParams as CheckoutConfigurationListParams
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent as MembershipActivatedWebhookEvent
+from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent as SetupIntentCanceledWebhookEvent
 from .checkout_configuration_create_params import CheckoutConfigurationCreateParams as CheckoutConfigurationCreateParams
 from .checkout_configuration_list_response import CheckoutConfigurationListResponse as CheckoutConfigurationListResponse
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent as MembershipDeactivatedWebhookEvent
+from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent as SetupIntentSucceededWebhookEvent
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
 )
@@ -242,6 +244,9 @@ from .course_lesson_mark_as_completed_response import (
 )
 from .course_lesson_submit_assessment_response import (
     CourseLessonSubmitAssessmentResponse as CourseLessonSubmitAssessmentResponse,
+)
+from .setup_intent_requires_action_webhook_event import (
+    SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
 )
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,

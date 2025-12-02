@@ -13,7 +13,19 @@ from .membership_status import MembershipStatus
 from ..payment_method_types import PaymentMethodTypes
 from .friendly_receipt_status import FriendlyReceiptStatus
 
-__all__ = ["Payment", "BillingAddress", "Company", "Member", "Membership", "Plan", "Product", "PromoCode", "User"]
+__all__ = [
+    "Payment",
+    "BillingAddress",
+    "Company",
+    "Member",
+    "Membership",
+    "PaymentToken",
+    "PaymentTokenCard",
+    "Plan",
+    "Product",
+    "PromoCode",
+    "User",
+]
 
 
 class BillingAddress(BaseModel):
@@ -64,6 +76,37 @@ class Membership(BaseModel):
 
     status: MembershipStatus
     """The state of the membership."""
+
+
+class PaymentTokenCard(BaseModel):
+    brand: Optional[CardBrands] = None
+    """Possible card brands that a payment token can have"""
+
+    exp_month: Optional[int] = None
+    """Card expiration month, like 03 for March."""
+
+    exp_year: Optional[int] = None
+    """Card expiration year, like 27 for 2027."""
+
+    last4: Optional[str] = None
+    """Last four digits of the card."""
+
+
+class PaymentToken(BaseModel):
+    id: str
+    """The ID of the payment token"""
+
+    card: Optional[PaymentTokenCard] = None
+    """
+    The card data associated with the payment token, if its a debit or credit card
+    token.
+    """
+
+    created_at: datetime
+    """The date and time the payment token was created"""
+
+    payment_method_type: PaymentMethodTypes
+    """The payment method type of the payment token"""
 
 
 class Plan(BaseModel):
@@ -173,6 +216,9 @@ class Payment(BaseModel):
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
+
+    payment_token: Optional[PaymentToken] = None
+    """The payment token used for the payment, if available."""
 
     plan: Optional[Plan] = None
     """The plan attached to this payment."""
