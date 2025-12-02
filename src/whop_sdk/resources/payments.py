@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import payment_list_params, payment_refund_params
+from ..types import payment_list_params, payment_create_params, payment_refund_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -51,6 +51,151 @@ class PaymentsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return PaymentsResourceWithStreamingResponse(self)
+
+    @overload
+    def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        payment_token_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """Creates a payment.
+
+        This endpoint will respond with a payment object immediately,
+        but the payment is processed asynchronously in the background. Use webhooks to
+        be notified when the payment succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for.
+
+          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+              Member being charged.
+
+          plan: Pass this object to create a new plan for this payment
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        payment_token_id: str,
+        plan_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """Creates a payment.
+
+        This endpoint will respond with a payment object immediately,
+        but the payment is processed asynchronously in the background. Use webhooks to
+        be notified when the payment succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for.
+
+          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+              Member being charged.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(
+        ["company_id", "member_id", "payment_token_id", "plan"],
+        ["company_id", "member_id", "payment_token_id", "plan_id"],
+    )
+    def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        payment_token_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        plan_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        return self._post(
+            "/payments",
+            body=maybe_transform(
+                {
+                    "company_id": company_id,
+                    "member_id": member_id,
+                    "payment_token_id": payment_token_id,
+                    "plan": plan,
+                    "plan_id": plan_id,
+                },
+                payment_create_params.PaymentCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Payment,
+        )
 
     def retrieve(
         self,
@@ -362,6 +507,151 @@ class AsyncPaymentsResource(AsyncAPIResource):
         """
         return AsyncPaymentsResourceWithStreamingResponse(self)
 
+    @overload
+    async def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        payment_token_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """Creates a payment.
+
+        This endpoint will respond with a payment object immediately,
+        but the payment is processed asynchronously in the background. Use webhooks to
+        be notified when the payment succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for.
+
+          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+              Member being charged.
+
+          plan: Pass this object to create a new plan for this payment
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        payment_token_id: str,
+        plan_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """Creates a payment.
+
+        This endpoint will respond with a payment object immediately,
+        but the payment is processed asynchronously in the background. Use webhooks to
+        be notified when the payment succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for.
+
+          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+              Member being charged.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(
+        ["company_id", "member_id", "payment_token_id", "plan"],
+        ["company_id", "member_id", "payment_token_id", "plan_id"],
+    )
+    async def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        payment_token_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        plan_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        return await self._post(
+            "/payments",
+            body=await async_maybe_transform(
+                {
+                    "company_id": company_id,
+                    "member_id": member_id,
+                    "payment_token_id": payment_token_id,
+                    "plan": plan,
+                    "plan_id": plan_id,
+                },
+                payment_create_params.PaymentCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Payment,
+        )
+
     async def retrieve(
         self,
         id: str,
@@ -658,6 +948,9 @@ class PaymentsResourceWithRawResponse:
     def __init__(self, payments: PaymentsResource) -> None:
         self._payments = payments
 
+        self.create = to_raw_response_wrapper(
+            payments.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             payments.retrieve,
         )
@@ -679,6 +972,9 @@ class AsyncPaymentsResourceWithRawResponse:
     def __init__(self, payments: AsyncPaymentsResource) -> None:
         self._payments = payments
 
+        self.create = async_to_raw_response_wrapper(
+            payments.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             payments.retrieve,
         )
@@ -700,6 +996,9 @@ class PaymentsResourceWithStreamingResponse:
     def __init__(self, payments: PaymentsResource) -> None:
         self._payments = payments
 
+        self.create = to_streamed_response_wrapper(
+            payments.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             payments.retrieve,
         )
@@ -721,6 +1020,9 @@ class AsyncPaymentsResourceWithStreamingResponse:
     def __init__(self, payments: AsyncPaymentsResource) -> None:
         self._payments = payments
 
+        self.create = async_to_streamed_response_wrapper(
+            payments.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             payments.retrieve,
         )

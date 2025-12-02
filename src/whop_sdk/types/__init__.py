@@ -73,6 +73,7 @@ from .embed_type import EmbedType as EmbedType
 from .promo_code import PromoCode as PromoCode
 from .card_brands import CardBrands as CardBrands
 from .lesson_types import LessonTypes as LessonTypes
+from .setup_intent import SetupIntent as SetupIntent
 from .refund_status import RefundStatus as RefundStatus
 from .review_status import ReviewStatus as ReviewStatus
 from .checkout_modes import CheckoutModes as CheckoutModes
@@ -110,6 +111,7 @@ from .lesson_visibilities import LessonVisibilities as LessonVisibilities
 from .message_list_params import MessageListParams as MessageListParams
 from .payment_list_params import PaymentListParams as PaymentListParams
 from .product_list_params import ProductListParams as ProductListParams
+from .setup_intent_status import SetupIntentStatus as SetupIntentStatus
 from .course_create_params import CourseCreateParams as CourseCreateParams
 from .course_list_response import CourseListResponse as CourseListResponse
 from .course_update_params import CourseUpdateParams as CourseUpdateParams
@@ -132,6 +134,7 @@ from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_list_response import MessageListResponse as MessageListResponse
 from .message_update_params import MessageUpdateParams as MessageUpdateParams
+from .payment_create_params import PaymentCreateParams as PaymentCreateParams
 from .payment_list_response import PaymentListResponse as PaymentListResponse
 from .payment_refund_params import PaymentRefundParams as PaymentRefundParams
 from .product_create_params import ProductCreateParams as ProductCreateParams
@@ -173,9 +176,11 @@ from .promo_code_create_params import PromoCodeCreateParams as PromoCodeCreatePa
 from .promo_code_list_response import PromoCodeListResponse as PromoCodeListResponse
 from .refund_retrieve_response import RefundRetrieveResponse as RefundRetrieveResponse
 from .review_retrieve_response import ReviewRetrieveResponse as ReviewRetrieveResponse
+from .setup_intent_list_params import SetupIntentListParams as SetupIntentListParams
 from .withdrawal_list_response import WithdrawalListResponse as WithdrawalListResponse
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
+from .payment_token_list_params import PaymentTokenListParams as PaymentTokenListParams
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
@@ -188,6 +193,7 @@ from .forum_post_visibility_type import ForumPostVisibilityType as ForumPostVisi
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
 from .notification_create_params import NotificationCreateParams as NotificationCreateParams
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
+from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
@@ -196,6 +202,7 @@ from .course_lesson_update_params import CourseLessonUpdateParams as CourseLesso
 from .entry_created_webhook_event import EntryCreatedWebhookEvent as EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent as EntryDeletedWebhookEvent
 from .experience_duplicate_params import ExperienceDuplicateParams as ExperienceDuplicateParams
+from .payment_token_list_response import PaymentTokenListResponse as PaymentTokenListResponse
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
 from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .account_link_create_response import AccountLinkCreateResponse as AccountLinkCreateResponse
@@ -217,12 +224,14 @@ from .dispute_created_webhook_event import DisputeCreatedWebhookEvent as Dispute
 from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent as DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent as InvoiceCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent as PaymentPendingWebhookEvent
+from .payment_token_retrieve_params import PaymentTokenRetrieveParams as PaymentTokenRetrieveParams
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
 from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent as PaymentSucceededWebhookEvent
+from .payment_token_retrieve_response import PaymentTokenRetrieveResponse as PaymentTokenRetrieveResponse
 from .course_student_retrieve_response import CourseStudentRetrieveResponse as CourseStudentRetrieveResponse
 from .ledger_account_retrieve_response import LedgerAccountRetrieveResponse as LedgerAccountRetrieveResponse
 from .authorized_user_retrieve_response import AuthorizedUserRetrieveResponse as AuthorizedUserRetrieveResponse
