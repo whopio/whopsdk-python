@@ -37,6 +37,7 @@ class TestAppBuilds:
             attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
+            ai_prompt_id="prmt_xxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
             supported_app_view_types=["hub"],
         )
@@ -229,6 +230,7 @@ class TestAsyncAppBuilds:
             attachment={"direct_upload_id": "direct_upload_id"},
             checksum="checksum",
             platform="ios",
+            ai_prompt_id="prmt_xxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
             supported_app_view_types=["hub"],
         )
