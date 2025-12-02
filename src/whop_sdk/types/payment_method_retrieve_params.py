@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["PaymentTokenRetrieveParams"]
+__all__ = ["PaymentMethodRetrieveParams"]
 
 
-class PaymentTokenRetrieveParams(TypedDict, total=False):
+class PaymentMethodRetrieveParams(TypedDict, total=False):
     member_id: Required[str]
-    """The ID of the Member associated with the PaymentToken"""
+    """The ID of the Member associated with the PaymentMethod"""

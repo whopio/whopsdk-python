@@ -9,12 +9,12 @@ from typing_extensions import Required, Annotated, TypedDict
 from .._utils import PropertyInfo
 from .shared.direction import Direction
 
-__all__ = ["PaymentTokenListParams"]
+__all__ = ["PaymentMethodListParams"]
 
 
-class PaymentTokenListParams(TypedDict, total=False):
+class PaymentMethodListParams(TypedDict, total=False):
     member_id: Required[str]
-    """The ID of the Member to list payment tokens for"""
+    """The ID of the Member to list payment methods for"""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""

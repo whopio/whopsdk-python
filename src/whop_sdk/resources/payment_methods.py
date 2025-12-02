@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ..types import payment_token_list_params, payment_token_retrieve_params
+from ..types import payment_method_list_params, payment_method_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,31 +21,31 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.direction import Direction
-from ..types.payment_token_list_response import PaymentTokenListResponse
-from ..types.payment_token_retrieve_response import PaymentTokenRetrieveResponse
+from ..types.payment_method_list_response import PaymentMethodListResponse
+from ..types.payment_method_retrieve_response import PaymentMethodRetrieveResponse
 
-__all__ = ["PaymentTokensResource", "AsyncPaymentTokensResource"]
+__all__ = ["PaymentMethodsResource", "AsyncPaymentMethodsResource"]
 
 
-class PaymentTokensResource(SyncAPIResource):
+class PaymentMethodsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> PaymentTokensResourceWithRawResponse:
+    def with_raw_response(self) -> PaymentMethodsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return PaymentTokensResourceWithRawResponse(self)
+        return PaymentMethodsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> PaymentTokensResourceWithStreamingResponse:
+    def with_streaming_response(self) -> PaymentMethodsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return PaymentTokensResourceWithStreamingResponse(self)
+        return PaymentMethodsResourceWithStreamingResponse(self)
 
     def retrieve(
         self,
@@ -58,16 +58,20 @@ class PaymentTokensResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PaymentTokenRetrieveResponse:
+    ) -> PaymentMethodRetrieveResponse:
         """
-        Retrieves a PaymentToken by ID
+        A payment method is a stored representation of how a customer intends to pay,
+        such as a card, bank account, or digital wallet. It holds the necessary billing
+        details and can be attached to a member for future one-time or recurring
+        charges. This lets you reuse the same payment credentials across multiple
+        payments.
 
         Required permissions:
 
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member associated with the PaymentToken
+          member_id: The ID of the Member associated with the PaymentMethod
 
           extra_headers: Send extra headers
 
@@ -80,17 +84,17 @@ class PaymentTokensResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/payment_tokens/{id}",
+            f"/payment_methods/{id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"member_id": member_id}, payment_token_retrieve_params.PaymentTokenRetrieveParams
+                    {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
                 ),
             ),
-            cast_to=PaymentTokenRetrieveResponse,
+            cast_to=PaymentMethodRetrieveResponse,
         )
 
     def list(
@@ -110,16 +114,20 @@ class PaymentTokensResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[PaymentTokenListResponse]:
+    ) -> SyncCursorPage[PaymentMethodListResponse]:
         """
-        Lists PaymentTokens
+        A payment method is a stored representation of how a customer intends to pay,
+        such as a card, bank account, or digital wallet. It holds the necessary billing
+        details and can be attached to a member for future one-time or recurring
+        charges. This lets you reuse the same payment credentials across multiple
+        payments.
 
         Required permissions:
 
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member to list payment tokens for
+          member_id: The ID of the Member to list payment methods for
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -144,8 +152,8 @@ class PaymentTokensResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/payment_tokens",
-            page=SyncCursorPage[PaymentTokenListResponse],
+            "/payment_methods",
+            page=SyncCursorPage[PaymentMethodListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -162,32 +170,32 @@ class PaymentTokensResource(SyncAPIResource):
                         "first": first,
                         "last": last,
                     },
-                    payment_token_list_params.PaymentTokenListParams,
+                    payment_method_list_params.PaymentMethodListParams,
                 ),
             ),
-            model=PaymentTokenListResponse,
+            model=PaymentMethodListResponse,
         )
 
 
-class AsyncPaymentTokensResource(AsyncAPIResource):
+class AsyncPaymentMethodsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncPaymentTokensResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncPaymentMethodsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncPaymentTokensResourceWithRawResponse(self)
+        return AsyncPaymentMethodsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncPaymentTokensResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncPaymentMethodsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return AsyncPaymentTokensResourceWithStreamingResponse(self)
+        return AsyncPaymentMethodsResourceWithStreamingResponse(self)
 
     async def retrieve(
         self,
@@ -200,16 +208,20 @@ class AsyncPaymentTokensResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PaymentTokenRetrieveResponse:
+    ) -> PaymentMethodRetrieveResponse:
         """
-        Retrieves a PaymentToken by ID
+        A payment method is a stored representation of how a customer intends to pay,
+        such as a card, bank account, or digital wallet. It holds the necessary billing
+        details and can be attached to a member for future one-time or recurring
+        charges. This lets you reuse the same payment credentials across multiple
+        payments.
 
         Required permissions:
 
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member associated with the PaymentToken
+          member_id: The ID of the Member associated with the PaymentMethod
 
           extra_headers: Send extra headers
 
@@ -222,17 +234,17 @@ class AsyncPaymentTokensResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/payment_tokens/{id}",
+            f"/payment_methods/{id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"member_id": member_id}, payment_token_retrieve_params.PaymentTokenRetrieveParams
+                    {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
                 ),
             ),
-            cast_to=PaymentTokenRetrieveResponse,
+            cast_to=PaymentMethodRetrieveResponse,
         )
 
     def list(
@@ -252,16 +264,20 @@ class AsyncPaymentTokensResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[PaymentTokenListResponse, AsyncCursorPage[PaymentTokenListResponse]]:
+    ) -> AsyncPaginator[PaymentMethodListResponse, AsyncCursorPage[PaymentMethodListResponse]]:
         """
-        Lists PaymentTokens
+        A payment method is a stored representation of how a customer intends to pay,
+        such as a card, bank account, or digital wallet. It holds the necessary billing
+        details and can be attached to a member for future one-time or recurring
+        charges. This lets you reuse the same payment credentials across multiple
+        payments.
 
         Required permissions:
 
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member to list payment tokens for
+          member_id: The ID of the Member to list payment methods for
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -286,8 +302,8 @@ class AsyncPaymentTokensResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/payment_tokens",
-            page=AsyncCursorPage[PaymentTokenListResponse],
+            "/payment_methods",
+            page=AsyncCursorPage[PaymentMethodListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -304,56 +320,56 @@ class AsyncPaymentTokensResource(AsyncAPIResource):
                         "first": first,
                         "last": last,
                     },
-                    payment_token_list_params.PaymentTokenListParams,
+                    payment_method_list_params.PaymentMethodListParams,
                 ),
             ),
-            model=PaymentTokenListResponse,
+            model=PaymentMethodListResponse,
         )
 
 
-class PaymentTokensResourceWithRawResponse:
-    def __init__(self, payment_tokens: PaymentTokensResource) -> None:
-        self._payment_tokens = payment_tokens
+class PaymentMethodsResourceWithRawResponse:
+    def __init__(self, payment_methods: PaymentMethodsResource) -> None:
+        self._payment_methods = payment_methods
 
         self.retrieve = to_raw_response_wrapper(
-            payment_tokens.retrieve,
+            payment_methods.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            payment_tokens.list,
+            payment_methods.list,
         )
 
 
-class AsyncPaymentTokensResourceWithRawResponse:
-    def __init__(self, payment_tokens: AsyncPaymentTokensResource) -> None:
-        self._payment_tokens = payment_tokens
+class AsyncPaymentMethodsResourceWithRawResponse:
+    def __init__(self, payment_methods: AsyncPaymentMethodsResource) -> None:
+        self._payment_methods = payment_methods
 
         self.retrieve = async_to_raw_response_wrapper(
-            payment_tokens.retrieve,
+            payment_methods.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            payment_tokens.list,
+            payment_methods.list,
         )
 
 
-class PaymentTokensResourceWithStreamingResponse:
-    def __init__(self, payment_tokens: PaymentTokensResource) -> None:
-        self._payment_tokens = payment_tokens
+class PaymentMethodsResourceWithStreamingResponse:
+    def __init__(self, payment_methods: PaymentMethodsResource) -> None:
+        self._payment_methods = payment_methods
 
         self.retrieve = to_streamed_response_wrapper(
-            payment_tokens.retrieve,
+            payment_methods.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            payment_tokens.list,
+            payment_methods.list,
         )
 
 
-class AsyncPaymentTokensResourceWithStreamingResponse:
-    def __init__(self, payment_tokens: AsyncPaymentTokensResource) -> None:
-        self._payment_tokens = payment_tokens
+class AsyncPaymentMethodsResourceWithStreamingResponse:
+    def __init__(self, payment_methods: AsyncPaymentMethodsResource) -> None:
+        self._payment_methods = payment_methods
 
         self.retrieve = async_to_streamed_response_wrapper(
-            payment_tokens.retrieve,
+            payment_methods.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            payment_tokens.list,
+            payment_methods.list,
         )

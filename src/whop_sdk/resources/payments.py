@@ -58,7 +58,7 @@ class PaymentsResource(SyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_token_id: str,
+        payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -67,11 +67,12 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Creates a payment.
-
-        This endpoint will respond with a payment object immediately,
-        but the payment is processed asynchronously in the background. Use webhooks to
-        be notified when the payment succeeds or fails.
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
 
         Required permissions:
 
@@ -91,7 +92,7 @@ class PaymentsResource(SyncAPIResource):
 
           member_id: The ID of the member to create the payment for.
 
-          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
               Member being charged.
 
           plan: Pass this object to create a new plan for this payment
@@ -112,7 +113,7 @@ class PaymentsResource(SyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_token_id: str,
+        payment_method_id: str,
         plan_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -121,11 +122,12 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Creates a payment.
-
-        This endpoint will respond with a payment object immediately,
-        but the payment is processed asynchronously in the background. Use webhooks to
-        be notified when the payment succeeds or fails.
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
 
         Required permissions:
 
@@ -145,7 +147,7 @@ class PaymentsResource(SyncAPIResource):
 
           member_id: The ID of the member to create the payment for.
 
-          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
               Member being charged.
 
           plan_id: An ID of an existing plan to use for the payment.
@@ -161,15 +163,15 @@ class PaymentsResource(SyncAPIResource):
         ...
 
     @required_args(
-        ["company_id", "member_id", "payment_token_id", "plan"],
-        ["company_id", "member_id", "payment_token_id", "plan_id"],
+        ["company_id", "member_id", "payment_method_id", "plan"],
+        ["company_id", "member_id", "payment_method_id", "plan_id"],
     )
     def create(
         self,
         *,
         company_id: str,
         member_id: str,
-        payment_token_id: str,
+        payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -185,7 +187,7 @@ class PaymentsResource(SyncAPIResource):
                 {
                     "company_id": company_id,
                     "member_id": member_id,
-                    "payment_token_id": payment_token_id,
+                    "payment_method_id": payment_method_id,
                     "plan": plan,
                     "plan_id": plan_id,
                 },
@@ -513,7 +515,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_token_id: str,
+        payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -522,11 +524,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Creates a payment.
-
-        This endpoint will respond with a payment object immediately,
-        but the payment is processed asynchronously in the background. Use webhooks to
-        be notified when the payment succeeds or fails.
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
 
         Required permissions:
 
@@ -546,7 +549,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           member_id: The ID of the member to create the payment for.
 
-          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
               Member being charged.
 
           plan: Pass this object to create a new plan for this payment
@@ -567,7 +570,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_token_id: str,
+        payment_method_id: str,
         plan_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -576,11 +579,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Creates a payment.
-
-        This endpoint will respond with a payment object immediately,
-        but the payment is processed asynchronously in the background. Use webhooks to
-        be notified when the payment succeeds or fails.
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
 
         Required permissions:
 
@@ -600,7 +604,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           member_id: The ID of the member to create the payment for.
 
-          payment_token_id: The ID of the payment token to use for the payment. It must be connected to the
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
               Member being charged.
 
           plan_id: An ID of an existing plan to use for the payment.
@@ -616,15 +620,15 @@ class AsyncPaymentsResource(AsyncAPIResource):
         ...
 
     @required_args(
-        ["company_id", "member_id", "payment_token_id", "plan"],
-        ["company_id", "member_id", "payment_token_id", "plan_id"],
+        ["company_id", "member_id", "payment_method_id", "plan"],
+        ["company_id", "member_id", "payment_method_id", "plan_id"],
     )
     async def create(
         self,
         *,
         company_id: str,
         member_id: str,
-        payment_token_id: str,
+        payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -640,7 +644,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                 {
                     "company_id": company_id,
                     "member_id": member_id,
-                    "payment_token_id": payment_token_id,
+                    "payment_method_id": payment_method_id,
                     "plan": plan,
                     "plan_id": plan_id,
                 },

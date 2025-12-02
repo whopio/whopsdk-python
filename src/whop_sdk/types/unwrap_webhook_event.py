@@ -1,8 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union
-from typing_extensions import TypeAlias
+from typing_extensions import Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .entry_denied_webhook_event import EntryDeniedWebhookEvent
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent
 from .entry_created_webhook_event import EntryCreatedWebhookEvent
@@ -27,26 +28,29 @@ from .course_lesson_interaction_completed_webhook_event import CourseLessonInter
 
 __all__ = ["UnwrapWebhookEvent"]
 
-UnwrapWebhookEvent: TypeAlias = Union[
-    InvoiceCreatedWebhookEvent,
-    InvoicePaidWebhookEvent,
-    InvoicePastDueWebhookEvent,
-    InvoiceVoidedWebhookEvent,
-    MembershipActivatedWebhookEvent,
-    MembershipDeactivatedWebhookEvent,
-    EntryCreatedWebhookEvent,
-    EntryApprovedWebhookEvent,
-    EntryDeniedWebhookEvent,
-    EntryDeletedWebhookEvent,
-    SetupIntentRequiresActionWebhookEvent,
-    SetupIntentSucceededWebhookEvent,
-    SetupIntentCanceledWebhookEvent,
-    CourseLessonInteractionCompletedWebhookEvent,
-    PaymentSucceededWebhookEvent,
-    PaymentFailedWebhookEvent,
-    PaymentPendingWebhookEvent,
-    DisputeCreatedWebhookEvent,
-    DisputeUpdatedWebhookEvent,
-    RefundCreatedWebhookEvent,
-    RefundUpdatedWebhookEvent,
+UnwrapWebhookEvent: TypeAlias = Annotated[
+    Union[
+        InvoiceCreatedWebhookEvent,
+        InvoicePaidWebhookEvent,
+        InvoicePastDueWebhookEvent,
+        InvoiceVoidedWebhookEvent,
+        MembershipActivatedWebhookEvent,
+        MembershipDeactivatedWebhookEvent,
+        EntryCreatedWebhookEvent,
+        EntryApprovedWebhookEvent,
+        EntryDeniedWebhookEvent,
+        EntryDeletedWebhookEvent,
+        SetupIntentRequiresActionWebhookEvent,
+        SetupIntentSucceededWebhookEvent,
+        SetupIntentCanceledWebhookEvent,
+        CourseLessonInteractionCompletedWebhookEvent,
+        PaymentSucceededWebhookEvent,
+        PaymentFailedWebhookEvent,
+        PaymentPendingWebhookEvent,
+        DisputeCreatedWebhookEvent,
+        DisputeUpdatedWebhookEvent,
+        RefundCreatedWebhookEvent,
+        RefundUpdatedWebhookEvent,
+    ],
+    PropertyInfo(discriminator="type"),
 ]

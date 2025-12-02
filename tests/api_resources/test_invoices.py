@@ -71,6 +71,7 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -162,6 +163,7 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -250,6 +252,7 @@ class TestInvoices:
             product_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -338,6 +341,7 @@ class TestInvoices:
             product_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -572,6 +576,7 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -663,6 +668,7 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -751,6 +757,7 @@ class TestAsyncInvoices:
             product_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -839,6 +846,7 @@ class TestAsyncInvoices:
             product_id="prod_xxxxxxxxxxxxx",
             charge_buyer_fee=True,
             customer_name="customer_name",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])

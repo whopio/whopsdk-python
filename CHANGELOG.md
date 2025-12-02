@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.0.11 (2025-12-02)
+
+Full Changelog: [v0.0.10...v0.0.11](https://github.com/whopio/whopsdk-python/compare/v0.0.10...v0.0.11)
+
+### Features
+
+* **api:** api update ([3285e9a](https://github.com/whopio/whopsdk-python/commit/3285e9a81fb8f325e25d1afa2c1c1503c91acfab))
+* **api:** manual updates ([7334b1f](https://github.com/whopio/whopsdk-python/commit/7334b1f7f82d711c4b4049b72a993304599145e7))
+
+
+### Chores
+
+* **docs:** use environment variables for authentication in code snippets ([ae262d7](https://github.com/whopio/whopsdk-python/commit/ae262d7295cb841533f7f195a807ea0817733b24))
+* **internal:** codegen related update ([0259102](https://github.com/whopio/whopsdk-python/commit/0259102e9623dcc4c4bd57e20c6b0c9820b85ea5))
+* update lockfile ([05f4af5](https://github.com/whopio/whopsdk-python/commit/05f4af5968369fb03a7f2b052e1641bd25aa668d))
+
 ## 0.0.10 (2025-12-02)
 
 Full Changelog: [v0.0.9...v0.0.10](https://github.com/whopio/whopsdk-python/compare/v0.0.9...v0.0.10)

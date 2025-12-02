@@ -28,7 +28,7 @@ class TestPayments:
         payment = client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={"currency": "usd"},
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -39,7 +39,7 @@ class TestPayments:
         payment = client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
                 "currency": "usd",
                 "billing_period": 42,
@@ -80,7 +80,7 @@ class TestPayments:
         response = client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={"currency": "usd"},
         )
 
@@ -95,7 +95,7 @@ class TestPayments:
         with client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={"currency": "usd"},
         ) as response:
             assert not response.is_closed
@@ -112,7 +112,7 @@ class TestPayments:
         payment = client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -123,7 +123,7 @@ class TestPayments:
         response = client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         )
 
@@ -138,7 +138,7 @@ class TestPayments:
         with client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
@@ -395,7 +395,7 @@ class TestAsyncPayments:
         payment = await async_client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={"currency": "usd"},
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -406,7 +406,7 @@ class TestAsyncPayments:
         payment = await async_client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
                 "currency": "usd",
                 "billing_period": 42,
@@ -447,7 +447,7 @@ class TestAsyncPayments:
         response = await async_client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={"currency": "usd"},
         )
 
@@ -462,7 +462,7 @@ class TestAsyncPayments:
         async with async_client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={"currency": "usd"},
         ) as response:
             assert not response.is_closed
@@ -479,7 +479,7 @@ class TestAsyncPayments:
         payment = await async_client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -490,7 +490,7 @@ class TestAsyncPayments:
         response = await async_client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         )
 
@@ -505,7 +505,7 @@ class TestAsyncPayments:
         async with async_client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_token_id="payt_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed

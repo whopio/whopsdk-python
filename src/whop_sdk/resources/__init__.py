@@ -241,14 +241,6 @@ from .course_lessons import (
     CourseLessonsResourceWithStreamingResponse,
     AsyncCourseLessonsResourceWithStreamingResponse,
 )
-from .payment_tokens import (
-    PaymentTokensResource,
-    AsyncPaymentTokensResource,
-    PaymentTokensResourceWithRawResponse,
-    AsyncPaymentTokensResourceWithRawResponse,
-    PaymentTokensResourceWithStreamingResponse,
-    AsyncPaymentTokensResourceWithStreamingResponse,
-)
 from .course_chapters import (
     CourseChaptersResource,
     AsyncCourseChaptersResource,
@@ -272,6 +264,14 @@ from .ledger_accounts import (
     AsyncLedgerAccountsResourceWithRawResponse,
     LedgerAccountsResourceWithStreamingResponse,
     AsyncLedgerAccountsResourceWithStreamingResponse,
+)
+from .payment_methods import (
+    PaymentMethodsResource,
+    AsyncPaymentMethodsResource,
+    PaymentMethodsResourceWithRawResponse,
+    AsyncPaymentMethodsResourceWithRawResponse,
+    PaymentMethodsResourceWithStreamingResponse,
+    AsyncPaymentMethodsResourceWithStreamingResponse,
 )
 from .authorized_users import (
     AuthorizedUsersResource,
@@ -531,10 +531,10 @@ __all__ = [
     "AsyncSetupIntentsResourceWithRawResponse",
     "SetupIntentsResourceWithStreamingResponse",
     "AsyncSetupIntentsResourceWithStreamingResponse",
-    "PaymentTokensResource",
-    "AsyncPaymentTokensResource",
-    "PaymentTokensResourceWithRawResponse",
-    "AsyncPaymentTokensResourceWithRawResponse",
-    "PaymentTokensResourceWithStreamingResponse",
-    "AsyncPaymentTokensResourceWithStreamingResponse",
+    "PaymentMethodsResource",
+    "AsyncPaymentMethodsResource",
+    "PaymentMethodsResourceWithRawResponse",
+    "AsyncPaymentMethodsResourceWithRawResponse",
+    "PaymentMethodsResourceWithStreamingResponse",
+    "AsyncPaymentMethodsResourceWithStreamingResponse",
 ]

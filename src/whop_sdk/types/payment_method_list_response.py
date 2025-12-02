@@ -7,7 +7,7 @@ from .._models import BaseModel
 from .card_brands import CardBrands
 from .payment_method_types import PaymentMethodTypes
 
-__all__ = ["PaymentTokenListResponse", "Card"]
+__all__ = ["PaymentMethodListResponse", "Card"]
 
 
 class Card(BaseModel):
@@ -24,18 +24,17 @@ class Card(BaseModel):
     """Last four digits of the card."""
 
 
-class PaymentTokenListResponse(BaseModel):
+class PaymentMethodListResponse(BaseModel):
     id: str
-    """The ID of the payment token"""
+    """The ID of the payment method"""
 
     card: Optional[Card] = None
     """
-    The card data associated with the payment token, if its a debit or credit card
-    token.
+    The card data associated with the payment method, if its a debit or credit card.
     """
 
     created_at: datetime
-    """The date and time the payment token was created"""
+    """The date and time the payment method was created"""
 
     payment_method_type: PaymentMethodTypes
-    """The payment method type of the payment token"""
+    """The payment method type of the payment method"""

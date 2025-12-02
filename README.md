@@ -83,6 +83,7 @@ pip install whop-sdk[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from whop_sdk import DefaultAioHttpClient
 from whop_sdk import AsyncWhop
@@ -90,7 +91,7 @@ from whop_sdk import AsyncWhop
 
 async def main() -> None:
     async with AsyncWhop(
-        api_key="My API Key",
+        api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         page = await client.payments.list(
