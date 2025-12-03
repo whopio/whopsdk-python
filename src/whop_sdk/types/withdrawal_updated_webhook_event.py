@@ -11,15 +11,52 @@ from .withdrawal_speeds import WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus
 from .withdrawal_fee_types import WithdrawalFeeTypes
 
-__all__ = ["WithdrawalUpdatedWebhookEvent", "Data", "DataLatestPayout", "DataPayoutToken"]
+__all__ = ["WithdrawalUpdatedWebhookEvent", "Data", "DataLedgerAccount", "DataPayoutToken"]
 
 
-class DataLatestPayout(BaseModel):
+class DataLedgerAccount(BaseModel):
     id: str
-    """The internal ID of the payout."""
+    """The ID of the LedgerAccount."""
+
+    company_id: Optional[str] = None
+    """The ID of the company associated with this ledger account."""
+
+
+class DataPayoutToken(BaseModel):
+    id: str
+    """The ID of the payout token"""
 
     created_at: datetime
-    """The date and time the payout was created."""
+    """The date and time the payout token was created"""
+
+    destination_currency_code: str
+    """The currency code of the payout destination.
+
+    This is the currency that payouts will be made in for this token.
+    """
+
+    nickname: Optional[str] = None
+    """An optional nickname for the payout token to help the user identify it.
+
+    This is not used by the provider and is only for the user's reference.
+    """
+
+    payer_name: Optional[str] = None
+    """The name of the payer associated with the payout token."""
+
+
+class Data(BaseModel):
+    id: str
+    """Internal ID of the withdrawal request."""
+
+    amount: float
+    """How much money was attempted to be withdrawn, in a float type."""
+
+    created_at: datetime
+    """When the withdrawal request was created."""
+
+    currency: Currency
+    """The currency of the withdrawal request."""
 
     error_code: Optional[
         Literal[
@@ -73,61 +110,10 @@ class DataLatestPayout(BaseModel):
     """The different error codes a payout can be in."""
 
     error_message: Optional[str] = None
-    """The error message for the payout."""
+    """The error message for the withdrawal, if any."""
 
     estimated_availability: Optional[datetime] = None
-    """The estimated availability date of the payout."""
-
-    payer_name: Optional[str] = None
-    """The name of the payer for the payout."""
-
-    status: Literal[
-        "scheduled", "pending", "processing", "completed", "canceled", "ready_for_pickup", "hold", "error", "expired"
-    ]
-    """The status of the payout."""
-
-    trace_code: Optional[str] = None
-    """The trace code for the payout, if applicable.
-
-    Provided on ACH transactions when available.
-    """
-
-
-class DataPayoutToken(BaseModel):
-    id: str
-    """The ID of the payout token"""
-
-    created_at: datetime
-    """The date and time the payout token was created"""
-
-    destination_currency_code: str
-    """The currency code of the payout destination.
-
-    This is the currency that payouts will be made in for this token.
-    """
-
-    nickname: Optional[str] = None
-    """An optional nickname for the payout token to help the user identify it.
-
-    This is not used by the provider and is only for the user's reference.
-    """
-
-    status: Literal["created", "active", "broken"]
-    """The status of the payout token."""
-
-
-class Data(BaseModel):
-    id: str
-    """Internal ID of the withdrawal request."""
-
-    amount: float
-    """How much money was attempted to be withdrawn, in a float type."""
-
-    created_at: datetime
-    """When the withdrawal request was created."""
-
-    currency: Currency
-    """The currency of the withdrawal request."""
+    """The estimated availability date for the withdrawal, if any."""
 
     fee_amount: float
     """The fee amount that was charged for the withdrawal.
@@ -138,8 +124,8 @@ class Data(BaseModel):
     fee_type: Optional[WithdrawalFeeTypes] = None
     """The different fee types for a withdrawal."""
 
-    latest_payout: Optional[DataLatestPayout] = None
-    """The latest payout associated with this withdrawal, if any."""
+    ledger_account: DataLedgerAccount
+    """The ledger account associated with the withdrawal."""
 
     payout_token: Optional[DataPayoutToken] = None
     """The payout token used for the withdrawal, if applicable."""
@@ -149,6 +135,12 @@ class Data(BaseModel):
 
     status: WithdrawalStatus
     """Status of the withdrawal."""
+
+    trace_code: Optional[str] = None
+    """The trace code for the payout, if applicable.
+
+    Provided on ACH transactions when available.
+    """
 
     withdrawal_type: WithdrawalTypes
     """The type of withdrawal."""
