@@ -82,6 +82,9 @@ class PlanCreateParams(TypedDict, total=False):
     $10.43
     """
 
+    split_pay_required_payments: Optional[int]
+    """The number of payments required before pausing the subscription."""
+
     stock: Optional[int]
     """The number of units available for purchase."""
 
