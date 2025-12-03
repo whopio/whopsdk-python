@@ -109,6 +109,9 @@ class PlanListResponse(BaseModel):
     renewal_price: float
     """The price a person has to pay for a plan on the renewal purchase."""
 
+    split_pay_required_payments: Optional[int] = None
+    """The number of payments required before pausing the subscription."""
+
     stock: Optional[int] = None
     """The number of units available for purchase. Only displayed to authorized actors"""
 
