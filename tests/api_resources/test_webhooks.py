@@ -20,7 +20,7 @@ class TestWebhooks:
         key = b"secret"
         hook = standardwebhooks.Webhook(key)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","data":{"id":"inv_xxxxxxxxxxxxxx","created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","formatted_price":"formatted_price"},"due_date":"2023-12-01T05:00:00.401Z","email_address":"email_address","fetch_invoice_token":"fetch_invoice_token","number":"number","status":"open","user":{"id":"user_xxxxxxxxxxxxx","name":"name","username":"username"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","data":{"id":"inv_xxxxxxxxxxxxxx","created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","formatted_price":"$10.00"},"due_date":"2023-12-01T05:00:00.401Z","email_address":"customer@example.com","fetch_invoice_token":"fetch_invoice_token","number":"#0001","status":"open","user":{"id":"user_xxxxxxxxxxxxx","name":"John Doe","username":"johndoe42"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created"}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)
@@ -54,7 +54,7 @@ class TestAsyncWebhooks:
         key = b"secret"
         hook = standardwebhooks.Webhook(key)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","data":{"id":"inv_xxxxxxxxxxxxxx","created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","formatted_price":"formatted_price"},"due_date":"2023-12-01T05:00:00.401Z","email_address":"email_address","fetch_invoice_token":"fetch_invoice_token","number":"number","status":"open","user":{"id":"user_xxxxxxxxxxxxx","name":"name","username":"username"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","data":{"id":"inv_xxxxxxxxxxxxxx","created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","formatted_price":"$10.00"},"due_date":"2023-12-01T05:00:00.401Z","email_address":"customer@example.com","fetch_invoice_token":"fetch_invoice_token","number":"#0001","status":"open","user":{"id":"user_xxxxxxxxxxxxx","name":"John Doe","username":"johndoe42"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created"}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)

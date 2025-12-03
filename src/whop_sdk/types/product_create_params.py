@@ -23,7 +23,7 @@ class ProductCreateParams(TypedDict, total=False):
     """The ID of the company to create the product for."""
 
     title: Required[str]
-    """The title of the product."""
+    """The title of the product. It must be max 40 characters."""
 
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""

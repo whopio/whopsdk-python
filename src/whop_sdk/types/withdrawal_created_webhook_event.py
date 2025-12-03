@@ -11,10 +11,10 @@ from .withdrawal_speeds import WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus
 from .withdrawal_fee_types import WithdrawalFeeTypes
 
-__all__ = ["WithdrawalRetrieveResponse", "LedgerAccount", "PayoutToken"]
+__all__ = ["WithdrawalCreatedWebhookEvent", "Data", "DataLedgerAccount", "DataPayoutToken"]
 
 
-class LedgerAccount(BaseModel):
+class DataLedgerAccount(BaseModel):
     id: str
     """The ID of the LedgerAccount."""
 
@@ -22,7 +22,7 @@ class LedgerAccount(BaseModel):
     """The ID of the company associated with this ledger account."""
 
 
-class PayoutToken(BaseModel):
+class DataPayoutToken(BaseModel):
     id: str
     """The ID of the payout token"""
 
@@ -45,7 +45,7 @@ class PayoutToken(BaseModel):
     """The name of the payer associated with the payout token."""
 
 
-class WithdrawalRetrieveResponse(BaseModel):
+class Data(BaseModel):
     id: str
     """Internal ID of the withdrawal request."""
 
@@ -124,10 +124,10 @@ class WithdrawalRetrieveResponse(BaseModel):
     fee_type: Optional[WithdrawalFeeTypes] = None
     """The different fee types for a withdrawal."""
 
-    ledger_account: LedgerAccount
+    ledger_account: DataLedgerAccount
     """The ledger account associated with the withdrawal."""
 
-    payout_token: Optional[PayoutToken] = None
+    payout_token: Optional[DataPayoutToken] = None
     """The payout token used for the withdrawal, if applicable."""
 
     speed: WithdrawalSpeeds
@@ -144,3 +144,20 @@ class WithdrawalRetrieveResponse(BaseModel):
 
     withdrawal_type: WithdrawalTypes
     """The type of withdrawal."""
+
+
+class WithdrawalCreatedWebhookEvent(BaseModel):
+    id: str
+    """A unique ID for every single webhook request"""
+
+    api_version: Literal["v1"]
+    """The API version for this webhook"""
+
+    data: Data
+    """A withdrawal request."""
+
+    timestamp: datetime
+    """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
+
+    type: Literal["withdrawal.created"]
+    """The webhook event type"""

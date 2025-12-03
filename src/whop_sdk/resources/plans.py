@@ -73,6 +73,7 @@ class PlansResource(SyncAPIResource):
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
@@ -130,6 +131,8 @@ class PlansResource(SyncAPIResource):
           renewal_price: The amount the customer is charged every billing period. Use only if a recurring
               payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
+          split_pay_required_payments: The number of payments required before pausing the subscription.
+
           stock: The number of units available for purchase.
 
           title: The title of the plan. This will be visible on the product page to customers.
@@ -167,6 +170,7 @@ class PlansResource(SyncAPIResource):
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
+                    "split_pay_required_payments": split_pay_required_payments,
                     "stock": stock,
                     "title": title,
                     "trial_period_days": trial_period_days,
@@ -514,6 +518,7 @@ class AsyncPlansResource(AsyncAPIResource):
         plan_type: Optional[PlanType] | Omit = omit,
         release_method: Optional[ReleaseMethod] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
+        split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
@@ -571,6 +576,8 @@ class AsyncPlansResource(AsyncAPIResource):
           renewal_price: The amount the customer is charged every billing period. Use only if a recurring
               payment. Provided as a number in dollars. Eg: 10.43 for $10.43
 
+          split_pay_required_payments: The number of payments required before pausing the subscription.
+
           stock: The number of units available for purchase.
 
           title: The title of the plan. This will be visible on the product page to customers.
@@ -608,6 +615,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "plan_type": plan_type,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
+                    "split_pay_required_payments": split_pay_required_payments,
                     "stock": stock,
                     "title": title,
                     "trial_period_days": trial_period_days,

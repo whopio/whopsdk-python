@@ -151,6 +151,8 @@ from whop_sdk.types import (
     SetupIntentRequiresActionWebhookEvent,
     SetupIntentSucceededWebhookEvent,
     SetupIntentCanceledWebhookEvent,
+    WithdrawalCreatedWebhookEvent,
+    WithdrawalUpdatedWebhookEvent,
     CourseLessonInteractionCompletedWebhookEvent,
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,

@@ -98,7 +98,7 @@ class ProductsResource(SyncAPIResource):
         Args:
           company_id: The ID of the company to create the product for.
 
-          title: The title of the product.
+          title: The title of the product. It must be max 40 characters.
 
           business_type: The different business types a company can be.
 
@@ -523,7 +523,7 @@ class AsyncProductsResource(AsyncAPIResource):
         Args:
           company_id: The ID of the company to create the product for.
 
-          title: The title of the product.
+          title: The title of the product. It must be max 40 characters.
 
           business_type: The different business types a company can be.
 

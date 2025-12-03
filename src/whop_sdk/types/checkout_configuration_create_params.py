@@ -241,6 +241,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period."""
 
+    split_pay_required_payments: Optional[int]
+    """The number of payments required before pausing the subscription."""
+
     title: Optional[str]
     """The title of the plan. This will be visible on the product page to customers."""
 
