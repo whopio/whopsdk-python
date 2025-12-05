@@ -62,7 +62,7 @@ class CompaniesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Create a new sub company for your platform
+        Create a new connected account for your platform
 
         Required permissions:
 
@@ -166,7 +166,7 @@ class CompaniesResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          parent_company_id: The ID of the parent company to list sub companies for
+          parent_company_id: The ID of the parent company to list connected accounts for
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -251,7 +251,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Create a new sub company for your platform
+        Create a new connected account for your platform
 
         Required permissions:
 
@@ -355,7 +355,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          parent_company_id: The ID of the parent company to list sub companies for
+          parent_company_id: The ID of the parent company to list connected accounts for
 
           after: Returns the elements in the list that come after the specified cursor.
 
