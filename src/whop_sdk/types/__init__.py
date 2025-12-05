@@ -128,6 +128,7 @@ from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
 from .app_build_list_params import AppBuildListParams as AppBuildListParams
 from .company_create_params import CompanyCreateParams as CompanyCreateParams
 from .company_list_response import CompanyListResponse as CompanyListResponse
+from .company_update_params import CompanyUpdateParams as CompanyUpdateParams
 from .dispute_list_response import DisputeListResponse as DisputeListResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse

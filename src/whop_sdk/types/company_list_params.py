@@ -14,7 +14,7 @@ __all__ = ["CompanyListParams"]
 
 class CompanyListParams(TypedDict, total=False):
     parent_company_id: Required[str]
-    """The ID of the parent company to list sub companies for"""
+    """The ID of the parent company to list connected accounts for"""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
