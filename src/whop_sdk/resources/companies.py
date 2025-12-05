@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ..types import company_list_params, company_create_params
+from ..types import company_list_params, company_create_params, company_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -134,6 +134,59 @@ class CompaniesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
             f"/companies/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Company,
+        )
+
+    def update(
+        self,
+        id: str,
+        *,
+        logo: Optional[company_update_params.Logo] | Omit = omit,
+        title: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Company:
+        """Update an existing company.
+
+        Either a regular company, platform company, or one
+        of a platform's connected accounts
+
+        Required permissions:
+
+        - `company:update`
+        - `company:basic:read`
+
+        Args:
+          logo: The logo for the company in png, jpeg, or gif format
+
+          title: The title of the company
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            f"/companies/{id}",
+            body=maybe_transform(
+                {
+                    "logo": logo,
+                    "title": title,
+                },
+                company_update_params.CompanyUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -329,6 +382,59 @@ class AsyncCompaniesResource(AsyncAPIResource):
             cast_to=Company,
         )
 
+    async def update(
+        self,
+        id: str,
+        *,
+        logo: Optional[company_update_params.Logo] | Omit = omit,
+        title: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Company:
+        """Update an existing company.
+
+        Either a regular company, platform company, or one
+        of a platform's connected accounts
+
+        Required permissions:
+
+        - `company:update`
+        - `company:basic:read`
+
+        Args:
+          logo: The logo for the company in png, jpeg, or gif format
+
+          title: The title of the company
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            f"/companies/{id}",
+            body=await async_maybe_transform(
+                {
+                    "logo": logo,
+                    "title": title,
+                },
+                company_update_params.CompanyUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Company,
+        )
+
     def list(
         self,
         *,
@@ -415,6 +521,9 @@ class CompaniesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             companies.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            companies.update,
+        )
         self.list = to_raw_response_wrapper(
             companies.list,
         )
@@ -429,6 +538,9 @@ class AsyncCompaniesResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             companies.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            companies.update,
         )
         self.list = async_to_raw_response_wrapper(
             companies.list,
@@ -445,6 +557,9 @@ class CompaniesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             companies.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            companies.update,
+        )
         self.list = to_streamed_response_wrapper(
             companies.list,
         )
@@ -459,6 +574,9 @@ class AsyncCompaniesResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             companies.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            companies.update,
         )
         self.list = async_to_streamed_response_wrapper(
             companies.list,

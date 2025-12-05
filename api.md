@@ -130,6 +130,7 @@ Methods:
 
 - <code title="post /companies">client.companies.<a href="./src/whop_sdk/resources/companies.py">create</a>(\*\*<a href="src/whop_sdk/types/company_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
 - <code title="get /companies/{id}">client.companies.<a href="./src/whop_sdk/resources/companies.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
+- <code title="patch /companies/{id}">client.companies.<a href="./src/whop_sdk/resources/companies.py">update</a>(id, \*\*<a href="src/whop_sdk/types/company_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
 - <code title="get /companies">client.companies.<a href="./src/whop_sdk/resources/companies.py">list</a>(\*\*<a href="src/whop_sdk/types/company_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/company_list_response.py">SyncCursorPage[CompanyListResponse]</a></code>
 
 # Webhooks
