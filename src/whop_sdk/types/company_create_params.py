@@ -26,5 +26,5 @@ class CompanyCreateParams(TypedDict, total=False):
 
     Includes: order confirmations, payment failures, refund notifications, upcoming
     renewals, and membership cancelations/expirations. When disabled, the platform
-    is responsible for handling these communications.
+    is responsible for handling these communications. This is defaulted to true.
     """
