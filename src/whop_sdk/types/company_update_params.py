@@ -12,6 +12,14 @@ class CompanyUpdateParams(TypedDict, total=False):
     logo: Optional[Logo]
     """The logo for the company in png, jpeg, or gif format"""
 
+    send_customer_emails: Optional[bool]
+    """Whether Whop sends transactional emails to customers on behalf of this company.
+
+    Includes: order confirmations, payment failures, refund notifications, upcoming
+    renewals, and membership cancelations/expirations. When disabled, the platform
+    is responsible for handling these communications.
+    """
+
     title: Optional[str]
     """The title of the company"""
 
