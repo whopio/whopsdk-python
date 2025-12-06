@@ -20,3 +20,11 @@ class CompanyCreateParams(TypedDict, total=False):
 
     metadata: Optional[Dict[str, object]]
     """Additional metadata for the account"""
+
+    send_customer_emails: Optional[bool]
+    """Whether Whop sends transactional emails to customers on behalf of this company.
+
+    Includes: order confirmations, payment failures, refund notifications, upcoming
+    renewals, and membership cancelations/expirations. When disabled, the platform
+    is responsible for handling these communications.
+    """
