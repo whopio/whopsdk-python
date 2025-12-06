@@ -127,6 +127,13 @@ class WithdrawalRetrieveResponse(BaseModel):
     ledger_account: LedgerAccount
     """The ledger account associated with the withdrawal."""
 
+    markup_fee: float
+    """The markup fee that was charged for the withdrawal.
+
+    This is in the same currency as the withdrawal amount. This only applies to
+    platform accounts using Whop Rails.
+    """
+
     payout_token: Optional[PayoutToken] = None
     """The payout token used for the withdrawal, if applicable."""
 
