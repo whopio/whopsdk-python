@@ -40,6 +40,7 @@ class TestCompanies:
             parent_company_id="parent_company_id",
             title="title",
             metadata={"foo": "bar"},
+            send_customer_emails=True,
         )
         assert_matches_type(Company, company, path=["response"])
 
@@ -129,6 +130,7 @@ class TestCompanies:
         company = client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
             logo={"direct_upload_id": "direct_upload_id"},
+            send_customer_emails=True,
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])
@@ -240,6 +242,7 @@ class TestAsyncCompanies:
             parent_company_id="parent_company_id",
             title="title",
             metadata={"foo": "bar"},
+            send_customer_emails=True,
         )
         assert_matches_type(Company, company, path=["response"])
 
@@ -329,6 +332,7 @@ class TestAsyncCompanies:
         company = await async_client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
             logo={"direct_upload_id": "direct_upload_id"},
+            send_customer_emails=True,
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])

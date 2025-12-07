@@ -35,6 +35,13 @@ class WithdrawalListResponse(BaseModel):
     fee_type: Optional[WithdrawalFeeTypes] = None
     """The different fee types for a withdrawal."""
 
+    markup_fee: float
+    """The markup fee that was charged for the withdrawal.
+
+    This is in the same currency as the withdrawal amount. This only applies to
+    platform accounts using Whop Rails.
+    """
+
     speed: WithdrawalSpeeds
     """The speed of the withdrawal."""
 

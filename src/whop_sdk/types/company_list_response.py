@@ -66,6 +66,9 @@ class CompanyListResponse(BaseModel):
     route: str
     """The slug/route of the company on the Whop site."""
 
+    send_customer_emails: bool
+    """Whether Whop sends transactional emails to customers on behalf of this company."""
+
     title: str
     """The title of the company."""
 

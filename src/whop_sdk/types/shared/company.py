@@ -78,6 +78,9 @@ class Company(BaseModel):
     route: str
     """The slug/route of the company on the Whop site."""
 
+    send_customer_emails: bool
+    """Whether Whop sends transactional emails to customers on behalf of this company."""
+
     social_links: List[SocialLink]
     """The social media accounts of the company"""
 

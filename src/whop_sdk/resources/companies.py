@@ -54,6 +54,7 @@ class CompaniesResource(SyncAPIResource):
         parent_company_id: str,
         title: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,6 +79,11 @@ class CompaniesResource(SyncAPIResource):
 
           metadata: Additional metadata for the account
 
+          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
+              Includes: order confirmations, payment failures, refund notifications, upcoming
+              renewals, and membership cancelations/expirations. When disabled, the platform
+              is responsible for handling these communications. This is defaulted to true.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -94,6 +100,7 @@ class CompaniesResource(SyncAPIResource):
                     "parent_company_id": parent_company_id,
                     "title": title,
                     "metadata": metadata,
+                    "send_customer_emails": send_customer_emails,
                 },
                 company_create_params.CompanyCreateParams,
             ),
@@ -145,6 +152,7 @@ class CompaniesResource(SyncAPIResource):
         id: str,
         *,
         logo: Optional[company_update_params.Logo] | Omit = omit,
+        send_customer_emails: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -166,6 +174,11 @@ class CompaniesResource(SyncAPIResource):
         Args:
           logo: The logo for the company in png, jpeg, or gif format
 
+          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
+              Includes: order confirmations, payment failures, refund notifications, upcoming
+              renewals, and membership cancelations/expirations. When disabled, the platform
+              is responsible for handling these communications.
+
           title: The title of the company
 
           extra_headers: Send extra headers
@@ -183,6 +196,7 @@ class CompaniesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "logo": logo,
+                    "send_customer_emails": send_customer_emails,
                     "title": title,
                 },
                 company_update_params.CompanyUpdateParams,
@@ -296,6 +310,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         parent_company_id: str,
         title: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -320,6 +335,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
           metadata: Additional metadata for the account
 
+          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
+              Includes: order confirmations, payment failures, refund notifications, upcoming
+              renewals, and membership cancelations/expirations. When disabled, the platform
+              is responsible for handling these communications. This is defaulted to true.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -336,6 +356,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
                     "parent_company_id": parent_company_id,
                     "title": title,
                     "metadata": metadata,
+                    "send_customer_emails": send_customer_emails,
                 },
                 company_create_params.CompanyCreateParams,
             ),
@@ -387,6 +408,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         id: str,
         *,
         logo: Optional[company_update_params.Logo] | Omit = omit,
+        send_customer_emails: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -408,6 +430,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
         Args:
           logo: The logo for the company in png, jpeg, or gif format
 
+          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
+              Includes: order confirmations, payment failures, refund notifications, upcoming
+              renewals, and membership cancelations/expirations. When disabled, the platform
+              is responsible for handling these communications.
+
           title: The title of the company
 
           extra_headers: Send extra headers
@@ -425,6 +452,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "logo": logo,
+                    "send_customer_emails": send_customer_emails,
                     "title": title,
                 },
                 company_update_params.CompanyUpdateParams,
