@@ -12,6 +12,8 @@ __all__ = ["Company", "Logo", "OwnerUser", "SocialLink"]
 
 
 class Logo(BaseModel):
+    """The company's logo."""
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -20,6 +22,8 @@ class Logo(BaseModel):
 
 
 class OwnerUser(BaseModel):
+    """The user who owns this company"""
+
     id: str
     """The internal ID of the user."""
 
@@ -31,6 +35,8 @@ class OwnerUser(BaseModel):
 
 
 class SocialLink(BaseModel):
+    """A social link attached to a resource on the site."""
+
     id: str
     """The ID"""
 
@@ -42,6 +48,8 @@ class SocialLink(BaseModel):
 
 
 class Company(BaseModel):
+    """An object representing a (sanitized) company."""
+
     id: str
     """The ID (tag) of the company."""
 

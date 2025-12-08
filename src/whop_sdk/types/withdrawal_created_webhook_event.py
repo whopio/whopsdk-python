@@ -15,6 +15,8 @@ __all__ = ["WithdrawalCreatedWebhookEvent", "Data", "DataLedgerAccount", "DataPa
 
 
 class DataLedgerAccount(BaseModel):
+    """The ledger account associated with the withdrawal."""
+
     id: str
     """The ID of the LedgerAccount."""
 
@@ -23,6 +25,8 @@ class DataLedgerAccount(BaseModel):
 
 
 class DataPayoutToken(BaseModel):
+    """The payout token used for the withdrawal, if applicable."""
+
     id: str
     """The ID of the payout token"""
 
@@ -46,6 +50,8 @@ class DataPayoutToken(BaseModel):
 
 
 class Data(BaseModel):
+    """A withdrawal request."""
+
     id: str
     """Internal ID of the withdrawal request."""
 

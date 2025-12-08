@@ -68,6 +68,8 @@ class ForumPostCreateParams(TypedDict, total=False):
 
 
 class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -77,6 +79,8 @@ class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
 
 
 class AttachmentAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -89,6 +93,8 @@ Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, Attac
 
 
 class PollOption(TypedDict, total=False):
+    """Input type for a single poll option"""
+
     id: Required[str]
     """Sequential ID for the poll option (starting from '1')"""
 
@@ -97,5 +103,7 @@ class PollOption(TypedDict, total=False):
 
 
 class Poll(TypedDict, total=False):
+    """The poll for this post"""
+
     options: Required[Iterable[PollOption]]
     """The options for the poll. Must have sequential IDs starting from 1"""

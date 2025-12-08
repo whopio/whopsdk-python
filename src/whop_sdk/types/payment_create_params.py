@@ -39,6 +39,11 @@ class CreatePaymentInputWithPlan(TypedDict, total=False):
 
 
 class CreatePaymentInputWithPlanPlanProduct(TypedDict, total=False):
+    """Pass this object to create a new product for this plan.
+
+    We will use the product external identifier to find or create an existing product.
+    """
+
     external_identifier: Required[str]
     """A unique ID used to find or create a product.
 
@@ -92,6 +97,8 @@ class CreatePaymentInputWithPlanPlanProduct(TypedDict, total=False):
 
 
 class CreatePaymentInputWithPlanPlan(TypedDict, total=False):
+    """Pass this object to create a new plan for this payment"""
+
     currency: Required[Currency]
     """The respective currency identifier for the plan."""
 

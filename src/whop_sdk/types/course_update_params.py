@@ -66,6 +66,8 @@ class CourseUpdateParams(TypedDict, total=False):
 
 
 class ChapterLesson(TypedDict, total=False):
+    """Input for updating a lesson while updating a course"""
+
     id: Required[str]
     """The ID of the lesson to update"""
 
@@ -80,6 +82,8 @@ class ChapterLesson(TypedDict, total=False):
 
 
 class Chapter(TypedDict, total=False):
+    """Input for updating a chapter while updating a course"""
+
     id: Required[str]
     """The ID of the chapter to update"""
 
@@ -94,6 +98,8 @@ class Chapter(TypedDict, total=False):
 
 
 class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -103,6 +109,8 @@ class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
 
 
 class ThumbnailAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 

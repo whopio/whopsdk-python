@@ -77,6 +77,8 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, to
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -86,6 +88,8 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithD
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -101,6 +105,11 @@ CreateCheckoutSessionInputModePaymentWithPlanPlanImage: TypeAlias = Union[
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration(TypedDict, total=False):
+    """The explicit payment method configuration for the plan.
+
+    If not provided, the platform or company's defaults will apply.
+    """
+
     disabled: Required[List[PaymentMethodTypes]]
     """An array of payment method identifiers that are explicitly disabled.
 
@@ -124,6 +133,11 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguratio
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=False):
+    """Pass this object to create a new product for this plan.
+
+    We will use the product external identifier to find or create an existing product.
+    """
+
     external_identifier: Required[str]
     """A unique ID used to find or create a product.
 
@@ -177,6 +191,8 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
+    """Pass this object to create a new plan for this checkout configuration"""
+
     company_id: Required[str]
     """The company the plan should be created for."""
 
@@ -255,6 +271,11 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(TypedDict, total=False):
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not provided, the platform or company's defaults will apply.
+    """
+
     disabled: Required[List[PaymentMethodTypes]]
     """An array of payment method identifiers that are explicitly disabled.
 
@@ -301,6 +322,11 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not provided, the platform or company's defaults will apply.
+    """
+
     disabled: Required[List[PaymentMethodTypes]]
     """An array of payment method identifiers that are explicitly disabled.
 
@@ -347,6 +373,11 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
 
 
 class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):
+    """This currently only works for configurations made in 'setup' mode.
+
+    The explicit payment method configuration for the checkout session. If not provided, the platform or company's defaults will apply.
+    """
+
     disabled: Required[List[PaymentMethodTypes]]
     """An array of payment method identifiers that are explicitly disabled.
 

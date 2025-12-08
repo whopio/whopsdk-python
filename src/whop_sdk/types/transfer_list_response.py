@@ -10,6 +10,8 @@ __all__ = ["TransferListResponse"]
 
 
 class TransferListResponse(BaseModel):
+    """Credit Transaction Transfer"""
+
     id: str
     """The unique identifier of the credit transaction transfer"""
 

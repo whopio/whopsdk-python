@@ -15,6 +15,8 @@ __all__ = ["Product", "Company", "OwnerUser", "ProductTaxCode"]
 
 
 class Company(BaseModel):
+    """A short type of the company that this product belongs to."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -26,6 +28,8 @@ class Company(BaseModel):
 
 
 class OwnerUser(BaseModel):
+    """The user that owns the product (company owner)."""
+
     id: str
     """The internal ID of the user."""
 
@@ -37,6 +41,8 @@ class OwnerUser(BaseModel):
 
 
 class ProductTaxCode(BaseModel):
+    """The product tax code for the product, if any."""
+
     id: str
     """The internal ID of the product tax code."""
 
@@ -48,6 +54,8 @@ class ProductTaxCode(BaseModel):
 
 
 class Product(BaseModel):
+    """Represents a product on whop. Use products to sell anything on the platform."""
+
     id: str
     """The internal ID of the public product."""
 

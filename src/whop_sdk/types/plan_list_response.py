@@ -14,6 +14,8 @@ __all__ = ["PlanListResponse", "Company", "Invoice", "PaymentMethodConfiguration
 
 
 class Company(BaseModel):
+    """The company for the plan."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -22,11 +24,15 @@ class Company(BaseModel):
 
 
 class Invoice(BaseModel):
+    """The invoice associated with this plan."""
+
     id: str
     """The ID of the invoice."""
 
 
 class PaymentMethodConfiguration(BaseModel):
+    """The explicit payment method configuration for the plan, if any."""
+
     disabled: List[PaymentMethodTypes]
     """An array of payment method identifiers that are explicitly disabled.
 
@@ -50,6 +56,8 @@ class PaymentMethodConfiguration(BaseModel):
 
 
 class Product(BaseModel):
+    """The product that this plan belongs to."""
+
     id: str
     """The internal ID of the public product."""
 
@@ -58,6 +66,11 @@ class Product(BaseModel):
 
 
 class PlanListResponse(BaseModel):
+    """A plan for an product.
+
+    Plans define the core parameters that define a checkout and payment on whop. Use plans to create different ways to price your products (Eg renewal / one_time)
+    """
+
     id: str
     """The internal ID of the plan."""
 

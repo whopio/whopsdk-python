@@ -8,6 +8,8 @@ __all__ = ["AccessTokenCreateResponse"]
 
 
 class AccessTokenCreateResponse(BaseModel):
+    """An object representing an access token used for authenticating API requests."""
+
     token: str
     """The JWT access token string."""
 

@@ -12,6 +12,8 @@ __all__ = ["CourseLessonListResponse", "Thumbnail"]
 
 
 class Thumbnail(BaseModel):
+    """The thumbnail for the lesson"""
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -20,6 +22,8 @@ class Thumbnail(BaseModel):
 
 
 class CourseLessonListResponse(BaseModel):
+    """A lesson from the courses app"""
+
     id: str
     """The ID of the lesson"""
 

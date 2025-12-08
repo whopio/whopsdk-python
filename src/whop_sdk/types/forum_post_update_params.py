@@ -36,6 +36,8 @@ class ForumPostUpdateParams(TypedDict, total=False):
 
 
 class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -45,6 +47,8 @@ class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
 
 
 class AttachmentAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 

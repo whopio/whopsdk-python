@@ -9,6 +9,8 @@ __all__ = ["ForumPostListResponse", "User"]
 
 
 class User(BaseModel):
+    """The user who created this forum post"""
+
     id: str
     """The internal ID of the user."""
 
@@ -20,6 +22,8 @@ class User(BaseModel):
 
 
 class ForumPostListResponse(BaseModel):
+    """Represents a post in forum"""
+
     id: str
     """The unique identifier of the resource."""
 

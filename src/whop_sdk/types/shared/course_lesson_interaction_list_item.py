@@ -9,6 +9,8 @@ __all__ = ["CourseLessonInteractionListItem", "Lesson", "User"]
 
 
 class Lesson(BaseModel):
+    """The lesson this interaction is for"""
+
     id: str
     """The ID of the lesson"""
 
@@ -17,6 +19,8 @@ class Lesson(BaseModel):
 
 
 class User(BaseModel):
+    """The user who interacted with the lesson"""
+
     id: str
     """The internal ID of the user."""
 
@@ -28,6 +32,8 @@ class User(BaseModel):
 
 
 class CourseLessonInteractionListItem(BaseModel):
+    """A lesson interaction tracking user progress in courses"""
+
     id: str
     """The ID of the lesson interaction"""
 

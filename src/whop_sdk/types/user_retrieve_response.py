@@ -9,6 +9,8 @@ __all__ = ["UserRetrieveResponse", "ProfilePicture"]
 
 
 class ProfilePicture(BaseModel):
+    """The user's profile picture"""
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -17,6 +19,8 @@ class ProfilePicture(BaseModel):
 
 
 class UserRetrieveResponse(BaseModel):
+    """An object representing a (sanitized) user of the site."""
+
     id: str
     """The internal ID of the user."""
 

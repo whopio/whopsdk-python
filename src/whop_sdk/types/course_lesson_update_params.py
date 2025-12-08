@@ -84,6 +84,8 @@ class CourseLessonUpdateParams(TypedDict, total=False):
 
 
 class AssessmentCompletionRequirement(TypedDict, total=False):
+    """Completion requirements for quiz/knowledge check lessons"""
+
     minimum_grade_percent: Optional[float]
     """The minimum grade percentage required to pass (0-100).
 
@@ -98,6 +100,8 @@ class AssessmentCompletionRequirement(TypedDict, total=False):
 
 
 class AssessmentQuestionImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -107,6 +111,8 @@ class AssessmentQuestionImageAttachmentInputWithDirectUploadID(TypedDict, total=
 
 
 class AssessmentQuestionImageAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -121,6 +127,8 @@ AssessmentQuestionImage: TypeAlias = Union[
 
 
 class AssessmentQuestionOption(TypedDict, total=False):
+    """Input for creating or updating an assessment question option"""
+
     is_correct: Required[bool]
     """Whether this option is a correct answer"""
 
@@ -136,6 +144,8 @@ class AssessmentQuestionOption(TypedDict, total=False):
 
 
 class AssessmentQuestion(TypedDict, total=False):
+    """Input for creating or updating an assessment question"""
+
     correct_answer: Required[str]
     """The correct answer for the question. Used for short answer questions"""
 
@@ -160,6 +170,8 @@ class AssessmentQuestion(TypedDict, total=False):
 
 
 class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -169,6 +181,8 @@ class AttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
 
 
 class AttachmentAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -181,6 +195,8 @@ Attachment: TypeAlias = Union[AttachmentAttachmentInputWithDirectUploadID, Attac
 
 
 class MainPdfAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -190,6 +206,8 @@ class MainPdfAttachmentInputWithDirectUploadID(TypedDict, total=False):
 
 
 class MainPdfAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -202,6 +220,8 @@ MainPdf: TypeAlias = Union[MainPdfAttachmentInputWithDirectUploadID, MainPdfAtta
 
 
 class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -211,6 +231,8 @@ class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
 
 
 class ThumbnailAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 

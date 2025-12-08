@@ -12,6 +12,8 @@ __all__ = ["AppBuildListResponse"]
 
 
 class AppBuildListResponse(BaseModel):
+    """An App Build object representing a build of an application"""
+
     id: str
     """The ID of the app build. It will look like apbu_xxxxx."""
 

@@ -11,6 +11,8 @@ __all__ = ["CourseListResponse", "Thumbnail"]
 
 
 class Thumbnail(BaseModel):
+    """The thumbnail for the course"""
+
     id: str
     """The ID of the attachment"""
 
@@ -35,6 +37,8 @@ class Thumbnail(BaseModel):
 
 
 class CourseListResponse(BaseModel):
+    """A course from the courses app"""
+
     id: str
     """The ID of the course. Looks like cors_XXX"""
 

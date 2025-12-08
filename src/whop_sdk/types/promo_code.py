@@ -13,6 +13,8 @@ __all__ = ["PromoCode", "Company", "Product"]
 
 
 class Company(BaseModel):
+    """The company for the promo code."""
+
     id: str
     """The ID of the company"""
 
@@ -21,6 +23,8 @@ class Company(BaseModel):
 
 
 class Product(BaseModel):
+    """The product this promo code applies to"""
+
     id: str
     """The internal ID of the public product."""
 
@@ -29,6 +33,8 @@ class Product(BaseModel):
 
 
 class PromoCode(BaseModel):
+    """An object representing a promo code for a plan."""
+
     id: str
     """The ID of the promo."""
 

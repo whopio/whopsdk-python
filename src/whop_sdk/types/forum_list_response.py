@@ -9,6 +9,8 @@ __all__ = ["ForumListResponse", "Experience"]
 
 
 class Experience(BaseModel):
+    """The experience for this forum"""
+
     id: str
     """The unique ID representing this experience"""
 
@@ -17,6 +19,8 @@ class Experience(BaseModel):
 
 
 class ForumListResponse(BaseModel):
+    """Represents a forum feed"""
+
     id: str
     """The unique identifier for the entity"""
 

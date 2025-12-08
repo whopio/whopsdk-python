@@ -8,6 +8,8 @@ __all__ = ["CourseChapter", "Lesson"]
 
 
 class Lesson(BaseModel):
+    """A lesson from the courses app"""
+
     id: str
     """The ID of the lesson"""
 
@@ -19,6 +21,8 @@ class Lesson(BaseModel):
 
 
 class CourseChapter(BaseModel):
+    """A chapter from the courses app"""
+
     id: str
     """The ID of the chapter. Looks like chap_XXX"""
 

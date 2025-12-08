@@ -10,6 +10,8 @@ __all__ = ["Entry", "CustomFieldResponse", "Plan", "Product", "User"]
 
 
 class CustomFieldResponse(BaseModel):
+    """The response from a custom field on checkout"""
+
     id: str
     """The ID of the custom field item"""
 
@@ -21,11 +23,15 @@ class CustomFieldResponse(BaseModel):
 
 
 class Plan(BaseModel):
+    """The waitlist plan the entry if for."""
+
     id: str
     """The internal ID of the plan."""
 
 
 class Product(BaseModel):
+    """The product tied to this entry, if there is one."""
+
     id: str
     """The internal ID of the public product."""
 
@@ -34,6 +40,8 @@ class Product(BaseModel):
 
 
 class User(BaseModel):
+    """The user who created the entry."""
+
     id: str
     """The internal ID of the user."""
 
@@ -48,6 +56,8 @@ class User(BaseModel):
 
 
 class Entry(BaseModel):
+    """An object representing an entry in a waitlist."""
+
     id: str
     """The internal ID of the entry."""
 

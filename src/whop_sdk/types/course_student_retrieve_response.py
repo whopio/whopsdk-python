@@ -9,11 +9,15 @@ __all__ = ["CourseStudentRetrieveResponse", "Course", "CourseExperience", "User"
 
 
 class CourseExperience(BaseModel):
+    """The experience that the course belongs to"""
+
     id: str
     """The unique ID representing this experience"""
 
 
 class Course(BaseModel):
+    """The course the student is enrolled in"""
+
     id: str
     """The ID of the course. Looks like cors_XXX"""
 
@@ -25,6 +29,8 @@ class Course(BaseModel):
 
 
 class User(BaseModel):
+    """The user who is enrolled in the course"""
+
     id: str
     """The internal ID of the user."""
 
@@ -36,6 +42,8 @@ class User(BaseModel):
 
 
 class CourseStudentRetrieveResponse(BaseModel):
+    """A course student (enrollment of a student in a course)"""
+
     id: str
     """The ID of the course student. Looks like crsi_XXX"""
 
