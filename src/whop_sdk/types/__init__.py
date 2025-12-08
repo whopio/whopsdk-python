@@ -81,6 +81,7 @@ from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
 from .app_list_params import AppListParams as AppListParams
 from .billing_reasons import BillingReasons as BillingReasons
+from .fee_markup_type import FeeMarkupType as FeeMarkupType
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .payment_provider import PaymentProvider as PaymentProvider
 from .plan_list_params import PlanListParams as PlanListParams
@@ -144,6 +145,7 @@ from .refund_reference_type import RefundReferenceType as RefundReferenceType
 from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
 from .entry_approve_response import EntryApproveResponse as EntryApproveResponse
 from .experience_list_params import ExperienceListParams as ExperienceListParams
+from .fee_markup_list_params import FeeMarkupListParams as FeeMarkupListParams
 from .forum_post_list_params import ForumPostListParams as ForumPostListParams
 from .membership_list_params import MembershipListParams as MembershipListParams
 from .promo_code_list_params import PromoCodeListParams as PromoCodeListParams
@@ -166,6 +168,8 @@ from .experience_create_params import ExperienceCreateParams as ExperienceCreate
 from .experience_detach_params import ExperienceDetachParams as ExperienceDetachParams
 from .experience_list_response import ExperienceListResponse as ExperienceListResponse
 from .experience_update_params import ExperienceUpdateParams as ExperienceUpdateParams
+from .fee_markup_create_params import FeeMarkupCreateParams as FeeMarkupCreateParams
+from .fee_markup_list_response import FeeMarkupListResponse as FeeMarkupListResponse
 from .forum_post_create_params import ForumPostCreateParams as ForumPostCreateParams
 from .forum_post_list_response import ForumPostListResponse as ForumPostListResponse
 from .forum_post_update_params import ForumPostUpdateParams as ForumPostUpdateParams
@@ -189,6 +193,8 @@ from .course_chapter_list_params import CourseChapterListParams as CourseChapter
 from .course_student_list_params import CourseStudentListParams as CourseStudentListParams
 from .entry_denied_webhook_event import EntryDeniedWebhookEvent as EntryDeniedWebhookEvent
 from .experience_delete_response import ExperienceDeleteResponse as ExperienceDeleteResponse
+from .fee_markup_create_response import FeeMarkupCreateResponse as FeeMarkupCreateResponse
+from .fee_markup_delete_response import FeeMarkupDeleteResponse as FeeMarkupDeleteResponse
 from .forum_post_visibility_type import ForumPostVisibilityType as ForumPostVisibilityType
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
 from .notification_create_params import NotificationCreateParams as NotificationCreateParams

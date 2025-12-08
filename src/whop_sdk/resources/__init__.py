@@ -161,6 +161,14 @@ from .experiences import (
     ExperiencesResourceWithStreamingResponse,
     AsyncExperiencesResourceWithStreamingResponse,
 )
+from .fee_markups import (
+    FeeMarkupsResource,
+    AsyncFeeMarkupsResource,
+    FeeMarkupsResourceWithRawResponse,
+    AsyncFeeMarkupsResourceWithRawResponse,
+    FeeMarkupsResourceWithStreamingResponse,
+    AsyncFeeMarkupsResourceWithStreamingResponse,
+)
 from .forum_posts import (
     ForumPostsResource,
     AsyncForumPostsResource,
@@ -537,4 +545,10 @@ __all__ = [
     "AsyncPaymentMethodsResourceWithRawResponse",
     "PaymentMethodsResourceWithStreamingResponse",
     "AsyncPaymentMethodsResourceWithStreamingResponse",
+    "FeeMarkupsResource",
+    "AsyncFeeMarkupsResource",
+    "FeeMarkupsResourceWithRawResponse",
+    "AsyncFeeMarkupsResourceWithRawResponse",
+    "FeeMarkupsResourceWithStreamingResponse",
+    "AsyncFeeMarkupsResourceWithStreamingResponse",
 ]

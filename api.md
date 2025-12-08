@@ -675,3 +675,22 @@ Methods:
 
 - <code title="get /payment_methods/{id}">client.payment_methods.<a href="./src/whop_sdk/resources/payment_methods.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/payment_method_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_retrieve_response.py">PaymentMethodRetrieveResponse</a></code>
 - <code title="get /payment_methods">client.payment_methods.<a href="./src/whop_sdk/resources/payment_methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payment_method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_list_response.py">SyncCursorPage[PaymentMethodListResponse]</a></code>
+
+# FeeMarkups
+
+Types:
+
+```python
+from whop_sdk.types import (
+    FeeMarkupType,
+    FeeMarkupCreateResponse,
+    FeeMarkupListResponse,
+    FeeMarkupDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /fee_markups">client.fee_markups.<a href="./src/whop_sdk/resources/fee_markups.py">create</a>(\*\*<a href="src/whop_sdk/types/fee_markup_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/fee_markup_create_response.py">FeeMarkupCreateResponse</a></code>
+- <code title="get /fee_markups">client.fee_markups.<a href="./src/whop_sdk/resources/fee_markups.py">list</a>(\*\*<a href="src/whop_sdk/types/fee_markup_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/fee_markup_list_response.py">SyncCursorPage[FeeMarkupListResponse]</a></code>
+- <code title="delete /fee_markups/{id}">client.fee_markups.<a href="./src/whop_sdk/resources/fee_markups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/fee_markup_delete_response.py">FeeMarkupDeleteResponse</a></code>
