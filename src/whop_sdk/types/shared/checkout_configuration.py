@@ -14,6 +14,11 @@ __all__ = ["CheckoutConfiguration", "PaymentMethodConfiguration", "Plan"]
 
 
 class PaymentMethodConfiguration(BaseModel):
+    """The explicit payment method configuration for the session, if any.
+
+    This currently only works in 'setup' mode. Use the plan's payment_method_configuration for payment method.
+    """
+
     disabled: List[PaymentMethodTypes]
     """An array of payment method identifiers that are explicitly disabled.
 
@@ -37,6 +42,8 @@ class PaymentMethodConfiguration(BaseModel):
 
 
 class Plan(BaseModel):
+    """The plan to use for the checkout configuration"""
+
     id: str
     """The internal ID of the plan."""
 
@@ -69,6 +76,13 @@ class Plan(BaseModel):
 
 
 class CheckoutConfiguration(BaseModel):
+    """
+    A checkout configuration object.
+            Can be used to create a reusable custom configuration for a checkout, including attaching plans, affiliates and custom metadata to the checkout.
+            This configuration can be re-used by multiple users.
+            All successful payments and memberships resulting from a checkout will contain the passed metadata.
+    """
+
     id: str
     """The ID of the checkout configuration"""
 

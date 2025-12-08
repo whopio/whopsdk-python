@@ -20,6 +20,8 @@ __all__ = [
 
 
 class APIKey(BaseModel):
+    """The API key for the app"""
+
     id: str
     """The ID of this API key"""
 
@@ -31,6 +33,8 @@ class APIKey(BaseModel):
 
 
 class Company(BaseModel):
+    """The company that owns the app"""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -39,6 +43,8 @@ class Company(BaseModel):
 
 
 class Creator(BaseModel):
+    """The creator of the app"""
+
     id: str
     """The internal ID of the user."""
 
@@ -50,6 +56,11 @@ class Creator(BaseModel):
 
 
 class Icon(BaseModel):
+    """The icon for the app.
+
+    This icon is shown on discovery, on the product page, on checkout, and as a default icon for the experiences.
+    """
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -58,6 +69,8 @@ class Icon(BaseModel):
 
 
 class RequestedPermissionPermissionAction(BaseModel):
+    """The action that the app will request off of users when a user installs the app."""
+
     action: str
     """The identifier of the action."""
 
@@ -66,6 +79,10 @@ class RequestedPermissionPermissionAction(BaseModel):
 
 
 class RequestedPermission(BaseModel):
+    """
+    A permission that the app requests from the admin of a company during the oauth flow.
+    """
+
     is_required: bool
     """Whether the action is required for the app to function."""
 
@@ -77,6 +94,8 @@ class RequestedPermission(BaseModel):
 
 
 class Stats(BaseModel):
+    """A collection of stats for the app."""
+
     dau: int
     """
     This is the number of users that have spent time in this app in the last 24
@@ -102,6 +121,8 @@ class Stats(BaseModel):
 
 
 class App(BaseModel):
+    """An object representing an app"""
+
     id: str
     """The ID of the app"""
 

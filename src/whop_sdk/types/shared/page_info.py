@@ -8,6 +8,8 @@ __all__ = ["PageInfo"]
 
 
 class PageInfo(BaseModel):
+    """Information about pagination in a connection."""
+
     end_cursor: Optional[str] = None
     """When paginating forwards, the cursor to continue."""
 

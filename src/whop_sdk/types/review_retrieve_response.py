@@ -10,6 +10,8 @@ __all__ = ["ReviewRetrieveResponse", "Attachment", "Company", "Product", "User"]
 
 
 class Attachment(BaseModel):
+    """Represents an image attachment"""
+
     id: str
     """The ID of the attachment"""
 
@@ -27,6 +29,8 @@ class Attachment(BaseModel):
 
 
 class Company(BaseModel):
+    """The company the review is for."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -38,6 +42,8 @@ class Company(BaseModel):
 
 
 class Product(BaseModel):
+    """The product the review is for."""
+
     id: str
     """The internal ID of the public product."""
 
@@ -46,6 +52,8 @@ class Product(BaseModel):
 
 
 class User(BaseModel):
+    """The user account that performed the action."""
+
     id: str
     """The internal ID of the user."""
 
@@ -57,6 +65,8 @@ class User(BaseModel):
 
 
 class ReviewRetrieveResponse(BaseModel):
+    """An object representing a user review of a company."""
+
     id: str
     """The internal ID of the review."""
 

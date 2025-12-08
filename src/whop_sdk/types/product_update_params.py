@@ -75,6 +75,8 @@ class ProductUpdateParams(TypedDict, total=False):
 
 
 class StorePageConfig(TypedDict, total=False):
+    """Configuration for a product on the company's store page."""
+
     custom_cta: Optional[str]
     """Custom call-to-action text for the product's store page."""
 

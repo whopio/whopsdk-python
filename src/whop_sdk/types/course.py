@@ -12,6 +12,8 @@ __all__ = ["Course", "Chapter", "ChapterLesson", "Thumbnail"]
 
 
 class ChapterLesson(BaseModel):
+    """A lesson from the courses app"""
+
     id: str
     """The ID of the lesson"""
 
@@ -26,6 +28,8 @@ class ChapterLesson(BaseModel):
 
 
 class Chapter(BaseModel):
+    """A chapter from the courses app"""
+
     id: str
     """The ID of the chapter. Looks like chap_XXX"""
 
@@ -40,6 +44,8 @@ class Chapter(BaseModel):
 
 
 class Thumbnail(BaseModel):
+    """The thumbnail for the course"""
+
     id: str
     """The ID of the attachment"""
 
@@ -64,6 +70,8 @@ class Thumbnail(BaseModel):
 
 
 class Course(BaseModel):
+    """A course from the courses app"""
+
     id: str
     """The ID of the course. Looks like cors_XXX"""
 

@@ -12,6 +12,8 @@ __all__ = ["ProductListItem"]
 
 
 class ProductListItem(BaseModel):
+    """Represents a product on whop. Use products to sell anything on the platform."""
+
     id: str
     """The internal ID of the public product."""
 

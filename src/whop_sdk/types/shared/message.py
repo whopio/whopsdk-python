@@ -10,6 +10,8 @@ __all__ = ["Message", "Poll", "PollOption", "PollVote", "ReactionCount", "User"]
 
 
 class PollOption(BaseModel):
+    """Represents a single poll option"""
+
     id: str
     """The ID of the poll option"""
 
@@ -18,11 +20,15 @@ class PollOption(BaseModel):
 
 
 class Poll(BaseModel):
+    """The poll for this message"""
+
     options: Optional[List[PollOption]] = None
     """The options for the poll"""
 
 
 class PollVote(BaseModel):
+    """Represents a reaction count for a feed post"""
+
     count: int
     """The number of users who reacted"""
 
@@ -31,6 +37,8 @@ class PollVote(BaseModel):
 
 
 class ReactionCount(BaseModel):
+    """Represents a reaction count for a feed post"""
+
     count: int
     """The number of users who reacted"""
 
@@ -39,6 +47,8 @@ class ReactionCount(BaseModel):
 
 
 class User(BaseModel):
+    """The user who sent this message"""
+
     id: str
     """The internal ID of the user."""
 
@@ -50,6 +60,8 @@ class User(BaseModel):
 
 
 class Message(BaseModel):
+    """Represents a message in a DM channel"""
+
     id: str
     """The unique identifier of the resource."""
 

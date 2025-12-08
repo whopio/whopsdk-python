@@ -9,6 +9,8 @@ __all__ = ["AuthorizedUserRetrieveResponse", "User"]
 
 
 class User(BaseModel):
+    """The user associated with the authorized user."""
+
     id: str
     """The internal ID of the user."""
 
@@ -23,6 +25,8 @@ class User(BaseModel):
 
 
 class AuthorizedUserRetrieveResponse(BaseModel):
+    """A user who has elevated security privileges for a company"""
+
     id: str
     """A unique ID representing the authorized user object."""
 

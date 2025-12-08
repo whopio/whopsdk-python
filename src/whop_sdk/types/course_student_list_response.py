@@ -9,6 +9,8 @@ __all__ = ["CourseStudentListResponse", "User"]
 
 
 class User(BaseModel):
+    """The user who is enrolled in the course"""
+
     id: str
     """The internal ID of the user."""
 
@@ -20,6 +22,8 @@ class User(BaseModel):
 
 
 class CourseStudentListResponse(BaseModel):
+    """A course student (enrollment of a student in a course)"""
+
     id: str
     """The ID of the course student. Looks like crsi_XXX"""
 

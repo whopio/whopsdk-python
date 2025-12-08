@@ -11,6 +11,10 @@ __all__ = ["PaymentMethodRetrieveResponse", "Card"]
 
 
 class Card(BaseModel):
+    """
+    The card data associated with the payment method, if its a debit or credit card.
+    """
+
     brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
@@ -25,6 +29,11 @@ class Card(BaseModel):
 
 
 class PaymentMethodRetrieveResponse(BaseModel):
+    """A stored payment method used to process payments.
+
+    This could be a credit/debit card, bank account, PayPal wallet, etc.
+    """
+
     id: str
     """The ID of the payment method"""
 

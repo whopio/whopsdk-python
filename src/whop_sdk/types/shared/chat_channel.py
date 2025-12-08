@@ -10,6 +10,8 @@ __all__ = ["ChatChannel", "Experience"]
 
 
 class Experience(BaseModel):
+    """The experience for this chat"""
+
     id: str
     """The unique ID representing this experience"""
 
@@ -18,6 +20,8 @@ class Experience(BaseModel):
 
 
 class ChatChannel(BaseModel):
+    """Represents a Chat feed"""
+
     id: str
     """The unique identifier for the entity"""
 

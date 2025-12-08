@@ -16,6 +16,8 @@ class CourseLessonSubmitAssessmentParams(TypedDict, total=False):
 
 
 class Answer(TypedDict, total=False):
+    """Input for a single question's answer in an assessment submission"""
+
     question_id: Required[str]
     """The ID of the question being answered"""
 

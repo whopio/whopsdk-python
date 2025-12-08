@@ -20,16 +20,22 @@ __all__ = [
 
 
 class CheckoutConfiguration(BaseModel):
+    """The checkout configuration associated with the setup intent"""
+
     id: str
     """The ID of the checkout configuration"""
 
 
 class Company(BaseModel):
+    """The company of the setup intent"""
+
     id: str
     """The ID (tag) of the company."""
 
 
 class MemberUser(BaseModel):
+    """The user for this member, if any."""
+
     id: str
     """The internal ID of the user account."""
 
@@ -44,6 +50,8 @@ class MemberUser(BaseModel):
 
 
 class Member(BaseModel):
+    """The member connected to the setup intent"""
+
     id: str
     """The ID of the member"""
 
@@ -52,6 +60,10 @@ class Member(BaseModel):
 
 
 class PaymentMethodCard(BaseModel):
+    """
+    The card data associated with the payment method, if its a debit or credit card.
+    """
+
     brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
@@ -66,6 +78,8 @@ class PaymentMethodCard(BaseModel):
 
 
 class PaymentMethod(BaseModel):
+    """The payment method created during the setup, if available."""
+
     id: str
     """The ID of the payment method"""
 
@@ -82,6 +96,10 @@ class PaymentMethod(BaseModel):
 
 
 class SetupIntentListResponse(BaseModel):
+    """
+    An object representing a setup intent, which is a flow for allowing a customer to add a payment method to their account without making a purchase.
+    """
+
     id: str
     """The setup intent ID"""
 

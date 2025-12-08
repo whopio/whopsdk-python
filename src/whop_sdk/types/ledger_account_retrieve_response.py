@@ -11,6 +11,8 @@ __all__ = ["LedgerAccountRetrieveResponse", "Balance", "Owner", "OwnerUser", "Ow
 
 
 class Balance(BaseModel):
+    """A cached balance for a LedgerAccount in respect to a currency."""
+
     balance: float
     """The amount of the balance."""
 
@@ -25,6 +27,8 @@ class Balance(BaseModel):
 
 
 class OwnerUser(BaseModel):
+    """An object representing a (sanitized) user of the site."""
+
     id: str
     """The internal ID of the user."""
 
@@ -39,6 +43,8 @@ class OwnerUser(BaseModel):
 
 
 class OwnerCompany(BaseModel):
+    """An object representing a (sanitized) company."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -56,6 +62,8 @@ Owner: TypeAlias = Annotated[Union[Optional[OwnerUser], Optional[OwnerCompany]],
 
 
 class LedgerAccountRetrieveResponse(BaseModel):
+    """Represents a LedgerAccount."""
+
     id: str
     """The ID of the LedgerAccount."""
 

@@ -18,6 +18,8 @@ __all__ = ["RefundRetrieveResponse", "Payment", "PaymentMember", "PaymentMembers
 
 
 class PaymentMember(BaseModel):
+    """The member attached to this payment."""
+
     id: str
     """The ID of the member"""
 
@@ -26,6 +28,8 @@ class PaymentMember(BaseModel):
 
 
 class PaymentMembership(BaseModel):
+    """The membership attached to this payment."""
+
     id: str
     """The internal ID of the membership."""
 
@@ -34,6 +38,8 @@ class PaymentMembership(BaseModel):
 
 
 class PaymentUser(BaseModel):
+    """The user that made this payment."""
+
     id: str
     """The internal ID of the user."""
 
@@ -48,6 +54,8 @@ class PaymentUser(BaseModel):
 
 
 class Payment(BaseModel):
+    """The payment associated with the refund."""
+
     id: str
     """The payment ID"""
 
@@ -95,6 +103,8 @@ class Payment(BaseModel):
 
 
 class RefundRetrieveResponse(BaseModel):
+    """An object representing a refund made on a payment."""
+
     id: str
     """The ID of the refund."""
 
