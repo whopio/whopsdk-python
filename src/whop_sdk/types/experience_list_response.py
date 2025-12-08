@@ -79,6 +79,9 @@ class ExperienceListResponse(BaseModel):
     image: Optional[Image] = None
     """The logo for the experience."""
 
+    is_public: bool
+    """Whether the experience is visible to the public"""
+
     name: str
     """The written name of the description."""
 
