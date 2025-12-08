@@ -89,6 +89,7 @@ class TestCheckoutConfigurations:
                 "visibility": "visible",
             },
             affiliate_code="affiliate_code",
+            currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
@@ -146,6 +147,7 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.create(
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
+            currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
@@ -198,6 +200,7 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.create(
             company_id="biz_xxxxxxxxxxxxxx",
             mode="setup",
+            currency="usd",
             metadata={"foo": "bar"},
             payment_method_configuration={
                 "disabled": ["acss_debit"],
@@ -409,6 +412,7 @@ class TestAsyncCheckoutConfigurations:
                 "visibility": "visible",
             },
             affiliate_code="affiliate_code",
+            currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
@@ -466,6 +470,7 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.create(
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
+            currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
@@ -518,6 +523,7 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.create(
             company_id="biz_xxxxxxxxxxxxxx",
             mode="setup",
+            currency="usd",
             metadata={"foo": "bar"},
             payment_method_configuration={
                 "disabled": ["acss_debit"],

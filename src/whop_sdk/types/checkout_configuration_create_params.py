@@ -40,6 +40,9 @@ class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
     affiliate_code: Optional[str]
     """The affiliate code to use for the checkout configuration"""
 
+    currency: Optional[Currency]
+    """The available currencies on the platform"""
+
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""
 
@@ -305,6 +308,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     affiliate_code: Optional[str]
     """The affiliate code to use for the checkout configuration"""
 
+    currency: Optional[Currency]
+    """The available currencies on the platform"""
+
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""
 
@@ -357,6 +363,9 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
     """
 
     mode: Required[Literal["setup"]]
+
+    currency: Optional[Currency]
+    """The available currencies on the platform"""
 
     metadata: Optional[Dict[str, object]]
     """The metadata to use for the checkout configuration"""

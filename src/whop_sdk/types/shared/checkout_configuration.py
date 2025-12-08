@@ -92,6 +92,9 @@ class CheckoutConfiguration(BaseModel):
     company_id: str
     """The ID of the company to use for the checkout configuration"""
 
+    currency: Optional[Currency] = None
+    """The available currencies on the platform"""
+
     metadata: Optional[Dict[str, object]] = None
     """The metadata to use for the checkout configuration"""
 

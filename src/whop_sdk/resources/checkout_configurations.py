@@ -21,6 +21,7 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.shared.checkout_configuration import CheckoutConfiguration
 from ..types.checkout_configuration_list_response import CheckoutConfigurationListResponse
@@ -54,6 +55,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
         payment_method_configuration: Optional[
@@ -84,6 +86,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           affiliate_code: The affiliate code to use for the checkout configuration
 
+          currency: The available currencies on the platform
+
           metadata: The metadata to use for the checkout configuration
 
           payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
@@ -108,6 +112,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
         payment_method_configuration: Optional[
@@ -138,6 +143,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           affiliate_code: The affiliate code to use for the checkout configuration
 
+          currency: The available currencies on the platform
+
           metadata: The metadata to use for the checkout configuration
 
           payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
@@ -162,6 +169,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         company_id: str,
         mode: Literal["setup"],
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_configuration: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration
@@ -190,6 +198,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
           company_id: The ID of the company for which to generate the checkout configuration. Only
               required in setup mode.
 
+          currency: The available currencies on the platform
+
           metadata: The metadata to use for the checkout configuration
 
           payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
@@ -214,6 +224,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Literal["setup"] | Omit = omit,
         payment_method_configuration: Optional[
@@ -240,6 +251,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                 {
                     "plan": plan,
                     "affiliate_code": affiliate_code,
+                    "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
                     "payment_method_configuration": payment_method_configuration,
@@ -398,6 +410,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
         payment_method_configuration: Optional[
@@ -428,6 +441,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           affiliate_code: The affiliate code to use for the checkout configuration
 
+          currency: The available currencies on the platform
+
           metadata: The metadata to use for the checkout configuration
 
           payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
@@ -452,6 +467,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
         payment_method_configuration: Optional[
@@ -482,6 +498,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           affiliate_code: The affiliate code to use for the checkout configuration
 
+          currency: The available currencies on the platform
+
           metadata: The metadata to use for the checkout configuration
 
           payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
@@ -506,6 +524,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         company_id: str,
         mode: Literal["setup"],
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_configuration: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration
@@ -534,6 +553,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
           company_id: The ID of the company for which to generate the checkout configuration. Only
               required in setup mode.
 
+          currency: The available currencies on the platform
+
           metadata: The metadata to use for the checkout configuration
 
           payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
@@ -558,6 +579,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
+        currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Literal["setup"] | Omit = omit,
         payment_method_configuration: Optional[
@@ -584,6 +606,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                 {
                     "plan": plan,
                     "affiliate_code": affiliate_code,
+                    "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
                     "payment_method_configuration": payment_method_configuration,
