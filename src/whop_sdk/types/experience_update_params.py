@@ -12,6 +12,9 @@ class ExperienceUpdateParams(TypedDict, total=False):
     access_level: Optional[Literal["public", "private"]]
     """The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE)."""
 
+    is_public: Optional[bool]
+    """Whether the experience is publicly accessible."""
+
     logo: Optional[Logo]
     """The logo for the experience"""
 

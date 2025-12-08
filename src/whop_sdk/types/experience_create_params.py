@@ -15,6 +15,9 @@ class ExperienceCreateParams(TypedDict, total=False):
     company_id: Required[str]
     """The ID of the company to create the experience for"""
 
+    is_public: Optional[bool]
+    """Whether the experience is publicly accessible"""
+
     name: Optional[str]
     """The name of the experience"""
 

@@ -38,6 +38,7 @@ class TestExperiences:
         experience = client.experiences.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
+            is_public=True,
             name="name",
             section_id="section_id",
         )
@@ -127,6 +128,7 @@ class TestExperiences:
         experience = client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
+            is_public=True,
             logo={"direct_upload_id": "direct_upload_id"},
             name="name",
             order="123.45",
@@ -424,6 +426,7 @@ class TestAsyncExperiences:
         experience = await async_client.experiences.create(
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
+            is_public=True,
             name="name",
             section_id="section_id",
         )
@@ -513,6 +516,7 @@ class TestAsyncExperiences:
         experience = await async_client.experiences.update(
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
+            is_public=True,
             logo={"direct_upload_id": "direct_upload_id"},
             name="name",
             order="123.45",

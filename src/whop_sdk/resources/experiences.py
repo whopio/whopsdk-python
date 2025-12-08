@@ -60,6 +60,7 @@ class ExperiencesResource(SyncAPIResource):
         *,
         app_id: str,
         company_id: str,
+        is_public: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -79,6 +80,8 @@ class ExperiencesResource(SyncAPIResource):
 
           company_id: The ID of the company to create the experience for
 
+          is_public: Whether the experience is publicly accessible
+
           name: The name of the experience
 
           section_id: The ID of the section to create the experience in
@@ -97,6 +100,7 @@ class ExperiencesResource(SyncAPIResource):
                 {
                     "app_id": app_id,
                     "company_id": company_id,
+                    "is_public": is_public,
                     "name": name,
                     "section_id": section_id,
                 },
@@ -146,6 +150,7 @@ class ExperiencesResource(SyncAPIResource):
         id: str,
         *,
         access_level: Optional[Literal["public", "private"]] | Omit = omit,
+        is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_update_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Optional[str] | Omit = omit,
@@ -164,6 +169,8 @@ class ExperiencesResource(SyncAPIResource):
 
         Args:
           access_level: The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE).
+
+          is_public: Whether the experience is publicly accessible.
 
           logo: The logo for the experience
 
@@ -188,6 +195,7 @@ class ExperiencesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "access_level": access_level,
+                    "is_public": is_public,
                     "logo": logo,
                     "name": name,
                     "order": order,
@@ -472,6 +480,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         *,
         app_id: str,
         company_id: str,
+        is_public: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -491,6 +500,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
 
           company_id: The ID of the company to create the experience for
 
+          is_public: Whether the experience is publicly accessible
+
           name: The name of the experience
 
           section_id: The ID of the section to create the experience in
@@ -509,6 +520,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
                 {
                     "app_id": app_id,
                     "company_id": company_id,
+                    "is_public": is_public,
                     "name": name,
                     "section_id": section_id,
                 },
@@ -558,6 +570,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         id: str,
         *,
         access_level: Optional[Literal["public", "private"]] | Omit = omit,
+        is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_update_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Optional[str] | Omit = omit,
@@ -576,6 +589,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
 
         Args:
           access_level: The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE).
+
+          is_public: Whether the experience is publicly accessible.
 
           logo: The logo for the experience
 
@@ -600,6 +615,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "access_level": access_level,
+                    "is_public": is_public,
                     "logo": logo,
                     "name": name,
                     "order": order,
