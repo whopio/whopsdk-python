@@ -7,7 +7,22 @@ from .._models import BaseModel
 from .card_brands import CardBrands
 from .payment_method_types import PaymentMethodTypes
 
-__all__ = ["PaymentMethodRetrieveResponse", "Card"]
+__all__ = ["PaymentMethodRetrieveResponse", "Bank", "Card"]
+
+
+class Bank(BaseModel):
+    """
+    The bank account data associated with the payment method, if it's a bank account.
+    """
+
+    account_type: str
+    """The type of account"""
+
+    bank_name: str
+    """The name of the bank"""
+
+    last4: str
+    """The last 4 digits of the account number"""
 
 
 class Card(BaseModel):
@@ -36,6 +51,12 @@ class PaymentMethodRetrieveResponse(BaseModel):
 
     id: str
     """The ID of the payment method"""
+
+    bank: Optional[Bank] = None
+    """
+    The bank account data associated with the payment method, if it's a bank
+    account.
+    """
 
     card: Optional[Card] = None
     """
