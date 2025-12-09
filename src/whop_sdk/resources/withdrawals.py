@@ -64,6 +64,7 @@ class WithdrawalsResource(SyncAPIResource):
         Required permissions:
 
         - `payout:withdrawal:read`
+        - `payout:destination:read`
 
         Args:
           extra_headers: Send extra headers
@@ -197,6 +198,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         Required permissions:
 
         - `payout:withdrawal:read`
+        - `payout:destination:read`
 
         Args:
           extra_headers: Send extra headers
