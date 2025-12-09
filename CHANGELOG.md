@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.0.15 (2025-12-09)
+
+Full Changelog: [v0.0.14...v0.0.15](https://github.com/whopio/whopsdk-python/compare/v0.0.14...v0.0.15)
+
+### Features
+
+* **api:** api update ([27cc220](https://github.com/whopio/whopsdk-python/commit/27cc220aee71c4f662dec00bad1fcb6ed388cea9))
+* **api:** api update ([dd8d9b8](https://github.com/whopio/whopsdk-python/commit/dd8d9b8f3f429cc9cd02db37d8e1019f3f84e62b))
+* **api:** manual updates ([dff5df3](https://github.com/whopio/whopsdk-python/commit/dff5df357b834227047713b6dac101bc9f4d0432))
+
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([87405ac](https://github.com/whopio/whopsdk-python/commit/87405aca27eea15d55d10498a6f22a6db75bec66))
+
+
+### Chores
+
+* add missing docstrings ([f35bfc0](https://github.com/whopio/whopsdk-python/commit/f35bfc071a90fff75918fc2b023e2342fe9ad4d2))
+
 ## 0.0.14 (2025-12-07)
 
 Full Changelog: [v0.0.13...v0.0.14](https://github.com/whopio/whopsdk-python/compare/v0.0.13...v0.0.14)
