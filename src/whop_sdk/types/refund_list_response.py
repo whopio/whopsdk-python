@@ -14,11 +14,15 @@ __all__ = ["RefundListResponse", "Payment"]
 
 
 class Payment(BaseModel):
+    """The payment associated with the refund."""
+
     id: str
     """The payment ID"""
 
 
 class RefundListResponse(BaseModel):
+    """An object representing a refund made on a payment."""
+
     id: str
     """The ID of the refund."""
 

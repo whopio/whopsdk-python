@@ -67,6 +67,8 @@ class DisputeUpdateEvidenceParams(TypedDict, total=False):
 
 
 class CancellationPolicyAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -76,6 +78,8 @@ class CancellationPolicyAttachmentAttachmentInputWithDirectUploadID(TypedDict, t
 
 
 class CancellationPolicyAttachmentAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -90,6 +94,8 @@ CancellationPolicyAttachment: TypeAlias = Union[
 
 
 class CustomerCommunicationAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -99,6 +105,8 @@ class CustomerCommunicationAttachmentAttachmentInputWithDirectUploadID(TypedDict
 
 
 class CustomerCommunicationAttachmentAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -114,6 +122,8 @@ CustomerCommunicationAttachment: TypeAlias = Union[
 
 
 class RefundPolicyAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -123,6 +133,8 @@ class RefundPolicyAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=F
 
 
 class RefundPolicyAttachmentAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 
@@ -137,6 +149,8 @@ RefundPolicyAttachment: TypeAlias = Union[
 
 
 class UncategorizedAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -146,6 +160,8 @@ class UncategorizedAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=
 
 
 class UncategorizedAttachmentAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 

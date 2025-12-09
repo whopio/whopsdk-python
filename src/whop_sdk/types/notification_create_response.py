@@ -6,5 +6,7 @@ __all__ = ["NotificationCreateResponse"]
 
 
 class NotificationCreateResponse(BaseModel):
+    """Response from queuing a notification"""
+
     success: bool
     """Whether the notification was successfully queued for delivery"""

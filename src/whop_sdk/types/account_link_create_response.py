@@ -8,6 +8,10 @@ __all__ = ["AccountLinkCreateResponse"]
 
 
 class AccountLinkCreateResponse(BaseModel):
+    """
+    An object representing a url that a user can be directed to to access their account.
+    """
+
     expires_at: datetime
     """The expiration timestamp of the url."""
 

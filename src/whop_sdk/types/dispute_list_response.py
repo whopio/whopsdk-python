@@ -11,6 +11,8 @@ __all__ = ["DisputeListResponse", "Company", "Payment", "Plan", "Product"]
 
 
 class Company(BaseModel):
+    """The company the dispute is against."""
+
     id: str
     """The ID of the company"""
 
@@ -19,16 +21,22 @@ class Company(BaseModel):
 
 
 class Payment(BaseModel):
+    """The payment that got disputed"""
+
     id: str
     """The payment ID"""
 
 
 class Plan(BaseModel):
+    """The plan that got disputed"""
+
     id: str
     """The internal ID of the plan."""
 
 
 class Product(BaseModel):
+    """The product that got disputed"""
+
     id: str
     """The internal ID of the public product."""
 
@@ -37,6 +45,8 @@ class Product(BaseModel):
 
 
 class DisputeListResponse(BaseModel):
+    """An object representing a dispute against a company."""
+
     id: str
     """The internal ID of the dispute."""
 

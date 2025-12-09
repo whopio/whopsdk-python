@@ -28,6 +28,8 @@ __all__ = [
 
 
 class CancellationPolicyAttachment(BaseModel):
+    """The cancellation policy for this dispute"""
+
     id: str
     """The ID of the attachment"""
 
@@ -45,6 +47,8 @@ class CancellationPolicyAttachment(BaseModel):
 
 
 class Company(BaseModel):
+    """The company the dispute is against."""
+
     id: str
     """The ID of the company"""
 
@@ -53,6 +57,8 @@ class Company(BaseModel):
 
 
 class CustomerCommunicationAttachment(BaseModel):
+    """The customer communication for this dispute"""
+
     id: str
     """The ID of the attachment"""
 
@@ -70,6 +76,8 @@ class CustomerCommunicationAttachment(BaseModel):
 
 
 class PaymentMember(BaseModel):
+    """The member attached to this payment."""
+
     id: str
     """The ID of the member"""
 
@@ -78,6 +86,8 @@ class PaymentMember(BaseModel):
 
 
 class PaymentMembership(BaseModel):
+    """The membership attached to this payment."""
+
     id: str
     """The internal ID of the membership."""
 
@@ -86,6 +96,8 @@ class PaymentMembership(BaseModel):
 
 
 class PaymentUser(BaseModel):
+    """The user that made this payment."""
+
     id: str
     """The internal ID of the user."""
 
@@ -100,6 +112,8 @@ class PaymentUser(BaseModel):
 
 
 class Payment(BaseModel):
+    """The payment that got disputed"""
+
     id: str
     """The payment ID"""
 
@@ -147,11 +161,15 @@ class Payment(BaseModel):
 
 
 class Plan(BaseModel):
+    """The plan that got disputed"""
+
     id: str
     """The internal ID of the plan."""
 
 
 class Product(BaseModel):
+    """The product that got disputed"""
+
     id: str
     """The internal ID of the public product."""
 
@@ -160,6 +178,8 @@ class Product(BaseModel):
 
 
 class RefundPolicyAttachment(BaseModel):
+    """The refund policy for this dispute"""
+
     id: str
     """The ID of the attachment"""
 
@@ -177,6 +197,8 @@ class RefundPolicyAttachment(BaseModel):
 
 
 class UncategorizedAttachment(BaseModel):
+    """An attachment that did not fit into the other categories"""
+
     id: str
     """The ID of the attachment"""
 
@@ -194,6 +216,8 @@ class UncategorizedAttachment(BaseModel):
 
 
 class Dispute(BaseModel):
+    """An object representing a dispute against a company."""
+
     id: str
     """The internal ID of the dispute."""
 

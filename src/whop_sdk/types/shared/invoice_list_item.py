@@ -11,6 +11,8 @@ __all__ = ["InvoiceListItem", "CurrentPlan", "User"]
 
 
 class CurrentPlan(BaseModel):
+    """The plan that the invoice was created for."""
+
     id: str
     """The internal ID of the plan."""
 
@@ -22,6 +24,8 @@ class CurrentPlan(BaseModel):
 
 
 class User(BaseModel):
+    """The user that the invoice was created for."""
+
     id: str
     """The internal ID of the user."""
 
@@ -33,6 +37,8 @@ class User(BaseModel):
 
 
 class InvoiceListItem(BaseModel):
+    """A statement that defines an amount due by a customer."""
+
     id: str
     """The ID of the invoice."""
 

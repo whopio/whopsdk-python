@@ -9,6 +9,11 @@ __all__ = ["ExperienceListResponse", "App", "AppIcon", "Company", "Image"]
 
 
 class AppIcon(BaseModel):
+    """The icon for the app.
+
+    This icon is shown on discovery, on the product page, on checkout, and as a default icon for the experiences.
+    """
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -17,6 +22,8 @@ class AppIcon(BaseModel):
 
 
 class App(BaseModel):
+    """The experience interface for this experience."""
+
     id: str
     """The ID of the app"""
 
@@ -32,6 +39,8 @@ class App(BaseModel):
 
 
 class Company(BaseModel):
+    """The company that owns this experience."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -43,6 +52,8 @@ class Company(BaseModel):
 
 
 class Image(BaseModel):
+    """The logo for the experience."""
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -51,6 +62,8 @@ class Image(BaseModel):
 
 
 class ExperienceListResponse(BaseModel):
+    """An object representing an experience belonging to a company."""
+
     id: str
     """The unique ID representing this experience"""
 
@@ -65,6 +78,9 @@ class ExperienceListResponse(BaseModel):
 
     image: Optional[Image] = None
     """The logo for the experience."""
+
+    is_public: bool
+    """Whether the experience is visible to the public"""
 
     name: str
     """The written name of the description."""

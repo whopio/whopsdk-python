@@ -8,6 +8,8 @@ __all__ = ["Reaction", "User"]
 
 
 class User(BaseModel):
+    """The user who reacted to the post"""
+
     id: str
     """The internal ID of the user."""
 
@@ -19,6 +21,8 @@ class User(BaseModel):
 
 
 class Reaction(BaseModel):
+    """Represents a reaction to a feed post"""
+
     id: str
     """The unique identifier for the entity"""
 

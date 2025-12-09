@@ -23,6 +23,8 @@ __all__ = [
 
 
 class AssessmentQuestionImage(BaseModel):
+    """Optional image attachment for the question"""
+
     id: str
     """The ID of the attachment"""
 
@@ -40,6 +42,8 @@ class AssessmentQuestionImage(BaseModel):
 
 
 class AssessmentQuestionOption(BaseModel):
+    """An answer option for a multiple choice or multiple select assessment question"""
+
     id: str
     """The ID of the assessment question option"""
 
@@ -57,6 +61,8 @@ class AssessmentQuestionOption(BaseModel):
 
 
 class AssessmentQuestion(BaseModel):
+    """An assessment question in a course quiz or knowledge check"""
+
     id: str
     """The ID of the assessment question"""
 
@@ -87,6 +93,8 @@ class AssessmentQuestion(BaseModel):
 
 
 class Attachment(BaseModel):
+    """Represents an image attachment"""
+
     id: str
     """The ID of the attachment"""
 
@@ -104,6 +112,8 @@ class Attachment(BaseModel):
 
 
 class MainPdf(BaseModel):
+    """The main PDF file for this lesson"""
+
     id: str
     """The ID of the attachment"""
 
@@ -121,6 +131,8 @@ class MainPdf(BaseModel):
 
 
 class Thumbnail(BaseModel):
+    """The thumbnail for the lesson"""
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -129,6 +141,8 @@ class Thumbnail(BaseModel):
 
 
 class VideoAsset(BaseModel):
+    """The associated Mux asset for video lessons"""
+
     id: str
     """The ID of the Mux asset"""
 
@@ -170,6 +184,8 @@ class VideoAsset(BaseModel):
 
 
 class Lesson(BaseModel):
+    """A lesson from the courses app"""
+
     id: str
     """The ID of the lesson"""
 

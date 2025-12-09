@@ -29,6 +29,8 @@ __all__ = [
 
 
 class BillingAddress(BaseModel):
+    """The address of the user who made the payment."""
+
     city: Optional[str] = None
     """The city of the address."""
 
@@ -52,6 +54,8 @@ class BillingAddress(BaseModel):
 
 
 class Company(BaseModel):
+    """The company for the payment."""
+
     id: str
     """The ID of the company"""
 
@@ -63,6 +67,8 @@ class Company(BaseModel):
 
 
 class Member(BaseModel):
+    """The member attached to this payment."""
+
     id: str
     """The ID of the member"""
 
@@ -71,6 +77,8 @@ class Member(BaseModel):
 
 
 class Membership(BaseModel):
+    """The membership attached to this payment."""
+
     id: str
     """The internal ID of the membership."""
 
@@ -79,6 +87,10 @@ class Membership(BaseModel):
 
 
 class PaymentMethodCard(BaseModel):
+    """
+    The card data associated with the payment method, if its a debit or credit card.
+    """
+
     brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
@@ -93,6 +105,8 @@ class PaymentMethodCard(BaseModel):
 
 
 class PaymentMethod(BaseModel):
+    """The payment method used for the payment, if available."""
+
     id: str
     """The ID of the payment method"""
 
@@ -109,11 +123,15 @@ class PaymentMethod(BaseModel):
 
 
 class Plan(BaseModel):
+    """The plan attached to this payment."""
+
     id: str
     """The internal ID of the plan."""
 
 
 class Product(BaseModel):
+    """The product this payment was made for"""
+
     id: str
     """The internal ID of the public product."""
 
@@ -125,6 +143,8 @@ class Product(BaseModel):
 
 
 class PromoCode(BaseModel):
+    """The promo code used for this payment."""
+
     id: str
     """The ID of the promo."""
 
@@ -145,6 +165,8 @@ class PromoCode(BaseModel):
 
 
 class User(BaseModel):
+    """The user that made this payment."""
+
     id: str
     """The internal ID of the user."""
 
@@ -159,6 +181,8 @@ class User(BaseModel):
 
 
 class Payment(BaseModel):
+    """An object representing a receipt for a membership."""
+
     id: str
     """The payment ID"""
 

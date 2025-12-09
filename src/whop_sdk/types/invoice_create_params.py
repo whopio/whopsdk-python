@@ -104,6 +104,8 @@ class CreateInvoiceInputWithProductAndMemberIDPlanCustomField(TypedDict, total=F
 
 
 class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
+    """The properties of the plan to create for this invoice."""
+
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
@@ -153,6 +155,11 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
 
 
 class CreateInvoiceInputWithProductAndMemberIDProduct(TypedDict, total=False):
+    """The properties of the product to create for this invoice.
+
+    Include this if you want to create an invoice for a new product.
+    """
+
     title: Required[str]
     """The title of the product."""
 
@@ -233,6 +240,8 @@ class CreateInvoiceInputWithProductAndEmailAddressPlanCustomField(TypedDict, tot
 
 
 class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
+    """The properties of the plan to create for this invoice."""
+
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
@@ -282,6 +291,11 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
 
 
 class CreateInvoiceInputWithProductAndEmailAddressProduct(TypedDict, total=False):
+    """The properties of the product to create for this invoice.
+
+    Include this if you want to create an invoice for a new product.
+    """
+
     title: Required[str]
     """The title of the product."""
 
@@ -362,6 +376,8 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField(TypedDict, total
 
 
 class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
+    """The properties of the plan to create for this invoice."""
+
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
@@ -483,6 +499,8 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField(TypedDict, t
 
 
 class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False):
+    """The properties of the plan to create for this invoice."""
+
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 

@@ -11,6 +11,8 @@ __all__ = ["Membership", "Company", "Member", "Plan", "Product", "PromoCode", "U
 
 
 class Company(BaseModel):
+    """The Company this Membership belongs to."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -19,16 +21,22 @@ class Company(BaseModel):
 
 
 class Member(BaseModel):
+    """The Member that this Membership belongs to."""
+
     id: str
     """The ID of the member"""
 
 
 class Plan(BaseModel):
+    """The Plan this Membership is for."""
+
     id: str
     """The internal ID of the plan."""
 
 
 class Product(BaseModel):
+    """The Product this Membership grants access to."""
+
     id: str
     """The internal ID of the public product."""
 
@@ -37,11 +45,15 @@ class Product(BaseModel):
 
 
 class PromoCode(BaseModel):
+    """The Promo Code that is currently applied to this Membership."""
+
     id: str
     """The ID of the promo."""
 
 
 class User(BaseModel):
+    """The user this membership belongs to"""
+
     id: str
     """The internal ID of the user."""
 
@@ -53,6 +65,10 @@ class User(BaseModel):
 
 
 class Membership(BaseModel):
+    """
+    A membership represents a purchase between a User and a Company for a specific Product.
+    """
+
     id: str
     """The ID of the membership"""
 

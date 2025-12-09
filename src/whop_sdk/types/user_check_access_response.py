@@ -7,6 +7,8 @@ __all__ = ["UserCheckAccessResponse"]
 
 
 class UserCheckAccessResponse(BaseModel):
+    """The result of a has access check for the developer API"""
+
     access_level: AccessLevel
     """The permission level of the user"""
 

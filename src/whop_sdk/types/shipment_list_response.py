@@ -12,11 +12,15 @@ __all__ = ["ShipmentListResponse", "Payment"]
 
 
 class Payment(BaseModel):
+    """The payment of the shipment"""
+
     id: str
     """The payment ID"""
 
 
 class ShipmentListResponse(BaseModel):
+    """A shipment"""
+
     id: str
     """The ID of the shipment"""
 

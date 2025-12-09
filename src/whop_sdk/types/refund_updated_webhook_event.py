@@ -26,6 +26,8 @@ __all__ = [
 
 
 class DataPaymentMember(BaseModel):
+    """The member attached to this payment."""
+
     id: str
     """The ID of the member"""
 
@@ -34,6 +36,8 @@ class DataPaymentMember(BaseModel):
 
 
 class DataPaymentMembership(BaseModel):
+    """The membership attached to this payment."""
+
     id: str
     """The internal ID of the membership."""
 
@@ -42,6 +46,8 @@ class DataPaymentMembership(BaseModel):
 
 
 class DataPaymentUser(BaseModel):
+    """The user that made this payment."""
+
     id: str
     """The internal ID of the user."""
 
@@ -56,6 +62,8 @@ class DataPaymentUser(BaseModel):
 
 
 class DataPayment(BaseModel):
+    """The payment associated with the refund."""
+
     id: str
     """The payment ID"""
 
@@ -103,6 +111,8 @@ class DataPayment(BaseModel):
 
 
 class Data(BaseModel):
+    """An object representing a refund made on a payment."""
+
     id: str
     """The ID of the refund."""
 

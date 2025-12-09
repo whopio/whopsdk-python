@@ -43,6 +43,7 @@ from .resources import (
     transfers,
     app_builds,
     experiences,
+    fee_markups,
     forum_posts,
     memberships,
     promo_codes,
@@ -113,6 +114,7 @@ class Whop(SyncAPIClient):
     account_links: account_links.AccountLinksResource
     setup_intents: setup_intents.SetupIntentsResource
     payment_methods: payment_methods.PaymentMethodsResource
+    fee_markups: fee_markups.FeeMarkupsResource
     with_raw_response: WhopWithRawResponse
     with_streaming_response: WhopWithStreamedResponse
 
@@ -224,6 +226,7 @@ class Whop(SyncAPIClient):
         self.account_links = account_links.AccountLinksResource(self)
         self.setup_intents = setup_intents.SetupIntentsResource(self)
         self.payment_methods = payment_methods.PaymentMethodsResource(self)
+        self.fee_markups = fee_markups.FeeMarkupsResource(self)
         self.with_raw_response = WhopWithRawResponse(self)
         self.with_streaming_response = WhopWithStreamedResponse(self)
 
@@ -377,6 +380,7 @@ class AsyncWhop(AsyncAPIClient):
     account_links: account_links.AsyncAccountLinksResource
     setup_intents: setup_intents.AsyncSetupIntentsResource
     payment_methods: payment_methods.AsyncPaymentMethodsResource
+    fee_markups: fee_markups.AsyncFeeMarkupsResource
     with_raw_response: AsyncWhopWithRawResponse
     with_streaming_response: AsyncWhopWithStreamedResponse
 
@@ -488,6 +492,7 @@ class AsyncWhop(AsyncAPIClient):
         self.account_links = account_links.AsyncAccountLinksResource(self)
         self.setup_intents = setup_intents.AsyncSetupIntentsResource(self)
         self.payment_methods = payment_methods.AsyncPaymentMethodsResource(self)
+        self.fee_markups = fee_markups.AsyncFeeMarkupsResource(self)
         self.with_raw_response = AsyncWhopWithRawResponse(self)
         self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
 
@@ -645,6 +650,7 @@ class WhopWithRawResponse:
         self.account_links = account_links.AccountLinksResourceWithRawResponse(client.account_links)
         self.setup_intents = setup_intents.SetupIntentsResourceWithRawResponse(client.setup_intents)
         self.payment_methods = payment_methods.PaymentMethodsResourceWithRawResponse(client.payment_methods)
+        self.fee_markups = fee_markups.FeeMarkupsResourceWithRawResponse(client.fee_markups)
 
 
 class AsyncWhopWithRawResponse:
@@ -693,6 +699,7 @@ class AsyncWhopWithRawResponse:
         self.account_links = account_links.AsyncAccountLinksResourceWithRawResponse(client.account_links)
         self.setup_intents = setup_intents.AsyncSetupIntentsResourceWithRawResponse(client.setup_intents)
         self.payment_methods = payment_methods.AsyncPaymentMethodsResourceWithRawResponse(client.payment_methods)
+        self.fee_markups = fee_markups.AsyncFeeMarkupsResourceWithRawResponse(client.fee_markups)
 
 
 class WhopWithStreamedResponse:
@@ -741,6 +748,7 @@ class WhopWithStreamedResponse:
         self.account_links = account_links.AccountLinksResourceWithStreamingResponse(client.account_links)
         self.setup_intents = setup_intents.SetupIntentsResourceWithStreamingResponse(client.setup_intents)
         self.payment_methods = payment_methods.PaymentMethodsResourceWithStreamingResponse(client.payment_methods)
+        self.fee_markups = fee_markups.FeeMarkupsResourceWithStreamingResponse(client.fee_markups)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -793,6 +801,7 @@ class AsyncWhopWithStreamedResponse:
         self.account_links = account_links.AsyncAccountLinksResourceWithStreamingResponse(client.account_links)
         self.setup_intents = setup_intents.AsyncSetupIntentsResourceWithStreamingResponse(client.setup_intents)
         self.payment_methods = payment_methods.AsyncPaymentMethodsResourceWithStreamingResponse(client.payment_methods)
+        self.fee_markups = fee_markups.AsyncFeeMarkupsResourceWithStreamingResponse(client.fee_markups)
 
 
 Client = Whop

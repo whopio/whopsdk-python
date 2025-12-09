@@ -12,6 +12,8 @@ __all__ = ["MemberListResponse", "User"]
 
 
 class User(BaseModel):
+    """The user for this member, if any."""
+
     id: str
     """The internal ID of the user account."""
 
@@ -26,6 +28,11 @@ class User(BaseModel):
 
 
 class MemberListResponse(BaseModel):
+    """An object representing a connection between a creator and a user/company_buyer.
+
+    This type should only be made visible to the user/company_buyer who is a part of the connection.
+    """
+
     id: str
     """The ID of the member"""
 

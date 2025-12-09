@@ -13,6 +13,8 @@ __all__ = ["PromoCodeListResponse", "Product"]
 
 
 class Product(BaseModel):
+    """The product this promo code applies to"""
+
     id: str
     """The internal ID of the public product."""
 
@@ -21,6 +23,8 @@ class Product(BaseModel):
 
 
 class PromoCodeListResponse(BaseModel):
+    """An object representing a promo code for a plan."""
+
     id: str
     """The ID of the promo."""
 

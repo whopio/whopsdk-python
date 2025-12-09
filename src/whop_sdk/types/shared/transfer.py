@@ -12,6 +12,8 @@ __all__ = ["Transfer", "Destination", "DestinationUser", "DestinationCompany", "
 
 
 class DestinationUser(BaseModel):
+    """An object representing a (sanitized) user of the site."""
+
     id: str
     """The internal ID of the user."""
 
@@ -26,6 +28,8 @@ class DestinationUser(BaseModel):
 
 
 class DestinationCompany(BaseModel):
+    """An object representing a (sanitized) company."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -45,6 +49,8 @@ Destination: TypeAlias = Annotated[
 
 
 class OriginUser(BaseModel):
+    """An object representing a (sanitized) user of the site."""
+
     id: str
     """The internal ID of the user."""
 
@@ -59,6 +65,8 @@ class OriginUser(BaseModel):
 
 
 class OriginCompany(BaseModel):
+    """An object representing a (sanitized) company."""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -78,6 +86,8 @@ Origin: TypeAlias = Annotated[
 
 
 class Transfer(BaseModel):
+    """Credit Transaction Transfer"""
+
     id: str
     """The unique identifier of the credit transaction transfer"""
 

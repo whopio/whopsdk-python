@@ -9,6 +9,8 @@ __all__ = ["SupportChannelListResponse", "CustomerUser"]
 
 
 class CustomerUser(BaseModel):
+    """The customer user if this is a support chat"""
+
     id: str
     """The internal ID of the user."""
 
@@ -20,6 +22,8 @@ class CustomerUser(BaseModel):
 
 
 class SupportChannelListResponse(BaseModel):
+    """Represents a DM channel"""
+
     id: str
     """The unique identifier for the entity"""
 

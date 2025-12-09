@@ -10,6 +10,8 @@ __all__ = ["AppListResponse", "Company", "Creator", "Icon"]
 
 
 class Company(BaseModel):
+    """The company that owns the app"""
+
     id: str
     """The ID (tag) of the company."""
 
@@ -18,6 +20,8 @@ class Company(BaseModel):
 
 
 class Creator(BaseModel):
+    """The creator of the app"""
+
     id: str
     """The internal ID of the user."""
 
@@ -29,6 +33,11 @@ class Creator(BaseModel):
 
 
 class Icon(BaseModel):
+    """The icon for the app.
+
+    This icon is shown on discovery, on the product page, on checkout, and as a default icon for the experiences.
+    """
+
     url: Optional[str] = None
     """This is the URL you use to render optimized attachments on the client.
 
@@ -37,6 +46,8 @@ class Icon(BaseModel):
 
 
 class AppListResponse(BaseModel):
+    """An object representing an app"""
+
     id: str
     """The ID of the app"""
 

@@ -47,6 +47,8 @@ class AppUpdateParams(TypedDict, total=False):
 
 
 class IconAttachmentInputWithDirectUploadID(TypedDict, total=False):
+    """Input for an attachment"""
+
     direct_upload_id: Required[str]
     """This ID should be used the first time you upload an attachment.
 
@@ -56,6 +58,8 @@ class IconAttachmentInputWithDirectUploadID(TypedDict, total=False):
 
 
 class IconAttachmentInputWithID(TypedDict, total=False):
+    """Input for an attachment"""
+
     id: Required[str]
     """The ID of an existing attachment object.
 

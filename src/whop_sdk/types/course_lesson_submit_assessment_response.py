@@ -9,6 +9,8 @@ __all__ = ["CourseLessonSubmitAssessmentResponse", "Lesson", "User"]
 
 
 class Lesson(BaseModel):
+    """The lesson this assessment result is for"""
+
     id: str
     """The ID of the lesson"""
 
@@ -17,6 +19,8 @@ class Lesson(BaseModel):
 
 
 class User(BaseModel):
+    """The user who took the assessment"""
+
     id: str
     """The internal ID of the user."""
 
@@ -28,6 +32,8 @@ class User(BaseModel):
 
 
 class CourseLessonSubmitAssessmentResponse(BaseModel):
+    """The result of a user's assessment attempt"""
+
     id: str
     """The ID of the assessment result"""
 

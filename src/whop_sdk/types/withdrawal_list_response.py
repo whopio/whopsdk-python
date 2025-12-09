@@ -14,6 +14,8 @@ __all__ = ["WithdrawalListResponse"]
 
 
 class WithdrawalListResponse(BaseModel):
+    """A withdrawal request."""
+
     id: str
     """Internal ID of the withdrawal request."""
 

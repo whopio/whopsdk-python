@@ -6,6 +6,8 @@ __all__ = ["CourseChapterListResponse"]
 
 
 class CourseChapterListResponse(BaseModel):
+    """A chapter from the courses app"""
+
     id: str
     """The ID of the chapter. Looks like chap_XXX"""
 
