@@ -27,6 +27,9 @@ class ChapterLessonVideoAsset(BaseModel):
     duration_seconds: Optional[int] = None
     """The duration of the video in seconds"""
 
+    signed_playback_id: Optional[str] = None
+    """The signed playback ID of the Mux asset"""
+
     signed_thumbnail_playback_token: Optional[str] = None
     """The signed thumbnail playback token of the Mux asset"""
 
