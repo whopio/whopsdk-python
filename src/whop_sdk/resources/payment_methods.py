@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Any, Union, Optional, cast
 from datetime import datetime
 
 import httpx
@@ -83,18 +83,23 @@ class PaymentMethodsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._get(
-            f"/payment_methods/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
+        return cast(
+            PaymentMethodRetrieveResponse,
+            self._get(
+                f"/payment_methods/{id}",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform(
+                        {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
+                    ),
                 ),
+                cast_to=cast(
+                    Any, PaymentMethodRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=PaymentMethodRetrieveResponse,
         )
 
     def list(
@@ -173,7 +178,9 @@ class PaymentMethodsResource(SyncAPIResource):
                     payment_method_list_params.PaymentMethodListParams,
                 ),
             ),
-            model=PaymentMethodListResponse,
+            model=cast(
+                Any, PaymentMethodListResponse
+            ),  # Union types cannot be passed in as arguments in the type system
         )
 
 
@@ -233,18 +240,23 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._get(
-            f"/payment_methods/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
+        return cast(
+            PaymentMethodRetrieveResponse,
+            await self._get(
+                f"/payment_methods/{id}",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform(
+                        {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
+                    ),
                 ),
+                cast_to=cast(
+                    Any, PaymentMethodRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=PaymentMethodRetrieveResponse,
         )
 
     def list(
@@ -323,7 +335,9 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
                     payment_method_list_params.PaymentMethodListParams,
                 ),
             ),
-            model=PaymentMethodListResponse,
+            model=cast(
+                Any, PaymentMethodListResponse
+            ),  # Union types cannot be passed in as arguments in the type system
         )
 
 

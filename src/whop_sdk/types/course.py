@@ -8,7 +8,27 @@ from .languages import Languages
 from .lesson_types import LessonTypes
 from .course_visibilities import CourseVisibilities
 
-__all__ = ["Course", "Chapter", "ChapterLesson", "Thumbnail"]
+__all__ = ["Course", "Chapter", "ChapterLesson", "ChapterLessonThumbnail", "ChapterLessonVideoAsset", "Thumbnail"]
+
+
+class ChapterLessonThumbnail(BaseModel):
+    """The thumbnail for the lesson"""
+
+    url: Optional[str] = None
+    """This is the URL you use to render optimized attachments on the client.
+
+    This should be used for apps.
+    """
+
+
+class ChapterLessonVideoAsset(BaseModel):
+    """The associated Mux asset for video lessons"""
+
+    duration_seconds: Optional[int] = None
+    """The duration of the video in seconds"""
+
+    signed_thumbnail_playback_token: Optional[str] = None
+    """The signed thumbnail playback token of the Mux asset"""
 
 
 class ChapterLesson(BaseModel):
@@ -23,8 +43,14 @@ class ChapterLesson(BaseModel):
     order: int
     """The order of the lesson within its chapter"""
 
+    thumbnail: Optional[ChapterLessonThumbnail] = None
+    """The thumbnail for the lesson"""
+
     title: str
     """The title of the lesson"""
+
+    video_asset: Optional[ChapterLessonVideoAsset] = None
+    """The associated Mux asset for video lessons"""
 
 
 class Chapter(BaseModel):
