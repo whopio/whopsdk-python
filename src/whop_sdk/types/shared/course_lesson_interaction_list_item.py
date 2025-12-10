@@ -5,7 +5,14 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["CourseLessonInteractionListItem", "Lesson", "User"]
+__all__ = ["CourseLessonInteractionListItem", "Lesson", "LessonChapter", "User"]
+
+
+class LessonChapter(BaseModel):
+    """The chapter this lesson belongs to"""
+
+    id: str
+    """The ID of the chapter. Looks like chap_XXX"""
 
 
 class Lesson(BaseModel):
@@ -13,6 +20,9 @@ class Lesson(BaseModel):
 
     id: str
     """The ID of the lesson"""
+
+    chapter: LessonChapter
+    """The chapter this lesson belongs to"""
 
     title: str
     """The title of the lesson"""

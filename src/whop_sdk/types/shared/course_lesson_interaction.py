@@ -5,7 +5,7 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["CourseLessonInteraction", "Course", "CourseExperience", "Lesson", "User"]
+__all__ = ["CourseLessonInteraction", "Course", "CourseExperience", "Lesson", "LessonChapter", "User"]
 
 
 class CourseExperience(BaseModel):
@@ -28,11 +28,21 @@ class Course(BaseModel):
     """The title of the course"""
 
 
+class LessonChapter(BaseModel):
+    """The chapter this lesson belongs to"""
+
+    id: str
+    """The ID of the chapter. Looks like chap_XXX"""
+
+
 class Lesson(BaseModel):
     """The lesson this interaction is for"""
 
     id: str
     """The ID of the lesson"""
+
+    chapter: LessonChapter
+    """The chapter this lesson belongs to"""
 
     title: str
     """The title of the lesson"""
