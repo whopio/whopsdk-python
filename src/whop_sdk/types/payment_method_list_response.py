@@ -1,19 +1,42 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
 from .card_brands import CardBrands
 from .payment_method_types import PaymentMethodTypes
 
-__all__ = ["PaymentMethodListResponse", "Card"]
+__all__ = [
+    "PaymentMethodListResponse",
+    "BasePaymentMethod",
+    "CardPaymentMethod",
+    "CardPaymentMethodCard",
+    "UsBankAccountPaymentMethod",
+    "UsBankAccountPaymentMethodUsBankAccount",
+]
 
 
-class Card(BaseModel):
-    """
-    The card data associated with the payment method, if its a debit or credit card.
-    """
+class BasePaymentMethod(BaseModel):
+    """A payment method with no additional properties"""
+
+    id: str
+    """The ID of the payment method"""
+
+    created_at: datetime
+    """When the payment method was created"""
+
+    payment_method_type: PaymentMethodTypes
+    """The type of the payment method"""
+
+    typename: Literal["BasePaymentMethod"]
+    """The typename of this object"""
+
+
+class CardPaymentMethodCard(BaseModel):
+    """The card details associated with this payment method"""
 
     brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
@@ -28,22 +51,57 @@ class Card(BaseModel):
     """Last four digits of the card."""
 
 
-class PaymentMethodListResponse(BaseModel):
-    """A stored payment method used to process payments.
-
-    This could be a credit/debit card, bank account, PayPal wallet, etc.
-    """
+class CardPaymentMethod(BaseModel):
+    """The card for the payment method"""
 
     id: str
     """The ID of the payment method"""
 
-    card: Optional[Card] = None
-    """
-    The card data associated with the payment method, if its a debit or credit card.
-    """
+    card: CardPaymentMethodCard
+    """The card details associated with this payment method"""
 
     created_at: datetime
-    """The date and time the payment method was created"""
+    """When the payment method was created"""
 
     payment_method_type: PaymentMethodTypes
-    """The payment method type of the payment method"""
+    """The type of the payment method"""
+
+    typename: Literal["CardPaymentMethod"]
+    """The typename of this object"""
+
+
+class UsBankAccountPaymentMethodUsBankAccount(BaseModel):
+    """The bank details associated with this payment method"""
+
+    account_type: str
+    """The type of account"""
+
+    bank_name: str
+    """The name of the bank"""
+
+    last4: str
+    """The last 4 digits of the account number"""
+
+
+class UsBankAccountPaymentMethod(BaseModel):
+    """The bank account for the payment method"""
+
+    id: str
+    """The ID of the payment method"""
+
+    created_at: datetime
+    """When the payment method was created"""
+
+    payment_method_type: PaymentMethodTypes
+    """The type of the payment method"""
+
+    typename: Literal["UsBankAccountPaymentMethod"]
+    """The typename of this object"""
+
+    us_bank_account: UsBankAccountPaymentMethodUsBankAccount
+    """The bank details associated with this payment method"""
+
+
+PaymentMethodListResponse: TypeAlias = Annotated[
+    Union[BasePaymentMethod, CardPaymentMethod, UsBankAccountPaymentMethod], PropertyInfo(discriminator="typename")
+]
