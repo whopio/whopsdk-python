@@ -7,7 +7,16 @@ from .._utils import PropertyInfo
 from .._models import BaseModel
 from .shared.currency import Currency
 
-__all__ = ["LedgerAccountRetrieveResponse", "Balance", "Owner", "OwnerUser", "OwnerCompany"]
+__all__ = [
+    "LedgerAccountRetrieveResponse",
+    "Balance",
+    "Owner",
+    "OwnerUser",
+    "OwnerCompany",
+    "PayoutAccountDetails",
+    "PayoutAccountDetailsAddress",
+    "PayoutAccountDetailsBusinessRepresentative",
+]
 
 
 class Balance(BaseModel):
@@ -61,6 +70,57 @@ class OwnerCompany(BaseModel):
 Owner: TypeAlias = Annotated[Union[Optional[OwnerUser], Optional[OwnerCompany]], PropertyInfo(discriminator="typename")]
 
 
+class PayoutAccountDetailsAddress(BaseModel):
+    """The physical address associated with this payout account"""
+
+    city: Optional[str] = None
+    """The city of the address."""
+
+    country: Optional[str] = None
+    """The country of the address."""
+
+    line1: Optional[str] = None
+    """The line 1 of the address."""
+
+    line2: Optional[str] = None
+    """The line 2 of the address."""
+
+    postal_code: Optional[str] = None
+    """The postal code of the address."""
+
+    state: Optional[str] = None
+    """The state of the address."""
+
+
+class PayoutAccountDetailsBusinessRepresentative(BaseModel):
+    """The business representative for this payout account"""
+
+    first_name: Optional[str] = None
+    """The first name of the business representative."""
+
+    last_name: Optional[str] = None
+    """The last name of the business representative."""
+
+    middle_name: Optional[str] = None
+    """The middle name of the business representative."""
+
+
+class PayoutAccountDetails(BaseModel):
+    """The payout account associated with the LedgerAccount, if any."""
+
+    id: str
+    """Unique identifier for the object"""
+
+    address: Optional[PayoutAccountDetailsAddress] = None
+    """The physical address associated with this payout account"""
+
+    business_name: Optional[str] = None
+    """The company's legal name"""
+
+    business_representative: Optional[PayoutAccountDetailsBusinessRepresentative] = None
+    """The business representative for this payout account"""
+
+
 class LedgerAccountRetrieveResponse(BaseModel):
     """Represents a LedgerAccount."""
 
@@ -96,6 +156,9 @@ class LedgerAccountRetrieveResponse(BaseModel):
 
     payments_approval_status: Optional[Literal["pending", "approved", "monitoring", "rejected"]] = None
     """The different approval statuses an account can have."""
+
+    payout_account_details: Optional[PayoutAccountDetails] = None
+    """The payout account associated with the LedgerAccount, if any."""
 
     transfer_fee: Optional[float] = None
     """The fee for transfers, if applicable."""

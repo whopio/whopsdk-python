@@ -56,6 +56,7 @@ class LedgerAccountsResource(SyncAPIResource):
         Required permissions:
 
         - `company:balance:read`
+        - `payout:account:read`
 
         Args:
           extra_headers: Send extra headers
@@ -114,6 +115,7 @@ class AsyncLedgerAccountsResource(AsyncAPIResource):
         Required permissions:
 
         - `company:balance:read`
+        - `payout:account:read`
 
         Args:
           extra_headers: Send extra headers
