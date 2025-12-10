@@ -129,6 +129,7 @@ class TestCompanies:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         company = client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
+            banner_image={"direct_upload_id": "direct_upload_id"},
             logo={"direct_upload_id": "direct_upload_id"},
             send_customer_emails=True,
             title="title",
@@ -331,6 +332,7 @@ class TestAsyncCompanies:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
+            banner_image={"direct_upload_id": "direct_upload_id"},
             logo={"direct_upload_id": "direct_upload_id"},
             send_customer_emails=True,
             title="title",
