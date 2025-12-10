@@ -12,7 +12,7 @@ __all__ = ["WithdrawalCreateParams"]
 
 class WithdrawalCreateParams(TypedDict, total=False):
     amount: Required[float]
-    """The amount to withdraw"""
+    """The amount to withdraw in the specified currency"""
 
     company_id: Required[str]
     """The ID of the company to withdraw from."""
@@ -21,4 +21,4 @@ class WithdrawalCreateParams(TypedDict, total=False):
     """The currency that is being withdrawn."""
 
     payout_method_id: Optional[str]
-    """The ID of the payout token to use for the withdrawal."""
+    """The ID of the payout method to use for the withdrawal."""

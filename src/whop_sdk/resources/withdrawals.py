@@ -72,13 +72,13 @@ class WithdrawalsResource(SyncAPIResource):
         - `payout:destination:read`
 
         Args:
-          amount: The amount to withdraw
+          amount: The amount to withdraw in the specified currency
 
           company_id: The ID of the company to withdraw from.
 
           currency: The currency that is being withdrawn.
 
-          payout_method_id: The ID of the payout token to use for the withdrawal.
+          payout_method_id: The ID of the payout method to use for the withdrawal.
 
           extra_headers: Send extra headers
 
@@ -262,13 +262,13 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         - `payout:destination:read`
 
         Args:
-          amount: The amount to withdraw
+          amount: The amount to withdraw in the specified currency
 
           company_id: The ID of the company to withdraw from.
 
           currency: The currency that is being withdrawn.
 
-          payout_method_id: The ID of the payout token to use for the withdrawal.
+          payout_method_id: The ID of the payout method to use for the withdrawal.
 
           extra_headers: Send extra headers
 
