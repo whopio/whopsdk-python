@@ -7,9 +7,9 @@ from datetime import datetime
 
 import httpx
 
-from ..types import withdrawal_list_params
+from ..types import withdrawal_list_params, withdrawal_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,8 +20,10 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.withdrawal_list_response import WithdrawalListResponse
+from ..types.withdrawal_create_response import WithdrawalCreateResponse
 from ..types.withdrawal_retrieve_response import WithdrawalRetrieveResponse
 
 __all__ = ["WithdrawalsResource", "AsyncWithdrawalsResource"]
@@ -46,6 +48,62 @@ class WithdrawalsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return WithdrawalsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        amount: float,
+        company_id: str,
+        currency: Currency,
+        payout_method_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WithdrawalCreateResponse:
+        """
+        Creates a withdrawal request for a ledger account
+
+        Required permissions:
+
+        - `payout:withdraw_funds`
+        - `payout:destination:read`
+
+        Args:
+          amount: The amount to withdraw
+
+          company_id: The ID of the company to withdraw from.
+
+          currency: The currency that is being withdrawn.
+
+          payout_method_id: The ID of the payout token to use for the withdrawal.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/withdrawals",
+            body=maybe_transform(
+                {
+                    "amount": amount,
+                    "company_id": company_id,
+                    "currency": currency,
+                    "payout_method_id": payout_method_id,
+                },
+                withdrawal_create_params.WithdrawalCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WithdrawalCreateResponse,
+        )
 
     def retrieve(
         self,
@@ -181,6 +239,62 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         """
         return AsyncWithdrawalsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        amount: float,
+        company_id: str,
+        currency: Currency,
+        payout_method_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WithdrawalCreateResponse:
+        """
+        Creates a withdrawal request for a ledger account
+
+        Required permissions:
+
+        - `payout:withdraw_funds`
+        - `payout:destination:read`
+
+        Args:
+          amount: The amount to withdraw
+
+          company_id: The ID of the company to withdraw from.
+
+          currency: The currency that is being withdrawn.
+
+          payout_method_id: The ID of the payout token to use for the withdrawal.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/withdrawals",
+            body=await async_maybe_transform(
+                {
+                    "amount": amount,
+                    "company_id": company_id,
+                    "currency": currency,
+                    "payout_method_id": payout_method_id,
+                },
+                withdrawal_create_params.WithdrawalCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WithdrawalCreateResponse,
+        )
+
     async def retrieve(
         self,
         id: str,
@@ -299,6 +413,9 @@ class WithdrawalsResourceWithRawResponse:
     def __init__(self, withdrawals: WithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
+        self.create = to_raw_response_wrapper(
+            withdrawals.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             withdrawals.retrieve,
         )
@@ -311,6 +428,9 @@ class AsyncWithdrawalsResourceWithRawResponse:
     def __init__(self, withdrawals: AsyncWithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
+        self.create = async_to_raw_response_wrapper(
+            withdrawals.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             withdrawals.retrieve,
         )
@@ -323,6 +443,9 @@ class WithdrawalsResourceWithStreamingResponse:
     def __init__(self, withdrawals: WithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
+        self.create = to_streamed_response_wrapper(
+            withdrawals.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             withdrawals.retrieve,
         )
@@ -335,6 +458,9 @@ class AsyncWithdrawalsResourceWithStreamingResponse:
     def __init__(self, withdrawals: AsyncWithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
+        self.create = async_to_streamed_response_wrapper(
+            withdrawals.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             withdrawals.retrieve,
         )

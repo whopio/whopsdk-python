@@ -8,7 +8,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import payment_list_params, payment_create_params, payment_refund_params
+from ..types import payment_list_params, payment_create_params, payment_refund_params, payment_list_fees_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -27,6 +27,7 @@ from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.payment_list_response import PaymentListResponse
 from ..types.shared.receipt_status import ReceiptStatus
+from ..types.payment_list_fees_response import PaymentListFeesResponse
 from ..types.shared.friendly_receipt_status import FriendlyReceiptStatus
 
 __all__ = ["PaymentsResource", "AsyncPaymentsResource"]
@@ -353,6 +354,68 @@ class PaymentsResource(SyncAPIResource):
                 ),
             ),
             model=PaymentListResponse,
+        )
+
+    def list_fees(
+        self,
+        id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[PaymentListFeesResponse]:
+        """
+        Lists fees for a payment
+
+        Required permissions:
+
+        - `payment:basic:read`
+
+        Args:
+          after: Returns the elements in the list that come after the specified cursor.
+
+          before: Returns the elements in the list that come before the specified cursor.
+
+          first: Returns the first _n_ elements from the list.
+
+          last: Returns the last _n_ elements from the list.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get_api_list(
+            f"/payments/{id}/fees",
+            page=SyncCursorPage[PaymentListFeesResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
+                    },
+                    payment_list_fees_params.PaymentListFeesParams,
+                ),
+            ),
+            model=PaymentListFeesResponse,
         )
 
     def refund(
@@ -812,6 +875,68 @@ class AsyncPaymentsResource(AsyncAPIResource):
             model=PaymentListResponse,
         )
 
+    def list_fees(
+        self,
+        id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[PaymentListFeesResponse, AsyncCursorPage[PaymentListFeesResponse]]:
+        """
+        Lists fees for a payment
+
+        Required permissions:
+
+        - `payment:basic:read`
+
+        Args:
+          after: Returns the elements in the list that come after the specified cursor.
+
+          before: Returns the elements in the list that come before the specified cursor.
+
+          first: Returns the first _n_ elements from the list.
+
+          last: Returns the last _n_ elements from the list.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get_api_list(
+            f"/payments/{id}/fees",
+            page=AsyncCursorPage[PaymentListFeesResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
+                    },
+                    payment_list_fees_params.PaymentListFeesParams,
+                ),
+            ),
+            model=PaymentListFeesResponse,
+        )
+
     async def refund(
         self,
         id: str,
@@ -961,6 +1086,9 @@ class PaymentsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             payments.list,
         )
+        self.list_fees = to_raw_response_wrapper(
+            payments.list_fees,
+        )
         self.refund = to_raw_response_wrapper(
             payments.refund,
         )
@@ -984,6 +1112,9 @@ class AsyncPaymentsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             payments.list,
+        )
+        self.list_fees = async_to_raw_response_wrapper(
+            payments.list_fees,
         )
         self.refund = async_to_raw_response_wrapper(
             payments.refund,
@@ -1009,6 +1140,9 @@ class PaymentsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             payments.list,
         )
+        self.list_fees = to_streamed_response_wrapper(
+            payments.list_fees,
+        )
         self.refund = to_streamed_response_wrapper(
             payments.refund,
         )
@@ -1032,6 +1166,9 @@ class AsyncPaymentsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             payments.list,
+        )
+        self.list_fees = async_to_streamed_response_wrapper(
+            payments.list_fees,
         )
         self.refund = async_to_streamed_response_wrapper(
             payments.refund,
