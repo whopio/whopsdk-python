@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.17 (2025-12-11)
+
+Full Changelog: [v0.0.17...v0.0.17](https://github.com/whopio/whopsdk-python/compare/v0.0.17...v0.0.17)
+
+### Features
+
+* **api:** api update ([a177e13](https://github.com/whopio/whopsdk-python/commit/a177e13936c34e38e9529fecdaabb116fd3ecb75))
+* **api:** api update ([6180832](https://github.com/whopio/whopsdk-python/commit/61808326611e6985fcc23c201378873d6f7d2b8d))
+
 ## 0.0.17 (2025-12-10)
 
 Full Changelog: [v0.0.16...v0.0.17](https://github.com/whopio/whopsdk-python/compare/v0.0.16...v0.0.17)
