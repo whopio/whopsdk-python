@@ -16,6 +16,12 @@ __all__ = [
     "CardPaymentMethodCard",
     "UsBankAccountPaymentMethod",
     "UsBankAccountPaymentMethodUsBankAccount",
+    "CashappPaymentMethod",
+    "CashappPaymentMethodCashapp",
+    "IdealPaymentMethod",
+    "IdealPaymentMethodIdeal",
+    "SepaDebitPaymentMethod",
+    "SepaDebitPaymentMethodSepaDebit",
 ]
 
 
@@ -102,6 +108,107 @@ class UsBankAccountPaymentMethod(BaseModel):
     """The bank details associated with this payment method"""
 
 
+class CashappPaymentMethodCashapp(BaseModel):
+    """The Cash App details associated with this payment method"""
+
+    buyer_id: Optional[str] = None
+    """A unique and immutable identifier assigned by Cash App to every buyer."""
+
+    cashtag: Optional[str] = None
+    """A public identifier for buyers using Cash App."""
+
+
+class CashappPaymentMethod(BaseModel):
+    """The Cash App details for the payment method"""
+
+    id: str
+    """The ID of the payment method"""
+
+    cashapp: CashappPaymentMethodCashapp
+    """The Cash App details associated with this payment method"""
+
+    created_at: datetime
+    """When the payment method was created"""
+
+    payment_method_type: PaymentMethodTypes
+    """The type of the payment method"""
+
+    typename: Literal["CashappPaymentMethod"]
+    """The typename of this object"""
+
+
+class IdealPaymentMethodIdeal(BaseModel):
+    """The iDEAL details associated with this payment method"""
+
+    bank: Optional[str] = None
+    """The customer's bank."""
+
+    bic: Optional[str] = None
+    """The Bank Identifier Code of the customer's bank."""
+
+
+class IdealPaymentMethod(BaseModel):
+    """The iDEAL details for the payment method"""
+
+    id: str
+    """The ID of the payment method"""
+
+    created_at: datetime
+    """When the payment method was created"""
+
+    ideal: IdealPaymentMethodIdeal
+    """The iDEAL details associated with this payment method"""
+
+    payment_method_type: PaymentMethodTypes
+    """The type of the payment method"""
+
+    typename: Literal["IdealPaymentMethod"]
+    """The typename of this object"""
+
+
+class SepaDebitPaymentMethodSepaDebit(BaseModel):
+    """The SEPA Direct Debit details associated with this payment method"""
+
+    bank_code: Optional[str] = None
+    """Bank code of the bank associated with the account."""
+
+    branch_code: Optional[str] = None
+    """Branch code of the bank associated with the account."""
+
+    country: Optional[str] = None
+    """Two-letter ISO code representing the country the bank account is located in."""
+
+    last4: Optional[str] = None
+    """Last four digits of the IBAN."""
+
+
+class SepaDebitPaymentMethod(BaseModel):
+    """The SEPA Direct Debit details for the payment method"""
+
+    id: str
+    """The ID of the payment method"""
+
+    created_at: datetime
+    """When the payment method was created"""
+
+    payment_method_type: PaymentMethodTypes
+    """The type of the payment method"""
+
+    sepa_debit: SepaDebitPaymentMethodSepaDebit
+    """The SEPA Direct Debit details associated with this payment method"""
+
+    typename: Literal["SepaDebitPaymentMethod"]
+    """The typename of this object"""
+
+
 PaymentMethodRetrieveResponse: TypeAlias = Annotated[
-    Union[BasePaymentMethod, CardPaymentMethod, UsBankAccountPaymentMethod], PropertyInfo(discriminator="typename")
+    Union[
+        BasePaymentMethod,
+        CardPaymentMethod,
+        UsBankAccountPaymentMethod,
+        CashappPaymentMethod,
+        IdealPaymentMethod,
+        SepaDebitPaymentMethod,
+    ],
+    PropertyInfo(discriminator="typename"),
 ]
