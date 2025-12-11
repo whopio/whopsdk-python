@@ -120,6 +120,9 @@ class PayoutAccountDetails(BaseModel):
     business_representative: Optional[PayoutAccountDetailsBusinessRepresentative] = None
     """The business representative for this payout account"""
 
+    phone: Optional[str] = None
+    """The business representative's phone"""
+
 
 class LedgerAccountRetrieveResponse(BaseModel):
     """Represents a LedgerAccount."""
