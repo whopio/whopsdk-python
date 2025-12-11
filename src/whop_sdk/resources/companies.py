@@ -151,6 +151,7 @@ class CompaniesResource(SyncAPIResource):
         self,
         id: str,
         *,
+        banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -172,6 +173,8 @@ class CompaniesResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
+          banner_image: The banner image for the company in png or jpeg format
+
           logo: The logo for the company in png, jpeg, or gif format
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
@@ -195,6 +198,7 @@ class CompaniesResource(SyncAPIResource):
             f"/companies/{id}",
             body=maybe_transform(
                 {
+                    "banner_image": banner_image,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
                     "title": title,
@@ -407,6 +411,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -428,6 +433,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
+          banner_image: The banner image for the company in png or jpeg format
+
           logo: The logo for the company in png, jpeg, or gif format
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
@@ -451,6 +458,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
             f"/companies/{id}",
             body=await async_maybe_transform(
                 {
+                    "banner_image": banner_image,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
                     "title": title,
