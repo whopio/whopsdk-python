@@ -16,6 +16,7 @@ from .refund_updated_webhook_event import RefundUpdatedWebhookEvent
 from .dispute_created_webhook_event import DisputeCreatedWebhookEvent
 from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent
+from .payment_created_webhook_event import PaymentCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
@@ -48,6 +49,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         WithdrawalCreatedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
         CourseLessonInteractionCompletedWebhookEvent,
+        PaymentCreatedWebhookEvent,
         PaymentSucceededWebhookEvent,
         PaymentFailedWebhookEvent,
         PaymentPendingWebhookEvent,
