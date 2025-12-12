@@ -95,6 +95,12 @@ class PayoutAccountDetailsAddress(BaseModel):
 class PayoutAccountDetailsBusinessRepresentative(BaseModel):
     """The business representative for this payout account"""
 
+    date_of_birth: Optional[str] = None
+    """
+    The date of birth of the business representative in ISO 8601 format
+    (YYYY-MM-DD).
+    """
+
     first_name: Optional[str] = None
     """The first name of the business representative."""
 
@@ -119,6 +125,9 @@ class PayoutAccountDetails(BaseModel):
 
     business_representative: Optional[PayoutAccountDetailsBusinessRepresentative] = None
     """The business representative for this payout account"""
+
+    email: Optional[str] = None
+    """The email address of the representative"""
 
     phone: Optional[str] = None
     """The business representative's phone"""
