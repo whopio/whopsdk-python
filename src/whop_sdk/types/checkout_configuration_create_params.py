@@ -202,6 +202,14 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     currency: Required[Currency]
     """The respective currency identifier for the plan."""
 
+    application_fee_amount: Optional[float]
+    """The application fee amount collected by the platform from this connected
+    account.
+
+    Must be less than the total payment amount. Only valid for connected accounts
+    with a parent company.
+    """
+
     billing_period: Optional[int]
     """The interval at which the plan charges (renewal plans)."""
 
