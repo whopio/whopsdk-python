@@ -40,6 +40,7 @@ class TestCheckoutConfigurations:
             plan={
                 "company_id": "biz_xxxxxxxxxxxxxx",
                 "currency": "usd",
+                "application_fee_amount": 6.9,
                 "billing_period": 42,
                 "custom_fields": [
                     {
@@ -363,6 +364,7 @@ class TestAsyncCheckoutConfigurations:
             plan={
                 "company_id": "biz_xxxxxxxxxxxxxx",
                 "currency": "usd",
+                "application_fee_amount": 6.9,
                 "billing_period": 42,
                 "custom_fields": [
                     {
