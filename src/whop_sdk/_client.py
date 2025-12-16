@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,50 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import (
-    apps,
-    plans,
-    users,
-    forums,
-    courses,
-    entries,
-    members,
-    refunds,
-    reviews,
-    disputes,
-    invoices,
-    messages,
-    payments,
-    products,
-    webhooks,
-    companies,
-    reactions,
-    shipments,
-    transfers,
-    app_builds,
-    experiences,
-    fee_markups,
-    forum_posts,
-    memberships,
-    promo_codes,
-    withdrawals,
-    access_tokens,
-    account_links,
-    chat_channels,
-    notifications,
-    setup_intents,
-    course_lessons,
-    payout_methods,
-    course_chapters,
-    course_students,
-    ledger_accounts,
-    payment_methods,
-    authorized_users,
-    support_channels,
-    checkout_configurations,
-    course_lesson_interactions,
-)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import WhopError, APIStatusError
 from ._base_client import (
@@ -72,54 +30,98 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import (
+        apps,
+        plans,
+        users,
+        forums,
+        courses,
+        entries,
+        members,
+        refunds,
+        reviews,
+        disputes,
+        invoices,
+        messages,
+        payments,
+        products,
+        companies,
+        reactions,
+        shipments,
+        transfers,
+        app_builds,
+        experiences,
+        fee_markups,
+        forum_posts,
+        memberships,
+        promo_codes,
+        withdrawals,
+        access_tokens,
+        account_links,
+        chat_channels,
+        notifications,
+        setup_intents,
+        course_lessons,
+        payout_methods,
+        course_chapters,
+        course_students,
+        ledger_accounts,
+        payment_methods,
+        authorized_users,
+        support_channels,
+        checkout_configurations,
+        course_lesson_interactions,
+    )
+    from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.plans import PlansResource, AsyncPlansResource
+    from .resources.users import UsersResource, AsyncUsersResource
+    from .resources.forums import ForumsResource, AsyncForumsResource
+    from .resources.courses import CoursesResource, AsyncCoursesResource
+    from .resources.entries import EntriesResource, AsyncEntriesResource
+    from .resources.members import MembersResource, AsyncMembersResource
+    from .resources.refunds import RefundsResource, AsyncRefundsResource
+    from .resources.reviews import ReviewsResource, AsyncReviewsResource
+    from .resources.disputes import DisputesResource, AsyncDisputesResource
+    from .resources.invoices import InvoicesResource, AsyncInvoicesResource
+    from .resources.messages import MessagesResource, AsyncMessagesResource
+    from .resources.payments import PaymentsResource, AsyncPaymentsResource
+    from .resources.products import ProductsResource, AsyncProductsResource
+    from .resources.webhooks import WebhooksResource, AsyncWebhooksResource
+    from .resources.companies import CompaniesResource, AsyncCompaniesResource
+    from .resources.reactions import ReactionsResource, AsyncReactionsResource
+    from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
+    from .resources.transfers import TransfersResource, AsyncTransfersResource
+    from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
+    from .resources.experiences import ExperiencesResource, AsyncExperiencesResource
+    from .resources.fee_markups import FeeMarkupsResource, AsyncFeeMarkupsResource
+    from .resources.forum_posts import ForumPostsResource, AsyncForumPostsResource
+    from .resources.memberships import MembershipsResource, AsyncMembershipsResource
+    from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
+    from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
+    from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
+    from .resources.account_links import AccountLinksResource, AsyncAccountLinksResource
+    from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
+    from .resources.notifications import NotificationsResource, AsyncNotificationsResource
+    from .resources.setup_intents import SetupIntentsResource, AsyncSetupIntentsResource
+    from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
+    from .resources.payout_methods import PayoutMethodsResource, AsyncPayoutMethodsResource
+    from .resources.course_chapters import CourseChaptersResource, AsyncCourseChaptersResource
+    from .resources.course_students import CourseStudentsResource, AsyncCourseStudentsResource
+    from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
+    from .resources.payment_methods import PaymentMethodsResource, AsyncPaymentMethodsResource
+    from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
+    from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
+    from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
+    from .resources.course_lesson_interactions import (
+        CourseLessonInteractionsResource,
+        AsyncCourseLessonInteractionsResource,
+    )
+
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Whop", "AsyncWhop", "Client", "AsyncClient"]
 
 
 class Whop(SyncAPIClient):
-    apps: apps.AppsResource
-    invoices: invoices.InvoicesResource
-    course_lesson_interactions: course_lesson_interactions.CourseLessonInteractionsResource
-    products: products.ProductsResource
-    companies: companies.CompaniesResource
-    webhooks: webhooks.WebhooksResource
-    plans: plans.PlansResource
-    entries: entries.EntriesResource
-    forum_posts: forum_posts.ForumPostsResource
-    transfers: transfers.TransfersResource
-    ledger_accounts: ledger_accounts.LedgerAccountsResource
-    memberships: memberships.MembershipsResource
-    authorized_users: authorized_users.AuthorizedUsersResource
-    app_builds: app_builds.AppBuildsResource
-    shipments: shipments.ShipmentsResource
-    checkout_configurations: checkout_configurations.CheckoutConfigurationsResource
-    messages: messages.MessagesResource
-    chat_channels: chat_channels.ChatChannelsResource
-    users: users.UsersResource
-    payments: payments.PaymentsResource
-    support_channels: support_channels.SupportChannelsResource
-    experiences: experiences.ExperiencesResource
-    reactions: reactions.ReactionsResource
-    members: members.MembersResource
-    forums: forums.ForumsResource
-    promo_codes: promo_codes.PromoCodesResource
-    courses: courses.CoursesResource
-    course_chapters: course_chapters.CourseChaptersResource
-    course_lessons: course_lessons.CourseLessonsResource
-    reviews: reviews.ReviewsResource
-    course_students: course_students.CourseStudentsResource
-    access_tokens: access_tokens.AccessTokensResource
-    notifications: notifications.NotificationsResource
-    disputes: disputes.DisputesResource
-    refunds: refunds.RefundsResource
-    withdrawals: withdrawals.WithdrawalsResource
-    account_links: account_links.AccountLinksResource
-    setup_intents: setup_intents.SetupIntentsResource
-    payment_methods: payment_methods.PaymentMethodsResource
-    fee_markups: fee_markups.FeeMarkupsResource
-    payout_methods: payout_methods.PayoutMethodsResource
-    with_raw_response: WhopWithRawResponse
-    with_streaming_response: WhopWithStreamedResponse
-
     # client options
     api_key: str
     webhook_key: str | None
@@ -189,49 +191,259 @@ class Whop(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.apps = apps.AppsResource(self)
-        self.invoices = invoices.InvoicesResource(self)
-        self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResource(self)
-        self.products = products.ProductsResource(self)
-        self.companies = companies.CompaniesResource(self)
-        self.webhooks = webhooks.WebhooksResource(self)
-        self.plans = plans.PlansResource(self)
-        self.entries = entries.EntriesResource(self)
-        self.forum_posts = forum_posts.ForumPostsResource(self)
-        self.transfers = transfers.TransfersResource(self)
-        self.ledger_accounts = ledger_accounts.LedgerAccountsResource(self)
-        self.memberships = memberships.MembershipsResource(self)
-        self.authorized_users = authorized_users.AuthorizedUsersResource(self)
-        self.app_builds = app_builds.AppBuildsResource(self)
-        self.shipments = shipments.ShipmentsResource(self)
-        self.checkout_configurations = checkout_configurations.CheckoutConfigurationsResource(self)
-        self.messages = messages.MessagesResource(self)
-        self.chat_channels = chat_channels.ChatChannelsResource(self)
-        self.users = users.UsersResource(self)
-        self.payments = payments.PaymentsResource(self)
-        self.support_channels = support_channels.SupportChannelsResource(self)
-        self.experiences = experiences.ExperiencesResource(self)
-        self.reactions = reactions.ReactionsResource(self)
-        self.members = members.MembersResource(self)
-        self.forums = forums.ForumsResource(self)
-        self.promo_codes = promo_codes.PromoCodesResource(self)
-        self.courses = courses.CoursesResource(self)
-        self.course_chapters = course_chapters.CourseChaptersResource(self)
-        self.course_lessons = course_lessons.CourseLessonsResource(self)
-        self.reviews = reviews.ReviewsResource(self)
-        self.course_students = course_students.CourseStudentsResource(self)
-        self.access_tokens = access_tokens.AccessTokensResource(self)
-        self.notifications = notifications.NotificationsResource(self)
-        self.disputes = disputes.DisputesResource(self)
-        self.refunds = refunds.RefundsResource(self)
-        self.withdrawals = withdrawals.WithdrawalsResource(self)
-        self.account_links = account_links.AccountLinksResource(self)
-        self.setup_intents = setup_intents.SetupIntentsResource(self)
-        self.payment_methods = payment_methods.PaymentMethodsResource(self)
-        self.fee_markups = fee_markups.FeeMarkupsResource(self)
-        self.payout_methods = payout_methods.PayoutMethodsResource(self)
-        self.with_raw_response = WhopWithRawResponse(self)
-        self.with_streaming_response = WhopWithStreamedResponse(self)
+    @cached_property
+    def apps(self) -> AppsResource:
+        from .resources.apps import AppsResource
+
+        return AppsResource(self)
+
+    @cached_property
+    def invoices(self) -> InvoicesResource:
+        from .resources.invoices import InvoicesResource
+
+        return InvoicesResource(self)
+
+    @cached_property
+    def course_lesson_interactions(self) -> CourseLessonInteractionsResource:
+        from .resources.course_lesson_interactions import CourseLessonInteractionsResource
+
+        return CourseLessonInteractionsResource(self)
+
+    @cached_property
+    def products(self) -> ProductsResource:
+        from .resources.products import ProductsResource
+
+        return ProductsResource(self)
+
+    @cached_property
+    def companies(self) -> CompaniesResource:
+        from .resources.companies import CompaniesResource
+
+        return CompaniesResource(self)
+
+    @cached_property
+    def webhooks(self) -> WebhooksResource:
+        from .resources.webhooks import WebhooksResource
+
+        return WebhooksResource(self)
+
+    @cached_property
+    def plans(self) -> PlansResource:
+        from .resources.plans import PlansResource
+
+        return PlansResource(self)
+
+    @cached_property
+    def entries(self) -> EntriesResource:
+        from .resources.entries import EntriesResource
+
+        return EntriesResource(self)
+
+    @cached_property
+    def forum_posts(self) -> ForumPostsResource:
+        from .resources.forum_posts import ForumPostsResource
+
+        return ForumPostsResource(self)
+
+    @cached_property
+    def transfers(self) -> TransfersResource:
+        from .resources.transfers import TransfersResource
+
+        return TransfersResource(self)
+
+    @cached_property
+    def ledger_accounts(self) -> LedgerAccountsResource:
+        from .resources.ledger_accounts import LedgerAccountsResource
+
+        return LedgerAccountsResource(self)
+
+    @cached_property
+    def memberships(self) -> MembershipsResource:
+        from .resources.memberships import MembershipsResource
+
+        return MembershipsResource(self)
+
+    @cached_property
+    def authorized_users(self) -> AuthorizedUsersResource:
+        from .resources.authorized_users import AuthorizedUsersResource
+
+        return AuthorizedUsersResource(self)
+
+    @cached_property
+    def app_builds(self) -> AppBuildsResource:
+        from .resources.app_builds import AppBuildsResource
+
+        return AppBuildsResource(self)
+
+    @cached_property
+    def shipments(self) -> ShipmentsResource:
+        from .resources.shipments import ShipmentsResource
+
+        return ShipmentsResource(self)
+
+    @cached_property
+    def checkout_configurations(self) -> CheckoutConfigurationsResource:
+        from .resources.checkout_configurations import CheckoutConfigurationsResource
+
+        return CheckoutConfigurationsResource(self)
+
+    @cached_property
+    def messages(self) -> MessagesResource:
+        from .resources.messages import MessagesResource
+
+        return MessagesResource(self)
+
+    @cached_property
+    def chat_channels(self) -> ChatChannelsResource:
+        from .resources.chat_channels import ChatChannelsResource
+
+        return ChatChannelsResource(self)
+
+    @cached_property
+    def users(self) -> UsersResource:
+        from .resources.users import UsersResource
+
+        return UsersResource(self)
+
+    @cached_property
+    def payments(self) -> PaymentsResource:
+        from .resources.payments import PaymentsResource
+
+        return PaymentsResource(self)
+
+    @cached_property
+    def support_channels(self) -> SupportChannelsResource:
+        from .resources.support_channels import SupportChannelsResource
+
+        return SupportChannelsResource(self)
+
+    @cached_property
+    def experiences(self) -> ExperiencesResource:
+        from .resources.experiences import ExperiencesResource
+
+        return ExperiencesResource(self)
+
+    @cached_property
+    def reactions(self) -> ReactionsResource:
+        from .resources.reactions import ReactionsResource
+
+        return ReactionsResource(self)
+
+    @cached_property
+    def members(self) -> MembersResource:
+        from .resources.members import MembersResource
+
+        return MembersResource(self)
+
+    @cached_property
+    def forums(self) -> ForumsResource:
+        from .resources.forums import ForumsResource
+
+        return ForumsResource(self)
+
+    @cached_property
+    def promo_codes(self) -> PromoCodesResource:
+        from .resources.promo_codes import PromoCodesResource
+
+        return PromoCodesResource(self)
+
+    @cached_property
+    def courses(self) -> CoursesResource:
+        from .resources.courses import CoursesResource
+
+        return CoursesResource(self)
+
+    @cached_property
+    def course_chapters(self) -> CourseChaptersResource:
+        from .resources.course_chapters import CourseChaptersResource
+
+        return CourseChaptersResource(self)
+
+    @cached_property
+    def course_lessons(self) -> CourseLessonsResource:
+        from .resources.course_lessons import CourseLessonsResource
+
+        return CourseLessonsResource(self)
+
+    @cached_property
+    def reviews(self) -> ReviewsResource:
+        from .resources.reviews import ReviewsResource
+
+        return ReviewsResource(self)
+
+    @cached_property
+    def course_students(self) -> CourseStudentsResource:
+        from .resources.course_students import CourseStudentsResource
+
+        return CourseStudentsResource(self)
+
+    @cached_property
+    def access_tokens(self) -> AccessTokensResource:
+        from .resources.access_tokens import AccessTokensResource
+
+        return AccessTokensResource(self)
+
+    @cached_property
+    def notifications(self) -> NotificationsResource:
+        from .resources.notifications import NotificationsResource
+
+        return NotificationsResource(self)
+
+    @cached_property
+    def disputes(self) -> DisputesResource:
+        from .resources.disputes import DisputesResource
+
+        return DisputesResource(self)
+
+    @cached_property
+    def refunds(self) -> RefundsResource:
+        from .resources.refunds import RefundsResource
+
+        return RefundsResource(self)
+
+    @cached_property
+    def withdrawals(self) -> WithdrawalsResource:
+        from .resources.withdrawals import WithdrawalsResource
+
+        return WithdrawalsResource(self)
+
+    @cached_property
+    def account_links(self) -> AccountLinksResource:
+        from .resources.account_links import AccountLinksResource
+
+        return AccountLinksResource(self)
+
+    @cached_property
+    def setup_intents(self) -> SetupIntentsResource:
+        from .resources.setup_intents import SetupIntentsResource
+
+        return SetupIntentsResource(self)
+
+    @cached_property
+    def payment_methods(self) -> PaymentMethodsResource:
+        from .resources.payment_methods import PaymentMethodsResource
+
+        return PaymentMethodsResource(self)
+
+    @cached_property
+    def fee_markups(self) -> FeeMarkupsResource:
+        from .resources.fee_markups import FeeMarkupsResource
+
+        return FeeMarkupsResource(self)
+
+    @cached_property
+    def payout_methods(self) -> PayoutMethodsResource:
+        from .resources.payout_methods import PayoutMethodsResource
+
+        return PayoutMethodsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> WhopWithRawResponse:
+        return WhopWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> WhopWithStreamedResponse:
+        return WhopWithStreamedResponse(self)
 
     @property
     @override
@@ -344,50 +556,6 @@ class Whop(SyncAPIClient):
 
 
 class AsyncWhop(AsyncAPIClient):
-    apps: apps.AsyncAppsResource
-    invoices: invoices.AsyncInvoicesResource
-    course_lesson_interactions: course_lesson_interactions.AsyncCourseLessonInteractionsResource
-    products: products.AsyncProductsResource
-    companies: companies.AsyncCompaniesResource
-    webhooks: webhooks.AsyncWebhooksResource
-    plans: plans.AsyncPlansResource
-    entries: entries.AsyncEntriesResource
-    forum_posts: forum_posts.AsyncForumPostsResource
-    transfers: transfers.AsyncTransfersResource
-    ledger_accounts: ledger_accounts.AsyncLedgerAccountsResource
-    memberships: memberships.AsyncMembershipsResource
-    authorized_users: authorized_users.AsyncAuthorizedUsersResource
-    app_builds: app_builds.AsyncAppBuildsResource
-    shipments: shipments.AsyncShipmentsResource
-    checkout_configurations: checkout_configurations.AsyncCheckoutConfigurationsResource
-    messages: messages.AsyncMessagesResource
-    chat_channels: chat_channels.AsyncChatChannelsResource
-    users: users.AsyncUsersResource
-    payments: payments.AsyncPaymentsResource
-    support_channels: support_channels.AsyncSupportChannelsResource
-    experiences: experiences.AsyncExperiencesResource
-    reactions: reactions.AsyncReactionsResource
-    members: members.AsyncMembersResource
-    forums: forums.AsyncForumsResource
-    promo_codes: promo_codes.AsyncPromoCodesResource
-    courses: courses.AsyncCoursesResource
-    course_chapters: course_chapters.AsyncCourseChaptersResource
-    course_lessons: course_lessons.AsyncCourseLessonsResource
-    reviews: reviews.AsyncReviewsResource
-    course_students: course_students.AsyncCourseStudentsResource
-    access_tokens: access_tokens.AsyncAccessTokensResource
-    notifications: notifications.AsyncNotificationsResource
-    disputes: disputes.AsyncDisputesResource
-    refunds: refunds.AsyncRefundsResource
-    withdrawals: withdrawals.AsyncWithdrawalsResource
-    account_links: account_links.AsyncAccountLinksResource
-    setup_intents: setup_intents.AsyncSetupIntentsResource
-    payment_methods: payment_methods.AsyncPaymentMethodsResource
-    fee_markups: fee_markups.AsyncFeeMarkupsResource
-    payout_methods: payout_methods.AsyncPayoutMethodsResource
-    with_raw_response: AsyncWhopWithRawResponse
-    with_streaming_response: AsyncWhopWithStreamedResponse
-
     # client options
     api_key: str
     webhook_key: str | None
@@ -457,49 +625,259 @@ class AsyncWhop(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.apps = apps.AsyncAppsResource(self)
-        self.invoices = invoices.AsyncInvoicesResource(self)
-        self.course_lesson_interactions = course_lesson_interactions.AsyncCourseLessonInteractionsResource(self)
-        self.products = products.AsyncProductsResource(self)
-        self.companies = companies.AsyncCompaniesResource(self)
-        self.webhooks = webhooks.AsyncWebhooksResource(self)
-        self.plans = plans.AsyncPlansResource(self)
-        self.entries = entries.AsyncEntriesResource(self)
-        self.forum_posts = forum_posts.AsyncForumPostsResource(self)
-        self.transfers = transfers.AsyncTransfersResource(self)
-        self.ledger_accounts = ledger_accounts.AsyncLedgerAccountsResource(self)
-        self.memberships = memberships.AsyncMembershipsResource(self)
-        self.authorized_users = authorized_users.AsyncAuthorizedUsersResource(self)
-        self.app_builds = app_builds.AsyncAppBuildsResource(self)
-        self.shipments = shipments.AsyncShipmentsResource(self)
-        self.checkout_configurations = checkout_configurations.AsyncCheckoutConfigurationsResource(self)
-        self.messages = messages.AsyncMessagesResource(self)
-        self.chat_channels = chat_channels.AsyncChatChannelsResource(self)
-        self.users = users.AsyncUsersResource(self)
-        self.payments = payments.AsyncPaymentsResource(self)
-        self.support_channels = support_channels.AsyncSupportChannelsResource(self)
-        self.experiences = experiences.AsyncExperiencesResource(self)
-        self.reactions = reactions.AsyncReactionsResource(self)
-        self.members = members.AsyncMembersResource(self)
-        self.forums = forums.AsyncForumsResource(self)
-        self.promo_codes = promo_codes.AsyncPromoCodesResource(self)
-        self.courses = courses.AsyncCoursesResource(self)
-        self.course_chapters = course_chapters.AsyncCourseChaptersResource(self)
-        self.course_lessons = course_lessons.AsyncCourseLessonsResource(self)
-        self.reviews = reviews.AsyncReviewsResource(self)
-        self.course_students = course_students.AsyncCourseStudentsResource(self)
-        self.access_tokens = access_tokens.AsyncAccessTokensResource(self)
-        self.notifications = notifications.AsyncNotificationsResource(self)
-        self.disputes = disputes.AsyncDisputesResource(self)
-        self.refunds = refunds.AsyncRefundsResource(self)
-        self.withdrawals = withdrawals.AsyncWithdrawalsResource(self)
-        self.account_links = account_links.AsyncAccountLinksResource(self)
-        self.setup_intents = setup_intents.AsyncSetupIntentsResource(self)
-        self.payment_methods = payment_methods.AsyncPaymentMethodsResource(self)
-        self.fee_markups = fee_markups.AsyncFeeMarkupsResource(self)
-        self.payout_methods = payout_methods.AsyncPayoutMethodsResource(self)
-        self.with_raw_response = AsyncWhopWithRawResponse(self)
-        self.with_streaming_response = AsyncWhopWithStreamedResponse(self)
+    @cached_property
+    def apps(self) -> AsyncAppsResource:
+        from .resources.apps import AsyncAppsResource
+
+        return AsyncAppsResource(self)
+
+    @cached_property
+    def invoices(self) -> AsyncInvoicesResource:
+        from .resources.invoices import AsyncInvoicesResource
+
+        return AsyncInvoicesResource(self)
+
+    @cached_property
+    def course_lesson_interactions(self) -> AsyncCourseLessonInteractionsResource:
+        from .resources.course_lesson_interactions import AsyncCourseLessonInteractionsResource
+
+        return AsyncCourseLessonInteractionsResource(self)
+
+    @cached_property
+    def products(self) -> AsyncProductsResource:
+        from .resources.products import AsyncProductsResource
+
+        return AsyncProductsResource(self)
+
+    @cached_property
+    def companies(self) -> AsyncCompaniesResource:
+        from .resources.companies import AsyncCompaniesResource
+
+        return AsyncCompaniesResource(self)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResource:
+        from .resources.webhooks import AsyncWebhooksResource
+
+        return AsyncWebhooksResource(self)
+
+    @cached_property
+    def plans(self) -> AsyncPlansResource:
+        from .resources.plans import AsyncPlansResource
+
+        return AsyncPlansResource(self)
+
+    @cached_property
+    def entries(self) -> AsyncEntriesResource:
+        from .resources.entries import AsyncEntriesResource
+
+        return AsyncEntriesResource(self)
+
+    @cached_property
+    def forum_posts(self) -> AsyncForumPostsResource:
+        from .resources.forum_posts import AsyncForumPostsResource
+
+        return AsyncForumPostsResource(self)
+
+    @cached_property
+    def transfers(self) -> AsyncTransfersResource:
+        from .resources.transfers import AsyncTransfersResource
+
+        return AsyncTransfersResource(self)
+
+    @cached_property
+    def ledger_accounts(self) -> AsyncLedgerAccountsResource:
+        from .resources.ledger_accounts import AsyncLedgerAccountsResource
+
+        return AsyncLedgerAccountsResource(self)
+
+    @cached_property
+    def memberships(self) -> AsyncMembershipsResource:
+        from .resources.memberships import AsyncMembershipsResource
+
+        return AsyncMembershipsResource(self)
+
+    @cached_property
+    def authorized_users(self) -> AsyncAuthorizedUsersResource:
+        from .resources.authorized_users import AsyncAuthorizedUsersResource
+
+        return AsyncAuthorizedUsersResource(self)
+
+    @cached_property
+    def app_builds(self) -> AsyncAppBuildsResource:
+        from .resources.app_builds import AsyncAppBuildsResource
+
+        return AsyncAppBuildsResource(self)
+
+    @cached_property
+    def shipments(self) -> AsyncShipmentsResource:
+        from .resources.shipments import AsyncShipmentsResource
+
+        return AsyncShipmentsResource(self)
+
+    @cached_property
+    def checkout_configurations(self) -> AsyncCheckoutConfigurationsResource:
+        from .resources.checkout_configurations import AsyncCheckoutConfigurationsResource
+
+        return AsyncCheckoutConfigurationsResource(self)
+
+    @cached_property
+    def messages(self) -> AsyncMessagesResource:
+        from .resources.messages import AsyncMessagesResource
+
+        return AsyncMessagesResource(self)
+
+    @cached_property
+    def chat_channels(self) -> AsyncChatChannelsResource:
+        from .resources.chat_channels import AsyncChatChannelsResource
+
+        return AsyncChatChannelsResource(self)
+
+    @cached_property
+    def users(self) -> AsyncUsersResource:
+        from .resources.users import AsyncUsersResource
+
+        return AsyncUsersResource(self)
+
+    @cached_property
+    def payments(self) -> AsyncPaymentsResource:
+        from .resources.payments import AsyncPaymentsResource
+
+        return AsyncPaymentsResource(self)
+
+    @cached_property
+    def support_channels(self) -> AsyncSupportChannelsResource:
+        from .resources.support_channels import AsyncSupportChannelsResource
+
+        return AsyncSupportChannelsResource(self)
+
+    @cached_property
+    def experiences(self) -> AsyncExperiencesResource:
+        from .resources.experiences import AsyncExperiencesResource
+
+        return AsyncExperiencesResource(self)
+
+    @cached_property
+    def reactions(self) -> AsyncReactionsResource:
+        from .resources.reactions import AsyncReactionsResource
+
+        return AsyncReactionsResource(self)
+
+    @cached_property
+    def members(self) -> AsyncMembersResource:
+        from .resources.members import AsyncMembersResource
+
+        return AsyncMembersResource(self)
+
+    @cached_property
+    def forums(self) -> AsyncForumsResource:
+        from .resources.forums import AsyncForumsResource
+
+        return AsyncForumsResource(self)
+
+    @cached_property
+    def promo_codes(self) -> AsyncPromoCodesResource:
+        from .resources.promo_codes import AsyncPromoCodesResource
+
+        return AsyncPromoCodesResource(self)
+
+    @cached_property
+    def courses(self) -> AsyncCoursesResource:
+        from .resources.courses import AsyncCoursesResource
+
+        return AsyncCoursesResource(self)
+
+    @cached_property
+    def course_chapters(self) -> AsyncCourseChaptersResource:
+        from .resources.course_chapters import AsyncCourseChaptersResource
+
+        return AsyncCourseChaptersResource(self)
+
+    @cached_property
+    def course_lessons(self) -> AsyncCourseLessonsResource:
+        from .resources.course_lessons import AsyncCourseLessonsResource
+
+        return AsyncCourseLessonsResource(self)
+
+    @cached_property
+    def reviews(self) -> AsyncReviewsResource:
+        from .resources.reviews import AsyncReviewsResource
+
+        return AsyncReviewsResource(self)
+
+    @cached_property
+    def course_students(self) -> AsyncCourseStudentsResource:
+        from .resources.course_students import AsyncCourseStudentsResource
+
+        return AsyncCourseStudentsResource(self)
+
+    @cached_property
+    def access_tokens(self) -> AsyncAccessTokensResource:
+        from .resources.access_tokens import AsyncAccessTokensResource
+
+        return AsyncAccessTokensResource(self)
+
+    @cached_property
+    def notifications(self) -> AsyncNotificationsResource:
+        from .resources.notifications import AsyncNotificationsResource
+
+        return AsyncNotificationsResource(self)
+
+    @cached_property
+    def disputes(self) -> AsyncDisputesResource:
+        from .resources.disputes import AsyncDisputesResource
+
+        return AsyncDisputesResource(self)
+
+    @cached_property
+    def refunds(self) -> AsyncRefundsResource:
+        from .resources.refunds import AsyncRefundsResource
+
+        return AsyncRefundsResource(self)
+
+    @cached_property
+    def withdrawals(self) -> AsyncWithdrawalsResource:
+        from .resources.withdrawals import AsyncWithdrawalsResource
+
+        return AsyncWithdrawalsResource(self)
+
+    @cached_property
+    def account_links(self) -> AsyncAccountLinksResource:
+        from .resources.account_links import AsyncAccountLinksResource
+
+        return AsyncAccountLinksResource(self)
+
+    @cached_property
+    def setup_intents(self) -> AsyncSetupIntentsResource:
+        from .resources.setup_intents import AsyncSetupIntentsResource
+
+        return AsyncSetupIntentsResource(self)
+
+    @cached_property
+    def payment_methods(self) -> AsyncPaymentMethodsResource:
+        from .resources.payment_methods import AsyncPaymentMethodsResource
+
+        return AsyncPaymentMethodsResource(self)
+
+    @cached_property
+    def fee_markups(self) -> AsyncFeeMarkupsResource:
+        from .resources.fee_markups import AsyncFeeMarkupsResource
+
+        return AsyncFeeMarkupsResource(self)
+
+    @cached_property
+    def payout_methods(self) -> AsyncPayoutMethodsResource:
+        from .resources.payout_methods import AsyncPayoutMethodsResource
+
+        return AsyncPayoutMethodsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncWhopWithRawResponse:
+        return AsyncWhopWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncWhopWithStreamedResponse:
+        return AsyncWhopWithStreamedResponse(self)
 
     @property
     @override
@@ -612,205 +990,999 @@ class AsyncWhop(AsyncAPIClient):
 
 
 class WhopWithRawResponse:
+    _client: Whop
+
     def __init__(self, client: Whop) -> None:
-        self.apps = apps.AppsResourceWithRawResponse(client.apps)
-        self.invoices = invoices.InvoicesResourceWithRawResponse(client.invoices)
-        self.course_lesson_interactions = course_lesson_interactions.CourseLessonInteractionsResourceWithRawResponse(
-            client.course_lesson_interactions
-        )
-        self.products = products.ProductsResourceWithRawResponse(client.products)
-        self.companies = companies.CompaniesResourceWithRawResponse(client.companies)
-        self.plans = plans.PlansResourceWithRawResponse(client.plans)
-        self.entries = entries.EntriesResourceWithRawResponse(client.entries)
-        self.forum_posts = forum_posts.ForumPostsResourceWithRawResponse(client.forum_posts)
-        self.transfers = transfers.TransfersResourceWithRawResponse(client.transfers)
-        self.ledger_accounts = ledger_accounts.LedgerAccountsResourceWithRawResponse(client.ledger_accounts)
-        self.memberships = memberships.MembershipsResourceWithRawResponse(client.memberships)
-        self.authorized_users = authorized_users.AuthorizedUsersResourceWithRawResponse(client.authorized_users)
-        self.app_builds = app_builds.AppBuildsResourceWithRawResponse(client.app_builds)
-        self.shipments = shipments.ShipmentsResourceWithRawResponse(client.shipments)
-        self.checkout_configurations = checkout_configurations.CheckoutConfigurationsResourceWithRawResponse(
-            client.checkout_configurations
-        )
-        self.messages = messages.MessagesResourceWithRawResponse(client.messages)
-        self.chat_channels = chat_channels.ChatChannelsResourceWithRawResponse(client.chat_channels)
-        self.users = users.UsersResourceWithRawResponse(client.users)
-        self.payments = payments.PaymentsResourceWithRawResponse(client.payments)
-        self.support_channels = support_channels.SupportChannelsResourceWithRawResponse(client.support_channels)
-        self.experiences = experiences.ExperiencesResourceWithRawResponse(client.experiences)
-        self.reactions = reactions.ReactionsResourceWithRawResponse(client.reactions)
-        self.members = members.MembersResourceWithRawResponse(client.members)
-        self.forums = forums.ForumsResourceWithRawResponse(client.forums)
-        self.promo_codes = promo_codes.PromoCodesResourceWithRawResponse(client.promo_codes)
-        self.courses = courses.CoursesResourceWithRawResponse(client.courses)
-        self.course_chapters = course_chapters.CourseChaptersResourceWithRawResponse(client.course_chapters)
-        self.course_lessons = course_lessons.CourseLessonsResourceWithRawResponse(client.course_lessons)
-        self.reviews = reviews.ReviewsResourceWithRawResponse(client.reviews)
-        self.course_students = course_students.CourseStudentsResourceWithRawResponse(client.course_students)
-        self.access_tokens = access_tokens.AccessTokensResourceWithRawResponse(client.access_tokens)
-        self.notifications = notifications.NotificationsResourceWithRawResponse(client.notifications)
-        self.disputes = disputes.DisputesResourceWithRawResponse(client.disputes)
-        self.refunds = refunds.RefundsResourceWithRawResponse(client.refunds)
-        self.withdrawals = withdrawals.WithdrawalsResourceWithRawResponse(client.withdrawals)
-        self.account_links = account_links.AccountLinksResourceWithRawResponse(client.account_links)
-        self.setup_intents = setup_intents.SetupIntentsResourceWithRawResponse(client.setup_intents)
-        self.payment_methods = payment_methods.PaymentMethodsResourceWithRawResponse(client.payment_methods)
-        self.fee_markups = fee_markups.FeeMarkupsResourceWithRawResponse(client.fee_markups)
-        self.payout_methods = payout_methods.PayoutMethodsResourceWithRawResponse(client.payout_methods)
+        self._client = client
+
+    @cached_property
+    def apps(self) -> apps.AppsResourceWithRawResponse:
+        from .resources.apps import AppsResourceWithRawResponse
+
+        return AppsResourceWithRawResponse(self._client.apps)
+
+    @cached_property
+    def invoices(self) -> invoices.InvoicesResourceWithRawResponse:
+        from .resources.invoices import InvoicesResourceWithRawResponse
+
+        return InvoicesResourceWithRawResponse(self._client.invoices)
+
+    @cached_property
+    def course_lesson_interactions(self) -> course_lesson_interactions.CourseLessonInteractionsResourceWithRawResponse:
+        from .resources.course_lesson_interactions import CourseLessonInteractionsResourceWithRawResponse
+
+        return CourseLessonInteractionsResourceWithRawResponse(self._client.course_lesson_interactions)
+
+    @cached_property
+    def products(self) -> products.ProductsResourceWithRawResponse:
+        from .resources.products import ProductsResourceWithRawResponse
+
+        return ProductsResourceWithRawResponse(self._client.products)
+
+    @cached_property
+    def companies(self) -> companies.CompaniesResourceWithRawResponse:
+        from .resources.companies import CompaniesResourceWithRawResponse
+
+        return CompaniesResourceWithRawResponse(self._client.companies)
+
+    @cached_property
+    def plans(self) -> plans.PlansResourceWithRawResponse:
+        from .resources.plans import PlansResourceWithRawResponse
+
+        return PlansResourceWithRawResponse(self._client.plans)
+
+    @cached_property
+    def entries(self) -> entries.EntriesResourceWithRawResponse:
+        from .resources.entries import EntriesResourceWithRawResponse
+
+        return EntriesResourceWithRawResponse(self._client.entries)
+
+    @cached_property
+    def forum_posts(self) -> forum_posts.ForumPostsResourceWithRawResponse:
+        from .resources.forum_posts import ForumPostsResourceWithRawResponse
+
+        return ForumPostsResourceWithRawResponse(self._client.forum_posts)
+
+    @cached_property
+    def transfers(self) -> transfers.TransfersResourceWithRawResponse:
+        from .resources.transfers import TransfersResourceWithRawResponse
+
+        return TransfersResourceWithRawResponse(self._client.transfers)
+
+    @cached_property
+    def ledger_accounts(self) -> ledger_accounts.LedgerAccountsResourceWithRawResponse:
+        from .resources.ledger_accounts import LedgerAccountsResourceWithRawResponse
+
+        return LedgerAccountsResourceWithRawResponse(self._client.ledger_accounts)
+
+    @cached_property
+    def memberships(self) -> memberships.MembershipsResourceWithRawResponse:
+        from .resources.memberships import MembershipsResourceWithRawResponse
+
+        return MembershipsResourceWithRawResponse(self._client.memberships)
+
+    @cached_property
+    def authorized_users(self) -> authorized_users.AuthorizedUsersResourceWithRawResponse:
+        from .resources.authorized_users import AuthorizedUsersResourceWithRawResponse
+
+        return AuthorizedUsersResourceWithRawResponse(self._client.authorized_users)
+
+    @cached_property
+    def app_builds(self) -> app_builds.AppBuildsResourceWithRawResponse:
+        from .resources.app_builds import AppBuildsResourceWithRawResponse
+
+        return AppBuildsResourceWithRawResponse(self._client.app_builds)
+
+    @cached_property
+    def shipments(self) -> shipments.ShipmentsResourceWithRawResponse:
+        from .resources.shipments import ShipmentsResourceWithRawResponse
+
+        return ShipmentsResourceWithRawResponse(self._client.shipments)
+
+    @cached_property
+    def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithRawResponse:
+        from .resources.checkout_configurations import CheckoutConfigurationsResourceWithRawResponse
+
+        return CheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
+
+    @cached_property
+    def messages(self) -> messages.MessagesResourceWithRawResponse:
+        from .resources.messages import MessagesResourceWithRawResponse
+
+        return MessagesResourceWithRawResponse(self._client.messages)
+
+    @cached_property
+    def chat_channels(self) -> chat_channels.ChatChannelsResourceWithRawResponse:
+        from .resources.chat_channels import ChatChannelsResourceWithRawResponse
+
+        return ChatChannelsResourceWithRawResponse(self._client.chat_channels)
+
+    @cached_property
+    def users(self) -> users.UsersResourceWithRawResponse:
+        from .resources.users import UsersResourceWithRawResponse
+
+        return UsersResourceWithRawResponse(self._client.users)
+
+    @cached_property
+    def payments(self) -> payments.PaymentsResourceWithRawResponse:
+        from .resources.payments import PaymentsResourceWithRawResponse
+
+        return PaymentsResourceWithRawResponse(self._client.payments)
+
+    @cached_property
+    def support_channels(self) -> support_channels.SupportChannelsResourceWithRawResponse:
+        from .resources.support_channels import SupportChannelsResourceWithRawResponse
+
+        return SupportChannelsResourceWithRawResponse(self._client.support_channels)
+
+    @cached_property
+    def experiences(self) -> experiences.ExperiencesResourceWithRawResponse:
+        from .resources.experiences import ExperiencesResourceWithRawResponse
+
+        return ExperiencesResourceWithRawResponse(self._client.experiences)
+
+    @cached_property
+    def reactions(self) -> reactions.ReactionsResourceWithRawResponse:
+        from .resources.reactions import ReactionsResourceWithRawResponse
+
+        return ReactionsResourceWithRawResponse(self._client.reactions)
+
+    @cached_property
+    def members(self) -> members.MembersResourceWithRawResponse:
+        from .resources.members import MembersResourceWithRawResponse
+
+        return MembersResourceWithRawResponse(self._client.members)
+
+    @cached_property
+    def forums(self) -> forums.ForumsResourceWithRawResponse:
+        from .resources.forums import ForumsResourceWithRawResponse
+
+        return ForumsResourceWithRawResponse(self._client.forums)
+
+    @cached_property
+    def promo_codes(self) -> promo_codes.PromoCodesResourceWithRawResponse:
+        from .resources.promo_codes import PromoCodesResourceWithRawResponse
+
+        return PromoCodesResourceWithRawResponse(self._client.promo_codes)
+
+    @cached_property
+    def courses(self) -> courses.CoursesResourceWithRawResponse:
+        from .resources.courses import CoursesResourceWithRawResponse
+
+        return CoursesResourceWithRawResponse(self._client.courses)
+
+    @cached_property
+    def course_chapters(self) -> course_chapters.CourseChaptersResourceWithRawResponse:
+        from .resources.course_chapters import CourseChaptersResourceWithRawResponse
+
+        return CourseChaptersResourceWithRawResponse(self._client.course_chapters)
+
+    @cached_property
+    def course_lessons(self) -> course_lessons.CourseLessonsResourceWithRawResponse:
+        from .resources.course_lessons import CourseLessonsResourceWithRawResponse
+
+        return CourseLessonsResourceWithRawResponse(self._client.course_lessons)
+
+    @cached_property
+    def reviews(self) -> reviews.ReviewsResourceWithRawResponse:
+        from .resources.reviews import ReviewsResourceWithRawResponse
+
+        return ReviewsResourceWithRawResponse(self._client.reviews)
+
+    @cached_property
+    def course_students(self) -> course_students.CourseStudentsResourceWithRawResponse:
+        from .resources.course_students import CourseStudentsResourceWithRawResponse
+
+        return CourseStudentsResourceWithRawResponse(self._client.course_students)
+
+    @cached_property
+    def access_tokens(self) -> access_tokens.AccessTokensResourceWithRawResponse:
+        from .resources.access_tokens import AccessTokensResourceWithRawResponse
+
+        return AccessTokensResourceWithRawResponse(self._client.access_tokens)
+
+    @cached_property
+    def notifications(self) -> notifications.NotificationsResourceWithRawResponse:
+        from .resources.notifications import NotificationsResourceWithRawResponse
+
+        return NotificationsResourceWithRawResponse(self._client.notifications)
+
+    @cached_property
+    def disputes(self) -> disputes.DisputesResourceWithRawResponse:
+        from .resources.disputes import DisputesResourceWithRawResponse
+
+        return DisputesResourceWithRawResponse(self._client.disputes)
+
+    @cached_property
+    def refunds(self) -> refunds.RefundsResourceWithRawResponse:
+        from .resources.refunds import RefundsResourceWithRawResponse
+
+        return RefundsResourceWithRawResponse(self._client.refunds)
+
+    @cached_property
+    def withdrawals(self) -> withdrawals.WithdrawalsResourceWithRawResponse:
+        from .resources.withdrawals import WithdrawalsResourceWithRawResponse
+
+        return WithdrawalsResourceWithRawResponse(self._client.withdrawals)
+
+    @cached_property
+    def account_links(self) -> account_links.AccountLinksResourceWithRawResponse:
+        from .resources.account_links import AccountLinksResourceWithRawResponse
+
+        return AccountLinksResourceWithRawResponse(self._client.account_links)
+
+    @cached_property
+    def setup_intents(self) -> setup_intents.SetupIntentsResourceWithRawResponse:
+        from .resources.setup_intents import SetupIntentsResourceWithRawResponse
+
+        return SetupIntentsResourceWithRawResponse(self._client.setup_intents)
+
+    @cached_property
+    def payment_methods(self) -> payment_methods.PaymentMethodsResourceWithRawResponse:
+        from .resources.payment_methods import PaymentMethodsResourceWithRawResponse
+
+        return PaymentMethodsResourceWithRawResponse(self._client.payment_methods)
+
+    @cached_property
+    def fee_markups(self) -> fee_markups.FeeMarkupsResourceWithRawResponse:
+        from .resources.fee_markups import FeeMarkupsResourceWithRawResponse
+
+        return FeeMarkupsResourceWithRawResponse(self._client.fee_markups)
+
+    @cached_property
+    def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithRawResponse:
+        from .resources.payout_methods import PayoutMethodsResourceWithRawResponse
+
+        return PayoutMethodsResourceWithRawResponse(self._client.payout_methods)
 
 
 class AsyncWhopWithRawResponse:
+    _client: AsyncWhop
+
     def __init__(self, client: AsyncWhop) -> None:
-        self.apps = apps.AsyncAppsResourceWithRawResponse(client.apps)
-        self.invoices = invoices.AsyncInvoicesResourceWithRawResponse(client.invoices)
-        self.course_lesson_interactions = (
-            course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithRawResponse(
-                client.course_lesson_interactions
-            )
-        )
-        self.products = products.AsyncProductsResourceWithRawResponse(client.products)
-        self.companies = companies.AsyncCompaniesResourceWithRawResponse(client.companies)
-        self.plans = plans.AsyncPlansResourceWithRawResponse(client.plans)
-        self.entries = entries.AsyncEntriesResourceWithRawResponse(client.entries)
-        self.forum_posts = forum_posts.AsyncForumPostsResourceWithRawResponse(client.forum_posts)
-        self.transfers = transfers.AsyncTransfersResourceWithRawResponse(client.transfers)
-        self.ledger_accounts = ledger_accounts.AsyncLedgerAccountsResourceWithRawResponse(client.ledger_accounts)
-        self.memberships = memberships.AsyncMembershipsResourceWithRawResponse(client.memberships)
-        self.authorized_users = authorized_users.AsyncAuthorizedUsersResourceWithRawResponse(client.authorized_users)
-        self.app_builds = app_builds.AsyncAppBuildsResourceWithRawResponse(client.app_builds)
-        self.shipments = shipments.AsyncShipmentsResourceWithRawResponse(client.shipments)
-        self.checkout_configurations = checkout_configurations.AsyncCheckoutConfigurationsResourceWithRawResponse(
-            client.checkout_configurations
-        )
-        self.messages = messages.AsyncMessagesResourceWithRawResponse(client.messages)
-        self.chat_channels = chat_channels.AsyncChatChannelsResourceWithRawResponse(client.chat_channels)
-        self.users = users.AsyncUsersResourceWithRawResponse(client.users)
-        self.payments = payments.AsyncPaymentsResourceWithRawResponse(client.payments)
-        self.support_channels = support_channels.AsyncSupportChannelsResourceWithRawResponse(client.support_channels)
-        self.experiences = experiences.AsyncExperiencesResourceWithRawResponse(client.experiences)
-        self.reactions = reactions.AsyncReactionsResourceWithRawResponse(client.reactions)
-        self.members = members.AsyncMembersResourceWithRawResponse(client.members)
-        self.forums = forums.AsyncForumsResourceWithRawResponse(client.forums)
-        self.promo_codes = promo_codes.AsyncPromoCodesResourceWithRawResponse(client.promo_codes)
-        self.courses = courses.AsyncCoursesResourceWithRawResponse(client.courses)
-        self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithRawResponse(client.course_chapters)
-        self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithRawResponse(client.course_lessons)
-        self.reviews = reviews.AsyncReviewsResourceWithRawResponse(client.reviews)
-        self.course_students = course_students.AsyncCourseStudentsResourceWithRawResponse(client.course_students)
-        self.access_tokens = access_tokens.AsyncAccessTokensResourceWithRawResponse(client.access_tokens)
-        self.notifications = notifications.AsyncNotificationsResourceWithRawResponse(client.notifications)
-        self.disputes = disputes.AsyncDisputesResourceWithRawResponse(client.disputes)
-        self.refunds = refunds.AsyncRefundsResourceWithRawResponse(client.refunds)
-        self.withdrawals = withdrawals.AsyncWithdrawalsResourceWithRawResponse(client.withdrawals)
-        self.account_links = account_links.AsyncAccountLinksResourceWithRawResponse(client.account_links)
-        self.setup_intents = setup_intents.AsyncSetupIntentsResourceWithRawResponse(client.setup_intents)
-        self.payment_methods = payment_methods.AsyncPaymentMethodsResourceWithRawResponse(client.payment_methods)
-        self.fee_markups = fee_markups.AsyncFeeMarkupsResourceWithRawResponse(client.fee_markups)
-        self.payout_methods = payout_methods.AsyncPayoutMethodsResourceWithRawResponse(client.payout_methods)
+        self._client = client
+
+    @cached_property
+    def apps(self) -> apps.AsyncAppsResourceWithRawResponse:
+        from .resources.apps import AsyncAppsResourceWithRawResponse
+
+        return AsyncAppsResourceWithRawResponse(self._client.apps)
+
+    @cached_property
+    def invoices(self) -> invoices.AsyncInvoicesResourceWithRawResponse:
+        from .resources.invoices import AsyncInvoicesResourceWithRawResponse
+
+        return AsyncInvoicesResourceWithRawResponse(self._client.invoices)
+
+    @cached_property
+    def course_lesson_interactions(
+        self,
+    ) -> course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithRawResponse:
+        from .resources.course_lesson_interactions import AsyncCourseLessonInteractionsResourceWithRawResponse
+
+        return AsyncCourseLessonInteractionsResourceWithRawResponse(self._client.course_lesson_interactions)
+
+    @cached_property
+    def products(self) -> products.AsyncProductsResourceWithRawResponse:
+        from .resources.products import AsyncProductsResourceWithRawResponse
+
+        return AsyncProductsResourceWithRawResponse(self._client.products)
+
+    @cached_property
+    def companies(self) -> companies.AsyncCompaniesResourceWithRawResponse:
+        from .resources.companies import AsyncCompaniesResourceWithRawResponse
+
+        return AsyncCompaniesResourceWithRawResponse(self._client.companies)
+
+    @cached_property
+    def plans(self) -> plans.AsyncPlansResourceWithRawResponse:
+        from .resources.plans import AsyncPlansResourceWithRawResponse
+
+        return AsyncPlansResourceWithRawResponse(self._client.plans)
+
+    @cached_property
+    def entries(self) -> entries.AsyncEntriesResourceWithRawResponse:
+        from .resources.entries import AsyncEntriesResourceWithRawResponse
+
+        return AsyncEntriesResourceWithRawResponse(self._client.entries)
+
+    @cached_property
+    def forum_posts(self) -> forum_posts.AsyncForumPostsResourceWithRawResponse:
+        from .resources.forum_posts import AsyncForumPostsResourceWithRawResponse
+
+        return AsyncForumPostsResourceWithRawResponse(self._client.forum_posts)
+
+    @cached_property
+    def transfers(self) -> transfers.AsyncTransfersResourceWithRawResponse:
+        from .resources.transfers import AsyncTransfersResourceWithRawResponse
+
+        return AsyncTransfersResourceWithRawResponse(self._client.transfers)
+
+    @cached_property
+    def ledger_accounts(self) -> ledger_accounts.AsyncLedgerAccountsResourceWithRawResponse:
+        from .resources.ledger_accounts import AsyncLedgerAccountsResourceWithRawResponse
+
+        return AsyncLedgerAccountsResourceWithRawResponse(self._client.ledger_accounts)
+
+    @cached_property
+    def memberships(self) -> memberships.AsyncMembershipsResourceWithRawResponse:
+        from .resources.memberships import AsyncMembershipsResourceWithRawResponse
+
+        return AsyncMembershipsResourceWithRawResponse(self._client.memberships)
+
+    @cached_property
+    def authorized_users(self) -> authorized_users.AsyncAuthorizedUsersResourceWithRawResponse:
+        from .resources.authorized_users import AsyncAuthorizedUsersResourceWithRawResponse
+
+        return AsyncAuthorizedUsersResourceWithRawResponse(self._client.authorized_users)
+
+    @cached_property
+    def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithRawResponse:
+        from .resources.app_builds import AsyncAppBuildsResourceWithRawResponse
+
+        return AsyncAppBuildsResourceWithRawResponse(self._client.app_builds)
+
+    @cached_property
+    def shipments(self) -> shipments.AsyncShipmentsResourceWithRawResponse:
+        from .resources.shipments import AsyncShipmentsResourceWithRawResponse
+
+        return AsyncShipmentsResourceWithRawResponse(self._client.shipments)
+
+    @cached_property
+    def checkout_configurations(self) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithRawResponse:
+        from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithRawResponse
+
+        return AsyncCheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
+
+    @cached_property
+    def messages(self) -> messages.AsyncMessagesResourceWithRawResponse:
+        from .resources.messages import AsyncMessagesResourceWithRawResponse
+
+        return AsyncMessagesResourceWithRawResponse(self._client.messages)
+
+    @cached_property
+    def chat_channels(self) -> chat_channels.AsyncChatChannelsResourceWithRawResponse:
+        from .resources.chat_channels import AsyncChatChannelsResourceWithRawResponse
+
+        return AsyncChatChannelsResourceWithRawResponse(self._client.chat_channels)
+
+    @cached_property
+    def users(self) -> users.AsyncUsersResourceWithRawResponse:
+        from .resources.users import AsyncUsersResourceWithRawResponse
+
+        return AsyncUsersResourceWithRawResponse(self._client.users)
+
+    @cached_property
+    def payments(self) -> payments.AsyncPaymentsResourceWithRawResponse:
+        from .resources.payments import AsyncPaymentsResourceWithRawResponse
+
+        return AsyncPaymentsResourceWithRawResponse(self._client.payments)
+
+    @cached_property
+    def support_channels(self) -> support_channels.AsyncSupportChannelsResourceWithRawResponse:
+        from .resources.support_channels import AsyncSupportChannelsResourceWithRawResponse
+
+        return AsyncSupportChannelsResourceWithRawResponse(self._client.support_channels)
+
+    @cached_property
+    def experiences(self) -> experiences.AsyncExperiencesResourceWithRawResponse:
+        from .resources.experiences import AsyncExperiencesResourceWithRawResponse
+
+        return AsyncExperiencesResourceWithRawResponse(self._client.experiences)
+
+    @cached_property
+    def reactions(self) -> reactions.AsyncReactionsResourceWithRawResponse:
+        from .resources.reactions import AsyncReactionsResourceWithRawResponse
+
+        return AsyncReactionsResourceWithRawResponse(self._client.reactions)
+
+    @cached_property
+    def members(self) -> members.AsyncMembersResourceWithRawResponse:
+        from .resources.members import AsyncMembersResourceWithRawResponse
+
+        return AsyncMembersResourceWithRawResponse(self._client.members)
+
+    @cached_property
+    def forums(self) -> forums.AsyncForumsResourceWithRawResponse:
+        from .resources.forums import AsyncForumsResourceWithRawResponse
+
+        return AsyncForumsResourceWithRawResponse(self._client.forums)
+
+    @cached_property
+    def promo_codes(self) -> promo_codes.AsyncPromoCodesResourceWithRawResponse:
+        from .resources.promo_codes import AsyncPromoCodesResourceWithRawResponse
+
+        return AsyncPromoCodesResourceWithRawResponse(self._client.promo_codes)
+
+    @cached_property
+    def courses(self) -> courses.AsyncCoursesResourceWithRawResponse:
+        from .resources.courses import AsyncCoursesResourceWithRawResponse
+
+        return AsyncCoursesResourceWithRawResponse(self._client.courses)
+
+    @cached_property
+    def course_chapters(self) -> course_chapters.AsyncCourseChaptersResourceWithRawResponse:
+        from .resources.course_chapters import AsyncCourseChaptersResourceWithRawResponse
+
+        return AsyncCourseChaptersResourceWithRawResponse(self._client.course_chapters)
+
+    @cached_property
+    def course_lessons(self) -> course_lessons.AsyncCourseLessonsResourceWithRawResponse:
+        from .resources.course_lessons import AsyncCourseLessonsResourceWithRawResponse
+
+        return AsyncCourseLessonsResourceWithRawResponse(self._client.course_lessons)
+
+    @cached_property
+    def reviews(self) -> reviews.AsyncReviewsResourceWithRawResponse:
+        from .resources.reviews import AsyncReviewsResourceWithRawResponse
+
+        return AsyncReviewsResourceWithRawResponse(self._client.reviews)
+
+    @cached_property
+    def course_students(self) -> course_students.AsyncCourseStudentsResourceWithRawResponse:
+        from .resources.course_students import AsyncCourseStudentsResourceWithRawResponse
+
+        return AsyncCourseStudentsResourceWithRawResponse(self._client.course_students)
+
+    @cached_property
+    def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithRawResponse:
+        from .resources.access_tokens import AsyncAccessTokensResourceWithRawResponse
+
+        return AsyncAccessTokensResourceWithRawResponse(self._client.access_tokens)
+
+    @cached_property
+    def notifications(self) -> notifications.AsyncNotificationsResourceWithRawResponse:
+        from .resources.notifications import AsyncNotificationsResourceWithRawResponse
+
+        return AsyncNotificationsResourceWithRawResponse(self._client.notifications)
+
+    @cached_property
+    def disputes(self) -> disputes.AsyncDisputesResourceWithRawResponse:
+        from .resources.disputes import AsyncDisputesResourceWithRawResponse
+
+        return AsyncDisputesResourceWithRawResponse(self._client.disputes)
+
+    @cached_property
+    def refunds(self) -> refunds.AsyncRefundsResourceWithRawResponse:
+        from .resources.refunds import AsyncRefundsResourceWithRawResponse
+
+        return AsyncRefundsResourceWithRawResponse(self._client.refunds)
+
+    @cached_property
+    def withdrawals(self) -> withdrawals.AsyncWithdrawalsResourceWithRawResponse:
+        from .resources.withdrawals import AsyncWithdrawalsResourceWithRawResponse
+
+        return AsyncWithdrawalsResourceWithRawResponse(self._client.withdrawals)
+
+    @cached_property
+    def account_links(self) -> account_links.AsyncAccountLinksResourceWithRawResponse:
+        from .resources.account_links import AsyncAccountLinksResourceWithRawResponse
+
+        return AsyncAccountLinksResourceWithRawResponse(self._client.account_links)
+
+    @cached_property
+    def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithRawResponse:
+        from .resources.setup_intents import AsyncSetupIntentsResourceWithRawResponse
+
+        return AsyncSetupIntentsResourceWithRawResponse(self._client.setup_intents)
+
+    @cached_property
+    def payment_methods(self) -> payment_methods.AsyncPaymentMethodsResourceWithRawResponse:
+        from .resources.payment_methods import AsyncPaymentMethodsResourceWithRawResponse
+
+        return AsyncPaymentMethodsResourceWithRawResponse(self._client.payment_methods)
+
+    @cached_property
+    def fee_markups(self) -> fee_markups.AsyncFeeMarkupsResourceWithRawResponse:
+        from .resources.fee_markups import AsyncFeeMarkupsResourceWithRawResponse
+
+        return AsyncFeeMarkupsResourceWithRawResponse(self._client.fee_markups)
+
+    @cached_property
+    def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithRawResponse:
+        from .resources.payout_methods import AsyncPayoutMethodsResourceWithRawResponse
+
+        return AsyncPayoutMethodsResourceWithRawResponse(self._client.payout_methods)
 
 
 class WhopWithStreamedResponse:
+    _client: Whop
+
     def __init__(self, client: Whop) -> None:
-        self.apps = apps.AppsResourceWithStreamingResponse(client.apps)
-        self.invoices = invoices.InvoicesResourceWithStreamingResponse(client.invoices)
-        self.course_lesson_interactions = (
-            course_lesson_interactions.CourseLessonInteractionsResourceWithStreamingResponse(
-                client.course_lesson_interactions
-            )
-        )
-        self.products = products.ProductsResourceWithStreamingResponse(client.products)
-        self.companies = companies.CompaniesResourceWithStreamingResponse(client.companies)
-        self.plans = plans.PlansResourceWithStreamingResponse(client.plans)
-        self.entries = entries.EntriesResourceWithStreamingResponse(client.entries)
-        self.forum_posts = forum_posts.ForumPostsResourceWithStreamingResponse(client.forum_posts)
-        self.transfers = transfers.TransfersResourceWithStreamingResponse(client.transfers)
-        self.ledger_accounts = ledger_accounts.LedgerAccountsResourceWithStreamingResponse(client.ledger_accounts)
-        self.memberships = memberships.MembershipsResourceWithStreamingResponse(client.memberships)
-        self.authorized_users = authorized_users.AuthorizedUsersResourceWithStreamingResponse(client.authorized_users)
-        self.app_builds = app_builds.AppBuildsResourceWithStreamingResponse(client.app_builds)
-        self.shipments = shipments.ShipmentsResourceWithStreamingResponse(client.shipments)
-        self.checkout_configurations = checkout_configurations.CheckoutConfigurationsResourceWithStreamingResponse(
-            client.checkout_configurations
-        )
-        self.messages = messages.MessagesResourceWithStreamingResponse(client.messages)
-        self.chat_channels = chat_channels.ChatChannelsResourceWithStreamingResponse(client.chat_channels)
-        self.users = users.UsersResourceWithStreamingResponse(client.users)
-        self.payments = payments.PaymentsResourceWithStreamingResponse(client.payments)
-        self.support_channels = support_channels.SupportChannelsResourceWithStreamingResponse(client.support_channels)
-        self.experiences = experiences.ExperiencesResourceWithStreamingResponse(client.experiences)
-        self.reactions = reactions.ReactionsResourceWithStreamingResponse(client.reactions)
-        self.members = members.MembersResourceWithStreamingResponse(client.members)
-        self.forums = forums.ForumsResourceWithStreamingResponse(client.forums)
-        self.promo_codes = promo_codes.PromoCodesResourceWithStreamingResponse(client.promo_codes)
-        self.courses = courses.CoursesResourceWithStreamingResponse(client.courses)
-        self.course_chapters = course_chapters.CourseChaptersResourceWithStreamingResponse(client.course_chapters)
-        self.course_lessons = course_lessons.CourseLessonsResourceWithStreamingResponse(client.course_lessons)
-        self.reviews = reviews.ReviewsResourceWithStreamingResponse(client.reviews)
-        self.course_students = course_students.CourseStudentsResourceWithStreamingResponse(client.course_students)
-        self.access_tokens = access_tokens.AccessTokensResourceWithStreamingResponse(client.access_tokens)
-        self.notifications = notifications.NotificationsResourceWithStreamingResponse(client.notifications)
-        self.disputes = disputes.DisputesResourceWithStreamingResponse(client.disputes)
-        self.refunds = refunds.RefundsResourceWithStreamingResponse(client.refunds)
-        self.withdrawals = withdrawals.WithdrawalsResourceWithStreamingResponse(client.withdrawals)
-        self.account_links = account_links.AccountLinksResourceWithStreamingResponse(client.account_links)
-        self.setup_intents = setup_intents.SetupIntentsResourceWithStreamingResponse(client.setup_intents)
-        self.payment_methods = payment_methods.PaymentMethodsResourceWithStreamingResponse(client.payment_methods)
-        self.fee_markups = fee_markups.FeeMarkupsResourceWithStreamingResponse(client.fee_markups)
-        self.payout_methods = payout_methods.PayoutMethodsResourceWithStreamingResponse(client.payout_methods)
+        self._client = client
+
+    @cached_property
+    def apps(self) -> apps.AppsResourceWithStreamingResponse:
+        from .resources.apps import AppsResourceWithStreamingResponse
+
+        return AppsResourceWithStreamingResponse(self._client.apps)
+
+    @cached_property
+    def invoices(self) -> invoices.InvoicesResourceWithStreamingResponse:
+        from .resources.invoices import InvoicesResourceWithStreamingResponse
+
+        return InvoicesResourceWithStreamingResponse(self._client.invoices)
+
+    @cached_property
+    def course_lesson_interactions(
+        self,
+    ) -> course_lesson_interactions.CourseLessonInteractionsResourceWithStreamingResponse:
+        from .resources.course_lesson_interactions import CourseLessonInteractionsResourceWithStreamingResponse
+
+        return CourseLessonInteractionsResourceWithStreamingResponse(self._client.course_lesson_interactions)
+
+    @cached_property
+    def products(self) -> products.ProductsResourceWithStreamingResponse:
+        from .resources.products import ProductsResourceWithStreamingResponse
+
+        return ProductsResourceWithStreamingResponse(self._client.products)
+
+    @cached_property
+    def companies(self) -> companies.CompaniesResourceWithStreamingResponse:
+        from .resources.companies import CompaniesResourceWithStreamingResponse
+
+        return CompaniesResourceWithStreamingResponse(self._client.companies)
+
+    @cached_property
+    def plans(self) -> plans.PlansResourceWithStreamingResponse:
+        from .resources.plans import PlansResourceWithStreamingResponse
+
+        return PlansResourceWithStreamingResponse(self._client.plans)
+
+    @cached_property
+    def entries(self) -> entries.EntriesResourceWithStreamingResponse:
+        from .resources.entries import EntriesResourceWithStreamingResponse
+
+        return EntriesResourceWithStreamingResponse(self._client.entries)
+
+    @cached_property
+    def forum_posts(self) -> forum_posts.ForumPostsResourceWithStreamingResponse:
+        from .resources.forum_posts import ForumPostsResourceWithStreamingResponse
+
+        return ForumPostsResourceWithStreamingResponse(self._client.forum_posts)
+
+    @cached_property
+    def transfers(self) -> transfers.TransfersResourceWithStreamingResponse:
+        from .resources.transfers import TransfersResourceWithStreamingResponse
+
+        return TransfersResourceWithStreamingResponse(self._client.transfers)
+
+    @cached_property
+    def ledger_accounts(self) -> ledger_accounts.LedgerAccountsResourceWithStreamingResponse:
+        from .resources.ledger_accounts import LedgerAccountsResourceWithStreamingResponse
+
+        return LedgerAccountsResourceWithStreamingResponse(self._client.ledger_accounts)
+
+    @cached_property
+    def memberships(self) -> memberships.MembershipsResourceWithStreamingResponse:
+        from .resources.memberships import MembershipsResourceWithStreamingResponse
+
+        return MembershipsResourceWithStreamingResponse(self._client.memberships)
+
+    @cached_property
+    def authorized_users(self) -> authorized_users.AuthorizedUsersResourceWithStreamingResponse:
+        from .resources.authorized_users import AuthorizedUsersResourceWithStreamingResponse
+
+        return AuthorizedUsersResourceWithStreamingResponse(self._client.authorized_users)
+
+    @cached_property
+    def app_builds(self) -> app_builds.AppBuildsResourceWithStreamingResponse:
+        from .resources.app_builds import AppBuildsResourceWithStreamingResponse
+
+        return AppBuildsResourceWithStreamingResponse(self._client.app_builds)
+
+    @cached_property
+    def shipments(self) -> shipments.ShipmentsResourceWithStreamingResponse:
+        from .resources.shipments import ShipmentsResourceWithStreamingResponse
+
+        return ShipmentsResourceWithStreamingResponse(self._client.shipments)
+
+    @cached_property
+    def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithStreamingResponse:
+        from .resources.checkout_configurations import CheckoutConfigurationsResourceWithStreamingResponse
+
+        return CheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)
+
+    @cached_property
+    def messages(self) -> messages.MessagesResourceWithStreamingResponse:
+        from .resources.messages import MessagesResourceWithStreamingResponse
+
+        return MessagesResourceWithStreamingResponse(self._client.messages)
+
+    @cached_property
+    def chat_channels(self) -> chat_channels.ChatChannelsResourceWithStreamingResponse:
+        from .resources.chat_channels import ChatChannelsResourceWithStreamingResponse
+
+        return ChatChannelsResourceWithStreamingResponse(self._client.chat_channels)
+
+    @cached_property
+    def users(self) -> users.UsersResourceWithStreamingResponse:
+        from .resources.users import UsersResourceWithStreamingResponse
+
+        return UsersResourceWithStreamingResponse(self._client.users)
+
+    @cached_property
+    def payments(self) -> payments.PaymentsResourceWithStreamingResponse:
+        from .resources.payments import PaymentsResourceWithStreamingResponse
+
+        return PaymentsResourceWithStreamingResponse(self._client.payments)
+
+    @cached_property
+    def support_channels(self) -> support_channels.SupportChannelsResourceWithStreamingResponse:
+        from .resources.support_channels import SupportChannelsResourceWithStreamingResponse
+
+        return SupportChannelsResourceWithStreamingResponse(self._client.support_channels)
+
+    @cached_property
+    def experiences(self) -> experiences.ExperiencesResourceWithStreamingResponse:
+        from .resources.experiences import ExperiencesResourceWithStreamingResponse
+
+        return ExperiencesResourceWithStreamingResponse(self._client.experiences)
+
+    @cached_property
+    def reactions(self) -> reactions.ReactionsResourceWithStreamingResponse:
+        from .resources.reactions import ReactionsResourceWithStreamingResponse
+
+        return ReactionsResourceWithStreamingResponse(self._client.reactions)
+
+    @cached_property
+    def members(self) -> members.MembersResourceWithStreamingResponse:
+        from .resources.members import MembersResourceWithStreamingResponse
+
+        return MembersResourceWithStreamingResponse(self._client.members)
+
+    @cached_property
+    def forums(self) -> forums.ForumsResourceWithStreamingResponse:
+        from .resources.forums import ForumsResourceWithStreamingResponse
+
+        return ForumsResourceWithStreamingResponse(self._client.forums)
+
+    @cached_property
+    def promo_codes(self) -> promo_codes.PromoCodesResourceWithStreamingResponse:
+        from .resources.promo_codes import PromoCodesResourceWithStreamingResponse
+
+        return PromoCodesResourceWithStreamingResponse(self._client.promo_codes)
+
+    @cached_property
+    def courses(self) -> courses.CoursesResourceWithStreamingResponse:
+        from .resources.courses import CoursesResourceWithStreamingResponse
+
+        return CoursesResourceWithStreamingResponse(self._client.courses)
+
+    @cached_property
+    def course_chapters(self) -> course_chapters.CourseChaptersResourceWithStreamingResponse:
+        from .resources.course_chapters import CourseChaptersResourceWithStreamingResponse
+
+        return CourseChaptersResourceWithStreamingResponse(self._client.course_chapters)
+
+    @cached_property
+    def course_lessons(self) -> course_lessons.CourseLessonsResourceWithStreamingResponse:
+        from .resources.course_lessons import CourseLessonsResourceWithStreamingResponse
+
+        return CourseLessonsResourceWithStreamingResponse(self._client.course_lessons)
+
+    @cached_property
+    def reviews(self) -> reviews.ReviewsResourceWithStreamingResponse:
+        from .resources.reviews import ReviewsResourceWithStreamingResponse
+
+        return ReviewsResourceWithStreamingResponse(self._client.reviews)
+
+    @cached_property
+    def course_students(self) -> course_students.CourseStudentsResourceWithStreamingResponse:
+        from .resources.course_students import CourseStudentsResourceWithStreamingResponse
+
+        return CourseStudentsResourceWithStreamingResponse(self._client.course_students)
+
+    @cached_property
+    def access_tokens(self) -> access_tokens.AccessTokensResourceWithStreamingResponse:
+        from .resources.access_tokens import AccessTokensResourceWithStreamingResponse
+
+        return AccessTokensResourceWithStreamingResponse(self._client.access_tokens)
+
+    @cached_property
+    def notifications(self) -> notifications.NotificationsResourceWithStreamingResponse:
+        from .resources.notifications import NotificationsResourceWithStreamingResponse
+
+        return NotificationsResourceWithStreamingResponse(self._client.notifications)
+
+    @cached_property
+    def disputes(self) -> disputes.DisputesResourceWithStreamingResponse:
+        from .resources.disputes import DisputesResourceWithStreamingResponse
+
+        return DisputesResourceWithStreamingResponse(self._client.disputes)
+
+    @cached_property
+    def refunds(self) -> refunds.RefundsResourceWithStreamingResponse:
+        from .resources.refunds import RefundsResourceWithStreamingResponse
+
+        return RefundsResourceWithStreamingResponse(self._client.refunds)
+
+    @cached_property
+    def withdrawals(self) -> withdrawals.WithdrawalsResourceWithStreamingResponse:
+        from .resources.withdrawals import WithdrawalsResourceWithStreamingResponse
+
+        return WithdrawalsResourceWithStreamingResponse(self._client.withdrawals)
+
+    @cached_property
+    def account_links(self) -> account_links.AccountLinksResourceWithStreamingResponse:
+        from .resources.account_links import AccountLinksResourceWithStreamingResponse
+
+        return AccountLinksResourceWithStreamingResponse(self._client.account_links)
+
+    @cached_property
+    def setup_intents(self) -> setup_intents.SetupIntentsResourceWithStreamingResponse:
+        from .resources.setup_intents import SetupIntentsResourceWithStreamingResponse
+
+        return SetupIntentsResourceWithStreamingResponse(self._client.setup_intents)
+
+    @cached_property
+    def payment_methods(self) -> payment_methods.PaymentMethodsResourceWithStreamingResponse:
+        from .resources.payment_methods import PaymentMethodsResourceWithStreamingResponse
+
+        return PaymentMethodsResourceWithStreamingResponse(self._client.payment_methods)
+
+    @cached_property
+    def fee_markups(self) -> fee_markups.FeeMarkupsResourceWithStreamingResponse:
+        from .resources.fee_markups import FeeMarkupsResourceWithStreamingResponse
+
+        return FeeMarkupsResourceWithStreamingResponse(self._client.fee_markups)
+
+    @cached_property
+    def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithStreamingResponse:
+        from .resources.payout_methods import PayoutMethodsResourceWithStreamingResponse
+
+        return PayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
 
 
 class AsyncWhopWithStreamedResponse:
+    _client: AsyncWhop
+
     def __init__(self, client: AsyncWhop) -> None:
-        self.apps = apps.AsyncAppsResourceWithStreamingResponse(client.apps)
-        self.invoices = invoices.AsyncInvoicesResourceWithStreamingResponse(client.invoices)
-        self.course_lesson_interactions = (
-            course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithStreamingResponse(
-                client.course_lesson_interactions
-            )
-        )
-        self.products = products.AsyncProductsResourceWithStreamingResponse(client.products)
-        self.companies = companies.AsyncCompaniesResourceWithStreamingResponse(client.companies)
-        self.plans = plans.AsyncPlansResourceWithStreamingResponse(client.plans)
-        self.entries = entries.AsyncEntriesResourceWithStreamingResponse(client.entries)
-        self.forum_posts = forum_posts.AsyncForumPostsResourceWithStreamingResponse(client.forum_posts)
-        self.transfers = transfers.AsyncTransfersResourceWithStreamingResponse(client.transfers)
-        self.ledger_accounts = ledger_accounts.AsyncLedgerAccountsResourceWithStreamingResponse(client.ledger_accounts)
-        self.memberships = memberships.AsyncMembershipsResourceWithStreamingResponse(client.memberships)
-        self.authorized_users = authorized_users.AsyncAuthorizedUsersResourceWithStreamingResponse(
-            client.authorized_users
-        )
-        self.app_builds = app_builds.AsyncAppBuildsResourceWithStreamingResponse(client.app_builds)
-        self.shipments = shipments.AsyncShipmentsResourceWithStreamingResponse(client.shipments)
-        self.checkout_configurations = checkout_configurations.AsyncCheckoutConfigurationsResourceWithStreamingResponse(
-            client.checkout_configurations
-        )
-        self.messages = messages.AsyncMessagesResourceWithStreamingResponse(client.messages)
-        self.chat_channels = chat_channels.AsyncChatChannelsResourceWithStreamingResponse(client.chat_channels)
-        self.users = users.AsyncUsersResourceWithStreamingResponse(client.users)
-        self.payments = payments.AsyncPaymentsResourceWithStreamingResponse(client.payments)
-        self.support_channels = support_channels.AsyncSupportChannelsResourceWithStreamingResponse(
-            client.support_channels
-        )
-        self.experiences = experiences.AsyncExperiencesResourceWithStreamingResponse(client.experiences)
-        self.reactions = reactions.AsyncReactionsResourceWithStreamingResponse(client.reactions)
-        self.members = members.AsyncMembersResourceWithStreamingResponse(client.members)
-        self.forums = forums.AsyncForumsResourceWithStreamingResponse(client.forums)
-        self.promo_codes = promo_codes.AsyncPromoCodesResourceWithStreamingResponse(client.promo_codes)
-        self.courses = courses.AsyncCoursesResourceWithStreamingResponse(client.courses)
-        self.course_chapters = course_chapters.AsyncCourseChaptersResourceWithStreamingResponse(client.course_chapters)
-        self.course_lessons = course_lessons.AsyncCourseLessonsResourceWithStreamingResponse(client.course_lessons)
-        self.reviews = reviews.AsyncReviewsResourceWithStreamingResponse(client.reviews)
-        self.course_students = course_students.AsyncCourseStudentsResourceWithStreamingResponse(client.course_students)
-        self.access_tokens = access_tokens.AsyncAccessTokensResourceWithStreamingResponse(client.access_tokens)
-        self.notifications = notifications.AsyncNotificationsResourceWithStreamingResponse(client.notifications)
-        self.disputes = disputes.AsyncDisputesResourceWithStreamingResponse(client.disputes)
-        self.refunds = refunds.AsyncRefundsResourceWithStreamingResponse(client.refunds)
-        self.withdrawals = withdrawals.AsyncWithdrawalsResourceWithStreamingResponse(client.withdrawals)
-        self.account_links = account_links.AsyncAccountLinksResourceWithStreamingResponse(client.account_links)
-        self.setup_intents = setup_intents.AsyncSetupIntentsResourceWithStreamingResponse(client.setup_intents)
-        self.payment_methods = payment_methods.AsyncPaymentMethodsResourceWithStreamingResponse(client.payment_methods)
-        self.fee_markups = fee_markups.AsyncFeeMarkupsResourceWithStreamingResponse(client.fee_markups)
-        self.payout_methods = payout_methods.AsyncPayoutMethodsResourceWithStreamingResponse(client.payout_methods)
+        self._client = client
+
+    @cached_property
+    def apps(self) -> apps.AsyncAppsResourceWithStreamingResponse:
+        from .resources.apps import AsyncAppsResourceWithStreamingResponse
+
+        return AsyncAppsResourceWithStreamingResponse(self._client.apps)
+
+    @cached_property
+    def invoices(self) -> invoices.AsyncInvoicesResourceWithStreamingResponse:
+        from .resources.invoices import AsyncInvoicesResourceWithStreamingResponse
+
+        return AsyncInvoicesResourceWithStreamingResponse(self._client.invoices)
+
+    @cached_property
+    def course_lesson_interactions(
+        self,
+    ) -> course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithStreamingResponse:
+        from .resources.course_lesson_interactions import AsyncCourseLessonInteractionsResourceWithStreamingResponse
+
+        return AsyncCourseLessonInteractionsResourceWithStreamingResponse(self._client.course_lesson_interactions)
+
+    @cached_property
+    def products(self) -> products.AsyncProductsResourceWithStreamingResponse:
+        from .resources.products import AsyncProductsResourceWithStreamingResponse
+
+        return AsyncProductsResourceWithStreamingResponse(self._client.products)
+
+    @cached_property
+    def companies(self) -> companies.AsyncCompaniesResourceWithStreamingResponse:
+        from .resources.companies import AsyncCompaniesResourceWithStreamingResponse
+
+        return AsyncCompaniesResourceWithStreamingResponse(self._client.companies)
+
+    @cached_property
+    def plans(self) -> plans.AsyncPlansResourceWithStreamingResponse:
+        from .resources.plans import AsyncPlansResourceWithStreamingResponse
+
+        return AsyncPlansResourceWithStreamingResponse(self._client.plans)
+
+    @cached_property
+    def entries(self) -> entries.AsyncEntriesResourceWithStreamingResponse:
+        from .resources.entries import AsyncEntriesResourceWithStreamingResponse
+
+        return AsyncEntriesResourceWithStreamingResponse(self._client.entries)
+
+    @cached_property
+    def forum_posts(self) -> forum_posts.AsyncForumPostsResourceWithStreamingResponse:
+        from .resources.forum_posts import AsyncForumPostsResourceWithStreamingResponse
+
+        return AsyncForumPostsResourceWithStreamingResponse(self._client.forum_posts)
+
+    @cached_property
+    def transfers(self) -> transfers.AsyncTransfersResourceWithStreamingResponse:
+        from .resources.transfers import AsyncTransfersResourceWithStreamingResponse
+
+        return AsyncTransfersResourceWithStreamingResponse(self._client.transfers)
+
+    @cached_property
+    def ledger_accounts(self) -> ledger_accounts.AsyncLedgerAccountsResourceWithStreamingResponse:
+        from .resources.ledger_accounts import AsyncLedgerAccountsResourceWithStreamingResponse
+
+        return AsyncLedgerAccountsResourceWithStreamingResponse(self._client.ledger_accounts)
+
+    @cached_property
+    def memberships(self) -> memberships.AsyncMembershipsResourceWithStreamingResponse:
+        from .resources.memberships import AsyncMembershipsResourceWithStreamingResponse
+
+        return AsyncMembershipsResourceWithStreamingResponse(self._client.memberships)
+
+    @cached_property
+    def authorized_users(self) -> authorized_users.AsyncAuthorizedUsersResourceWithStreamingResponse:
+        from .resources.authorized_users import AsyncAuthorizedUsersResourceWithStreamingResponse
+
+        return AsyncAuthorizedUsersResourceWithStreamingResponse(self._client.authorized_users)
+
+    @cached_property
+    def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithStreamingResponse:
+        from .resources.app_builds import AsyncAppBuildsResourceWithStreamingResponse
+
+        return AsyncAppBuildsResourceWithStreamingResponse(self._client.app_builds)
+
+    @cached_property
+    def shipments(self) -> shipments.AsyncShipmentsResourceWithStreamingResponse:
+        from .resources.shipments import AsyncShipmentsResourceWithStreamingResponse
+
+        return AsyncShipmentsResourceWithStreamingResponse(self._client.shipments)
+
+    @cached_property
+    def checkout_configurations(
+        self,
+    ) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithStreamingResponse:
+        from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithStreamingResponse
+
+        return AsyncCheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)
+
+    @cached_property
+    def messages(self) -> messages.AsyncMessagesResourceWithStreamingResponse:
+        from .resources.messages import AsyncMessagesResourceWithStreamingResponse
+
+        return AsyncMessagesResourceWithStreamingResponse(self._client.messages)
+
+    @cached_property
+    def chat_channels(self) -> chat_channels.AsyncChatChannelsResourceWithStreamingResponse:
+        from .resources.chat_channels import AsyncChatChannelsResourceWithStreamingResponse
+
+        return AsyncChatChannelsResourceWithStreamingResponse(self._client.chat_channels)
+
+    @cached_property
+    def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
+        from .resources.users import AsyncUsersResourceWithStreamingResponse
+
+        return AsyncUsersResourceWithStreamingResponse(self._client.users)
+
+    @cached_property
+    def payments(self) -> payments.AsyncPaymentsResourceWithStreamingResponse:
+        from .resources.payments import AsyncPaymentsResourceWithStreamingResponse
+
+        return AsyncPaymentsResourceWithStreamingResponse(self._client.payments)
+
+    @cached_property
+    def support_channels(self) -> support_channels.AsyncSupportChannelsResourceWithStreamingResponse:
+        from .resources.support_channels import AsyncSupportChannelsResourceWithStreamingResponse
+
+        return AsyncSupportChannelsResourceWithStreamingResponse(self._client.support_channels)
+
+    @cached_property
+    def experiences(self) -> experiences.AsyncExperiencesResourceWithStreamingResponse:
+        from .resources.experiences import AsyncExperiencesResourceWithStreamingResponse
+
+        return AsyncExperiencesResourceWithStreamingResponse(self._client.experiences)
+
+    @cached_property
+    def reactions(self) -> reactions.AsyncReactionsResourceWithStreamingResponse:
+        from .resources.reactions import AsyncReactionsResourceWithStreamingResponse
+
+        return AsyncReactionsResourceWithStreamingResponse(self._client.reactions)
+
+    @cached_property
+    def members(self) -> members.AsyncMembersResourceWithStreamingResponse:
+        from .resources.members import AsyncMembersResourceWithStreamingResponse
+
+        return AsyncMembersResourceWithStreamingResponse(self._client.members)
+
+    @cached_property
+    def forums(self) -> forums.AsyncForumsResourceWithStreamingResponse:
+        from .resources.forums import AsyncForumsResourceWithStreamingResponse
+
+        return AsyncForumsResourceWithStreamingResponse(self._client.forums)
+
+    @cached_property
+    def promo_codes(self) -> promo_codes.AsyncPromoCodesResourceWithStreamingResponse:
+        from .resources.promo_codes import AsyncPromoCodesResourceWithStreamingResponse
+
+        return AsyncPromoCodesResourceWithStreamingResponse(self._client.promo_codes)
+
+    @cached_property
+    def courses(self) -> courses.AsyncCoursesResourceWithStreamingResponse:
+        from .resources.courses import AsyncCoursesResourceWithStreamingResponse
+
+        return AsyncCoursesResourceWithStreamingResponse(self._client.courses)
+
+    @cached_property
+    def course_chapters(self) -> course_chapters.AsyncCourseChaptersResourceWithStreamingResponse:
+        from .resources.course_chapters import AsyncCourseChaptersResourceWithStreamingResponse
+
+        return AsyncCourseChaptersResourceWithStreamingResponse(self._client.course_chapters)
+
+    @cached_property
+    def course_lessons(self) -> course_lessons.AsyncCourseLessonsResourceWithStreamingResponse:
+        from .resources.course_lessons import AsyncCourseLessonsResourceWithStreamingResponse
+
+        return AsyncCourseLessonsResourceWithStreamingResponse(self._client.course_lessons)
+
+    @cached_property
+    def reviews(self) -> reviews.AsyncReviewsResourceWithStreamingResponse:
+        from .resources.reviews import AsyncReviewsResourceWithStreamingResponse
+
+        return AsyncReviewsResourceWithStreamingResponse(self._client.reviews)
+
+    @cached_property
+    def course_students(self) -> course_students.AsyncCourseStudentsResourceWithStreamingResponse:
+        from .resources.course_students import AsyncCourseStudentsResourceWithStreamingResponse
+
+        return AsyncCourseStudentsResourceWithStreamingResponse(self._client.course_students)
+
+    @cached_property
+    def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithStreamingResponse:
+        from .resources.access_tokens import AsyncAccessTokensResourceWithStreamingResponse
+
+        return AsyncAccessTokensResourceWithStreamingResponse(self._client.access_tokens)
+
+    @cached_property
+    def notifications(self) -> notifications.AsyncNotificationsResourceWithStreamingResponse:
+        from .resources.notifications import AsyncNotificationsResourceWithStreamingResponse
+
+        return AsyncNotificationsResourceWithStreamingResponse(self._client.notifications)
+
+    @cached_property
+    def disputes(self) -> disputes.AsyncDisputesResourceWithStreamingResponse:
+        from .resources.disputes import AsyncDisputesResourceWithStreamingResponse
+
+        return AsyncDisputesResourceWithStreamingResponse(self._client.disputes)
+
+    @cached_property
+    def refunds(self) -> refunds.AsyncRefundsResourceWithStreamingResponse:
+        from .resources.refunds import AsyncRefundsResourceWithStreamingResponse
+
+        return AsyncRefundsResourceWithStreamingResponse(self._client.refunds)
+
+    @cached_property
+    def withdrawals(self) -> withdrawals.AsyncWithdrawalsResourceWithStreamingResponse:
+        from .resources.withdrawals import AsyncWithdrawalsResourceWithStreamingResponse
+
+        return AsyncWithdrawalsResourceWithStreamingResponse(self._client.withdrawals)
+
+    @cached_property
+    def account_links(self) -> account_links.AsyncAccountLinksResourceWithStreamingResponse:
+        from .resources.account_links import AsyncAccountLinksResourceWithStreamingResponse
+
+        return AsyncAccountLinksResourceWithStreamingResponse(self._client.account_links)
+
+    @cached_property
+    def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithStreamingResponse:
+        from .resources.setup_intents import AsyncSetupIntentsResourceWithStreamingResponse
+
+        return AsyncSetupIntentsResourceWithStreamingResponse(self._client.setup_intents)
+
+    @cached_property
+    def payment_methods(self) -> payment_methods.AsyncPaymentMethodsResourceWithStreamingResponse:
+        from .resources.payment_methods import AsyncPaymentMethodsResourceWithStreamingResponse
+
+        return AsyncPaymentMethodsResourceWithStreamingResponse(self._client.payment_methods)
+
+    @cached_property
+    def fee_markups(self) -> fee_markups.AsyncFeeMarkupsResourceWithStreamingResponse:
+        from .resources.fee_markups import AsyncFeeMarkupsResourceWithStreamingResponse
+
+        return AsyncFeeMarkupsResourceWithStreamingResponse(self._client.fee_markups)
+
+    @cached_property
+    def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithStreamingResponse:
+        from .resources.payout_methods import AsyncPayoutMethodsResourceWithStreamingResponse
+
+        return AsyncPayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
 
 
 Client = Whop
