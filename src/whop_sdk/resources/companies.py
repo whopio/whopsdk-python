@@ -23,6 +23,8 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.company import Company
 from ..types.shared.direction import Direction
 from ..types.company_list_response import CompanyListResponse
+from ..types.shared.business_types import BusinessTypes
+from ..types.shared.industry_types import IndustryTypes
 
 __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
@@ -53,6 +55,8 @@ class CompaniesResource(SyncAPIResource):
         email: str,
         parent_company_id: str,
         title: str,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -77,6 +81,10 @@ class CompaniesResource(SyncAPIResource):
 
           title: The name of the company being created.
 
+          business_type: The different business types a company can be.
+
+          industry_type: The different industry types a company can be in.
+
           metadata: Additional metadata for the account
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
@@ -99,6 +107,8 @@ class CompaniesResource(SyncAPIResource):
                     "email": email,
                     "parent_company_id": parent_company_id,
                     "title": title,
+                    "business_type": business_type,
+                    "industry_type": industry_type,
                     "metadata": metadata,
                     "send_customer_emails": send_customer_emails,
                 },
@@ -152,6 +162,8 @@ class CompaniesResource(SyncAPIResource):
         id: str,
         *,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -174,6 +186,10 @@ class CompaniesResource(SyncAPIResource):
 
         Args:
           banner_image: The banner image for the company in png or jpeg format
+
+          business_type: The different business types a company can be.
+
+          industry_type: The different industry types a company can be in.
 
           logo: The logo for the company in png, jpeg, or gif format
 
@@ -199,6 +215,8 @@ class CompaniesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "banner_image": banner_image,
+                    "business_type": business_type,
+                    "industry_type": industry_type,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
                     "title": title,
@@ -313,6 +331,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
         email: str,
         parent_company_id: str,
         title: str,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -337,6 +357,10 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
           title: The name of the company being created.
 
+          business_type: The different business types a company can be.
+
+          industry_type: The different industry types a company can be in.
+
           metadata: Additional metadata for the account
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
@@ -359,6 +383,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
                     "email": email,
                     "parent_company_id": parent_company_id,
                     "title": title,
+                    "business_type": business_type,
+                    "industry_type": industry_type,
                     "metadata": metadata,
                     "send_customer_emails": send_customer_emails,
                 },
@@ -412,6 +438,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
         id: str,
         *,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
+        business_type: Optional[BusinessTypes] | Omit = omit,
+        industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -434,6 +462,10 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
         Args:
           banner_image: The banner image for the company in png or jpeg format
+
+          business_type: The different business types a company can be.
+
+          industry_type: The different industry types a company can be in.
 
           logo: The logo for the company in png, jpeg, or gif format
 
@@ -459,6 +491,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "banner_image": banner_image,
+                    "business_type": business_type,
+                    "industry_type": industry_type,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
                     "title": title,
