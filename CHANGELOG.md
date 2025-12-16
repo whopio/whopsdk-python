@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.0.20 (2025-12-16)
+
+Full Changelog: [v0.0.19...v0.0.20](https://github.com/whopio/whopsdk-python/compare/v0.0.19...v0.0.20)
+
+### Features
+
+* **api:** api update ([12958bf](https://github.com/whopio/whopsdk-python/commit/12958bfaaf8b08a2b771e565a0685ec547e44bd1))
+* **api:** api update ([aaeaae1](https://github.com/whopio/whopsdk-python/commit/aaeaae1a7d432647d8d5526a871cfc6b155ba98e))
+* **api:** api update ([8437c7f](https://github.com/whopio/whopsdk-python/commit/8437c7f2d06789e12bf9e2bb4c471f6444298dc2))
+
+
+### Chores
+
+* **internal:** add missing files argument to base client ([f921d8e](https://github.com/whopio/whopsdk-python/commit/f921d8e1ae2cde97af4c0146b8bb168348469d1a))
+* speedup initial import ([d90ab37](https://github.com/whopio/whopsdk-python/commit/d90ab374ebd9ffd1b7b24295a08b31059f0741c6))
+
 ## 0.0.19 (2025-12-12)
 
 Full Changelog: [v0.0.18...v0.0.19](https://github.com/whopio/whopsdk-python/compare/v0.0.18...v0.0.19)
