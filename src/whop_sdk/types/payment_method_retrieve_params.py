@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import TypedDict
 
 __all__ = ["PaymentMethodRetrieveParams"]
 
 
 class PaymentMethodRetrieveParams(TypedDict, total=False):
-    member_id: Required[str]
-    """The ID of the Member associated with the PaymentMethod"""
+    company_id: Optional[str]
+    """The ID of the Company. Provide either this or member_id (not both)."""
+
+    member_id: Optional[str]
+    """The ID of the Member. Provide either this or company_id (not both)."""
