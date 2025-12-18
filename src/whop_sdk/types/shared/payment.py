@@ -231,7 +231,8 @@ class Payment(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """The custom metadata stored on this payment.
 
-    This will be copied the checkout configuration for which this payment was made
+    This will be copied over to the checkout configuration for which this payment
+    was made
     """
 
     paid_at: Optional[datetime] = None
