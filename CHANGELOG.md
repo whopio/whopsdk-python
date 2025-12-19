@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0 (2025-12-19)
+
+Full Changelog: [v0.0.20...v0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.20...v0.1.0)
+
+### Features
+
+* **api:** api update ([178a244](https://github.com/whopio/whopsdk-python/commit/178a244f1af3783a3fc0b2a894ff82b7004084a9))
+* **api:** api update ([58e3e4f](https://github.com/whopio/whopsdk-python/commit/58e3e4fd76c5bee88c8c863766db5bc7a7a1228d))
+* **api:** api update ([59b2893](https://github.com/whopio/whopsdk-python/commit/59b28939a8a030734004c16f6945f6bab277dbe5))
+
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([c3f1923](https://github.com/whopio/whopsdk-python/commit/c3f19234a7efea6c6048c09ae693839b5c7654ce))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([ee64709](https://github.com/whopio/whopsdk-python/commit/ee64709e6629563c7cce0733015c3dd2a7411e83))
+
 ## 0.0.20 (2025-12-16)
 
 Full Changelog: [v0.0.19...v0.0.20](https://github.com/whopio/whopsdk-python/compare/v0.0.19...v0.0.20)
