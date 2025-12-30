@@ -71,7 +71,7 @@ class SupportChannelsResource(SyncAPIResource):
         Args:
           company_id: The ID of the company to create the support chat in
 
-          user_id: The ID of the user to create the support chat for
+          user_id: The ID (user_xxx) or username of the user to create the support chat for
 
           extra_headers: Send extra headers
 
@@ -255,7 +255,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         Args:
           company_id: The ID of the company to create the support chat in
 
-          user_id: The ID of the user to create the support chat for
+          user_id: The ID (user_xxx) or username of the user to create the support chat for
 
           extra_headers: Send extra headers
 
