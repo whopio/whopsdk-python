@@ -37,6 +37,9 @@ class Data(BaseModel):
     destination: Optional[DataDestination] = None
     """The payout destination associated with the payout token"""
 
+    is_default: bool
+    """Whether this payout token is the default for the payout account"""
+
     nickname: Optional[str] = None
     """An optional nickname for the payout token to help the user identify it.
 
