@@ -5,7 +5,14 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PayoutMethodListResponse", "Destination"]
+__all__ = ["PayoutMethodListResponse", "Company", "Destination"]
+
+
+class Company(BaseModel):
+    """The company associated with the payout token"""
+
+    id: str
+    """The ID (tag) of the company."""
 
 
 class Destination(BaseModel):
@@ -26,6 +33,9 @@ class PayoutMethodListResponse(BaseModel):
 
     id: str
     """The ID of the payout token"""
+
+    company: Optional[Company] = None
+    """The company associated with the payout token"""
 
     currency: str
     """The currency code of the payout destination.

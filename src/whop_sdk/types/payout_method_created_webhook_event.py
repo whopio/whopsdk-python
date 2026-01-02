@@ -6,7 +6,14 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PayoutMethodCreatedWebhookEvent", "Data", "DataDestination"]
+__all__ = ["PayoutMethodCreatedWebhookEvent", "Data", "DataCompany", "DataDestination"]
+
+
+class DataCompany(BaseModel):
+    """The company associated with the payout token"""
+
+    id: str
+    """The ID (tag) of the company."""
 
 
 class DataDestination(BaseModel):
@@ -27,6 +34,9 @@ class Data(BaseModel):
 
     id: str
     """The ID of the payout token"""
+
+    company: Optional[DataCompany] = None
+    """The company associated with the payout token"""
 
     currency: str
     """The currency code of the payout destination.
