@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, overload
 
@@ -61,6 +61,7 @@ class PaymentsResource(SyncAPIResource):
         member_id: str,
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -98,6 +99,8 @@ class PaymentsResource(SyncAPIResource):
 
           plan: Pass this object to create a new plan for this payment
 
+          metadata: Custom metadata to attach to the payment.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -116,6 +119,7 @@ class PaymentsResource(SyncAPIResource):
         member_id: str,
         payment_method_id: str,
         plan_id: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -153,6 +157,8 @@ class PaymentsResource(SyncAPIResource):
 
           plan_id: An ID of an existing plan to use for the payment.
 
+          metadata: Custom metadata to attach to the payment.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -174,6 +180,7 @@ class PaymentsResource(SyncAPIResource):
         member_id: str,
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -190,6 +197,7 @@ class PaymentsResource(SyncAPIResource):
                     "member_id": member_id,
                     "payment_method_id": payment_method_id,
                     "plan": plan,
+                    "metadata": metadata,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,
@@ -580,6 +588,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         member_id: str,
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -617,6 +626,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           plan: Pass this object to create a new plan for this payment
 
+          metadata: Custom metadata to attach to the payment.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -635,6 +646,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         member_id: str,
         payment_method_id: str,
         plan_id: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -672,6 +684,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           plan_id: An ID of an existing plan to use for the payment.
 
+          metadata: Custom metadata to attach to the payment.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -693,6 +707,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         member_id: str,
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -709,6 +724,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                     "member_id": member_id,
                     "payment_method_id": payment_method_id,
                     "plan": plan,
+                    "metadata": metadata,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,

@@ -51,5 +51,6 @@ class PaymentListFeesResponse(BaseModel):
         "three_ds_fixed_fee",
         "billing_percentage_fee",
         "revshare_percentage_fee",
+        "application_fee",
     ]
     """The specific origin of the fee, if applicable."""

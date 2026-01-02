@@ -51,7 +51,8 @@ class PaymentMethodsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        member_id: str,
+        company_id: Optional[str] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,14 +65,16 @@ class PaymentMethodsResource(SyncAPIResource):
         such as a card, bank account, or digital wallet. It holds the necessary billing
         details and can be attached to a member for future one-time or recurring
         charges. This lets you reuse the same payment credentials across multiple
-        payments.
+        payments. You must provide exactly one of company_id or member_id.
 
         Required permissions:
 
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member associated with the PaymentMethod
+          company_id: The ID of the Company. Provide either this or member_id (not both).
+
+          member_id: The ID of the Member. Provide either this or company_id (not both).
 
           extra_headers: Send extra headers
 
@@ -93,7 +96,11 @@ class PaymentMethodsResource(SyncAPIResource):
                     extra_body=extra_body,
                     timeout=timeout,
                     query=maybe_transform(
-                        {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
+                        {
+                            "company_id": company_id,
+                            "member_id": member_id,
+                        },
+                        payment_method_retrieve_params.PaymentMethodRetrieveParams,
                     ),
                 ),
                 cast_to=cast(
@@ -105,14 +112,15 @@ class PaymentMethodsResource(SyncAPIResource):
     def list(
         self,
         *,
-        member_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -132,11 +140,11 @@ class PaymentMethodsResource(SyncAPIResource):
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member to list payment methods for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the Company. Provide either this or member_id (not both).
 
           created_after: The minimum creation date to filter by
 
@@ -147,6 +155,8 @@ class PaymentMethodsResource(SyncAPIResource):
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          member_id: The ID of the Member to list payment methods for
 
           extra_headers: Send extra headers
 
@@ -166,14 +176,15 @@ class PaymentMethodsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "member_id": member_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "member_id": member_id,
                     },
                     payment_method_list_params.PaymentMethodListParams,
                 ),
@@ -208,7 +219,8 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        member_id: str,
+        company_id: Optional[str] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -221,14 +233,16 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         such as a card, bank account, or digital wallet. It holds the necessary billing
         details and can be attached to a member for future one-time or recurring
         charges. This lets you reuse the same payment credentials across multiple
-        payments.
+        payments. You must provide exactly one of company_id or member_id.
 
         Required permissions:
 
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member associated with the PaymentMethod
+          company_id: The ID of the Company. Provide either this or member_id (not both).
+
+          member_id: The ID of the Member. Provide either this or company_id (not both).
 
           extra_headers: Send extra headers
 
@@ -250,7 +264,11 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
                     extra_body=extra_body,
                     timeout=timeout,
                     query=await async_maybe_transform(
-                        {"member_id": member_id}, payment_method_retrieve_params.PaymentMethodRetrieveParams
+                        {
+                            "company_id": company_id,
+                            "member_id": member_id,
+                        },
+                        payment_method_retrieve_params.PaymentMethodRetrieveParams,
                     ),
                 ),
                 cast_to=cast(
@@ -262,14 +280,15 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        member_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -289,11 +308,11 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         - `member:payment_methods:read`
 
         Args:
-          member_id: The ID of the Member to list payment methods for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the Company. Provide either this or member_id (not both).
 
           created_after: The minimum creation date to filter by
 
@@ -304,6 +323,8 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          member_id: The ID of the Member to list payment methods for
 
           extra_headers: Send extra headers
 
@@ -323,14 +344,15 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "member_id": member_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "member_id": member_id,
                     },
                     payment_method_list_params.PaymentMethodListParams,
                 ),

@@ -155,6 +155,7 @@ from whop_sdk.types import (
     WithdrawalCreatedWebhookEvent,
     WithdrawalUpdatedWebhookEvent,
     CourseLessonInteractionCompletedWebhookEvent,
+    PayoutMethodCreatedWebhookEvent,
     PaymentCreatedWebhookEvent,
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,

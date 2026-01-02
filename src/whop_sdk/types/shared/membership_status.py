@@ -5,5 +5,5 @@ from typing_extensions import Literal, TypeAlias
 __all__ = ["MembershipStatus"]
 
 MembershipStatus: TypeAlias = Literal[
-    "trialing", "active", "past_due", "completed", "canceled", "expired", "unresolved", "drafted"
+    "trialing", "active", "past_due", "completed", "canceled", "expired", "unresolved", "drafted", "canceling"
 ]
