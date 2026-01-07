@@ -33,9 +33,11 @@ from ._base_client import (
 if TYPE_CHECKING:
     from .resources import (
         apps,
+        leads,
         plans,
         users,
         forums,
+        topups,
         courses,
         entries,
         members,
@@ -62,6 +64,7 @@ if TYPE_CHECKING:
         chat_channels,
         notifications,
         setup_intents,
+        verifications,
         course_lessons,
         payout_methods,
         course_chapters,
@@ -74,9 +77,11 @@ if TYPE_CHECKING:
         course_lesson_interactions,
     )
     from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.forums import ForumsResource, AsyncForumsResource
+    from .resources.topups import TopupsResource, AsyncTopupsResource
     from .resources.courses import CoursesResource, AsyncCoursesResource
     from .resources.entries import EntriesResource, AsyncEntriesResource
     from .resources.members import MembersResource, AsyncMembersResource
@@ -104,6 +109,7 @@ if TYPE_CHECKING:
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
     from .resources.notifications import NotificationsResource, AsyncNotificationsResource
     from .resources.setup_intents import SetupIntentsResource, AsyncSetupIntentsResource
+    from .resources.verifications import VerificationsResource, AsyncVerificationsResource
     from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
     from .resources.payout_methods import PayoutMethodsResource, AsyncPayoutMethodsResource
     from .resources.course_chapters import CourseChaptersResource, AsyncCourseChaptersResource
@@ -436,6 +442,24 @@ class Whop(SyncAPIClient):
         from .resources.payout_methods import PayoutMethodsResource
 
         return PayoutMethodsResource(self)
+
+    @cached_property
+    def verifications(self) -> VerificationsResource:
+        from .resources.verifications import VerificationsResource
+
+        return VerificationsResource(self)
+
+    @cached_property
+    def leads(self) -> LeadsResource:
+        from .resources.leads import LeadsResource
+
+        return LeadsResource(self)
+
+    @cached_property
+    def topups(self) -> TopupsResource:
+        from .resources.topups import TopupsResource
+
+        return TopupsResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -872,6 +896,24 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPayoutMethodsResource(self)
 
     @cached_property
+    def verifications(self) -> AsyncVerificationsResource:
+        from .resources.verifications import AsyncVerificationsResource
+
+        return AsyncVerificationsResource(self)
+
+    @cached_property
+    def leads(self) -> AsyncLeadsResource:
+        from .resources.leads import AsyncLeadsResource
+
+        return AsyncLeadsResource(self)
+
+    @cached_property
+    def topups(self) -> AsyncTopupsResource:
+        from .resources.topups import AsyncTopupsResource
+
+        return AsyncTopupsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1235,6 +1277,24 @@ class WhopWithRawResponse:
 
         return PayoutMethodsResourceWithRawResponse(self._client.payout_methods)
 
+    @cached_property
+    def verifications(self) -> verifications.VerificationsResourceWithRawResponse:
+        from .resources.verifications import VerificationsResourceWithRawResponse
+
+        return VerificationsResourceWithRawResponse(self._client.verifications)
+
+    @cached_property
+    def leads(self) -> leads.LeadsResourceWithRawResponse:
+        from .resources.leads import LeadsResourceWithRawResponse
+
+        return LeadsResourceWithRawResponse(self._client.leads)
+
+    @cached_property
+    def topups(self) -> topups.TopupsResourceWithRawResponse:
+        from .resources.topups import TopupsResourceWithRawResponse
+
+        return TopupsResourceWithRawResponse(self._client.topups)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1484,6 +1544,24 @@ class AsyncWhopWithRawResponse:
 
         return AsyncPayoutMethodsResourceWithRawResponse(self._client.payout_methods)
 
+    @cached_property
+    def verifications(self) -> verifications.AsyncVerificationsResourceWithRawResponse:
+        from .resources.verifications import AsyncVerificationsResourceWithRawResponse
+
+        return AsyncVerificationsResourceWithRawResponse(self._client.verifications)
+
+    @cached_property
+    def leads(self) -> leads.AsyncLeadsResourceWithRawResponse:
+        from .resources.leads import AsyncLeadsResourceWithRawResponse
+
+        return AsyncLeadsResourceWithRawResponse(self._client.leads)
+
+    @cached_property
+    def topups(self) -> topups.AsyncTopupsResourceWithRawResponse:
+        from .resources.topups import AsyncTopupsResourceWithRawResponse
+
+        return AsyncTopupsResourceWithRawResponse(self._client.topups)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -1732,6 +1810,24 @@ class WhopWithStreamedResponse:
         from .resources.payout_methods import PayoutMethodsResourceWithStreamingResponse
 
         return PayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
+
+    @cached_property
+    def verifications(self) -> verifications.VerificationsResourceWithStreamingResponse:
+        from .resources.verifications import VerificationsResourceWithStreamingResponse
+
+        return VerificationsResourceWithStreamingResponse(self._client.verifications)
+
+    @cached_property
+    def leads(self) -> leads.LeadsResourceWithStreamingResponse:
+        from .resources.leads import LeadsResourceWithStreamingResponse
+
+        return LeadsResourceWithStreamingResponse(self._client.leads)
+
+    @cached_property
+    def topups(self) -> topups.TopupsResourceWithStreamingResponse:
+        from .resources.topups import TopupsResourceWithStreamingResponse
+
+        return TopupsResourceWithStreamingResponse(self._client.topups)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -1983,6 +2079,24 @@ class AsyncWhopWithStreamedResponse:
         from .resources.payout_methods import AsyncPayoutMethodsResourceWithStreamingResponse
 
         return AsyncPayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
+
+    @cached_property
+    def verifications(self) -> verifications.AsyncVerificationsResourceWithStreamingResponse:
+        from .resources.verifications import AsyncVerificationsResourceWithStreamingResponse
+
+        return AsyncVerificationsResourceWithStreamingResponse(self._client.verifications)
+
+    @cached_property
+    def leads(self) -> leads.AsyncLeadsResourceWithStreamingResponse:
+        from .resources.leads import AsyncLeadsResourceWithStreamingResponse
+
+        return AsyncLeadsResourceWithStreamingResponse(self._client.leads)
+
+    @cached_property
+    def topups(self) -> topups.AsyncTopupsResourceWithStreamingResponse:
+        from .resources.topups import AsyncTopupsResourceWithStreamingResponse
+
+        return AsyncTopupsResourceWithStreamingResponse(self._client.topups)
 
 
 Client = Whop
