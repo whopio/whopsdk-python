@@ -278,3 +278,6 @@ from .setup_intent_requires_action_webhook_event import (
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,
 )
+from .membership_cancel_at_period_end_changed_webhook_event import (
+    MembershipCancelAtPeriodEndChangedWebhookEvent as MembershipCancelAtPeriodEndChangedWebhookEvent,
+)
