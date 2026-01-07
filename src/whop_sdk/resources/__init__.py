@@ -8,6 +8,14 @@ from .apps import (
     AppsResourceWithStreamingResponse,
     AsyncAppsResourceWithStreamingResponse,
 )
+from .leads import (
+    LeadsResource,
+    AsyncLeadsResource,
+    LeadsResourceWithRawResponse,
+    AsyncLeadsResourceWithRawResponse,
+    LeadsResourceWithStreamingResponse,
+    AsyncLeadsResourceWithStreamingResponse,
+)
 from .plans import (
     PlansResource,
     AsyncPlansResource,
@@ -31,6 +39,14 @@ from .forums import (
     AsyncForumsResourceWithRawResponse,
     ForumsResourceWithStreamingResponse,
     AsyncForumsResourceWithStreamingResponse,
+)
+from .topups import (
+    TopupsResource,
+    AsyncTopupsResource,
+    TopupsResourceWithRawResponse,
+    AsyncTopupsResourceWithRawResponse,
+    TopupsResourceWithStreamingResponse,
+    AsyncTopupsResourceWithStreamingResponse,
 )
 from .courses import (
     CoursesResource,
@@ -240,6 +256,14 @@ from .setup_intents import (
     AsyncSetupIntentsResourceWithRawResponse,
     SetupIntentsResourceWithStreamingResponse,
     AsyncSetupIntentsResourceWithStreamingResponse,
+)
+from .verifications import (
+    VerificationsResource,
+    AsyncVerificationsResource,
+    VerificationsResourceWithRawResponse,
+    AsyncVerificationsResourceWithRawResponse,
+    VerificationsResourceWithStreamingResponse,
+    AsyncVerificationsResourceWithStreamingResponse,
 )
 from .course_lessons import (
     CourseLessonsResource,
@@ -565,4 +589,22 @@ __all__ = [
     "AsyncPayoutMethodsResourceWithRawResponse",
     "PayoutMethodsResourceWithStreamingResponse",
     "AsyncPayoutMethodsResourceWithStreamingResponse",
+    "VerificationsResource",
+    "AsyncVerificationsResource",
+    "VerificationsResourceWithRawResponse",
+    "AsyncVerificationsResourceWithRawResponse",
+    "VerificationsResourceWithStreamingResponse",
+    "AsyncVerificationsResourceWithStreamingResponse",
+    "LeadsResource",
+    "AsyncLeadsResource",
+    "LeadsResourceWithRawResponse",
+    "AsyncLeadsResourceWithRawResponse",
+    "LeadsResourceWithStreamingResponse",
+    "AsyncLeadsResourceWithStreamingResponse",
+    "TopupsResource",
+    "AsyncTopupsResource",
+    "TopupsResourceWithRawResponse",
+    "AsyncTopupsResourceWithRawResponse",
+    "TopupsResourceWithStreamingResponse",
+    "AsyncTopupsResourceWithStreamingResponse",
 ]
