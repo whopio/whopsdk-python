@@ -72,6 +72,7 @@ class TestPayments:
                 "trial_period_days": 42,
                 "visibility": "visible",
             },
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -115,6 +116,18 @@ class TestPayments:
             member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params_overload_2(self, client: Whop) -> None:
+        payment = client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -493,6 +506,7 @@ class TestAsyncPayments:
                 "trial_period_days": 42,
                 "visibility": "visible",
             },
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -536,6 +550,18 @@ class TestAsyncPayments:
             member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Payment, payment, path=["response"])
 

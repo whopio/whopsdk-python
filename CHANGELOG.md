@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.0.21 (2026-01-07)
+
+Full Changelog: [v0.0.20...v0.0.21](https://github.com/whopio/whopsdk-python/compare/v0.0.20...v0.0.21)
+
+### Features
+
+* **api:** api update ([c69dc74](https://github.com/whopio/whopsdk-python/commit/c69dc747380d1a3c552deea2faff7e91d0be11fa))
+* **api:** api update ([0a82c7a](https://github.com/whopio/whopsdk-python/commit/0a82c7abb0eb876fdc8e4a526142b7b88cf2944e))
+* **api:** api update ([49ddd8c](https://github.com/whopio/whopsdk-python/commit/49ddd8cd0b30a6ec70a12add8b58615d44b94e44))
+* **api:** api update ([c36f3eb](https://github.com/whopio/whopsdk-python/commit/c36f3eb82231976fbd9ccd3db26b59d36556102b))
+* **api:** api update ([a94ed18](https://github.com/whopio/whopsdk-python/commit/a94ed183fe791304c081bce91b7ccbd4d886099a))
+* **api:** api update ([1db8a0e](https://github.com/whopio/whopsdk-python/commit/1db8a0e90ce8aecdc98453d56666ff532ea5653b))
+* **api:** api update ([67cbed8](https://github.com/whopio/whopsdk-python/commit/67cbed8c20b394d39c019ada21212537eb393ca4))
+* **api:** api update ([4a91396](https://github.com/whopio/whopsdk-python/commit/4a91396f7231d325be8f0a5e019ddf9fc0cf9092))
+* **api:** api update ([178a244](https://github.com/whopio/whopsdk-python/commit/178a244f1af3783a3fc0b2a894ff82b7004084a9))
+* **api:** api update ([58e3e4f](https://github.com/whopio/whopsdk-python/commit/58e3e4fd76c5bee88c8c863766db5bc7a7a1228d))
+* **api:** api update ([59b2893](https://github.com/whopio/whopsdk-python/commit/59b28939a8a030734004c16f6945f6bab277dbe5))
+
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([c3f1923](https://github.com/whopio/whopsdk-python/commit/c3f19234a7efea6c6048c09ae693839b5c7654ce))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([ee64709](https://github.com/whopio/whopsdk-python/commit/ee64709e6629563c7cce0733015c3dd2a7411e83))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([63e988b](https://github.com/whopio/whopsdk-python/commit/63e988b5b66b45f9e7a0d200ce431cc8a57aaf34))
+
 ## 0.0.20 (2025-12-16)
 
 Full Changelog: [v0.0.19...v0.0.20](https://github.com/whopio/whopsdk-python/compare/v0.0.19...v0.0.20)

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
 
 from .shared.currency import Currency
@@ -36,6 +36,9 @@ class CreatePaymentInputWithPlan(TypedDict, total=False):
 
     plan: Required[CreatePaymentInputWithPlanPlan]
     """Pass this object to create a new plan for this payment"""
+
+    metadata: Optional[Dict[str, object]]
+    """Custom metadata to attach to the payment."""
 
 
 class CreatePaymentInputWithPlanPlanProduct(TypedDict, total=False):
@@ -164,6 +167,9 @@ class CreatePaymentInputWithPlanID(TypedDict, total=False):
 
     plan_id: Required[str]
     """An ID of an existing plan to use for the payment."""
+
+    metadata: Optional[Dict[str, object]]
+    """Custom metadata to attach to the payment."""
 
 
 PaymentCreateParams: TypeAlias = Union[CreatePaymentInputWithPlan, CreatePaymentInputWithPlanID]

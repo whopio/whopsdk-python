@@ -12,4 +12,4 @@ class SupportChannelCreateParams(TypedDict, total=False):
     """The ID of the company to create the support chat in"""
 
     user_id: Required[str]
-    """The ID of the user to create the support chat for"""
+    """The ID (user_xxx) or username of the user to create the support chat for"""
