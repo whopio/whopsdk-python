@@ -713,9 +713,54 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import PayoutMethodListResponse
+from whop_sdk.types import PayoutMethodRetrieveResponse, PayoutMethodListResponse
 ```
 
 Methods:
 
+- <code title="get /payout_methods/{id}">client.payout_methods.<a href="./src/whop_sdk/resources/payout_methods.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/payout_method_retrieve_response.py">PayoutMethodRetrieveResponse</a></code>
 - <code title="get /payout_methods">client.payout_methods.<a href="./src/whop_sdk/resources/payout_methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_method_list_response.py">SyncCursorPage[PayoutMethodListResponse]</a></code>
+
+# Verifications
+
+Types:
+
+```python
+from whop_sdk.types import VerificationRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /verifications/{id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/verification_retrieve_response.py">VerificationRetrieveResponse</a></code>
+
+# Leads
+
+Types:
+
+```python
+from whop_sdk.types import (
+    LeadCreateResponse,
+    LeadRetrieveResponse,
+    LeadUpdateResponse,
+    LeadListResponse,
+)
+```
+
+Methods:
+
+- <code title="post /leads">client.leads.<a href="./src/whop_sdk/resources/leads.py">create</a>(\*\*<a href="src/whop_sdk/types/lead_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/lead_create_response.py">LeadCreateResponse</a></code>
+- <code title="get /leads/{id}">client.leads.<a href="./src/whop_sdk/resources/leads.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/lead_retrieve_response.py">LeadRetrieveResponse</a></code>
+- <code title="patch /leads/{id}">client.leads.<a href="./src/whop_sdk/resources/leads.py">update</a>(id, \*\*<a href="src/whop_sdk/types/lead_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/lead_update_response.py">LeadUpdateResponse</a></code>
+- <code title="get /leads">client.leads.<a href="./src/whop_sdk/resources/leads.py">list</a>(\*\*<a href="src/whop_sdk/types/lead_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/lead_list_response.py">SyncCursorPage[LeadListResponse]</a></code>
+
+# Topups
+
+Types:
+
+```python
+from whop_sdk.types import TopupCreateResponse
+```
+
+Methods:
+
+- <code title="post /topups">client.topups.<a href="./src/whop_sdk/resources/topups.py">create</a>(\*\*<a href="src/whop_sdk/types/topup_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/topup_create_response.py">TopupCreateResponse</a></code>

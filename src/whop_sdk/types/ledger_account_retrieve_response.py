@@ -16,6 +16,7 @@ __all__ = [
     "PayoutAccountDetails",
     "PayoutAccountDetailsAddress",
     "PayoutAccountDetailsBusinessRepresentative",
+    "PayoutAccountDetailsLatestVerification",
 ]
 
 
@@ -111,6 +112,58 @@ class PayoutAccountDetailsBusinessRepresentative(BaseModel):
     """The middle name of the business representative."""
 
 
+class PayoutAccountDetailsLatestVerification(BaseModel):
+    """The latest verification for the connected account."""
+
+    id: str
+    """A unique identifier for the verification."""
+
+    last_error_code: Optional[
+        Literal[
+            "abandoned",
+            "consent_declined",
+            "country_not_supported",
+            "device_not_supported",
+            "document_expired",
+            "document_type_not_supported",
+            "document_unverified_other",
+            "email_unverified_other",
+            "email_verification_declined",
+            "id_number_insufficient_document_data",
+            "id_number_mismatch",
+            "id_number_unverified_other",
+            "phone_unverified_other",
+            "phone_verification_declined",
+            "selfie_document_missing_photo",
+            "selfie_face_mismatch",
+            "selfie_manipulated",
+            "selfie_unverified_other",
+            "under_supported_age",
+        ]
+    ] = None
+    """An error code for a verification attempt."""
+
+    last_error_reason: Optional[str] = None
+    """The last error reason that occurred during the verification."""
+
+    status: Literal[
+        "requires_input",
+        "processing",
+        "verified",
+        "canceled",
+        "created",
+        "started",
+        "submitted",
+        "approved",
+        "declined",
+        "resubmission_requested",
+        "expired",
+        "abandoned",
+        "review",
+    ]
+    """The status of the verification."""
+
+
 class PayoutAccountDetails(BaseModel):
     """The payout account associated with the LedgerAccount, if any."""
 
@@ -128,6 +181,9 @@ class PayoutAccountDetails(BaseModel):
 
     email: Optional[str] = None
     """The email address of the representative"""
+
+    latest_verification: Optional[PayoutAccountDetailsLatestVerification] = None
+    """The latest verification for the connected account."""
 
     phone: Optional[str] = None
     """The business representative's phone"""

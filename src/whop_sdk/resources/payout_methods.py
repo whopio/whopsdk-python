@@ -20,6 +20,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.payout_method_list_response import PayoutMethodListResponse
+from ..types.payout_method_retrieve_response import PayoutMethodRetrieveResponse
 
 __all__ = ["PayoutMethodsResource", "AsyncPayoutMethodsResource"]
 
@@ -43,6 +44,43 @@ class PayoutMethodsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return PayoutMethodsResourceWithStreamingResponse(self)
+
+    def retrieve(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PayoutMethodRetrieveResponse:
+        """
+        Retrieves a payout method by ID
+
+        Required permissions:
+
+        - `payout:destination:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            f"/payout_methods/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PayoutMethodRetrieveResponse,
+        )
 
     def list(
         self,
@@ -128,6 +166,43 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
         """
         return AsyncPayoutMethodsResourceWithStreamingResponse(self)
 
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PayoutMethodRetrieveResponse:
+        """
+        Retrieves a payout method by ID
+
+        Required permissions:
+
+        - `payout:destination:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            f"/payout_methods/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PayoutMethodRetrieveResponse,
+        )
+
     def list(
         self,
         *,
@@ -196,6 +271,9 @@ class PayoutMethodsResourceWithRawResponse:
     def __init__(self, payout_methods: PayoutMethodsResource) -> None:
         self._payout_methods = payout_methods
 
+        self.retrieve = to_raw_response_wrapper(
+            payout_methods.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             payout_methods.list,
         )
@@ -205,6 +283,9 @@ class AsyncPayoutMethodsResourceWithRawResponse:
     def __init__(self, payout_methods: AsyncPayoutMethodsResource) -> None:
         self._payout_methods = payout_methods
 
+        self.retrieve = async_to_raw_response_wrapper(
+            payout_methods.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             payout_methods.list,
         )
@@ -214,6 +295,9 @@ class PayoutMethodsResourceWithStreamingResponse:
     def __init__(self, payout_methods: PayoutMethodsResource) -> None:
         self._payout_methods = payout_methods
 
+        self.retrieve = to_streamed_response_wrapper(
+            payout_methods.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             payout_methods.list,
         )
@@ -223,6 +307,9 @@ class AsyncPayoutMethodsResourceWithStreamingResponse:
     def __init__(self, payout_methods: AsyncPayoutMethodsResource) -> None:
         self._payout_methods = payout_methods
 
+        self.retrieve = async_to_streamed_response_wrapper(
+            payout_methods.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             payout_methods.list,
         )
