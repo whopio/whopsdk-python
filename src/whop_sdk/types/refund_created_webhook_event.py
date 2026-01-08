@@ -162,3 +162,6 @@ class RefundCreatedWebhookEvent(BaseModel):
 
     type: Literal["refund.created"]
     """The webhook event type"""
+
+    company_id: Optional[str] = None
+    """The company ID that this webhook event is associated with"""
