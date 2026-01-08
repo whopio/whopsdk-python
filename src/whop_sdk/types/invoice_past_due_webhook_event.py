@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -24,3 +25,6 @@ class InvoicePastDueWebhookEvent(BaseModel):
 
     type: Literal["invoice.past_due"]
     """The webhook event type"""
+
+    company_id: Optional[str] = None
+    """The company ID that this webhook event is associated with"""
