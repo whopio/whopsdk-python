@@ -139,6 +139,11 @@ Types:
 
 ```python
 from whop_sdk.types import (
+    WebhookCreateResponse,
+    WebhookRetrieveResponse,
+    WebhookUpdateResponse,
+    WebhookListResponse,
+    WebhookDeleteResponse,
     InvoiceCreatedWebhookEvent,
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
@@ -169,6 +174,14 @@ from whop_sdk.types import (
     UnwrapWebhookEvent,
 )
 ```
+
+Methods:
+
+- <code title="post /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">create</a>(\*\*<a href="src/whop_sdk/types/webhook_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_create_response.py">WebhookCreateResponse</a></code>
+- <code title="get /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/webhook_retrieve_response.py">WebhookRetrieveResponse</a></code>
+- <code title="patch /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">update</a>(id, \*\*<a href="src/whop_sdk/types/webhook_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_update_response.py">WebhookUpdateResponse</a></code>
+- <code title="get /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">list</a>(\*\*<a href="src/whop_sdk/types/webhook_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_list_response.py">SyncCursorPage[WebhookListResponse]</a></code>
+- <code title="delete /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">delete</a>(id) -> <a href="./src/whop_sdk/types/webhook_delete_response.py">WebhookDeleteResponse</a></code>
 
 # Plans
 
@@ -764,3 +777,16 @@ from whop_sdk.types import TopupCreateResponse
 Methods:
 
 - <code title="post /topups">client.topups.<a href="./src/whop_sdk/resources/topups.py">create</a>(\*\*<a href="src/whop_sdk/types/topup_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/topup_create_response.py">TopupCreateResponse</a></code>
+
+# Files
+
+Types:
+
+```python
+from whop_sdk.types import FileCreateResponse, FileRetrieveResponse
+```
+
+Methods:
+
+- <code title="post /files">client.files.<a href="./src/whop_sdk/resources/files.py">create</a>(\*\*<a href="src/whop_sdk/types/file_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/file_create_response.py">FileCreateResponse</a></code>
+- <code title="get /files/{id}">client.files.<a href="./src/whop_sdk/resources/files.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/file_retrieve_response.py">FileRetrieveResponse</a></code>

@@ -96,6 +96,7 @@ from .promo_code_status import PromoCodeStatus as PromoCodeStatus
 from .withdrawal_speeds import WithdrawalSpeeds as WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus as WithdrawalStatus
 from .course_list_params import CourseListParams as CourseListParams
+from .file_create_params import FileCreateParams as FileCreateParams
 from .lead_create_params import LeadCreateParams as LeadCreateParams
 from .lead_list_response import LeadListResponse as LeadListResponse
 from .lead_update_params import LeadUpdateParams as LeadUpdateParams
@@ -118,9 +119,11 @@ from .payment_list_params import PaymentListParams as PaymentListParams
 from .product_list_params import ProductListParams as ProductListParams
 from .setup_intent_status import SetupIntentStatus as SetupIntentStatus
 from .topup_create_params import TopupCreateParams as TopupCreateParams
+from .webhook_list_params import WebhookListParams as WebhookListParams
 from .course_create_params import CourseCreateParams as CourseCreateParams
 from .course_list_response import CourseListResponse as CourseListResponse
 from .course_update_params import CourseUpdateParams as CourseUpdateParams
+from .file_create_response import FileCreateResponse as FileCreateResponse
 from .lead_create_response import LeadCreateResponse as LeadCreateResponse
 from .lead_update_response import LeadUpdateResponse as LeadUpdateResponse
 from .member_list_response import MemberListResponse as MemberListResponse
@@ -150,10 +153,14 @@ from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_update_params import ProductUpdateParams as ProductUpdateParams
 from .refund_reference_type import RefundReferenceType as RefundReferenceType
 from .topup_create_response import TopupCreateResponse as TopupCreateResponse
+from .webhook_create_params import WebhookCreateParams as WebhookCreateParams
+from .webhook_list_response import WebhookListResponse as WebhookListResponse
+from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
 from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
 from .entry_approve_response import EntryApproveResponse as EntryApproveResponse
 from .experience_list_params import ExperienceListParams as ExperienceListParams
 from .fee_markup_list_params import FeeMarkupListParams as FeeMarkupListParams
+from .file_retrieve_response import FileRetrieveResponse as FileRetrieveResponse
 from .forum_post_list_params import ForumPostListParams as ForumPostListParams
 from .lead_retrieve_response import LeadRetrieveResponse as LeadRetrieveResponse
 from .membership_list_params import MembershipListParams as MembershipListParams
@@ -171,6 +178,9 @@ from .app_build_list_response import AppBuildListResponse as AppBuildListRespons
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .refund_reference_status import RefundReferenceStatus as RefundReferenceStatus
+from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
+from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
+from .webhook_update_response import WebhookUpdateResponse as WebhookUpdateResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
 from .experience_attach_params import ExperienceAttachParams as ExperienceAttachParams
 from .experience_create_params import ExperienceCreateParams as ExperienceCreateParams
@@ -197,6 +207,7 @@ from .withdrawal_list_response import WithdrawalListResponse as WithdrawalListRe
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
 from .payout_method_list_params import PayoutMethodListParams as PayoutMethodListParams
+from .webhook_retrieve_response import WebhookRetrieveResponse as WebhookRetrieveResponse
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
