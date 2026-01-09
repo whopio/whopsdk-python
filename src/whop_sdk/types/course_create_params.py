@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Optional
+from typing_extensions import Required, TypedDict
 
 from .course_visibilities import CourseVisibilities
 
-__all__ = [
-    "CourseCreateParams",
-    "Thumbnail",
-    "ThumbnailAttachmentInputWithDirectUploadID",
-    "ThumbnailAttachmentInputWithID",
-]
+__all__ = ["CourseCreateParams", "Thumbnail"]
 
 
 class CourseCreateParams(TypedDict, total=False):
@@ -27,9 +22,6 @@ class CourseCreateParams(TypedDict, total=False):
     Whether the course will award its students a PDF certificate after completing
     all lessons
     """
-
-    cover_image: Optional[str]
-    """The cover image URL of the course"""
 
     order: Optional[str]
     """The decimal order position of the course within its experience.
@@ -57,26 +49,8 @@ class CourseCreateParams(TypedDict, total=False):
     """
 
 
-class ThumbnailAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class ThumbnailAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class Thumbnail(TypedDict, total=False):
+    """The thumbnail for the course in png, jpeg, or gif format"""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-
-Thumbnail: TypeAlias = Union[ThumbnailAttachmentInputWithDirectUploadID, ThumbnailAttachmentInputWithID]
+    """The ID of an existing file object."""

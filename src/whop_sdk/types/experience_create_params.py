@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ExperienceCreateParams"]
+__all__ = ["ExperienceCreateParams", "Logo"]
 
 
 class ExperienceCreateParams(TypedDict, total=False):
@@ -18,8 +18,18 @@ class ExperienceCreateParams(TypedDict, total=False):
     is_public: Optional[bool]
     """Whether the experience is publicly accessible"""
 
+    logo: Optional[Logo]
+    """The logo for the experience"""
+
     name: Optional[str]
     """The name of the experience"""
 
     section_id: Optional[str]
     """The ID of the section to create the experience in"""
+
+
+class Logo(TypedDict, total=False):
+    """The logo for the experience"""
+
+    id: Required[str]
+    """The ID of an existing file object."""
