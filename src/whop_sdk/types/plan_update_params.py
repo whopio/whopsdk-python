@@ -45,6 +45,9 @@ class PlanUpdateParams(TypedDict, total=False):
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
 
+    legacy_payment_method_controls: Optional[bool]
+    """Whether this plan uses legacy payment method controls"""
+
     offer_cancel_discount: Optional[bool]
     """Whether or not to offer a discount to cancel a subscription."""
 

@@ -57,6 +57,9 @@ class PlanCreateParams(TypedDict, total=False):
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
 
+    legacy_payment_method_controls: Optional[bool]
+    """Whether this plan uses legacy payment method controls"""
+
     override_tax_type: Optional[TaxType]
     """
     Whether or not the tax is included in a plan's price (or if it hasn't been set
