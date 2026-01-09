@@ -41,6 +41,7 @@ class TestCompanies:
             title="title",
             business_type="education_program",
             industry_type="trading",
+            logo={"id": "id"},
             metadata={"foo": "bar"},
             send_customer_emails=True,
         )
@@ -131,10 +132,10 @@ class TestCompanies:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         company = client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
-            banner_image={"direct_upload_id": "direct_upload_id"},
+            banner_image={"id": "id"},
             business_type="education_program",
             industry_type="trading",
-            logo={"direct_upload_id": "direct_upload_id"},
+            logo={"id": "id"},
             send_customer_emails=True,
             title="title",
         )
@@ -248,6 +249,7 @@ class TestAsyncCompanies:
             title="title",
             business_type="education_program",
             industry_type="trading",
+            logo={"id": "id"},
             metadata={"foo": "bar"},
             send_customer_emails=True,
         )
@@ -338,10 +340,10 @@ class TestAsyncCompanies:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
-            banner_image={"direct_upload_id": "direct_upload_id"},
+            banner_image={"id": "id"},
             business_type="education_program",
             industry_type="trading",
-            logo={"direct_upload_id": "direct_upload_id"},
+            logo={"id": "id"},
             send_customer_emails=True,
             title="title",
         )

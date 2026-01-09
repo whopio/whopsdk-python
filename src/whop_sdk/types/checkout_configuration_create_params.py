@@ -21,8 +21,6 @@ __all__ = [
     "CreateCheckoutSessionInputModePaymentWithPlanPlan",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanImage",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanProduct",
     "CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration",
@@ -79,32 +77,11 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, to
     """Whether or not the field is required."""
 
 
-class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class CreateCheckoutSessionInputModePaymentWithPlanPlanImage(TypedDict, total=False):
+    """An image for the plan. This will be visible on the product page to customers."""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-
-CreateCheckoutSessionInputModePaymentWithPlanPlanImage: TypeAlias = Union[
-    CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID,
-    CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID,
-]
+    """The ID of an existing file object."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration(TypedDict, total=False):

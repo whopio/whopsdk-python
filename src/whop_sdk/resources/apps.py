@@ -56,6 +56,7 @@ class AppsResource(SyncAPIResource):
         company_id: str,
         name: str,
         base_url: Optional[str] | Omit = omit,
+        icon: Optional[app_create_params.Icon] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,6 +79,8 @@ class AppsResource(SyncAPIResource):
 
           base_url: The base URL of the app to be created
 
+          icon: The icon for the app in png, jpeg, or gif format
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -93,6 +96,7 @@ class AppsResource(SyncAPIResource):
                     "company_id": company_id,
                     "name": name,
                     "base_url": base_url,
+                    "icon": icon,
                 },
                 app_create_params.AppCreateParams,
             ),
@@ -347,6 +351,7 @@ class AsyncAppsResource(AsyncAPIResource):
         company_id: str,
         name: str,
         base_url: Optional[str] | Omit = omit,
+        icon: Optional[app_create_params.Icon] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -369,6 +374,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
           base_url: The base URL of the app to be created
 
+          icon: The icon for the app in png, jpeg, or gif format
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -384,6 +391,7 @@ class AsyncAppsResource(AsyncAPIResource):
                     "company_id": company_id,
                     "name": name,
                     "base_url": base_url,
+                    "icon": icon,
                 },
                 app_create_params.AppCreateParams,
             ),

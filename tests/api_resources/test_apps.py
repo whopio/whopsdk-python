@@ -35,6 +35,7 @@ class TestApps:
             company_id="biz_xxxxxxxxxxxxxx",
             name="name",
             base_url="base_url",
+            icon={"id": "id"},
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -128,7 +129,7 @@ class TestApps:
             description="description",
             discover_path="discover_path",
             experience_path="experience_path",
-            icon={"direct_upload_id": "direct_upload_id"},
+            icon={"id": "id"},
             name="name",
             required_scopes=["read_user"],
             status="live",
@@ -237,6 +238,7 @@ class TestAsyncApps:
             company_id="biz_xxxxxxxxxxxxxx",
             name="name",
             base_url="base_url",
+            icon={"id": "id"},
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -330,7 +332,7 @@ class TestAsyncApps:
             description="description",
             discover_path="discover_path",
             experience_path="experience_path",
-            icon={"direct_upload_id": "direct_upload_id"},
+            icon={"id": "id"},
             name="name",
             required_scopes=["read_user"],
             status="live",
