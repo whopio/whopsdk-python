@@ -33,6 +33,7 @@ from ._base_client import (
 if TYPE_CHECKING:
     from .resources import (
         apps,
+        files,
         leads,
         plans,
         users,
@@ -48,6 +49,7 @@ if TYPE_CHECKING:
         messages,
         payments,
         products,
+        webhooks,
         companies,
         reactions,
         shipments,
@@ -77,6 +79,7 @@ if TYPE_CHECKING:
         course_lesson_interactions,
     )
     from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
     from .resources.users import UsersResource, AsyncUsersResource
@@ -460,6 +463,12 @@ class Whop(SyncAPIClient):
         from .resources.topups import TopupsResource
 
         return TopupsResource(self)
+
+    @cached_property
+    def files(self) -> FilesResource:
+        from .resources.files import FilesResource
+
+        return FilesResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -914,6 +923,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncTopupsResource(self)
 
     @cached_property
+    def files(self) -> AsyncFilesResource:
+        from .resources.files import AsyncFilesResource
+
+        return AsyncFilesResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1066,6 +1081,12 @@ class WhopWithRawResponse:
         from .resources.companies import CompaniesResourceWithRawResponse
 
         return CompaniesResourceWithRawResponse(self._client.companies)
+
+    @cached_property
+    def webhooks(self) -> webhooks.WebhooksResourceWithRawResponse:
+        from .resources.webhooks import WebhooksResourceWithRawResponse
+
+        return WebhooksResourceWithRawResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithRawResponse:
@@ -1295,6 +1316,12 @@ class WhopWithRawResponse:
 
         return TopupsResourceWithRawResponse(self._client.topups)
 
+    @cached_property
+    def files(self) -> files.FilesResourceWithRawResponse:
+        from .resources.files import FilesResourceWithRawResponse
+
+        return FilesResourceWithRawResponse(self._client.files)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1333,6 +1360,12 @@ class AsyncWhopWithRawResponse:
         from .resources.companies import AsyncCompaniesResourceWithRawResponse
 
         return AsyncCompaniesResourceWithRawResponse(self._client.companies)
+
+    @cached_property
+    def webhooks(self) -> webhooks.AsyncWebhooksResourceWithRawResponse:
+        from .resources.webhooks import AsyncWebhooksResourceWithRawResponse
+
+        return AsyncWebhooksResourceWithRawResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithRawResponse:
@@ -1562,6 +1595,12 @@ class AsyncWhopWithRawResponse:
 
         return AsyncTopupsResourceWithRawResponse(self._client.topups)
 
+    @cached_property
+    def files(self) -> files.AsyncFilesResourceWithRawResponse:
+        from .resources.files import AsyncFilesResourceWithRawResponse
+
+        return AsyncFilesResourceWithRawResponse(self._client.files)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -1600,6 +1639,12 @@ class WhopWithStreamedResponse:
         from .resources.companies import CompaniesResourceWithStreamingResponse
 
         return CompaniesResourceWithStreamingResponse(self._client.companies)
+
+    @cached_property
+    def webhooks(self) -> webhooks.WebhooksResourceWithStreamingResponse:
+        from .resources.webhooks import WebhooksResourceWithStreamingResponse
+
+        return WebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithStreamingResponse:
@@ -1829,6 +1874,12 @@ class WhopWithStreamedResponse:
 
         return TopupsResourceWithStreamingResponse(self._client.topups)
 
+    @cached_property
+    def files(self) -> files.FilesResourceWithStreamingResponse:
+        from .resources.files import FilesResourceWithStreamingResponse
+
+        return FilesResourceWithStreamingResponse(self._client.files)
+
 
 class AsyncWhopWithStreamedResponse:
     _client: AsyncWhop
@@ -1867,6 +1918,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.companies import AsyncCompaniesResourceWithStreamingResponse
 
         return AsyncCompaniesResourceWithStreamingResponse(self._client.companies)
+
+    @cached_property
+    def webhooks(self) -> webhooks.AsyncWebhooksResourceWithStreamingResponse:
+        from .resources.webhooks import AsyncWebhooksResourceWithStreamingResponse
+
+        return AsyncWebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithStreamingResponse:
@@ -2097,6 +2154,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.topups import AsyncTopupsResourceWithStreamingResponse
 
         return AsyncTopupsResourceWithStreamingResponse(self._client.topups)
+
+    @cached_property
+    def files(self) -> files.AsyncFilesResourceWithStreamingResponse:
+        from .resources.files import AsyncFilesResourceWithStreamingResponse
+
+        return AsyncFilesResourceWithStreamingResponse(self._client.files)
 
 
 Client = Whop

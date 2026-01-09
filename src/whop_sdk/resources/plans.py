@@ -68,6 +68,7 @@ class PlansResource(SyncAPIResource):
         image: Optional[plan_create_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
+        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
@@ -118,6 +119,8 @@ class PlansResource(SyncAPIResource):
 
           internal_notes: A personal description or notes section for the business.
 
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
+
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
@@ -165,6 +168,7 @@ class PlansResource(SyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
+                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
@@ -234,6 +238,7 @@ class PlansResource(SyncAPIResource):
         image: Optional[plan_update_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
+        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
@@ -277,6 +282,8 @@ class PlansResource(SyncAPIResource):
           initial_price: An additional amount charged upon first purchase.
 
           internal_notes: A personal description or notes section for the business.
+
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
 
           offer_cancel_discount: Whether or not to offer a discount to cancel a subscription.
 
@@ -326,6 +333,7 @@ class PlansResource(SyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
+                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
@@ -513,6 +521,7 @@ class AsyncPlansResource(AsyncAPIResource):
         image: Optional[plan_create_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
+        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
@@ -563,6 +572,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           internal_notes: A personal description or notes section for the business.
 
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
+
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
@@ -610,6 +621,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
+                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
@@ -679,6 +691,7 @@ class AsyncPlansResource(AsyncAPIResource):
         image: Optional[plan_update_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
+        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
@@ -722,6 +735,8 @@ class AsyncPlansResource(AsyncAPIResource):
           initial_price: An additional amount charged upon first purchase.
 
           internal_notes: A personal description or notes section for the business.
+
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
 
           offer_cancel_discount: Whether or not to offer a discount to cancel a subscription.
 
@@ -771,6 +786,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
+                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
