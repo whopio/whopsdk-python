@@ -248,6 +248,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     split_pay_required_payments: Optional[int]
     """The number of payments required before pausing the subscription."""
 
+    stock: Optional[int]
+    """The number of units available for purchase.
+
+    If not provided, stock is unlimited.
+    """
+
     title: Optional[str]
     """The title of the plan. This will be visible on the product page to customers."""
 
