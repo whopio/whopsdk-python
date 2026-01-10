@@ -44,7 +44,7 @@ class TestCourseLessons:
             days_from_course_start_until_unlock=42,
             embed_id="embed_id",
             embed_type="youtube",
-            thumbnail={"direct_upload_id": "direct_upload_id"},
+            thumbnail={"id": "id"},
             title="title",
         )
         assert_matches_type(Lesson, course_lesson, path=["response"])
@@ -142,7 +142,7 @@ class TestCourseLessons:
                     "question_text": "question_text",
                     "question_type": "short_answer",
                     "id": "id",
-                    "image": {"direct_upload_id": "direct_upload_id"},
+                    "image": {"id": "id"},
                     "options": [
                         {
                             "is_correct": True,
@@ -152,16 +152,16 @@ class TestCourseLessons:
                     ],
                 }
             ],
-            attachments=[{"direct_upload_id": "direct_upload_id"}],
+            attachments=[{"id": "id"}],
             content="content",
             days_from_course_start_until_unlock=42,
             embed_id="embed_id",
             embed_type="youtube",
             lesson_type="text",
-            main_pdf={"direct_upload_id": "direct_upload_id"},
+            main_pdf={"id": "id"},
             max_attempts=42,
             mux_asset_id="mux_xxxxxxxxxxxxxx",
-            thumbnail={"direct_upload_id": "direct_upload_id"},
+            thumbnail={"id": "id"},
             title="title",
             visibility="visible",
         )
@@ -439,7 +439,7 @@ class TestAsyncCourseLessons:
             days_from_course_start_until_unlock=42,
             embed_id="embed_id",
             embed_type="youtube",
-            thumbnail={"direct_upload_id": "direct_upload_id"},
+            thumbnail={"id": "id"},
             title="title",
         )
         assert_matches_type(Lesson, course_lesson, path=["response"])
@@ -537,7 +537,7 @@ class TestAsyncCourseLessons:
                     "question_text": "question_text",
                     "question_type": "short_answer",
                     "id": "id",
-                    "image": {"direct_upload_id": "direct_upload_id"},
+                    "image": {"id": "id"},
                     "options": [
                         {
                             "is_correct": True,
@@ -547,16 +547,16 @@ class TestAsyncCourseLessons:
                     ],
                 }
             ],
-            attachments=[{"direct_upload_id": "direct_upload_id"}],
+            attachments=[{"id": "id"}],
             content="content",
             days_from_course_start_until_unlock=42,
             embed_id="embed_id",
             embed_type="youtube",
             lesson_type="text",
-            main_pdf={"direct_upload_id": "direct_upload_id"},
+            main_pdf={"id": "id"},
             max_attempts=42,
             mux_asset_id="mux_xxxxxxxxxxxxxx",
-            thumbnail={"direct_upload_id": "direct_upload_id"},
+            thumbnail={"id": "id"},
             title="title",
             visibility="visible",
         )

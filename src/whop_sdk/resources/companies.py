@@ -57,6 +57,7 @@ class CompaniesResource(SyncAPIResource):
         title: str,
         business_type: Optional[BusinessTypes] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
+        logo: Optional[company_create_params.Logo] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -85,6 +86,8 @@ class CompaniesResource(SyncAPIResource):
 
           industry_type: The different industry types a company can be in.
 
+          logo: The logo for the company in png, jpeg, or gif format
+
           metadata: Additional metadata for the account
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
@@ -109,6 +112,7 @@ class CompaniesResource(SyncAPIResource):
                     "title": title,
                     "business_type": business_type,
                     "industry_type": industry_type,
+                    "logo": logo,
                     "metadata": metadata,
                     "send_customer_emails": send_customer_emails,
                 },
@@ -333,6 +337,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         title: str,
         business_type: Optional[BusinessTypes] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
+        logo: Optional[company_create_params.Logo] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -361,6 +366,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
           industry_type: The different industry types a company can be in.
 
+          logo: The logo for the company in png, jpeg, or gif format
+
           metadata: Additional metadata for the account
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
@@ -385,6 +392,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
                     "title": title,
                     "business_type": business_type,
                     "industry_type": industry_type,
+                    "logo": logo,
                     "metadata": metadata,
                     "send_customer_emails": send_customer_emails,
                 },

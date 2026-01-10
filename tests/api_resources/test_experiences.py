@@ -39,6 +39,7 @@ class TestExperiences:
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
             is_public=True,
+            logo={"id": "id"},
             name="name",
             section_id="section_id",
         )
@@ -129,7 +130,7 @@ class TestExperiences:
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
             is_public=True,
-            logo={"direct_upload_id": "direct_upload_id"},
+            logo={"id": "id"},
             name="name",
             order="123.45",
             section_id="section_id",
@@ -427,6 +428,7 @@ class TestAsyncExperiences:
             app_id="app_xxxxxxxxxxxxxx",
             company_id="biz_xxxxxxxxxxxxxx",
             is_public=True,
+            logo={"id": "id"},
             name="name",
             section_id="section_id",
         )
@@ -517,7 +519,7 @@ class TestAsyncExperiences:
             id="exp_xxxxxxxxxxxxxx",
             access_level="public",
             is_public=True,
-            logo={"direct_upload_id": "direct_upload_id"},
+            logo={"id": "id"},
             name="name",
             order="123.45",
             section_id="section_id",

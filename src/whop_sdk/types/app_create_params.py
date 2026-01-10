@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["AppCreateParams"]
+__all__ = ["AppCreateParams", "Icon"]
 
 
 class AppCreateParams(TypedDict, total=False):
@@ -17,3 +17,13 @@ class AppCreateParams(TypedDict, total=False):
 
     base_url: Optional[str]
     """The base URL of the app to be created"""
+
+    icon: Optional[Icon]
+    """The icon for the app in png, jpeg, or gif format"""
+
+
+class Icon(TypedDict, total=False):
+    """The icon for the app in png, jpeg, or gif format"""
+
+    id: Required[str]
+    """The ID of an existing file object."""
