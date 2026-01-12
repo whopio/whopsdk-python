@@ -651,7 +651,6 @@ from whop_sdk.types import (
     WithdrawalFeeTypes,
     WithdrawalSpeeds,
     WithdrawalStatus,
-    WithdrawalTypes,
     WithdrawalCreateResponse,
     WithdrawalRetrieveResponse,
     WithdrawalListResponse,

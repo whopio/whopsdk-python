@@ -38,6 +38,9 @@ class Data(BaseModel):
     company: Optional[DataCompany] = None
     """The company associated with the payout token"""
 
+    created_at: datetime
+    """The date and time the payout token was created"""
+
     currency: str
     """The currency code of the payout destination.
 
