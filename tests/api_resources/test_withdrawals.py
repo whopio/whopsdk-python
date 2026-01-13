@@ -41,6 +41,7 @@ class TestWithdrawals:
             company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payout_method_id="payout_method_id",
+            statement_descriptor="statement_descriptor",
         )
         assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
 
@@ -189,6 +190,7 @@ class TestAsyncWithdrawals:
             company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payout_method_id="payout_method_id",
+            statement_descriptor="statement_descriptor",
         )
         assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
 

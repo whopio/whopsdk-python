@@ -56,6 +56,7 @@ class WithdrawalsResource(SyncAPIResource):
         company_id: str,
         currency: Currency,
         payout_method_id: Optional[str] | Omit = omit,
+        statement_descriptor: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,6 +81,9 @@ class WithdrawalsResource(SyncAPIResource):
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
+          statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
+              characters and contain only alphanumeric characters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -96,6 +100,7 @@ class WithdrawalsResource(SyncAPIResource):
                     "company_id": company_id,
                     "currency": currency,
                     "payout_method_id": payout_method_id,
+                    "statement_descriptor": statement_descriptor,
                 },
                 withdrawal_create_params.WithdrawalCreateParams,
             ),
@@ -246,6 +251,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         company_id: str,
         currency: Currency,
         payout_method_id: Optional[str] | Omit = omit,
+        statement_descriptor: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -270,6 +276,9 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
+          statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
+              characters and contain only alphanumeric characters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -286,6 +295,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
                     "company_id": company_id,
                     "currency": currency,
                     "payout_method_id": payout_method_id,
+                    "statement_descriptor": statement_descriptor,
                 },
                 withdrawal_create_params.WithdrawalCreateParams,
             ),
