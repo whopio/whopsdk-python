@@ -90,6 +90,7 @@ class Data(BaseModel):
             "invalid_account_number",
             "invalid_bank_code",
             "invalid_beneficiary",
+            "invalid_mailing_address",
             "invalid_branch_number",
             "invalid_branch_code",
             "invalid_phone_number",
