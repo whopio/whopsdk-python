@@ -100,6 +100,7 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -158,6 +159,7 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -210,6 +212,7 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -425,6 +428,7 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -483,6 +487,7 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -535,6 +540,7 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 

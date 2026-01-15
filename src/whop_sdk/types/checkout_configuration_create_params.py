@@ -56,6 +56,9 @@ class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
 
+    source_url: Optional[str]
+    """The URL of the page where the checkout is being initiated from."""
+
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
@@ -317,6 +320,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
 
+    source_url: Optional[str]
+    """The URL of the page where the checkout is being initiated from."""
+
 
 class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
     """This currently only works for configurations made in 'setup' mode.
@@ -370,6 +376,9 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
 
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
+
+    source_url: Optional[str]
+    """The URL of the page where the checkout is being initiated from."""
 
 
 class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):
