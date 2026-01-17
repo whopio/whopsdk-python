@@ -2,23 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Optional
+from typing_extensions import Required, TypedDict
 
 __all__ = [
     "DisputeUpdateEvidenceParams",
     "CancellationPolicyAttachment",
-    "CancellationPolicyAttachmentAttachmentInputWithDirectUploadID",
-    "CancellationPolicyAttachmentAttachmentInputWithID",
     "CustomerCommunicationAttachment",
-    "CustomerCommunicationAttachmentAttachmentInputWithDirectUploadID",
-    "CustomerCommunicationAttachmentAttachmentInputWithID",
     "RefundPolicyAttachment",
-    "RefundPolicyAttachmentAttachmentInputWithDirectUploadID",
-    "RefundPolicyAttachmentAttachmentInputWithID",
     "UncategorizedAttachment",
-    "UncategorizedAttachmentAttachmentInputWithDirectUploadID",
-    "UncategorizedAttachmentAttachmentInputWithID",
 ]
 
 
@@ -66,110 +58,29 @@ class DisputeUpdateEvidenceParams(TypedDict, total=False):
     """A file that does not fit in the other categories."""
 
 
-class CancellationPolicyAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class CancellationPolicyAttachmentAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class CancellationPolicyAttachment(TypedDict, total=False):
+    """A file containing the cancellation policy from the company."""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
+    """The ID of an existing file object."""
 
 
-CancellationPolicyAttachment: TypeAlias = Union[
-    CancellationPolicyAttachmentAttachmentInputWithDirectUploadID, CancellationPolicyAttachmentAttachmentInputWithID
-]
-
-
-class CustomerCommunicationAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class CustomerCommunicationAttachmentAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class CustomerCommunicationAttachment(TypedDict, total=False):
+    """A file containing the customer communication from the company (An image)."""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
+    """The ID of an existing file object."""
 
 
-CustomerCommunicationAttachment: TypeAlias = Union[
-    CustomerCommunicationAttachmentAttachmentInputWithDirectUploadID,
-    CustomerCommunicationAttachmentAttachmentInputWithID,
-]
-
-
-class RefundPolicyAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class RefundPolicyAttachmentAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class RefundPolicyAttachment(TypedDict, total=False):
+    """A file containing the refund policy from the company."""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
+    """The ID of an existing file object."""
 
 
-RefundPolicyAttachment: TypeAlias = Union[
-    RefundPolicyAttachmentAttachmentInputWithDirectUploadID, RefundPolicyAttachmentAttachmentInputWithID
-]
-
-
-class UncategorizedAttachmentAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class UncategorizedAttachmentAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class UncategorizedAttachment(TypedDict, total=False):
+    """A file that does not fit in the other categories."""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-
-UncategorizedAttachment: TypeAlias = Union[
-    UncategorizedAttachmentAttachmentInputWithDirectUploadID, UncategorizedAttachmentAttachmentInputWithID
-]
+    """The ID of an existing file object."""

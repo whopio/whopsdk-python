@@ -8,7 +8,7 @@ from typing_extensions import Required, TypedDict
 from .shared.business_types import BusinessTypes
 from .shared.industry_types import IndustryTypes
 
-__all__ = ["CompanyCreateParams"]
+__all__ = ["CompanyCreateParams", "Logo"]
 
 
 class CompanyCreateParams(TypedDict, total=False):
@@ -27,6 +27,9 @@ class CompanyCreateParams(TypedDict, total=False):
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
 
+    logo: Optional[Logo]
+    """The logo for the company in png, jpeg, or gif format"""
+
     metadata: Optional[Dict[str, object]]
     """Additional metadata for the account"""
 
@@ -37,3 +40,10 @@ class CompanyCreateParams(TypedDict, total=False):
     renewals, and membership cancelations/expirations. When disabled, the platform
     is responsible for handling these communications. This is defaulted to true.
     """
+
+
+class Logo(TypedDict, total=False):
+    """The logo for the company in png, jpeg, or gif format"""
+
+    id: Required[str]
+    """The ID of an existing file object."""

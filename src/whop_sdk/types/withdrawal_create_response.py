@@ -6,7 +6,6 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.currency import Currency
-from .withdrawal_types import WithdrawalTypes
 from .withdrawal_speeds import WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus
 from .withdrawal_fee_types import WithdrawalFeeTypes
@@ -91,6 +90,7 @@ class WithdrawalCreateResponse(BaseModel):
             "invalid_account_number",
             "invalid_bank_code",
             "invalid_beneficiary",
+            "invalid_mailing_address",
             "invalid_branch_number",
             "invalid_branch_code",
             "invalid_phone_number",
@@ -154,6 +154,3 @@ class WithdrawalCreateResponse(BaseModel):
 
     Provided on ACH transactions when available.
     """
-
-    withdrawal_type: WithdrawalTypes
-    """The type of withdrawal."""

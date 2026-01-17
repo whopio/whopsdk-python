@@ -61,6 +61,7 @@ class ExperiencesResource(SyncAPIResource):
         app_id: str,
         company_id: str,
         is_public: Optional[bool] | Omit = omit,
+        logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -82,6 +83,8 @@ class ExperiencesResource(SyncAPIResource):
 
           is_public: Whether the experience is publicly accessible
 
+          logo: The logo for the experience
+
           name: The name of the experience
 
           section_id: The ID of the section to create the experience in
@@ -101,6 +104,7 @@ class ExperiencesResource(SyncAPIResource):
                     "app_id": app_id,
                     "company_id": company_id,
                     "is_public": is_public,
+                    "logo": logo,
                     "name": name,
                     "section_id": section_id,
                 },
@@ -481,6 +485,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         app_id: str,
         company_id: str,
         is_public: Optional[bool] | Omit = omit,
+        logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -502,6 +507,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
 
           is_public: Whether the experience is publicly accessible
 
+          logo: The logo for the experience
+
           name: The name of the experience
 
           section_id: The ID of the section to create the experience in
@@ -521,6 +528,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
                     "app_id": app_id,
                     "company_id": company_id,
                     "is_public": is_public,
+                    "logo": logo,
                     "name": name,
                     "section_id": section_id,
                 },

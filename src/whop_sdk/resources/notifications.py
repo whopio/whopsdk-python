@@ -65,6 +65,10 @@ class NotificationsResource(SyncAPIResource):
         """
         Queues a notification to be sent to users in an experience or company team
 
+        Required permissions:
+
+        - `notification:create`
+
         Args:
           company_id: The id of the company to target. Only team members of this company will receive
               the notification. When clicked will take the user to your dashboard app view.
@@ -115,6 +119,10 @@ class NotificationsResource(SyncAPIResource):
     ) -> NotificationCreateResponse:
         """
         Queues a notification to be sent to users in an experience or company team
+
+        Required permissions:
+
+        - `notification:create`
 
         Args:
           content: The content of the notification
@@ -229,6 +237,10 @@ class AsyncNotificationsResource(AsyncAPIResource):
         """
         Queues a notification to be sent to users in an experience or company team
 
+        Required permissions:
+
+        - `notification:create`
+
         Args:
           company_id: The id of the company to target. Only team members of this company will receive
               the notification. When clicked will take the user to your dashboard app view.
@@ -279,6 +291,10 @@ class AsyncNotificationsResource(AsyncAPIResource):
     ) -> NotificationCreateResponse:
         """
         Queues a notification to be sent to users in an experience or company team
+
+        Required permissions:
+
+        - `notification:create`
 
         Args:
           content: The content of the notification

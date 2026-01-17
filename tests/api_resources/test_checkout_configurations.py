@@ -55,7 +55,7 @@ class TestCheckoutConfigurations:
                 "description": "description",
                 "expiration_days": 42,
                 "force_create_new_plan": True,
-                "image": {"direct_upload_id": "direct_upload_id"},
+                "image": {"id": "id"},
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "override_tax_type": "inclusive",
@@ -85,6 +85,7 @@ class TestCheckoutConfigurations:
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
                 "split_pay_required_payments": 42,
+                "stock": 42,
                 "title": "title",
                 "trial_period_days": 42,
                 "visibility": "visible",
@@ -99,6 +100,7 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -157,6 +159,7 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -209,6 +212,7 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -379,7 +383,7 @@ class TestAsyncCheckoutConfigurations:
                 "description": "description",
                 "expiration_days": 42,
                 "force_create_new_plan": True,
-                "image": {"direct_upload_id": "direct_upload_id"},
+                "image": {"id": "id"},
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "override_tax_type": "inclusive",
@@ -409,6 +413,7 @@ class TestAsyncCheckoutConfigurations:
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
                 "split_pay_required_payments": 42,
+                "stock": 42,
                 "title": "title",
                 "trial_period_days": 42,
                 "visibility": "visible",
@@ -423,6 +428,7 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -481,6 +487,7 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -533,6 +540,7 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 

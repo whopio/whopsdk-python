@@ -54,7 +54,6 @@ class CoursesResource(SyncAPIResource):
         experience_id: str,
         title: str,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
-        cover_image: Optional[str] | Omit = omit,
         order: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
@@ -81,8 +80,6 @@ class CoursesResource(SyncAPIResource):
 
           certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
               all lessons
-
-          cover_image: The cover image URL of the course
 
           order: The decimal order position of the course within its experience. If not provided,
               it will be set to the next sequential order. Use fractional values (e.g., 1.5)
@@ -113,7 +110,6 @@ class CoursesResource(SyncAPIResource):
                     "experience_id": experience_id,
                     "title": title,
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
-                    "cover_image": cover_image,
                     "order": order,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
@@ -171,7 +167,6 @@ class CoursesResource(SyncAPIResource):
         *,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         chapters: Optional[Iterable[course_update_params.Chapter]] | Omit = omit,
-        cover_image: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         language: Optional[Languages] | Omit = omit,
         order: Optional[str] | Omit = omit,
@@ -199,8 +194,6 @@ class CoursesResource(SyncAPIResource):
               all lessons
 
           chapters: The chapters and lessons to update
-
-          cover_image: The cover image URL of the course
 
           description: A short description of the course
 
@@ -237,7 +230,6 @@ class CoursesResource(SyncAPIResource):
                 {
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "chapters": chapters,
-                    "cover_image": cover_image,
                     "description": description,
                     "language": language,
                     "order": order,
@@ -386,7 +378,6 @@ class AsyncCoursesResource(AsyncAPIResource):
         experience_id: str,
         title: str,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
-        cover_image: Optional[str] | Omit = omit,
         order: Optional[str] | Omit = omit,
         require_completing_lessons_in_order: Optional[bool] | Omit = omit,
         tagline: Optional[str] | Omit = omit,
@@ -413,8 +404,6 @@ class AsyncCoursesResource(AsyncAPIResource):
 
           certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
               all lessons
-
-          cover_image: The cover image URL of the course
 
           order: The decimal order position of the course within its experience. If not provided,
               it will be set to the next sequential order. Use fractional values (e.g., 1.5)
@@ -445,7 +434,6 @@ class AsyncCoursesResource(AsyncAPIResource):
                     "experience_id": experience_id,
                     "title": title,
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
-                    "cover_image": cover_image,
                     "order": order,
                     "require_completing_lessons_in_order": require_completing_lessons_in_order,
                     "tagline": tagline,
@@ -503,7 +491,6 @@ class AsyncCoursesResource(AsyncAPIResource):
         *,
         certificate_after_completion_enabled: Optional[bool] | Omit = omit,
         chapters: Optional[Iterable[course_update_params.Chapter]] | Omit = omit,
-        cover_image: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         language: Optional[Languages] | Omit = omit,
         order: Optional[str] | Omit = omit,
@@ -531,8 +518,6 @@ class AsyncCoursesResource(AsyncAPIResource):
               all lessons
 
           chapters: The chapters and lessons to update
-
-          cover_image: The cover image URL of the course
 
           description: A short description of the course
 
@@ -569,7 +554,6 @@ class AsyncCoursesResource(AsyncAPIResource):
                 {
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
                     "chapters": chapters,
-                    "cover_image": cover_image,
                     "description": description,
                     "language": language,
                     "order": order,

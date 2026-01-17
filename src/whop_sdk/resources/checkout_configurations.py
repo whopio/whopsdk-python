@@ -63,6 +63,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         ]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,6 +97,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
+          source_url: The URL of the page where the checkout is being initiated from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -120,6 +123,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         ]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -153,6 +157,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
+          source_url: The URL of the page where the checkout is being initiated from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -176,6 +182,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         ]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,6 +215,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
+          source_url: The URL of the page where the checkout is being initiated from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -236,6 +245,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         company_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -256,6 +266,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                     "mode": mode,
                     "payment_method_configuration": payment_method_configuration,
                     "redirect_url": redirect_url,
+                    "source_url": source_url,
                     "plan_id": plan_id,
                     "company_id": company_id,
                 },
@@ -418,6 +429,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -451,6 +463,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
+          source_url: The URL of the page where the checkout is being initiated from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -475,6 +489,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -508,6 +523,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
+          source_url: The URL of the page where the checkout is being initiated from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -531,6 +548,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -563,6 +581,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           redirect_url: The URL to redirect the user to after the checkout configuration is created
 
+          source_url: The URL of the page where the checkout is being initiated from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -591,6 +611,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration]
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         company_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -611,6 +632,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                     "mode": mode,
                     "payment_method_configuration": payment_method_configuration,
                     "redirect_url": redirect_url,
+                    "source_url": source_url,
                     "plan_id": plan_id,
                     "company_id": company_id,
                 },

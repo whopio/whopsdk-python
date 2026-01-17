@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -36,6 +37,9 @@ class PayoutMethodRetrieveResponse(BaseModel):
 
     company: Optional[Company] = None
     """The company associated with the payout token"""
+
+    created_at: datetime
+    """The date and time the payout token was created"""
 
     currency: str
     """The currency code of the payout destination.

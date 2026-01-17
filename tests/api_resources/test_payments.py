@@ -232,7 +232,7 @@ class TestPayments:
             plan_ids=["string"],
             product_ids=["string"],
             statuses=["draft"],
-            substatuses=["auto_refunded"],
+            substatuses=["succeeded"],
         )
         assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
@@ -666,7 +666,7 @@ class TestAsyncPayments:
             plan_ids=["string"],
             product_ids=["string"],
             statuses=["draft"],
-            substatuses=["auto_refunded"],
+            substatuses=["succeeded"],
         )
         assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
