@@ -71,6 +71,7 @@ class MembershipsResource(SyncAPIResource):
         Required permissions:
 
         - `member:basic:read`
+        - `member:email:read`
 
         Args:
           extra_headers: Send extra headers
@@ -109,6 +110,7 @@ class MembershipsResource(SyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:
@@ -178,6 +180,7 @@ class MembershipsResource(SyncAPIResource):
         Required permissions:
 
         - `member:basic:read`
+        - `member:email:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -269,6 +272,7 @@ class MembershipsResource(SyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:
@@ -313,6 +317,7 @@ class MembershipsResource(SyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:
@@ -355,6 +360,7 @@ class MembershipsResource(SyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:
@@ -414,6 +420,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         Required permissions:
 
         - `member:basic:read`
+        - `member:email:read`
 
         Args:
           extra_headers: Send extra headers
@@ -452,6 +459,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:
@@ -521,6 +529,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         Required permissions:
 
         - `member:basic:read`
+        - `member:email:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -612,6 +621,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:
@@ -656,6 +666,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:
@@ -700,6 +711,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         Required permissions:
 
         - `member:manage`
+        - `member:email:read`
         - `member:basic:read`
 
         Args:

@@ -57,6 +57,9 @@ class User(BaseModel):
     id: str
     """The internal ID of the user."""
 
+    email: Optional[str] = None
+    """The email of the user"""
+
     name: Optional[str] = None
     """The name of the user from their Whop account."""
 
