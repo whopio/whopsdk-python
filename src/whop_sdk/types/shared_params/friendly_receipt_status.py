@@ -18,7 +18,6 @@ FriendlyReceiptStatus: TypeAlias = Literal[
     "partially_refunded",
     "open_resolution",
     "dispute_warning",
-    "open_dispute",
     "dispute_needs_response",
     "dispute_warning_needs_response",
     "dispute_under_review",
@@ -31,4 +30,5 @@ FriendlyReceiptStatus: TypeAlias = Literal[
     "incomplete",
     "unresolved",
     "pending",
+    "open_dispute",
 ]
