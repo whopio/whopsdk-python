@@ -5,5 +5,5 @@ from typing_extensions import Literal, TypeAlias
 __all__ = ["PaymentProvider"]
 
 PaymentProvider: TypeAlias = Literal[
-    "stripe", "coinbase", "paypal", "apple", "sezzle", "splitit", "platform_balance", "multi_psp"
+    "stripe", "coinbase", "paypal", "apple", "sezzle", "splitit", "platform_balance", "multi_psp", "adyen"
 ]
