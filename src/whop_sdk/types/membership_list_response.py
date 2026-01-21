@@ -2,6 +2,7 @@
 
 from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.currency import Currency
@@ -80,6 +81,16 @@ class MembershipListResponse(BaseModel):
     cycle.
 
     Only applies for memberships that have a renewal plan.
+    """
+
+    cancel_option: Optional[
+        Literal[
+            "too_expensive", "switching", "missing_features", "technical_issues", "bad_experience", "other", "testing"
+        ]
+    ] = None
+    """
+    The different reasons a user can choose for why they are canceling their
+    membership.
     """
 
     canceled_at: Optional[datetime] = None
