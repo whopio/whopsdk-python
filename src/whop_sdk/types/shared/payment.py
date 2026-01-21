@@ -235,6 +235,9 @@ class Payment(BaseModel):
     was made
     """
 
+    next_payment_attempt: Optional[datetime] = None
+    """The time of the next schedule payment retry."""
+
     paid_at: Optional[datetime] = None
     """The datetime the payment was paid"""
 
@@ -243,6 +246,9 @@ class Payment(BaseModel):
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
+
+    payments_failed: Optional[int] = None
+    """The number of failed payment attempts for the payment."""
 
     plan: Optional[Plan] = None
     """The plan attached to this payment."""
