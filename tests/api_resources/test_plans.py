@@ -58,8 +58,8 @@ class TestPlans:
             legacy_payment_method_controls=True,
             override_tax_type="inclusive",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             plan_type="renewal",
@@ -178,8 +178,8 @@ class TestPlans:
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             renewal_price=6.9,
@@ -364,8 +364,8 @@ class TestAsyncPlans:
             legacy_payment_method_controls=True,
             override_tax_type="inclusive",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             plan_type="renewal",
@@ -484,8 +484,8 @@ class TestAsyncPlans:
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             renewal_price=6.9,
