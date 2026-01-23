@@ -44,6 +44,9 @@ class MemberListResponse(BaseModel):
     no_access, the member does not have access to the product.
     """
 
+    company_token_balance: float
+    """The member's token balance for this company"""
+
     created_at: datetime
     """When the member was created"""
 

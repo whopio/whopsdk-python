@@ -60,6 +60,9 @@ class MemberRetrieveResponse(BaseModel):
     company: Company
     """The company for the member."""
 
+    company_token_balance: float
+    """The member's token balance for this company"""
+
     created_at: datetime
     """When the member was created"""
 
