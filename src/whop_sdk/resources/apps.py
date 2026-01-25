@@ -242,6 +242,7 @@ class AppsResource(SyncAPIResource):
         last: Optional[int] | Omit = omit,
         order: Optional[
             Literal[
+                "created_at",
                 "discoverable_at",
                 "total_installs_last_30_days",
                 "total_installs_last_7_days",
@@ -542,6 +543,7 @@ class AsyncAppsResource(AsyncAPIResource):
         last: Optional[int] | Omit = omit,
         order: Optional[
             Literal[
+                "created_at",
                 "discoverable_at",
                 "total_installs_last_30_days",
                 "total_installs_last_7_days",
