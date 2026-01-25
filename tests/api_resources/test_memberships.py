@@ -309,6 +309,48 @@ class TestMemberships:
                 "",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_uncancel(self, client: Whop) -> None:
+        membership = client.memberships.uncancel(
+            "mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_uncancel(self, client: Whop) -> None:
+        response = client.memberships.with_raw_response.uncancel(
+            "mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_uncancel(self, client: Whop) -> None:
+        with client.memberships.with_streaming_response.uncancel(
+            "mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_uncancel(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.memberships.with_raw_response.uncancel(
+                "",
+            )
+
 
 class TestAsyncMemberships:
     parametrize = pytest.mark.parametrize(
@@ -599,5 +641,47 @@ class TestAsyncMemberships:
     async def test_path_params_resume(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.memberships.with_raw_response.resume(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_uncancel(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.uncancel(
+            "mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_uncancel(self, async_client: AsyncWhop) -> None:
+        response = await async_client.memberships.with_raw_response.uncancel(
+            "mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = await response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_uncancel(self, async_client: AsyncWhop) -> None:
+        async with async_client.memberships.with_streaming_response.uncancel(
+            "mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = await response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_uncancel(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.memberships.with_raw_response.uncancel(
                 "",
             )

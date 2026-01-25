@@ -382,6 +382,45 @@ class MembershipsResource(SyncAPIResource):
             cast_to=Membership,
         )
 
+    def uncancel(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """
+        Uncancels a membership that was scheduled to cancel at period end
+
+        Required permissions:
+
+        - `member:manage`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/memberships/{id}/uncancel",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
 
 class AsyncMembershipsResource(AsyncAPIResource):
     @cached_property
@@ -733,6 +772,45 @@ class AsyncMembershipsResource(AsyncAPIResource):
             cast_to=Membership,
         )
 
+    async def uncancel(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """
+        Uncancels a membership that was scheduled to cancel at period end
+
+        Required permissions:
+
+        - `member:manage`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/memberships/{id}/uncancel",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
 
 class MembershipsResourceWithRawResponse:
     def __init__(self, memberships: MembershipsResource) -> None:
@@ -755,6 +833,9 @@ class MembershipsResourceWithRawResponse:
         )
         self.resume = to_raw_response_wrapper(
             memberships.resume,
+        )
+        self.uncancel = to_raw_response_wrapper(
+            memberships.uncancel,
         )
 
 
@@ -780,6 +861,9 @@ class AsyncMembershipsResourceWithRawResponse:
         self.resume = async_to_raw_response_wrapper(
             memberships.resume,
         )
+        self.uncancel = async_to_raw_response_wrapper(
+            memberships.uncancel,
+        )
 
 
 class MembershipsResourceWithStreamingResponse:
@@ -804,6 +888,9 @@ class MembershipsResourceWithStreamingResponse:
         self.resume = to_streamed_response_wrapper(
             memberships.resume,
         )
+        self.uncancel = to_streamed_response_wrapper(
+            memberships.uncancel,
+        )
 
 
 class AsyncMembershipsResourceWithStreamingResponse:
@@ -827,4 +914,7 @@ class AsyncMembershipsResourceWithStreamingResponse:
         )
         self.resume = async_to_streamed_response_wrapper(
             memberships.resume,
+        )
+        self.uncancel = async_to_streamed_response_wrapper(
+            memberships.uncancel,
         )
