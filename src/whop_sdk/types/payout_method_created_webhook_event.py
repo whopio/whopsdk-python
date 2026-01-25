@@ -35,8 +35,17 @@ class Data(BaseModel):
     id: str
     """The ID of the payout token"""
 
+    account_reference: Optional[str] = None
+    """
+    A reference to identify the payout destination, such as the last 4 digits of an
+    account number or an email address.
+    """
+
     company: Optional[DataCompany] = None
     """The company associated with the payout token"""
+
+    created_at: datetime
+    """The date and time the payout token was created"""
 
     currency: str
     """The currency code of the payout destination.
@@ -46,6 +55,9 @@ class Data(BaseModel):
 
     destination: Optional[DataDestination] = None
     """The payout destination associated with the payout token"""
+
+    institution_name: Optional[str] = None
+    """The name of the bank or financial institution."""
 
     is_default: bool
     """Whether this payout token is the default for the payout account"""

@@ -55,13 +55,13 @@ class TestCheckoutConfigurations:
                 "description": "description",
                 "expiration_days": 42,
                 "force_create_new_plan": True,
-                "image": {"direct_upload_id": "direct_upload_id"},
+                "image": {"id": "id"},
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "override_tax_type": "inclusive",
                 "payment_method_configuration": {
-                    "disabled": ["afterpay_clearpay"],
-                    "enabled": ["afterpay_clearpay"],
+                    "disabled": ["acss_debit"],
+                    "enabled": ["acss_debit"],
                     "include_platform_defaults": True,
                 },
                 "plan_type": "renewal",
@@ -85,6 +85,7 @@ class TestCheckoutConfigurations:
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
                 "split_pay_required_payments": 42,
+                "stock": 42,
                 "title": "title",
                 "trial_period_days": 42,
                 "visibility": "visible",
@@ -94,11 +95,12 @@ class TestCheckoutConfigurations:
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -152,11 +154,12 @@ class TestCheckoutConfigurations:
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -204,11 +207,12 @@ class TestCheckoutConfigurations:
             currency="usd",
             metadata={"foo": "bar"},
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -379,13 +383,13 @@ class TestAsyncCheckoutConfigurations:
                 "description": "description",
                 "expiration_days": 42,
                 "force_create_new_plan": True,
-                "image": {"direct_upload_id": "direct_upload_id"},
+                "image": {"id": "id"},
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
                 "override_tax_type": "inclusive",
                 "payment_method_configuration": {
-                    "disabled": ["afterpay_clearpay"],
-                    "enabled": ["afterpay_clearpay"],
+                    "disabled": ["acss_debit"],
+                    "enabled": ["acss_debit"],
                     "include_platform_defaults": True,
                 },
                 "plan_type": "renewal",
@@ -409,6 +413,7 @@ class TestAsyncCheckoutConfigurations:
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
                 "split_pay_required_payments": 42,
+                "stock": 42,
                 "title": "title",
                 "trial_period_days": 42,
                 "visibility": "visible",
@@ -418,11 +423,12 @@ class TestAsyncCheckoutConfigurations:
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -476,11 +482,12 @@ class TestAsyncCheckoutConfigurations:
             metadata={"foo": "bar"},
             mode="payment",
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -528,11 +535,12 @@ class TestAsyncCheckoutConfigurations:
             currency="usd",
             metadata={"foo": "bar"},
             payment_method_configuration={
-                "disabled": ["afterpay_clearpay"],
-                "enabled": ["afterpay_clearpay"],
+                "disabled": ["acss_debit"],
+                "enabled": ["acss_debit"],
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
+            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 

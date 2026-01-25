@@ -5,7 +5,6 @@ from datetime import datetime
 
 from .._models import BaseModel
 from .shared.currency import Currency
-from .withdrawal_types import WithdrawalTypes
 from .withdrawal_speeds import WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus
 from .withdrawal_fee_types import WithdrawalFeeTypes
@@ -49,6 +48,3 @@ class WithdrawalListResponse(BaseModel):
 
     status: WithdrawalStatus
     """Status of the withdrawal."""
-
-    withdrawal_type: WithdrawalTypes
-    """The type of withdrawal."""

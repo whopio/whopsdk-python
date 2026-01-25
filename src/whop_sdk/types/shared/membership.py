@@ -1,13 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .currency import Currency
 from ..._models import BaseModel
 from .membership_status import MembershipStatus
 
-__all__ = ["Membership", "Company", "Member", "Plan", "Product", "PromoCode", "User"]
+__all__ = ["Membership", "Company", "CustomFieldResponse", "Member", "Plan", "Product", "PromoCode", "User"]
 
 
 class Company(BaseModel):
@@ -18,6 +19,19 @@ class Company(BaseModel):
 
     title: str
     """The title of the company."""
+
+
+class CustomFieldResponse(BaseModel):
+    """The response from a custom field on checkout"""
+
+    id: str
+    """The ID of the custom field item"""
+
+    answer: str
+    """The response a user gave to the specific question or field."""
+
+    question: str
+    """The question asked by the custom field"""
 
 
 class Member(BaseModel):
@@ -57,6 +71,9 @@ class User(BaseModel):
     id: str
     """The internal ID of the user."""
 
+    email: Optional[str] = None
+    """The email of the user"""
+
     name: Optional[str] = None
     """The name of the user from their Whop account."""
 
@@ -79,6 +96,16 @@ class Membership(BaseModel):
     Only applies for memberships that have a renewal plan.
     """
 
+    cancel_option: Optional[
+        Literal[
+            "too_expensive", "switching", "missing_features", "technical_issues", "bad_experience", "other", "testing"
+        ]
+    ] = None
+    """
+    The different reasons a user can choose for why they are canceling their
+    membership.
+    """
+
     canceled_at: Optional[datetime] = None
     """The epoch timestamp of when the customer initiated a cancellation."""
 
@@ -93,6 +120,9 @@ class Membership(BaseModel):
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
+
+    custom_field_responses: List[CustomFieldResponse]
+    """The responses to custom checkout questions for this membership."""
 
     license_key: Optional[str] = None
     """The license key for this Membership.

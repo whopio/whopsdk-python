@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing import List, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 from .app_type import AppType
 from .shared.app_statuses import AppStatuses
 
-__all__ = ["AppUpdateParams", "Icon", "IconAttachmentInputWithDirectUploadID", "IconAttachmentInputWithID"]
+__all__ = ["AppUpdateParams", "Icon"]
 
 
 class AppUpdateParams(TypedDict, total=False):
@@ -46,26 +46,8 @@ class AppUpdateParams(TypedDict, total=False):
     """The status of an experience interface"""
 
 
-class IconAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class IconAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class Icon(TypedDict, total=False):
+    """The icon for the app"""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-
-Icon: TypeAlias = Union[IconAttachmentInputWithDirectUploadID, IconAttachmentInputWithID]
+    """The ID of an existing file object."""

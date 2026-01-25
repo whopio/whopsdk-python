@@ -271,6 +271,7 @@ Methods:
 - <code title="post /memberships/{id}/cancel">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">cancel</a>(id, \*\*<a href="src/whop_sdk/types/membership_cancel_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/pause">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">pause</a>(id, \*\*<a href="src/whop_sdk/types/membership_pause_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/resume">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">resume</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
+- <code title="post /memberships/{id}/uncancel">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">uncancel</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 
 # AuthorizedUsers
 
@@ -651,7 +652,6 @@ from whop_sdk.types import (
     WithdrawalFeeTypes,
     WithdrawalSpeeds,
     WithdrawalStatus,
-    WithdrawalTypes,
     WithdrawalCreateResponse,
     WithdrawalRetrieveResponse,
     WithdrawalListResponse,

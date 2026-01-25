@@ -21,8 +21,6 @@ __all__ = [
     "CreateCheckoutSessionInputModePaymentWithPlanPlan",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanImage",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanProduct",
     "CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration",
@@ -58,6 +56,9 @@ class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
 
+    source_url: Optional[str]
+    """The URL of the page where the checkout is being initiated from."""
+
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, total=False):
     field_type: Required[Literal["text"]]
@@ -79,32 +80,11 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, to
     """Whether or not the field is required."""
 
 
-class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID(TypedDict, total=False):
-    """Input for an attachment"""
-
-    direct_upload_id: Required[str]
-    """This ID should be used the first time you upload an attachment.
-
-    It is the ID of the direct upload that was created when uploading the file to S3
-    via the mediaDirectUpload mutation.
-    """
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID(TypedDict, total=False):
-    """Input for an attachment"""
+class CreateCheckoutSessionInputModePaymentWithPlanPlanImage(TypedDict, total=False):
+    """An image for the plan. This will be visible on the product page to customers."""
 
     id: Required[str]
-    """The ID of an existing attachment object.
-
-    Use this when updating a resource and keeping a subset of the attachments. Don't
-    use this unless you know what you're doing.
-    """
-
-
-CreateCheckoutSessionInputModePaymentWithPlanPlanImage: TypeAlias = Union[
-    CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithDirectUploadID,
-    CreateCheckoutSessionInputModePaymentWithPlanPlanImageAttachmentInputWithID,
-]
+    """The ID of an existing file object."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration(TypedDict, total=False):
@@ -271,6 +251,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     split_pay_required_payments: Optional[int]
     """The number of payments required before pausing the subscription."""
 
+    stock: Optional[int]
+    """The number of units available for purchase.
+
+    If not provided, stock is unlimited.
+    """
+
     title: Optional[str]
     """The title of the plan. This will be visible on the product page to customers."""
 
@@ -334,6 +320,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
 
+    source_url: Optional[str]
+    """The URL of the page where the checkout is being initiated from."""
+
 
 class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
     """This currently only works for configurations made in 'setup' mode.
@@ -387,6 +376,9 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
 
     redirect_url: Optional[str]
     """The URL to redirect the user to after the checkout configuration is created"""
+
+    source_url: Optional[str]
+    """The URL of the page where the checkout is being initiated from."""
 
 
 class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):
