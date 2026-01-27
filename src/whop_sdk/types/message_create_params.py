@@ -21,6 +21,9 @@ class MessageCreateParams(TypedDict, total=False):
     poll: Optional[Poll]
     """The poll for this message"""
 
+    replying_to_message_id: Optional[str]
+    """The ID of the message this is replying to, if applicable."""
+
 
 class Attachment(TypedDict, total=False):
     """Input for an attachment"""

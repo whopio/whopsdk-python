@@ -53,6 +53,7 @@ class MessagesResource(SyncAPIResource):
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
+        replying_to_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,6 +77,8 @@ class MessagesResource(SyncAPIResource):
 
           poll: The poll for this message
 
+          replying_to_message_id: The ID of the message this is replying to, if applicable.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -92,6 +95,7 @@ class MessagesResource(SyncAPIResource):
                     "content": content,
                     "attachments": attachments,
                     "poll": poll,
+                    "replying_to_message_id": replying_to_message_id,
                 },
                 message_create_params.MessageCreateParams,
             ),
@@ -283,6 +287,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
+        replying_to_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -306,6 +311,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           poll: The poll for this message
 
+          replying_to_message_id: The ID of the message this is replying to, if applicable.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -322,6 +329,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "content": content,
                     "attachments": attachments,
                     "poll": poll,
+                    "replying_to_message_id": replying_to_message_id,
                 },
                 message_create_params.MessageCreateParams,
             ),
