@@ -45,6 +45,7 @@ class TestMessages:
                     }
                 ]
             },
+            replying_to_message_id="replying_to_message_id",
         )
         assert_matches_type(Message, message, path=["response"])
 
@@ -248,6 +249,7 @@ class TestAsyncMessages:
                     }
                 ]
             },
+            replying_to_message_id="replying_to_message_id",
         )
         assert_matches_type(Message, message, path=["response"])
 
