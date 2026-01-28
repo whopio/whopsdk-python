@@ -33,6 +33,7 @@ class TestReactions:
         reaction = client.reactions.create(
             resource_id="resource_id",
             emoji="emoji",
+            poll_option_id="poll_option_id",
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 
@@ -170,6 +171,7 @@ class TestAsyncReactions:
         reaction = await async_client.reactions.create(
             resource_id="resource_id",
             emoji="emoji",
+            poll_option_id="poll_option_id",
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 

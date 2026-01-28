@@ -50,6 +50,7 @@ class ReactionsResource(SyncAPIResource):
         *,
         resource_id: str,
         emoji: Optional[str] | Omit = omit,
+        poll_option_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -70,6 +71,9 @@ class ReactionsResource(SyncAPIResource):
           emoji: The emoji to react with (e.g., :heart: or '😀'). It will be ignored in forums,
               as everything will be :heart:
 
+          poll_option_id: The ID of the poll option to vote for. Only valid for messages or posts with
+              polls.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -84,6 +88,7 @@ class ReactionsResource(SyncAPIResource):
                 {
                     "resource_id": resource_id,
                     "emoji": emoji,
+                    "poll_option_id": poll_option_id,
                 },
                 reaction_create_params.ReactionCreateParams,
             ),
@@ -219,6 +224,7 @@ class AsyncReactionsResource(AsyncAPIResource):
         *,
         resource_id: str,
         emoji: Optional[str] | Omit = omit,
+        poll_option_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -239,6 +245,9 @@ class AsyncReactionsResource(AsyncAPIResource):
           emoji: The emoji to react with (e.g., :heart: or '😀'). It will be ignored in forums,
               as everything will be :heart:
 
+          poll_option_id: The ID of the poll option to vote for. Only valid for messages or posts with
+              polls.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -253,6 +262,7 @@ class AsyncReactionsResource(AsyncAPIResource):
                 {
                     "resource_id": resource_id,
                     "emoji": emoji,
+                    "poll_option_id": poll_option_id,
                 },
                 reaction_create_params.ReactionCreateParams,
             ),
