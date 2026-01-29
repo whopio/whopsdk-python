@@ -22,6 +22,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.message import Message
 from ..types.shared.direction import Direction
 from ..types.message_list_response import MessageListResponse
+from ..types.message_delete_response import MessageDeleteResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -53,6 +54,7 @@ class MessagesResource(SyncAPIResource):
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
+        replying_to_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,6 +78,8 @@ class MessagesResource(SyncAPIResource):
 
           poll: The poll for this message
 
+          replying_to_message_id: The ID of the message this is replying to, if applicable.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -92,6 +96,7 @@ class MessagesResource(SyncAPIResource):
                     "content": content,
                     "attachments": attachments,
                     "poll": poll,
+                    "replying_to_message_id": replying_to_message_id,
                 },
                 message_create_params.MessageCreateParams,
             ),
@@ -255,6 +260,43 @@ class MessagesResource(SyncAPIResource):
             model=MessageListResponse,
         )
 
+    def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageDeleteResponse:
+        """
+        Deletes a message
+
+        Required permissions:
+
+        - `chat:message:create`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/messages/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageDeleteResponse,
+        )
+
 
 class AsyncMessagesResource(AsyncAPIResource):
     @cached_property
@@ -283,6 +325,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
+        replying_to_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -306,6 +349,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           poll: The poll for this message
 
+          replying_to_message_id: The ID of the message this is replying to, if applicable.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -322,6 +367,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "content": content,
                     "attachments": attachments,
                     "poll": poll,
+                    "replying_to_message_id": replying_to_message_id,
                 },
                 message_create_params.MessageCreateParams,
             ),
@@ -485,6 +531,43 @@ class AsyncMessagesResource(AsyncAPIResource):
             model=MessageListResponse,
         )
 
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageDeleteResponse:
+        """
+        Deletes a message
+
+        Required permissions:
+
+        - `chat:message:create`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/messages/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageDeleteResponse,
+        )
+
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -501,6 +584,9 @@ class MessagesResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             messages.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            messages.delete,
         )
 
 
@@ -520,6 +606,9 @@ class AsyncMessagesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             messages.list,
         )
+        self.delete = async_to_raw_response_wrapper(
+            messages.delete,
+        )
 
 
 class MessagesResourceWithStreamingResponse:
@@ -538,6 +627,9 @@ class MessagesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            messages.delete,
+        )
 
 
 class AsyncMessagesResourceWithStreamingResponse:
@@ -555,4 +647,7 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            messages.delete,
         )

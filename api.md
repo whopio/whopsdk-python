@@ -334,7 +334,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import MessageListResponse
+from whop_sdk.types import MessageListResponse, MessageDeleteResponse
 ```
 
 Methods:
@@ -343,6 +343,7 @@ Methods:
 - <code title="get /messages/{id}">client.messages.<a href="./src/whop_sdk/resources/messages.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/message.py">Message</a></code>
 - <code title="patch /messages/{id}">client.messages.<a href="./src/whop_sdk/resources/messages.py">update</a>(id, \*\*<a href="src/whop_sdk/types/message_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/message.py">Message</a></code>
 - <code title="get /messages">client.messages.<a href="./src/whop_sdk/resources/messages.py">list</a>(\*\*<a href="src/whop_sdk/types/message_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/message_list_response.py">SyncCursorPage[MessageListResponse]</a></code>
+- <code title="delete /messages/{id}">client.messages.<a href="./src/whop_sdk/resources/messages.py">delete</a>(id) -> <a href="./src/whop_sdk/types/message_delete_response.py">MessageDeleteResponse</a></code>
 
 # ChatChannels
 
@@ -433,7 +434,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import ReactionListResponse
+from whop_sdk.types import ReactionListResponse, ReactionDeleteResponse
 ```
 
 Methods:
@@ -441,6 +442,7 @@ Methods:
 - <code title="post /reactions">client.reactions.<a href="./src/whop_sdk/resources/reactions.py">create</a>(\*\*<a href="src/whop_sdk/types/reaction_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/reaction.py">Reaction</a></code>
 - <code title="get /reactions/{id}">client.reactions.<a href="./src/whop_sdk/resources/reactions.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/reaction.py">Reaction</a></code>
 - <code title="get /reactions">client.reactions.<a href="./src/whop_sdk/resources/reactions.py">list</a>(\*\*<a href="src/whop_sdk/types/reaction_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/reaction_list_response.py">SyncCursorPage[ReactionListResponse]</a></code>
+- <code title="delete /reactions/{id}">client.reactions.<a href="./src/whop_sdk/resources/reactions.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/reaction_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/reaction_delete_response.py">ReactionDeleteResponse</a></code>
 
 # Members
 
@@ -790,3 +792,65 @@ Methods:
 
 - <code title="post /files">client.files.<a href="./src/whop_sdk/resources/files.py">create</a>(\*\*<a href="src/whop_sdk/types/file_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/file_create_response.py">FileCreateResponse</a></code>
 - <code title="get /files/{id}">client.files.<a href="./src/whop_sdk/resources/files.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/file_retrieve_response.py">FileRetrieveResponse</a></code>
+
+# CompanyTokenTransactions
+
+Types:
+
+```python
+from whop_sdk.types import (
+    CompanyTokenTransactionCreateResponse,
+    CompanyTokenTransactionRetrieveResponse,
+    CompanyTokenTransactionListResponse,
+)
+```
+
+Methods:
+
+- <code title="post /company_token_transactions">client.company_token_transactions.<a href="./src/whop_sdk/resources/company_token_transactions.py">create</a>(\*\*<a href="src/whop_sdk/types/company_token_transaction_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/company_token_transaction_create_response.py">CompanyTokenTransactionCreateResponse</a></code>
+- <code title="get /company_token_transactions/{id}">client.company_token_transactions.<a href="./src/whop_sdk/resources/company_token_transactions.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/company_token_transaction_retrieve_response.py">CompanyTokenTransactionRetrieveResponse</a></code>
+- <code title="get /company_token_transactions">client.company_token_transactions.<a href="./src/whop_sdk/resources/company_token_transactions.py">list</a>(\*\*<a href="src/whop_sdk/types/company_token_transaction_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/company_token_transaction_list_response.py">SyncCursorPage[CompanyTokenTransactionListResponse]</a></code>
+
+# DmMembers
+
+Types:
+
+```python
+from whop_sdk.types import (
+    DmMemberCreateResponse,
+    DmMemberRetrieveResponse,
+    DmMemberUpdateResponse,
+    DmMemberListResponse,
+    DmMemberDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /dm_members">client.dm_members.<a href="./src/whop_sdk/resources/dm_members.py">create</a>(\*\*<a href="src/whop_sdk/types/dm_member_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/dm_member_create_response.py">DmMemberCreateResponse</a></code>
+- <code title="get /dm_members/{id}">client.dm_members.<a href="./src/whop_sdk/resources/dm_members.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dm_member_retrieve_response.py">DmMemberRetrieveResponse</a></code>
+- <code title="patch /dm_members/{id}">client.dm_members.<a href="./src/whop_sdk/resources/dm_members.py">update</a>(id, \*\*<a href="src/whop_sdk/types/dm_member_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/dm_member_update_response.py">DmMemberUpdateResponse</a></code>
+- <code title="get /dm_members">client.dm_members.<a href="./src/whop_sdk/resources/dm_members.py">list</a>(\*\*<a href="src/whop_sdk/types/dm_member_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dm_member_list_response.py">SyncCursorPage[DmMemberListResponse]</a></code>
+- <code title="delete /dm_members/{id}">client.dm_members.<a href="./src/whop_sdk/resources/dm_members.py">delete</a>(id) -> <a href="./src/whop_sdk/types/dm_member_delete_response.py">DmMemberDeleteResponse</a></code>
+
+# AIChats
+
+Types:
+
+```python
+from whop_sdk.types import (
+    AIChatCreateResponse,
+    AIChatRetrieveResponse,
+    AIChatUpdateResponse,
+    AIChatListResponse,
+    AIChatDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /ai_chats">client.ai_chats.<a href="./src/whop_sdk/resources/ai_chats.py">create</a>(\*\*<a href="src/whop_sdk/types/ai_chat_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ai_chat_create_response.py">AIChatCreateResponse</a></code>
+- <code title="get /ai_chats/{id}">client.ai_chats.<a href="./src/whop_sdk/resources/ai_chats.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ai_chat_retrieve_response.py">AIChatRetrieveResponse</a></code>
+- <code title="patch /ai_chats/{id}">client.ai_chats.<a href="./src/whop_sdk/resources/ai_chats.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ai_chat_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ai_chat_update_response.py">AIChatUpdateResponse</a></code>
+- <code title="get /ai_chats">client.ai_chats.<a href="./src/whop_sdk/resources/ai_chats.py">list</a>(\*\*<a href="src/whop_sdk/types/ai_chat_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ai_chat_list_response.py">SyncCursorPage[AIChatListResponse]</a></code>
+- <code title="delete /ai_chats/{id}">client.ai_chats.<a href="./src/whop_sdk/resources/ai_chats.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ai_chat_delete_response.py">AIChatDeleteResponse</a></code>

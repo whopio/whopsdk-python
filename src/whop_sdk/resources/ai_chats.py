@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal
+from typing import Optional
 
 import httpx
 
-from ..types import AppType, app_list_params, app_create_params, app_update_params
+from ..types import ai_chat_list_params, ai_chat_create_params, ai_chat_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,66 +19,55 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.app_type import AppType
-from ..types.shared.app import App
-from ..types.shared.direction import Direction
-from ..types.app_list_response import AppListResponse
-from ..types.shared.app_statuses import AppStatuses
-from ..types.shared.app_view_type import AppViewType
+from ..types.ai_chat_list_response import AIChatListResponse
+from ..types.ai_chat_create_response import AIChatCreateResponse
+from ..types.ai_chat_delete_response import AIChatDeleteResponse
+from ..types.ai_chat_update_response import AIChatUpdateResponse
+from ..types.ai_chat_retrieve_response import AIChatRetrieveResponse
 
-__all__ = ["AppsResource", "AsyncAppsResource"]
+__all__ = ["AIChatsResource", "AsyncAIChatsResource"]
 
 
-class AppsResource(SyncAPIResource):
+class AIChatsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AppsResourceWithRawResponse:
+    def with_raw_response(self) -> AIChatsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return AppsResourceWithRawResponse(self)
+        return AIChatsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AppsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AIChatsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return AppsResourceWithStreamingResponse(self)
+        return AIChatsResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        company_id: str,
-        name: str,
-        base_url: Optional[str] | Omit = omit,
-        icon: Optional[app_create_params.Icon] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> App:
+    ) -> AIChatCreateResponse:
         """
-        Create a new App
+        Creates a new AI chat
 
         Required permissions:
 
-        - `developer:create_app`
-        - `developer:manage_api_key`
+        - `ai_chat:create`
 
         Args:
-          company_id: The ID of the company to create the app for
-
-          name: The name of the app to be created
-
-          base_url: The base URL of the app to be created
-
-          icon: The icon for the app in png, jpeg, or gif format
+          title: The title of the AI chat
 
           extra_headers: Send extra headers
 
@@ -90,20 +78,12 @@ class AppsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/apps",
-            body=maybe_transform(
-                {
-                    "company_id": company_id,
-                    "name": name,
-                    "base_url": base_url,
-                    "icon": icon,
-                },
-                app_create_params.AppCreateParams,
-            ),
+            "/ai_chats",
+            body=maybe_transform({"title": title}, ai_chat_create_params.AIChatCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=App,
+            cast_to=AIChatCreateResponse,
         )
 
     def retrieve(
@@ -116,13 +96,9 @@ class AppsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> App:
+    ) -> AIChatRetrieveResponse:
         """
-        Retrieves an app by ID
-
-        Required permissions:
-
-        - `developer:manage_api_key`
+        Fetches a single AI chat by ID
 
         Args:
           extra_headers: Send extra headers
@@ -136,65 +112,34 @@ class AppsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/apps/{id}",
+            f"/ai_chats/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=App,
+            cast_to=AIChatRetrieveResponse,
         )
 
     def update(
         self,
         id: str,
         *,
-        app_store_description: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
-        base_url: Optional[str] | Omit = omit,
-        dashboard_path: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        discover_path: Optional[str] | Omit = omit,
-        experience_path: Optional[str] | Omit = omit,
-        icon: Optional[app_update_params.Icon] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
-        status: Optional[AppStatuses] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> App:
+    ) -> AIChatUpdateResponse:
         """
-        Update an existing App
+        Updates an AI chat
 
         Required permissions:
 
-        - `developer:update_app`
-        - `developer:manage_api_key`
+        - `ai_chat:update`
 
         Args:
-          app_store_description: The description of the app for the app store in-depth app view.
-
-          app_type: The type of end-user an app is built for
-
-          base_url: The base production url of the app
-
-          dashboard_path: The path for the dashboard view of the app
-
-          description: The description of the app
-
-          discover_path: The path for the discover view of the app
-
-          experience_path: The path for the hub view of the app
-
-          icon: The icon for the app
-
-          name: The name of the app
-
-          required_scopes: The scopes that the app will request off of users when a user installs the app.
-
-          status: The status of an experience interface
+          title: The new title for the AI chat
 
           extra_headers: Send extra headers
 
@@ -207,92 +152,39 @@ class AppsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/apps/{id}",
-            body=maybe_transform(
-                {
-                    "app_store_description": app_store_description,
-                    "app_type": app_type,
-                    "base_url": base_url,
-                    "dashboard_path": dashboard_path,
-                    "description": description,
-                    "discover_path": discover_path,
-                    "experience_path": experience_path,
-                    "icon": icon,
-                    "name": name,
-                    "required_scopes": required_scopes,
-                    "status": status,
-                },
-                app_update_params.AppUpdateParams,
-            ),
+            f"/ai_chats/{id}",
+            body=maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=App,
+            cast_to=AIChatUpdateResponse,
         )
 
     def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        order: Optional[
-            Literal[
-                "created_at",
-                "discoverable_at",
-                "total_installs_last_30_days",
-                "total_installs_last_7_days",
-                "time_spent",
-                "time_spent_last_24_hours",
-                "daily_active_users",
-                "ai_prompt_count",
-                "total_ai_cost_usd",
-                "total_ai_tokens",
-                "last_ai_prompt_at",
-                "ai_average_rating",
-            ]
-        ]
-        | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        verified_apps_only: Optional[bool] | Omit = omit,
-        view_type: Optional[AppViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[AppListResponse]:
+    ) -> SyncCursorPage[AIChatListResponse]:
         """
-        Fetches a list of apps
+        Fetches all AI chats for the current user
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
 
-          app_type: The type of end-user an app is built for
-
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The ID of the company to filter apps by
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
-
-          order: The order to fetch the apps in for discovery.
-
-          query: The query to search for apps by name.
-
-          verified_apps_only: If true, you will only get apps that are verified by Whop. Use this to populate
-              a 'featured apps' section on the app store.
-
-          view_type: The different types of an app view
 
           extra_headers: Send extra headers
 
@@ -303,8 +195,8 @@ class AppsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/apps",
-            page=SyncCursorPage[AppListResponse],
+            "/ai_chats",
+            page=SyncCursorPage[AIChatListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -313,74 +205,94 @@ class AppsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
-                        "app_type": app_type,
                         "before": before,
-                        "company_id": company_id,
-                        "direction": direction,
                         "first": first,
                         "last": last,
-                        "order": order,
-                        "query": query,
-                        "verified_apps_only": verified_apps_only,
-                        "view_type": view_type,
                     },
-                    app_list_params.AppListParams,
+                    ai_chat_list_params.AIChatListParams,
                 ),
             ),
-            model=AppListResponse,
+            model=AIChatListResponse,
         )
 
-
-class AsyncAppsResource(AsyncAPIResource):
-    @cached_property
-    def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
-        """
-        This property can be used as a prefix for any HTTP method call to return
-        the raw response object instead of the parsed content.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
-        """
-        return AsyncAppsResourceWithRawResponse(self)
-
-    @cached_property
-    def with_streaming_response(self) -> AsyncAppsResourceWithStreamingResponse:
-        """
-        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
-        """
-        return AsyncAppsResourceWithStreamingResponse(self)
-
-    async def create(
+    def delete(
         self,
+        id: str,
         *,
-        company_id: str,
-        name: str,
-        base_url: Optional[str] | Omit = omit,
-        icon: Optional[app_create_params.Icon] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> App:
+    ) -> AIChatDeleteResponse:
         """
-        Create a new App
+        Deletes an AI chat
 
         Required permissions:
 
-        - `developer:create_app`
-        - `developer:manage_api_key`
+        - `ai_chat:delete`
 
         Args:
-          company_id: The ID of the company to create the app for
+          extra_headers: Send extra headers
 
-          name: The name of the app to be created
+          extra_query: Add additional query parameters to the request
 
-          base_url: The base URL of the app to be created
+          extra_body: Add additional JSON properties to the request
 
-          icon: The icon for the app in png, jpeg, or gif format
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/ai_chats/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AIChatDeleteResponse,
+        )
+
+
+class AsyncAIChatsResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncAIChatsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncAIChatsResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncAIChatsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
+        """
+        return AsyncAIChatsResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        title: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AIChatCreateResponse:
+        """
+        Creates a new AI chat
+
+        Required permissions:
+
+        - `ai_chat:create`
+
+        Args:
+          title: The title of the AI chat
 
           extra_headers: Send extra headers
 
@@ -391,20 +303,12 @@ class AsyncAppsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/apps",
-            body=await async_maybe_transform(
-                {
-                    "company_id": company_id,
-                    "name": name,
-                    "base_url": base_url,
-                    "icon": icon,
-                },
-                app_create_params.AppCreateParams,
-            ),
+            "/ai_chats",
+            body=await async_maybe_transform({"title": title}, ai_chat_create_params.AIChatCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=App,
+            cast_to=AIChatCreateResponse,
         )
 
     async def retrieve(
@@ -417,13 +321,9 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> App:
+    ) -> AIChatRetrieveResponse:
         """
-        Retrieves an app by ID
-
-        Required permissions:
-
-        - `developer:manage_api_key`
+        Fetches a single AI chat by ID
 
         Args:
           extra_headers: Send extra headers
@@ -437,65 +337,34 @@ class AsyncAppsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/apps/{id}",
+            f"/ai_chats/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=App,
+            cast_to=AIChatRetrieveResponse,
         )
 
     async def update(
         self,
         id: str,
         *,
-        app_store_description: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
-        base_url: Optional[str] | Omit = omit,
-        dashboard_path: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        discover_path: Optional[str] | Omit = omit,
-        experience_path: Optional[str] | Omit = omit,
-        icon: Optional[app_update_params.Icon] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
-        status: Optional[AppStatuses] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> App:
+    ) -> AIChatUpdateResponse:
         """
-        Update an existing App
+        Updates an AI chat
 
         Required permissions:
 
-        - `developer:update_app`
-        - `developer:manage_api_key`
+        - `ai_chat:update`
 
         Args:
-          app_store_description: The description of the app for the app store in-depth app view.
-
-          app_type: The type of end-user an app is built for
-
-          base_url: The base production url of the app
-
-          dashboard_path: The path for the dashboard view of the app
-
-          description: The description of the app
-
-          discover_path: The path for the discover view of the app
-
-          experience_path: The path for the hub view of the app
-
-          icon: The icon for the app
-
-          name: The name of the app
-
-          required_scopes: The scopes that the app will request off of users when a user installs the app.
-
-          status: The status of an experience interface
+          title: The new title for the AI chat
 
           extra_headers: Send extra headers
 
@@ -508,92 +377,39 @@ class AsyncAppsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/apps/{id}",
-            body=await async_maybe_transform(
-                {
-                    "app_store_description": app_store_description,
-                    "app_type": app_type,
-                    "base_url": base_url,
-                    "dashboard_path": dashboard_path,
-                    "description": description,
-                    "discover_path": discover_path,
-                    "experience_path": experience_path,
-                    "icon": icon,
-                    "name": name,
-                    "required_scopes": required_scopes,
-                    "status": status,
-                },
-                app_update_params.AppUpdateParams,
-            ),
+            f"/ai_chats/{id}",
+            body=await async_maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=App,
+            cast_to=AIChatUpdateResponse,
         )
 
     def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        order: Optional[
-            Literal[
-                "created_at",
-                "discoverable_at",
-                "total_installs_last_30_days",
-                "total_installs_last_7_days",
-                "time_spent",
-                "time_spent_last_24_hours",
-                "daily_active_users",
-                "ai_prompt_count",
-                "total_ai_cost_usd",
-                "total_ai_tokens",
-                "last_ai_prompt_at",
-                "ai_average_rating",
-            ]
-        ]
-        | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        verified_apps_only: Optional[bool] | Omit = omit,
-        view_type: Optional[AppViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AppListResponse, AsyncCursorPage[AppListResponse]]:
+    ) -> AsyncPaginator[AIChatListResponse, AsyncCursorPage[AIChatListResponse]]:
         """
-        Fetches a list of apps
+        Fetches all AI chats for the current user
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
 
-          app_type: The type of end-user an app is built for
-
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The ID of the company to filter apps by
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
-
-          order: The order to fetch the apps in for discovery.
-
-          query: The query to search for apps by name.
-
-          verified_apps_only: If true, you will only get apps that are verified by Whop. Use this to populate
-              a 'featured apps' section on the app store.
-
-          view_type: The different types of an app view
 
           extra_headers: Send extra headers
 
@@ -604,8 +420,8 @@ class AsyncAppsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/apps",
-            page=AsyncCursorPage[AppListResponse],
+            "/ai_chats",
+            page=AsyncCursorPage[AIChatListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -614,91 +430,133 @@ class AsyncAppsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
-                        "app_type": app_type,
                         "before": before,
-                        "company_id": company_id,
-                        "direction": direction,
                         "first": first,
                         "last": last,
-                        "order": order,
-                        "query": query,
-                        "verified_apps_only": verified_apps_only,
-                        "view_type": view_type,
                     },
-                    app_list_params.AppListParams,
+                    ai_chat_list_params.AIChatListParams,
                 ),
             ),
-            model=AppListResponse,
+            model=AIChatListResponse,
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AIChatDeleteResponse:
+        """
+        Deletes an AI chat
+
+        Required permissions:
+
+        - `ai_chat:delete`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/ai_chats/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AIChatDeleteResponse,
         )
 
 
-class AppsResourceWithRawResponse:
-    def __init__(self, apps: AppsResource) -> None:
-        self._apps = apps
+class AIChatsResourceWithRawResponse:
+    def __init__(self, ai_chats: AIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = to_raw_response_wrapper(
-            apps.create,
+            ai_chats.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            apps.retrieve,
+            ai_chats.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            apps.update,
+            ai_chats.update,
         )
         self.list = to_raw_response_wrapper(
-            apps.list,
+            ai_chats.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            ai_chats.delete,
         )
 
 
-class AsyncAppsResourceWithRawResponse:
-    def __init__(self, apps: AsyncAppsResource) -> None:
-        self._apps = apps
+class AsyncAIChatsResourceWithRawResponse:
+    def __init__(self, ai_chats: AsyncAIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = async_to_raw_response_wrapper(
-            apps.create,
+            ai_chats.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            apps.retrieve,
+            ai_chats.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            apps.update,
+            ai_chats.update,
         )
         self.list = async_to_raw_response_wrapper(
-            apps.list,
+            ai_chats.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            ai_chats.delete,
         )
 
 
-class AppsResourceWithStreamingResponse:
-    def __init__(self, apps: AppsResource) -> None:
-        self._apps = apps
+class AIChatsResourceWithStreamingResponse:
+    def __init__(self, ai_chats: AIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = to_streamed_response_wrapper(
-            apps.create,
+            ai_chats.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            apps.retrieve,
+            ai_chats.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            apps.update,
+            ai_chats.update,
         )
         self.list = to_streamed_response_wrapper(
-            apps.list,
+            ai_chats.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            ai_chats.delete,
         )
 
 
-class AsyncAppsResourceWithStreamingResponse:
-    def __init__(self, apps: AsyncAppsResource) -> None:
-        self._apps = apps
+class AsyncAIChatsResourceWithStreamingResponse:
+    def __init__(self, ai_chats: AsyncAIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = async_to_streamed_response_wrapper(
-            apps.create,
+            ai_chats.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            apps.retrieve,
+            ai_chats.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            apps.update,
+            ai_chats.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            apps.list,
+            ai_chats.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            ai_chats.delete,
         )

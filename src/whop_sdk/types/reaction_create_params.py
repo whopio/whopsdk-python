@@ -17,3 +17,9 @@ class ReactionCreateParams(TypedDict, total=False):
 
     It will be ignored in forums, as everything will be :heart:
     """
+
+    poll_option_id: Optional[str]
+    """The ID of the poll option to vote for.
+
+    Only valid for messages or posts with polls.
+    """

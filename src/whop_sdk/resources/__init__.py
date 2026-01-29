@@ -96,6 +96,14 @@ from .reviews import (
     ReviewsResourceWithStreamingResponse,
     AsyncReviewsResourceWithStreamingResponse,
 )
+from .ai_chats import (
+    AIChatsResource,
+    AsyncAIChatsResource,
+    AIChatsResourceWithRawResponse,
+    AsyncAIChatsResourceWithRawResponse,
+    AIChatsResourceWithStreamingResponse,
+    AsyncAIChatsResourceWithStreamingResponse,
+)
 from .disputes import (
     DisputesResource,
     AsyncDisputesResource,
@@ -183,6 +191,14 @@ from .app_builds import (
     AsyncAppBuildsResourceWithRawResponse,
     AppBuildsResourceWithStreamingResponse,
     AsyncAppBuildsResourceWithStreamingResponse,
+)
+from .dm_members import (
+    DmMembersResource,
+    AsyncDmMembersResource,
+    DmMembersResourceWithRawResponse,
+    AsyncDmMembersResourceWithRawResponse,
+    DmMembersResourceWithStreamingResponse,
+    AsyncDmMembersResourceWithStreamingResponse,
 )
 from .experiences import (
     ExperiencesResource,
@@ -351,6 +367,14 @@ from .checkout_configurations import (
     AsyncCheckoutConfigurationsResourceWithRawResponse,
     CheckoutConfigurationsResourceWithStreamingResponse,
     AsyncCheckoutConfigurationsResourceWithStreamingResponse,
+)
+from .company_token_transactions import (
+    CompanyTokenTransactionsResource,
+    AsyncCompanyTokenTransactionsResource,
+    CompanyTokenTransactionsResourceWithRawResponse,
+    AsyncCompanyTokenTransactionsResourceWithRawResponse,
+    CompanyTokenTransactionsResourceWithStreamingResponse,
+    AsyncCompanyTokenTransactionsResourceWithStreamingResponse,
 )
 from .course_lesson_interactions import (
     CourseLessonInteractionsResource,
@@ -632,4 +656,22 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
+    "CompanyTokenTransactionsResource",
+    "AsyncCompanyTokenTransactionsResource",
+    "CompanyTokenTransactionsResourceWithRawResponse",
+    "AsyncCompanyTokenTransactionsResourceWithRawResponse",
+    "CompanyTokenTransactionsResourceWithStreamingResponse",
+    "AsyncCompanyTokenTransactionsResourceWithStreamingResponse",
+    "DmMembersResource",
+    "AsyncDmMembersResource",
+    "DmMembersResourceWithRawResponse",
+    "AsyncDmMembersResourceWithRawResponse",
+    "DmMembersResourceWithStreamingResponse",
+    "AsyncDmMembersResourceWithStreamingResponse",
+    "AIChatsResource",
+    "AsyncAIChatsResource",
+    "AIChatsResourceWithRawResponse",
+    "AsyncAIChatsResourceWithRawResponse",
+    "AIChatsResourceWithStreamingResponse",
+    "AsyncAIChatsResourceWithStreamingResponse",
 ]

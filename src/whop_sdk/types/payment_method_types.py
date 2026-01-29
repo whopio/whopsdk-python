@@ -37,6 +37,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "grabpay",
     "id_bank_transfer",
     "ideal",
+    "interac",
     "kakao_pay",
     "klarna",
     "konbini",
