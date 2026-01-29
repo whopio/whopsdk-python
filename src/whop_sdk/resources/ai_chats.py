@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Optional
 
 import httpx
 
-from ..types import message_list_params, message_create_params, message_update_params
+from ..types import ai_chat_list_params, ai_chat_create_params, ai_chat_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,66 +19,55 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.message import Message
-from ..types.shared.direction import Direction
-from ..types.message_list_response import MessageListResponse
-from ..types.message_delete_response import MessageDeleteResponse
+from ..types.ai_chat_list_response import AIChatListResponse
+from ..types.ai_chat_create_response import AIChatCreateResponse
+from ..types.ai_chat_delete_response import AIChatDeleteResponse
+from ..types.ai_chat_update_response import AIChatUpdateResponse
+from ..types.ai_chat_retrieve_response import AIChatRetrieveResponse
 
-__all__ = ["MessagesResource", "AsyncMessagesResource"]
+__all__ = ["AIChatsResource", "AsyncAIChatsResource"]
 
 
-class MessagesResource(SyncAPIResource):
+class AIChatsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> MessagesResourceWithRawResponse:
+    def with_raw_response(self) -> AIChatsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return MessagesResourceWithRawResponse(self)
+        return AIChatsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> MessagesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AIChatsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return MessagesResourceWithStreamingResponse(self)
+        return AIChatsResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        channel_id: str,
-        content: str,
-        attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        poll: Optional[message_create_params.Poll] | Omit = omit,
-        replying_to_message_id: Optional[str] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> AIChatCreateResponse:
         """
-        Creates a new message
+        Creates a new AI chat
 
         Required permissions:
 
-        - `chat:message:create`
+        - `ai_chat:create`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
-
-          content: The content of the message in Markdown format.
-
-          attachments: The attachments for this message, such as videos or images.
-
-          poll: The poll for this message
-
-          replying_to_message_id: The ID of the message this is replying to, if applicable.
+          title: The title of the AI chat
 
           extra_headers: Send extra headers
 
@@ -89,21 +78,12 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/messages",
-            body=maybe_transform(
-                {
-                    "channel_id": channel_id,
-                    "content": content,
-                    "attachments": attachments,
-                    "poll": poll,
-                    "replying_to_message_id": replying_to_message_id,
-                },
-                message_create_params.MessageCreateParams,
-            ),
+            "/ai_chats",
+            body=maybe_transform({"title": title}, ai_chat_create_params.AIChatCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=AIChatCreateResponse,
         )
 
     def retrieve(
@@ -116,13 +96,9 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> AIChatRetrieveResponse:
         """
-        Retrieves a message
-
-        Required permissions:
-
-        - `chat:read`
+        Fetches a single AI chat by ID
 
         Args:
           extra_headers: Send extra headers
@@ -136,36 +112,34 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/messages/{id}",
+            f"/ai_chats/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=AIChatRetrieveResponse,
         )
 
     def update(
         self,
         id: str,
         *,
-        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
-        content: Optional[str] | Omit = omit,
-        is_pinned: Optional[bool] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> AIChatUpdateResponse:
         """
-        Updates an existing message
+        Updates an AI chat
+
+        Required permissions:
+
+        - `ai_chat:update`
 
         Args:
-          attachments: The attachments for this message
-
-          content: The content of the message in Markdown format
-
-          is_pinned: Whether this message is pinned
+          title: The new title for the AI chat
 
           extra_headers: Send extra headers
 
@@ -178,28 +152,19 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/messages/{id}",
-            body=maybe_transform(
-                {
-                    "attachments": attachments,
-                    "content": content,
-                    "is_pinned": is_pinned,
-                },
-                message_update_params.MessageUpdateParams,
-            ),
+            f"/ai_chats/{id}",
+            body=maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=AIChatUpdateResponse,
         )
 
     def list(
         self,
         *,
-        channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -208,22 +173,14 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[MessageListResponse]:
+    ) -> SyncCursorPage[AIChatListResponse]:
         """
-        Lists messages inside a channel
-
-        Required permissions:
-
-        - `chat:read`
+        Fetches all AI chats for the current user
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
@@ -238,8 +195,8 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/messages",
-            page=SyncCursorPage[MessageListResponse],
+            "/ai_chats",
+            page=SyncCursorPage[AIChatListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -247,17 +204,15 @@ class MessagesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "channel_id": channel_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
                         "first": first,
                         "last": last,
                     },
-                    message_list_params.MessageListParams,
+                    ai_chat_list_params.AIChatListParams,
                 ),
             ),
-            model=MessageListResponse,
+            model=AIChatListResponse,
         )
 
     def delete(
@@ -270,13 +225,13 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageDeleteResponse:
+    ) -> AIChatDeleteResponse:
         """
-        Deletes a message
+        Deletes an AI chat
 
         Required permissions:
 
-        - `chat:message:create`
+        - `ai_chat:delete`
 
         Args:
           extra_headers: Send extra headers
@@ -290,66 +245,54 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/messages/{id}",
+            f"/ai_chats/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageDeleteResponse,
+            cast_to=AIChatDeleteResponse,
         )
 
 
-class AsyncMessagesResource(AsyncAPIResource):
+class AsyncAIChatsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncAIChatsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncMessagesResourceWithRawResponse(self)
+        return AsyncAIChatsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncMessagesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncAIChatsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return AsyncMessagesResourceWithStreamingResponse(self)
+        return AsyncAIChatsResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        channel_id: str,
-        content: str,
-        attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        poll: Optional[message_create_params.Poll] | Omit = omit,
-        replying_to_message_id: Optional[str] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> AIChatCreateResponse:
         """
-        Creates a new message
+        Creates a new AI chat
 
         Required permissions:
 
-        - `chat:message:create`
+        - `ai_chat:create`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
-
-          content: The content of the message in Markdown format.
-
-          attachments: The attachments for this message, such as videos or images.
-
-          poll: The poll for this message
-
-          replying_to_message_id: The ID of the message this is replying to, if applicable.
+          title: The title of the AI chat
 
           extra_headers: Send extra headers
 
@@ -360,21 +303,12 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/messages",
-            body=await async_maybe_transform(
-                {
-                    "channel_id": channel_id,
-                    "content": content,
-                    "attachments": attachments,
-                    "poll": poll,
-                    "replying_to_message_id": replying_to_message_id,
-                },
-                message_create_params.MessageCreateParams,
-            ),
+            "/ai_chats",
+            body=await async_maybe_transform({"title": title}, ai_chat_create_params.AIChatCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=AIChatCreateResponse,
         )
 
     async def retrieve(
@@ -387,13 +321,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> AIChatRetrieveResponse:
         """
-        Retrieves a message
-
-        Required permissions:
-
-        - `chat:read`
+        Fetches a single AI chat by ID
 
         Args:
           extra_headers: Send extra headers
@@ -407,36 +337,34 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/messages/{id}",
+            f"/ai_chats/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=AIChatRetrieveResponse,
         )
 
     async def update(
         self,
         id: str,
         *,
-        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
-        content: Optional[str] | Omit = omit,
-        is_pinned: Optional[bool] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> AIChatUpdateResponse:
         """
-        Updates an existing message
+        Updates an AI chat
+
+        Required permissions:
+
+        - `ai_chat:update`
 
         Args:
-          attachments: The attachments for this message
-
-          content: The content of the message in Markdown format
-
-          is_pinned: Whether this message is pinned
+          title: The new title for the AI chat
 
           extra_headers: Send extra headers
 
@@ -449,28 +377,19 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/messages/{id}",
-            body=await async_maybe_transform(
-                {
-                    "attachments": attachments,
-                    "content": content,
-                    "is_pinned": is_pinned,
-                },
-                message_update_params.MessageUpdateParams,
-            ),
+            f"/ai_chats/{id}",
+            body=await async_maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=AIChatUpdateResponse,
         )
 
     def list(
         self,
         *,
-        channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -479,22 +398,14 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[MessageListResponse, AsyncCursorPage[MessageListResponse]]:
+    ) -> AsyncPaginator[AIChatListResponse, AsyncCursorPage[AIChatListResponse]]:
         """
-        Lists messages inside a channel
-
-        Required permissions:
-
-        - `chat:read`
+        Fetches all AI chats for the current user
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
@@ -509,8 +420,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/messages",
-            page=AsyncCursorPage[MessageListResponse],
+            "/ai_chats",
+            page=AsyncCursorPage[AIChatListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -518,17 +429,15 @@ class AsyncMessagesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "channel_id": channel_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
                         "first": first,
                         "last": last,
                     },
-                    message_list_params.MessageListParams,
+                    ai_chat_list_params.AIChatListParams,
                 ),
             ),
-            model=MessageListResponse,
+            model=AIChatListResponse,
         )
 
     async def delete(
@@ -541,13 +450,13 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageDeleteResponse:
+    ) -> AIChatDeleteResponse:
         """
-        Deletes a message
+        Deletes an AI chat
 
         Required permissions:
 
-        - `chat:message:create`
+        - `ai_chat:delete`
 
         Args:
           extra_headers: Send extra headers
@@ -561,93 +470,93 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/messages/{id}",
+            f"/ai_chats/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageDeleteResponse,
+            cast_to=AIChatDeleteResponse,
         )
 
 
-class MessagesResourceWithRawResponse:
-    def __init__(self, messages: MessagesResource) -> None:
-        self._messages = messages
+class AIChatsResourceWithRawResponse:
+    def __init__(self, ai_chats: AIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = to_raw_response_wrapper(
-            messages.create,
+            ai_chats.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            messages.retrieve,
+            ai_chats.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            messages.update,
+            ai_chats.update,
         )
         self.list = to_raw_response_wrapper(
-            messages.list,
+            ai_chats.list,
         )
         self.delete = to_raw_response_wrapper(
-            messages.delete,
+            ai_chats.delete,
         )
 
 
-class AsyncMessagesResourceWithRawResponse:
-    def __init__(self, messages: AsyncMessagesResource) -> None:
-        self._messages = messages
+class AsyncAIChatsResourceWithRawResponse:
+    def __init__(self, ai_chats: AsyncAIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = async_to_raw_response_wrapper(
-            messages.create,
+            ai_chats.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            messages.retrieve,
+            ai_chats.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            messages.update,
+            ai_chats.update,
         )
         self.list = async_to_raw_response_wrapper(
-            messages.list,
+            ai_chats.list,
         )
         self.delete = async_to_raw_response_wrapper(
-            messages.delete,
+            ai_chats.delete,
         )
 
 
-class MessagesResourceWithStreamingResponse:
-    def __init__(self, messages: MessagesResource) -> None:
-        self._messages = messages
+class AIChatsResourceWithStreamingResponse:
+    def __init__(self, ai_chats: AIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = to_streamed_response_wrapper(
-            messages.create,
+            ai_chats.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            messages.retrieve,
+            ai_chats.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            messages.update,
+            ai_chats.update,
         )
         self.list = to_streamed_response_wrapper(
-            messages.list,
+            ai_chats.list,
         )
         self.delete = to_streamed_response_wrapper(
-            messages.delete,
+            ai_chats.delete,
         )
 
 
-class AsyncMessagesResourceWithStreamingResponse:
-    def __init__(self, messages: AsyncMessagesResource) -> None:
-        self._messages = messages
+class AsyncAIChatsResourceWithStreamingResponse:
+    def __init__(self, ai_chats: AsyncAIChatsResource) -> None:
+        self._ai_chats = ai_chats
 
         self.create = async_to_streamed_response_wrapper(
-            messages.create,
+            ai_chats.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            messages.retrieve,
+            ai_chats.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            messages.update,
+            ai_chats.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            messages.list,
+            ai_chats.list,
         )
         self.delete = async_to_streamed_response_wrapper(
-            messages.delete,
+            ai_chats.delete,
         )

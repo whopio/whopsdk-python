@@ -105,6 +105,7 @@ from .plan_list_response import PlanListResponse as PlanListResponse
 from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .refund_list_params import RefundListParams as RefundListParams
 from .review_list_params import ReviewListParams as ReviewListParams
+from .ai_chat_list_params import AIChatListParams as AIChatListParams
 from .company_list_params import CompanyListParams as CompanyListParams
 from .course_visibilities import CourseVisibilities as CourseVisibilities
 from .dispute_list_params import DisputeListParams as DisputeListParams
@@ -135,11 +136,15 @@ from .shipment_list_params import ShipmentListParams as ShipmentListParams
 from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
+from .ai_chat_create_params import AIChatCreateParams as AIChatCreateParams
+from .ai_chat_list_response import AIChatListResponse as AIChatListResponse
+from .ai_chat_update_params import AIChatUpdateParams as AIChatUpdateParams
 from .app_build_list_params import AppBuildListParams as AppBuildListParams
 from .company_create_params import CompanyCreateParams as CompanyCreateParams
 from .company_list_response import CompanyListResponse as CompanyListResponse
 from .company_update_params import CompanyUpdateParams as CompanyUpdateParams
 from .dispute_list_response import DisputeListResponse as DisputeListResponse
+from .dm_member_list_params import DmMemberListParams as DmMemberListParams
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .message_create_params import MessageCreateParams as MessageCreateParams
@@ -165,6 +170,7 @@ from .lead_retrieve_response import LeadRetrieveResponse as LeadRetrieveResponse
 from .membership_list_params import MembershipListParams as MembershipListParams
 from .promo_code_list_params import PromoCodeListParams as PromoCodeListParams
 from .reaction_create_params import ReactionCreateParams as ReactionCreateParams
+from .reaction_delete_params import ReactionDeleteParams as ReactionDeleteParams
 from .reaction_list_response import ReactionListResponse as ReactionListResponse
 from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
 from .shipment_list_response import ShipmentListResponse as ShipmentListResponse
@@ -172,9 +178,16 @@ from .transfer_create_params import TransferCreateParams as TransferCreateParams
 from .transfer_list_response import TransferListResponse as TransferListResponse
 from .user_retrieve_response import UserRetrieveResponse as UserRetrieveResponse
 from .withdrawal_list_params import WithdrawalListParams as WithdrawalListParams
+from .ai_chat_create_response import AIChatCreateResponse as AIChatCreateResponse
+from .ai_chat_delete_response import AIChatDeleteResponse as AIChatDeleteResponse
+from .ai_chat_update_response import AIChatUpdateResponse as AIChatUpdateResponse
 from .app_build_create_params import AppBuildCreateParams as AppBuildCreateParams
 from .app_build_list_response import AppBuildListResponse as AppBuildListResponse
+from .dm_member_create_params import DmMemberCreateParams as DmMemberCreateParams
+from .dm_member_list_response import DmMemberListResponse as DmMemberListResponse
+from .dm_member_update_params import DmMemberUpdateParams as DmMemberUpdateParams
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
+from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .refund_reference_status import RefundReferenceStatus as RefundReferenceStatus
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
@@ -198,13 +211,18 @@ from .membership_update_params import MembershipUpdateParams as MembershipUpdate
 from .payment_list_fees_params import PaymentListFeesParams as PaymentListFeesParams
 from .promo_code_create_params import PromoCodeCreateParams as PromoCodeCreateParams
 from .promo_code_list_response import PromoCodeListResponse as PromoCodeListResponse
+from .reaction_delete_response import ReactionDeleteResponse as ReactionDeleteResponse
 from .refund_retrieve_response import RefundRetrieveResponse as RefundRetrieveResponse
 from .review_retrieve_response import ReviewRetrieveResponse as ReviewRetrieveResponse
 from .setup_intent_list_params import SetupIntentListParams as SetupIntentListParams
 from .withdrawal_create_params import WithdrawalCreateParams as WithdrawalCreateParams
 from .withdrawal_list_response import WithdrawalListResponse as WithdrawalListResponse
+from .ai_chat_retrieve_response import AIChatRetrieveResponse as AIChatRetrieveResponse
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
+from .dm_member_create_response import DmMemberCreateResponse as DmMemberCreateResponse
+from .dm_member_delete_response import DmMemberDeleteResponse as DmMemberDeleteResponse
+from .dm_member_update_response import DmMemberUpdateResponse as DmMemberUpdateResponse
 from .payout_method_list_params import PayoutMethodListParams as PayoutMethodListParams
 from .webhook_retrieve_response import WebhookRetrieveResponse as WebhookRetrieveResponse
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
@@ -230,6 +248,7 @@ from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedU
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
 from .course_lesson_list_response import CourseLessonListResponse as CourseLessonListResponse
 from .course_lesson_update_params import CourseLessonUpdateParams as CourseLessonUpdateParams
+from .dm_member_retrieve_response import DmMemberRetrieveResponse as DmMemberRetrieveResponse
 from .entry_created_webhook_event import EntryCreatedWebhookEvent as EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent as EntryDeletedWebhookEvent
 from .experience_duplicate_params import ExperienceDuplicateParams as ExperienceDuplicateParams
@@ -281,11 +300,20 @@ from .checkout_configuration_list_response import CheckoutConfigurationListRespo
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent as MembershipDeactivatedWebhookEvent
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent as SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent as VerificationSucceededWebhookEvent
+from .company_token_transaction_list_params import (
+    CompanyTokenTransactionListParams as CompanyTokenTransactionListParams,
+)
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
 )
 from .course_lesson_submit_assessment_params import (
     CourseLessonSubmitAssessmentParams as CourseLessonSubmitAssessmentParams,
+)
+from .company_token_transaction_create_params import (
+    CompanyTokenTransactionCreateParams as CompanyTokenTransactionCreateParams,
+)
+from .company_token_transaction_list_response import (
+    CompanyTokenTransactionListResponse as CompanyTokenTransactionListResponse,
 )
 from .course_lesson_mark_as_completed_response import (
     CourseLessonMarkAsCompletedResponse as CourseLessonMarkAsCompletedResponse,
@@ -293,8 +321,14 @@ from .course_lesson_mark_as_completed_response import (
 from .course_lesson_submit_assessment_response import (
     CourseLessonSubmitAssessmentResponse as CourseLessonSubmitAssessmentResponse,
 )
+from .company_token_transaction_create_response import (
+    CompanyTokenTransactionCreateResponse as CompanyTokenTransactionCreateResponse,
+)
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
+)
+from .company_token_transaction_retrieve_response import (
+    CompanyTokenTransactionRetrieveResponse as CompanyTokenTransactionRetrieveResponse,
 )
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,

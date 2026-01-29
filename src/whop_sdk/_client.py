@@ -44,6 +44,7 @@ if TYPE_CHECKING:
         members,
         refunds,
         reviews,
+        ai_chats,
         disputes,
         invoices,
         messages,
@@ -55,6 +56,7 @@ if TYPE_CHECKING:
         shipments,
         transfers,
         app_builds,
+        dm_members,
         experiences,
         fee_markups,
         forum_posts,
@@ -76,6 +78,7 @@ if TYPE_CHECKING:
         authorized_users,
         support_channels,
         checkout_configurations,
+        company_token_transactions,
         course_lesson_interactions,
     )
     from .resources.apps import AppsResource, AsyncAppsResource
@@ -90,6 +93,7 @@ if TYPE_CHECKING:
     from .resources.members import MembersResource, AsyncMembersResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
+    from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
     from .resources.disputes import DisputesResource, AsyncDisputesResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
     from .resources.messages import MessagesResource, AsyncMessagesResource
@@ -101,6 +105,7 @@ if TYPE_CHECKING:
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
     from .resources.transfers import TransfersResource, AsyncTransfersResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
+    from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
     from .resources.experiences import ExperiencesResource, AsyncExperiencesResource
     from .resources.fee_markups import FeeMarkupsResource, AsyncFeeMarkupsResource
     from .resources.forum_posts import ForumPostsResource, AsyncForumPostsResource
@@ -122,6 +127,10 @@ if TYPE_CHECKING:
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
+    from .resources.company_token_transactions import (
+        CompanyTokenTransactionsResource,
+        AsyncCompanyTokenTransactionsResource,
+    )
     from .resources.course_lesson_interactions import (
         CourseLessonInteractionsResource,
         AsyncCourseLessonInteractionsResource,
@@ -469,6 +478,24 @@ class Whop(SyncAPIClient):
         from .resources.files import FilesResource
 
         return FilesResource(self)
+
+    @cached_property
+    def company_token_transactions(self) -> CompanyTokenTransactionsResource:
+        from .resources.company_token_transactions import CompanyTokenTransactionsResource
+
+        return CompanyTokenTransactionsResource(self)
+
+    @cached_property
+    def dm_members(self) -> DmMembersResource:
+        from .resources.dm_members import DmMembersResource
+
+        return DmMembersResource(self)
+
+    @cached_property
+    def ai_chats(self) -> AIChatsResource:
+        from .resources.ai_chats import AIChatsResource
+
+        return AIChatsResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -929,6 +956,24 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncFilesResource(self)
 
     @cached_property
+    def company_token_transactions(self) -> AsyncCompanyTokenTransactionsResource:
+        from .resources.company_token_transactions import AsyncCompanyTokenTransactionsResource
+
+        return AsyncCompanyTokenTransactionsResource(self)
+
+    @cached_property
+    def dm_members(self) -> AsyncDmMembersResource:
+        from .resources.dm_members import AsyncDmMembersResource
+
+        return AsyncDmMembersResource(self)
+
+    @cached_property
+    def ai_chats(self) -> AsyncAIChatsResource:
+        from .resources.ai_chats import AsyncAIChatsResource
+
+        return AsyncAIChatsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1322,6 +1367,24 @@ class WhopWithRawResponse:
 
         return FilesResourceWithRawResponse(self._client.files)
 
+    @cached_property
+    def company_token_transactions(self) -> company_token_transactions.CompanyTokenTransactionsResourceWithRawResponse:
+        from .resources.company_token_transactions import CompanyTokenTransactionsResourceWithRawResponse
+
+        return CompanyTokenTransactionsResourceWithRawResponse(self._client.company_token_transactions)
+
+    @cached_property
+    def dm_members(self) -> dm_members.DmMembersResourceWithRawResponse:
+        from .resources.dm_members import DmMembersResourceWithRawResponse
+
+        return DmMembersResourceWithRawResponse(self._client.dm_members)
+
+    @cached_property
+    def ai_chats(self) -> ai_chats.AIChatsResourceWithRawResponse:
+        from .resources.ai_chats import AIChatsResourceWithRawResponse
+
+        return AIChatsResourceWithRawResponse(self._client.ai_chats)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1601,6 +1664,26 @@ class AsyncWhopWithRawResponse:
 
         return AsyncFilesResourceWithRawResponse(self._client.files)
 
+    @cached_property
+    def company_token_transactions(
+        self,
+    ) -> company_token_transactions.AsyncCompanyTokenTransactionsResourceWithRawResponse:
+        from .resources.company_token_transactions import AsyncCompanyTokenTransactionsResourceWithRawResponse
+
+        return AsyncCompanyTokenTransactionsResourceWithRawResponse(self._client.company_token_transactions)
+
+    @cached_property
+    def dm_members(self) -> dm_members.AsyncDmMembersResourceWithRawResponse:
+        from .resources.dm_members import AsyncDmMembersResourceWithRawResponse
+
+        return AsyncDmMembersResourceWithRawResponse(self._client.dm_members)
+
+    @cached_property
+    def ai_chats(self) -> ai_chats.AsyncAIChatsResourceWithRawResponse:
+        from .resources.ai_chats import AsyncAIChatsResourceWithRawResponse
+
+        return AsyncAIChatsResourceWithRawResponse(self._client.ai_chats)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -1879,6 +1962,26 @@ class WhopWithStreamedResponse:
         from .resources.files import FilesResourceWithStreamingResponse
 
         return FilesResourceWithStreamingResponse(self._client.files)
+
+    @cached_property
+    def company_token_transactions(
+        self,
+    ) -> company_token_transactions.CompanyTokenTransactionsResourceWithStreamingResponse:
+        from .resources.company_token_transactions import CompanyTokenTransactionsResourceWithStreamingResponse
+
+        return CompanyTokenTransactionsResourceWithStreamingResponse(self._client.company_token_transactions)
+
+    @cached_property
+    def dm_members(self) -> dm_members.DmMembersResourceWithStreamingResponse:
+        from .resources.dm_members import DmMembersResourceWithStreamingResponse
+
+        return DmMembersResourceWithStreamingResponse(self._client.dm_members)
+
+    @cached_property
+    def ai_chats(self) -> ai_chats.AIChatsResourceWithStreamingResponse:
+        from .resources.ai_chats import AIChatsResourceWithStreamingResponse
+
+        return AIChatsResourceWithStreamingResponse(self._client.ai_chats)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2160,6 +2263,26 @@ class AsyncWhopWithStreamedResponse:
         from .resources.files import AsyncFilesResourceWithStreamingResponse
 
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
+
+    @cached_property
+    def company_token_transactions(
+        self,
+    ) -> company_token_transactions.AsyncCompanyTokenTransactionsResourceWithStreamingResponse:
+        from .resources.company_token_transactions import AsyncCompanyTokenTransactionsResourceWithStreamingResponse
+
+        return AsyncCompanyTokenTransactionsResourceWithStreamingResponse(self._client.company_token_transactions)
+
+    @cached_property
+    def dm_members(self) -> dm_members.AsyncDmMembersResourceWithStreamingResponse:
+        from .resources.dm_members import AsyncDmMembersResourceWithStreamingResponse
+
+        return AsyncDmMembersResourceWithStreamingResponse(self._client.dm_members)
+
+    @cached_property
+    def ai_chats(self) -> ai_chats.AsyncAIChatsResourceWithStreamingResponse:
+        from .resources.ai_chats import AsyncAIChatsResourceWithStreamingResponse
+
+        return AsyncAIChatsResourceWithStreamingResponse(self._client.ai_chats)
 
 
 Client = Whop
