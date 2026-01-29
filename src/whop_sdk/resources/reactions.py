@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import reaction_list_params, reaction_create_params
+from ..types import reaction_list_params, reaction_create_params, reaction_delete_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +21,7 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.reaction import Reaction
 from ..types.reaction_list_response import ReactionListResponse
+from ..types.reaction_delete_response import ReactionDeleteResponse
 
 __all__ = ["ReactionsResource", "AsyncReactionsResource"]
 
@@ -198,6 +199,50 @@ class ReactionsResource(SyncAPIResource):
             model=ReactionListResponse,
         )
 
+    def delete(
+        self,
+        id: str,
+        *,
+        emoji: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ReactionDeleteResponse:
+        """
+        Deletes a reaction
+
+        Required permissions:
+
+        - `chat:read`
+
+        Args:
+          emoji: The emoji to remove (e.g., :heart: or '😀').
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/reactions/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"emoji": emoji}, reaction_delete_params.ReactionDeleteParams),
+            ),
+            cast_to=ReactionDeleteResponse,
+        )
+
 
 class AsyncReactionsResource(AsyncAPIResource):
     @cached_property
@@ -372,6 +417,50 @@ class AsyncReactionsResource(AsyncAPIResource):
             model=ReactionListResponse,
         )
 
+    async def delete(
+        self,
+        id: str,
+        *,
+        emoji: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ReactionDeleteResponse:
+        """
+        Deletes a reaction
+
+        Required permissions:
+
+        - `chat:read`
+
+        Args:
+          emoji: The emoji to remove (e.g., :heart: or '😀').
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/reactions/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"emoji": emoji}, reaction_delete_params.ReactionDeleteParams),
+            ),
+            cast_to=ReactionDeleteResponse,
+        )
+
 
 class ReactionsResourceWithRawResponse:
     def __init__(self, reactions: ReactionsResource) -> None:
@@ -385,6 +474,9 @@ class ReactionsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             reactions.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            reactions.delete,
         )
 
 
@@ -401,6 +493,9 @@ class AsyncReactionsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             reactions.list,
         )
+        self.delete = async_to_raw_response_wrapper(
+            reactions.delete,
+        )
 
 
 class ReactionsResourceWithStreamingResponse:
@@ -416,6 +511,9 @@ class ReactionsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             reactions.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            reactions.delete,
+        )
 
 
 class AsyncReactionsResourceWithStreamingResponse:
@@ -430,4 +528,7 @@ class AsyncReactionsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             reactions.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            reactions.delete,
         )

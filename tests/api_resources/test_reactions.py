@@ -9,7 +9,10 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import ReactionListResponse
+from whop_sdk.types import (
+    ReactionListResponse,
+    ReactionDeleteResponse,
+)
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Reaction
 
@@ -151,6 +154,57 @@ class TestReactions:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Whop) -> None:
+        reaction = client.reactions.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+        )
+        assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Whop) -> None:
+        reaction = client.reactions.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+            emoji="emoji",
+        )
+        assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Whop) -> None:
+        response = client.reactions.with_raw_response.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        reaction = response.parse()
+        assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Whop) -> None:
+        with client.reactions.with_streaming_response.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            reaction = response.parse()
+            assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.reactions.with_raw_response.delete(
+                id="",
+            )
+
 
 class TestAsyncReactions:
     parametrize = pytest.mark.parametrize(
@@ -288,3 +342,54 @@ class TestAsyncReactions:
             assert_matches_type(AsyncCursorPage[ReactionListResponse], reaction, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
+        reaction = await async_client.reactions.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+        )
+        assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
+        reaction = await async_client.reactions.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+            emoji="emoji",
+        )
+        assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
+        response = await async_client.reactions.with_raw_response.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        reaction = await response.parse()
+        assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
+        async with async_client.reactions.with_streaming_response.delete(
+            id="reac_xxxxxxxxxxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            reaction = await response.parse()
+            assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.reactions.with_raw_response.delete(
+                id="",
+            )

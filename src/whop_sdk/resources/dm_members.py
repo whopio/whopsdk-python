@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import message_list_params, message_create_params, message_update_params
+from ..types import dm_member_list_params, dm_member_create_params, dm_member_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,66 +20,58 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.message import Message
-from ..types.shared.direction import Direction
-from ..types.message_list_response import MessageListResponse
-from ..types.message_delete_response import MessageDeleteResponse
+from ..types.dm_member_list_response import DmMemberListResponse
+from ..types.dm_member_create_response import DmMemberCreateResponse
+from ..types.dm_member_delete_response import DmMemberDeleteResponse
+from ..types.dm_member_update_response import DmMemberUpdateResponse
+from ..types.dm_member_retrieve_response import DmMemberRetrieveResponse
 
-__all__ = ["MessagesResource", "AsyncMessagesResource"]
+__all__ = ["DmMembersResource", "AsyncDmMembersResource"]
 
 
-class MessagesResource(SyncAPIResource):
+class DmMembersResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> MessagesResourceWithRawResponse:
+    def with_raw_response(self) -> DmMembersResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return MessagesResourceWithRawResponse(self)
+        return DmMembersResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> MessagesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> DmMembersResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return MessagesResourceWithStreamingResponse(self)
+        return DmMembersResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
         channel_id: str,
-        content: str,
-        attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        poll: Optional[message_create_params.Poll] | Omit = omit,
-        replying_to_message_id: Optional[str] | Omit = omit,
+        user_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> DmMemberCreateResponse:
         """
-        Creates a new message
+        Adds a user to a DM channel
 
         Required permissions:
 
-        - `chat:message:create`
+        - `dms:channel:manage`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
+          channel_id: The ID of the DM channel to add the member to
 
-          content: The content of the message in Markdown format.
-
-          attachments: The attachments for this message, such as videos or images.
-
-          poll: The poll for this message
-
-          replying_to_message_id: The ID of the message this is replying to, if applicable.
+          user_id: The ID of the user to add to the channel
 
           extra_headers: Send extra headers
 
@@ -89,21 +82,18 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/messages",
+            "/dm_members",
             body=maybe_transform(
                 {
                     "channel_id": channel_id,
-                    "content": content,
-                    "attachments": attachments,
-                    "poll": poll,
-                    "replying_to_message_id": replying_to_message_id,
+                    "user_id": user_id,
                 },
-                message_create_params.MessageCreateParams,
+                dm_member_create_params.DmMemberCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=DmMemberCreateResponse,
         )
 
     def retrieve(
@@ -116,13 +106,13 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> DmMemberRetrieveResponse:
         """
-        Retrieves a message
+        Retrieves a DM channel member
 
         Required permissions:
 
-        - `chat:read`
+        - `dms:read`
 
         Args:
           extra_headers: Send extra headers
@@ -136,36 +126,37 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/messages/{id}",
+            f"/dm_members/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=DmMemberRetrieveResponse,
         )
 
     def update(
         self,
         id: str,
         *,
-        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
-        content: Optional[str] | Omit = omit,
-        is_pinned: Optional[bool] | Omit = omit,
+        notification_preference: Optional[Literal["all", "mentions", "none"]] | Omit = omit,
+        status: Optional[Literal["requested", "accepted", "hidden", "closed", "archived"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> DmMemberUpdateResponse:
         """
-        Updates an existing message
+        Updates a DM channel member's settings
+
+        Required permissions:
+
+        - `dms:channel:manage`
 
         Args:
-          attachments: The attachments for this message
+          notification_preference: The notification preferences for a DMs feed member
 
-          content: The content of the message in Markdown format
-
-          is_pinned: Whether this message is pinned
+          status: The statuses of a DMs feed member
 
           extra_headers: Send extra headers
 
@@ -178,19 +169,18 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/messages/{id}",
+            f"/dm_members/{id}",
             body=maybe_transform(
                 {
-                    "attachments": attachments,
-                    "content": content,
-                    "is_pinned": is_pinned,
+                    "notification_preference": notification_preference,
+                    "status": status,
                 },
-                message_update_params.MessageUpdateParams,
+                dm_member_update_params.DmMemberUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=DmMemberUpdateResponse,
         )
 
     def list(
@@ -199,7 +189,6 @@ class MessagesResource(SyncAPIResource):
         channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -208,22 +197,20 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[MessageListResponse]:
+    ) -> SyncCursorPage[DmMemberListResponse]:
         """
-        Lists messages inside a channel
+        Lists members of a DM channel
 
         Required permissions:
 
-        - `chat:read`
+        - `dms:read`
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
+          channel_id: The ID of the DM channel to list members for
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
@@ -238,8 +225,8 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/messages",
-            page=SyncCursorPage[MessageListResponse],
+            "/dm_members",
+            page=SyncCursorPage[DmMemberListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -250,14 +237,13 @@ class MessagesResource(SyncAPIResource):
                         "channel_id": channel_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
                         "first": first,
                         "last": last,
                     },
-                    message_list_params.MessageListParams,
+                    dm_member_list_params.DmMemberListParams,
                 ),
             ),
-            model=MessageListResponse,
+            model=DmMemberListResponse,
         )
 
     def delete(
@@ -270,13 +256,13 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageDeleteResponse:
+    ) -> DmMemberDeleteResponse:
         """
-        Deletes a message
+        Removes a user from a DM channel
 
         Required permissions:
 
-        - `chat:message:create`
+        - `dms:channel:manage`
 
         Args:
           extra_headers: Send extra headers
@@ -290,66 +276,57 @@ class MessagesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/messages/{id}",
+            f"/dm_members/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageDeleteResponse,
+            cast_to=DmMemberDeleteResponse,
         )
 
 
-class AsyncMessagesResource(AsyncAPIResource):
+class AsyncDmMembersResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncDmMembersResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncMessagesResourceWithRawResponse(self)
+        return AsyncDmMembersResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncMessagesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncDmMembersResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return AsyncMessagesResourceWithStreamingResponse(self)
+        return AsyncDmMembersResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
         channel_id: str,
-        content: str,
-        attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
-        poll: Optional[message_create_params.Poll] | Omit = omit,
-        replying_to_message_id: Optional[str] | Omit = omit,
+        user_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> DmMemberCreateResponse:
         """
-        Creates a new message
+        Adds a user to a DM channel
 
         Required permissions:
 
-        - `chat:message:create`
+        - `dms:channel:manage`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
+          channel_id: The ID of the DM channel to add the member to
 
-          content: The content of the message in Markdown format.
-
-          attachments: The attachments for this message, such as videos or images.
-
-          poll: The poll for this message
-
-          replying_to_message_id: The ID of the message this is replying to, if applicable.
+          user_id: The ID of the user to add to the channel
 
           extra_headers: Send extra headers
 
@@ -360,21 +337,18 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/messages",
+            "/dm_members",
             body=await async_maybe_transform(
                 {
                     "channel_id": channel_id,
-                    "content": content,
-                    "attachments": attachments,
-                    "poll": poll,
-                    "replying_to_message_id": replying_to_message_id,
+                    "user_id": user_id,
                 },
-                message_create_params.MessageCreateParams,
+                dm_member_create_params.DmMemberCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=DmMemberCreateResponse,
         )
 
     async def retrieve(
@@ -387,13 +361,13 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> DmMemberRetrieveResponse:
         """
-        Retrieves a message
+        Retrieves a DM channel member
 
         Required permissions:
 
-        - `chat:read`
+        - `dms:read`
 
         Args:
           extra_headers: Send extra headers
@@ -407,36 +381,37 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/messages/{id}",
+            f"/dm_members/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=DmMemberRetrieveResponse,
         )
 
     async def update(
         self,
         id: str,
         *,
-        attachments: Optional[Iterable[message_update_params.Attachment]] | Omit = omit,
-        content: Optional[str] | Omit = omit,
-        is_pinned: Optional[bool] | Omit = omit,
+        notification_preference: Optional[Literal["all", "mentions", "none"]] | Omit = omit,
+        status: Optional[Literal["requested", "accepted", "hidden", "closed", "archived"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Message:
+    ) -> DmMemberUpdateResponse:
         """
-        Updates an existing message
+        Updates a DM channel member's settings
+
+        Required permissions:
+
+        - `dms:channel:manage`
 
         Args:
-          attachments: The attachments for this message
+          notification_preference: The notification preferences for a DMs feed member
 
-          content: The content of the message in Markdown format
-
-          is_pinned: Whether this message is pinned
+          status: The statuses of a DMs feed member
 
           extra_headers: Send extra headers
 
@@ -449,19 +424,18 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/messages/{id}",
+            f"/dm_members/{id}",
             body=await async_maybe_transform(
                 {
-                    "attachments": attachments,
-                    "content": content,
-                    "is_pinned": is_pinned,
+                    "notification_preference": notification_preference,
+                    "status": status,
                 },
-                message_update_params.MessageUpdateParams,
+                dm_member_update_params.DmMemberUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Message,
+            cast_to=DmMemberUpdateResponse,
         )
 
     def list(
@@ -470,7 +444,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         channel_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -479,22 +452,20 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[MessageListResponse, AsyncCursorPage[MessageListResponse]]:
+    ) -> AsyncPaginator[DmMemberListResponse, AsyncCursorPage[DmMemberListResponse]]:
         """
-        Lists messages inside a channel
+        Lists members of a DM channel
 
         Required permissions:
 
-        - `chat:read`
+        - `dms:read`
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
+          channel_id: The ID of the DM channel to list members for
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
@@ -509,8 +480,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/messages",
-            page=AsyncCursorPage[MessageListResponse],
+            "/dm_members",
+            page=AsyncCursorPage[DmMemberListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -521,14 +492,13 @@ class AsyncMessagesResource(AsyncAPIResource):
                         "channel_id": channel_id,
                         "after": after,
                         "before": before,
-                        "direction": direction,
                         "first": first,
                         "last": last,
                     },
-                    message_list_params.MessageListParams,
+                    dm_member_list_params.DmMemberListParams,
                 ),
             ),
-            model=MessageListResponse,
+            model=DmMemberListResponse,
         )
 
     async def delete(
@@ -541,13 +511,13 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageDeleteResponse:
+    ) -> DmMemberDeleteResponse:
         """
-        Deletes a message
+        Removes a user from a DM channel
 
         Required permissions:
 
-        - `chat:message:create`
+        - `dms:channel:manage`
 
         Args:
           extra_headers: Send extra headers
@@ -561,93 +531,93 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/messages/{id}",
+            f"/dm_members/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageDeleteResponse,
+            cast_to=DmMemberDeleteResponse,
         )
 
 
-class MessagesResourceWithRawResponse:
-    def __init__(self, messages: MessagesResource) -> None:
-        self._messages = messages
+class DmMembersResourceWithRawResponse:
+    def __init__(self, dm_members: DmMembersResource) -> None:
+        self._dm_members = dm_members
 
         self.create = to_raw_response_wrapper(
-            messages.create,
+            dm_members.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            messages.retrieve,
+            dm_members.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            messages.update,
+            dm_members.update,
         )
         self.list = to_raw_response_wrapper(
-            messages.list,
+            dm_members.list,
         )
         self.delete = to_raw_response_wrapper(
-            messages.delete,
+            dm_members.delete,
         )
 
 
-class AsyncMessagesResourceWithRawResponse:
-    def __init__(self, messages: AsyncMessagesResource) -> None:
-        self._messages = messages
+class AsyncDmMembersResourceWithRawResponse:
+    def __init__(self, dm_members: AsyncDmMembersResource) -> None:
+        self._dm_members = dm_members
 
         self.create = async_to_raw_response_wrapper(
-            messages.create,
+            dm_members.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            messages.retrieve,
+            dm_members.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            messages.update,
+            dm_members.update,
         )
         self.list = async_to_raw_response_wrapper(
-            messages.list,
+            dm_members.list,
         )
         self.delete = async_to_raw_response_wrapper(
-            messages.delete,
+            dm_members.delete,
         )
 
 
-class MessagesResourceWithStreamingResponse:
-    def __init__(self, messages: MessagesResource) -> None:
-        self._messages = messages
+class DmMembersResourceWithStreamingResponse:
+    def __init__(self, dm_members: DmMembersResource) -> None:
+        self._dm_members = dm_members
 
         self.create = to_streamed_response_wrapper(
-            messages.create,
+            dm_members.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            messages.retrieve,
+            dm_members.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            messages.update,
+            dm_members.update,
         )
         self.list = to_streamed_response_wrapper(
-            messages.list,
+            dm_members.list,
         )
         self.delete = to_streamed_response_wrapper(
-            messages.delete,
+            dm_members.delete,
         )
 
 
-class AsyncMessagesResourceWithStreamingResponse:
-    def __init__(self, messages: AsyncMessagesResource) -> None:
-        self._messages = messages
+class AsyncDmMembersResourceWithStreamingResponse:
+    def __init__(self, dm_members: AsyncDmMembersResource) -> None:
+        self._dm_members = dm_members
 
         self.create = async_to_streamed_response_wrapper(
-            messages.create,
+            dm_members.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            messages.retrieve,
+            dm_members.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            messages.update,
+            dm_members.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            messages.list,
+            dm_members.list,
         )
         self.delete = async_to_streamed_response_wrapper(
-            messages.delete,
+            dm_members.delete,
         )
