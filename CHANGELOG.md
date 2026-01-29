@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.0.25 (2026-01-29)
+
+Full Changelog: [v0.0.24...v0.0.25](https://github.com/whopio/whopsdk-python/compare/v0.0.24...v0.0.25)
+
+### Features
+
+* **api:** api update ([ba46842](https://github.com/whopio/whopsdk-python/commit/ba468428aac2cb184ca09b530d9d32c49945a7d4))
+* **api:** api update ([df3752c](https://github.com/whopio/whopsdk-python/commit/df3752c475c1f344f07198c5f750c9d4ccb7ca72))
+* **api:** api update ([f983dc1](https://github.com/whopio/whopsdk-python/commit/f983dc1a2e82ded3ed50ca7156e7114cf7f99781))
+* **api:** api update ([65160f6](https://github.com/whopio/whopsdk-python/commit/65160f6d42116303ee8f0f75978745cff9691948))
+* **api:** manual updates ([3426087](https://github.com/whopio/whopsdk-python/commit/3426087bdf57af9d9e56e63c44322ea29fd8331c))
+
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([85fc029](https://github.com/whopio/whopsdk-python/commit/85fc029029ccca5e194244bbb8a58498c70902c8))
+
 ## 0.0.24 (2026-01-25)
 
 Full Changelog: [v0.0.23...v0.0.24](https://github.com/whopio/whopsdk-python/compare/v0.0.23...v0.0.24)
