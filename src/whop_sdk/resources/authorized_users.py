@@ -88,9 +88,9 @@ class AuthorizedUsersResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
@@ -113,11 +113,11 @@ class AuthorizedUsersResource(SyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company to list authorized users for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the company to list authorized users for
 
           created_after: The minimum creation date to filter by
 
@@ -149,9 +149,9 @@ class AuthorizedUsersResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
@@ -227,9 +227,9 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
@@ -252,11 +252,11 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company to list authorized users for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the company to list authorized users for
 
           created_after: The minimum creation date to filter by
 
@@ -288,9 +288,9 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
