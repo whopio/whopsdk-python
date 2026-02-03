@@ -1,6 +1,6 @@
 [project]
 name = "whop-sdk"
-version = "0.0.25"
+version = "0.0.26"
 description = "The official Python library for the Whop API"
 dynamic = ["readme"]
 license = "Apache-2.0"
