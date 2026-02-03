@@ -113,6 +113,7 @@ class TestAIChats:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ai_chat = client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
+            current_company_id="current_company_id",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])
@@ -329,6 +330,7 @@ class TestAsyncAIChats:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ai_chat = await async_client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
+            current_company_id="current_company_id",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])

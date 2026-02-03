@@ -121,6 +121,7 @@ class AIChatsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        current_company_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -137,6 +138,8 @@ class AIChatsResource(SyncAPIResource):
         - `ai_chat:update`
 
         Args:
+          current_company_id: The ID of the company to set as the current company in context for the AI chat
+
           title: The new title for the AI chat
 
           extra_headers: Send extra headers
@@ -151,7 +154,13 @@ class AIChatsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
             f"/ai_chats/{id}",
-            body=maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
+            body=maybe_transform(
+                {
+                    "current_company_id": current_company_id,
+                    "title": title,
+                },
+                ai_chat_update_params.AIChatUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -346,6 +355,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        current_company_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -362,6 +372,8 @@ class AsyncAIChatsResource(AsyncAPIResource):
         - `ai_chat:update`
 
         Args:
+          current_company_id: The ID of the company to set as the current company in context for the AI chat
+
           title: The new title for the AI chat
 
           extra_headers: Send extra headers
@@ -376,7 +388,13 @@ class AsyncAIChatsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
             f"/ai_chats/{id}",
-            body=await async_maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
+            body=await async_maybe_transform(
+                {
+                    "current_company_id": current_company_id,
+                    "title": title,
+                },
+                ai_chat_update_params.AIChatUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
