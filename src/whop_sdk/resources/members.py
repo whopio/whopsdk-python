@@ -93,10 +93,10 @@ class MembersResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         access_level: Optional[AccessLevel] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -128,13 +128,13 @@ class MembersResource(SyncAPIResource):
         - `member:phone:read`
 
         Args:
-          company_id: The ID of the company to list members for
-
           access_level: The access level a given user (or company) has to a product or company.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the company to list members for
 
           created_after: The minimum creation date to filter by
 
@@ -181,10 +181,10 @@ class MembersResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "access_level": access_level,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -268,10 +268,10 @@ class AsyncMembersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         access_level: Optional[AccessLevel] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -303,13 +303,13 @@ class AsyncMembersResource(AsyncAPIResource):
         - `member:phone:read`
 
         Args:
-          company_id: The ID of the company to list members for
-
           access_level: The access level a given user (or company) has to a product or company.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The ID of the company to list members for
 
           created_after: The minimum creation date to filter by
 
@@ -356,10 +356,10 @@ class AsyncMembersResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "access_level": access_level,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,

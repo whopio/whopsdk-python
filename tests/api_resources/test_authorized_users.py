@@ -67,18 +67,16 @@ class TestAuthorizedUsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        authorized_user = client.authorized_users.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        authorized_user = client.authorized_users.list()
         assert_matches_type(SyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         authorized_user = client.authorized_users.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
@@ -91,9 +89,7 @@ class TestAuthorizedUsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.authorized_users.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = client.authorized_users.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -103,9 +99,7 @@ class TestAuthorizedUsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.authorized_users.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        with client.authorized_users.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -165,18 +159,16 @@ class TestAsyncAuthorizedUsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        authorized_user = await async_client.authorized_users.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        authorized_user = await async_client.authorized_users.list()
         assert_matches_type(AsyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         authorized_user = await async_client.authorized_users.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
@@ -189,9 +181,7 @@ class TestAsyncAuthorizedUsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.authorized_users.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = await async_client.authorized_users.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -201,9 +191,7 @@ class TestAsyncAuthorizedUsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.authorized_users.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        async with async_client.authorized_users.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

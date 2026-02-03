@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -17,9 +17,6 @@ __all__ = ["MemberListParams"]
 
 
 class MemberListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The ID of the company to list members for"""
-
     access_level: Optional[AccessLevel]
     """The access level a given user (or company) has to a product or company."""
 
@@ -28,6 +25,9 @@ class MemberListParams(TypedDict, total=False):
 
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
+
+    company_id: Optional[str]
+    """The ID of the company to list members for"""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The minimum creation date to filter by"""

@@ -5,7 +5,17 @@ from typing import Optional
 from .._models import BaseModel
 from .shared.authorized_user_roles import AuthorizedUserRoles
 
-__all__ = ["AuthorizedUserRetrieveResponse", "User"]
+__all__ = ["AuthorizedUserRetrieveResponse", "Company", "User"]
+
+
+class Company(BaseModel):
+    """The company associated with the authorized user."""
+
+    id: str
+    """The ID (tag) of the company."""
+
+    title: str
+    """The title of the company."""
 
 
 class User(BaseModel):
@@ -29,6 +39,9 @@ class AuthorizedUserRetrieveResponse(BaseModel):
 
     id: str
     """A unique ID representing the authorized user object."""
+
+    company: Company
+    """The company associated with the authorized user."""
 
     role: AuthorizedUserRoles
     """The role of the authorized user in the company."""
