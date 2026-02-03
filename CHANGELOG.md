@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0 (2026-02-03)
+
+Full Changelog: [v0.0.25...v0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.25...v0.1.0)
+
+### Features
+
+* **api:** api update ([b024bca](https://github.com/whopio/whopsdk-python/commit/b024bca040491225b90bd4d0c05f7cdaf45be182))
+* **api:** api update ([6423eb3](https://github.com/whopio/whopsdk-python/commit/6423eb3ee6872022abc3bcbe059ee770d46d6e10))
+* **client:** add custom JSON encoder for extended type support ([00f3dc3](https://github.com/whopio/whopsdk-python/commit/00f3dc31dbb57c4dd6c8fe4455e1ab6ec4278d7b))
+
 ## 0.0.25 (2026-01-29)
 
 Full Changelog: [v0.0.24...v0.0.25](https://github.com/whopio/whopsdk-python/compare/v0.0.24...v0.0.25)
