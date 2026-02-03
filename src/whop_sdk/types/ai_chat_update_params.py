@@ -9,5 +9,8 @@ __all__ = ["AIChatUpdateParams"]
 
 
 class AIChatUpdateParams(TypedDict, total=False):
+    current_company_id: Optional[str]
+    """The ID of the company to set as the current company in context for the AI chat"""
+
     title: Optional[str]
     """The new title for the AI chat"""
