@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import dm_member_list_params, dm_member_create_params, dm_member_update_params
+from ..types import (
+    DmFeedMemberStatuses,
+    DmFeedMemberNotificationPreferences,
+    dm_member_list_params,
+    dm_member_create_params,
+    dm_member_update_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,11 +25,11 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.dm_member import DmMember
+from ..types.dm_feed_member_statuses import DmFeedMemberStatuses
 from ..types.dm_member_list_response import DmMemberListResponse
-from ..types.dm_member_create_response import DmMemberCreateResponse
 from ..types.dm_member_delete_response import DmMemberDeleteResponse
-from ..types.dm_member_update_response import DmMemberUpdateResponse
-from ..types.dm_member_retrieve_response import DmMemberRetrieveResponse
+from ..types.dm_feed_member_notification_preferences import DmFeedMemberNotificationPreferences
 
 __all__ = ["DmMembersResource", "AsyncDmMembersResource"]
 
@@ -60,7 +65,7 @@ class DmMembersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DmMemberCreateResponse:
+    ) -> DmMember:
         """
         Adds a user to a DM channel
 
@@ -93,7 +98,7 @@ class DmMembersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DmMemberCreateResponse,
+            cast_to=DmMember,
         )
 
     def retrieve(
@@ -106,7 +111,7 @@ class DmMembersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DmMemberRetrieveResponse:
+    ) -> DmMember:
         """
         Retrieves a DM channel member
 
@@ -130,22 +135,22 @@ class DmMembersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DmMemberRetrieveResponse,
+            cast_to=DmMember,
         )
 
     def update(
         self,
         id: str,
         *,
-        notification_preference: Optional[Literal["all", "mentions", "none"]] | Omit = omit,
-        status: Optional[Literal["requested", "accepted", "hidden", "closed", "archived"]] | Omit = omit,
+        notification_preference: Optional[DmFeedMemberNotificationPreferences] | Omit = omit,
+        status: Optional[DmFeedMemberStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DmMemberUpdateResponse:
+    ) -> DmMember:
         """
         Updates a DM channel member's settings
 
@@ -180,7 +185,7 @@ class DmMembersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DmMemberUpdateResponse,
+            cast_to=DmMember,
         )
 
     def list(
@@ -315,7 +320,7 @@ class AsyncDmMembersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DmMemberCreateResponse:
+    ) -> DmMember:
         """
         Adds a user to a DM channel
 
@@ -348,7 +353,7 @@ class AsyncDmMembersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DmMemberCreateResponse,
+            cast_to=DmMember,
         )
 
     async def retrieve(
@@ -361,7 +366,7 @@ class AsyncDmMembersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DmMemberRetrieveResponse:
+    ) -> DmMember:
         """
         Retrieves a DM channel member
 
@@ -385,22 +390,22 @@ class AsyncDmMembersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DmMemberRetrieveResponse,
+            cast_to=DmMember,
         )
 
     async def update(
         self,
         id: str,
         *,
-        notification_preference: Optional[Literal["all", "mentions", "none"]] | Omit = omit,
-        status: Optional[Literal["requested", "accepted", "hidden", "closed", "archived"]] | Omit = omit,
+        notification_preference: Optional[DmFeedMemberNotificationPreferences] | Omit = omit,
+        status: Optional[DmFeedMemberStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DmMemberUpdateResponse:
+    ) -> DmMember:
         """
         Updates a DM channel member's settings
 
@@ -435,7 +440,7 @@ class AsyncDmMembersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DmMemberUpdateResponse,
+            cast_to=DmMember,
         )
 
     def list(

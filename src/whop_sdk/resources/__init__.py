@@ -200,6 +200,14 @@ from .dm_members import (
     DmMembersResourceWithStreamingResponse,
     AsyncDmMembersResourceWithStreamingResponse,
 )
+from .dm_channels import (
+    DmChannelsResource,
+    AsyncDmChannelsResource,
+    DmChannelsResourceWithRawResponse,
+    AsyncDmChannelsResourceWithRawResponse,
+    DmChannelsResourceWithStreamingResponse,
+    AsyncDmChannelsResourceWithStreamingResponse,
+)
 from .experiences import (
     ExperiencesResource,
     AsyncExperiencesResource,
@@ -674,4 +682,10 @@ __all__ = [
     "AsyncAIChatsResourceWithRawResponse",
     "AIChatsResourceWithStreamingResponse",
     "AsyncAIChatsResourceWithStreamingResponse",
+    "DmChannelsResource",
+    "AsyncDmChannelsResource",
+    "DmChannelsResourceWithRawResponse",
+    "AsyncDmChannelsResourceWithRawResponse",
+    "DmChannelsResourceWithStreamingResponse",
+    "AsyncDmChannelsResourceWithStreamingResponse",
 ]

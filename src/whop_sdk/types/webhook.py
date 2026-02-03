@@ -7,10 +7,10 @@ from .._models import BaseModel
 from .api_version import APIVersion
 from .webhook_event import WebhookEvent
 
-__all__ = ["WebhookCreateResponse"]
+__all__ = ["Webhook"]
 
 
-class WebhookCreateResponse(BaseModel):
+class Webhook(BaseModel):
     """A webhook object, which can be configured to be sent updates about a company"""
 
     id: str
@@ -43,6 +43,3 @@ class WebhookCreateResponse(BaseModel):
 
     url: str
     """The URL the webhook events will be sent to"""
-
-    webhook_secret: str
-    """A unique secret key that will be sent with each webhook event"""

@@ -20,11 +20,10 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.withdrawal import Withdrawal
 from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.withdrawal_list_response import WithdrawalListResponse
-from ..types.withdrawal_create_response import WithdrawalCreateResponse
-from ..types.withdrawal_retrieve_response import WithdrawalRetrieveResponse
 
 __all__ = ["WithdrawalsResource", "AsyncWithdrawalsResource"]
 
@@ -64,7 +63,7 @@ class WithdrawalsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WithdrawalCreateResponse:
+    ) -> Withdrawal:
         """
         Creates a withdrawal request for a ledger account
 
@@ -111,7 +110,7 @@ class WithdrawalsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WithdrawalCreateResponse,
+            cast_to=Withdrawal,
         )
 
     def retrieve(
@@ -124,7 +123,7 @@ class WithdrawalsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WithdrawalRetrieveResponse:
+    ) -> Withdrawal:
         """
         Retrieves a withdrawal by ID
 
@@ -149,7 +148,7 @@ class WithdrawalsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WithdrawalRetrieveResponse,
+            cast_to=Withdrawal,
         )
 
     def list(
@@ -263,7 +262,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WithdrawalCreateResponse:
+    ) -> Withdrawal:
         """
         Creates a withdrawal request for a ledger account
 
@@ -310,7 +309,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WithdrawalCreateResponse,
+            cast_to=Withdrawal,
         )
 
     async def retrieve(
@@ -323,7 +322,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WithdrawalRetrieveResponse:
+    ) -> Withdrawal:
         """
         Retrieves a withdrawal by ID
 
@@ -348,7 +347,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WithdrawalRetrieveResponse,
+            cast_to=Withdrawal,
         )
 
     def list(

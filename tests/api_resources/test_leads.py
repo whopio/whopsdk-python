@@ -9,12 +9,7 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import (
-    LeadListResponse,
-    LeadCreateResponse,
-    LeadUpdateResponse,
-    LeadRetrieveResponse,
-)
+from whop_sdk.types import Lead, LeadListResponse
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -30,7 +25,7 @@ class TestLeads:
         lead = client.leads.create(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadCreateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -42,7 +37,7 @@ class TestLeads:
             referrer="referrer",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadCreateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -54,7 +49,7 @@ class TestLeads:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         lead = response.parse()
-        assert_matches_type(LeadCreateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -66,7 +61,7 @@ class TestLeads:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             lead = response.parse()
-            assert_matches_type(LeadCreateResponse, lead, path=["response"])
+            assert_matches_type(Lead, lead, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -76,7 +71,7 @@ class TestLeads:
         lead = client.leads.retrieve(
             "lead_xxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadRetrieveResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -88,7 +83,7 @@ class TestLeads:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         lead = response.parse()
-        assert_matches_type(LeadRetrieveResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -100,7 +95,7 @@ class TestLeads:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             lead = response.parse()
-            assert_matches_type(LeadRetrieveResponse, lead, path=["response"])
+            assert_matches_type(Lead, lead, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -118,7 +113,7 @@ class TestLeads:
         lead = client.leads.update(
             id="lead_xxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -128,7 +123,7 @@ class TestLeads:
             metadata={"foo": "bar"},
             referrer="referrer",
         )
-        assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -140,7 +135,7 @@ class TestLeads:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         lead = response.parse()
-        assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -152,7 +147,7 @@ class TestLeads:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             lead = response.parse()
-            assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+            assert_matches_type(Lead, lead, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -225,7 +220,7 @@ class TestAsyncLeads:
         lead = await async_client.leads.create(
             company_id="biz_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadCreateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -237,7 +232,7 @@ class TestAsyncLeads:
             referrer="referrer",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadCreateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -249,7 +244,7 @@ class TestAsyncLeads:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         lead = await response.parse()
-        assert_matches_type(LeadCreateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -261,7 +256,7 @@ class TestAsyncLeads:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             lead = await response.parse()
-            assert_matches_type(LeadCreateResponse, lead, path=["response"])
+            assert_matches_type(Lead, lead, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -271,7 +266,7 @@ class TestAsyncLeads:
         lead = await async_client.leads.retrieve(
             "lead_xxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadRetrieveResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -283,7 +278,7 @@ class TestAsyncLeads:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         lead = await response.parse()
-        assert_matches_type(LeadRetrieveResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -295,7 +290,7 @@ class TestAsyncLeads:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             lead = await response.parse()
-            assert_matches_type(LeadRetrieveResponse, lead, path=["response"])
+            assert_matches_type(Lead, lead, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -313,7 +308,7 @@ class TestAsyncLeads:
         lead = await async_client.leads.update(
             id="lead_xxxxxxxxxxxxx",
         )
-        assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -323,7 +318,7 @@ class TestAsyncLeads:
             metadata={"foo": "bar"},
             referrer="referrer",
         )
-        assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -335,7 +330,7 @@ class TestAsyncLeads:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         lead = await response.parse()
-        assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+        assert_matches_type(Lead, lead, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -347,7 +342,7 @@ class TestAsyncLeads:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             lead = await response.parse()
-            assert_matches_type(LeadUpdateResponse, lead, path=["response"])
+            assert_matches_type(Lead, lead, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
