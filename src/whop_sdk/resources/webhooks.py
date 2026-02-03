@@ -4,11 +4,10 @@ from __future__ import annotations
 
 import json
 from typing import List, Mapping, Optional, cast
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import webhook_list_params, webhook_create_params, webhook_update_params
+from ..types import APIVersion, webhook_list_params, webhook_create_params, webhook_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,12 +22,13 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._exceptions import WhopError
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.webhook import Webhook
+from ..types.api_version import APIVersion
+from ..types.webhook_event import WebhookEvent
 from ..types.unwrap_webhook_event import UnwrapWebhookEvent
 from ..types.webhook_list_response import WebhookListResponse
 from ..types.webhook_create_response import WebhookCreateResponse
 from ..types.webhook_delete_response import WebhookDeleteResponse
-from ..types.webhook_update_response import WebhookUpdateResponse
-from ..types.webhook_retrieve_response import WebhookRetrieveResponse
 
 __all__ = ["WebhooksResource", "AsyncWebhooksResource"]
 
@@ -57,43 +57,10 @@ class WebhooksResource(SyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[Literal["v1", "v2", "v5"]] | Omit = omit,
+        api_version: Optional[APIVersion] | Omit = omit,
         child_resource_events: Optional[bool] | Omit = omit,
         enabled: Optional[bool] | Omit = omit,
-        events: Optional[
-            List[
-                Literal[
-                    "invoice.created",
-                    "invoice.paid",
-                    "invoice.past_due",
-                    "invoice.voided",
-                    "membership.activated",
-                    "membership.deactivated",
-                    "entry.created",
-                    "entry.approved",
-                    "entry.denied",
-                    "entry.deleted",
-                    "setup_intent.requires_action",
-                    "setup_intent.succeeded",
-                    "setup_intent.canceled",
-                    "withdrawal.created",
-                    "withdrawal.updated",
-                    "course_lesson_interaction.completed",
-                    "payout_method.created",
-                    "verification.succeeded",
-                    "payment.created",
-                    "payment.succeeded",
-                    "payment.failed",
-                    "payment.pending",
-                    "dispute.created",
-                    "dispute.updated",
-                    "refund.created",
-                    "refund.updated",
-                    "membership.cancel_at_period_end_changed",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        events: Optional[List[WebhookEvent]] | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -161,7 +128,7 @@ class WebhooksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookRetrieveResponse:
+    ) -> Webhook:
         """
         Retrieves a webhook by ID
 
@@ -185,50 +152,17 @@ class WebhooksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookRetrieveResponse,
+            cast_to=Webhook,
         )
 
     def update(
         self,
         id: str,
         *,
-        api_version: Optional[Literal["v1", "v2", "v5"]] | Omit = omit,
+        api_version: Optional[APIVersion] | Omit = omit,
         child_resource_events: Optional[bool] | Omit = omit,
         enabled: Optional[bool] | Omit = omit,
-        events: Optional[
-            List[
-                Literal[
-                    "invoice.created",
-                    "invoice.paid",
-                    "invoice.past_due",
-                    "invoice.voided",
-                    "membership.activated",
-                    "membership.deactivated",
-                    "entry.created",
-                    "entry.approved",
-                    "entry.denied",
-                    "entry.deleted",
-                    "setup_intent.requires_action",
-                    "setup_intent.succeeded",
-                    "setup_intent.canceled",
-                    "withdrawal.created",
-                    "withdrawal.updated",
-                    "course_lesson_interaction.completed",
-                    "payout_method.created",
-                    "verification.succeeded",
-                    "payment.created",
-                    "payment.succeeded",
-                    "payment.failed",
-                    "payment.pending",
-                    "dispute.created",
-                    "dispute.updated",
-                    "refund.created",
-                    "refund.updated",
-                    "membership.cancel_at_period_end_changed",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        events: Optional[List[WebhookEvent]] | Omit = omit,
         url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -236,7 +170,7 @@ class WebhooksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookUpdateResponse:
+    ) -> Webhook:
         """
         Updates a webhook
 
@@ -280,7 +214,7 @@ class WebhooksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookUpdateResponse,
+            cast_to=Webhook,
         )
 
     def list(
@@ -434,43 +368,10 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[Literal["v1", "v2", "v5"]] | Omit = omit,
+        api_version: Optional[APIVersion] | Omit = omit,
         child_resource_events: Optional[bool] | Omit = omit,
         enabled: Optional[bool] | Omit = omit,
-        events: Optional[
-            List[
-                Literal[
-                    "invoice.created",
-                    "invoice.paid",
-                    "invoice.past_due",
-                    "invoice.voided",
-                    "membership.activated",
-                    "membership.deactivated",
-                    "entry.created",
-                    "entry.approved",
-                    "entry.denied",
-                    "entry.deleted",
-                    "setup_intent.requires_action",
-                    "setup_intent.succeeded",
-                    "setup_intent.canceled",
-                    "withdrawal.created",
-                    "withdrawal.updated",
-                    "course_lesson_interaction.completed",
-                    "payout_method.created",
-                    "verification.succeeded",
-                    "payment.created",
-                    "payment.succeeded",
-                    "payment.failed",
-                    "payment.pending",
-                    "dispute.created",
-                    "dispute.updated",
-                    "refund.created",
-                    "refund.updated",
-                    "membership.cancel_at_period_end_changed",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        events: Optional[List[WebhookEvent]] | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -538,7 +439,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookRetrieveResponse:
+    ) -> Webhook:
         """
         Retrieves a webhook by ID
 
@@ -562,50 +463,17 @@ class AsyncWebhooksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookRetrieveResponse,
+            cast_to=Webhook,
         )
 
     async def update(
         self,
         id: str,
         *,
-        api_version: Optional[Literal["v1", "v2", "v5"]] | Omit = omit,
+        api_version: Optional[APIVersion] | Omit = omit,
         child_resource_events: Optional[bool] | Omit = omit,
         enabled: Optional[bool] | Omit = omit,
-        events: Optional[
-            List[
-                Literal[
-                    "invoice.created",
-                    "invoice.paid",
-                    "invoice.past_due",
-                    "invoice.voided",
-                    "membership.activated",
-                    "membership.deactivated",
-                    "entry.created",
-                    "entry.approved",
-                    "entry.denied",
-                    "entry.deleted",
-                    "setup_intent.requires_action",
-                    "setup_intent.succeeded",
-                    "setup_intent.canceled",
-                    "withdrawal.created",
-                    "withdrawal.updated",
-                    "course_lesson_interaction.completed",
-                    "payout_method.created",
-                    "verification.succeeded",
-                    "payment.created",
-                    "payment.succeeded",
-                    "payment.failed",
-                    "payment.pending",
-                    "dispute.created",
-                    "dispute.updated",
-                    "refund.created",
-                    "refund.updated",
-                    "membership.cancel_at_period_end_changed",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        events: Optional[List[WebhookEvent]] | Omit = omit,
         url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -613,7 +481,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookUpdateResponse:
+    ) -> Webhook:
         """
         Updates a webhook
 
@@ -657,7 +525,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookUpdateResponse,
+            cast_to=Webhook,
         )
 
     def list(

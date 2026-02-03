@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .payout_destination_category import PayoutDestinationCategory
 
 __all__ = ["PayoutMethodCreatedWebhookEvent", "Data", "DataCompany", "DataDestination"]
 
@@ -19,7 +20,7 @@ class DataCompany(BaseModel):
 class DataDestination(BaseModel):
     """The payout destination associated with the payout token"""
 
-    category: Literal["crypto", "rtp", "next_day_bank", "bank_wire", "digital_wallet", "unknown"]
+    category: PayoutDestinationCategory
     """The category of the payout destination"""
 
     country_code: str

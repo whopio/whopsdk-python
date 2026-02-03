@@ -7,7 +7,11 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import company_token_transaction_list_params, company_token_transaction_create_params
+from ..types import (
+    BotTokenTransactionTypes,
+    company_token_transaction_list_params,
+    company_token_transaction_create_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,9 +24,9 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.company_token_transaction import CompanyTokenTransaction
+from ..types.bot_token_transaction_types import BotTokenTransactionTypes
 from ..types.company_token_transaction_list_response import CompanyTokenTransactionListResponse
-from ..types.company_token_transaction_create_response import CompanyTokenTransactionCreateResponse
-from ..types.company_token_transaction_retrieve_response import CompanyTokenTransactionRetrieveResponse
 
 __all__ = ["CompanyTokenTransactionsResource", "AsyncCompanyTokenTransactionsResource"]
 
@@ -64,7 +68,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         """
         Create a token transaction (add/subtract/transfer) for a member
 
@@ -113,7 +117,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         """
         Create a token transaction (add/subtract/transfer) for a member
 
@@ -160,7 +164,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         """
         Create a token transaction (add/subtract/transfer) for a member
 
@@ -211,7 +215,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         return self._post(
             "/company_token_transactions",
             body=maybe_transform(
@@ -229,7 +233,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompanyTokenTransactionCreateResponse,
+            cast_to=CompanyTokenTransaction,
         )
 
     def retrieve(
@@ -242,7 +246,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionRetrieveResponse:
+    ) -> CompanyTokenTransaction:
         """
         Retrieves a token transaction by ID
 
@@ -268,7 +272,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompanyTokenTransactionRetrieveResponse,
+            cast_to=CompanyTokenTransaction,
         )
 
     def list(
@@ -279,7 +283,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        transaction_type: Optional[Literal["add", "subtract", "transfer"]] | Omit = omit,
+        transaction_type: Optional[BotTokenTransactionTypes] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -382,7 +386,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         """
         Create a token transaction (add/subtract/transfer) for a member
 
@@ -431,7 +435,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         """
         Create a token transaction (add/subtract/transfer) for a member
 
@@ -478,7 +482,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         """
         Create a token transaction (add/subtract/transfer) for a member
 
@@ -529,7 +533,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionCreateResponse:
+    ) -> CompanyTokenTransaction:
         return await self._post(
             "/company_token_transactions",
             body=await async_maybe_transform(
@@ -547,7 +551,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompanyTokenTransactionCreateResponse,
+            cast_to=CompanyTokenTransaction,
         )
 
     async def retrieve(
@@ -560,7 +564,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompanyTokenTransactionRetrieveResponse:
+    ) -> CompanyTokenTransaction:
         """
         Retrieves a token transaction by ID
 
@@ -586,7 +590,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompanyTokenTransactionRetrieveResponse,
+            cast_to=CompanyTokenTransaction,
         )
 
     def list(
@@ -597,7 +601,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        transaction_type: Optional[Literal["add", "subtract", "transfer"]] | Omit = omit,
+        transaction_type: Optional[BotTokenTransactionTypes] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

@@ -10,11 +10,9 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
+    DmMember,
     DmMemberListResponse,
-    DmMemberCreateResponse,
     DmMemberDeleteResponse,
-    DmMemberUpdateResponse,
-    DmMemberRetrieveResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -31,7 +29,7 @@ class TestDmMembers:
             channel_id="channel_id",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(DmMemberCreateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -44,7 +42,7 @@ class TestDmMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dm_member = response.parse()
-        assert_matches_type(DmMemberCreateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -57,7 +55,7 @@ class TestDmMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dm_member = response.parse()
-            assert_matches_type(DmMemberCreateResponse, dm_member, path=["response"])
+            assert_matches_type(DmMember, dm_member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -67,7 +65,7 @@ class TestDmMembers:
         dm_member = client.dm_members.retrieve(
             "id",
         )
-        assert_matches_type(DmMemberRetrieveResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -79,7 +77,7 @@ class TestDmMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dm_member = response.parse()
-        assert_matches_type(DmMemberRetrieveResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -91,7 +89,7 @@ class TestDmMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dm_member = response.parse()
-            assert_matches_type(DmMemberRetrieveResponse, dm_member, path=["response"])
+            assert_matches_type(DmMember, dm_member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -109,7 +107,7 @@ class TestDmMembers:
         dm_member = client.dm_members.update(
             id="id",
         )
-        assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -119,7 +117,7 @@ class TestDmMembers:
             notification_preference="all",
             status="requested",
         )
-        assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -131,7 +129,7 @@ class TestDmMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dm_member = response.parse()
-        assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -143,7 +141,7 @@ class TestDmMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dm_member = response.parse()
-            assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+            assert_matches_type(DmMember, dm_member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -256,7 +254,7 @@ class TestAsyncDmMembers:
             channel_id="channel_id",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(DmMemberCreateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -269,7 +267,7 @@ class TestAsyncDmMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dm_member = await response.parse()
-        assert_matches_type(DmMemberCreateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -282,7 +280,7 @@ class TestAsyncDmMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dm_member = await response.parse()
-            assert_matches_type(DmMemberCreateResponse, dm_member, path=["response"])
+            assert_matches_type(DmMember, dm_member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -292,7 +290,7 @@ class TestAsyncDmMembers:
         dm_member = await async_client.dm_members.retrieve(
             "id",
         )
-        assert_matches_type(DmMemberRetrieveResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -304,7 +302,7 @@ class TestAsyncDmMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dm_member = await response.parse()
-        assert_matches_type(DmMemberRetrieveResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -316,7 +314,7 @@ class TestAsyncDmMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dm_member = await response.parse()
-            assert_matches_type(DmMemberRetrieveResponse, dm_member, path=["response"])
+            assert_matches_type(DmMember, dm_member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -334,7 +332,7 @@ class TestAsyncDmMembers:
         dm_member = await async_client.dm_members.update(
             id="id",
         )
-        assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -344,7 +342,7 @@ class TestAsyncDmMembers:
             notification_preference="all",
             status="requested",
         )
-        assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -356,7 +354,7 @@ class TestAsyncDmMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dm_member = await response.parse()
-        assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+        assert_matches_type(DmMember, dm_member, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -368,7 +366,7 @@ class TestAsyncDmMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dm_member = await response.parse()
-            assert_matches_type(DmMemberUpdateResponse, dm_member, path=["response"])
+            assert_matches_type(DmMember, dm_member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

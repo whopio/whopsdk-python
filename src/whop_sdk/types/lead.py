@@ -5,7 +5,7 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["LeadUpdateResponse", "Member", "Product", "User"]
+__all__ = ["Lead", "Member", "Product", "User"]
 
 
 class Member(BaseModel):
@@ -41,7 +41,7 @@ class User(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class LeadUpdateResponse(BaseModel):
+class Lead(BaseModel):
     """An object representing a lead (someone who is interested in a whop)."""
 
     id: str

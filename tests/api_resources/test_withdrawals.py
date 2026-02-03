@@ -9,11 +9,7 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import (
-    WithdrawalListResponse,
-    WithdrawalCreateResponse,
-    WithdrawalRetrieveResponse,
-)
+from whop_sdk.types import Withdrawal, WithdrawalListResponse
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -31,7 +27,7 @@ class TestWithdrawals:
             company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
         )
-        assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -44,7 +40,7 @@ class TestWithdrawals:
             platform_covers_fees=True,
             statement_descriptor="statement_descriptor",
         )
-        assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -58,7 +54,7 @@ class TestWithdrawals:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         withdrawal = response.parse()
-        assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -72,7 +68,7 @@ class TestWithdrawals:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             withdrawal = response.parse()
-            assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+            assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -82,7 +78,7 @@ class TestWithdrawals:
         withdrawal = client.withdrawals.retrieve(
             "wdrl_xxxxxxxxxxxxx",
         )
-        assert_matches_type(WithdrawalRetrieveResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -94,7 +90,7 @@ class TestWithdrawals:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         withdrawal = response.parse()
-        assert_matches_type(WithdrawalRetrieveResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -106,7 +102,7 @@ class TestWithdrawals:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             withdrawal = response.parse()
-            assert_matches_type(WithdrawalRetrieveResponse, withdrawal, path=["response"])
+            assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -181,7 +177,7 @@ class TestAsyncWithdrawals:
             company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
         )
-        assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -194,7 +190,7 @@ class TestAsyncWithdrawals:
             platform_covers_fees=True,
             statement_descriptor="statement_descriptor",
         )
-        assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -208,7 +204,7 @@ class TestAsyncWithdrawals:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         withdrawal = await response.parse()
-        assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -222,7 +218,7 @@ class TestAsyncWithdrawals:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             withdrawal = await response.parse()
-            assert_matches_type(WithdrawalCreateResponse, withdrawal, path=["response"])
+            assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -232,7 +228,7 @@ class TestAsyncWithdrawals:
         withdrawal = await async_client.withdrawals.retrieve(
             "wdrl_xxxxxxxxxxxxx",
         )
-        assert_matches_type(WithdrawalRetrieveResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -244,7 +240,7 @@ class TestAsyncWithdrawals:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         withdrawal = await response.parse()
-        assert_matches_type(WithdrawalRetrieveResponse, withdrawal, path=["response"])
+        assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -256,7 +252,7 @@ class TestAsyncWithdrawals:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             withdrawal = await response.parse()
-            assert_matches_type(WithdrawalRetrieveResponse, withdrawal, path=["response"])
+            assert_matches_type(Withdrawal, withdrawal, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

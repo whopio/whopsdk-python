@@ -2,11 +2,11 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .bot_token_transaction_types import BotTokenTransactionTypes
 
-__all__ = ["CompanyTokenTransactionCreateResponse", "Company", "Member", "User"]
+__all__ = ["CompanyTokenTransaction", "Company", "Member", "User"]
 
 
 class Company(BaseModel):
@@ -42,7 +42,7 @@ class User(BaseModel):
     """The username of the user from their Whop account."""
 
 
-class CompanyTokenTransactionCreateResponse(BaseModel):
+class CompanyTokenTransaction(BaseModel):
     """A token transaction within a company"""
 
     id: str
@@ -69,7 +69,7 @@ class CompanyTokenTransactionCreateResponse(BaseModel):
     member: Member
     """The member"""
 
-    transaction_type: Literal["add", "subtract", "transfer"]
+    transaction_type: BotTokenTransactionTypes
     """The type of transaction"""
 
     user: User

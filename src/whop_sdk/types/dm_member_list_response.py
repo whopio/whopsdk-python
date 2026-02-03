@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .dm_feed_member_statuses import DmFeedMemberStatuses
 
 __all__ = ["DmMemberListResponse"]
 
@@ -23,7 +23,7 @@ class DmMemberListResponse(BaseModel):
     epoch)
     """
 
-    status: Literal["requested", "accepted", "hidden", "closed", "archived"]
+    status: DmFeedMemberStatuses
     """The status of the membership (requested, accepted, rejected)"""
 
     user_id: str

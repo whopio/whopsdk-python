@@ -1,14 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .dm_feed_member_statuses import DmFeedMemberStatuses
+from .dm_feed_member_notification_preferences import DmFeedMemberNotificationPreferences
 
-__all__ = ["DmMemberUpdateResponse"]
+__all__ = ["DmMember"]
 
 
-class DmMemberUpdateResponse(BaseModel):
+class DmMember(BaseModel):
     """Represents a member of a DM channel"""
 
     id: str
@@ -23,10 +24,10 @@ class DmMemberUpdateResponse(BaseModel):
     epoch)
     """
 
-    notification_preference: Literal["all", "mentions", "none"]
+    notification_preference: DmFeedMemberNotificationPreferences
     """The notification preference for this member (all, mentions, none)"""
 
-    status: Literal["requested", "accepted", "hidden", "closed", "archived"]
+    status: DmFeedMemberStatuses
     """The status of the membership (requested, accepted, rejected)"""
 
     user_id: str

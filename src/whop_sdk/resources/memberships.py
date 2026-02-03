@@ -26,6 +26,7 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.cancel_options import CancelOptions
 from ..types.shared.direction import Direction
 from ..types.shared.membership import Membership
 from ..types.membership_list_response import MembershipListResponse
@@ -140,20 +141,7 @@ class MembershipsResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        cancel_options: Optional[
-            List[
-                Literal[
-                    "too_expensive",
-                    "switching",
-                    "missing_features",
-                    "technical_issues",
-                    "bad_experience",
-                    "other",
-                    "testing",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        cancel_options: Optional[List[CancelOptions]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
@@ -528,20 +516,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        cancel_options: Optional[
-            List[
-                Literal[
-                    "too_expensive",
-                    "switching",
-                    "missing_features",
-                    "technical_issues",
-                    "bad_experience",
-                    "other",
-                    "testing",
-                ]
-            ]
-        ]
-        | Omit = omit,
+        cancel_options: Optional[List[CancelOptions]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,

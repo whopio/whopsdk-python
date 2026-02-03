@@ -10,7 +10,7 @@ from .withdrawal_speeds import WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus
 from .withdrawal_fee_types import WithdrawalFeeTypes
 
-__all__ = ["WithdrawalCreateResponse", "LedgerAccount", "PayoutToken"]
+__all__ = ["Withdrawal", "LedgerAccount", "PayoutToken"]
 
 
 class LedgerAccount(BaseModel):
@@ -48,7 +48,7 @@ class PayoutToken(BaseModel):
     """The name of the payer associated with the payout token."""
 
 
-class WithdrawalCreateResponse(BaseModel):
+class Withdrawal(BaseModel):
     """A withdrawal request."""
 
     id: str

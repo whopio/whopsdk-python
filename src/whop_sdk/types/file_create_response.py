@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Optional
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .upload_status import UploadStatus
 
 __all__ = ["FileCreateResponse"]
 
@@ -26,7 +26,7 @@ class FileCreateResponse(BaseModel):
     upload_headers: Optional[Dict[str, object]] = None
     """Headers to include in the upload request (only on create)"""
 
-    upload_status: Literal["pending", "processing", "ready", "failed"]
+    upload_status: UploadStatus
     """The upload status of the file"""
 
     upload_url: Optional[str] = None
