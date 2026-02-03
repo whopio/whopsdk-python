@@ -2,9 +2,10 @@
 
 from typing import List
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .api_version import APIVersion
+from .webhook_event import WebhookEvent
 
 __all__ = ["WebhookListResponse"]
 
@@ -15,7 +16,7 @@ class WebhookListResponse(BaseModel):
     id: str
     """The ID of the webhook"""
 
-    api_version: Literal["v1", "v2", "v5"]
+    api_version: APIVersion
     """The API version for this webhook"""
 
     child_resource_events: bool
@@ -31,37 +32,7 @@ class WebhookListResponse(BaseModel):
     enabled: bool
     """Whether or not this webhook is turned on or not"""
 
-    events: List[
-        Literal[
-            "invoice.created",
-            "invoice.paid",
-            "invoice.past_due",
-            "invoice.voided",
-            "membership.activated",
-            "membership.deactivated",
-            "entry.created",
-            "entry.approved",
-            "entry.denied",
-            "entry.deleted",
-            "setup_intent.requires_action",
-            "setup_intent.succeeded",
-            "setup_intent.canceled",
-            "withdrawal.created",
-            "withdrawal.updated",
-            "course_lesson_interaction.completed",
-            "payout_method.created",
-            "verification.succeeded",
-            "payment.created",
-            "payment.succeeded",
-            "payment.failed",
-            "payment.pending",
-            "dispute.created",
-            "dispute.updated",
-            "refund.created",
-            "refund.updated",
-            "membership.cancel_at_period_end_changed",
-        ]
-    ]
+    events: List[WebhookEvent]
     """The number of events this webhooks is configured to receive"""
 
     url: str

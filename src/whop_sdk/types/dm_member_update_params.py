@@ -3,14 +3,17 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
+
+from .dm_feed_member_statuses import DmFeedMemberStatuses
+from .dm_feed_member_notification_preferences import DmFeedMemberNotificationPreferences
 
 __all__ = ["DmMemberUpdateParams"]
 
 
 class DmMemberUpdateParams(TypedDict, total=False):
-    notification_preference: Optional[Literal["all", "mentions", "none"]]
+    notification_preference: Optional[DmFeedMemberNotificationPreferences]
     """The notification preferences for a DMs feed member"""
 
-    status: Optional[Literal["requested", "accepted", "hidden", "closed", "archived"]]
+    status: Optional[DmFeedMemberStatuses]
     """The statuses of a DMs feed member"""

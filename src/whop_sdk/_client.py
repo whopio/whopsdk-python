@@ -57,6 +57,7 @@ if TYPE_CHECKING:
         transfers,
         app_builds,
         dm_members,
+        dm_channels,
         experiences,
         fee_markups,
         forum_posts,
@@ -106,6 +107,7 @@ if TYPE_CHECKING:
     from .resources.transfers import TransfersResource, AsyncTransfersResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
     from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
+    from .resources.dm_channels import DmChannelsResource, AsyncDmChannelsResource
     from .resources.experiences import ExperiencesResource, AsyncExperiencesResource
     from .resources.fee_markups import FeeMarkupsResource, AsyncFeeMarkupsResource
     from .resources.forum_posts import ForumPostsResource, AsyncForumPostsResource
@@ -496,6 +498,12 @@ class Whop(SyncAPIClient):
         from .resources.ai_chats import AIChatsResource
 
         return AIChatsResource(self)
+
+    @cached_property
+    def dm_channels(self) -> DmChannelsResource:
+        from .resources.dm_channels import DmChannelsResource
+
+        return DmChannelsResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -974,6 +982,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAIChatsResource(self)
 
     @cached_property
+    def dm_channels(self) -> AsyncDmChannelsResource:
+        from .resources.dm_channels import AsyncDmChannelsResource
+
+        return AsyncDmChannelsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1385,6 +1399,12 @@ class WhopWithRawResponse:
 
         return AIChatsResourceWithRawResponse(self._client.ai_chats)
 
+    @cached_property
+    def dm_channels(self) -> dm_channels.DmChannelsResourceWithRawResponse:
+        from .resources.dm_channels import DmChannelsResourceWithRawResponse
+
+        return DmChannelsResourceWithRawResponse(self._client.dm_channels)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1684,6 +1704,12 @@ class AsyncWhopWithRawResponse:
 
         return AsyncAIChatsResourceWithRawResponse(self._client.ai_chats)
 
+    @cached_property
+    def dm_channels(self) -> dm_channels.AsyncDmChannelsResourceWithRawResponse:
+        from .resources.dm_channels import AsyncDmChannelsResourceWithRawResponse
+
+        return AsyncDmChannelsResourceWithRawResponse(self._client.dm_channels)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -1982,6 +2008,12 @@ class WhopWithStreamedResponse:
         from .resources.ai_chats import AIChatsResourceWithStreamingResponse
 
         return AIChatsResourceWithStreamingResponse(self._client.ai_chats)
+
+    @cached_property
+    def dm_channels(self) -> dm_channels.DmChannelsResourceWithStreamingResponse:
+        from .resources.dm_channels import DmChannelsResourceWithStreamingResponse
+
+        return DmChannelsResourceWithStreamingResponse(self._client.dm_channels)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2283,6 +2315,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.ai_chats import AsyncAIChatsResourceWithStreamingResponse
 
         return AsyncAIChatsResourceWithStreamingResponse(self._client.ai_chats)
+
+    @cached_property
+    def dm_channels(self) -> dm_channels.AsyncDmChannelsResourceWithStreamingResponse:
+        from .resources.dm_channels import AsyncDmChannelsResourceWithStreamingResponse
+
+        return AsyncDmChannelsResourceWithStreamingResponse(self._client.dm_channels)
 
 
 Client = Whop

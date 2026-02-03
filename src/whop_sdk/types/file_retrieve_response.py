@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .upload_status import UploadStatus
 
 __all__ = ["FileRetrieveResponse"]
 
@@ -23,7 +23,7 @@ class FileRetrieveResponse(BaseModel):
     size: Optional[str] = None
     """The size of the file in bytes"""
 
-    upload_status: Literal["pending", "processing", "ready", "failed"]
+    upload_status: UploadStatus
     """The upload status of the file"""
 
     url: Optional[str] = None

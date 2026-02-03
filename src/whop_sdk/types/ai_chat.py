@@ -5,7 +5,7 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["AIChatUpdateResponse", "User"]
+__all__ = ["AIChat", "User"]
 
 
 class User(BaseModel):
@@ -15,7 +15,7 @@ class User(BaseModel):
     """The internal ID of the user."""
 
 
-class AIChatUpdateResponse(BaseModel):
+class AIChat(BaseModel):
     """An AI chat conversation belonging to a user"""
 
     id: str

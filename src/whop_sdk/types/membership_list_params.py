@@ -8,6 +8,7 @@ from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
+from .cancel_options import CancelOptions
 from .shared.direction import Direction
 from .shared.membership_status import MembershipStatus
 
@@ -21,19 +22,7 @@ class MembershipListParams(TypedDict, total=False):
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
-    cancel_options: Optional[
-        List[
-            Literal[
-                "too_expensive",
-                "switching",
-                "missing_features",
-                "technical_issues",
-                "bad_experience",
-                "other",
-                "testing",
-            ]
-        ]
-    ]
+    cancel_options: Optional[List[CancelOptions]]
     """The cancel options to filter the memberships by"""
 
     company_id: Optional[str]

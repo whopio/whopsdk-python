@@ -19,11 +19,9 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.ai_chat import AIChat
 from ..types.ai_chat_list_response import AIChatListResponse
-from ..types.ai_chat_create_response import AIChatCreateResponse
 from ..types.ai_chat_delete_response import AIChatDeleteResponse
-from ..types.ai_chat_update_response import AIChatUpdateResponse
-from ..types.ai_chat_retrieve_response import AIChatRetrieveResponse
 
 __all__ = ["AIChatsResource", "AsyncAIChatsResource"]
 
@@ -58,7 +56,7 @@ class AIChatsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatCreateResponse:
+    ) -> AIChat:
         """
         Creates a new AI chat
 
@@ -83,7 +81,7 @@ class AIChatsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatCreateResponse,
+            cast_to=AIChat,
         )
 
     def retrieve(
@@ -96,7 +94,7 @@ class AIChatsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatRetrieveResponse:
+    ) -> AIChat:
         """
         Fetches a single AI chat by ID
 
@@ -116,7 +114,7 @@ class AIChatsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatRetrieveResponse,
+            cast_to=AIChat,
         )
 
     def update(
@@ -130,7 +128,7 @@ class AIChatsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatUpdateResponse:
+    ) -> AIChat:
         """
         Updates an AI chat
 
@@ -157,7 +155,7 @@ class AIChatsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatUpdateResponse,
+            cast_to=AIChat,
         )
 
     def list(
@@ -283,7 +281,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatCreateResponse:
+    ) -> AIChat:
         """
         Creates a new AI chat
 
@@ -308,7 +306,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatCreateResponse,
+            cast_to=AIChat,
         )
 
     async def retrieve(
@@ -321,7 +319,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatRetrieveResponse:
+    ) -> AIChat:
         """
         Fetches a single AI chat by ID
 
@@ -341,7 +339,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatRetrieveResponse,
+            cast_to=AIChat,
         )
 
     async def update(
@@ -355,7 +353,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatUpdateResponse:
+    ) -> AIChat:
         """
         Updates an AI chat
 
@@ -382,7 +380,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatUpdateResponse,
+            cast_to=AIChat,
         )
 
     def list(

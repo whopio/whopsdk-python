@@ -3,31 +3,23 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
-from .bot_token_transaction_types import BotTokenTransactionTypes
-
-__all__ = ["CompanyTokenTransactionListParams"]
+__all__ = ["DmChannelListParams"]
 
 
-class CompanyTokenTransactionListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The ID of the company"""
-
+class DmChannelListParams(TypedDict, total=False):
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
+    company_id: Optional[str]
+    """Filter DM channels scoped to a specific company"""
+
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
-
-    transaction_type: Optional[BotTokenTransactionTypes]
-    """The type of token transaction"""
-
-    user_id: Optional[str]
-    """Filter by user ID"""

@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
-from datetime import datetime
+from typing import Optional
 
 import httpx
 
-from ..types import lead_list_params, lead_create_params, lead_update_params
+from ..types import dm_channel_list_params, dm_channel_create_params, dm_channel_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,69 +18,57 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
-from ..types.lead import Lead
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.lead_list_response import LeadListResponse
+from ..types.dm_channel import DmChannel
+from ..types.dm_channel_list_response import DmChannelListResponse
+from ..types.dm_channel_delete_response import DmChannelDeleteResponse
 
-__all__ = ["LeadsResource", "AsyncLeadsResource"]
+__all__ = ["DmChannelsResource", "AsyncDmChannelsResource"]
 
 
-class LeadsResource(SyncAPIResource):
+class DmChannelsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> LeadsResourceWithRawResponse:
+    def with_raw_response(self) -> DmChannelsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return LeadsResourceWithRawResponse(self)
+        return DmChannelsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> LeadsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> DmChannelsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return LeadsResourceWithStreamingResponse(self)
+        return DmChannelsResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        company_id: str,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
-        referrer: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        with_user_ids: SequenceNotStr[str],
+        company_id: Optional[str] | Omit = omit,
+        custom_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Lead:
-        """
-        Creates a new lead
-
-        Required permissions:
-
-        - `lead:manage`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+    ) -> DmChannel:
+        """Creates a DM channel
 
         Args:
-          company_id: The ID of the company to create a lead for.
+          with_user_ids: The user ids to create a DM with.
 
-          metadata: Custom metadata for the lead.
+        Can be email, username or user_id (tag)
 
-          product_id: The ID of the product the lead is interested in.
+          company_id: The ID of the company to scope this DM channel to.
 
-          referrer: The url referrer of the lead, if any.
-
-          user_id: The ID of the user to create a lead for. If the request is made by a user, that
-              user will be used.
+          custom_name: The custom name for the DM channel
 
           extra_headers: Send extra headers
 
@@ -92,21 +79,19 @@ class LeadsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/leads",
+            "/dm_channels",
             body=maybe_transform(
                 {
+                    "with_user_ids": with_user_ids,
                     "company_id": company_id,
-                    "metadata": metadata,
-                    "product_id": product_id,
-                    "referrer": referrer,
-                    "user_id": user_id,
+                    "custom_name": custom_name,
                 },
-                lead_create_params.LeadCreateParams,
+                dm_channel_create_params.DmChannelCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Lead,
+            cast_to=DmChannel,
         )
 
     def retrieve(
@@ -119,16 +104,13 @@ class LeadsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Lead:
+    ) -> DmChannel:
         """
-        Retrieves a lead by ID
+        Retrieves a DM channel
 
         Required permissions:
 
-        - `lead:basic:read`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+        - `dms:read`
 
         Args:
           extra_headers: Send extra headers
@@ -142,40 +124,34 @@ class LeadsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/leads/{id}",
+            f"/dm_channels/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Lead,
+            cast_to=DmChannel,
         )
 
     def update(
         self,
         id: str,
         *,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        referrer: Optional[str] | Omit = omit,
+        custom_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Lead:
+    ) -> DmChannel:
         """
-        Updates a lead
+        Updates a DM channel
 
         Required permissions:
 
-        - `lead:manage`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+        - `dms:channel:manage`
 
         Args:
-          metadata: Custom metadata for the lead.
-
-          referrer: The url referrer of the lead.
+          custom_name: The custom name for the DM channel
 
           extra_headers: Send extra headers
 
@@ -188,64 +164,46 @@ class LeadsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/leads/{id}",
-            body=maybe_transform(
-                {
-                    "metadata": metadata,
-                    "referrer": referrer,
-                },
-                lead_update_params.LeadUpdateParams,
-            ),
+            f"/dm_channels/{id}",
+            body=maybe_transform({"custom_name": custom_name}, dm_channel_update_params.DmChannelUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Lead,
+            cast_to=DmChannel,
         )
 
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[LeadListResponse]:
+    ) -> SyncCursorPage[DmChannelListResponse]:
         """
-        Lists leads for a company
+        Lists DM channels for the current user
 
         Required permissions:
 
-        - `lead:basic:read`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+        - `dms:read`
 
         Args:
-          company_id: The ID of the company to list leads for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
-
-          created_before: The maximum creation date to filter by
+          company_id: Filter DM channels scoped to a specific company
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
-
-          product_ids: The product IDs to filter the leads by
 
           extra_headers: Send extra headers
 
@@ -256,8 +214,8 @@ class LeadsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/leads",
-            page=SyncCursorPage[LeadListResponse],
+            "/dm_channels",
+            page=SyncCursorPage[DmChannelListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -265,78 +223,99 @@ class LeadsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
-                        "created_after": created_after,
-                        "created_before": created_before,
+                        "company_id": company_id,
                         "first": first,
                         "last": last,
-                        "product_ids": product_ids,
                     },
-                    lead_list_params.LeadListParams,
+                    dm_channel_list_params.DmChannelListParams,
                 ),
             ),
-            model=LeadListResponse,
+            model=DmChannelListResponse,
         )
 
-
-class AsyncLeadsResource(AsyncAPIResource):
-    @cached_property
-    def with_raw_response(self) -> AsyncLeadsResourceWithRawResponse:
-        """
-        This property can be used as a prefix for any HTTP method call to return
-        the raw response object instead of the parsed content.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
-        """
-        return AsyncLeadsResourceWithRawResponse(self)
-
-    @cached_property
-    def with_streaming_response(self) -> AsyncLeadsResourceWithStreamingResponse:
-        """
-        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
-        """
-        return AsyncLeadsResourceWithStreamingResponse(self)
-
-    async def create(
+    def delete(
         self,
+        id: str,
         *,
-        company_id: str,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
-        referrer: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Lead:
+    ) -> DmChannelDeleteResponse:
         """
-        Creates a new lead
+        Deletes a DM channel
 
         Required permissions:
 
-        - `lead:manage`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+        - `dms:channel:manage`
 
         Args:
-          company_id: The ID of the company to create a lead for.
+          extra_headers: Send extra headers
 
-          metadata: Custom metadata for the lead.
+          extra_query: Add additional query parameters to the request
 
-          product_id: The ID of the product the lead is interested in.
+          extra_body: Add additional JSON properties to the request
 
-          referrer: The url referrer of the lead, if any.
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/dm_channels/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DmChannelDeleteResponse,
+        )
 
-          user_id: The ID of the user to create a lead for. If the request is made by a user, that
-              user will be used.
+
+class AsyncDmChannelsResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncDmChannelsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncDmChannelsResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncDmChannelsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
+        """
+        return AsyncDmChannelsResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        with_user_ids: SequenceNotStr[str],
+        company_id: Optional[str] | Omit = omit,
+        custom_name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DmChannel:
+        """Creates a DM channel
+
+        Args:
+          with_user_ids: The user ids to create a DM with.
+
+        Can be email, username or user_id (tag)
+
+          company_id: The ID of the company to scope this DM channel to.
+
+          custom_name: The custom name for the DM channel
 
           extra_headers: Send extra headers
 
@@ -347,21 +326,19 @@ class AsyncLeadsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/leads",
+            "/dm_channels",
             body=await async_maybe_transform(
                 {
+                    "with_user_ids": with_user_ids,
                     "company_id": company_id,
-                    "metadata": metadata,
-                    "product_id": product_id,
-                    "referrer": referrer,
-                    "user_id": user_id,
+                    "custom_name": custom_name,
                 },
-                lead_create_params.LeadCreateParams,
+                dm_channel_create_params.DmChannelCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Lead,
+            cast_to=DmChannel,
         )
 
     async def retrieve(
@@ -374,16 +351,13 @@ class AsyncLeadsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Lead:
+    ) -> DmChannel:
         """
-        Retrieves a lead by ID
+        Retrieves a DM channel
 
         Required permissions:
 
-        - `lead:basic:read`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+        - `dms:read`
 
         Args:
           extra_headers: Send extra headers
@@ -397,40 +371,34 @@ class AsyncLeadsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/leads/{id}",
+            f"/dm_channels/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Lead,
+            cast_to=DmChannel,
         )
 
     async def update(
         self,
         id: str,
         *,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        referrer: Optional[str] | Omit = omit,
+        custom_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Lead:
+    ) -> DmChannel:
         """
-        Updates a lead
+        Updates a DM channel
 
         Required permissions:
 
-        - `lead:manage`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+        - `dms:channel:manage`
 
         Args:
-          metadata: Custom metadata for the lead.
-
-          referrer: The url referrer of the lead.
+          custom_name: The custom name for the DM channel
 
           extra_headers: Send extra headers
 
@@ -443,64 +411,48 @@ class AsyncLeadsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/leads/{id}",
+            f"/dm_channels/{id}",
             body=await async_maybe_transform(
-                {
-                    "metadata": metadata,
-                    "referrer": referrer,
-                },
-                lead_update_params.LeadUpdateParams,
+                {"custom_name": custom_name}, dm_channel_update_params.DmChannelUpdateParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Lead,
+            cast_to=DmChannel,
         )
 
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[LeadListResponse, AsyncCursorPage[LeadListResponse]]:
+    ) -> AsyncPaginator[DmChannelListResponse, AsyncCursorPage[DmChannelListResponse]]:
         """
-        Lists leads for a company
+        Lists DM channels for the current user
 
         Required permissions:
 
-        - `lead:basic:read`
-        - `member:email:read`
-        - `access_pass:basic:read`
-        - `member:basic:read`
+        - `dms:read`
 
         Args:
-          company_id: The ID of the company to list leads for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
-
-          created_before: The maximum creation date to filter by
+          company_id: Filter DM channels scoped to a specific company
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
-
-          product_ids: The product IDs to filter the leads by
 
           extra_headers: Send extra headers
 
@@ -511,8 +463,8 @@ class AsyncLeadsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/leads",
-            page=AsyncCursorPage[LeadListResponse],
+            "/dm_channels",
+            page=AsyncCursorPage[DmChannelListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -520,89 +472,135 @@ class AsyncLeadsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
-                        "created_after": created_after,
-                        "created_before": created_before,
+                        "company_id": company_id,
                         "first": first,
                         "last": last,
-                        "product_ids": product_ids,
                     },
-                    lead_list_params.LeadListParams,
+                    dm_channel_list_params.DmChannelListParams,
                 ),
             ),
-            model=LeadListResponse,
+            model=DmChannelListResponse,
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DmChannelDeleteResponse:
+        """
+        Deletes a DM channel
+
+        Required permissions:
+
+        - `dms:channel:manage`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/dm_channels/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DmChannelDeleteResponse,
         )
 
 
-class LeadsResourceWithRawResponse:
-    def __init__(self, leads: LeadsResource) -> None:
-        self._leads = leads
+class DmChannelsResourceWithRawResponse:
+    def __init__(self, dm_channels: DmChannelsResource) -> None:
+        self._dm_channels = dm_channels
 
         self.create = to_raw_response_wrapper(
-            leads.create,
+            dm_channels.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            leads.retrieve,
+            dm_channels.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            leads.update,
+            dm_channels.update,
         )
         self.list = to_raw_response_wrapper(
-            leads.list,
+            dm_channels.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            dm_channels.delete,
         )
 
 
-class AsyncLeadsResourceWithRawResponse:
-    def __init__(self, leads: AsyncLeadsResource) -> None:
-        self._leads = leads
+class AsyncDmChannelsResourceWithRawResponse:
+    def __init__(self, dm_channels: AsyncDmChannelsResource) -> None:
+        self._dm_channels = dm_channels
 
         self.create = async_to_raw_response_wrapper(
-            leads.create,
+            dm_channels.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            leads.retrieve,
+            dm_channels.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            leads.update,
+            dm_channels.update,
         )
         self.list = async_to_raw_response_wrapper(
-            leads.list,
+            dm_channels.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            dm_channels.delete,
         )
 
 
-class LeadsResourceWithStreamingResponse:
-    def __init__(self, leads: LeadsResource) -> None:
-        self._leads = leads
+class DmChannelsResourceWithStreamingResponse:
+    def __init__(self, dm_channels: DmChannelsResource) -> None:
+        self._dm_channels = dm_channels
 
         self.create = to_streamed_response_wrapper(
-            leads.create,
+            dm_channels.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            leads.retrieve,
+            dm_channels.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            leads.update,
+            dm_channels.update,
         )
         self.list = to_streamed_response_wrapper(
-            leads.list,
+            dm_channels.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            dm_channels.delete,
         )
 
 
-class AsyncLeadsResourceWithStreamingResponse:
-    def __init__(self, leads: AsyncLeadsResource) -> None:
-        self._leads = leads
+class AsyncDmChannelsResourceWithStreamingResponse:
+    def __init__(self, dm_channels: AsyncDmChannelsResource) -> None:
+        self._dm_channels = dm_channels
 
         self.create = async_to_streamed_response_wrapper(
-            leads.create,
+            dm_channels.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            leads.retrieve,
+            dm_channels.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            leads.update,
+            dm_channels.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            leads.list,
+            dm_channels.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            dm_channels.delete,
         )
