@@ -15,6 +15,7 @@ from .shared.friendly_receipt_status import FriendlyReceiptStatus
 
 __all__ = [
     "PaymentListResponse",
+    "ApplicationFee",
     "BillingAddress",
     "Company",
     "Member",
@@ -26,6 +27,28 @@ __all__ = [
     "PromoCode",
     "User",
 ]
+
+
+class ApplicationFee(BaseModel):
+    """The application fee charged on this payment."""
+
+    id: str
+    """The unique identifier for the application fee."""
+
+    amount: float
+    """The application fee amount."""
+
+    amount_captured: float
+    """The amount of the application fee that has been captured."""
+
+    amount_refunded: float
+    """The amount of the application fee that has been refunded."""
+
+    created_at: datetime
+    """When the application fee was created."""
+
+    currency: Currency
+    """The currency of the application fee."""
 
 
 class BillingAddress(BaseModel):
@@ -188,6 +211,9 @@ class PaymentListResponse(BaseModel):
 
     amount_after_fees: float
     """How much the payment is for after fees"""
+
+    application_fee: Optional[ApplicationFee] = None
+    """The application fee charged on this payment."""
 
     auto_refunded: bool
     """Whether this payment was auto refunded or not"""
