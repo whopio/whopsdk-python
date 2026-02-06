@@ -92,7 +92,10 @@ class Transfer(BaseModel):
     """The unique identifier of the credit transaction transfer"""
 
     amount: float
-    """The amount of the credit transaction transfer"""
+    """The amount of the transfer.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     created_at: datetime
     """The timestamp when the credit transaction transfer was created"""
@@ -110,7 +113,10 @@ class Transfer(BaseModel):
     """The decimal fee of the credit transaction transfer"""
 
     metadata: Optional[Dict[str, object]] = None
-    """A hash of metadata attached to the transfer"""
+    """Custom key-value pairs attached to the transfer.
+
+    Max 50 keys, 500 chars per key, 5000 chars per value.
+    """
 
     notes: Optional[str] = None
     """The notes of the credit transaction transfer"""

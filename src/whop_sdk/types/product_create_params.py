@@ -120,7 +120,10 @@ class PlanOptions(TypedDict, total=False):
     """An array of custom field objects."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase."""
+    """An additional amount charged upon first purchase.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to a product"""
@@ -129,7 +132,10 @@ class PlanOptions(TypedDict, total=False):
     """The methods of how a plan can be released."""
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period."""
+    """The amount the customer is charged every billing period.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

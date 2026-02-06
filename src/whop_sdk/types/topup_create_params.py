@@ -11,7 +11,10 @@ __all__ = ["TopupCreateParams"]
 
 class TopupCreateParams(TypedDict, total=False):
     amount: Required[float]
-    """The amount to add to the balance."""
+    """The amount to add to the balance.
+
+    Provided as a number in the specified currency. Eg: 50.00 for $50.00 USD.
+    """
 
     company_id: Required[str]
     """The ID of the company to add funds to."""
