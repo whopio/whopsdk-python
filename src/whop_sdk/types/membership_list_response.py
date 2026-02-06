@@ -104,6 +104,9 @@ class MembershipListResponse(BaseModel):
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
 
+    joined_at: Optional[datetime] = None
+    """When the member joined the company."""
+
     license_key: Optional[str] = None
     """The license key for this Membership.
 
