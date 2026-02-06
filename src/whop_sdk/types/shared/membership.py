@@ -120,6 +120,9 @@ class Membership(BaseModel):
     custom_field_responses: List[CustomFieldResponse]
     """The responses to custom checkout questions for this membership."""
 
+    joined_at: Optional[datetime] = None
+    """When the member joined the company."""
+
     license_key: Optional[str] = None
     """The license key for this Membership.
 
