@@ -74,7 +74,9 @@ class TransfersResource(SyncAPIResource):
         - `payout:transfer_funds`
 
         Args:
-          amount: The amount to withdraw
+          amount:
+              The amount to transfer. Provided as a number in the specified currency. Eg:
+              25.00 for $25.00 USD.
 
           currency: The currency that is being withdrawn.
 
@@ -286,7 +288,9 @@ class AsyncTransfersResource(AsyncAPIResource):
         - `payout:transfer_funds`
 
         Args:
-          amount: The amount to withdraw
+          amount:
+              The amount to transfer. Provided as a number in the specified currency. Eg:
+              25.00 for $25.00 USD.
 
           currency: The currency that is being withdrawn.
 

@@ -64,7 +64,8 @@ class TopupsResource(SyncAPIResource):
         - `payment:charge`
 
         Args:
-          amount: The amount to add to the balance.
+          amount: The amount to add to the balance. Provided as a number in the specified
+              currency. Eg: 50.00 for $50.00 USD.
 
           company_id: The ID of the company to add funds to.
 
@@ -140,7 +141,8 @@ class AsyncTopupsResource(AsyncAPIResource):
         - `payment:charge`
 
         Args:
-          amount: The amount to add to the balance.
+          amount: The amount to add to the balance. Provided as a number in the specified
+              currency. Eg: 50.00 for $50.00 USD.
 
           company_id: The ID of the company to add funds to.
 

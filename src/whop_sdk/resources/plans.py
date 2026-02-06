@@ -115,7 +115,7 @@ class PlansResource(SyncAPIResource):
 
           initial_price: An additional amount charged upon first purchase. Use only if a one time payment
               OR you want to charge an additional amount on top of the renewal price. Provided
-              as a number in dollars. Eg: 10.43 for $10.43
+              as a number in the specified currency. Eg: 10.43 for $10.43
 
           internal_notes: A personal description or notes section for the business.
 
@@ -132,7 +132,7 @@ class PlansResource(SyncAPIResource):
           release_method: The methods of how a plan can be released.
 
           renewal_price: The amount the customer is charged every billing period. Use only if a recurring
-              payment. Provided as a number in dollars. Eg: 10.43 for $10.43
+              payment. Provided as a number in the specified currency. Eg: 10.43 for $10.43
 
           split_pay_required_payments: The number of payments required before pausing the subscription.
 
@@ -142,7 +142,8 @@ class PlansResource(SyncAPIResource):
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: When true, the plan has unlimited stock (stock field is ignored). When false,
+              purchases are limited by the stock field.
 
           visibility: Visibility of a resource
 
@@ -267,7 +268,7 @@ class PlansResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          billing_period: The interval at which the plan charges (renewal plans).
+          billing_period: The interval in days at which the plan charges (renewal plans).
 
           currency: The available currencies on the platform
 
@@ -275,11 +276,13 @@ class PlansResource(SyncAPIResource):
 
           description: The description of the plan.
 
-          expiration_days: The interval at which the plan charges (expiration plans).
+          expiration_days: The number of days until the membership expires (for expiration-based plans).
+              For example, 365 for a one-year access pass.
 
           image: An image for the plan. This will be visible on the product page to customers.
 
-          initial_price: An additional amount charged upon first purchase.
+          initial_price: An additional amount charged upon first purchase. Provided as a number in the
+              specified currency. Eg: 10.43 for $10.43 USD.
 
           internal_notes: A personal description or notes section for the business.
 
@@ -293,21 +296,23 @@ class PlansResource(SyncAPIResource):
           payment_method_configuration: The explicit payment method configuration for the plan. If sent as null, the
               custom configuration will be removed.
 
-          renewal_price: The amount the customer is charged every billing period.
+          renewal_price: The amount the customer is charged every billing period. Provided as a number in
+              the specified currency. Eg: 10.43 for $10.43 USD.
 
           stock: The number of units available for purchase.
 
           strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+              number in the specified currency. Eg: 19.99 for $19.99
 
           strike_through_renewal_price: The price to display with a strikethrough for the renewal price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+              number in the specified currency. Eg: 19.99 for $19.99
 
           title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: When true, the plan has unlimited stock (stock field is ignored). When false,
+              purchases are limited by the stock field.
 
           visibility: Visibility of a resource
 
@@ -568,7 +573,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           initial_price: An additional amount charged upon first purchase. Use only if a one time payment
               OR you want to charge an additional amount on top of the renewal price. Provided
-              as a number in dollars. Eg: 10.43 for $10.43
+              as a number in the specified currency. Eg: 10.43 for $10.43
 
           internal_notes: A personal description or notes section for the business.
 
@@ -585,7 +590,7 @@ class AsyncPlansResource(AsyncAPIResource):
           release_method: The methods of how a plan can be released.
 
           renewal_price: The amount the customer is charged every billing period. Use only if a recurring
-              payment. Provided as a number in dollars. Eg: 10.43 for $10.43
+              payment. Provided as a number in the specified currency. Eg: 10.43 for $10.43
 
           split_pay_required_payments: The number of payments required before pausing the subscription.
 
@@ -595,7 +600,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: When true, the plan has unlimited stock (stock field is ignored). When false,
+              purchases are limited by the stock field.
 
           visibility: Visibility of a resource
 
@@ -720,7 +726,7 @@ class AsyncPlansResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          billing_period: The interval at which the plan charges (renewal plans).
+          billing_period: The interval in days at which the plan charges (renewal plans).
 
           currency: The available currencies on the platform
 
@@ -728,11 +734,13 @@ class AsyncPlansResource(AsyncAPIResource):
 
           description: The description of the plan.
 
-          expiration_days: The interval at which the plan charges (expiration plans).
+          expiration_days: The number of days until the membership expires (for expiration-based plans).
+              For example, 365 for a one-year access pass.
 
           image: An image for the plan. This will be visible on the product page to customers.
 
-          initial_price: An additional amount charged upon first purchase.
+          initial_price: An additional amount charged upon first purchase. Provided as a number in the
+              specified currency. Eg: 10.43 for $10.43 USD.
 
           internal_notes: A personal description or notes section for the business.
 
@@ -746,21 +754,23 @@ class AsyncPlansResource(AsyncAPIResource):
           payment_method_configuration: The explicit payment method configuration for the plan. If sent as null, the
               custom configuration will be removed.
 
-          renewal_price: The amount the customer is charged every billing period.
+          renewal_price: The amount the customer is charged every billing period. Provided as a number in
+              the specified currency. Eg: 10.43 for $10.43 USD.
 
           stock: The number of units available for purchase.
 
           strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+              number in the specified currency. Eg: 19.99 for $19.99
 
           strike_through_renewal_price: The price to display with a strikethrough for the renewal price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+              number in the specified currency. Eg: 19.99 for $19.99
 
           title: The title of the plan. This will be visible on the product page to customers.
 
           trial_period_days: The number of free trial days added before a renewal plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: When true, the plan has unlimited stock (stock field is ignored). When false,
+              purchases are limited by the stock field.
 
           visibility: Visibility of a resource
 

@@ -75,7 +75,7 @@ class PlanListResponse(BaseModel):
     """The internal ID of the plan."""
 
     billing_period: Optional[int] = None
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     company: Optional[Company] = None
     """The company for the plan."""
@@ -90,10 +90,17 @@ class PlanListResponse(BaseModel):
     """The description of the plan."""
 
     expiration_days: Optional[int] = None
-    """The interval at which the plan charges (expiration plans)."""
+    """The number of days until the membership expires (for expiration-based plans).
+
+    For example, 365 for a one-year access pass.
+    """
 
     initial_price: float
-    """The price a person has to pay for a plan on the initial purchase."""
+    """The initial purchase price in the plan's base_currency (e.g., 49.99 for $49.99).
+
+    For one-time plans, this is the full price. For renewal plans, this is charged
+    on top of the first renewal_price.
+    """
 
     internal_notes: Optional[str] = None
     """A personal description or notes section for the business."""
@@ -120,7 +127,10 @@ class PlanListResponse(BaseModel):
     """This is the release method the business uses to sell this plan."""
 
     renewal_price: float
-    """The price a person has to pay for a plan on the renewal purchase."""
+    """
+    The recurring price charged every billing_period in the plan's base_currency
+    (e.g., 9.99 for $9.99/period). Zero for one-time plans.
+    """
 
     split_pay_required_payments: Optional[int] = None
     """The number of payments required before pausing the subscription."""
@@ -135,7 +145,10 @@ class PlanListResponse(BaseModel):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: bool
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     updated_at: datetime
     """When the plan was last updated."""

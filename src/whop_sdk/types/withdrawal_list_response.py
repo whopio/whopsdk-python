@@ -19,7 +19,10 @@ class WithdrawalListResponse(BaseModel):
     """Internal ID of the withdrawal request."""
 
     amount: float
-    """How much money was attempted to be withdrawn, in a float type."""
+    """The withdrawal amount.
+
+    Provided as a number in the specified currency. Eg: 100.00 for $100.00 USD.
+    """
 
     created_at: datetime
     """When the withdrawal request was created."""
