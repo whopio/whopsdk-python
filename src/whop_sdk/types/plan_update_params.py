@@ -15,7 +15,7 @@ __all__ = ["PlanUpdateParams", "CustomField", "Image", "PaymentMethodConfigurati
 
 class PlanUpdateParams(TypedDict, total=False):
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     currency: Optional[Currency]
     """The available currencies on the platform"""
@@ -27,13 +27,19 @@ class PlanUpdateParams(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """The number of days until the membership expires (for expiration-based plans).
+
+    For example, 365 for a one-year access pass.
+    """
 
     image: Optional[Image]
     """An image for the plan. This will be visible on the product page to customers."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase."""
+    """An additional amount charged upon first purchase.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
@@ -57,7 +63,10 @@ class PlanUpdateParams(TypedDict, total=False):
     """
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period."""
+    """The amount the customer is charged every billing period.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     stock: Optional[int]
     """The number of units available for purchase."""
@@ -65,13 +74,13 @@ class PlanUpdateParams(TypedDict, total=False):
     strike_through_initial_price: Optional[float]
     """The price to display with a strikethrough for the initial price.
 
-    Provided as a number in dollars. Eg: 19.99 for $19.99
+    Provided as a number in the specified currency. Eg: 19.99 for $19.99
     """
 
     strike_through_renewal_price: Optional[float]
     """The price to display with a strikethrough for the renewal price.
 
-    Provided as a number in dollars. Eg: 19.99 for $19.99
+    Provided as a number in the specified currency. Eg: 19.99 for $19.99
     """
 
     title: Optional[str]
@@ -81,7 +90,10 @@ class PlanUpdateParams(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

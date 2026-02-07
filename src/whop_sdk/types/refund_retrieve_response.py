@@ -109,7 +109,10 @@ class RefundRetrieveResponse(BaseModel):
     """The ID of the refund."""
 
     amount: float
-    """The amount of the refund."""
+    """The amount of the refund.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     created_at: datetime
     """The time the refund was created."""

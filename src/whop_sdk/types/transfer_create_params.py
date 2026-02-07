@@ -12,7 +12,10 @@ __all__ = ["TransferCreateParams"]
 
 class TransferCreateParams(TypedDict, total=False):
     amount: Required[float]
-    """The amount to withdraw"""
+    """The amount to transfer.
+
+    Provided as a number in the specified currency. Eg: 25.00 for $25.00 USD.
+    """
 
     currency: Required[Currency]
     """The currency that is being withdrawn."""

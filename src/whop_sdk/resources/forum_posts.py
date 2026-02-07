@@ -95,8 +95,8 @@ class ForumPostsResource(SyncAPIResource):
           parent_id: The ID of the parent post. Set it to the ID of the post you want to comment on
               or don't include it if its a top level post.
 
-          paywall_amount: The amount to paywall this post by. A paywalled post requires the user to
-              purchase it in order to view its content.
+          paywall_amount: The price in paywall_currency to unlock this post (e.g., 5.00 for $5.00). If
+              set, users must purchase access to view the post content.
 
           paywall_currency: The available currencies on the platform
 
@@ -371,8 +371,8 @@ class AsyncForumPostsResource(AsyncAPIResource):
           parent_id: The ID of the parent post. Set it to the ID of the post you want to comment on
               or don't include it if its a top level post.
 
-          paywall_amount: The amount to paywall this post by. A paywalled post requires the user to
-              purchase it in order to view its content.
+          paywall_amount: The price in paywall_currency to unlock this post (e.g., 5.00 for $5.00). If
+              set, users must purchase access to view the post content.
 
           paywall_currency: The available currencies on the platform
 

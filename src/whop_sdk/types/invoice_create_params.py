@@ -107,7 +107,7 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     """The properties of the plan to create for this invoice."""
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductAndMemberIDPlanCustomField]]
     """An array of custom field objects."""
@@ -116,13 +116,17 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -137,8 +141,8 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -148,7 +152,10 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
@@ -243,7 +250,7 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     """The properties of the plan to create for this invoice."""
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductAndEmailAddressPlanCustomField]]
     """An array of custom field objects."""
@@ -252,13 +259,17 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -273,8 +284,8 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -284,7 +295,10 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
@@ -379,7 +393,7 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """The properties of the plan to create for this invoice."""
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField]]
     """An array of custom field objects."""
@@ -388,13 +402,17 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -409,8 +427,8 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -420,7 +438,10 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
@@ -502,7 +523,7 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     """The properties of the plan to create for this invoice."""
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField]]
     """An array of custom field objects."""
@@ -511,13 +532,17 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -532,8 +557,8 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -543,7 +568,10 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

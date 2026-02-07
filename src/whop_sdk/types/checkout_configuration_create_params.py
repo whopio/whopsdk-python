@@ -186,12 +186,15 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """The application fee amount collected by the platform from this connected
     account.
 
-    Must be less than the total payment amount. Only valid for connected accounts
-    with a parent company.
+    Provided as a number in dollars (e.g., 5.00 for $5.00). Must be less than the
+    total payment amount. Only valid for connected accounts with a parent company.
     """
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans).
+
+    For example, 30 for monthly billing.
+    """
 
     custom_fields: Optional[Iterable[CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField]]
     """An array of custom field objects."""
@@ -200,7 +203,10 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """The number of days until the membership expires (for expiration-based plans).
+
+    For example, 365 for a one-year access pass.
+    """
 
     force_create_new_plan: Optional[bool]
     """
@@ -212,7 +218,10 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """An image for the plan. This will be visible on the product page to customers."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase."""
+    """An additional amount charged upon first purchase.
+
+    Provided as a number in dollars (e.g., 10.00 for $10.00).
+    """
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
@@ -246,7 +255,10 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """The methods of how a plan can be released."""
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period."""
+    """The amount the customer is charged every billing period.
+
+    Provided as a number in dollars (e.g., 9.99 for $9.99/period).
+    """
 
     split_pay_required_payments: Optional[int]
     """The number of payments required before pausing the subscription."""

@@ -84,7 +84,9 @@ class PromoCodesResource(SyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          amount_off: The amount off (% or flat amount) for the promo.
+          amount_off: The discount amount. Interpretation depends on promo_type: if 'percentage', this
+              is the percentage (e.g., 20 means 20% off); if 'flat_amount', this is dollars
+              off (e.g., 10.00 means $10.00 off).
 
           base_currency: The monetary currency of the promo code.
 
@@ -367,7 +369,9 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          amount_off: The amount off (% or flat amount) for the promo.
+          amount_off: The discount amount. Interpretation depends on promo_type: if 'percentage', this
+              is the percentage (e.g., 20 means 20% off); if 'flat_amount', this is dollars
+              off (e.g., 10.00 means $10.00 off).
 
           base_currency: The monetary currency of the promo code.
 

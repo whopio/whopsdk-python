@@ -104,6 +104,9 @@ class MembershipListResponse(BaseModel):
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
 
+    joined_at: Optional[datetime] = None
+    """When the member joined the company."""
+
     license_key: Optional[str] = None
     """The license key for this Membership.
 
@@ -118,7 +121,10 @@ class MembershipListResponse(BaseModel):
     """The Member that this Membership belongs to."""
 
     metadata: Dict[str, object]
-    """A JSON object used to store software licensing information. Ex. HWID"""
+    """
+    Custom key-value pairs for the membership (commonly used for software licensing,
+    e.g., HWID). Max 50 keys, 500 chars per key, 5000 chars per value.
+    """
 
     payment_collection_paused: bool
     """Whether the membership's payments are currently paused."""

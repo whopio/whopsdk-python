@@ -48,16 +48,23 @@ class Plan(BaseModel):
     """The internal ID of the plan."""
 
     billing_period: Optional[int] = None
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     currency: Currency
     """The respective currency identifier for the plan."""
 
     expiration_days: Optional[int] = None
-    """The interval at which the plan charges (expiration plans)."""
+    """The number of days until the membership expires (for expiration-based plans).
+
+    For example, 365 for a one-year access pass.
+    """
 
     initial_price: float
-    """The price a person has to pay for a plan on the initial purchase."""
+    """The initial purchase price in the plan's base_currency (e.g., 49.99 for $49.99).
+
+    For one-time plans, this is the full price. For renewal plans, this is charged
+    on top of the first renewal_price.
+    """
 
     plan_type: PlanType
     """Indicates if the plan is a one time payment or recurring."""
@@ -66,7 +73,10 @@ class Plan(BaseModel):
     """This is the release method the business uses to sell this plan."""
 
     renewal_price: float
-    """The price a person has to pay for a plan on the renewal purchase."""
+    """
+    The recurring price charged every billing_period in the plan's base_currency
+    (e.g., 9.99 for $9.99/period). Zero for one-time plans.
+    """
 
     trial_period_days: Optional[int] = None
     """The number of free trial days added before a renewal plan."""
