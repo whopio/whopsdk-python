@@ -23,6 +23,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "capchase_pay",
     "card",
     "cashapp",
+    "claritypay",
     "coinbase",
     "crypto",
     "custom",
