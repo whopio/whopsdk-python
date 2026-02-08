@@ -9,7 +9,7 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import UserRetrieveResponse, UserCheckAccessResponse
+from whop_sdk.types import User, UserCheckAccessResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,7 +23,7 @@ class TestUsers:
         user = client.users.retrieve(
             "user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(UserRetrieveResponse, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -35,7 +35,7 @@ class TestUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         user = response.parse()
-        assert_matches_type(UserRetrieveResponse, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -47,7 +47,7 @@ class TestUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             user = response.parse()
-            assert_matches_type(UserRetrieveResponse, user, path=["response"])
+            assert_matches_type(User, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -111,6 +111,45 @@ class TestUsers:
                 id="user_xxxxxxxxxxxxx",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_profile(self, client: Whop) -> None:
+        user = client.users.update_profile()
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_profile_with_all_params(self, client: Whop) -> None:
+        user = client.users.update_profile(
+            bio="bio",
+            name="name",
+            profile_picture={"id": "id"},
+            username="username",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update_profile(self, client: Whop) -> None:
+        response = client.users.with_raw_response.update_profile()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update_profile(self, client: Whop) -> None:
+        with client.users.with_streaming_response.update_profile() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(User, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncUsers:
     parametrize = pytest.mark.parametrize(
@@ -123,7 +162,7 @@ class TestAsyncUsers:
         user = await async_client.users.retrieve(
             "user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(UserRetrieveResponse, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -135,7 +174,7 @@ class TestAsyncUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         user = await response.parse()
-        assert_matches_type(UserRetrieveResponse, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -147,7 +186,7 @@ class TestAsyncUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             user = await response.parse()
-            assert_matches_type(UserRetrieveResponse, user, path=["response"])
+            assert_matches_type(User, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -210,3 +249,42 @@ class TestAsyncUsers:
                 resource_id="",
                 id="user_xxxxxxxxxxxxx",
             )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_profile(self, async_client: AsyncWhop) -> None:
+        user = await async_client.users.update_profile()
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_profile_with_all_params(self, async_client: AsyncWhop) -> None:
+        user = await async_client.users.update_profile(
+            bio="bio",
+            name="name",
+            profile_picture={"id": "id"},
+            username="username",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update_profile(self, async_client: AsyncWhop) -> None:
+        response = await async_client.users.with_raw_response.update_profile()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update_profile(self, async_client: AsyncWhop) -> None:
+        async with async_client.users.with_streaming_response.update_profile() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(User, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import user_update_profile_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -13,8 +17,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..types.user import User
 from .._base_client import make_request_options
-from ..types.user_retrieve_response import UserRetrieveResponse
 from ..types.user_check_access_response import UserCheckAccessResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -50,7 +54,7 @@ class UsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> UserRetrieveResponse:
+    ) -> User:
         """
         Retrieves a user by ID or username
 
@@ -70,7 +74,7 @@ class UsersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=UserRetrieveResponse,
+            cast_to=User,
         )
 
     def check_access(
@@ -109,6 +113,61 @@ class UsersResource(SyncAPIResource):
             cast_to=UserCheckAccessResponse,
         )
 
+    def update_profile(
+        self,
+        *,
+        bio: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        profile_picture: Optional[user_update_profile_params.ProfilePicture] | Omit = omit,
+        username: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """
+        Updates the current user's profile
+
+        Required permissions:
+
+        - `user:profile:update`
+
+        Args:
+          bio: User biography
+
+          name: Display name
+
+          profile_picture: Profile picture
+
+          username: Username (alphanumeric and hyphens)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._patch(
+            "/users/me",
+            body=maybe_transform(
+                {
+                    "bio": bio,
+                    "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
+                },
+                user_update_profile_params.UserUpdateProfileParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
 
 class AsyncUsersResource(AsyncAPIResource):
     @cached_property
@@ -140,7 +199,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> UserRetrieveResponse:
+    ) -> User:
         """
         Retrieves a user by ID or username
 
@@ -160,7 +219,7 @@ class AsyncUsersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=UserRetrieveResponse,
+            cast_to=User,
         )
 
     async def check_access(
@@ -199,6 +258,61 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=UserCheckAccessResponse,
         )
 
+    async def update_profile(
+        self,
+        *,
+        bio: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        profile_picture: Optional[user_update_profile_params.ProfilePicture] | Omit = omit,
+        username: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """
+        Updates the current user's profile
+
+        Required permissions:
+
+        - `user:profile:update`
+
+        Args:
+          bio: User biography
+
+          name: Display name
+
+          profile_picture: Profile picture
+
+          username: Username (alphanumeric and hyphens)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._patch(
+            "/users/me",
+            body=await async_maybe_transform(
+                {
+                    "bio": bio,
+                    "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
+                },
+                user_update_profile_params.UserUpdateProfileParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
 
 class UsersResourceWithRawResponse:
     def __init__(self, users: UsersResource) -> None:
@@ -209,6 +323,9 @@ class UsersResourceWithRawResponse:
         )
         self.check_access = to_raw_response_wrapper(
             users.check_access,
+        )
+        self.update_profile = to_raw_response_wrapper(
+            users.update_profile,
         )
 
 
@@ -222,6 +339,9 @@ class AsyncUsersResourceWithRawResponse:
         self.check_access = async_to_raw_response_wrapper(
             users.check_access,
         )
+        self.update_profile = async_to_raw_response_wrapper(
+            users.update_profile,
+        )
 
 
 class UsersResourceWithStreamingResponse:
@@ -234,6 +354,9 @@ class UsersResourceWithStreamingResponse:
         self.check_access = to_streamed_response_wrapper(
             users.check_access,
         )
+        self.update_profile = to_streamed_response_wrapper(
+            users.update_profile,
+        )
 
 
 class AsyncUsersResourceWithStreamingResponse:
@@ -245,4 +368,7 @@ class AsyncUsersResourceWithStreamingResponse:
         )
         self.check_access = async_to_streamed_response_wrapper(
             users.check_access,
+        )
+        self.update_profile = async_to_streamed_response_wrapper(
+            users.update_profile,
         )

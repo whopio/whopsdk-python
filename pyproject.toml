@@ -42,7 +42,6 @@ Repository = "https://github.com/whopio/whopsdk-python"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
-webhooks = ["standardwebhooks"]
 
 [tool.rye]
 managed = true
