@@ -12,17 +12,20 @@ __all__ = ["CompanyCreateParams", "Logo"]
 
 
 class CompanyCreateParams(TypedDict, total=False):
-    email: Required[str]
-    """The email of the user who the company will belong to."""
-
-    parent_company_id: Required[str]
-    """The company ID of the platform creating this company."""
-
     title: Required[str]
     """The name of the company being created."""
 
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
+
+    description: Optional[str]
+    """A description of what the company offers or does."""
+
+    email: Optional[str]
+    """The email of the user who the sub-company will belong to.
+
+    Required when parent_company_id is provided.
+    """
 
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
@@ -31,14 +34,18 @@ class CompanyCreateParams(TypedDict, total=False):
     """The logo for the company in png, jpeg, or gif format"""
 
     metadata: Optional[Dict[str, object]]
-    """Additional metadata for the account"""
+    """Additional metadata for the company"""
+
+    parent_company_id: Optional[str]
+    """The company ID of the platform creating this sub-company.
+
+    If omitted, the company is created for the current user.
+    """
 
     send_customer_emails: Optional[bool]
     """Whether Whop sends transactional emails to customers on behalf of this company.
 
-    Includes: order confirmations, payment failures, refund notifications, upcoming
-    renewals, and membership cancelations/expirations. When disabled, the platform
-    is responsible for handling these communications. This is defaulted to true.
+    Only used when parent_company_id is provided.
     """
 
 
