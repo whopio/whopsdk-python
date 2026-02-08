@@ -18,7 +18,7 @@ class EntryDeniedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Entry
-    """An object representing an entry in a waitlist."""
+    """An entry represents a user's signup for a waitlisted plan."""
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

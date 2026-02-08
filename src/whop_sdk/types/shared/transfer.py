@@ -12,10 +12,13 @@ __all__ = ["Transfer", "Destination", "DestinationUser", "DestinationCompany", "
 
 
 class DestinationUser(BaseModel):
-    """An object representing a (sanitized) user of the site."""
+    """A user account on Whop.
+
+    Contains profile information, identity details, and social connections.
+    """
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -28,10 +31,13 @@ class DestinationUser(BaseModel):
 
 
 class DestinationCompany(BaseModel):
-    """An object representing a (sanitized) company."""
+    """A company is a seller on Whop.
+
+    Companies own products, manage members, and receive payouts.
+    """
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -49,10 +55,13 @@ Destination: TypeAlias = Annotated[
 
 
 class OriginUser(BaseModel):
-    """An object representing a (sanitized) user of the site."""
+    """A user account on Whop.
+
+    Contains profile information, identity details, and social connections.
+    """
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -65,10 +74,13 @@ class OriginUser(BaseModel):
 
 
 class OriginCompany(BaseModel):
-    """An object representing a (sanitized) company."""
+    """A company is a seller on Whop.
+
+    Companies own products, manage members, and receive payouts.
+    """
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -89,7 +101,7 @@ class Transfer(BaseModel):
     """Credit Transaction Transfer"""
 
     id: str
-    """The unique identifier of the credit transaction transfer"""
+    """The unique identifier for the credit transaction transfer."""
 
     amount: float
     """The amount of the transfer.
@@ -98,7 +110,7 @@ class Transfer(BaseModel):
     """
 
     created_at: datetime
-    """The timestamp when the credit transaction transfer was created"""
+    """The datetime the credit transaction transfer was created."""
 
     currency: Currency
     """The currency of the credit transaction transfer"""

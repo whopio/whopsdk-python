@@ -12,14 +12,14 @@ class CourseExperience(BaseModel):
     """The experience that the course belongs to"""
 
     id: str
-    """The unique ID representing this experience"""
+    """The unique identifier for the experience."""
 
 
 class Course(BaseModel):
     """The course the student is enrolled in"""
 
     id: str
-    """The ID of the course. Looks like cors_XXX"""
+    """The unique identifier for the course."""
 
     experience: CourseExperience
     """The experience that the course belongs to"""
@@ -32,7 +32,7 @@ class User(BaseModel):
     """The user who is enrolled in the course"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -45,7 +45,7 @@ class CourseStudentRetrieveResponse(BaseModel):
     """A course student (enrollment of a student in a course)"""
 
     id: str
-    """The ID of the course student. Looks like crsi_XXX"""
+    """The unique identifier for the course student type."""
 
     completed_lessons_count: int
     """The number of lessons the student has completed"""

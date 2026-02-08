@@ -18,7 +18,7 @@ class Company(BaseModel):
     """A short type of the company that this product belongs to."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -31,7 +31,7 @@ class OwnerUser(BaseModel):
     """The user that owns the product (company owner)."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -44,7 +44,7 @@ class ProductTaxCode(BaseModel):
     """The product tax code for the product, if any."""
 
     id: str
-    """The internal ID of the product tax code."""
+    """The unique identifier for the product tax code."""
 
     name: str
     """The name of the product tax code."""
@@ -54,10 +54,13 @@ class ProductTaxCode(BaseModel):
 
 
 class Product(BaseModel):
-    """Represents a product on whop. Use products to sell anything on the platform."""
+    """A product is a digital good or service sold on Whop.
+
+    Products contain plans for pricing and experiences for content delivery.
+    """
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     business_type: Optional[BusinessTypes] = None
     """The different business types a company can be."""
@@ -66,7 +69,7 @@ class Product(BaseModel):
     """A short type of the company that this product belongs to."""
 
     created_at: datetime
-    """When the product was created."""
+    """The datetime the product was created."""
 
     custom_cta: CustomCta
     """The custom call to action for the product."""
@@ -131,7 +134,7 @@ class Product(BaseModel):
     """The title of the product. Use for Whop 4.0."""
 
     updated_at: datetime
-    """When the product was updated."""
+    """The datetime the product was last updated."""
 
     verified: bool
     """Whether this product is Whop verified."""

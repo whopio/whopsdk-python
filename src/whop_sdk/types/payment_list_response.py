@@ -45,7 +45,7 @@ class ApplicationFee(BaseModel):
     """The amount of the application fee that has been refunded."""
 
     created_at: datetime
-    """When the application fee was created."""
+    """The datetime the application fee was created."""
 
     currency: Currency
     """The currency of the application fee."""
@@ -80,7 +80,7 @@ class Company(BaseModel):
     """The company for the payment."""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -93,7 +93,7 @@ class Member(BaseModel):
     """The member attached to this payment."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     phone: Optional[str] = None
     """The phone number for the member, if available."""
@@ -103,7 +103,7 @@ class Membership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
-    """The internal ID of the membership."""
+    """The unique identifier for the membership."""
 
     status: MembershipStatus
     """The state of the membership."""
@@ -131,7 +131,7 @@ class PaymentMethod(BaseModel):
     """The payment method used for the payment, if available."""
 
     id: str
-    """The ID of the payment method"""
+    """The unique identifier for the payment token."""
 
     card: Optional[PaymentMethodCard] = None
     """
@@ -139,7 +139,7 @@ class PaymentMethod(BaseModel):
     """
 
     created_at: datetime
-    """The date and time the payment method was created"""
+    """The datetime the payment token was created."""
 
     payment_method_type: PaymentMethodTypes
     """The payment method type of the payment method"""
@@ -149,14 +149,14 @@ class Plan(BaseModel):
     """The plan attached to this payment."""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
     """The product this payment was made for"""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     route: str
     """The route of the product."""
@@ -169,7 +169,7 @@ class PromoCode(BaseModel):
     """The promo code used for this payment."""
 
     id: str
-    """The ID of the promo."""
+    """The unique identifier for the promo code."""
 
     amount_off: float
     """The discount amount.
@@ -196,7 +196,7 @@ class User(BaseModel):
     """The user that made this payment."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
     """The email of the user"""
@@ -209,10 +209,13 @@ class User(BaseModel):
 
 
 class PaymentListResponse(BaseModel):
-    """An object representing a receipt for a membership."""
+    """A payment represents a completed or attempted charge for a membership.
+
+    Payments track the amount, status, currency, and payment method used.
+    """
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     amount_after_fees: float
     """How much the payment is for after fees"""
@@ -239,7 +242,7 @@ class PaymentListResponse(BaseModel):
     """The company for the payment."""
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""

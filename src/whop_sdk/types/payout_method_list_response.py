@@ -13,7 +13,7 @@ class Company(BaseModel):
     """The company associated with the payout token"""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
 
 class Destination(BaseModel):
@@ -33,7 +33,7 @@ class PayoutMethodListResponse(BaseModel):
     """An object representing an user's setup payout destination."""
 
     id: str
-    """The ID of the payout token"""
+    """The unique identifier for the payout token."""
 
     account_reference: Optional[str] = None
     """
@@ -45,7 +45,7 @@ class PayoutMethodListResponse(BaseModel):
     """The company associated with the payout token"""
 
     created_at: datetime
-    """The date and time the payout token was created"""
+    """The datetime the payout token was created."""
 
     currency: str
     """The currency code of the payout destination.

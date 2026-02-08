@@ -16,7 +16,7 @@ class Company(BaseModel):
     """The company for the promo code."""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     title: str
     """The written name of the company."""
@@ -26,17 +26,20 @@ class Product(BaseModel):
     """The product this promo code applies to"""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
 
 
 class PromoCode(BaseModel):
-    """An object representing a promo code for a plan."""
+    """A promo code applies a discount to a plan during checkout.
+
+    Promo codes can be percentage-based or fixed-amount, and can have usage limits and expiration dates.
+    """
 
     id: str
-    """The ID of the promo."""
+    """The unique identifier for the promo code."""
 
     amount_off: float
     """The discount amount.
@@ -56,7 +59,7 @@ class PromoCode(BaseModel):
     """The company for the promo code."""
 
     created_at: datetime
-    """The timestamp of when the promo was created."""
+    """The datetime the promo code was created."""
 
     currency: Currency
     """The monetary currency of the promo code."""

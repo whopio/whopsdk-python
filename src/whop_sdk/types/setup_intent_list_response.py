@@ -23,21 +23,21 @@ class CheckoutConfiguration(BaseModel):
     """The checkout configuration associated with the setup intent"""
 
     id: str
-    """The ID of the checkout configuration"""
+    """The unique identifier for the checkout session."""
 
 
 class Company(BaseModel):
     """The company of the setup intent"""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
 
 class MemberUser(BaseModel):
     """The user for this member, if any."""
 
     id: str
-    """The internal ID of the user account."""
+    """The unique identifier for the company member user."""
 
     email: Optional[str] = None
     """The digital mailing address of the user."""
@@ -53,7 +53,7 @@ class Member(BaseModel):
     """The member connected to the setup intent"""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     user: Optional[MemberUser] = None
     """The user for this member, if any."""
@@ -81,7 +81,7 @@ class PaymentMethod(BaseModel):
     """The payment method created during the setup, if available."""
 
     id: str
-    """The ID of the payment method"""
+    """The unique identifier for the payment token."""
 
     card: Optional[PaymentMethodCard] = None
     """
@@ -89,7 +89,7 @@ class PaymentMethod(BaseModel):
     """
 
     created_at: datetime
-    """The date and time the payment method was created"""
+    """The datetime the payment token was created."""
 
     payment_method_type: PaymentMethodTypes
     """The payment method type of the payment method"""
@@ -97,11 +97,11 @@ class PaymentMethod(BaseModel):
 
 class SetupIntentListResponse(BaseModel):
     """
-    An object representing a setup intent, which is a flow for allowing a customer to add a payment method to their account without making a purchase.
+    A setup intent allows a user to save a payment method without making a purchase.
     """
 
     id: str
-    """The setup intent ID"""
+    """The unique identifier for the setup intent."""
 
     checkout_configuration: Optional[CheckoutConfiguration] = None
     """The checkout configuration associated with the setup intent"""
@@ -110,7 +110,7 @@ class SetupIntentListResponse(BaseModel):
     """The company of the setup intent"""
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the setup intent was created."""
 
     error_message: Optional[str] = None
     """The error message, if any."""

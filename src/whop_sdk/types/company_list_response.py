@@ -24,7 +24,7 @@ class OwnerUser(BaseModel):
     """The user who owns this company"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -34,16 +34,19 @@ class OwnerUser(BaseModel):
 
 
 class CompanyListResponse(BaseModel):
-    """An object representing a (sanitized) company."""
+    """A company is a seller on Whop.
+
+    Companies own products, manage members, and receive payouts.
+    """
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     business_type: Optional[BusinessTypes] = None
     """The different business types a company can be."""
 
     created_at: datetime
-    """When the company was created (signed up)"""
+    """The datetime the company was created."""
 
     description: Optional[str] = None
     """The creator pitch for the company."""
@@ -79,7 +82,7 @@ class CompanyListResponse(BaseModel):
     """The title of the company."""
 
     updated_at: datetime
-    """The time the company was last updated."""
+    """The datetime the company was last updated."""
 
     verified: bool
     """If the company is Whop Verified"""

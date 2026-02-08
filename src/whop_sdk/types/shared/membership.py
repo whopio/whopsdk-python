@@ -15,7 +15,7 @@ class Company(BaseModel):
     """The Company this Membership belongs to."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
     """The title of the company."""
@@ -25,7 +25,7 @@ class CustomFieldResponse(BaseModel):
     """The response from a custom field on checkout"""
 
     id: str
-    """The ID of the custom field item"""
+    """The unique identifier for the custom field response."""
 
     answer: str
     """The response a user gave to the specific question or field."""
@@ -38,21 +38,21 @@ class Member(BaseModel):
     """The Member that this Membership belongs to."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the member."""
 
 
 class Plan(BaseModel):
     """The Plan this Membership is for."""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
     """The Product this Membership grants access to."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
@@ -62,14 +62,14 @@ class PromoCode(BaseModel):
     """The Promo Code that is currently applied to this Membership."""
 
     id: str
-    """The ID of the promo."""
+    """The unique identifier for the promo code."""
 
 
 class User(BaseModel):
     """The user this membership belongs to"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
     """The email of the user"""
@@ -82,12 +82,13 @@ class User(BaseModel):
 
 
 class Membership(BaseModel):
-    """
-    A membership represents a purchase between a User and a Company for a specific Product.
+    """A membership represents an active relationship between a user and a product.
+
+    It tracks the user's access, billing status, and renewal schedule.
     """
 
     id: str
-    """The ID of the membership"""
+    """The unique identifier for the membership."""
 
     cancel_at_period_end: bool
     """Whether this Membership is set to cancel at the end of the current billing
@@ -112,7 +113,7 @@ class Membership(BaseModel):
     """The Company this Membership belongs to."""
 
     created_at: datetime
-    """The timestamp, in seconds, that this Membership was created at."""
+    """The datetime the membership was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -170,7 +171,7 @@ class Membership(BaseModel):
     """The status of the membership."""
 
     updated_at: datetime
-    """A timestamp of when the membership was last updated"""
+    """The datetime the membership was last updated."""
 
     user: Optional[User] = None
     """The user this membership belongs to"""

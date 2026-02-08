@@ -45,7 +45,7 @@ class AssessmentQuestionOption(BaseModel):
     """An answer option for a multiple choice or multiple select assessment question"""
 
     id: str
-    """The ID of the assessment question option"""
+    """The unique identifier for the assessment question option."""
 
     is_correct: Optional[bool] = None
     """Whether this option is a correct answer.
@@ -64,7 +64,7 @@ class AssessmentQuestion(BaseModel):
     """An assessment question in a course quiz or knowledge check"""
 
     id: str
-    """The ID of the assessment question"""
+    """The unique identifier for the assessment question."""
 
     correct_answer: Optional[str] = None
     """The correct answer for the question.
@@ -74,7 +74,7 @@ class AssessmentQuestion(BaseModel):
     """
 
     created_at: datetime
-    """When the question was created"""
+    """The datetime the assessment question was created."""
 
     image: Optional[AssessmentQuestionImage] = None
     """Optional image attachment for the question"""
@@ -144,7 +144,7 @@ class VideoAsset(BaseModel):
     """The associated Mux asset for video lessons"""
 
     id: str
-    """The ID of the Mux asset"""
+    """The unique identifier for the mux asset."""
 
     asset_id: Optional[str] = None
     """The Mux-provided ID of the asset"""
@@ -153,7 +153,7 @@ class VideoAsset(BaseModel):
     """Whether this asset contains only audio"""
 
     created_at: datetime
-    """The time at which the Mux asset was created"""
+    """The datetime the mux asset was created."""
 
     duration_seconds: Optional[int] = None
     """The duration of the video in seconds"""
@@ -180,14 +180,14 @@ class VideoAsset(BaseModel):
     """The status of the Mux asset"""
 
     updated_at: datetime
-    """The time at which the Mux asset was last updated"""
+    """The datetime the mux asset was last updated."""
 
 
 class Lesson(BaseModel):
     """A lesson from the courses app"""
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     assessment_questions: List[AssessmentQuestion]
     """Assessment questions for quiz/knowledge check lessons"""
@@ -199,7 +199,7 @@ class Lesson(BaseModel):
     """The content of the lesson"""
 
     created_at: datetime
-    """The timestamp of when the lesson was created"""
+    """The datetime the lesson was created."""
 
     days_from_course_start_until_unlock: Optional[int] = None
     """Number of days from course start until the lesson is unlocked"""

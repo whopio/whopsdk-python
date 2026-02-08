@@ -19,8 +19,7 @@ class SetupIntentCanceledWebhookEvent(BaseModel):
 
     data: SetupIntent
     """
-    An object representing a setup intent, which is a flow for allowing a customer
-    to add a payment method to their account without making a purchase.
+    A setup intent allows a user to save a payment method without making a purchase.
     """
 
     timestamp: datetime

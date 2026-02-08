@@ -12,16 +12,19 @@ __all__ = ["ProductListItem"]
 
 
 class ProductListItem(BaseModel):
-    """Represents a product on whop. Use products to sell anything on the platform."""
+    """A product is a digital good or service sold on Whop.
+
+    Products contain plans for pricing and experiences for content delivery.
+    """
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     business_type: Optional[BusinessTypes] = None
     """The different business types a company can be."""
 
     created_at: datetime
-    """When the product was created."""
+    """The datetime the product was created."""
 
     external_identifier: Optional[str] = None
     """A unique identifier used to create or update products.
@@ -50,7 +53,7 @@ class ProductListItem(BaseModel):
     """The title of the product. Use for Whop 4.0."""
 
     updated_at: datetime
-    """When the product was updated."""
+    """The datetime the product was last updated."""
 
     verified: bool
     """Whether this product is Whop verified."""
