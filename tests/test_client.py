@@ -389,7 +389,7 @@ class TestWhop:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(WhopError):
-            with update_env(**{"WHOPSDK_API_KEY": Omit()}):
+            with update_env(**{"WHOP_API_KEY": Omit()}):
                 client2 = Whop(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
@@ -1255,7 +1255,7 @@ class TestAsyncWhop:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(WhopError):
-            with update_env(**{"WHOPSDK_API_KEY": Omit()}):
+            with update_env(**{"WHOP_API_KEY": Omit()}):
                 client2 = AsyncWhop(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
