@@ -18,6 +18,9 @@ class CompanyUpdateParams(TypedDict, total=False):
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
 
+    description: Optional[str]
+    """A description of what the company offers or does."""
+
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
 
