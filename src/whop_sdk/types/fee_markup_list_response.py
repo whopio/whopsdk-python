@@ -13,10 +13,10 @@ class FeeMarkupListResponse(BaseModel):
     """Represents a fee markup configuration for a company"""
 
     id: str
-    """The unique identifier of the fee markup."""
+    """The unique identifier for the fee markup."""
 
     created_at: datetime
-    """When this fee markup was created."""
+    """The datetime the fee markup was created."""
 
     fee_type: FeeMarkupType
     """The type of fee this markup applies to."""
@@ -31,4 +31,4 @@ class FeeMarkupListResponse(BaseModel):
     """The percentage fee to charge (0-25)."""
 
     updated_at: datetime
-    """When this fee markup was last updated."""
+    """The datetime the fee markup was last updated."""

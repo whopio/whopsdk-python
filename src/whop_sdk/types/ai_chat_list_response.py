@@ -12,20 +12,20 @@ class User(BaseModel):
     """The user who owns the AI chat"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
 
 class AIChatListResponse(BaseModel):
     """An AI chat conversation belonging to a user"""
 
     id: str
-    """The unique identifier for the AI chat"""
+    """The unique identifier for the ai chat."""
 
     blended_token_usage: str
     """The total number of tokens used in the chat"""
 
     created_at: datetime
-    """When the AI chat was created"""
+    """The datetime the ai chat was created."""
 
     last_message_at: Optional[datetime] = None
     """When the last message was sent"""
@@ -37,7 +37,7 @@ class AIChatListResponse(BaseModel):
     """The title of the AI chat"""
 
     updated_at: datetime
-    """When the AI chat was last updated"""
+    """The datetime the ai chat was last updated."""
 
     user: User
     """The user who owns the AI chat"""

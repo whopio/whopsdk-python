@@ -40,7 +40,7 @@ class CourseListResponse(BaseModel):
     """A course from the courses app"""
 
     id: str
-    """The ID of the course. Looks like cors_XXX"""
+    """The unique identifier for the course."""
 
     certificate_after_completion_enabled: Optional[bool] = None
     """
@@ -52,7 +52,7 @@ class CourseListResponse(BaseModel):
     """The URL of the course's cover image, which is shown in course preview cards"""
 
     created_at: datetime
-    """The timestamp of when the course was created"""
+    """The datetime the course was created."""
 
     description: Optional[str] = None
     """A short description of the course"""
@@ -85,7 +85,7 @@ class CourseListResponse(BaseModel):
     """The title of the course"""
 
     updated_at: datetime
-    """The timestamp of when the course was last updated"""
+    """The datetime the course was last updated."""
 
     visibility: CourseVisibilities
     """The visibility of the course.

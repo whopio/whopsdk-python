@@ -17,7 +17,7 @@ class Company(BaseModel):
     """The company for the plan."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
     """The title of the company."""
@@ -27,7 +27,7 @@ class Invoice(BaseModel):
     """The invoice associated with this plan."""
 
     id: str
-    """The ID of the invoice."""
+    """The unique identifier for the invoice."""
 
 
 class PaymentMethodConfiguration(BaseModel):
@@ -59,29 +59,29 @@ class Product(BaseModel):
     """The product that this plan belongs to."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
 
 
 class PlanListResponse(BaseModel):
-    """A plan for an product.
+    """A plan defines pricing and billing terms for a product.
 
-    Plans define the core parameters that define a checkout and payment on whop. Use plans to create different ways to price your products (Eg renewal / one_time)
+    Each product can have multiple plans representing different pricing options, such as one-time payments, recurring subscriptions, or free trials.
     """
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
     billing_period: Optional[int] = None
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     company: Optional[Company] = None
     """The company for the plan."""
 
     created_at: datetime
-    """When the plan was created."""
+    """The datetime the plan was created."""
 
     currency: Currency
     """The respective currency identifier for the plan."""
@@ -90,10 +90,17 @@ class PlanListResponse(BaseModel):
     """The description of the plan."""
 
     expiration_days: Optional[int] = None
-    """The interval at which the plan charges (expiration plans)."""
+    """The number of days until the membership expires (for expiration-based plans).
+
+    For example, 365 for a one-year access pass.
+    """
 
     initial_price: float
-    """The price a person has to pay for a plan on the initial purchase."""
+    """The initial purchase price in the plan's base_currency (e.g., 49.99 for $49.99).
+
+    For one-time plans, this is the full price. For renewal plans, this is charged
+    on top of the first renewal_price.
+    """
 
     internal_notes: Optional[str] = None
     """A personal description or notes section for the business."""
@@ -120,7 +127,10 @@ class PlanListResponse(BaseModel):
     """This is the release method the business uses to sell this plan."""
 
     renewal_price: float
-    """The price a person has to pay for a plan on the renewal purchase."""
+    """
+    The recurring price charged every billing_period in the plan's base_currency
+    (e.g., 9.99 for $9.99/period). Zero for one-time plans.
+    """
 
     split_pay_required_payments: Optional[int] = None
     """The number of payments required before pausing the subscription."""
@@ -135,10 +145,13 @@ class PlanListResponse(BaseModel):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: bool
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     updated_at: datetime
-    """When the plan was last updated."""
+    """The datetime the plan was last updated."""
 
     visibility: Visibility
     """Shows or hides the plan from public/business view."""

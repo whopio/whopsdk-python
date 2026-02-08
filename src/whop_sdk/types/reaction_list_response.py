@@ -11,7 +11,7 @@ class User(BaseModel):
     """The user who reacted to the post"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""

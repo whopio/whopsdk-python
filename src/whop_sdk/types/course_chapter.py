@@ -11,7 +11,7 @@ class Lesson(BaseModel):
     """A lesson from the courses app"""
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     order: int
     """The order of the lesson within its chapter"""
@@ -24,7 +24,7 @@ class CourseChapter(BaseModel):
     """A chapter from the courses app"""
 
     id: str
-    """The ID of the chapter. Looks like chap_XXX"""
+    """The unique identifier for the chapter."""
 
     lessons: List[Lesson]
     """The lessons in this chapter"""

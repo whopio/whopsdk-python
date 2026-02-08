@@ -13,7 +13,7 @@ class PollOption(BaseModel):
     """Represents a single poll option"""
 
     id: str
-    """The ID of the poll option"""
+    """The unique identifier for the poll option."""
 
     text: str
     """The text of the poll option"""
@@ -50,7 +50,7 @@ class User(BaseModel):
     """The user who sent this message"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -63,7 +63,14 @@ class MessageListResponse(BaseModel):
     """Represents a message in a DM channel"""
 
     id: str
-    """The unique identifier of the resource."""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content: Optional[str] = None
     """The content of the message in Markdown format"""

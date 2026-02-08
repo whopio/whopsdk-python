@@ -12,7 +12,7 @@ class FileRetrieveResponse(BaseModel):
     """A file that has been uploaded or is pending upload"""
 
     id: str
-    """The ID of the file"""
+    """The unique identifier for the file."""
 
     content_type: Optional[str] = None
     """The MIME type of the file (e.g., image/jpeg, video/mp4)"""

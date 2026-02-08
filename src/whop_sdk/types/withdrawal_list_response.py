@@ -13,16 +13,21 @@ __all__ = ["WithdrawalListResponse"]
 
 
 class WithdrawalListResponse(BaseModel):
-    """A withdrawal request."""
+    """
+    A withdrawal represents a request to transfer funds from a company's ledger account to an external payout method.
+    """
 
     id: str
-    """Internal ID of the withdrawal request."""
+    """The unique identifier for the withdrawal."""
 
     amount: float
-    """How much money was attempted to be withdrawn, in a float type."""
+    """The withdrawal amount.
+
+    Provided as a number in the specified currency. Eg: 100.00 for $100.00 USD.
+    """
 
     created_at: datetime
-    """When the withdrawal request was created."""
+    """The datetime the withdrawal was created."""
 
     currency: Currency
     """The currency of the withdrawal request."""

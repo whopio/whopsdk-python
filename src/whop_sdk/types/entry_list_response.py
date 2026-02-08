@@ -13,14 +13,14 @@ class Plan(BaseModel):
     """The waitlist plan the entry if for."""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
     """The product tied to this entry, if there is one."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
@@ -30,7 +30,7 @@ class User(BaseModel):
     """The user who created the entry."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
     """The email of the user"""
@@ -43,13 +43,13 @@ class User(BaseModel):
 
 
 class EntryListResponse(BaseModel):
-    """An object representing an entry in a waitlist."""
+    """An entry represents a user's signup for a waitlisted plan."""
 
     id: str
-    """The internal ID of the entry."""
+    """The unique identifier for the entry."""
 
     created_at: Optional[datetime] = None
-    """When the entry was created."""
+    """The datetime the entry was created."""
 
     plan: Optional[Plan] = None
     """The waitlist plan the entry if for."""

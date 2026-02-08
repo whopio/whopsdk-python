@@ -18,7 +18,10 @@ class PaymentPendingWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Payment
-    """An object representing a receipt for a membership."""
+    """A payment represents a completed or attempted charge for a membership.
+
+    Payments track the amount, status, currency, and payment method used.
+    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

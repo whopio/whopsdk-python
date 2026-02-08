@@ -32,7 +32,7 @@ class Company(BaseModel):
     """The company the review is for."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -45,7 +45,7 @@ class Product(BaseModel):
     """The product the review is for."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
@@ -55,7 +55,7 @@ class User(BaseModel):
     """The user account that performed the action."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -68,7 +68,7 @@ class ReviewRetrieveResponse(BaseModel):
     """An object representing a user review of a company."""
 
     id: str
-    """The internal ID of the review."""
+    """The unique identifier for the review."""
 
     attachments: List[Attachment]
     """The attachments attached to the review."""
@@ -77,7 +77,7 @@ class ReviewRetrieveResponse(BaseModel):
     """The company the review is for."""
 
     created_at: datetime
-    """The timestamp of when the review was created."""
+    """The datetime the review was created."""
 
     description: Optional[str] = None
     """The description of the review."""
@@ -107,7 +107,7 @@ class ReviewRetrieveResponse(BaseModel):
     """The title of the review."""
 
     updated_at: datetime
-    """The timestamp of when the review was last updated."""
+    """The datetime the review was last updated."""
 
     user: User
     """The user account that performed the action."""

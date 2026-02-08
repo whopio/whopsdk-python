@@ -38,7 +38,7 @@ class ChapterLesson(BaseModel):
     """A lesson from the courses app"""
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     lesson_type: LessonTypes
     """The type of the lesson (text, video, pdf, multi, quiz, knowledge_check)"""
@@ -60,7 +60,7 @@ class Chapter(BaseModel):
     """A chapter from the courses app"""
 
     id: str
-    """The ID of the chapter. Looks like chap_XXX"""
+    """The unique identifier for the chapter."""
 
     lessons: List[ChapterLesson]
     """The lessons in this chapter"""
@@ -102,7 +102,7 @@ class Course(BaseModel):
     """A course from the courses app"""
 
     id: str
-    """The ID of the course. Looks like cors_XXX"""
+    """The unique identifier for the course."""
 
     certificate_after_completion_enabled: Optional[bool] = None
     """
@@ -117,7 +117,7 @@ class Course(BaseModel):
     """The URL of the course's cover image, which is shown in course preview cards"""
 
     created_at: datetime
-    """The timestamp of when the course was created"""
+    """The datetime the course was created."""
 
     description: Optional[str] = None
     """A short description of the course"""
@@ -150,7 +150,7 @@ class Course(BaseModel):
     """The title of the course"""
 
     updated_at: datetime
-    """The timestamp of when the course was last updated"""
+    """The datetime the course was last updated."""
 
     visibility: CourseVisibilities
     """The visibility of the course.

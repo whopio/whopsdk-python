@@ -12,14 +12,14 @@ class LessonChapter(BaseModel):
     """The chapter this lesson belongs to"""
 
     id: str
-    """The ID of the chapter. Looks like chap_XXX"""
+    """The unique identifier for the chapter."""
 
 
 class Lesson(BaseModel):
     """The lesson this interaction is for"""
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     chapter: LessonChapter
     """The chapter this lesson belongs to"""
@@ -32,7 +32,7 @@ class User(BaseModel):
     """The user who interacted with the lesson"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -45,13 +45,13 @@ class CourseLessonInteractionListItem(BaseModel):
     """A lesson interaction tracking user progress in courses"""
 
     id: str
-    """The ID of the lesson interaction"""
+    """The unique identifier for the lesson interaction."""
 
     completed: bool
     """Whether the lesson has been completed by the user"""
 
     created_at: datetime
-    """When the interaction was created"""
+    """The datetime the lesson interaction was created."""
 
     lesson: Lesson
     """The lesson this interaction is for"""

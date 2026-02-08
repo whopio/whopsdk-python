@@ -45,19 +45,26 @@ class Plan(BaseModel):
     """The plan to use for the checkout configuration"""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
     billing_period: Optional[int] = None
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     currency: Currency
     """The respective currency identifier for the plan."""
 
     expiration_days: Optional[int] = None
-    """The interval at which the plan charges (expiration plans)."""
+    """The number of days until the membership expires (for expiration-based plans).
+
+    For example, 365 for a one-year access pass.
+    """
 
     initial_price: float
-    """The price a person has to pay for a plan on the initial purchase."""
+    """The initial purchase price in the plan's base_currency (e.g., 49.99 for $49.99).
+
+    For one-time plans, this is the full price. For renewal plans, this is charged
+    on top of the first renewal_price.
+    """
 
     plan_type: PlanType
     """Indicates if the plan is a one time payment or recurring."""
@@ -66,7 +73,10 @@ class Plan(BaseModel):
     """This is the release method the business uses to sell this plan."""
 
     renewal_price: float
-    """The price a person has to pay for a plan on the renewal purchase."""
+    """
+    The recurring price charged every billing_period in the plan's base_currency
+    (e.g., 9.99 for $9.99/period). Zero for one-time plans.
+    """
 
     trial_period_days: Optional[int] = None
     """The number of free trial days added before a renewal plan."""
@@ -77,14 +87,11 @@ class Plan(BaseModel):
 
 class CheckoutConfigurationListResponse(BaseModel):
     """
-    A checkout configuration object.
-            Can be used to create a reusable custom configuration for a checkout, including attaching plans, affiliates and custom metadata to the checkout.
-            This configuration can be re-used by multiple users.
-            All successful payments and memberships resulting from a checkout will contain the passed metadata.
+    A checkout session is a reusable configuration for a checkout, including the plan, affiliate, and custom metadata. Payments and memberships created from a checkout session inherit its metadata.
     """
 
     id: str
-    """The ID of the checkout configuration"""
+    """The unique identifier for the checkout session."""
 
     affiliate_code: Optional[str] = None
     """The affiliate code to use for the checkout configuration"""

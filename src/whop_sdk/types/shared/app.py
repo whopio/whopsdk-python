@@ -23,20 +23,20 @@ class APIKey(BaseModel):
     """The API key for the app"""
 
     id: str
-    """The ID of this API key"""
+    """The unique identifier for the private api key."""
 
     token: str
     """This is the API key used to authenticate requests"""
 
     created_at: datetime
-    """When this API key was created at"""
+    """The datetime the private api key was created."""
 
 
 class Company(BaseModel):
     """The company that owns the app"""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
     """The title of the company."""
@@ -46,7 +46,7 @@ class Creator(BaseModel):
     """The creator of the app"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -121,10 +121,13 @@ class Stats(BaseModel):
 
 
 class App(BaseModel):
-    """An object representing an app"""
+    """An app is an integration built on Whop.
+
+    Apps can serve consumers as experiences within products, or serve companies as business tools.
+    """
 
     id: str
-    """The ID of the app"""
+    """The unique identifier for the app."""
 
     api_key: Optional[APIKey] = None
     """The API key for the app"""

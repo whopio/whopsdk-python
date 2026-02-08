@@ -15,20 +15,20 @@ class Payment(BaseModel):
     """The payment of the shipment"""
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
 
 class Shipment(BaseModel):
     """A shipment"""
 
     id: str
-    """The ID of the shipment"""
+    """The unique identifier for the shipment."""
 
     carrier: ShipmentCarrier
     """The carrier of the shipment"""
 
     created_at: datetime
-    """The date and time the shipment was created"""
+    """The datetime the shipment was created."""
 
     delivery_estimate: Optional[datetime] = None
     """The delivery estimate of the shipment"""
@@ -49,4 +49,4 @@ class Shipment(BaseModel):
     """The tracking code of the shipment"""
 
     updated_at: datetime
-    """The date and time the shipment was last updated"""
+    """The datetime the shipment was last updated."""

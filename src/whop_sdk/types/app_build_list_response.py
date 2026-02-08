@@ -15,7 +15,7 @@ class AppBuildListResponse(BaseModel):
     """An App Build object representing a build of an application"""
 
     id: str
-    """The ID of the app build. It will look like apbu_xxxxx."""
+    """The unique identifier for the app build."""
 
     checksum: str
     """
@@ -24,7 +24,7 @@ class AppBuildListResponse(BaseModel):
     """
 
     created_at: datetime
-    """When this app build was created."""
+    """The datetime the app build was created."""
 
     file_url: str
     """The URL to download the app build .zip file."""

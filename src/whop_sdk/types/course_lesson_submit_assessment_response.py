@@ -12,7 +12,7 @@ class Lesson(BaseModel):
     """The lesson this assessment result is for"""
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     title: str
     """The title of the lesson"""
@@ -22,7 +22,7 @@ class User(BaseModel):
     """The user who took the assessment"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -35,10 +35,10 @@ class CourseLessonSubmitAssessmentResponse(BaseModel):
     """The result of a user's assessment attempt"""
 
     id: str
-    """The ID of the assessment result"""
+    """The unique identifier for the assessment result."""
 
     created_at: datetime
-    """When the assessment was taken"""
+    """The datetime the assessment result was created."""
 
     lesson: Lesson
     """The lesson this assessment result is for"""
@@ -62,7 +62,7 @@ class CourseLessonSubmitAssessmentResponse(BaseModel):
     """The percentage score achieved on the assessment"""
 
     updated_at: datetime
-    """When the assessment result was last updated"""
+    """The datetime the assessment result was last updated."""
 
     user: User
     """The user who took the assessment"""

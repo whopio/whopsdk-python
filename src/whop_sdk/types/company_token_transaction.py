@@ -13,7 +13,7 @@ class Company(BaseModel):
     """The company"""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -26,14 +26,14 @@ class Member(BaseModel):
     """The member"""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
 
 class User(BaseModel):
     """The user whose balance changed"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -46,7 +46,7 @@ class CompanyTokenTransaction(BaseModel):
     """A token transaction within a company"""
 
     id: str
-    """The ID of the transaction"""
+    """The unique identifier for the company token transaction."""
 
     amount: float
     """The transaction amount (always positive)"""
@@ -55,7 +55,7 @@ class CompanyTokenTransaction(BaseModel):
     """The company"""
 
     created_at: datetime
-    """When the transaction was created"""
+    """The datetime the company token transaction was created."""
 
     description: Optional[str] = None
     """Optional description"""

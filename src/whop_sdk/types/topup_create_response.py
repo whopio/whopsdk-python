@@ -11,13 +11,16 @@ __all__ = ["TopupCreateResponse"]
 
 
 class TopupCreateResponse(BaseModel):
-    """An object representing a receipt for a membership."""
+    """A payment represents a completed or attempted charge for a membership.
+
+    Payments track the amount, status, currency, and payment method used.
+    """
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""

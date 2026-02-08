@@ -12,14 +12,14 @@ class Member(BaseModel):
     """The converted member, if any."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
 
 class Product(BaseModel):
     """The access pass the lead is interested in, if available."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
@@ -29,7 +29,7 @@ class User(BaseModel):
     """The user who is the lead."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
     """The email of the user"""
@@ -45,10 +45,10 @@ class LeadListResponse(BaseModel):
     """An object representing a lead (someone who is interested in a whop)."""
 
     id: str
-    """The ID of the lead."""
+    """The unique identifier for the lead."""
 
     created_at: datetime
-    """The timestamp of when the lead was created."""
+    """The datetime the lead was created."""
 
     member: Optional[Member] = None
     """The converted member, if any."""
@@ -63,7 +63,7 @@ class LeadListResponse(BaseModel):
     """The referrer URL that brought this lead."""
 
     updated_at: datetime
-    """The timestamp of when the lead was last updated."""
+    """The datetime the lead was last updated."""
 
     user: User
     """The user who is the lead."""

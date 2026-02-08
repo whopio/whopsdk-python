@@ -44,7 +44,8 @@ class PlanCreateParams(TypedDict, total=False):
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -74,8 +75,8 @@ class PlanCreateParams(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     split_pay_required_payments: Optional[int]
@@ -91,7 +92,10 @@ class PlanCreateParams(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

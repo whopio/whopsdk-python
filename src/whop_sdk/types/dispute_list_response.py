@@ -14,7 +14,7 @@ class Company(BaseModel):
     """The company the dispute is against."""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     title: str
     """The written name of the company."""
@@ -24,31 +24,33 @@ class Payment(BaseModel):
     """The payment that got disputed"""
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
 
 class Plan(BaseModel):
     """The plan that got disputed"""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
     """The product that got disputed"""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
 
 
 class DisputeListResponse(BaseModel):
-    """An object representing a dispute against a company."""
+    """
+    A dispute is a chargeback or payment challenge filed against a company, including evidence and response status.
+    """
 
     id: str
-    """The internal ID of the dispute."""
+    """The unique identifier for the dispute."""
 
     amount: float
     """The amount of the dispute (formatted)."""
@@ -57,7 +59,7 @@ class DisputeListResponse(BaseModel):
     """The company the dispute is against."""
 
     created_at: Optional[datetime] = None
-    """When it was made."""
+    """The datetime the dispute was created."""
 
     currency: Currency
     """The currency of the dispute."""

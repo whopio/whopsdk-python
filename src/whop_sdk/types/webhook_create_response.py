@@ -11,10 +11,12 @@ __all__ = ["WebhookCreateResponse"]
 
 
 class WebhookCreateResponse(BaseModel):
-    """A webhook object, which can be configured to be sent updates about a company"""
+    """
+    A webhook endpoint that receives event notifications for a company via HTTP POST.
+    """
 
     id: str
-    """The ID of the webhook"""
+    """The unique identifier for the webhook."""
 
     api_version: APIVersion
     """The API version for this webhook"""
@@ -27,7 +29,7 @@ class WebhookCreateResponse(BaseModel):
     """
 
     created_at: datetime
-    """The timestamp of when the webhook was created"""
+    """The datetime the webhook was created."""
 
     enabled: bool
     """Whether or not this webhook is turned on or not"""
