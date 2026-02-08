@@ -9,7 +9,7 @@ class CourseChapterListResponse(BaseModel):
     """A chapter from the courses app"""
 
     id: str
-    """The ID of the chapter. Looks like chap_XXX"""
+    """The unique identifier for the chapter."""
 
     order: int
     """The order of the chapter within its course"""

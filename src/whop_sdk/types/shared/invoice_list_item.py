@@ -14,7 +14,7 @@ class CurrentPlan(BaseModel):
     """The plan that the invoice was created for."""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
     currency: Currency
     """The respective currency identifier for the plan."""
@@ -27,7 +27,7 @@ class User(BaseModel):
     """The user that the invoice was created for."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -40,10 +40,10 @@ class InvoiceListItem(BaseModel):
     """A statement that defines an amount due by a customer."""
 
     id: str
-    """The ID of the invoice."""
+    """The unique identifier for the invoice."""
 
     created_at: datetime
-    """The date the invoice was created."""
+    """The datetime the invoice was created."""
 
     current_plan: CurrentPlan
     """The plan that the invoice was created for."""

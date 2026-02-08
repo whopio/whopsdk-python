@@ -13,7 +13,7 @@ class TransferListResponse(BaseModel):
     """Credit Transaction Transfer"""
 
     id: str
-    """The unique identifier of the credit transaction transfer"""
+    """The unique identifier for the credit transaction transfer."""
 
     amount: float
     """The amount of the transfer.
@@ -22,7 +22,7 @@ class TransferListResponse(BaseModel):
     """
 
     created_at: datetime
-    """The timestamp when the credit transaction transfer was created"""
+    """The datetime the credit transaction transfer was created."""
 
     currency: Currency
     """The currency of the credit transaction transfer"""

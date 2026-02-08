@@ -13,7 +13,7 @@ class Experience(BaseModel):
     """The experience for this chat"""
 
     id: str
-    """The unique ID representing this experience"""
+    """The unique identifier for the experience."""
 
     name: str
     """The written name of the description."""

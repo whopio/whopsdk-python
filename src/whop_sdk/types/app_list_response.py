@@ -13,7 +13,7 @@ class Company(BaseModel):
     """The company that owns the app"""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
     """The title of the company."""
@@ -23,7 +23,7 @@ class Creator(BaseModel):
     """The creator of the app"""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""
@@ -46,10 +46,13 @@ class Icon(BaseModel):
 
 
 class AppListResponse(BaseModel):
-    """An object representing an app"""
+    """An app is an integration built on Whop.
+
+    Apps can serve consumers as experiences within products, or serve companies as business tools.
+    """
 
     id: str
-    """The ID of the app"""
+    """The unique identifier for the app."""
 
     app_type: AppType
     """The type of end-user an app is built for"""

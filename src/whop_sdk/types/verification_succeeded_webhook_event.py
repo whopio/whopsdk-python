@@ -15,7 +15,7 @@ class Data(BaseModel):
     """An object representing an identity verification session"""
 
     id: str
-    """A unique identifier for the verification."""
+    """The unique identifier for the verification."""
 
     last_error_code: Optional[VerificationErrorCode] = None
     """An error code for a verification attempt."""

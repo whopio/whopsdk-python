@@ -21,7 +21,7 @@ class PaymentMember(BaseModel):
     """The member attached to this payment."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     phone: Optional[str] = None
     """The phone number for the member, if available."""
@@ -31,7 +31,7 @@ class PaymentMembership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
-    """The internal ID of the membership."""
+    """The unique identifier for the membership."""
 
     status: MembershipStatus
     """The state of the membership."""
@@ -41,7 +41,7 @@ class PaymentUser(BaseModel):
     """The user that made this payment."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
     """The email of the user"""
@@ -57,7 +57,7 @@ class Payment(BaseModel):
     """The payment associated with the refund."""
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     billing_reason: Optional[BillingReasons] = None
     """The reason why a specific payment was billed"""
@@ -69,7 +69,7 @@ class Payment(BaseModel):
     """The last 4 digits of the card used to make the payment."""
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -103,10 +103,12 @@ class Payment(BaseModel):
 
 
 class RefundRetrieveResponse(BaseModel):
-    """An object representing a refund made on a payment."""
+    """
+    A refund represents a full or partial reversal of a payment, including the amount, status, and payment provider.
+    """
 
     id: str
-    """The ID of the refund."""
+    """The unique identifier for the refund."""
 
     amount: float
     """The amount of the refund.
@@ -115,7 +117,7 @@ class RefundRetrieveResponse(BaseModel):
     """
 
     created_at: datetime
-    """The time the refund was created."""
+    """The datetime the refund was created."""
 
     currency: Currency
     """The currency of the refund."""

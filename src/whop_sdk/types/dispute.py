@@ -50,7 +50,7 @@ class Company(BaseModel):
     """The company the dispute is against."""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     title: str
     """The written name of the company."""
@@ -79,7 +79,7 @@ class PaymentMember(BaseModel):
     """The member attached to this payment."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     phone: Optional[str] = None
     """The phone number for the member, if available."""
@@ -89,7 +89,7 @@ class PaymentMembership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
-    """The internal ID of the membership."""
+    """The unique identifier for the membership."""
 
     status: MembershipStatus
     """The state of the membership."""
@@ -99,7 +99,7 @@ class PaymentUser(BaseModel):
     """The user that made this payment."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
     """The email of the user"""
@@ -115,7 +115,7 @@ class Payment(BaseModel):
     """The payment that got disputed"""
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     billing_reason: Optional[BillingReasons] = None
     """The reason why a specific payment was billed"""
@@ -127,7 +127,7 @@ class Payment(BaseModel):
     """The last 4 digits of the card used to make the payment."""
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -164,14 +164,14 @@ class Plan(BaseModel):
     """The plan that got disputed"""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
     """The product that got disputed"""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
@@ -216,10 +216,12 @@ class UncategorizedAttachment(BaseModel):
 
 
 class Dispute(BaseModel):
-    """An object representing a dispute against a company."""
+    """
+    A dispute is a chargeback or payment challenge filed against a company, including evidence and response status.
+    """
 
     id: str
-    """The internal ID of the dispute."""
+    """The unique identifier for the dispute."""
 
     access_activity_log: Optional[str] = None
     """An IP access log for the user from Whop."""
@@ -240,7 +242,7 @@ class Dispute(BaseModel):
     """The company the dispute is against."""
 
     created_at: Optional[datetime] = None
-    """When it was made."""
+    """The datetime the dispute was created."""
 
     currency: Currency
     """The currency of the dispute."""

@@ -18,7 +18,10 @@ class WithdrawalCreatedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Withdrawal
-    """A withdrawal request."""
+    """
+    A withdrawal represents a request to transfer funds from a company's ledger
+    account to an external payout method.
+    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

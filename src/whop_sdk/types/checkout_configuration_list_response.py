@@ -45,7 +45,7 @@ class Plan(BaseModel):
     """The plan to use for the checkout configuration"""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
     billing_period: Optional[int] = None
     """The interval in days at which the plan charges (renewal plans)."""
@@ -87,14 +87,11 @@ class Plan(BaseModel):
 
 class CheckoutConfigurationListResponse(BaseModel):
     """
-    A checkout configuration object.
-            Can be used to create a reusable custom configuration for a checkout, including attaching plans, affiliates and custom metadata to the checkout.
-            This configuration can be re-used by multiple users.
-            All successful payments and memberships resulting from a checkout will contain the passed metadata.
+    A checkout session is a reusable configuration for a checkout, including the plan, affiliate, and custom metadata. Payments and memberships created from a checkout session inherit its metadata.
     """
 
     id: str
-    """The ID of the checkout configuration"""
+    """The unique identifier for the checkout session."""
 
     affiliate_code: Optional[str] = None
     """The affiliate code to use for the checkout configuration"""

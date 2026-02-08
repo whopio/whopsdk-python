@@ -25,7 +25,7 @@ class App(BaseModel):
     """The experience interface for this experience."""
 
     id: str
-    """The ID of the app"""
+    """The unique identifier for the app."""
 
     icon: Optional[AppIcon] = None
     """The icon for the app.
@@ -42,7 +42,7 @@ class Company(BaseModel):
     """The company that owns this experience."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -62,10 +62,13 @@ class Image(BaseModel):
 
 
 class Product(BaseModel):
-    """Represents a product on whop. Use products to sell anything on the platform."""
+    """A product is a digital good or service sold on Whop.
+
+    Products contain plans for pricing and experiences for content delivery.
+    """
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     route: str
     """The route of the product."""
@@ -75,10 +78,12 @@ class Product(BaseModel):
 
 
 class Experience(BaseModel):
-    """An object representing an experience belonging to a company."""
+    """
+    An experience is a feature or content module within a product, such as a chat, course, or app.
+    """
 
     id: str
-    """The unique ID representing this experience"""
+    """The unique identifier for the experience."""
 
     app: App
     """The experience interface for this experience."""
@@ -87,7 +92,7 @@ class Experience(BaseModel):
     """The company that owns this experience."""
 
     created_at: datetime
-    """The timestamp of when this experience was created."""
+    """The datetime the experience was created."""
 
     image: Optional[Image] = None
     """The logo for the experience."""

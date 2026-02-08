@@ -17,14 +17,16 @@ class Payment(BaseModel):
     """The payment associated with the refund."""
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
 
 class RefundListResponse(BaseModel):
-    """An object representing a refund made on a payment."""
+    """
+    A refund represents a full or partial reversal of a payment, including the amount, status, and payment provider.
+    """
 
     id: str
-    """The ID of the refund."""
+    """The unique identifier for the refund."""
 
     amount: float
     """The amount of the refund.
@@ -33,7 +35,7 @@ class RefundListResponse(BaseModel):
     """
 
     created_at: datetime
-    """The time the refund was created."""
+    """The datetime the refund was created."""
 
     currency: Currency
     """The currency of the refund."""

@@ -18,9 +18,9 @@ class MembershipCancelAtPeriodEndChangedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Membership
-    """
-    A membership represents a purchase between a User and a Company for a specific
-    Product.
+    """A membership represents an active relationship between a user and a product.
+
+    It tracks the user's access, billing status, and renewal schedule.
     """
 
     timestamp: datetime

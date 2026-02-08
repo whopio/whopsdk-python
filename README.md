@@ -34,12 +34,9 @@ pip install whop-sdk
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from whop_sdk import Whop
 
-client = Whop(
-    api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
-)
+client = Whop()
 
 page = client.payments.list(
     company_id="biz_xxxxxxxxxxxxxx",
@@ -57,13 +54,10 @@ so that your API Key is not stored in source control.
 Simply import `AsyncWhop` instead of `Whop` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from whop_sdk import AsyncWhop
 
-client = AsyncWhop(
-    api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
-)
+client = AsyncWhop()
 
 
 async def main() -> None:
@@ -92,7 +86,6 @@ pip install whop-sdk[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from whop_sdk import DefaultAioHttpClient
 from whop_sdk import AsyncWhop
@@ -100,7 +93,6 @@ from whop_sdk import AsyncWhop
 
 async def main() -> None:
     async with AsyncWhop(
-        api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         page = await client.payments.list(

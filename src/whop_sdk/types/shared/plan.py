@@ -19,7 +19,7 @@ class Company(BaseModel):
     """The company for the plan."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
     """The title of the company."""
@@ -29,7 +29,7 @@ class CustomField(BaseModel):
     """An object representing a custom field for a plan."""
 
     id: str
-    """The internal ID of the given custom field"""
+    """The unique identifier for the custom field."""
 
     field_type: Literal["text"]
     """What type of input field to use."""
@@ -51,7 +51,7 @@ class Invoice(BaseModel):
     """The invoice associated with this plan."""
 
     id: str
-    """The ID of the invoice."""
+    """The unique identifier for the invoice."""
 
 
 class PaymentMethodConfiguration(BaseModel):
@@ -83,20 +83,20 @@ class Product(BaseModel):
     """The product that this plan belongs to."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
     """The title of the product. Use for Whop 4.0."""
 
 
 class Plan(BaseModel):
-    """A plan for an product.
+    """A plan defines pricing and billing terms for a product.
 
-    Plans define the core parameters that define a checkout and payment on whop. Use plans to create different ways to price your products (Eg renewal / one_time)
+    Each product can have multiple plans representing different pricing options, such as one-time payments, recurring subscriptions, or free trials.
     """
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
     billing_period: Optional[int] = None
     """The interval in days at which the plan charges (renewal plans)."""
@@ -108,7 +108,7 @@ class Plan(BaseModel):
     """The company for the plan."""
 
     created_at: datetime
-    """When the plan was created."""
+    """The datetime the plan was created."""
 
     currency: Currency
     """The respective currency identifier for the plan."""
@@ -184,7 +184,7 @@ class Plan(BaseModel):
     """
 
     updated_at: datetime
-    """When the plan was last updated."""
+    """The datetime the plan was last updated."""
 
     visibility: Visibility
     """Shows or hides the plan from public/business view."""

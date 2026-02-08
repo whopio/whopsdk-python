@@ -12,7 +12,7 @@ class Company(BaseModel):
     """The company associated with the authorized user."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
     """The title of the company."""
@@ -22,7 +22,7 @@ class User(BaseModel):
     """The user associated with the authorized user."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
     """The email of the user"""
@@ -38,7 +38,7 @@ class AuthorizedUserListResponse(BaseModel):
     """A user who has elevated security privileges for a company"""
 
     id: str
-    """A unique ID representing the authorized user object."""
+    """The unique identifier for the authorized user."""
 
     company: Company
     """The company associated with the authorized user."""

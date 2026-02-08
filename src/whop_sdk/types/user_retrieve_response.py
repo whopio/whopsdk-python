@@ -19,16 +19,19 @@ class ProfilePicture(BaseModel):
 
 
 class UserRetrieveResponse(BaseModel):
-    """An object representing a (sanitized) user of the site."""
+    """A user account on Whop.
+
+    Contains profile information, identity details, and social connections.
+    """
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     bio: Optional[str] = None
     """The user's bio"""
 
     created_at: datetime
-    """When the user was created."""
+    """The datetime the user was created."""
 
     name: Optional[str] = None
     """The name of the user from their Whop account."""

@@ -17,7 +17,7 @@ class LedgerAccount(BaseModel):
     """The ledger account associated with the withdrawal."""
 
     id: str
-    """The ID of the LedgerAccount."""
+    """The unique identifier for the ledger account."""
 
     company_id: Optional[str] = None
     """The ID of the company associated with this ledger account."""
@@ -27,10 +27,10 @@ class PayoutToken(BaseModel):
     """The payout token used for the withdrawal, if applicable."""
 
     id: str
-    """The ID of the payout token"""
+    """The unique identifier for the payout token."""
 
     created_at: datetime
-    """The date and time the payout token was created"""
+    """The datetime the payout token was created."""
 
     destination_currency_code: str
     """The currency code of the payout destination.
@@ -49,10 +49,12 @@ class PayoutToken(BaseModel):
 
 
 class Withdrawal(BaseModel):
-    """A withdrawal request."""
+    """
+    A withdrawal represents a request to transfer funds from a company's ledger account to an external payout method.
+    """
 
     id: str
-    """Internal ID of the withdrawal request."""
+    """The unique identifier for the withdrawal."""
 
     amount: float
     """The withdrawal amount.
@@ -61,7 +63,7 @@ class Withdrawal(BaseModel):
     """
 
     created_at: datetime
-    """When the withdrawal request was created."""
+    """The datetime the withdrawal was created."""
 
     currency: Currency
     """The currency of the withdrawal request."""
