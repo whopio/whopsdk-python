@@ -10,20 +10,23 @@ __all__ = ["UserUpdateProfileParams", "ProfilePicture"]
 
 class UserUpdateProfileParams(TypedDict, total=False):
     bio: Optional[str]
-    """User biography"""
+    """A short biography displayed on the user's public profile."""
 
     name: Optional[str]
-    """Display name"""
+    """The user's display name shown on their public profile. Maximum 100 characters."""
 
     profile_picture: Optional[ProfilePicture]
-    """Profile picture"""
+    """The user's profile picture image attachment."""
 
     username: Optional[str]
-    """Username (alphanumeric and hyphens)"""
+    """The user's unique username.
+
+    Alphanumeric characters and hyphens only. Maximum 42 characters.
+    """
 
 
 class ProfilePicture(TypedDict, total=False):
-    """Profile picture"""
+    """The user's profile picture image attachment."""
 
     id: Required[str]
     """The ID of an existing file object."""

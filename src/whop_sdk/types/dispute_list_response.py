@@ -41,7 +41,10 @@ class Product(BaseModel):
     """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class DisputeListResponse(BaseModel):

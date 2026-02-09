@@ -15,9 +15,9 @@ class ChapterLessonThumbnail(BaseModel):
     """The thumbnail for the lesson"""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -76,25 +76,25 @@ class Thumbnail(BaseModel):
     """The thumbnail for the course"""
 
     id: str
-    """The ID of the attachment"""
+    """The unique identifier of the attachment."""
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     optimized_url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
     source_url: Optional[str] = None
-    """The original URL of the attachment, such as a direct link to S3.
+    """The original source URL of the attachment, such as a direct link to S3.
 
-    This should never be displayed on the client and always passed to an Imgproxy
-    transformer.
+    This should never be displayed on the client and should always be passed through
+    an Imgproxy transformer.
     """
 
 

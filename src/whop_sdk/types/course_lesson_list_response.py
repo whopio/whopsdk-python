@@ -15,9 +15,9 @@ class Thumbnail(BaseModel):
     """The thumbnail for the lesson"""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
