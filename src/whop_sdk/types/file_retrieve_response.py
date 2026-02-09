@@ -9,22 +9,25 @@ __all__ = ["FileRetrieveResponse"]
 
 
 class FileRetrieveResponse(BaseModel):
-    """A file that has been uploaded or is pending upload"""
+    """A file that has been uploaded or is pending upload."""
 
     id: str
     """The unique identifier for the file."""
 
     content_type: Optional[str] = None
-    """The MIME type of the file (e.g., image/jpeg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded file, including its file extension."""
 
     size: Optional[str] = None
-    """The size of the file in bytes"""
+    """The file size in bytes. Null if the file has not finished uploading."""
 
     upload_status: UploadStatus
-    """The upload status of the file"""
+    """The current upload status of the file (e.g., pending, ready)."""
 
     url: Optional[str] = None
-    """The URL to access the file"""
+    """The CDN URL for accessing the file.
+
+    Null if the file has not finished uploading.
+    """

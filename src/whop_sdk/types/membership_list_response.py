@@ -18,7 +18,7 @@ class Company(BaseModel):
     """The unique identifier for the company."""
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class Member(BaseModel):
@@ -42,7 +42,10 @@ class Product(BaseModel):
     """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class PromoCode(BaseModel):
@@ -59,13 +62,16 @@ class User(BaseModel):
     """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class MembershipListResponse(BaseModel):

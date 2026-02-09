@@ -27,36 +27,47 @@ class ProductListItem(BaseModel):
     """The datetime the product was created."""
 
     external_identifier: Optional[str] = None
-    """A unique identifier used to create or update products.
+    """A unique identifier used to create or update products via the API.
 
-    When provided on product creation endpoints, we’ll look up an existing product
-    by this identifier — if it exists, we’ll update it; if not, we’ll create a new
-    one.
+    When provided on product creation endpoints, an existing product with this
+    identifier will be updated instead of creating a new one.
     """
 
     headline: Optional[str] = None
-    """The headline of the product."""
+    """A short marketing headline displayed prominently on the product's product page."""
 
     industry_type: Optional[IndustryTypes] = None
     """The different industry types a company can be in."""
 
     member_count: int
-    """The number of active users for this product."""
+    """The number of users who currently hold an active membership to this product.
+
+    Returns 0 if the company has disabled public member counts.
+    """
 
     published_reviews_count: int
-    """The number of reviews that have been published for the product."""
+    """The total number of published customer reviews for this product's company."""
 
     route: str
-    """The route of the product."""
+    """
+    The URL slug used in the product's public link (e.g., 'my-product' in
+    whop.com/company/my-product).
+    """
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
     updated_at: datetime
     """The datetime the product was last updated."""
 
     verified: bool
-    """Whether this product is Whop verified."""
+    """Whether this company has been verified by Whop's trust and safety team."""
 
     visibility: Visibility
-    """This product will/will not be displayed publicly."""
+    """Controls whether the product is visible to customers.
+
+    When set to 'hidden', the product is only accessible via direct link.
+    """

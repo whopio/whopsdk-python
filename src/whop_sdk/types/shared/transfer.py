@@ -21,13 +21,13 @@ class DestinationUser(BaseModel):
     """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     typename: Literal["User"]
     """The typename of this object"""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class DestinationCompany(BaseModel):
@@ -40,10 +40,12 @@ class DestinationCompany(BaseModel):
     """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
     typename: Literal["Company"]
     """The typename of this object"""
@@ -64,13 +66,13 @@ class OriginUser(BaseModel):
     """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     typename: Literal["User"]
     """The typename of this object"""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class OriginCompany(BaseModel):
@@ -83,10 +85,12 @@ class OriginCompany(BaseModel):
     """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
     typename: Literal["Company"]
     """The typename of this object"""

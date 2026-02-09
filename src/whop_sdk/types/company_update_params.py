@@ -13,41 +13,42 @@ __all__ = ["CompanyUpdateParams", "BannerImage", "Logo"]
 
 class CompanyUpdateParams(TypedDict, total=False):
     banner_image: Optional[BannerImage]
-    """The banner image for the company in png or jpeg format"""
+    """The company's banner image. Accepts PNG or JPEG format."""
 
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
 
     description: Optional[str]
-    """A description of what the company offers or does."""
+    """
+    A promotional pitch displayed to potential customers on the company's store
+    page.
+    """
 
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
 
     logo: Optional[Logo]
-    """The logo for the company in png, jpeg, or gif format"""
+    """The company's logo image. Accepts PNG, JPEG, or GIF format."""
 
     send_customer_emails: Optional[bool]
-    """Whether Whop sends transactional emails to customers on behalf of this company.
-
-    Includes: order confirmations, payment failures, refund notifications, upcoming
-    renewals, and membership cancelations/expirations. When disabled, the platform
-    is responsible for handling these communications.
+    """
+    Whether Whop sends transactional emails (receipts, renewals, cancelations) to
+    customers on behalf of this company.
     """
 
     title: Optional[str]
-    """The title of the company"""
+    """The display name of the company shown to customers."""
 
 
 class BannerImage(TypedDict, total=False):
-    """The banner image for the company in png or jpeg format"""
+    """The company's banner image. Accepts PNG or JPEG format."""
 
     id: Required[str]
     """The ID of an existing file object."""
 
 
 class Logo(TypedDict, total=False):
-    """The logo for the company in png, jpeg, or gif format"""
+    """The company's logo image. Accepts PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

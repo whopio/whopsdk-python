@@ -16,7 +16,7 @@ class Company(BaseModel):
     """The unique identifier for the company."""
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class Creator(BaseModel):
@@ -26,10 +26,10 @@ class Creator(BaseModel):
     """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class Icon(BaseModel):
@@ -39,9 +39,9 @@ class Icon(BaseModel):
     """
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 

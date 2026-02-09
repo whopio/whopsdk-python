@@ -14,23 +14,23 @@ class Logo(BaseModel):
     """The company's logo."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class OwnerUser(BaseModel):
-    """The user who owns this company"""
+    """The user who owns and has full administrative control over this company."""
 
     id: str
     """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class CompanyListResponse(BaseModel):
@@ -49,7 +49,10 @@ class CompanyListResponse(BaseModel):
     """The datetime the company was created."""
 
     description: Optional[str] = None
-    """The creator pitch for the company."""
+    """
+    A promotional pitch written by the company creator, displayed to potential
+    customers on the store page.
+    """
 
     industry_type: Optional[IndustryTypes] = None
     """The different industry types a company can be in."""
@@ -58,31 +61,42 @@ class CompanyListResponse(BaseModel):
     """The company's logo."""
 
     member_count: int
-    """The number of members in the company."""
+    """
+    The total number of users who currently hold active memberships across all of
+    this company's products.
+    """
 
     metadata: Optional[Dict[str, object]] = None
     """
-    A key-value store of data for the account, created/updated by the platform that
-    made the account.
+    A key-value JSON object of custom metadata for this company, managed by the
+    platform that created the account.
     """
 
     owner_user: OwnerUser
-    """The user who owns this company"""
+    """The user who owns and has full administrative control over this company."""
 
     published_reviews_count: int
-    """The number of reviews that have been published for the company."""
+    """
+    The total number of published customer reviews across all products for this
+    company.
+    """
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     send_customer_emails: bool
-    """Whether Whop sends transactional emails to customers on behalf of this company."""
+    """
+    Whether Whop sends transactional emails (receipts, updates) to customers on
+    behalf of this company.
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
     updated_at: datetime
     """The datetime the company was last updated."""
 
     verified: bool
-    """If the company is Whop Verified"""
+    """Whether this company has been verified by Whop's trust and safety team."""

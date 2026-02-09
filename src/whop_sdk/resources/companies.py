@@ -70,8 +70,8 @@ class CompaniesResource(SyncAPIResource):
     ) -> Company:
         """Create a new company.
 
-        Pass parent_company_id to create a sub-company under a
-        platform, or omit it to create a company for the current user.
+        Pass parent_company_id to create a connected account under
+        a platform, or omit it to create a company for the current user.
 
         Required permissions:
 
@@ -79,26 +79,28 @@ class CompaniesResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          title: The name of the company being created.
+          title: The display name of the company shown to customers.
 
           business_type: The different business types a company can be.
 
-          description: A description of what the company offers or does.
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
 
-          email: The email of the user who the sub-company will belong to. Required when
+          email: The email address of the user who will own the connected account. Required when
               parent_company_id is provided.
 
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          metadata: Additional metadata for the company
+          metadata: A key-value JSON object of custom metadata to store on the company.
 
-          parent_company_id: The company ID of the platform creating this sub-company. If omitted, the
-              company is created for the current user.
+          parent_company_id: The unique identifier of the parent platform company. When provided, creates a
+              connected account under that platform. Omit to create a company for the current
+              user.
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Only used when parent_company_id is provided.
+              Only applies when creating a connected account.
 
           extra_headers: Send extra headers
 
@@ -142,7 +144,7 @@ class CompaniesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieves an company by ID or its url route
+        Retrieve a single company by its unique identifier or route slug.
 
         Required permissions:
 
@@ -196,22 +198,21 @@ class CompaniesResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          banner_image: The banner image for the company in png or jpeg format
+          banner_image: The company's banner image. Accepts PNG or JPEG format.
 
           business_type: The different business types a company can be.
 
-          description: A description of what the company offers or does.
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
 
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Includes: order confirmations, payment failures, refund notifications, upcoming
-              renewals, and membership cancelations/expirations. When disabled, the platform
-              is responsible for handling these communications.
+          send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
+              customers on behalf of this company.
 
-          title: The title of the company
+          title: The display name of the company shown to customers.
 
           extra_headers: Send extra headers
 
@@ -261,10 +262,10 @@ class CompaniesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CompanyListResponse]:
-        """Lists companies.
+        """List companies.
 
         When parent_company_id is provided, lists connected accounts
-        under that company. When omitted, lists companies the current user has access
+        under that platform. When omitted, lists companies the current user has access
         to.
 
         Required permissions:
@@ -276,9 +277,9 @@ class CompaniesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return companies created after this datetime.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return companies created before this datetime.
 
           direction: The direction of the sort.
 
@@ -286,8 +287,9 @@ class CompaniesResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          parent_company_id: The ID of the parent company to list connected accounts for. Omit to list the
-              current user's own companies.
+          parent_company_id: The unique identifier of the parent platform company. When provided, lists
+              connected accounts under that platform. Omit to list the current user's own
+              companies.
 
           extra_headers: Send extra headers
 
@@ -364,8 +366,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
     ) -> Company:
         """Create a new company.
 
-        Pass parent_company_id to create a sub-company under a
-        platform, or omit it to create a company for the current user.
+        Pass parent_company_id to create a connected account under
+        a platform, or omit it to create a company for the current user.
 
         Required permissions:
 
@@ -373,26 +375,28 @@ class AsyncCompaniesResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          title: The name of the company being created.
+          title: The display name of the company shown to customers.
 
           business_type: The different business types a company can be.
 
-          description: A description of what the company offers or does.
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
 
-          email: The email of the user who the sub-company will belong to. Required when
+          email: The email address of the user who will own the connected account. Required when
               parent_company_id is provided.
 
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          metadata: Additional metadata for the company
+          metadata: A key-value JSON object of custom metadata to store on the company.
 
-          parent_company_id: The company ID of the platform creating this sub-company. If omitted, the
-              company is created for the current user.
+          parent_company_id: The unique identifier of the parent platform company. When provided, creates a
+              connected account under that platform. Omit to create a company for the current
+              user.
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Only used when parent_company_id is provided.
+              Only applies when creating a connected account.
 
           extra_headers: Send extra headers
 
@@ -436,7 +440,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieves an company by ID or its url route
+        Retrieve a single company by its unique identifier or route slug.
 
         Required permissions:
 
@@ -490,22 +494,21 @@ class AsyncCompaniesResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          banner_image: The banner image for the company in png or jpeg format
+          banner_image: The company's banner image. Accepts PNG or JPEG format.
 
           business_type: The different business types a company can be.
 
-          description: A description of what the company offers or does.
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
 
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Includes: order confirmations, payment failures, refund notifications, upcoming
-              renewals, and membership cancelations/expirations. When disabled, the platform
-              is responsible for handling these communications.
+          send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
+              customers on behalf of this company.
 
-          title: The title of the company
+          title: The display name of the company shown to customers.
 
           extra_headers: Send extra headers
 
@@ -555,10 +558,10 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CompanyListResponse, AsyncCursorPage[CompanyListResponse]]:
-        """Lists companies.
+        """List companies.
 
         When parent_company_id is provided, lists connected accounts
-        under that company. When omitted, lists companies the current user has access
+        under that platform. When omitted, lists companies the current user has access
         to.
 
         Required permissions:
@@ -570,9 +573,9 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return companies created after this datetime.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return companies created before this datetime.
 
           direction: The direction of the sort.
 
@@ -580,8 +583,9 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          parent_company_id: The ID of the parent company to list connected accounts for. Omit to list the
-              current user's own companies.
+          parent_company_id: The unique identifier of the parent platform company. When provided, lists
+              connected accounts under that platform. Omit to list the current user's own
+              companies.
 
           extra_headers: Send extra headers
 

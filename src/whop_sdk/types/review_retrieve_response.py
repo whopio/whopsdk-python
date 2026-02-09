@@ -13,18 +13,18 @@ class Attachment(BaseModel):
     """Represents an image attachment"""
 
     id: str
-    """The ID of the attachment"""
+    """The unique identifier of the attachment."""
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -35,10 +35,12 @@ class Company(BaseModel):
     """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class Product(BaseModel):
@@ -48,7 +50,10 @@ class Product(BaseModel):
     """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class User(BaseModel):
@@ -58,10 +63,10 @@ class User(BaseModel):
     """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class ReviewRetrieveResponse(BaseModel):

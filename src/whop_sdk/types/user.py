@@ -9,12 +9,15 @@ __all__ = ["User", "ProfilePicture"]
 
 
 class ProfilePicture(BaseModel):
-    """The user's profile picture"""
+    """The user's profile picture attachment with URL, content type, and file metadata.
+
+    Null if using a legacy profile picture.
+    """
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -28,16 +31,19 @@ class User(BaseModel):
     """The unique identifier for the user."""
 
     bio: Optional[str] = None
-    """The user's bio"""
+    """A short biography written by the user, displayed on their public profile."""
 
     created_at: datetime
     """The datetime the user was created."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     profile_picture: Optional[ProfilePicture] = None
-    """The user's profile picture"""
+    """The user's profile picture attachment with URL, content type, and file metadata.
+
+    Null if using a legacy profile picture.
+    """
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""

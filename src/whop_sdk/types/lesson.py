@@ -26,18 +26,18 @@ class AssessmentQuestionImage(BaseModel):
     """Optional image attachment for the question"""
 
     id: str
-    """The ID of the attachment"""
+    """The unique identifier of the attachment."""
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -96,18 +96,18 @@ class Attachment(BaseModel):
     """Represents an image attachment"""
 
     id: str
-    """The ID of the attachment"""
+    """The unique identifier of the attachment."""
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -115,18 +115,18 @@ class MainPdf(BaseModel):
     """The main PDF file for this lesson"""
 
     id: str
-    """The ID of the attachment"""
+    """The unique identifier of the attachment."""
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -134,9 +134,9 @@ class Thumbnail(BaseModel):
     """The thumbnail for the lesson"""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 

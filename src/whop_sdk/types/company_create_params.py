@@ -13,16 +13,19 @@ __all__ = ["CompanyCreateParams", "Logo"]
 
 class CompanyCreateParams(TypedDict, total=False):
     title: Required[str]
-    """The name of the company being created."""
+    """The display name of the company shown to customers."""
 
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
 
     description: Optional[str]
-    """A description of what the company offers or does."""
+    """
+    A promotional pitch displayed to potential customers on the company's store
+    page.
+    """
 
     email: Optional[str]
-    """The email of the user who the sub-company will belong to.
+    """The email address of the user who will own the connected account.
 
     Required when parent_company_id is provided.
     """
@@ -31,26 +34,27 @@ class CompanyCreateParams(TypedDict, total=False):
     """The different industry types a company can be in."""
 
     logo: Optional[Logo]
-    """The logo for the company in png, jpeg, or gif format"""
+    """The company's logo image. Accepts PNG, JPEG, or GIF format."""
 
     metadata: Optional[Dict[str, object]]
-    """Additional metadata for the company"""
+    """A key-value JSON object of custom metadata to store on the company."""
 
     parent_company_id: Optional[str]
-    """The company ID of the platform creating this sub-company.
+    """The unique identifier of the parent platform company.
 
-    If omitted, the company is created for the current user.
+    When provided, creates a connected account under that platform. Omit to create a
+    company for the current user.
     """
 
     send_customer_emails: Optional[bool]
     """Whether Whop sends transactional emails to customers on behalf of this company.
 
-    Only used when parent_company_id is provided.
+    Only applies when creating a connected account.
     """
 
 
 class Logo(TypedDict, total=False):
-    """The logo for the company in png, jpeg, or gif format"""
+    """The company's logo image. Accepts PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

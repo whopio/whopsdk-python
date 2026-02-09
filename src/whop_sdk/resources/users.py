@@ -56,7 +56,7 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieves a user by ID or username
+        Retrieve a single user by their unique identifier or username.
 
         Args:
           extra_headers: Send extra headers
@@ -90,7 +90,8 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCheckAccessResponse:
         """
-        Check if a user has access (and their access level) to a resource
+        Check whether a user has access to a specific resource, and return their access
+        level.
 
         Args:
           extra_headers: Send extra headers
@@ -128,20 +129,21 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Updates the current user's profile
+        Update the currently authenticated user's profile.
 
         Required permissions:
 
         - `user:profile:update`
 
         Args:
-          bio: User biography
+          bio: A short biography displayed on the user's public profile.
 
-          name: Display name
+          name: The user's display name shown on their public profile. Maximum 100 characters.
 
-          profile_picture: Profile picture
+          profile_picture: The user's profile picture image attachment.
 
-          username: Username (alphanumeric and hyphens)
+          username: The user's unique username. Alphanumeric characters and hyphens only. Maximum 42
+              characters.
 
           extra_headers: Send extra headers
 
@@ -201,7 +203,7 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieves a user by ID or username
+        Retrieve a single user by their unique identifier or username.
 
         Args:
           extra_headers: Send extra headers
@@ -235,7 +237,8 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCheckAccessResponse:
         """
-        Check if a user has access (and their access level) to a resource
+        Check whether a user has access to a specific resource, and return their access
+        level.
 
         Args:
           extra_headers: Send extra headers
@@ -273,20 +276,21 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Updates the current user's profile
+        Update the currently authenticated user's profile.
 
         Required permissions:
 
         - `user:profile:update`
 
         Args:
-          bio: User biography
+          bio: A short biography displayed on the user's public profile.
 
-          name: Display name
+          name: The user's display name shown on their public profile. Maximum 100 characters.
 
-          profile_picture: Profile picture
+          profile_picture: The user's profile picture image attachment.
 
-          username: Username (alphanumeric and hyphens)
+          username: The user's unique username. Alphanumeric characters and hyphens only. Maximum 42
+              characters.
 
           extra_headers: Send extra headers
 
