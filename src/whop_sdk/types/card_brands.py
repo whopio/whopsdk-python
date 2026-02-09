@@ -39,5 +39,7 @@ CardBrands: TypeAlias = Literal[
     "carnet",
     "atm_card",
     "china_union_payuzcard",
+    "codensa",
+    "cabal",
     "unknown",
 ]
