@@ -70,13 +70,6 @@ class TestProducts:
                 "renewal_price": 6.9,
                 "visibility": "visible",
             },
-            product_highlights=[
-                {
-                    "content": "content",
-                    "highlight_type": "qualification",
-                    "title": "title",
-                }
-            ],
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
@@ -374,13 +367,6 @@ class TestAsyncProducts:
                 "renewal_price": 6.9,
                 "visibility": "visible",
             },
-            product_highlights=[
-                {
-                    "content": "content",
-                    "highlight_type": "qualification",
-                    "title": "title",
-                }
-            ],
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",

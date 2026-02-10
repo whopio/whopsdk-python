@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -206,7 +206,6 @@ class ProductsResource(SyncAPIResource):
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
-        product_highlights: Optional[Iterable[product_create_params.ProductHighlight]] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
@@ -268,8 +267,6 @@ class ProductsResource(SyncAPIResource):
 
           plan_options: Configuration for an automatically generated plan to attach to this product.
 
-          product_highlights: Key features and benefits to display on the product page.
-
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
 
           redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
@@ -307,7 +304,6 @@ class ProductsResource(SyncAPIResource):
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "plan_options": plan_options,
-                    "product_highlights": product_highlights,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
@@ -908,7 +904,6 @@ class AsyncProductsResource(AsyncAPIResource):
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
-        product_highlights: Optional[Iterable[product_create_params.ProductHighlight]] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
@@ -970,8 +965,6 @@ class AsyncProductsResource(AsyncAPIResource):
 
           plan_options: Configuration for an automatically generated plan to attach to this product.
 
-          product_highlights: Key features and benefits to display on the product page.
-
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
 
           redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
@@ -1009,7 +1002,6 @@ class AsyncProductsResource(AsyncAPIResource):
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "plan_options": plan_options,
-                    "product_highlights": product_highlights,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,

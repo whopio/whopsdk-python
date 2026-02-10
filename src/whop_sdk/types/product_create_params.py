@@ -15,7 +15,7 @@ from .shared.industry_types import IndustryTypes
 from .shared.release_method import ReleaseMethod
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["ProductCreateParams", "PlanOptions", "PlanOptionsCustomField", "ProductHighlight"]
+__all__ = ["ProductCreateParams", "PlanOptions", "PlanOptionsCustomField"]
 
 
 class ProductCreateParams(TypedDict, total=False):
@@ -212,9 +212,6 @@ class ProductCreateParams(TypedDict, total=False):
     plan_options: Optional[PlanOptions]
     """Configuration for an automatically generated plan to attach to this product."""
 
-    product_highlights: Optional[Iterable[ProductHighlight]]
-    """Key features and benefits to display on the product page."""
-
     product_tax_code_id: Optional[str]
     """The unique identifier of the tax classification code to apply to this product."""
 
@@ -280,19 +277,3 @@ class PlanOptions(TypedDict, total=False):
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
-
-
-class ProductHighlight(TypedDict, total=False):
-    """Input for creating a product highlight"""
-
-    content: Required[str]
-    """
-    Text to display to describe the product highlight (max length 250 for
-    qualification or benefits, 170 for who this is for, 140 for pricing features).
-    """
-
-    highlight_type: Required[Literal["qualification", "benefit", "who_this_is_for", "pricing_feature"]]
-    """The type of this highlight."""
-
-    title: Optional[str]
-    """The title of the product highlight, if applicable."""
