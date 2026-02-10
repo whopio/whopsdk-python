@@ -62,7 +62,7 @@ class EntriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Entry:
         """
-        Retrieves an entry by ID
+        Retrieves the details of an existing waitlist entry.
 
         Required permissions:
 
@@ -111,7 +111,8 @@ class EntriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[EntryListResponse]:
         """
-        Lists entries for a company
+        Returns a paginated list of waitlist entries for a company, with optional
+        filtering by product, plan, status, and creation date.
 
         Required permissions:
 
@@ -119,15 +120,15 @@ class EntriesResource(SyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list waitlist entries for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return entries created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return entries created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -137,11 +138,11 @@ class EntriesResource(SyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          plan_ids: The plan IDs to filter the entries by
+          plan_ids: Filter entries to only those for specific plans.
 
-          product_ids: The product IDs to filter the entries by
+          product_ids: Filter entries to only those for specific products.
 
-          statuses: The statuses to filter the entries by
+          statuses: Filter entries by their current status.
 
           extra_headers: Send extra headers
 
@@ -192,7 +193,8 @@ class EntriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntryApproveResponse:
         """
-        Approve an entry
+        Approve a pending waitlist entry, triggering the checkout process to grant the
+        user access to the plan.
 
         Required permissions:
 
@@ -229,7 +231,8 @@ class EntriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Entry:
         """
-        Deny an entry
+        Deny a pending waitlist entry, preventing the user from gaining access to the
+        plan.
 
         Required permissions:
 
@@ -289,7 +292,7 @@ class AsyncEntriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Entry:
         """
-        Retrieves an entry by ID
+        Retrieves the details of an existing waitlist entry.
 
         Required permissions:
 
@@ -338,7 +341,8 @@ class AsyncEntriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[EntryListResponse, AsyncCursorPage[EntryListResponse]]:
         """
-        Lists entries for a company
+        Returns a paginated list of waitlist entries for a company, with optional
+        filtering by product, plan, status, and creation date.
 
         Required permissions:
 
@@ -346,15 +350,15 @@ class AsyncEntriesResource(AsyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list waitlist entries for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return entries created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return entries created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -364,11 +368,11 @@ class AsyncEntriesResource(AsyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          plan_ids: The plan IDs to filter the entries by
+          plan_ids: Filter entries to only those for specific plans.
 
-          product_ids: The product IDs to filter the entries by
+          product_ids: Filter entries to only those for specific products.
 
-          statuses: The statuses to filter the entries by
+          statuses: Filter entries by their current status.
 
           extra_headers: Send extra headers
 
@@ -419,7 +423,8 @@ class AsyncEntriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntryApproveResponse:
         """
-        Approve an entry
+        Approve a pending waitlist entry, triggering the checkout process to grant the
+        user access to the plan.
 
         Required permissions:
 
@@ -456,7 +461,8 @@ class AsyncEntriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Entry:
         """
-        Deny an entry
+        Deny a pending waitlist entry, preventing the user from gaining access to the
+        plan.
 
         Required permissions:
 

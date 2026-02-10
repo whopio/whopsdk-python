@@ -12,41 +12,55 @@ __all__ = ["ShipmentListResponse", "Payment"]
 
 
 class Payment(BaseModel):
-    """The payment of the shipment"""
+    """The payment associated with this shipment.
+
+    Null if the payment has been deleted or is inaccessible.
+    """
 
     id: str
     """The unique identifier for the payment."""
 
 
 class ShipmentListResponse(BaseModel):
-    """A shipment"""
+    """
+    A physical shipment associated with a payment, including carrier details and tracking information.
+    """
 
     id: str
     """The unique identifier for the shipment."""
 
     carrier: ShipmentCarrier
-    """The carrier of the shipment"""
+    """The shipping carrier responsible for delivering this shipment."""
 
     created_at: datetime
     """The datetime the shipment was created."""
 
     delivery_estimate: Optional[datetime] = None
-    """The delivery estimate of the shipment"""
+    """The estimated delivery date for this shipment.
+
+    Null if the carrier has not provided an estimate.
+    """
 
     payment: Optional[Payment] = None
-    """The payment of the shipment"""
+    """The payment associated with this shipment.
+
+    Null if the payment has been deleted or is inaccessible.
+    """
 
     service: Optional[str] = None
-    """The service of the shipment"""
+    """The shipping service level used for this shipment.
+
+    Null if the carrier does not specify a service tier.
+    """
 
     status: ShipmentStatus
-    """The status of the shipment"""
+    """The current delivery status of this shipment."""
 
     substatus: Optional[ShipmentSubstatus] = None
     """The substatus of a shipment"""
 
     tracking_code: str
-    """The tracking code of the shipment"""
+    """The carrier-assigned tracking number used to look up shipment progress."""
 
     updated_at: datetime
     """The datetime the shipment was last updated."""

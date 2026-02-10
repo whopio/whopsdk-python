@@ -59,11 +59,7 @@ class SetupIntentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetupIntent:
         """
-        A setup intent is an object used to securely collect and store a member’s
-        payment method for future use without charging them immediately. It handles
-        authentication steps up front so future off-session payments can be completed
-        smoothly. This ensures the payment method is verified and ready for later
-        billing.
+        Retrieves the details of an existing setup intent.
 
         Required permissions:
 
@@ -109,11 +105,9 @@ class SetupIntentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[SetupIntentListResponse]:
         """
-        A setup intent is an object used to securely collect and store a member’s
-        payment method for future use without charging them immediately. It handles
-        authentication steps up front so future off-session payments can be completed
-        smoothly. This ensures the payment method is verified and ready for later
-        billing.
+        Returns a paginated list of setup intents for a company, with optional filtering
+        by creation date. A setup intent securely collects and stores a member's payment
+        method for future use without charging them immediately.
 
         Required permissions:
 
@@ -122,15 +116,15 @@ class SetupIntentsResource(SyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company to list setup intents for
+          company_id: The unique identifier of the company to list setup intents for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return setup intents created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return setup intents created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -204,11 +198,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetupIntent:
         """
-        A setup intent is an object used to securely collect and store a member’s
-        payment method for future use without charging them immediately. It handles
-        authentication steps up front so future off-session payments can be completed
-        smoothly. This ensures the payment method is verified and ready for later
-        billing.
+        Retrieves the details of an existing setup intent.
 
         Required permissions:
 
@@ -254,11 +244,9 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[SetupIntentListResponse, AsyncCursorPage[SetupIntentListResponse]]:
         """
-        A setup intent is an object used to securely collect and store a member’s
-        payment method for future use without charging them immediately. It handles
-        authentication steps up front so future off-session payments can be completed
-        smoothly. This ensures the payment method is verified and ready for later
-        billing.
+        Returns a paginated list of setup intents for a company, with optional filtering
+        by creation date. A setup intent securely collects and stores a member's payment
+        method for future use without charging them immediately.
 
         Required permissions:
 
@@ -267,15 +255,15 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company to list setup intents for
+          company_id: The unique identifier of the company to list setup intents for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return setup intents created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return setup intents created before this timestamp.
 
           direction: The direction of the sort.
 

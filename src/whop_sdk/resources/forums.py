@@ -60,7 +60,7 @@ class ForumsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Forum:
         """
-        Retrieves a forum
+        Retrieves the details of an existing forum.
 
         Required permissions:
 
@@ -100,7 +100,8 @@ class ForumsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Forum:
         """
-        Updates a forum
+        Update moderation and notification settings for a forum, such as who can post,
+        who can comment, and email notification preferences.
 
         Required permissions:
 
@@ -156,14 +157,15 @@ class ForumsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ForumListResponse]:
         """
-        Lists forums inside a company
+        Returns a paginated list of forums within a specific company, with optional
+        filtering by product.
 
         Required permissions:
 
         - `forum:read`
 
         Args:
-          company_id: The ID of the company to list forums for
+          company_id: The unique identifier of the company to list forums for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -173,7 +175,8 @@ class ForumsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          product_id: If provided, only forums connected to this product are returned
+          product_id: The unique identifier of a product to filter by. When set, only forums connected
+              to this product are returned.
 
           extra_headers: Send extra headers
 
@@ -239,7 +242,7 @@ class AsyncForumsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Forum:
         """
-        Retrieves a forum
+        Retrieves the details of an existing forum.
 
         Required permissions:
 
@@ -279,7 +282,8 @@ class AsyncForumsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Forum:
         """
-        Updates a forum
+        Update moderation and notification settings for a forum, such as who can post,
+        who can comment, and email notification preferences.
 
         Required permissions:
 
@@ -335,14 +339,15 @@ class AsyncForumsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ForumListResponse, AsyncCursorPage[ForumListResponse]]:
         """
-        Lists forums inside a company
+        Returns a paginated list of forums within a specific company, with optional
+        filtering by product.
 
         Required permissions:
 
         - `forum:read`
 
         Args:
-          company_id: The ID of the company to list forums for
+          company_id: The unique identifier of the company to list forums for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -352,7 +357,8 @@ class AsyncForumsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          product_id: If provided, only forums connected to this product are returned
+          product_id: The unique identifier of a product to filter by. When set, only forums connected
+              to this product are returned.
 
           extra_headers: Send extra headers
 

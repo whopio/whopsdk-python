@@ -14,7 +14,7 @@ __all__ = ["SetupIntentListParams"]
 
 class SetupIntentListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list setup intents for"""
+    """The unique identifier of the company to list setup intents for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -23,10 +23,10 @@ class SetupIntentListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return setup intents created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return setup intents created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""

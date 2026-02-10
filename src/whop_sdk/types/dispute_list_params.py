@@ -14,7 +14,7 @@ __all__ = ["DisputeListParams"]
 
 class DisputeListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list disputes for"""
+    """The unique identifier of the company to list disputes for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -23,10 +23,10 @@ class DisputeListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return disputes created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return disputes created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""

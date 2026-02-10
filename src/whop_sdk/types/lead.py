@@ -9,14 +9,20 @@ __all__ = ["Lead", "Member", "Product", "User"]
 
 
 class Member(BaseModel):
-    """The converted member, if any."""
+    """The company member record if this lead has converted into a paying customer.
+
+    Null if the lead has not converted.
+    """
 
     id: str
     """The unique identifier for the company member."""
 
 
 class Product(BaseModel):
-    """The access pass the lead is interested in, if available."""
+    """The product the lead expressed interest in.
+
+    Null if the lead is not associated with a specific product.
+    """
 
     id: str
     """The unique identifier for the product."""
@@ -29,7 +35,7 @@ class Product(BaseModel):
 
 
 class User(BaseModel):
-    """The user who is the lead."""
+    """The user account associated with this lead."""
 
     id: str
     """The unique identifier for the user."""
@@ -48,7 +54,9 @@ class User(BaseModel):
 
 
 class Lead(BaseModel):
-    """An object representing a lead (someone who is interested in a whop)."""
+    """
+    A prospective customer who has expressed interest in a company or product but has not yet purchased.
+    """
 
     id: str
     """The unique identifier for the lead."""
@@ -57,19 +65,28 @@ class Lead(BaseModel):
     """The datetime the lead was created."""
 
     member: Optional[Member] = None
-    """The converted member, if any."""
+    """The company member record if this lead has converted into a paying customer.
+
+    Null if the lead has not converted.
+    """
 
     metadata: Optional[Dict[str, object]] = None
-    """Custom metadata for the lead."""
+    """Custom key-value pairs attached to this lead. Null if no metadata was provided."""
 
     product: Optional[Product] = None
-    """The access pass the lead is interested in, if available."""
+    """The product the lead expressed interest in.
+
+    Null if the lead is not associated with a specific product.
+    """
 
     referrer: Optional[str] = None
-    """The referrer URL that brought this lead."""
+    """The URL of the page that referred this lead to the company.
+
+    Null if no referrer was captured.
+    """
 
     updated_at: datetime
     """The datetime the lead was last updated."""
 
     user: User
-    """The user who is the lead."""
+    """The user account associated with this lead."""

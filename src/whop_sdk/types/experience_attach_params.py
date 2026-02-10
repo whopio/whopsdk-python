@@ -9,4 +9,4 @@ __all__ = ["ExperienceAttachParams"]
 
 class ExperienceAttachParams(TypedDict, total=False):
     product_id: Required[str]
-    """The ID of the Access Pass to add the Experience to."""
+    """The unique identifier of the product to attach the experience to."""

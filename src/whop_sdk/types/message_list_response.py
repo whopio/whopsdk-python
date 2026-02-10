@@ -20,7 +20,7 @@ class PollOption(BaseModel):
 
 
 class Poll(BaseModel):
-    """The poll for this message"""
+    """A poll attached to this message. Null if the message does not contain a poll."""
 
     options: Optional[List[PollOption]] = None
     """The options for the poll"""
@@ -47,7 +47,7 @@ class ReactionCount(BaseModel):
 
 
 class User(BaseModel):
-    """The user who sent this message"""
+    """The user who authored this message."""
 
     id: str
     """The unique identifier for the user."""
@@ -60,7 +60,7 @@ class User(BaseModel):
 
 
 class MessageListResponse(BaseModel):
-    """Represents a message in a DM channel"""
+    """A message sent within an experience chat, direct message, or group chat."""
 
     id: str
     """Represents a unique identifier that is Base64 obfuscated.
@@ -73,37 +73,52 @@ class MessageListResponse(BaseModel):
     """
 
     content: Optional[str] = None
-    """The content of the message in Markdown format"""
+    """The message content formatted as Markdown.
+
+    Null if the message has no text content.
+    """
 
     created_at: datetime
-    """The timestamp when the post was created"""
+    """The timestamp when this message was originally created."""
 
     is_edited: bool
-    """Whether the message has been edited"""
+    """Whether the message content has been edited after it was originally sent."""
 
     is_pinned: bool
-    """Whether this message is pinned"""
+    """Whether this message is pinned to the top of the channel for easy access."""
 
     message_type: DmsPostTypes
-    """The type of post"""
+    """The classification of this message: regular, system, or automated."""
 
     poll: Optional[Poll] = None
-    """The poll for this message"""
+    """A poll attached to this message. Null if the message does not contain a poll."""
 
     poll_votes: List[PollVote]
-    """The reaction counts for this message"""
+    """
+    Aggregated reaction counts on this message, filtered to a specific reaction
+    type.
+    """
 
     reaction_counts: List[ReactionCount]
-    """The reaction counts for this message"""
+    """
+    Aggregated reaction counts on this message, filtered to a specific reaction
+    type.
+    """
 
     replying_to_message_id: Optional[str] = None
-    """The ID of the message this is replying to, if applicable"""
+    """The unique identifier of the message this post is replying to.
+
+    Null if this is not a reply.
+    """
 
     updated_at: datetime
-    """The timestamp when the post was last updated"""
+    """The timestamp when this message was last modified."""
 
     user: User
-    """The user who sent this message"""
+    """The user who authored this message."""
 
     view_count: Optional[int] = None
-    """The number of times this message has been viewed"""
+    """The number of unique views this message has received.
+
+    Null if view tracking is not enabled for this channel.
+    """

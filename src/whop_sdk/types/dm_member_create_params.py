@@ -9,7 +9,10 @@ __all__ = ["DmMemberCreateParams"]
 
 class DmMemberCreateParams(TypedDict, total=False):
     channel_id: Required[str]
-    """The ID of the DM channel to add the member to"""
+    """The unique identifier of the DM channel to add the new member to."""
 
     user_id: Required[str]
-    """The ID of the user to add to the channel"""
+    """The unique identifier of the user to add to the DM channel.
+
+    For example, 'user_xxxxx'.
+    """

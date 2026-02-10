@@ -25,10 +25,10 @@ class ProductListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return products created after this datetime."""
+    """Only return products created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return products created before this datetime."""
+    """Only return products created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""

@@ -20,14 +20,20 @@ __all__ = [
 
 
 class CheckoutConfiguration(BaseModel):
-    """The checkout configuration associated with the setup intent"""
+    """The checkout session configuration associated with this setup intent.
+
+    Null if no checkout session was used.
+    """
 
     id: str
     """The unique identifier for the checkout session."""
 
 
 class Company(BaseModel):
-    """The company of the setup intent"""
+    """The company that initiated this setup intent.
+
+    Null if the company has been deleted.
+    """
 
     id: str
     """The unique identifier for the company."""
@@ -50,7 +56,10 @@ class MemberUser(BaseModel):
 
 
 class Member(BaseModel):
-    """The member connected to the setup intent"""
+    """The company member associated with this setup intent.
+
+    Null if the user is not a member.
+    """
 
     id: str
     """The unique identifier for the company member."""
@@ -68,17 +77,23 @@ class PaymentMethodCard(BaseModel):
     """Possible card brands that a payment token can have"""
 
     exp_month: Optional[int] = None
-    """Card expiration month, like 03 for March."""
+    """The two-digit expiration month of the card (1-12). Null if not available."""
 
     exp_year: Optional[int] = None
-    """Card expiration year, like 27 for 2027."""
+    """The two-digit expiration year of the card (e.g., 27 for 2027).
+
+    Null if not available.
+    """
 
     last4: Optional[str] = None
-    """Last four digits of the card."""
+    """The last four digits of the card number. Null if not available."""
 
 
 class PaymentMethod(BaseModel):
-    """The payment method created during the setup, if available."""
+    """The saved payment method created by this setup intent.
+
+    Null if the setup has not completed successfully.
+    """
 
     id: str
     """The unique identifier for the payment token."""
@@ -97,32 +112,50 @@ class PaymentMethod(BaseModel):
 
 class SetupIntent(BaseModel):
     """
-    A setup intent allows a user to save a payment method without making a purchase.
+    A setup intent allows a user to save a payment method for future use without making an immediate purchase.
     """
 
     id: str
     """The unique identifier for the setup intent."""
 
     checkout_configuration: Optional[CheckoutConfiguration] = None
-    """The checkout configuration associated with the setup intent"""
+    """The checkout session configuration associated with this setup intent.
+
+    Null if no checkout session was used.
+    """
 
     company: Optional[Company] = None
-    """The company of the setup intent"""
+    """The company that initiated this setup intent.
+
+    Null if the company has been deleted.
+    """
 
     created_at: datetime
     """The datetime the setup intent was created."""
 
     error_message: Optional[str] = None
-    """The error message, if any."""
+    """A human-readable error message explaining why the setup intent failed.
+
+    Null if no error occurred.
+    """
 
     member: Optional[Member] = None
-    """The member connected to the setup intent"""
+    """The company member associated with this setup intent.
+
+    Null if the user is not a member.
+    """
 
     metadata: Optional[Dict[str, object]] = None
-    """The metadata associated with the setup intent"""
+    """Custom key-value pairs attached to this setup intent.
+
+    Null if no metadata was provided.
+    """
 
     payment_method: Optional[PaymentMethod] = None
-    """The payment method created during the setup, if available."""
+    """The saved payment method created by this setup intent.
+
+    Null if the setup has not completed successfully.
+    """
 
     status: SetupIntentStatus
-    """The status of the setup intent"""
+    """The current status of the setup intent."""

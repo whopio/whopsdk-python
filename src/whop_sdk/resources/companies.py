@@ -144,7 +144,7 @@ class CompaniesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieve a single company by its unique identifier or route slug.
+        Retrieves the details of an existing company.
 
         Required permissions:
 
@@ -187,10 +187,8 @@ class CompaniesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
-        """Update an existing company.
-
-        Either a regular company, platform company, or one
-        of a platform's connected accounts
+        """
+        Update a company's title, description, logo, and other settings.
 
         Required permissions:
 
@@ -262,11 +260,11 @@ class CompaniesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CompanyListResponse]:
-        """List companies.
+        """Returns a paginated list of companies.
 
-        When parent_company_id is provided, lists connected accounts
-        under that platform. When omitted, lists companies the current user has access
-        to.
+        When parent_company_id is provided, lists
+        connected accounts under that platform. When omitted, lists companies the
+        current user has access to.
 
         Required permissions:
 
@@ -277,9 +275,9 @@ class CompaniesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: Only return companies created after this datetime.
+          created_after: Only return companies created after this timestamp.
 
-          created_before: Only return companies created before this datetime.
+          created_before: Only return companies created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -440,7 +438,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieve a single company by its unique identifier or route slug.
+        Retrieves the details of an existing company.
 
         Required permissions:
 
@@ -483,10 +481,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
-        """Update an existing company.
-
-        Either a regular company, platform company, or one
-        of a platform's connected accounts
+        """
+        Update a company's title, description, logo, and other settings.
 
         Required permissions:
 
@@ -558,11 +554,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CompanyListResponse, AsyncCursorPage[CompanyListResponse]]:
-        """List companies.
+        """Returns a paginated list of companies.
 
-        When parent_company_id is provided, lists connected accounts
-        under that platform. When omitted, lists companies the current user has access
-        to.
+        When parent_company_id is provided, lists
+        connected accounts under that platform. When omitted, lists companies the
+        current user has access to.
 
         Required permissions:
 
@@ -573,9 +569,9 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: Only return companies created after this datetime.
+          created_after: Only return companies created after this timestamp.
 
-          created_before: Only return companies created before this datetime.
+          created_before: Only return companies created before this timestamp.
 
           direction: The direction of the sort.
 

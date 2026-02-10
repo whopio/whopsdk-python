@@ -13,48 +13,54 @@ __all__ = ["ForumPostCreateParams", "Attachment", "Poll", "PollOption"]
 
 class ForumPostCreateParams(TypedDict, total=False):
     experience_id: Required[str]
-    """The experience to create this post in"""
+    """The unique identifier of the experience to create this post in.
+
+    For example, 'exp_xxxxx'.
+    """
 
     attachments: Optional[Iterable[Attachment]]
-    """The attachments for this post"""
+    """A list of file attachments to include with the post, such as images or videos."""
 
     content: Optional[str]
-    """This is the main body of the post in Markdown format.
+    """The main body of the post in Markdown format.
 
-    Hidden if paywalled and user hasn't purchased access to it.
+    For example, 'Check out this **update**'. Hidden if the post is paywalled and
+    the viewer has not purchased access.
     """
 
     is_mention: Optional[bool]
     """
-    This is used to determine if the post should be sent as a 'mention' notification
-    to all of the users who are in the experience. This means that anyone with
-    'mentions' enabled will receive a notification about this post.
+    Whether to send this post as a mention notification to all users in the
+    experience who have mentions enabled.
     """
 
     parent_id: Optional[str]
-    """The ID of the parent post.
+    """The unique identifier of the parent post to comment on.
 
-    Set it to the ID of the post you want to comment on or don't include it if its a
-    top level post.
+    Omit this field to create a top-level post.
     """
 
     paywall_amount: Optional[float]
-    """The price in paywall_currency to unlock this post (e.g., 5.00 for $5.00).
+    """The price to unlock this post in the specified paywall currency.
 
-    If set, users must purchase access to view the post content.
+    For example, 5.00 for $5.00. When set, users must purchase access to view the
+    post content.
     """
 
     paywall_currency: Optional[Currency]
     """The available currencies on the platform"""
 
     pinned: Optional[bool]
-    """Whether the post should be pinned"""
+    """Whether this post should be pinned to the top of the forum."""
 
     poll: Optional[Poll]
-    """The poll for this post"""
+    """A poll to attach to this post, allowing members to vote on options."""
 
     title: Optional[str]
-    """The title of the post. Only visible if paywalled."""
+    """The title of the post, displayed prominently at the top.
+
+    Required for paywalled posts as it remains visible to non-purchasers.
+    """
 
     visibility: Optional[ForumPostVisibilityType]
     """The visibility types for forum posts"""
@@ -78,7 +84,7 @@ class PollOption(TypedDict, total=False):
 
 
 class Poll(TypedDict, total=False):
-    """The poll for this post"""
+    """A poll to attach to this post, allowing members to vote on options."""
 
     options: Required[Iterable[PollOption]]
     """The options for the poll. Must have sequential IDs starting from 1"""

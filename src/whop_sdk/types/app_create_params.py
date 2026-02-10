@@ -10,20 +10,28 @@ __all__ = ["AppCreateParams", "Icon"]
 
 class AppCreateParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to create the app for"""
+    """
+    The unique identifier of the company to create the app for, starting with
+    'biz\\__'.
+    """
 
     name: Required[str]
-    """The name of the app to be created"""
+    """
+    The display name for the app, shown to users on the app store and product pages.
+    """
 
     base_url: Optional[str]
-    """The base URL of the app to be created"""
+    """
+    The base production URL where the app is hosted, such as
+    'https://myapp.example.com'.
+    """
 
     icon: Optional[Icon]
-    """The icon for the app in png, jpeg, or gif format"""
+    """The icon image for the app in PNG, JPEG, or GIF format."""
 
 
 class Icon(TypedDict, total=False):
-    """The icon for the app in png, jpeg, or gif format"""
+    """The icon image for the app in PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

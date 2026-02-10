@@ -13,41 +13,49 @@ __all__ = ["AppUpdateParams", "Icon"]
 
 class AppUpdateParams(TypedDict, total=False):
     app_store_description: Optional[str]
-    """The description of the app for the app store in-depth app view."""
+    """The detailed description shown on the app store's in-depth app view page."""
 
     app_type: Optional[AppType]
     """The type of end-user an app is built for"""
 
     base_url: Optional[str]
-    """The base production url of the app"""
+    """
+    The base production URL where the app is hosted, such as
+    'https://myapp.example.com'.
+    """
 
     dashboard_path: Optional[str]
-    """The path for the dashboard view of the app"""
+    """The URL path for the company dashboard view of the app, such as '/dashboard'."""
 
     description: Optional[str]
-    """The description of the app"""
+    """A short description of the app shown in listings and search results."""
 
     discover_path: Optional[str]
-    """The path for the discover view of the app"""
+    """The URL path for the discover view of the app, such as '/discover'."""
 
     experience_path: Optional[str]
-    """The path for the hub view of the app"""
+    """
+    The URL path for the member-facing hub view of the app, such as
+    '/experiences/[experienceId]'.
+    """
 
     icon: Optional[Icon]
-    """The icon for the app"""
+    """The icon image for the app, used in listings and navigation."""
 
     name: Optional[str]
-    """The name of the app"""
+    """
+    The display name for the app, shown to users on the app store and product pages.
+    """
 
     required_scopes: Optional[List[Literal["read_user"]]]
-    """The scopes that the app will request off of users when a user installs the app."""
+    """The permission scopes the app will request from users when they install it."""
 
     status: Optional[AppStatuses]
     """The status of an experience interface"""
 
 
 class Icon(TypedDict, total=False):
-    """The icon for the app"""
+    """The icon image for the app, used in listings and navigation."""
 
     id: Required[str]
     """The ID of an existing file object."""

@@ -12,19 +12,22 @@ __all__ = ["FeeMarkupCreateParams"]
 
 class FeeMarkupCreateParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID (tag) of the company you want to update the fee markup for."""
+    """The unique identifier of the company to create or update the fee markup for."""
 
     fee_type: Required[FeeMarkupType]
-    """The type of fee this markup applies to."""
+    """The type of fee this markup applies to, such as processing or platform fees."""
 
     fixed_fee_usd: Optional[float]
-    """The fixed fee in USD to charge (0-50)."""
+    """The fixed fee amount in USD to charge per transaction.
+
+    Must be between 0 and 50.
+    """
 
     metadata: Optional[Dict[str, object]]
-    """Custom metadata to attach to this fee markup."""
+    """Custom key-value metadata to attach to this fee markup."""
 
     notes: Optional[str]
-    """Internal notes about this fee markup."""
+    """Internal notes about this fee markup for record-keeping purposes."""
 
     percentage_fee: Optional[float]
-    """The percentage fee to charge (0-25)."""
+    """The percentage fee to charge per transaction. Must be between 0 and 25."""

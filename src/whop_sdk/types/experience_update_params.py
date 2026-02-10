@@ -13,23 +13,23 @@ class ExperienceUpdateParams(TypedDict, total=False):
     """The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE)."""
 
     is_public: Optional[bool]
-    """Whether the experience is publicly accessible."""
+    """Whether the experience is publicly accessible without a membership."""
 
     logo: Optional[Logo]
-    """The logo for the experience"""
+    """A logo image displayed alongside the experience name."""
 
     name: Optional[str]
-    """The name of the experience."""
+    """The display name of the experience."""
 
     order: Optional[str]
-    """The order of the experience in the section."""
+    """The position of the experience within its section for display ordering."""
 
     section_id: Optional[str]
-    """The ID of the section to update."""
+    """The unique identifier of the section to move the experience into."""
 
 
 class Logo(TypedDict, total=False):
-    """The logo for the experience"""
+    """A logo image displayed alongside the experience name."""
 
     id: Required[str]
     """The ID of an existing file object."""

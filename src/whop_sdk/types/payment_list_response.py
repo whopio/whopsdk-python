@@ -118,17 +118,23 @@ class PaymentMethodCard(BaseModel):
     """Possible card brands that a payment token can have"""
 
     exp_month: Optional[int] = None
-    """Card expiration month, like 03 for March."""
+    """The two-digit expiration month of the card (1-12). Null if not available."""
 
     exp_year: Optional[int] = None
-    """Card expiration year, like 27 for 2027."""
+    """The two-digit expiration year of the card (e.g., 27 for 2027).
+
+    Null if not available.
+    """
 
     last4: Optional[str] = None
-    """Last four digits of the card."""
+    """The last four digits of the card number. Null if not available."""
 
 
 class PaymentMethod(BaseModel):
-    """The payment method used for the payment, if available."""
+    """The tokenized payment method reference used for this payment.
+
+    Null if no token was used.
+    """
 
     id: str
     """The unique identifier for the payment token."""
@@ -245,7 +251,10 @@ class PaymentListResponse(BaseModel):
     """Possible card brands that a payment token can have"""
 
     card_last4: Optional[str] = None
-    """The last 4 digits of the card used to make the payment."""
+    """The last four digits of the card used to make this payment.
+
+    Null if the payment was not made with a card.
+    """
 
     company: Optional[Company] = None
     """The company for the payment."""
@@ -282,10 +291,16 @@ class PaymentListResponse(BaseModel):
     """The time of the next schedule payment retry."""
 
     paid_at: Optional[datetime] = None
-    """The datetime the payment was paid"""
+    """The time at which this payment was successfully collected.
+
+    Null if the payment has not yet succeeded. As a Unix timestamp.
+    """
 
     payment_method: Optional[PaymentMethod] = None
-    """The payment method used for the payment, if available."""
+    """The tokenized payment method reference used for this payment.
+
+    Null if no token was used.
+    """
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""

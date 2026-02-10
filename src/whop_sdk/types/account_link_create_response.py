@@ -9,11 +9,14 @@ __all__ = ["AccountLinkCreateResponse"]
 
 class AccountLinkCreateResponse(BaseModel):
     """
-    An object representing a url that a user can be directed to to access their account.
+    A temporary, time-limited URL that grants a user access to an external account management page.
     """
 
     expires_at: datetime
-    """The expiration timestamp of the url."""
+    """The timestamp after which this account link URL is no longer valid."""
 
     url: str
-    """The URL to navigate the user to."""
+    """The temporary URL to redirect the user to for account access.
+
+    Expires at the time specified by expires_at.
+    """

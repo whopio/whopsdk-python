@@ -9,47 +9,50 @@ __all__ = ["CourseLessonInteraction", "Course", "CourseExperience", "Lesson", "L
 
 
 class CourseExperience(BaseModel):
-    """The experience that the course belongs to"""
+    """The parent experience that this course belongs to."""
 
     id: str
     """The unique identifier for the experience."""
 
 
 class Course(BaseModel):
-    """The course for this lesson interaction"""
+    """The course that contains the tracked lesson."""
 
     id: str
     """The unique identifier for the course."""
 
     experience: CourseExperience
-    """The experience that the course belongs to"""
+    """The parent experience that this course belongs to."""
 
     title: Optional[str] = None
-    """The title of the course"""
+    """The display name of the course shown to students.
+
+    Null if no title has been set.
+    """
 
 
 class LessonChapter(BaseModel):
-    """The chapter this lesson belongs to"""
+    """The parent chapter that contains this lesson."""
 
     id: str
     """The unique identifier for the chapter."""
 
 
 class Lesson(BaseModel):
-    """The lesson this interaction is for"""
+    """The lesson that this progress record belongs to."""
 
     id: str
     """The unique identifier for the lesson."""
 
     chapter: LessonChapter
-    """The chapter this lesson belongs to"""
+    """The parent chapter that contains this lesson."""
 
     title: str
-    """The title of the lesson"""
+    """The display name of the lesson shown to students. Maximum 120 characters."""
 
 
 class User(BaseModel):
-    """The user who interacted with the lesson"""
+    """The user whose progress is being tracked."""
 
     id: str
     """The unique identifier for the user."""
@@ -62,22 +65,24 @@ class User(BaseModel):
 
 
 class CourseLessonInteraction(BaseModel):
-    """A lesson interaction tracking user progress in courses"""
+    """
+    A record of a user's progress on a specific lesson, tracking whether they have completed it.
+    """
 
     id: str
     """The unique identifier for the lesson interaction."""
 
     completed: bool
-    """Whether the lesson has been completed by the user"""
+    """Whether the user has finished this lesson."""
 
     course: Course
-    """The course for this lesson interaction"""
+    """The course that contains the tracked lesson."""
 
     created_at: datetime
     """The datetime the lesson interaction was created."""
 
     lesson: Lesson
-    """The lesson this interaction is for"""
+    """The lesson that this progress record belongs to."""
 
     user: User
-    """The user who interacted with the lesson"""
+    """The user whose progress is being tracked."""

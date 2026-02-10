@@ -10,7 +10,9 @@ __all__ = ["VerificationRetrieveResponse"]
 
 
 class VerificationRetrieveResponse(BaseModel):
-    """An object representing an identity verification session"""
+    """
+    An identity verification session used to confirm a user's identity for payout account eligibility.
+    """
 
     id: str
     """The unique identifier for the verification."""
@@ -19,7 +21,10 @@ class VerificationRetrieveResponse(BaseModel):
     """An error code for a verification attempt."""
 
     last_error_reason: Optional[str] = None
-    """The last error reason that occurred during the verification."""
+    """A human-readable explanation of the most recent verification error.
+
+    Null if no error has occurred.
+    """
 
     status: VerificationStatus
-    """The status of the verification."""
+    """The current status of this verification session."""

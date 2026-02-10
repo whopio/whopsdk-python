@@ -12,7 +12,10 @@ __all__ = ["CourseLessonListResponse", "Thumbnail"]
 
 
 class Thumbnail(BaseModel):
-    """The thumbnail for the lesson"""
+    """The thumbnail image displayed on lesson cards and previews.
+
+    Null if no thumbnail has been uploaded.
+    """
 
     url: Optional[str] = None
     """A pre-optimized URL for rendering this attachment on the client.
@@ -22,40 +25,57 @@ class Thumbnail(BaseModel):
 
 
 class CourseLessonListResponse(BaseModel):
-    """A lesson from the courses app"""
+    """
+    An individual learning unit within a chapter, which can contain text, video, PDF, or assessment content.
+    """
 
     id: str
     """The unique identifier for the lesson."""
 
     content: Optional[str] = None
-    """The content of the lesson"""
+    """The text body of the lesson in plain text format.
+
+    Null if the lesson has no text content.
+    """
 
     created_at: datetime
     """The datetime the lesson was created."""
 
     days_from_course_start_until_unlock: Optional[int] = None
-    """Number of days from course start until the lesson is unlocked"""
+    """
+    The number of days after a student starts the course before this lesson becomes
+    accessible. Null if the lesson is available immediately.
+    """
 
     embed_id: Optional[str] = None
-    """ID for the embed (YouTube video ID or Loom share ID)"""
+    """
+    The external video identifier for embedded video lessons, such as a YouTube
+    video ID or Loom share ID. Null if the lesson has no embed.
+    """
 
     embed_type: Optional[EmbedType] = None
     """The type of embed for a lesson"""
 
     lesson_type: LessonTypes
-    """The type of the lesson (text, video, pdf, multi, quiz, knowledge_check)"""
+    """The content format of this lesson.
+
+    One of: text, video, pdf, multi, quiz, knowledge_check.
+    """
 
     order: int
-    """The order of the lesson within its chapter"""
+    """The sort position of this lesson within its parent chapter, starting from zero."""
 
     thumbnail: Optional[Thumbnail] = None
-    """The thumbnail for the lesson"""
+    """The thumbnail image displayed on lesson cards and previews.
+
+    Null if no thumbnail has been uploaded.
+    """
 
     title: str
-    """The title of the lesson"""
+    """The display name of the lesson shown to students. Maximum 120 characters."""
 
     visibility: LessonVisibilities
-    """The visibility of the lesson.
+    """The visibility setting that controls whether this lesson appears to students.
 
-    Determines how / whether this lesson is visible to users.
+    One of: visible, hidden.
     """

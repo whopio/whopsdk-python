@@ -48,10 +48,16 @@ class Plan(BaseModel):
     """The unique identifier for the plan."""
 
     billing_period: Optional[int] = None
-    """The interval in days at which the plan charges (renewal plans)."""
+    """The number of days between each recurring charge.
+
+    Null for one-time plans. For example, 30 for monthly or 365 for annual billing.
+    """
 
     currency: Currency
-    """The respective currency identifier for the plan."""
+    """The currency used for all prices on this plan (e.g., 'usd', 'eur').
+
+    All monetary amounts on the plan are denominated in this currency.
+    """
 
     expiration_days: Optional[int] = None
     """The number of days until the membership expires (for expiration-based plans).
@@ -67,10 +73,16 @@ class Plan(BaseModel):
     """
 
     plan_type: PlanType
-    """Indicates if the plan is a one time payment or recurring."""
+    """
+    The billing model for this plan: 'renewal' for recurring subscriptions or
+    'one_time' for single payments.
+    """
 
     release_method: ReleaseMethod
-    """This is the release method the business uses to sell this plan."""
+    """
+    The method used to sell this plan: 'buy_now' for immediate purchase or
+    'waitlist' for waitlist-based access.
+    """
 
     renewal_price: float
     """
@@ -79,15 +91,22 @@ class Plan(BaseModel):
     """
 
     trial_period_days: Optional[int] = None
-    """The number of free trial days added before a renewal plan."""
+    """The number of free trial days before the first charge on a renewal plan.
+
+    Null if no trial is configured or the current user has already used a trial for
+    this plan.
+    """
 
     visibility: Visibility
-    """Shows or hides the plan from public/business view."""
+    """Controls whether the plan is visible to customers.
+
+    When set to 'hidden', the plan is only accessible via direct link.
+    """
 
 
 class CheckoutConfiguration(BaseModel):
     """
-    A checkout session is a reusable configuration for a checkout, including the plan, affiliate, and custom metadata. Payments and memberships created from a checkout session inherit its metadata.
+    A checkout configuration is a reusable configuration for a checkout, including the plan, affiliate, and custom metadata. Payments and memberships created from a checkout session inherit its metadata.
     """
 
     id: str

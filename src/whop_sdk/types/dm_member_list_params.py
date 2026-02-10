@@ -10,7 +10,7 @@ __all__ = ["DmMemberListParams"]
 
 class DmMemberListParams(TypedDict, total=False):
     channel_id: Required[str]
-    """The ID of the DM channel to list members for"""
+    """The unique identifier of the DM channel to list members for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""

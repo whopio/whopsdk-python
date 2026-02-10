@@ -10,7 +10,9 @@ __all__ = ["FeeMarkupCreateResponse"]
 
 
 class FeeMarkupCreateResponse(BaseModel):
-    """Represents a fee markup configuration for a company"""
+    """
+    A fee markup configuration that defines additional charges applied to transactions for a company.
+    """
 
     id: str
     """The unique identifier for the fee markup."""
@@ -19,16 +21,25 @@ class FeeMarkupCreateResponse(BaseModel):
     """The datetime the fee markup was created."""
 
     fee_type: FeeMarkupType
-    """The type of fee this markup applies to."""
+    """The category of fee this markup applies to."""
 
     fixed_fee_usd: Optional[float] = None
-    """The fixed fee in USD to charge (0-50)."""
+    """A flat fee charged per transaction, in USD.
+
+    Ranges from 0 to 50. Null if no fixed fee is configured.
+    """
 
     notes: Optional[str] = None
-    """Internal notes about this fee markup."""
+    """Internal notes about this fee markup, visible only to administrators.
+
+    Null if no notes have been added.
+    """
 
     percentage_fee: Optional[float] = None
-    """The percentage fee to charge (0-25)."""
+    """A percentage-based fee charged per transaction.
+
+    Ranges from 0 to 25. Null if no percentage fee is configured.
+    """
 
     updated_at: datetime
     """The datetime the fee markup was last updated."""

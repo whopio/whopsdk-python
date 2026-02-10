@@ -16,7 +16,7 @@ __all__ = ["EntryListParams"]
 
 class EntryListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company"""
+    """The unique identifier of the company to list waitlist entries for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -25,10 +25,10 @@ class EntryListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return entries created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return entries created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -43,10 +43,10 @@ class EntryListParams(TypedDict, total=False):
     """Which columns can be used to sort."""
 
     plan_ids: Optional[SequenceNotStr[str]]
-    """The plan IDs to filter the entries by"""
+    """Filter entries to only those for specific plans."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """The product IDs to filter the entries by"""
+    """Filter entries to only those for specific products."""
 
     statuses: Optional[List[EntryStatus]]
-    """The statuses to filter the entries by"""
+    """Filter entries by their current status."""

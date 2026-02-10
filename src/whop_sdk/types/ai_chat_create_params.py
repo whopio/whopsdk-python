@@ -10,19 +10,22 @@ __all__ = ["AIChatCreateParams", "MessageAttachment"]
 
 class AIChatCreateParams(TypedDict, total=False):
     message_text: Required[str]
-    """The text content of the first message sent in the chat"""
+    """The text content of the first message to send to the AI agent."""
 
     current_company_id: Optional[str]
-    """The ID of the company to set as the current company in context for the AI chat"""
+    """
+    The unique identifier of the company to set as context for the AI chat (e.g.,
+    "biz_XXXXX").
+    """
 
     message_attachments: Optional[Iterable[MessageAttachment]]
     """
-    The IDs of existing uploaded attachments to include in the first message to the
-    agent
+    A list of previously uploaded file attachments to include with the first
+    message.
     """
 
     title: Optional[str]
-    """The title of the AI chat"""
+    """An optional display title for the AI chat thread (e.g., "Help with billing")."""
 
 
 class MessageAttachment(TypedDict, total=False):

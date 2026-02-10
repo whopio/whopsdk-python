@@ -10,9 +10,9 @@ __all__ = ["FeeMarkupListParams"]
 
 class FeeMarkupListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID (tag) of the company you want to list the fee markups for.
+    """The unique identifier of the company to list fee markups for.
 
-    If you pass your platform account, you will get the platform default markups.
+    Pass a platform account identifier to retrieve platform default markups.
     """
 
     after: Optional[str]

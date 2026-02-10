@@ -87,8 +87,10 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
-        """
-        Create a new product for a company.
+        """Create a new product for a company.
+
+        The product serves as the top-level
+        container for plans and experiences.
 
         Required permissions:
 
@@ -197,7 +199,7 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Retrieve a single product by its unique identifier or route slug.
+        Retrieves the details of an existing product.
 
         Required permissions:
 
@@ -252,7 +254,7 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Update an existing product.
+        Update a product's title, description, visibility, and other settings.
 
         Required permissions:
 
@@ -364,7 +366,8 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ProductListItem]:
         """
-        List products belonging to a company, with optional filtering and sorting.
+        Returns a paginated list of products belonging to a company, with optional
+        filtering by type, visibility, and creation date.
 
         Required permissions:
 
@@ -377,9 +380,9 @@ class ProductsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: Only return products created after this datetime.
+          created_after: Only return products created after this timestamp.
 
-          created_before: Only return products created before this datetime.
+          created_before: Only return products created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -441,7 +444,7 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductDeleteResponse:
         """
-        Delete a product by its unique identifier.
+        Permanently delete a product and remove it from the company's catalog.
 
         Required permissions:
 
@@ -518,8 +521,10 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
-        """
-        Create a new product for a company.
+        """Create a new product for a company.
+
+        The product serves as the top-level
+        container for plans and experiences.
 
         Required permissions:
 
@@ -628,7 +633,7 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Retrieve a single product by its unique identifier or route slug.
+        Retrieves the details of an existing product.
 
         Required permissions:
 
@@ -683,7 +688,7 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Update an existing product.
+        Update a product's title, description, visibility, and other settings.
 
         Required permissions:
 
@@ -795,7 +800,8 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ProductListItem, AsyncCursorPage[ProductListItem]]:
         """
-        List products belonging to a company, with optional filtering and sorting.
+        Returns a paginated list of products belonging to a company, with optional
+        filtering by type, visibility, and creation date.
 
         Required permissions:
 
@@ -808,9 +814,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: Only return products created after this datetime.
+          created_after: Only return products created after this timestamp.
 
-          created_before: Only return products created before this datetime.
+          created_before: Only return products created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -872,7 +878,7 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductDeleteResponse:
         """
-        Delete a product by its unique identifier.
+        Permanently delete a product and remove it from the company's catalog.
 
         Required permissions:
 

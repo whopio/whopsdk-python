@@ -12,35 +12,40 @@ __all__ = ["CourseCreateParams", "Thumbnail"]
 
 class CourseCreateParams(TypedDict, total=False):
     experience_id: Required[str]
-    """The ID of the experience to create the course in"""
+    """
+    The unique identifier of the experience to create the course in (e.g.,
+    "exp_XXXXX").
+    """
 
     title: Required[str]
-    """The title of the course"""
+    """The display title of the course (e.g., "Introduction to Web Development")."""
 
     certificate_after_completion_enabled: Optional[bool]
     """
-    Whether the course will award its students a PDF certificate after completing
-    all lessons
+    Whether the course awards students a PDF certificate after completing all
+    lessons.
     """
 
     order: Optional[str]
     """The decimal order position of the course within its experience.
 
-    If not provided, it will be set to the next sequential order. Use fractional
-    values (e.g., 1.5) to place between existing courses.
+    Use fractional values (e.g., "1.5") to place between existing courses.
     """
 
     require_completing_lessons_in_order: Optional[bool]
     """
-    Whether the course requires students to complete the previous lesson before
-    moving on to the next one
+    Whether students must complete each lesson sequentially before advancing to the
+    next one.
     """
 
     tagline: Optional[str]
-    """The tagline of the course"""
+    """
+    A short tagline displayed beneath the course title (e.g., "Master the
+    fundamentals of design").
+    """
 
     thumbnail: Optional[Thumbnail]
-    """The thumbnail for the course in png, jpeg, or gif format"""
+    """The thumbnail image for the course in PNG, JPEG, or GIF format."""
 
     visibility: Optional[CourseVisibilities]
     """The available visibilities for a course.
@@ -50,7 +55,7 @@ class CourseCreateParams(TypedDict, total=False):
 
 
 class Thumbnail(TypedDict, total=False):
-    """The thumbnail for the course in png, jpeg, or gif format"""
+    """The thumbnail image for the course in PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

@@ -220,7 +220,7 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
         """
-        Retrieves a payment by ID
+        Retrieves the details of an existing payment.
 
         Required permissions:
 
@@ -278,7 +278,8 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PaymentListResponse]:
         """
-        Lists payments
+        Returns a paginated list of payments for a company, with optional filtering by
+        product, plan, status, billing reason, currency, and creation date.
 
         Required permissions:
 
@@ -291,37 +292,38 @@ class PaymentsResource(SyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          company_id: The ID of the company to list payments for
+          company_id: The unique identifier of the company to list payments for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          billing_reasons: The billing reason for the payment
+          billing_reasons: Filter payments by their billing reason.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return payments created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return payments created before this timestamp.
 
-          currencies: The currency of the payment.
+          currencies: Filter payments by their currency code.
 
           direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
-          include_free: Whether to include free payments.
+          include_free: Whether to include payments with a zero amount.
 
           last: Returns the last _n_ elements from the list.
 
           order: The order to sort the results by.
 
-          plan_ids: A specific plan.
+          plan_ids: Filter payments to only those associated with these specific plan identifiers.
 
-          product_ids: A specific product.
+          product_ids: Filter payments to only those associated with these specific product
+              identifiers.
 
-          statuses: The status of the payment.
+          statuses: Filter payments by their current status.
 
-          substatuses: The substatus of the payment.
+          substatuses: Filter payments by their current substatus for more granular filtering.
 
           extra_headers: Send extra headers
 
@@ -380,7 +382,8 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PaymentListFeesResponse]:
         """
-        Lists fees for a payment
+        Returns the list of fees associated with a specific payment, including platform
+        fees and processing fees.
 
         Required permissions:
 
@@ -438,8 +441,10 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """
-        Refunds a payment
+        """Issue a full or partial refund for a payment.
+
+        The refund is processed through
+        the original payment processor and the membership status is updated accordingly.
 
         Required permissions:
 
@@ -452,7 +457,8 @@ class PaymentsResource(SyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          partial_amount: An amount if the refund is supposed to be partial.
+          partial_amount: The amount to refund in the payment currency. If omitted, the full payment
+              amount is refunded.
 
           extra_headers: Send extra headers
 
@@ -484,8 +490,10 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """
-        Retries a payment
+        """Retry a failed or pending payment.
+
+        This re-attempts the charge using the
+        original payment method and plan details.
 
         Required permissions:
 
@@ -527,8 +535,10 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """
-        Voids a payment
+        """Void a payment that has not yet been settled.
+
+        Voiding cancels the payment before
+        it is captured by the payment processor.
 
         Required permissions:
 
@@ -747,7 +757,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
         """
-        Retrieves a payment by ID
+        Retrieves the details of an existing payment.
 
         Required permissions:
 
@@ -805,7 +815,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PaymentListResponse, AsyncCursorPage[PaymentListResponse]]:
         """
-        Lists payments
+        Returns a paginated list of payments for a company, with optional filtering by
+        product, plan, status, billing reason, currency, and creation date.
 
         Required permissions:
 
@@ -818,37 +829,38 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          company_id: The ID of the company to list payments for
+          company_id: The unique identifier of the company to list payments for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          billing_reasons: The billing reason for the payment
+          billing_reasons: Filter payments by their billing reason.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return payments created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return payments created before this timestamp.
 
-          currencies: The currency of the payment.
+          currencies: Filter payments by their currency code.
 
           direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
-          include_free: Whether to include free payments.
+          include_free: Whether to include payments with a zero amount.
 
           last: Returns the last _n_ elements from the list.
 
           order: The order to sort the results by.
 
-          plan_ids: A specific plan.
+          plan_ids: Filter payments to only those associated with these specific plan identifiers.
 
-          product_ids: A specific product.
+          product_ids: Filter payments to only those associated with these specific product
+              identifiers.
 
-          statuses: The status of the payment.
+          statuses: Filter payments by their current status.
 
-          substatuses: The substatus of the payment.
+          substatuses: Filter payments by their current substatus for more granular filtering.
 
           extra_headers: Send extra headers
 
@@ -907,7 +919,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PaymentListFeesResponse, AsyncCursorPage[PaymentListFeesResponse]]:
         """
-        Lists fees for a payment
+        Returns the list of fees associated with a specific payment, including platform
+        fees and processing fees.
 
         Required permissions:
 
@@ -965,8 +978,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """
-        Refunds a payment
+        """Issue a full or partial refund for a payment.
+
+        The refund is processed through
+        the original payment processor and the membership status is updated accordingly.
 
         Required permissions:
 
@@ -979,7 +994,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          partial_amount: An amount if the refund is supposed to be partial.
+          partial_amount: The amount to refund in the payment currency. If omitted, the full payment
+              amount is refunded.
 
           extra_headers: Send extra headers
 
@@ -1013,8 +1029,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """
-        Retries a payment
+        """Retry a failed or pending payment.
+
+        This re-attempts the charge using the
+        original payment method and plan details.
 
         Required permissions:
 
@@ -1056,8 +1074,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """
-        Voids a payment
+        """Void a payment that has not yet been settled.
+
+        Voiding cancels the payment before
+        it is captured by the payment processor.
 
         Required permissions:
 

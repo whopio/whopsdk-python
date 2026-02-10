@@ -10,4 +10,7 @@ __all__ = ["MembershipUpdateParams"]
 
 class MembershipUpdateParams(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
-    """The metadata to update the membership with."""
+    """A JSON object of key-value pairs to store on the membership.
+
+    Replaces any existing metadata.
+    """

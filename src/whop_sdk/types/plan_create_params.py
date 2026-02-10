@@ -17,42 +17,48 @@ __all__ = ["PlanCreateParams", "CustomField", "Image", "PaymentMethodConfigurati
 
 class PlanCreateParams(TypedDict, total=False):
     company_id: Required[str]
-    """The company the plan should be created for."""
+    """The unique identifier of the company to create this plan for."""
 
     product_id: Required[str]
-    """The product the plan is related to."""
+    """The unique identifier of the product to attach this plan to."""
 
     billing_period: Optional[int]
-    """The interval in days at which the plan charges (renewal plans)."""
+    """The number of days between recurring charges.
+
+    For example, 30 for monthly or 365 for yearly.
+    """
 
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
     custom_fields: Optional[Iterable[CustomField]]
-    """An array of custom field objects."""
+    """An array of custom field definitions to collect from customers at checkout."""
 
     description: Optional[str]
-    """The description of the plan."""
+    """A text description of the plan displayed to customers on the product page."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan expires and revokes access (expiration plans)."""
+    """The number of days until the membership expires and access is revoked.
+
+    Used for expiration-based plans.
+    """
 
     image: Optional[Image]
-    """An image for the plan. This will be visible on the product page to customers."""
+    """An image displayed on the product page to represent this plan."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase.
+    """The amount charged on the first purchase.
 
-    Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
-    for $10.43
+    For one-time plans, this is the full price. For recurring plans, this is an
+    additional charge on top of the renewal price. Provided in the plan's currency
+    (e.g., 10.43 for $10.43).
     """
 
     internal_notes: Optional[str]
-    """A personal description or notes section for the business."""
+    """Private notes visible only to the business owner. Not shown to customers."""
 
     legacy_payment_method_controls: Optional[bool]
-    """Whether this plan uses legacy payment method controls"""
+    """Whether this plan uses legacy payment method controls."""
 
     override_tax_type: Optional[TaxType]
     """
@@ -61,9 +67,9 @@ class PlanCreateParams(TypedDict, total=False):
     """
 
     payment_method_configuration: Optional[PaymentMethodConfiguration]
-    """The explicit payment method configuration for the plan.
+    """Explicit payment method configuration for the plan.
 
-    If not provided, the platform or company's defaults will apply.
+    When not provided, the company's defaults apply.
     """
 
     plan_type: Optional[PlanType]
@@ -73,28 +79,30 @@ class PlanCreateParams(TypedDict, total=False):
     """The methods of how a plan can be released."""
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period.
+    """The amount charged each billing period for recurring plans.
 
-    Use only if a recurring payment. Provided as a number in the specified currency.
-    Eg: 10.43 for $10.43
+    Provided in the plan's currency (e.g., 10.43 for $10.43).
     """
 
     split_pay_required_payments: Optional[int]
-    """The number of payments required before pausing the subscription."""
+    """The number of installment payments required before the subscription pauses."""
 
     stock: Optional[int]
-    """The number of units available for purchase."""
+    """The maximum number of units available for purchase.
+
+    Ignored when unlimited_stock is true.
+    """
 
     title: Optional[str]
-    """The title of the plan. This will be visible on the product page to customers."""
+    """The display name of the plan shown to customers on the product page."""
 
     trial_period_days: Optional[int]
-    """The number of free trial days added before a renewal plan."""
+    """The number of free trial days before the first charge on a recurring plan."""
 
     unlimited_stock: Optional[bool]
-    """When true, the plan has unlimited stock (stock field is ignored).
+    """Whether the plan has unlimited stock.
 
-    When false, purchases are limited by the stock field.
+    When true, the stock field is ignored. Defaults to true.
     """
 
     visibility: Optional[Visibility]
@@ -122,16 +130,16 @@ class CustomField(TypedDict, total=False):
 
 
 class Image(TypedDict, total=False):
-    """An image for the plan. This will be visible on the product page to customers."""
+    """An image displayed on the product page to represent this plan."""
 
     id: Required[str]
     """The ID of an existing file object."""
 
 
 class PaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the plan.
+    """Explicit payment method configuration for the plan.
 
-    If not provided, the platform or company's defaults will apply.
+    When not provided, the company's defaults apply.
     """
 
     disabled: Required[List[PaymentMethodTypes]]

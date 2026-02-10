@@ -12,7 +12,7 @@ __all__ = ["CompanyTokenTransactionListParams"]
 
 class CompanyTokenTransactionListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company"""
+    """The unique identifier of the company to list token transactions for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -30,4 +30,4 @@ class CompanyTokenTransactionListParams(TypedDict, total=False):
     """The type of token transaction"""
 
     user_id: Optional[str]
-    """Filter by user ID"""
+    """Filter transactions to only those involving this specific user."""

@@ -67,30 +67,32 @@ class TransfersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Transfer:
         """
-        Creates a new transfer between ledger accounts
+        Transfer funds between two ledger accounts, such as from a company balance to a
+        user balance.
 
         Required permissions:
 
         - `payout:transfer_funds`
 
         Args:
-          amount:
-              The amount to transfer. Provided as a number in the specified currency. Eg:
-              25.00 for $25.00 USD.
+          amount: The amount to transfer in the specified currency. For example, 25.00 for $25.00
+              USD.
 
-          currency: The currency that is being withdrawn.
+          currency: The currency of the transfer amount, such as 'usd'.
 
-          destination_id: The ID of the destination account which will receive the funds (either a User
-              ID, Company ID, or LedgerAccount ID)
+          destination_id: The identifier of the account receiving the funds. Accepts a user ID
+              ('user_xxx'), company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
 
-          origin_id: The ID of the origin account which will send the funds (either a User ID,
-              Company ID, or LedgerAccount ID)
+          origin_id: The identifier of the account sending the funds. Accepts a user ID ('user_xxx'),
+              company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
 
-          idempotence_key: A unique key to ensure idempotence. Use a UUID or similar.
+          idempotence_key: A unique key to prevent duplicate transfers. Use a UUID or similar unique
+              string.
 
-          metadata: A hash of metadata to attach to the transfer.
+          metadata: A JSON object of custom metadata to attach to the transfer for tracking
+              purposes.
 
-          notes: Notes for the transfer. Maximum of 50 characters.
+          notes: A short note describing the transfer, up to 50 characters.
 
           extra_headers: Send extra headers
 
@@ -132,7 +134,7 @@ class TransfersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Transfer:
         """
-        Retrieves a transfer by ID
+        Retrieves the details of an existing transfer.
 
         Required permissions:
 
@@ -178,7 +180,8 @@ class TransfersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[TransferListResponse]:
         """
-        Lists transfers
+        Returns a paginated list of fund transfers, filtered by origin or destination
+        account, with optional sorting and date filtering.
 
         Required permissions:
 
@@ -189,12 +192,12 @@ class TransfersResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return transfers created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return transfers created before this timestamp.
 
-          destination_id: Filter transfers to only those that were sent to this destination account.
-              (user_xxx, biz_xxx, ldgr_xxx)
+          destination_id: Filter to transfers received by this account. Accepts a user, company, or ledger
+              account ID.
 
           direction: The direction of the sort.
 
@@ -204,8 +207,8 @@ class TransfersResource(SyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          origin_id: Filter transfers to only those that were sent from this origin account.
-              (user_xxx, biz_xxx, ldgr_xxx)
+          origin_id: Filter to transfers sent from this account. Accepts a user, company, or ledger
+              account ID.
 
           extra_headers: Send extra headers
 
@@ -281,30 +284,32 @@ class AsyncTransfersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Transfer:
         """
-        Creates a new transfer between ledger accounts
+        Transfer funds between two ledger accounts, such as from a company balance to a
+        user balance.
 
         Required permissions:
 
         - `payout:transfer_funds`
 
         Args:
-          amount:
-              The amount to transfer. Provided as a number in the specified currency. Eg:
-              25.00 for $25.00 USD.
+          amount: The amount to transfer in the specified currency. For example, 25.00 for $25.00
+              USD.
 
-          currency: The currency that is being withdrawn.
+          currency: The currency of the transfer amount, such as 'usd'.
 
-          destination_id: The ID of the destination account which will receive the funds (either a User
-              ID, Company ID, or LedgerAccount ID)
+          destination_id: The identifier of the account receiving the funds. Accepts a user ID
+              ('user_xxx'), company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
 
-          origin_id: The ID of the origin account which will send the funds (either a User ID,
-              Company ID, or LedgerAccount ID)
+          origin_id: The identifier of the account sending the funds. Accepts a user ID ('user_xxx'),
+              company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
 
-          idempotence_key: A unique key to ensure idempotence. Use a UUID or similar.
+          idempotence_key: A unique key to prevent duplicate transfers. Use a UUID or similar unique
+              string.
 
-          metadata: A hash of metadata to attach to the transfer.
+          metadata: A JSON object of custom metadata to attach to the transfer for tracking
+              purposes.
 
-          notes: Notes for the transfer. Maximum of 50 characters.
+          notes: A short note describing the transfer, up to 50 characters.
 
           extra_headers: Send extra headers
 
@@ -346,7 +351,7 @@ class AsyncTransfersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Transfer:
         """
-        Retrieves a transfer by ID
+        Retrieves the details of an existing transfer.
 
         Required permissions:
 
@@ -392,7 +397,8 @@ class AsyncTransfersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[TransferListResponse, AsyncCursorPage[TransferListResponse]]:
         """
-        Lists transfers
+        Returns a paginated list of fund transfers, filtered by origin or destination
+        account, with optional sorting and date filtering.
 
         Required permissions:
 
@@ -403,12 +409,12 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return transfers created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return transfers created before this timestamp.
 
-          destination_id: Filter transfers to only those that were sent to this destination account.
-              (user_xxx, biz_xxx, ldgr_xxx)
+          destination_id: Filter to transfers received by this account. Accepts a user, company, or ledger
+              account ID.
 
           direction: The direction of the sort.
 
@@ -418,8 +424,8 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          origin_id: Filter transfers to only those that were sent from this origin account.
-              (user_xxx, biz_xxx, ldgr_xxx)
+          origin_id: Filter to transfers sent from this account. Accepts a user, company, or ledger
+              account ID.
 
           extra_headers: Send extra headers
 

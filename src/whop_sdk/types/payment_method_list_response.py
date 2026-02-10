@@ -26,176 +26,292 @@ __all__ = [
 
 
 class BasePaymentMethod(BaseModel):
-    """A payment method with no additional properties"""
+    """A saved payment method with no type-specific details available."""
 
     id: str
-    """The ID of the payment method"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     created_at: datetime
-    """When the payment method was created"""
+    """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
     payment_method_type: PaymentMethodTypes
-    """The type of the payment method"""
+    """
+    The type of payment instrument stored on file (e.g., card, us_bank_account,
+    cashapp, ideal, sepa_debit).
+    """
 
     typename: Literal["BasePaymentMethod"]
     """The typename of this object"""
 
 
 class CardPaymentMethodCard(BaseModel):
-    """The card details associated with this payment method"""
+    """
+    The card-specific details for this payment method, including brand, last four digits, and expiration.
+    """
 
     brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
     exp_month: Optional[int] = None
-    """Card expiration month, like 03 for March."""
+    """The two-digit expiration month of the card (1-12). Null if not available."""
 
     exp_year: Optional[int] = None
-    """Card expiration year, like 27 for 2027."""
+    """The two-digit expiration year of the card (e.g., 27 for 2027).
+
+    Null if not available.
+    """
 
     last4: Optional[str] = None
-    """Last four digits of the card."""
+    """The last four digits of the card number. Null if not available."""
 
 
 class CardPaymentMethod(BaseModel):
-    """The card for the payment method"""
+    """
+    A saved card payment method, including brand, last four digits, and expiration details.
+    """
 
     id: str
-    """The ID of the payment method"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     card: CardPaymentMethodCard
-    """The card details associated with this payment method"""
+    """
+    The card-specific details for this payment method, including brand, last four
+    digits, and expiration.
+    """
 
     created_at: datetime
-    """When the payment method was created"""
+    """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
     payment_method_type: PaymentMethodTypes
-    """The type of the payment method"""
+    """
+    The type of payment instrument stored on file (e.g., card, us_bank_account,
+    cashapp, ideal, sepa_debit).
+    """
 
     typename: Literal["CardPaymentMethod"]
     """The typename of this object"""
 
 
 class UsBankAccountPaymentMethodUsBankAccount(BaseModel):
-    """The bank details associated with this payment method"""
+    """
+    The bank account-specific details for this payment method, including bank name and last four digits.
+    """
 
     account_type: str
-    """The type of account"""
+    """The type of bank account (e.g., checking, savings)."""
 
     bank_name: str
-    """The name of the bank"""
+    """The name of the financial institution holding the account."""
 
     last4: str
-    """The last 4 digits of the account number"""
+    """The last four digits of the bank account number."""
 
 
 class UsBankAccountPaymentMethod(BaseModel):
-    """The bank account for the payment method"""
+    """
+    A saved US bank account payment method, including bank name, last four digits, and account type.
+    """
 
     id: str
-    """The ID of the payment method"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     created_at: datetime
-    """When the payment method was created"""
+    """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
     payment_method_type: PaymentMethodTypes
-    """The type of the payment method"""
+    """
+    The type of payment instrument stored on file (e.g., card, us_bank_account,
+    cashapp, ideal, sepa_debit).
+    """
 
     typename: Literal["UsBankAccountPaymentMethod"]
     """The typename of this object"""
 
     us_bank_account: UsBankAccountPaymentMethodUsBankAccount
-    """The bank details associated with this payment method"""
+    """
+    The bank account-specific details for this payment method, including bank name
+    and last four digits.
+    """
 
 
 class CashappPaymentMethodCashapp(BaseModel):
-    """The Cash App details associated with this payment method"""
+    """
+    The Cash App-specific details for this payment method, including cashtag and buyer ID.
+    """
 
     buyer_id: Optional[str] = None
-    """A unique and immutable identifier assigned by Cash App to every buyer."""
+    """The unique and immutable identifier assigned by Cash App to the buyer.
+
+    Null if not available.
+    """
 
     cashtag: Optional[str] = None
-    """A public identifier for buyers using Cash App."""
+    """The public cashtag handle of the buyer on Cash App. Null if not available."""
 
 
 class CashappPaymentMethod(BaseModel):
-    """The Cash App details for the payment method"""
+    """
+    A saved Cash App payment method, including the buyer's cashtag and unique identifier.
+    """
 
     id: str
-    """The ID of the payment method"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     cashapp: CashappPaymentMethodCashapp
-    """The Cash App details associated with this payment method"""
+    """
+    The Cash App-specific details for this payment method, including cashtag and
+    buyer ID.
+    """
 
     created_at: datetime
-    """When the payment method was created"""
+    """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
     payment_method_type: PaymentMethodTypes
-    """The type of the payment method"""
+    """
+    The type of payment instrument stored on file (e.g., card, us_bank_account,
+    cashapp, ideal, sepa_debit).
+    """
 
     typename: Literal["CashappPaymentMethod"]
     """The typename of this object"""
 
 
 class IdealPaymentMethodIdeal(BaseModel):
-    """The iDEAL details associated with this payment method"""
+    """
+    The iDEAL-specific details for this payment method, including bank name and BIC.
+    """
 
     bank: Optional[str] = None
-    """The customer's bank."""
+    """The name of the customer's bank used for the iDEAL transaction.
+
+    Null if not available.
+    """
 
     bic: Optional[str] = None
-    """The Bank Identifier Code of the customer's bank."""
+    """The Bank Identifier Code (BIC/SWIFT) of the customer's bank.
+
+    Null if not available.
+    """
 
 
 class IdealPaymentMethod(BaseModel):
-    """The iDEAL details for the payment method"""
+    """A saved iDEAL payment method, including the customer's bank name and BIC code."""
 
     id: str
-    """The ID of the payment method"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     created_at: datetime
-    """When the payment method was created"""
+    """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
     ideal: IdealPaymentMethodIdeal
-    """The iDEAL details associated with this payment method"""
+    """
+    The iDEAL-specific details for this payment method, including bank name and BIC.
+    """
 
     payment_method_type: PaymentMethodTypes
-    """The type of the payment method"""
+    """
+    The type of payment instrument stored on file (e.g., card, us_bank_account,
+    cashapp, ideal, sepa_debit).
+    """
 
     typename: Literal["IdealPaymentMethod"]
     """The typename of this object"""
 
 
 class SepaDebitPaymentMethodSepaDebit(BaseModel):
-    """The SEPA Direct Debit details associated with this payment method"""
+    """
+    The SEPA Direct Debit-specific details for this payment method, including bank code and last four IBAN digits.
+    """
 
     bank_code: Optional[str] = None
-    """Bank code of the bank associated with the account."""
+    """The bank code of the financial institution associated with this SEPA account.
+
+    Null if not available.
+    """
 
     branch_code: Optional[str] = None
-    """Branch code of the bank associated with the account."""
+    """The branch code of the financial institution associated with this SEPA account.
+
+    Null if not available.
+    """
 
     country: Optional[str] = None
-    """Two-letter ISO code representing the country the bank account is located in."""
+    """The two-letter ISO country code where the bank account is located.
+
+    Null if not available.
+    """
 
     last4: Optional[str] = None
-    """Last four digits of the IBAN."""
+    """The last four digits of the IBAN associated with this SEPA account.
+
+    Null if not available.
+    """
 
 
 class SepaDebitPaymentMethod(BaseModel):
-    """The SEPA Direct Debit details for the payment method"""
+    """
+    A saved SEPA Direct Debit payment method, including the bank code, country, and last four IBAN digits.
+    """
 
     id: str
-    """The ID of the payment method"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     created_at: datetime
-    """When the payment method was created"""
+    """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
     payment_method_type: PaymentMethodTypes
-    """The type of the payment method"""
+    """
+    The type of payment instrument stored on file (e.g., card, us_bank_account,
+    cashapp, ideal, sepa_debit).
+    """
 
     sepa_debit: SepaDebitPaymentMethodSepaDebit
-    """The SEPA Direct Debit details associated with this payment method"""
+    """
+    The SEPA Direct Debit-specific details for this payment method, including bank
+    code and last four IBAN digits.
+    """
 
     typename: Literal["SepaDebitPaymentMethod"]
     """The typename of this object"""

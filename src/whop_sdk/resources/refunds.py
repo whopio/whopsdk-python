@@ -59,7 +59,7 @@ class RefundsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RefundRetrieveResponse:
         """
-        Retrieves a Refund by ID
+        Retrieves the details of an existing refund.
 
         Required permissions:
 
@@ -106,22 +106,23 @@ class RefundsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[RefundListResponse]:
         """
-        Lists Refunds for a payment.
+        Returns a paginated list of refunds for a specific payment, with optional
+        filtering by creation date.
 
         Required permissions:
 
         - `payment:basic:read`
 
         Args:
-          payment_id: The ID of the payment to list refunds for
+          payment_id: The unique identifier of the payment to list refunds for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return refunds created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return refunds created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -195,7 +196,7 @@ class AsyncRefundsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RefundRetrieveResponse:
         """
-        Retrieves a Refund by ID
+        Retrieves the details of an existing refund.
 
         Required permissions:
 
@@ -242,22 +243,23 @@ class AsyncRefundsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[RefundListResponse, AsyncCursorPage[RefundListResponse]]:
         """
-        Lists Refunds for a payment.
+        Returns a paginated list of refunds for a specific payment, with optional
+        filtering by creation date.
 
         Required permissions:
 
         - `payment:basic:read`
 
         Args:
-          payment_id: The ID of the payment to list refunds for
+          payment_id: The unique identifier of the payment to list refunds for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return refunds created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return refunds created before this timestamp.
 
           direction: The direction of the sort.
 

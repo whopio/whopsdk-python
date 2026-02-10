@@ -14,7 +14,7 @@ __all__ = ["RefundListParams"]
 
 class RefundListParams(TypedDict, total=False):
     payment_id: Required[str]
-    """The ID of the payment to list refunds for"""
+    """The unique identifier of the payment to list refunds for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -23,10 +23,10 @@ class RefundListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return refunds created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return refunds created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""

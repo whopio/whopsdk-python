@@ -54,10 +54,12 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileCreateResponse:
         """
-        Creates a file and returns a presigned URL for upload
+        Create a new file record and receive a presigned URL for uploading content to
+        S3.
 
         Args:
-          filename: The filename of the file
+          filename: The name of the file including its extension (e.g., "photo.png" or
+              "document.pdf").
 
           extra_headers: Send extra headers
 
@@ -88,7 +90,7 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileRetrieveResponse:
         """
-        Retrieves a file by its ID
+        Retrieves the details of an existing file.
 
         Args:
           extra_headers: Send extra headers
@@ -142,10 +144,12 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileCreateResponse:
         """
-        Creates a file and returns a presigned URL for upload
+        Create a new file record and receive a presigned URL for uploading content to
+        S3.
 
         Args:
-          filename: The filename of the file
+          filename: The name of the file including its extension (e.g., "photo.png" or
+              "document.pdf").
 
           extra_headers: Send extra headers
 
@@ -176,7 +180,7 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileRetrieveResponse:
         """
-        Retrieves a file by its ID
+        Retrieves the details of an existing file.
 
         Args:
           extra_headers: Send extra headers

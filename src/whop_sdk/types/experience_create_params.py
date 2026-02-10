@@ -10,26 +10,26 @@ __all__ = ["ExperienceCreateParams", "Logo"]
 
 class ExperienceCreateParams(TypedDict, total=False):
     app_id: Required[str]
-    """The ID of the app to create the experience for"""
+    """The unique identifier of the app that powers this experience."""
 
     company_id: Required[str]
-    """The ID of the company to create the experience for"""
+    """The unique identifier of the company to create this experience for."""
 
     is_public: Optional[bool]
-    """Whether the experience is publicly accessible"""
+    """Whether the experience is publicly accessible without a membership."""
 
     logo: Optional[Logo]
-    """The logo for the experience"""
+    """A logo image displayed alongside the experience name."""
 
     name: Optional[str]
-    """The name of the experience"""
+    """The display name of the experience. Defaults to the app's name if not provided."""
 
     section_id: Optional[str]
-    """The ID of the section to create the experience in"""
+    """The unique identifier of the section to place the experience in."""
 
 
 class Logo(TypedDict, total=False):
-    """The logo for the experience"""
+    """A logo image displayed alongside the experience name."""
 
     id: Required[str]
     """The ID of an existing file object."""

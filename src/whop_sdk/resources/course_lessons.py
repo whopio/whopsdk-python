@@ -78,29 +78,34 @@ class CourseLessonsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lesson:
-        """
-        Creates a new course lesson
+        """Create a new lesson within a course chapter.
+
+        Lessons can contain video, text, or
+        assessment content.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          chapter_id: The ID of the chapter to create the lesson in
+          chapter_id: The unique identifier of the chapter to create the lesson in (e.g.,
+              "chap_XXXXX").
 
-          lesson_type: The type of the lesson
+          lesson_type: The content type of the lesson, such as video, text, quiz, or knowledge check.
 
-          content: The content of the lesson
+          content: The rich text or HTML content body of the lesson.
 
-          days_from_course_start_until_unlock: Days from course start until unlock
+          days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
+              accessible.
 
-          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+          embed_id: The external video identifier for embedded content (e.g., a YouTube video ID or
+              Loom share ID).
 
           embed_type: The type of embed for a lesson
 
-          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the lesson in PNG, JPEG, or GIF format.
 
-          title: The title of the lesson
+          title: The display title of the lesson (e.g., "Getting Started with APIs").
 
           extra_headers: Send extra headers
 
@@ -143,7 +148,7 @@ class CourseLessonsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lesson:
         """
-        Retrieves a course lesson by ID
+        Retrieves the details of an existing course lesson.
 
         Required permissions:
 
@@ -195,40 +200,45 @@ class CourseLessonsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lesson:
         """
-        Updates a course lesson
+        Update a lesson's content, type, visibility, assessment questions, or media
+        attachments.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          assessment_completion_requirement: Completion requirements for quiz/knowledge check lessons
+          assessment_completion_requirement: The passing criteria for quiz or knowledge check lessons, such as minimum grade
+              or correct answers.
 
-          assessment_questions: Assessment questions for quiz/knowledge check lessons. Replaces all existing
-              questions.
+          assessment_questions: The full list of assessment questions for quiz or knowledge check lessons.
+              Replaces all existing questions.
 
-          attachments: General attachments for the lesson (PDFs, files, etc). Replaces all existing
+          attachments: File attachments for the lesson such as PDFs or documents. Replaces all existing
               attachments.
 
-          content: The content of the lesson
+          content: The rich text or HTML content body of the lesson.
 
-          days_from_course_start_until_unlock: Days from course start until unlock
+          days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
+              accessible.
 
-          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+          embed_id: The external video identifier for embedded content (e.g., a YouTube video ID or
+              Loom share ID).
 
           embed_type: The type of embed for a lesson
 
           lesson_type: The available types for a lesson
 
-          main_pdf: The main PDF file for this lesson
+          main_pdf: The primary PDF document attached to this lesson for student reference.
 
-          max_attempts: Maximum number of attempts allowed for assessments
+          max_attempts: The maximum number of attempts a student is allowed for assessment lessons.
 
-          mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
+          mux_asset_id: The identifier of a Mux video asset to attach to this lesson (e.g.,
+              "mux_XXXXX").
 
-          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the lesson in PNG, JPEG, or GIF format.
 
-          title: The title of the lesson
+          title: The display title of the lesson (e.g., "Getting Started with APIs").
 
           visibility: The available visibilities for a lesson. Determines how / whether a lesson is
               visible to users.
@@ -287,7 +297,8 @@ class CourseLessonsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CourseLessonListResponse]:
         """
-        Lists lessons for a course or chapter
+        Returns a paginated list of lessons within a course or chapter, ordered by
+        position.
 
         Required permissions:
 
@@ -298,9 +309,9 @@ class CourseLessonsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          chapter_id: The ID of the chapter (returns lessons only for this chapter)
+          chapter_id: The unique identifier of a chapter to return only its lessons.
 
-          course_id: The ID of the course (returns all lessons across all chapters)
+          course_id: The unique identifier of the course to return all lessons across all chapters.
 
           first: Returns the first _n_ elements from the list.
 
@@ -349,7 +360,7 @@ class CourseLessonsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonDeleteResponse:
         """
-        Deletes a course lesson
+        Permanently delete a lesson and remove it from its chapter.
 
         Required permissions:
 
@@ -386,7 +397,7 @@ class CourseLessonsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonMarkAsCompletedResponse:
         """
-        Marks a course lesson as completed
+        Mark a lesson as completed for the current user after they finish the content.
 
         Args:
           extra_headers: Send extra headers
@@ -419,7 +430,8 @@ class CourseLessonsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonStartResponse:
         """
-        Starts a course lesson
+        Record that the current user has started viewing a lesson, creating progress
+        tracking records.
 
         Args:
           extra_headers: Send extra headers
@@ -453,10 +465,10 @@ class CourseLessonsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonSubmitAssessmentResponse:
         """
-        Submits answers for a course assessment
+        Submit answers for a quiz or knowledge check lesson and receive a graded result.
 
         Args:
-          answers: The answers to the assessment questions
+          answers: The list of answers to submit for each assessment question.
 
           extra_headers: Send extra headers
 
@@ -518,29 +530,34 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lesson:
-        """
-        Creates a new course lesson
+        """Create a new lesson within a course chapter.
+
+        Lessons can contain video, text, or
+        assessment content.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          chapter_id: The ID of the chapter to create the lesson in
+          chapter_id: The unique identifier of the chapter to create the lesson in (e.g.,
+              "chap_XXXXX").
 
-          lesson_type: The type of the lesson
+          lesson_type: The content type of the lesson, such as video, text, quiz, or knowledge check.
 
-          content: The content of the lesson
+          content: The rich text or HTML content body of the lesson.
 
-          days_from_course_start_until_unlock: Days from course start until unlock
+          days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
+              accessible.
 
-          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+          embed_id: The external video identifier for embedded content (e.g., a YouTube video ID or
+              Loom share ID).
 
           embed_type: The type of embed for a lesson
 
-          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the lesson in PNG, JPEG, or GIF format.
 
-          title: The title of the lesson
+          title: The display title of the lesson (e.g., "Getting Started with APIs").
 
           extra_headers: Send extra headers
 
@@ -583,7 +600,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lesson:
         """
-        Retrieves a course lesson by ID
+        Retrieves the details of an existing course lesson.
 
         Required permissions:
 
@@ -635,40 +652,45 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lesson:
         """
-        Updates a course lesson
+        Update a lesson's content, type, visibility, assessment questions, or media
+        attachments.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          assessment_completion_requirement: Completion requirements for quiz/knowledge check lessons
+          assessment_completion_requirement: The passing criteria for quiz or knowledge check lessons, such as minimum grade
+              or correct answers.
 
-          assessment_questions: Assessment questions for quiz/knowledge check lessons. Replaces all existing
-              questions.
+          assessment_questions: The full list of assessment questions for quiz or knowledge check lessons.
+              Replaces all existing questions.
 
-          attachments: General attachments for the lesson (PDFs, files, etc). Replaces all existing
+          attachments: File attachments for the lesson such as PDFs or documents. Replaces all existing
               attachments.
 
-          content: The content of the lesson
+          content: The rich text or HTML content body of the lesson.
 
-          days_from_course_start_until_unlock: Days from course start until unlock
+          days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
+              accessible.
 
-          embed_id: ID for the embed (YouTube video ID or Loom share ID)
+          embed_id: The external video identifier for embedded content (e.g., a YouTube video ID or
+              Loom share ID).
 
           embed_type: The type of embed for a lesson
 
           lesson_type: The available types for a lesson
 
-          main_pdf: The main PDF file for this lesson
+          main_pdf: The primary PDF document attached to this lesson for student reference.
 
-          max_attempts: Maximum number of attempts allowed for assessments
+          max_attempts: The maximum number of attempts a student is allowed for assessment lessons.
 
-          mux_asset_id: The ID of the Mux asset to attach to this lesson for video lessons
+          mux_asset_id: The identifier of a Mux video asset to attach to this lesson (e.g.,
+              "mux_XXXXX").
 
-          thumbnail: The thumbnail for the lesson in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the lesson in PNG, JPEG, or GIF format.
 
-          title: The title of the lesson
+          title: The display title of the lesson (e.g., "Getting Started with APIs").
 
           visibility: The available visibilities for a lesson. Determines how / whether a lesson is
               visible to users.
@@ -727,7 +749,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CourseLessonListResponse, AsyncCursorPage[CourseLessonListResponse]]:
         """
-        Lists lessons for a course or chapter
+        Returns a paginated list of lessons within a course or chapter, ordered by
+        position.
 
         Required permissions:
 
@@ -738,9 +761,9 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          chapter_id: The ID of the chapter (returns lessons only for this chapter)
+          chapter_id: The unique identifier of a chapter to return only its lessons.
 
-          course_id: The ID of the course (returns all lessons across all chapters)
+          course_id: The unique identifier of the course to return all lessons across all chapters.
 
           first: Returns the first _n_ elements from the list.
 
@@ -789,7 +812,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonDeleteResponse:
         """
-        Deletes a course lesson
+        Permanently delete a lesson and remove it from its chapter.
 
         Required permissions:
 
@@ -826,7 +849,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonMarkAsCompletedResponse:
         """
-        Marks a course lesson as completed
+        Mark a lesson as completed for the current user after they finish the content.
 
         Args:
           extra_headers: Send extra headers
@@ -859,7 +882,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonStartResponse:
         """
-        Starts a course lesson
+        Record that the current user has started viewing a lesson, creating progress
+        tracking records.
 
         Args:
           extra_headers: Send extra headers
@@ -893,10 +917,10 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonSubmitAssessmentResponse:
         """
-        Submits answers for a course assessment
+        Submit answers for a quiz or knowledge check lesson and receive a graded result.
 
         Args:
-          answers: The answers to the assessment questions
+          answers: The list of answers to submit for each assessment question.
 
           extra_headers: Send extra headers
 

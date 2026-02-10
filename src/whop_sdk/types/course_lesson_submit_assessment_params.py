@@ -12,7 +12,7 @@ __all__ = ["CourseLessonSubmitAssessmentParams", "Answer"]
 
 class CourseLessonSubmitAssessmentParams(TypedDict, total=False):
     answers: Required[Iterable[Answer]]
-    """The answers to the assessment questions"""
+    """The list of answers to submit for each assessment question."""
 
 
 class Answer(TypedDict, total=False):

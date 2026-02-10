@@ -13,22 +13,22 @@ __all__ = ["ExperienceListParams"]
 
 class ExperienceListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to filter experiences by"""
+    """The unique identifier of the company to list experiences for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
     app_id: Optional[str]
-    """The ID of the app to filter experiences by"""
+    """Filter to only experiences powered by this app identifier."""
 
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return experiences created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return experiences created before this timestamp."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -37,4 +37,4 @@ class ExperienceListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     product_id: Optional[str]
-    """The ID of the product to filter experiences by"""
+    """Filter to only experiences attached to this product identifier."""

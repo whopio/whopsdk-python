@@ -20,13 +20,16 @@ class PaymentMethodListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: Optional[str]
-    """The ID of the Company. Provide either this or member_id (not both)."""
+    """The unique identifier of the company.
+
+    Provide either this or member_id, not both.
+    """
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return payment methods created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return payment methods created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -38,4 +41,4 @@ class PaymentMethodListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     member_id: Optional[str]
-    """The ID of the Member to list payment methods for"""
+    """The unique identifier of the member to list payment methods for."""

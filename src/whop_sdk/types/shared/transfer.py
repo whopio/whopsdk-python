@@ -102,43 +102,49 @@ Origin: TypeAlias = Annotated[
 
 
 class Transfer(BaseModel):
-    """Credit Transaction Transfer"""
+    """A transfer of credit between two ledger accounts."""
 
     id: str
     """The unique identifier for the credit transaction transfer."""
 
     amount: float
-    """The amount of the transfer.
+    """The transfer amount in the currency specified by the currency field.
 
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    For example, 10.43 represents $10.43 USD.
     """
 
     created_at: datetime
     """The datetime the credit transaction transfer was created."""
 
     currency: Currency
-    """The currency of the credit transaction transfer"""
+    """The currency in which this transfer amount is denominated."""
 
     destination: Destination
-    """The recipient of the credit transaction transfer"""
+    """The entity receiving the transferred funds."""
 
     destination_ledger_account_id: str
-    """The ID of the destination ledger account"""
+    """The unique identifier of the ledger account receiving the funds."""
 
     fee_amount: Optional[float] = None
-    """The decimal fee of the credit transaction transfer"""
+    """The flat fee amount deducted from this transfer, in the transfer's currency.
+
+    Null if no flat fee was applied.
+    """
 
     metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs attached to the transfer.
+    """Custom key-value pairs attached to this transfer.
 
-    Max 50 keys, 500 chars per key, 5000 chars per value.
+    Maximum 50 keys, 500 characters per key, 5000 characters per value.
     """
 
     notes: Optional[str] = None
-    """The notes of the credit transaction transfer"""
+    """A free-text note attached to this transfer by the sender.
+
+    Null if no note was provided.
+    """
 
     origin: Origin
-    """The sender of the credit transaction transfer"""
+    """The entity that sent the transferred funds."""
 
     origin_ledger_account_id: str
-    """The ID of the origin ledger account"""
+    """The unique identifier of the ledger account that sent the funds."""

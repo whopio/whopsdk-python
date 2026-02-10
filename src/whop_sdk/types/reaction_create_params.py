@@ -10,16 +10,17 @@ __all__ = ["ReactionCreateParams"]
 
 class ReactionCreateParams(TypedDict, total=False):
     resource_id: Required[str]
-    """The ID of the post or message to react to."""
+    """The unique identifier of the message or forum post to react to."""
 
     emoji: Optional[str]
-    """The emoji to react with (e.g., :heart: or '😀').
+    """The emoji to react with, in shortcode or unicode format.
 
-    It will be ignored in forums, as everything will be :heart:
+    For example, ':heart:' or a unicode emoji. Ignored in forums where reactions are
+    always likes.
     """
 
     poll_option_id: Optional[str]
-    """The ID of the poll option to vote for.
+    """The unique identifier of a poll option to vote for.
 
-    Only valid for messages or posts with polls.
+    Only valid when the target message or post contains a poll.
     """

@@ -15,40 +15,43 @@ __all__ = ["PlanUpdateParams", "CustomField", "Image", "PaymentMethodConfigurati
 
 class PlanUpdateParams(TypedDict, total=False):
     billing_period: Optional[int]
-    """The interval in days at which the plan charges (renewal plans)."""
+    """The number of days between recurring charges.
+
+    For example, 30 for monthly or 365 for yearly.
+    """
 
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
     custom_fields: Optional[Iterable[CustomField]]
-    """An array of custom field objects."""
+    """An array of custom field definitions to collect from customers at checkout."""
 
     description: Optional[str]
-    """The description of the plan."""
+    """A text description of the plan displayed to customers on the product page."""
 
     expiration_days: Optional[int]
-    """The number of days until the membership expires (for expiration-based plans).
+    """The number of days until the membership expires and access is revoked.
 
-    For example, 365 for a one-year access pass.
+    For example, 365 for one-year access.
     """
 
     image: Optional[Image]
-    """An image for the plan. This will be visible on the product page to customers."""
+    """An image displayed on the product page to represent this plan."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase.
+    """The amount charged on the first purchase.
 
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    Provided in the plan's currency (e.g., 10.43 for $10.43).
     """
 
     internal_notes: Optional[str]
-    """A personal description or notes section for the business."""
+    """Private notes visible only to the business owner. Not shown to customers."""
 
     legacy_payment_method_controls: Optional[bool]
-    """Whether this plan uses legacy payment method controls"""
+    """Whether this plan uses legacy payment method controls."""
 
     offer_cancel_discount: Optional[bool]
-    """Whether or not to offer a discount to cancel a subscription."""
+    """Whether to offer a retention discount when a customer attempts to cancel."""
 
     override_tax_type: Optional[TaxType]
     """
@@ -57,43 +60,43 @@ class PlanUpdateParams(TypedDict, total=False):
     """
 
     payment_method_configuration: Optional[PaymentMethodConfiguration]
-    """The explicit payment method configuration for the plan.
+    """Explicit payment method configuration for the plan.
 
-    If sent as null, the custom configuration will be removed.
+    Sending null removes any custom configuration.
     """
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period.
+    """The amount charged each billing period for recurring plans.
 
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    Provided in the plan's currency (e.g., 10.43 for $10.43).
     """
 
     stock: Optional[int]
-    """The number of units available for purchase."""
+    """The maximum number of units available for purchase.
+
+    Ignored when unlimited_stock is true.
+    """
 
     strike_through_initial_price: Optional[float]
-    """The price to display with a strikethrough for the initial price.
+    """A comparison price displayed with a strikethrough for the initial price.
 
-    Provided as a number in the specified currency. Eg: 19.99 for $19.99
+    Provided in the plan's currency (e.g., 19.99 for $19.99).
     """
 
     strike_through_renewal_price: Optional[float]
-    """The price to display with a strikethrough for the renewal price.
+    """A comparison price displayed with a strikethrough for the renewal price.
 
-    Provided as a number in the specified currency. Eg: 19.99 for $19.99
+    Provided in the plan's currency (e.g., 19.99 for $19.99).
     """
 
     title: Optional[str]
-    """The title of the plan. This will be visible on the product page to customers."""
+    """The display name of the plan shown to customers on the product page."""
 
     trial_period_days: Optional[int]
-    """The number of free trial days added before a renewal plan."""
+    """The number of free trial days before the first charge on a recurring plan."""
 
     unlimited_stock: Optional[bool]
-    """When true, the plan has unlimited stock (stock field is ignored).
-
-    When false, purchases are limited by the stock field.
-    """
+    """Whether the plan has unlimited stock. When true, the stock field is ignored."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
@@ -120,16 +123,16 @@ class CustomField(TypedDict, total=False):
 
 
 class Image(TypedDict, total=False):
-    """An image for the plan. This will be visible on the product page to customers."""
+    """An image displayed on the product page to represent this plan."""
 
     id: Required[str]
     """The ID of an existing file object."""
 
 
 class PaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the plan.
+    """Explicit payment method configuration for the plan.
 
-    If sent as null, the custom configuration will be removed.
+    Sending null removes any custom configuration.
     """
 
     disabled: Required[List[PaymentMethodTypes]]

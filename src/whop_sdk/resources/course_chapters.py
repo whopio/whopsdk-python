@@ -59,16 +59,17 @@ class CourseChaptersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapter:
         """
-        Creates a new course chapter
+        Create a new chapter within a course to organize lessons into sections.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          course_id: The ID of the course to create the chapter in
+          course_id: The unique identifier of the course to create the chapter in (e.g.,
+              "course_XXXXX").
 
-          title: The title of the chapter
+          title: The display title of the chapter (e.g., "Module 1: Introduction").
 
           extra_headers: Send extra headers
 
@@ -105,7 +106,7 @@ class CourseChaptersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapter:
         """
-        Retrieves a course chapter by ID
+        Retrieves the details of an existing course chapter.
 
         Required permissions:
 
@@ -143,14 +144,14 @@ class CourseChaptersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapter:
         """
-        Updates a course chapter
+        Update a chapter's title within a course.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          title: The title of the chapter
+          title: The new display title of the chapter (e.g., "Module 1: Introduction").
 
           extra_headers: Send extra headers
 
@@ -187,14 +188,14 @@ class CourseChaptersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CourseChapterListResponse]:
         """
-        Lists chapters for a course
+        Returns a paginated list of chapters within a course, ordered by position.
 
         Required permissions:
 
         - `courses:read`
 
         Args:
-          course_id: The ID of the course
+          course_id: The unique identifier of the course to list chapters for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -246,7 +247,7 @@ class CourseChaptersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapterDeleteResponse:
         """
-        Deletes a course chapter
+        Permanently delete a chapter and all of its lessons from a course.
 
         Required permissions:
 
@@ -305,16 +306,17 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapter:
         """
-        Creates a new course chapter
+        Create a new chapter within a course to organize lessons into sections.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          course_id: The ID of the course to create the chapter in
+          course_id: The unique identifier of the course to create the chapter in (e.g.,
+              "course_XXXXX").
 
-          title: The title of the chapter
+          title: The display title of the chapter (e.g., "Module 1: Introduction").
 
           extra_headers: Send extra headers
 
@@ -351,7 +353,7 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapter:
         """
-        Retrieves a course chapter by ID
+        Retrieves the details of an existing course chapter.
 
         Required permissions:
 
@@ -389,14 +391,14 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapter:
         """
-        Updates a course chapter
+        Update a chapter's title within a course.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          title: The title of the chapter
+          title: The new display title of the chapter (e.g., "Module 1: Introduction").
 
           extra_headers: Send extra headers
 
@@ -433,14 +435,14 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CourseChapterListResponse, AsyncCursorPage[CourseChapterListResponse]]:
         """
-        Lists chapters for a course
+        Returns a paginated list of chapters within a course, ordered by position.
 
         Required permissions:
 
         - `courses:read`
 
         Args:
-          course_id: The ID of the course
+          course_id: The unique identifier of the course to list chapters for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -492,7 +494,7 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseChapterDeleteResponse:
         """
-        Deletes a course chapter
+        Permanently delete a chapter and all of its lessons from a course.
 
         Required permissions:
 

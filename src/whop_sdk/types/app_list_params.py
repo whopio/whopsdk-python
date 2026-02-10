@@ -23,7 +23,7 @@ class AppListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: Optional[str]
-    """The ID of the company to filter apps by"""
+    """Filter apps to only those created by this company, starting with 'biz\\__'."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -53,12 +53,12 @@ class AppListParams(TypedDict, total=False):
     """The order to fetch the apps in for discovery."""
 
     query: Optional[str]
-    """The query to search for apps by name."""
+    """A search string to filter apps by name, such as 'chat' or 'analytics'."""
 
     verified_apps_only: Optional[bool]
-    """If true, you will only get apps that are verified by Whop.
+    """Whether to only return apps that have been verified by Whop.
 
-    Use this to populate a 'featured apps' section on the app store.
+    Useful for populating a featured apps section.
     """
 
     view_type: Optional[AppViewType]

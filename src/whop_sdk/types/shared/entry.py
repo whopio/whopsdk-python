@@ -23,14 +23,17 @@ class CustomFieldResponse(BaseModel):
 
 
 class Plan(BaseModel):
-    """The waitlist plan the entry if for."""
+    """The waitlisted plan that this entry is a signup for."""
 
     id: str
     """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
-    """The product tied to this entry, if there is one."""
+    """The product associated with this entry's waitlisted plan.
+
+    Null if the plan is not tied to a product.
+    """
 
     id: str
     """The unique identifier for the product."""
@@ -43,7 +46,7 @@ class Product(BaseModel):
 
 
 class User(BaseModel):
-    """The user who created the entry."""
+    """The user who submitted this waitlist entry."""
 
     id: str
     """The unique identifier for the user."""
@@ -71,16 +74,25 @@ class Entry(BaseModel):
     """The datetime the entry was created."""
 
     custom_field_responses: Optional[List[CustomFieldResponse]] = None
-    """Responses collected from the user when submitting their entry."""
+    """
+    The list of responses collected from the user when submitting their waitlist
+    entry.
+    """
 
     plan: Optional[Plan] = None
-    """The waitlist plan the entry if for."""
+    """The waitlisted plan that this entry is a signup for."""
 
     product: Optional[Product] = None
-    """The product tied to this entry, if there is one."""
+    """The product associated with this entry's waitlisted plan.
+
+    Null if the plan is not tied to a product.
+    """
 
     status: EntryStatus
-    """The status of the entry."""
+    """
+    The current status of the waitlist entry (e.g., drafted, pending, approved,
+    denied).
+    """
 
     user: User
-    """The user who created the entry."""
+    """The user who submitted this waitlist entry."""

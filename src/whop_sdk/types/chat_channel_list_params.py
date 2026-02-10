@@ -10,7 +10,7 @@ __all__ = ["ChatChannelListParams"]
 
 class ChatChannelListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list chat channels for"""
+    """The unique identifier of the company to list chat channels for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -25,4 +25,7 @@ class ChatChannelListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     product_id: Optional[str]
-    """If provided, only chat channels connected to this product are returned"""
+    """The unique identifier of a product to filter by.
+
+    When set, only chat channels connected to this product are returned.
+    """

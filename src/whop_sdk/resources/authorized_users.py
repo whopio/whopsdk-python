@@ -59,7 +59,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AuthorizedUserRetrieveResponse:
         """
-        Retrieves a authorized user by ID
+        Retrieves the details of an existing authorized user.
 
         Required permissions:
 
@@ -105,7 +105,8 @@ class AuthorizedUsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AuthorizedUserListResponse]:
         """
-        Lists authorized users
+        Returns a paginated list of authorized team members for a company, with optional
+        filtering by user, role, and creation date.
 
         Required permissions:
 
@@ -117,11 +118,11 @@ class AuthorizedUsersResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company to list authorized users for
+          company_id: The unique identifier of the company to list authorized users for.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return authorized users created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return authorized users created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
@@ -129,7 +130,8 @@ class AuthorizedUsersResource(SyncAPIResource):
 
           role: Possible roles an authorized user can have
 
-          user_id: Filter by the user ID to check if the user is an authorized user
+          user_id: Filter results to a specific user to check if they are an authorized team
+              member.
 
           extra_headers: Send extra headers
 
@@ -198,7 +200,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AuthorizedUserRetrieveResponse:
         """
-        Retrieves a authorized user by ID
+        Retrieves the details of an existing authorized user.
 
         Required permissions:
 
@@ -244,7 +246,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AuthorizedUserListResponse, AsyncCursorPage[AuthorizedUserListResponse]]:
         """
-        Lists authorized users
+        Returns a paginated list of authorized team members for a company, with optional
+        filtering by user, role, and creation date.
 
         Required permissions:
 
@@ -256,11 +259,11 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company to list authorized users for
+          company_id: The unique identifier of the company to list authorized users for.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return authorized users created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return authorized users created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
@@ -268,7 +271,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
 
           role: Possible roles an authorized user can have
 
-          user_id: Filter by the user ID to check if the user is an authorized user
+          user_id: Filter results to a specific user to check if they are an authorized team
+              member.
 
           extra_headers: Send extra headers
 
