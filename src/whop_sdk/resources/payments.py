@@ -254,10 +254,10 @@ class PaymentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         currencies: Optional[List[Currency]] | Omit = omit,
@@ -278,8 +278,8 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PaymentListResponse]:
         """
-        Returns a paginated list of payments for a company, with optional filtering by
-        product, plan, status, billing reason, currency, and creation date.
+        Returns a paginated list of payments for the actor in context, with optional
+        filtering by product, plan, status, billing reason, currency, and creation date.
 
         Required permissions:
 
@@ -292,13 +292,13 @@ class PaymentsResource(SyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list payments for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           billing_reasons: Filter payments by their billing reason.
+
+          company_id: The unique identifier of the company to list payments for.
 
           created_after: Only return payments created after this timestamp.
 
@@ -343,10 +343,10 @@ class PaymentsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
                         "billing_reasons": billing_reasons,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "currencies": currencies,
@@ -791,10 +791,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         currencies: Optional[List[Currency]] | Omit = omit,
@@ -815,8 +815,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PaymentListResponse, AsyncCursorPage[PaymentListResponse]]:
         """
-        Returns a paginated list of payments for a company, with optional filtering by
-        product, plan, status, billing reason, currency, and creation date.
+        Returns a paginated list of payments for the actor in context, with optional
+        filtering by product, plan, status, billing reason, currency, and creation date.
 
         Required permissions:
 
@@ -829,13 +829,13 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `promo_code:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list payments for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           billing_reasons: Filter payments by their billing reason.
+
+          company_id: The unique identifier of the company to list payments for.
 
           created_after: Only return payments created after this timestamp.
 
@@ -880,10 +880,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
                         "billing_reasons": billing_reasons,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "currencies": currencies,

@@ -858,7 +858,7 @@ class TestWhop:
 
         respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = client.payments.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
+        response = client.payments.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -880,9 +880,7 @@ class TestWhop:
 
         respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = client.payments.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = client.payments.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -905,9 +903,7 @@ class TestWhop:
 
         respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = client.payments.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = client.payments.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1729,7 +1725,7 @@ class TestAsyncWhop:
 
         respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = await client.payments.with_raw_response.list(company_id="biz_xxxxxxxxxxxxxx")
+        response = await client.payments.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1753,9 +1749,7 @@ class TestAsyncWhop:
 
         respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = await client.payments.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = await client.payments.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1778,9 +1772,7 @@ class TestAsyncWhop:
 
         respx_mock.get("/payments").mock(side_effect=retry_handler)
 
-        response = await client.payments.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = await client.payments.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
