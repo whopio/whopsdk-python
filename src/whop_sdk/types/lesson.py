@@ -234,7 +234,7 @@ class Lesson(BaseModel):
     """
 
     content: Optional[str] = None
-    """The text body of the lesson in plain text format.
+    """The Markdown content body of the lesson.
 
     Null if the lesson has no text content.
     """

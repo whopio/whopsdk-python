@@ -42,7 +42,7 @@ class CourseLessonUpdateParams(TypedDict, total=False):
     """
 
     content: Optional[str]
-    """The rich text or HTML content body of the lesson."""
+    """The Markdown content body of the lesson."""
 
     days_from_course_start_until_unlock: Optional[int]
     """
