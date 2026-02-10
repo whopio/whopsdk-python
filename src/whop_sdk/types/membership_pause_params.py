@@ -11,6 +11,6 @@ __all__ = ["MembershipPauseParams"]
 class MembershipPauseParams(TypedDict, total=False):
     void_payments: Optional[bool]
     """
-    Whether to void past_due payments associated with the membership to prevent
-    future payment attempts.
+    Whether to void any outstanding past-due payments on this membership, preventing
+    future collection attempts.
     """

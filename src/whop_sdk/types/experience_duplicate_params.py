@@ -10,4 +10,7 @@ __all__ = ["ExperienceDuplicateParams"]
 
 class ExperienceDuplicateParams(TypedDict, total=False):
     name: Optional[str]
-    """The name of the new experience"""
+    """The display name for the duplicated experience.
+
+    Defaults to the original experience's name.
+    """

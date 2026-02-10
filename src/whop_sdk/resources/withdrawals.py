@@ -125,7 +125,7 @@ class WithdrawalsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Withdrawal:
         """
-        Retrieves a withdrawal by ID
+        Retrieves the details of an existing withdrawal.
 
         Required permissions:
 
@@ -170,22 +170,23 @@ class WithdrawalsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[WithdrawalListResponse]:
         """
-        Lists withdrawals
+        Returns a paginated list of withdrawals for a company, with optional sorting and
+        date filtering.
 
         Required permissions:
 
         - `payout:withdrawal:read`
 
         Args:
-          company_id: The ID of the company to list withdrawals for
+          company_id: The unique identifier of the company to list withdrawals for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return withdrawals created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return withdrawals created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -324,7 +325,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Withdrawal:
         """
-        Retrieves a withdrawal by ID
+        Retrieves the details of an existing withdrawal.
 
         Required permissions:
 
@@ -369,22 +370,23 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[WithdrawalListResponse, AsyncCursorPage[WithdrawalListResponse]]:
         """
-        Lists withdrawals
+        Returns a paginated list of withdrawals for a company, with optional sorting and
+        date filtering.
 
         Required permissions:
 
         - `payout:withdrawal:read`
 
         Args:
-          company_id: The ID of the company to list withdrawals for
+          company_id: The unique identifier of the company to list withdrawals for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return withdrawals created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return withdrawals created before this timestamp.
 
           direction: The direction of the sort.
 

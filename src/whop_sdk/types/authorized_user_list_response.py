@@ -9,7 +9,7 @@ __all__ = ["AuthorizedUserListResponse", "Company", "User"]
 
 
 class Company(BaseModel):
-    """The company associated with the authorized user."""
+    """The company this authorized user has access to."""
 
     id: str
     """The unique identifier for the company."""
@@ -19,7 +19,7 @@ class Company(BaseModel):
 
 
 class User(BaseModel):
-    """The user associated with the authorized user."""
+    """The user account linked to this authorized user record."""
 
     id: str
     """The unique identifier for the user."""
@@ -38,16 +38,18 @@ class User(BaseModel):
 
 
 class AuthorizedUserListResponse(BaseModel):
-    """A user who has elevated security privileges for a company"""
+    """
+    A user who has been granted administrative access to manage a company's dashboard and settings.
+    """
 
     id: str
     """The unique identifier for the authorized user."""
 
     company: Company
-    """The company associated with the authorized user."""
+    """The company this authorized user has access to."""
 
     role: AuthorizedUserRoles
-    """The role of the authorized user in the company."""
+    """The permission role assigned to this authorized user within the company."""
 
     user: User
-    """The user associated with the authorized user."""
+    """The user account linked to this authorized user record."""

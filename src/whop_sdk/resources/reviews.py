@@ -58,7 +58,7 @@ class ReviewsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReviewRetrieveResponse:
         """
-        Retrieve a review by its ID
+        Retrieves the details of an existing review.
 
         Args:
           extra_headers: Send extra headers
@@ -99,26 +99,27 @@ class ReviewsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ReviewListResponse]:
         """
-        List all reviews
+        Returns a paginated list of customer reviews for a specific product, with
+        optional filtering by star rating and creation date.
 
         Args:
-          product_id: The ID of the product
+          product_id: The unique identifier of the product to list reviews for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return reviews created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return reviews created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          max_stars: The maximum star rating of the review (inclusive)
+          max_stars: The maximum star rating to include in results, from 1 to 5 inclusive.
 
-          min_stars: The minimum star rating of the review (inclusive)
+          min_stars: The minimum star rating to include in results, from 1 to 5 inclusive.
 
           extra_headers: Send extra headers
 
@@ -187,7 +188,7 @@ class AsyncReviewsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReviewRetrieveResponse:
         """
-        Retrieve a review by its ID
+        Retrieves the details of an existing review.
 
         Args:
           extra_headers: Send extra headers
@@ -228,26 +229,27 @@ class AsyncReviewsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ReviewListResponse, AsyncCursorPage[ReviewListResponse]]:
         """
-        List all reviews
+        Returns a paginated list of customer reviews for a specific product, with
+        optional filtering by star rating and creation date.
 
         Args:
-          product_id: The ID of the product
+          product_id: The unique identifier of the product to list reviews for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return reviews created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return reviews created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          max_stars: The maximum star rating of the review (inclusive)
+          max_stars: The maximum star rating to include in results, from 1 to 5 inclusive.
 
-          min_stars: The minimum star rating of the review (inclusive)
+          min_stars: The minimum star rating to include in results, from 1 to 5 inclusive.
 
           extra_headers: Send extra headers
 

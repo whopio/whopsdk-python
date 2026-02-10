@@ -23,16 +23,19 @@ class MembershipListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     cancel_options: Optional[List[CancelOptions]]
-    """The cancel options to filter the memberships by"""
+    """Filter to only memberships matching these cancellation reasons."""
 
     company_id: Optional[str]
-    """The ID of the company to list memberships for"""
+    """The unique identifier of the company to list memberships for.
+
+    Required when using an API key.
+    """
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return memberships created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return memberships created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -47,16 +50,16 @@ class MembershipListParams(TypedDict, total=False):
     """Which columns can be used to sort."""
 
     plan_ids: Optional[SequenceNotStr[str]]
-    """The plan IDs to filter the memberships by"""
+    """Filter to only memberships belonging to these plan identifiers."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """The product IDs to filter the memberships by"""
+    """Filter to only memberships belonging to these product identifiers."""
 
     promo_code_ids: Optional[SequenceNotStr[str]]
-    """The promo code IDs to filter the memberships by"""
+    """Filter to only memberships that used these promo code identifiers."""
 
     statuses: Optional[List[MembershipStatus]]
-    """The membership status to filter the memberships by"""
+    """Filter to only memberships matching these statuses."""
 
     user_ids: Optional[SequenceNotStr[str]]
-    """Only return memberships from these whop user ids"""
+    """Filter to only memberships belonging to these user identifiers."""

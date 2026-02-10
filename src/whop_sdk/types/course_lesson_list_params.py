@@ -16,10 +16,10 @@ class CourseLessonListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     chapter_id: Optional[str]
-    """The ID of the chapter (returns lessons only for this chapter)"""
+    """The unique identifier of a chapter to return only its lessons."""
 
     course_id: Optional[str]
-    """The ID of the course (returns all lessons across all chapters)"""
+    """The unique identifier of the course to return all lessons across all chapters."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""

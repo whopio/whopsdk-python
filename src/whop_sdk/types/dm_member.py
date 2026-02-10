@@ -10,25 +10,30 @@ __all__ = ["DmMember"]
 
 
 class DmMember(BaseModel):
-    """Represents a member of a DM channel"""
+    """
+    A user's membership record in a messaging channel, including notification preferences and read state.
+    """
 
     id: str
     """The unique identifier for the entity"""
 
     channel_id: str
-    """The ID of the DM channel"""
+    """The unique identifier of the messaging channel this membership belongs to."""
 
     last_viewed_at: Optional[str] = None
     """
-    Timestamp when the member last viewed the channel (in milliseconds since Unix
-    epoch)
+    The timestamp when this member last viewed the channel, as a Unix timestamp in
+    milliseconds. Null if the member has never viewed the channel.
     """
 
     notification_preference: DmFeedMemberNotificationPreferences
-    """The notification preference for this member (all, mentions, none)"""
+    """The notification level for this channel: all, mentions, or none."""
 
     status: DmFeedMemberStatuses
-    """The status of the membership (requested, accepted, rejected)"""
+    """
+    The current state of this membership: requested, accepted, hidden, closed, or
+    archived.
+    """
 
     user_id: str
-    """The ID of the user who is a member of the channel"""
+    """The unique identifier of the user who holds this channel membership."""

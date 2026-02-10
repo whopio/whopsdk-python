@@ -75,8 +75,10 @@ class PromoCodesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCode:
-        """
-        Create a new promo code for a product or plan
+        """Create a new promo code that applies a discount at checkout.
+
+        Can be scoped to
+        specific products or plans.
 
         Required permissions:
 
@@ -84,40 +86,45 @@ class PromoCodesResource(SyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          amount_off: The discount amount. Interpretation depends on promo_type: if 'percentage', this
-              is the percentage (e.g., 20 means 20% off); if 'flat_amount', this is dollars
-              off (e.g., 10.00 means $10.00 off).
+          amount_off: The discount amount. When promo_type is percentage, this is the percent off
+              (e.g., 20 for 20% off). When promo_type is flat_amount, this is the currency
+              amount off (e.g., 10.00 for $10.00 off).
 
-          base_currency: The monetary currency of the promo code.
+          base_currency: The three-letter ISO currency code for the promo code discount.
 
-          code: The specific code used to apply the promo at checkout.
+          code: The alphanumeric code customers enter at checkout to apply the discount.
 
-          company_id: The id of the company to create the promo code for.
+          company_id: The unique identifier of the company to create this promo code for.
 
-          new_users_only: Restricts promo use to only users who have never purchased from the company
-              before.
+          new_users_only: Whether to restrict this promo code to only users who have never purchased from
+              the company before.
 
-          promo_duration_months: The number of months this promo code is applied and valid for.
+          promo_duration_months: The number of billing months the discount remains active. For example, 3 means
+              the discount applies to the first 3 billing cycles.
 
-          promo_type: The type (% or flat amount) of the promo.
+          promo_type: The discount type, either percentage or flat_amount.
 
-          churned_users_only: Restricts promo use to only users who have churned from the company before.
+          churned_users_only: Whether to restrict this promo code to only users who have previously churned
+              from the company.
 
-          existing_memberships_only: Whether this promo code is for existing memberships only (cancelations)
+          existing_memberships_only: Whether this promo code can only be applied to existing memberships, such as for
+              cancellation retention offers.
 
-          expires_at: The date/time of when the promo expires.
+          expires_at: The datetime when the promo code expires and can no longer be used. Null means
+              it never expires.
 
-          one_per_customer: Restricts promo use to only be applied once per customer.
+          one_per_customer: Whether each customer can only use this promo code once.
 
-          plan_ids: The IDs of the plans that the promo code applies to. If product_id is provided,
-              it will only apply to plans attached to that product
+          plan_ids: The identifiers of plans this promo code applies to. When product_id is also
+              provided, only plans attached to that product are included.
 
-          product_id: The product to lock the promo code to, if any. If provided will filter out any
-              plan ids not attached to this product
+          product_id: The identifier of the product to scope this promo code to. When provided, the
+              promo code only applies to plans attached to this product.
 
-          stock: The quantity limit on the number of uses.
+          stock: The maximum number of times this promo code can be used. Ignored when
+              unlimited_stock is true.
 
-          unlimited_stock: Whether or not the promo code should have unlimited stock.
+          unlimited_stock: Whether the promo code can be used an unlimited number of times.
 
           extra_headers: Send extra headers
 
@@ -167,7 +174,7 @@ class PromoCodesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCode:
         """
-        Retrieves a promo code by ID
+        Retrieves the details of an existing promo code.
 
         Required permissions:
 
@@ -214,7 +221,8 @@ class PromoCodesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PromoCodeListResponse]:
         """
-        Lists promo codes for a company
+        Returns a paginated list of promo codes belonging to a company, with optional
+        filtering by product, plan, and status.
 
         Required permissions:
 
@@ -222,23 +230,23 @@ class PromoCodesResource(SyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          company_id: The ID of the company to list promo codes for
+          company_id: The unique identifier of the company to list promo codes for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return promo codes created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return promo codes created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          plan_ids: Filter promo codes by plan ID(s)
+          plan_ids: Filter to only promo codes scoped to these plan identifiers.
 
-          product_ids: Filter promo codes by product ID(s)
+          product_ids: Filter to only promo codes scoped to these product identifiers.
 
           status: Statuses for promo codes
 
@@ -289,7 +297,8 @@ class PromoCodesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCodeDeleteResponse:
         """
-        Archive a promo code, preventing further use
+        Archive a promo code, preventing it from being used in future checkouts.
+        Existing memberships are not affected.
 
         Required permissions:
 
@@ -360,8 +369,10 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCode:
-        """
-        Create a new promo code for a product or plan
+        """Create a new promo code that applies a discount at checkout.
+
+        Can be scoped to
+        specific products or plans.
 
         Required permissions:
 
@@ -369,40 +380,45 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          amount_off: The discount amount. Interpretation depends on promo_type: if 'percentage', this
-              is the percentage (e.g., 20 means 20% off); if 'flat_amount', this is dollars
-              off (e.g., 10.00 means $10.00 off).
+          amount_off: The discount amount. When promo_type is percentage, this is the percent off
+              (e.g., 20 for 20% off). When promo_type is flat_amount, this is the currency
+              amount off (e.g., 10.00 for $10.00 off).
 
-          base_currency: The monetary currency of the promo code.
+          base_currency: The three-letter ISO currency code for the promo code discount.
 
-          code: The specific code used to apply the promo at checkout.
+          code: The alphanumeric code customers enter at checkout to apply the discount.
 
-          company_id: The id of the company to create the promo code for.
+          company_id: The unique identifier of the company to create this promo code for.
 
-          new_users_only: Restricts promo use to only users who have never purchased from the company
-              before.
+          new_users_only: Whether to restrict this promo code to only users who have never purchased from
+              the company before.
 
-          promo_duration_months: The number of months this promo code is applied and valid for.
+          promo_duration_months: The number of billing months the discount remains active. For example, 3 means
+              the discount applies to the first 3 billing cycles.
 
-          promo_type: The type (% or flat amount) of the promo.
+          promo_type: The discount type, either percentage or flat_amount.
 
-          churned_users_only: Restricts promo use to only users who have churned from the company before.
+          churned_users_only: Whether to restrict this promo code to only users who have previously churned
+              from the company.
 
-          existing_memberships_only: Whether this promo code is for existing memberships only (cancelations)
+          existing_memberships_only: Whether this promo code can only be applied to existing memberships, such as for
+              cancellation retention offers.
 
-          expires_at: The date/time of when the promo expires.
+          expires_at: The datetime when the promo code expires and can no longer be used. Null means
+              it never expires.
 
-          one_per_customer: Restricts promo use to only be applied once per customer.
+          one_per_customer: Whether each customer can only use this promo code once.
 
-          plan_ids: The IDs of the plans that the promo code applies to. If product_id is provided,
-              it will only apply to plans attached to that product
+          plan_ids: The identifiers of plans this promo code applies to. When product_id is also
+              provided, only plans attached to that product are included.
 
-          product_id: The product to lock the promo code to, if any. If provided will filter out any
-              plan ids not attached to this product
+          product_id: The identifier of the product to scope this promo code to. When provided, the
+              promo code only applies to plans attached to this product.
 
-          stock: The quantity limit on the number of uses.
+          stock: The maximum number of times this promo code can be used. Ignored when
+              unlimited_stock is true.
 
-          unlimited_stock: Whether or not the promo code should have unlimited stock.
+          unlimited_stock: Whether the promo code can be used an unlimited number of times.
 
           extra_headers: Send extra headers
 
@@ -452,7 +468,7 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCode:
         """
-        Retrieves a promo code by ID
+        Retrieves the details of an existing promo code.
 
         Required permissions:
 
@@ -499,7 +515,8 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PromoCodeListResponse, AsyncCursorPage[PromoCodeListResponse]]:
         """
-        Lists promo codes for a company
+        Returns a paginated list of promo codes belonging to a company, with optional
+        filtering by product, plan, and status.
 
         Required permissions:
 
@@ -507,23 +524,23 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          company_id: The ID of the company to list promo codes for
+          company_id: The unique identifier of the company to list promo codes for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return promo codes created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return promo codes created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          plan_ids: Filter promo codes by plan ID(s)
+          plan_ids: Filter to only promo codes scoped to these plan identifiers.
 
-          product_ids: Filter promo codes by product ID(s)
+          product_ids: Filter to only promo codes scoped to these product identifiers.
 
           status: Statuses for promo codes
 
@@ -574,7 +591,8 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCodeDeleteResponse:
         """
-        Archive a promo code, preventing further use
+        Archive a promo code, preventing it from being used in future checkouts.
+        Existing memberships are not affected.
 
         Required permissions:
 

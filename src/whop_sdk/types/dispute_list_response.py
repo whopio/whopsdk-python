@@ -11,7 +11,7 @@ __all__ = ["DisputeListResponse", "Company", "Payment", "Plan", "Product"]
 
 
 class Company(BaseModel):
-    """The company the dispute is against."""
+    """The company that the dispute was filed against."""
 
     id: str
     """The unique identifier for the company."""
@@ -21,21 +21,27 @@ class Company(BaseModel):
 
 
 class Payment(BaseModel):
-    """The payment that got disputed"""
+    """The original payment that was disputed."""
 
     id: str
     """The unique identifier for the payment."""
 
 
 class Plan(BaseModel):
-    """The plan that got disputed"""
+    """The plan associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific plan.
+    """
 
     id: str
     """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
-    """The product that got disputed"""
+    """The product associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific product.
+    """
 
     id: str
     """The unique identifier for the product."""
@@ -56,37 +62,55 @@ class DisputeListResponse(BaseModel):
     """The unique identifier for the dispute."""
 
     amount: float
-    """The amount of the dispute (formatted)."""
+    """The disputed amount in the specified currency, formatted as a decimal."""
 
     company: Optional[Company] = None
-    """The company the dispute is against."""
+    """The company that the dispute was filed against."""
 
     created_at: Optional[datetime] = None
     """The datetime the dispute was created."""
 
     currency: Currency
-    """The currency of the dispute."""
+    """The three-letter ISO currency code for the disputed amount."""
 
     editable: Optional[bool] = None
-    """Whether or not the dispute data can be edited."""
+    """Whether the dispute evidence can still be edited and submitted.
+
+    Returns true only when the dispute status requires a response.
+    """
 
     needs_response_by: Optional[datetime] = None
-    """The last date the dispute is allow to be submitted by."""
+    """The deadline by which dispute evidence must be submitted.
+
+    Null if no response deadline is set.
+    """
 
     payment: Optional[Payment] = None
-    """The payment that got disputed"""
+    """The original payment that was disputed."""
 
     plan: Optional[Plan] = None
-    """The plan that got disputed"""
+    """The plan associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific plan.
+    """
 
     product: Optional[Product] = None
-    """The product that got disputed"""
+    """The product associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific product.
+    """
 
     reason: Optional[str] = None
-    """The reason for the dispute"""
+    """A human-readable reason for the dispute."""
 
     status: DisputeStatuses
-    """The status of the dispute (mimics stripe's dispute status)."""
+    """
+    The current status of the dispute lifecycle, such as needs_response,
+    under_review, won, or lost.
+    """
 
     visa_rdr: bool
-    """Whether or not the dispute is a Visa Rapid Dispute Resolution."""
+    """
+    Whether the dispute was automatically resolved through Visa Rapid Dispute
+    Resolution (RDR).
+    """

@@ -63,25 +63,27 @@ class FeeMarkupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FeeMarkupCreateResponse:
-        """
-        Creates or updates a fee markup for a company.
+        """Create or update a fee markup for a company.
+
+        If a markup for the specified fee
+        type already exists, it will be updated with the new values.
 
         Required permissions:
 
         - `company:update_child_fees`
 
         Args:
-          company_id: The ID (tag) of the company you want to update the fee markup for.
+          company_id: The unique identifier of the company to create or update the fee markup for.
 
-          fee_type: The type of fee this markup applies to.
+          fee_type: The type of fee this markup applies to, such as processing or platform fees.
 
-          fixed_fee_usd: The fixed fee in USD to charge (0-50).
+          fixed_fee_usd: The fixed fee amount in USD to charge per transaction. Must be between 0 and 50.
 
-          metadata: Custom metadata to attach to this fee markup.
+          metadata: Custom key-value metadata to attach to this fee markup.
 
-          notes: Internal notes about this fee markup.
+          notes: Internal notes about this fee markup for record-keeping purposes.
 
-          percentage_fee: The percentage fee to charge (0-25).
+          percentage_fee: The percentage fee to charge per transaction. Must be between 0 and 25.
 
           extra_headers: Send extra headers
 
@@ -125,16 +127,18 @@ class FeeMarkupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[FeeMarkupListResponse]:
-        """
-        Lists fee markups for a company.
+        """Returns a paginated list of fee markups configured for a company.
+
+        If the company
+        is a platform account, returns the platform default markups.
 
         Required permissions:
 
         - `company:update_child_fees`
 
         Args:
-          company_id: The ID (tag) of the company you want to list the fee markups for. If you pass
-              your platform account, you will get the platform default markups.
+          company_id: The unique identifier of the company to list fee markups for. Pass a platform
+              account identifier to retrieve platform default markups.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -185,8 +189,10 @@ class FeeMarkupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FeeMarkupDeleteResponse:
-        """
-        Deletes a fee markup for a company.
+        """Delete a fee markup configuration for a company.
+
+        This removes the custom fee
+        override and reverts to the parent company's default fees.
 
         Required permissions:
 
@@ -248,25 +254,27 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FeeMarkupCreateResponse:
-        """
-        Creates or updates a fee markup for a company.
+        """Create or update a fee markup for a company.
+
+        If a markup for the specified fee
+        type already exists, it will be updated with the new values.
 
         Required permissions:
 
         - `company:update_child_fees`
 
         Args:
-          company_id: The ID (tag) of the company you want to update the fee markup for.
+          company_id: The unique identifier of the company to create or update the fee markup for.
 
-          fee_type: The type of fee this markup applies to.
+          fee_type: The type of fee this markup applies to, such as processing or platform fees.
 
-          fixed_fee_usd: The fixed fee in USD to charge (0-50).
+          fixed_fee_usd: The fixed fee amount in USD to charge per transaction. Must be between 0 and 50.
 
-          metadata: Custom metadata to attach to this fee markup.
+          metadata: Custom key-value metadata to attach to this fee markup.
 
-          notes: Internal notes about this fee markup.
+          notes: Internal notes about this fee markup for record-keeping purposes.
 
-          percentage_fee: The percentage fee to charge (0-25).
+          percentage_fee: The percentage fee to charge per transaction. Must be between 0 and 25.
 
           extra_headers: Send extra headers
 
@@ -310,16 +318,18 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[FeeMarkupListResponse, AsyncCursorPage[FeeMarkupListResponse]]:
-        """
-        Lists fee markups for a company.
+        """Returns a paginated list of fee markups configured for a company.
+
+        If the company
+        is a platform account, returns the platform default markups.
 
         Required permissions:
 
         - `company:update_child_fees`
 
         Args:
-          company_id: The ID (tag) of the company you want to list the fee markups for. If you pass
-              your platform account, you will get the platform default markups.
+          company_id: The unique identifier of the company to list fee markups for. Pass a platform
+              account identifier to retrieve platform default markups.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -370,8 +380,10 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FeeMarkupDeleteResponse:
-        """
-        Deletes a fee markup for a company.
+        """Delete a fee markup configuration for a company.
+
+        This removes the custom fee
+        override and reverts to the parent company's default fees.
 
         Required permissions:
 

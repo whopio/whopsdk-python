@@ -10,7 +10,10 @@ __all__ = ["CourseChapterCreateParams"]
 
 class CourseChapterCreateParams(TypedDict, total=False):
     course_id: Required[str]
-    """The ID of the course to create the chapter in"""
+    """
+    The unique identifier of the course to create the chapter in (e.g.,
+    "course_XXXXX").
+    """
 
     title: Optional[str]
-    """The title of the chapter"""
+    """The display title of the chapter (e.g., "Module 1: Introduction")."""

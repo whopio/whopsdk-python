@@ -15,62 +15,92 @@ __all__ = [
 
 class CreateCompanyTokenTransactionInputTransactionTypeTransfer(TypedDict, total=False):
     amount: Required[float]
-    """The positive amount of tokens"""
+    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
 
     company_id: Required[str]
-    """The company ID"""
+    """
+    The unique identifier of the company to create the transaction in, starting with
+    'biz\\__'.
+    """
 
     destination_user_id: Required[str]
-    """Required for transfers - the user to receive tokens"""
+    """The unique identifier of the user receiving the tokens.
+
+    Required when the transaction type is 'transfer'.
+    """
 
     transaction_type: Required[Literal["transfer"]]
 
     user_id: Required[str]
-    """The user ID whose balance will change"""
+    """
+    The unique identifier of the user whose token balance will be affected, starting
+    with 'user\\__'.
+    """
 
     description: Optional[str]
-    """Optional description for the transaction"""
+    """A human-readable description of why the transaction was created."""
 
     idempotency_key: Optional[str]
-    """Optional key to prevent duplicate transactions"""
+    """A unique key to prevent duplicate transactions.
+
+    Use a UUID or similar unique string.
+    """
 
 
 class CreateCompanyTokenTransactionInputTransactionTypeAdd(TypedDict, total=False):
     amount: Required[float]
-    """The positive amount of tokens"""
+    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
 
     company_id: Required[str]
-    """The company ID"""
+    """
+    The unique identifier of the company to create the transaction in, starting with
+    'biz\\__'.
+    """
 
     transaction_type: Required[Literal["add"]]
 
     user_id: Required[str]
-    """The user ID whose balance will change"""
+    """
+    The unique identifier of the user whose token balance will be affected, starting
+    with 'user\\__'.
+    """
 
     description: Optional[str]
-    """Optional description for the transaction"""
+    """A human-readable description of why the transaction was created."""
 
     idempotency_key: Optional[str]
-    """Optional key to prevent duplicate transactions"""
+    """A unique key to prevent duplicate transactions.
+
+    Use a UUID or similar unique string.
+    """
 
 
 class CreateCompanyTokenTransactionInputTransactionTypeSubtract(TypedDict, total=False):
     amount: Required[float]
-    """The positive amount of tokens"""
+    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
 
     company_id: Required[str]
-    """The company ID"""
+    """
+    The unique identifier of the company to create the transaction in, starting with
+    'biz\\__'.
+    """
 
     transaction_type: Required[Literal["subtract"]]
 
     user_id: Required[str]
-    """The user ID whose balance will change"""
+    """
+    The unique identifier of the user whose token balance will be affected, starting
+    with 'user\\__'.
+    """
 
     description: Optional[str]
-    """Optional description for the transaction"""
+    """A human-readable description of why the transaction was created."""
 
     idempotency_key: Optional[str]
-    """Optional key to prevent duplicate transactions"""
+    """A unique key to prevent duplicate transactions.
+
+    Use a UUID or similar unique string.
+    """
 
 
 CompanyTokenTransactionCreateParams: TypeAlias = Union[

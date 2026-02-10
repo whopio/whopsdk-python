@@ -16,75 +16,85 @@ __all__ = [
 
 class SendNotificationV2InputWithCompanyID(TypedDict, total=False):
     company_id: Required[str]
-    """The id of the company to target.
+    """The unique identifier of the company to target.
 
-    Only team members of this company will receive the notification. When clicked
-    will take the user to your dashboard app view.
+    Only team members of this company will receive the notification. Clicking the
+    notification opens your dashboard app view.
     """
 
     content: Required[str]
-    """The content of the notification"""
+    """The main body text of the notification displayed to the user."""
 
     title: Required[str]
-    """The title of the notification"""
+    """The headline text of the notification, displayed prominently to the user."""
 
     icon_user_id: Optional[str]
     """
-    Optional: ID of a Whop user whose profile picture will be used as the
-    notification icon. If not provided, defaults to the experience or company
-    avatar.
+    The unique identifier of a user whose profile picture will be used as the
+    notification icon. Defaults to the experience or company avatar when not
+    provided.
     """
 
     rest_path: Optional[str]
-    """The rest path to append to the generated deep link that opens your app.
+    """A path segment appended to the generated deep link that opens your app.
 
-    Use [restPath] in your app path in the dashboard to read this parameter.
+    Use [restPath] in your app path configuration to read this parameter. For
+    example, '/settings/billing'.
     """
 
     subtitle: Optional[str]
-    """The subtitle of the notification"""
+    """
+    An optional secondary line of text displayed below the title in the
+    notification.
+    """
 
     user_ids: Optional[SequenceNotStr[str]]
-    """
-    If provided, this will only send to these users if they are also in the main
-    scope (experience or company)
+    """An optional list of user IDs to narrow the audience.
+
+    When provided, only these users receive the notification, provided they are in
+    the targeted experience or company.
     """
 
 
 class SendNotificationV2InputWithExperienceID(TypedDict, total=False):
     content: Required[str]
-    """The content of the notification"""
+    """The main body text of the notification displayed to the user."""
 
     experience_id: Required[str]
-    """The id of the experience to target.
+    """The unique identifier of the experience to target.
 
-    All users with access to this experience (customers and admins) will receive the
-    notification. When clicked, open your experience view.
+    All users with access to this experience will receive the notification. Clicking
+    the notification opens the experience view.
     """
 
     title: Required[str]
-    """The title of the notification"""
+    """The headline text of the notification, displayed prominently to the user."""
 
     icon_user_id: Optional[str]
     """
-    Optional: ID of a Whop user whose profile picture will be used as the
-    notification icon. If not provided, defaults to the experience or company
-    avatar.
+    The unique identifier of a user whose profile picture will be used as the
+    notification icon. Defaults to the experience or company avatar when not
+    provided.
     """
 
     rest_path: Optional[str]
-    """The rest path to append to the generated deep link that opens your app.
+    """A path segment appended to the generated deep link that opens your app.
 
-    Use [restPath] in your app path in the dashboard to read this parameter.
+    Use [restPath] in your app path configuration to read this parameter. For
+    example, '/settings/billing'.
     """
 
     subtitle: Optional[str]
-    """The subtitle of the notification"""
+    """
+    An optional secondary line of text displayed below the title in the
+    notification.
+    """
 
     user_ids: Optional[SequenceNotStr[str]]
-    """
-    If provided, this will only send to these users if they are also in the main
-    scope (experience or company)
+    """An optional list of user IDs to narrow the audience.
+
+    When provided, only these users receive the notification, provided they are in
+    the targeted experience or company.
     """
 
 

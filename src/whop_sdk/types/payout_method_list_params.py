@@ -10,7 +10,7 @@ __all__ = ["PayoutMethodListParams"]
 
 class PayoutMethodListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The company ID to list payout methods for."""
+    """The unique identifier of the company to list payout methods for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""

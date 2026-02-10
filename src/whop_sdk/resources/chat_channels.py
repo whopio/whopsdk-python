@@ -59,7 +59,7 @@ class ChatChannelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatChannel:
         """
-        Retrieves a chat channel
+        Retrieves the details of an existing chat channel.
 
         Required permissions:
 
@@ -102,20 +102,23 @@ class ChatChannelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatChannel:
         """
-        Updates a chat channel
+        Update moderation settings for a chat channel, such as who can post, banned
+        words, and media restrictions.
 
         Required permissions:
 
         - `chat:moderate`
 
         Args:
-          ban_media: Whether media uploads are banned in this chat
+          ban_media: Whether media uploads such as images and videos are banned in this chat channel.
 
-          ban_urls: Whether URLs are banned in this chat
+          ban_urls: Whether URLs and links are banned from being posted in this chat channel.
 
-          banned_words: List of banned words for this chat
+          banned_words: A list of words that are automatically blocked from messages in this chat
+              channel. For example, ['spam', 'scam'].
 
-          user_posts_cooldown_seconds: The cooldown period in seconds between user posts
+          user_posts_cooldown_seconds: The minimum number of seconds a user must wait between sending messages in this
+              chat channel.
 
           who_can_post: Who can post on a chat feed
 
@@ -167,14 +170,15 @@ class ChatChannelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ChatChannelListResponse]:
         """
-        Lists chat channels inside a company
+        Returns a paginated list of chat channels within a specific company, with
+        optional filtering by product.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          company_id: The ID of the company to list chat channels for
+          company_id: The unique identifier of the company to list chat channels for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -184,7 +188,8 @@ class ChatChannelsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          product_id: If provided, only chat channels connected to this product are returned
+          product_id: The unique identifier of a product to filter by. When set, only chat channels
+              connected to this product are returned.
 
           extra_headers: Send extra headers
 
@@ -250,7 +255,7 @@ class AsyncChatChannelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatChannel:
         """
-        Retrieves a chat channel
+        Retrieves the details of an existing chat channel.
 
         Required permissions:
 
@@ -293,20 +298,23 @@ class AsyncChatChannelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatChannel:
         """
-        Updates a chat channel
+        Update moderation settings for a chat channel, such as who can post, banned
+        words, and media restrictions.
 
         Required permissions:
 
         - `chat:moderate`
 
         Args:
-          ban_media: Whether media uploads are banned in this chat
+          ban_media: Whether media uploads such as images and videos are banned in this chat channel.
 
-          ban_urls: Whether URLs are banned in this chat
+          ban_urls: Whether URLs and links are banned from being posted in this chat channel.
 
-          banned_words: List of banned words for this chat
+          banned_words: A list of words that are automatically blocked from messages in this chat
+              channel. For example, ['spam', 'scam'].
 
-          user_posts_cooldown_seconds: The cooldown period in seconds between user posts
+          user_posts_cooldown_seconds: The minimum number of seconds a user must wait between sending messages in this
+              chat channel.
 
           who_can_post: Who can post on a chat feed
 
@@ -358,14 +366,15 @@ class AsyncChatChannelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ChatChannelListResponse, AsyncCursorPage[ChatChannelListResponse]]:
         """
-        Lists chat channels inside a company
+        Returns a paginated list of chat channels within a specific company, with
+        optional filtering by product.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          company_id: The ID of the company to list chat channels for
+          company_id: The unique identifier of the company to list chat channels for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -375,7 +384,8 @@ class AsyncChatChannelsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          product_id: If provided, only chat channels connected to this product are returned
+          product_id: The unique identifier of a product to filter by. When set, only chat channels
+              connected to this product are returned.
 
           extra_headers: Send extra headers
 

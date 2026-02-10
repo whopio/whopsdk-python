@@ -20,15 +20,15 @@ class TransferListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return transfers created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return transfers created before this timestamp."""
 
     destination_id: Optional[str]
-    """Filter transfers to only those that were sent to this destination account.
+    """Filter to transfers received by this account.
 
-    (user_xxx, biz_xxx, ldgr_xxx)
+    Accepts a user, company, or ledger account ID.
     """
 
     direction: Optional[Direction]
@@ -44,7 +44,7 @@ class TransferListParams(TypedDict, total=False):
     """Which columns can be used to sort."""
 
     origin_id: Optional[str]
-    """Filter transfers to only those that were sent from this origin account.
+    """Filter to transfers sent from this account.
 
-    (user_xxx, biz_xxx, ldgr_xxx)
+    Accepts a user, company, or ledger account ID.
     """

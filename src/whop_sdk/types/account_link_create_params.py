@@ -9,19 +9,25 @@ __all__ = ["AccountLinkCreateParams"]
 
 class AccountLinkCreateParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the Company to generate the url for.
-
-    The company must be a sub-merchant of the API key's company.
+    """
+    The unique identifier of the company to generate the link for, starting with
+    'biz\\__'. Must be a sub-merchant of the API key's company.
     """
 
     refresh_url: Required[str]
     """
-    The URL to redirect to if the session expires and needs to be re-authenticated
-    due to the token expiring.
+    The URL to redirect the user to if the session expires and needs to be
+    re-authenticated, such as 'https://example.com/refresh'.
     """
 
     return_url: Required[str]
-    """The URL to redirect to when the customer wants to return to your site."""
+    """
+    The URL to redirect the user to when they want to return to your site, such as
+    'https://example.com/return'.
+    """
 
     use_case: Required[Literal["account_onboarding", "payouts_portal"]]
-    """The use case for which the link will be used."""
+    """
+    The purpose of the account link, such as hosted payouts portal or hosted KYC
+    onboarding.
+    """

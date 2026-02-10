@@ -9,4 +9,7 @@ __all__ = ["FileCreateParams"]
 
 class FileCreateParams(TypedDict, total=False):
     filename: Required[str]
-    """The filename of the file"""
+    """
+    The name of the file including its extension (e.g., "photo.png" or
+    "document.pdf").
+    """

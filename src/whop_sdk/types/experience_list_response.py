@@ -9,9 +9,8 @@ __all__ = ["ExperienceListResponse", "App", "AppIcon", "Company", "Image"]
 
 
 class AppIcon(BaseModel):
-    """The icon for the app.
-
-    This icon is shown on discovery, on the product page, on checkout, and as a default icon for the experiences.
+    """
+    The icon image for this app, displayed on the app store, product pages, checkout, and as the default icon for experiences using this app.
     """
 
     url: Optional[str] = None
@@ -22,20 +21,23 @@ class AppIcon(BaseModel):
 
 
 class App(BaseModel):
-    """The experience interface for this experience."""
+    """The app that powers this experience, defining its interface and behavior."""
 
     id: str
     """The unique identifier for the app."""
 
     icon: Optional[AppIcon] = None
-    """The icon for the app.
-
-    This icon is shown on discovery, on the product page, on checkout, and as a
-    default icon for the experiences.
+    """
+    The icon image for this app, displayed on the app store, product pages,
+    checkout, and as the default icon for experiences using this app.
     """
 
     name: str
-    """The name of the app"""
+    """The display name of this app shown on the app store and in experience
+    navigation.
+
+    Maximum 30 characters.
+    """
 
 
 class Company(BaseModel):
@@ -54,7 +56,10 @@ class Company(BaseModel):
 
 
 class Image(BaseModel):
-    """The logo for the experience."""
+    """The custom logo image for this experience.
+
+    Null if no custom logo has been uploaded.
+    """
 
     url: Optional[str] = None
     """A pre-optimized URL for rendering this attachment on the client.
@@ -72,7 +77,7 @@ class ExperienceListResponse(BaseModel):
     """The unique identifier for the experience."""
 
     app: App
-    """The experience interface for this experience."""
+    """The app that powers this experience, defining its interface and behavior."""
 
     company: Company
     """The company that owns this experience."""
@@ -81,13 +86,25 @@ class ExperienceListResponse(BaseModel):
     """The datetime the experience was created."""
 
     image: Optional[Image] = None
-    """The logo for the experience."""
+    """The custom logo image for this experience.
+
+    Null if no custom logo has been uploaded.
+    """
 
     is_public: bool
-    """Whether the experience is visible to the public"""
+    """
+    Whether this experience is publicly visible to all users, including those
+    without a membership.
+    """
 
     name: str
-    """The written name of the description."""
+    """The display name of this experience shown to users in the product navigation.
+
+    Maximum 255 characters.
+    """
 
     order: Optional[str] = None
-    """The order of the experience in the section"""
+    """The sort position of this experience within its section.
+
+    Lower values appear first. Null if no position has been set.
+    """

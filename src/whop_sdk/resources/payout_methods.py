@@ -57,7 +57,7 @@ class PayoutMethodsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutMethodRetrieveResponse:
         """
-        Retrieves a payout method by ID
+        Retrieves the details of an existing payout method.
 
         Required permissions:
 
@@ -98,14 +98,15 @@ class PayoutMethodsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PayoutMethodListResponse]:
         """
-        Lists payout destinations for a company
+        Returns a list of active payout methods configured for a company, ordered by
+        most recently created.
 
         Required permissions:
 
         - `payout:destination:read`
 
         Args:
-          company_id: The company ID to list payout methods for.
+          company_id: The unique identifier of the company to list payout methods for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -178,7 +179,7 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutMethodRetrieveResponse:
         """
-        Retrieves a payout method by ID
+        Retrieves the details of an existing payout method.
 
         Required permissions:
 
@@ -219,14 +220,15 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PayoutMethodListResponse, AsyncCursorPage[PayoutMethodListResponse]]:
         """
-        Lists payout destinations for a company
+        Returns a list of active payout methods configured for a company, ordered by
+        most recently created.
 
         Required permissions:
 
         - `payout:destination:read`
 
         Args:
-          company_id: The company ID to list payout methods for.
+          company_id: The unique identifier of the company to list payout methods for.
 
           after: Returns the elements in the list that come after the specified cursor.
 

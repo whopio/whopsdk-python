@@ -51,7 +51,7 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Retrieves a verification by ID
+        Retrieves the details of an existing verification.
 
         Required permissions:
 
@@ -109,7 +109,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Retrieves a verification by ID
+        Retrieves the details of an existing verification.
 
         Required permissions:
 

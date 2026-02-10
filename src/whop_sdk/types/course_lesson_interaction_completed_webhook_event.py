@@ -18,7 +18,10 @@ class CourseLessonInteractionCompletedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: CourseLessonInteraction
-    """A lesson interaction tracking user progress in courses"""
+    """
+    A record of a user's progress on a specific lesson, tracking whether they have
+    completed it.
+    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

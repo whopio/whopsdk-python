@@ -11,20 +11,26 @@ __all__ = ["InvoiceListItem", "CurrentPlan", "User"]
 
 
 class CurrentPlan(BaseModel):
-    """The plan that the invoice was created for."""
+    """The plan that this invoice charges for."""
 
     id: str
     """The unique identifier for the plan."""
 
     currency: Currency
-    """The respective currency identifier for the plan."""
+    """The currency used for all prices on this plan (e.g., 'usd', 'eur').
+
+    All monetary amounts on the plan are denominated in this currency.
+    """
 
     formatted_price: str
     """The formatted price (including currency) for the plan."""
 
 
 class User(BaseModel):
-    """The user that the invoice was created for."""
+    """The user this invoice is addressed to.
+
+    Null if the user account has been removed.
+    """
 
     id: str
     """The unique identifier for the user."""
@@ -37,7 +43,9 @@ class User(BaseModel):
 
 
 class InvoiceListItem(BaseModel):
-    """A statement that defines an amount due by a customer."""
+    """
+    An invoice represents an itemized bill sent by a company to a customer for a specific product and plan, tracking the amount owed, due date, and payment status.
+    """
 
     id: str
     """The unique identifier for the invoice."""
@@ -46,25 +54,34 @@ class InvoiceListItem(BaseModel):
     """The datetime the invoice was created."""
 
     current_plan: CurrentPlan
-    """The plan that the invoice was created for."""
+    """The plan that this invoice charges for."""
 
     due_date: Optional[datetime] = None
-    """The date the invoice is due."""
+    """The deadline by which payment is expected.
+
+    Null if the invoice is collected automatically.
+    """
 
     email_address: Optional[str] = None
-    """The email address that the invoice was created for."""
+    """The email address of the customer this invoice is addressed to.
+
+    Null if no email is on file.
+    """
 
     fetch_invoice_token: str
     """
-    A signed token that allows fetching the invoice data publically without being
-    authenticated.
+    A signed token that allows fetching invoice data publicly without
+    authentication.
     """
 
     number: str
-    """The number of the invoice."""
+    """The sequential invoice number for display purposes."""
 
     status: InvoiceStatus
-    """The status of the invoice."""
+    """The current payment status of the invoice, such as draft, open, paid, or void."""
 
     user: Optional[User] = None
-    """The user that the invoice was created for."""
+    """The user this invoice is addressed to.
+
+    Null if the user account has been removed.
+    """

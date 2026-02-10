@@ -9,29 +9,43 @@ __all__ = ["ForumListResponse", "Experience"]
 
 
 class Experience(BaseModel):
-    """The experience for this forum"""
+    """The parent experience that this forum belongs to."""
 
     id: str
     """The unique identifier for the experience."""
 
     name: str
-    """The written name of the description."""
+    """The display name of this experience shown to users in the product navigation.
+
+    Maximum 255 characters.
+    """
 
 
 class ForumListResponse(BaseModel):
-    """Represents a forum feed"""
+    """
+    A discussion forum where members can create posts, comment, and react, belonging to an experience.
+    """
 
     id: str
     """The unique identifier for the entity"""
 
     email_notification_preference: EmailNotificationPreferences
-    """The email notification preference for this forum"""
+    """The email notification setting that controls which posts trigger email alerts.
+
+    One of: all_admin_posts, only_weekly_summary, none.
+    """
 
     experience: Experience
-    """The experience for this forum"""
+    """The parent experience that this forum belongs to."""
 
     who_can_comment: WhoCanCommentTypes
-    """Who can comment on this forum"""
+    """The permission level controlling who can comment on posts.
+
+    One of: everyone, admins.
+    """
 
     who_can_post: WhoCanPostTypes
-    """Who can post on this forum"""
+    """The permission level controlling who can create new posts.
+
+    One of: everyone, admins.
+    """

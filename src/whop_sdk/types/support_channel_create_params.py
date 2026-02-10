@@ -9,7 +9,10 @@ __all__ = ["SupportChannelCreateParams"]
 
 class SupportChannelCreateParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to create the support chat in"""
+    """The unique identifier of the company to create the support channel in."""
 
     user_id: Required[str]
-    """The ID (user_xxx) or username of the user to create the support chat for"""
+    """The user ID (e.g.
+
+    'user_xxxxx') or username of the customer to open a support channel for.
+    """

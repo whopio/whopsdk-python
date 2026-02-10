@@ -10,19 +10,28 @@ __all__ = ["LeadCreateParams"]
 
 class LeadCreateParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to create a lead for."""
+    """
+    The unique identifier of the company to create the lead for, starting with
+    'biz\\__'.
+    """
 
     metadata: Optional[Dict[str, object]]
-    """Custom metadata for the lead."""
+    """A JSON object of custom metadata to attach to the lead for tracking purposes."""
 
     product_id: Optional[str]
-    """The ID of the product the lead is interested in."""
+    """
+    The unique identifier of the product the lead is interested in, starting with
+    'prod\\__'.
+    """
 
     referrer: Optional[str]
-    """The url referrer of the lead, if any."""
+    """
+    The referral URL that brought the lead to the company, such as
+    'https://example.com/landing'.
+    """
 
     user_id: Optional[str]
-    """The ID of the user to create a lead for.
+    """The unique identifier of the user to record as the lead.
 
-    If the request is made by a user, that user will be used.
+    If authenticated as a user, that user is used automatically.
     """

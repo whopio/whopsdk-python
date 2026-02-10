@@ -10,4 +10,7 @@ __all__ = ["DmChannelUpdateParams"]
 
 class DmChannelUpdateParams(TypedDict, total=False):
     custom_name: Optional[str]
-    """The custom name for the DM channel"""
+    """A new custom display name for the DM channel.
+
+    For example, 'Project Discussion'.
+    """

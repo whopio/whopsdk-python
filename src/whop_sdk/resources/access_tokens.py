@@ -58,30 +58,26 @@ class AccessTokensResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccessTokenCreateResponse:
-        """Create a short-lived access token to authenticate API requests.
+        """Create a short-lived access token for authenticating API requests.
 
-        When using API
-        key authentication, provide company_id or user_id. When using OAuth
-        authentication, the user is derived from the token. This token should be used
-        with Whop's web and mobile embedded components.
+        When using
+        API key authentication, provide company_id or user_id. When using OAuth, the
+        user is derived from the token. Use this token with Whop's web and mobile
+        embedded components.
 
         Args:
-          company_id: The ID of the Company to generate the token for. The API key must have
-              permission to access this Company, such as the being the company the API key
-              belongs to or a sub-merchant of it
+          company_id: The unique identifier of the company to generate the token for, starting with
+              'biz\\__'. The API key must have permission to access this company.
 
-          expires_at: The expiration timestamp for the access token. If not provided, a default
-              expiration time of 1 hour will be used. The expiration can be set to a maximum
-              of 3 hours from the current time.
+          expires_at: The expiration timestamp for the access token. Defaults to 1 hour from now, with
+              a maximum of 3 hours.
 
-          scoped_actions: Array of desired scoped actions for the access token. If sent as an empty array
-              or not provided, all permissions from the authenticating credential (API key or
-              OAuth token) will be available on the token. If sending an explicit list, they
-              must be a subset of the credential's existing permissions. Otherwise, an error
-              will be raised.
+          scoped_actions: An array of permission scopes to grant to the access token. If empty or omitted,
+              all permissions from the authenticating credential are inherited. Must be a
+              subset of the credential's permissions.
 
-          user_id: The ID of the User to generate the token for. The API key must have permission
-              to access this User.
+          user_id: The unique identifier of the user to generate the token for, starting with
+              'user\\__'. The API key must have permission to access this user.
 
           extra_headers: Send extra headers
 
@@ -143,30 +139,26 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccessTokenCreateResponse:
-        """Create a short-lived access token to authenticate API requests.
+        """Create a short-lived access token for authenticating API requests.
 
-        When using API
-        key authentication, provide company_id or user_id. When using OAuth
-        authentication, the user is derived from the token. This token should be used
-        with Whop's web and mobile embedded components.
+        When using
+        API key authentication, provide company_id or user_id. When using OAuth, the
+        user is derived from the token. Use this token with Whop's web and mobile
+        embedded components.
 
         Args:
-          company_id: The ID of the Company to generate the token for. The API key must have
-              permission to access this Company, such as the being the company the API key
-              belongs to or a sub-merchant of it
+          company_id: The unique identifier of the company to generate the token for, starting with
+              'biz\\__'. The API key must have permission to access this company.
 
-          expires_at: The expiration timestamp for the access token. If not provided, a default
-              expiration time of 1 hour will be used. The expiration can be set to a maximum
-              of 3 hours from the current time.
+          expires_at: The expiration timestamp for the access token. Defaults to 1 hour from now, with
+              a maximum of 3 hours.
 
-          scoped_actions: Array of desired scoped actions for the access token. If sent as an empty array
-              or not provided, all permissions from the authenticating credential (API key or
-              OAuth token) will be available on the token. If sending an explicit list, they
-              must be a subset of the credential's existing permissions. Otherwise, an error
-              will be raised.
+          scoped_actions: An array of permission scopes to grant to the access token. If empty or omitted,
+              all permissions from the authenticating credential are inherited. Must be a
+              subset of the credential's permissions.
 
-          user_id: The ID of the User to generate the token for. The API key must have permission
-              to access this User.
+          user_id: The unique identifier of the user to generate the token for, starting with
+              'user\\__'. The API key must have permission to access this user.
 
           extra_headers: Send extra headers
 

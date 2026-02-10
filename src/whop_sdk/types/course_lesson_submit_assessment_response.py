@@ -15,7 +15,7 @@ class Lesson(BaseModel):
     """The unique identifier for the lesson."""
 
     title: str
-    """The title of the lesson"""
+    """The display name of the lesson shown to students. Maximum 120 characters."""
 
 
 class User(BaseModel):

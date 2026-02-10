@@ -62,23 +62,28 @@ class MessagesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Message:
-        """
-        Creates a new message
+        """Send a new message in an experience chat, DM, or group chat channel.
+
+        Supports
+        text content, attachments, polls, and replies.
 
         Required permissions:
 
         - `chat:message:create`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
+          channel_id: The unique identifier of the channel or experience to send the message in. For
+              example, 'exp_xxxxx' or 'feed_xxxxx'.
 
-          content: The content of the message in Markdown format.
+          content: The body of the message in Markdown format. For example, 'Hello **world**'.
 
-          attachments: The attachments for this message, such as videos or images.
+          attachments: A list of file attachments to include with the message, such as images or
+              videos.
 
-          poll: The poll for this message
+          poll: A poll to attach to this message, allowing recipients to vote on options.
 
-          replying_to_message_id: The ID of the message this is replying to, if applicable.
+          replying_to_message_id: The unique identifier of the message this is replying to, creating a threaded
+              reply.
 
           extra_headers: Send extra headers
 
@@ -118,7 +123,7 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Message:
         """
-        Retrieves a message
+        Retrieves the details of an existing message.
 
         Required permissions:
 
@@ -158,14 +163,17 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Message:
         """
-        Updates an existing message
+        Edit the content, attachments, or pinned status of an existing message in an
+        experience chat, DM, or group chat channel.
 
         Args:
-          attachments: The attachments for this message
+          attachments: A replacement list of file attachments for this message, such as images or
+              videos.
 
-          content: The content of the message in Markdown format
+          content: The updated body of the message in Markdown format. For example, 'Hello
+              **world**'.
 
-          is_pinned: Whether this message is pinned
+          is_pinned: Whether this message should be pinned to the top of the channel.
 
           extra_headers: Send extra headers
 
@@ -210,14 +218,15 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[MessageListResponse]:
         """
-        Lists messages inside a channel
+        Returns a paginated list of messages within a specific experience chat, DM, or
+        group chat channel, sorted by creation time.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
+          channel_id: The unique identifier of the channel or experience to list messages for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -272,7 +281,8 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MessageDeleteResponse:
         """
-        Deletes a message
+        Permanently delete a message from an experience chat, DM, or group chat channel.
+        Only the message author or a channel admin can delete a message.
 
         Required permissions:
 
@@ -333,23 +343,28 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Message:
-        """
-        Creates a new message
+        """Send a new message in an experience chat, DM, or group chat channel.
+
+        Supports
+        text content, attachments, polls, and replies.
 
         Required permissions:
 
         - `chat:message:create`
 
         Args:
-          channel_id: The ID of the channel or experience to send to.
+          channel_id: The unique identifier of the channel or experience to send the message in. For
+              example, 'exp_xxxxx' or 'feed_xxxxx'.
 
-          content: The content of the message in Markdown format.
+          content: The body of the message in Markdown format. For example, 'Hello **world**'.
 
-          attachments: The attachments for this message, such as videos or images.
+          attachments: A list of file attachments to include with the message, such as images or
+              videos.
 
-          poll: The poll for this message
+          poll: A poll to attach to this message, allowing recipients to vote on options.
 
-          replying_to_message_id: The ID of the message this is replying to, if applicable.
+          replying_to_message_id: The unique identifier of the message this is replying to, creating a threaded
+              reply.
 
           extra_headers: Send extra headers
 
@@ -389,7 +404,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Message:
         """
-        Retrieves a message
+        Retrieves the details of an existing message.
 
         Required permissions:
 
@@ -429,14 +444,17 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Message:
         """
-        Updates an existing message
+        Edit the content, attachments, or pinned status of an existing message in an
+        experience chat, DM, or group chat channel.
 
         Args:
-          attachments: The attachments for this message
+          attachments: A replacement list of file attachments for this message, such as images or
+              videos.
 
-          content: The content of the message in Markdown format
+          content: The updated body of the message in Markdown format. For example, 'Hello
+              **world**'.
 
-          is_pinned: Whether this message is pinned
+          is_pinned: Whether this message should be pinned to the top of the channel.
 
           extra_headers: Send extra headers
 
@@ -481,14 +499,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[MessageListResponse, AsyncCursorPage[MessageListResponse]]:
         """
-        Lists messages inside a channel
+        Returns a paginated list of messages within a specific experience chat, DM, or
+        group chat channel, sorted by creation time.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          channel_id: The ID of the channel or the experience ID to list messages for
+          channel_id: The unique identifier of the channel or experience to list messages for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -543,7 +562,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MessageDeleteResponse:
         """
-        Deletes a message
+        Permanently delete a message from an experience chat, DM, or group chat channel.
+        Only the message author or a channel admin can delete a message.
 
         Required permissions:
 

@@ -12,10 +12,16 @@ __all__ = ["DmChannelCreateParams"]
 
 class DmChannelCreateParams(TypedDict, total=False):
     with_user_ids: Required[SequenceNotStr[str]]
-    """The user ids to create a DM with. Can be email, username or user_id (tag)"""
+    """The list of user identifiers to include in the DM channel.
+
+    Each entry can be an email, username, or user ID (e.g. 'user_xxxxx').
+    """
 
     company_id: Optional[str]
-    """The ID of the company to scope this DM channel to."""
+    """The unique identifier of the company to scope this DM channel to.
+
+    When set, the channel is visible only within that company context.
+    """
 
     custom_name: Optional[str]
-    """The custom name for the DM channel"""
+    """A custom display name for the DM channel. For example, 'Project Discussion'."""

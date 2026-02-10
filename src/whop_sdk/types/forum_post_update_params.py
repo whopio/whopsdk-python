@@ -12,19 +12,26 @@ __all__ = ["ForumPostUpdateParams", "Attachment"]
 
 class ForumPostUpdateParams(TypedDict, total=False):
     attachments: Optional[Iterable[Attachment]]
-    """The attachments for this post"""
+    """A replacement list of file attachments for this post, such as images or videos."""
 
     content: Optional[str]
-    """This is the main body of the post in Markdown format.
+    """The updated body of the post in Markdown format.
 
-    Hidden if paywalled and user hasn't purchased access to it.
+    For example, 'Check out this **update**'. Hidden if the post is paywalled and
+    the viewer has not purchased access.
     """
 
     is_pinned: Optional[bool]
-    """Whether the post is pinned. You can only pin a top level posts (not comments)."""
+    """Whether this post should be pinned to the top of the forum.
+
+    Only top-level posts can be pinned, not comments.
+    """
 
     title: Optional[str]
-    """The title of the post. Only visible if paywalled."""
+    """The updated title of the post, displayed prominently at the top.
+
+    Required for paywalled posts as it remains visible to non-purchasers.
+    """
 
     visibility: Optional[ForumPostVisibilityType]
     """The visibility types for forum posts"""

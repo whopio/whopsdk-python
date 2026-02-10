@@ -77,17 +77,17 @@ class ExperiencesResource(SyncAPIResource):
         - `experience:create`
 
         Args:
-          app_id: The ID of the app to create the experience for
+          app_id: The unique identifier of the app that powers this experience.
 
-          company_id: The ID of the company to create the experience for
+          company_id: The unique identifier of the company to create this experience for.
 
-          is_public: Whether the experience is publicly accessible
+          is_public: Whether the experience is publicly accessible without a membership.
 
-          logo: The logo for the experience
+          logo: A logo image displayed alongside the experience name.
 
-          name: The name of the experience
+          name: The display name of the experience. Defaults to the app's name if not provided.
 
-          section_id: The ID of the section to create the experience in
+          section_id: The unique identifier of the section to place the experience in.
 
           extra_headers: Send extra headers
 
@@ -128,7 +128,7 @@ class ExperiencesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
         """
-        Retrieves an experience by ID
+        Retrieves the details of an existing experience.
 
         Args:
           extra_headers: Send extra headers
@@ -174,15 +174,15 @@ class ExperiencesResource(SyncAPIResource):
         Args:
           access_level: The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE).
 
-          is_public: Whether the experience is publicly accessible.
+          is_public: Whether the experience is publicly accessible without a membership.
 
-          logo: The logo for the experience
+          logo: A logo image displayed alongside the experience name.
 
-          name: The name of the experience.
+          name: The display name of the experience.
 
-          order: The order of the experience in the section.
+          order: The position of the experience within its section for display ordering.
 
-          section_id: The ID of the section to update.
+          section_id: The unique identifier of the section to move the experience into.
 
           extra_headers: Send extra headers
 
@@ -233,30 +233,31 @@ class ExperiencesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ExperienceListResponse]:
         """
-        Lists experiences for a company
+        Returns a paginated list of experiences belonging to a company, with optional
+        filtering by product and app.
 
         Required permissions:
 
         - `experience:hidden_experience:read`
 
         Args:
-          company_id: The ID of the company to filter experiences by
+          company_id: The unique identifier of the company to list experiences for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
-          app_id: The ID of the app to filter experiences by
+          app_id: Filter to only experiences powered by this app identifier.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return experiences created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return experiences created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          product_id: The ID of the product to filter experiences by
+          product_id: Filter to only experiences attached to this product identifier.
 
           extra_headers: Send extra headers
 
@@ -340,7 +341,7 @@ class ExperiencesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
         """
-        Adds an experience to an product, making it accessible to the product's
+        Attach an experience to a product, making it accessible to the product's
         customers.
 
         Required permissions:
@@ -348,7 +349,7 @@ class ExperiencesResource(SyncAPIResource):
         - `experience:attach`
 
         Args:
-          product_id: The ID of the Access Pass to add the Experience to.
+          product_id: The unique identifier of the product to attach the experience to.
 
           extra_headers: Send extra headers
 
@@ -382,15 +383,15 @@ class ExperiencesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
         """
-        Removes an experience from an product, making it inaccessible to the product's
-        customers.
+        Detach an experience from a product, removing customer access to it through that
+        product.
 
         Required permissions:
 
         - `experience:detach`
 
         Args:
-          product_id: The ID of the Access Pass to add the Experience to.
+          product_id: The unique identifier of the product to detach the experience from.
 
           extra_headers: Send extra headers
 
@@ -437,7 +438,8 @@ class ExperiencesResource(SyncAPIResource):
         - `experience:create`
 
         Args:
-          name: The name of the new experience
+          name: The display name for the duplicated experience. Defaults to the original
+              experience's name.
 
           extra_headers: Send extra headers
 
@@ -501,17 +503,17 @@ class AsyncExperiencesResource(AsyncAPIResource):
         - `experience:create`
 
         Args:
-          app_id: The ID of the app to create the experience for
+          app_id: The unique identifier of the app that powers this experience.
 
-          company_id: The ID of the company to create the experience for
+          company_id: The unique identifier of the company to create this experience for.
 
-          is_public: Whether the experience is publicly accessible
+          is_public: Whether the experience is publicly accessible without a membership.
 
-          logo: The logo for the experience
+          logo: A logo image displayed alongside the experience name.
 
-          name: The name of the experience
+          name: The display name of the experience. Defaults to the app's name if not provided.
 
-          section_id: The ID of the section to create the experience in
+          section_id: The unique identifier of the section to place the experience in.
 
           extra_headers: Send extra headers
 
@@ -552,7 +554,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
         """
-        Retrieves an experience by ID
+        Retrieves the details of an existing experience.
 
         Args:
           extra_headers: Send extra headers
@@ -598,15 +600,15 @@ class AsyncExperiencesResource(AsyncAPIResource):
         Args:
           access_level: The different access levels for experiences (PUBLIC IS NEVER USED ANYMORE).
 
-          is_public: Whether the experience is publicly accessible.
+          is_public: Whether the experience is publicly accessible without a membership.
 
-          logo: The logo for the experience
+          logo: A logo image displayed alongside the experience name.
 
-          name: The name of the experience.
+          name: The display name of the experience.
 
-          order: The order of the experience in the section.
+          order: The position of the experience within its section for display ordering.
 
-          section_id: The ID of the section to update.
+          section_id: The unique identifier of the section to move the experience into.
 
           extra_headers: Send extra headers
 
@@ -657,30 +659,31 @@ class AsyncExperiencesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ExperienceListResponse, AsyncCursorPage[ExperienceListResponse]]:
         """
-        Lists experiences for a company
+        Returns a paginated list of experiences belonging to a company, with optional
+        filtering by product and app.
 
         Required permissions:
 
         - `experience:hidden_experience:read`
 
         Args:
-          company_id: The ID of the company to filter experiences by
+          company_id: The unique identifier of the company to list experiences for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
-          app_id: The ID of the app to filter experiences by
+          app_id: Filter to only experiences powered by this app identifier.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return experiences created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return experiences created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          product_id: The ID of the product to filter experiences by
+          product_id: Filter to only experiences attached to this product identifier.
 
           extra_headers: Send extra headers
 
@@ -764,7 +767,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
         """
-        Adds an experience to an product, making it accessible to the product's
+        Attach an experience to a product, making it accessible to the product's
         customers.
 
         Required permissions:
@@ -772,7 +775,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         - `experience:attach`
 
         Args:
-          product_id: The ID of the Access Pass to add the Experience to.
+          product_id: The unique identifier of the product to attach the experience to.
 
           extra_headers: Send extra headers
 
@@ -808,15 +811,15 @@ class AsyncExperiencesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Experience:
         """
-        Removes an experience from an product, making it inaccessible to the product's
-        customers.
+        Detach an experience from a product, removing customer access to it through that
+        product.
 
         Required permissions:
 
         - `experience:detach`
 
         Args:
-          product_id: The ID of the Access Pass to add the Experience to.
+          product_id: The unique identifier of the product to detach the experience from.
 
           extra_headers: Send extra headers
 
@@ -865,7 +868,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
         - `experience:create`
 
         Args:
-          name: The name of the new experience
+          name: The display name for the duplicated experience. Defaults to the original
+              experience's name.
 
           extra_headers: Send extra headers
 

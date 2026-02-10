@@ -12,7 +12,7 @@ __all__ = ["Membership", "Company", "CustomFieldResponse", "Member", "Plan", "Pr
 
 
 class Company(BaseModel):
-    """The Company this Membership belongs to."""
+    """The company this membership belongs to."""
 
     id: str
     """The unique identifier for the company."""
@@ -35,21 +35,24 @@ class CustomFieldResponse(BaseModel):
 
 
 class Member(BaseModel):
-    """The Member that this Membership belongs to."""
+    """The member record linking the user to the company for this membership.
+
+    Null if the member record has not been created yet.
+    """
 
     id: str
     """The unique identifier for the member."""
 
 
 class Plan(BaseModel):
-    """The Plan this Membership is for."""
+    """The plan the customer purchased to create this membership."""
 
     id: str
     """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
-    """The Product this Membership grants access to."""
+    """The product this membership grants access to."""
 
     id: str
     """The unique identifier for the product."""
@@ -62,14 +65,17 @@ class Product(BaseModel):
 
 
 class PromoCode(BaseModel):
-    """The Promo Code that is currently applied to this Membership."""
+    """The promotional code currently applied to this membership's billing.
+
+    Null if no promo code is active.
+    """
 
     id: str
     """The unique identifier for the promo code."""
 
 
 class User(BaseModel):
-    """The user this membership belongs to"""
+    """The user who owns this membership. Null if the user account has been deleted."""
 
     id: str
     """The unique identifier for the user."""
@@ -97,10 +103,10 @@ class Membership(BaseModel):
     """The unique identifier for the membership."""
 
     cancel_at_period_end: bool
-    """Whether this Membership is set to cancel at the end of the current billing
+    """Whether this membership is set to cancel at the end of the current billing
     cycle.
 
-    Only applies for memberships that have a renewal plan.
+    Only applies to memberships with a recurring plan.
     """
 
     cancel_option: Optional[CancelOptions] = None
@@ -110,13 +116,19 @@ class Membership(BaseModel):
     """
 
     canceled_at: Optional[datetime] = None
-    """The epoch timestamp of when the customer initiated a cancellation."""
+    """The time the customer initiated cancellation of this membership.
+
+    As a Unix timestamp. Null if the membership has not been canceled.
+    """
 
     cancellation_reason: Optional[str] = None
-    """The reason that the member canceled the membership (filled out by the member)."""
+    """Free-text explanation provided by the customer when canceling.
+
+    Null if the customer did not provide a reason.
+    """
 
     company: Company
-    """The Company this Membership belongs to."""
+    """The company this membership belongs to."""
 
     created_at: datetime
     """The datetime the membership was created."""
@@ -125,23 +137,35 @@ class Membership(BaseModel):
     """The available currencies on the platform"""
 
     custom_field_responses: List[CustomFieldResponse]
-    """The responses to custom checkout questions for this membership."""
+    """
+    The customer's responses to custom checkout questions configured on the product
+    at the time of purchase.
+    """
 
     joined_at: Optional[datetime] = None
-    """When the member joined the company."""
+    """The time the user first joined the company associated with this membership.
+
+    As a Unix timestamp. Null if the member record does not exist.
+    """
 
     license_key: Optional[str] = None
-    """The license key for this Membership.
+    """The software license key associated with this membership.
 
-    This is only present if the membership grants access to an instance of the Whop
-    Software app.
+    Only present if the product includes a Whop Software Licensing experience. Null
+    otherwise.
     """
 
     manage_url: Optional[str] = None
-    """The URL for the customer to manage their membership."""
+    """
+    The URL where the customer can view and manage this membership, including
+    cancellation and plan changes. Null if no member record exists.
+    """
 
     member: Optional[Member] = None
-    """The Member that this Membership belongs to."""
+    """The member record linking the user to the company for this membership.
+
+    Null if the member record has not been created yet.
+    """
 
     metadata: Dict[str, object]
     """
@@ -150,34 +174,43 @@ class Membership(BaseModel):
     """
 
     payment_collection_paused: bool
-    """Whether the membership's payments are currently paused."""
+    """
+    Whether recurring payment collection for this membership is temporarily paused
+    by the company.
+    """
 
     plan: Plan
-    """The Plan this Membership is for."""
+    """The plan the customer purchased to create this membership."""
 
     product: Product
-    """The Product this Membership grants access to."""
+    """The product this membership grants access to."""
 
     promo_code: Optional[PromoCode] = None
-    """The Promo Code that is currently applied to this Membership."""
+    """The promotional code currently applied to this membership's billing.
+
+    Null if no promo code is active.
+    """
 
     renewal_period_end: Optional[datetime] = None
-    """
-    The timestamp in seconds at which the current billing cycle for this
-    subscription ends. Only applies for memberships that have a renewal plan.
+    """The end of the current billing period for this recurring membership.
+
+    As a Unix timestamp. Null if the membership is not recurring.
     """
 
     renewal_period_start: Optional[datetime] = None
-    """
-    The timestamp in seconds at which the current billing cycle for this
-    subscription start. Only applies for memberships that have a renewal plan.
+    """The start of the current billing period for this recurring membership.
+
+    As a Unix timestamp. Null if the membership is not recurring.
     """
 
     status: MembershipStatus
-    """The status of the membership."""
+    """
+    The current lifecycle status of the membership (e.g., active, trialing,
+    past_due, canceled, expired, completed).
+    """
 
     updated_at: datetime
     """The datetime the membership was last updated."""
 
     user: Optional[User] = None
-    """The user this membership belongs to"""
+    """The user who owns this membership. Null if the user account has been deleted."""

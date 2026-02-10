@@ -17,7 +17,7 @@ __all__ = ["InvoiceListParams"]
 
 class InvoiceListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list invoices for"""
+    """The unique identifier of the company to list invoices for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -26,13 +26,13 @@ class InvoiceListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     collection_methods: Optional[List[CollectionMethod]]
-    """Filter invoices by their collection method"""
+    """Filter invoices by their collection method."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return invoices created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return invoices created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -47,7 +47,10 @@ class InvoiceListParams(TypedDict, total=False):
     """Which columns can be used to sort."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """Return only invoices created for these specific product ids"""
+    """
+    Filter invoices to only those associated with these specific product
+    identifiers.
+    """
 
     statuses: Optional[List[InvoiceStatus]]
-    """The statuses to filter the invoices by"""
+    """Filter invoices by their current status."""

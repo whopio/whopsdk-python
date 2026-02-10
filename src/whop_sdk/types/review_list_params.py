@@ -13,7 +13,7 @@ __all__ = ["ReviewListParams"]
 
 class ReviewListParams(TypedDict, total=False):
     product_id: Required[str]
-    """The ID of the product"""
+    """The unique identifier of the product to list reviews for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -22,10 +22,10 @@ class ReviewListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return reviews created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return reviews created before this timestamp."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -34,7 +34,7 @@ class ReviewListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     max_stars: Optional[int]
-    """The maximum star rating of the review (inclusive)"""
+    """The maximum star rating to include in results, from 1 to 5 inclusive."""
 
     min_stars: Optional[int]
-    """The minimum star rating of the review (inclusive)"""
+    """The minimum star rating to include in results, from 1 to 5 inclusive."""

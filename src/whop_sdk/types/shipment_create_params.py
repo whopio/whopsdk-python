@@ -9,10 +9,16 @@ __all__ = ["ShipmentCreateParams"]
 
 class ShipmentCreateParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to create the shipment for"""
+    """
+    The unique identifier of the company to create the shipment for, starting with
+    'biz\\__'.
+    """
 
     payment_id: Required[str]
-    """The ID of the payment to create the shipment for"""
+    """The unique identifier of the payment to associate the shipment with."""
 
     tracking_code: Required[str]
-    """The tracking code for the shipment"""
+    """
+    The carrier tracking code for the shipment, such as a USPS, UPS, or FedEx
+    tracking number.
+    """

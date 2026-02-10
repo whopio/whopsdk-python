@@ -19,7 +19,8 @@ class SetupIntentCanceledWebhookEvent(BaseModel):
 
     data: SetupIntent
     """
-    A setup intent allows a user to save a payment method without making a purchase.
+    A setup intent allows a user to save a payment method for future use without
+    making an immediate purchase.
     """
 
     timestamp: datetime

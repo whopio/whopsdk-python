@@ -9,27 +9,30 @@ __all__ = ["CourseStudentRetrieveResponse", "Course", "CourseExperience", "User"
 
 
 class CourseExperience(BaseModel):
-    """The experience that the course belongs to"""
+    """The parent experience that this course belongs to."""
 
     id: str
     """The unique identifier for the experience."""
 
 
 class Course(BaseModel):
-    """The course the student is enrolled in"""
+    """The course this student is enrolled in."""
 
     id: str
     """The unique identifier for the course."""
 
     experience: CourseExperience
-    """The experience that the course belongs to"""
+    """The parent experience that this course belongs to."""
 
     title: Optional[str] = None
-    """The title of the course"""
+    """The display name of the course shown to students.
+
+    Null if no title has been set.
+    """
 
 
 class User(BaseModel):
-    """The user who is enrolled in the course"""
+    """The user profile of the enrolled student."""
 
     id: str
     """The unique identifier for the user."""
@@ -42,28 +45,39 @@ class User(BaseModel):
 
 
 class CourseStudentRetrieveResponse(BaseModel):
-    """A course student (enrollment of a student in a course)"""
+    """
+    An enrollment record for a student in a course, including progress and completion metrics.
+    """
 
     id: str
     """The unique identifier for the course student type."""
 
     completed_lessons_count: int
-    """The number of lessons the student has completed"""
+    """The total number of lessons this student has marked as completed in the course."""
 
     completion_rate: float
-    """The percentage of lessons completed (0-100)"""
+    """
+    The percentage of available lessons the student has completed, as a value from 0
+    to 100 rounded to two decimal places.
+    """
 
     course: Course
-    """The course the student is enrolled in"""
+    """The course this student is enrolled in."""
 
     first_interaction_at: datetime
-    """When the student first interacted with the course"""
+    """
+    The timestamp when the student first interacted with this course, as a Unix
+    timestamp.
+    """
 
     last_interaction_at: datetime
-    """When the student last interacted with the course"""
+    """
+    The timestamp when the student most recently interacted with this course, as a
+    Unix timestamp.
+    """
 
     total_lessons_count: int
-    """The total number of lessons the student has access to"""
+    """The total number of visible lessons available to this student in the course."""
 
     user: User
-    """The user who is enrolled in the course"""
+    """The user profile of the enrolled student."""

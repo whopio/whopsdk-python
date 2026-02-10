@@ -70,7 +70,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Create a token transaction (add/subtract/transfer) for a member
+        Create a token transaction to add, subtract, or transfer tokens for a member
+        within a company.
 
         Required permissions:
 
@@ -79,17 +80,21 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive amount of tokens
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
-          company_id: The company ID
+          company_id: The unique identifier of the company to create the transaction in, starting with
+              'biz\\__'.
 
-          destination_user_id: Required for transfers - the user to receive tokens
+          destination_user_id: The unique identifier of the user receiving the tokens. Required when the
+              transaction type is 'transfer'.
 
-          user_id: The user ID whose balance will change
+          user_id: The unique identifier of the user whose token balance will be affected, starting
+              with 'user\\__'.
 
-          description: Optional description for the transaction
+          description: A human-readable description of why the transaction was created.
 
-          idempotency_key: Optional key to prevent duplicate transactions
+          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+              string.
 
           extra_headers: Send extra headers
 
@@ -119,7 +124,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Create a token transaction (add/subtract/transfer) for a member
+        Create a token transaction to add, subtract, or transfer tokens for a member
+        within a company.
 
         Required permissions:
 
@@ -128,15 +134,18 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive amount of tokens
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
-          company_id: The company ID
+          company_id: The unique identifier of the company to create the transaction in, starting with
+              'biz\\__'.
 
-          user_id: The user ID whose balance will change
+          user_id: The unique identifier of the user whose token balance will be affected, starting
+              with 'user\\__'.
 
-          description: Optional description for the transaction
+          description: A human-readable description of why the transaction was created.
 
-          idempotency_key: Optional key to prevent duplicate transactions
+          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+              string.
 
           extra_headers: Send extra headers
 
@@ -166,7 +175,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Create a token transaction (add/subtract/transfer) for a member
+        Create a token transaction to add, subtract, or transfer tokens for a member
+        within a company.
 
         Required permissions:
 
@@ -175,15 +185,18 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive amount of tokens
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
-          company_id: The company ID
+          company_id: The unique identifier of the company to create the transaction in, starting with
+              'biz\\__'.
 
-          user_id: The user ID whose balance will change
+          user_id: The unique identifier of the user whose token balance will be affected, starting
+              with 'user\\__'.
 
-          description: Optional description for the transaction
+          description: A human-readable description of why the transaction was created.
 
-          idempotency_key: Optional key to prevent duplicate transactions
+          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+              string.
 
           extra_headers: Send extra headers
 
@@ -248,7 +261,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Retrieves a token transaction by ID
+        Retrieves the details of an existing company token transaction.
 
         Required permissions:
 
@@ -293,7 +306,9 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CompanyTokenTransactionListResponse]:
         """
-        Lists token transactions for a company
+        Returns a paginated list of token transactions for a user or company, depending
+        on the authenticated actor, with optional filtering by user and transaction
+        type.
 
         Required permissions:
 
@@ -302,7 +317,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list token transactions for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -314,7 +329,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
 
           transaction_type: The type of token transaction
 
-          user_id: Filter by user ID
+          user_id: Filter transactions to only those involving this specific user.
 
           extra_headers: Send extra headers
 
@@ -388,7 +403,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Create a token transaction (add/subtract/transfer) for a member
+        Create a token transaction to add, subtract, or transfer tokens for a member
+        within a company.
 
         Required permissions:
 
@@ -397,17 +413,21 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive amount of tokens
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
-          company_id: The company ID
+          company_id: The unique identifier of the company to create the transaction in, starting with
+              'biz\\__'.
 
-          destination_user_id: Required for transfers - the user to receive tokens
+          destination_user_id: The unique identifier of the user receiving the tokens. Required when the
+              transaction type is 'transfer'.
 
-          user_id: The user ID whose balance will change
+          user_id: The unique identifier of the user whose token balance will be affected, starting
+              with 'user\\__'.
 
-          description: Optional description for the transaction
+          description: A human-readable description of why the transaction was created.
 
-          idempotency_key: Optional key to prevent duplicate transactions
+          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+              string.
 
           extra_headers: Send extra headers
 
@@ -437,7 +457,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Create a token transaction (add/subtract/transfer) for a member
+        Create a token transaction to add, subtract, or transfer tokens for a member
+        within a company.
 
         Required permissions:
 
@@ -446,15 +467,18 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive amount of tokens
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
-          company_id: The company ID
+          company_id: The unique identifier of the company to create the transaction in, starting with
+              'biz\\__'.
 
-          user_id: The user ID whose balance will change
+          user_id: The unique identifier of the user whose token balance will be affected, starting
+              with 'user\\__'.
 
-          description: Optional description for the transaction
+          description: A human-readable description of why the transaction was created.
 
-          idempotency_key: Optional key to prevent duplicate transactions
+          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+              string.
 
           extra_headers: Send extra headers
 
@@ -484,7 +508,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Create a token transaction (add/subtract/transfer) for a member
+        Create a token transaction to add, subtract, or transfer tokens for a member
+        within a company.
 
         Required permissions:
 
@@ -493,15 +518,18 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive amount of tokens
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
-          company_id: The company ID
+          company_id: The unique identifier of the company to create the transaction in, starting with
+              'biz\\__'.
 
-          user_id: The user ID whose balance will change
+          user_id: The unique identifier of the user whose token balance will be affected, starting
+              with 'user\\__'.
 
-          description: Optional description for the transaction
+          description: A human-readable description of why the transaction was created.
 
-          idempotency_key: Optional key to prevent duplicate transactions
+          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+              string.
 
           extra_headers: Send extra headers
 
@@ -566,7 +594,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompanyTokenTransaction:
         """
-        Retrieves a token transaction by ID
+        Retrieves the details of an existing company token transaction.
 
         Required permissions:
 
@@ -611,7 +639,9 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CompanyTokenTransactionListResponse, AsyncCursorPage[CompanyTokenTransactionListResponse]]:
         """
-        Lists token transactions for a company
+        Returns a paginated list of token transactions for a user or company, depending
+        on the authenticated actor, with optional filtering by user and transaction
+        type.
 
         Required permissions:
 
@@ -620,7 +650,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list token transactions for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -632,7 +662,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
 
           transaction_type: The type of token transaction
 
-          user_id: Filter by user ID
+          user_id: Filter transactions to only those involving this specific user.
 
           extra_headers: Send extra headers
 

@@ -15,7 +15,7 @@ __all__ = ["AppBuildListParams"]
 
 class AppBuildListParams(TypedDict, total=False):
     app_id: Required[str]
-    """The ID of the app to filter app builds by"""
+    """The unique identifier of the app to list builds for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -24,10 +24,10 @@ class AppBuildListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return builds created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return builds created before this timestamp."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""

@@ -16,7 +16,10 @@ class DmChannelListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: Optional[str]
-    """Filter DM channels scoped to a specific company"""
+    """The unique identifier of a company to filter DM channels by.
+
+    Only returns channels scoped to this company.
+    """
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""

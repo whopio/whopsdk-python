@@ -14,16 +14,24 @@ __all__ = ["ChatChannelUpdateParams"]
 
 class ChatChannelUpdateParams(TypedDict, total=False):
     ban_media: Optional[bool]
-    """Whether media uploads are banned in this chat"""
+    """
+    Whether media uploads such as images and videos are banned in this chat channel.
+    """
 
     ban_urls: Optional[bool]
-    """Whether URLs are banned in this chat"""
+    """Whether URLs and links are banned from being posted in this chat channel."""
 
     banned_words: Optional[SequenceNotStr[str]]
-    """List of banned words for this chat"""
+    """
+    A list of words that are automatically blocked from messages in this chat
+    channel. For example, ['spam', 'scam'].
+    """
 
     user_posts_cooldown_seconds: Optional[int]
-    """The cooldown period in seconds between user posts"""
+    """
+    The minimum number of seconds a user must wait between sending messages in this
+    chat channel.
+    """
 
     who_can_post: Optional[WhoCanPost]
     """Who can post on a chat feed"""

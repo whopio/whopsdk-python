@@ -12,7 +12,7 @@ __all__ = ["MessageListParams"]
 
 class MessageListParams(TypedDict, total=False):
     channel_id: Required[str]
-    """The ID of the channel or the experience ID to list messages for"""
+    """The unique identifier of the channel or experience to list messages for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""

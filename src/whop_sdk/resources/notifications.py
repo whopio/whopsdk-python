@@ -62,32 +62,38 @@ class NotificationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
-        """
-        Queues a notification to be sent to users in an experience or company team
+        """Send a push notification to users in an experience or company team.
+
+        The
+        notification is processed asynchronously and supports targeting specific users.
 
         Required permissions:
 
         - `notification:create`
 
         Args:
-          company_id: The id of the company to target. Only team members of this company will receive
-              the notification. When clicked will take the user to your dashboard app view.
+          company_id: The unique identifier of the company to target. Only team members of this
+              company will receive the notification. Clicking the notification opens your
+              dashboard app view.
 
-          content: The content of the notification
+          content: The main body text of the notification displayed to the user.
 
-          title: The title of the notification
+          title: The headline text of the notification, displayed prominently to the user.
 
-          icon_user_id: Optional: ID of a Whop user whose profile picture will be used as the
-              notification icon. If not provided, defaults to the experience or company
-              avatar.
+          icon_user_id: The unique identifier of a user whose profile picture will be used as the
+              notification icon. Defaults to the experience or company avatar when not
+              provided.
 
-          rest_path: The rest path to append to the generated deep link that opens your app. Use
-              [restPath] in your app path in the dashboard to read this parameter.
+          rest_path: A path segment appended to the generated deep link that opens your app. Use
+              [restPath] in your app path configuration to read this parameter. For example,
+              '/settings/billing'.
 
-          subtitle: The subtitle of the notification
+          subtitle: An optional secondary line of text displayed below the title in the
+              notification.
 
-          user_ids: If provided, this will only send to these users if they are also in the main
-              scope (experience or company)
+          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
+              users receive the notification, provided they are in the targeted experience or
+              company.
 
           extra_headers: Send extra headers
 
@@ -117,33 +123,38 @@ class NotificationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
-        """
-        Queues a notification to be sent to users in an experience or company team
+        """Send a push notification to users in an experience or company team.
+
+        The
+        notification is processed asynchronously and supports targeting specific users.
 
         Required permissions:
 
         - `notification:create`
 
         Args:
-          content: The content of the notification
+          content: The main body text of the notification displayed to the user.
 
-          experience_id: The id of the experience to target. All users with access to this experience
-              (customers and admins) will receive the notification. When clicked, open your
+          experience_id: The unique identifier of the experience to target. All users with access to this
+              experience will receive the notification. Clicking the notification opens the
               experience view.
 
-          title: The title of the notification
+          title: The headline text of the notification, displayed prominently to the user.
 
-          icon_user_id: Optional: ID of a Whop user whose profile picture will be used as the
-              notification icon. If not provided, defaults to the experience or company
-              avatar.
+          icon_user_id: The unique identifier of a user whose profile picture will be used as the
+              notification icon. Defaults to the experience or company avatar when not
+              provided.
 
-          rest_path: The rest path to append to the generated deep link that opens your app. Use
-              [restPath] in your app path in the dashboard to read this parameter.
+          rest_path: A path segment appended to the generated deep link that opens your app. Use
+              [restPath] in your app path configuration to read this parameter. For example,
+              '/settings/billing'.
 
-          subtitle: The subtitle of the notification
+          subtitle: An optional secondary line of text displayed below the title in the
+              notification.
 
-          user_ids: If provided, this will only send to these users if they are also in the main
-              scope (experience or company)
+          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
+              users receive the notification, provided they are in the targeted experience or
+              company.
 
           extra_headers: Send extra headers
 
@@ -234,32 +245,38 @@ class AsyncNotificationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
-        """
-        Queues a notification to be sent to users in an experience or company team
+        """Send a push notification to users in an experience or company team.
+
+        The
+        notification is processed asynchronously and supports targeting specific users.
 
         Required permissions:
 
         - `notification:create`
 
         Args:
-          company_id: The id of the company to target. Only team members of this company will receive
-              the notification. When clicked will take the user to your dashboard app view.
+          company_id: The unique identifier of the company to target. Only team members of this
+              company will receive the notification. Clicking the notification opens your
+              dashboard app view.
 
-          content: The content of the notification
+          content: The main body text of the notification displayed to the user.
 
-          title: The title of the notification
+          title: The headline text of the notification, displayed prominently to the user.
 
-          icon_user_id: Optional: ID of a Whop user whose profile picture will be used as the
-              notification icon. If not provided, defaults to the experience or company
-              avatar.
+          icon_user_id: The unique identifier of a user whose profile picture will be used as the
+              notification icon. Defaults to the experience or company avatar when not
+              provided.
 
-          rest_path: The rest path to append to the generated deep link that opens your app. Use
-              [restPath] in your app path in the dashboard to read this parameter.
+          rest_path: A path segment appended to the generated deep link that opens your app. Use
+              [restPath] in your app path configuration to read this parameter. For example,
+              '/settings/billing'.
 
-          subtitle: The subtitle of the notification
+          subtitle: An optional secondary line of text displayed below the title in the
+              notification.
 
-          user_ids: If provided, this will only send to these users if they are also in the main
-              scope (experience or company)
+          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
+              users receive the notification, provided they are in the targeted experience or
+              company.
 
           extra_headers: Send extra headers
 
@@ -289,33 +306,38 @@ class AsyncNotificationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
-        """
-        Queues a notification to be sent to users in an experience or company team
+        """Send a push notification to users in an experience or company team.
+
+        The
+        notification is processed asynchronously and supports targeting specific users.
 
         Required permissions:
 
         - `notification:create`
 
         Args:
-          content: The content of the notification
+          content: The main body text of the notification displayed to the user.
 
-          experience_id: The id of the experience to target. All users with access to this experience
-              (customers and admins) will receive the notification. When clicked, open your
+          experience_id: The unique identifier of the experience to target. All users with access to this
+              experience will receive the notification. Clicking the notification opens the
               experience view.
 
-          title: The title of the notification
+          title: The headline text of the notification, displayed prominently to the user.
 
-          icon_user_id: Optional: ID of a Whop user whose profile picture will be used as the
-              notification icon. If not provided, defaults to the experience or company
-              avatar.
+          icon_user_id: The unique identifier of a user whose profile picture will be used as the
+              notification icon. Defaults to the experience or company avatar when not
+              provided.
 
-          rest_path: The rest path to append to the generated deep link that opens your app. Use
-              [restPath] in your app path in the dashboard to read this parameter.
+          rest_path: A path segment appended to the generated deep link that opens your app. Use
+              [restPath] in your app path configuration to read this parameter. For example,
+              '/settings/billing'.
 
-          subtitle: The subtitle of the notification
+          subtitle: An optional secondary line of text displayed below the title in the
+              notification.
 
-          user_ids: If provided, this will only send to these users if they are also in the main
-              scope (experience or company)
+          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
+              users receive the notification, provided they are in the targeted experience or
+              company.
 
           extra_headers: Send extra headers
 

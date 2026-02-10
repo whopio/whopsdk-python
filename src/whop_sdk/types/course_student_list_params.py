@@ -10,7 +10,7 @@ __all__ = ["CourseStudentListParams"]
 
 class CourseStudentListParams(TypedDict, total=False):
     course_id: Required[str]
-    """The ID of the course"""
+    """The unique identifier of the course to list enrolled students for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -22,7 +22,7 @@ class CourseStudentListParams(TypedDict, total=False):
     """Returns the first _n_ elements from the list."""
 
     keyword: Optional[str]
-    """Filter students by name - returns students whose names match the keyword"""
+    """A search term to filter students by name or username."""
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""

@@ -56,7 +56,7 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieve a single user by their unique identifier or username.
+        Retrieves the details of an existing user.
 
         Args:
           extra_headers: Send extra headers
@@ -203,7 +203,7 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieve a single user by their unique identifier or username.
+        Retrieves the details of an existing user.
 
         Args:
           extra_headers: Send extra headers

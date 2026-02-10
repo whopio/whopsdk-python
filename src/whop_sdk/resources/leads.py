@@ -62,7 +62,8 @@ class LeadsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lead:
         """
-        Creates a new lead
+        Record a new lead for a company, capturing a potential customer's interest in a
+        specific product.
 
         Required permissions:
 
@@ -72,16 +73,19 @@ class LeadsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to create a lead for.
+          company_id: The unique identifier of the company to create the lead for, starting with
+              'biz\\__'.
 
-          metadata: Custom metadata for the lead.
+          metadata: A JSON object of custom metadata to attach to the lead for tracking purposes.
 
-          product_id: The ID of the product the lead is interested in.
+          product_id: The unique identifier of the product the lead is interested in, starting with
+              'prod\\__'.
 
-          referrer: The url referrer of the lead, if any.
+          referrer: The referral URL that brought the lead to the company, such as
+              'https://example.com/landing'.
 
-          user_id: The ID of the user to create a lead for. If the request is made by a user, that
-              user will be used.
+          user_id: The unique identifier of the user to record as the lead. If authenticated as a
+              user, that user is used automatically.
 
           extra_headers: Send extra headers
 
@@ -121,7 +125,7 @@ class LeadsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lead:
         """
-        Retrieves a lead by ID
+        Retrieves the details of an existing lead.
 
         Required permissions:
 
@@ -163,7 +167,7 @@ class LeadsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lead:
         """
-        Updates a lead
+        Update the metadata or referrer information on an existing lead record.
 
         Required permissions:
 
@@ -173,9 +177,10 @@ class LeadsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          metadata: Custom metadata for the lead.
+          metadata: A JSON object of custom metadata to set on the lead, replacing any existing
+              metadata.
 
-          referrer: The url referrer of the lead.
+          referrer: The updated referral URL for the lead, such as 'https://example.com/landing'.
 
           extra_headers: Send extra headers
 
@@ -221,7 +226,8 @@ class LeadsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[LeadListResponse]:
         """
-        Lists leads for a company
+        Returns a paginated list of leads for a company, with optional filtering by
+        product and creation date.
 
         Required permissions:
 
@@ -231,21 +237,21 @@ class LeadsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to list leads for
+          company_id: The unique identifier of the company to list leads for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return leads created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return leads created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          product_ids: The product IDs to filter the leads by
+          product_ids: Filter leads to only those associated with these specific product identifiers.
 
           extra_headers: Send extra headers
 
@@ -317,7 +323,8 @@ class AsyncLeadsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lead:
         """
-        Creates a new lead
+        Record a new lead for a company, capturing a potential customer's interest in a
+        specific product.
 
         Required permissions:
 
@@ -327,16 +334,19 @@ class AsyncLeadsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to create a lead for.
+          company_id: The unique identifier of the company to create the lead for, starting with
+              'biz\\__'.
 
-          metadata: Custom metadata for the lead.
+          metadata: A JSON object of custom metadata to attach to the lead for tracking purposes.
 
-          product_id: The ID of the product the lead is interested in.
+          product_id: The unique identifier of the product the lead is interested in, starting with
+              'prod\\__'.
 
-          referrer: The url referrer of the lead, if any.
+          referrer: The referral URL that brought the lead to the company, such as
+              'https://example.com/landing'.
 
-          user_id: The ID of the user to create a lead for. If the request is made by a user, that
-              user will be used.
+          user_id: The unique identifier of the user to record as the lead. If authenticated as a
+              user, that user is used automatically.
 
           extra_headers: Send extra headers
 
@@ -376,7 +386,7 @@ class AsyncLeadsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lead:
         """
-        Retrieves a lead by ID
+        Retrieves the details of an existing lead.
 
         Required permissions:
 
@@ -418,7 +428,7 @@ class AsyncLeadsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Lead:
         """
-        Updates a lead
+        Update the metadata or referrer information on an existing lead record.
 
         Required permissions:
 
@@ -428,9 +438,10 @@ class AsyncLeadsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          metadata: Custom metadata for the lead.
+          metadata: A JSON object of custom metadata to set on the lead, replacing any existing
+              metadata.
 
-          referrer: The url referrer of the lead.
+          referrer: The updated referral URL for the lead, such as 'https://example.com/landing'.
 
           extra_headers: Send extra headers
 
@@ -476,7 +487,8 @@ class AsyncLeadsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[LeadListResponse, AsyncCursorPage[LeadListResponse]]:
         """
-        Lists leads for a company
+        Returns a paginated list of leads for a company, with optional filtering by
+        product and creation date.
 
         Required permissions:
 
@@ -486,21 +498,21 @@ class AsyncLeadsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The ID of the company to list leads for
+          company_id: The unique identifier of the company to list leads for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return leads created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return leads created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          product_ids: The product IDs to filter the leads by
+          product_ids: Filter leads to only those associated with these specific product identifiers.
 
           extra_headers: Send extra headers
 

@@ -6,13 +6,15 @@ __all__ = ["CourseChapterListResponse"]
 
 
 class CourseChapterListResponse(BaseModel):
-    """A chapter from the courses app"""
+    """
+    A grouping of related lessons within a course, used to organize content into sections.
+    """
 
     id: str
     """The unique identifier for the chapter."""
 
     order: int
-    """The order of the chapter within its course"""
+    """The sort position of this chapter within its parent course, starting from zero."""
 
     title: str
-    """The title of the chapter"""
+    """The display name of the chapter shown to students. Maximum 150 characters."""

@@ -21,35 +21,37 @@ class WithdrawalListResponse(BaseModel):
     """The unique identifier for the withdrawal."""
 
     amount: float
-    """The withdrawal amount.
-
-    Provided as a number in the specified currency. Eg: 100.00 for $100.00 USD.
+    """
+    The withdrawal amount as a decimal number in the specified currency (e.g.,
+    100.00 for $100.00 USD).
     """
 
     created_at: datetime
     """The datetime the withdrawal was created."""
 
     currency: Currency
-    """The currency of the withdrawal request."""
+    """The three-letter ISO currency code for this withdrawal (e.g., 'usd', 'eur')."""
 
     fee_amount: float
-    """The fee amount that was charged for the withdrawal.
-
-    This is in the same currency as the withdrawal amount.
+    """
+    The fee charged for processing this withdrawal, in the same currency as the
+    withdrawal amount.
     """
 
     fee_type: Optional[WithdrawalFeeTypes] = None
     """The different fee types for a withdrawal."""
 
     markup_fee: float
-    """The markup fee that was charged for the withdrawal.
-
-    This is in the same currency as the withdrawal amount. This only applies to
-    platform accounts using Whop Rails.
+    """
+    An additional markup fee charged for the withdrawal, in the same currency as the
+    withdrawal amount. Only applies to platform accounts using Whop Rails.
     """
 
     speed: WithdrawalSpeeds
-    """The speed of the withdrawal."""
+    """The processing speed selected for this withdrawal ('standard' or 'instant')."""
 
     status: WithdrawalStatus
-    """Status of the withdrawal."""
+    """
+    The computed lifecycle status of the withdrawal, accounting for the state of
+    associated payouts (e.g., 'requested', 'in_transit', 'completed', 'failed').
+    """

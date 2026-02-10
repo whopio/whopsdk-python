@@ -73,38 +73,42 @@ class ForumPostsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ForumPost:
-        """
-        Create a new forum post
+        """Create a new forum post or comment within an experience.
+
+        Supports text content,
+        attachments, polls, paywalling, and pinning.
 
         Required permissions:
 
         - `forum:post:create`
 
         Args:
-          experience_id: The experience to create this post in
+          experience_id: The unique identifier of the experience to create this post in. For example,
+              'exp_xxxxx'.
 
-          attachments: The attachments for this post
+          attachments: A list of file attachments to include with the post, such as images or videos.
 
-          content: This is the main body of the post in Markdown format. Hidden if paywalled and
-              user hasn't purchased access to it.
+          content: The main body of the post in Markdown format. For example, 'Check out this
+              **update**'. Hidden if the post is paywalled and the viewer has not purchased
+              access.
 
-          is_mention: This is used to determine if the post should be sent as a 'mention' notification
-              to all of the users who are in the experience. This means that anyone with
-              'mentions' enabled will receive a notification about this post.
+          is_mention: Whether to send this post as a mention notification to all users in the
+              experience who have mentions enabled.
 
-          parent_id: The ID of the parent post. Set it to the ID of the post you want to comment on
-              or don't include it if its a top level post.
+          parent_id: The unique identifier of the parent post to comment on. Omit this field to
+              create a top-level post.
 
-          paywall_amount: The price in paywall_currency to unlock this post (e.g., 5.00 for $5.00). If
-              set, users must purchase access to view the post content.
+          paywall_amount: The price to unlock this post in the specified paywall currency. For example,
+              5.00 for $5.00. When set, users must purchase access to view the post content.
 
           paywall_currency: The available currencies on the platform
 
-          pinned: Whether the post should be pinned
+          pinned: Whether this post should be pinned to the top of the forum.
 
-          poll: The poll for this post
+          poll: A poll to attach to this post, allowing members to vote on options.
 
-          title: The title of the post. Only visible if paywalled.
+          title: The title of the post, displayed prominently at the top. Required for paywalled
+              posts as it remains visible to non-purchasers.
 
           visibility: The visibility types for forum posts
 
@@ -152,7 +156,7 @@ class ForumPostsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ForumPost:
         """
-        Retrieves a forum post by ID
+        Retrieves the details of an existing forum post.
 
         Required permissions:
 
@@ -194,17 +198,21 @@ class ForumPostsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ForumPost:
         """
-        Update an existing forum post
+        Edit the content, attachments, pinned status, or visibility of an existing forum
+        post or comment.
 
         Args:
-          attachments: The attachments for this post
+          attachments: A replacement list of file attachments for this post, such as images or videos.
 
-          content: This is the main body of the post in Markdown format. Hidden if paywalled and
-              user hasn't purchased access to it.
+          content: The updated body of the post in Markdown format. For example, 'Check out this
+              **update**'. Hidden if the post is paywalled and the viewer has not purchased
+              access.
 
-          is_pinned: Whether the post is pinned. You can only pin a top level posts (not comments).
+          is_pinned: Whether this post should be pinned to the top of the forum. Only top-level posts
+              can be pinned, not comments.
 
-          title: The title of the post. Only visible if paywalled.
+          title: The updated title of the post, displayed prominently at the top. Required for
+              paywalled posts as it remains visible to non-purchasers.
 
           visibility: The visibility types for forum posts
 
@@ -254,14 +262,15 @@ class ForumPostsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ForumPostListResponse]:
         """
-        Lists forum posts
+        Returns a paginated list of forum posts within a specific experience, with
+        optional filtering by parent post or pinned status.
 
         Required permissions:
 
         - `forum:read`
 
         Args:
-          experience_id: The ID of the experience to list forum posts for
+          experience_id: The unique identifier of the experience to list forum posts for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -271,9 +280,11 @@ class ForumPostsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          parent_id: The ID of the parent post to list forum post comments for
+          parent_id: The unique identifier of a parent post to list comments for. When set, returns
+              replies to that post.
 
-          pinned: Set to true to only return pinned posts
+          pinned: Whether to filter for only pinned posts. Set to true to return only pinned
+              posts.
 
           extra_headers: Send extra headers
 
@@ -349,38 +360,42 @@ class AsyncForumPostsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ForumPost:
-        """
-        Create a new forum post
+        """Create a new forum post or comment within an experience.
+
+        Supports text content,
+        attachments, polls, paywalling, and pinning.
 
         Required permissions:
 
         - `forum:post:create`
 
         Args:
-          experience_id: The experience to create this post in
+          experience_id: The unique identifier of the experience to create this post in. For example,
+              'exp_xxxxx'.
 
-          attachments: The attachments for this post
+          attachments: A list of file attachments to include with the post, such as images or videos.
 
-          content: This is the main body of the post in Markdown format. Hidden if paywalled and
-              user hasn't purchased access to it.
+          content: The main body of the post in Markdown format. For example, 'Check out this
+              **update**'. Hidden if the post is paywalled and the viewer has not purchased
+              access.
 
-          is_mention: This is used to determine if the post should be sent as a 'mention' notification
-              to all of the users who are in the experience. This means that anyone with
-              'mentions' enabled will receive a notification about this post.
+          is_mention: Whether to send this post as a mention notification to all users in the
+              experience who have mentions enabled.
 
-          parent_id: The ID of the parent post. Set it to the ID of the post you want to comment on
-              or don't include it if its a top level post.
+          parent_id: The unique identifier of the parent post to comment on. Omit this field to
+              create a top-level post.
 
-          paywall_amount: The price in paywall_currency to unlock this post (e.g., 5.00 for $5.00). If
-              set, users must purchase access to view the post content.
+          paywall_amount: The price to unlock this post in the specified paywall currency. For example,
+              5.00 for $5.00. When set, users must purchase access to view the post content.
 
           paywall_currency: The available currencies on the platform
 
-          pinned: Whether the post should be pinned
+          pinned: Whether this post should be pinned to the top of the forum.
 
-          poll: The poll for this post
+          poll: A poll to attach to this post, allowing members to vote on options.
 
-          title: The title of the post. Only visible if paywalled.
+          title: The title of the post, displayed prominently at the top. Required for paywalled
+              posts as it remains visible to non-purchasers.
 
           visibility: The visibility types for forum posts
 
@@ -428,7 +443,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ForumPost:
         """
-        Retrieves a forum post by ID
+        Retrieves the details of an existing forum post.
 
         Required permissions:
 
@@ -470,17 +485,21 @@ class AsyncForumPostsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ForumPost:
         """
-        Update an existing forum post
+        Edit the content, attachments, pinned status, or visibility of an existing forum
+        post or comment.
 
         Args:
-          attachments: The attachments for this post
+          attachments: A replacement list of file attachments for this post, such as images or videos.
 
-          content: This is the main body of the post in Markdown format. Hidden if paywalled and
-              user hasn't purchased access to it.
+          content: The updated body of the post in Markdown format. For example, 'Check out this
+              **update**'. Hidden if the post is paywalled and the viewer has not purchased
+              access.
 
-          is_pinned: Whether the post is pinned. You can only pin a top level posts (not comments).
+          is_pinned: Whether this post should be pinned to the top of the forum. Only top-level posts
+              can be pinned, not comments.
 
-          title: The title of the post. Only visible if paywalled.
+          title: The updated title of the post, displayed prominently at the top. Required for
+              paywalled posts as it remains visible to non-purchasers.
 
           visibility: The visibility types for forum posts
 
@@ -530,14 +549,15 @@ class AsyncForumPostsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ForumPostListResponse, AsyncCursorPage[ForumPostListResponse]]:
         """
-        Lists forum posts
+        Returns a paginated list of forum posts within a specific experience, with
+        optional filtering by parent post or pinned status.
 
         Required permissions:
 
         - `forum:read`
 
         Args:
-          experience_id: The ID of the experience to list forum posts for
+          experience_id: The unique identifier of the experience to list forum posts for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -547,9 +567,11 @@ class AsyncForumPostsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          parent_id: The ID of the parent post to list forum post comments for
+          parent_id: The unique identifier of a parent post to list comments for. When set, returns
+              replies to that post.
 
-          pinned: Set to true to only return pinned posts
+          pinned: Whether to filter for only pinned posts. Set to true to return only pinned
+              posts.
 
           extra_headers: Send extra headers
 

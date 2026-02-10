@@ -57,7 +57,7 @@ class CourseStudentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseStudentRetrieveResponse:
         """
-        Retrieves a course student by interaction ID
+        Retrieves the details of an existing course student.
 
         Required permissions:
 
@@ -100,7 +100,8 @@ class CourseStudentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CourseStudentListResponse]:
         """
-        Lists students for a course
+        Returns a paginated list of students enrolled in a course, with optional name
+        filtering.
 
         Required permissions:
 
@@ -108,7 +109,7 @@ class CourseStudentsResource(SyncAPIResource):
         - `course_analytics:read`
 
         Args:
-          course_id: The ID of the course
+          course_id: The unique identifier of the course to list enrolled students for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -116,7 +117,7 @@ class CourseStudentsResource(SyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
-          keyword: Filter students by name - returns students whose names match the keyword
+          keyword: A search term to filter students by name or username.
 
           last: Returns the last _n_ elements from the list.
 
@@ -184,7 +185,7 @@ class AsyncCourseStudentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseStudentRetrieveResponse:
         """
-        Retrieves a course student by interaction ID
+        Retrieves the details of an existing course student.
 
         Required permissions:
 
@@ -227,7 +228,8 @@ class AsyncCourseStudentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CourseStudentListResponse, AsyncCursorPage[CourseStudentListResponse]]:
         """
-        Lists students for a course
+        Returns a paginated list of students enrolled in a course, with optional name
+        filtering.
 
         Required permissions:
 
@@ -235,7 +237,7 @@ class AsyncCourseStudentsResource(AsyncAPIResource):
         - `course_analytics:read`
 
         Args:
-          course_id: The ID of the course
+          course_id: The unique identifier of the course to list enrolled students for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -243,7 +245,7 @@ class AsyncCourseStudentsResource(AsyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
-          keyword: Filter students by name - returns students whose names match the keyword
+          keyword: A search term to filter students by name or username.
 
           last: Returns the last _n_ elements from the list.
 

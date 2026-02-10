@@ -27,13 +27,13 @@ class MemberListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: Optional[str]
-    """The ID of the company to list members for"""
+    """The unique identifier of the company to list members for."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return members created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return members created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -45,29 +45,28 @@ class MemberListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     most_recent_actions: Optional[List[MemberMostRecentActions]]
-    """The most recent actions to filter the members by"""
+    """Filter members by their most recent activity type."""
 
     order: Optional[Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"]]
     """Which columns can be used to sort."""
 
     plan_ids: Optional[SequenceNotStr[str]]
-    """The plan IDs to filter the members by"""
+    """Filter members to only those subscribed to these specific plans."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """The product IDs to filter the members by"""
+    """Filter members to only those belonging to these specific products."""
 
     promo_code_ids: Optional[SequenceNotStr[str]]
-    """The promo code IDs to filter the members by"""
+    """Filter members to only those who used these specific promo codes."""
 
     query: Optional[str]
-    """The name, username, or email to filter the members by.
+    """Search members by name, username, or email.
 
-    The email filter will only apply if the current actor has the
-    `member:email:read` permission.
+    Email filtering requires the member:email:read permission.
     """
 
     statuses: Optional[List[MemberStatuses]]
-    """The statuses to filter the members by"""
+    """Filter members by their current subscription status."""
 
     user_ids: Optional[SequenceNotStr[str]]
-    """The user IDs to filter the members by"""
+    """Filter members to only those matching these specific user identifiers."""

@@ -9,4 +9,4 @@ __all__ = ["CourseChapterUpdateParams"]
 
 class CourseChapterUpdateParams(TypedDict, total=False):
     title: Required[str]
-    """The title of the chapter"""
+    """The new display title of the chapter (e.g., "Module 1: Introduction")."""

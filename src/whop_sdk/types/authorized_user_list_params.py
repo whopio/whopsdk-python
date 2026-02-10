@@ -20,13 +20,13 @@ class AuthorizedUserListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: Optional[str]
-    """The ID of the company to list authorized users for"""
+    """The unique identifier of the company to list authorized users for."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return authorized users created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return authorized users created before this timestamp."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -38,4 +38,7 @@ class AuthorizedUserListParams(TypedDict, total=False):
     """Possible roles an authorized user can have"""
 
     user_id: Optional[str]
-    """Filter by the user ID to check if the user is an authorized user"""
+    """
+    Filter results to a specific user to check if they are an authorized team
+    member.
+    """

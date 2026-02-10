@@ -29,7 +29,10 @@ class TopupCreateResponse(BaseModel):
     """If the payment failed, the reason for the failure."""
 
     paid_at: Optional[datetime] = None
-    """The datetime the payment was paid"""
+    """The time at which this payment was successfully collected.
+
+    Null if the payment has not yet succeeded. As a Unix timestamp.
+    """
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""

@@ -61,21 +61,22 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Creates a new AI chat
+        Create a new AI chat thread and send the first message to the AI agent.
 
         Required permissions:
 
         - `ai_chat:create`
 
         Args:
-          message_text: The text content of the first message sent in the chat
+          message_text: The text content of the first message to send to the AI agent.
 
-          current_company_id: The ID of the company to set as the current company in context for the AI chat
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
 
-          message_attachments: The IDs of existing uploaded attachments to include in the first message to the
-              agent
+          message_attachments: A list of previously uploaded file attachments to include with the first
+              message.
 
-          title: The title of the AI chat
+          title: An optional display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -114,7 +115,7 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Fetches a single AI chat by ID
+        Retrieves the details of an existing AI chat.
 
         Args:
           extra_headers: Send extra headers
@@ -149,16 +150,17 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Updates an AI chat
+        Update an AI chat's title or associated company context.
 
         Required permissions:
 
         - `ai_chat:update`
 
         Args:
-          current_company_id: The ID of the company to set as the current company in context for the AI chat
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
 
-          title: The new title for the AI chat
+          title: The new display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -200,7 +202,7 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AIChatListResponse]:
         """
-        Fetches all AI chats for the current user
+        Returns a paginated list of AI chat threads for the current authenticated user.
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -252,7 +254,7 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChatDeleteResponse:
         """
-        Deletes an AI chat
+        Delete an AI chat thread so it no longer appears in the user's chat list.
 
         Required permissions:
 
@@ -313,21 +315,22 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Creates a new AI chat
+        Create a new AI chat thread and send the first message to the AI agent.
 
         Required permissions:
 
         - `ai_chat:create`
 
         Args:
-          message_text: The text content of the first message sent in the chat
+          message_text: The text content of the first message to send to the AI agent.
 
-          current_company_id: The ID of the company to set as the current company in context for the AI chat
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
 
-          message_attachments: The IDs of existing uploaded attachments to include in the first message to the
-              agent
+          message_attachments: A list of previously uploaded file attachments to include with the first
+              message.
 
-          title: The title of the AI chat
+          title: An optional display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -366,7 +369,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Fetches a single AI chat by ID
+        Retrieves the details of an existing AI chat.
 
         Args:
           extra_headers: Send extra headers
@@ -401,16 +404,17 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Updates an AI chat
+        Update an AI chat's title or associated company context.
 
         Required permissions:
 
         - `ai_chat:update`
 
         Args:
-          current_company_id: The ID of the company to set as the current company in context for the AI chat
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
 
-          title: The new title for the AI chat
+          title: The new display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -452,7 +456,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AIChatListResponse, AsyncCursorPage[AIChatListResponse]]:
         """
-        Fetches all AI chats for the current user
+        Returns a paginated list of AI chat threads for the current authenticated user.
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -504,7 +508,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChatDeleteResponse:
         """
-        Deletes an AI chat
+        Delete an AI chat thread so it no longer appears in the user's chat list.
 
         Required permissions:
 
