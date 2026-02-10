@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -18,9 +18,6 @@ __all__ = ["PaymentListParams"]
 
 
 class PaymentListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list payments for."""
-
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -29,6 +26,9 @@ class PaymentListParams(TypedDict, total=False):
 
     billing_reasons: Optional[List[BillingReasons]]
     """Filter payments by their billing reason."""
+
+    company_id: Optional[str]
+    """The unique identifier of the company to list payments for."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return payments created after this timestamp."""
