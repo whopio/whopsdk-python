@@ -125,6 +125,7 @@ class Withdrawal(BaseModel):
             "ssn_invalid",
             "wallet_screenshot_required",
             "unsupported_region",
+            "payout_provider_timeout",
         ]
     ] = None
     """The different error codes a payout can be in."""
