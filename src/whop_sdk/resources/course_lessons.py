@@ -93,7 +93,7 @@ class CourseLessonsResource(SyncAPIResource):
 
           lesson_type: The content type of the lesson, such as video, text, quiz, or knowledge check.
 
-          content: The rich text or HTML content body of the lesson.
+          content: The Markdown content body of the lesson.
 
           days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
               accessible.
@@ -217,7 +217,7 @@ class CourseLessonsResource(SyncAPIResource):
           attachments: File attachments for the lesson such as PDFs or documents. Replaces all existing
               attachments.
 
-          content: The rich text or HTML content body of the lesson.
+          content: The Markdown content body of the lesson.
 
           days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
               accessible.
@@ -545,7 +545,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
 
           lesson_type: The content type of the lesson, such as video, text, quiz, or knowledge check.
 
-          content: The rich text or HTML content body of the lesson.
+          content: The Markdown content body of the lesson.
 
           days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
               accessible.
@@ -669,7 +669,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           attachments: File attachments for the lesson such as PDFs or documents. Replaces all existing
               attachments.
 
-          content: The rich text or HTML content body of the lesson.
+          content: The Markdown content body of the lesson.
 
           days_from_course_start_until_unlock: The number of days after a student starts the course before this lesson becomes
               accessible.

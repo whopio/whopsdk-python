@@ -22,7 +22,7 @@ class CourseLessonCreateParams(TypedDict, total=False):
     """The content type of the lesson, such as video, text, quiz, or knowledge check."""
 
     content: Optional[str]
-    """The rich text or HTML content body of the lesson."""
+    """The Markdown content body of the lesson."""
 
     days_from_course_start_until_unlock: Optional[int]
     """
