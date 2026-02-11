@@ -167,7 +167,9 @@ class PayoutAccountDetails(BaseModel):
 
 
 class LedgerAccountRetrieveResponse(BaseModel):
-    """Represents a LedgerAccount."""
+    """
+    A ledger account represents a financial account on Whop that can hold many balances.
+    """
 
     id: str
     """The unique identifier for the ledger account."""

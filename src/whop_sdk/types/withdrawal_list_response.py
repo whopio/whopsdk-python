@@ -14,7 +14,7 @@ __all__ = ["WithdrawalListResponse"]
 
 class WithdrawalListResponse(BaseModel):
     """
-    A withdrawal represents a request to transfer funds from a company's ledger account to an external payout method.
+    A withdrawal represents a request to transfer funds from a ledger account to an external payout method.
     """
 
     id: str

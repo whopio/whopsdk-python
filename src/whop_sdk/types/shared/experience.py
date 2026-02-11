@@ -92,7 +92,7 @@ class Product(BaseModel):
 
 class Experience(BaseModel):
     """
-    An experience is a feature or content module within a product, such as a chat, course, or app.
+    An experience is a feature or content module within a product, such as a chat, course, or custom app.
     """
 
     id: str

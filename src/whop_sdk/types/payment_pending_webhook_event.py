@@ -18,7 +18,7 @@ class PaymentPendingWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Payment
-    """A payment represents a completed or attempted charge for a membership.
+    """A payment represents a completed or attempted charge.
 
     Payments track the amount, status, currency, and payment method used.
     """

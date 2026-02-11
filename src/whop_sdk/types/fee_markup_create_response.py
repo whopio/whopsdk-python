@@ -11,7 +11,7 @@ __all__ = ["FeeMarkupCreateResponse"]
 
 class FeeMarkupCreateResponse(BaseModel):
     """
-    A fee markup configuration that defines additional charges applied to transactions for a company.
+    A fee markup configuration that defines additional charges applied to transactions for a platform's connected accounts.
     """
 
     id: str

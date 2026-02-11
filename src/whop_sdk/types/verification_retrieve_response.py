@@ -11,7 +11,7 @@ __all__ = ["VerificationRetrieveResponse"]
 
 class VerificationRetrieveResponse(BaseModel):
     """
-    An identity verification session used to confirm a user's identity for payout account eligibility.
+    An identity verification session used to confirm a person or entity's identity for payout account eligibility.
     """
 
     id: str
