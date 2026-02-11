@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["AppCreateParams", "Icon"]
 
 
@@ -28,6 +30,12 @@ class AppCreateParams(TypedDict, total=False):
 
     icon: Optional[Icon]
     """The icon image for the app in PNG, JPEG, or GIF format."""
+
+    redirect_uris: Optional[SequenceNotStr[str]]
+    """
+    The whitelisted OAuth callback URLs that users are redirected to after
+    authorizing the app.
+    """
 
 
 class Icon(TypedDict, total=False):

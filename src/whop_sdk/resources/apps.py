@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import AppType, app_list_params, app_create_params, app_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -57,6 +57,7 @@ class AppsResource(SyncAPIResource):
         name: str,
         base_url: Optional[str] | Omit = omit,
         icon: Optional[app_create_params.Icon] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -85,6 +86,9 @@ class AppsResource(SyncAPIResource):
 
           icon: The icon image for the app in PNG, JPEG, or GIF format.
 
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -101,6 +105,7 @@ class AppsResource(SyncAPIResource):
                     "name": name,
                     "base_url": base_url,
                     "icon": icon,
+                    "redirect_uris": redirect_uris,
                 },
                 app_create_params.AppCreateParams,
             ),
@@ -160,6 +165,7 @@ class AppsResource(SyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -199,6 +205,9 @@ class AppsResource(SyncAPIResource):
 
           name: The display name for the app, shown to users on the app store and product pages.
 
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app
+
           required_scopes: The permission scopes the app will request from users when they install it.
 
           status: The status of an experience interface
@@ -226,6 +235,7 @@ class AppsResource(SyncAPIResource):
                     "experience_path": experience_path,
                     "icon": icon,
                     "name": name,
+                    "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "status": status,
                 },
@@ -366,6 +376,7 @@ class AsyncAppsResource(AsyncAPIResource):
         name: str,
         base_url: Optional[str] | Omit = omit,
         icon: Optional[app_create_params.Icon] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -394,6 +405,9 @@ class AsyncAppsResource(AsyncAPIResource):
 
           icon: The icon image for the app in PNG, JPEG, or GIF format.
 
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -410,6 +424,7 @@ class AsyncAppsResource(AsyncAPIResource):
                     "name": name,
                     "base_url": base_url,
                     "icon": icon,
+                    "redirect_uris": redirect_uris,
                 },
                 app_create_params.AppCreateParams,
             ),
@@ -469,6 +484,7 @@ class AsyncAppsResource(AsyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -508,6 +524,9 @@ class AsyncAppsResource(AsyncAPIResource):
 
           name: The display name for the app, shown to users on the app store and product pages.
 
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app
+
           required_scopes: The permission scopes the app will request from users when they install it.
 
           status: The status of an experience interface
@@ -535,6 +554,7 @@ class AsyncAppsResource(AsyncAPIResource):
                     "experience_path": experience_path,
                     "icon": icon,
                     "name": name,
+                    "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "status": status,
                 },

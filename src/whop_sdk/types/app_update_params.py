@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
 from .app_type import AppType
 from .shared.app_statuses import AppStatuses
 
@@ -45,6 +46,12 @@ class AppUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """
     The display name for the app, shown to users on the app store and product pages.
+    """
+
+    redirect_uris: Optional[SequenceNotStr[str]]
+    """
+    The whitelisted OAuth callback URLs that users are redirected to after
+    authorizing the app
     """
 
     required_scopes: Optional[List[Literal["read_user"]]]
