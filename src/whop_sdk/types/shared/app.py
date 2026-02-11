@@ -205,6 +205,12 @@ class App(BaseModel):
     Maximum 30 characters.
     """
 
+    redirect_uris: List[str]
+    """
+    The whitelisted OAuth callback URLs that users are redirected to after
+    authorizing the app.
+    """
+
     requested_permissions: List[RequestedPermission]
     """
     The list of permissions this app requests when installed, including both
