@@ -9,7 +9,7 @@ __all__ = ["AccessTokenCreateResponse"]
 
 class AccessTokenCreateResponse(BaseModel):
     """
-    A short-lived access token used to authenticate API requests on behalf of a user or application.
+    A short-lived access token used to authenticate API requests on behalf of a user.
     """
 
     token: str

@@ -13,7 +13,7 @@ __all__ = ["VerificationSucceededWebhookEvent", "Data"]
 
 class Data(BaseModel):
     """
-    An identity verification session used to confirm a user's identity for payout account eligibility.
+    An identity verification session used to confirm a person or entity's identity for payout account eligibility.
     """
 
     id: str
@@ -41,8 +41,8 @@ class VerificationSucceededWebhookEvent(BaseModel):
 
     data: Data
     """
-    An identity verification session used to confirm a user's identity for payout
-    account eligibility.
+    An identity verification session used to confirm a person or entity's identity
+    for payout account eligibility.
     """
 
     timestamp: datetime

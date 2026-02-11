@@ -11,7 +11,7 @@ __all__ = ["TopupCreateResponse"]
 
 
 class TopupCreateResponse(BaseModel):
-    """A payment represents a completed or attempted charge for a membership.
+    """A payment represents a completed or attempted charge.
 
     Payments track the amount, status, currency, and payment method used.
     """

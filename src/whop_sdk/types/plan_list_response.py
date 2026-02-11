@@ -80,9 +80,9 @@ class Product(BaseModel):
 
 
 class PlanListResponse(BaseModel):
-    """A plan defines pricing and billing terms for a product.
+    """A plan defines pricing and billing terms for a checkout.
 
-    Each product can have multiple plans representing different pricing options, such as one-time payments, recurring subscriptions, or free trials.
+    Plans can optionally belong to a product, where they represent different pricing options such as one-time payments, recurring subscriptions, or free trials.
     """
 
     id: str
