@@ -57,6 +57,7 @@ class ForumPostsResource(SyncAPIResource):
         *,
         experience_id: str,
         attachments: Optional[Iterable[forum_post_create_params.Attachment]] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         content: Optional[str] | Omit = omit,
         is_mention: Optional[bool] | Omit = omit,
         parent_id: Optional[str] | Omit = omit,
@@ -76,7 +77,8 @@ class ForumPostsResource(SyncAPIResource):
         """Create a new forum post or comment within an experience.
 
         Supports text content,
-        attachments, polls, paywalling, and pinning.
+        attachments, polls, paywalling, and pinning. Pass experience_id 'public' with a
+        company_id to post to a company's public forum.
 
         Required permissions:
 
@@ -84,9 +86,13 @@ class ForumPostsResource(SyncAPIResource):
 
         Args:
           experience_id: The unique identifier of the experience to create this post in. For example,
-              'exp_xxxxx'.
+              'exp_xxxxx'. Pass 'public' along with company_id to automatically use the
+              company's public forum.
 
           attachments: A list of file attachments to include with the post, such as images or videos.
+
+          company_id: The unique identifier of the company whose public forum to post in. Required
+              when experience_id is 'public'. For example, 'biz_xxxxx'.
 
           content: The main body of the post in Markdown format. For example, 'Check out this
               **update**'. Hidden if the post is paywalled and the viewer has not purchased
@@ -126,6 +132,7 @@ class ForumPostsResource(SyncAPIResource):
                 {
                     "experience_id": experience_id,
                     "attachments": attachments,
+                    "company_id": company_id,
                     "content": content,
                     "is_mention": is_mention,
                     "parent_id": parent_id,
@@ -344,6 +351,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         *,
         experience_id: str,
         attachments: Optional[Iterable[forum_post_create_params.Attachment]] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         content: Optional[str] | Omit = omit,
         is_mention: Optional[bool] | Omit = omit,
         parent_id: Optional[str] | Omit = omit,
@@ -363,7 +371,8 @@ class AsyncForumPostsResource(AsyncAPIResource):
         """Create a new forum post or comment within an experience.
 
         Supports text content,
-        attachments, polls, paywalling, and pinning.
+        attachments, polls, paywalling, and pinning. Pass experience_id 'public' with a
+        company_id to post to a company's public forum.
 
         Required permissions:
 
@@ -371,9 +380,13 @@ class AsyncForumPostsResource(AsyncAPIResource):
 
         Args:
           experience_id: The unique identifier of the experience to create this post in. For example,
-              'exp_xxxxx'.
+              'exp_xxxxx'. Pass 'public' along with company_id to automatically use the
+              company's public forum.
 
           attachments: A list of file attachments to include with the post, such as images or videos.
+
+          company_id: The unique identifier of the company whose public forum to post in. Required
+              when experience_id is 'public'. For example, 'biz_xxxxx'.
 
           content: The main body of the post in Markdown format. For example, 'Check out this
               **update**'. Hidden if the post is paywalled and the viewer has not purchased
@@ -413,6 +426,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
                 {
                     "experience_id": experience_id,
                     "attachments": attachments,
+                    "company_id": company_id,
                     "content": content,
                     "is_mention": is_mention,
                     "parent_id": parent_id,

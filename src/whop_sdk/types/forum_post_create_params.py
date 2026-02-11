@@ -15,11 +15,18 @@ class ForumPostCreateParams(TypedDict, total=False):
     experience_id: Required[str]
     """The unique identifier of the experience to create this post in.
 
-    For example, 'exp_xxxxx'.
+    For example, 'exp_xxxxx'. Pass 'public' along with company_id to automatically
+    use the company's public forum.
     """
 
     attachments: Optional[Iterable[Attachment]]
     """A list of file attachments to include with the post, such as images or videos."""
+
+    company_id: Optional[str]
+    """The unique identifier of the company whose public forum to post in.
+
+    Required when experience_id is 'public'. For example, 'biz_xxxxx'.
+    """
 
     content: Optional[str]
     """The main body of the post in Markdown format.
