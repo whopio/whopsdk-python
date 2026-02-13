@@ -61,6 +61,7 @@ class InvoicesResource(SyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -98,6 +99,10 @@ class InvoicesResource(SyncAPIResource):
 
           product: The properties of the product to create for this invoice. Provide this to create
               a new product inline.
+
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
@@ -130,6 +135,7 @@ class InvoicesResource(SyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -168,6 +174,10 @@ class InvoicesResource(SyncAPIResource):
           product: The properties of the product to create for this invoice. Provide this to create
               a new product inline.
 
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
@@ -199,6 +209,7 @@ class InvoicesResource(SyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -236,6 +247,10 @@ class InvoicesResource(SyncAPIResource):
 
           product_id: The unique identifier of an existing product to create this invoice for.
 
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
@@ -267,6 +282,7 @@ class InvoicesResource(SyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -303,6 +319,10 @@ class InvoicesResource(SyncAPIResource):
               invoice.
 
           product_id: The unique identifier of an existing product to create this invoice for.
+
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
@@ -345,6 +365,7 @@ class InvoicesResource(SyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
         | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
         | Omit = omit,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -368,6 +389,7 @@ class InvoicesResource(SyncAPIResource):
                     "member_id": member_id,
                     "plan": plan,
                     "product": product,
+                    "automatically_finalizes_at": automatically_finalizes_at,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
                     "payment_method_id": payment_method_id,
@@ -585,6 +607,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -622,6 +645,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           product: The properties of the product to create for this invoice. Provide this to create
               a new product inline.
+
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
@@ -654,6 +681,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -692,6 +720,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
           product: The properties of the product to create for this invoice. Provide this to create
               a new product inline.
 
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
@@ -723,6 +755,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -760,6 +793,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           product_id: The unique identifier of an existing product to create this invoice for.
 
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
@@ -791,6 +828,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -827,6 +865,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
               invoice.
 
           product_id: The unique identifier of an existing product to create this invoice for.
+
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
@@ -869,6 +911,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
         | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
         | Omit = omit,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -892,6 +935,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "member_id": member_id,
                     "plan": plan,
                     "product": product,
+                    "automatically_finalizes_at": automatically_finalizes_at,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
                     "payment_method_id": payment_method_id,

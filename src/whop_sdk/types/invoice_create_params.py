@@ -63,6 +63,13 @@ class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
     Provide this to create a new product inline.
     """
 
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -212,6 +219,13 @@ class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     Provide this to create a new product inline.
     """
 
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -357,6 +371,13 @@ class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     product_id: Required[str]
     """The unique identifier of an existing product to create this invoice for."""
 
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -489,6 +510,13 @@ class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
 
     product_id: Required[str]
     """The unique identifier of an existing product to create this invoice for."""
+
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
+    """
 
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
