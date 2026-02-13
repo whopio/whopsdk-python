@@ -798,11 +798,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import (
-    BotTokenTransactionTypes,
-    CompanyTokenTransaction,
-    CompanyTokenTransactionListResponse,
-)
+from whop_sdk.types import CompanyTokenTransaction, CompanyTokenTransactionListResponse
 ```
 
 Methods:
