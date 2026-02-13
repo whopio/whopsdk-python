@@ -69,6 +69,7 @@ class TestInvoices:
                 "title": "title",
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -161,6 +162,7 @@ class TestInvoices:
                 "title": "title",
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -250,6 +252,7 @@ class TestInvoices:
                 "visibility": "visible",
             },
             product_id="prod_xxxxxxxxxxxxx",
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -339,6 +342,7 @@ class TestInvoices:
                 "visibility": "visible",
             },
             product_id="prod_xxxxxxxxxxxxx",
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -447,7 +451,7 @@ class TestInvoices:
             last=42,
             order="id",
             product_ids=["string"],
-            statuses=["open"],
+            statuses=["draft"],
         )
         assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
@@ -574,6 +578,7 @@ class TestAsyncInvoices:
                 "title": "title",
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -666,6 +671,7 @@ class TestAsyncInvoices:
                 "title": "title",
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -755,6 +761,7 @@ class TestAsyncInvoices:
                 "visibility": "visible",
             },
             product_id="prod_xxxxxxxxxxxxx",
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -844,6 +851,7 @@ class TestAsyncInvoices:
                 "visibility": "visible",
             },
             product_id="prod_xxxxxxxxxxxxx",
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             charge_buyer_fee=True,
             customer_name="customer_name",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
@@ -952,7 +960,7 @@ class TestAsyncInvoices:
             last=42,
             order="id",
             product_ids=["string"],
-            statuses=["open"],
+            statuses=["draft"],
         )
         assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
