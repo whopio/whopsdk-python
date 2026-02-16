@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -11,7 +11,7 @@ from .business_types import BusinessTypes
 from .industry_types import IndustryTypes
 from .global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["Product", "Company", "OwnerUser", "ProductTaxCode"]
+__all__ = ["Product", "Company", "GalleryImage", "OwnerUser", "ProductTaxCode"]
 
 
 class Company(BaseModel):
@@ -27,6 +27,26 @@ class Company(BaseModel):
 
     title: str
     """The display name of the company shown to customers."""
+
+
+class GalleryImage(BaseModel):
+    """Represents an image attachment"""
+
+    id: str
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
+
+    url: Optional[str] = None
+    """A pre-optimized URL for rendering this attachment on the client.
+
+    This should be used for displaying attachments in apps.
+    """
 
 
 class OwnerUser(BaseModel):
@@ -109,6 +129,9 @@ class Product(BaseModel):
     When provided on product creation endpoints, an existing product with this
     identifier will be updated instead of creating a new one.
     """
+
+    gallery_images: List[GalleryImage]
+    """The gallery images for this product, ordered by position."""
 
     global_affiliate_percentage: Optional[float] = None
     """
