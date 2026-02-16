@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -372,6 +372,7 @@ class ProductsResource(SyncAPIResource):
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        gallery_images: Optional[Iterable[product_update_params.GalleryImage]] | Omit = omit,
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
@@ -554,6 +555,8 @@ class ProductsResource(SyncAPIResource):
 
           description: A written description of the product displayed on its product page.
 
+          gallery_images: The gallery images for the product.
+
           global_affiliate_percentage: The commission rate as a percentage that affiliates earn through the global
               affiliate program.
 
@@ -602,6 +605,7 @@ class ProductsResource(SyncAPIResource):
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
                     "description": description,
+                    "gallery_images": gallery_images,
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
@@ -1086,6 +1090,7 @@ class AsyncProductsResource(AsyncAPIResource):
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        gallery_images: Optional[Iterable[product_update_params.GalleryImage]] | Omit = omit,
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
@@ -1268,6 +1273,8 @@ class AsyncProductsResource(AsyncAPIResource):
 
           description: A written description of the product displayed on its product page.
 
+          gallery_images: The gallery images for the product.
+
           global_affiliate_percentage: The commission rate as a percentage that affiliates earn through the global
               affiliate program.
 
@@ -1316,6 +1323,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
                     "description": description,
+                    "gallery_images": gallery_images,
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,

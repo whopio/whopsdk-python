@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing import Iterable, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 from .shared.custom_cta import CustomCta
 from .shared.visibility import Visibility
@@ -11,7 +11,7 @@ from .shared.business_types import BusinessTypes
 from .shared.industry_types import IndustryTypes
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["ProductUpdateParams", "StorePageConfig"]
+__all__ = ["ProductUpdateParams", "GalleryImage", "StorePageConfig"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
@@ -39,6 +39,9 @@ class ProductUpdateParams(TypedDict, total=False):
 
     description: Optional[str]
     """A written description of the product displayed on its product page."""
+
+    gallery_images: Optional[Iterable[GalleryImage]]
+    """The gallery images for the product."""
 
     global_affiliate_percentage: Optional[float]
     """
@@ -221,6 +224,13 @@ class ProductUpdateParams(TypedDict, total=False):
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
+
+
+class GalleryImage(TypedDict, total=False):
+    """Input for an attachment"""
+
+    id: Required[str]
+    """The ID of an existing file object."""
 
 
 class StorePageConfig(TypedDict, total=False):
