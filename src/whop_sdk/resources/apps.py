@@ -165,6 +165,7 @@ class AppsResource(SyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
@@ -205,6 +206,8 @@ class AppsResource(SyncAPIResource):
 
           name: The display name for the app, shown to users on the app store and product pages.
 
+          oauth_client_type: How this app authenticates at the OAuth token endpoint.
+
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app
 
@@ -235,6 +238,7 @@ class AppsResource(SyncAPIResource):
                     "experience_path": experience_path,
                     "icon": icon,
                     "name": name,
+                    "oauth_client_type": oauth_client_type,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "status": status,
@@ -484,6 +488,7 @@ class AsyncAppsResource(AsyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
@@ -524,6 +529,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
           name: The display name for the app, shown to users on the app store and product pages.
 
+          oauth_client_type: How this app authenticates at the OAuth token endpoint.
+
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app
 
@@ -554,6 +561,7 @@ class AsyncAppsResource(AsyncAPIResource):
                     "experience_path": experience_path,
                     "icon": icon,
                     "name": name,
+                    "oauth_client_type": oauth_client_type,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "status": status,
