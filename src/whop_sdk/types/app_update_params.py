@@ -48,6 +48,9 @@ class AppUpdateParams(TypedDict, total=False):
     The display name for the app, shown to users on the app store and product pages.
     """
 
+    oauth_client_type: Optional[Literal["public", "confidential"]]
+    """How this app authenticates at the OAuth token endpoint."""
+
     redirect_uris: Optional[SequenceNotStr[str]]
     """
     The whitelisted OAuth callback URLs that users are redirected to after
