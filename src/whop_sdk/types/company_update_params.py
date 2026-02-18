@@ -176,6 +176,12 @@ class CompanyUpdateParams(TypedDict, total=False):
     customers on behalf of this company.
     """
 
+    target_audience: Optional[str]
+    """
+    The target audience for this company (e.g., 'beginner day traders aged 18-25
+    looking to learn options').
+    """
+
     title: Optional[str]
     """The display name of the company shown to customers."""
 
