@@ -230,6 +230,7 @@ class TestPayments:
             order="final_amount",
             plan_ids=["string"],
             product_ids=["string"],
+            query="query",
             statuses=["draft"],
             substatuses=["succeeded"],
         )
@@ -659,6 +660,7 @@ class TestAsyncPayments:
             order="final_amount",
             plan_ids=["string"],
             product_ids=["string"],
+            query="query",
             statuses=["draft"],
             substatuses=["succeeded"],
         )
