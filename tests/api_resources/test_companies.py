@@ -135,6 +135,7 @@ class TestCompanies:
             industry_type="trading",
             logo={"id": "id"},
             send_customer_emails=True,
+            target_audience="target_audience",
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])
@@ -335,6 +336,7 @@ class TestAsyncCompanies:
             industry_type="trading",
             logo={"id": "id"},
             send_customer_emails=True,
+            target_audience="target_audience",
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])

@@ -461,6 +461,7 @@ class CompaniesResource(SyncAPIResource):
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
+        target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -494,6 +495,9 @@ class CompaniesResource(SyncAPIResource):
           send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
               customers on behalf of this company.
 
+          target_audience: The target audience for this company (e.g., 'beginner day traders aged 18-25
+              looking to learn options').
+
           title: The display name of the company shown to customers.
 
           extra_headers: Send extra headers
@@ -517,6 +521,7 @@ class CompaniesResource(SyncAPIResource):
                     "industry_type": industry_type,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
+                    "target_audience": target_audience,
                     "title": title,
                 },
                 company_update_params.CompanyUpdateParams,
@@ -1039,6 +1044,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
+        target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1072,6 +1078,9 @@ class AsyncCompaniesResource(AsyncAPIResource):
           send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
               customers on behalf of this company.
 
+          target_audience: The target audience for this company (e.g., 'beginner day traders aged 18-25
+              looking to learn options').
+
           title: The display name of the company shown to customers.
 
           extra_headers: Send extra headers
@@ -1095,6 +1104,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
                     "industry_type": industry_type,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
+                    "target_audience": target_audience,
                     "title": title,
                 },
                 company_update_params.CompanyUpdateParams,
