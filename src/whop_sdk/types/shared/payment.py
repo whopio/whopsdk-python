@@ -1,7 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .currency import Currency
 from ..._models import BaseModel
@@ -9,6 +10,7 @@ from .promo_type import PromoType
 from ..card_brands import CardBrands
 from .receipt_status import ReceiptStatus
 from ..billing_reasons import BillingReasons
+from ..dispute_statuses import DisputeStatuses
 from .membership_status import MembershipStatus
 from ..payment_method_types import PaymentMethodTypes
 from .friendly_receipt_status import FriendlyReceiptStatus
@@ -18,6 +20,8 @@ __all__ = [
     "ApplicationFee",
     "BillingAddress",
     "Company",
+    "Dispute",
+    "FinancingTransaction",
     "Member",
     "Membership",
     "PaymentMethod",
@@ -25,6 +29,7 @@ __all__ = [
     "Plan",
     "Product",
     "PromoCode",
+    "Resolution",
     "User",
 ]
 
@@ -87,6 +92,81 @@ class Company(BaseModel):
 
     title: str
     """The written name of the company."""
+
+
+class Dispute(BaseModel):
+    """
+    A dispute is a chargeback or payment challenge filed against a company, including evidence and response status.
+    """
+
+    id: str
+    """The unique identifier for the dispute."""
+
+    amount: float
+    """The disputed amount in the specified currency, formatted as a decimal."""
+
+    currency: Currency
+    """The three-letter ISO currency code for the disputed amount."""
+
+    editable: Optional[bool] = None
+    """Whether the dispute evidence can still be edited and submitted.
+
+    Returns true only when the dispute status requires a response.
+    """
+
+    needs_response_by: Optional[datetime] = None
+    """The deadline by which dispute evidence must be submitted.
+
+    Null if no response deadline is set.
+    """
+
+    notes: Optional[str] = None
+    """
+    Additional freeform notes submitted by the company as part of the dispute
+    evidence.
+    """
+
+    reason: Optional[str] = None
+    """A human-readable reason for the dispute."""
+
+    status: DisputeStatuses
+    """
+    The current status of the dispute lifecycle, such as needs_response,
+    under_review, won, or lost.
+    """
+
+
+class FinancingTransaction(BaseModel):
+    """A payment transaction."""
+
+    id: str
+    """The unique identifier for the payment transaction."""
+
+    amount: float
+    """The amount of the payment transaction."""
+
+    created_at: datetime
+    """The date and time the payment transaction was created."""
+
+    status: Literal[
+        "succeeded", "declined", "error", "pending", "created", "expired", "won", "rejected", "lost", "prevented"
+    ]
+    """The status of the payment transaction."""
+
+    transaction_type: Literal[
+        "purchase",
+        "authorize",
+        "capture",
+        "refund",
+        "cancel",
+        "verify",
+        "chargeback",
+        "three_d_secure",
+        "fraud_screening",
+        "authorization",
+        "installment",
+    ]
+    """The type of the payment transaction."""
 
 
 class Member(BaseModel):
@@ -204,6 +284,65 @@ class PromoCode(BaseModel):
     """The type (% or flat amount) of the promo."""
 
 
+class Resolution(BaseModel):
+    """
+    A resolution is a dispute or support case between a buyer and seller, tracking the issue, status, and outcome.
+    """
+
+    id: str
+    """The unique identifier for the resolution."""
+
+    customer_appealed: bool
+    """Whether the customer has filed an appeal after the initial resolution decision."""
+
+    customer_response_actions: List[Literal["respond", "appeal", "withdraw"]]
+    """The list of actions currently available to the customer."""
+
+    due_date: Optional[datetime] = None
+    """The deadline by which the next response is required.
+
+    Null if no deadline is currently active. As a Unix timestamp.
+    """
+
+    issue: Literal[
+        "forgot_to_cancel",
+        "item_not_received",
+        "significantly_not_as_described",
+        "unauthorized_transaction",
+        "product_unacceptable",
+    ]
+    """The category of the dispute."""
+
+    merchant_appealed: bool
+    """Whether the merchant has filed an appeal after the initial resolution decision."""
+
+    merchant_response_actions: List[Literal["accept", "deny", "request_more_info", "appeal", "respond"]]
+    """The list of actions currently available to the merchant."""
+
+    platform_response_actions: List[
+        Literal["request_buyer_info", "request_merchant_info", "merchant_wins", "platform_refund", "merchant_refund"]
+    ]
+    """
+    The list of actions currently available to the Whop platform for moderating this
+    resolution.
+    """
+
+    status: Literal[
+        "merchant_response_needed",
+        "customer_response_needed",
+        "merchant_info_needed",
+        "customer_info_needed",
+        "under_platform_review",
+        "customer_won",
+        "merchant_won",
+        "customer_withdrew",
+    ]
+    """
+    The current status of the resolution case, indicating which party needs to
+    respond or if the case is closed.
+    """
+
+
 class User(BaseModel):
     """The user that made this payment."""
 
@@ -268,8 +407,26 @@ class Payment(BaseModel):
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
 
+    disputes: Optional[List[Dispute]] = None
+    """The disputes attached to this payment.
+
+    Null if the actor in context does not have the payment:dispute:read permission.
+    """
+
     failure_message: Optional[str] = None
     """If the payment failed, the reason for the failure."""
+
+    financing_installments_count: Optional[int] = None
+    """The number of financing installments for the payment.
+
+    Present if the payment is a financing payment (e.g. Splitit, Klarna, etc.).
+    """
+
+    financing_transactions: List[FinancingTransaction]
+    """The financing transactions attached to this payment.
+
+    Present if the payment is a financing payment (e.g. Splitit, Klarna, etc.).
+    """
 
     last_payment_attempt: Optional[datetime] = None
     """The time of the last payment attempt."""
@@ -328,6 +485,13 @@ class Payment(BaseModel):
 
     refunded_at: Optional[datetime] = None
     """When the payment was refunded (if applicable)."""
+
+    resolutions: Optional[List[Resolution]] = None
+    """The resolution center cases opened by the customer on this payment.
+
+    Null if the actor in context does not have the
+    payment:resolution_center_case:read permission.
+    """
 
     retryable: bool
     """

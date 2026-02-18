@@ -63,6 +63,12 @@ class PaymentListParams(TypedDict, total=False):
     identifiers.
     """
 
+    query: Optional[str]
+    """Search payments by user ID, membership ID, user email, name, or username.
+
+    Email filtering requires the member:email:read permission.
+    """
+
     statuses: Optional[List[ReceiptStatus]]
     """Filter payments by their current status."""
 

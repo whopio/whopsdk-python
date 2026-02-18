@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AIChatCreateParams", "MessageAttachment"]
 
@@ -23,6 +23,9 @@ class AIChatCreateParams(TypedDict, total=False):
     A list of previously uploaded file attachments to include with the first
     message.
     """
+
+    message_source: Optional[Literal["manual", "suggestion", "link"]]
+    """The source of an AI chat message"""
 
     title: Optional[str]
     """An optional display title for the AI chat thread (e.g., "Help with billing")."""

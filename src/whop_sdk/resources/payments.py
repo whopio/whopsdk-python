@@ -88,6 +88,8 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
@@ -146,6 +148,8 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
@@ -231,6 +235,8 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           extra_headers: Send extra headers
@@ -268,6 +274,7 @@ class PaymentsResource(SyncAPIResource):
         order: Optional[Literal["final_amount", "created_at", "paid_at"]] | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        query: Optional[str] | Omit = omit,
         statuses: Optional[List[ReceiptStatus]] | Omit = omit,
         substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -321,6 +328,9 @@ class PaymentsResource(SyncAPIResource):
           product_ids: Filter payments to only those associated with these specific product
               identifiers.
 
+          query: Search payments by user ID, membership ID, user email, name, or username. Email
+              filtering requires the member:email:read permission.
+
           statuses: Filter payments by their current status.
 
           substatuses: Filter payments by their current substatus for more granular filtering.
@@ -357,6 +367,7 @@ class PaymentsResource(SyncAPIResource):
                         "order": order,
                         "plan_ids": plan_ids,
                         "product_ids": product_ids,
+                        "query": query,
                         "statuses": statuses,
                         "substatuses": substatuses,
                     },
@@ -455,6 +466,8 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           partial_amount: The amount to refund in the payment currency. If omitted, the full payment
@@ -504,6 +517,8 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           extra_headers: Send extra headers
@@ -549,6 +564,8 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           extra_headers: Send extra headers
@@ -625,6 +642,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
@@ -683,6 +702,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
@@ -768,6 +789,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           extra_headers: Send extra headers
@@ -805,6 +828,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         order: Optional[Literal["final_amount", "created_at", "paid_at"]] | Omit = omit,
         plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        query: Optional[str] | Omit = omit,
         statuses: Optional[List[ReceiptStatus]] | Omit = omit,
         substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -858,6 +882,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
           product_ids: Filter payments to only those associated with these specific product
               identifiers.
 
+          query: Search payments by user ID, membership ID, user email, name, or username. Email
+              filtering requires the member:email:read permission.
+
           statuses: Filter payments by their current status.
 
           substatuses: Filter payments by their current substatus for more granular filtering.
@@ -894,6 +921,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                         "order": order,
                         "plan_ids": plan_ids,
                         "product_ids": product_ids,
+                        "query": query,
                         "statuses": statuses,
                         "substatuses": substatuses,
                     },
@@ -992,6 +1020,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           partial_amount: The amount to refund in the payment currency. If omitted, the full payment
@@ -1043,6 +1073,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           extra_headers: Send extra headers
@@ -1088,6 +1120,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
 
         Args:
           extra_headers: Send extra headers
