@@ -18,7 +18,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestCourseLessonInteractions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         course_lesson_interaction = client.course_lesson_interactions.retrieve(
@@ -26,7 +26,7 @@ class TestCourseLessonInteractions:
         )
         assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.course_lesson_interactions.with_raw_response.retrieve(
@@ -38,7 +38,7 @@ class TestCourseLessonInteractions:
         course_lesson_interaction = response.parse()
         assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.course_lesson_interactions.with_streaming_response.retrieve(
@@ -52,7 +52,7 @@ class TestCourseLessonInteractions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -60,7 +60,7 @@ class TestCourseLessonInteractions:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         course_lesson_interaction = client.course_lesson_interactions.list()
@@ -68,7 +68,7 @@ class TestCourseLessonInteractions:
             SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         course_lesson_interaction = client.course_lesson_interactions.list(
@@ -85,7 +85,7 @@ class TestCourseLessonInteractions:
             SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.course_lesson_interactions.with_raw_response.list()
@@ -97,7 +97,7 @@ class TestCourseLessonInteractions:
             SyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.course_lesson_interactions.with_streaming_response.list() as response:
@@ -117,7 +117,7 @@ class TestAsyncCourseLessonInteractions:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.retrieve(
@@ -125,7 +125,7 @@ class TestAsyncCourseLessonInteractions:
         )
         assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.course_lesson_interactions.with_raw_response.retrieve(
@@ -137,7 +137,7 @@ class TestAsyncCourseLessonInteractions:
         course_lesson_interaction = await response.parse()
         assert_matches_type(CourseLessonInteraction, course_lesson_interaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.course_lesson_interactions.with_streaming_response.retrieve(
@@ -151,7 +151,7 @@ class TestAsyncCourseLessonInteractions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -159,7 +159,7 @@ class TestAsyncCourseLessonInteractions:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.list()
@@ -167,7 +167,7 @@ class TestAsyncCourseLessonInteractions:
             AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         course_lesson_interaction = await async_client.course_lesson_interactions.list(
@@ -184,7 +184,7 @@ class TestAsyncCourseLessonInteractions:
             AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.course_lesson_interactions.with_raw_response.list()
@@ -196,7 +196,7 @@ class TestAsyncCourseLessonInteractions:
             AsyncCursorPage[CourseLessonInteractionListItem], course_lesson_interaction, path=["response"]
         )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.course_lesson_interactions.with_streaming_response.list() as response:
