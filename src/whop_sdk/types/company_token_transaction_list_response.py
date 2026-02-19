@@ -2,9 +2,9 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .transaction_type import TransactionType
 
 __all__ = ["CompanyTokenTransactionListResponse", "Company", "Member", "User"]
 
@@ -83,7 +83,7 @@ class CompanyTokenTransactionListResponse(BaseModel):
     member: Member
     """The member whose token balance was affected by this transaction."""
 
-    transaction_type: Literal["add", "subtract", "transfer"]
+    transaction_type: TransactionType
     """The direction of this token transaction (add, subtract, or transfer)."""
 
     user: User
