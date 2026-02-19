@@ -38,6 +38,7 @@ class TestMessages:
             channel_id="channel_id",
             content="content",
             attachments=[{"id": "id"}],
+            auto_detect_links=True,
             poll={
                 "options": [
                     {
@@ -284,6 +285,7 @@ class TestAsyncMessages:
             channel_id="channel_id",
             content="content",
             attachments=[{"id": "id"}],
+            auto_detect_links=True,
             poll={
                 "options": [
                     {
