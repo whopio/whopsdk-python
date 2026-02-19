@@ -51,7 +51,7 @@ class LedgerAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LedgerAccountRetrieveResponse:
         """
-        Retrieves a ledger account by its ID, company ID or user ID
+        Retrieves the details of an existing ledger account.
 
         Required permissions:
 
@@ -110,7 +110,7 @@ class AsyncLedgerAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LedgerAccountRetrieveResponse:
         """
-        Retrieves a ledger account by its ID, company ID or user ID
+        Retrieves the details of an existing ledger account.
 
         Required permissions:
 

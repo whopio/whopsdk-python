@@ -87,8 +87,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Plan:
-        """
-        Create a new Plan
+        """Create a new pricing plan for a product.
+
+        The plan defines the billing interval,
+        price, and availability for customers.
 
         Required permissions:
 
@@ -97,52 +99,56 @@ class PlansResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          company_id: The company the plan should be created for.
+          company_id: The unique identifier of the company to create this plan for.
 
-          product_id: The product the plan is related to.
+          product_id: The unique identifier of the product to attach this plan to.
 
-          billing_period: The interval in days at which the plan charges (renewal plans).
+          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
+              for yearly.
 
           currency: The available currencies on the platform
 
-          custom_fields: An array of custom field objects.
+          custom_fields: An array of custom field definitions to collect from customers at checkout.
 
-          description: The description of the plan.
+          description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The interval at which the plan expires and revokes access (expiration plans).
+          expiration_days: The number of days until the membership expires and access is revoked. Used for
+              expiration-based plans.
 
-          image: An image for the plan. This will be visible on the product page to customers.
+          image: An image displayed on the product page to represent this plan.
 
-          initial_price: An additional amount charged upon first purchase. Use only if a one time payment
-              OR you want to charge an additional amount on top of the renewal price. Provided
-              as a number in dollars. Eg: 10.43 for $10.43
+          initial_price: The amount charged on the first purchase. For one-time plans, this is the full
+              price. For recurring plans, this is an additional charge on top of the renewal
+              price. Provided in the plan's currency (e.g., 10.43 for $10.43).
 
-          internal_notes: A personal description or notes section for the business.
+          internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
-          payment_method_configuration: The explicit payment method configuration for the plan. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
+              company's defaults apply.
 
           plan_type: The type of plan that can be attached to a product
 
           release_method: The methods of how a plan can be released.
 
-          renewal_price: The amount the customer is charged every billing period. Use only if a recurring
-              payment. Provided as a number in dollars. Eg: 10.43 for $10.43
+          renewal_price: The amount charged each billing period for recurring plans. Provided in the
+              plan's currency (e.g., 10.43 for $10.43).
 
-          split_pay_required_payments: The number of payments required before pausing the subscription.
+          split_pay_required_payments: The number of installment payments required before the subscription pauses.
 
-          stock: The number of units available for purchase.
+          stock: The maximum number of units available for purchase. Ignored when unlimited_stock
+              is true.
 
-          title: The title of the plan. This will be visible on the product page to customers.
+          title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days added before a renewal plan.
+          trial_period_days: The number of free trial days before the first charge on a recurring plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
+              Defaults to true.
 
           visibility: Visibility of a resource
 
@@ -201,7 +207,7 @@ class PlansResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Plan:
         """
-        Retrieves a plan by ID
+        Retrieves the details of an existing plan.
 
         Required permissions:
 
@@ -258,7 +264,8 @@ class PlansResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Plan:
         """
-        Update an existing Plan
+        Update a plan's pricing, billing interval, visibility, stock, and other
+        settings.
 
         Required permissions:
 
@@ -267,47 +274,52 @@ class PlansResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          billing_period: The interval at which the plan charges (renewal plans).
+          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
+              for yearly.
 
           currency: The available currencies on the platform
 
-          custom_fields: An array of custom field objects.
+          custom_fields: An array of custom field definitions to collect from customers at checkout.
 
-          description: The description of the plan.
+          description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The interval at which the plan charges (expiration plans).
+          expiration_days: The number of days until the membership expires and access is revoked. For
+              example, 365 for one-year access.
 
-          image: An image for the plan. This will be visible on the product page to customers.
+          image: An image displayed on the product page to represent this plan.
 
-          initial_price: An additional amount charged upon first purchase.
+          initial_price: The amount charged on the first purchase. Provided in the plan's currency (e.g.,
+              10.43 for $10.43).
 
-          internal_notes: A personal description or notes section for the business.
+          internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
-          offer_cancel_discount: Whether or not to offer a discount to cancel a subscription.
+          offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
-          payment_method_configuration: The explicit payment method configuration for the plan. If sent as null, the
-              custom configuration will be removed.
+          payment_method_configuration: Explicit payment method configuration for the plan. Sending null removes any
+              custom configuration.
 
-          renewal_price: The amount the customer is charged every billing period.
+          renewal_price: The amount charged each billing period for recurring plans. Provided in the
+              plan's currency (e.g., 10.43 for $10.43).
 
-          stock: The number of units available for purchase.
+          stock: The maximum number of units available for purchase. Ignored when unlimited_stock
+              is true.
 
-          strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+          strike_through_initial_price: A comparison price displayed with a strikethrough for the initial price.
+              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
-          strike_through_renewal_price: The price to display with a strikethrough for the renewal price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+          strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
+              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
-          title: The title of the plan. This will be visible on the product page to customers.
+          title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days added before a renewal plan.
+          trial_period_days: The number of free trial days before the first charge on a recurring plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 
           visibility: Visibility of a resource
 
@@ -379,22 +391,23 @@ class PlansResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListResponse]:
         """
-        Lists plans for a company
+        Returns a paginated list of plans belonging to a company, with optional
+        filtering by visibility, type, release method, and product.
 
         Required permissions:
 
         - `plan:basic:read`
 
         Args:
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list plans for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return plans created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return plans created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -404,13 +417,13 @@ class PlansResource(SyncAPIResource):
 
           order: The ways a relation of Plans can be ordered
 
-          plan_types: The plan type to filter the plans by
+          plan_types: Filter to only plans matching these billing types.
 
-          product_ids: The product IDs to filter the plans by
+          product_ids: Filter to only plans belonging to these product identifiers.
 
-          release_methods: The release method to filter the plans by
+          release_methods: Filter to only plans matching these release methods.
 
-          visibilities: The visibility to filter the plans by
+          visibilities: Filter to only plans matching these visibility states.
 
           extra_headers: Send extra headers
 
@@ -461,8 +474,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanDeleteResponse:
-        """
-        Delete an existing Plan
+        """Permanently delete a plan from a product.
+
+        Existing memberships on this plan will
+        not be affected.
 
         Required permissions:
 
@@ -540,8 +555,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Plan:
-        """
-        Create a new Plan
+        """Create a new pricing plan for a product.
+
+        The plan defines the billing interval,
+        price, and availability for customers.
 
         Required permissions:
 
@@ -550,52 +567,56 @@ class AsyncPlansResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          company_id: The company the plan should be created for.
+          company_id: The unique identifier of the company to create this plan for.
 
-          product_id: The product the plan is related to.
+          product_id: The unique identifier of the product to attach this plan to.
 
-          billing_period: The interval in days at which the plan charges (renewal plans).
+          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
+              for yearly.
 
           currency: The available currencies on the platform
 
-          custom_fields: An array of custom field objects.
+          custom_fields: An array of custom field definitions to collect from customers at checkout.
 
-          description: The description of the plan.
+          description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The interval at which the plan expires and revokes access (expiration plans).
+          expiration_days: The number of days until the membership expires and access is revoked. Used for
+              expiration-based plans.
 
-          image: An image for the plan. This will be visible on the product page to customers.
+          image: An image displayed on the product page to represent this plan.
 
-          initial_price: An additional amount charged upon first purchase. Use only if a one time payment
-              OR you want to charge an additional amount on top of the renewal price. Provided
-              as a number in dollars. Eg: 10.43 for $10.43
+          initial_price: The amount charged on the first purchase. For one-time plans, this is the full
+              price. For recurring plans, this is an additional charge on top of the renewal
+              price. Provided in the plan's currency (e.g., 10.43 for $10.43).
 
-          internal_notes: A personal description or notes section for the business.
+          internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
-          payment_method_configuration: The explicit payment method configuration for the plan. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
+              company's defaults apply.
 
           plan_type: The type of plan that can be attached to a product
 
           release_method: The methods of how a plan can be released.
 
-          renewal_price: The amount the customer is charged every billing period. Use only if a recurring
-              payment. Provided as a number in dollars. Eg: 10.43 for $10.43
+          renewal_price: The amount charged each billing period for recurring plans. Provided in the
+              plan's currency (e.g., 10.43 for $10.43).
 
-          split_pay_required_payments: The number of payments required before pausing the subscription.
+          split_pay_required_payments: The number of installment payments required before the subscription pauses.
 
-          stock: The number of units available for purchase.
+          stock: The maximum number of units available for purchase. Ignored when unlimited_stock
+              is true.
 
-          title: The title of the plan. This will be visible on the product page to customers.
+          title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days added before a renewal plan.
+          trial_period_days: The number of free trial days before the first charge on a recurring plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
+              Defaults to true.
 
           visibility: Visibility of a resource
 
@@ -654,7 +675,7 @@ class AsyncPlansResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Plan:
         """
-        Retrieves a plan by ID
+        Retrieves the details of an existing plan.
 
         Required permissions:
 
@@ -711,7 +732,8 @@ class AsyncPlansResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Plan:
         """
-        Update an existing Plan
+        Update a plan's pricing, billing interval, visibility, stock, and other
+        settings.
 
         Required permissions:
 
@@ -720,47 +742,52 @@ class AsyncPlansResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          billing_period: The interval at which the plan charges (renewal plans).
+          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
+              for yearly.
 
           currency: The available currencies on the platform
 
-          custom_fields: An array of custom field objects.
+          custom_fields: An array of custom field definitions to collect from customers at checkout.
 
-          description: The description of the plan.
+          description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The interval at which the plan charges (expiration plans).
+          expiration_days: The number of days until the membership expires and access is revoked. For
+              example, 365 for one-year access.
 
-          image: An image for the plan. This will be visible on the product page to customers.
+          image: An image displayed on the product page to represent this plan.
 
-          initial_price: An additional amount charged upon first purchase.
+          initial_price: The amount charged on the first purchase. Provided in the plan's currency (e.g.,
+              10.43 for $10.43).
 
-          internal_notes: A personal description or notes section for the business.
+          internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls
+          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
-          offer_cancel_discount: Whether or not to offer a discount to cancel a subscription.
+          offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
-          payment_method_configuration: The explicit payment method configuration for the plan. If sent as null, the
-              custom configuration will be removed.
+          payment_method_configuration: Explicit payment method configuration for the plan. Sending null removes any
+              custom configuration.
 
-          renewal_price: The amount the customer is charged every billing period.
+          renewal_price: The amount charged each billing period for recurring plans. Provided in the
+              plan's currency (e.g., 10.43 for $10.43).
 
-          stock: The number of units available for purchase.
+          stock: The maximum number of units available for purchase. Ignored when unlimited_stock
+              is true.
 
-          strike_through_initial_price: The price to display with a strikethrough for the initial price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+          strike_through_initial_price: A comparison price displayed with a strikethrough for the initial price.
+              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
-          strike_through_renewal_price: The price to display with a strikethrough for the renewal price. Provided as a
-              number in dollars. Eg: 19.99 for $19.99
+          strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
+              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
-          title: The title of the plan. This will be visible on the product page to customers.
+          title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days added before a renewal plan.
+          trial_period_days: The number of free trial days before the first charge on a recurring plan.
 
-          unlimited_stock: Limits/doesn't limit the number of units available for purchase.
+          unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 
           visibility: Visibility of a resource
 
@@ -832,22 +859,23 @@ class AsyncPlansResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
         """
-        Lists plans for a company
+        Returns a paginated list of plans belonging to a company, with optional
+        filtering by visibility, type, release method, and product.
 
         Required permissions:
 
         - `plan:basic:read`
 
         Args:
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list plans for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return plans created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return plans created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -857,13 +885,13 @@ class AsyncPlansResource(AsyncAPIResource):
 
           order: The ways a relation of Plans can be ordered
 
-          plan_types: The plan type to filter the plans by
+          plan_types: Filter to only plans matching these billing types.
 
-          product_ids: The product IDs to filter the plans by
+          product_ids: Filter to only plans belonging to these product identifiers.
 
-          release_methods: The release method to filter the plans by
+          release_methods: Filter to only plans matching these release methods.
 
-          visibilities: The visibility to filter the plans by
+          visibilities: Filter to only plans matching these visibility states.
 
           extra_headers: Send extra headers
 
@@ -914,8 +942,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanDeleteResponse:
-        """
-        Delete an existing Plan
+        """Permanently delete a plan from a product.
+
+        Existing memberships on this plan will
+        not be affected.
 
         Required permissions:
 

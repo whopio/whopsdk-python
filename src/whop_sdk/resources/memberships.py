@@ -67,7 +67,7 @@ class MembershipsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Retrieves a membership by ID or license key
+        Retrieves the details of an existing membership.
 
         Required permissions:
 
@@ -106,7 +106,7 @@ class MembershipsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Update a membership
+        Update a membership's metadata or other mutable properties.
 
         Required permissions:
 
@@ -115,7 +115,8 @@ class MembershipsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          metadata: The metadata to update the membership with.
+          metadata: A JSON object of key-value pairs to store on the membership. Replaces any
+              existing metadata.
 
           extra_headers: Send extra headers
 
@@ -163,7 +164,8 @@ class MembershipsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[MembershipListResponse]:
         """
-        Lists memberships
+        Returns a paginated list of memberships, with optional filtering by product,
+        plan, status, and user.
 
         Required permissions:
 
@@ -175,13 +177,14 @@ class MembershipsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          cancel_options: The cancel options to filter the memberships by
+          cancel_options: Filter to only memberships matching these cancellation reasons.
 
-          company_id: The ID of the company to list memberships for
+          company_id: The unique identifier of the company to list memberships for. Required when
+              using an API key.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return memberships created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return memberships created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -191,15 +194,15 @@ class MembershipsResource(SyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          plan_ids: The plan IDs to filter the memberships by
+          plan_ids: Filter to only memberships belonging to these plan identifiers.
 
-          product_ids: The product IDs to filter the memberships by
+          product_ids: Filter to only memberships belonging to these product identifiers.
 
-          promo_code_ids: The promo code IDs to filter the memberships by
+          promo_code_ids: Filter to only memberships that used these promo code identifiers.
 
-          statuses: The membership status to filter the memberships by
+          statuses: Filter to only memberships matching these statuses.
 
-          user_ids: Only return memberships from these whop user ids
+          user_ids: Filter to only memberships belonging to these user identifiers.
 
           extra_headers: Send extra headers
 
@@ -254,8 +257,8 @@ class MembershipsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Cancels a membership either immediately or at the end of the current billing
-        period
+        Cancel a membership either immediately or at the end of the current billing
+        period. Immediate cancellation revokes access right away.
 
         Required permissions:
 
@@ -299,8 +302,10 @@ class MembershipsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
-        """
-        Pauses a membership's payments
+        """Pause a membership's recurring payments.
+
+        The customer retains access but will
+        not be charged until the membership is resumed.
 
         Required permissions:
 
@@ -309,8 +314,8 @@ class MembershipsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          void_payments: Whether to void past_due payments associated with the membership to prevent
-              future payment attempts.
+          void_payments: Whether to void any outstanding past-due payments on this membership, preventing
+              future collection attempts.
 
           extra_headers: Send extra headers
 
@@ -342,8 +347,10 @@ class MembershipsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
-        """
-        Resumes a membership's payments
+        """Resume a previously paused membership's recurring payments.
+
+        Billing resumes on
+        the next cycle.
 
         Required permissions:
 
@@ -382,7 +389,8 @@ class MembershipsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Uncancels a membership that was scheduled to cancel at period end
+        Reverse a pending cancellation for a membership that was scheduled to cancel at
+        period end.
 
         Required permissions:
 
@@ -442,7 +450,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Retrieves a membership by ID or license key
+        Retrieves the details of an existing membership.
 
         Required permissions:
 
@@ -481,7 +489,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Update a membership
+        Update a membership's metadata or other mutable properties.
 
         Required permissions:
 
@@ -490,7 +498,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          metadata: The metadata to update the membership with.
+          metadata: A JSON object of key-value pairs to store on the membership. Replaces any
+              existing metadata.
 
           extra_headers: Send extra headers
 
@@ -538,7 +547,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[MembershipListResponse, AsyncCursorPage[MembershipListResponse]]:
         """
-        Lists memberships
+        Returns a paginated list of memberships, with optional filtering by product,
+        plan, status, and user.
 
         Required permissions:
 
@@ -550,13 +560,14 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          cancel_options: The cancel options to filter the memberships by
+          cancel_options: Filter to only memberships matching these cancellation reasons.
 
-          company_id: The ID of the company to list memberships for
+          company_id: The unique identifier of the company to list memberships for. Required when
+              using an API key.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return memberships created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return memberships created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -566,15 +577,15 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          plan_ids: The plan IDs to filter the memberships by
+          plan_ids: Filter to only memberships belonging to these plan identifiers.
 
-          product_ids: The product IDs to filter the memberships by
+          product_ids: Filter to only memberships belonging to these product identifiers.
 
-          promo_code_ids: The promo code IDs to filter the memberships by
+          promo_code_ids: Filter to only memberships that used these promo code identifiers.
 
-          statuses: The membership status to filter the memberships by
+          statuses: Filter to only memberships matching these statuses.
 
-          user_ids: Only return memberships from these whop user ids
+          user_ids: Filter to only memberships belonging to these user identifiers.
 
           extra_headers: Send extra headers
 
@@ -629,8 +640,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Cancels a membership either immediately or at the end of the current billing
-        period
+        Cancel a membership either immediately or at the end of the current billing
+        period. Immediate cancellation revokes access right away.
 
         Required permissions:
 
@@ -674,8 +685,10 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
-        """
-        Pauses a membership's payments
+        """Pause a membership's recurring payments.
+
+        The customer retains access but will
+        not be charged until the membership is resumed.
 
         Required permissions:
 
@@ -684,8 +697,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          void_payments: Whether to void past_due payments associated with the membership to prevent
-              future payment attempts.
+          void_payments: Whether to void any outstanding past-due payments on this membership, preventing
+              future collection attempts.
 
           extra_headers: Send extra headers
 
@@ -719,8 +732,10 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
-        """
-        Resumes a membership's payments
+        """Resume a previously paused membership's recurring payments.
+
+        Billing resumes on
+        the next cycle.
 
         Required permissions:
 
@@ -759,7 +774,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
         """
-        Uncancels a membership that was scheduled to cancel at period end
+        Reverse a pending cancellation for a membership that was scheduled to cancel at
+        period end.
 
         Required permissions:
 

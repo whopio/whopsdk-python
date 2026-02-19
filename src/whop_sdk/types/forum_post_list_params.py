@@ -10,7 +10,7 @@ __all__ = ["ForumPostListParams"]
 
 class ForumPostListParams(TypedDict, total=False):
     experience_id: Required[str]
-    """The ID of the experience to list forum posts for"""
+    """The unique identifier of the experience to list forum posts for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -25,7 +25,13 @@ class ForumPostListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     parent_id: Optional[str]
-    """The ID of the parent post to list forum post comments for"""
+    """The unique identifier of a parent post to list comments for.
+
+    When set, returns replies to that post.
+    """
 
     pinned: Optional[bool]
-    """Set to true to only return pinned posts"""
+    """Whether to filter for only pinned posts.
+
+    Set to true to return only pinned posts.
+    """

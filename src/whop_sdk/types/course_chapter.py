@@ -8,29 +8,36 @@ __all__ = ["CourseChapter", "Lesson"]
 
 
 class Lesson(BaseModel):
-    """A lesson from the courses app"""
+    """
+    An individual learning unit within a chapter, which can contain text, video, PDF, or assessment content.
+    """
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     order: int
-    """The order of the lesson within its chapter"""
+    """The sort position of this lesson within its parent chapter, starting from zero."""
 
     title: str
-    """The title of the lesson"""
+    """The display name of the lesson shown to students. Maximum 120 characters."""
 
 
 class CourseChapter(BaseModel):
-    """A chapter from the courses app"""
+    """
+    A grouping of related lessons within a course, used to organize content into sections.
+    """
 
     id: str
-    """The ID of the chapter. Looks like chap_XXX"""
+    """The unique identifier for the chapter."""
 
     lessons: List[Lesson]
-    """The lessons in this chapter"""
+    """An ordered list of lessons in this chapter, sorted by display position.
+
+    Hidden lessons are excluded for non-admin users.
+    """
 
     order: int
-    """The order of the chapter within its course"""
+    """The sort position of this chapter within its parent course, starting from zero."""
 
     title: str
-    """The title of the chapter"""
+    """The display name of the chapter shown to students. Maximum 150 characters."""

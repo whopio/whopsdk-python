@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -18,9 +18,6 @@ __all__ = ["PaymentListParams"]
 
 
 class PaymentListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The ID of the company to list payments for"""
-
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -28,16 +25,19 @@ class PaymentListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     billing_reasons: Optional[List[BillingReasons]]
-    """The billing reason for the payment"""
+    """Filter payments by their billing reason."""
+
+    company_id: Optional[str]
+    """The unique identifier of the company to list payments for."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return payments created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return payments created before this timestamp."""
 
     currencies: Optional[List[Currency]]
-    """The currency of the payment."""
+    """Filter payments by their currency code."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -46,7 +46,7 @@ class PaymentListParams(TypedDict, total=False):
     """Returns the first _n_ elements from the list."""
 
     include_free: Optional[bool]
-    """Whether to include free payments."""
+    """Whether to include payments with a zero amount."""
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
@@ -55,13 +55,22 @@ class PaymentListParams(TypedDict, total=False):
     """The order to sort the results by."""
 
     plan_ids: Optional[SequenceNotStr[str]]
-    """A specific plan."""
+    """Filter payments to only those associated with these specific plan identifiers."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """A specific product."""
+    """
+    Filter payments to only those associated with these specific product
+    identifiers.
+    """
+
+    query: Optional[str]
+    """Search payments by user ID, membership ID, user email, name, or username.
+
+    Email filtering requires the member:email:read permission.
+    """
 
     statuses: Optional[List[ReceiptStatus]]
-    """The status of the payment."""
+    """Filter payments by their current status."""
 
     substatuses: Optional[List[FriendlyReceiptStatus]]
-    """The substatus of the payment."""
+    """Filter payments by their current substatus for more granular filtering."""

@@ -24,28 +24,37 @@ __all__ = [
 
 class CourseLessonUpdateParams(TypedDict, total=False):
     assessment_completion_requirement: Optional[AssessmentCompletionRequirement]
-    """Completion requirements for quiz/knowledge check lessons"""
+    """
+    The passing criteria for quiz or knowledge check lessons, such as minimum grade
+    or correct answers.
+    """
 
     assessment_questions: Optional[Iterable[AssessmentQuestion]]
-    """Assessment questions for quiz/knowledge check lessons.
+    """The full list of assessment questions for quiz or knowledge check lessons.
 
     Replaces all existing questions.
     """
 
     attachments: Optional[Iterable[Attachment]]
-    """General attachments for the lesson (PDFs, files, etc).
+    """File attachments for the lesson such as PDFs or documents.
 
     Replaces all existing attachments.
     """
 
     content: Optional[str]
-    """The content of the lesson"""
+    """The Markdown content body of the lesson."""
 
     days_from_course_start_until_unlock: Optional[int]
-    """Days from course start until unlock"""
+    """
+    The number of days after a student starts the course before this lesson becomes
+    accessible.
+    """
 
     embed_id: Optional[str]
-    """ID for the embed (YouTube video ID or Loom share ID)"""
+    """
+    The external video identifier for embedded content (e.g., a YouTube video ID or
+    Loom share ID).
+    """
 
     embed_type: Optional[EmbedType]
     """The type of embed for a lesson"""
@@ -54,19 +63,22 @@ class CourseLessonUpdateParams(TypedDict, total=False):
     """The available types for a lesson"""
 
     main_pdf: Optional[MainPdf]
-    """The main PDF file for this lesson"""
+    """The primary PDF document attached to this lesson for student reference."""
 
     max_attempts: Optional[int]
-    """Maximum number of attempts allowed for assessments"""
+    """The maximum number of attempts a student is allowed for assessment lessons."""
 
     mux_asset_id: Optional[str]
-    """The ID of the Mux asset to attach to this lesson for video lessons"""
+    """
+    The identifier of a Mux video asset to attach to this lesson (e.g.,
+    "mux_XXXXX").
+    """
 
     thumbnail: Optional[Thumbnail]
-    """The thumbnail for the lesson in png, jpeg, or gif format"""
+    """The thumbnail image for the lesson in PNG, JPEG, or GIF format."""
 
     title: Optional[str]
-    """The title of the lesson"""
+    """The display title of the lesson (e.g., "Getting Started with APIs")."""
 
     visibility: Optional[LessonVisibilities]
     """The available visibilities for a lesson.
@@ -76,7 +88,9 @@ class CourseLessonUpdateParams(TypedDict, total=False):
 
 
 class AssessmentCompletionRequirement(TypedDict, total=False):
-    """Completion requirements for quiz/knowledge check lessons"""
+    """
+    The passing criteria for quiz or knowledge check lessons, such as minimum grade or correct answers.
+    """
 
     minimum_grade_percent: Optional[float]
     """The minimum grade percentage required to pass (0-100).
@@ -149,14 +163,14 @@ class Attachment(TypedDict, total=False):
 
 
 class MainPdf(TypedDict, total=False):
-    """The main PDF file for this lesson"""
+    """The primary PDF document attached to this lesson for student reference."""
 
     id: Required[str]
     """The ID of an existing file object."""
 
 
 class Thumbnail(TypedDict, total=False):
-    """The thumbnail for the lesson in png, jpeg, or gif format"""
+    """The thumbnail image for the lesson in PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

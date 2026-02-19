@@ -16,20 +16,31 @@ class Product(BaseModel):
     """The product this promo code applies to"""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class PromoCodeListResponse(BaseModel):
-    """An object representing a promo code for a plan."""
+    """A promo code applies a discount to a plan during checkout.
+
+    Promo codes can be percentage-based or fixed-amount, and can have usage limits and expiration dates.
+    """
 
     id: str
-    """The ID of the promo."""
+    """The unique identifier for the promo code."""
 
     amount_off: float
-    """The amount off (% or flat amount) for the promo."""
+    """The discount amount.
+
+    Interpretation depends on promo_type: if 'percentage', this is the percentage
+    (e.g., 20 means 20% off); if 'flat_amount', this is dollars off (e.g., 10.00
+    means $10.00 off).
+    """
 
     churned_users_only: bool
     """Restricts promo use to only users who have churned from the company before."""
@@ -38,7 +49,7 @@ class PromoCodeListResponse(BaseModel):
     """The specific code used to apply the promo at checkout."""
 
     created_at: datetime
-    """The timestamp of when the promo was created."""
+    """The datetime the promo code was created."""
 
     currency: Currency
     """The monetary currency of the promo code."""

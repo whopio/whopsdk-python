@@ -10,7 +10,7 @@ __all__ = ["WebhookListParams"]
 
 class WebhookListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list webhooks for"""
+    """The unique identifier of the company to list webhooks for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""

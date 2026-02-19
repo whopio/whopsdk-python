@@ -25,13 +25,19 @@ class TestAIChats:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Whop) -> None:
-        ai_chat = client.ai_chats.create()
+        ai_chat = client.ai_chats.create(
+            message_text="message_text",
+        )
         assert_matches_type(AIChat, ai_chat, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         ai_chat = client.ai_chats.create(
+            message_text="message_text",
+            current_company_id="current_company_id",
+            message_attachments=[{"id": "id"}],
+            message_source="manual",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])
@@ -39,7 +45,9 @@ class TestAIChats:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
-        response = client.ai_chats.with_raw_response.create()
+        response = client.ai_chats.with_raw_response.create(
+            message_text="message_text",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -49,7 +57,9 @@ class TestAIChats:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
-        with client.ai_chats.with_streaming_response.create() as response:
+        with client.ai_chats.with_streaming_response.create(
+            message_text="message_text",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -113,6 +123,7 @@ class TestAIChats:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ai_chat = client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
+            current_company_id="current_company_id",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])
@@ -241,13 +252,19 @@ class TestAsyncAIChats:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
-        ai_chat = await async_client.ai_chats.create()
+        ai_chat = await async_client.ai_chats.create(
+            message_text="message_text",
+        )
         assert_matches_type(AIChat, ai_chat, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         ai_chat = await async_client.ai_chats.create(
+            message_text="message_text",
+            current_company_id="current_company_id",
+            message_attachments=[{"id": "id"}],
+            message_source="manual",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])
@@ -255,7 +272,9 @@ class TestAsyncAIChats:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
-        response = await async_client.ai_chats.with_raw_response.create()
+        response = await async_client.ai_chats.with_raw_response.create(
+            message_text="message_text",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -265,7 +284,9 @@ class TestAsyncAIChats:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
-        async with async_client.ai_chats.with_streaming_response.create() as response:
+        async with async_client.ai_chats.with_streaming_response.create(
+            message_text="message_text",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -329,6 +350,7 @@ class TestAsyncAIChats:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ai_chat = await async_client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
+            current_company_id="current_company_id",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])

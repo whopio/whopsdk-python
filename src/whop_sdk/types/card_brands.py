@@ -37,5 +37,9 @@ CardBrands: TypeAlias = Literal[
     "fuel_card",
     "dankort",
     "carnet",
+    "atm_card",
+    "china_union_payuzcard",
+    "codensa",
+    "cabal",
     "unknown",
 ]

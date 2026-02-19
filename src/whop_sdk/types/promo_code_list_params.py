@@ -15,7 +15,7 @@ __all__ = ["PromoCodeListParams"]
 
 class PromoCodeListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list promo codes for"""
+    """The unique identifier of the company to list promo codes for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -24,10 +24,10 @@ class PromoCodeListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return promo codes created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return promo codes created before this timestamp."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -36,10 +36,10 @@ class PromoCodeListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     plan_ids: Optional[SequenceNotStr[str]]
-    """Filter promo codes by plan ID(s)"""
+    """Filter to only promo codes scoped to these plan identifiers."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """Filter promo codes by product ID(s)"""
+    """Filter to only promo codes scoped to these product identifiers."""
 
     status: Optional[PromoCodeStatus]
     """Statuses for promo codes"""

@@ -10,7 +10,7 @@ __all__ = ["ReactionListParams"]
 
 class ReactionListParams(TypedDict, total=False):
     resource_id: Required[str]
-    """The ID of the post or message to list reactions for"""
+    """The unique identifier of the message or forum post to list reactions for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""

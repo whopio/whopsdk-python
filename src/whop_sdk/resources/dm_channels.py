@@ -59,16 +59,18 @@ class DmChannelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannel:
-        """Creates a DM channel
+        """
+        Create a new DM channel between two or more users, optionally scoped to a
+        specific company. Returns the existing channel if one already exists.
 
         Args:
-          with_user_ids: The user ids to create a DM with.
+          with_user_ids: The list of user identifiers to include in the DM channel. Each entry can be an
+              email, username, or user ID (e.g. 'user_xxxxx').
 
-        Can be email, username or user_id (tag)
+          company_id: The unique identifier of the company to scope this DM channel to. When set, the
+              channel is visible only within that company context.
 
-          company_id: The ID of the company to scope this DM channel to.
-
-          custom_name: The custom name for the DM channel
+          custom_name: A custom display name for the DM channel. For example, 'Project Discussion'.
 
           extra_headers: Send extra headers
 
@@ -106,7 +108,7 @@ class DmChannelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannel:
         """
-        Retrieves a DM channel
+        Retrieves the details of an existing DM channel.
 
         Required permissions:
 
@@ -143,15 +145,17 @@ class DmChannelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannel:
-        """
-        Updates a DM channel
+        """Update the settings of an existing DM channel, such as its display name.
+
+        Only an
+        admin of the channel can perform this action.
 
         Required permissions:
 
         - `dms:channel:manage`
 
         Args:
-          custom_name: The custom name for the DM channel
+          custom_name: A new custom display name for the DM channel. For example, 'Project Discussion'.
 
           extra_headers: Send extra headers
 
@@ -188,7 +192,8 @@ class DmChannelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[DmChannelListResponse]:
         """
-        Lists DM channels for the current user
+        Returns a paginated list of DM channels for the currently authenticated user,
+        sorted by most recently active.
 
         Required permissions:
 
@@ -199,7 +204,8 @@ class DmChannelsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: Filter DM channels scoped to a specific company
+          company_id: The unique identifier of a company to filter DM channels by. Only returns
+              channels scoped to this company.
 
           first: Returns the first _n_ elements from the list.
 
@@ -246,8 +252,10 @@ class DmChannelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannelDeleteResponse:
-        """
-        Deletes a DM channel
+        """Permanently delete a DM channel and all of its messages.
+
+        Only an admin of the
+        channel can perform this action.
 
         Required permissions:
 
@@ -306,16 +314,18 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannel:
-        """Creates a DM channel
+        """
+        Create a new DM channel between two or more users, optionally scoped to a
+        specific company. Returns the existing channel if one already exists.
 
         Args:
-          with_user_ids: The user ids to create a DM with.
+          with_user_ids: The list of user identifiers to include in the DM channel. Each entry can be an
+              email, username, or user ID (e.g. 'user_xxxxx').
 
-        Can be email, username or user_id (tag)
+          company_id: The unique identifier of the company to scope this DM channel to. When set, the
+              channel is visible only within that company context.
 
-          company_id: The ID of the company to scope this DM channel to.
-
-          custom_name: The custom name for the DM channel
+          custom_name: A custom display name for the DM channel. For example, 'Project Discussion'.
 
           extra_headers: Send extra headers
 
@@ -353,7 +363,7 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannel:
         """
-        Retrieves a DM channel
+        Retrieves the details of an existing DM channel.
 
         Required permissions:
 
@@ -390,15 +400,17 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannel:
-        """
-        Updates a DM channel
+        """Update the settings of an existing DM channel, such as its display name.
+
+        Only an
+        admin of the channel can perform this action.
 
         Required permissions:
 
         - `dms:channel:manage`
 
         Args:
-          custom_name: The custom name for the DM channel
+          custom_name: A new custom display name for the DM channel. For example, 'Project Discussion'.
 
           extra_headers: Send extra headers
 
@@ -437,7 +449,8 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[DmChannelListResponse, AsyncCursorPage[DmChannelListResponse]]:
         """
-        Lists DM channels for the current user
+        Returns a paginated list of DM channels for the currently authenticated user,
+        sorted by most recently active.
 
         Required permissions:
 
@@ -448,7 +461,8 @@ class AsyncDmChannelsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: Filter DM channels scoped to a specific company
+          company_id: The unique identifier of a company to filter DM channels by. Only returns
+              channels scoped to this company.
 
           first: Returns the first _n_ elements from the list.
 
@@ -495,8 +509,10 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmChannelDeleteResponse:
-        """
-        Deletes a DM channel
+        """Permanently delete a DM channel and all of its messages.
+
+        Only an admin of the
+        channel can perform this action.
 
         Required permissions:
 

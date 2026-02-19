@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .industry_groups import IndustryGroups
 from .shared.currency import Currency
 from .shared.tax_type import TaxType
 from .shared.plan_type import PlanType
@@ -33,28 +34,30 @@ __all__ = [
 
 class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
     plan: Required[CreateCheckoutSessionInputModePaymentWithPlanPlan]
-    """Pass this object to create a new plan for this checkout configuration"""
+    """
+    The plan attributes to create a new plan inline for this checkout configuration.
+    """
 
     affiliate_code: Optional[str]
-    """The affiliate code to use for the checkout configuration"""
+    """An affiliate tracking code to attribute the checkout to a specific affiliate."""
 
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
     metadata: Optional[Dict[str, object]]
-    """The metadata to use for the checkout configuration"""
+    """Custom key-value metadata to attach to the checkout configuration."""
 
     mode: Literal["payment"]
 
     payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration]
-    """This currently only works for configurations made in 'setup' mode.
+    """The explicit payment method configuration for the checkout session.
 
-    The explicit payment method configuration for the checkout session. If not
-    provided, the platform or company's defaults will apply.
+    Only applies to setup mode. If not provided, the platform or company defaults
+    will apply.
     """
 
     redirect_url: Optional[str]
-    """The URL to redirect the user to after the checkout configuration is created"""
+    """The URL to redirect the user to after checkout is completed."""
 
     source_url: Optional[str]
     """The URL of the page where the checkout is being initiated from."""
@@ -157,6 +160,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=
     headline: Optional[str]
     """The headline of the product."""
 
+    industry_group: Optional[IndustryGroups]
+    """The different industry groups a company can be in."""
+
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
 
@@ -174,7 +180,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
-    """Pass this object to create a new plan for this checkout configuration"""
+    """
+    The plan attributes to create a new plan inline for this checkout configuration.
+    """
 
     company_id: Required[str]
     """The company the plan should be created for."""
@@ -186,12 +194,15 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """The application fee amount collected by the platform from this connected
     account.
 
-    Must be less than the total payment amount. Only valid for connected accounts
-    with a parent company.
+    Provided as a number in dollars (e.g., 5.00 for $5.00). Must be less than the
+    total payment amount. Only valid for connected accounts with a parent company.
     """
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans).
+
+    For example, 30 for monthly billing.
+    """
 
     custom_fields: Optional[Iterable[CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField]]
     """An array of custom field objects."""
@@ -200,7 +211,10 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """The number of days until the membership expires (for expiration-based plans).
+
+    For example, 365 for a one-year access pass.
+    """
 
     force_create_new_plan: Optional[bool]
     """
@@ -212,7 +226,10 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """An image for the plan. This will be visible on the product page to customers."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase."""
+    """An additional amount charged upon first purchase.
+
+    Provided as a number in dollars (e.g., 10.00 for $10.00).
+    """
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
@@ -246,7 +263,10 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """The methods of how a plan can be released."""
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period."""
+    """The amount the customer is charged every billing period.
+
+    Provided as a number in dollars (e.g., 9.99 for $9.99/period).
+    """
 
     split_pay_required_payments: Optional[int]
     """The number of payments required before pausing the subscription."""
@@ -268,9 +288,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(TypedDict, total=False):
-    """This currently only works for configurations made in 'setup' mode.
+    """The explicit payment method configuration for the checkout session.
 
-    The explicit payment method configuration for the checkout session. If not provided, the platform or company's defaults will apply.
+    Only applies to setup mode. If not provided, the platform or company defaults will apply.
     """
 
     disabled: Required[List[PaymentMethodTypes]]
@@ -297,37 +317,40 @@ class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(Ty
 
 class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     plan_id: Required[str]
-    """The ID of the plan to use for the checkout configuration"""
+    """
+    The unique identifier of an existing plan to use for this checkout
+    configuration.
+    """
 
     affiliate_code: Optional[str]
-    """The affiliate code to use for the checkout configuration"""
+    """An affiliate tracking code to attribute the checkout to a specific affiliate."""
 
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
     metadata: Optional[Dict[str, object]]
-    """The metadata to use for the checkout configuration"""
+    """Custom key-value metadata to attach to the checkout configuration."""
 
     mode: Literal["payment"]
 
     payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration]
-    """This currently only works for configurations made in 'setup' mode.
+    """The explicit payment method configuration for the checkout session.
 
-    The explicit payment method configuration for the checkout session. If not
-    provided, the platform or company's defaults will apply.
+    Only applies to setup mode. If not provided, the platform or company defaults
+    will apply.
     """
 
     redirect_url: Optional[str]
-    """The URL to redirect the user to after the checkout configuration is created"""
+    """The URL to redirect the user to after checkout is completed."""
 
     source_url: Optional[str]
     """The URL of the page where the checkout is being initiated from."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
-    """This currently only works for configurations made in 'setup' mode.
+    """The explicit payment method configuration for the checkout session.
 
-    The explicit payment method configuration for the checkout session. If not provided, the platform or company's defaults will apply.
+    Only applies to setup mode. If not provided, the platform or company defaults will apply.
     """
 
     disabled: Required[List[PaymentMethodTypes]]
@@ -354,7 +377,7 @@ class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(
 
 class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company for which to generate the checkout configuration.
+    """The unique identifier of the company to create the checkout configuration for.
 
     Only required in setup mode.
     """
@@ -365,26 +388,26 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
     """The available currencies on the platform"""
 
     metadata: Optional[Dict[str, object]]
-    """The metadata to use for the checkout configuration"""
+    """Custom key-value metadata to attach to the checkout configuration."""
 
     payment_method_configuration: Optional[CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration]
-    """This currently only works for configurations made in 'setup' mode.
+    """The explicit payment method configuration for the checkout session.
 
-    The explicit payment method configuration for the checkout session. If not
-    provided, the platform or company's defaults will apply.
+    Only applies to setup mode. If not provided, the platform or company defaults
+    will apply.
     """
 
     redirect_url: Optional[str]
-    """The URL to redirect the user to after the checkout configuration is created"""
+    """The URL to redirect the user to after checkout is completed."""
 
     source_url: Optional[str]
     """The URL of the page where the checkout is being initiated from."""
 
 
 class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):
-    """This currently only works for configurations made in 'setup' mode.
+    """The explicit payment method configuration for the checkout session.
 
-    The explicit payment method configuration for the checkout session. If not provided, the platform or company's defaults will apply.
+    Only applies to setup mode. If not provided, the platform or company defaults will apply.
     """
 
     disabled: Required[List[PaymentMethodTypes]]

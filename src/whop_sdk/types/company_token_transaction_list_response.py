@@ -4,16 +4,16 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
-from .bot_token_transaction_types import BotTokenTransactionTypes
+from .company_token_transaction_type import CompanyTokenTransactionType
 
 __all__ = ["CompanyTokenTransactionListResponse", "Company", "Member", "User"]
 
 
 class Company(BaseModel):
-    """The company"""
+    """The company whose token balance this transaction affects."""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -23,54 +23,68 @@ class Company(BaseModel):
 
 
 class Member(BaseModel):
-    """The member"""
+    """The member whose token balance was affected by this transaction."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
 
 class User(BaseModel):
-    """The user whose balance changed"""
+    """The user whose token balance was affected by this transaction."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class CompanyTokenTransactionListResponse(BaseModel):
-    """A token transaction within a company"""
+    """
+    A token transaction records a credit or debit to a member's token balance within a company, including transfers between members.
+    """
 
     id: str
-    """The ID of the transaction"""
+    """The unique identifier for the company token transaction."""
 
     amount: float
-    """The transaction amount (always positive)"""
+    """The token amount for this transaction.
+
+    Always a positive value regardless of transaction type.
+    """
 
     company: Company
-    """The company"""
+    """The company whose token balance this transaction affects."""
 
     created_at: datetime
-    """When the transaction was created"""
+    """The datetime the company token transaction was created."""
 
     description: Optional[str] = None
-    """Optional description"""
+    """Free-text description explaining the reason for this token transaction.
+
+    Null if no description was provided.
+    """
 
     idempotency_key: Optional[str] = None
-    """Optional idempotency key to prevent duplicate transactions"""
+    """A unique key used to prevent duplicate transactions when retrying API requests.
+
+    Null if no idempotency key was provided.
+    """
 
     linked_transaction_id: Optional[str] = None
-    """For transfers, the ID of the linked transaction"""
+    """The ID of the corresponding transaction on the other side of a transfer.
+
+    Null if this is not a transfer transaction.
+    """
 
     member: Member
-    """The member"""
+    """The member whose token balance was affected by this transaction."""
 
-    transaction_type: BotTokenTransactionTypes
-    """The type of transaction"""
+    transaction_type: CompanyTokenTransactionType
+    """The direction of this token transaction (add, subtract, or transfer)."""
 
     user: User
-    """The user whose balance changed"""
+    """The user whose token balance was affected by this transaction."""

@@ -9,56 +9,68 @@ __all__ = ["ForumPostListResponse", "User"]
 
 
 class User(BaseModel):
-    """The user who created this forum post"""
+    """The user who authored this forum post."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class ForumPostListResponse(BaseModel):
-    """Represents a post in forum"""
+    """
+    A post or comment in a forum feed, supporting rich text, attachments, polls, and reactions.
+    """
 
     id: str
-    """The unique identifier of the resource."""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     comment_count: int
-    """The amount of comments on this post"""
+    """The total number of direct comments on this post."""
 
     content: Optional[str] = None
-    """The content of the forum post in Markdown format"""
+    """The body of the forum post in Markdown format.
+
+    Null if the post is paywalled and the current user does not have access.
+    """
 
     created_at: datetime
-    """The timestamp when the post was created"""
+    """The time this post was created, as a Unix timestamp."""
 
     is_edited: bool
-    """Whether the forum post has been edited"""
+    """Whether this post has been edited after its initial creation."""
 
     is_pinned: bool
-    """Whether this forum post is pinned"""
+    """Whether this post is pinned to the top of the forum feed."""
 
     is_poster_admin: bool
-    """Whether the user that sent the post is an admin of the company"""
+    """Whether the author of this post is an admin of the company that owns the forum."""
 
     like_count: Optional[int] = None
-    """The number of likes this post has received"""
+    """The total number of like reactions this post has received."""
 
     parent_id: Optional[str] = None
-    """The ID of the parent forum post, if applicable"""
+    """The unique identifier of the parent post. Null if this is a top-level post."""
 
     title: Optional[str] = None
-    """The title of the forum post"""
+    """The headline of the forum post. Null if the post has no title."""
 
     updated_at: datetime
-    """The timestamp when the post was last updated"""
+    """The time this post was last updated, as a Unix timestamp."""
 
     user: User
-    """The user who created this forum post"""
+    """The user who authored this forum post."""
 
     view_count: Optional[int] = None
-    """The number of times this message has been viewed"""
+    """The total number of times this post has been viewed by users."""

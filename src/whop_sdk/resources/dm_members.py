@@ -66,17 +66,20 @@ class DmMembersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMember:
-        """
-        Adds a user to a DM channel
+        """Add a new user to an existing DM channel.
+
+        Only an admin of the channel can add
+        members.
 
         Required permissions:
 
         - `dms:channel:manage`
 
         Args:
-          channel_id: The ID of the DM channel to add the member to
+          channel_id: The unique identifier of the DM channel to add the new member to.
 
-          user_id: The ID of the user to add to the channel
+          user_id: The unique identifier of the user to add to the DM channel. For example,
+              'user_xxxxx'.
 
           extra_headers: Send extra headers
 
@@ -113,7 +116,7 @@ class DmMembersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMember:
         """
-        Retrieves a DM channel member
+        Retrieves the details of an existing DM member.
 
         Required permissions:
 
@@ -152,7 +155,8 @@ class DmMembersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMember:
         """
-        Updates a DM channel member's settings
+        Update a DM channel member's settings, such as their notification preferences or
+        membership status.
 
         Required permissions:
 
@@ -204,14 +208,15 @@ class DmMembersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[DmMemberListResponse]:
         """
-        Lists members of a DM channel
+        Returns a paginated list of members in a specific DM channel, sorted by the date
+        they were added.
 
         Required permissions:
 
         - `dms:read`
 
         Args:
-          channel_id: The ID of the DM channel to list members for
+          channel_id: The unique identifier of the DM channel to list members for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -262,8 +267,10 @@ class DmMembersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMemberDeleteResponse:
-        """
-        Removes a user from a DM channel
+        """Remove a user from a DM channel.
+
+        An admin can remove any member, and a member
+        can remove themselves.
 
         Required permissions:
 
@@ -321,17 +328,20 @@ class AsyncDmMembersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMember:
-        """
-        Adds a user to a DM channel
+        """Add a new user to an existing DM channel.
+
+        Only an admin of the channel can add
+        members.
 
         Required permissions:
 
         - `dms:channel:manage`
 
         Args:
-          channel_id: The ID of the DM channel to add the member to
+          channel_id: The unique identifier of the DM channel to add the new member to.
 
-          user_id: The ID of the user to add to the channel
+          user_id: The unique identifier of the user to add to the DM channel. For example,
+              'user_xxxxx'.
 
           extra_headers: Send extra headers
 
@@ -368,7 +378,7 @@ class AsyncDmMembersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMember:
         """
-        Retrieves a DM channel member
+        Retrieves the details of an existing DM member.
 
         Required permissions:
 
@@ -407,7 +417,8 @@ class AsyncDmMembersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMember:
         """
-        Updates a DM channel member's settings
+        Update a DM channel member's settings, such as their notification preferences or
+        membership status.
 
         Required permissions:
 
@@ -459,14 +470,15 @@ class AsyncDmMembersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[DmMemberListResponse, AsyncCursorPage[DmMemberListResponse]]:
         """
-        Lists members of a DM channel
+        Returns a paginated list of members in a specific DM channel, sorted by the date
+        they were added.
 
         Required permissions:
 
         - `dms:read`
 
         Args:
-          channel_id: The ID of the DM channel to list members for
+          channel_id: The unique identifier of the DM channel to list members for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -517,8 +529,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DmMemberDeleteResponse:
-        """
-        Removes a user from a DM channel
+        """Remove a user from a DM channel.
+
+        An admin can remove any member, and a member
+        can remove themselves.
 
         Required permissions:
 

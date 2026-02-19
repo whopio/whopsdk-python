@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .lead import Lead as Lead
+from .user import User as User
 from .course import Course as Course
 from .lesson import Lesson as Lesson
 from .shared import (
@@ -92,6 +93,7 @@ from .promo_duration import PromoDuration as PromoDuration
 from .app_list_params import AppListParams as AppListParams
 from .billing_reasons import BillingReasons as BillingReasons
 from .fee_markup_type import FeeMarkupType as FeeMarkupType
+from .industry_groups import IndustryGroups as IndustryGroups
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
@@ -185,7 +187,6 @@ from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
 from .shipment_list_response import ShipmentListResponse as ShipmentListResponse
 from .transfer_create_params import TransferCreateParams as TransferCreateParams
 from .transfer_list_response import TransferListResponse as TransferListResponse
-from .user_retrieve_response import UserRetrieveResponse as UserRetrieveResponse
 from .withdrawal_list_params import WithdrawalListParams as WithdrawalListParams
 from .ai_chat_delete_response import AIChatDeleteResponse as AIChatDeleteResponse
 from .app_build_create_params import AppBuildCreateParams as AppBuildCreateParams
@@ -252,8 +253,8 @@ from .payment_method_list_params import PaymentMethodListParams as PaymentMethod
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
+from .user_update_profile_params import UserUpdateProfileParams as UserUpdateProfileParams
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
-from .bot_token_transaction_types import BotTokenTransactionTypes as BotTokenTransactionTypes
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
 from .course_lesson_list_response import CourseLessonListResponse as CourseLessonListResponse
 from .course_lesson_update_params import CourseLessonUpdateParams as CourseLessonUpdateParams
@@ -286,6 +287,7 @@ from .payment_created_webhook_event import PaymentCreatedWebhookEvent as Payment
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent as PaymentPendingWebhookEvent
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
+from .company_token_transaction_type import CompanyTokenTransactionType as CompanyTokenTransactionType
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
 from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent

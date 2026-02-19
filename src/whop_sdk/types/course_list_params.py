@@ -16,10 +16,10 @@ class CourseListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: Optional[str]
-    """The ID of the company"""
+    """The unique identifier of the company to list courses for."""
 
     experience_id: Optional[str]
-    """The ID of the experience"""
+    """The unique identifier of the experience to list courses for."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""

@@ -59,19 +59,20 @@ class SupportChannelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SupportChannel:
-        """Create a new support channel for a user in a company.
+        """Open a new support channel between a company team member and a customer.
 
-        If one already exists, it
-        will return the existing one.
+        Returns
+        the existing channel if one already exists for that user.
 
         Required permissions:
 
         - `support_chat:create`
 
         Args:
-          company_id: The ID of the company to create the support chat in
+          company_id: The unique identifier of the company to create the support channel in.
 
-          user_id: The ID (user_xxx) or username of the user to create the support chat for
+          user_id: The user ID (e.g. 'user_xxxxx') or username of the customer to open a support
+              channel for.
 
           extra_headers: Send extra headers
 
@@ -108,7 +109,7 @@ class SupportChannelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SupportChannel:
         """
-        Retrieves a support channel
+        Retrieves the details of an existing support channel.
 
         Required permissions:
 
@@ -152,14 +153,15 @@ class SupportChannelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[SupportChannelListResponse]:
         """
-        Lists chat channels inside a company
+        Returns a paginated list of support channels for a specific company, with
+        optional filtering by resolution status and custom sorting.
 
         Required permissions:
 
         - `support_chat:read`
 
         Args:
-          company_id: The ID of the company to list chat channels for
+          company_id: The unique identifier of the company to list support channels for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -171,9 +173,8 @@ class SupportChannelsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          open: Filter for tickets where customer sent the last message (needs response) AND not
-              resolved. Set to true to only return open channels, false to only return
-              resolved channels.
+          open: Whether to filter by open or resolved support channels. Set to true to only
+              return channels awaiting a response, or false for resolved channels.
 
           order: Sort options for message channels
 
@@ -243,19 +244,20 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SupportChannel:
-        """Create a new support channel for a user in a company.
+        """Open a new support channel between a company team member and a customer.
 
-        If one already exists, it
-        will return the existing one.
+        Returns
+        the existing channel if one already exists for that user.
 
         Required permissions:
 
         - `support_chat:create`
 
         Args:
-          company_id: The ID of the company to create the support chat in
+          company_id: The unique identifier of the company to create the support channel in.
 
-          user_id: The ID (user_xxx) or username of the user to create the support chat for
+          user_id: The user ID (e.g. 'user_xxxxx') or username of the customer to open a support
+              channel for.
 
           extra_headers: Send extra headers
 
@@ -292,7 +294,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SupportChannel:
         """
-        Retrieves a support channel
+        Retrieves the details of an existing support channel.
 
         Required permissions:
 
@@ -336,14 +338,15 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[SupportChannelListResponse, AsyncCursorPage[SupportChannelListResponse]]:
         """
-        Lists chat channels inside a company
+        Returns a paginated list of support channels for a specific company, with
+        optional filtering by resolution status and custom sorting.
 
         Required permissions:
 
         - `support_chat:read`
 
         Args:
-          company_id: The ID of the company to list chat channels for
+          company_id: The unique identifier of the company to list support channels for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -355,9 +358,8 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          open: Filter for tickets where customer sent the last message (needs response) AND not
-              resolved. Set to true to only return open channels, false to only return
-              resolved channels.
+          open: Whether to filter by open or resolved support channels. Set to true to only
+              return channels awaiting a response, or false for resolved channels.
 
           order: Sort options for message channels
 

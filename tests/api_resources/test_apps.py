@@ -36,6 +36,7 @@ class TestApps:
             name="name",
             base_url="base_url",
             icon={"id": "id"},
+            redirect_uris=["string"],
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -131,6 +132,8 @@ class TestApps:
             experience_path="experience_path",
             icon={"id": "id"},
             name="name",
+            oauth_client_type="public",
+            redirect_uris=["string"],
             required_scopes=["read_user"],
             status="live",
         )
@@ -239,6 +242,7 @@ class TestAsyncApps:
             name="name",
             base_url="base_url",
             icon={"id": "id"},
+            redirect_uris=["string"],
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -334,6 +338,8 @@ class TestAsyncApps:
             experience_path="experience_path",
             icon={"id": "id"},
             name="name",
+            oauth_client_type="public",
+            redirect_uris=["string"],
             required_scopes=["read_user"],
             status="live",
         )

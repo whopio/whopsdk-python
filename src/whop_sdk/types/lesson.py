@@ -26,18 +26,25 @@ class AssessmentQuestionImage(BaseModel):
     """Optional image attachment for the question"""
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -45,7 +52,7 @@ class AssessmentQuestionOption(BaseModel):
     """An answer option for a multiple choice or multiple select assessment question"""
 
     id: str
-    """The ID of the assessment question option"""
+    """The unique identifier for the assessment question option."""
 
     is_correct: Optional[bool] = None
     """Whether this option is a correct answer.
@@ -64,7 +71,7 @@ class AssessmentQuestion(BaseModel):
     """An assessment question in a course quiz or knowledge check"""
 
     id: str
-    """The ID of the assessment question"""
+    """The unique identifier for the assessment question."""
 
     correct_answer: Optional[str] = None
     """The correct answer for the question.
@@ -74,7 +81,7 @@ class AssessmentQuestion(BaseModel):
     """
 
     created_at: datetime
-    """When the question was created"""
+    """The datetime the assessment question was created."""
 
     image: Optional[AssessmentQuestionImage] = None
     """Optional image attachment for the question"""
@@ -96,55 +103,78 @@ class Attachment(BaseModel):
     """Represents an image attachment"""
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class MainPdf(BaseModel):
-    """The main PDF file for this lesson"""
+    """The primary PDF document for PDF-type lessons.
+
+    Null if this lesson is not a PDF lesson or no PDF has been uploaded.
+    """
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class Thumbnail(BaseModel):
-    """The thumbnail for the lesson"""
+    """The thumbnail image displayed on lesson cards and previews.
+
+    Null if no thumbnail has been uploaded.
+    """
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class VideoAsset(BaseModel):
-    """The associated Mux asset for video lessons"""
+    """The Mux video asset for video-type lessons, used for streaming playback.
+
+    Null if this lesson has no hosted video.
+    """
 
     id: str
-    """The ID of the Mux asset"""
+    """The unique identifier for the mux asset."""
 
     asset_id: Optional[str] = None
     """The Mux-provided ID of the asset"""
@@ -153,7 +183,7 @@ class VideoAsset(BaseModel):
     """Whether this asset contains only audio"""
 
     created_at: datetime
-    """The time at which the Mux asset was created"""
+    """The datetime the mux asset was created."""
 
     duration_seconds: Optional[int] = None
     """The duration of the video in seconds"""
@@ -180,56 +210,85 @@ class VideoAsset(BaseModel):
     """The status of the Mux asset"""
 
     updated_at: datetime
-    """The time at which the Mux asset was last updated"""
+    """The datetime the mux asset was last updated."""
 
 
 class Lesson(BaseModel):
-    """A lesson from the courses app"""
+    """
+    An individual learning unit within a chapter, which can contain text, video, PDF, or assessment content.
+    """
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     assessment_questions: List[AssessmentQuestion]
-    """Assessment questions for quiz/knowledge check lessons"""
+    """The list of questions for quiz or knowledge check lessons.
+
+    Empty for non-assessment lesson types.
+    """
 
     attachments: List[Attachment]
-    """The attached files in this lesson as a flat array"""
+    """
+    All supplementary files attached to this lesson returned as a flat array rather
+    than a paginated connection.
+    """
 
     content: Optional[str] = None
-    """The content of the lesson"""
+    """The Markdown content body of the lesson.
+
+    Null if the lesson has no text content.
+    """
 
     created_at: datetime
-    """The timestamp of when the lesson was created"""
+    """The datetime the lesson was created."""
 
     days_from_course_start_until_unlock: Optional[int] = None
-    """Number of days from course start until the lesson is unlocked"""
+    """
+    The number of days after a student starts the course before this lesson becomes
+    accessible. Null if the lesson is available immediately.
+    """
 
     embed_id: Optional[str] = None
-    """ID for the embed (YouTube video ID or Loom share ID)"""
+    """
+    The external video identifier for embedded video lessons, such as a YouTube
+    video ID or Loom share ID. Null if the lesson has no embed.
+    """
 
     embed_type: Optional[EmbedType] = None
     """The type of embed for a lesson"""
 
     lesson_type: LessonTypes
-    """The type of the lesson (text, video, pdf, multi, quiz, knowledge_check)"""
+    """The content format of this lesson.
+
+    One of: text, video, pdf, multi, quiz, knowledge_check.
+    """
 
     main_pdf: Optional[MainPdf] = None
-    """The main PDF file for this lesson"""
+    """The primary PDF document for PDF-type lessons.
+
+    Null if this lesson is not a PDF lesson or no PDF has been uploaded.
+    """
 
     order: int
-    """The order of the lesson within its chapter"""
+    """The sort position of this lesson within its parent chapter, starting from zero."""
 
     thumbnail: Optional[Thumbnail] = None
-    """The thumbnail for the lesson"""
+    """The thumbnail image displayed on lesson cards and previews.
+
+    Null if no thumbnail has been uploaded.
+    """
 
     title: str
-    """The title of the lesson"""
+    """The display name of the lesson shown to students. Maximum 120 characters."""
 
     video_asset: Optional[VideoAsset] = None
-    """The associated Mux asset for video lessons"""
+    """The Mux video asset for video-type lessons, used for streaming playback.
+
+    Null if this lesson has no hosted video.
+    """
 
     visibility: LessonVisibilities
-    """The visibility of the lesson.
+    """The visibility setting that controls whether this lesson appears to students.
 
-    Determines how / whether this lesson is visible to users.
+    One of: visible, hidden.
     """

@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -49,6 +50,10 @@ class AIChatsResource(SyncAPIResource):
     def create(
         self,
         *,
+        message_text: str,
+        current_company_id: Optional[str] | Omit = omit,
+        message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
+        message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -58,14 +63,24 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Creates a new AI chat
+        Create a new AI chat thread and send the first message to the AI agent.
 
         Required permissions:
 
         - `ai_chat:create`
 
         Args:
-          title: The title of the AI chat
+          message_text: The text content of the first message to send to the AI agent.
+
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
+
+          message_attachments: A list of previously uploaded file attachments to include with the first
+              message.
+
+          message_source: The source of an AI chat message
+
+          title: An optional display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -77,7 +92,16 @@ class AIChatsResource(SyncAPIResource):
         """
         return self._post(
             "/ai_chats",
-            body=maybe_transform({"title": title}, ai_chat_create_params.AIChatCreateParams),
+            body=maybe_transform(
+                {
+                    "message_text": message_text,
+                    "current_company_id": current_company_id,
+                    "message_attachments": message_attachments,
+                    "message_source": message_source,
+                    "title": title,
+                },
+                ai_chat_create_params.AIChatCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -96,7 +120,7 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Fetches a single AI chat by ID
+        Retrieves the details of an existing AI chat.
 
         Args:
           extra_headers: Send extra headers
@@ -121,6 +145,7 @@ class AIChatsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        current_company_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -130,14 +155,17 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Updates an AI chat
+        Update an AI chat's title or associated company context.
 
         Required permissions:
 
         - `ai_chat:update`
 
         Args:
-          title: The new title for the AI chat
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
+
+          title: The new display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -151,7 +179,13 @@ class AIChatsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
             f"/ai_chats/{id}",
-            body=maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
+            body=maybe_transform(
+                {
+                    "current_company_id": current_company_id,
+                    "title": title,
+                },
+                ai_chat_update_params.AIChatUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -173,7 +207,7 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AIChatListResponse]:
         """
-        Fetches all AI chats for the current user
+        Returns a paginated list of AI chat threads for the current authenticated user.
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -225,7 +259,7 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChatDeleteResponse:
         """
-        Deletes an AI chat
+        Delete an AI chat thread so it no longer appears in the user's chat list.
 
         Required permissions:
 
@@ -274,6 +308,10 @@ class AsyncAIChatsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        message_text: str,
+        current_company_id: Optional[str] | Omit = omit,
+        message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
+        message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -283,14 +321,24 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Creates a new AI chat
+        Create a new AI chat thread and send the first message to the AI agent.
 
         Required permissions:
 
         - `ai_chat:create`
 
         Args:
-          title: The title of the AI chat
+          message_text: The text content of the first message to send to the AI agent.
+
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
+
+          message_attachments: A list of previously uploaded file attachments to include with the first
+              message.
+
+          message_source: The source of an AI chat message
+
+          title: An optional display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -302,7 +350,16 @@ class AsyncAIChatsResource(AsyncAPIResource):
         """
         return await self._post(
             "/ai_chats",
-            body=await async_maybe_transform({"title": title}, ai_chat_create_params.AIChatCreateParams),
+            body=await async_maybe_transform(
+                {
+                    "message_text": message_text,
+                    "current_company_id": current_company_id,
+                    "message_attachments": message_attachments,
+                    "message_source": message_source,
+                    "title": title,
+                },
+                ai_chat_create_params.AIChatCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -321,7 +378,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Fetches a single AI chat by ID
+        Retrieves the details of an existing AI chat.
 
         Args:
           extra_headers: Send extra headers
@@ -346,6 +403,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        current_company_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -355,14 +413,17 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Updates an AI chat
+        Update an AI chat's title or associated company context.
 
         Required permissions:
 
         - `ai_chat:update`
 
         Args:
-          title: The new title for the AI chat
+          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+              "biz_XXXXX").
+
+          title: The new display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
 
@@ -376,7 +437,13 @@ class AsyncAIChatsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
             f"/ai_chats/{id}",
-            body=await async_maybe_transform({"title": title}, ai_chat_update_params.AIChatUpdateParams),
+            body=await async_maybe_transform(
+                {
+                    "current_company_id": current_company_id,
+                    "title": title,
+                },
+                ai_chat_update_params.AIChatUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -398,7 +465,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AIChatListResponse, AsyncCursorPage[AIChatListResponse]]:
         """
-        Fetches all AI chats for the current user
+        Returns a paginated list of AI chat threads for the current authenticated user.
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -450,7 +517,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChatDeleteResponse:
         """
-        Deletes an AI chat
+        Delete an AI chat thread so it no longer appears in the user's chat list.
 
         Required permissions:
 

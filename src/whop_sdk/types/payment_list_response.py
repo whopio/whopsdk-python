@@ -45,7 +45,7 @@ class ApplicationFee(BaseModel):
     """The amount of the application fee that has been refunded."""
 
     created_at: datetime
-    """When the application fee was created."""
+    """The datetime the application fee was created."""
 
     currency: Currency
     """The currency of the application fee."""
@@ -80,7 +80,7 @@ class Company(BaseModel):
     """The company for the payment."""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     route: str
     """The slug/route of the company on the Whop site."""
@@ -93,7 +93,7 @@ class Member(BaseModel):
     """The member attached to this payment."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     phone: Optional[str] = None
     """The phone number for the member, if available."""
@@ -103,7 +103,7 @@ class Membership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
-    """The internal ID of the membership."""
+    """The unique identifier for the membership."""
 
     status: MembershipStatus
     """The state of the membership."""
@@ -118,20 +118,26 @@ class PaymentMethodCard(BaseModel):
     """Possible card brands that a payment token can have"""
 
     exp_month: Optional[int] = None
-    """Card expiration month, like 03 for March."""
+    """The two-digit expiration month of the card (1-12). Null if not available."""
 
     exp_year: Optional[int] = None
-    """Card expiration year, like 27 for 2027."""
+    """The two-digit expiration year of the card (e.g., 27 for 2027).
+
+    Null if not available.
+    """
 
     last4: Optional[str] = None
-    """Last four digits of the card."""
+    """The last four digits of the card number. Null if not available."""
 
 
 class PaymentMethod(BaseModel):
-    """The payment method used for the payment, if available."""
+    """The tokenized payment method reference used for this payment.
+
+    Null if no token was used.
+    """
 
     id: str
-    """The ID of the payment method"""
+    """The unique identifier for the payment token."""
 
     card: Optional[PaymentMethodCard] = None
     """
@@ -139,7 +145,7 @@ class PaymentMethod(BaseModel):
     """
 
     created_at: datetime
-    """The date and time the payment method was created"""
+    """The datetime the payment token was created."""
 
     payment_method_type: PaymentMethodTypes
     """The payment method type of the payment method"""
@@ -149,30 +155,41 @@ class Plan(BaseModel):
     """The plan attached to this payment."""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
     """The product this payment was made for"""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     route: str
-    """The route of the product."""
+    """
+    The URL slug used in the product's public link (e.g., 'my-product' in
+    whop.com/company/my-product).
+    """
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class PromoCode(BaseModel):
     """The promo code used for this payment."""
 
     id: str
-    """The ID of the promo."""
+    """The unique identifier for the promo code."""
 
     amount_off: float
-    """The amount off (% or flat amount) for the promo."""
+    """The discount amount.
+
+    Interpretation depends on promo_type: if 'percentage', this is the percentage
+    (e.g., 20 means 20% off); if 'flat_amount', this is dollars off (e.g., 10.00
+    means $10.00 off).
+    """
 
     base_currency: Currency
     """The monetary currency of the promo code."""
@@ -191,23 +208,29 @@ class User(BaseModel):
     """The user that made this payment."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class PaymentListResponse(BaseModel):
-    """An object representing a receipt for a membership."""
+    """A payment represents a completed or attempted charge.
+
+    Payments track the amount, status, currency, and payment method used.
+    """
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     amount_after_fees: float
     """How much the payment is for after fees"""
@@ -228,13 +251,16 @@ class PaymentListResponse(BaseModel):
     """Possible card brands that a payment token can have"""
 
     card_last4: Optional[str] = None
-    """The last 4 digits of the card used to make the payment."""
+    """The last four digits of the card used to make this payment.
+
+    Null if the payment was not made with a card.
+    """
 
     company: Optional[Company] = None
     """The company for the payment."""
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -265,10 +291,16 @@ class PaymentListResponse(BaseModel):
     """The time of the next schedule payment retry."""
 
     paid_at: Optional[datetime] = None
-    """The datetime the payment was paid"""
+    """The time at which this payment was successfully collected.
+
+    Null if the payment has not yet succeeded. As a Unix timestamp.
+    """
 
     payment_method: Optional[PaymentMethod] = None
-    """The payment method used for the payment, if available."""
+    """The tokenized payment method reference used for this payment.
+
+    Null if no token was used.
+    """
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""

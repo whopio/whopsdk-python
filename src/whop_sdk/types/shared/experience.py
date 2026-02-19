@@ -9,101 +9,131 @@ __all__ = ["Experience", "App", "AppIcon", "Company", "Image", "Product"]
 
 
 class AppIcon(BaseModel):
-    """The icon for the app.
-
-    This icon is shown on discovery, on the product page, on checkout, and as a default icon for the experiences.
+    """
+    The icon image for this app, displayed on the app store, product pages, checkout, and as the default icon for experiences using this app.
     """
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class App(BaseModel):
-    """The experience interface for this experience."""
+    """The app that powers this experience, defining its interface and behavior."""
 
     id: str
-    """The ID of the app"""
+    """The unique identifier for the app."""
 
     icon: Optional[AppIcon] = None
-    """The icon for the app.
-
-    This icon is shown on discovery, on the product page, on checkout, and as a
-    default icon for the experiences.
+    """
+    The icon image for this app, displayed on the app store, product pages,
+    checkout, and as the default icon for experiences using this app.
     """
 
     name: str
-    """The name of the app"""
+    """The display name of this app shown on the app store and in experience
+    navigation.
+
+    Maximum 30 characters.
+    """
 
 
 class Company(BaseModel):
     """The company that owns this experience."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class Image(BaseModel):
-    """The logo for the experience."""
+    """The custom logo image for this experience.
+
+    Null if no custom logo has been uploaded.
+    """
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class Product(BaseModel):
-    """Represents a product on whop. Use products to sell anything on the platform."""
+    """A product is a digital good or service sold on Whop.
+
+    Products contain plans for pricing and experiences for content delivery.
+    """
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     route: str
-    """The route of the product."""
+    """
+    The URL slug used in the product's public link (e.g., 'my-product' in
+    whop.com/company/my-product).
+    """
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class Experience(BaseModel):
-    """An object representing an experience belonging to a company."""
+    """
+    An experience is a feature or content module within a product, such as a chat, course, or custom app.
+    """
 
     id: str
-    """The unique ID representing this experience"""
+    """The unique identifier for the experience."""
 
     app: App
-    """The experience interface for this experience."""
+    """The app that powers this experience, defining its interface and behavior."""
 
     company: Company
     """The company that owns this experience."""
 
     created_at: datetime
-    """The timestamp of when this experience was created."""
+    """The datetime the experience was created."""
 
     image: Optional[Image] = None
-    """The logo for the experience."""
+    """The custom logo image for this experience.
+
+    Null if no custom logo has been uploaded.
+    """
 
     is_public: bool
-    """Whether the experience is visible to the public"""
+    """
+    Whether this experience is publicly visible to all users, including those
+    without a membership.
+    """
 
     name: str
-    """The written name of the description."""
+    """The display name of this experience shown to users in the product navigation.
+
+    Maximum 255 characters.
+    """
 
     order: Optional[str] = None
-    """The order of the experience in the section"""
+    """The sort position of this experience within its section.
+
+    Lower values appear first. Null if no position has been set.
+    """
 
     products: List[Product]
-    """The products that this experience is attached to.
-
-    This defines which set of customers have access and can view this experience. If
-    empty, this experience is only visible to authorized users of the company
+    """
+    The list of products this experience is attached to, which determines which
+    customers have access. Empty if the experience is only visible to authorized
+    company team members.
     """

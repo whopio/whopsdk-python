@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
+from .industry_groups import IndustryGroups
 from .shared.business_types import BusinessTypes
 from .shared.industry_types import IndustryTypes
 
@@ -12,38 +13,52 @@ __all__ = ["CompanyCreateParams", "Logo"]
 
 
 class CompanyCreateParams(TypedDict, total=False):
-    email: Required[str]
-    """The email of the user who the company will belong to."""
-
-    parent_company_id: Required[str]
-    """The company ID of the platform creating this company."""
-
     title: Required[str]
-    """The name of the company being created."""
+    """The display name of the company shown to customers."""
 
     business_type: Optional[BusinessTypes]
     """The different business types a company can be."""
+
+    description: Optional[str]
+    """
+    A promotional pitch displayed to potential customers on the company's store
+    page.
+    """
+
+    email: Optional[str]
+    """The email address of the user who will own the connected account.
+
+    Required when parent_company_id is provided.
+    """
+
+    industry_group: Optional[IndustryGroups]
+    """The different industry groups a company can be in."""
 
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
 
     logo: Optional[Logo]
-    """The logo for the company in png, jpeg, or gif format"""
+    """The company's logo image. Accepts PNG, JPEG, or GIF format."""
 
     metadata: Optional[Dict[str, object]]
-    """Additional metadata for the account"""
+    """A key-value JSON object of custom metadata to store on the company."""
+
+    parent_company_id: Optional[str]
+    """The unique identifier of the parent platform company.
+
+    When provided, creates a connected account under that platform. Omit to create a
+    company for the current user.
+    """
 
     send_customer_emails: Optional[bool]
     """Whether Whop sends transactional emails to customers on behalf of this company.
 
-    Includes: order confirmations, payment failures, refund notifications, upcoming
-    renewals, and membership cancelations/expirations. When disabled, the platform
-    is responsible for handling these communications. This is defaulted to true.
+    Only applies when creating a connected account.
     """
 
 
 class Logo(TypedDict, total=False):
-    """The logo for the company in png, jpeg, or gif format"""
+    """The company's logo image. Accepts PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

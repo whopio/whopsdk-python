@@ -16,10 +16,10 @@ class CourseLessonInteractionListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     completed: Optional[bool]
-    """Whether the lesson has been completed by the user"""
+    """Whether to filter for completed or in-progress lesson interactions."""
 
     course_id: Optional[str]
-    """The ID of the course to list course lesson interactions for"""
+    """The unique identifier of the course to filter interactions for."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -28,7 +28,7 @@ class CourseLessonInteractionListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     lesson_id: Optional[str]
-    """The ID of the lesson to list course lesson interactions for"""
+    """The unique identifier of the lesson to filter interactions for."""
 
     user_id: Optional[str]
-    """The ID of the user to list course lesson interactions for"""
+    """The unique identifier of the user to filter lesson interactions for."""

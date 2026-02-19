@@ -59,7 +59,7 @@ class DisputesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
         """
-        Retrieves a Dispute by ID
+        Retrieves the details of an existing dispute.
 
         Required permissions:
 
@@ -110,7 +110,9 @@ class DisputesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[DisputeListResponse]:
         """
-        Lists disputes the current actor has access to
+        Returns a paginated list of disputes for a company, with optional filtering by
+        creation date. A dispute represents a chargeback or inquiry filed by a customer
+        against a payment.
 
         Required permissions:
 
@@ -121,15 +123,15 @@ class DisputesResource(SyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the company to list disputes for
+          company_id: The unique identifier of the company to list disputes for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return disputes created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return disputes created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -258,33 +260,34 @@ class DisputesResource(SyncAPIResource):
         - `member:phone:read`
 
         Args:
-          access_activity_log: An IP access log for the user from Whop.
+          access_activity_log: An IP access activity log showing the customer used the service.
 
-          billing_address: The billing address of the user from their payment details.
+          billing_address: The billing address associated with the customer's payment method.
 
-          cancellation_policy_attachment: A file containing the cancellation policy from the company.
+          cancellation_policy_attachment: A file upload containing the company's cancellation policy document.
 
-          cancellation_policy_disclosure: A cancellation policy disclosure from the company.
+          cancellation_policy_disclosure: The company's cancellation policy text to submit as evidence.
 
-          customer_communication_attachment: A file containing the customer communication from the company (An image).
+          customer_communication_attachment: A file upload containing evidence of customer communication. Must be a JPEG,
+              PNG, GIF, or PDF.
 
-          customer_email_address: The email of the customer from their payment details.
+          customer_email_address: The email address of the customer associated with the disputed payment.
 
-          customer_name: The name of the customer from their payment details.
+          customer_name: The full name of the customer associated with the disputed payment.
 
-          notes: Additional notes the company chooses to submit regarding the dispute.
+          notes: Additional notes or context to submit as part of the dispute evidence.
 
-          product_description: The description of the product from the company.
+          product_description: A description of the product or service that was provided to the customer.
 
-          refund_policy_attachment: A file containing the refund policy from the company.
+          refund_policy_attachment: A file upload containing the company's refund policy document.
 
-          refund_policy_disclosure: A refund policy disclosure from the company.
+          refund_policy_disclosure: The company's refund policy text to submit as evidence.
 
-          refund_refusal_explanation: A description on why the refund is being refused by the company.
+          refund_refusal_explanation: An explanation of why the refund request was refused.
 
-          service_date: When the product was delivered by the company.
+          service_date: The date when the product or service was delivered to the customer.
 
-          uncategorized_attachment: A file that does not fit in the other categories.
+          uncategorized_attachment: A file upload for evidence that does not fit into the other categories.
 
           extra_headers: Send extra headers
 
@@ -356,7 +359,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
         """
-        Retrieves a Dispute by ID
+        Retrieves the details of an existing dispute.
 
         Required permissions:
 
@@ -407,7 +410,9 @@ class AsyncDisputesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[DisputeListResponse, AsyncCursorPage[DisputeListResponse]]:
         """
-        Lists disputes the current actor has access to
+        Returns a paginated list of disputes for a company, with optional filtering by
+        creation date. A dispute represents a chargeback or inquiry filed by a customer
+        against a payment.
 
         Required permissions:
 
@@ -418,15 +423,15 @@ class AsyncDisputesResource(AsyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the company to list disputes for
+          company_id: The unique identifier of the company to list disputes for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return disputes created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return disputes created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -555,33 +560,34 @@ class AsyncDisputesResource(AsyncAPIResource):
         - `member:phone:read`
 
         Args:
-          access_activity_log: An IP access log for the user from Whop.
+          access_activity_log: An IP access activity log showing the customer used the service.
 
-          billing_address: The billing address of the user from their payment details.
+          billing_address: The billing address associated with the customer's payment method.
 
-          cancellation_policy_attachment: A file containing the cancellation policy from the company.
+          cancellation_policy_attachment: A file upload containing the company's cancellation policy document.
 
-          cancellation_policy_disclosure: A cancellation policy disclosure from the company.
+          cancellation_policy_disclosure: The company's cancellation policy text to submit as evidence.
 
-          customer_communication_attachment: A file containing the customer communication from the company (An image).
+          customer_communication_attachment: A file upload containing evidence of customer communication. Must be a JPEG,
+              PNG, GIF, or PDF.
 
-          customer_email_address: The email of the customer from their payment details.
+          customer_email_address: The email address of the customer associated with the disputed payment.
 
-          customer_name: The name of the customer from their payment details.
+          customer_name: The full name of the customer associated with the disputed payment.
 
-          notes: Additional notes the company chooses to submit regarding the dispute.
+          notes: Additional notes or context to submit as part of the dispute evidence.
 
-          product_description: The description of the product from the company.
+          product_description: A description of the product or service that was provided to the customer.
 
-          refund_policy_attachment: A file containing the refund policy from the company.
+          refund_policy_attachment: A file upload containing the company's refund policy document.
 
-          refund_policy_disclosure: A refund policy disclosure from the company.
+          refund_policy_disclosure: The company's refund policy text to submit as evidence.
 
-          refund_refusal_explanation: A description on why the refund is being refused by the company.
+          refund_refusal_explanation: An explanation of why the refund request was refused.
 
-          service_date: When the product was delivered by the company.
+          service_date: The date when the product or service was delivered to the customer.
 
-          uncategorized_attachment: A file that does not fit in the other categories.
+          uncategorized_attachment: A file upload for evidence that does not fit into the other categories.
 
           extra_headers: Send extra headers
 

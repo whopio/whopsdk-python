@@ -14,7 +14,7 @@ __all__ = ["LeadListParams"]
 
 class LeadListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list leads for"""
+    """The unique identifier of the company to list leads for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -23,10 +23,10 @@ class LeadListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return leads created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return leads created before this timestamp."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -35,4 +35,4 @@ class LeadListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """The product IDs to filter the leads by"""
+    """Filter leads to only those associated with these specific product identifiers."""

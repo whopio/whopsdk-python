@@ -10,7 +10,7 @@ __all__ = ["CourseChapterListParams"]
 
 class CourseChapterListParams(TypedDict, total=False):
     course_id: Required[str]
-    """The ID of the course"""
+    """The unique identifier of the course to list chapters for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""

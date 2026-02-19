@@ -57,7 +57,7 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteraction:
         """
-        Retrieves a course lesson interaction by ID
+        Retrieves the details of an existing course lesson interaction.
 
         Required permissions:
 
@@ -102,7 +102,8 @@ class CourseLessonInteractionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CourseLessonInteractionListItem]:
         """
-        Lists course lesson interactions
+        Returns a paginated list of lesson interactions, filtered by lesson, course,
+        user, or completion status.
 
         Required permissions:
 
@@ -114,17 +115,17 @@ class CourseLessonInteractionsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          completed: Whether the lesson has been completed by the user
+          completed: Whether to filter for completed or in-progress lesson interactions.
 
-          course_id: The ID of the course to list course lesson interactions for
+          course_id: The unique identifier of the course to filter interactions for.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          lesson_id: The ID of the lesson to list course lesson interactions for
+          lesson_id: The unique identifier of the lesson to filter interactions for.
 
-          user_id: The ID of the user to list course lesson interactions for
+          user_id: The unique identifier of the user to filter lesson interactions for.
 
           extra_headers: Send extra headers
 
@@ -192,7 +193,7 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseLessonInteraction:
         """
-        Retrieves a course lesson interaction by ID
+        Retrieves the details of an existing course lesson interaction.
 
         Required permissions:
 
@@ -237,7 +238,8 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CourseLessonInteractionListItem, AsyncCursorPage[CourseLessonInteractionListItem]]:
         """
-        Lists course lesson interactions
+        Returns a paginated list of lesson interactions, filtered by lesson, course,
+        user, or completion status.
 
         Required permissions:
 
@@ -249,17 +251,17 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          completed: Whether the lesson has been completed by the user
+          completed: Whether to filter for completed or in-progress lesson interactions.
 
-          course_id: The ID of the course to list course lesson interactions for
+          course_id: The unique identifier of the course to filter interactions for.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          lesson_id: The ID of the lesson to list course lesson interactions for
+          lesson_id: The unique identifier of the lesson to filter interactions for.
 
-          user_id: The ID of the user to list course lesson interactions for
+          user_id: The unique identifier of the user to filter lesson interactions for.
 
           extra_headers: Send extra headers
 

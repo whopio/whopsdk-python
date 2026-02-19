@@ -13,32 +13,41 @@ __all__ = ["CourseLessonCreateParams", "Thumbnail"]
 
 class CourseLessonCreateParams(TypedDict, total=False):
     chapter_id: Required[str]
-    """The ID of the chapter to create the lesson in"""
+    """
+    The unique identifier of the chapter to create the lesson in (e.g.,
+    "chap_XXXXX").
+    """
 
     lesson_type: Required[LessonTypes]
-    """The type of the lesson"""
+    """The content type of the lesson, such as video, text, quiz, or knowledge check."""
 
     content: Optional[str]
-    """The content of the lesson"""
+    """The Markdown content body of the lesson."""
 
     days_from_course_start_until_unlock: Optional[int]
-    """Days from course start until unlock"""
+    """
+    The number of days after a student starts the course before this lesson becomes
+    accessible.
+    """
 
     embed_id: Optional[str]
-    """ID for the embed (YouTube video ID or Loom share ID)"""
+    """
+    The external video identifier for embedded content (e.g., a YouTube video ID or
+    Loom share ID).
+    """
 
     embed_type: Optional[EmbedType]
     """The type of embed for a lesson"""
 
     thumbnail: Optional[Thumbnail]
-    """The thumbnail for the lesson in png, jpeg, or gif format"""
+    """The thumbnail image for the lesson in PNG, JPEG, or GIF format."""
 
     title: Optional[str]
-    """The title of the lesson"""
+    """The display title of the lesson (e.g., "Getting Started with APIs")."""
 
 
 class Thumbnail(TypedDict, total=False):
-    """The thumbnail for the lesson in png, jpeg, or gif format"""
+    """The thumbnail image for the lesson in PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

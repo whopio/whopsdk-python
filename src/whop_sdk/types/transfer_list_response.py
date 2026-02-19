@@ -10,31 +10,43 @@ __all__ = ["TransferListResponse"]
 
 
 class TransferListResponse(BaseModel):
-    """Credit Transaction Transfer"""
+    """A transfer of credit between two ledger accounts."""
 
     id: str
-    """The unique identifier of the credit transaction transfer"""
+    """The unique identifier for the credit transaction transfer."""
 
     amount: float
-    """The amount of the credit transaction transfer"""
+    """The transfer amount in the currency specified by the currency field.
+
+    For example, 10.43 represents $10.43 USD.
+    """
 
     created_at: datetime
-    """The timestamp when the credit transaction transfer was created"""
+    """The datetime the credit transaction transfer was created."""
 
     currency: Currency
-    """The currency of the credit transaction transfer"""
+    """The currency in which this transfer amount is denominated."""
 
     destination_ledger_account_id: str
-    """The ID of the destination ledger account"""
+    """The unique identifier of the ledger account receiving the funds."""
 
     fee_amount: Optional[float] = None
-    """The decimal fee of the credit transaction transfer"""
+    """The flat fee amount deducted from this transfer, in the transfer's currency.
+
+    Null if no flat fee was applied.
+    """
 
     metadata: Optional[Dict[str, object]] = None
-    """A hash of metadata attached to the transfer"""
+    """Custom key-value pairs attached to this transfer.
+
+    Maximum 50 keys, 500 characters per key, 5000 characters per value.
+    """
 
     notes: Optional[str] = None
-    """The notes of the credit transaction transfer"""
+    """A free-text note attached to this transfer by the sender.
+
+    Null if no note was provided.
+    """
 
     origin_ledger_account_id: str
-    """The ID of the origin ledger account"""
+    """The unique identifier of the ledger account that sent the funds."""

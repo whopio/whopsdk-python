@@ -10,7 +10,10 @@ __all__ = ["LeadUpdateParams"]
 
 class LeadUpdateParams(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
-    """Custom metadata for the lead."""
+    """
+    A JSON object of custom metadata to set on the lead, replacing any existing
+    metadata.
+    """
 
     referrer: Optional[str]
-    """The url referrer of the lead."""
+    """The updated referral URL for the lead, such as 'https://example.com/landing'."""

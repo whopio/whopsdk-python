@@ -9,52 +9,54 @@ __all__ = ["CourseLessonInteractionListItem", "Lesson", "LessonChapter", "User"]
 
 
 class LessonChapter(BaseModel):
-    """The chapter this lesson belongs to"""
+    """The parent chapter that contains this lesson."""
 
     id: str
-    """The ID of the chapter. Looks like chap_XXX"""
+    """The unique identifier for the chapter."""
 
 
 class Lesson(BaseModel):
-    """The lesson this interaction is for"""
+    """The lesson that this progress record belongs to."""
 
     id: str
-    """The ID of the lesson"""
+    """The unique identifier for the lesson."""
 
     chapter: LessonChapter
-    """The chapter this lesson belongs to"""
+    """The parent chapter that contains this lesson."""
 
     title: str
-    """The title of the lesson"""
+    """The display name of the lesson shown to students. Maximum 120 characters."""
 
 
 class User(BaseModel):
-    """The user who interacted with the lesson"""
+    """The user whose progress is being tracked."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class CourseLessonInteractionListItem(BaseModel):
-    """A lesson interaction tracking user progress in courses"""
+    """
+    A record of a user's progress on a specific lesson, tracking whether they have completed it.
+    """
 
     id: str
-    """The ID of the lesson interaction"""
+    """The unique identifier for the lesson interaction."""
 
     completed: bool
-    """Whether the lesson has been completed by the user"""
+    """Whether the user has finished this lesson."""
 
     created_at: datetime
-    """When the interaction was created"""
+    """The datetime the lesson interaction was created."""
 
     lesson: Lesson
-    """The lesson this interaction is for"""
+    """The lesson that this progress record belongs to."""
 
     user: User
-    """The user who interacted with the lesson"""
+    """The user whose progress is being tracked."""

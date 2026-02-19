@@ -12,75 +12,88 @@ __all__ = ["MembershipListResponse", "Company", "Member", "Plan", "Product", "Pr
 
 
 class Company(BaseModel):
-    """The Company this Membership belongs to."""
+    """The company this membership belongs to."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class Member(BaseModel):
-    """The Member that this Membership belongs to."""
+    """The member record linking the user to the company for this membership.
+
+    Null if the member record has not been created yet.
+    """
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the member."""
 
 
 class Plan(BaseModel):
-    """The Plan this Membership is for."""
+    """The plan the customer purchased to create this membership."""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
-    """The Product this Membership grants access to."""
+    """The product this membership grants access to."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class PromoCode(BaseModel):
-    """The Promo Code that is currently applied to this Membership."""
+    """The promotional code currently applied to this membership's billing.
+
+    Null if no promo code is active.
+    """
 
     id: str
-    """The ID of the promo."""
+    """The unique identifier for the promo code."""
 
 
 class User(BaseModel):
-    """The user this membership belongs to"""
+    """The user who owns this membership. Null if the user account has been deleted."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class MembershipListResponse(BaseModel):
-    """
-    A membership represents a purchase between a User and a Company for a specific Product.
+    """A membership represents an active relationship between a user and a product.
+
+    It tracks the user's access, billing status, and renewal schedule.
     """
 
     id: str
-    """The ID of the membership"""
+    """The unique identifier for the membership."""
 
     cancel_at_period_end: bool
-    """Whether this Membership is set to cancel at the end of the current billing
+    """Whether this membership is set to cancel at the end of the current billing
     cycle.
 
-    Only applies for memberships that have a renewal plan.
+    Only applies to memberships with a recurring plan.
     """
 
     cancel_option: Optional[CancelOptions] = None
@@ -90,65 +103,95 @@ class MembershipListResponse(BaseModel):
     """
 
     canceled_at: Optional[datetime] = None
-    """The epoch timestamp of when the customer initiated a cancellation."""
+    """The time the customer initiated cancellation of this membership.
+
+    As a Unix timestamp. Null if the membership has not been canceled.
+    """
 
     cancellation_reason: Optional[str] = None
-    """The reason that the member canceled the membership (filled out by the member)."""
+    """Free-text explanation provided by the customer when canceling.
+
+    Null if the customer did not provide a reason.
+    """
 
     company: Company
-    """The Company this Membership belongs to."""
+    """The company this membership belongs to."""
 
     created_at: datetime
-    """The timestamp, in seconds, that this Membership was created at."""
+    """The datetime the membership was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
 
-    license_key: Optional[str] = None
-    """The license key for this Membership.
+    joined_at: Optional[datetime] = None
+    """The time the user first joined the company associated with this membership.
 
-    This is only present if the membership grants access to an instance of the Whop
-    Software app.
+    As a Unix timestamp. Null if the member record does not exist.
+    """
+
+    license_key: Optional[str] = None
+    """The software license key associated with this membership.
+
+    Only present if the product includes a Whop Software Licensing experience. Null
+    otherwise.
     """
 
     manage_url: Optional[str] = None
-    """The URL for the customer to manage their membership."""
+    """
+    The URL where the customer can view and manage this membership, including
+    cancellation and plan changes. Null if no member record exists.
+    """
 
     member: Optional[Member] = None
-    """The Member that this Membership belongs to."""
+    """The member record linking the user to the company for this membership.
+
+    Null if the member record has not been created yet.
+    """
 
     metadata: Dict[str, object]
-    """A JSON object used to store software licensing information. Ex. HWID"""
+    """
+    Custom key-value pairs for the membership (commonly used for software licensing,
+    e.g., HWID). Max 50 keys, 500 chars per key, 5000 chars per value.
+    """
 
     payment_collection_paused: bool
-    """Whether the membership's payments are currently paused."""
+    """
+    Whether recurring payment collection for this membership is temporarily paused
+    by the company.
+    """
 
     plan: Plan
-    """The Plan this Membership is for."""
+    """The plan the customer purchased to create this membership."""
 
     product: Product
-    """The Product this Membership grants access to."""
+    """The product this membership grants access to."""
 
     promo_code: Optional[PromoCode] = None
-    """The Promo Code that is currently applied to this Membership."""
+    """The promotional code currently applied to this membership's billing.
+
+    Null if no promo code is active.
+    """
 
     renewal_period_end: Optional[datetime] = None
-    """
-    The timestamp in seconds at which the current billing cycle for this
-    subscription ends. Only applies for memberships that have a renewal plan.
+    """The end of the current billing period for this recurring membership.
+
+    As a Unix timestamp. Null if the membership is not recurring.
     """
 
     renewal_period_start: Optional[datetime] = None
-    """
-    The timestamp in seconds at which the current billing cycle for this
-    subscription start. Only applies for memberships that have a renewal plan.
+    """The start of the current billing period for this recurring membership.
+
+    As a Unix timestamp. Null if the membership is not recurring.
     """
 
     status: MembershipStatus
-    """The status of the membership."""
+    """
+    The current lifecycle status of the membership (e.g., active, trialing,
+    past_due, canceled, expired, completed).
+    """
 
     updated_at: datetime
-    """A timestamp of when the membership was last updated"""
+    """The datetime the membership was last updated."""
 
     user: Optional[User] = None
-    """The user this membership belongs to"""
+    """The user who owns this membership. Null if the user account has been deleted."""

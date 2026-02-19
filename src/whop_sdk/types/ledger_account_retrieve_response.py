@@ -39,32 +39,40 @@ class Balance(BaseModel):
 
 
 class OwnerUser(BaseModel):
-    """An object representing a (sanitized) user of the site."""
+    """A user account on Whop.
+
+    Contains profile information, identity details, and social connections.
+    """
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     typename: Literal["User"]
     """The typename of this object"""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class OwnerCompany(BaseModel):
-    """An object representing a (sanitized) company."""
+    """A company is a seller on Whop.
+
+    Companies own products, manage members, and receive payouts.
+    """
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
     typename: Literal["Company"]
     """The typename of this object"""
@@ -118,23 +126,26 @@ class PayoutAccountDetailsLatestVerification(BaseModel):
     """The latest verification for the connected account."""
 
     id: str
-    """A unique identifier for the verification."""
+    """The unique identifier for the verification."""
 
     last_error_code: Optional[VerificationErrorCode] = None
     """An error code for a verification attempt."""
 
     last_error_reason: Optional[str] = None
-    """The last error reason that occurred during the verification."""
+    """A human-readable explanation of the most recent verification error.
+
+    Null if no error has occurred.
+    """
 
     status: VerificationStatus
-    """The status of the verification."""
+    """The current status of this verification session."""
 
 
 class PayoutAccountDetails(BaseModel):
     """The payout account associated with the LedgerAccount, if any."""
 
     id: str
-    """Unique identifier for the object"""
+    """The unique identifier for the payout account."""
 
     address: Optional[PayoutAccountDetailsAddress] = None
     """The physical address associated with this payout account"""
@@ -156,10 +167,12 @@ class PayoutAccountDetails(BaseModel):
 
 
 class LedgerAccountRetrieveResponse(BaseModel):
-    """Represents a LedgerAccount."""
+    """
+    A ledger account represents a financial account on Whop that can hold many balances.
+    """
 
     id: str
-    """The ID of the LedgerAccount."""
+    """The unique identifier for the ledger account."""
 
     balances: List[Balance]
     """The balances associated with the account."""

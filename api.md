@@ -107,7 +107,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import ProductDeleteResponse
+from whop_sdk.types import IndustryGroups, ProductDeleteResponse
 ```
 
 Methods:
@@ -365,13 +365,14 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import UserRetrieveResponse, UserCheckAccessResponse
+from whop_sdk.types import User, UserCheckAccessResponse
 ```
 
 Methods:
 
-- <code title="get /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/user_retrieve_response.py">UserRetrieveResponse</a></code>
+- <code title="get /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
 - <code title="get /users/{id}/access/{resource_id}">client.users.<a href="./src/whop_sdk/resources/users.py">check_access</a>(resource_id, \*, id) -> <a href="./src/whop_sdk/types/user_check_access_response.py">UserCheckAccessResponse</a></code>
+- <code title="patch /users/me">client.users.<a href="./src/whop_sdk/resources/users.py">update_profile</a>(\*\*<a href="src/whop_sdk/types/user_update_profile_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
 
 # Payments
 
@@ -798,8 +799,8 @@ Types:
 
 ```python
 from whop_sdk.types import (
-    BotTokenTransactionTypes,
     CompanyTokenTransaction,
+    CompanyTokenTransactionType,
     CompanyTokenTransactionListResponse,
 )
 ```

@@ -9,42 +9,47 @@ __all__ = ["AuthorizedUserRetrieveResponse", "Company", "User"]
 
 
 class Company(BaseModel):
-    """The company associated with the authorized user."""
+    """The company this authorized user has access to."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class User(BaseModel):
-    """The user associated with the authorized user."""
+    """The user account linked to this authorized user record."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class AuthorizedUserRetrieveResponse(BaseModel):
-    """A user who has elevated security privileges for a company"""
+    """
+    A user who has been granted administrative access to manage a company's dashboard and settings.
+    """
 
     id: str
-    """A unique ID representing the authorized user object."""
+    """The unique identifier for the authorized user."""
 
     company: Company
-    """The company associated with the authorized user."""
+    """The company this authorized user has access to."""
 
     role: AuthorizedUserRoles
-    """The role of the authorized user in the company."""
+    """The permission role assigned to this authorized user within the company."""
 
     user: User
-    """The user associated with the authorized user."""
+    """The user account linked to this authorized user record."""

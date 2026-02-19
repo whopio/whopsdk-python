@@ -11,14 +11,20 @@ __all__ = ["PayoutMethodCreatedWebhookEvent", "Data", "DataCompany", "DataDestin
 
 
 class DataCompany(BaseModel):
-    """The company associated with the payout token"""
+    """The company associated with this payout destination.
+
+    Null if not linked to a specific company.
+    """
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
 
 class DataDestination(BaseModel):
-    """The payout destination associated with the payout token"""
+    """The payout destination configuration linked to this token.
+
+    Null if not yet configured.
+    """
 
     category: PayoutDestinationCategory
     """The category of the payout destination"""
@@ -31,42 +37,56 @@ class DataDestination(BaseModel):
 
 
 class Data(BaseModel):
-    """An object representing an user's setup payout destination."""
+    """
+    A configured payout destination where a user receives earned funds, such as a bank account or digital wallet.
+    """
 
     id: str
-    """The ID of the payout token"""
+    """The unique identifier for the payout token."""
 
     account_reference: Optional[str] = None
     """
-    A reference to identify the payout destination, such as the last 4 digits of an
-    account number or an email address.
+    A masked identifier for the payout destination, such as the last four digits of
+    a bank account or an email address. Null if no reference is available.
     """
 
     company: Optional[DataCompany] = None
-    """The company associated with the payout token"""
+    """The company associated with this payout destination.
+
+    Null if not linked to a specific company.
+    """
 
     created_at: datetime
-    """The date and time the payout token was created"""
+    """The datetime the payout token was created."""
 
     currency: str
-    """The currency code of the payout destination.
-
-    This is the currency that payouts will be made in for this token.
+    """
+    The three-letter ISO currency code that payouts are delivered in for this
+    destination.
     """
 
     destination: Optional[DataDestination] = None
-    """The payout destination associated with the payout token"""
+    """The payout destination configuration linked to this token.
+
+    Null if not yet configured.
+    """
 
     institution_name: Optional[str] = None
-    """The name of the bank or financial institution."""
+    """The name of the bank or financial institution receiving payouts.
+
+    Null if not applicable or not provided.
+    """
 
     is_default: bool
-    """Whether this payout token is the default for the payout account"""
+    """
+    Whether this is the default payout destination for the associated payout
+    account.
+    """
 
     nickname: Optional[str] = None
-    """An optional nickname for the payout token to help the user identify it.
+    """A user-defined label to help identify this payout destination.
 
-    This is not used by the provider and is only for the user's reference.
+    Not sent to the provider. Null if no nickname has been set.
     """
 
 
@@ -78,7 +98,10 @@ class PayoutMethodCreatedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Data
-    """An object representing an user's setup payout destination."""
+    """
+    A configured payout destination where a user receives earned funds, such as a
+    bank account or digital wallet.
+    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

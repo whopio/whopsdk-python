@@ -9,35 +9,43 @@ __all__ = ["AIChatListResponse", "User"]
 
 
 class User(BaseModel):
-    """The user who owns the AI chat"""
+    """The user who owns this AI chat conversation."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
 
 class AIChatListResponse(BaseModel):
-    """An AI chat conversation belonging to a user"""
+    """
+    An AI-powered chat conversation belonging to a user, with optional scheduled automation.
+    """
 
     id: str
-    """The unique identifier for the AI chat"""
+    """The unique identifier for the ai chat."""
 
     blended_token_usage: str
-    """The total number of tokens used in the chat"""
+    """The total number of tokens consumed across all messages in this conversation."""
 
     created_at: datetime
-    """When the AI chat was created"""
+    """The datetime the ai chat was created."""
 
     last_message_at: Optional[datetime] = None
-    """When the last message was sent"""
+    """The timestamp of the most recent message in this conversation.
+
+    Null if no messages have been sent yet.
+    """
 
     message_count: int
-    """The number of messages in the chat"""
+    """The total number of messages exchanged in this conversation."""
 
     title: Optional[str] = None
-    """The title of the AI chat"""
+    """A short descriptive title for this AI chat conversation.
+
+    Null if no title has been set.
+    """
 
     updated_at: datetime
-    """When the AI chat was last updated"""
+    """The datetime the ai chat was last updated."""
 
     user: User
-    """The user who owns the AI chat"""
+    """The user who owns this AI chat conversation."""

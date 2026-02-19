@@ -10,19 +10,28 @@ __all__ = ["MessageCreateParams", "Attachment", "Poll", "PollOption"]
 
 class MessageCreateParams(TypedDict, total=False):
     channel_id: Required[str]
-    """The ID of the channel or experience to send to."""
+    """The unique identifier of the channel or experience to send the message in.
+
+    For example, 'exp_xxxxx' or 'feed_xxxxx'.
+    """
 
     content: Required[str]
-    """The content of the message in Markdown format."""
+    """The body of the message in Markdown format. For example, 'Hello **world**'."""
 
     attachments: Optional[Iterable[Attachment]]
-    """The attachments for this message, such as videos or images."""
+    """
+    A list of file attachments to include with the message, such as images or
+    videos.
+    """
 
     poll: Optional[Poll]
-    """The poll for this message"""
+    """A poll to attach to this message, allowing recipients to vote on options."""
 
     replying_to_message_id: Optional[str]
-    """The ID of the message this is replying to, if applicable."""
+    """
+    The unique identifier of the message this is replying to, creating a threaded
+    reply.
+    """
 
 
 class Attachment(TypedDict, total=False):
@@ -43,7 +52,7 @@ class PollOption(TypedDict, total=False):
 
 
 class Poll(TypedDict, total=False):
-    """The poll for this message"""
+    """A poll to attach to this message, allowing recipients to vote on options."""
 
     options: Required[Iterable[PollOption]]
     """The options for the poll. Must have sequential IDs starting from 1"""

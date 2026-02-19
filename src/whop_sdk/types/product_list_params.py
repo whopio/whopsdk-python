@@ -16,7 +16,7 @@ __all__ = ["ProductListParams"]
 
 class ProductListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to filter products by"""
+    """The unique identifier of the company to list products for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -25,10 +25,10 @@ class ProductListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return products created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return products created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -43,7 +43,7 @@ class ProductListParams(TypedDict, total=False):
     """The ways a relation of AccessPasses can be ordered"""
 
     product_types: Optional[List[AccessPassType]]
-    """The type of products to filter by"""
+    """Filter to only products matching these type classifications."""
 
     visibilities: Optional[List[VisibilityFilter]]
-    """The visibility of the products to filter by"""
+    """Filter to only products matching these visibility states."""

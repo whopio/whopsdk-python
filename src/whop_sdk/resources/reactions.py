@@ -59,21 +59,23 @@ class ReactionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Reaction:
-        """
-        Creates a new reaction
+        """Add an emoji reaction or poll vote to a message or forum post.
+
+        In forums, the
+        reaction is always a like.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          resource_id: The ID of the post or message to react to.
+          resource_id: The unique identifier of the message or forum post to react to.
 
-          emoji: The emoji to react with (e.g., :heart: or '😀'). It will be ignored in forums,
-              as everything will be :heart:
+          emoji: The emoji to react with, in shortcode or unicode format. For example, ':heart:'
+              or a unicode emoji. Ignored in forums where reactions are always likes.
 
-          poll_option_id: The ID of the poll option to vote for. Only valid for messages or posts with
-              polls.
+          poll_option_id: The unique identifier of a poll option to vote for. Only valid when the target
+              message or post contains a poll.
 
           extra_headers: Send extra headers
 
@@ -111,7 +113,7 @@ class ReactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Reaction:
         """
-        Retrieves a reaction
+        Retrieves the details of an existing reaction.
 
         Required permissions:
 
@@ -152,14 +154,15 @@ class ReactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ReactionListResponse]:
         """
-        Lists reactions for a post or a message
+        Returns a paginated list of emoji reactions on a specific message or forum post,
+        sorted by most recent.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          resource_id: The ID of the post or message to list reactions for
+          resource_id: The unique identifier of the message or forum post to list reactions for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -211,15 +214,19 @@ class ReactionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReactionDeleteResponse:
-        """
-        Deletes a reaction
+        """Remove an emoji reaction from a message or forum post.
+
+        Only the reaction author
+        or a channel admin can remove a reaction.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          emoji: The emoji to remove (e.g., :heart: or '😀').
+          emoji: The emoji to remove, in shortcode or unicode format. For example, ':heart:' or a
+              unicode emoji. Required when the id refers to a message or post instead of a
+              reaction.
 
           extra_headers: Send extra headers
 
@@ -277,21 +284,23 @@ class AsyncReactionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Reaction:
-        """
-        Creates a new reaction
+        """Add an emoji reaction or poll vote to a message or forum post.
+
+        In forums, the
+        reaction is always a like.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          resource_id: The ID of the post or message to react to.
+          resource_id: The unique identifier of the message or forum post to react to.
 
-          emoji: The emoji to react with (e.g., :heart: or '😀'). It will be ignored in forums,
-              as everything will be :heart:
+          emoji: The emoji to react with, in shortcode or unicode format. For example, ':heart:'
+              or a unicode emoji. Ignored in forums where reactions are always likes.
 
-          poll_option_id: The ID of the poll option to vote for. Only valid for messages or posts with
-              polls.
+          poll_option_id: The unique identifier of a poll option to vote for. Only valid when the target
+              message or post contains a poll.
 
           extra_headers: Send extra headers
 
@@ -329,7 +338,7 @@ class AsyncReactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Reaction:
         """
-        Retrieves a reaction
+        Retrieves the details of an existing reaction.
 
         Required permissions:
 
@@ -370,14 +379,15 @@ class AsyncReactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ReactionListResponse, AsyncCursorPage[ReactionListResponse]]:
         """
-        Lists reactions for a post or a message
+        Returns a paginated list of emoji reactions on a specific message or forum post,
+        sorted by most recent.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          resource_id: The ID of the post or message to list reactions for
+          resource_id: The unique identifier of the message or forum post to list reactions for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -429,15 +439,19 @@ class AsyncReactionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReactionDeleteResponse:
-        """
-        Deletes a reaction
+        """Remove an emoji reaction from a message or forum post.
+
+        Only the reaction author
+        or a channel admin can remove a reaction.
 
         Required permissions:
 
         - `chat:read`
 
         Args:
-          emoji: The emoji to remove (e.g., :heart: or '😀').
+          emoji: The emoji to remove, in shortcode or unicode format. For example, ':heart:' or a
+              unicode emoji. Required when the id refers to a message or post instead of a
+              reaction.
 
           extra_headers: Send extra headers
 

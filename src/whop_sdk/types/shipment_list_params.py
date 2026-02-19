@@ -16,7 +16,7 @@ class ShipmentListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: Optional[str]
-    """The ID of the company"""
+    """Filter shipments to only those belonging to this company."""
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
@@ -25,7 +25,7 @@ class ShipmentListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     payment_id: Optional[str]
-    """The ID of the payment"""
+    """Filter shipments to only those associated with this specific payment."""
 
     user_id: Optional[str]
-    """The ID of the user"""
+    """Filter shipments to only those for this specific user."""

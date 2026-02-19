@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import AppType, app_list_params, app_create_params, app_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -57,6 +57,7 @@ class AppsResource(SyncAPIResource):
         name: str,
         base_url: Optional[str] | Omit = omit,
         icon: Optional[app_create_params.Icon] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,8 +65,10 @@ class AppsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """
-        Create a new App
+        """Register a new app on the Whop developer platform.
+
+        Apps provide custom
+        experiences that can be added to products.
 
         Required permissions:
 
@@ -73,13 +76,18 @@ class AppsResource(SyncAPIResource):
         - `developer:manage_api_key`
 
         Args:
-          company_id: The ID of the company to create the app for
+          company_id: The unique identifier of the company to create the app for, starting with
+              'biz\\__'.
 
-          name: The name of the app to be created
+          name: The display name for the app, shown to users on the app store and product pages.
 
-          base_url: The base URL of the app to be created
+          base_url: The base production URL where the app is hosted, such as
+              'https://myapp.example.com'.
 
-          icon: The icon for the app in png, jpeg, or gif format
+          icon: The icon image for the app in PNG, JPEG, or GIF format.
+
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app.
 
           extra_headers: Send extra headers
 
@@ -97,6 +105,7 @@ class AppsResource(SyncAPIResource):
                     "name": name,
                     "base_url": base_url,
                     "icon": icon,
+                    "redirect_uris": redirect_uris,
                 },
                 app_create_params.AppCreateParams,
             ),
@@ -118,7 +127,7 @@ class AppsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
         """
-        Retrieves an app by ID
+        Retrieves the details of an existing app.
 
         Required permissions:
 
@@ -156,6 +165,8 @@ class AppsResource(SyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -166,7 +177,8 @@ class AppsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
         """
-        Update an existing App
+        Update the settings, metadata, or status of an existing app on the Whop
+        developer platform.
 
         Required permissions:
 
@@ -174,25 +186,32 @@ class AppsResource(SyncAPIResource):
         - `developer:manage_api_key`
 
         Args:
-          app_store_description: The description of the app for the app store in-depth app view.
+          app_store_description: The detailed description shown on the app store's in-depth app view page.
 
           app_type: The type of end-user an app is built for
 
-          base_url: The base production url of the app
+          base_url: The base production URL where the app is hosted, such as
+              'https://myapp.example.com'.
 
-          dashboard_path: The path for the dashboard view of the app
+          dashboard_path: The URL path for the company dashboard view of the app, such as '/dashboard'.
 
-          description: The description of the app
+          description: A short description of the app shown in listings and search results.
 
-          discover_path: The path for the discover view of the app
+          discover_path: The URL path for the discover view of the app, such as '/discover'.
 
-          experience_path: The path for the hub view of the app
+          experience_path: The URL path for the member-facing hub view of the app, such as
+              '/experiences/[experienceId]'.
 
-          icon: The icon for the app
+          icon: The icon image for the app, used in listings and navigation.
 
-          name: The name of the app
+          name: The display name for the app, shown to users on the app store and product pages.
 
-          required_scopes: The scopes that the app will request off of users when a user installs the app.
+          oauth_client_type: How this app authenticates at the OAuth token endpoint.
+
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app
+
+          required_scopes: The permission scopes the app will request from users when they install it.
 
           status: The status of an experience interface
 
@@ -219,6 +238,8 @@ class AppsResource(SyncAPIResource):
                     "experience_path": experience_path,
                     "icon": icon,
                     "name": name,
+                    "oauth_client_type": oauth_client_type,
+                    "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "status": status,
                 },
@@ -268,7 +289,8 @@ class AppsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AppListResponse]:
         """
-        Fetches a list of apps
+        Returns a paginated list of apps on the Whop platform, with optional filtering
+        by company, type, view support, and search query.
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -277,7 +299,7 @@ class AppsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company to filter apps by
+          company_id: Filter apps to only those created by this company, starting with 'biz\\__'.
 
           direction: The direction of the sort.
 
@@ -287,10 +309,10 @@ class AppsResource(SyncAPIResource):
 
           order: The order to fetch the apps in for discovery.
 
-          query: The query to search for apps by name.
+          query: A search string to filter apps by name, such as 'chat' or 'analytics'.
 
-          verified_apps_only: If true, you will only get apps that are verified by Whop. Use this to populate
-              a 'featured apps' section on the app store.
+          verified_apps_only: Whether to only return apps that have been verified by Whop. Useful for
+              populating a featured apps section.
 
           view_type: The different types of an app view
 
@@ -358,6 +380,7 @@ class AsyncAppsResource(AsyncAPIResource):
         name: str,
         base_url: Optional[str] | Omit = omit,
         icon: Optional[app_create_params.Icon] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -365,8 +388,10 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """
-        Create a new App
+        """Register a new app on the Whop developer platform.
+
+        Apps provide custom
+        experiences that can be added to products.
 
         Required permissions:
 
@@ -374,13 +399,18 @@ class AsyncAppsResource(AsyncAPIResource):
         - `developer:manage_api_key`
 
         Args:
-          company_id: The ID of the company to create the app for
+          company_id: The unique identifier of the company to create the app for, starting with
+              'biz\\__'.
 
-          name: The name of the app to be created
+          name: The display name for the app, shown to users on the app store and product pages.
 
-          base_url: The base URL of the app to be created
+          base_url: The base production URL where the app is hosted, such as
+              'https://myapp.example.com'.
 
-          icon: The icon for the app in png, jpeg, or gif format
+          icon: The icon image for the app in PNG, JPEG, or GIF format.
+
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app.
 
           extra_headers: Send extra headers
 
@@ -398,6 +428,7 @@ class AsyncAppsResource(AsyncAPIResource):
                     "name": name,
                     "base_url": base_url,
                     "icon": icon,
+                    "redirect_uris": redirect_uris,
                 },
                 app_create_params.AppCreateParams,
             ),
@@ -419,7 +450,7 @@ class AsyncAppsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
         """
-        Retrieves an app by ID
+        Retrieves the details of an existing app.
 
         Required permissions:
 
@@ -457,6 +488,8 @@ class AsyncAppsResource(AsyncAPIResource):
         experience_path: Optional[str] | Omit = omit,
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -467,7 +500,8 @@ class AsyncAppsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
         """
-        Update an existing App
+        Update the settings, metadata, or status of an existing app on the Whop
+        developer platform.
 
         Required permissions:
 
@@ -475,25 +509,32 @@ class AsyncAppsResource(AsyncAPIResource):
         - `developer:manage_api_key`
 
         Args:
-          app_store_description: The description of the app for the app store in-depth app view.
+          app_store_description: The detailed description shown on the app store's in-depth app view page.
 
           app_type: The type of end-user an app is built for
 
-          base_url: The base production url of the app
+          base_url: The base production URL where the app is hosted, such as
+              'https://myapp.example.com'.
 
-          dashboard_path: The path for the dashboard view of the app
+          dashboard_path: The URL path for the company dashboard view of the app, such as '/dashboard'.
 
-          description: The description of the app
+          description: A short description of the app shown in listings and search results.
 
-          discover_path: The path for the discover view of the app
+          discover_path: The URL path for the discover view of the app, such as '/discover'.
 
-          experience_path: The path for the hub view of the app
+          experience_path: The URL path for the member-facing hub view of the app, such as
+              '/experiences/[experienceId]'.
 
-          icon: The icon for the app
+          icon: The icon image for the app, used in listings and navigation.
 
-          name: The name of the app
+          name: The display name for the app, shown to users on the app store and product pages.
 
-          required_scopes: The scopes that the app will request off of users when a user installs the app.
+          oauth_client_type: How this app authenticates at the OAuth token endpoint.
+
+          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
+              authorizing the app
+
+          required_scopes: The permission scopes the app will request from users when they install it.
 
           status: The status of an experience interface
 
@@ -520,6 +561,8 @@ class AsyncAppsResource(AsyncAPIResource):
                     "experience_path": experience_path,
                     "icon": icon,
                     "name": name,
+                    "oauth_client_type": oauth_client_type,
+                    "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "status": status,
                 },
@@ -569,7 +612,8 @@ class AsyncAppsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AppListResponse, AsyncCursorPage[AppListResponse]]:
         """
-        Fetches a list of apps
+        Returns a paginated list of apps on the Whop platform, with optional filtering
+        by company, type, view support, and search query.
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -578,7 +622,7 @@ class AsyncAppsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company to filter apps by
+          company_id: Filter apps to only those created by this company, starting with 'biz\\__'.
 
           direction: The direction of the sort.
 
@@ -588,10 +632,10 @@ class AsyncAppsResource(AsyncAPIResource):
 
           order: The order to fetch the apps in for discovery.
 
-          query: The query to search for apps by name.
+          query: A search string to filter apps by name, such as 'chat' or 'analytics'.
 
-          verified_apps_only: If true, you will only get apps that are verified by Whop. Use this to populate
-              a 'featured apps' section on the app store.
+          verified_apps_only: Whether to only return apps that have been verified by Whop. Useful for
+              populating a featured apps section.
 
           view_type: The different types of an app view
 

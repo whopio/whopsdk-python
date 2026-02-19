@@ -61,6 +61,7 @@ class InvoicesResource(SyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -72,8 +73,10 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -81,30 +84,33 @@ class InvoicesResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          member_id: The member ID to create this invoice for. Include this if you want to create an
-              invoice for an existing member. If you do not have a member ID, you must provide
-              an email_address and customer_name.
+          member_id: The unique identifier of an existing member to create this invoice for. If not
+              provided, you must supply an email_address and customer_name.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product: The properties of the product to create for this invoice. Include this if you
-              want to create an invoice for a new product.
+          product: The properties of the product to create for this invoice. Provide this to create
+              a new product inline.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -129,6 +135,7 @@ class InvoicesResource(SyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -140,8 +147,10 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -149,29 +158,33 @@ class InvoicesResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          email_address: The email address to create this invoice for. This is required if you want to
-              create an invoice for a user who does not have a member of your company yet.
+          email_address: The email address of the customer. Required when creating an invoice for a
+              customer who is not yet a member of the company.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product: The properties of the product to create for this invoice. Include this if you
-              want to create an invoice for a new product.
+          product: The properties of the product to create for this invoice. Provide this to create
+              a new product inline.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -196,6 +209,7 @@ class InvoicesResource(SyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -207,8 +221,10 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -216,30 +232,32 @@ class InvoicesResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          member_id: The member ID to create this invoice for. Include this if you want to create an
-              invoice for an existing member. If you do not have a member ID, you must provide
-              an email_address and customer_name.
+          member_id: The unique identifier of an existing member to create this invoice for. If not
+              provided, you must supply an email_address and customer_name.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product_id: The product ID to create this invoice for. Include this if you want to create an
-              invoice for an existing product.
+          product_id: The unique identifier of an existing product to create this invoice for.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -264,6 +282,7 @@ class InvoicesResource(SyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -275,8 +294,10 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -284,29 +305,32 @@ class InvoicesResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          email_address: The email address to create this invoice for. This is required if you want to
-              create an invoice for a user who does not have a member of your company yet.
+          email_address: The email address of the customer. Required when creating an invoice for a
+              customer who is not yet a member of the company.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product_id: The product ID to create this invoice for. Include this if you want to create an
-              invoice for an existing product.
+          product_id: The unique identifier of an existing product to create this invoice for.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -341,6 +365,7 @@ class InvoicesResource(SyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
         | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
         | Omit = omit,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -364,6 +389,7 @@ class InvoicesResource(SyncAPIResource):
                     "member_id": member_id,
                     "plan": plan,
                     "product": product,
+                    "automatically_finalizes_at": automatically_finalizes_at,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
                     "payment_method_id": payment_method_id,
@@ -391,7 +417,7 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
         """
-        Retrieves an invoice by ID or token
+        Retrieves the details of an existing invoice.
 
         Required permissions:
 
@@ -440,7 +466,8 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[InvoiceListItem]:
         """
-        Lists invoices
+        Returns a paginated list of invoices for a company, with optional filtering by
+        product, status, collection method, and creation date.
 
         Required permissions:
 
@@ -448,17 +475,17 @@ class InvoicesResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          company_id: The ID of the company to list invoices for
+          company_id: The unique identifier of the company to list invoices for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          collection_methods: Filter invoices by their collection method
+          collection_methods: Filter invoices by their collection method.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return invoices created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return invoices created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -468,9 +495,10 @@ class InvoicesResource(SyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          product_ids: Return only invoices created for these specific product ids
+          product_ids: Filter invoices to only those associated with these specific product
+              identifiers.
 
-          statuses: The statuses to filter the invoices by
+          statuses: Filter invoices by their current status.
 
           extra_headers: Send extra headers
 
@@ -520,8 +548,10 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceVoidResponse:
-        """
-        Void an invoice
+        """Void an open invoice so it can no longer be paid.
+
+        Voiding is permanent and
+        cannot be undone.
 
         Required permissions:
 
@@ -577,6 +607,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -588,8 +619,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -597,30 +630,33 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          member_id: The member ID to create this invoice for. Include this if you want to create an
-              invoice for an existing member. If you do not have a member ID, you must provide
-              an email_address and customer_name.
+          member_id: The unique identifier of an existing member to create this invoice for. If not
+              provided, you must supply an email_address and customer_name.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product: The properties of the product to create for this invoice. Include this if you
-              want to create an invoice for a new product.
+          product: The properties of the product to create for this invoice. Provide this to create
+              a new product inline.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -645,6 +681,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -656,8 +693,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -665,29 +704,33 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          email_address: The email address to create this invoice for. This is required if you want to
-              create an invoice for a user who does not have a member of your company yet.
+          email_address: The email address of the customer. Required when creating an invoice for a
+              customer who is not yet a member of the company.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product: The properties of the product to create for this invoice. Include this if you
-              want to create an invoice for a new product.
+          product: The properties of the product to create for this invoice. Provide this to create
+              a new product inline.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -712,6 +755,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         member_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -723,8 +767,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -732,30 +778,32 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          member_id: The member ID to create this invoice for. Include this if you want to create an
-              invoice for an existing member. If you do not have a member ID, you must provide
-              an email_address and customer_name.
+          member_id: The unique identifier of an existing member to create this invoice for. If not
+              provided, you must supply an email_address and customer_name.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product_id: The product ID to create this invoice for. Include this if you want to create an
-              invoice for an existing product.
+          product_id: The unique identifier of an existing product to create this invoice for.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -780,6 +828,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         email_address: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -791,8 +840,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
-        """
-        Creates an invoice
+        """Create an invoice for a customer.
+
+        The invoice can be charged automatically using
+        a stored payment method, or sent to the customer for manual payment.
 
         Required permissions:
 
@@ -800,29 +851,32 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          collection_method: The method of collection for this invoice. If using charge_automatically, you
-              must provide a payment_token.
+          collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
+              payment method, or send_invoice to email the customer.
 
-          company_id: The company ID to create this invoice for.
+          company_id: The unique identifier of the company to create this invoice for.
 
-          due_date: The date the invoice is due, if applicable.
+          due_date: The date by which the invoice must be paid.
 
-          email_address: The email address to create this invoice for. This is required if you want to
-              create an invoice for a user who does not have a member of your company yet.
+          email_address: The email address of the customer. Required when creating an invoice for a
+              customer who is not yet a member of the company.
 
-          plan: The properties of the plan to create for this invoice.
+          plan: The plan attributes defining the price, currency, and billing interval for this
+              invoice.
 
-          product_id: The product ID to create this invoice for. Include this if you want to create an
-              invoice for an existing product.
+          product_id: The unique identifier of an existing product to create this invoice for.
 
-          charge_buyer_fee: Whether or not to charge the customer a buyer fee.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+              Only valid when collection_method is charge_automatically. If not provided, the
+              charge will be processed immediately.
 
-          customer_name: The name of the customer to create this invoice for. This is required if you
-              want to create an invoice for a customer who does not have a member of your
-              company yet.
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
-          payment_method_id: The payment method ID to use for this invoice. If using charge_automatically,
-              you must provide a payment_method_id.
+          customer_name: The name of the customer. Required when creating an invoice for a customer who
+              is not yet a member of the company.
+
+          payment_method_id: The unique identifier of the payment method to charge. Required when
+              collection_method is charge_automatically.
 
           payment_token_id: The payment token ID to use for this invoice. If using charge_automatically, you
               must provide a payment_token.
@@ -857,6 +911,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct
         | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
         | Omit = omit,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -880,6 +935,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "member_id": member_id,
                     "plan": plan,
                     "product": product,
+                    "automatically_finalizes_at": automatically_finalizes_at,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
                     "payment_method_id": payment_method_id,
@@ -907,7 +963,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Invoice:
         """
-        Retrieves an invoice by ID or token
+        Retrieves the details of an existing invoice.
 
         Required permissions:
 
@@ -956,7 +1012,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[InvoiceListItem, AsyncCursorPage[InvoiceListItem]]:
         """
-        Lists invoices
+        Returns a paginated list of invoices for a company, with optional filtering by
+        product, status, collection method, and creation date.
 
         Required permissions:
 
@@ -964,17 +1021,17 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
-          company_id: The ID of the company to list invoices for
+          company_id: The unique identifier of the company to list invoices for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          collection_methods: Filter invoices by their collection method
+          collection_methods: Filter invoices by their collection method.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return invoices created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return invoices created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -984,9 +1041,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           order: Which columns can be used to sort.
 
-          product_ids: Return only invoices created for these specific product ids
+          product_ids: Filter invoices to only those associated with these specific product
+              identifiers.
 
-          statuses: The statuses to filter the invoices by
+          statuses: Filter invoices by their current status.
 
           extra_headers: Send extra headers
 
@@ -1036,8 +1094,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceVoidResponse:
-        """
-        Void an invoice
+        """Void an open invoice so it can no longer be paid.
+
+        Voiding is permanent and
+        cannot be undone.
 
         Required permissions:
 

@@ -12,7 +12,7 @@ __all__ = ["SupportChannelListParams"]
 
 class SupportChannelListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list chat channels for"""
+    """The unique identifier of the company to list support channels for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -30,10 +30,10 @@ class SupportChannelListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     open: Optional[bool]
-    """
-    Filter for tickets where customer sent the last message (needs response) AND not
-    resolved. Set to true to only return open channels, false to only return
-    resolved channels.
+    """Whether to filter by open or resolved support channels.
+
+    Set to true to only return channels awaiting a response, or false for resolved
+    channels.
     """
 
     order: Optional[Literal["created_at", "last_post_sent_at"]]

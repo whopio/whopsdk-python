@@ -12,19 +12,24 @@ __all__ = ["VerificationSucceededWebhookEvent", "Data"]
 
 
 class Data(BaseModel):
-    """An object representing an identity verification session"""
+    """
+    An identity verification session used to confirm a person or entity's identity for payout account eligibility.
+    """
 
     id: str
-    """A unique identifier for the verification."""
+    """The unique identifier for the verification."""
 
     last_error_code: Optional[VerificationErrorCode] = None
     """An error code for a verification attempt."""
 
     last_error_reason: Optional[str] = None
-    """The last error reason that occurred during the verification."""
+    """A human-readable explanation of the most recent verification error.
+
+    Null if no error has occurred.
+    """
 
     status: VerificationStatus
-    """The status of the verification."""
+    """The current status of this verification session."""
 
 
 class VerificationSucceededWebhookEvent(BaseModel):
@@ -35,7 +40,10 @@ class VerificationSucceededWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Data
-    """An object representing an identity verification session"""
+    """
+    An identity verification session used to confirm a person or entity's identity
+    for payout account eligibility.
+    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

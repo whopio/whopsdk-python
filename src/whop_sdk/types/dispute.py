@@ -28,50 +28,69 @@ __all__ = [
 
 
 class CancellationPolicyAttachment(BaseModel):
-    """The cancellation policy for this dispute"""
+    """The cancellation policy document uploaded as dispute evidence.
+
+    Null if no cancellation policy has been provided.
+    """
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class Company(BaseModel):
-    """The company the dispute is against."""
+    """The company that the dispute was filed against."""
 
     id: str
-    """The ID of the company"""
+    """The unique identifier for the company."""
 
     title: str
     """The written name of the company."""
 
 
 class CustomerCommunicationAttachment(BaseModel):
-    """The customer communication for this dispute"""
+    """
+    Evidence of customer communication or product usage, uploaded as a dispute attachment. Null if not provided.
+    """
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -79,7 +98,7 @@ class PaymentMember(BaseModel):
     """The member attached to this payment."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     phone: Optional[str] = None
     """The phone number for the member, if available."""
@@ -89,7 +108,7 @@ class PaymentMembership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
-    """The internal ID of the membership."""
+    """The unique identifier for the membership."""
 
     status: MembershipStatus
     """The state of the membership."""
@@ -99,23 +118,26 @@ class PaymentUser(BaseModel):
     """The user that made this payment."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class Payment(BaseModel):
-    """The payment that got disputed"""
+    """The original payment that was disputed."""
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     billing_reason: Optional[BillingReasons] = None
     """The reason why a specific payment was billed"""
@@ -124,10 +146,13 @@ class Payment(BaseModel):
     """Possible card brands that a payment token can have"""
 
     card_last4: Optional[str] = None
-    """The last 4 digits of the card used to make the payment."""
+    """The last four digits of the card used to make this payment.
+
+    Null if the payment was not made with a card.
+    """
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -142,7 +167,10 @@ class Payment(BaseModel):
     """The membership attached to this payment."""
 
     paid_at: Optional[datetime] = None
-    """The datetime the payment was paid"""
+    """The time at which this payment was successfully collected.
+
+    Null if the payment has not yet succeeded. As a Unix timestamp.
+    """
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
@@ -161,148 +189,231 @@ class Payment(BaseModel):
 
 
 class Plan(BaseModel):
-    """The plan that got disputed"""
+    """The plan associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific plan.
+    """
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
-    """The product that got disputed"""
+    """The product associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific product.
+    """
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class RefundPolicyAttachment(BaseModel):
-    """The refund policy for this dispute"""
+    """The refund policy document uploaded as dispute evidence.
+
+    Null if no refund policy has been provided.
+    """
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class UncategorizedAttachment(BaseModel):
-    """An attachment that did not fit into the other categories"""
+    """An additional attachment that does not fit into the standard evidence categories.
+
+    Null if not provided.
+    """
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class Dispute(BaseModel):
-    """An object representing a dispute against a company."""
+    """
+    A dispute is a chargeback or payment challenge filed against a company, including evidence and response status.
+    """
 
     id: str
-    """The internal ID of the dispute."""
+    """The unique identifier for the dispute."""
 
     access_activity_log: Optional[str] = None
-    """An IP access log for the user from Whop."""
+    """
+    A log of IP-based access activity for the customer on Whop, submitted as
+    evidence in the dispute.
+    """
 
     amount: float
-    """The amount of the dispute (formatted)."""
+    """The disputed amount in the specified currency, formatted as a decimal."""
 
     billing_address: Optional[str] = None
-    """The billing address of the user from their payment details."""
+    """
+    The customer's billing address from their payment details, submitted as evidence
+    in the dispute.
+    """
 
     cancellation_policy_attachment: Optional[CancellationPolicyAttachment] = None
-    """The cancellation policy for this dispute"""
+    """The cancellation policy document uploaded as dispute evidence.
+
+    Null if no cancellation policy has been provided.
+    """
 
     cancellation_policy_disclosure: Optional[str] = None
-    """A cancellation policy disclosure from the company."""
+    """
+    A text disclosure describing the company's cancellation policy, submitted as
+    dispute evidence.
+    """
 
     company: Optional[Company] = None
-    """The company the dispute is against."""
+    """The company that the dispute was filed against."""
 
     created_at: Optional[datetime] = None
-    """When it was made."""
+    """The datetime the dispute was created."""
 
     currency: Currency
-    """The currency of the dispute."""
+    """The three-letter ISO currency code for the disputed amount."""
 
     customer_communication_attachment: Optional[CustomerCommunicationAttachment] = None
-    """The customer communication for this dispute"""
+    """
+    Evidence of customer communication or product usage, uploaded as a dispute
+    attachment. Null if not provided.
+    """
 
     customer_email_address: Optional[str] = None
-    """The email of the customer from their payment details.
-
-    This is submitted in the evidence packet to the payment processor. You can
-    change it before submitting the dispute.
+    """
+    The customer's email address from their payment details, included in the
+    evidence packet sent to the payment processor. Editable before submission.
     """
 
     customer_name: Optional[str] = None
-    """The name of the customer from their payment details.
-
-    This is submitted in the evidence packet to the payment processor. You can
-    change it before submitting the dispute.
+    """
+    The customer's full name from their payment details, included in the evidence
+    packet sent to the payment processor. Editable before submission.
     """
 
     editable: Optional[bool] = None
-    """Whether or not the dispute data can be edited."""
+    """Whether the dispute evidence can still be edited and submitted.
+
+    Returns true only when the dispute status requires a response.
+    """
 
     needs_response_by: Optional[datetime] = None
-    """The last date the dispute is allow to be submitted by."""
+    """The deadline by which dispute evidence must be submitted.
+
+    Null if no response deadline is set.
+    """
 
     notes: Optional[str] = None
-    """Additional notes the company chooses to submit regarding the dispute."""
+    """
+    Additional freeform notes submitted by the company as part of the dispute
+    evidence.
+    """
 
     payment: Optional[Payment] = None
-    """The payment that got disputed"""
+    """The original payment that was disputed."""
 
     plan: Optional[Plan] = None
-    """The plan that got disputed"""
+    """The plan associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific plan.
+    """
 
     product: Optional[Product] = None
-    """The product that got disputed"""
+    """The product associated with the disputed payment.
+
+    Null if the dispute is not linked to a specific product.
+    """
 
     product_description: Optional[str] = None
-    """The description of the product from the company."""
+    """
+    A description of the product or service provided, submitted as dispute evidence.
+    """
 
     reason: Optional[str] = None
-    """The reason for the dispute"""
+    """A human-readable reason for the dispute."""
 
     refund_policy_attachment: Optional[RefundPolicyAttachment] = None
-    """The refund policy for this dispute"""
+    """The refund policy document uploaded as dispute evidence.
+
+    Null if no refund policy has been provided.
+    """
 
     refund_policy_disclosure: Optional[str] = None
-    """A refund policy disclosure from the company."""
+    """
+    A text disclosure describing the company's refund policy, submitted as dispute
+    evidence.
+    """
 
     refund_refusal_explanation: Optional[str] = None
-    """A description on why the refund is being refused by the company."""
+    """
+    An explanation from the company for why a refund was refused, submitted as
+    dispute evidence.
+    """
 
     service_date: Optional[str] = None
-    """When the product was delivered by the company."""
+    """
+    The date when the product or service was delivered to the customer, submitted as
+    dispute evidence.
+    """
 
     status: DisputeStatuses
-    """The status of the dispute (mimics stripe's dispute status)."""
+    """
+    The current status of the dispute lifecycle, such as needs_response,
+    under_review, won, or lost.
+    """
 
     uncategorized_attachment: Optional[UncategorizedAttachment] = None
-    """An attachment that did not fit into the other categories"""
+    """An additional attachment that does not fit into the standard evidence
+    categories.
+
+    Null if not provided.
+    """
 
     visa_rdr: bool
-    """Whether or not the dispute is a Visa Rapid Dispute Resolution."""
+    """
+    Whether the dispute was automatically resolved through Visa Rapid Dispute
+    Resolution (RDR).
+    """

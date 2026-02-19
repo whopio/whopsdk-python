@@ -11,13 +11,16 @@ __all__ = ["TopupCreateParams"]
 
 class TopupCreateParams(TypedDict, total=False):
     amount: Required[float]
-    """The amount to add to the balance."""
+    """The amount to add to the balance in the specified currency.
+
+    For example, 50.00 for $50.00 USD.
+    """
 
     company_id: Required[str]
-    """The ID of the company to add funds to."""
+    """The unique identifier of the company to add funds to, starting with 'biz\\__'."""
 
     currency: Required[Currency]
-    """The currency of the top-up."""
+    """The currency for the top-up amount, such as 'usd'."""
 
     payment_method_id: Required[str]
-    """The ID of the payment method to charge for the top-up."""
+    """The unique identifier of the stored payment method to charge for the top-up."""

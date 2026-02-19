@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ..types import company_list_params, company_create_params, company_update_params
+from ..types import IndustryGroups, company_list_params, company_create_params, company_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +21,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.company import Company
+from ..types.industry_groups import IndustryGroups
 from ..types.shared.direction import Direction
 from ..types.company_list_response import CompanyListResponse
 from ..types.shared.business_types import BusinessTypes
@@ -52,13 +53,15 @@ class CompaniesResource(SyncAPIResource):
     def create(
         self,
         *,
-        email: str,
-        parent_company_id: str,
         title: str,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        email: Optional[str] | Omit = omit,
+        industry_group: Optional[IndustryGroups] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_create_params.Logo] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        parent_company_id: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -67,33 +70,41 @@ class CompaniesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
-        """
-        Create a new connected account for your platform
+        """Create a new company.
+
+        Pass parent_company_id to create a connected account under
+        a platform, or omit it to create a company for the current user.
 
         Required permissions:
 
-        - `company:create_child`
+        - `company:create`
         - `company:basic:read`
 
         Args:
-          email: The email of the user who the company will belong to.
-
-          parent_company_id: The company ID of the platform creating this company.
-
-          title: The name of the company being created.
+          title: The display name of the company shown to customers.
 
           business_type: The different business types a company can be.
 
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
+
+          email: The email address of the user who will own the connected account. Required when
+              parent_company_id is provided.
+
+          industry_group: The different industry groups a company can be in.
+
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          metadata: Additional metadata for the account
+          metadata: A key-value JSON object of custom metadata to store on the company.
+
+          parent_company_id: The unique identifier of the parent platform company. When provided, creates a
+              connected account under that platform. Omit to create a company for the current
+              user.
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Includes: order confirmations, payment failures, refund notifications, upcoming
-              renewals, and membership cancelations/expirations. When disabled, the platform
-              is responsible for handling these communications. This is defaulted to true.
+              Only applies when creating a connected account.
 
           extra_headers: Send extra headers
 
@@ -107,13 +118,15 @@ class CompaniesResource(SyncAPIResource):
             "/companies",
             body=maybe_transform(
                 {
-                    "email": email,
-                    "parent_company_id": parent_company_id,
                     "title": title,
                     "business_type": business_type,
+                    "description": description,
+                    "email": email,
+                    "industry_group": industry_group,
                     "industry_type": industry_type,
                     "logo": logo,
                     "metadata": metadata,
+                    "parent_company_id": parent_company_id,
                     "send_customer_emails": send_customer_emails,
                 },
                 company_create_params.CompanyCreateParams,
@@ -136,7 +149,7 @@ class CompaniesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieves an company by ID or its url route
+        Retrieves the details of an existing company.
 
         Required permissions:
 
@@ -167,9 +180,12 @@ class CompaniesResource(SyncAPIResource):
         *,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        industry_group: Optional[IndustryGroups] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
+        target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -178,10 +194,8 @@ class CompaniesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
-        """Update an existing company.
-
-        Either a regular company, platform company, or one
-        of a platform's connected accounts
+        """
+        Update a company's title, description, logo, and other settings.
 
         Required permissions:
 
@@ -189,20 +203,26 @@ class CompaniesResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          banner_image: The banner image for the company in png or jpeg format
+          banner_image: The company's banner image. Accepts PNG or JPEG format.
 
           business_type: The different business types a company can be.
 
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
+
+          industry_group: The different industry groups a company can be in.
+
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Includes: order confirmations, payment failures, refund notifications, upcoming
-              renewals, and membership cancelations/expirations. When disabled, the platform
-              is responsible for handling these communications.
+          send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
+              customers on behalf of this company.
 
-          title: The title of the company
+          target_audience: The target audience for this company (e.g., 'beginner day traders aged 18-25
+              looking to learn options').
+
+          title: The display name of the company shown to customers.
 
           extra_headers: Send extra headers
 
@@ -220,9 +240,12 @@ class CompaniesResource(SyncAPIResource):
                 {
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "description": description,
+                    "industry_group": industry_group,
                     "industry_type": industry_type,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
+                    "target_audience": target_audience,
                     "title": title,
                 },
                 company_update_params.CompanyUpdateParams,
@@ -236,7 +259,6 @@ class CompaniesResource(SyncAPIResource):
     def list(
         self,
         *,
-        parent_company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
@@ -244,6 +266,7 @@ class CompaniesResource(SyncAPIResource):
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        parent_company_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -251,29 +274,34 @@ class CompaniesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CompanyListResponse]:
-        """
-        Lists companies the current user has access to
+        """Returns a paginated list of companies.
+
+        When parent_company_id is provided, lists
+        connected accounts under that platform. When omitted, lists companies the
+        current user has access to.
 
         Required permissions:
 
         - `company:basic:read`
 
         Args:
-          parent_company_id: The ID of the parent company to list connected accounts for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return companies created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return companies created before this timestamp.
 
           direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          parent_company_id: The unique identifier of the parent platform company. When provided, lists
+              connected accounts under that platform. Omit to list the current user's own
+              companies.
 
           extra_headers: Send extra headers
 
@@ -293,7 +321,6 @@ class CompaniesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "parent_company_id": parent_company_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -301,6 +328,7 @@ class CompaniesResource(SyncAPIResource):
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "parent_company_id": parent_company_id,
                     },
                     company_list_params.CompanyListParams,
                 ),
@@ -332,13 +360,15 @@ class AsyncCompaniesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        email: str,
-        parent_company_id: str,
         title: str,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        email: Optional[str] | Omit = omit,
+        industry_group: Optional[IndustryGroups] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_create_params.Logo] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        parent_company_id: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -347,33 +377,41 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
-        """
-        Create a new connected account for your platform
+        """Create a new company.
+
+        Pass parent_company_id to create a connected account under
+        a platform, or omit it to create a company for the current user.
 
         Required permissions:
 
-        - `company:create_child`
+        - `company:create`
         - `company:basic:read`
 
         Args:
-          email: The email of the user who the company will belong to.
-
-          parent_company_id: The company ID of the platform creating this company.
-
-          title: The name of the company being created.
+          title: The display name of the company shown to customers.
 
           business_type: The different business types a company can be.
 
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
+
+          email: The email address of the user who will own the connected account. Required when
+              parent_company_id is provided.
+
+          industry_group: The different industry groups a company can be in.
+
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          metadata: Additional metadata for the account
+          metadata: A key-value JSON object of custom metadata to store on the company.
+
+          parent_company_id: The unique identifier of the parent platform company. When provided, creates a
+              connected account under that platform. Omit to create a company for the current
+              user.
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Includes: order confirmations, payment failures, refund notifications, upcoming
-              renewals, and membership cancelations/expirations. When disabled, the platform
-              is responsible for handling these communications. This is defaulted to true.
+              Only applies when creating a connected account.
 
           extra_headers: Send extra headers
 
@@ -387,13 +425,15 @@ class AsyncCompaniesResource(AsyncAPIResource):
             "/companies",
             body=await async_maybe_transform(
                 {
-                    "email": email,
-                    "parent_company_id": parent_company_id,
                     "title": title,
                     "business_type": business_type,
+                    "description": description,
+                    "email": email,
+                    "industry_group": industry_group,
                     "industry_type": industry_type,
                     "logo": logo,
                     "metadata": metadata,
+                    "parent_company_id": parent_company_id,
                     "send_customer_emails": send_customer_emails,
                 },
                 company_create_params.CompanyCreateParams,
@@ -416,7 +456,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
         """
-        Retrieves an company by ID or its url route
+        Retrieves the details of an existing company.
 
         Required permissions:
 
@@ -447,9 +487,12 @@ class AsyncCompaniesResource(AsyncAPIResource):
         *,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
         business_type: Optional[BusinessTypes] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        industry_group: Optional[IndustryGroups] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
+        target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -458,10 +501,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Company:
-        """Update an existing company.
-
-        Either a regular company, platform company, or one
-        of a platform's connected accounts
+        """
+        Update a company's title, description, logo, and other settings.
 
         Required permissions:
 
@@ -469,20 +510,26 @@ class AsyncCompaniesResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          banner_image: The banner image for the company in png or jpeg format
+          banner_image: The company's banner image. Accepts PNG or JPEG format.
 
           business_type: The different business types a company can be.
 
+          description: A promotional pitch displayed to potential customers on the company's store
+              page.
+
+          industry_group: The different industry groups a company can be in.
+
           industry_type: The different industry types a company can be in.
 
-          logo: The logo for the company in png, jpeg, or gif format
+          logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
-          send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this company.
-              Includes: order confirmations, payment failures, refund notifications, upcoming
-              renewals, and membership cancelations/expirations. When disabled, the platform
-              is responsible for handling these communications.
+          send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
+              customers on behalf of this company.
 
-          title: The title of the company
+          target_audience: The target audience for this company (e.g., 'beginner day traders aged 18-25
+              looking to learn options').
+
+          title: The display name of the company shown to customers.
 
           extra_headers: Send extra headers
 
@@ -500,9 +547,12 @@ class AsyncCompaniesResource(AsyncAPIResource):
                 {
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "description": description,
+                    "industry_group": industry_group,
                     "industry_type": industry_type,
                     "logo": logo,
                     "send_customer_emails": send_customer_emails,
+                    "target_audience": target_audience,
                     "title": title,
                 },
                 company_update_params.CompanyUpdateParams,
@@ -516,7 +566,6 @@ class AsyncCompaniesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        parent_company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
@@ -524,6 +573,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        parent_company_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -531,29 +581,34 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CompanyListResponse, AsyncCursorPage[CompanyListResponse]]:
-        """
-        Lists companies the current user has access to
+        """Returns a paginated list of companies.
+
+        When parent_company_id is provided, lists
+        connected accounts under that platform. When omitted, lists companies the
+        current user has access to.
 
         Required permissions:
 
         - `company:basic:read`
 
         Args:
-          parent_company_id: The ID of the parent company to list connected accounts for
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return companies created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return companies created before this timestamp.
 
           direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          parent_company_id: The unique identifier of the parent platform company. When provided, lists
+              connected accounts under that platform. Omit to list the current user's own
+              companies.
 
           extra_headers: Send extra headers
 
@@ -573,7 +628,6 @@ class AsyncCompaniesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "parent_company_id": parent_company_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -581,6 +635,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "parent_company_id": parent_company_id,
                     },
                     company_list_params.CompanyListParams,
                 ),

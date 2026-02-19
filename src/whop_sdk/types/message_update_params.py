@@ -10,13 +10,19 @@ __all__ = ["MessageUpdateParams", "Attachment"]
 
 class MessageUpdateParams(TypedDict, total=False):
     attachments: Optional[Iterable[Attachment]]
-    """The attachments for this message"""
+    """
+    A replacement list of file attachments for this message, such as images or
+    videos.
+    """
 
     content: Optional[str]
-    """The content of the message in Markdown format"""
+    """The updated body of the message in Markdown format.
+
+    For example, 'Hello **world**'.
+    """
 
     is_pinned: Optional[bool]
-    """Whether this message is pinned"""
+    """Whether this message should be pinned to the top of the channel."""
 
 
 class Attachment(TypedDict, total=False):

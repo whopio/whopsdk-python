@@ -12,28 +12,39 @@ __all__ = ["TransferCreateParams"]
 
 class TransferCreateParams(TypedDict, total=False):
     amount: Required[float]
-    """The amount to withdraw"""
+    """The amount to transfer in the specified currency.
+
+    For example, 25.00 for $25.00 USD.
+    """
 
     currency: Required[Currency]
-    """The currency that is being withdrawn."""
+    """The currency of the transfer amount, such as 'usd'."""
 
     destination_id: Required[str]
-    """
-    The ID of the destination account which will receive the funds (either a User
-    ID, Company ID, or LedgerAccount ID)
+    """The identifier of the account receiving the funds.
+
+    Accepts a user ID ('user_xxx'), company ID ('biz_xxx'), or ledger account ID
+    ('ldgr_xxx').
     """
 
     origin_id: Required[str]
-    """
-    The ID of the origin account which will send the funds (either a User ID,
-    Company ID, or LedgerAccount ID)
+    """The identifier of the account sending the funds.
+
+    Accepts a user ID ('user_xxx'), company ID ('biz_xxx'), or ledger account ID
+    ('ldgr_xxx').
     """
 
     idempotence_key: Optional[str]
-    """A unique key to ensure idempotence. Use a UUID or similar."""
+    """A unique key to prevent duplicate transfers.
+
+    Use a UUID or similar unique string.
+    """
 
     metadata: Optional[Dict[str, object]]
-    """A hash of metadata to attach to the transfer."""
+    """
+    A JSON object of custom metadata to attach to the transfer for tracking
+    purposes.
+    """
 
     notes: Optional[str]
-    """Notes for the transfer. Maximum of 50 characters."""
+    """A short note describing the transfer, up to 50 characters."""

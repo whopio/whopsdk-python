@@ -4,61 +4,36 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
-__all__ = ["AccessTokenCreateParams", "CreateAccessTokenInputWithCompanyID", "CreateAccessTokenInputWithUserID"]
+__all__ = ["AccessTokenCreateParams"]
 
 
-class CreateAccessTokenInputWithCompanyID(TypedDict, total=False):
-    company_id: Required[str]
-    """The ID of the Company to generate the token for.
-
-    The API key must have permission to access this Company, such as the being the
-    company the API key belongs to or a sub-merchant of it
+class AccessTokenCreateParams(TypedDict, total=False):
+    company_id: Optional[str]
+    """
+    The unique identifier of the company to generate the token for, starting with
+    'biz\\__'. The API key must have permission to access this company.
     """
 
     expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The expiration timestamp for the access token.
 
-    If not provided, a default expiration time of 1 hour will be used. The
-    expiration can be set to a maximum of 3 hours from the current time.
+    Defaults to 1 hour from now, with a maximum of 3 hours.
     """
 
     scoped_actions: Optional[SequenceNotStr[str]]
-    """Array of desired scoped actions for the access token.
+    """An array of permission scopes to grant to the access token.
 
-    If sent as an empty array or not provided, all permissions from the API key
-    making the request will be available on the token. If sending an explicit list,
-    they must be a subset of the API keys's existing permissions. Otherwise, an
-    error will be raised.
+    If empty or omitted, all permissions from the authenticating credential are
+    inherited. Must be a subset of the credential's permissions.
     """
 
-
-class CreateAccessTokenInputWithUserID(TypedDict, total=False):
-    user_id: Required[str]
-    """The ID of the User to generate the token for.
-
-    The API key must have permission to access this User.
+    user_id: Optional[str]
     """
-
-    expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The expiration timestamp for the access token.
-
-    If not provided, a default expiration time of 1 hour will be used. The
-    expiration can be set to a maximum of 3 hours from the current time.
+    The unique identifier of the user to generate the token for, starting with
+    'user\\__'. The API key must have permission to access this user.
     """
-
-    scoped_actions: Optional[SequenceNotStr[str]]
-    """Array of desired scoped actions for the access token.
-
-    If sent as an empty array or not provided, all permissions from the API key
-    making the request will be available on the token. If sending an explicit list,
-    they must be a subset of the API keys's existing permissions. Otherwise, an
-    error will be raised.
-    """
-
-
-AccessTokenCreateParams: TypeAlias = Union[CreateAccessTokenInputWithCompanyID, CreateAccessTokenInputWithUserID]

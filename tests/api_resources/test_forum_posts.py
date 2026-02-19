@@ -35,6 +35,7 @@ class TestForumPosts:
         forum_post = client.forum_posts.create(
             experience_id="exp_xxxxxxxxxxxxxx",
             attachments=[{"id": "id"}],
+            company_id="biz_xxxxxxxxxxxxxx",
             content="content",
             is_mention=True,
             parent_id="parent_id",
@@ -245,6 +246,7 @@ class TestAsyncForumPosts:
         forum_post = await async_client.forum_posts.create(
             experience_id="exp_xxxxxxxxxxxxxx",
             attachments=[{"id": "id"}],
+            company_id="biz_xxxxxxxxxxxxxx",
             content="content",
             is_mention=True,
             parent_id="parent_id",

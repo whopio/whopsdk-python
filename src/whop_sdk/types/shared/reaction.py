@@ -8,29 +8,32 @@ __all__ = ["Reaction", "User"]
 
 
 class User(BaseModel):
-    """The user who reacted to the post"""
+    """The user who left this reaction on the post."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class Reaction(BaseModel):
-    """Represents a reaction to a feed post"""
+    """A single reaction left by a user on a feed post, such as a like or emoji."""
 
     id: str
     """The unique identifier for the entity"""
 
     emoji: Optional[str] = None
-    """The emoji that was used in shortcode format (:heart:)"""
+    """The emoji used for this reaction in shortcode format.
+
+    Null if the reaction type is not emoji.
+    """
 
     resource_id: str
-    """The ID of the post this reaction belongs to"""
+    """The unique identifier of the post this reaction was left on."""
 
     user: User
-    """The user who reacted to the post"""
+    """The user who left this reaction on the post."""

@@ -2,6 +2,6 @@
 
 from typing_extensions import Literal, TypeAlias
 
-__all__ = ["BotTokenTransactionTypes"]
+__all__ = ["CompanyTokenTransactionType"]
 
-BotTokenTransactionTypes: TypeAlias = Literal["add", "subtract", "transfer"]
+CompanyTokenTransactionType: TypeAlias = Literal["add", "subtract", "transfer"]

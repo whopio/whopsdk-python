@@ -20,51 +20,53 @@ __all__ = [
 
 
 class APIKey(BaseModel):
-    """The API key for the app"""
+    """The API key used to authenticate requests on behalf of this app.
+
+    Null if no API key has been generated. Requires the 'developer:manage_api_key' permission.
+    """
 
     id: str
-    """The ID of this API key"""
+    """The unique identifier for the private api key."""
 
     token: str
     """This is the API key used to authenticate requests"""
 
     created_at: datetime
-    """When this API key was created at"""
+    """The datetime the private api key was created."""
 
 
 class Company(BaseModel):
-    """The company that owns the app"""
+    """The company that owns and publishes this app."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class Creator(BaseModel):
-    """The creator of the app"""
+    """The user who created and owns the company that published this app."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class Icon(BaseModel):
-    """The icon for the app.
-
-    This icon is shown on discovery, on the product page, on checkout, and as a default icon for the experiences.
+    """
+    The icon image for this app, displayed on the app store, product pages, checkout, and as the default icon for experiences using this app.
     """
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
@@ -94,115 +96,143 @@ class RequestedPermission(BaseModel):
 
 
 class Stats(BaseModel):
-    """A collection of stats for the app."""
+    """
+    Aggregate usage statistics for this app, including daily, weekly, and monthly active user counts.
+    """
 
     dau: int
-    """
-    This is the number of users that have spent time in this app in the last 24
-    hours.
+    """The number of unique users who have spent time in this app in the last 24 hours.
+
+    Returns 0 if no usage data is available.
     """
 
     mau: int
-    """
-    This is the number of users that have spent time in this app in the last 28
-    days.
+    """The number of unique users who have spent time in this app in the last 28 days.
+
+    Returns 0 if no usage data is available.
     """
 
     time_spent_last24_hours: int
     """
-    This how much time, in seconds, users have spent in this app in the last 24
-    hours.
+    The total time, in seconds, that all users have spent in this app over the last
+    24 hours. Returns 0 if no usage data is available.
     """
 
     wau: int
-    """
-    This is the number of users that have spent time in this app in the last 7 days.
+    """The number of unique users who have spent time in this app in the last 7 days.
+
+    Returns 0 if no usage data is available.
     """
 
 
 class App(BaseModel):
-    """An object representing an app"""
+    """An app is an integration built on Whop.
+
+    Apps can serve consumers as experiences within products, or serve companies as business tools.
+    """
 
     id: str
-    """The ID of the app"""
+    """The unique identifier for the app."""
 
     api_key: Optional[APIKey] = None
-    """The API key for the app"""
+    """The API key used to authenticate requests on behalf of this app.
+
+    Null if no API key has been generated. Requires the 'developer:manage_api_key'
+    permission.
+    """
 
     app_type: AppType
-    """The type of end-user an app is built for"""
+    """
+    The target audience classification for this app (e.g., 'b2b_app', 'b2c_app',
+    'company_app', 'component').
+    """
 
     base_url: Optional[str] = None
-    """The base url of the app"""
+    """The production base URL where the app is hosted.
+
+    Null if no base URL is configured.
+    """
 
     company: Company
-    """The company that owns the app"""
+    """The company that owns and publishes this app."""
 
     creator: Creator
-    """The creator of the app"""
+    """The user who created and owns the company that published this app."""
 
     dashboard_path: Optional[str] = None
-    """The path part for a specific view of the app.
-
-    This is the template part of the url after the base domain. Eg:
-    /experiences/[experienceId]
+    """
+    The URL path template for a specific view of this app, appended to the base
+    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
+    not configured.
     """
 
     description: Optional[str] = None
-    """The description of the app"""
+    """
+    A written description of what this app does, displayed on the app store listing
+    page. Null if no description has been set.
+    """
 
     discover_path: Optional[str] = None
-    """The path part for a specific view of the app.
-
-    This is the template part of the url after the base domain. Eg:
-    /experiences/[experienceId]
+    """
+    The URL path template for a specific view of this app, appended to the base
+    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
+    not configured.
     """
 
     domain_id: str
-    """The unique part of the proxied domain for this app.
+    """The unique subdomain identifier for this app's proxied URL on the Whop platform.
 
-    Used to generate the base url used to display the app inside the whop platform.
-    Refers to the id part in the final url: https://{domain_id}.apps.whop.com
+    Forms the URL pattern https://{domain_id}.apps.whop.com.
     """
 
     experience_path: Optional[str] = None
-    """The path part for a specific view of the app.
-
-    This is the template part of the url after the base domain. Eg:
-    /experiences/[experienceId]
+    """
+    The URL path template for a specific view of this app, appended to the base
+    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
+    not configured.
     """
 
     icon: Optional[Icon] = None
-    """The icon for the app.
-
-    This icon is shown on discovery, on the product page, on checkout, and as a
-    default icon for the experiences.
+    """
+    The icon image for this app, displayed on the app store, product pages,
+    checkout, and as the default icon for experiences using this app.
     """
 
     name: str
-    """The name of the app"""
+    """The display name of this app shown on the app store and in experience
+    navigation.
+
+    Maximum 30 characters.
+    """
+
+    redirect_uris: List[str]
+    """
+    The whitelisted OAuth callback URLs that users are redirected to after
+    authorizing the app.
+    """
 
     requested_permissions: List[RequestedPermission]
     """
-    The set of permissions that an app requests to be granted when a user installs
-    the app.
+    The list of permissions this app requests when installed, including both
+    required and optional permissions with justifications.
     """
 
     stats: Optional[Stats] = None
-    """A collection of stats for the app."""
+    """
+    Aggregate usage statistics for this app, including daily, weekly, and monthly
+    active user counts.
+    """
 
     status: AppStatuses
-    """If the status is live, the app is visible on Whop discovery.
+    """The current visibility status of this app on the Whop app store.
 
-    In order to be live, you need to set the name, icon, and description. Being
-    unlisted or hidden means it's not visible on Whop but you can still install the
-    app via direct link. To remove the app from whop discovery, you should set the
-    status to unlisted.
+    'live' means publicly discoverable, 'unlisted' means accessible only via direct
+    link, and 'hidden' means not visible anywhere.
     """
 
     verified: bool
     """Whether this app has been verified by Whop.
 
-    Verified apps are endorsed by whop and are shown in the 'featured apps' section
-    of the app store.
+    Verified apps are endorsed by Whop and displayed in the featured apps section of
+    the app store.
     """

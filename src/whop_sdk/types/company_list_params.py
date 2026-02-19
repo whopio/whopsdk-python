@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 from .shared.direction import Direction
@@ -13,9 +13,6 @@ __all__ = ["CompanyListParams"]
 
 
 class CompanyListParams(TypedDict, total=False):
-    parent_company_id: Required[str]
-    """The ID of the parent company to list connected accounts for"""
-
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -23,10 +20,10 @@ class CompanyListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return companies created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return companies created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -36,3 +33,10 @@ class CompanyListParams(TypedDict, total=False):
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
+
+    parent_company_id: Optional[str]
+    """The unique identifier of the parent platform company.
+
+    When provided, lists connected accounts under that platform. Omit to list the
+    current user's own companies.
+    """

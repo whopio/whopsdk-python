@@ -13,101 +13,121 @@ class Attachment(BaseModel):
     """Represents an image attachment"""
 
     id: str
-    """The ID of the attachment"""
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
 
     content_type: Optional[str] = None
-    """The attachment's content type (e.g., image/jpg, video/mp4)"""
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
 
     filename: Optional[str] = None
-    """The name of the file"""
+    """The original filename of the uploaded attachment, including its file extension."""
 
     url: Optional[str] = None
-    """This is the URL you use to render optimized attachments on the client.
+    """A pre-optimized URL for rendering this attachment on the client.
 
-    This should be used for apps.
+    This should be used for displaying attachments in apps.
     """
 
 
 class Company(BaseModel):
-    """The company the review is for."""
+    """The company that this review was written for."""
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
 
 class Product(BaseModel):
-    """The product the review is for."""
+    """The product that this review was written for."""
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class User(BaseModel):
-    """The user account that performed the action."""
+    """The user account of the person who wrote this review."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class ReviewRetrieveResponse(BaseModel):
-    """An object representing a user review of a company."""
+    """
+    A user-submitted review of a company, including a star rating and optional text feedback.
+    """
 
     id: str
-    """The internal ID of the review."""
+    """The unique identifier for the review."""
 
     attachments: List[Attachment]
-    """The attachments attached to the review."""
+    """A list of files and media attached to the review."""
 
     company: Company
-    """The company the review is for."""
+    """The company that this review was written for."""
 
     created_at: datetime
-    """The timestamp of when the review was created."""
+    """The datetime the review was created."""
 
     description: Optional[str] = None
-    """The description of the review."""
+    """The body text of the review containing the user's detailed feedback.
+
+    Returns an empty string if no description was provided.
+    """
 
     joined_at: Optional[datetime] = None
-    """The timestamp of when the user joined the product."""
+    """The timestamp of when the reviewer first joined the product. Null if unknown."""
 
     paid_for_product: Optional[bool] = None
-    """Whether or not the user paid for the product.
+    """Whether the reviewer paid for the product.
 
-    If null, the payment status is unknown.
+    Null if the payment status is unknown.
     """
 
     product: Product
-    """The product the review is for."""
+    """The product that this review was written for."""
 
     published_at: Optional[datetime] = None
-    """The timestamp of when the review was published."""
+    """The timestamp of when the review was published.
+
+    Null if the review has not been published yet.
+    """
 
     stars: int
-    """The number of stars the user gave the product."""
+    """The star rating given by the reviewer, from 1 to 5."""
 
     status: ReviewStatus
-    """The status of the review."""
+    """The current moderation status of the review."""
 
     title: Optional[str] = None
-    """The title of the review."""
+    """A short summary title for the review. Null if the reviewer did not provide one."""
 
     updated_at: datetime
-    """The timestamp of when the review was last updated."""
+    """The datetime the review was last updated."""
 
     user: User
-    """The user account that performed the action."""
+    """The user account of the person who wrote this review."""

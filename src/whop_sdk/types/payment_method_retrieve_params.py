@@ -10,7 +10,13 @@ __all__ = ["PaymentMethodRetrieveParams"]
 
 class PaymentMethodRetrieveParams(TypedDict, total=False):
     company_id: Optional[str]
-    """The ID of the Company. Provide either this or member_id (not both)."""
+    """The unique identifier of the company.
+
+    Provide either this or member_id, not both.
+    """
 
     member_id: Optional[str]
-    """The ID of the Member. Provide either this or company_id (not both)."""
+    """The unique identifier of the member.
+
+    Provide either this or company_id, not both.
+    """

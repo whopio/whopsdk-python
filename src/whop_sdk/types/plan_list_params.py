@@ -18,7 +18,7 @@ __all__ = ["PlanListParams"]
 
 class PlanListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company"""
+    """The unique identifier of the company to list plans for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -27,10 +27,10 @@ class PlanListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return plans created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return plans created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -45,13 +45,13 @@ class PlanListParams(TypedDict, total=False):
     """The ways a relation of Plans can be ordered"""
 
     plan_types: Optional[List[PlanType]]
-    """The plan type to filter the plans by"""
+    """Filter to only plans matching these billing types."""
 
     product_ids: Optional[SequenceNotStr[str]]
-    """The product IDs to filter the plans by"""
+    """Filter to only plans belonging to these product identifiers."""
 
     release_methods: Optional[List[ReleaseMethod]]
-    """The release method to filter the plans by"""
+    """Filter to only plans matching these release methods."""
 
     visibilities: Optional[List[VisibilityFilter]]
-    """The visibility to filter the plans by"""
+    """Filter to only plans matching these visibility states."""

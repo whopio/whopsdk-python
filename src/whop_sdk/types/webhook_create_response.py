@@ -11,38 +11,43 @@ __all__ = ["WebhookCreateResponse"]
 
 
 class WebhookCreateResponse(BaseModel):
-    """A webhook object, which can be configured to be sent updates about a company"""
+    """
+    A webhook endpoint that receives event notifications for a company via HTTP POST.
+    """
 
     id: str
-    """The ID of the webhook"""
+    """The unique identifier for the webhook."""
 
     api_version: APIVersion
-    """The API version for this webhook"""
+    """The API version used to format payloads sent to this webhook endpoint."""
 
     child_resource_events: bool
-    """Whether or not to send events for child resources.
+    """Whether events are sent for child resources.
 
-    For example, if the webhook is created for a Company, enabling this will only
-    send events from the Company's sub-merchants (child companies).
+    For example, if the webhook is on a company, enabling this sends events only
+    from the company's sub-merchants (child companies).
     """
 
     created_at: datetime
-    """The timestamp of when the webhook was created"""
+    """The datetime the webhook was created."""
 
     enabled: bool
-    """Whether or not this webhook is turned on or not"""
+    """Whether this webhook endpoint is currently active and receiving events."""
 
     events: List[WebhookEvent]
-    """The number of events this webhooks is configured to receive"""
+    """The list of event types this webhook is subscribed to."""
 
     resource_id: str
-    """The resource ID"""
+    """The ID of the resource (company or product) this webhook is attached to."""
 
     testable_events: List[WebhookEvent]
-    """The list of events that can be tested with this webhook"""
+    """The subset of subscribed event types that support sending test payloads."""
 
     url: str
-    """The URL the webhook events will be sent to"""
+    """The destination URL where webhook payloads are delivered via HTTP POST."""
 
     webhook_secret: str
-    """A unique secret key that will be sent with each webhook event"""
+    """The secret key used to sign webhook payloads for verification.
+
+    Include this in your HMAC validation logic.
+    """

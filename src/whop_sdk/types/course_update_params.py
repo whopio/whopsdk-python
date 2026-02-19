@@ -14,15 +14,15 @@ __all__ = ["CourseUpdateParams", "Chapter", "ChapterLesson", "Thumbnail"]
 class CourseUpdateParams(TypedDict, total=False):
     certificate_after_completion_enabled: Optional[bool]
     """
-    Whether the course will award its students a PDF certificate after completing
-    all lessons
+    Whether the course awards students a PDF certificate after completing all
+    lessons.
     """
 
     chapters: Optional[Iterable[Chapter]]
-    """The chapters and lessons to update"""
+    """A list of chapters with nested lessons to reorder or rename in bulk."""
 
     description: Optional[str]
-    """A short description of the course"""
+    """A short description of the course displayed to students on the course page."""
 
     language: Optional[Languages]
     """The available languages for a course"""
@@ -30,23 +30,26 @@ class CourseUpdateParams(TypedDict, total=False):
     order: Optional[str]
     """The decimal order position of the course within its experience.
 
-    Use fractional values (e.g., 1.5) to place between existing courses.
+    Use fractional values (e.g., "1.5") to place between existing courses.
     """
 
     require_completing_lessons_in_order: Optional[bool]
     """
-    Whether the course requires students to complete the previous lesson before
-    moving on to the next one
+    Whether students must complete each lesson sequentially before advancing to the
+    next one.
     """
 
     tagline: Optional[str]
-    """A short tagline for the course"""
+    """
+    A short tagline displayed beneath the course title (e.g., "Master the
+    fundamentals of design").
+    """
 
     thumbnail: Optional[Thumbnail]
-    """The thumbnail for the course in png, jpeg, or gif format"""
+    """The thumbnail image for the course in PNG, JPEG, or GIF format."""
 
     title: Optional[str]
-    """The title of the course"""
+    """The display title of the course (e.g., "Introduction to Web Development")."""
 
     visibility: Optional[CourseVisibilities]
     """The available visibilities for a course.
@@ -88,7 +91,7 @@ class Chapter(TypedDict, total=False):
 
 
 class Thumbnail(TypedDict, total=False):
-    """The thumbnail for the course in png, jpeg, or gif format"""
+    """The thumbnail image for the course in PNG, JPEG, or GIF format."""
 
     id: Required[str]
     """The ID of an existing file object."""

@@ -29,7 +29,7 @@ class DataPaymentMember(BaseModel):
     """The member attached to this payment."""
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     phone: Optional[str] = None
     """The phone number for the member, if available."""
@@ -39,7 +39,7 @@ class DataPaymentMembership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
-    """The internal ID of the membership."""
+    """The unique identifier for the membership."""
 
     status: MembershipStatus
     """The state of the membership."""
@@ -49,23 +49,29 @@ class DataPaymentUser(BaseModel):
     """The user that made this payment."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class DataPayment(BaseModel):
-    """The payment associated with the refund."""
+    """The original payment that this refund was issued against.
+
+    Null if the payment is no longer available.
+    """
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     billing_reason: Optional[BillingReasons] = None
     """The reason why a specific payment was billed"""
@@ -74,10 +80,13 @@ class DataPayment(BaseModel):
     """Possible card brands that a payment token can have"""
 
     card_last4: Optional[str] = None
-    """The last 4 digits of the card used to make the payment."""
+    """The last four digits of the card used to make this payment.
+
+    Null if the payment was not made with a card.
+    """
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -92,7 +101,10 @@ class DataPayment(BaseModel):
     """The membership attached to this payment."""
 
     paid_at: Optional[datetime] = None
-    """The datetime the payment was paid"""
+    """The time at which this payment was successfully collected.
+
+    Null if the payment has not yet succeeded. As a Unix timestamp.
+    """
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
@@ -111,28 +123,39 @@ class DataPayment(BaseModel):
 
 
 class Data(BaseModel):
-    """An object representing a refund made on a payment."""
+    """
+    A refund represents a full or partial reversal of a payment, including the amount, status, and payment provider.
+    """
 
     id: str
-    """The ID of the refund."""
+    """The unique identifier for the refund."""
 
     amount: float
-    """The amount of the refund."""
+    """
+    The refunded amount as a decimal in the specified currency, such as 10.43 for
+    $10.43 USD.
+    """
 
     created_at: datetime
-    """The time the refund was created."""
+    """The datetime the refund was created."""
 
     currency: Currency
-    """The currency of the refund."""
+    """The three-letter ISO currency code for the refunded amount."""
 
     payment: Optional[DataPayment] = None
-    """The payment associated with the refund."""
+    """The original payment that this refund was issued against.
+
+    Null if the payment is no longer available.
+    """
 
     provider: PaymentProvider
-    """The provider of the refund."""
+    """The payment provider that processed the refund."""
 
     provider_created_at: Optional[datetime] = None
-    """The time the refund was created by the provider."""
+    """The timestamp when the refund was created in the payment provider's system.
+
+    Null if not available from the provider.
+    """
 
     reference_status: Optional[RefundReferenceStatus] = None
     """The status of the refund reference."""
@@ -141,10 +164,16 @@ class Data(BaseModel):
     """The type of refund reference that was made available by the payment provider."""
 
     reference_value: Optional[str] = None
-    """The value of the reference."""
+    """
+    The tracking reference value from the payment processor, used to trace the
+    refund through banking networks. Null if no reference was provided.
+    """
 
     status: RefundStatus
-    """The status of the refund."""
+    """
+    The current processing status of the refund, such as pending, succeeded, or
+    failed.
+    """
 
 
 class RefundUpdatedWebhookEvent(BaseModel):
@@ -155,7 +184,10 @@ class RefundUpdatedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Data
-    """An object representing a refund made on a payment."""
+    """
+    A refund represents a full or partial reversal of a payment, including the
+    amount, status, and payment provider.
+    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

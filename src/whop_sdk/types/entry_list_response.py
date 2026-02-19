@@ -10,55 +10,70 @@ __all__ = ["EntryListResponse", "Plan", "Product", "User"]
 
 
 class Plan(BaseModel):
-    """The waitlist plan the entry if for."""
+    """The waitlisted plan that this entry is a signup for."""
 
     id: str
-    """The internal ID of the plan."""
+    """The unique identifier for the plan."""
 
 
 class Product(BaseModel):
-    """The product tied to this entry, if there is one."""
+    """The product associated with this entry's waitlisted plan.
+
+    Null if the plan is not tied to a product.
+    """
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class User(BaseModel):
-    """The user who created the entry."""
+    """The user who submitted this waitlist entry."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class EntryListResponse(BaseModel):
-    """An object representing an entry in a waitlist."""
+    """An entry represents a user's signup for a waitlisted plan."""
 
     id: str
-    """The internal ID of the entry."""
+    """The unique identifier for the entry."""
 
     created_at: Optional[datetime] = None
-    """When the entry was created."""
+    """The datetime the entry was created."""
 
     plan: Optional[Plan] = None
-    """The waitlist plan the entry if for."""
+    """The waitlisted plan that this entry is a signup for."""
 
     product: Optional[Product] = None
-    """The product tied to this entry, if there is one."""
+    """The product associated with this entry's waitlisted plan.
+
+    Null if the plan is not tied to a product.
+    """
 
     status: EntryStatus
-    """The status of the entry."""
+    """
+    The current status of the waitlist entry (e.g., drafted, pending, approved,
+    denied).
+    """
 
     user: User
-    """The user who created the entry."""
+    """The user who submitted this waitlist entry."""

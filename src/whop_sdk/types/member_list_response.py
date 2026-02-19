@@ -15,7 +15,7 @@ class User(BaseModel):
     """The user for this member, if any."""
 
     id: str
-    """The internal ID of the user account."""
+    """The unique identifier for the company member user."""
 
     email: Optional[str] = None
     """The digital mailing address of the user."""
@@ -28,13 +28,12 @@ class User(BaseModel):
 
 
 class MemberListResponse(BaseModel):
-    """An object representing a connection between a creator and a user/company_buyer.
-
-    This type should only be made visible to the user/company_buyer who is a part of the connection.
+    """
+    A member represents a user's relationship with a company on Whop, including their access level, status, and spending history.
     """
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
     access_level: AccessLevel
     """The access level of the product member.
@@ -48,7 +47,7 @@ class MemberListResponse(BaseModel):
     """The member's token balance for this company"""
 
     created_at: datetime
-    """When the member was created"""
+    """The datetime the company member was created."""
 
     joined_at: datetime
     """When the member joined the company"""
@@ -66,7 +65,7 @@ class MemberListResponse(BaseModel):
     """The status of the member"""
 
     updated_at: datetime
-    """The timestamp of when this member was last updated"""
+    """The datetime the company member was last updated."""
 
     usd_total_spent: float
     """How much money this customer has spent on the company's products and plans"""

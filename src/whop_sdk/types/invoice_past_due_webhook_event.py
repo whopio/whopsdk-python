@@ -18,7 +18,11 @@ class InvoicePastDueWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Invoice
-    """A statement that defines an amount due by a customer."""
+    """
+    An invoice represents an itemized bill sent by a company to a customer for a
+    specific product and plan, tracking the amount owed, due date, and payment
+    status.
+    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

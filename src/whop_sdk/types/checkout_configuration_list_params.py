@@ -14,7 +14,7 @@ __all__ = ["CheckoutConfigurationListParams"]
 
 class CheckoutConfigurationListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list checkout configurations for"""
+    """The unique identifier of the company to list checkout configurations for."""
 
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
@@ -23,10 +23,10 @@ class CheckoutConfigurationListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The minimum creation date to filter by"""
+    """Only return checkout configurations created after this timestamp."""
 
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The maximum creation date to filter by"""
+    """Only return checkout configurations created before this timestamp."""
 
     direction: Optional[Direction]
     """The direction of the sort."""
@@ -38,4 +38,7 @@ class CheckoutConfigurationListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     plan_id: Optional[str]
-    """The ID of the plan to filter checkout configurations by"""
+    """
+    Filter checkout configurations to only those associated with this plan
+    identifier.
+    """

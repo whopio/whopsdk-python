@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, Union, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
 
+from .industry_groups import IndustryGroups
 from .shared.currency import Currency
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
@@ -83,6 +84,9 @@ class CreatePaymentInputWithPlanPlanProduct(TypedDict, total=False):
     headline: Optional[str]
     """The headline of the product."""
 
+    industry_group: Optional[IndustryGroups]
+    """The different industry groups a company can be in."""
+
     industry_type: Optional[IndustryTypes]
     """The different industry types a company can be in."""
 
@@ -106,13 +110,19 @@ class CreatePaymentInputWithPlanPlan(TypedDict, total=False):
     """The respective currency identifier for the plan."""
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans).
+
+    For example, 30 for monthly billing.
+    """
 
     description: Optional[str]
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for one year.
+    """
 
     force_create_new_plan: Optional[bool]
     """
@@ -121,7 +131,10 @@ class CreatePaymentInputWithPlanPlan(TypedDict, total=False):
     """
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase."""
+    """An additional amount charged upon first purchase.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
@@ -140,7 +153,10 @@ class CreatePaymentInputWithPlanPlan(TypedDict, total=False):
     """The product the plan is related to. Either this or product is required."""
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period."""
+    """The amount the customer is charged every billing period.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
+    """
 
     title: Optional[str]
     """The title of the plan. This will be visible on the product page to customers."""

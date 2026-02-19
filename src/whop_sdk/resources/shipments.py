@@ -59,7 +59,8 @@ class ShipmentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Creates a new shipment
+        Create a new shipment with a tracking code for a specific payment within a
+        company.
 
         Required permissions:
 
@@ -67,11 +68,13 @@ class ShipmentsResource(SyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the company to create the shipment for
+          company_id: The unique identifier of the company to create the shipment for, starting with
+              'biz\\__'.
 
-          payment_id: The ID of the payment to create the shipment for
+          payment_id: The unique identifier of the payment to associate the shipment with.
 
-          tracking_code: The tracking code for the shipment
+          tracking_code: The carrier tracking code for the shipment, such as a USPS, UPS, or FedEx
+              tracking number.
 
           extra_headers: Send extra headers
 
@@ -109,7 +112,7 @@ class ShipmentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Retrieves a shipment by ID
+        Retrieves the details of an existing shipment.
 
         Required permissions:
 
@@ -153,7 +156,8 @@ class ShipmentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ShipmentListResponse]:
         """
-        Lists shipments for a payment
+        Returns a paginated list of shipments, with optional filtering by payment,
+        company, or user.
 
         Required permissions:
 
@@ -165,15 +169,15 @@ class ShipmentsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company
+          company_id: Filter shipments to only those belonging to this company.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          payment_id: The ID of the payment
+          payment_id: Filter shipments to only those associated with this specific payment.
 
-          user_id: The ID of the user
+          user_id: Filter shipments to only those for this specific user.
 
           extra_headers: Send extra headers
 
@@ -242,7 +246,8 @@ class AsyncShipmentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Creates a new shipment
+        Create a new shipment with a tracking code for a specific payment within a
+        company.
 
         Required permissions:
 
@@ -250,11 +255,13 @@ class AsyncShipmentsResource(AsyncAPIResource):
         - `payment:basic:read`
 
         Args:
-          company_id: The ID of the company to create the shipment for
+          company_id: The unique identifier of the company to create the shipment for, starting with
+              'biz\\__'.
 
-          payment_id: The ID of the payment to create the shipment for
+          payment_id: The unique identifier of the payment to associate the shipment with.
 
-          tracking_code: The tracking code for the shipment
+          tracking_code: The carrier tracking code for the shipment, such as a USPS, UPS, or FedEx
+              tracking number.
 
           extra_headers: Send extra headers
 
@@ -292,7 +299,7 @@ class AsyncShipmentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Retrieves a shipment by ID
+        Retrieves the details of an existing shipment.
 
         Required permissions:
 
@@ -336,7 +343,8 @@ class AsyncShipmentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ShipmentListResponse, AsyncCursorPage[ShipmentListResponse]]:
         """
-        Lists shipments for a payment
+        Returns a paginated list of shipments, with optional filtering by payment,
+        company, or user.
 
         Required permissions:
 
@@ -348,15 +356,15 @@ class AsyncShipmentsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company
+          company_id: Filter shipments to only those belonging to this company.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          payment_id: The ID of the payment
+          payment_id: Filter shipments to only those associated with this specific payment.
 
-          user_id: The ID of the user
+          user_id: Filter shipments to only those for this specific user.
 
           extra_headers: Send extra headers
 

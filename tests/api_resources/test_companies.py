@@ -26,8 +26,6 @@ class TestCompanies:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         company = client.companies.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])
@@ -36,13 +34,15 @@ class TestCompanies:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         company = client.companies.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
             business_type="education_program",
+            description="description",
+            email="email",
+            industry_group="academic_and_test_prep",
             industry_type="trading",
             logo={"id": "id"},
             metadata={"foo": "bar"},
+            parent_company_id="parent_company_id",
             send_customer_emails=True,
         )
         assert_matches_type(Company, company, path=["response"])
@@ -51,8 +51,6 @@ class TestCompanies:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.companies.with_raw_response.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
         )
 
@@ -65,8 +63,6 @@ class TestCompanies:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.companies.with_streaming_response.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
         ) as response:
             assert not response.is_closed
@@ -134,9 +130,12 @@ class TestCompanies:
             id="biz_xxxxxxxxxxxxxx",
             banner_image={"id": "id"},
             business_type="education_program",
+            description="description",
+            industry_group="academic_and_test_prep",
             industry_type="trading",
             logo={"id": "id"},
             send_customer_emails=True,
+            target_audience="target_audience",
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])
@@ -178,16 +177,13 @@ class TestCompanies:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        company = client.companies.list(
-            parent_company_id="parent_company_id",
-        )
+        company = client.companies.list()
         assert_matches_type(SyncCursorPage[CompanyListResponse], company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         company = client.companies.list(
-            parent_company_id="parent_company_id",
             after="after",
             before="before",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
@@ -195,15 +191,14 @@ class TestCompanies:
             direction="asc",
             first=42,
             last=42,
+            parent_company_id="parent_company_id",
         )
         assert_matches_type(SyncCursorPage[CompanyListResponse], company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.companies.with_raw_response.list(
-            parent_company_id="parent_company_id",
-        )
+        response = client.companies.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -213,9 +208,7 @@ class TestCompanies:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.companies.with_streaming_response.list(
-            parent_company_id="parent_company_id",
-        ) as response:
+        with client.companies.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -234,8 +227,6 @@ class TestAsyncCompanies:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])
@@ -244,13 +235,15 @@ class TestAsyncCompanies:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
             business_type="education_program",
+            description="description",
+            email="email",
+            industry_group="academic_and_test_prep",
             industry_type="trading",
             logo={"id": "id"},
             metadata={"foo": "bar"},
+            parent_company_id="parent_company_id",
             send_customer_emails=True,
         )
         assert_matches_type(Company, company, path=["response"])
@@ -259,8 +252,6 @@ class TestAsyncCompanies:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.companies.with_raw_response.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
         )
 
@@ -273,8 +264,6 @@ class TestAsyncCompanies:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.companies.with_streaming_response.create(
-            email="email",
-            parent_company_id="parent_company_id",
             title="title",
         ) as response:
             assert not response.is_closed
@@ -342,9 +331,12 @@ class TestAsyncCompanies:
             id="biz_xxxxxxxxxxxxxx",
             banner_image={"id": "id"},
             business_type="education_program",
+            description="description",
+            industry_group="academic_and_test_prep",
             industry_type="trading",
             logo={"id": "id"},
             send_customer_emails=True,
+            target_audience="target_audience",
             title="title",
         )
         assert_matches_type(Company, company, path=["response"])
@@ -386,16 +378,13 @@ class TestAsyncCompanies:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        company = await async_client.companies.list(
-            parent_company_id="parent_company_id",
-        )
+        company = await async_client.companies.list()
         assert_matches_type(AsyncCursorPage[CompanyListResponse], company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.list(
-            parent_company_id="parent_company_id",
             after="after",
             before="before",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
@@ -403,15 +392,14 @@ class TestAsyncCompanies:
             direction="asc",
             first=42,
             last=42,
+            parent_company_id="parent_company_id",
         )
         assert_matches_type(AsyncCursorPage[CompanyListResponse], company, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.companies.with_raw_response.list(
-            parent_company_id="parent_company_id",
-        )
+        response = await async_client.companies.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -421,9 +409,7 @@ class TestAsyncCompanies:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.companies.with_streaming_response.list(
-            parent_company_id="parent_company_id",
-        ) as response:
+        async with async_client.companies.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

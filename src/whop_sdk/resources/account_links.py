@@ -58,20 +58,21 @@ class AccountLinksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccountLinkCreateResponse:
         """
-        Generates a url that a user can be directed to in order to access their
-        sub-merchant account. For example, they can visit the hosted payouts portal or
-        the hosted KYC onboarding flow.
+        Generate a URL that directs a sub-merchant to their account portal, such as the
+        hosted payouts dashboard or the KYC onboarding flow.
 
         Args:
-          company_id: The ID of the Company to generate the url for. The company must be a
-              sub-merchant of the API key's company.
+          company_id: The unique identifier of the company to generate the link for, starting with
+              'biz\\__'. Must be a sub-merchant of the API key's company.
 
-          refresh_url: The URL to redirect to if the session expires and needs to be re-authenticated
-              due to the token expiring.
+          refresh_url: The URL to redirect the user to if the session expires and needs to be
+              re-authenticated, such as 'https://example.com/refresh'.
 
-          return_url: The URL to redirect to when the customer wants to return to your site.
+          return_url: The URL to redirect the user to when they want to return to your site, such as
+              'https://example.com/return'.
 
-          use_case: The use case for which the link will be used.
+          use_case: The purpose of the account link, such as hosted payouts portal or hosted KYC
+              onboarding.
 
           extra_headers: Send extra headers
 
@@ -134,20 +135,21 @@ class AsyncAccountLinksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccountLinkCreateResponse:
         """
-        Generates a url that a user can be directed to in order to access their
-        sub-merchant account. For example, they can visit the hosted payouts portal or
-        the hosted KYC onboarding flow.
+        Generate a URL that directs a sub-merchant to their account portal, such as the
+        hosted payouts dashboard or the KYC onboarding flow.
 
         Args:
-          company_id: The ID of the Company to generate the url for. The company must be a
-              sub-merchant of the API key's company.
+          company_id: The unique identifier of the company to generate the link for, starting with
+              'biz\\__'. Must be a sub-merchant of the API key's company.
 
-          refresh_url: The URL to redirect to if the session expires and needs to be re-authenticated
-              due to the token expiring.
+          refresh_url: The URL to redirect the user to if the session expires and needs to be
+              re-authenticated, such as 'https://example.com/refresh'.
 
-          return_url: The URL to redirect to when the customer wants to return to your site.
+          return_url: The URL to redirect the user to when they want to return to your site, such as
+              'https://example.com/return'.
 
-          use_case: The use case for which the link will be used.
+          use_case: The purpose of the account link, such as hosted payouts portal or hosted KYC
+              onboarding.
 
           extra_headers: Send extra headers
 

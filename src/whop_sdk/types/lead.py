@@ -9,61 +9,84 @@ __all__ = ["Lead", "Member", "Product", "User"]
 
 
 class Member(BaseModel):
-    """The converted member, if any."""
+    """The company member record if this lead has converted into a paying customer.
+
+    Null if the lead has not converted.
+    """
 
     id: str
-    """The ID of the member"""
+    """The unique identifier for the company member."""
 
 
 class Product(BaseModel):
-    """The access pass the lead is interested in, if available."""
+    """The product the lead expressed interest in.
+
+    Null if the lead is not associated with a specific product.
+    """
 
     id: str
-    """The internal ID of the public product."""
+    """The unique identifier for the product."""
 
     title: str
-    """The title of the product. Use for Whop 4.0."""
+    """
+    The display name of the product shown to customers on the product page and in
+    search results.
+    """
 
 
 class User(BaseModel):
-    """The user who is the lead."""
+    """The user account associated with this lead."""
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     email: Optional[str] = None
-    """The email of the user"""
+    """The user's email address.
+
+    Requires the member:email:read permission to access. Null if not authorized.
+    """
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class Lead(BaseModel):
-    """An object representing a lead (someone who is interested in a whop)."""
+    """
+    A prospective customer who has expressed interest in a company or product but has not yet purchased.
+    """
 
     id: str
-    """The ID of the lead."""
+    """The unique identifier for the lead."""
 
     created_at: datetime
-    """The timestamp of when the lead was created."""
+    """The datetime the lead was created."""
 
     member: Optional[Member] = None
-    """The converted member, if any."""
+    """The company member record if this lead has converted into a paying customer.
+
+    Null if the lead has not converted.
+    """
 
     metadata: Optional[Dict[str, object]] = None
-    """Custom metadata for the lead."""
+    """Custom key-value pairs attached to this lead. Null if no metadata was provided."""
 
     product: Optional[Product] = None
-    """The access pass the lead is interested in, if available."""
+    """The product the lead expressed interest in.
+
+    Null if the lead is not associated with a specific product.
+    """
 
     referrer: Optional[str] = None
-    """The referrer URL that brought this lead."""
+    """The URL of the page that referred this lead to the company.
+
+    Null if no referrer was captured.
+    """
 
     updated_at: datetime
-    """The timestamp of when the lead was last updated."""
+    """The datetime the lead was last updated."""
 
     user: User
-    """The user who is the lead."""
+    """The user account associated with this lead."""

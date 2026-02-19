@@ -83,19 +83,18 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         - `checkout_configuration:basic:read`
 
         Args:
-          plan: Pass this object to create a new plan for this checkout configuration
+          plan: The plan attributes to create a new plan inline for this checkout configuration.
 
-          affiliate_code: The affiliate code to use for the checkout configuration
+          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
           currency: The available currencies on the platform
 
-          metadata: The metadata to use for the checkout configuration
+          metadata: Custom key-value metadata to attach to the checkout configuration.
 
-          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
-              payment method configuration for the checkout session. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
+              to setup mode. If not provided, the platform or company defaults will apply.
 
-          redirect_url: The URL to redirect the user to after the checkout configuration is created
+          redirect_url: The URL to redirect the user to after checkout is completed.
 
           source_url: The URL of the page where the checkout is being initiated from.
 
@@ -143,19 +142,19 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         - `checkout_configuration:basic:read`
 
         Args:
-          plan_id: The ID of the plan to use for the checkout configuration
+          plan_id: The unique identifier of an existing plan to use for this checkout
+              configuration.
 
-          affiliate_code: The affiliate code to use for the checkout configuration
+          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
           currency: The available currencies on the platform
 
-          metadata: The metadata to use for the checkout configuration
+          metadata: Custom key-value metadata to attach to the checkout configuration.
 
-          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
-              payment method configuration for the checkout session. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
+              to setup mode. If not provided, the platform or company defaults will apply.
 
-          redirect_url: The URL to redirect the user to after the checkout configuration is created
+          redirect_url: The URL to redirect the user to after checkout is completed.
 
           source_url: The URL of the page where the checkout is being initiated from.
 
@@ -202,18 +201,17 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         - `checkout_configuration:basic:read`
 
         Args:
-          company_id: The ID of the company for which to generate the checkout configuration. Only
-              required in setup mode.
+          company_id: The unique identifier of the company to create the checkout configuration for.
+              Only required in setup mode.
 
           currency: The available currencies on the platform
 
-          metadata: The metadata to use for the checkout configuration
+          metadata: Custom key-value metadata to attach to the checkout configuration.
 
-          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
-              payment method configuration for the checkout session. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
+              to setup mode. If not provided, the platform or company defaults will apply.
 
-          redirect_url: The URL to redirect the user to after the checkout configuration is created
+          redirect_url: The URL to redirect the user to after checkout is completed.
 
           source_url: The URL of the page where the checkout is being initiated from.
 
@@ -290,7 +288,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CheckoutConfiguration:
         """
-        Retrieves a checkout configuration by ID
+        Retrieves the details of an existing checkout configuration.
 
         Required permissions:
 
@@ -335,22 +333,23 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CheckoutConfigurationListResponse]:
         """
-        Lists checkout configurations
+        Returns a paginated list of checkout configurations for a company, with optional
+        filtering by plan and creation date.
 
         Required permissions:
 
         - `checkout_configuration:basic:read`
 
         Args:
-          company_id: The ID of the company to list checkout configurations for
+          company_id: The unique identifier of the company to list checkout configurations for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return checkout configurations created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return checkout configurations created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -358,7 +357,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          plan_id: The ID of the plan to filter checkout configurations by
+          plan_id: Filter checkout configurations to only those associated with this plan
+              identifier.
 
           extra_headers: Send extra headers
 
@@ -449,19 +449,18 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         - `checkout_configuration:basic:read`
 
         Args:
-          plan: Pass this object to create a new plan for this checkout configuration
+          plan: The plan attributes to create a new plan inline for this checkout configuration.
 
-          affiliate_code: The affiliate code to use for the checkout configuration
+          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
           currency: The available currencies on the platform
 
-          metadata: The metadata to use for the checkout configuration
+          metadata: Custom key-value metadata to attach to the checkout configuration.
 
-          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
-              payment method configuration for the checkout session. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
+              to setup mode. If not provided, the platform or company defaults will apply.
 
-          redirect_url: The URL to redirect the user to after the checkout configuration is created
+          redirect_url: The URL to redirect the user to after checkout is completed.
 
           source_url: The URL of the page where the checkout is being initiated from.
 
@@ -509,19 +508,19 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         - `checkout_configuration:basic:read`
 
         Args:
-          plan_id: The ID of the plan to use for the checkout configuration
+          plan_id: The unique identifier of an existing plan to use for this checkout
+              configuration.
 
-          affiliate_code: The affiliate code to use for the checkout configuration
+          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
           currency: The available currencies on the platform
 
-          metadata: The metadata to use for the checkout configuration
+          metadata: Custom key-value metadata to attach to the checkout configuration.
 
-          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
-              payment method configuration for the checkout session. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
+              to setup mode. If not provided, the platform or company defaults will apply.
 
-          redirect_url: The URL to redirect the user to after the checkout configuration is created
+          redirect_url: The URL to redirect the user to after checkout is completed.
 
           source_url: The URL of the page where the checkout is being initiated from.
 
@@ -568,18 +567,17 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         - `checkout_configuration:basic:read`
 
         Args:
-          company_id: The ID of the company for which to generate the checkout configuration. Only
-              required in setup mode.
+          company_id: The unique identifier of the company to create the checkout configuration for.
+              Only required in setup mode.
 
           currency: The available currencies on the platform
 
-          metadata: The metadata to use for the checkout configuration
+          metadata: Custom key-value metadata to attach to the checkout configuration.
 
-          payment_method_configuration: This currently only works for configurations made in 'setup' mode. The explicit
-              payment method configuration for the checkout session. If not provided, the
-              platform or company's defaults will apply.
+          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
+              to setup mode. If not provided, the platform or company defaults will apply.
 
-          redirect_url: The URL to redirect the user to after the checkout configuration is created
+          redirect_url: The URL to redirect the user to after checkout is completed.
 
           source_url: The URL of the page where the checkout is being initiated from.
 
@@ -656,7 +654,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CheckoutConfiguration:
         """
-        Retrieves a checkout configuration by ID
+        Retrieves the details of an existing checkout configuration.
 
         Required permissions:
 
@@ -701,22 +699,23 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CheckoutConfigurationListResponse, AsyncCursorPage[CheckoutConfigurationListResponse]]:
         """
-        Lists checkout configurations
+        Returns a paginated list of checkout configurations for a company, with optional
+        filtering by plan and creation date.
 
         Required permissions:
 
         - `checkout_configuration:basic:read`
 
         Args:
-          company_id: The ID of the company to list checkout configurations for
+          company_id: The unique identifier of the company to list checkout configurations for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          created_after: The minimum creation date to filter by
+          created_after: Only return checkout configurations created after this timestamp.
 
-          created_before: The maximum creation date to filter by
+          created_before: Only return checkout configurations created before this timestamp.
 
           direction: The direction of the sort.
 
@@ -724,7 +723,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          plan_id: The ID of the plan to filter checkout configurations by
+          plan_id: Filter checkout configurations to only those associated with this plan
+              identifier.
 
           extra_headers: Send extra headers
 

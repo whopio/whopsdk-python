@@ -67,30 +67,32 @@ class CoursesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Course:
         """
-        Creates a new course module in an experience
+        Create a new course within an experience, with optional chapters, lessons, and a
+        certificate.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          experience_id: The ID of the experience to create the course in
+          experience_id: The unique identifier of the experience to create the course in (e.g.,
+              "exp_XXXXX").
 
-          title: The title of the course
+          title: The display title of the course (e.g., "Introduction to Web Development").
 
-          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
-              all lessons
+          certificate_after_completion_enabled: Whether the course awards students a PDF certificate after completing all
+              lessons.
 
-          order: The decimal order position of the course within its experience. If not provided,
-              it will be set to the next sequential order. Use fractional values (e.g., 1.5)
-              to place between existing courses.
+          order: The decimal order position of the course within its experience. Use fractional
+              values (e.g., "1.5") to place between existing courses.
 
-          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
-              moving on to the next one
+          require_completing_lessons_in_order: Whether students must complete each lesson sequentially before advancing to the
+              next one.
 
-          tagline: The tagline of the course
+          tagline: A short tagline displayed beneath the course title (e.g., "Master the
+              fundamentals of design").
 
-          thumbnail: The thumbnail for the course in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the course in PNG, JPEG, or GIF format.
 
           visibility: The available visibilities for a course. Determines how / whether a course is
               visible to users.
@@ -136,7 +138,7 @@ class CoursesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Course:
         """
-        Retrieves a course by ID
+        Retrieves the details of an existing course.
 
         Required permissions:
 
@@ -183,33 +185,35 @@ class CoursesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Course:
         """
-        Updates a course
+        Update a course's title, description, visibility, thumbnail, or chapter
+        ordering.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
-              all lessons
+          certificate_after_completion_enabled: Whether the course awards students a PDF certificate after completing all
+              lessons.
 
-          chapters: The chapters and lessons to update
+          chapters: A list of chapters with nested lessons to reorder or rename in bulk.
 
-          description: A short description of the course
+          description: A short description of the course displayed to students on the course page.
 
           language: The available languages for a course
 
           order: The decimal order position of the course within its experience. Use fractional
-              values (e.g., 1.5) to place between existing courses.
+              values (e.g., "1.5") to place between existing courses.
 
-          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
-              moving on to the next one
+          require_completing_lessons_in_order: Whether students must complete each lesson sequentially before advancing to the
+              next one.
 
-          tagline: A short tagline for the course
+          tagline: A short tagline displayed beneath the course title (e.g., "Master the
+              fundamentals of design").
 
-          thumbnail: The thumbnail for the course in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the course in PNG, JPEG, or GIF format.
 
-          title: The title of the course
+          title: The display title of the course (e.g., "Introduction to Web Development").
 
           visibility: The available visibilities for a course. Determines how / whether a course is
               visible to users.
@@ -264,7 +268,8 @@ class CoursesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CourseListResponse]:
         """
-        Lists courses for an experience or company
+        Returns a paginated list of courses, filtered by either an experience or a
+        company.
 
         Required permissions:
 
@@ -275,9 +280,9 @@ class CoursesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list courses for.
 
-          experience_id: The ID of the experience
+          experience_id: The unique identifier of the experience to list courses for.
 
           first: Returns the first _n_ elements from the list.
 
@@ -326,7 +331,8 @@ class CoursesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseDeleteResponse:
         """
-        Deletes a course
+        Permanently delete a course and all of its chapters, lessons, and student
+        progress.
 
         Required permissions:
 
@@ -391,30 +397,32 @@ class AsyncCoursesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Course:
         """
-        Creates a new course module in an experience
+        Create a new course within an experience, with optional chapters, lessons, and a
+        certificate.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          experience_id: The ID of the experience to create the course in
+          experience_id: The unique identifier of the experience to create the course in (e.g.,
+              "exp_XXXXX").
 
-          title: The title of the course
+          title: The display title of the course (e.g., "Introduction to Web Development").
 
-          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
-              all lessons
+          certificate_after_completion_enabled: Whether the course awards students a PDF certificate after completing all
+              lessons.
 
-          order: The decimal order position of the course within its experience. If not provided,
-              it will be set to the next sequential order. Use fractional values (e.g., 1.5)
-              to place between existing courses.
+          order: The decimal order position of the course within its experience. Use fractional
+              values (e.g., "1.5") to place between existing courses.
 
-          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
-              moving on to the next one
+          require_completing_lessons_in_order: Whether students must complete each lesson sequentially before advancing to the
+              next one.
 
-          tagline: The tagline of the course
+          tagline: A short tagline displayed beneath the course title (e.g., "Master the
+              fundamentals of design").
 
-          thumbnail: The thumbnail for the course in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the course in PNG, JPEG, or GIF format.
 
           visibility: The available visibilities for a course. Determines how / whether a course is
               visible to users.
@@ -460,7 +468,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Course:
         """
-        Retrieves a course by ID
+        Retrieves the details of an existing course.
 
         Required permissions:
 
@@ -507,33 +515,35 @@ class AsyncCoursesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Course:
         """
-        Updates a course
+        Update a course's title, description, visibility, thumbnail, or chapter
+        ordering.
 
         Required permissions:
 
         - `courses:update`
 
         Args:
-          certificate_after_completion_enabled: Whether the course will award its students a PDF certificate after completing
-              all lessons
+          certificate_after_completion_enabled: Whether the course awards students a PDF certificate after completing all
+              lessons.
 
-          chapters: The chapters and lessons to update
+          chapters: A list of chapters with nested lessons to reorder or rename in bulk.
 
-          description: A short description of the course
+          description: A short description of the course displayed to students on the course page.
 
           language: The available languages for a course
 
           order: The decimal order position of the course within its experience. Use fractional
-              values (e.g., 1.5) to place between existing courses.
+              values (e.g., "1.5") to place between existing courses.
 
-          require_completing_lessons_in_order: Whether the course requires students to complete the previous lesson before
-              moving on to the next one
+          require_completing_lessons_in_order: Whether students must complete each lesson sequentially before advancing to the
+              next one.
 
-          tagline: A short tagline for the course
+          tagline: A short tagline displayed beneath the course title (e.g., "Master the
+              fundamentals of design").
 
-          thumbnail: The thumbnail for the course in png, jpeg, or gif format
+          thumbnail: The thumbnail image for the course in PNG, JPEG, or GIF format.
 
-          title: The title of the course
+          title: The display title of the course (e.g., "Introduction to Web Development").
 
           visibility: The available visibilities for a course. Determines how / whether a course is
               visible to users.
@@ -588,7 +598,8 @@ class AsyncCoursesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CourseListResponse, AsyncCursorPage[CourseListResponse]]:
         """
-        Lists courses for an experience or company
+        Returns a paginated list of courses, filtered by either an experience or a
+        company.
 
         Required permissions:
 
@@ -599,9 +610,9 @@ class AsyncCoursesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The ID of the company
+          company_id: The unique identifier of the company to list courses for.
 
-          experience_id: The ID of the experience
+          experience_id: The unique identifier of the experience to list courses for.
 
           first: Returns the first _n_ elements from the list.
 
@@ -650,7 +661,8 @@ class AsyncCoursesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CourseDeleteResponse:
         """
-        Deletes a course
+        Permanently delete a course and all of its chapters, lessons, and student
+        progress.
 
         Required permissions:
 

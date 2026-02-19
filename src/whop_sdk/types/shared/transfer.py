@@ -12,32 +12,40 @@ __all__ = ["Transfer", "Destination", "DestinationUser", "DestinationCompany", "
 
 
 class DestinationUser(BaseModel):
-    """An object representing a (sanitized) user of the site."""
+    """A user account on Whop.
+
+    Contains profile information, identity details, and social connections.
+    """
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     typename: Literal["User"]
     """The typename of this object"""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class DestinationCompany(BaseModel):
-    """An object representing a (sanitized) company."""
+    """A company is a seller on Whop.
+
+    Companies own products, manage members, and receive payouts.
+    """
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
     typename: Literal["Company"]
     """The typename of this object"""
@@ -49,32 +57,40 @@ Destination: TypeAlias = Annotated[
 
 
 class OriginUser(BaseModel):
-    """An object representing a (sanitized) user of the site."""
+    """A user account on Whop.
+
+    Contains profile information, identity details, and social connections.
+    """
 
     id: str
-    """The internal ID of the user."""
+    """The unique identifier for the user."""
 
     name: Optional[str] = None
-    """The name of the user from their Whop account."""
+    """The user's display name shown on their public profile."""
 
     typename: Literal["User"]
     """The typename of this object"""
 
     username: str
-    """The username of the user from their Whop account."""
+    """The user's unique username shown on their public profile."""
 
 
 class OriginCompany(BaseModel):
-    """An object representing a (sanitized) company."""
+    """A company is a seller on Whop.
+
+    Companies own products, manage members, and receive payouts.
+    """
 
     id: str
-    """The ID (tag) of the company."""
+    """The unique identifier for the company."""
 
     route: str
-    """The slug/route of the company on the Whop site."""
+    """
+    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
+    """
 
     title: str
-    """The title of the company."""
+    """The display name of the company shown to customers."""
 
     typename: Literal["Company"]
     """The typename of this object"""
@@ -86,37 +102,49 @@ Origin: TypeAlias = Annotated[
 
 
 class Transfer(BaseModel):
-    """Credit Transaction Transfer"""
+    """A transfer of credit between two ledger accounts."""
 
     id: str
-    """The unique identifier of the credit transaction transfer"""
+    """The unique identifier for the credit transaction transfer."""
 
     amount: float
-    """The amount of the credit transaction transfer"""
+    """The transfer amount in the currency specified by the currency field.
+
+    For example, 10.43 represents $10.43 USD.
+    """
 
     created_at: datetime
-    """The timestamp when the credit transaction transfer was created"""
+    """The datetime the credit transaction transfer was created."""
 
     currency: Currency
-    """The currency of the credit transaction transfer"""
+    """The currency in which this transfer amount is denominated."""
 
     destination: Destination
-    """The recipient of the credit transaction transfer"""
+    """The entity receiving the transferred funds."""
 
     destination_ledger_account_id: str
-    """The ID of the destination ledger account"""
+    """The unique identifier of the ledger account receiving the funds."""
 
     fee_amount: Optional[float] = None
-    """The decimal fee of the credit transaction transfer"""
+    """The flat fee amount deducted from this transfer, in the transfer's currency.
+
+    Null if no flat fee was applied.
+    """
 
     metadata: Optional[Dict[str, object]] = None
-    """A hash of metadata attached to the transfer"""
+    """Custom key-value pairs attached to this transfer.
+
+    Maximum 50 keys, 500 characters per key, 5000 characters per value.
+    """
 
     notes: Optional[str] = None
-    """The notes of the credit transaction transfer"""
+    """A free-text note attached to this transfer by the sender.
+
+    Null if no note was provided.
+    """
 
     origin: Origin
-    """The sender of the credit transaction transfer"""
+    """The entity that sent the transferred funds."""
 
     origin_ledger_account_id: str
-    """The ID of the origin ledger account"""
+    """The unique identifier of the ledger account that sent the funds."""

@@ -33,47 +33,57 @@ __all__ = [
 
 class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
-    """The method of collection for this invoice.
+    """How the invoice should be collected.
 
-    If using charge_automatically, you must provide a payment_token.
+    Use charge_automatically to charge a stored payment method, or send_invoice to
+    email the customer.
     """
 
     company_id: Required[str]
-    """The company ID to create this invoice for."""
+    """The unique identifier of the company to create this invoice for."""
 
     due_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
-    """The date the invoice is due, if applicable."""
+    """The date by which the invoice must be paid."""
 
     member_id: Required[str]
-    """The member ID to create this invoice for.
+    """The unique identifier of an existing member to create this invoice for.
 
-    Include this if you want to create an invoice for an existing member. If you do
-    not have a member ID, you must provide an email_address and customer_name.
+    If not provided, you must supply an email_address and customer_name.
     """
 
     plan: Required[CreateInvoiceInputWithProductAndMemberIDPlan]
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this
+    invoice.
+    """
 
     product: Required[CreateInvoiceInputWithProductAndMemberIDProduct]
     """The properties of the product to create for this invoice.
 
-    Include this if you want to create an invoice for a new product.
+    Provide this to create a new product inline.
+    """
+
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
     """
 
     charge_buyer_fee: Optional[bool]
-    """Whether or not to charge the customer a buyer fee."""
+    """Whether to charge the customer a buyer fee on this invoice."""
 
     customer_name: Optional[str]
-    """The name of the customer to create this invoice for.
+    """The name of the customer.
 
-    This is required if you want to create an invoice for a customer who does not
-    have a member of your company yet.
+    Required when creating an invoice for a customer who is not yet a member of the
+    company.
     """
 
     payment_method_id: Optional[str]
-    """The payment method ID to use for this invoice.
+    """The unique identifier of the payment method to charge.
 
-    If using charge_automatically, you must provide a payment_method_id.
+    Required when collection_method is charge_automatically.
     """
 
     payment_token_id: Optional[str]
@@ -104,10 +114,12 @@ class CreateInvoiceInputWithProductAndMemberIDPlanCustomField(TypedDict, total=F
 
 
 class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this invoice.
+    """
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductAndMemberIDPlanCustomField]]
     """An array of custom field objects."""
@@ -116,13 +128,17 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -137,8 +153,8 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -148,7 +164,10 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
@@ -157,7 +176,7 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
 class CreateInvoiceInputWithProductAndMemberIDProduct(TypedDict, total=False):
     """The properties of the product to create for this invoice.
 
-    Include this if you want to create an invoice for a new product.
+    Provide this to create a new product inline.
     """
 
     title: Required[str]
@@ -169,47 +188,58 @@ class CreateInvoiceInputWithProductAndMemberIDProduct(TypedDict, total=False):
 
 class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
-    """The method of collection for this invoice.
+    """How the invoice should be collected.
 
-    If using charge_automatically, you must provide a payment_token.
+    Use charge_automatically to charge a stored payment method, or send_invoice to
+    email the customer.
     """
 
     company_id: Required[str]
-    """The company ID to create this invoice for."""
+    """The unique identifier of the company to create this invoice for."""
 
     due_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
-    """The date the invoice is due, if applicable."""
+    """The date by which the invoice must be paid."""
 
     email_address: Required[str]
-    """The email address to create this invoice for.
+    """The email address of the customer.
 
-    This is required if you want to create an invoice for a user who does not have a
-    member of your company yet.
+    Required when creating an invoice for a customer who is not yet a member of the
+    company.
     """
 
     plan: Required[CreateInvoiceInputWithProductAndEmailAddressPlan]
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this
+    invoice.
+    """
 
     product: Required[CreateInvoiceInputWithProductAndEmailAddressProduct]
     """The properties of the product to create for this invoice.
 
-    Include this if you want to create an invoice for a new product.
+    Provide this to create a new product inline.
+    """
+
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
     """
 
     charge_buyer_fee: Optional[bool]
-    """Whether or not to charge the customer a buyer fee."""
+    """Whether to charge the customer a buyer fee on this invoice."""
 
     customer_name: Optional[str]
-    """The name of the customer to create this invoice for.
+    """The name of the customer.
 
-    This is required if you want to create an invoice for a customer who does not
-    have a member of your company yet.
+    Required when creating an invoice for a customer who is not yet a member of the
+    company.
     """
 
     payment_method_id: Optional[str]
-    """The payment method ID to use for this invoice.
+    """The unique identifier of the payment method to charge.
 
-    If using charge_automatically, you must provide a payment_method_id.
+    Required when collection_method is charge_automatically.
     """
 
     payment_token_id: Optional[str]
@@ -240,10 +270,12 @@ class CreateInvoiceInputWithProductAndEmailAddressPlanCustomField(TypedDict, tot
 
 
 class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this invoice.
+    """
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductAndEmailAddressPlanCustomField]]
     """An array of custom field objects."""
@@ -252,13 +284,17 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -273,8 +309,8 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -284,7 +320,10 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
@@ -293,7 +332,7 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
 class CreateInvoiceInputWithProductAndEmailAddressProduct(TypedDict, total=False):
     """The properties of the product to create for this invoice.
 
-    Include this if you want to create an invoice for a new product.
+    Provide this to create a new product inline.
     """
 
     title: Required[str]
@@ -305,47 +344,54 @@ class CreateInvoiceInputWithProductAndEmailAddressProduct(TypedDict, total=False
 
 class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
-    """The method of collection for this invoice.
+    """How the invoice should be collected.
 
-    If using charge_automatically, you must provide a payment_token.
+    Use charge_automatically to charge a stored payment method, or send_invoice to
+    email the customer.
     """
 
     company_id: Required[str]
-    """The company ID to create this invoice for."""
+    """The unique identifier of the company to create this invoice for."""
 
     due_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
-    """The date the invoice is due, if applicable."""
+    """The date by which the invoice must be paid."""
 
     member_id: Required[str]
-    """The member ID to create this invoice for.
+    """The unique identifier of an existing member to create this invoice for.
 
-    Include this if you want to create an invoice for an existing member. If you do
-    not have a member ID, you must provide an email_address and customer_name.
+    If not provided, you must supply an email_address and customer_name.
     """
 
     plan: Required[CreateInvoiceInputWithProductIDAndMemberIDPlan]
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this
+    invoice.
+    """
 
     product_id: Required[str]
-    """The product ID to create this invoice for.
+    """The unique identifier of an existing product to create this invoice for."""
 
-    Include this if you want to create an invoice for an existing product.
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
     """
 
     charge_buyer_fee: Optional[bool]
-    """Whether or not to charge the customer a buyer fee."""
+    """Whether to charge the customer a buyer fee on this invoice."""
 
     customer_name: Optional[str]
-    """The name of the customer to create this invoice for.
+    """The name of the customer.
 
-    This is required if you want to create an invoice for a customer who does not
-    have a member of your company yet.
+    Required when creating an invoice for a customer who is not yet a member of the
+    company.
     """
 
     payment_method_id: Optional[str]
-    """The payment method ID to use for this invoice.
+    """The unique identifier of the payment method to charge.
 
-    If using charge_automatically, you must provide a payment_method_id.
+    Required when collection_method is charge_automatically.
     """
 
     payment_token_id: Optional[str]
@@ -376,10 +422,12 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField(TypedDict, total
 
 
 class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this invoice.
+    """
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField]]
     """An array of custom field objects."""
@@ -388,13 +436,17 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -409,8 +461,8 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -420,7 +472,10 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
@@ -428,47 +483,55 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
 
 class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
-    """The method of collection for this invoice.
+    """How the invoice should be collected.
 
-    If using charge_automatically, you must provide a payment_token.
+    Use charge_automatically to charge a stored payment method, or send_invoice to
+    email the customer.
     """
 
     company_id: Required[str]
-    """The company ID to create this invoice for."""
+    """The unique identifier of the company to create this invoice for."""
 
     due_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
-    """The date the invoice is due, if applicable."""
+    """The date by which the invoice must be paid."""
 
     email_address: Required[str]
-    """The email address to create this invoice for.
+    """The email address of the customer.
 
-    This is required if you want to create an invoice for a user who does not have a
-    member of your company yet.
+    Required when creating an invoice for a customer who is not yet a member of the
+    company.
     """
 
     plan: Required[CreateInvoiceInputWithProductIDAndEmailAddressPlan]
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this
+    invoice.
+    """
 
     product_id: Required[str]
-    """The product ID to create this invoice for.
+    """The unique identifier of an existing product to create this invoice for."""
 
-    Include this if you want to create an invoice for an existing product.
+    automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date and time when the invoice will be automatically finalized and charged.
+
+    Only valid when collection_method is charge_automatically. If not provided, the
+    charge will be processed immediately.
     """
 
     charge_buyer_fee: Optional[bool]
-    """Whether or not to charge the customer a buyer fee."""
+    """Whether to charge the customer a buyer fee on this invoice."""
 
     customer_name: Optional[str]
-    """The name of the customer to create this invoice for.
+    """The name of the customer.
 
-    This is required if you want to create an invoice for a customer who does not
-    have a member of your company yet.
+    Required when creating an invoice for a customer who is not yet a member of the
+    company.
     """
 
     payment_method_id: Optional[str]
-    """The payment method ID to use for this invoice.
+    """The unique identifier of the payment method to charge.
 
-    If using charge_automatically, you must provide a payment_method_id.
+    Required when collection_method is charge_automatically.
     """
 
     payment_token_id: Optional[str]
@@ -499,10 +562,12 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField(TypedDict, t
 
 
 class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False):
-    """The properties of the plan to create for this invoice."""
+    """
+    The plan attributes defining the price, currency, and billing interval for this invoice.
+    """
 
     billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
+    """The interval in days at which the plan charges (renewal plans)."""
 
     custom_fields: Optional[Iterable[CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField]]
     """An array of custom field objects."""
@@ -511,13 +576,17 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     """The description of the plan."""
 
     expiration_days: Optional[int]
-    """The interval at which the plan charges (expiration plans)."""
+    """
+    The number of days until the membership expires and revokes access (expiration
+    plans). For example, 365 for a one-year access period.
+    """
 
     initial_price: Optional[float]
     """An additional amount charged upon first purchase.
 
     Use only if a one time payment OR you want to charge an additional amount on top
-    of the renewal price. Provided as a number in dollars. Eg: 10.43 for $10.43
+    of the renewal price. Provided as a number in the specified currency. Eg: 10.43
+    for $10.43
     """
 
     internal_notes: Optional[str]
@@ -532,8 +601,8 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     renewal_price: Optional[float]
     """The amount the customer is charged every billing period.
 
-    Use only if a recurring payment. Provided as a number in dollars. Eg: 10.43 for
-    $10.43
+    Use only if a recurring payment. Provided as a number in the specified currency.
+    Eg: 10.43 for $10.43
     """
 
     stock: Optional[int]
@@ -543,7 +612,10 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
     """The number of free trial days added before a renewal plan."""
 
     unlimited_stock: Optional[bool]
-    """Limits/doesn't limit the number of units available for purchase."""
+    """When true, the plan has unlimited stock (stock field is ignored).
+
+    When false, purchases are limited by the stock field.
+    """
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

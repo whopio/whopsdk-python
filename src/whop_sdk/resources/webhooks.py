@@ -130,7 +130,7 @@ class WebhooksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Webhook:
         """
-        Retrieves a webhook by ID
+        Retrieves the details of an existing webhook.
 
         Required permissions:
 
@@ -233,14 +233,15 @@ class WebhooksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[WebhookListResponse]:
         """
-        Lists webhooks for a company
+        Returns a paginated list of webhook endpoints configured for a company, ordered
+        by most recently created.
 
         Required permissions:
 
         - `developer:manage_webhook`
 
         Args:
-          company_id: The ID of the company to list webhooks for
+          company_id: The unique identifier of the company to list webhooks for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -441,7 +442,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Webhook:
         """
-        Retrieves a webhook by ID
+        Retrieves the details of an existing webhook.
 
         Required permissions:
 
@@ -544,14 +545,15 @@ class AsyncWebhooksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[WebhookListResponse, AsyncCursorPage[WebhookListResponse]]:
         """
-        Lists webhooks for a company
+        Returns a paginated list of webhook endpoints configured for a company, ordered
+        by most recently created.
 
         Required permissions:
 
         - `developer:manage_webhook`
 
         Args:
-          company_id: The ID of the company to list webhooks for
+          company_id: The unique identifier of the company to list webhooks for.
 
           after: Returns the elements in the list that come after the specified cursor.
 

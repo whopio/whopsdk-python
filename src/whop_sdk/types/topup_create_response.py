@@ -11,13 +11,16 @@ __all__ = ["TopupCreateResponse"]
 
 
 class TopupCreateResponse(BaseModel):
-    """An object representing a receipt for a membership."""
+    """A payment represents a completed or attempted charge.
+
+    Payments track the amount, status, currency, and payment method used.
+    """
 
     id: str
-    """The payment ID"""
+    """The unique identifier for the payment."""
 
     created_at: datetime
-    """The datetime the payment was created"""
+    """The datetime the payment was created."""
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
@@ -26,7 +29,10 @@ class TopupCreateResponse(BaseModel):
     """If the payment failed, the reason for the failure."""
 
     paid_at: Optional[datetime] = None
-    """The datetime the payment was paid"""
+    """The time at which this payment was successfully collected.
+
+    Null if the payment has not yet succeeded. As a Unix timestamp.
+    """
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""

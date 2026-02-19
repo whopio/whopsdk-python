@@ -8,10 +8,18 @@ __all__ = ["AccessTokenCreateResponse"]
 
 
 class AccessTokenCreateResponse(BaseModel):
-    """An object representing an access token used for authenticating API requests."""
+    """
+    A short-lived access token used to authenticate API requests on behalf of a user.
+    """
 
     token: str
-    """The JWT access token string."""
+    """
+    The signed JWT access token string to include in API request Authorization
+    headers.
+    """
 
     expires_at: datetime
-    """The expiration timestamp of the access token."""
+    """
+    The timestamp after which this access token is no longer valid and must be
+    refreshed.
+    """
