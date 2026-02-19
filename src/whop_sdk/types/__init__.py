@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .lead import Lead as Lead
+from .user import User as User
 from .course import Course as Course
 from .lesson import Lesson as Lesson
 from .shared import (
@@ -185,7 +186,6 @@ from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
 from .shipment_list_response import ShipmentListResponse as ShipmentListResponse
 from .transfer_create_params import TransferCreateParams as TransferCreateParams
 from .transfer_list_response import TransferListResponse as TransferListResponse
-from .user_retrieve_response import UserRetrieveResponse as UserRetrieveResponse
 from .withdrawal_list_params import WithdrawalListParams as WithdrawalListParams
 from .ai_chat_delete_response import AIChatDeleteResponse as AIChatDeleteResponse
 from .app_build_create_params import AppBuildCreateParams as AppBuildCreateParams
@@ -252,6 +252,7 @@ from .payment_method_list_params import PaymentMethodListParams as PaymentMethod
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
+from .user_update_profile_params import UserUpdateProfileParams as UserUpdateProfileParams
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .bot_token_transaction_types import BotTokenTransactionTypes as BotTokenTransactionTypes
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
