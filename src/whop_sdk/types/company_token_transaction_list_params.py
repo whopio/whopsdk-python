@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-from .transaction_type import TransactionType
+from .company_token_transaction_type import CompanyTokenTransactionType
 
 __all__ = ["CompanyTokenTransactionListParams"]
 
@@ -26,7 +26,7 @@ class CompanyTokenTransactionListParams(TypedDict, total=False):
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
-    transaction_type: Optional[TransactionType]
+    transaction_type: Optional[CompanyTokenTransactionType]
     """The type of token transaction"""
 
     user_id: Optional[str]
