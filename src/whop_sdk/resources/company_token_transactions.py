@@ -7,7 +7,11 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import TransactionType, company_token_transaction_list_params, company_token_transaction_create_params
+from ..types import (
+    CompanyTokenTransactionType,
+    company_token_transaction_list_params,
+    company_token_transaction_create_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,8 +24,8 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.transaction_type import TransactionType
 from ..types.company_token_transaction import CompanyTokenTransaction
+from ..types.company_token_transaction_type import CompanyTokenTransactionType
 from ..types.company_token_transaction_list_response import CompanyTokenTransactionListResponse
 
 __all__ = ["CompanyTokenTransactionsResource", "AsyncCompanyTokenTransactionsResource"]
@@ -292,7 +296,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        transaction_type: Optional[TransactionType] | Omit = omit,
+        transaction_type: Optional[CompanyTokenTransactionType] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -625,7 +629,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        transaction_type: Optional[TransactionType] | Omit = omit,
+        transaction_type: Optional[CompanyTokenTransactionType] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

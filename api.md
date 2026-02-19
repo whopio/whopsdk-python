@@ -800,7 +800,7 @@ Types:
 ```python
 from whop_sdk.types import (
     CompanyTokenTransaction,
-    TransactionType,
+    CompanyTokenTransactionType,
     CompanyTokenTransactionListResponse,
 )
 ```

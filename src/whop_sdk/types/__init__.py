@@ -98,7 +98,6 @@ from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
 from .plan_list_params import PlanListParams as PlanListParams
-from .transaction_type import TransactionType as TransactionType
 from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams
@@ -288,6 +287,7 @@ from .payment_created_webhook_event import PaymentCreatedWebhookEvent as Payment
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent as PaymentPendingWebhookEvent
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
+from .company_token_transaction_type import CompanyTokenTransactionType as CompanyTokenTransactionType
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
 from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent

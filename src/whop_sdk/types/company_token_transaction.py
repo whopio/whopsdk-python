@@ -4,7 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
-from .transaction_type import TransactionType
+from .company_token_transaction_type import CompanyTokenTransactionType
 
 __all__ = ["CompanyTokenTransaction", "Company", "Member", "User"]
 
@@ -83,7 +83,7 @@ class CompanyTokenTransaction(BaseModel):
     member: Member
     """The member whose token balance was affected by this transaction."""
 
-    transaction_type: TransactionType
+    transaction_type: CompanyTokenTransactionType
     """The direction of this token transaction (add, subtract, or transfer)."""
 
     user: User
