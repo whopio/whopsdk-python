@@ -23,7 +23,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestPayments:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_overload_1(self, client: Whop) -> None:
         payment = client.payments.create(
@@ -34,7 +34,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
         payment = client.payments.create(
@@ -77,7 +77,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_overload_1(self, client: Whop) -> None:
         response = client.payments.with_raw_response.create(
@@ -92,7 +92,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_overload_1(self, client: Whop) -> None:
         with client.payments.with_streaming_response.create(
@@ -109,7 +109,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_overload_2(self, client: Whop) -> None:
         payment = client.payments.create(
@@ -120,7 +120,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: Whop) -> None:
         payment = client.payments.create(
@@ -132,7 +132,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_overload_2(self, client: Whop) -> None:
         response = client.payments.with_raw_response.create(
@@ -147,7 +147,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_overload_2(self, client: Whop) -> None:
         with client.payments.with_streaming_response.create(
@@ -164,7 +164,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         payment = client.payments.retrieve(
@@ -172,7 +172,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.payments.with_raw_response.retrieve(
@@ -184,7 +184,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.payments.with_streaming_response.retrieve(
@@ -198,7 +198,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -206,13 +206,13 @@ class TestPayments:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         payment = client.payments.list()
         assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         payment = client.payments.list(
@@ -236,7 +236,7 @@ class TestPayments:
         )
         assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.payments.with_raw_response.list()
@@ -246,7 +246,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.payments.with_streaming_response.list() as response:
@@ -258,7 +258,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_fees(self, client: Whop) -> None:
         payment = client.payments.list_fees(
@@ -266,7 +266,7 @@ class TestPayments:
         )
         assert_matches_type(SyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_fees_with_all_params(self, client: Whop) -> None:
         payment = client.payments.list_fees(
@@ -278,7 +278,7 @@ class TestPayments:
         )
         assert_matches_type(SyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_fees(self, client: Whop) -> None:
         response = client.payments.with_raw_response.list_fees(
@@ -290,7 +290,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(SyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_fees(self, client: Whop) -> None:
         with client.payments.with_streaming_response.list_fees(
@@ -304,7 +304,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_fees(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -312,7 +312,7 @@ class TestPayments:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_refund(self, client: Whop) -> None:
         payment = client.payments.refund(
@@ -320,7 +320,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_refund_with_all_params(self, client: Whop) -> None:
         payment = client.payments.refund(
@@ -329,7 +329,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_refund(self, client: Whop) -> None:
         response = client.payments.with_raw_response.refund(
@@ -341,7 +341,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_refund(self, client: Whop) -> None:
         with client.payments.with_streaming_response.refund(
@@ -355,7 +355,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_refund(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -363,7 +363,7 @@ class TestPayments:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retry(self, client: Whop) -> None:
         payment = client.payments.retry(
@@ -371,7 +371,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retry(self, client: Whop) -> None:
         response = client.payments.with_raw_response.retry(
@@ -383,7 +383,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retry(self, client: Whop) -> None:
         with client.payments.with_streaming_response.retry(
@@ -397,7 +397,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retry(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -405,7 +405,7 @@ class TestPayments:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_void(self, client: Whop) -> None:
         payment = client.payments.void(
@@ -413,7 +413,7 @@ class TestPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_void(self, client: Whop) -> None:
         response = client.payments.with_raw_response.void(
@@ -425,7 +425,7 @@ class TestPayments:
         payment = response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_void(self, client: Whop) -> None:
         with client.payments.with_streaming_response.void(
@@ -439,7 +439,7 @@ class TestPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_void(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -453,7 +453,7 @@ class TestAsyncPayments:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
@@ -464,7 +464,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
@@ -507,7 +507,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.create(
@@ -522,7 +522,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.create(
@@ -539,7 +539,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
@@ -550,7 +550,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
@@ -562,7 +562,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.create(
@@ -577,7 +577,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.create(
@@ -594,7 +594,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.retrieve(
@@ -602,7 +602,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.retrieve(
@@ -614,7 +614,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.retrieve(
@@ -628,7 +628,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -636,13 +636,13 @@ class TestAsyncPayments:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list()
         assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list(
@@ -666,7 +666,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.list()
@@ -676,7 +676,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.list() as response:
@@ -688,7 +688,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_fees(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list_fees(
@@ -696,7 +696,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(AsyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_fees_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list_fees(
@@ -708,7 +708,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(AsyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_fees(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.list_fees(
@@ -720,7 +720,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(AsyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_fees(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.list_fees(
@@ -734,7 +734,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_fees(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -742,7 +742,7 @@ class TestAsyncPayments:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_refund(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.refund(
@@ -750,7 +750,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_refund_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.refund(
@@ -759,7 +759,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_refund(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.refund(
@@ -771,7 +771,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_refund(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.refund(
@@ -785,7 +785,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_refund(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -793,7 +793,7 @@ class TestAsyncPayments:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retry(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.retry(
@@ -801,7 +801,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retry(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.retry(
@@ -813,7 +813,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retry(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.retry(
@@ -827,7 +827,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retry(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -835,7 +835,7 @@ class TestAsyncPayments:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_void(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.void(
@@ -843,7 +843,7 @@ class TestAsyncPayments:
         )
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.void(
@@ -855,7 +855,7 @@ class TestAsyncPayments:
         payment = await response.parse()
         assert_matches_type(Payment, payment, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_void(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.void(
@@ -869,7 +869,7 @@ class TestAsyncPayments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_void(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):

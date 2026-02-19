@@ -23,7 +23,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestPromoCodes:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         promo_code = client.promo_codes.create(
@@ -37,7 +37,7 @@ class TestPromoCodes:
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         promo_code = client.promo_codes.create(
@@ -59,7 +59,7 @@ class TestPromoCodes:
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.promo_codes.with_raw_response.create(
@@ -77,7 +77,7 @@ class TestPromoCodes:
         promo_code = response.parse()
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.promo_codes.with_streaming_response.create(
@@ -97,7 +97,7 @@ class TestPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         promo_code = client.promo_codes.retrieve(
@@ -105,7 +105,7 @@ class TestPromoCodes:
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.promo_codes.with_raw_response.retrieve(
@@ -117,7 +117,7 @@ class TestPromoCodes:
         promo_code = response.parse()
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.promo_codes.with_streaming_response.retrieve(
@@ -131,7 +131,7 @@ class TestPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -139,7 +139,7 @@ class TestPromoCodes:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         promo_code = client.promo_codes.list(
@@ -147,7 +147,7 @@ class TestPromoCodes:
         )
         assert_matches_type(SyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         promo_code = client.promo_codes.list(
@@ -164,7 +164,7 @@ class TestPromoCodes:
         )
         assert_matches_type(SyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.promo_codes.with_raw_response.list(
@@ -176,7 +176,7 @@ class TestPromoCodes:
         promo_code = response.parse()
         assert_matches_type(SyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.promo_codes.with_streaming_response.list(
@@ -190,7 +190,7 @@ class TestPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Whop) -> None:
         promo_code = client.promo_codes.delete(
@@ -198,7 +198,7 @@ class TestPromoCodes:
         )
         assert_matches_type(PromoCodeDeleteResponse, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.promo_codes.with_raw_response.delete(
@@ -210,7 +210,7 @@ class TestPromoCodes:
         promo_code = response.parse()
         assert_matches_type(PromoCodeDeleteResponse, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.promo_codes.with_streaming_response.delete(
@@ -224,7 +224,7 @@ class TestPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -238,7 +238,7 @@ class TestAsyncPromoCodes:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.create(
@@ -252,7 +252,7 @@ class TestAsyncPromoCodes:
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.create(
@@ -274,7 +274,7 @@ class TestAsyncPromoCodes:
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.promo_codes.with_raw_response.create(
@@ -292,7 +292,7 @@ class TestAsyncPromoCodes:
         promo_code = await response.parse()
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.promo_codes.with_streaming_response.create(
@@ -312,7 +312,7 @@ class TestAsyncPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.retrieve(
@@ -320,7 +320,7 @@ class TestAsyncPromoCodes:
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.promo_codes.with_raw_response.retrieve(
@@ -332,7 +332,7 @@ class TestAsyncPromoCodes:
         promo_code = await response.parse()
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.promo_codes.with_streaming_response.retrieve(
@@ -346,7 +346,7 @@ class TestAsyncPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -354,7 +354,7 @@ class TestAsyncPromoCodes:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.list(
@@ -362,7 +362,7 @@ class TestAsyncPromoCodes:
         )
         assert_matches_type(AsyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.list(
@@ -379,7 +379,7 @@ class TestAsyncPromoCodes:
         )
         assert_matches_type(AsyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.promo_codes.with_raw_response.list(
@@ -391,7 +391,7 @@ class TestAsyncPromoCodes:
         promo_code = await response.parse()
         assert_matches_type(AsyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.promo_codes.with_streaming_response.list(
@@ -405,7 +405,7 @@ class TestAsyncPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.delete(
@@ -413,7 +413,7 @@ class TestAsyncPromoCodes:
         )
         assert_matches_type(PromoCodeDeleteResponse, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.promo_codes.with_raw_response.delete(
@@ -425,7 +425,7 @@ class TestAsyncPromoCodes:
         promo_code = await response.parse()
         assert_matches_type(PromoCodeDeleteResponse, promo_code, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.promo_codes.with_streaming_response.delete(
@@ -439,7 +439,7 @@ class TestAsyncPromoCodes:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
