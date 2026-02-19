@@ -93,10 +93,12 @@ from .promo_duration import PromoDuration as PromoDuration
 from .app_list_params import AppListParams as AppListParams
 from .billing_reasons import BillingReasons as BillingReasons
 from .fee_markup_type import FeeMarkupType as FeeMarkupType
+from .industry_groups import IndustryGroups as IndustryGroups
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
 from .plan_list_params import PlanListParams as PlanListParams
+from .transaction_type import TransactionType as TransactionType
 from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams

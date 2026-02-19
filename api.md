@@ -107,7 +107,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import ProductDeleteResponse
+from whop_sdk.types import IndustryGroups, ProductDeleteResponse
 ```
 
 Methods:
@@ -798,7 +798,11 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CompanyTokenTransaction, CompanyTokenTransactionListResponse
+from whop_sdk.types import (
+    CompanyTokenTransaction,
+    TransactionType,
+    CompanyTokenTransactionListResponse,
+)
 ```
 
 Methods:
