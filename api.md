@@ -865,3 +865,16 @@ Methods:
 - <code title="patch /dm_channels/{id}">client.dm_channels.<a href="./src/whop_sdk/resources/dm_channels.py">update</a>(id, \*\*<a href="src/whop_sdk/types/dm_channel_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/dm_channel.py">DmChannel</a></code>
 - <code title="get /dm_channels">client.dm_channels.<a href="./src/whop_sdk/resources/dm_channels.py">list</a>(\*\*<a href="src/whop_sdk/types/dm_channel_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dm_channel_list_response.py">SyncCursorPage[DmChannelListResponse]</a></code>
 - <code title="delete /dm_channels/{id}">client.dm_channels.<a href="./src/whop_sdk/resources/dm_channels.py">delete</a>(id) -> <a href="./src/whop_sdk/types/dm_channel_delete_response.py">DmChannelDeleteResponse</a></code>
+
+# DisputeAlerts
+
+Types:
+
+```python
+from whop_sdk.types import DisputeAlertType, DisputeAlertRetrieveResponse, DisputeAlertListResponse
+```
+
+Methods:
+
+- <code title="get /dispute_alerts/{id}">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dispute_alert_retrieve_response.py">DisputeAlertRetrieveResponse</a></code>
+- <code title="get /dispute_alerts">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_alert_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_alert_list_response.py">SyncCursorPage[DisputeAlertListResponse]</a></code>

@@ -2,7 +2,6 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
 from .card_brands import CardBrands
@@ -13,18 +12,10 @@ from .dispute_alert_type import DisputeAlertType
 from .payment_method_types import PaymentMethodTypes
 from .shared.membership_status import MembershipStatus
 
-__all__ = [
-    "DisputeAlertCreatedWebhookEvent",
-    "Data",
-    "DataDispute",
-    "DataPayment",
-    "DataPaymentMember",
-    "DataPaymentMembership",
-    "DataPaymentUser",
-]
+__all__ = ["DisputeAlertRetrieveResponse", "Dispute", "Payment", "PaymentMember", "PaymentMembership", "PaymentUser"]
 
 
-class DataDispute(BaseModel):
+class Dispute(BaseModel):
     """The dispute associated with the dispute alert."""
 
     id: str
@@ -49,7 +40,7 @@ class DataDispute(BaseModel):
     """
 
 
-class DataPaymentMember(BaseModel):
+class PaymentMember(BaseModel):
     """The member attached to this payment."""
 
     id: str
@@ -59,7 +50,7 @@ class DataPaymentMember(BaseModel):
     """The phone number for the member, if available."""
 
 
-class DataPaymentMembership(BaseModel):
+class PaymentMembership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
@@ -69,7 +60,7 @@ class DataPaymentMembership(BaseModel):
     """The state of the membership."""
 
 
-class DataPaymentUser(BaseModel):
+class PaymentUser(BaseModel):
     """The user that made this payment."""
 
     id: str
@@ -88,7 +79,7 @@ class DataPaymentUser(BaseModel):
     """The user's unique username shown on their public profile."""
 
 
-class DataPayment(BaseModel):
+class Payment(BaseModel):
     """The payment associated with the dispute alert."""
 
     id: str
@@ -115,10 +106,10 @@ class DataPayment(BaseModel):
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
 
-    member: Optional[DataPaymentMember] = None
+    member: Optional[PaymentMember] = None
     """The member attached to this payment."""
 
-    membership: Optional[DataPaymentMembership] = None
+    membership: Optional[PaymentMembership] = None
     """The membership attached to this payment."""
 
     paid_at: Optional[datetime] = None
@@ -139,11 +130,11 @@ class DataPayment(BaseModel):
     usd_total: Optional[float] = None
     """The total in USD to show to the creator (excluding buyer fees)."""
 
-    user: Optional[DataPaymentUser] = None
+    user: Optional[PaymentUser] = None
     """The user that made this payment."""
 
 
-class Data(BaseModel):
+class DisputeAlertRetrieveResponse(BaseModel):
     """
     A dispute alert represents an early warning notification from a payment processor about a potential dispute or chargeback.
     """
@@ -166,34 +157,11 @@ class Data(BaseModel):
     currency: Currency
     """The three-letter ISO currency code for the alerted amount."""
 
-    dispute: Optional[DataDispute] = None
+    dispute: Optional[Dispute] = None
     """The dispute associated with the dispute alert."""
 
-    payment: Optional[DataPayment] = None
+    payment: Optional[Payment] = None
     """The payment associated with the dispute alert."""
 
     transaction_date: Optional[datetime] = None
     """The date of the original transaction."""
-
-
-class DisputeAlertCreatedWebhookEvent(BaseModel):
-    id: str
-    """A unique ID for every single webhook request"""
-
-    api_version: Literal["v1"]
-    """The API version for this webhook"""
-
-    data: Data
-    """
-    A dispute alert represents an early warning notification from a payment
-    processor about a potential dispute or chargeback.
-    """
-
-    timestamp: datetime
-    """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
-
-    type: Literal["dispute_alert.created"]
-    """The webhook event type"""
-
-    company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
