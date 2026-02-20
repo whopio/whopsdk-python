@@ -22,7 +22,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestReactions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         reaction = client.reactions.create(
@@ -30,7 +30,7 @@ class TestReactions:
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         reaction = client.reactions.create(
@@ -40,7 +40,7 @@ class TestReactions:
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.reactions.with_raw_response.create(
@@ -52,7 +52,7 @@ class TestReactions:
         reaction = response.parse()
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.reactions.with_streaming_response.create(
@@ -66,7 +66,7 @@ class TestReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         reaction = client.reactions.retrieve(
@@ -74,7 +74,7 @@ class TestReactions:
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.reactions.with_raw_response.retrieve(
@@ -86,7 +86,7 @@ class TestReactions:
         reaction = response.parse()
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.reactions.with_streaming_response.retrieve(
@@ -100,7 +100,7 @@ class TestReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -108,7 +108,7 @@ class TestReactions:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         reaction = client.reactions.list(
@@ -116,7 +116,7 @@ class TestReactions:
         )
         assert_matches_type(SyncCursorPage[ReactionListResponse], reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         reaction = client.reactions.list(
@@ -128,7 +128,7 @@ class TestReactions:
         )
         assert_matches_type(SyncCursorPage[ReactionListResponse], reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.reactions.with_raw_response.list(
@@ -140,7 +140,7 @@ class TestReactions:
         reaction = response.parse()
         assert_matches_type(SyncCursorPage[ReactionListResponse], reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.reactions.with_streaming_response.list(
@@ -154,7 +154,7 @@ class TestReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Whop) -> None:
         reaction = client.reactions.delete(
@@ -162,7 +162,7 @@ class TestReactions:
         )
         assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete_with_all_params(self, client: Whop) -> None:
         reaction = client.reactions.delete(
@@ -171,7 +171,7 @@ class TestReactions:
         )
         assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.reactions.with_raw_response.delete(
@@ -183,7 +183,7 @@ class TestReactions:
         reaction = response.parse()
         assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.reactions.with_streaming_response.delete(
@@ -197,7 +197,7 @@ class TestReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -211,7 +211,7 @@ class TestAsyncReactions:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.create(
@@ -219,7 +219,7 @@ class TestAsyncReactions:
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.create(
@@ -229,7 +229,7 @@ class TestAsyncReactions:
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.reactions.with_raw_response.create(
@@ -241,7 +241,7 @@ class TestAsyncReactions:
         reaction = await response.parse()
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.reactions.with_streaming_response.create(
@@ -255,7 +255,7 @@ class TestAsyncReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.retrieve(
@@ -263,7 +263,7 @@ class TestAsyncReactions:
         )
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.reactions.with_raw_response.retrieve(
@@ -275,7 +275,7 @@ class TestAsyncReactions:
         reaction = await response.parse()
         assert_matches_type(Reaction, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.reactions.with_streaming_response.retrieve(
@@ -289,7 +289,7 @@ class TestAsyncReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -297,7 +297,7 @@ class TestAsyncReactions:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.list(
@@ -305,7 +305,7 @@ class TestAsyncReactions:
         )
         assert_matches_type(AsyncCursorPage[ReactionListResponse], reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.list(
@@ -317,7 +317,7 @@ class TestAsyncReactions:
         )
         assert_matches_type(AsyncCursorPage[ReactionListResponse], reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.reactions.with_raw_response.list(
@@ -329,7 +329,7 @@ class TestAsyncReactions:
         reaction = await response.parse()
         assert_matches_type(AsyncCursorPage[ReactionListResponse], reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.reactions.with_streaming_response.list(
@@ -343,7 +343,7 @@ class TestAsyncReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.delete(
@@ -351,7 +351,7 @@ class TestAsyncReactions:
         )
         assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
         reaction = await async_client.reactions.delete(
@@ -360,7 +360,7 @@ class TestAsyncReactions:
         )
         assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.reactions.with_raw_response.delete(
@@ -372,7 +372,7 @@ class TestAsyncReactions:
         reaction = await response.parse()
         assert_matches_type(ReactionDeleteResponse, reaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.reactions.with_streaming_response.delete(
@@ -386,7 +386,7 @@ class TestAsyncReactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):

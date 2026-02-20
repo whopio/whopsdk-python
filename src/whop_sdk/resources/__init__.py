@@ -312,6 +312,14 @@ from .course_lessons import (
     CourseLessonsResourceWithStreamingResponse,
     AsyncCourseLessonsResourceWithStreamingResponse,
 )
+from .dispute_alerts import (
+    DisputeAlertsResource,
+    AsyncDisputeAlertsResource,
+    DisputeAlertsResourceWithRawResponse,
+    AsyncDisputeAlertsResourceWithRawResponse,
+    DisputeAlertsResourceWithStreamingResponse,
+    AsyncDisputeAlertsResourceWithStreamingResponse,
+)
 from .payout_methods import (
     PayoutMethodsResource,
     AsyncPayoutMethodsResource,
@@ -688,4 +696,10 @@ __all__ = [
     "AsyncDmChannelsResourceWithRawResponse",
     "DmChannelsResourceWithStreamingResponse",
     "AsyncDmChannelsResourceWithStreamingResponse",
+    "DisputeAlertsResource",
+    "AsyncDisputeAlertsResource",
+    "DisputeAlertsResourceWithRawResponse",
+    "AsyncDisputeAlertsResourceWithRawResponse",
+    "DisputeAlertsResourceWithStreamingResponse",
+    "AsyncDisputeAlertsResourceWithStreamingResponse",
 ]

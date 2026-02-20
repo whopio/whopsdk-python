@@ -19,7 +19,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestRefunds:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         refund = client.refunds.retrieve(
@@ -27,7 +27,7 @@ class TestRefunds:
         )
         assert_matches_type(RefundRetrieveResponse, refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.refunds.with_raw_response.retrieve(
@@ -39,7 +39,7 @@ class TestRefunds:
         refund = response.parse()
         assert_matches_type(RefundRetrieveResponse, refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.refunds.with_streaming_response.retrieve(
@@ -53,7 +53,7 @@ class TestRefunds:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -61,7 +61,7 @@ class TestRefunds:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         refund = client.refunds.list(
@@ -69,7 +69,7 @@ class TestRefunds:
         )
         assert_matches_type(SyncCursorPage[RefundListResponse], refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         refund = client.refunds.list(
@@ -84,7 +84,7 @@ class TestRefunds:
         )
         assert_matches_type(SyncCursorPage[RefundListResponse], refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.refunds.with_raw_response.list(
@@ -96,7 +96,7 @@ class TestRefunds:
         refund = response.parse()
         assert_matches_type(SyncCursorPage[RefundListResponse], refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.refunds.with_streaming_response.list(
@@ -116,7 +116,7 @@ class TestAsyncRefunds:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         refund = await async_client.refunds.retrieve(
@@ -124,7 +124,7 @@ class TestAsyncRefunds:
         )
         assert_matches_type(RefundRetrieveResponse, refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.refunds.with_raw_response.retrieve(
@@ -136,7 +136,7 @@ class TestAsyncRefunds:
         refund = await response.parse()
         assert_matches_type(RefundRetrieveResponse, refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.refunds.with_streaming_response.retrieve(
@@ -150,7 +150,7 @@ class TestAsyncRefunds:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -158,7 +158,7 @@ class TestAsyncRefunds:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         refund = await async_client.refunds.list(
@@ -166,7 +166,7 @@ class TestAsyncRefunds:
         )
         assert_matches_type(AsyncCursorPage[RefundListResponse], refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         refund = await async_client.refunds.list(
@@ -181,7 +181,7 @@ class TestAsyncRefunds:
         )
         assert_matches_type(AsyncCursorPage[RefundListResponse], refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.refunds.with_raw_response.list(
@@ -193,7 +193,7 @@ class TestAsyncRefunds:
         refund = await response.parse()
         assert_matches_type(AsyncCursorPage[RefundListResponse], refund, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.refunds.with_streaming_response.list(

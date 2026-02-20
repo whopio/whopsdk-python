@@ -24,6 +24,9 @@ class MessageCreateParams(TypedDict, total=False):
     videos.
     """
 
+    auto_detect_links: Optional[bool]
+    """Automatically detect URLs in the message and generate link previews."""
+
     poll: Optional[Poll]
     """A poll to attach to this message, allowing recipients to vote on options."""
 

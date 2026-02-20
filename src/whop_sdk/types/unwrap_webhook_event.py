@@ -23,6 +23,7 @@ from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
+from .dispute_alert_created_webhook_event import DisputeAlertCreatedWebhookEvent
 from .payout_method_created_webhook_event import PayoutMethodCreatedWebhookEvent
 from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent
@@ -62,6 +63,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         DisputeUpdatedWebhookEvent,
         RefundCreatedWebhookEvent,
         RefundUpdatedWebhookEvent,
+        DisputeAlertCreatedWebhookEvent,
         MembershipCancelAtPeriodEndChangedWebhookEvent,
     ],
     PropertyInfo(discriminator="type"),

@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestForumPosts:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         forum_post = client.forum_posts.create(
@@ -29,7 +29,7 @@ class TestForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         forum_post = client.forum_posts.create(
@@ -55,7 +55,7 @@ class TestForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.forum_posts.with_raw_response.create(
@@ -67,7 +67,7 @@ class TestForumPosts:
         forum_post = response.parse()
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.forum_posts.with_streaming_response.create(
@@ -81,7 +81,7 @@ class TestForumPosts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         forum_post = client.forum_posts.retrieve(
@@ -89,7 +89,7 @@ class TestForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.forum_posts.with_raw_response.retrieve(
@@ -101,7 +101,7 @@ class TestForumPosts:
         forum_post = response.parse()
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.forum_posts.with_streaming_response.retrieve(
@@ -115,7 +115,7 @@ class TestForumPosts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -123,7 +123,7 @@ class TestForumPosts:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         forum_post = client.forum_posts.update(
@@ -131,7 +131,7 @@ class TestForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         forum_post = client.forum_posts.update(
@@ -144,7 +144,7 @@ class TestForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.forum_posts.with_raw_response.update(
@@ -156,7 +156,7 @@ class TestForumPosts:
         forum_post = response.parse()
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.forum_posts.with_streaming_response.update(
@@ -170,7 +170,7 @@ class TestForumPosts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -178,7 +178,7 @@ class TestForumPosts:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         forum_post = client.forum_posts.list(
@@ -186,7 +186,7 @@ class TestForumPosts:
         )
         assert_matches_type(SyncCursorPage[ForumPostListResponse], forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         forum_post = client.forum_posts.list(
@@ -200,7 +200,7 @@ class TestForumPosts:
         )
         assert_matches_type(SyncCursorPage[ForumPostListResponse], forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.forum_posts.with_raw_response.list(
@@ -212,7 +212,7 @@ class TestForumPosts:
         forum_post = response.parse()
         assert_matches_type(SyncCursorPage[ForumPostListResponse], forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.forum_posts.with_streaming_response.list(
@@ -232,7 +232,7 @@ class TestAsyncForumPosts:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         forum_post = await async_client.forum_posts.create(
@@ -240,7 +240,7 @@ class TestAsyncForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         forum_post = await async_client.forum_posts.create(
@@ -266,7 +266,7 @@ class TestAsyncForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.forum_posts.with_raw_response.create(
@@ -278,7 +278,7 @@ class TestAsyncForumPosts:
         forum_post = await response.parse()
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.forum_posts.with_streaming_response.create(
@@ -292,7 +292,7 @@ class TestAsyncForumPosts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         forum_post = await async_client.forum_posts.retrieve(
@@ -300,7 +300,7 @@ class TestAsyncForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.forum_posts.with_raw_response.retrieve(
@@ -312,7 +312,7 @@ class TestAsyncForumPosts:
         forum_post = await response.parse()
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.forum_posts.with_streaming_response.retrieve(
@@ -326,7 +326,7 @@ class TestAsyncForumPosts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -334,7 +334,7 @@ class TestAsyncForumPosts:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         forum_post = await async_client.forum_posts.update(
@@ -342,7 +342,7 @@ class TestAsyncForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         forum_post = await async_client.forum_posts.update(
@@ -355,7 +355,7 @@ class TestAsyncForumPosts:
         )
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.forum_posts.with_raw_response.update(
@@ -367,7 +367,7 @@ class TestAsyncForumPosts:
         forum_post = await response.parse()
         assert_matches_type(ForumPost, forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.forum_posts.with_streaming_response.update(
@@ -381,7 +381,7 @@ class TestAsyncForumPosts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -389,7 +389,7 @@ class TestAsyncForumPosts:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         forum_post = await async_client.forum_posts.list(
@@ -397,7 +397,7 @@ class TestAsyncForumPosts:
         )
         assert_matches_type(AsyncCursorPage[ForumPostListResponse], forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         forum_post = await async_client.forum_posts.list(
@@ -411,7 +411,7 @@ class TestAsyncForumPosts:
         )
         assert_matches_type(AsyncCursorPage[ForumPostListResponse], forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.forum_posts.with_raw_response.list(
@@ -423,7 +423,7 @@ class TestAsyncForumPosts:
         forum_post = await response.parse()
         assert_matches_type(AsyncCursorPage[ForumPostListResponse], forum_post, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.forum_posts.with_streaming_response.list(

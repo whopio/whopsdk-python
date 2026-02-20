@@ -18,13 +18,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestAccessTokens:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         access_token = client.access_tokens.create()
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         access_token = client.access_tokens.create(
@@ -35,7 +35,7 @@ class TestAccessTokens:
         )
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.access_tokens.with_raw_response.create()
@@ -45,7 +45,7 @@ class TestAccessTokens:
         access_token = response.parse()
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.access_tokens.with_streaming_response.create() as response:
@@ -63,13 +63,13 @@ class TestAsyncAccessTokens:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         access_token = await async_client.access_tokens.create()
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         access_token = await async_client.access_tokens.create(
@@ -80,7 +80,7 @@ class TestAsyncAccessTokens:
         )
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.access_tokens.with_raw_response.create()
@@ -90,7 +90,7 @@ class TestAsyncAccessTokens:
         access_token = await response.parse()
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.access_tokens.with_streaming_response.create() as response:

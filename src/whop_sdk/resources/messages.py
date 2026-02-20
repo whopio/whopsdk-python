@@ -53,6 +53,7 @@ class MessagesResource(SyncAPIResource):
         channel_id: str,
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
+        auto_detect_links: Optional[bool] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
         replying_to_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -80,6 +81,8 @@ class MessagesResource(SyncAPIResource):
           attachments: A list of file attachments to include with the message, such as images or
               videos.
 
+          auto_detect_links: Automatically detect URLs in the message and generate link previews.
+
           poll: A poll to attach to this message, allowing recipients to vote on options.
 
           replying_to_message_id: The unique identifier of the message this is replying to, creating a threaded
@@ -100,6 +103,7 @@ class MessagesResource(SyncAPIResource):
                     "channel_id": channel_id,
                     "content": content,
                     "attachments": attachments,
+                    "auto_detect_links": auto_detect_links,
                     "poll": poll,
                     "replying_to_message_id": replying_to_message_id,
                 },
@@ -334,6 +338,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         channel_id: str,
         content: str,
         attachments: Optional[Iterable[message_create_params.Attachment]] | Omit = omit,
+        auto_detect_links: Optional[bool] | Omit = omit,
         poll: Optional[message_create_params.Poll] | Omit = omit,
         replying_to_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -361,6 +366,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           attachments: A list of file attachments to include with the message, such as images or
               videos.
 
+          auto_detect_links: Automatically detect URLs in the message and generate link previews.
+
           poll: A poll to attach to this message, allowing recipients to vote on options.
 
           replying_to_message_id: The unique identifier of the message this is replying to, creating a threaded
@@ -381,6 +388,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "channel_id": channel_id,
                     "content": content,
                     "attachments": attachments,
+                    "auto_detect_links": auto_detect_links,
                     "poll": poll,
                     "replying_to_message_id": replying_to_message_id,
                 },
