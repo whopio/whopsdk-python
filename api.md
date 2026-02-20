@@ -171,6 +171,7 @@ from whop_sdk.types import (
     DisputeUpdatedWebhookEvent,
     RefundCreatedWebhookEvent,
     RefundUpdatedWebhookEvent,
+    DisputeAlertCreatedWebhookEvent,
     MembershipCancelAtPeriodEndChangedWebhookEvent,
     UnwrapWebhookEvent,
 )

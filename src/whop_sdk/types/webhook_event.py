@@ -31,5 +31,6 @@ WebhookEvent: TypeAlias = Literal[
     "dispute.updated",
     "refund.created",
     "refund.updated",
+    "dispute_alert.created",
     "membership.cancel_at_period_end_changed",
 ]
