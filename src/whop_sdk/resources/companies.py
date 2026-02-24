@@ -184,6 +184,7 @@ class CompaniesResource(SyncAPIResource):
         industry_group: Optional[IndustryGroups] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
+        route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -216,6 +217,10 @@ class CompaniesResource(SyncAPIResource):
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
+          route: The unique URL slug for the company's store page. Must be lowercase and can
+              include hyphens (e.g., 'my-company'). If not provided, the route will remain
+              unchanged.
+
           send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
               customers on behalf of this company.
 
@@ -244,6 +249,7 @@ class CompaniesResource(SyncAPIResource):
                     "industry_group": industry_group,
                     "industry_type": industry_type,
                     "logo": logo,
+                    "route": route,
                     "send_customer_emails": send_customer_emails,
                     "target_audience": target_audience,
                     "title": title,
@@ -491,6 +497,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         industry_group: Optional[IndustryGroups] | Omit = omit,
         industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
+        route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -523,6 +530,10 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
+          route: The unique URL slug for the company's store page. Must be lowercase and can
+              include hyphens (e.g., 'my-company'). If not provided, the route will remain
+              unchanged.
+
           send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
               customers on behalf of this company.
 
@@ -551,6 +562,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
                     "industry_group": industry_group,
                     "industry_type": industry_type,
                     "logo": logo,
+                    "route": route,
                     "send_customer_emails": send_customer_emails,
                     "target_audience": target_audience,
                     "title": title,
