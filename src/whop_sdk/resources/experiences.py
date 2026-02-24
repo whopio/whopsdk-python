@@ -236,10 +236,6 @@ class ExperiencesResource(SyncAPIResource):
         Returns a paginated list of experiences belonging to a company, with optional
         filtering by product and app.
 
-        Required permissions:
-
-        - `experience:hidden_experience:read`
-
         Args:
           company_id: The unique identifier of the company to list experiences for.
 
@@ -661,10 +657,6 @@ class AsyncExperiencesResource(AsyncAPIResource):
         """
         Returns a paginated list of experiences belonging to a company, with optional
         filtering by product and app.
-
-        Required permissions:
-
-        - `experience:hidden_experience:read`
 
         Args:
           company_id: The unique identifier of the company to list experiences for.
