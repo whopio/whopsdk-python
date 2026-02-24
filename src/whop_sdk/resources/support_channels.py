@@ -52,6 +52,7 @@ class SupportChannelsResource(SyncAPIResource):
         *,
         company_id: str,
         user_id: str,
+        custom_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,6 +75,8 @@ class SupportChannelsResource(SyncAPIResource):
           user_id: The user ID (e.g. 'user_xxxxx') or username of the customer to open a support
               channel for.
 
+          custom_name: Optional custom display name for the support channel.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -88,6 +91,7 @@ class SupportChannelsResource(SyncAPIResource):
                 {
                     "company_id": company_id,
                     "user_id": user_id,
+                    "custom_name": custom_name,
                 },
                 support_channel_create_params.SupportChannelCreateParams,
             ),
@@ -237,6 +241,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         *,
         company_id: str,
         user_id: str,
+        custom_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -259,6 +264,8 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
           user_id: The user ID (e.g. 'user_xxxxx') or username of the customer to open a support
               channel for.
 
+          custom_name: Optional custom display name for the support channel.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -273,6 +280,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
                 {
                     "company_id": company_id,
                     "user_id": user_id,
+                    "custom_name": custom_name,
                 },
                 support_channel_create_params.SupportChannelCreateParams,
             ),

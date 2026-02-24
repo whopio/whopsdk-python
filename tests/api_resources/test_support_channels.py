@@ -32,6 +32,16 @@ class TestSupportChannels:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create_with_all_params(self, client: Whop) -> None:
+        support_channel = client.support_channels.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+            custom_name="custom_name",
+        )
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.support_channels.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
@@ -161,6 +171,16 @@ class TestAsyncSupportChannels:
         support_channel = await async_client.support_channels.create(
             company_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(SupportChannel, support_channel, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
+        support_channel = await async_client.support_channels.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+            custom_name="custom_name",
         )
         assert_matches_type(SupportChannel, support_channel, path=["response"])
 
