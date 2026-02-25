@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.0.29 (2026-02-25)
+
+Full Changelog: [v0.0.28...v0.0.29](https://github.com/whopio/whopsdk-python/compare/v0.0.28...v0.0.29)
+
+### Features
+
+* **api:** api update ([7e2d55e](https://github.com/whopio/whopsdk-python/commit/7e2d55e61741beec85ad11ae3cf571a2684b0369))
+* **api:** api update ([5b68244](https://github.com/whopio/whopsdk-python/commit/5b68244fb175ea43c7199292a348a37aff720d45))
+* **api:** api update ([f664d03](https://github.com/whopio/whopsdk-python/commit/f664d034f20c545b78bd019644021b1d9abf6100))
+* **api:** api update ([0d0adf7](https://github.com/whopio/whopsdk-python/commit/0d0adf740f1bd91b2fbb3b54378dc7018f63ce38))
+* **api:** api update ([e2c0809](https://github.com/whopio/whopsdk-python/commit/e2c080925b09f8607b4230e919c46489f8ce9920))
+* **api:** api update ([bc25ae5](https://github.com/whopio/whopsdk-python/commit/bc25ae5eb84fa5e9d44d90d4cd7502c2ec7d0ec0))
+* **api:** api update ([acaa1fb](https://github.com/whopio/whopsdk-python/commit/acaa1fb8a162fb2af59960b6ff612b817dfa8a01))
+* **api:** api update ([0f7bff9](https://github.com/whopio/whopsdk-python/commit/0f7bff92405af88e069f32601f43dfe4a7fd4832))
+* **api:** manual updates ([ac6cc5e](https://github.com/whopio/whopsdk-python/commit/ac6cc5e4f3f51cbedb9d1cc1c61f6b909a72c004))
+
+
+### Chores
+
+* **dependencies:** require standardwebhooks 1.0.1 ([9d68743](https://github.com/whopio/whopsdk-python/commit/9d68743d4109f759bb5959827f2714aae061f862))
+* **internal:** add request options to SSE classes ([e195fd2](https://github.com/whopio/whopsdk-python/commit/e195fd2b75d8398745aec350a3b1ca528ff22d7f))
+* **internal:** make `test_proxy_environment_variables` more resilient ([0a66978](https://github.com/whopio/whopsdk-python/commit/0a66978966a3affc332b979b3f06742ee3a6f1fa))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([1d36010](https://github.com/whopio/whopsdk-python/commit/1d36010135bc4aae4889332f550a52e522acd159))
+* **internal:** remove mock server code ([24cbd32](https://github.com/whopio/whopsdk-python/commit/24cbd32db03309ceb54ad047a3d125ebca4f378a))
+* update mock server docs ([ee999ec](https://github.com/whopio/whopsdk-python/commit/ee999ec3b19d845d71ecb4469da54d26d1f60755))
+
 ## 0.0.28 (2026-02-19)
 
 Full Changelog: [v0.0.26...v0.0.28](https://github.com/whopio/whopsdk-python/compare/v0.0.26...v0.0.28)
