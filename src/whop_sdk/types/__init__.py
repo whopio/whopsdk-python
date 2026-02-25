@@ -39,8 +39,6 @@ from .shared import (
     EntryStatus as EntryStatus,
     WhoCanReact as WhoCanReact,
     DmsPostTypes as DmsPostTypes,
-    BusinessTypes as BusinessTypes,
-    IndustryTypes as IndustryTypes,
     InvoiceStatus as InvoiceStatus,
     ReceiptStatus as ReceiptStatus,
     ReleaseMethod as ReleaseMethod,
@@ -93,7 +91,6 @@ from .promo_duration import PromoDuration as PromoDuration
 from .app_list_params import AppListParams as AppListParams
 from .billing_reasons import BillingReasons as BillingReasons
 from .fee_markup_type import FeeMarkupType as FeeMarkupType
-from .industry_groups import IndustryGroups as IndustryGroups
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider

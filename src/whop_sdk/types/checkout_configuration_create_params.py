@@ -5,14 +5,11 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .industry_groups import IndustryGroups
 from .shared.currency import Currency
 from .shared.tax_type import TaxType
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
 from .payment_method_types import PaymentMethodTypes
-from .shared.business_types import BusinessTypes
-from .shared.industry_types import IndustryTypes
 from .shared.release_method import ReleaseMethod
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
@@ -135,9 +132,6 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=
     title: Required[str]
     """The title of the product."""
 
-    business_type: Optional[BusinessTypes]
-    """The different business types a company can be."""
-
     collect_shipping_address: Optional[bool]
     """Whether or not to collect shipping information at checkout from the customer."""
 
@@ -159,12 +153,6 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=
 
     headline: Optional[str]
     """The headline of the product."""
-
-    industry_group: Optional[IndustryGroups]
-    """The different industry groups a company can be in."""
-
-    industry_type: Optional[IndustryTypes]
-    """The different industry types a company can be in."""
 
     product_tax_code_id: Optional[str]
     """The ID of the product tax code to apply to this product."""

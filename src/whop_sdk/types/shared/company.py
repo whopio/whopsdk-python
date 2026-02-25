@@ -5,8 +5,6 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
-from .business_types import BusinessTypes
-from .industry_types import IndustryTypes
 
 __all__ = ["Company", "Logo", "OwnerUser", "SocialLink"]
 
@@ -56,9 +54,6 @@ class Company(BaseModel):
     id: str
     """The unique identifier for the company."""
 
-    business_type: Optional[BusinessTypes] = None
-    """The different business types a company can be."""
-
     created_at: datetime
     """The datetime the company was created."""
 
@@ -67,9 +62,6 @@ class Company(BaseModel):
     A promotional pitch written by the company creator, displayed to potential
     customers on the store page.
     """
-
-    industry_type: Optional[IndustryTypes] = None
-    """The different industry types a company can be in."""
 
     logo: Optional[Logo] = None
     """The company's logo."""

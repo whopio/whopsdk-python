@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import IndustryGroups, product_list_params, product_create_params, product_update_params
+from ..types import product_list_params, product_create_params, product_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -22,12 +22,9 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.product import Product
-from ..types.industry_groups import IndustryGroups
 from ..types.shared.direction import Direction
 from ..types.shared.custom_cta import CustomCta
 from ..types.shared.visibility import Visibility
-from ..types.shared.business_types import BusinessTypes
-from ..types.shared.industry_types import IndustryTypes
 from ..types.product_delete_response import ProductDeleteResponse
 from ..types.shared.access_pass_type import AccessPassType
 from ..types.shared.product_list_item import ProductListItem
@@ -62,7 +59,6 @@ class ProductsResource(SyncAPIResource):
         *,
         company_id: str,
         title: str,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
@@ -72,8 +68,6 @@ class ProductsResource(SyncAPIResource):
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
@@ -103,8 +97,6 @@ class ProductsResource(SyncAPIResource):
 
           title: The display name of the product. Maximum 40 characters.
 
-          business_type: The different business types a company can be.
-
           collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
@@ -126,10 +118,6 @@ class ProductsResource(SyncAPIResource):
           global_affiliate_status: The different statuses of the global affiliate program for a product.
 
           headline: A short marketing headline displayed prominently on the product page.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           member_affiliate_percentage: The commission rate as a percentage that members earn through the member
               affiliate program.
@@ -160,7 +148,6 @@ class ProductsResource(SyncAPIResource):
                 {
                     "company_id": company_id,
                     "title": title,
-                    "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
@@ -170,8 +157,6 @@ class ProductsResource(SyncAPIResource):
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "plan_options": plan_options,
@@ -229,7 +214,6 @@ class ProductsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
@@ -239,8 +223,6 @@ class ProductsResource(SyncAPIResource):
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
@@ -265,8 +247,6 @@ class ProductsResource(SyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          business_type: The different business types a company can be.
-
           collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
@@ -288,10 +268,6 @@ class ProductsResource(SyncAPIResource):
           global_affiliate_status: The different statuses of the global affiliate program for a product.
 
           headline: A short marketing headline displayed prominently on the product page.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           member_affiliate_percentage: The commission rate as a percentage that members earn through the member
               affiliate program.
@@ -324,7 +300,6 @@ class ProductsResource(SyncAPIResource):
             f"/products/{id}",
             body=maybe_transform(
                 {
-                    "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
@@ -334,8 +309,6 @@ class ProductsResource(SyncAPIResource):
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "product_tax_code_id": product_tax_code_id,
@@ -504,7 +477,6 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         company_id: str,
         title: str,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
@@ -514,8 +486,6 @@ class AsyncProductsResource(AsyncAPIResource):
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
@@ -545,8 +515,6 @@ class AsyncProductsResource(AsyncAPIResource):
 
           title: The display name of the product. Maximum 40 characters.
 
-          business_type: The different business types a company can be.
-
           collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
@@ -568,10 +536,6 @@ class AsyncProductsResource(AsyncAPIResource):
           global_affiliate_status: The different statuses of the global affiliate program for a product.
 
           headline: A short marketing headline displayed prominently on the product page.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           member_affiliate_percentage: The commission rate as a percentage that members earn through the member
               affiliate program.
@@ -602,7 +566,6 @@ class AsyncProductsResource(AsyncAPIResource):
                 {
                     "company_id": company_id,
                     "title": title,
-                    "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
@@ -612,8 +575,6 @@ class AsyncProductsResource(AsyncAPIResource):
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "plan_options": plan_options,
@@ -671,7 +632,6 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
         custom_cta: Optional[CustomCta] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
@@ -681,8 +641,6 @@ class AsyncProductsResource(AsyncAPIResource):
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
@@ -707,8 +665,6 @@ class AsyncProductsResource(AsyncAPIResource):
         - `access_pass:basic:read`
 
         Args:
-          business_type: The different business types a company can be.
-
           collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
 
           custom_cta: The different types of custom CTAs that can be selected.
@@ -730,10 +686,6 @@ class AsyncProductsResource(AsyncAPIResource):
           global_affiliate_status: The different statuses of the global affiliate program for a product.
 
           headline: A short marketing headline displayed prominently on the product page.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           member_affiliate_percentage: The commission rate as a percentage that members earn through the member
               affiliate program.
@@ -766,7 +718,6 @@ class AsyncProductsResource(AsyncAPIResource):
             f"/products/{id}",
             body=await async_maybe_transform(
                 {
-                    "business_type": business_type,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
@@ -776,8 +727,6 @@ class AsyncProductsResource(AsyncAPIResource):
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "product_tax_code_id": product_tax_code_id,

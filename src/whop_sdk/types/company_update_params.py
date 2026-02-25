@@ -5,10 +5,6 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-from .industry_groups import IndustryGroups
-from .shared.business_types import BusinessTypes
-from .shared.industry_types import IndustryTypes
-
 __all__ = ["CompanyUpdateParams", "BannerImage", "Logo"]
 
 
@@ -16,20 +12,11 @@ class CompanyUpdateParams(TypedDict, total=False):
     banner_image: Optional[BannerImage]
     """The company's banner image. Accepts PNG or JPEG format."""
 
-    business_type: Optional[BusinessTypes]
-    """The different business types a company can be."""
-
     description: Optional[str]
     """
     A promotional pitch displayed to potential customers on the company's store
     page.
     """
-
-    industry_group: Optional[IndustryGroups]
-    """The different industry groups a company can be in."""
-
-    industry_type: Optional[IndustryTypes]
-    """The different industry types a company can be in."""
 
     logo: Optional[Logo]
     """The company's logo image. Accepts PNG, JPEG, or GIF format."""
