@@ -37,7 +37,6 @@ class TestProducts:
         product = client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
-            business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
             custom_cta_url="custom_cta_url",
@@ -47,8 +46,6 @@ class TestProducts:
             global_affiliate_percentage=6.9,
             global_affiliate_status="enabled",
             headline="headline",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
             plan_options={
@@ -160,7 +157,6 @@ class TestProducts:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         product = client.products.update(
             id="prod_xxxxxxxxxxxxx",
-            business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
             custom_cta_url="custom_cta_url",
@@ -170,8 +166,6 @@ class TestProducts:
             global_affiliate_percentage=6.9,
             global_affiliate_status="enabled",
             headline="headline",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
@@ -335,7 +329,6 @@ class TestAsyncProducts:
         product = await async_client.products.create(
             company_id="biz_xxxxxxxxxxxxxx",
             title="title",
-            business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
             custom_cta_url="custom_cta_url",
@@ -345,8 +338,6 @@ class TestAsyncProducts:
             global_affiliate_percentage=6.9,
             global_affiliate_status="enabled",
             headline="headline",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
             plan_options={
@@ -458,7 +449,6 @@ class TestAsyncProducts:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
             id="prod_xxxxxxxxxxxxx",
-            business_type="education_program",
             collect_shipping_address=True,
             custom_cta="get_access",
             custom_cta_url="custom_cta_url",
@@ -468,8 +458,6 @@ class TestAsyncProducts:
             global_affiliate_percentage=6.9,
             global_affiliate_status="enabled",
             headline="headline",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",

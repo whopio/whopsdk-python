@@ -5,20 +5,14 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
-from .industry_groups import IndustryGroups
 from .shared.custom_cta import CustomCta
 from .shared.visibility import Visibility
-from .shared.business_types import BusinessTypes
-from .shared.industry_types import IndustryTypes
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = ["ProductUpdateParams", "GalleryImage", "StorePageConfig"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
-    business_type: Optional[BusinessTypes]
-    """The different business types a company can be."""
-
     collect_shipping_address: Optional[bool]
     """Whether the checkout flow collects a shipping address from the customer."""
 
@@ -55,12 +49,6 @@ class ProductUpdateParams(TypedDict, total=False):
 
     headline: Optional[str]
     """A short marketing headline displayed prominently on the product page."""
-
-    industry_group: Optional[IndustryGroups]
-    """The different industry groups a company can be in."""
-
-    industry_type: Optional[IndustryTypes]
-    """The different industry types a company can be in."""
 
     member_affiliate_percentage: Optional[float]
     """

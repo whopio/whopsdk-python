@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ..types import IndustryGroups, company_list_params, company_create_params, company_update_params
+from ..types import company_list_params, company_create_params, company_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,11 +21,8 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.company import Company
-from ..types.industry_groups import IndustryGroups
 from ..types.shared.direction import Direction
 from ..types.company_list_response import CompanyListResponse
-from ..types.shared.business_types import BusinessTypes
-from ..types.shared.industry_types import IndustryTypes
 
 __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
@@ -54,11 +51,8 @@ class CompaniesResource(SyncAPIResource):
         self,
         *,
         title: str,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         description: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_create_params.Logo] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         parent_company_id: Optional[str] | Omit = omit,
@@ -83,17 +77,11 @@ class CompaniesResource(SyncAPIResource):
         Args:
           title: The display name of the company shown to customers.
 
-          business_type: The different business types a company can be.
-
           description: A promotional pitch displayed to potential customers on the company's store
               page.
 
           email: The email address of the user who will own the connected account. Required when
               parent_company_id is provided.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
@@ -119,11 +107,8 @@ class CompaniesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "title": title,
-                    "business_type": business_type,
                     "description": description,
                     "email": email,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "logo": logo,
                     "metadata": metadata,
                     "parent_company_id": parent_company_id,
@@ -179,10 +164,7 @@ class CompaniesResource(SyncAPIResource):
         id: str,
         *,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
@@ -206,14 +188,8 @@ class CompaniesResource(SyncAPIResource):
         Args:
           banner_image: The company's banner image. Accepts PNG or JPEG format.
 
-          business_type: The different business types a company can be.
-
           description: A promotional pitch displayed to potential customers on the company's store
               page.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
@@ -244,10 +220,7 @@ class CompaniesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "banner_image": banner_image,
-                    "business_type": business_type,
                     "description": description,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "logo": logo,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
@@ -367,11 +340,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
         self,
         *,
         title: str,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         description: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_create_params.Logo] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         parent_company_id: Optional[str] | Omit = omit,
@@ -396,17 +366,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
         Args:
           title: The display name of the company shown to customers.
 
-          business_type: The different business types a company can be.
-
           description: A promotional pitch displayed to potential customers on the company's store
               page.
 
           email: The email address of the user who will own the connected account. Required when
               parent_company_id is provided.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
@@ -432,11 +396,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "title": title,
-                    "business_type": business_type,
                     "description": description,
                     "email": email,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "logo": logo,
                     "metadata": metadata,
                     "parent_company_id": parent_company_id,
@@ -492,10 +453,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         id: str,
         *,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
-        business_type: Optional[BusinessTypes] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        industry_group: Optional[IndustryGroups] | Omit = omit,
-        industry_type: Optional[IndustryTypes] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
@@ -519,14 +477,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
         Args:
           banner_image: The company's banner image. Accepts PNG or JPEG format.
 
-          business_type: The different business types a company can be.
-
           description: A promotional pitch displayed to potential customers on the company's store
               page.
-
-          industry_group: The different industry groups a company can be in.
-
-          industry_type: The different industry types a company can be in.
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
@@ -557,10 +509,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "banner_image": banner_image,
-                    "business_type": business_type,
                     "description": description,
-                    "industry_group": industry_group,
-                    "industry_type": industry_type,
                     "logo": logo,
                     "route": route,
                     "send_customer_emails": send_customer_emails,

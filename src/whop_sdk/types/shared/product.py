@@ -7,8 +7,6 @@ from typing_extensions import Literal
 from ..._models import BaseModel
 from .custom_cta import CustomCta
 from .visibility import Visibility
-from .business_types import BusinessTypes
-from .industry_types import IndustryTypes
 from .global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = ["Product", "Company", "GalleryImage", "OwnerUser", "ProductTaxCode"]
@@ -89,9 +87,6 @@ class Product(BaseModel):
     id: str
     """The unique identifier for the product."""
 
-    business_type: Optional[BusinessTypes] = None
-    """The different business types a company can be."""
-
     company: Company
     """The company this product belongs to."""
 
@@ -147,9 +142,6 @@ class Product(BaseModel):
 
     headline: Optional[str] = None
     """A short marketing headline displayed prominently on the product's product page."""
-
-    industry_type: Optional[IndustryTypes] = None
-    """The different industry types a company can be in."""
 
     member_affiliate_percentage: Optional[float] = None
     """

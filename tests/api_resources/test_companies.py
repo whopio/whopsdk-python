@@ -35,11 +35,8 @@ class TestCompanies:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         company = client.companies.create(
             title="title",
-            business_type="education_program",
             description="description",
             email="email",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             logo={"id": "id"},
             metadata={"foo": "bar"},
             parent_company_id="parent_company_id",
@@ -129,10 +126,7 @@ class TestCompanies:
         company = client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
             banner_image={"id": "id"},
-            business_type="education_program",
             description="description",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             logo={"id": "id"},
             route="route",
             send_customer_emails=True,
@@ -237,11 +231,8 @@ class TestAsyncCompanies:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.create(
             title="title",
-            business_type="education_program",
             description="description",
             email="email",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             logo={"id": "id"},
             metadata={"foo": "bar"},
             parent_company_id="parent_company_id",
@@ -331,10 +322,7 @@ class TestAsyncCompanies:
         company = await async_client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
             banner_image={"id": "id"},
-            business_type="education_program",
             description="description",
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
             logo={"id": "id"},
             route="route",
             send_customer_emails=True,
