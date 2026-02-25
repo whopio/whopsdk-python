@@ -22,7 +22,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestFeeMarkups:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         fee_markup = client.fee_markups.create(
@@ -31,7 +31,7 @@ class TestFeeMarkups:
         )
         assert_matches_type(FeeMarkupCreateResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         fee_markup = client.fee_markups.create(
@@ -44,7 +44,7 @@ class TestFeeMarkups:
         )
         assert_matches_type(FeeMarkupCreateResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.fee_markups.with_raw_response.create(
@@ -57,7 +57,7 @@ class TestFeeMarkups:
         fee_markup = response.parse()
         assert_matches_type(FeeMarkupCreateResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.fee_markups.with_streaming_response.create(
@@ -72,7 +72,7 @@ class TestFeeMarkups:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         fee_markup = client.fee_markups.list(
@@ -80,7 +80,7 @@ class TestFeeMarkups:
         )
         assert_matches_type(SyncCursorPage[FeeMarkupListResponse], fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         fee_markup = client.fee_markups.list(
@@ -92,7 +92,7 @@ class TestFeeMarkups:
         )
         assert_matches_type(SyncCursorPage[FeeMarkupListResponse], fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.fee_markups.with_raw_response.list(
@@ -104,7 +104,7 @@ class TestFeeMarkups:
         fee_markup = response.parse()
         assert_matches_type(SyncCursorPage[FeeMarkupListResponse], fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.fee_markups.with_streaming_response.list(
@@ -118,7 +118,7 @@ class TestFeeMarkups:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Whop) -> None:
         fee_markup = client.fee_markups.delete(
@@ -126,7 +126,7 @@ class TestFeeMarkups:
         )
         assert_matches_type(FeeMarkupDeleteResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.fee_markups.with_raw_response.delete(
@@ -138,7 +138,7 @@ class TestFeeMarkups:
         fee_markup = response.parse()
         assert_matches_type(FeeMarkupDeleteResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.fee_markups.with_streaming_response.delete(
@@ -152,7 +152,7 @@ class TestFeeMarkups:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -166,7 +166,7 @@ class TestAsyncFeeMarkups:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         fee_markup = await async_client.fee_markups.create(
@@ -175,7 +175,7 @@ class TestAsyncFeeMarkups:
         )
         assert_matches_type(FeeMarkupCreateResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         fee_markup = await async_client.fee_markups.create(
@@ -188,7 +188,7 @@ class TestAsyncFeeMarkups:
         )
         assert_matches_type(FeeMarkupCreateResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.fee_markups.with_raw_response.create(
@@ -201,7 +201,7 @@ class TestAsyncFeeMarkups:
         fee_markup = await response.parse()
         assert_matches_type(FeeMarkupCreateResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.fee_markups.with_streaming_response.create(
@@ -216,7 +216,7 @@ class TestAsyncFeeMarkups:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         fee_markup = await async_client.fee_markups.list(
@@ -224,7 +224,7 @@ class TestAsyncFeeMarkups:
         )
         assert_matches_type(AsyncCursorPage[FeeMarkupListResponse], fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         fee_markup = await async_client.fee_markups.list(
@@ -236,7 +236,7 @@ class TestAsyncFeeMarkups:
         )
         assert_matches_type(AsyncCursorPage[FeeMarkupListResponse], fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.fee_markups.with_raw_response.list(
@@ -248,7 +248,7 @@ class TestAsyncFeeMarkups:
         fee_markup = await response.parse()
         assert_matches_type(AsyncCursorPage[FeeMarkupListResponse], fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.fee_markups.with_streaming_response.list(
@@ -262,7 +262,7 @@ class TestAsyncFeeMarkups:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         fee_markup = await async_client.fee_markups.delete(
@@ -270,7 +270,7 @@ class TestAsyncFeeMarkups:
         )
         assert_matches_type(FeeMarkupDeleteResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.fee_markups.with_raw_response.delete(
@@ -282,7 +282,7 @@ class TestAsyncFeeMarkups:
         fee_markup = await response.parse()
         assert_matches_type(FeeMarkupDeleteResponse, fee_markup, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.fee_markups.with_streaming_response.delete(
@@ -296,7 +296,7 @@ class TestAsyncFeeMarkups:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):

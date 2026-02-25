@@ -71,6 +71,7 @@ if TYPE_CHECKING:
         setup_intents,
         verifications,
         course_lessons,
+        dispute_alerts,
         payout_methods,
         course_chapters,
         course_students,
@@ -121,6 +122,7 @@ if TYPE_CHECKING:
     from .resources.setup_intents import SetupIntentsResource, AsyncSetupIntentsResource
     from .resources.verifications import VerificationsResource, AsyncVerificationsResource
     from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
+    from .resources.dispute_alerts import DisputeAlertsResource, AsyncDisputeAlertsResource
     from .resources.payout_methods import PayoutMethodsResource, AsyncPayoutMethodsResource
     from .resources.course_chapters import CourseChaptersResource, AsyncCourseChaptersResource
     from .resources.course_students import CourseStudentsResource, AsyncCourseStudentsResource
@@ -504,6 +506,12 @@ class Whop(SyncAPIClient):
         from .resources.dm_channels import DmChannelsResource
 
         return DmChannelsResource(self)
+
+    @cached_property
+    def dispute_alerts(self) -> DisputeAlertsResource:
+        from .resources.dispute_alerts import DisputeAlertsResource
+
+        return DisputeAlertsResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -988,6 +996,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncDmChannelsResource(self)
 
     @cached_property
+    def dispute_alerts(self) -> AsyncDisputeAlertsResource:
+        from .resources.dispute_alerts import AsyncDisputeAlertsResource
+
+        return AsyncDisputeAlertsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1405,6 +1419,12 @@ class WhopWithRawResponse:
 
         return DmChannelsResourceWithRawResponse(self._client.dm_channels)
 
+    @cached_property
+    def dispute_alerts(self) -> dispute_alerts.DisputeAlertsResourceWithRawResponse:
+        from .resources.dispute_alerts import DisputeAlertsResourceWithRawResponse
+
+        return DisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1710,6 +1730,12 @@ class AsyncWhopWithRawResponse:
 
         return AsyncDmChannelsResourceWithRawResponse(self._client.dm_channels)
 
+    @cached_property
+    def dispute_alerts(self) -> dispute_alerts.AsyncDisputeAlertsResourceWithRawResponse:
+        from .resources.dispute_alerts import AsyncDisputeAlertsResourceWithRawResponse
+
+        return AsyncDisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -2014,6 +2040,12 @@ class WhopWithStreamedResponse:
         from .resources.dm_channels import DmChannelsResourceWithStreamingResponse
 
         return DmChannelsResourceWithStreamingResponse(self._client.dm_channels)
+
+    @cached_property
+    def dispute_alerts(self) -> dispute_alerts.DisputeAlertsResourceWithStreamingResponse:
+        from .resources.dispute_alerts import DisputeAlertsResourceWithStreamingResponse
+
+        return DisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2321,6 +2353,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.dm_channels import AsyncDmChannelsResourceWithStreamingResponse
 
         return AsyncDmChannelsResourceWithStreamingResponse(self._client.dm_channels)
+
+    @cached_property
+    def dispute_alerts(self) -> dispute_alerts.AsyncDisputeAlertsResourceWithStreamingResponse:
+        from .resources.dispute_alerts import AsyncDisputeAlertsResourceWithStreamingResponse
+
+        return AsyncDisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)
 
 
 Client = Whop

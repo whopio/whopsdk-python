@@ -34,6 +34,13 @@ class CompanyUpdateParams(TypedDict, total=False):
     logo: Optional[Logo]
     """The company's logo image. Accepts PNG, JPEG, or GIF format."""
 
+    route: Optional[str]
+    """The unique URL slug for the company's store page.
+
+    Must be lowercase and can include hyphens (e.g., 'my-company'). If not provided,
+    the route will remain unchanged.
+    """
+
     send_customer_emails: Optional[bool]
     """
     Whether Whop sends transactional emails (receipts, renewals, cancelations) to
