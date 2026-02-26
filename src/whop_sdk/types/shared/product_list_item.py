@@ -5,8 +5,6 @@ from datetime import datetime
 
 from ..._models import BaseModel
 from .visibility import Visibility
-from .business_types import BusinessTypes
-from .industry_types import IndustryTypes
 
 __all__ = ["ProductListItem"]
 
@@ -20,9 +18,6 @@ class ProductListItem(BaseModel):
     id: str
     """The unique identifier for the product."""
 
-    business_type: Optional[BusinessTypes] = None
-    """The different business types a company can be."""
-
     created_at: datetime
     """The datetime the product was created."""
 
@@ -35,9 +30,6 @@ class ProductListItem(BaseModel):
 
     headline: Optional[str] = None
     """A short marketing headline displayed prominently on the product's product page."""
-
-    industry_type: Optional[IndustryTypes] = None
-    """The different industry types a company can be in."""
 
     member_count: int
     """The number of users who currently hold an active membership to this product.

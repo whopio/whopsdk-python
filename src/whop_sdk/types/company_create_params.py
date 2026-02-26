@@ -5,19 +5,12 @@ from __future__ import annotations
 from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
-from .industry_groups import IndustryGroups
-from .shared.business_types import BusinessTypes
-from .shared.industry_types import IndustryTypes
-
 __all__ = ["CompanyCreateParams", "Logo"]
 
 
 class CompanyCreateParams(TypedDict, total=False):
     title: Required[str]
     """The display name of the company shown to customers."""
-
-    business_type: Optional[BusinessTypes]
-    """The different business types a company can be."""
 
     description: Optional[str]
     """
@@ -30,12 +23,6 @@ class CompanyCreateParams(TypedDict, total=False):
 
     Required when parent_company_id is provided.
     """
-
-    industry_group: Optional[IndustryGroups]
-    """The different industry groups a company can be in."""
-
-    industry_type: Optional[IndustryTypes]
-    """The different industry types a company can be in."""
 
     logo: Optional[Logo]
     """The company's logo image. Accepts PNG, JPEG, or GIF format."""

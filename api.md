@@ -11,7 +11,6 @@ from whop_sdk.types import (
     AppStatuses,
     AppViewType,
     AuthorizedUserRoles,
-    BusinessTypes,
     ChatChannel,
     CheckoutConfiguration,
     CollectionMethod,
@@ -30,7 +29,6 @@ from whop_sdk.types import (
     ForumPost,
     FriendlyReceiptStatus,
     GlobalAffiliateStatus,
-    IndustryTypes,
     Invoice,
     InvoiceListItem,
     InvoiceStatus,
@@ -107,7 +105,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import IndustryGroups, ProductDeleteResponse
+from whop_sdk.types import ProductDeleteResponse
 ```
 
 Methods:

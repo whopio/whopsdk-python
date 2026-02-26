@@ -4,8 +4,6 @@ from typing import Dict, Optional
 from datetime import datetime
 
 from .._models import BaseModel
-from .shared.business_types import BusinessTypes
-from .shared.industry_types import IndustryTypes
 
 __all__ = ["CompanyListResponse", "Logo", "OwnerUser"]
 
@@ -42,9 +40,6 @@ class CompanyListResponse(BaseModel):
     id: str
     """The unique identifier for the company."""
 
-    business_type: Optional[BusinessTypes] = None
-    """The different business types a company can be."""
-
     created_at: datetime
     """The datetime the company was created."""
 
@@ -53,9 +48,6 @@ class CompanyListResponse(BaseModel):
     A promotional pitch written by the company creator, displayed to potential
     customers on the store page.
     """
-
-    industry_type: Optional[IndustryTypes] = None
-    """The different industry types a company can be in."""
 
     logo: Optional[Logo] = None
     """The company's logo."""

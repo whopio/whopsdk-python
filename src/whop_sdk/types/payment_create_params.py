@@ -5,12 +5,9 @@ from __future__ import annotations
 from typing import Dict, Union, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
 
-from .industry_groups import IndustryGroups
 from .shared.currency import Currency
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
-from .shared.business_types import BusinessTypes
-from .shared.industry_types import IndustryTypes
 from .shared.global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = [
@@ -59,9 +56,6 @@ class CreatePaymentInputWithPlanPlanProduct(TypedDict, total=False):
     title: Required[str]
     """The title of the product."""
 
-    business_type: Optional[BusinessTypes]
-    """The different business types a company can be."""
-
     collect_shipping_address: Optional[bool]
     """Whether or not to collect shipping information at checkout from the customer."""
 
@@ -83,12 +77,6 @@ class CreatePaymentInputWithPlanPlanProduct(TypedDict, total=False):
 
     headline: Optional[str]
     """The headline of the product."""
-
-    industry_group: Optional[IndustryGroups]
-    """The different industry groups a company can be in."""
-
-    industry_type: Optional[IndustryTypes]
-    """The different industry types a company can be in."""
 
     product_tax_code_id: Optional[str]
     """The ID of the product tax code to apply to this product."""
