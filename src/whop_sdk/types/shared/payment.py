@@ -509,6 +509,18 @@ class Payment(BaseModel):
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""
 
+    tax_amount: Optional[float] = None
+    """The calculated amount of the sales/VAT tax (if applicable)."""
+
+    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified", "unable_to_collect"]] = None
+    """
+    The type of tax inclusivity applied to the receipt, for determining whether the
+    tax is included in the final price, or paid on top.
+    """
+
+    tax_refunded_amount: Optional[float] = None
+    """The amount of tax that has been refunded (if applicable)."""
+
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""
 
