@@ -2,6 +2,7 @@
 
 from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .card_brands import CardBrands
@@ -344,6 +345,15 @@ class PaymentListResponse(BaseModel):
 
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""
+
+    tax_amount: Optional[float] = None
+    """The calculated amount of the sales/VAT tax (if applicable)."""
+
+    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified", "unable_to_collect"]] = None
+    """
+    The type of tax inclusivity applied to the receipt, for determining whether the
+    tax is included in the final price, or paid on top.
+    """
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""
