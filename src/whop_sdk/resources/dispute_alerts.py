@@ -28,6 +28,8 @@ __all__ = ["DisputeAlertsResource", "AsyncDisputeAlertsResource"]
 
 
 class DisputeAlertsResource(SyncAPIResource):
+    """Dispute alerts"""
+
     @cached_property
     def with_raw_response(self) -> DisputeAlertsResourceWithRawResponse:
         """
@@ -169,6 +171,8 @@ class DisputeAlertsResource(SyncAPIResource):
 
 
 class AsyncDisputeAlertsResource(AsyncAPIResource):
+    """Dispute alerts"""
+
     @cached_property
     def with_raw_response(self) -> AsyncDisputeAlertsResourceWithRawResponse:
         """

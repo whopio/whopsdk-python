@@ -31,6 +31,8 @@ __all__ = ["PromoCodesResource", "AsyncPromoCodesResource"]
 
 
 class PromoCodesResource(SyncAPIResource):
+    """Promo codes"""
+
     @cached_property
     def with_raw_response(self) -> PromoCodesResourceWithRawResponse:
         """
@@ -325,6 +327,8 @@ class PromoCodesResource(SyncAPIResource):
 
 
 class AsyncPromoCodesResource(AsyncAPIResource):
+    """Promo codes"""
+
     @cached_property
     def with_raw_response(self) -> AsyncPromoCodesResourceWithRawResponse:
         """

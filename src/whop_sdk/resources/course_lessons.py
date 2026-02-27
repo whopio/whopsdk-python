@@ -41,6 +41,8 @@ __all__ = ["CourseLessonsResource", "AsyncCourseLessonsResource"]
 
 
 class CourseLessonsResource(SyncAPIResource):
+    """Course lessons"""
+
     @cached_property
     def with_raw_response(self) -> CourseLessonsResourceWithRawResponse:
         """
@@ -493,6 +495,8 @@ class CourseLessonsResource(SyncAPIResource):
 
 
 class AsyncCourseLessonsResource(AsyncAPIResource):
+    """Course lessons"""
+
     @cached_property
     def with_raw_response(self) -> AsyncCourseLessonsResourceWithRawResponse:
         """
