@@ -28,6 +28,8 @@ __all__ = ["ChatChannelsResource", "AsyncChatChannelsResource"]
 
 
 class ChatChannelsResource(SyncAPIResource):
+    """Chat channels"""
+
     @cached_property
     def with_raw_response(self) -> ChatChannelsResourceWithRawResponse:
         """
@@ -224,6 +226,8 @@ class ChatChannelsResource(SyncAPIResource):
 
 
 class AsyncChatChannelsResource(AsyncAPIResource):
+    """Chat channels"""
+
     @cached_property
     def with_raw_response(self) -> AsyncChatChannelsResourceWithRawResponse:
         """

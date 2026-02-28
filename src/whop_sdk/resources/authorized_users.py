@@ -28,6 +28,8 @@ __all__ = ["AuthorizedUsersResource", "AsyncAuthorizedUsersResource"]
 
 
 class AuthorizedUsersResource(SyncAPIResource):
+    """Authorized users"""
+
     @cached_property
     def with_raw_response(self) -> AuthorizedUsersResourceWithRawResponse:
         """
@@ -169,6 +171,8 @@ class AuthorizedUsersResource(SyncAPIResource):
 
 
 class AsyncAuthorizedUsersResource(AsyncAPIResource):
+    """Authorized users"""
+
     @cached_property
     def with_raw_response(self) -> AsyncAuthorizedUsersResourceWithRawResponse:
         """
