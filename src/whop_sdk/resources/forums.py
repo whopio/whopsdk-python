@@ -91,6 +91,7 @@ class ForumsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        banner_image: Optional[forum_update_params.BannerImage] | Omit = omit,
         email_notification_preference: Optional[EmailNotificationPreferences] | Omit = omit,
         who_can_comment: Optional[WhoCanCommentTypes] | Omit = omit,
         who_can_post: Optional[WhoCanPostTypes] | Omit = omit,
@@ -110,6 +111,9 @@ class ForumsResource(SyncAPIResource):
         - `forum:moderate`
 
         Args:
+          banner_image: The banner image displayed at the top of the forum page. Pass null to remove the
+              existing banner.
+
           email_notification_preference: Email notification preference option for a forum feed
 
           who_can_comment: Who can comment on a forum feed
@@ -130,6 +134,7 @@ class ForumsResource(SyncAPIResource):
             f"/forums/{id}",
             body=maybe_transform(
                 {
+                    "banner_image": banner_image,
                     "email_notification_preference": email_notification_preference,
                     "who_can_comment": who_can_comment,
                     "who_can_post": who_can_post,
@@ -275,6 +280,7 @@ class AsyncForumsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        banner_image: Optional[forum_update_params.BannerImage] | Omit = omit,
         email_notification_preference: Optional[EmailNotificationPreferences] | Omit = omit,
         who_can_comment: Optional[WhoCanCommentTypes] | Omit = omit,
         who_can_post: Optional[WhoCanPostTypes] | Omit = omit,
@@ -294,6 +300,9 @@ class AsyncForumsResource(AsyncAPIResource):
         - `forum:moderate`
 
         Args:
+          banner_image: The banner image displayed at the top of the forum page. Pass null to remove the
+              existing banner.
+
           email_notification_preference: Email notification preference option for a forum feed
 
           who_can_comment: Who can comment on a forum feed
@@ -314,6 +323,7 @@ class AsyncForumsResource(AsyncAPIResource):
             f"/forums/{id}",
             body=await async_maybe_transform(
                 {
+                    "banner_image": banner_image,
                     "email_notification_preference": email_notification_preference,
                     "who_can_comment": who_can_comment,
                     "who_can_post": who_can_post,
