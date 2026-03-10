@@ -28,6 +28,8 @@ __all__ = ["AIChatsResource", "AsyncAIChatsResource"]
 
 
 class AIChatsResource(SyncAPIResource):
+    """Ai chats"""
+
     @cached_property
     def with_raw_response(self) -> AIChatsResourceWithRawResponse:
         """
@@ -54,6 +56,7 @@ class AIChatsResource(SyncAPIResource):
         current_company_id: Optional[str] | Omit = omit,
         message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
         message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
+        suggestion_type: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -80,6 +83,9 @@ class AIChatsResource(SyncAPIResource):
 
           message_source: The source of an AI chat message
 
+          suggestion_type: The type of suggestion prompt that was clicked, when message_source is
+              'suggestion'.
+
           title: An optional display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
@@ -98,6 +104,7 @@ class AIChatsResource(SyncAPIResource):
                     "current_company_id": current_company_id,
                     "message_attachments": message_attachments,
                     "message_source": message_source,
+                    "suggestion_type": suggestion_type,
                     "title": title,
                 },
                 ai_chat_create_params.AIChatCreateParams,
@@ -286,6 +293,8 @@ class AIChatsResource(SyncAPIResource):
 
 
 class AsyncAIChatsResource(AsyncAPIResource):
+    """Ai chats"""
+
     @cached_property
     def with_raw_response(self) -> AsyncAIChatsResourceWithRawResponse:
         """
@@ -312,6 +321,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         current_company_id: Optional[str] | Omit = omit,
         message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
         message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
+        suggestion_type: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -338,6 +348,9 @@ class AsyncAIChatsResource(AsyncAPIResource):
 
           message_source: The source of an AI chat message
 
+          suggestion_type: The type of suggestion prompt that was clicked, when message_source is
+              'suggestion'.
+
           title: An optional display title for the AI chat thread (e.g., "Help with billing").
 
           extra_headers: Send extra headers
@@ -356,6 +369,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
                     "current_company_id": current_company_id,
                     "message_attachments": message_attachments,
                     "message_source": message_source,
+                    "suggestion_type": suggestion_type,
                     "title": title,
                 },
                 ai_chat_create_params.AIChatCreateParams,

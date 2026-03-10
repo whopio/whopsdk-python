@@ -27,6 +27,8 @@ __all__ = ["ReactionsResource", "AsyncReactionsResource"]
 
 
 class ReactionsResource(SyncAPIResource):
+    """Reactions"""
+
     @cached_property
     def with_raw_response(self) -> ReactionsResourceWithRawResponse:
         """
@@ -252,6 +254,8 @@ class ReactionsResource(SyncAPIResource):
 
 
 class AsyncReactionsResource(AsyncAPIResource):
+    """Reactions"""
+
     @cached_property
     def with_raw_response(self) -> AsyncReactionsResourceWithRawResponse:
         """

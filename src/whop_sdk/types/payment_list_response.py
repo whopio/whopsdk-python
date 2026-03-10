@@ -9,6 +9,7 @@ from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.promo_type import PromoType
 from .payment_method_types import PaymentMethodTypes
+from .receipt_tax_behavior import ReceiptTaxBehavior
 from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
 from .shared.friendly_receipt_status import FriendlyReceiptStatus
@@ -344,6 +345,15 @@ class PaymentListResponse(BaseModel):
 
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""
+
+    tax_amount: Optional[float] = None
+    """The calculated amount of the sales/VAT tax (if applicable)."""
+
+    tax_behavior: Optional[ReceiptTaxBehavior] = None
+    """
+    The type of tax inclusivity applied to the receipt, for determining whether the
+    tax is included in the final price, or paid on top.
+    """
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""

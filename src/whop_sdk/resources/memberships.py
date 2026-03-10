@@ -13,6 +13,7 @@ from ..types import (
     membership_pause_params,
     membership_cancel_params,
     membership_update_params,
+    membership_add_free_days_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
@@ -36,6 +37,8 @@ __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
 
 class MembershipsResource(SyncAPIResource):
+    """Memberships"""
+
     @cached_property
     def with_raw_response(self) -> MembershipsResourceWithRawResponse:
         """
@@ -244,6 +247,51 @@ class MembershipsResource(SyncAPIResource):
             model=MembershipListResponse,
         )
 
+    def add_free_days(
+        self,
+        id: str,
+        *,
+        free_days: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """
+        Add free days to extend a membership's current billing period, expiration date,
+        or Stripe trial.
+
+        Required permissions:
+
+        - `member:manage`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          free_days: The number of free days to add (1-1095). Extends the billing period, expiration
+              date, or Stripe trial depending on plan type.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/memberships/{id}/add_free_days",
+            body=maybe_transform({"free_days": free_days}, membership_add_free_days_params.MembershipAddFreeDaysParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
     def cancel(
         self,
         id: str,
@@ -262,7 +310,7 @@ class MembershipsResource(SyncAPIResource):
 
         Required permissions:
 
-        - `member:manage`
+        - `membership:cancel`
         - `member:email:read`
         - `member:basic:read`
 
@@ -419,6 +467,8 @@ class MembershipsResource(SyncAPIResource):
 
 
 class AsyncMembershipsResource(AsyncAPIResource):
+    """Memberships"""
+
     @cached_property
     def with_raw_response(self) -> AsyncMembershipsResourceWithRawResponse:
         """
@@ -627,6 +677,53 @@ class AsyncMembershipsResource(AsyncAPIResource):
             model=MembershipListResponse,
         )
 
+    async def add_free_days(
+        self,
+        id: str,
+        *,
+        free_days: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """
+        Add free days to extend a membership's current billing period, expiration date,
+        or Stripe trial.
+
+        Required permissions:
+
+        - `member:manage`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          free_days: The number of free days to add (1-1095). Extends the billing period, expiration
+              date, or Stripe trial depending on plan type.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/memberships/{id}/add_free_days",
+            body=await async_maybe_transform(
+                {"free_days": free_days}, membership_add_free_days_params.MembershipAddFreeDaysParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
     async def cancel(
         self,
         id: str,
@@ -645,7 +742,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
         Required permissions:
 
-        - `member:manage`
+        - `membership:cancel`
         - `member:email:read`
         - `member:basic:read`
 
@@ -816,6 +913,9 @@ class MembershipsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             memberships.list,
         )
+        self.add_free_days = to_raw_response_wrapper(
+            memberships.add_free_days,
+        )
         self.cancel = to_raw_response_wrapper(
             memberships.cancel,
         )
@@ -842,6 +942,9 @@ class AsyncMembershipsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             memberships.list,
+        )
+        self.add_free_days = async_to_raw_response_wrapper(
+            memberships.add_free_days,
         )
         self.cancel = async_to_raw_response_wrapper(
             memberships.cancel,
@@ -870,6 +973,9 @@ class MembershipsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             memberships.list,
         )
+        self.add_free_days = to_streamed_response_wrapper(
+            memberships.add_free_days,
+        )
         self.cancel = to_streamed_response_wrapper(
             memberships.cancel,
         )
@@ -896,6 +1002,9 @@ class AsyncMembershipsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             memberships.list,
+        )
+        self.add_free_days = async_to_streamed_response_wrapper(
+            memberships.add_free_days,
         )
         self.cancel = async_to_streamed_response_wrapper(
             memberships.cancel,

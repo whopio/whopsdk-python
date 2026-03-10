@@ -31,6 +31,8 @@ __all__ = ["AppsResource", "AsyncAppsResource"]
 
 
 class AppsResource(SyncAPIResource):
+    """Apps"""
+
     @cached_property
     def with_raw_response(self) -> AppsResourceWithRawResponse:
         """
@@ -354,6 +356,8 @@ class AppsResource(SyncAPIResource):
 
 
 class AsyncAppsResource(AsyncAPIResource):
+    """Apps"""
+
     @cached_property
     def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
         """

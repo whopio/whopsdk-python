@@ -23,6 +23,8 @@ __all__ = ["TopupsResource", "AsyncTopupsResource"]
 
 
 class TopupsResource(SyncAPIResource):
+    """Topups"""
+
     @cached_property
     def with_raw_response(self) -> TopupsResourceWithRawResponse:
         """
@@ -101,6 +103,8 @@ class TopupsResource(SyncAPIResource):
 
 
 class AsyncTopupsResource(AsyncAPIResource):
+    """Topups"""
+
     @cached_property
     def with_raw_response(self) -> AsyncTopupsResourceWithRawResponse:
         """

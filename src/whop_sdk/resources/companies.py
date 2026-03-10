@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
 
 import httpx
@@ -28,6 +28,8 @@ __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
 
 class CompaniesResource(SyncAPIResource):
+    """Companies"""
+
     @cached_property
     def with_raw_response(self) -> CompaniesResourceWithRawResponse:
         """
@@ -168,6 +170,7 @@ class CompaniesResource(SyncAPIResource):
         logo: Optional[company_update_params.Logo] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
+        social_links: Optional[Iterable[company_update_params.SocialLink]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -200,6 +203,9 @@ class CompaniesResource(SyncAPIResource):
           send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
               customers on behalf of this company.
 
+          social_links: The social media links to display on the company's store page. Pass the full
+              list of desired social links — any existing links not included will be removed.
+
           target_audience: The target audience for this company (e.g., 'beginner day traders aged 18-25
               looking to learn options').
 
@@ -224,6 +230,7 @@ class CompaniesResource(SyncAPIResource):
                     "logo": logo,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
+                    "social_links": social_links,
                     "target_audience": target_audience,
                     "title": title,
                 },
@@ -317,6 +324,8 @@ class CompaniesResource(SyncAPIResource):
 
 
 class AsyncCompaniesResource(AsyncAPIResource):
+    """Companies"""
+
     @cached_property
     def with_raw_response(self) -> AsyncCompaniesResourceWithRawResponse:
         """
@@ -457,6 +466,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         logo: Optional[company_update_params.Logo] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
+        social_links: Optional[Iterable[company_update_params.SocialLink]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -489,6 +499,9 @@ class AsyncCompaniesResource(AsyncAPIResource):
           send_customer_emails: Whether Whop sends transactional emails (receipts, renewals, cancelations) to
               customers on behalf of this company.
 
+          social_links: The social media links to display on the company's store page. Pass the full
+              list of desired social links — any existing links not included will be removed.
+
           target_audience: The target audience for this company (e.g., 'beginner day traders aged 18-25
               looking to learn options').
 
@@ -513,6 +526,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
                     "logo": logo,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
+                    "social_links": social_links,
                     "target_audience": target_audience,
                     "title": title,
                 },

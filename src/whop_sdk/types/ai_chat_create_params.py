@@ -27,6 +27,12 @@ class AIChatCreateParams(TypedDict, total=False):
     message_source: Optional[Literal["manual", "suggestion", "link"]]
     """The source of an AI chat message"""
 
+    suggestion_type: Optional[str]
+    """
+    The type of suggestion prompt that was clicked, when message_source is
+    'suggestion'.
+    """
+
     title: Optional[str]
     """An optional display title for the AI chat thread (e.g., "Help with billing")."""
 

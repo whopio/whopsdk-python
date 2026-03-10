@@ -33,6 +33,8 @@ __all__ = ["ForumPostsResource", "AsyncForumPostsResource"]
 
 
 class ForumPostsResource(SyncAPIResource):
+    """Forum posts"""
+
     @cached_property
     def with_raw_response(self) -> ForumPostsResourceWithRawResponse:
         """
@@ -65,6 +67,7 @@ class ForumPostsResource(SyncAPIResource):
         paywall_currency: Optional[Currency] | Omit = omit,
         pinned: Optional[bool] | Omit = omit,
         poll: Optional[forum_post_create_params.Poll] | Omit = omit,
+        rich_content: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[ForumPostVisibilityType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -113,6 +116,9 @@ class ForumPostsResource(SyncAPIResource):
 
           poll: A poll to attach to this post, allowing members to vote on options.
 
+          rich_content: The rich content of the post in Tiptap JSON format. When provided, takes
+              priority over the markdown content field for rendering.
+
           title: The title of the post, displayed prominently at the top. Required for paywalled
               posts as it remains visible to non-purchasers.
 
@@ -140,6 +146,7 @@ class ForumPostsResource(SyncAPIResource):
                     "paywall_currency": paywall_currency,
                     "pinned": pinned,
                     "poll": poll,
+                    "rich_content": rich_content,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -327,6 +334,8 @@ class ForumPostsResource(SyncAPIResource):
 
 
 class AsyncForumPostsResource(AsyncAPIResource):
+    """Forum posts"""
+
     @cached_property
     def with_raw_response(self) -> AsyncForumPostsResourceWithRawResponse:
         """
@@ -359,6 +368,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         paywall_currency: Optional[Currency] | Omit = omit,
         pinned: Optional[bool] | Omit = omit,
         poll: Optional[forum_post_create_params.Poll] | Omit = omit,
+        rich_content: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[ForumPostVisibilityType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -407,6 +417,9 @@ class AsyncForumPostsResource(AsyncAPIResource):
 
           poll: A poll to attach to this post, allowing members to vote on options.
 
+          rich_content: The rich content of the post in Tiptap JSON format. When provided, takes
+              priority over the markdown content field for rendering.
+
           title: The title of the post, displayed prominently at the top. Required for paywalled
               posts as it remains visible to non-purchasers.
 
@@ -434,6 +447,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
                     "paywall_currency": paywall_currency,
                     "pinned": pinned,
                     "poll": poll,
+                    "rich_content": rich_content,
                     "title": title,
                     "visibility": visibility,
                 },

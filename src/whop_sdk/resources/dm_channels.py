@@ -27,6 +27,8 @@ __all__ = ["DmChannelsResource", "AsyncDmChannelsResource"]
 
 
 class DmChannelsResource(SyncAPIResource):
+    """Dm channels"""
+
     @cached_property
     def with_raw_response(self) -> DmChannelsResourceWithRawResponse:
         """
@@ -282,6 +284,8 @@ class DmChannelsResource(SyncAPIResource):
 
 
 class AsyncDmChannelsResource(AsyncAPIResource):
+    """Dm channels"""
+
     @cached_property
     def with_raw_response(self) -> AsyncDmChannelsResourceWithRawResponse:
         """
