@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
+
+from .social_link_websites import SocialLinkWebsites
 
 __all__ = ["CompanyUpdateParams", "BannerImage", "Logo", "SocialLink", "SocialLinkImage"]
 
@@ -78,9 +80,7 @@ class SocialLink(TypedDict, total=False):
     url: Required[str]
     """The URL of the social link"""
 
-    website: Required[
-        Literal["x", "instagram", "facebook", "tiktok", "youtube", "linkedin", "twitch", "website", "custom"]
-    ]
+    website: Required[SocialLinkWebsites]
     """The website this link is for"""
 
     image: Optional[SocialLinkImage]

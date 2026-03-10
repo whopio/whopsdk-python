@@ -13,6 +13,7 @@ from ..billing_reasons import BillingReasons
 from ..dispute_statuses import DisputeStatuses
 from .membership_status import MembershipStatus
 from ..payment_method_types import PaymentMethodTypes
+from ..receipt_tax_behavior import ReceiptTaxBehavior
 from .friendly_receipt_status import FriendlyReceiptStatus
 
 __all__ = [
@@ -512,7 +513,7 @@ class Payment(BaseModel):
     tax_amount: Optional[float] = None
     """The calculated amount of the sales/VAT tax (if applicable)."""
 
-    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified", "unable_to_collect"]] = None
+    tax_behavior: Optional[ReceiptTaxBehavior] = None
     """
     The type of tax inclusivity applied to the receipt, for determining whether the
     tax is included in the final price, or paid on top.
