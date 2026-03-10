@@ -2,7 +2,6 @@
 
 from typing import Dict, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
 from .card_brands import CardBrands
@@ -10,6 +9,7 @@ from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.promo_type import PromoType
 from .payment_method_types import PaymentMethodTypes
+from .receipt_tax_behavior import ReceiptTaxBehavior
 from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
 from .shared.friendly_receipt_status import FriendlyReceiptStatus
@@ -349,7 +349,7 @@ class PaymentListResponse(BaseModel):
     tax_amount: Optional[float] = None
     """The calculated amount of the sales/VAT tax (if applicable)."""
 
-    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified", "unable_to_collect"]] = None
+    tax_behavior: Optional[ReceiptTaxBehavior] = None
     """
     The type of tax inclusivity applied to the receipt, for determining whether the
     tax is included in the final price, or paid on top.
