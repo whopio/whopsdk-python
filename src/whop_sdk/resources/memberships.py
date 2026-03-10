@@ -264,7 +264,7 @@ class MembershipsResource(SyncAPIResource):
 
         Required permissions:
 
-        - `member:manage`
+        - `membership:cancel`
         - `member:email:read`
         - `member:basic:read`
 
@@ -649,7 +649,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
         Required permissions:
 
-        - `member:manage`
+        - `membership:cancel`
         - `member:email:read`
         - `member:basic:read`
 
