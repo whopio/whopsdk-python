@@ -80,6 +80,7 @@ if TYPE_CHECKING:
         authorized_users,
         support_channels,
         checkout_configurations,
+        resolution_center_cases,
         company_token_transactions,
         course_lesson_interactions,
     )
@@ -131,6 +132,7 @@ if TYPE_CHECKING:
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
+    from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
     from .resources.company_token_transactions import (
         CompanyTokenTransactionsResource,
         AsyncCompanyTokenTransactionsResource,
@@ -562,6 +564,13 @@ class Whop(SyncAPIClient):
         from .resources.dispute_alerts import DisputeAlertsResource
 
         return DisputeAlertsResource(self)
+
+    @cached_property
+    def resolution_center_cases(self) -> ResolutionCenterCasesResource:
+        """Resolution center cases"""
+        from .resources.resolution_center_cases import ResolutionCenterCasesResource
+
+        return ResolutionCenterCasesResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -1102,6 +1111,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncDisputeAlertsResource(self)
 
     @cached_property
+    def resolution_center_cases(self) -> AsyncResolutionCenterCasesResource:
+        """Resolution center cases"""
+        from .resources.resolution_center_cases import AsyncResolutionCenterCasesResource
+
+        return AsyncResolutionCenterCasesResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1575,6 +1591,13 @@ class WhopWithRawResponse:
 
         return DisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
 
+    @cached_property
+    def resolution_center_cases(self) -> resolution_center_cases.ResolutionCenterCasesResourceWithRawResponse:
+        """Resolution center cases"""
+        from .resources.resolution_center_cases import ResolutionCenterCasesResourceWithRawResponse
+
+        return ResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1936,6 +1959,13 @@ class AsyncWhopWithRawResponse:
 
         return AsyncDisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
 
+    @cached_property
+    def resolution_center_cases(self) -> resolution_center_cases.AsyncResolutionCenterCasesResourceWithRawResponse:
+        """Resolution center cases"""
+        from .resources.resolution_center_cases import AsyncResolutionCenterCasesResourceWithRawResponse
+
+        return AsyncResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -2296,6 +2326,13 @@ class WhopWithStreamedResponse:
         from .resources.dispute_alerts import DisputeAlertsResourceWithStreamingResponse
 
         return DisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)
+
+    @cached_property
+    def resolution_center_cases(self) -> resolution_center_cases.ResolutionCenterCasesResourceWithStreamingResponse:
+        """Resolution center cases"""
+        from .resources.resolution_center_cases import ResolutionCenterCasesResourceWithStreamingResponse
+
+        return ResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2659,6 +2696,15 @@ class AsyncWhopWithStreamedResponse:
         from .resources.dispute_alerts import AsyncDisputeAlertsResourceWithStreamingResponse
 
         return AsyncDisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)
+
+    @cached_property
+    def resolution_center_cases(
+        self,
+    ) -> resolution_center_cases.AsyncResolutionCenterCasesResourceWithStreamingResponse:
+        """Resolution center cases"""
+        from .resources.resolution_center_cases import AsyncResolutionCenterCasesResourceWithStreamingResponse
+
+        return AsyncResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
 
 
 Client = Whop

@@ -20,11 +20,10 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.authorized_user import AuthorizedUser
 from ..types.shared.authorized_user_roles import AuthorizedUserRoles
 from ..types.authorized_user_list_response import AuthorizedUserListResponse
-from ..types.authorized_user_create_response import AuthorizedUserCreateResponse
 from ..types.authorized_user_delete_response import AuthorizedUserDeleteResponse
-from ..types.authorized_user_retrieve_response import AuthorizedUserRetrieveResponse
 
 __all__ = ["AuthorizedUsersResource", "AsyncAuthorizedUsersResource"]
 
@@ -64,7 +63,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthorizedUserCreateResponse:
+    ) -> AuthorizedUser:
         """
         Add a new authorized user to a company.
 
@@ -106,7 +105,7 @@ class AuthorizedUsersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AuthorizedUserCreateResponse,
+            cast_to=AuthorizedUser,
         )
 
     def retrieve(
@@ -119,7 +118,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthorizedUserRetrieveResponse:
+    ) -> AuthorizedUser:
         """
         Retrieves the details of an existing authorized user.
 
@@ -144,7 +143,7 @@ class AuthorizedUsersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AuthorizedUserRetrieveResponse,
+            cast_to=AuthorizedUser,
         )
 
     def list(
@@ -312,7 +311,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthorizedUserCreateResponse:
+    ) -> AuthorizedUser:
         """
         Add a new authorized user to a company.
 
@@ -354,7 +353,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AuthorizedUserCreateResponse,
+            cast_to=AuthorizedUser,
         )
 
     async def retrieve(
@@ -367,7 +366,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthorizedUserRetrieveResponse:
+    ) -> AuthorizedUser:
         """
         Retrieves the details of an existing authorized user.
 
@@ -392,7 +391,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AuthorizedUserRetrieveResponse,
+            cast_to=AuthorizedUser,
         )
 
     def list(
