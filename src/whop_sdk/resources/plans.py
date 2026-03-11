@@ -36,8 +36,6 @@ __all__ = ["PlansResource", "AsyncPlansResource"]
 
 
 class PlansResource(SyncAPIResource):
-    """Plans"""
-
     @cached_property
     def with_raw_response(self) -> PlansResourceWithRawResponse:
         """
@@ -506,8 +504,6 @@ class PlansResource(SyncAPIResource):
 
 
 class AsyncPlansResource(AsyncAPIResource):
-    """Plans"""
-
     @cached_property
     def with_raw_response(self) -> AsyncPlansResourceWithRawResponse:
         """

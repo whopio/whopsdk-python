@@ -36,8 +36,6 @@ __all__ = ["ExperiencesResource", "AsyncExperiencesResource"]
 
 
 class ExperiencesResource(SyncAPIResource):
-    """Experiences"""
-
     @cached_property
     def with_raw_response(self) -> ExperiencesResourceWithRawResponse:
         """
@@ -460,8 +458,6 @@ class ExperiencesResource(SyncAPIResource):
 
 
 class AsyncExperiencesResource(AsyncAPIResource):
-    """Experiences"""
-
     @cached_property
     def with_raw_response(self) -> AsyncExperiencesResourceWithRawResponse:
         """

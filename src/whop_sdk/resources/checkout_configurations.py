@@ -30,8 +30,6 @@ __all__ = ["CheckoutConfigurationsResource", "AsyncCheckoutConfigurationsResourc
 
 
 class CheckoutConfigurationsResource(SyncAPIResource):
-    """Checkout configurations"""
-
     @cached_property
     def with_raw_response(self) -> CheckoutConfigurationsResourceWithRawResponse:
         """
@@ -398,8 +396,6 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
 
 class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
-    """Checkout configurations"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCheckoutConfigurationsResourceWithRawResponse:
         """
