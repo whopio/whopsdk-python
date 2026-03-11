@@ -28,6 +28,8 @@ __all__ = ["FeeMarkupsResource", "AsyncFeeMarkupsResource"]
 
 
 class FeeMarkupsResource(SyncAPIResource):
+    """Fee markups"""
+
     @cached_property
     def with_raw_response(self) -> FeeMarkupsResourceWithRawResponse:
         """
@@ -219,6 +221,8 @@ class FeeMarkupsResource(SyncAPIResource):
 
 
 class AsyncFeeMarkupsResource(AsyncAPIResource):
+    """Fee markups"""
+
     @cached_property
     def with_raw_response(self) -> AsyncFeeMarkupsResourceWithRawResponse:
         """

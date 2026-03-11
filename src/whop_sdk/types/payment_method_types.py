@@ -25,6 +25,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "cashapp",
     "claritypay",
     "coinbase",
+    "coinflow",
     "crypto",
     "custom",
     "customer_balance",

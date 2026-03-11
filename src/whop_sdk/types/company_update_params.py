@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["CompanyUpdateParams", "BannerImage", "Logo"]
+from .social_link_websites import SocialLinkWebsites
+
+__all__ = ["CompanyUpdateParams", "BannerImage", "Logo", "SocialLink", "SocialLinkImage"]
 
 
 class CompanyUpdateParams(TypedDict, total=False):
@@ -34,6 +36,13 @@ class CompanyUpdateParams(TypedDict, total=False):
     customers on behalf of this company.
     """
 
+    social_links: Optional[Iterable[SocialLink]]
+    """The social media links to display on the company's store page.
+
+    Pass the full list of desired social links — any existing links not included
+    will be removed.
+    """
+
     target_audience: Optional[str]
     """
     The target audience for this company (e.g., 'beginner day traders aged 18-25
@@ -56,3 +65,32 @@ class Logo(TypedDict, total=False):
 
     id: Required[str]
     """The ID of an existing file object."""
+
+
+class SocialLinkImage(TypedDict, total=False):
+    """The custom image for the social link"""
+
+    id: Required[str]
+    """The ID of an existing file object."""
+
+
+class SocialLink(TypedDict, total=False):
+    """Input for creating a social link for a company"""
+
+    url: Required[str]
+    """The URL of the social link"""
+
+    website: Required[SocialLinkWebsites]
+    """The website this link is for"""
+
+    image: Optional[SocialLinkImage]
+    """The custom image for the social link"""
+
+    order: Optional[str]
+    """The order of the social link"""
+
+    title: Optional[str]
+    """The title of the social link"""
+
+    website_order: Optional[str]
+    """The order of the website social link"""

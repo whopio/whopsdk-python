@@ -130,6 +130,16 @@ class TestCompanies:
             logo={"id": "id"},
             route="route",
             send_customer_emails=True,
+            social_links=[
+                {
+                    "url": "https://example.com/path",
+                    "website": "x",
+                    "image": {"id": "id"},
+                    "order": "123.45",
+                    "title": "title",
+                    "website_order": "123.45",
+                }
+            ],
             target_audience="target_audience",
             title="title",
         )
@@ -326,6 +336,16 @@ class TestAsyncCompanies:
             logo={"id": "id"},
             route="route",
             send_customer_emails=True,
+            social_links=[
+                {
+                    "url": "https://example.com/path",
+                    "website": "x",
+                    "image": {"id": "id"},
+                    "order": "123.45",
+                    "title": "title",
+                    "website_order": "123.45",
+                }
+            ],
             target_audience="target_audience",
             title="title",
         )
