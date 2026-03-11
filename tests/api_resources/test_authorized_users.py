@@ -10,10 +10,9 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
+    AuthorizedUser,
     AuthorizedUserListResponse,
-    AuthorizedUserCreateResponse,
     AuthorizedUserDeleteResponse,
-    AuthorizedUserRetrieveResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -32,7 +31,7 @@ class TestAuthorizedUsers:
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -43,7 +42,7 @@ class TestAuthorizedUsers:
             user_id="user_xxxxxxxxxxxxx",
             send_emails=True,
         )
-        assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -57,7 +56,7 @@ class TestAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = response.parse()
-        assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -71,7 +70,7 @@ class TestAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = response.parse()
-            assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -81,7 +80,7 @@ class TestAuthorizedUsers:
         authorized_user = client.authorized_users.retrieve(
             "ausr_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -93,7 +92,7 @@ class TestAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = response.parse()
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -105,7 +104,7 @@ class TestAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = response.parse()
-            assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -226,7 +225,7 @@ class TestAsyncAuthorizedUsers:
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -237,7 +236,7 @@ class TestAsyncAuthorizedUsers:
             user_id="user_xxxxxxxxxxxxx",
             send_emails=True,
         )
-        assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -251,7 +250,7 @@ class TestAsyncAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = await response.parse()
-        assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -265,7 +264,7 @@ class TestAsyncAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = await response.parse()
-            assert_matches_type(AuthorizedUserCreateResponse, authorized_user, path=["response"])
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -275,7 +274,7 @@ class TestAsyncAuthorizedUsers:
         authorized_user = await async_client.authorized_users.retrieve(
             "ausr_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -287,7 +286,7 @@ class TestAsyncAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = await response.parse()
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -299,7 +298,7 @@ class TestAsyncAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = await response.parse()
-            assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
