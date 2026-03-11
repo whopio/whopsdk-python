@@ -20,3 +20,6 @@ class AIChatListParams(TypedDict, total=False):
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
+
+    only_active_crons: Optional[bool]
+    """When true, returns only chats with an active cron schedule"""
