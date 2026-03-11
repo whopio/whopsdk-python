@@ -28,8 +28,6 @@ __all__ = ["DisputesResource", "AsyncDisputesResource"]
 
 
 class DisputesResource(SyncAPIResource):
-    """Disputes"""
-
     @cached_property
     def with_raw_response(self) -> DisputesResourceWithRawResponse:
         """
@@ -330,8 +328,6 @@ class DisputesResource(SyncAPIResource):
 
 
 class AsyncDisputesResource(AsyncAPIResource):
-    """Disputes"""
-
     @cached_property
     def with_raw_response(self) -> AsyncDisputesResourceWithRawResponse:
         """

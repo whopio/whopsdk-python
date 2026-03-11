@@ -35,8 +35,6 @@ __all__ = ["ProductsResource", "AsyncProductsResource"]
 
 
 class ProductsResource(SyncAPIResource):
-    """Products"""
-
     @cached_property
     def with_raw_response(self) -> ProductsResourceWithRawResponse:
         """
@@ -465,8 +463,6 @@ class ProductsResource(SyncAPIResource):
 
 
 class AsyncProductsResource(AsyncAPIResource):
-    """Products"""
-
     @cached_property
     def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:
         """

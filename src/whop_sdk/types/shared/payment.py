@@ -13,7 +13,6 @@ from ..billing_reasons import BillingReasons
 from ..dispute_statuses import DisputeStatuses
 from .membership_status import MembershipStatus
 from ..payment_method_types import PaymentMethodTypes
-from ..receipt_tax_behavior import ReceiptTaxBehavior
 from .friendly_receipt_status import FriendlyReceiptStatus
 from ..resolution_center_case_status import ResolutionCenterCaseStatus
 from ..resolution_center_case_issue_type import ResolutionCenterCaseIssueType
@@ -497,18 +496,6 @@ class Payment(BaseModel):
 
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""
-
-    tax_amount: Optional[float] = None
-    """The calculated amount of the sales/VAT tax (if applicable)."""
-
-    tax_behavior: Optional[ReceiptTaxBehavior] = None
-    """
-    The type of tax inclusivity applied to the receipt, for determining whether the
-    tax is included in the final price, or paid on top.
-    """
-
-    tax_refunded_amount: Optional[float] = None
-    """The amount of tax that has been refunded (if applicable)."""
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""

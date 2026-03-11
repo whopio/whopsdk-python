@@ -57,12 +57,6 @@ class TestInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -156,12 +150,6 @@ class TestInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -255,12 +243,6 @@ class TestInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -351,12 +333,6 @@ class TestInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -455,17 +431,19 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        invoice = client.invoices.list()
+        invoice = client.invoices.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
         assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         invoice = client.invoices.list(
+            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             collection_methods=["send_invoice"],
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
@@ -480,7 +458,9 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.invoices.with_raw_response.list()
+        response = client.invoices.with_raw_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -490,7 +470,9 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.invoices.with_streaming_response.list() as response:
+        with client.invoices.with_streaming_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -584,12 +566,6 @@ class TestAsyncInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -683,12 +659,6 @@ class TestAsyncInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -782,12 +752,6 @@ class TestAsyncInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -878,12 +842,6 @@ class TestAsyncInvoices:
                 "expiration_days": 42,
                 "initial_price": 6.9,
                 "internal_notes": "internal_notes",
-                "legacy_payment_method_controls": True,
-                "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
-                    "include_platform_defaults": True,
-                },
                 "plan_type": "renewal",
                 "release_method": "buy_now",
                 "renewal_price": 6.9,
@@ -982,17 +940,19 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        invoice = await async_client.invoices.list()
+        invoice = await async_client.invoices.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
         assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.list(
+            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             collection_methods=["send_invoice"],
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
@@ -1007,7 +967,9 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.invoices.with_raw_response.list()
+        response = await async_client.invoices.with_raw_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1017,7 +979,9 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.invoices.with_streaming_response.list() as response:
+        async with async_client.invoices.with_streaming_response.list(
+            company_id="biz_xxxxxxxxxxxxxx",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
