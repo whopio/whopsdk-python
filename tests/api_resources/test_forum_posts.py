@@ -50,7 +50,6 @@ class TestForumPosts:
                     }
                 ]
             },
-            rich_content="rich_content",
             title="title",
             visibility="members_only",
         )
@@ -262,7 +261,6 @@ class TestAsyncForumPosts:
                     }
                 ]
             },
-            rich_content="rich_content",
             title="title",
             visibility="members_only",
         )

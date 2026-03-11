@@ -25,8 +25,6 @@ __all__ = ["AccessTokensResource", "AsyncAccessTokensResource"]
 
 
 class AccessTokensResource(SyncAPIResource):
-    """Access tokens"""
-
     @cached_property
     def with_raw_response(self) -> AccessTokensResourceWithRawResponse:
         """
@@ -108,8 +106,6 @@ class AccessTokensResource(SyncAPIResource):
 
 
 class AsyncAccessTokensResource(AsyncAPIResource):
-    """Access tokens"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAccessTokensResourceWithRawResponse:
         """

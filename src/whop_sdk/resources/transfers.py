@@ -30,8 +30,6 @@ __all__ = ["TransfersResource", "AsyncTransfersResource"]
 
 
 class TransfersResource(SyncAPIResource):
-    """Transfers"""
-
     @cached_property
     def with_raw_response(self) -> TransfersResourceWithRawResponse:
         """
@@ -249,8 +247,6 @@ class TransfersResource(SyncAPIResource):
 
 
 class AsyncTransfersResource(AsyncAPIResource):
-    """Transfers"""
-
     @cached_property
     def with_raw_response(self) -> AsyncTransfersResourceWithRawResponse:
         """

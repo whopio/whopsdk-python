@@ -28,8 +28,6 @@ __all__ = ["RefundsResource", "AsyncRefundsResource"]
 
 
 class RefundsResource(SyncAPIResource):
-    """Refunds"""
-
     @cached_property
     def with_raw_response(self) -> RefundsResourceWithRawResponse:
         """
@@ -167,8 +165,6 @@ class RefundsResource(SyncAPIResource):
 
 
 class AsyncRefundsResource(AsyncAPIResource):
-    """Refunds"""
-
     @cached_property
     def with_raw_response(self) -> AsyncRefundsResourceWithRawResponse:
         """
