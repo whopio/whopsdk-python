@@ -70,6 +70,7 @@ class TestProducts:
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            send_welcome_message=True,
             visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -171,6 +172,7 @@ class TestProducts:
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            send_welcome_message=True,
             store_page_config={
                 "custom_cta": "custom_cta",
                 "show_price": True,
@@ -362,6 +364,7 @@ class TestAsyncProducts:
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            send_welcome_message=True,
             visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -463,6 +466,7 @@ class TestAsyncProducts:
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            send_welcome_message=True,
             store_page_config={
                 "custom_cta": "custom_cta",
                 "show_price": True,
