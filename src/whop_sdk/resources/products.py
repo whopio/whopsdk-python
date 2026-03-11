@@ -74,6 +74,7 @@ class ProductsResource(SyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -132,6 +133,9 @@ class ProductsResource(SyncAPIResource):
 
           route: The URL slug for the product's public link.
 
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product. Defaults to true.
+
           visibility: Visibility of a resource
 
           extra_headers: Send extra headers
@@ -163,6 +167,7 @@ class ProductsResource(SyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "send_welcome_message": send_welcome_message,
                     "visibility": visibility,
                 },
                 product_create_params.ProductCreateParams,
@@ -228,6 +233,7 @@ class ProductsResource(SyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
@@ -280,6 +286,9 @@ class ProductsResource(SyncAPIResource):
 
           route: The URL slug for the product's public link.
 
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product.
+
           store_page_config: Layout and display configuration for this product on the company's store page.
 
           title: The display name of the product. Maximum 40 characters.
@@ -314,6 +323,7 @@ class ProductsResource(SyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "send_welcome_message": send_welcome_message,
                     "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,
@@ -492,6 +502,7 @@ class AsyncProductsResource(AsyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -550,6 +561,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           route: The URL slug for the product's public link.
 
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product. Defaults to true.
+
           visibility: Visibility of a resource
 
           extra_headers: Send extra headers
@@ -581,6 +595,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "send_welcome_message": send_welcome_message,
                     "visibility": visibility,
                 },
                 product_create_params.ProductCreateParams,
@@ -646,6 +661,7 @@ class AsyncProductsResource(AsyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
         title: Optional[str] | Omit = omit,
         visibility: Optional[Visibility] | Omit = omit,
@@ -698,6 +714,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           route: The URL slug for the product's public link.
 
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product.
+
           store_page_config: Layout and display configuration for this product on the company's store page.
 
           title: The display name of the product. Maximum 40 characters.
@@ -732,6 +751,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "send_welcome_message": send_welcome_message,
                     "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,

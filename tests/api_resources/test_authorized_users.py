@@ -10,8 +10,9 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
+    AuthorizedUser,
     AuthorizedUserListResponse,
-    AuthorizedUserRetrieveResponse,
+    AuthorizedUserDeleteResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -24,11 +25,62 @@ class TestAuthorizedUsers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create(self, client: Whop) -> None:
+        authorized_user = client.authorized_users.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Whop) -> None:
+        authorized_user = client.authorized_users.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+            send_emails=True,
+        )
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Whop) -> None:
+        response = client.authorized_users.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        authorized_user = response.parse()
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Whop) -> None:
+        with client.authorized_users.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            authorized_user = response.parse()
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         authorized_user = client.authorized_users.retrieve(
             "ausr_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -40,7 +92,7 @@ class TestAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = response.parse()
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -52,7 +104,7 @@ class TestAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = response.parse()
-            assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -108,6 +160,57 @@ class TestAuthorizedUsers:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Whop) -> None:
+        authorized_user = client.authorized_users.delete(
+            id="ausr_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Whop) -> None:
+        authorized_user = client.authorized_users.delete(
+            id="ausr_xxxxxxxxxxxxx",
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Whop) -> None:
+        response = client.authorized_users.with_raw_response.delete(
+            id="ausr_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        authorized_user = response.parse()
+        assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Whop) -> None:
+        with client.authorized_users.with_streaming_response.delete(
+            id="ausr_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            authorized_user = response.parse()
+            assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.authorized_users.with_raw_response.delete(
+                id="",
+            )
+
 
 class TestAsyncAuthorizedUsers:
     parametrize = pytest.mark.parametrize(
@@ -116,11 +219,62 @@ class TestAsyncAuthorizedUsers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
+        authorized_user = await async_client.authorized_users.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
+        authorized_user = await async_client.authorized_users.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+            send_emails=True,
+        )
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
+        response = await async_client.authorized_users.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        authorized_user = await response.parse()
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
+        async with async_client.authorized_users.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            role="owner",
+            user_id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            authorized_user = await response.parse()
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         authorized_user = await async_client.authorized_users.retrieve(
             "ausr_xxxxxxxxxxxxx",
         )
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -132,7 +286,7 @@ class TestAsyncAuthorizedUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         authorized_user = await response.parse()
-        assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+        assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -144,7 +298,7 @@ class TestAsyncAuthorizedUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             authorized_user = await response.parse()
-            assert_matches_type(AuthorizedUserRetrieveResponse, authorized_user, path=["response"])
+            assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -199,3 +353,54 @@ class TestAsyncAuthorizedUsers:
             assert_matches_type(AsyncCursorPage[AuthorizedUserListResponse], authorized_user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
+        authorized_user = await async_client.authorized_users.delete(
+            id="ausr_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
+        authorized_user = await async_client.authorized_users.delete(
+            id="ausr_xxxxxxxxxxxxx",
+            company_id="biz_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
+        response = await async_client.authorized_users.with_raw_response.delete(
+            id="ausr_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        authorized_user = await response.parse()
+        assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
+        async with async_client.authorized_users.with_streaming_response.delete(
+            id="ausr_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            authorized_user = await response.parse()
+            assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.authorized_users.with_raw_response.delete(
+                id="",
+            )

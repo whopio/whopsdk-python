@@ -68,6 +68,12 @@ class ProductUpdateParams(TypedDict, total=False):
     route: Optional[str]
     """The URL slug for the product's public link."""
 
+    send_welcome_message: Optional[bool]
+    """
+    Whether to send an automated welcome message via support chat when a user joins
+    this product.
+    """
+
     store_page_config: Optional[StorePageConfig]
     """Layout and display configuration for this product on the company's store page."""
 

@@ -5,7 +5,7 @@ from typing import Optional
 from .._models import BaseModel
 from .shared.authorized_user_roles import AuthorizedUserRoles
 
-__all__ = ["AuthorizedUserRetrieveResponse", "Company", "User"]
+__all__ = ["AuthorizedUser", "Company", "User"]
 
 
 class Company(BaseModel):
@@ -37,7 +37,7 @@ class User(BaseModel):
     """The user's unique username shown on their public profile."""
 
 
-class AuthorizedUserRetrieveResponse(BaseModel):
+class AuthorizedUser(BaseModel):
     """
     A user who has been granted administrative access to manage a company's dashboard and settings.
     """

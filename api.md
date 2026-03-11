@@ -121,7 +121,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CompanyListResponse
+from whop_sdk.types import SocialLinkWebsites, CompanyListResponse
 ```
 
 Methods:
@@ -268,6 +268,7 @@ Methods:
 - <code title="get /memberships/{id}">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="patch /memberships/{id}">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">update</a>(id, \*\*<a href="src/whop_sdk/types/membership_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="get /memberships">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">list</a>(\*\*<a href="src/whop_sdk/types/membership_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/membership_list_response.py">SyncCursorPage[MembershipListResponse]</a></code>
+- <code title="post /memberships/{id}/add_free_days">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">add_free_days</a>(id, \*\*<a href="src/whop_sdk/types/membership_add_free_days_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/cancel">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">cancel</a>(id, \*\*<a href="src/whop_sdk/types/membership_cancel_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/pause">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">pause</a>(id, \*\*<a href="src/whop_sdk/types/membership_pause_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/resume">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">resume</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
@@ -278,13 +279,15 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AuthorizedUserRetrieveResponse, AuthorizedUserListResponse
+from whop_sdk.types import AuthorizedUser, AuthorizedUserListResponse, AuthorizedUserDeleteResponse
 ```
 
 Methods:
 
-- <code title="get /authorized_users/{id}">client.authorized_users.<a href="./src/whop_sdk/resources/authorized_users.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/authorized_user_retrieve_response.py">AuthorizedUserRetrieveResponse</a></code>
+- <code title="post /authorized_users">client.authorized_users.<a href="./src/whop_sdk/resources/authorized_users.py">create</a>(\*\*<a href="src/whop_sdk/types/authorized_user_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/authorized_user.py">AuthorizedUser</a></code>
+- <code title="get /authorized_users/{id}">client.authorized_users.<a href="./src/whop_sdk/resources/authorized_users.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/authorized_user.py">AuthorizedUser</a></code>
 - <code title="get /authorized_users">client.authorized_users.<a href="./src/whop_sdk/resources/authorized_users.py">list</a>(\*\*<a href="src/whop_sdk/types/authorized_user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/authorized_user_list_response.py">SyncCursorPage[AuthorizedUserListResponse]</a></code>
+- <code title="delete /authorized_users/{id}">client.authorized_users.<a href="./src/whop_sdk/resources/authorized_users.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/authorized_user_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/authorized_user_delete_response.py">AuthorizedUserDeleteResponse</a></code>
 
 # AppBuilds
 
@@ -382,6 +385,7 @@ from whop_sdk.types import (
     BillingReasons,
     CardBrands,
     PaymentMethodTypes,
+    ReceiptTaxBehavior,
     PaymentListResponse,
     PaymentListFeesResponse,
 )
@@ -876,3 +880,24 @@ Methods:
 
 - <code title="get /dispute_alerts/{id}">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dispute_alert_retrieve_response.py">DisputeAlertRetrieveResponse</a></code>
 - <code title="get /dispute_alerts">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_alert_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_alert_list_response.py">SyncCursorPage[DisputeAlertListResponse]</a></code>
+
+# ResolutionCenterCases
+
+Types:
+
+```python
+from whop_sdk.types import (
+    ResolutionCenterCaseCustomerResponse,
+    ResolutionCenterCaseIssueType,
+    ResolutionCenterCaseMerchantResponse,
+    ResolutionCenterCasePlatformResponse,
+    ResolutionCenterCaseStatus,
+    ResolutionCenterCaseRetrieveResponse,
+    ResolutionCenterCaseListResponse,
+)
+```
+
+Methods:
+
+- <code title="get /resolution_center_cases/{id}">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/resolution_center_case_retrieve_response.py">ResolutionCenterCaseRetrieveResponse</a></code>
+- <code title="get /resolution_center_cases">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">list</a>(\*\*<a href="src/whop_sdk/types/resolution_center_case_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_list_response.py">SyncCursorPage[ResolutionCenterCaseListResponse]</a></code>

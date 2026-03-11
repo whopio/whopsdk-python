@@ -7,9 +7,9 @@ from datetime import datetime
 
 import httpx
 
-from ..types import authorized_user_list_params
+from ..types import authorized_user_list_params, authorized_user_create_params, authorized_user_delete_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,14 +20,17 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.authorized_user import AuthorizedUser
 from ..types.shared.authorized_user_roles import AuthorizedUserRoles
 from ..types.authorized_user_list_response import AuthorizedUserListResponse
-from ..types.authorized_user_retrieve_response import AuthorizedUserRetrieveResponse
+from ..types.authorized_user_delete_response import AuthorizedUserDeleteResponse
 
 __all__ = ["AuthorizedUsersResource", "AsyncAuthorizedUsersResource"]
 
 
 class AuthorizedUsersResource(SyncAPIResource):
+    """Authorized users"""
+
     @cached_property
     def with_raw_response(self) -> AuthorizedUsersResourceWithRawResponse:
         """
@@ -47,6 +50,64 @@ class AuthorizedUsersResource(SyncAPIResource):
         """
         return AuthorizedUsersResourceWithStreamingResponse(self)
 
+    def create(
+        self,
+        *,
+        company_id: str,
+        role: AuthorizedUserRoles,
+        user_id: str,
+        send_emails: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthorizedUser:
+        """
+        Add a new authorized user to a company.
+
+        Required permissions:
+
+        - `authorized_user:create`
+        - `member:email:read`
+
+        Args:
+          company_id: The ID of the company to add the authorized user to.
+
+          role:
+              The role to assign to the authorized user within the company. Supported roles:
+              'moderator', 'sales_manager'.
+
+          user_id: The ID of the user to add as an authorized user.
+
+          send_emails: Whether to send notification emails to the user on creation.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/authorized_users",
+            body=maybe_transform(
+                {
+                    "company_id": company_id,
+                    "role": role,
+                    "user_id": user_id,
+                    "send_emails": send_emails,
+                },
+                authorized_user_create_params.AuthorizedUserCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthorizedUser,
+        )
+
     def retrieve(
         self,
         id: str,
@@ -57,7 +118,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthorizedUserRetrieveResponse:
+    ) -> AuthorizedUser:
         """
         Retrieves the details of an existing authorized user.
 
@@ -82,7 +143,7 @@ class AuthorizedUsersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AuthorizedUserRetrieveResponse,
+            cast_to=AuthorizedUser,
         )
 
     def list(
@@ -167,8 +228,57 @@ class AuthorizedUsersResource(SyncAPIResource):
             model=AuthorizedUserListResponse,
         )
 
+    def delete(
+        self,
+        id: str,
+        *,
+        company_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthorizedUserDeleteResponse:
+        """
+        Remove an authorized user from a company.
+
+        Required permissions:
+
+        - `authorized_user:delete`
+
+        Args:
+          company_id: The ID of the company the authorized user belongs to. Optional if the authorized
+              user ID is provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/authorized_users/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
+                ),
+            ),
+            cast_to=AuthorizedUserDeleteResponse,
+        )
+
 
 class AsyncAuthorizedUsersResource(AsyncAPIResource):
+    """Authorized users"""
+
     @cached_property
     def with_raw_response(self) -> AsyncAuthorizedUsersResourceWithRawResponse:
         """
@@ -188,6 +298,64 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         """
         return AsyncAuthorizedUsersResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        company_id: str,
+        role: AuthorizedUserRoles,
+        user_id: str,
+        send_emails: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthorizedUser:
+        """
+        Add a new authorized user to a company.
+
+        Required permissions:
+
+        - `authorized_user:create`
+        - `member:email:read`
+
+        Args:
+          company_id: The ID of the company to add the authorized user to.
+
+          role:
+              The role to assign to the authorized user within the company. Supported roles:
+              'moderator', 'sales_manager'.
+
+          user_id: The ID of the user to add as an authorized user.
+
+          send_emails: Whether to send notification emails to the user on creation.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/authorized_users",
+            body=await async_maybe_transform(
+                {
+                    "company_id": company_id,
+                    "role": role,
+                    "user_id": user_id,
+                    "send_emails": send_emails,
+                },
+                authorized_user_create_params.AuthorizedUserCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthorizedUser,
+        )
+
     async def retrieve(
         self,
         id: str,
@@ -198,7 +366,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthorizedUserRetrieveResponse:
+    ) -> AuthorizedUser:
         """
         Retrieves the details of an existing authorized user.
 
@@ -223,7 +391,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AuthorizedUserRetrieveResponse,
+            cast_to=AuthorizedUser,
         )
 
     def list(
@@ -308,16 +476,69 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
             model=AuthorizedUserListResponse,
         )
 
+    async def delete(
+        self,
+        id: str,
+        *,
+        company_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthorizedUserDeleteResponse:
+        """
+        Remove an authorized user from a company.
+
+        Required permissions:
+
+        - `authorized_user:delete`
+
+        Args:
+          company_id: The ID of the company the authorized user belongs to. Optional if the authorized
+              user ID is provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/authorized_users/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
+                ),
+            ),
+            cast_to=AuthorizedUserDeleteResponse,
+        )
+
 
 class AuthorizedUsersResourceWithRawResponse:
     def __init__(self, authorized_users: AuthorizedUsersResource) -> None:
         self._authorized_users = authorized_users
 
+        self.create = to_raw_response_wrapper(
+            authorized_users.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             authorized_users.retrieve,
         )
         self.list = to_raw_response_wrapper(
             authorized_users.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            authorized_users.delete,
         )
 
 
@@ -325,11 +546,17 @@ class AsyncAuthorizedUsersResourceWithRawResponse:
     def __init__(self, authorized_users: AsyncAuthorizedUsersResource) -> None:
         self._authorized_users = authorized_users
 
+        self.create = async_to_raw_response_wrapper(
+            authorized_users.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             authorized_users.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
             authorized_users.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            authorized_users.delete,
         )
 
 
@@ -337,11 +564,17 @@ class AuthorizedUsersResourceWithStreamingResponse:
     def __init__(self, authorized_users: AuthorizedUsersResource) -> None:
         self._authorized_users = authorized_users
 
+        self.create = to_streamed_response_wrapper(
+            authorized_users.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             authorized_users.retrieve,
         )
         self.list = to_streamed_response_wrapper(
             authorized_users.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            authorized_users.delete,
         )
 
 
@@ -349,9 +582,15 @@ class AsyncAuthorizedUsersResourceWithStreamingResponse:
     def __init__(self, authorized_users: AsyncAuthorizedUsersResource) -> None:
         self._authorized_users = authorized_users
 
+        self.create = async_to_streamed_response_wrapper(
+            authorized_users.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             authorized_users.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
             authorized_users.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            authorized_users.delete,
         )

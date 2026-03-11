@@ -81,6 +81,12 @@ class ProductCreateParams(TypedDict, total=False):
     route: Optional[str]
     """The URL slug for the product's public link."""
 
+    send_welcome_message: Optional[bool]
+    """
+    Whether to send an automated welcome message via support chat when a user joins
+    this product. Defaults to true.
+    """
+
     visibility: Optional[Visibility]
     """Visibility of a resource"""
 

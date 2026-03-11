@@ -384,6 +384,14 @@ from .checkout_configurations import (
     CheckoutConfigurationsResourceWithStreamingResponse,
     AsyncCheckoutConfigurationsResourceWithStreamingResponse,
 )
+from .resolution_center_cases import (
+    ResolutionCenterCasesResource,
+    AsyncResolutionCenterCasesResource,
+    ResolutionCenterCasesResourceWithRawResponse,
+    AsyncResolutionCenterCasesResourceWithRawResponse,
+    ResolutionCenterCasesResourceWithStreamingResponse,
+    AsyncResolutionCenterCasesResourceWithStreamingResponse,
+)
 from .company_token_transactions import (
     CompanyTokenTransactionsResource,
     AsyncCompanyTokenTransactionsResource,
@@ -702,4 +710,10 @@ __all__ = [
     "AsyncDisputeAlertsResourceWithRawResponse",
     "DisputeAlertsResourceWithStreamingResponse",
     "AsyncDisputeAlertsResourceWithStreamingResponse",
+    "ResolutionCenterCasesResource",
+    "AsyncResolutionCenterCasesResource",
+    "ResolutionCenterCasesResourceWithRawResponse",
+    "AsyncResolutionCenterCasesResourceWithRawResponse",
+    "ResolutionCenterCasesResourceWithStreamingResponse",
+    "AsyncResolutionCenterCasesResourceWithStreamingResponse",
 ]

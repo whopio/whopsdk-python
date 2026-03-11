@@ -176,6 +176,7 @@ class TestAIChats:
             before="before",
             first=42,
             last=42,
+            only_active_crons=True,
         )
         assert_matches_type(SyncCursorPage[AIChatListResponse], ai_chat, path=["response"])
 
@@ -403,6 +404,7 @@ class TestAsyncAIChats:
             before="before",
             first=42,
             last=42,
+            only_active_crons=True,
         )
         assert_matches_type(AsyncCursorPage[AIChatListResponse], ai_chat, path=["response"])
 

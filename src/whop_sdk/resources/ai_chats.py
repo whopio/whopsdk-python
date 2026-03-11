@@ -199,6 +199,7 @@ class AIChatsResource(SyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        only_active_crons: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,6 +218,8 @@ class AIChatsResource(SyncAPIResource):
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          only_active_crons: When true, returns only chats with an active cron schedule
 
           extra_headers: Send extra headers
 
@@ -240,6 +243,7 @@ class AIChatsResource(SyncAPIResource):
                         "before": before,
                         "first": first,
                         "last": last,
+                        "only_active_crons": only_active_crons,
                     },
                     ai_chat_list_params.AIChatListParams,
                 ),
@@ -457,6 +461,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        only_active_crons: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -475,6 +480,8 @@ class AsyncAIChatsResource(AsyncAPIResource):
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          only_active_crons: When true, returns only chats with an active cron schedule
 
           extra_headers: Send extra headers
 
@@ -498,6 +505,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
                         "before": before,
                         "first": first,
                         "last": last,
+                        "only_active_crons": only_active_crons,
                     },
                     ai_chat_list_params.AIChatListParams,
                 ),
