@@ -17,5 +17,4 @@ PaymentProvider: TypeAlias = Literal[
     "claritypay",
     "checkout_dot_com",
     "airwallex",
-    "coinflow",
 ]

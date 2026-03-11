@@ -28,8 +28,6 @@ __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
 
 class MessagesResource(SyncAPIResource):
-    """Messages"""
-
     @cached_property
     def with_raw_response(self) -> MessagesResourceWithRawResponse:
         """
@@ -315,8 +313,6 @@ class MessagesResource(SyncAPIResource):
 
 
 class AsyncMessagesResource(AsyncAPIResource):
-    """Messages"""
-
     @cached_property
     def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
         """

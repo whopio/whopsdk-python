@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -16,6 +16,9 @@ __all__ = ["InvoiceListParams"]
 
 
 class InvoiceListParams(TypedDict, total=False):
+    company_id: Required[str]
+    """The unique identifier of the company to list invoices for."""
+
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -24,9 +27,6 @@ class InvoiceListParams(TypedDict, total=False):
 
     collection_methods: Optional[List[CollectionMethod]]
     """Filter invoices by their collection method."""
-
-    company_id: Optional[str]
-    """The unique identifier of the company to list invoices for."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return invoices created after this timestamp."""

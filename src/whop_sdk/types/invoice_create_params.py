@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
-from .payment_method_types import PaymentMethodTypes
 from .shared.release_method import ReleaseMethod
 from .shared.collection_method import CollectionMethod
 
@@ -18,21 +17,17 @@ __all__ = [
     "CreateInvoiceInputWithProductAndMemberID",
     "CreateInvoiceInputWithProductAndMemberIDPlan",
     "CreateInvoiceInputWithProductAndMemberIDPlanCustomField",
-    "CreateInvoiceInputWithProductAndMemberIDPlanPaymentMethodConfiguration",
     "CreateInvoiceInputWithProductAndMemberIDProduct",
     "CreateInvoiceInputWithProductAndEmailAddress",
     "CreateInvoiceInputWithProductAndEmailAddressPlan",
     "CreateInvoiceInputWithProductAndEmailAddressPlanCustomField",
-    "CreateInvoiceInputWithProductAndEmailAddressPlanPaymentMethodConfiguration",
     "CreateInvoiceInputWithProductAndEmailAddressProduct",
     "CreateInvoiceInputWithProductIDAndMemberID",
     "CreateInvoiceInputWithProductIDAndMemberIDPlan",
     "CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField",
-    "CreateInvoiceInputWithProductIDAndMemberIDPlanPaymentMethodConfiguration",
     "CreateInvoiceInputWithProductIDAndEmailAddress",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlan",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField",
-    "CreateInvoiceInputWithProductIDAndEmailAddressPlanPaymentMethodConfiguration",
 ]
 
 
@@ -118,34 +113,6 @@ class CreateInvoiceInputWithProductAndMemberIDPlanCustomField(TypedDict, total=F
     """Whether or not the field is required."""
 
 
-class CreateInvoiceInputWithProductAndMemberIDPlanPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
-
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Required[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
 class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
     """
     The plan attributes defining the price, currency, and billing interval for this invoice.
@@ -176,15 +143,6 @@ class CreateInvoiceInputWithProductAndMemberIDPlan(TypedDict, total=False):
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
-
-    legacy_payment_method_controls: Optional[bool]
-    """Whether this plan uses legacy payment method controls"""
-
-    payment_method_configuration: Optional[CreateInvoiceInputWithProductAndMemberIDPlanPaymentMethodConfiguration]
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
 
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to a product"""
@@ -311,34 +269,6 @@ class CreateInvoiceInputWithProductAndEmailAddressPlanCustomField(TypedDict, tot
     """Whether or not the field is required."""
 
 
-class CreateInvoiceInputWithProductAndEmailAddressPlanPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
-
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Required[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
 class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
     """
     The plan attributes defining the price, currency, and billing interval for this invoice.
@@ -369,15 +299,6 @@ class CreateInvoiceInputWithProductAndEmailAddressPlan(TypedDict, total=False):
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
-
-    legacy_payment_method_controls: Optional[bool]
-    """Whether this plan uses legacy payment method controls"""
-
-    payment_method_configuration: Optional[CreateInvoiceInputWithProductAndEmailAddressPlanPaymentMethodConfiguration]
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
 
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to a product"""
@@ -500,34 +421,6 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField(TypedDict, total
     """Whether or not the field is required."""
 
 
-class CreateInvoiceInputWithProductIDAndMemberIDPlanPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
-
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Required[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
 class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """
     The plan attributes defining the price, currency, and billing interval for this invoice.
@@ -558,15 +451,6 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
-
-    legacy_payment_method_controls: Optional[bool]
-    """Whether this plan uses legacy payment method controls"""
-
-    payment_method_configuration: Optional[CreateInvoiceInputWithProductIDAndMemberIDPlanPaymentMethodConfiguration]
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
 
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to a product"""
@@ -677,34 +561,6 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField(TypedDict, t
     """Whether or not the field is required."""
 
 
-class CreateInvoiceInputWithProductIDAndEmailAddressPlanPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
-
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Required[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
 class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False):
     """
     The plan attributes defining the price, currency, and billing interval for this invoice.
@@ -735,15 +591,6 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
 
     internal_notes: Optional[str]
     """A personal description or notes section for the business."""
-
-    legacy_payment_method_controls: Optional[bool]
-    """Whether this plan uses legacy payment method controls"""
-
-    payment_method_configuration: Optional[CreateInvoiceInputWithProductIDAndEmailAddressPlanPaymentMethodConfiguration]
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
 
     plan_type: Optional[PlanType]
     """The type of plan that can be attached to a product"""

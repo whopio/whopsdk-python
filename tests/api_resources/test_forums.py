@@ -74,7 +74,6 @@ class TestForums:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         forum = client.forums.update(
             id="id",
-            banner_image={"id": "id"},
             email_notification_preference="all_admin_posts",
             who_can_comment="everyone",
             who_can_post="everyone",
@@ -223,7 +222,6 @@ class TestAsyncForums:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         forum = await async_client.forums.update(
             id="id",
-            banner_image={"id": "id"},
             email_notification_preference="all_admin_posts",
             who_can_comment="everyone",
             who_can_post="everyone",

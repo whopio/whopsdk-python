@@ -38,7 +38,6 @@ class TestAIChats:
             current_company_id="current_company_id",
             message_attachments=[{"id": "id"}],
             message_source="manual",
-            suggestion_type="suggestion_type",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])
@@ -266,7 +265,6 @@ class TestAsyncAIChats:
             current_company_id="current_company_id",
             message_attachments=[{"id": "id"}],
             message_source="manual",
-            suggestion_type="suggestion_type",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])

@@ -23,8 +23,6 @@ __all__ = ["FilesResource", "AsyncFilesResource"]
 
 
 class FilesResource(SyncAPIResource):
-    """Files"""
-
     @cached_property
     def with_raw_response(self) -> FilesResourceWithRawResponse:
         """
@@ -115,8 +113,6 @@ class FilesResource(SyncAPIResource):
 
 
 class AsyncFilesResource(AsyncAPIResource):
-    """Files"""
-
     @cached_property
     def with_raw_response(self) -> AsyncFilesResourceWithRawResponse:
         """
