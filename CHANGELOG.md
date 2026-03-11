@@ -1,32 +1,5 @@
 # Changelog
 
-## 0.1.0 (2026-03-10)
-
-Full Changelog: [v0.0.30...v0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.30...v0.1.0)
-
-### Features
-
-* **api:** api update ([99175a1](https://github.com/whopio/whopsdk-python/commit/99175a149a05f6c54b225447a163b958af8ae61c))
-* **api:** api update ([fe17d66](https://github.com/whopio/whopsdk-python/commit/fe17d66f82035b4e58f474bfd136bf78114aaeab))
-* **api:** api update ([2ee7fe7](https://github.com/whopio/whopsdk-python/commit/2ee7fe71e837e7f91ed021b58217abaf89782879))
-* **api:** api update ([260853e](https://github.com/whopio/whopsdk-python/commit/260853e5ec3e85481b25da49ec4252b8b773e81a))
-* **api:** api update ([dcef405](https://github.com/whopio/whopsdk-python/commit/dcef4059c4ce8e9fdffa7d2aba850f325c53fb57))
-* **api:** api update ([abc268f](https://github.com/whopio/whopsdk-python/commit/abc268f2c7a2d59ed01e6fd595aaf3559b831302))
-* **api:** api update ([2f4cd94](https://github.com/whopio/whopsdk-python/commit/2f4cd94cdca591d743dd905f9b325d25fe45acb8))
-* **api:** api update ([ad1d5b7](https://github.com/whopio/whopsdk-python/commit/ad1d5b78546c5efd4214e22c42aa7a64227bc34c))
-* **api:** api update ([c2f142d](https://github.com/whopio/whopsdk-python/commit/c2f142d7aebad6ec2b140d70a8b93aa3205290ec))
-* **api:** api update ([d62a4b7](https://github.com/whopio/whopsdk-python/commit/d62a4b7961c1264d9c4055a026238a72822b8b19))
-* **api:** api update ([c60ab1e](https://github.com/whopio/whopsdk-python/commit/c60ab1e6568cef6910ec61773887c8b9546c52d4))
-* **api:** api update ([020c181](https://github.com/whopio/whopsdk-python/commit/020c181cf53f7811401fe01d4382fe490e6e5398))
-* **api:** manual updates ([b162886](https://github.com/whopio/whopsdk-python/commit/b1628865df13ae4d703571e46e738405652ad150))
-
-
-### Chores
-
-* **ci:** skip uploading artifacts on stainless-internal branches ([04a3a6d](https://github.com/whopio/whopsdk-python/commit/04a3a6d8263e34b42b476380846af4d4f31deedd))
-* **docs:** add missing descriptions ([beeb9ef](https://github.com/whopio/whopsdk-python/commit/beeb9efca946b1bc2e565239ac96d3d2d8642b6f))
-* **tests:** update webhook tests ([f740d3c](https://github.com/whopio/whopsdk-python/commit/f740d3c6d32e332ecea2ec902e9903c36055443e))
-
 ## 0.0.30 (2026-02-26)
 
 Full Changelog: [v0.0.29...v0.0.30](https://github.com/whopio/whopsdk-python/compare/v0.0.29...v0.0.30)
