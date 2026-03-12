@@ -1,24 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
 from .verification_status import VerificationStatus
 from .verification_error_code import VerificationErrorCode
 from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses
 
-__all__ = [
-    "PayoutAccountStatusUpdatedWebhookEvent",
-    "Data",
-    "DataAddress",
-    "DataBusinessRepresentative",
-    "DataLatestVerification",
-]
+__all__ = ["PayoutAccountRetrieveResponse", "Address", "BusinessRepresentative", "LatestVerification"]
 
 
-class DataAddress(BaseModel):
+class Address(BaseModel):
     """The physical address associated with this payout account"""
 
     city: Optional[str] = None
@@ -40,7 +32,7 @@ class DataAddress(BaseModel):
     """The state of the address."""
 
 
-class DataBusinessRepresentative(BaseModel):
+class BusinessRepresentative(BaseModel):
     """The business representative for this payout account"""
 
     date_of_birth: Optional[str] = None
@@ -59,7 +51,7 @@ class DataBusinessRepresentative(BaseModel):
     """The middle name of the business representative."""
 
 
-class DataLatestVerification(BaseModel):
+class LatestVerification(BaseModel):
     """The latest verification for the connected account."""
 
     id: str
@@ -78,25 +70,25 @@ class DataLatestVerification(BaseModel):
     """The current status of this verification session."""
 
 
-class Data(BaseModel):
+class PayoutAccountRetrieveResponse(BaseModel):
     """An object representing an account used for payouts."""
 
     id: str
     """The unique identifier for the payout account."""
 
-    address: Optional[DataAddress] = None
+    address: Optional[Address] = None
     """The physical address associated with this payout account"""
 
     business_name: Optional[str] = None
     """The company's legal name"""
 
-    business_representative: Optional[DataBusinessRepresentative] = None
+    business_representative: Optional[BusinessRepresentative] = None
     """The business representative for this payout account"""
 
     email: Optional[str] = None
     """The email address of the representative"""
 
-    latest_verification: Optional[DataLatestVerification] = None
+    latest_verification: Optional[LatestVerification] = None
     """The latest verification for the connected account."""
 
     phone: Optional[str] = None
@@ -107,23 +99,3 @@ class Data(BaseModel):
     The granular calculated statuses reflecting payout account KYC and withdrawal
     readiness.
     """
-
-
-class PayoutAccountStatusUpdatedWebhookEvent(BaseModel):
-    id: str
-    """A unique ID for every single webhook request"""
-
-    api_version: Literal["v1"]
-    """The API version for this webhook"""
-
-    data: Data
-    """An object representing an account used for payouts."""
-
-    timestamp: datetime
-    """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
-
-    type: Literal["payout_account.status_updated"]
-    """The webhook event type"""
-
-    company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""

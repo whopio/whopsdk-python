@@ -77,6 +77,7 @@ if TYPE_CHECKING:
         course_students,
         ledger_accounts,
         payment_methods,
+        payout_accounts,
         authorized_users,
         support_channels,
         checkout_configurations,
@@ -129,6 +130,7 @@ if TYPE_CHECKING:
     from .resources.course_students import CourseStudentsResource, AsyncCourseStudentsResource
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
     from .resources.payment_methods import PaymentMethodsResource, AsyncPaymentMethodsResource
+    from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
@@ -571,6 +573,13 @@ class Whop(SyncAPIClient):
         from .resources.resolution_center_cases import ResolutionCenterCasesResource
 
         return ResolutionCenterCasesResource(self)
+
+    @cached_property
+    def payout_accounts(self) -> PayoutAccountsResource:
+        """Payout accounts"""
+        from .resources.payout_accounts import PayoutAccountsResource
+
+        return PayoutAccountsResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -1118,6 +1127,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncResolutionCenterCasesResource(self)
 
     @cached_property
+    def payout_accounts(self) -> AsyncPayoutAccountsResource:
+        """Payout accounts"""
+        from .resources.payout_accounts import AsyncPayoutAccountsResource
+
+        return AsyncPayoutAccountsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1598,6 +1614,13 @@ class WhopWithRawResponse:
 
         return ResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
 
+    @cached_property
+    def payout_accounts(self) -> payout_accounts.PayoutAccountsResourceWithRawResponse:
+        """Payout accounts"""
+        from .resources.payout_accounts import PayoutAccountsResourceWithRawResponse
+
+        return PayoutAccountsResourceWithRawResponse(self._client.payout_accounts)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1966,6 +1989,13 @@ class AsyncWhopWithRawResponse:
 
         return AsyncResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
 
+    @cached_property
+    def payout_accounts(self) -> payout_accounts.AsyncPayoutAccountsResourceWithRawResponse:
+        """Payout accounts"""
+        from .resources.payout_accounts import AsyncPayoutAccountsResourceWithRawResponse
+
+        return AsyncPayoutAccountsResourceWithRawResponse(self._client.payout_accounts)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -2333,6 +2363,13 @@ class WhopWithStreamedResponse:
         from .resources.resolution_center_cases import ResolutionCenterCasesResourceWithStreamingResponse
 
         return ResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
+
+    @cached_property
+    def payout_accounts(self) -> payout_accounts.PayoutAccountsResourceWithStreamingResponse:
+        """Payout accounts"""
+        from .resources.payout_accounts import PayoutAccountsResourceWithStreamingResponse
+
+        return PayoutAccountsResourceWithStreamingResponse(self._client.payout_accounts)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2705,6 +2742,13 @@ class AsyncWhopWithStreamedResponse:
         from .resources.resolution_center_cases import AsyncResolutionCenterCasesResourceWithStreamingResponse
 
         return AsyncResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
+
+    @cached_property
+    def payout_accounts(self) -> payout_accounts.AsyncPayoutAccountsResourceWithStreamingResponse:
+        """Payout accounts"""
+        from .resources.payout_accounts import AsyncPayoutAccountsResourceWithStreamingResponse
+
+        return AsyncPayoutAccountsResourceWithStreamingResponse(self._client.payout_accounts)
 
 
 Client = Whop

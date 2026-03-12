@@ -8,6 +8,7 @@ from .._models import BaseModel
 from .shared.currency import Currency
 from .verification_status import VerificationStatus
 from .verification_error_code import VerificationErrorCode
+from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses
 
 __all__ = [
     "LedgerAccountRetrieveResponse",
@@ -165,11 +166,7 @@ class PayoutAccountDetails(BaseModel):
     phone: Optional[str] = None
     """The business representative's phone"""
 
-    status: Optional[
-        Literal[
-            "connected", "disabled", "action_required", "pending_verification", "verification_failed", "not_started"
-        ]
-    ] = None
+    status: Optional[PayoutAccountCalculatedStatuses] = None
     """
     The granular calculated statuses reflecting payout account KYC and withdrawal
     readiness.
