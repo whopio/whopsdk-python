@@ -30,6 +30,7 @@ from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEv
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
+from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
 from .course_lesson_interaction_completed_webhook_event import CourseLessonInteractionCompletedWebhookEvent
 from .membership_cancel_at_period_end_changed_webhook_event import MembershipCancelAtPeriodEndChangedWebhookEvent
 
@@ -55,6 +56,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         CourseLessonInteractionCompletedWebhookEvent,
         PayoutMethodCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,
+        PayoutAccountStatusUpdatedWebhookEvent,
         PaymentCreatedWebhookEvent,
         PaymentSucceededWebhookEvent,
         PaymentFailedWebhookEvent,

@@ -165,6 +165,16 @@ class PayoutAccountDetails(BaseModel):
     phone: Optional[str] = None
     """The business representative's phone"""
 
+    status: Optional[
+        Literal[
+            "connected", "disabled", "action_required", "pending_verification", "verification_failed", "not_started"
+        ]
+    ] = None
+    """
+    The granular calculated statuses reflecting payout account KYC and withdrawal
+    readiness.
+    """
+
 
 class LedgerAccountRetrieveResponse(BaseModel):
     """

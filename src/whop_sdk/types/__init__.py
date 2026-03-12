@@ -361,6 +361,9 @@ from .resolution_center_case_retrieve_response import (
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
 )
+from .payout_account_status_updated_webhook_event import (
+    PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
+)
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,
 )

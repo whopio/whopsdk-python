@@ -23,6 +23,7 @@ WebhookEvent: TypeAlias = Literal[
     "course_lesson_interaction.completed",
     "payout_method.created",
     "verification.succeeded",
+    "payout_account.status_updated",
     "payment.created",
     "payment.succeeded",
     "payment.failed",
