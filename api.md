@@ -161,6 +161,7 @@ from whop_sdk.types import (
     CourseLessonInteractionCompletedWebhookEvent,
     PayoutMethodCreatedWebhookEvent,
     VerificationSucceededWebhookEvent,
+    PayoutAccountStatusUpdatedWebhookEvent,
     PaymentCreatedWebhookEvent,
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,
@@ -749,12 +750,18 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import VerificationErrorCode, VerificationStatus, VerificationRetrieveResponse
+from whop_sdk.types import (
+    VerificationErrorCode,
+    VerificationStatus,
+    VerificationRetrieveResponse,
+    VerificationListResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /verifications/{id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/verification_retrieve_response.py">VerificationRetrieveResponse</a></code>
+- <code title="get /verifications">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">list</a>(\*\*<a href="src/whop_sdk/types/verification_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/verification_list_response.py">SyncCursorPage[VerificationListResponse]</a></code>
 
 # Leads
 
@@ -901,3 +908,15 @@ Methods:
 
 - <code title="get /resolution_center_cases/{id}">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/resolution_center_case_retrieve_response.py">ResolutionCenterCaseRetrieveResponse</a></code>
 - <code title="get /resolution_center_cases">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">list</a>(\*\*<a href="src/whop_sdk/types/resolution_center_case_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_list_response.py">SyncCursorPage[ResolutionCenterCaseListResponse]</a></code>
+
+# PayoutAccounts
+
+Types:
+
+```python
+from whop_sdk.types import PayoutAccountCalculatedStatuses, PayoutAccountRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /payout_accounts/{id}">client.payout_accounts.<a href="./src/whop_sdk/resources/payout_accounts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/payout_account_retrieve_response.py">PayoutAccountRetrieveResponse</a></code>
