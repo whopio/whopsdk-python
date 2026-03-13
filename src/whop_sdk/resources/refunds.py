@@ -90,14 +90,16 @@ class RefundsResource(SyncAPIResource):
     def list(
         self,
         *,
-        payment_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        payment_id: Optional[str] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -106,19 +108,19 @@ class RefundsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[RefundListResponse]:
         """
-        Returns a paginated list of refunds for a specific payment, with optional
-        filtering by creation date.
+        Returns a paginated list of refunds, with optional filtering by payment,
+        company, user, and creation date.
 
         Required permissions:
 
         - `payment:basic:read`
 
         Args:
-          payment_id: The unique identifier of the payment to list refunds for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: Filter refunds to only those belonging to this company.
 
           created_after: Only return refunds created after this timestamp.
 
@@ -129,6 +131,10 @@ class RefundsResource(SyncAPIResource):
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          payment_id: Filter refunds to only those associated with this specific payment.
+
+          user_id: Filter refunds to only those associated with this specific user.
 
           extra_headers: Send extra headers
 
@@ -148,14 +154,16 @@ class RefundsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "payment_id": payment_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "payment_id": payment_id,
+                        "user_id": user_id,
                     },
                     refund_list_params.RefundListParams,
                 ),
@@ -227,14 +235,16 @@ class AsyncRefundsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        payment_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        payment_id: Optional[str] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -243,19 +253,19 @@ class AsyncRefundsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[RefundListResponse, AsyncCursorPage[RefundListResponse]]:
         """
-        Returns a paginated list of refunds for a specific payment, with optional
-        filtering by creation date.
+        Returns a paginated list of refunds, with optional filtering by payment,
+        company, user, and creation date.
 
         Required permissions:
 
         - `payment:basic:read`
 
         Args:
-          payment_id: The unique identifier of the payment to list refunds for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: Filter refunds to only those belonging to this company.
 
           created_after: Only return refunds created after this timestamp.
 
@@ -266,6 +276,10 @@ class AsyncRefundsResource(AsyncAPIResource):
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          payment_id: Filter refunds to only those associated with this specific payment.
+
+          user_id: Filter refunds to only those associated with this specific user.
 
           extra_headers: Send extra headers
 
@@ -285,14 +299,16 @@ class AsyncRefundsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "payment_id": payment_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "payment_id": payment_id,
+                        "user_id": user_id,
                     },
                     refund_list_params.RefundListParams,
                 ),
