@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import user_update_profile_params
+from ..types import user_list_params, user_update_profile_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -17,8 +17,10 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..pagination import SyncCursorPage, AsyncCursorPage
 from ..types.user import User
-from .._base_client import make_request_options
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.user_list_response import UserListResponse
 from ..types.user_check_access_response import UserCheckAccessResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -77,6 +79,66 @@ class UsersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=User,
+        )
+
+    def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[UserListResponse]:
+        """
+        Search for users by name or username, ranked by social proximity to the
+        authenticated user.
+
+        Args:
+          after: Returns the elements in the list that come after the specified cursor.
+
+          before: Returns the elements in the list that come before the specified cursor.
+
+          first: Returns the first _n_ elements from the list.
+
+          last: Returns the last _n_ elements from the list.
+
+          query: Search term to filter by name or username.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/users",
+            page=SyncCursorPage[UserListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
+                        "query": query,
+                    },
+                    user_list_params.UserListParams,
+                ),
+            ),
+            model=UserListResponse,
         )
 
     def check_access(
@@ -228,6 +290,66 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=User,
         )
 
+    def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        first: Optional[int] | Omit = omit,
+        last: Optional[int] | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[UserListResponse, AsyncCursorPage[UserListResponse]]:
+        """
+        Search for users by name or username, ranked by social proximity to the
+        authenticated user.
+
+        Args:
+          after: Returns the elements in the list that come after the specified cursor.
+
+          before: Returns the elements in the list that come before the specified cursor.
+
+          first: Returns the first _n_ elements from the list.
+
+          last: Returns the last _n_ elements from the list.
+
+          query: Search term to filter by name or username.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/users",
+            page=AsyncCursorPage[UserListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
+                        "query": query,
+                    },
+                    user_list_params.UserListParams,
+                ),
+            ),
+            model=UserListResponse,
+        )
+
     async def check_access(
         self,
         resource_id: str,
@@ -329,6 +451,9 @@ class UsersResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             users.retrieve,
         )
+        self.list = to_raw_response_wrapper(
+            users.list,
+        )
         self.check_access = to_raw_response_wrapper(
             users.check_access,
         )
@@ -343,6 +468,9 @@ class AsyncUsersResourceWithRawResponse:
 
         self.retrieve = async_to_raw_response_wrapper(
             users.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            users.list,
         )
         self.check_access = async_to_raw_response_wrapper(
             users.check_access,
@@ -359,6 +487,9 @@ class UsersResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             users.retrieve,
         )
+        self.list = to_streamed_response_wrapper(
+            users.list,
+        )
         self.check_access = to_streamed_response_wrapper(
             users.check_access,
         )
@@ -373,6 +504,9 @@ class AsyncUsersResourceWithStreamingResponse:
 
         self.retrieve = async_to_streamed_response_wrapper(
             users.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            users.list,
         )
         self.check_access = async_to_streamed_response_wrapper(
             users.check_access,
