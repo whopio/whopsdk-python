@@ -9,7 +9,8 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import User, UserCheckAccessResponse
+from whop_sdk.types import User, UserListResponse, UserCheckAccessResponse
+from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -58,6 +59,46 @@ class TestUsers:
             client.users.with_raw_response.retrieve(
                 "",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list(self, client: Whop) -> None:
+        user = client.users.list()
+        assert_matches_type(SyncCursorPage[UserListResponse], user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: Whop) -> None:
+        user = client.users.list(
+            after="after",
+            before="before",
+            first=42,
+            last=42,
+            query="query",
+        )
+        assert_matches_type(SyncCursorPage[UserListResponse], user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: Whop) -> None:
+        response = client.users.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(SyncCursorPage[UserListResponse], user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: Whop) -> None:
+        with client.users.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(SyncCursorPage[UserListResponse], user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -197,6 +238,46 @@ class TestAsyncUsers:
             await async_client.users.with_raw_response.retrieve(
                 "",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
+        user = await async_client.users.list()
+        assert_matches_type(AsyncCursorPage[UserListResponse], user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
+        user = await async_client.users.list(
+            after="after",
+            before="before",
+            first=42,
+            last=42,
+            query="query",
+        )
+        assert_matches_type(AsyncCursorPage[UserListResponse], user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
+        response = await async_client.users.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(AsyncCursorPage[UserListResponse], user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
+        async with async_client.users.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(AsyncCursorPage[UserListResponse], user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
