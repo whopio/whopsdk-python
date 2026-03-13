@@ -64,32 +64,30 @@ class TestRefunds:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        refund = client.refunds.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
-        )
+        refund = client.refunds.list()
         assert_matches_type(SyncCursorPage[RefundListResponse], refund, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         refund = client.refunds.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,
+            payment_id="pay_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(SyncCursorPage[RefundListResponse], refund, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.refunds.with_raw_response.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
-        )
+        response = client.refunds.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -99,9 +97,7 @@ class TestRefunds:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.refunds.with_streaming_response.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
-        ) as response:
+        with client.refunds.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -161,32 +157,30 @@ class TestAsyncRefunds:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        refund = await async_client.refunds.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
-        )
+        refund = await async_client.refunds.list()
         assert_matches_type(AsyncCursorPage[RefundListResponse], refund, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         refund = await async_client.refunds.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
             last=42,
+            payment_id="pay_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(AsyncCursorPage[RefundListResponse], refund, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.refunds.with_raw_response.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
-        )
+        response = await async_client.refunds.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -196,9 +190,7 @@ class TestAsyncRefunds:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.refunds.with_streaming_response.list(
-            payment_id="pay_xxxxxxxxxxxxxx",
-        ) as response:
+        async with async_client.refunds.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
