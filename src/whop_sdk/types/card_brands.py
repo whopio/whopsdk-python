@@ -42,5 +42,6 @@ CardBrands: TypeAlias = Literal[
     "codensa",
     "cabal",
     "hipercard",
+    "jcblankapay",
     "unknown",
 ]
