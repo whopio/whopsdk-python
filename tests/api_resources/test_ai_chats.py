@@ -124,6 +124,7 @@ class TestAIChats:
         ai_chat = client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
             current_company_id="current_company_id",
+            notification_preference="all",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])
@@ -352,6 +353,7 @@ class TestAsyncAIChats:
         ai_chat = await async_client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
             current_company_id="current_company_id",
+            notification_preference="all",
             title="title",
         )
         assert_matches_type(AIChat, ai_chat, path=["response"])

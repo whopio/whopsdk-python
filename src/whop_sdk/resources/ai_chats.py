@@ -146,6 +146,7 @@ class AIChatsResource(SyncAPIResource):
         id: str,
         *,
         current_company_id: Optional[str] | Omit = omit,
+        notification_preference: Optional[Literal["all", "none"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -155,7 +156,8 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Update an AI chat's title or associated company context.
+        Update an AI chat's title, notification preferences, or associated company
+        context.
 
         Required permissions:
 
@@ -164,6 +166,8 @@ class AIChatsResource(SyncAPIResource):
         Args:
           current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
               "biz_XXXXX").
+
+          notification_preference: The notification preference for an AI chat
 
           title: The new display title for the AI chat thread (e.g., "Help with billing").
 
@@ -182,6 +186,7 @@ class AIChatsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "current_company_id": current_company_id,
+                    "notification_preference": notification_preference,
                     "title": title,
                 },
                 ai_chat_update_params.AIChatUpdateParams,
@@ -408,6 +413,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         id: str,
         *,
         current_company_id: Optional[str] | Omit = omit,
+        notification_preference: Optional[Literal["all", "none"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -417,7 +423,8 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Update an AI chat's title or associated company context.
+        Update an AI chat's title, notification preferences, or associated company
+        context.
 
         Required permissions:
 
@@ -426,6 +433,8 @@ class AsyncAIChatsResource(AsyncAPIResource):
         Args:
           current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
               "biz_XXXXX").
+
+          notification_preference: The notification preference for an AI chat
 
           title: The new display title for the AI chat thread (e.g., "Help with billing").
 
@@ -444,6 +453,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "current_company_id": current_company_id,
+                    "notification_preference": notification_preference,
                     "title": title,
                 },
                 ai_chat_update_params.AIChatUpdateParams,
