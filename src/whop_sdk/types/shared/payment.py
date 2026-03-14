@@ -167,6 +167,7 @@ class FinancingTransaction(BaseModel):
         "cancel",
         "verify",
         "chargeback",
+        "pre_chargeback",
         "three_d_secure",
         "fraud_screening",
         "authorization",
