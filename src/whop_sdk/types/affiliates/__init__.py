@@ -1,0 +1,17 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from .override_list_params import OverrideListParams as OverrideListParams
+from .affiliate_payout_types import AffiliatePayoutTypes as AffiliatePayoutTypes
+from .override_create_params import OverrideCreateParams as OverrideCreateParams
+from .override_list_response import OverrideListResponse as OverrideListResponse
+from .override_update_params import OverrideUpdateParams as OverrideUpdateParams
+from .affiliate_revenue_bases import AffiliateRevenueBases as AffiliateRevenueBases
+from .affiliate_override_roles import AffiliateOverrideRoles as AffiliateOverrideRoles
+from .override_create_response import OverrideCreateResponse as OverrideCreateResponse
+from .override_delete_response import OverrideDeleteResponse as OverrideDeleteResponse
+from .override_update_response import OverrideUpdateResponse as OverrideUpdateResponse
+from .override_retrieve_response import OverrideRetrieveResponse as OverrideRetrieveResponse
+from .affiliate_applies_to_payments import AffiliateAppliesToPayments as AffiliateAppliesToPayments
+from .affiliate_applies_to_products import AffiliateAppliesToProducts as AffiliateAppliesToProducts

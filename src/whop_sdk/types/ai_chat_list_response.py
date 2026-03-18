@@ -4,6 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .notification_preferences import NotificationPreferences
 
 __all__ = ["AIChatListResponse", "User"]
 
@@ -37,6 +38,12 @@ class AIChatListResponse(BaseModel):
 
     message_count: int
     """The total number of messages exchanged in this conversation."""
+
+    notification_preference: NotificationPreferences
+    """The notification preference for this AI chat.
+
+    `all` delivers AI chat notifications and badges, while `none` mutes them.
+    """
 
     title: Optional[str] = None
     """A short descriptive title for this AI chat conversation.

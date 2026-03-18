@@ -184,6 +184,14 @@ from .transfers import (
     TransfersResourceWithStreamingResponse,
     AsyncTransfersResourceWithStreamingResponse,
 )
+from .affiliates import (
+    AffiliatesResource,
+    AsyncAffiliatesResource,
+    AffiliatesResourceWithRawResponse,
+    AsyncAffiliatesResourceWithRawResponse,
+    AffiliatesResourceWithStreamingResponse,
+    AsyncAffiliatesResourceWithStreamingResponse,
+)
 from .app_builds import (
     AppBuildsResource,
     AsyncAppBuildsResource,
@@ -730,4 +738,10 @@ __all__ = [
     "AsyncPayoutAccountsResourceWithRawResponse",
     "PayoutAccountsResourceWithStreamingResponse",
     "AsyncPayoutAccountsResourceWithStreamingResponse",
+    "AffiliatesResource",
+    "AsyncAffiliatesResource",
+    "AffiliatesResourceWithRawResponse",
+    "AsyncAffiliatesResourceWithRawResponse",
+    "AffiliatesResourceWithStreamingResponse",
+    "AsyncAffiliatesResourceWithStreamingResponse",
 ]

@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.0.35 (2026-03-18)
+
+Full Changelog: [v0.0.34...v0.0.35](https://github.com/whopio/whopsdk-python/compare/v0.0.34...v0.0.35)
+
+### Features
+
+* **api:** api update ([8a74bd2](https://github.com/whopio/whopsdk-python/commit/8a74bd28a45ae766a17d696a405ec2dcd5f4918a))
+* **api:** api update ([c9dd73f](https://github.com/whopio/whopsdk-python/commit/c9dd73fece709c673b37575a2e1e82ca9643f7d9))
+* **api:** api update ([41811c0](https://github.com/whopio/whopsdk-python/commit/41811c0aec1d7d07b0e7450c810a2b2e5ca03fcb))
+* **api:** manual updates ([9506c84](https://github.com/whopio/whopsdk-python/commit/9506c84dd2836cf9b150e999840b79d82517046f))
+
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([52face0](https://github.com/whopio/whopsdk-python/commit/52face04bba526f4c009caa1dcc390d84da60840))
+* **pydantic:** do not pass `by_alias` unless set ([23cb493](https://github.com/whopio/whopsdk-python/commit/23cb4936ab4f00829d98f0a910e26f2ae26e5398))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([ca6b4cd](https://github.com/whopio/whopsdk-python/commit/ca6b4cd8b46e7de115b37c833da3c40f87ca779a))
+
 ## 0.0.34 (2026-03-13)
 
 Full Changelog: [v0.0.33...v0.0.34](https://github.com/whopio/whopsdk-python/compare/v0.0.33...v0.0.34)
