@@ -55,6 +55,7 @@ if TYPE_CHECKING:
         reactions,
         shipments,
         transfers,
+        affiliates,
         app_builds,
         dm_members,
         dm_channels,
@@ -133,6 +134,7 @@ if TYPE_CHECKING:
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
+    from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
     from .resources.company_token_transactions import (
@@ -580,6 +582,13 @@ class Whop(SyncAPIClient):
         from .resources.payout_accounts import PayoutAccountsResource
 
         return PayoutAccountsResource(self)
+
+    @cached_property
+    def affiliates(self) -> AffiliatesResource:
+        """Affiliates"""
+        from .resources.affiliates import AffiliatesResource
+
+        return AffiliatesResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -1134,6 +1143,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPayoutAccountsResource(self)
 
     @cached_property
+    def affiliates(self) -> AsyncAffiliatesResource:
+        """Affiliates"""
+        from .resources.affiliates import AsyncAffiliatesResource
+
+        return AsyncAffiliatesResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1621,6 +1637,13 @@ class WhopWithRawResponse:
 
         return PayoutAccountsResourceWithRawResponse(self._client.payout_accounts)
 
+    @cached_property
+    def affiliates(self) -> affiliates.AffiliatesResourceWithRawResponse:
+        """Affiliates"""
+        from .resources.affiliates import AffiliatesResourceWithRawResponse
+
+        return AffiliatesResourceWithRawResponse(self._client.affiliates)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1996,6 +2019,13 @@ class AsyncWhopWithRawResponse:
 
         return AsyncPayoutAccountsResourceWithRawResponse(self._client.payout_accounts)
 
+    @cached_property
+    def affiliates(self) -> affiliates.AsyncAffiliatesResourceWithRawResponse:
+        """Affiliates"""
+        from .resources.affiliates import AsyncAffiliatesResourceWithRawResponse
+
+        return AsyncAffiliatesResourceWithRawResponse(self._client.affiliates)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -2370,6 +2400,13 @@ class WhopWithStreamedResponse:
         from .resources.payout_accounts import PayoutAccountsResourceWithStreamingResponse
 
         return PayoutAccountsResourceWithStreamingResponse(self._client.payout_accounts)
+
+    @cached_property
+    def affiliates(self) -> affiliates.AffiliatesResourceWithStreamingResponse:
+        """Affiliates"""
+        from .resources.affiliates import AffiliatesResourceWithStreamingResponse
+
+        return AffiliatesResourceWithStreamingResponse(self._client.affiliates)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2749,6 +2786,13 @@ class AsyncWhopWithStreamedResponse:
         from .resources.payout_accounts import AsyncPayoutAccountsResourceWithStreamingResponse
 
         return AsyncPayoutAccountsResourceWithStreamingResponse(self._client.payout_accounts)
+
+    @cached_property
+    def affiliates(self) -> affiliates.AsyncAffiliatesResourceWithStreamingResponse:
+        """Affiliates"""
+        from .resources.affiliates import AsyncAffiliatesResourceWithStreamingResponse
+
+        return AsyncAffiliatesResourceWithStreamingResponse(self._client.affiliates)
 
 
 Client = Whop

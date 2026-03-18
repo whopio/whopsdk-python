@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
+
+from .notification_preferences import NotificationPreferences
 
 __all__ = ["AIChatUpdateParams"]
 
@@ -15,7 +17,7 @@ class AIChatUpdateParams(TypedDict, total=False):
     "biz_XXXXX").
     """
 
-    notification_preference: Optional[Literal["all", "none"]]
+    notification_preference: Optional[NotificationPreferences]
     """The notification preference for an AI chat"""
 
     title: Optional[str]
