@@ -6,7 +6,20 @@ from datetime import datetime
 from ..._models import BaseModel
 from ..social_link_websites import SocialLinkWebsites
 
-__all__ = ["Company", "Logo", "OwnerUser", "SocialLink"]
+__all__ = ["Company", "FeaturedAffiliateProduct", "Logo", "OwnerUser", "SocialLink"]
+
+
+class FeaturedAffiliateProduct(BaseModel):
+    """The product featured for affiliates to promote on this company's affiliate page.
+
+    Null if none is configured.
+    """
+
+    id: str
+    """The unique identifier for the product."""
+
+    name: str
+    """The display name of the product shown to customers. Maximum 50 characters."""
 
 
 class Logo(BaseModel):
@@ -54,6 +67,12 @@ class Company(BaseModel):
     id: str
     """The unique identifier for the company."""
 
+    affiliate_instructions: Optional[str] = None
+    """
+    Guidelines and instructions provided to affiliates explaining how to promote
+    this company's products.
+    """
+
     created_at: datetime
     """The datetime the company was created."""
 
@@ -61,6 +80,12 @@ class Company(BaseModel):
     """
     A promotional pitch written by the company creator, displayed to potential
     customers on the store page.
+    """
+
+    featured_affiliate_product: Optional[FeaturedAffiliateProduct] = None
+    """The product featured for affiliates to promote on this company's affiliate page.
+
+    Null if none is configured.
     """
 
     logo: Optional[Logo] = None

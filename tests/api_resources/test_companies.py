@@ -125,8 +125,11 @@ class TestCompanies:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         company = client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
+            affiliate_application_required=True,
+            affiliate_instructions="affiliate_instructions",
             banner_image={"id": "id"},
             description="description",
+            featured_affiliate_product_id="featured_affiliate_product_id",
             logo={"id": "id"},
             route="route",
             send_customer_emails=True,
@@ -331,8 +334,11 @@ class TestAsyncCompanies:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.update(
             id="biz_xxxxxxxxxxxxxx",
+            affiliate_application_required=True,
+            affiliate_instructions="affiliate_instructions",
             banner_image={"id": "id"},
             description="description",
+            featured_affiliate_product_id="featured_affiliate_product_id",
             logo={"id": "id"},
             route="route",
             send_customer_emails=True,

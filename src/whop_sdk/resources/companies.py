@@ -165,8 +165,11 @@ class CompaniesResource(SyncAPIResource):
         self,
         id: str,
         *,
+        affiliate_application_required: Optional[bool] | Omit = omit,
+        affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        featured_affiliate_product_id: Optional[str] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
@@ -189,10 +192,19 @@ class CompaniesResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
+          affiliate_application_required: Whether prospective affiliates must submit an application before they can
+              promote this company.
+
+          affiliate_instructions: Guidelines and instructions shown to affiliates explaining how to promote this
+              company's products.
+
           banner_image: The company's banner image. Accepts PNG or JPEG format.
 
           description: A promotional pitch displayed to potential customers on the company's store
               page.
+
+          featured_affiliate_product_id: The ID of the product to feature on this company's affiliate page. Pass null to
+              clear.
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
@@ -225,8 +237,11 @@ class CompaniesResource(SyncAPIResource):
             f"/companies/{id}",
             body=maybe_transform(
                 {
+                    "affiliate_application_required": affiliate_application_required,
+                    "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
                     "description": description,
+                    "featured_affiliate_product_id": featured_affiliate_product_id,
                     "logo": logo,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
@@ -461,8 +476,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        affiliate_application_required: Optional[bool] | Omit = omit,
+        affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[company_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        featured_affiliate_product_id: Optional[str] | Omit = omit,
         logo: Optional[company_update_params.Logo] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: Optional[bool] | Omit = omit,
@@ -485,10 +503,19 @@ class AsyncCompaniesResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
+          affiliate_application_required: Whether prospective affiliates must submit an application before they can
+              promote this company.
+
+          affiliate_instructions: Guidelines and instructions shown to affiliates explaining how to promote this
+              company's products.
+
           banner_image: The company's banner image. Accepts PNG or JPEG format.
 
           description: A promotional pitch displayed to potential customers on the company's store
               page.
+
+          featured_affiliate_product_id: The ID of the product to feature on this company's affiliate page. Pass null to
+              clear.
 
           logo: The company's logo image. Accepts PNG, JPEG, or GIF format.
 
@@ -521,8 +548,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
             f"/companies/{id}",
             body=await async_maybe_transform(
                 {
+                    "affiliate_application_required": affiliate_application_required,
+                    "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
                     "description": description,
+                    "featured_affiliate_product_id": featured_affiliate_product_id,
                     "logo": logo,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
