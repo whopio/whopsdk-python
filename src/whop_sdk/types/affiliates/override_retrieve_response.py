@@ -13,7 +13,9 @@ __all__ = ["OverrideRetrieveResponse"]
 
 
 class OverrideRetrieveResponse(BaseModel):
-    """An object storing information about the affiliate"""
+    """
+    A commission configuration for an affiliate, defining payout terms for a specific plan or revenue share
+    """
 
     id: str
     """The unique identifier for the affiliate override."""
@@ -31,7 +33,11 @@ class OverrideRetrieveResponse(BaseModel):
     """The type of commission (percentage or flat_fee)."""
 
     commission_value: float
-    """The commission value (percentage 1-100 or flat fee in dollars)."""
+    """The commission amount.
+
+    A percentage (1-100) when commission_type is percentage, or a dollar amount when
+    flat_fee.
+    """
 
     override_type: AffiliateOverrideRoles
     """The type of override (standard or rev_share)."""

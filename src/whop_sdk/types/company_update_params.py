@@ -9,6 +9,18 @@ __all__ = ["CompanyUpdateParams", "BannerImage", "Logo"]
 
 
 class CompanyUpdateParams(TypedDict, total=False):
+    affiliate_application_required: Optional[bool]
+    """
+    Whether prospective affiliates must submit an application before they can
+    promote this company.
+    """
+
+    affiliate_instructions: Optional[str]
+    """
+    Guidelines and instructions shown to affiliates explaining how to promote this
+    company's products.
+    """
+
     banner_image: Optional[BannerImage]
     """The company's banner image. Accepts PNG or JPEG format."""
 
@@ -16,6 +28,12 @@ class CompanyUpdateParams(TypedDict, total=False):
     """
     A promotional pitch displayed to potential customers on the company's store
     page.
+    """
+
+    featured_affiliate_product_id: Optional[str]
+    """The ID of the product to feature on this company's affiliate page.
+
+    Pass null to clear.
     """
 
     logo: Optional[Logo]
