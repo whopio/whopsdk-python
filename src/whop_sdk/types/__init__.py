@@ -66,10 +66,12 @@ from .shared import (
     EmailNotificationPreferences as EmailNotificationPreferences,
     CourseLessonInteractionListItem as CourseLessonInteractionListItem,
 )
+from .status import Status as Status
 from .ai_chat import AIChat as AIChat
 from .dispute import Dispute as Dispute
 from .webhook import Webhook as Webhook
 from .app_type import AppType as AppType
+from .affiliate import Affiliate as Affiliate
 from .dm_member import DmMember as DmMember
 from .languages import Languages as Languages
 from .dm_channel import DmChannel as DmChannel
@@ -150,6 +152,7 @@ from .social_link_websites import SocialLinkWebsites as SocialLinkWebsites
 from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
+from .affiliate_list_params import AffiliateListParams as AffiliateListParams
 from .ai_chat_create_params import AIChatCreateParams as AIChatCreateParams
 from .ai_chat_list_response import AIChatListResponse as AIChatListResponse
 from .ai_chat_update_params import AIChatUpdateParams as AIChatUpdateParams
@@ -191,6 +194,8 @@ from .shipment_list_response import ShipmentListResponse as ShipmentListResponse
 from .transfer_create_params import TransferCreateParams as TransferCreateParams
 from .transfer_list_response import TransferListResponse as TransferListResponse
 from .withdrawal_list_params import WithdrawalListParams as WithdrawalListParams
+from .affiliate_create_params import AffiliateCreateParams as AffiliateCreateParams
+from .affiliate_list_response import AffiliateListResponse as AffiliateListResponse
 from .ai_chat_delete_response import AIChatDeleteResponse as AIChatDeleteResponse
 from .app_build_create_params import AppBuildCreateParams as AppBuildCreateParams
 from .app_build_list_response import AppBuildListResponse as AppBuildListResponse
@@ -223,6 +228,7 @@ from .member_retrieve_response import MemberRetrieveResponse as MemberRetrieveRe
 from .membership_cancel_params import MembershipCancelParams as MembershipCancelParams
 from .membership_list_response import MembershipListResponse as MembershipListResponse
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams
+from .notification_preferences import NotificationPreferences as NotificationPreferences
 from .payment_list_fees_params import PaymentListFeesParams as PaymentListFeesParams
 from .promo_code_create_params import PromoCodeCreateParams as PromoCodeCreateParams
 from .promo_code_list_response import PromoCodeListResponse as PromoCodeListResponse
@@ -241,6 +247,7 @@ from .dm_member_delete_response import DmMemberDeleteResponse as DmMemberDeleteR
 from .payout_method_list_params import PayoutMethodListParams as PayoutMethodListParams
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams
+from .affiliate_archive_response import AffiliateArchiveResponse as AffiliateArchiveResponse
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
 from .course_chapter_list_params import CourseChapterListParams as CourseChapterListParams
@@ -273,6 +280,7 @@ from .payout_method_list_response import PayoutMethodListResponse as PayoutMetho
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
 from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .account_link_create_response import AccountLinkCreateResponse as AccountLinkCreateResponse
+from .affiliate_unarchive_response import AffiliateUnarchiveResponse as AffiliateUnarchiveResponse
 from .course_chapter_create_params import CourseChapterCreateParams as CourseChapterCreateParams
 from .course_chapter_list_response import CourseChapterListResponse as CourseChapterListResponse
 from .course_chapter_update_params import CourseChapterUpdateParams as CourseChapterUpdateParams

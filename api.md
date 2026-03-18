@@ -849,7 +849,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AIChat, AIChatListResponse, AIChatDeleteResponse
+from whop_sdk.types import AIChat, NotificationPreferences, AIChatListResponse, AIChatDeleteResponse
 ```
 
 Methods:
@@ -921,3 +921,52 @@ from whop_sdk.types import PayoutAccountCalculatedStatuses, PayoutAccountRetriev
 Methods:
 
 - <code title="get /payout_accounts/{id}">client.payout_accounts.<a href="./src/whop_sdk/resources/payout_accounts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/payout_account_retrieve_response.py">PayoutAccountRetrieveResponse</a></code>
+
+# Affiliates
+
+Types:
+
+```python
+from whop_sdk.types import (
+    Affiliate,
+    Status,
+    AffiliateListResponse,
+    AffiliateArchiveResponse,
+    AffiliateUnarchiveResponse,
+)
+```
+
+Methods:
+
+- <code title="post /affiliates">client.affiliates.<a href="./src/whop_sdk/resources/affiliates/affiliates.py">create</a>(\*\*<a href="src/whop_sdk/types/affiliate_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliate.py">Affiliate</a></code>
+- <code title="get /affiliates/{id}">client.affiliates.<a href="./src/whop_sdk/resources/affiliates/affiliates.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/affiliate.py">Affiliate</a></code>
+- <code title="get /affiliates">client.affiliates.<a href="./src/whop_sdk/resources/affiliates/affiliates.py">list</a>(\*\*<a href="src/whop_sdk/types/affiliate_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliate_list_response.py">SyncCursorPage[AffiliateListResponse]</a></code>
+- <code title="post /affiliates/{id}/archive">client.affiliates.<a href="./src/whop_sdk/resources/affiliates/affiliates.py">archive</a>(id) -> <a href="./src/whop_sdk/types/affiliate_archive_response.py">AffiliateArchiveResponse</a></code>
+- <code title="post /affiliates/{id}/unarchive">client.affiliates.<a href="./src/whop_sdk/resources/affiliates/affiliates.py">unarchive</a>(id) -> <a href="./src/whop_sdk/types/affiliate_unarchive_response.py">AffiliateUnarchiveResponse</a></code>
+
+## Overrides
+
+Types:
+
+```python
+from whop_sdk.types.affiliates import (
+    AffiliateAppliesToPayments,
+    AffiliateAppliesToProducts,
+    AffiliateOverrideRoles,
+    AffiliatePayoutTypes,
+    AffiliateRevenueBases,
+    OverrideCreateResponse,
+    OverrideRetrieveResponse,
+    OverrideUpdateResponse,
+    OverrideListResponse,
+    OverrideDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /affiliates/{id}/overrides">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">create</a>(path_id, \*\*<a href="src/whop_sdk/types/affiliates/override_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliates/override_create_response.py">OverrideCreateResponse</a></code>
+- <code title="get /affiliates/{id}/overrides/{override_id}">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">retrieve</a>(override_id, \*, id) -> <a href="./src/whop_sdk/types/affiliates/override_retrieve_response.py">OverrideRetrieveResponse</a></code>
+- <code title="patch /affiliates/{id}/overrides/{override_id}">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">update</a>(override_id, \*, id, \*\*<a href="src/whop_sdk/types/affiliates/override_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliates/override_update_response.py">OverrideUpdateResponse</a></code>
+- <code title="get /affiliates/{id}/overrides">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">list</a>(id, \*\*<a href="src/whop_sdk/types/affiliates/override_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliates/override_list_response.py">SyncCursorPage[OverrideListResponse]</a></code>
+- <code title="delete /affiliates/{id}/overrides/{override_id}">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">delete</a>(override_id, \*, id) -> <a href="./src/whop_sdk/types/affiliates/override_delete_response.py">OverrideDeleteResponse</a></code>

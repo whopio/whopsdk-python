@@ -2,86 +2,92 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import NotificationPreferences, ai_chat_list_params, ai_chat_create_params, ai_chat_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import Status, affiliate_list_params, affiliate_create_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from .overrides import (
+    OverridesResource,
+    AsyncOverridesResource,
+    OverridesResourceWithRawResponse,
+    AsyncOverridesResourceWithRawResponse,
+    OverridesResourceWithStreamingResponse,
+    AsyncOverridesResourceWithStreamingResponse,
+)
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.ai_chat import AIChat
-from ..types.ai_chat_list_response import AIChatListResponse
-from ..types.ai_chat_delete_response import AIChatDeleteResponse
-from ..types.notification_preferences import NotificationPreferences
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.status import Status
+from ...types.affiliate import Affiliate
+from ...types.shared.direction import Direction
+from ...types.affiliate_list_response import AffiliateListResponse
+from ...types.affiliate_archive_response import AffiliateArchiveResponse
+from ...types.affiliate_unarchive_response import AffiliateUnarchiveResponse
 
-__all__ = ["AIChatsResource", "AsyncAIChatsResource"]
+__all__ = ["AffiliatesResource", "AsyncAffiliatesResource"]
 
 
-class AIChatsResource(SyncAPIResource):
+class AffiliatesResource(SyncAPIResource):
+    """Affiliates"""
+
     @cached_property
-    def with_raw_response(self) -> AIChatsResourceWithRawResponse:
+    def overrides(self) -> OverridesResource:
+        """Affiliates"""
+        return OverridesResource(self._client)
+
+    @cached_property
+    def with_raw_response(self) -> AffiliatesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
         """
-        return AIChatsResourceWithRawResponse(self)
+        return AffiliatesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AIChatsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AffiliatesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
-        return AIChatsResourceWithStreamingResponse(self)
+        return AffiliatesResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        message_text: str,
-        current_company_id: Optional[str] | Omit = omit,
-        message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
-        message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
-        title: Optional[str] | Omit = omit,
+        company_id: str,
+        user_identifier: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChat:
+    ) -> Affiliate:
         """
-        Create a new AI chat thread and send the first message to the AI agent.
+        Creates or finds an affiliate for a company and user.
 
         Required permissions:
 
-        - `ai_chat:create`
+        - `affiliate:create`
 
         Args:
-          message_text: The text content of the first message to send to the AI agent.
+          company_id: The ID of the company to create the affiliate for.
 
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
-              "biz_XXXXX").
-
-          message_attachments: A list of previously uploaded file attachments to include with the first
-              message.
-
-          message_source: The source of an AI chat message
-
-          title: An optional display title for the AI chat thread (e.g., "Help with billing").
+          user_identifier: The user identifier (username, email, user ID, or Discord ID).
 
           extra_headers: Send extra headers
 
@@ -92,21 +98,18 @@ class AIChatsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/ai_chats",
+            "/affiliates",
             body=maybe_transform(
                 {
-                    "message_text": message_text,
-                    "current_company_id": current_company_id,
-                    "message_attachments": message_attachments,
-                    "message_source": message_source,
-                    "title": title,
+                    "company_id": company_id,
+                    "user_identifier": user_identifier,
                 },
-                ai_chat_create_params.AIChatCreateParams,
+                affiliate_create_params.AffiliateCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChat,
+            cast_to=Affiliate,
         )
 
     def retrieve(
@@ -119,9 +122,13 @@ class AIChatsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChat:
+    ) -> Affiliate:
         """
-        Retrieves the details of an existing AI chat.
+        Retrieves the details of an existing affiliate.
+
+        Required permissions:
+
+        - `affiliate:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -135,97 +142,58 @@ class AIChatsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/ai_chats/{id}",
+            f"/affiliates/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChat,
-        )
-
-    def update(
-        self,
-        id: str,
-        *,
-        current_company_id: Optional[str] | Omit = omit,
-        notification_preference: Optional[NotificationPreferences] | Omit = omit,
-        title: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChat:
-        """
-        Update an AI chat's title, notification preferences, or associated company
-        context.
-
-        Required permissions:
-
-        - `ai_chat:update`
-
-        Args:
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
-              "biz_XXXXX").
-
-          notification_preference: The notification preference for an AI chat
-
-          title: The new display title for the AI chat thread (e.g., "Help with billing").
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._patch(
-            f"/ai_chats/{id}",
-            body=maybe_transform(
-                {
-                    "current_company_id": current_company_id,
-                    "notification_preference": notification_preference,
-                    "title": title,
-                },
-                ai_chat_update_params.AIChatUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AIChat,
+            cast_to=Affiliate,
         )
 
     def list(
         self,
         *,
+        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        only_active_crons: Optional[bool] | Omit = omit,
+        order: Optional[Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]] | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        status: Optional[Status] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[AIChatListResponse]:
+    ) -> SyncCursorPage[AffiliateListResponse]:
         """
-        Returns a paginated list of AI chat threads for the current authenticated user.
+        Returns a paginated list of affiliates for the actor in context, with optional
+        filtering by status, search, and sorting.
+
+        Required permissions:
+
+        - `affiliate:basic:read`
 
         Args:
+          company_id: The unique identifier of the company to list affiliates for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          only_active_crons: When true, returns only chats with an active cron schedule
+          order: Which columns can be used to sort.
+
+          query: Search affiliates by username.
+
+          status: Statuses for resources
 
           extra_headers: Send extra headers
 
@@ -236,8 +204,8 @@ class AIChatsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/ai_chats",
-            page=SyncCursorPage[AIChatListResponse],
+            "/affiliates",
+            page=SyncCursorPage[AffiliateListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -245,19 +213,23 @@ class AIChatsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
-                        "only_active_crons": only_active_crons,
+                        "order": order,
+                        "query": query,
+                        "status": status,
                     },
-                    ai_chat_list_params.AIChatListParams,
+                    affiliate_list_params.AffiliateListParams,
                 ),
             ),
-            model=AIChatListResponse,
+            model=AffiliateListResponse,
         )
 
-    def delete(
+    def archive(
         self,
         id: str,
         *,
@@ -267,13 +239,13 @@ class AIChatsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatDeleteResponse:
+    ) -> AffiliateArchiveResponse:
         """
-        Delete an AI chat thread so it no longer appears in the user's chat list.
+        Archives an existing Affiliate
 
         Required permissions:
 
-        - `ai_chat:delete`
+        - `affiliate:update`
 
         Args:
           extra_headers: Send extra headers
@@ -286,69 +258,102 @@ class AIChatsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._delete(
-            f"/ai_chats/{id}",
+        return self._post(
+            f"/affiliates/{id}/archive",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatDeleteResponse,
+            cast_to=AffiliateArchiveResponse,
         )
 
-
-class AsyncAIChatsResource(AsyncAPIResource):
-    @cached_property
-    def with_raw_response(self) -> AsyncAIChatsResourceWithRawResponse:
-        """
-        This property can be used as a prefix for any HTTP method call to return
-        the raw response object instead of the parsed content.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
-        """
-        return AsyncAIChatsResourceWithRawResponse(self)
-
-    @cached_property
-    def with_streaming_response(self) -> AsyncAIChatsResourceWithStreamingResponse:
-        """
-        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
-
-        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
-        """
-        return AsyncAIChatsResourceWithStreamingResponse(self)
-
-    async def create(
+    def unarchive(
         self,
+        id: str,
         *,
-        message_text: str,
-        current_company_id: Optional[str] | Omit = omit,
-        message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
-        message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
-        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChat:
+    ) -> AffiliateUnarchiveResponse:
         """
-        Create a new AI chat thread and send the first message to the AI agent.
+        Unarchives an existing Affiliate
 
         Required permissions:
 
-        - `ai_chat:create`
+        - `affiliate:update`
 
         Args:
-          message_text: The text content of the first message to send to the AI agent.
+          extra_headers: Send extra headers
 
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
-              "biz_XXXXX").
+          extra_query: Add additional query parameters to the request
 
-          message_attachments: A list of previously uploaded file attachments to include with the first
-              message.
+          extra_body: Add additional JSON properties to the request
 
-          message_source: The source of an AI chat message
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/affiliates/{id}/unarchive",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AffiliateUnarchiveResponse,
+        )
 
-          title: An optional display title for the AI chat thread (e.g., "Help with billing").
+
+class AsyncAffiliatesResource(AsyncAPIResource):
+    """Affiliates"""
+
+    @cached_property
+    def overrides(self) -> AsyncOverridesResource:
+        """Affiliates"""
+        return AsyncOverridesResource(self._client)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncAffiliatesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncAffiliatesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncAffiliatesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
+        """
+        return AsyncAffiliatesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        company_id: str,
+        user_identifier: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Affiliate:
+        """
+        Creates or finds an affiliate for a company and user.
+
+        Required permissions:
+
+        - `affiliate:create`
+
+        Args:
+          company_id: The ID of the company to create the affiliate for.
+
+          user_identifier: The user identifier (username, email, user ID, or Discord ID).
 
           extra_headers: Send extra headers
 
@@ -359,21 +364,18 @@ class AsyncAIChatsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/ai_chats",
+            "/affiliates",
             body=await async_maybe_transform(
                 {
-                    "message_text": message_text,
-                    "current_company_id": current_company_id,
-                    "message_attachments": message_attachments,
-                    "message_source": message_source,
-                    "title": title,
+                    "company_id": company_id,
+                    "user_identifier": user_identifier,
                 },
-                ai_chat_create_params.AIChatCreateParams,
+                affiliate_create_params.AffiliateCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChat,
+            cast_to=Affiliate,
         )
 
     async def retrieve(
@@ -386,9 +388,13 @@ class AsyncAIChatsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChat:
+    ) -> Affiliate:
         """
-        Retrieves the details of an existing AI chat.
+        Retrieves the details of an existing affiliate.
+
+        Required permissions:
+
+        - `affiliate:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -402,97 +408,58 @@ class AsyncAIChatsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/ai_chats/{id}",
+            f"/affiliates/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChat,
-        )
-
-    async def update(
-        self,
-        id: str,
-        *,
-        current_company_id: Optional[str] | Omit = omit,
-        notification_preference: Optional[NotificationPreferences] | Omit = omit,
-        title: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChat:
-        """
-        Update an AI chat's title, notification preferences, or associated company
-        context.
-
-        Required permissions:
-
-        - `ai_chat:update`
-
-        Args:
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
-              "biz_XXXXX").
-
-          notification_preference: The notification preference for an AI chat
-
-          title: The new display title for the AI chat thread (e.g., "Help with billing").
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._patch(
-            f"/ai_chats/{id}",
-            body=await async_maybe_transform(
-                {
-                    "current_company_id": current_company_id,
-                    "notification_preference": notification_preference,
-                    "title": title,
-                },
-                ai_chat_update_params.AIChatUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AIChat,
+            cast_to=Affiliate,
         )
 
     def list(
         self,
         *,
+        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        only_active_crons: Optional[bool] | Omit = omit,
+        order: Optional[Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]] | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        status: Optional[Status] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AIChatListResponse, AsyncCursorPage[AIChatListResponse]]:
+    ) -> AsyncPaginator[AffiliateListResponse, AsyncCursorPage[AffiliateListResponse]]:
         """
-        Returns a paginated list of AI chat threads for the current authenticated user.
+        Returns a paginated list of affiliates for the actor in context, with optional
+        filtering by status, search, and sorting.
+
+        Required permissions:
+
+        - `affiliate:basic:read`
 
         Args:
+          company_id: The unique identifier of the company to list affiliates for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          only_active_crons: When true, returns only chats with an active cron schedule
+          order: Which columns can be used to sort.
+
+          query: Search affiliates by username.
+
+          status: Statuses for resources
 
           extra_headers: Send extra headers
 
@@ -503,8 +470,8 @@ class AsyncAIChatsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/ai_chats",
-            page=AsyncCursorPage[AIChatListResponse],
+            "/affiliates",
+            page=AsyncCursorPage[AffiliateListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -512,19 +479,23 @@ class AsyncAIChatsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
-                        "only_active_crons": only_active_crons,
+                        "order": order,
+                        "query": query,
+                        "status": status,
                     },
-                    ai_chat_list_params.AIChatListParams,
+                    affiliate_list_params.AffiliateListParams,
                 ),
             ),
-            model=AIChatListResponse,
+            model=AffiliateListResponse,
         )
 
-    async def delete(
+    async def archive(
         self,
         id: str,
         *,
@@ -534,13 +505,13 @@ class AsyncAIChatsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AIChatDeleteResponse:
+    ) -> AffiliateArchiveResponse:
         """
-        Delete an AI chat thread so it no longer appears in the user's chat list.
+        Archives an existing Affiliate
 
         Required permissions:
 
-        - `ai_chat:delete`
+        - `affiliate:update`
 
         Args:
           extra_headers: Send extra headers
@@ -553,94 +524,151 @@ class AsyncAIChatsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._delete(
-            f"/ai_chats/{id}",
+        return await self._post(
+            f"/affiliates/{id}/archive",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AIChatDeleteResponse,
+            cast_to=AffiliateArchiveResponse,
+        )
+
+    async def unarchive(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AffiliateUnarchiveResponse:
+        """
+        Unarchives an existing Affiliate
+
+        Required permissions:
+
+        - `affiliate:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/affiliates/{id}/unarchive",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AffiliateUnarchiveResponse,
         )
 
 
-class AIChatsResourceWithRawResponse:
-    def __init__(self, ai_chats: AIChatsResource) -> None:
-        self._ai_chats = ai_chats
+class AffiliatesResourceWithRawResponse:
+    def __init__(self, affiliates: AffiliatesResource) -> None:
+        self._affiliates = affiliates
 
         self.create = to_raw_response_wrapper(
-            ai_chats.create,
+            affiliates.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            ai_chats.retrieve,
-        )
-        self.update = to_raw_response_wrapper(
-            ai_chats.update,
+            affiliates.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            ai_chats.list,
+            affiliates.list,
         )
-        self.delete = to_raw_response_wrapper(
-            ai_chats.delete,
+        self.archive = to_raw_response_wrapper(
+            affiliates.archive,
+        )
+        self.unarchive = to_raw_response_wrapper(
+            affiliates.unarchive,
         )
 
+    @cached_property
+    def overrides(self) -> OverridesResourceWithRawResponse:
+        """Affiliates"""
+        return OverridesResourceWithRawResponse(self._affiliates.overrides)
 
-class AsyncAIChatsResourceWithRawResponse:
-    def __init__(self, ai_chats: AsyncAIChatsResource) -> None:
-        self._ai_chats = ai_chats
+
+class AsyncAffiliatesResourceWithRawResponse:
+    def __init__(self, affiliates: AsyncAffiliatesResource) -> None:
+        self._affiliates = affiliates
 
         self.create = async_to_raw_response_wrapper(
-            ai_chats.create,
+            affiliates.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            ai_chats.retrieve,
-        )
-        self.update = async_to_raw_response_wrapper(
-            ai_chats.update,
+            affiliates.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            ai_chats.list,
+            affiliates.list,
         )
-        self.delete = async_to_raw_response_wrapper(
-            ai_chats.delete,
+        self.archive = async_to_raw_response_wrapper(
+            affiliates.archive,
+        )
+        self.unarchive = async_to_raw_response_wrapper(
+            affiliates.unarchive,
         )
 
+    @cached_property
+    def overrides(self) -> AsyncOverridesResourceWithRawResponse:
+        """Affiliates"""
+        return AsyncOverridesResourceWithRawResponse(self._affiliates.overrides)
 
-class AIChatsResourceWithStreamingResponse:
-    def __init__(self, ai_chats: AIChatsResource) -> None:
-        self._ai_chats = ai_chats
+
+class AffiliatesResourceWithStreamingResponse:
+    def __init__(self, affiliates: AffiliatesResource) -> None:
+        self._affiliates = affiliates
 
         self.create = to_streamed_response_wrapper(
-            ai_chats.create,
+            affiliates.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            ai_chats.retrieve,
-        )
-        self.update = to_streamed_response_wrapper(
-            ai_chats.update,
+            affiliates.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            ai_chats.list,
+            affiliates.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            ai_chats.delete,
+        self.archive = to_streamed_response_wrapper(
+            affiliates.archive,
+        )
+        self.unarchive = to_streamed_response_wrapper(
+            affiliates.unarchive,
         )
 
+    @cached_property
+    def overrides(self) -> OverridesResourceWithStreamingResponse:
+        """Affiliates"""
+        return OverridesResourceWithStreamingResponse(self._affiliates.overrides)
 
-class AsyncAIChatsResourceWithStreamingResponse:
-    def __init__(self, ai_chats: AsyncAIChatsResource) -> None:
-        self._ai_chats = ai_chats
+
+class AsyncAffiliatesResourceWithStreamingResponse:
+    def __init__(self, affiliates: AsyncAffiliatesResource) -> None:
+        self._affiliates = affiliates
 
         self.create = async_to_streamed_response_wrapper(
-            ai_chats.create,
+            affiliates.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            ai_chats.retrieve,
-        )
-        self.update = async_to_streamed_response_wrapper(
-            ai_chats.update,
+            affiliates.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            ai_chats.list,
+            affiliates.list,
         )
-        self.delete = async_to_streamed_response_wrapper(
-            ai_chats.delete,
+        self.archive = async_to_streamed_response_wrapper(
+            affiliates.archive,
         )
+        self.unarchive = async_to_streamed_response_wrapper(
+            affiliates.unarchive,
+        )
+
+    @cached_property
+    def overrides(self) -> AsyncOverridesResourceWithStreamingResponse:
+        """Affiliates"""
+        return AsyncOverridesResourceWithStreamingResponse(self._affiliates.overrides)
