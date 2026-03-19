@@ -17,7 +17,7 @@ from ..types import (
     experience_duplicate_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -144,7 +144,7 @@ class ExperiencesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/experiences/{id}",
+            path_template("/experiences/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -197,7 +197,7 @@ class ExperiencesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/experiences/{id}",
+            path_template("/experiences/{id}", id=id),
             body=maybe_transform(
                 {
                     "access_level": access_level,
@@ -319,7 +319,7 @@ class ExperiencesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/experiences/{id}",
+            path_template("/experiences/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -360,7 +360,7 @@ class ExperiencesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/experiences/{id}/attach",
+            path_template("/experiences/{id}/attach", id=id),
             body=maybe_transform({"product_id": product_id}, experience_attach_params.ExperienceAttachParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -402,7 +402,7 @@ class ExperiencesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/experiences/{id}/detach",
+            path_template("/experiences/{id}/detach", id=id),
             body=maybe_transform({"product_id": product_id}, experience_detach_params.ExperienceDetachParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -450,7 +450,7 @@ class ExperiencesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/experiences/{id}/duplicate",
+            path_template("/experiences/{id}/duplicate", id=id),
             body=maybe_transform({"name": name}, experience_duplicate_params.ExperienceDuplicateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -568,7 +568,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/experiences/{id}",
+            path_template("/experiences/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -621,7 +621,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/experiences/{id}",
+            path_template("/experiences/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "access_level": access_level,
@@ -743,7 +743,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/experiences/{id}",
+            path_template("/experiences/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -784,7 +784,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/experiences/{id}/attach",
+            path_template("/experiences/{id}/attach", id=id),
             body=await async_maybe_transform(
                 {"product_id": product_id}, experience_attach_params.ExperienceAttachParams
             ),
@@ -828,7 +828,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/experiences/{id}/detach",
+            path_template("/experiences/{id}/detach", id=id),
             body=await async_maybe_transform(
                 {"product_id": product_id}, experience_detach_params.ExperienceDetachParams
             ),
@@ -878,7 +878,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/experiences/{id}/duplicate",
+            path_template("/experiences/{id}/duplicate", id=id),
             body=await async_maybe_transform({"name": name}, experience_duplicate_params.ExperienceDuplicateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

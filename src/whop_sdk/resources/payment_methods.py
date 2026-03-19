@@ -9,7 +9,7 @@ import httpx
 
 from ..types import payment_method_list_params, payment_method_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -89,7 +89,7 @@ class PaymentMethodsResource(SyncAPIResource):
         return cast(
             PaymentMethodRetrieveResponse,
             self._get(
-                f"/payment_methods/{id}",
+                path_template("/payment_methods/{id}", id=id),
                 options=make_request_options(
                     extra_headers=extra_headers,
                     extra_query=extra_query,
@@ -257,7 +257,7 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         return cast(
             PaymentMethodRetrieveResponse,
             await self._get(
-                f"/payment_methods/{id}",
+                path_template("/payment_methods/{id}", id=id),
                 options=make_request_options(
                     extra_headers=extra_headers,
                     extra_query=extra_query,

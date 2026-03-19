@@ -10,7 +10,7 @@ import httpx
 
 from ..types import payment_list_params, payment_create_params, payment_refund_params, payment_list_fees_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import required_args, maybe_transform, async_maybe_transform
+from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -252,7 +252,7 @@ class PaymentsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/payments/{id}",
+            path_template("/payments/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -422,7 +422,7 @@ class PaymentsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get_api_list(
-            f"/payments/{id}/fees",
+            path_template("/payments/{id}/fees", id=id),
             page=SyncCursorPage[PaymentListFeesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -486,7 +486,7 @@ class PaymentsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/payments/{id}/refund",
+            path_template("/payments/{id}/refund", id=id),
             body=maybe_transform({"partial_amount": partial_amount}, payment_refund_params.PaymentRefundParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -534,7 +534,7 @@ class PaymentsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/payments/{id}/retry",
+            path_template("/payments/{id}/retry", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -581,7 +581,7 @@ class PaymentsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/payments/{id}/void",
+            path_template("/payments/{id}/void", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -808,7 +808,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/payments/{id}",
+            path_template("/payments/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -978,7 +978,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get_api_list(
-            f"/payments/{id}/fees",
+            path_template("/payments/{id}/fees", id=id),
             page=AsyncCursorPage[PaymentListFeesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -1042,7 +1042,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/payments/{id}/refund",
+            path_template("/payments/{id}/refund", id=id),
             body=await async_maybe_transform(
                 {"partial_amount": partial_amount}, payment_refund_params.PaymentRefundParams
             ),
@@ -1092,7 +1092,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/payments/{id}/retry",
+            path_template("/payments/{id}/retry", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1139,7 +1139,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/payments/{id}/void",
+            path_template("/payments/{id}/void", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

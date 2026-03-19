@@ -8,7 +8,7 @@ import httpx
 
 from ..types import Languages, CourseVisibilities, course_list_params, course_create_params, course_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -158,7 +158,7 @@ class CoursesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/courses/{id}",
+            path_template("/courses/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -231,7 +231,7 @@ class CoursesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/courses/{id}",
+            path_template("/courses/{id}", id=id),
             body=maybe_transform(
                 {
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
@@ -352,7 +352,7 @@ class CoursesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/courses/{id}",
+            path_template("/courses/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -490,7 +490,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/courses/{id}",
+            path_template("/courses/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -563,7 +563,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/courses/{id}",
+            path_template("/courses/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "certificate_after_completion_enabled": certificate_after_completion_enabled,
@@ -684,7 +684,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/courses/{id}",
+            path_template("/courses/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

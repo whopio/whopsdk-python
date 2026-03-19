@@ -9,7 +9,7 @@ import httpx
 
 from ..types import dispute_list_params, dispute_update_evidence_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -86,7 +86,7 @@ class DisputesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/disputes/{id}",
+            path_template("/disputes/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -213,7 +213,7 @@ class DisputesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/disputes/{id}/submit_evidence",
+            path_template("/disputes/{id}/submit_evidence", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -302,7 +302,7 @@ class DisputesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/disputes/{id}/update_evidence",
+            path_template("/disputes/{id}/update_evidence", id=id),
             body=maybe_transform(
                 {
                     "access_activity_log": access_activity_log,
@@ -388,7 +388,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/disputes/{id}",
+            path_template("/disputes/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -515,7 +515,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/disputes/{id}/submit_evidence",
+            path_template("/disputes/{id}/submit_evidence", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -604,7 +604,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/disputes/{id}/update_evidence",
+            path_template("/disputes/{id}/update_evidence", id=id),
             body=await async_maybe_transform(
                 {
                     "access_activity_log": access_activity_log,
