@@ -8,7 +8,7 @@ import httpx
 
 from ..types import user_list_params, user_update_profile_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -72,7 +72,7 @@ class UsersResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/users/{id}",
+            path_template("/users/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -169,7 +169,7 @@ class UsersResource(SyncAPIResource):
         if not resource_id:
             raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
         return self._get(
-            f"/users/{id}/access/{resource_id}",
+            path_template("/users/{id}/access/{resource_id}", id=id, resource_id=resource_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -279,7 +279,7 @@ class AsyncUsersResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/users/{id}",
+            path_template("/users/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -376,7 +376,7 @@ class AsyncUsersResource(AsyncAPIResource):
         if not resource_id:
             raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
         return await self._get(
-            f"/users/{id}/access/{resource_id}",
+            path_template("/users/{id}/access/{resource_id}", id=id, resource_id=resource_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

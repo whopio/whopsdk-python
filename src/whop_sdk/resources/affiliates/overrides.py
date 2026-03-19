@@ -8,7 +8,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import required_args, maybe_transform, async_maybe_transform
+from ..._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -180,7 +180,7 @@ class OverridesResource(SyncAPIResource):
         if not path_id:
             raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
         return self._post(
-            f"/affiliates/{path_id}/overrides",
+            path_template("/affiliates/{path_id}/overrides", path_id=path_id),
             body=maybe_transform(
                 {
                     "body_id": body_id,
@@ -233,7 +233,7 @@ class OverridesResource(SyncAPIResource):
         if not override_id:
             raise ValueError(f"Expected a non-empty value for `override_id` but received {override_id!r}")
         return self._get(
-            f"/affiliates/{id}/overrides/{override_id}",
+            path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -285,7 +285,7 @@ class OverridesResource(SyncAPIResource):
         if not override_id:
             raise ValueError(f"Expected a non-empty value for `override_id` but received {override_id!r}")
         return self._patch(
-            f"/affiliates/{id}/overrides/{override_id}",
+            path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             body=maybe_transform(
                 {
                     "applies_to_payments": applies_to_payments,
@@ -346,7 +346,7 @@ class OverridesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get_api_list(
-            f"/affiliates/{id}/overrides",
+            path_template("/affiliates/{id}/overrides", id=id),
             page=SyncCursorPage[OverrideListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -400,7 +400,7 @@ class OverridesResource(SyncAPIResource):
         if not override_id:
             raise ValueError(f"Expected a non-empty value for `override_id` but received {override_id!r}")
         return self._delete(
-            f"/affiliates/{id}/overrides/{override_id}",
+            path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -547,7 +547,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         if not path_id:
             raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
         return await self._post(
-            f"/affiliates/{path_id}/overrides",
+            path_template("/affiliates/{path_id}/overrides", path_id=path_id),
             body=await async_maybe_transform(
                 {
                     "body_id": body_id,
@@ -600,7 +600,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         if not override_id:
             raise ValueError(f"Expected a non-empty value for `override_id` but received {override_id!r}")
         return await self._get(
-            f"/affiliates/{id}/overrides/{override_id}",
+            path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -652,7 +652,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         if not override_id:
             raise ValueError(f"Expected a non-empty value for `override_id` but received {override_id!r}")
         return await self._patch(
-            f"/affiliates/{id}/overrides/{override_id}",
+            path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             body=await async_maybe_transform(
                 {
                     "applies_to_payments": applies_to_payments,
@@ -713,7 +713,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get_api_list(
-            f"/affiliates/{id}/overrides",
+            path_template("/affiliates/{id}/overrides", id=id),
             page=AsyncCursorPage[OverrideListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -767,7 +767,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         if not override_id:
             raise ValueError(f"Expected a non-empty value for `override_id` but received {override_id!r}")
         return await self._delete(
-            f"/affiliates/{id}/overrides/{override_id}",
+            path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
