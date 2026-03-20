@@ -129,6 +129,9 @@ class Company(BaseModel):
     company.
     """
 
+    target_audience: Optional[str] = None
+    """The target audience for the company. Null if not set."""
+
     title: str
     """The display name of the company shown to customers."""
 
