@@ -168,8 +168,10 @@ class AppsResource(SyncAPIResource):
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
         oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        openapi_path: Optional[str] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
+        skills_path: Optional[str] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -210,10 +212,15 @@ class AppsResource(SyncAPIResource):
 
           oauth_client_type: How this app authenticates at the OAuth token endpoint.
 
+          openapi_path: The URL path to the OpenAPI spec file of the app, such as
+              '/assets/openapi.json'.
+
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app
 
           required_scopes: The permission scopes the app will request from users when they install it.
+
+          skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
 
           status: The status of an experience interface
 
@@ -241,8 +248,10 @@ class AppsResource(SyncAPIResource):
                     "icon": icon,
                     "name": name,
                     "oauth_client_type": oauth_client_type,
+                    "openapi_path": openapi_path,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
+                    "skills_path": skills_path,
                     "status": status,
                 },
                 app_update_params.AppUpdateParams,
@@ -493,8 +502,10 @@ class AsyncAppsResource(AsyncAPIResource):
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
         oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        openapi_path: Optional[str] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
+        skills_path: Optional[str] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -535,10 +546,15 @@ class AsyncAppsResource(AsyncAPIResource):
 
           oauth_client_type: How this app authenticates at the OAuth token endpoint.
 
+          openapi_path: The URL path to the OpenAPI spec file of the app, such as
+              '/assets/openapi.json'.
+
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app
 
           required_scopes: The permission scopes the app will request from users when they install it.
+
+          skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
 
           status: The status of an experience interface
 
@@ -566,8 +582,10 @@ class AsyncAppsResource(AsyncAPIResource):
                     "icon": icon,
                     "name": name,
                     "oauth_client_type": oauth_client_type,
+                    "openapi_path": openapi_path,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
+                    "skills_path": skills_path,
                     "status": status,
                 },
                 app_update_params.AppUpdateParams,

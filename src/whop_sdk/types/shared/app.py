@@ -205,6 +205,19 @@ class App(BaseModel):
     Maximum 30 characters.
     """
 
+    openapi_path: Optional[str] = None
+    """
+    The URL path template for a specific view of this app, appended to the base
+    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
+    not configured.
+    """
+
+    origin: Optional[str] = None
+    """
+    The full origin URL for this app's proxied domain (e.g.,
+    'https://myapp.apps.whop.com'). Null if no proxy domain is configured.
+    """
+
     redirect_uris: List[str]
     """
     The whitelisted OAuth callback URLs that users are redirected to after
@@ -215,6 +228,13 @@ class App(BaseModel):
     """
     The list of permissions this app requests when installed, including both
     required and optional permissions with justifications.
+    """
+
+    skills_path: Optional[str] = None
+    """
+    The URL path template for a specific view of this app, appended to the base
+    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
+    not configured.
     """
 
     stats: Optional[Stats] = None
