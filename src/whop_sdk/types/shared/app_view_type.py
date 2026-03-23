@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["AppViewType"]
 
-AppViewType: TypeAlias = Literal["hub", "discover", "dash", "dashboard", "analytics"]
+AppViewType: TypeAlias = Literal["hub", "discover", "dash", "dashboard", "analytics", "skills", "openapi"]
