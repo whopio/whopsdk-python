@@ -20,19 +20,23 @@ __all__ = [
     "CreateInvoiceInputWithProductAndMemberIDPlanCustomField",
     "CreateInvoiceInputWithProductAndMemberIDPlanPaymentMethodConfiguration",
     "CreateInvoiceInputWithProductAndMemberIDProduct",
+    "CreateInvoiceInputWithProductAndMemberIDBillingAddress",
     "CreateInvoiceInputWithProductAndEmailAddress",
     "CreateInvoiceInputWithProductAndEmailAddressPlan",
     "CreateInvoiceInputWithProductAndEmailAddressPlanCustomField",
     "CreateInvoiceInputWithProductAndEmailAddressPlanPaymentMethodConfiguration",
     "CreateInvoiceInputWithProductAndEmailAddressProduct",
+    "CreateInvoiceInputWithProductAndEmailAddressBillingAddress",
     "CreateInvoiceInputWithProductIDAndMemberID",
     "CreateInvoiceInputWithProductIDAndMemberIDPlan",
     "CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField",
     "CreateInvoiceInputWithProductIDAndMemberIDPlanPaymentMethodConfiguration",
+    "CreateInvoiceInputWithProductIDAndMemberIDBillingAddress",
     "CreateInvoiceInputWithProductIDAndEmailAddress",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlan",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlanPaymentMethodConfiguration",
+    "CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress",
 ]
 
 
@@ -75,6 +79,12 @@ class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductAndMemberIDBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -83,6 +93,12 @@ class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -228,6 +244,157 @@ class CreateInvoiceInputWithProductAndMemberIDProduct(TypedDict, total=False):
     """The ID of the product tax code to apply to this product."""
 
 
+class CreateInvoiceInputWithProductAndMemberIDBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[
+        Literal[
+            "ad_nrt",
+            "ao_tin",
+            "ar_cuit",
+            "am_tin",
+            "aw_tin",
+            "au_abn",
+            "au_arn",
+            "eu_vat",
+            "az_tin",
+            "bs_tin",
+            "bh_vat",
+            "bd_bin",
+            "bb_tin",
+            "by_tin",
+            "bj_ifu",
+            "bo_tin",
+            "ba_tin",
+            "br_cnpj",
+            "br_cpf",
+            "bg_uic",
+            "bf_ifu",
+            "kh_tin",
+            "cm_niu",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "cv_nif",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cd_nif",
+            "cr_tin",
+            "hr_oib",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "sv_nit",
+            "et_tin",
+            "eu_oss_vat",
+            "ge_vat",
+            "de_stn",
+            "gb_vat",
+            "gn_nif",
+            "hk_br",
+            "hu_tin",
+            "is_vat",
+            "in_gst",
+            "id_npwp",
+            "il_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "kz_bin",
+            "ke_pin",
+            "kg_tin",
+            "la_tin",
+            "li_uid",
+            "li_vat",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "mr_nif",
+            "mx_rfc",
+            "md_vat",
+            "me_pib",
+            "ma_vat",
+            "np_pan",
+            "nz_gst",
+            "ng_tin",
+            "mk_vat",
+            "no_vat",
+            "no_voec",
+            "om_vat",
+            "pe_ruc",
+            "ph_tin",
+            "pl_nip",
+            "ro_tin",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sn_ninea",
+            "rs_pib",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "za_vat",
+            "kr_brn",
+            "es_cif",
+            "ch_uid",
+            "ch_vat",
+            "tw_vat",
+            "tj_tin",
+            "tz_vat",
+            "th_vat",
+            "tr_tin",
+            "ug_tin",
+            "ua_vat",
+            "ae_trn",
+            "us_ein",
+            "uy_ruc",
+            "uz_tin",
+            "uz_vat",
+            "ve_rif",
+            "vn_tin",
+            "zm_tin",
+            "zw_tin",
+            "sr_fin",
+            "xi_vat",
+        ]
+    ]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
+
+
 class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -268,6 +435,12 @@ class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductAndEmailAddressBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -276,6 +449,12 @@ class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -421,6 +600,157 @@ class CreateInvoiceInputWithProductAndEmailAddressProduct(TypedDict, total=False
     """The ID of the product tax code to apply to this product."""
 
 
+class CreateInvoiceInputWithProductAndEmailAddressBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[
+        Literal[
+            "ad_nrt",
+            "ao_tin",
+            "ar_cuit",
+            "am_tin",
+            "aw_tin",
+            "au_abn",
+            "au_arn",
+            "eu_vat",
+            "az_tin",
+            "bs_tin",
+            "bh_vat",
+            "bd_bin",
+            "bb_tin",
+            "by_tin",
+            "bj_ifu",
+            "bo_tin",
+            "ba_tin",
+            "br_cnpj",
+            "br_cpf",
+            "bg_uic",
+            "bf_ifu",
+            "kh_tin",
+            "cm_niu",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "cv_nif",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cd_nif",
+            "cr_tin",
+            "hr_oib",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "sv_nit",
+            "et_tin",
+            "eu_oss_vat",
+            "ge_vat",
+            "de_stn",
+            "gb_vat",
+            "gn_nif",
+            "hk_br",
+            "hu_tin",
+            "is_vat",
+            "in_gst",
+            "id_npwp",
+            "il_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "kz_bin",
+            "ke_pin",
+            "kg_tin",
+            "la_tin",
+            "li_uid",
+            "li_vat",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "mr_nif",
+            "mx_rfc",
+            "md_vat",
+            "me_pib",
+            "ma_vat",
+            "np_pan",
+            "nz_gst",
+            "ng_tin",
+            "mk_vat",
+            "no_vat",
+            "no_voec",
+            "om_vat",
+            "pe_ruc",
+            "ph_tin",
+            "pl_nip",
+            "ro_tin",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sn_ninea",
+            "rs_pib",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "za_vat",
+            "kr_brn",
+            "es_cif",
+            "ch_uid",
+            "ch_vat",
+            "tw_vat",
+            "tj_tin",
+            "tz_vat",
+            "th_vat",
+            "tr_tin",
+            "ug_tin",
+            "ua_vat",
+            "ae_trn",
+            "us_ein",
+            "uy_ruc",
+            "uz_tin",
+            "uz_vat",
+            "ve_rif",
+            "vn_tin",
+            "zm_tin",
+            "zw_tin",
+            "sr_fin",
+            "xi_vat",
+        ]
+    ]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
+
+
 class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -457,6 +787,12 @@ class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductIDAndMemberIDBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -465,6 +801,12 @@ class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -597,6 +939,157 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """Visibility of a resource"""
 
 
+class CreateInvoiceInputWithProductIDAndMemberIDBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[
+        Literal[
+            "ad_nrt",
+            "ao_tin",
+            "ar_cuit",
+            "am_tin",
+            "aw_tin",
+            "au_abn",
+            "au_arn",
+            "eu_vat",
+            "az_tin",
+            "bs_tin",
+            "bh_vat",
+            "bd_bin",
+            "bb_tin",
+            "by_tin",
+            "bj_ifu",
+            "bo_tin",
+            "ba_tin",
+            "br_cnpj",
+            "br_cpf",
+            "bg_uic",
+            "bf_ifu",
+            "kh_tin",
+            "cm_niu",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "cv_nif",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cd_nif",
+            "cr_tin",
+            "hr_oib",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "sv_nit",
+            "et_tin",
+            "eu_oss_vat",
+            "ge_vat",
+            "de_stn",
+            "gb_vat",
+            "gn_nif",
+            "hk_br",
+            "hu_tin",
+            "is_vat",
+            "in_gst",
+            "id_npwp",
+            "il_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "kz_bin",
+            "ke_pin",
+            "kg_tin",
+            "la_tin",
+            "li_uid",
+            "li_vat",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "mr_nif",
+            "mx_rfc",
+            "md_vat",
+            "me_pib",
+            "ma_vat",
+            "np_pan",
+            "nz_gst",
+            "ng_tin",
+            "mk_vat",
+            "no_vat",
+            "no_voec",
+            "om_vat",
+            "pe_ruc",
+            "ph_tin",
+            "pl_nip",
+            "ro_tin",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sn_ninea",
+            "rs_pib",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "za_vat",
+            "kr_brn",
+            "es_cif",
+            "ch_uid",
+            "ch_vat",
+            "tw_vat",
+            "tj_tin",
+            "tz_vat",
+            "th_vat",
+            "tr_tin",
+            "ug_tin",
+            "ua_vat",
+            "ae_trn",
+            "us_ein",
+            "uy_ruc",
+            "uz_tin",
+            "uz_vat",
+            "ve_rif",
+            "vn_tin",
+            "zm_tin",
+            "zw_tin",
+            "sr_fin",
+            "xi_vat",
+        ]
+    ]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
+
+
 class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -634,6 +1127,12 @@ class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -642,6 +1141,12 @@ class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -772,6 +1277,157 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
+
+
+class CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[
+        Literal[
+            "ad_nrt",
+            "ao_tin",
+            "ar_cuit",
+            "am_tin",
+            "aw_tin",
+            "au_abn",
+            "au_arn",
+            "eu_vat",
+            "az_tin",
+            "bs_tin",
+            "bh_vat",
+            "bd_bin",
+            "bb_tin",
+            "by_tin",
+            "bj_ifu",
+            "bo_tin",
+            "ba_tin",
+            "br_cnpj",
+            "br_cpf",
+            "bg_uic",
+            "bf_ifu",
+            "kh_tin",
+            "cm_niu",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "cv_nif",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cd_nif",
+            "cr_tin",
+            "hr_oib",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "sv_nit",
+            "et_tin",
+            "eu_oss_vat",
+            "ge_vat",
+            "de_stn",
+            "gb_vat",
+            "gn_nif",
+            "hk_br",
+            "hu_tin",
+            "is_vat",
+            "in_gst",
+            "id_npwp",
+            "il_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "kz_bin",
+            "ke_pin",
+            "kg_tin",
+            "la_tin",
+            "li_uid",
+            "li_vat",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "mr_nif",
+            "mx_rfc",
+            "md_vat",
+            "me_pib",
+            "ma_vat",
+            "np_pan",
+            "nz_gst",
+            "ng_tin",
+            "mk_vat",
+            "no_vat",
+            "no_voec",
+            "om_vat",
+            "pe_ruc",
+            "ph_tin",
+            "pl_nip",
+            "ro_tin",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sn_ninea",
+            "rs_pib",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "za_vat",
+            "kr_brn",
+            "es_cif",
+            "ch_uid",
+            "ch_vat",
+            "tw_vat",
+            "tj_tin",
+            "tz_vat",
+            "th_vat",
+            "tr_tin",
+            "ug_tin",
+            "ua_vat",
+            "ae_trn",
+            "us_ein",
+            "uy_ruc",
+            "uz_tin",
+            "uz_vat",
+            "ve_rif",
+            "vn_tin",
+            "zm_tin",
+            "zw_tin",
+            "sr_fin",
+            "xi_vat",
+        ]
+    ]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
 
 
 InvoiceCreateParams: TypeAlias = Union[
