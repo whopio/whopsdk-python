@@ -9,7 +9,7 @@ import httpx
 
 from ..types import APIVersion, webhook_list_params, webhook_create_params, webhook_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._models import construct_type
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -148,7 +148,7 @@ class WebhooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/webhooks/{id}",
+            path_template("/webhooks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -200,7 +200,7 @@ class WebhooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/webhooks/{id}",
+            path_template("/webhooks/{id}", id=id),
             body=maybe_transform(
                 {
                     "api_version": api_version,
@@ -311,7 +311,7 @@ class WebhooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/webhooks/{id}",
+            path_template("/webhooks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -460,7 +460,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/webhooks/{id}",
+            path_template("/webhooks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -512,7 +512,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/webhooks/{id}",
+            path_template("/webhooks/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "api_version": api_version,
@@ -623,7 +623,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/webhooks/{id}",
+            path_template("/webhooks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

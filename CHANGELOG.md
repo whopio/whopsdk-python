@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.0 (2026-03-25)
+
+Full Changelog: [v0.0.35...v0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.35...v0.1.0)
+
+### Features
+
+* **api:** api update ([8f4b022](https://github.com/whopio/whopsdk-python/commit/8f4b022372bee1a75d74e83334431e030ee02496))
+* **api:** api update ([f4459b0](https://github.com/whopio/whopsdk-python/commit/f4459b0d9fa3d7e4e01db71c29611d98099dfadf))
+* **api:** api update ([a391cfc](https://github.com/whopio/whopsdk-python/commit/a391cfca3a11e21d4ac80518369b44f8f6f9ee2f))
+* **api:** api update ([021294e](https://github.com/whopio/whopsdk-python/commit/021294ecc577e24f56839d852bc978b839feb7fe))
+
+
+### Bug Fixes
+
+* sanitize endpoint path params ([ca495f7](https://github.com/whopio/whopsdk-python/commit/ca495f7081478f0056efbad9c75eea30af62f9fe))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([5428231](https://github.com/whopio/whopsdk-python/commit/542823145fee2ead9f920efd00278464d8601513))
+* **internal:** update gitignore ([e409b46](https://github.com/whopio/whopsdk-python/commit/e409b46665a918b487c9e10c25dd48819398f2bc))
+
 ## 0.0.35 (2026-03-18)
 
 Full Changelog: [v0.0.34...v0.0.35](https://github.com/whopio/whopsdk-python/compare/v0.0.34...v0.0.35)

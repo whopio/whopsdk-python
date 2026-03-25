@@ -117,6 +117,26 @@ class AppListResponse(BaseModel):
     Maximum 30 characters.
     """
 
+    openapi_path: Optional[str] = None
+    """
+    The URL path template for a specific view of this app, appended to the base
+    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
+    not configured.
+    """
+
+    origin: Optional[str] = None
+    """
+    The full origin URL for this app's proxied domain (e.g.,
+    'https://myapp.apps.whop.com'). Null if no proxy domain is configured.
+    """
+
+    skills_path: Optional[str] = None
+    """
+    The URL path template for a specific view of this app, appended to the base
+    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
+    not configured.
+    """
+
     status: AppStatuses
     """The current visibility status of this app on the Whop app store.
 

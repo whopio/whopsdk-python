@@ -15,7 +15,7 @@ from ..types import (
     membership_update_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -86,7 +86,7 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/memberships/{id}",
+            path_template("/memberships/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -129,7 +129,7 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/memberships/{id}",
+            path_template("/memberships/{id}", id=id),
             body=maybe_transform({"metadata": metadata}, membership_update_params.MembershipUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -244,6 +244,51 @@ class MembershipsResource(SyncAPIResource):
             model=MembershipListResponse,
         )
 
+    def add_free_days(
+        self,
+        id: str,
+        *,
+        free_days: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """
+        Add free days to extend a membership's current billing period, expiration date,
+        or Stripe trial.
+
+        Required permissions:
+
+        - `member:manage`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          free_days: The number of free days to add (1-1095). Extends the billing period, expiration
+              date, or Stripe trial depending on plan type.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/memberships/{id}/add_free_days", id=id),
+            body=maybe_transform({"free_days": free_days}, membership_add_free_days_params.MembershipAddFreeDaysParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
     def cancel(
         self,
         id: str,
@@ -280,7 +325,7 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/memberships/{id}/cancel",
+            path_template("/memberships/{id}/cancel", id=id),
             body=maybe_transform(
                 {"cancellation_mode": cancellation_mode}, membership_cancel_params.MembershipCancelParams
             ),
@@ -328,7 +373,7 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/memberships/{id}/pause",
+            path_template("/memberships/{id}/pause", id=id),
             body=maybe_transform({"void_payments": void_payments}, membership_pause_params.MembershipPauseParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -370,7 +415,7 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/memberships/{id}/resume",
+            path_template("/memberships/{id}/resume", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -410,7 +455,7 @@ class MembershipsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/memberships/{id}/uncancel",
+            path_template("/memberships/{id}/uncancel", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -469,7 +514,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/memberships/{id}",
+            path_template("/memberships/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -512,7 +557,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/memberships/{id}",
+            path_template("/memberships/{id}", id=id),
             body=await async_maybe_transform({"metadata": metadata}, membership_update_params.MembershipUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -627,6 +672,53 @@ class AsyncMembershipsResource(AsyncAPIResource):
             model=MembershipListResponse,
         )
 
+    async def add_free_days(
+        self,
+        id: str,
+        *,
+        free_days: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """
+        Add free days to extend a membership's current billing period, expiration date,
+        or Stripe trial.
+
+        Required permissions:
+
+        - `member:manage`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          free_days: The number of free days to add (1-1095). Extends the billing period, expiration
+              date, or Stripe trial depending on plan type.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/memberships/{id}/add_free_days", id=id),
+            body=await async_maybe_transform(
+                {"free_days": free_days}, membership_add_free_days_params.MembershipAddFreeDaysParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
     async def cancel(
         self,
         id: str,
@@ -663,7 +755,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/memberships/{id}/cancel",
+            path_template("/memberships/{id}/cancel", id=id),
             body=await async_maybe_transform(
                 {"cancellation_mode": cancellation_mode}, membership_cancel_params.MembershipCancelParams
             ),
@@ -711,7 +803,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/memberships/{id}/pause",
+            path_template("/memberships/{id}/pause", id=id),
             body=await async_maybe_transform(
                 {"void_payments": void_payments}, membership_pause_params.MembershipPauseParams
             ),
@@ -755,7 +847,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/memberships/{id}/resume",
+            path_template("/memberships/{id}/resume", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -795,7 +887,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/memberships/{id}/uncancel",
+            path_template("/memberships/{id}/uncancel", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
