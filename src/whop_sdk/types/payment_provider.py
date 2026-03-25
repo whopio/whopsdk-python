@@ -18,4 +18,5 @@ PaymentProvider: TypeAlias = Literal[
     "checkout_dot_com",
     "airwallex",
     "coinflow",
+    "sequra",
 ]
