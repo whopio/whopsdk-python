@@ -163,7 +163,7 @@ class FinancingTransaction(BaseModel):
         "authorize",
         "capture",
         "refund",
-        "cancel",
+        "canceled",
         "verify",
         "chargeback",
         "pre_chargeback",
