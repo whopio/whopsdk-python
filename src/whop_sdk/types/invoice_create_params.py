@@ -19,19 +19,23 @@ __all__ = [
     "CreateInvoiceInputWithProductAndMemberIDPlanCustomField",
     "CreateInvoiceInputWithProductAndMemberIDProduct",
     "CreateInvoiceInputWithProductAndMemberIDBillingAddress",
+    "CreateInvoiceInputWithProductAndMemberIDLineItem",
     "CreateInvoiceInputWithProductAndEmailAddress",
     "CreateInvoiceInputWithProductAndEmailAddressPlan",
     "CreateInvoiceInputWithProductAndEmailAddressPlanCustomField",
     "CreateInvoiceInputWithProductAndEmailAddressProduct",
     "CreateInvoiceInputWithProductAndEmailAddressBillingAddress",
+    "CreateInvoiceInputWithProductAndEmailAddressLineItem",
     "CreateInvoiceInputWithProductIDAndMemberID",
     "CreateInvoiceInputWithProductIDAndMemberIDPlan",
     "CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField",
+    "CreateInvoiceInputWithProductIDAndMemberIDLineItem",
     "CreateInvoiceInputWithProductIDAndEmailAddress",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlan",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField",
     "CreateInvoiceInputWithProductIDAndMemberIDBillingAddress",
     "CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress",
+    "CreateInvoiceInputWithProductIDAndEmailAddressLineItem",
 ]
 
 
@@ -88,6 +92,13 @@ class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductAndMemberIDLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
     """
 
     mailing_address_id: Optional[str]
@@ -353,6 +364,24 @@ class CreateInvoiceInputWithProductAndMemberIDBillingAddress(TypedDict, total=Fa
     """The value of the tax identifier."""
 
 
+class CreateInvoiceInputWithProductAndMemberIDLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
+
+
 class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -407,6 +436,13 @@ class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductAndEmailAddressLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
     """
 
     mailing_address_id: Optional[str]
@@ -672,6 +708,24 @@ class CreateInvoiceInputWithProductAndEmailAddressBillingAddress(TypedDict, tota
     """The value of the tax identifier."""
 
 
+class CreateInvoiceInputWithProductAndEmailAddressLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
+
+
 class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -722,6 +776,13 @@ class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductIDAndMemberIDLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
     """
 
     mailing_address_id: Optional[str]
@@ -974,6 +1035,24 @@ class CreateInvoiceInputWithProductIDAndMemberIDBillingAddress(TypedDict, total=
     """The value of the tax identifier."""
 
 
+class CreateInvoiceInputWithProductIDAndMemberIDLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
+
+
 class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -1025,6 +1104,13 @@ class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductIDAndEmailAddressLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
     """
 
     mailing_address_id: Optional[str]
@@ -1275,6 +1361,24 @@ class CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress(TypedDict, to
 
     tax_id_value: Optional[str]
     """The value of the tax identifier."""
+
+
+class CreateInvoiceInputWithProductIDAndEmailAddressLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
 
 
 InvoiceCreateParams: TypeAlias = Union[

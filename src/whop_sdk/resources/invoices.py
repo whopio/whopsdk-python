@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, overload
 
@@ -66,6 +66,8 @@ class InvoicesResource(SyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -114,6 +116,9 @@ class InvoicesResource(SyncAPIResource):
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -149,6 +154,8 @@ class InvoicesResource(SyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -198,6 +205,9 @@ class InvoicesResource(SyncAPIResource):
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
 
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
 
@@ -232,6 +242,8 @@ class InvoicesResource(SyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -280,6 +292,9 @@ class InvoicesResource(SyncAPIResource):
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
 
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
 
@@ -314,6 +329,8 @@ class InvoicesResource(SyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -361,6 +378,9 @@ class InvoicesResource(SyncAPIResource):
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -409,6 +429,8 @@ class InvoicesResource(SyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -435,6 +457,7 @@ class InvoicesResource(SyncAPIResource):
                     "billing_address": billing_address,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
+                    "line_items": line_items,
                     "mailing_address_id": mailing_address_id,
                     "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,
@@ -656,6 +679,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -704,6 +729,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -739,6 +767,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -788,6 +818,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
 
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
 
@@ -822,6 +855,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -870,6 +905,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
 
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
 
@@ -904,6 +942,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -951,6 +991,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -999,6 +1042,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
         | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
@@ -1025,6 +1070,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "billing_address": billing_address,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
+                    "line_items": line_items,
                     "mailing_address_id": mailing_address_id,
                     "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,

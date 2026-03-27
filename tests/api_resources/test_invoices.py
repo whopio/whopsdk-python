@@ -84,6 +84,13 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
@@ -190,6 +197,13 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
@@ -293,6 +307,13 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
@@ -396,6 +417,13 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
@@ -645,6 +673,13 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
@@ -751,6 +786,13 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
@@ -854,6 +896,13 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
@@ -957,6 +1006,13 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
