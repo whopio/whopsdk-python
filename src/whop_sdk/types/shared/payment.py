@@ -154,7 +154,17 @@ class FinancingTransaction(BaseModel):
     """The date and time the payment transaction was created."""
 
     status: Literal[
-        "succeeded", "declined", "error", "pending", "created", "expired", "won", "rejected", "lost", "prevented"
+        "succeeded",
+        "declined",
+        "error",
+        "pending",
+        "created",
+        "expired",
+        "won",
+        "rejected",
+        "lost",
+        "prevented",
+        "canceled",
     ]
     """The status of the payment transaction."""
 
