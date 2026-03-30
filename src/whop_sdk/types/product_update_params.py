@@ -78,7 +78,7 @@ class ProductUpdateParams(TypedDict, total=False):
     """Layout and display configuration for this product on the company's store page."""
 
     title: Optional[str]
-    """The display name of the product. Maximum 40 characters."""
+    """The display name of the product. Maximum 150 characters."""
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""

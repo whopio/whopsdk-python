@@ -96,7 +96,7 @@ class ProductsResource(SyncAPIResource):
         Args:
           company_id: The unique identifier of the company to create this product for.
 
-          title: The display name of the product. Maximum 40 characters.
+          title: The display name of the product. Maximum 150 characters.
 
           collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
 
@@ -291,7 +291,7 @@ class ProductsResource(SyncAPIResource):
 
           store_page_config: Layout and display configuration for this product on the company's store page.
 
-          title: The display name of the product. Maximum 40 characters.
+          title: The display name of the product. Maximum 150 characters.
 
           visibility: Visibility of a resource
 
@@ -524,7 +524,7 @@ class AsyncProductsResource(AsyncAPIResource):
         Args:
           company_id: The unique identifier of the company to create this product for.
 
-          title: The display name of the product. Maximum 40 characters.
+          title: The display name of the product. Maximum 150 characters.
 
           collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
 
@@ -719,7 +719,7 @@ class AsyncProductsResource(AsyncAPIResource):
 
           store_page_config: Layout and display configuration for this product on the company's store page.
 
-          title: The display name of the product. Maximum 40 characters.
+          title: The display name of the product. Maximum 150 characters.
 
           visibility: Visibility of a resource
 
