@@ -31,6 +31,9 @@ from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEve
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
 from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
+from .resolution_center_case_created_webhook_event import ResolutionCenterCaseCreatedWebhookEvent
+from .resolution_center_case_decided_webhook_event import ResolutionCenterCaseDecidedWebhookEvent
+from .resolution_center_case_updated_webhook_event import ResolutionCenterCaseUpdatedWebhookEvent
 from .course_lesson_interaction_completed_webhook_event import CourseLessonInteractionCompletedWebhookEvent
 from .membership_cancel_at_period_end_changed_webhook_event import MembershipCancelAtPeriodEndChangedWebhookEvent
 
@@ -57,6 +60,9 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         PayoutMethodCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,
         PayoutAccountStatusUpdatedWebhookEvent,
+        ResolutionCenterCaseCreatedWebhookEvent,
+        ResolutionCenterCaseUpdatedWebhookEvent,
+        ResolutionCenterCaseDecidedWebhookEvent,
         PaymentCreatedWebhookEvent,
         PaymentSucceededWebhookEvent,
         PaymentFailedWebhookEvent,
