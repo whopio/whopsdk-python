@@ -378,6 +378,15 @@ from .setup_intent_requires_action_webhook_event import (
 from .payout_account_status_updated_webhook_event import (
     PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
 )
+from .resolution_center_case_created_webhook_event import (
+    ResolutionCenterCaseCreatedWebhookEvent as ResolutionCenterCaseCreatedWebhookEvent,
+)
+from .resolution_center_case_decided_webhook_event import (
+    ResolutionCenterCaseDecidedWebhookEvent as ResolutionCenterCaseDecidedWebhookEvent,
+)
+from .resolution_center_case_updated_webhook_event import (
+    ResolutionCenterCaseUpdatedWebhookEvent as ResolutionCenterCaseUpdatedWebhookEvent,
+)
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,
 )
