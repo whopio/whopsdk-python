@@ -230,6 +230,8 @@ class TestPayments:
             query="query",
             statuses=["draft"],
             substatuses=["succeeded"],
+            updated_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            updated_before=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
@@ -657,6 +659,8 @@ class TestAsyncPayments:
             query="query",
             statuses=["draft"],
             substatuses=["succeeded"],
+            updated_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            updated_before=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 

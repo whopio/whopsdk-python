@@ -277,6 +277,8 @@ class PaymentsResource(SyncAPIResource):
         query: Optional[str] | Omit = omit,
         statuses: Optional[List[ReceiptStatus]] | Omit = omit,
         substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
+        updated_after: Union[str, datetime, None] | Omit = omit,
+        updated_before: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -335,6 +337,10 @@ class PaymentsResource(SyncAPIResource):
 
           substatuses: Filter payments by their current substatus for more granular filtering.
 
+          updated_after: Only return payments last updated after this timestamp.
+
+          updated_before: Only return payments last updated before this timestamp.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -370,6 +376,8 @@ class PaymentsResource(SyncAPIResource):
                         "query": query,
                         "statuses": statuses,
                         "substatuses": substatuses,
+                        "updated_after": updated_after,
+                        "updated_before": updated_before,
                     },
                     payment_list_params.PaymentListParams,
                 ),
@@ -831,6 +839,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
         query: Optional[str] | Omit = omit,
         statuses: Optional[List[ReceiptStatus]] | Omit = omit,
         substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
+        updated_after: Union[str, datetime, None] | Omit = omit,
+        updated_before: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -889,6 +899,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           substatuses: Filter payments by their current substatus for more granular filtering.
 
+          updated_after: Only return payments last updated after this timestamp.
+
+          updated_before: Only return payments last updated before this timestamp.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -924,6 +938,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
                         "query": query,
                         "statuses": statuses,
                         "substatuses": substatuses,
+                        "updated_after": updated_after,
+                        "updated_before": updated_before,
                     },
                     payment_list_params.PaymentListParams,
                 ),
