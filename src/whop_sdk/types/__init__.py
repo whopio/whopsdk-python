@@ -372,6 +372,9 @@ from .resolution_center_case_platform_response import (
 from .resolution_center_case_retrieve_response import (
     ResolutionCenterCaseRetrieveResponse as ResolutionCenterCaseRetrieveResponse,
 )
+from .invoice_marked_uncollectible_webhook_event import (
+    InvoiceMarkedUncollectibleWebhookEvent as InvoiceMarkedUncollectibleWebhookEvent,
+)
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
 )

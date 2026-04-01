@@ -144,6 +144,7 @@ from whop_sdk.types import (
     WebhookListResponse,
     WebhookDeleteResponse,
     InvoiceCreatedWebhookEvent,
+    InvoiceMarkedUncollectibleWebhookEvent,
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
     InvoiceVoidedWebhookEvent,
