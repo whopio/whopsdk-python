@@ -524,6 +524,9 @@ class Payment(BaseModel):
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""
 
+    updated_at: datetime
+    """The datetime the payment was last updated."""
+
     usd_total: Optional[float] = None
     """The total in USD to show to the creator (excluding buyer fees)."""
 
