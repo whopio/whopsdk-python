@@ -12,7 +12,7 @@ from .shared.visibility import Visibility
 from .payment_method_types import PaymentMethodTypes
 from .shared.release_method import ReleaseMethod
 
-__all__ = ["PlanCreateParams", "CustomField", "Image", "PaymentMethodConfiguration"]
+__all__ = ["PlanCreateParams", "CheckoutStyling", "CustomField", "Image", "PaymentMethodConfiguration"]
 
 
 class PlanCreateParams(TypedDict, total=False):
@@ -26,6 +26,12 @@ class PlanCreateParams(TypedDict, total=False):
     """The number of days between recurring charges.
 
     For example, 30 for monthly or 365 for yearly.
+    """
+
+    checkout_styling: Optional[CheckoutStyling]
+    """Checkout styling overrides for this plan.
+
+    Pass null to inherit from the company default.
     """
 
     currency: Optional[Currency]
@@ -107,6 +113,22 @@ class PlanCreateParams(TypedDict, total=False):
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
+
+
+class CheckoutStyling(TypedDict, total=False):
+    """Checkout styling overrides for this plan.
+
+    Pass null to inherit from the company default.
+    """
+
+    accent_color: Optional[str]
+    """The hex color code for the accent color on checkout pages."""
+
+    font: Optional[Literal["system", "roboto", "open_sans"]]
+    """The different font families available for checkout pages."""
+
+    shape: Optional[Literal["rounded", "pill", "rectangular"]]
+    """The different border-radius styles available for checkout pages."""
 
 
 class CustomField(TypedDict, total=False):

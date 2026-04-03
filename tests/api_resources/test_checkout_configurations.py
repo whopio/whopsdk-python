@@ -89,6 +89,11 @@ class TestCheckoutConfigurations:
                 "visibility": "visible",
             },
             affiliate_code="affiliate_code",
+            checkout_styling={
+                "accent_color": "accent_color",
+                "font": "system",
+                "shape": "rounded",
+            },
             currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
@@ -148,6 +153,11 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.create(
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
+            checkout_styling={
+                "accent_color": "accent_color",
+                "font": "system",
+                "shape": "rounded",
+            },
             currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
@@ -202,6 +212,11 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.create(
             company_id="biz_xxxxxxxxxxxxxx",
             mode="setup",
+            checkout_styling={
+                "accent_color": "accent_color",
+                "font": "system",
+                "shape": "rounded",
+            },
             currency="usd",
             metadata={"foo": "bar"},
             payment_method_configuration={
@@ -415,6 +430,11 @@ class TestAsyncCheckoutConfigurations:
                 "visibility": "visible",
             },
             affiliate_code="affiliate_code",
+            checkout_styling={
+                "accent_color": "accent_color",
+                "font": "system",
+                "shape": "rounded",
+            },
             currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
@@ -474,6 +494,11 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.create(
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
+            checkout_styling={
+                "accent_color": "accent_color",
+                "font": "system",
+                "shape": "rounded",
+            },
             currency="usd",
             metadata={"foo": "bar"},
             mode="payment",
@@ -528,6 +553,11 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.create(
             company_id="biz_xxxxxxxxxxxxxx",
             mode="setup",
+            checkout_styling={
+                "accent_color": "accent_color",
+                "font": "system",
+                "shape": "rounded",
+            },
             currency="usd",
             metadata={"foo": "bar"},
             payment_method_configuration={

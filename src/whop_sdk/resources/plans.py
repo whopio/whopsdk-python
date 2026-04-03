@@ -61,6 +61,7 @@ class PlansResource(SyncAPIResource):
         company_id: str,
         product_id: str,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -105,6 +106,9 @@ class PlansResource(SyncAPIResource):
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
+              default.
 
           currency: The available currencies on the platform
 
@@ -167,6 +171,7 @@ class PlansResource(SyncAPIResource):
                     "company_id": company_id,
                     "product_id": product_id,
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -237,6 +242,7 @@ class PlansResource(SyncAPIResource):
         id: str,
         *,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -276,6 +282,9 @@ class PlansResource(SyncAPIResource):
         Args:
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
+              inherit from the company default.
 
           currency: The available currencies on the platform
 
@@ -338,6 +347,7 @@ class PlansResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -529,6 +539,7 @@ class AsyncPlansResource(AsyncAPIResource):
         company_id: str,
         product_id: str,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -573,6 +584,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
+              default.
 
           currency: The available currencies on the platform
 
@@ -635,6 +649,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "company_id": company_id,
                     "product_id": product_id,
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -705,6 +720,7 @@ class AsyncPlansResource(AsyncAPIResource):
         id: str,
         *,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -744,6 +760,9 @@ class AsyncPlansResource(AsyncAPIResource):
         Args:
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
+              inherit from the company default.
 
           currency: The available currencies on the platform
 
@@ -806,6 +825,7 @@ class AsyncPlansResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
