@@ -21,10 +21,13 @@ __all__ = [
     "CreateCheckoutSessionInputModePaymentWithPlanPlanImage",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration",
     "CreateCheckoutSessionInputModePaymentWithPlanPlanProduct",
+    "CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling",
     "CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration",
     "CreateCheckoutSessionInputModePaymentWithPlanID",
+    "CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling",
     "CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration",
     "CreateCheckoutSessionInputModeSetup",
+    "CreateCheckoutSessionInputModeSetupCheckoutStyling",
     "CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration",
 ]
 
@@ -37,6 +40,12 @@ class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
 
     affiliate_code: Optional[str]
     """An affiliate tracking code to attribute the checkout to a specific affiliate."""
+
+    checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling]
+    """Checkout styling overrides for this session.
+
+    Overrides plan and company defaults.
+    """
 
     currency: Optional[Currency]
     """The available currencies on the platform"""
@@ -275,6 +284,22 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     """Visibility of a resource"""
 
 
+class CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling(TypedDict, total=False):
+    """Checkout styling overrides for this session.
+
+    Overrides plan and company defaults.
+    """
+
+    accent_color: Optional[str]
+    """The hex color code for the accent color on checkout pages."""
+
+    font: Optional[Literal["system", "roboto", "open_sans"]]
+    """The different font families available for checkout pages."""
+
+    shape: Optional[Literal["rounded", "pill", "rectangular"]]
+    """The different border-radius styles available for checkout pages."""
+
+
 class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(TypedDict, total=False):
     """The explicit payment method configuration for the checkout session.
 
@@ -313,6 +338,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     affiliate_code: Optional[str]
     """An affiliate tracking code to attribute the checkout to a specific affiliate."""
 
+    checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
+    """Checkout styling overrides for this session.
+
+    Overrides plan and company defaults.
+    """
+
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
@@ -333,6 +364,22 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
 
     source_url: Optional[str]
     """The URL of the page where the checkout is being initiated from."""
+
+
+class CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling(TypedDict, total=False):
+    """Checkout styling overrides for this session.
+
+    Overrides plan and company defaults.
+    """
+
+    accent_color: Optional[str]
+    """The hex color code for the accent color on checkout pages."""
+
+    font: Optional[Literal["system", "roboto", "open_sans"]]
+    """The different font families available for checkout pages."""
+
+    shape: Optional[Literal["rounded", "pill", "rectangular"]]
+    """The different border-radius styles available for checkout pages."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
@@ -372,6 +419,12 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
 
     mode: Required[Literal["setup"]]
 
+    checkout_styling: Optional[CreateCheckoutSessionInputModeSetupCheckoutStyling]
+    """Checkout styling overrides for this session.
+
+    Overrides plan and company defaults.
+    """
+
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
@@ -390,6 +443,22 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
 
     source_url: Optional[str]
     """The URL of the page where the checkout is being initiated from."""
+
+
+class CreateCheckoutSessionInputModeSetupCheckoutStyling(TypedDict, total=False):
+    """Checkout styling overrides for this session.
+
+    Overrides plan and company defaults.
+    """
+
+    accent_color: Optional[str]
+    """The hex color code for the accent color on checkout pages."""
+
+    font: Optional[Literal["system", "roboto", "open_sans"]]
+    """The different font families available for checkout pages."""
+
+    shape: Optional[Literal["rounded", "pill", "rectangular"]]
+    """The different border-radius styles available for checkout pages."""
 
 
 class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):

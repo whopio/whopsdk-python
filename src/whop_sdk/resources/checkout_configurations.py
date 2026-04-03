@@ -57,6 +57,10 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
+        ]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
@@ -89,6 +93,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
+              defaults.
+
           currency: The available currencies on the platform
 
           metadata: Custom key-value metadata to attach to the checkout configuration.
@@ -116,6 +123,10 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling
+        ]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
@@ -149,6 +160,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
+              defaults.
+
           currency: The available currencies on the platform
 
           metadata: Custom key-value metadata to attach to the checkout configuration.
@@ -176,6 +190,10 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         company_id: str,
         mode: Literal["setup"],
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling
+        ]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_configuration: Optional[
@@ -206,6 +224,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
           company_id: The unique identifier of the company to create the checkout configuration for.
               Only required in setup mode.
 
+          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
+              defaults.
+
           currency: The available currencies on the platform
 
           metadata: Custom key-value metadata to attach to the checkout configuration.
@@ -233,6 +254,12 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
+        ]
+        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
+        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Literal["setup"] | Omit = omit,
@@ -261,6 +288,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                 {
                     "plan": plan,
                     "affiliate_code": affiliate_code,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
@@ -425,6 +453,10 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
+        ]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
@@ -457,6 +489,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
+              defaults.
+
           currency: The available currencies on the platform
 
           metadata: Custom key-value metadata to attach to the checkout configuration.
@@ -484,6 +519,10 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling
+        ]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Omit = omit,
@@ -517,6 +556,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
+              defaults.
+
           currency: The available currencies on the platform
 
           metadata: Custom key-value metadata to attach to the checkout configuration.
@@ -544,6 +586,10 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         company_id: str,
         mode: Literal["setup"],
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling
+        ]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_configuration: Optional[
@@ -574,6 +620,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
           company_id: The unique identifier of the company to create the checkout configuration for.
               Only required in setup mode.
 
+          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
+              defaults.
+
           currency: The available currencies on the platform
 
           metadata: Custom key-value metadata to attach to the checkout configuration.
@@ -601,6 +650,12 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
+        checkout_styling: Optional[
+            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
+        ]
+        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
+        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling]
+        | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         mode: Literal["payment"] | Literal["setup"] | Omit = omit,
@@ -629,6 +684,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                 {
                     "plan": plan,
                     "affiliate_code": affiliate_code,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
