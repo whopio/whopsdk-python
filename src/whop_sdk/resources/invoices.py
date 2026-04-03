@@ -27,6 +27,8 @@ from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.shared.invoice_status import InvoiceStatus
 from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
+from ..types.invoice_mark_paid_response import InvoiceMarkPaidResponse
+from ..types.invoice_mark_uncollectible_response import InvoiceMarkUncollectibleResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -598,6 +600,80 @@ class InvoicesResource(SyncAPIResource):
                 ),
             ),
             model=InvoiceListItem,
+        )
+
+    def mark_paid(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkPaidResponse:
+        """
+        Mark an open invoice as paid when payment was collected outside of Whop.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/invoices/{id}/mark_paid", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkPaidResponse,
+        )
+
+    def mark_uncollectible(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkUncollectibleResponse:
+        """
+        Mark an open invoice as uncollectible when payment is not expected.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/invoices/{id}/mark_uncollectible", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkUncollectibleResponse,
         )
 
     def void(
@@ -1209,6 +1285,80 @@ class AsyncInvoicesResource(AsyncAPIResource):
             model=InvoiceListItem,
         )
 
+    async def mark_paid(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkPaidResponse:
+        """
+        Mark an open invoice as paid when payment was collected outside of Whop.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/invoices/{id}/mark_paid", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkPaidResponse,
+        )
+
+    async def mark_uncollectible(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkUncollectibleResponse:
+        """
+        Mark an open invoice as uncollectible when payment is not expected.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/invoices/{id}/mark_uncollectible", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkUncollectibleResponse,
+        )
+
     async def void(
         self,
         id: str,
@@ -1262,6 +1412,12 @@ class InvoicesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             invoices.list,
         )
+        self.mark_paid = to_raw_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = to_raw_response_wrapper(
+            invoices.mark_uncollectible,
+        )
         self.void = to_raw_response_wrapper(
             invoices.void,
         )
@@ -1279,6 +1435,12 @@ class AsyncInvoicesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             invoices.list,
+        )
+        self.mark_paid = async_to_raw_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = async_to_raw_response_wrapper(
+            invoices.mark_uncollectible,
         )
         self.void = async_to_raw_response_wrapper(
             invoices.void,
@@ -1298,6 +1460,12 @@ class InvoicesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             invoices.list,
         )
+        self.mark_paid = to_streamed_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = to_streamed_response_wrapper(
+            invoices.mark_uncollectible,
+        )
         self.void = to_streamed_response_wrapper(
             invoices.void,
         )
@@ -1315,6 +1483,12 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             invoices.list,
+        )
+        self.mark_paid = async_to_streamed_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = async_to_streamed_response_wrapper(
+            invoices.mark_uncollectible,
         )
         self.void = async_to_streamed_response_wrapper(
             invoices.void,
