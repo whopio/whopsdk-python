@@ -13,6 +13,7 @@ from ..types import (
     membership_pause_params,
     membership_cancel_params,
     membership_update_params,
+    membership_add_free_days_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -908,6 +909,9 @@ class MembershipsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             memberships.list,
         )
+        self.add_free_days = to_raw_response_wrapper(
+            memberships.add_free_days,
+        )
         self.cancel = to_raw_response_wrapper(
             memberships.cancel,
         )
@@ -934,6 +938,9 @@ class AsyncMembershipsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             memberships.list,
+        )
+        self.add_free_days = async_to_raw_response_wrapper(
+            memberships.add_free_days,
         )
         self.cancel = async_to_raw_response_wrapper(
             memberships.cancel,
@@ -962,6 +969,9 @@ class MembershipsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             memberships.list,
         )
+        self.add_free_days = to_streamed_response_wrapper(
+            memberships.add_free_days,
+        )
         self.cancel = to_streamed_response_wrapper(
             memberships.cancel,
         )
@@ -988,6 +998,9 @@ class AsyncMembershipsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             memberships.list,
+        )
+        self.add_free_days = async_to_streamed_response_wrapper(
+            memberships.add_free_days,
         )
         self.cancel = async_to_streamed_response_wrapper(
             memberships.cancel,
