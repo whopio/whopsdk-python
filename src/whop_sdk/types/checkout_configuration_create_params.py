@@ -290,14 +290,14 @@ class CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling(TypedDict, to
     Overrides plan and company defaults.
     """
 
-    accent_color: Optional[str]
-    """The hex color code for the accent color on checkout pages."""
-
-    font: Optional[Literal["system", "roboto", "open_sans"]]
-    """The different font families available for checkout pages."""
-
-    shape: Optional[Literal["rounded", "pill", "rectangular"]]
+    border_style: Optional[Literal["rounded", "pill", "rectangular"]]
     """The different border-radius styles available for checkout pages."""
+
+    button_color: Optional[str]
+    """A hex color code for the button color (e.g. #FF5733)."""
+
+    font_family: Optional[Literal["system", "roboto", "open_sans"]]
+    """The different font families available for checkout pages."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(TypedDict, total=False):
@@ -372,14 +372,14 @@ class CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling(TypedDict, 
     Overrides plan and company defaults.
     """
 
-    accent_color: Optional[str]
-    """The hex color code for the accent color on checkout pages."""
-
-    font: Optional[Literal["system", "roboto", "open_sans"]]
-    """The different font families available for checkout pages."""
-
-    shape: Optional[Literal["rounded", "pill", "rectangular"]]
+    border_style: Optional[Literal["rounded", "pill", "rectangular"]]
     """The different border-radius styles available for checkout pages."""
+
+    button_color: Optional[str]
+    """A hex color code for the button color (e.g. #FF5733)."""
+
+    font_family: Optional[Literal["system", "roboto", "open_sans"]]
+    """The different font families available for checkout pages."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
@@ -451,14 +451,14 @@ class CreateCheckoutSessionInputModeSetupCheckoutStyling(TypedDict, total=False)
     Overrides plan and company defaults.
     """
 
-    accent_color: Optional[str]
-    """The hex color code for the accent color on checkout pages."""
-
-    font: Optional[Literal["system", "roboto", "open_sans"]]
-    """The different font families available for checkout pages."""
-
-    shape: Optional[Literal["rounded", "pill", "rectangular"]]
+    border_style: Optional[Literal["rounded", "pill", "rectangular"]]
     """The different border-radius styles available for checkout pages."""
+
+    button_color: Optional[str]
+    """A hex color code for the button color (e.g. #FF5733)."""
+
+    font_family: Optional[Literal["system", "roboto", "open_sans"]]
+    """The different font families available for checkout pages."""
 
 
 class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):
