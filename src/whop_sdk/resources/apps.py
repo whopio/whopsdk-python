@@ -9,7 +9,7 @@ import httpx
 
 from ..types import AppType, app_list_params, app_create_params, app_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -145,7 +145,7 @@ class AppsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/apps/{id}",
+            path_template("/apps/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -166,8 +166,10 @@ class AppsResource(SyncAPIResource):
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
         oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        openapi_path: Optional[str] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
+        skills_path: Optional[str] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -208,10 +210,15 @@ class AppsResource(SyncAPIResource):
 
           oauth_client_type: How this app authenticates at the OAuth token endpoint.
 
+          openapi_path: The URL path to the OpenAPI spec file of the app, such as
+              '/assets/openapi.json'.
+
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app
 
           required_scopes: The permission scopes the app will request from users when they install it.
+
+          skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
 
           status: The status of an experience interface
 
@@ -226,7 +233,7 @@ class AppsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/apps/{id}",
+            path_template("/apps/{id}", id=id),
             body=maybe_transform(
                 {
                     "app_store_description": app_store_description,
@@ -239,8 +246,10 @@ class AppsResource(SyncAPIResource):
                     "icon": icon,
                     "name": name,
                     "oauth_client_type": oauth_client_type,
+                    "openapi_path": openapi_path,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
+                    "skills_path": skills_path,
                     "status": status,
                 },
                 app_update_params.AppUpdateParams,
@@ -468,7 +477,7 @@ class AsyncAppsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/apps/{id}",
+            path_template("/apps/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -489,8 +498,10 @@ class AsyncAppsResource(AsyncAPIResource):
         icon: Optional[app_update_params.Icon] | Omit = omit,
         name: Optional[str] | Omit = omit,
         oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        openapi_path: Optional[str] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
+        skills_path: Optional[str] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -531,10 +542,15 @@ class AsyncAppsResource(AsyncAPIResource):
 
           oauth_client_type: How this app authenticates at the OAuth token endpoint.
 
+          openapi_path: The URL path to the OpenAPI spec file of the app, such as
+              '/assets/openapi.json'.
+
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app
 
           required_scopes: The permission scopes the app will request from users when they install it.
+
+          skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
 
           status: The status of an experience interface
 
@@ -549,7 +565,7 @@ class AsyncAppsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/apps/{id}",
+            path_template("/apps/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "app_store_description": app_store_description,
@@ -562,8 +578,10 @@ class AsyncAppsResource(AsyncAPIResource):
                     "icon": icon,
                     "name": name,
                     "oauth_client_type": oauth_client_type,
+                    "openapi_path": openapi_path,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
+                    "skills_path": skills_path,
                     "status": status,
                 },
                 app_update_params.AppUpdateParams,

@@ -43,6 +43,7 @@ class TestPayments:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
                 "currency": "usd",
+                "application_fee_amount": 6.9,
                 "billing_period": 42,
                 "description": "description",
                 "expiration_days": 42,
@@ -230,6 +231,8 @@ class TestPayments:
             query="query",
             statuses=["draft"],
             substatuses=["succeeded"],
+            updated_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            updated_before=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
 
@@ -470,6 +473,7 @@ class TestAsyncPayments:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
                 "currency": "usd",
+                "application_fee_amount": 6.9,
                 "billing_period": 42,
                 "description": "description",
                 "expiration_days": 42,
@@ -657,6 +661,8 @@ class TestAsyncPayments:
             query="query",
             statuses=["draft"],
             substatuses=["succeeded"],
+            updated_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            updated_before=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
 

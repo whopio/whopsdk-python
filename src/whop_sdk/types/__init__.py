@@ -133,6 +133,7 @@ from .message_list_params import MessageListParams as MessageListParams
 from .payment_list_params import PaymentListParams as PaymentListParams
 from .product_list_params import ProductListParams as ProductListParams
 from .setup_intent_status import SetupIntentStatus as SetupIntentStatus
+from .tax_identifier_type import TaxIdentifierType as TaxIdentifierType
 from .topup_create_params import TopupCreateParams as TopupCreateParams
 from .verification_status import VerificationStatus as VerificationStatus
 from .webhook_list_params import WebhookListParams as WebhookListParams
@@ -258,6 +259,7 @@ from .experience_delete_response import ExperienceDeleteResponse as ExperienceDe
 from .fee_markup_create_response import FeeMarkupCreateResponse as FeeMarkupCreateResponse
 from .fee_markup_delete_response import FeeMarkupDeleteResponse as FeeMarkupDeleteResponse
 from .forum_post_visibility_type import ForumPostVisibilityType as ForumPostVisibilityType
+from .invoice_mark_paid_response import InvoiceMarkPaidResponse as InvoiceMarkPaidResponse
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
 from .notification_create_params import NotificationCreateParams as NotificationCreateParams
 from .payment_list_fees_response import PaymentListFeesResponse as PaymentListFeesResponse
@@ -328,6 +330,7 @@ from .membership_activated_webhook_event import MembershipActivatedWebhookEvent 
 from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses as PayoutAccountCalculatedStatuses
 from .resolution_center_case_list_params import ResolutionCenterCaseListParams as ResolutionCenterCaseListParams
 from .dispute_alert_created_webhook_event import DisputeAlertCreatedWebhookEvent as DisputeAlertCreatedWebhookEvent
+from .invoice_mark_uncollectible_response import InvoiceMarkUncollectibleResponse as InvoiceMarkUncollectibleResponse
 from .payout_method_created_webhook_event import PayoutMethodCreatedWebhookEvent as PayoutMethodCreatedWebhookEvent
 from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent as SetupIntentCanceledWebhookEvent
 from .checkout_configuration_create_params import CheckoutConfigurationCreateParams as CheckoutConfigurationCreateParams
@@ -372,11 +375,23 @@ from .resolution_center_case_platform_response import (
 from .resolution_center_case_retrieve_response import (
     ResolutionCenterCaseRetrieveResponse as ResolutionCenterCaseRetrieveResponse,
 )
+from .invoice_marked_uncollectible_webhook_event import (
+    InvoiceMarkedUncollectibleWebhookEvent as InvoiceMarkedUncollectibleWebhookEvent,
+)
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
 )
 from .payout_account_status_updated_webhook_event import (
     PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
+)
+from .resolution_center_case_created_webhook_event import (
+    ResolutionCenterCaseCreatedWebhookEvent as ResolutionCenterCaseCreatedWebhookEvent,
+)
+from .resolution_center_case_decided_webhook_event import (
+    ResolutionCenterCaseDecidedWebhookEvent as ResolutionCenterCaseDecidedWebhookEvent,
+)
+from .resolution_center_case_updated_webhook_event import (
+    ResolutionCenterCaseUpdatedWebhookEvent as ResolutionCenterCaseUpdatedWebhookEvent,
 )
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,

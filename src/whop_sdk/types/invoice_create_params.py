@@ -9,6 +9,7 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 from .._utils import PropertyInfo
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
+from .tax_identifier_type import TaxIdentifierType
 from .shared.release_method import ReleaseMethod
 from .shared.collection_method import CollectionMethod
 
@@ -18,16 +19,24 @@ __all__ = [
     "CreateInvoiceInputWithProductAndMemberIDPlan",
     "CreateInvoiceInputWithProductAndMemberIDPlanCustomField",
     "CreateInvoiceInputWithProductAndMemberIDProduct",
+    "CreateInvoiceInputWithProductAndMemberIDBillingAddress",
+    "CreateInvoiceInputWithProductAndMemberIDLineItem",
     "CreateInvoiceInputWithProductAndEmailAddress",
     "CreateInvoiceInputWithProductAndEmailAddressPlan",
     "CreateInvoiceInputWithProductAndEmailAddressPlanCustomField",
     "CreateInvoiceInputWithProductAndEmailAddressProduct",
+    "CreateInvoiceInputWithProductAndEmailAddressBillingAddress",
+    "CreateInvoiceInputWithProductAndEmailAddressLineItem",
     "CreateInvoiceInputWithProductIDAndMemberID",
     "CreateInvoiceInputWithProductIDAndMemberIDPlan",
     "CreateInvoiceInputWithProductIDAndMemberIDPlanCustomField",
+    "CreateInvoiceInputWithProductIDAndMemberIDLineItem",
     "CreateInvoiceInputWithProductIDAndEmailAddress",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlan",
     "CreateInvoiceInputWithProductIDAndEmailAddressPlanCustomField",
+    "CreateInvoiceInputWithProductIDAndMemberIDBillingAddress",
+    "CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress",
+    "CreateInvoiceInputWithProductIDAndEmailAddressLineItem",
 ]
 
 
@@ -70,6 +79,12 @@ class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductAndMemberIDBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -78,6 +93,19 @@ class CreateInvoiceInputWithProductAndMemberID(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductAndMemberIDLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -186,6 +214,61 @@ class CreateInvoiceInputWithProductAndMemberIDProduct(TypedDict, total=False):
     """The ID of the product tax code to apply to this product."""
 
 
+class CreateInvoiceInputWithProductAndMemberIDBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[TaxIdentifierType]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
+
+
+class CreateInvoiceInputWithProductAndMemberIDLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
+
+
 class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -226,6 +309,12 @@ class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductAndEmailAddressBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -234,6 +323,19 @@ class CreateInvoiceInputWithProductAndEmailAddress(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductAndEmailAddressLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -342,6 +444,61 @@ class CreateInvoiceInputWithProductAndEmailAddressProduct(TypedDict, total=False
     """The ID of the product tax code to apply to this product."""
 
 
+class CreateInvoiceInputWithProductAndEmailAddressBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[TaxIdentifierType]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
+
+
+class CreateInvoiceInputWithProductAndEmailAddressLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
+
+
 class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -378,6 +535,12 @@ class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductIDAndMemberIDBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -386,6 +549,19 @@ class CreateInvoiceInputWithProductIDAndMemberID(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductIDAndMemberIDLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -481,6 +657,61 @@ class CreateInvoiceInputWithProductIDAndMemberIDPlan(TypedDict, total=False):
     """Visibility of a resource"""
 
 
+class CreateInvoiceInputWithProductIDAndMemberIDBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[TaxIdentifierType]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
+
+
+class CreateInvoiceInputWithProductIDAndMemberIDLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
+
+
 class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
@@ -518,6 +749,12 @@ class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
     charge will be processed immediately.
     """
 
+    billing_address: Optional[CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress]
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
     charge_buyer_fee: Optional[bool]
     """Whether to charge the customer a buyer fee on this invoice."""
 
@@ -526,6 +763,19 @@ class CreateInvoiceInputWithProductIDAndEmailAddress(TypedDict, total=False):
 
     Required when creating an invoice for a customer who is not yet a member of the
     company.
+    """
+
+    line_items: Optional[Iterable[CreateInvoiceInputWithProductIDAndEmailAddressLineItem]]
+    """Optional line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price.
+    """
+
+    mailing_address_id: Optional[str]
+    """The unique identifier of an existing mailing address to attach to this invoice.
+
+    Cannot be used together with billing_address.
     """
 
     payment_method_id: Optional[str]
@@ -619,6 +869,61 @@ class CreateInvoiceInputWithProductIDAndEmailAddressPlan(TypedDict, total=False)
 
     visibility: Optional[Visibility]
     """Visibility of a resource"""
+
+
+class CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress(TypedDict, total=False):
+    """Inline billing address to create a new mailing address for this invoice.
+
+    Cannot be used together with mailing_address_id.
+    """
+
+    city: Optional[str]
+    """The city of the address."""
+
+    country: Optional[str]
+    """The country of the address."""
+
+    line1: Optional[str]
+    """The line 1 of the address."""
+
+    line2: Optional[str]
+    """The line 2 of the address."""
+
+    name: Optional[str]
+    """The name of the customer."""
+
+    phone: Optional[str]
+    """The phone number of the customer."""
+
+    postal_code: Optional[str]
+    """The postal code of the address."""
+
+    state: Optional[str]
+    """The state of the address."""
+
+    tax_id_type: Optional[TaxIdentifierType]
+    """The type of tax identifier"""
+
+    tax_id_value: Optional[str]
+    """The value of the tax identifier."""
+
+
+class CreateInvoiceInputWithProductIDAndEmailAddressLineItem(TypedDict, total=False):
+    """
+    A single line item to include on the invoice, with a label, quantity, and unit price.
+    """
+
+    label: Required[str]
+    """The label or description for this line item."""
+
+    unit_price: Required[float]
+    """The unit price for this line item.
+
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    """
+
+    quantity: Optional[float]
+    """The quantity of this line item. Defaults to 1."""
 
 
 InvoiceCreateParams: TypeAlias = Union[

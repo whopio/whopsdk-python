@@ -29,8 +29,12 @@ from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
+from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
 from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
+from .resolution_center_case_created_webhook_event import ResolutionCenterCaseCreatedWebhookEvent
+from .resolution_center_case_decided_webhook_event import ResolutionCenterCaseDecidedWebhookEvent
+from .resolution_center_case_updated_webhook_event import ResolutionCenterCaseUpdatedWebhookEvent
 from .course_lesson_interaction_completed_webhook_event import CourseLessonInteractionCompletedWebhookEvent
 from .membership_cancel_at_period_end_changed_webhook_event import MembershipCancelAtPeriodEndChangedWebhookEvent
 
@@ -39,6 +43,7 @@ __all__ = ["UnwrapWebhookEvent"]
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
         InvoiceCreatedWebhookEvent,
+        InvoiceMarkedUncollectibleWebhookEvent,
         InvoicePaidWebhookEvent,
         InvoicePastDueWebhookEvent,
         InvoiceVoidedWebhookEvent,
@@ -57,6 +62,9 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         PayoutMethodCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,
         PayoutAccountStatusUpdatedWebhookEvent,
+        ResolutionCenterCaseCreatedWebhookEvent,
+        ResolutionCenterCaseUpdatedWebhookEvent,
+        ResolutionCenterCaseDecidedWebhookEvent,
         PaymentCreatedWebhookEvent,
         PaymentSucceededWebhookEvent,
         PaymentFailedWebhookEvent,

@@ -97,6 +97,14 @@ class CreatePaymentInputWithPlanPlan(TypedDict, total=False):
     currency: Required[Currency]
     """The respective currency identifier for the plan."""
 
+    application_fee_amount: Optional[float]
+    """The application fee amount collected by the platform from this connected
+    account.
+
+    Provided as a number in dollars (e.g., 5.00 for $5.00). Must be less than the
+    total payment amount. Only valid for connected accounts with a parent company.
+    """
+
     billing_period: Optional[int]
     """The interval in days at which the plan charges (renewal plans).
 

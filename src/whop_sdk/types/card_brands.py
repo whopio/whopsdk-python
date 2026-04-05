@@ -43,5 +43,6 @@ CardBrands: TypeAlias = Literal[
     "cabal",
     "hipercard",
     "jcblankapay",
+    "cmi",
     "unknown",
 ]

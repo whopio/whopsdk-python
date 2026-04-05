@@ -94,5 +94,6 @@ PaymentMethodTypes: TypeAlias = Literal[
     "vipps",
     "wechat_pay",
     "zip",
+    "coinflow",
     "unknown",
 ]

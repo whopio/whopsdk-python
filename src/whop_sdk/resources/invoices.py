@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, overload
 
@@ -10,7 +10,7 @@ import httpx
 
 from ..types import invoice_list_params, invoice_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import required_args, maybe_transform, async_maybe_transform
+from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -27,6 +27,8 @@ from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.shared.invoice_status import InvoiceStatus
 from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
+from ..types.invoice_mark_paid_response import InvoiceMarkPaidResponse
+from ..types.invoice_mark_uncollectible_response import InvoiceMarkUncollectibleResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -62,8 +64,13 @@ class InvoicesResource(SyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -104,10 +111,19 @@ class InvoicesResource(SyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -136,8 +152,13 @@ class InvoicesResource(SyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -178,10 +199,19 @@ class InvoicesResource(SyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -210,8 +240,13 @@ class InvoicesResource(SyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -251,10 +286,19 @@ class InvoicesResource(SyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -283,8 +327,13 @@ class InvoicesResource(SyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -324,10 +373,19 @@ class InvoicesResource(SyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -366,8 +424,16 @@ class InvoicesResource(SyncAPIResource):
         | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
         | Omit = omit,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDBillingAddress]
+        | Optional[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressBillingAddress]
+        | Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDBillingAddress]
+        | Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         email_address: str | Omit = omit,
@@ -390,8 +456,11 @@ class InvoicesResource(SyncAPIResource):
                     "plan": plan,
                     "product": product,
                     "automatically_finalizes_at": automatically_finalizes_at,
+                    "billing_address": billing_address,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
+                    "line_items": line_items,
+                    "mailing_address_id": mailing_address_id,
                     "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,
                     "email_address": email_address,
@@ -436,7 +505,7 @@ class InvoicesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/invoices/{id}",
+            path_template("/invoices/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -537,6 +606,80 @@ class InvoicesResource(SyncAPIResource):
             model=InvoiceListItem,
         )
 
+    def mark_paid(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkPaidResponse:
+        """
+        Mark an open invoice as paid when payment was collected outside of Whop.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/invoices/{id}/mark_paid", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkPaidResponse,
+        )
+
+    def mark_uncollectible(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkUncollectibleResponse:
+        """
+        Mark an open invoice as uncollectible when payment is not expected.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/invoices/{id}/mark_uncollectible", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkUncollectibleResponse,
+        )
+
     def void(
         self,
         id: str,
@@ -569,7 +712,7 @@ class InvoicesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/invoices/{id}/void",
+            path_template("/invoices/{id}/void", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -608,8 +751,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndMemberIDProduct,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -650,10 +798,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -682,8 +839,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -724,10 +886,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -756,8 +927,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDPlan,
         product_id: str,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -797,10 +973,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -829,8 +1014,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         plan: invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressPlan,
         product_id: str,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -870,10 +1060,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
               Only valid when collection_method is charge_automatically. If not provided, the
               charge will be processed immediately.
 
+          billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
+              be used together with mailing_address_id.
+
           charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
 
           customer_name: The name of the customer. Required when creating an invoice for a customer who
               is not yet a member of the company.
+
+          line_items: Optional line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
+              Cannot be used together with billing_address.
 
           payment_method_id: The unique identifier of the payment method to charge. Required when
               collection_method is charge_automatically.
@@ -912,8 +1111,16 @@ class AsyncInvoicesResource(AsyncAPIResource):
         | invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressProduct
         | Omit = omit,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDBillingAddress]
+        | Optional[invoice_create_params.CreateInvoiceInputWithProductAndEmailAddressBillingAddress]
+        | Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndMemberIDBillingAddress]
+        | Optional[invoice_create_params.CreateInvoiceInputWithProductIDAndEmailAddressBillingAddress]
+        | Omit = omit,
         charge_buyer_fee: Optional[bool] | Omit = omit,
         customer_name: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductAndMemberIDLineItem]]
+        | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         email_address: str | Omit = omit,
@@ -936,8 +1143,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "plan": plan,
                     "product": product,
                     "automatically_finalizes_at": automatically_finalizes_at,
+                    "billing_address": billing_address,
                     "charge_buyer_fee": charge_buyer_fee,
                     "customer_name": customer_name,
+                    "line_items": line_items,
+                    "mailing_address_id": mailing_address_id,
                     "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,
                     "email_address": email_address,
@@ -982,7 +1192,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/invoices/{id}",
+            path_template("/invoices/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1083,6 +1293,80 @@ class AsyncInvoicesResource(AsyncAPIResource):
             model=InvoiceListItem,
         )
 
+    async def mark_paid(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkPaidResponse:
+        """
+        Mark an open invoice as paid when payment was collected outside of Whop.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/invoices/{id}/mark_paid", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkPaidResponse,
+        )
+
+    async def mark_uncollectible(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceMarkUncollectibleResponse:
+        """
+        Mark an open invoice as uncollectible when payment is not expected.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/invoices/{id}/mark_uncollectible", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceMarkUncollectibleResponse,
+        )
+
     async def void(
         self,
         id: str,
@@ -1115,7 +1399,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/invoices/{id}/void",
+            path_template("/invoices/{id}/void", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1136,6 +1420,12 @@ class InvoicesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             invoices.list,
         )
+        self.mark_paid = to_raw_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = to_raw_response_wrapper(
+            invoices.mark_uncollectible,
+        )
         self.void = to_raw_response_wrapper(
             invoices.void,
         )
@@ -1153,6 +1443,12 @@ class AsyncInvoicesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             invoices.list,
+        )
+        self.mark_paid = async_to_raw_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = async_to_raw_response_wrapper(
+            invoices.mark_uncollectible,
         )
         self.void = async_to_raw_response_wrapper(
             invoices.void,
@@ -1172,6 +1468,12 @@ class InvoicesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             invoices.list,
         )
+        self.mark_paid = to_streamed_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = to_streamed_response_wrapper(
+            invoices.mark_uncollectible,
+        )
         self.void = to_streamed_response_wrapper(
             invoices.void,
         )
@@ -1189,6 +1491,12 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             invoices.list,
+        )
+        self.mark_paid = async_to_streamed_response_wrapper(
+            invoices.mark_paid,
+        )
+        self.mark_uncollectible = async_to_streamed_response_wrapper(
+            invoices.mark_uncollectible,
         )
         self.void = async_to_streamed_response_wrapper(
             invoices.void,
