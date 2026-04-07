@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.0.36 (2026-04-07)
+
+Full Changelog: [v0.0.35...v0.0.36](https://github.com/whopio/whopsdk-python/compare/v0.0.35...v0.0.36)
+
+### Features
+
+* **api:** api update ([dfd2e5b](https://github.com/whopio/whopsdk-python/commit/dfd2e5b1fde74bf5d93fa8195e3aa7610c8349e6))
+* **api:** api update ([c2694e3](https://github.com/whopio/whopsdk-python/commit/c2694e3e189f52f64006c5b2503b901f31fcfe71))
+* **api:** api update ([82f0234](https://github.com/whopio/whopsdk-python/commit/82f02347c686891b5ffaeacd7cd84b9bc0a314d8))
+* **api:** api update ([6aa464e](https://github.com/whopio/whopsdk-python/commit/6aa464e34ab3d27134a66157a4ca0ef4d20b810a))
+* **api:** api update ([c7b5425](https://github.com/whopio/whopsdk-python/commit/c7b5425e8257162625fd6db79079953247a05d90))
+* **api:** api update ([6ac4297](https://github.com/whopio/whopsdk-python/commit/6ac4297d8b69e3f8209c69786f7017dd10913053))
+* **api:** api update ([e733ac9](https://github.com/whopio/whopsdk-python/commit/e733ac94f3c0f71876b46145c325e597c9569541))
+* **api:** api update ([82ba7a3](https://github.com/whopio/whopsdk-python/commit/82ba7a3c12417e18a6408a32eb2c4bf160e94768))
+* **api:** api update ([10c00d9](https://github.com/whopio/whopsdk-python/commit/10c00d9e1c45709469a36ea63c624b04fa312e58))
+* **api:** api update ([91ad304](https://github.com/whopio/whopsdk-python/commit/91ad304ea92ca8916afd9e6abb17d463b1b81b58))
+* **api:** api update ([881d399](https://github.com/whopio/whopsdk-python/commit/881d399d3b01938fd43252b435935798bd3171f7))
+* **api:** api update ([cea4dc2](https://github.com/whopio/whopsdk-python/commit/cea4dc2006ad8a1819e93fa2632edc511ab9731c))
+* **api:** api update ([349533c](https://github.com/whopio/whopsdk-python/commit/349533cc0cdb665e00d6ca104292b8cf9ae4d0d0))
+* **api:** api update ([a6443ea](https://github.com/whopio/whopsdk-python/commit/a6443ea4697c674dc80a9877fd9c531a6b688d73))
+* **api:** api update ([8f4b022](https://github.com/whopio/whopsdk-python/commit/8f4b022372bee1a75d74e83334431e030ee02496))
+* **api:** api update ([f4459b0](https://github.com/whopio/whopsdk-python/commit/f4459b0d9fa3d7e4e01db71c29611d98099dfadf))
+* **api:** api update ([a391cfc](https://github.com/whopio/whopsdk-python/commit/a391cfca3a11e21d4ac80518369b44f8f6f9ee2f))
+* **api:** api update ([021294e](https://github.com/whopio/whopsdk-python/commit/021294ecc577e24f56839d852bc978b839feb7fe))
+* **api:** manual updates ([014b6bb](https://github.com/whopio/whopsdk-python/commit/014b6bba88788acb14ce8240388b8712209f66fa))
+* **internal:** implement indices array format for query and form serialization ([e8bc1d6](https://github.com/whopio/whopsdk-python/commit/e8bc1d6948d253c722be8ea0802e8187165f4a0d))
+
+
+### Bug Fixes
+
+* add missing import and response wrappers for add_free_days method ([6f857b2](https://github.com/whopio/whopsdk-python/commit/6f857b22e4db5b371779e0759ddbd82752a0acc9))
+* sanitize endpoint path params ([ca495f7](https://github.com/whopio/whopsdk-python/commit/ca495f7081478f0056efbad9c75eea30af62f9fe))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([5428231](https://github.com/whopio/whopsdk-python/commit/542823145fee2ead9f920efd00278464d8601513))
+* **internal:** update gitignore ([e409b46](https://github.com/whopio/whopsdk-python/commit/e409b46665a918b487c9e10c25dd48819398f2bc))
+
 ## 0.0.35 (2026-03-18)
 
 Full Changelog: [v0.0.34...v0.0.35](https://github.com/whopio/whopsdk-python/compare/v0.0.34...v0.0.35)
