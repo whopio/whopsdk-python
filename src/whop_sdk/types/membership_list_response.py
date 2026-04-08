@@ -148,7 +148,7 @@ class MembershipListResponse(BaseModel):
     Null if the member record has not been created yet.
     """
 
-    metadata: Dict[str, object]
+    metadata: Optional[Dict[str, object]] = None
     """
     Custom key-value pairs for the membership (commonly used for software licensing,
     e.g., HWID). Max 50 keys, 500 chars per key, 5000 chars per value.
