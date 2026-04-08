@@ -16,7 +16,7 @@ from ..types import (
     course_lesson_submit_assessment_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -166,7 +166,7 @@ class CourseLessonsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/course_lessons/{id}",
+            path_template("/course_lessons/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -254,7 +254,7 @@ class CourseLessonsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/course_lessons/{id}",
+            path_template("/course_lessons/{id}", id=id),
             body=maybe_transform(
                 {
                     "assessment_completion_requirement": assessment_completion_requirement,
@@ -378,7 +378,7 @@ class CourseLessonsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/course_lessons/{id}",
+            path_template("/course_lessons/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -411,7 +411,7 @@ class CourseLessonsResource(SyncAPIResource):
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return self._post(
-            f"/course_lessons/{lesson_id}/mark_as_completed",
+            path_template("/course_lessons/{lesson_id}/mark_as_completed", lesson_id=lesson_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -445,7 +445,7 @@ class CourseLessonsResource(SyncAPIResource):
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return self._post(
-            f"/course_lessons/{lesson_id}/start",
+            path_template("/course_lessons/{lesson_id}/start", lesson_id=lesson_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -481,7 +481,7 @@ class CourseLessonsResource(SyncAPIResource):
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return self._post(
-            f"/course_lessons/{lesson_id}/submit_assessment",
+            path_template("/course_lessons/{lesson_id}/submit_assessment", lesson_id=lesson_id),
             body=maybe_transform(
                 {"answers": answers}, course_lesson_submit_assessment_params.CourseLessonSubmitAssessmentParams
             ),
@@ -618,7 +618,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/course_lessons/{id}",
+            path_template("/course_lessons/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -706,7 +706,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/course_lessons/{id}",
+            path_template("/course_lessons/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "assessment_completion_requirement": assessment_completion_requirement,
@@ -830,7 +830,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/course_lessons/{id}",
+            path_template("/course_lessons/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -863,7 +863,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return await self._post(
-            f"/course_lessons/{lesson_id}/mark_as_completed",
+            path_template("/course_lessons/{lesson_id}/mark_as_completed", lesson_id=lesson_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -897,7 +897,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return await self._post(
-            f"/course_lessons/{lesson_id}/start",
+            path_template("/course_lessons/{lesson_id}/start", lesson_id=lesson_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -933,7 +933,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return await self._post(
-            f"/course_lessons/{lesson_id}/submit_assessment",
+            path_template("/course_lessons/{lesson_id}/submit_assessment", lesson_id=lesson_id),
             body=await async_maybe_transform(
                 {"answers": answers}, course_lesson_submit_assessment_params.CourseLessonSubmitAssessmentParams
             ),

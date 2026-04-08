@@ -10,7 +10,7 @@ import httpx
 
 from ..types import plan_list_params, plan_create_params, plan_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -61,6 +61,7 @@ class PlansResource(SyncAPIResource):
         company_id: str,
         product_id: str,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -105,6 +106,9 @@ class PlansResource(SyncAPIResource):
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
+              default.
 
           currency: The available currencies on the platform
 
@@ -167,6 +171,7 @@ class PlansResource(SyncAPIResource):
                     "company_id": company_id,
                     "product_id": product_id,
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -225,7 +230,7 @@ class PlansResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/plans/{id}",
+            path_template("/plans/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -237,6 +242,7 @@ class PlansResource(SyncAPIResource):
         id: str,
         *,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -276,6 +282,9 @@ class PlansResource(SyncAPIResource):
         Args:
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
+              inherit from the company default.
 
           currency: The available currencies on the platform
 
@@ -334,10 +343,11 @@ class PlansResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/plans/{id}",
+            path_template("/plans/{id}", id=id),
             body=maybe_transform(
                 {
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -495,7 +505,7 @@ class PlansResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/plans/{id}",
+            path_template("/plans/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -529,6 +539,7 @@ class AsyncPlansResource(AsyncAPIResource):
         company_id: str,
         product_id: str,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -573,6 +584,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
+              default.
 
           currency: The available currencies on the platform
 
@@ -635,6 +649,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "company_id": company_id,
                     "product_id": product_id,
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -693,7 +708,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/plans/{id}",
+            path_template("/plans/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -705,6 +720,7 @@ class AsyncPlansResource(AsyncAPIResource):
         id: str,
         *,
         billing_period: Optional[int] | Omit = omit,
+        checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -744,6 +760,9 @@ class AsyncPlansResource(AsyncAPIResource):
         Args:
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
+
+          checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
+              inherit from the company default.
 
           currency: The available currencies on the platform
 
@@ -802,10 +821,11 @@ class AsyncPlansResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/plans/{id}",
+            path_template("/plans/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "billing_period": billing_period,
+                    "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -963,7 +983,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/plans/{id}",
+            path_template("/plans/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

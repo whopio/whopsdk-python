@@ -51,6 +51,12 @@ class AppUpdateParams(TypedDict, total=False):
     oauth_client_type: Optional[Literal["public", "confidential"]]
     """How this app authenticates at the OAuth token endpoint."""
 
+    openapi_path: Optional[str]
+    """
+    The URL path to the OpenAPI spec file of the app, such as
+    '/assets/openapi.json'.
+    """
+
     redirect_uris: Optional[SequenceNotStr[str]]
     """
     The whitelisted OAuth callback URLs that users are redirected to after
@@ -59,6 +65,9 @@ class AppUpdateParams(TypedDict, total=False):
 
     required_scopes: Optional[List[Literal["read_user"]]]
     """The permission scopes the app will request from users when they install it."""
+
+    skills_path: Optional[str]
+    """The URL path to the skills directory of the app, such as '/assets/skills/'."""
 
     status: Optional[AppStatuses]
     """The status of an experience interface"""

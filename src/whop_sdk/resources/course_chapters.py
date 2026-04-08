@@ -8,7 +8,7 @@ import httpx
 
 from ..types import course_chapter_list_params, course_chapter_create_params, course_chapter_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -124,7 +124,7 @@ class CourseChaptersResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/course_chapters/{id}",
+            path_template("/course_chapters/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -164,7 +164,7 @@ class CourseChaptersResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/course_chapters/{id}",
+            path_template("/course_chapters/{id}", id=id),
             body=maybe_transform({"title": title}, course_chapter_update_params.CourseChapterUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -265,7 +265,7 @@ class CourseChaptersResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/course_chapters/{id}",
+            path_template("/course_chapters/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -371,7 +371,7 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/course_chapters/{id}",
+            path_template("/course_chapters/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -411,7 +411,7 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/course_chapters/{id}",
+            path_template("/course_chapters/{id}", id=id),
             body=await async_maybe_transform({"title": title}, course_chapter_update_params.CourseChapterUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -512,7 +512,7 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/course_chapters/{id}",
+            path_template("/course_chapters/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

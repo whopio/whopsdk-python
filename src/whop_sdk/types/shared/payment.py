@@ -154,7 +154,17 @@ class FinancingTransaction(BaseModel):
     """The date and time the payment transaction was created."""
 
     status: Literal[
-        "succeeded", "declined", "error", "pending", "created", "expired", "won", "rejected", "lost", "prevented"
+        "succeeded",
+        "declined",
+        "error",
+        "pending",
+        "created",
+        "expired",
+        "won",
+        "rejected",
+        "lost",
+        "prevented",
+        "canceled",
     ]
     """The status of the payment transaction."""
 
@@ -163,7 +173,7 @@ class FinancingTransaction(BaseModel):
         "authorize",
         "capture",
         "refund",
-        "cancel",
+        "canceled",
         "verify",
         "chargeback",
         "pre_chargeback",
@@ -500,6 +510,9 @@ class Payment(BaseModel):
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""
+
+    updated_at: datetime
+    """The datetime the payment was last updated."""
 
     usd_total: Optional[float] = None
     """The total in USD to show to the creator (excluding buyer fees)."""

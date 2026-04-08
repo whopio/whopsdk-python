@@ -133,8 +133,10 @@ class TestApps:
             icon={"id": "id"},
             name="name",
             oauth_client_type="public",
+            openapi_path="openapi_path",
             redirect_uris=["string"],
             required_scopes=["read_user"],
+            skills_path="skills_path",
             status="live",
         )
         assert_matches_type(App, app, path=["response"])
@@ -339,8 +341,10 @@ class TestAsyncApps:
             icon={"id": "id"},
             name="name",
             oauth_client_type="public",
+            openapi_path="openapi_path",
             redirect_uris=["string"],
             required_scopes=["read_user"],
+            skills_path="skills_path",
             status="live",
         )
         assert_matches_type(App, app, path=["response"])

@@ -83,7 +83,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import InvoiceVoidResponse
+from whop_sdk.types import (
+    TaxIdentifierType,
+    InvoiceMarkPaidResponse,
+    InvoiceMarkUncollectibleResponse,
+    InvoiceVoidResponse,
+)
 ```
 
 Methods:
@@ -91,6 +96,8 @@ Methods:
 - <code title="post /invoices">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">create</a>(\*\*<a href="src/whop_sdk/types/invoice_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/invoice.py">Invoice</a></code>
 - <code title="get /invoices/{id}">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/invoice.py">Invoice</a></code>
 - <code title="get /invoices">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">list</a>(\*\*<a href="src/whop_sdk/types/invoice_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/invoice_list_item.py">SyncCursorPage[InvoiceListItem]</a></code>
+- <code title="post /invoices/{id}/mark_paid">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">mark_paid</a>(id) -> <a href="./src/whop_sdk/types/invoice_mark_paid_response.py">InvoiceMarkPaidResponse</a></code>
+- <code title="post /invoices/{id}/mark_uncollectible">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">mark_uncollectible</a>(id) -> <a href="./src/whop_sdk/types/invoice_mark_uncollectible_response.py">InvoiceMarkUncollectibleResponse</a></code>
 - <code title="post /invoices/{id}/void">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">void</a>(id) -> <a href="./src/whop_sdk/types/invoice_void_response.py">InvoiceVoidResponse</a></code>
 
 # CourseLessonInteractions
@@ -144,6 +151,7 @@ from whop_sdk.types import (
     WebhookListResponse,
     WebhookDeleteResponse,
     InvoiceCreatedWebhookEvent,
+    InvoiceMarkedUncollectibleWebhookEvent,
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
     InvoiceVoidedWebhookEvent,
@@ -162,6 +170,9 @@ from whop_sdk.types import (
     PayoutMethodCreatedWebhookEvent,
     VerificationSucceededWebhookEvent,
     PayoutAccountStatusUpdatedWebhookEvent,
+    ResolutionCenterCaseCreatedWebhookEvent,
+    ResolutionCenterCaseUpdatedWebhookEvent,
+    ResolutionCenterCaseDecidedWebhookEvent,
     PaymentCreatedWebhookEvent,
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,

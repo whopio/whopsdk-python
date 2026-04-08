@@ -9,7 +9,11 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import InvoiceVoidResponse
+from whop_sdk.types import (
+    InvoiceVoidResponse,
+    InvoiceMarkPaidResponse,
+    InvoiceMarkUncollectibleResponse,
+)
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Invoice, InvoiceListItem
@@ -70,8 +74,28 @@ class TestInvoices:
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -163,8 +187,28 @@ class TestInvoices:
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -253,8 +297,28 @@ class TestInvoices:
             },
             product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -343,8 +407,28 @@ class TestInvoices:
             },
             product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -483,6 +567,90 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_mark_paid(self, client: Whop) -> None:
+        invoice = client.invoices.mark_paid(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceMarkPaidResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_mark_paid(self, client: Whop) -> None:
+        response = client.invoices.with_raw_response.mark_paid(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceMarkPaidResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_mark_paid(self, client: Whop) -> None:
+        with client.invoices.with_streaming_response.mark_paid(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceMarkPaidResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_mark_paid(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.invoices.with_raw_response.mark_paid(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_mark_uncollectible(self, client: Whop) -> None:
+        invoice = client.invoices.mark_uncollectible(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceMarkUncollectibleResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_mark_uncollectible(self, client: Whop) -> None:
+        response = client.invoices.with_raw_response.mark_uncollectible(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceMarkUncollectibleResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_mark_uncollectible(self, client: Whop) -> None:
+        with client.invoices.with_streaming_response.mark_uncollectible(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceMarkUncollectibleResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_mark_uncollectible(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.invoices.with_raw_response.mark_uncollectible(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_void(self, client: Whop) -> None:
         invoice = client.invoices.void(
             "inv_xxxxxxxxxxxxxx",
@@ -579,8 +747,28 @@ class TestAsyncInvoices:
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -672,8 +860,28 @@ class TestAsyncInvoices:
                 "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
             },
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -762,8 +970,28 @@ class TestAsyncInvoices:
             },
             product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -852,8 +1080,28 @@ class TestAsyncInvoices:
             },
             product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
@@ -989,6 +1237,90 @@ class TestAsyncInvoices:
             assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_mark_paid(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.mark_paid(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceMarkPaidResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_mark_paid(self, async_client: AsyncWhop) -> None:
+        response = await async_client.invoices.with_raw_response.mark_paid(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceMarkPaidResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_mark_paid(self, async_client: AsyncWhop) -> None:
+        async with async_client.invoices.with_streaming_response.mark_paid(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceMarkPaidResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_mark_paid(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.invoices.with_raw_response.mark_paid(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_mark_uncollectible(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.mark_uncollectible(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceMarkUncollectibleResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_mark_uncollectible(self, async_client: AsyncWhop) -> None:
+        response = await async_client.invoices.with_raw_response.mark_uncollectible(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceMarkUncollectibleResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_mark_uncollectible(self, async_client: AsyncWhop) -> None:
+        async with async_client.invoices.with_streaming_response.mark_uncollectible(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceMarkUncollectibleResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_mark_uncollectible(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.invoices.with_raw_response.mark_uncollectible(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

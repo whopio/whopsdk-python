@@ -21,7 +21,7 @@ class ProductCreateParams(TypedDict, total=False):
     """The unique identifier of the company to create this product for."""
 
     title: Required[str]
-    """The display name of the product. Maximum 40 characters."""
+    """The display name of the product. Maximum 80 characters."""
 
     collect_shipping_address: Optional[bool]
     """Whether the checkout flow collects a shipping address from the customer."""

@@ -74,3 +74,9 @@ class PaymentListParams(TypedDict, total=False):
 
     substatuses: Optional[List[FriendlyReceiptStatus]]
     """Filter payments by their current substatus for more granular filtering."""
+
+    updated_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only return payments last updated after this timestamp."""
+
+    updated_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Only return payments last updated before this timestamp."""

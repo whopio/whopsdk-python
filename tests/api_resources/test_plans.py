@@ -39,6 +39,11 @@ class TestPlans:
             company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
             billing_period=42,
+            checkout_styling={
+                "border_style": "rounded",
+                "button_color": "button_color",
+                "font_family": "system",
+            },
             currency="usd",
             custom_fields=[
                 {
@@ -158,6 +163,11 @@ class TestPlans:
         plan = client.plans.update(
             id="plan_xxxxxxxxxxxxx",
             billing_period=42,
+            checkout_styling={
+                "border_style": "rounded",
+                "button_color": "button_color",
+                "font_family": "system",
+            },
             currency="usd",
             custom_fields=[
                 {
@@ -345,6 +355,11 @@ class TestAsyncPlans:
             company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
             billing_period=42,
+            checkout_styling={
+                "border_style": "rounded",
+                "button_color": "button_color",
+                "font_family": "system",
+            },
             currency="usd",
             custom_fields=[
                 {
@@ -464,6 +479,11 @@ class TestAsyncPlans:
         plan = await async_client.plans.update(
             id="plan_xxxxxxxxxxxxx",
             billing_period=42,
+            checkout_styling={
+                "border_style": "rounded",
+                "button_color": "button_color",
+                "font_family": "system",
+            },
             currency="usd",
             custom_fields=[
                 {
