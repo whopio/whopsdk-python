@@ -8,7 +8,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import invoice_list_params, invoice_create_params
+from ..types import invoice_list_params, invoice_create_params, invoice_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -25,6 +25,7 @@ from ..types.shared.invoice import Invoice
 from ..types.shared.direction import Direction
 from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.shared.invoice_status import InvoiceStatus
+from ..types.invoice_delete_response import InvoiceDeleteResponse
 from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
 from ..types.invoice_mark_paid_response import InvoiceMarkPaidResponse
@@ -344,6 +345,96 @@ class InvoicesResource(SyncAPIResource):
             cast_to=Invoice,
         )
 
+    def update(
+        self,
+        id: str,
+        *,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_update_params.BillingAddress] | Omit = omit,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        collection_method: Optional[CollectionMethod] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        due_date: Union[str, datetime, None] | Omit = omit,
+        email_address: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_update_params.LineItem]] | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        plan: Optional[invoice_update_params.Plan] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Invoice:
+        """
+        Update a draft invoice's details.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+
+          billing_address: Inline billing address to create or update a mailing address for this invoice.
+
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
+
+          collection_method: The method of collection for an invoice.
+
+          customer_name: The name of the customer.
+
+          due_date: The date by which the invoice must be paid.
+
+          email_address: The email address of the customer.
+
+          line_items: Line items that break down the invoice total.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach.
+
+          member_id: The unique identifier of a member to assign as the customer.
+
+          payment_method_id: The unique identifier of the payment method to charge.
+
+          plan: Updated plan attributes.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            path_template("/invoices/{id}", id=id),
+            body=maybe_transform(
+                {
+                    "automatically_finalizes_at": automatically_finalizes_at,
+                    "billing_address": billing_address,
+                    "charge_buyer_fee": charge_buyer_fee,
+                    "collection_method": collection_method,
+                    "customer_name": customer_name,
+                    "due_date": due_date,
+                    "email_address": email_address,
+                    "line_items": line_items,
+                    "mailing_address_id": mailing_address_id,
+                    "member_id": member_id,
+                    "payment_method_id": payment_method_id,
+                    "plan": plan,
+                },
+                invoice_update_params.InvoiceUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Invoice,
+        )
+
     def list(
         self,
         *,
@@ -436,6 +527,43 @@ class InvoicesResource(SyncAPIResource):
                 ),
             ),
             model=InvoiceListItem,
+        )
+
+    def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceDeleteResponse:
+        """
+        Delete a draft invoice.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            path_template("/invoices/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceDeleteResponse,
         )
 
     def mark_paid(
@@ -863,6 +991,96 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=Invoice,
         )
 
+    async def update(
+        self,
+        id: str,
+        *,
+        automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
+        billing_address: Optional[invoice_update_params.BillingAddress] | Omit = omit,
+        charge_buyer_fee: Optional[bool] | Omit = omit,
+        collection_method: Optional[CollectionMethod] | Omit = omit,
+        customer_name: Optional[str] | Omit = omit,
+        due_date: Union[str, datetime, None] | Omit = omit,
+        email_address: Optional[str] | Omit = omit,
+        line_items: Optional[Iterable[invoice_update_params.LineItem]] | Omit = omit,
+        mailing_address_id: Optional[str] | Omit = omit,
+        member_id: Optional[str] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        plan: Optional[invoice_update_params.Plan] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Invoice:
+        """
+        Update a draft invoice's details.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+
+          billing_address: Inline billing address to create or update a mailing address for this invoice.
+
+          charge_buyer_fee: Whether to charge the customer a buyer fee on this invoice.
+
+          collection_method: The method of collection for an invoice.
+
+          customer_name: The name of the customer.
+
+          due_date: The date by which the invoice must be paid.
+
+          email_address: The email address of the customer.
+
+          line_items: Line items that break down the invoice total.
+
+          mailing_address_id: The unique identifier of an existing mailing address to attach.
+
+          member_id: The unique identifier of a member to assign as the customer.
+
+          payment_method_id: The unique identifier of the payment method to charge.
+
+          plan: Updated plan attributes.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            path_template("/invoices/{id}", id=id),
+            body=await async_maybe_transform(
+                {
+                    "automatically_finalizes_at": automatically_finalizes_at,
+                    "billing_address": billing_address,
+                    "charge_buyer_fee": charge_buyer_fee,
+                    "collection_method": collection_method,
+                    "customer_name": customer_name,
+                    "due_date": due_date,
+                    "email_address": email_address,
+                    "line_items": line_items,
+                    "mailing_address_id": mailing_address_id,
+                    "member_id": member_id,
+                    "payment_method_id": payment_method_id,
+                    "plan": plan,
+                },
+                invoice_update_params.InvoiceUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Invoice,
+        )
+
     def list(
         self,
         *,
@@ -955,6 +1173,43 @@ class AsyncInvoicesResource(AsyncAPIResource):
                 ),
             ),
             model=InvoiceListItem,
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceDeleteResponse:
+        """
+        Delete a draft invoice.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            path_template("/invoices/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceDeleteResponse,
         )
 
     async def mark_paid(
@@ -1081,8 +1336,14 @@ class InvoicesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             invoices.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            invoices.update,
+        )
         self.list = to_raw_response_wrapper(
             invoices.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            invoices.delete,
         )
         self.mark_paid = to_raw_response_wrapper(
             invoices.mark_paid,
@@ -1105,8 +1366,14 @@ class AsyncInvoicesResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             invoices.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            invoices.update,
+        )
         self.list = async_to_raw_response_wrapper(
             invoices.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            invoices.delete,
         )
         self.mark_paid = async_to_raw_response_wrapper(
             invoices.mark_paid,
@@ -1129,8 +1396,14 @@ class InvoicesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             invoices.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            invoices.update,
+        )
         self.list = to_streamed_response_wrapper(
             invoices.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            invoices.delete,
         )
         self.mark_paid = to_streamed_response_wrapper(
             invoices.mark_paid,
@@ -1153,8 +1426,14 @@ class AsyncInvoicesResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             invoices.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            invoices.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             invoices.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            invoices.delete,
         )
         self.mark_paid = async_to_streamed_response_wrapper(
             invoices.mark_paid,
