@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .checkout_font import CheckoutFont
+from .checkout_shape import CheckoutShape
 from .shared.currency import Currency
 from .shared.tax_type import TaxType
 from .shared.plan_type import PlanType
@@ -121,13 +123,13 @@ class CheckoutStyling(TypedDict, total=False):
     Pass null to inherit from the company default.
     """
 
-    border_style: Optional[Literal["rounded", "pill", "rectangular"]]
+    border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 
     button_color: Optional[str]
     """A hex color code for the button color (e.g. #FF5733)."""
 
-    font_family: Optional[Literal["system", "roboto", "open_sans"]]
+    font_family: Optional[CheckoutFont]
     """The different font families available for checkout pages."""
 
 

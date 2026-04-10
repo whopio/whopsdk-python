@@ -11,6 +11,7 @@ from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
     InvoiceVoidResponse,
+    InvoiceDeleteResponse,
     InvoiceMarkPaidResponse,
     InvoiceMarkUncollectibleResponse,
 )
@@ -26,25 +27,10 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_overload_1(self, client: Whop) -> None:
-        invoice = client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product={"title": "title"},
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
         invoice = client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -88,6 +74,8 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -96,57 +84,10 @@ class TestInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_1(self, client: Whop) -> None:
-        response = client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product={"title": "title"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_1(self, client: Whop) -> None:
-        with client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product={"title": "title"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_2(self, client: Whop) -> None:
-        invoice = client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product={"title": "title"},
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -156,8 +97,6 @@ class TestInvoices:
         invoice = client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -182,10 +121,7 @@ class TestInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
-            product={
-                "title": "title",
-                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-            },
+            product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             billing_address={
                 "city": "city",
@@ -201,6 +137,8 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -209,57 +147,10 @@ class TestInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_2(self, client: Whop) -> None:
-        response = client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product={"title": "title"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_2(self, client: Whop) -> None:
-        with client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product={"title": "title"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_3(self, client: Whop) -> None:
-        invoice = client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -326,55 +217,6 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create_overload_3(self, client: Whop) -> None:
-        response = client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_3(self, client: Whop) -> None:
-        with client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_4(self, client: Whop) -> None:
-        invoice = client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_method_create_with_all_params_overload_4(self, client: Whop) -> None:
         invoice = client.invoices.create(
             collection_method="send_invoice",
@@ -433,42 +275,6 @@ class TestInvoices:
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_4(self, client: Whop) -> None:
-        response = client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_4(self, client: Whop) -> None:
-        with client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -553,6 +359,200 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create_overload_1(self, client: Whop) -> None:
+        invoice = client.invoices.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product={"title": "title"},
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_overload_1(self, client: Whop) -> None:
+        response = client.invoices.with_raw_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product={"title": "title"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_overload_1(self, client: Whop) -> None:
+        with client.invoices.with_streaming_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product={"title": "title"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(Invoice, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_overload_2(self, client: Whop) -> None:
+        invoice = client.invoices.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product_id="prod_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_overload_2(self, client: Whop) -> None:
+        response = client.invoices.with_raw_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product_id="prod_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_overload_2(self, client: Whop) -> None:
+        with client.invoices.with_streaming_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product_id="prod_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(Invoice, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update(self, client: Whop) -> None:
+        invoice = client.invoices.update(
+            id="inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Whop) -> None:
+        invoice = client.invoices.update(
+            id="inv_xxxxxxxxxxxxxx",
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
+            charge_buyer_fee=True,
+            collection_method="send_invoice",
+            customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            plan={
+                "billing_period": 42,
+                "custom_fields": [
+                    {
+                        "field_type": "text",
+                        "name": "name",
+                        "id": "id",
+                        "order": 42,
+                        "placeholder": "placeholder",
+                        "required": True,
+                    }
+                ],
+                "description": "description",
+                "expiration_days": 42,
+                "initial_price": 6.9,
+                "internal_notes": "internal_notes",
+                "legacy_payment_method_controls": True,
+                "payment_method_configuration": {
+                    "disabled": ["acss_debit"],
+                    "enabled": ["acss_debit"],
+                    "include_platform_defaults": True,
+                },
+                "plan_type": "renewal",
+                "release_method": "buy_now",
+                "renewal_price": 6.9,
+                "stock": 42,
+                "trial_period_days": 42,
+                "unlimited_stock": True,
+                "visibility": "visible",
+            },
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Whop) -> None:
+        response = client.invoices.with_raw_response.update(
+            id="inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Whop) -> None:
+        with client.invoices.with_streaming_response.update(
+            id="inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(Invoice, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.invoices.with_raw_response.update(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.invoices.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
@@ -564,6 +564,48 @@ class TestInvoices:
             assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Whop) -> None:
+        invoice = client.invoices.delete(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceDeleteResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Whop) -> None:
+        response = client.invoices.with_raw_response.delete(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceDeleteResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Whop) -> None:
+        with client.invoices.with_streaming_response.delete(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceDeleteResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.invoices.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -699,25 +741,10 @@ class TestAsyncInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
-        invoice = await async_client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product={"title": "title"},
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -761,6 +788,8 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -769,57 +798,10 @@ class TestAsyncInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
-        response = await async_client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product={"title": "title"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = await response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
-        async with async_client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product={"title": "title"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = await response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
-        invoice = await async_client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product={"title": "title"},
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -829,8 +811,6 @@ class TestAsyncInvoices:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -855,10 +835,7 @@ class TestAsyncInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
-            product={
-                "title": "title",
-                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-            },
+            product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             billing_address={
                 "city": "city",
@@ -874,6 +851,8 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -882,57 +861,10 @@ class TestAsyncInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
-        response = await async_client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product={"title": "title"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = await response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
-        async with async_client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product={"title": "title"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = await response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_3(self, async_client: AsyncWhop) -> None:
-        invoice = await async_client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -999,55 +931,6 @@ class TestAsyncInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_create_overload_3(self, async_client: AsyncWhop) -> None:
-        response = await async_client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = await response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_3(self, async_client: AsyncWhop) -> None:
-        async with async_client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = await response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_4(self, async_client: AsyncWhop) -> None:
-        invoice = await async_client.invoices.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_method_create_with_all_params_overload_4(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
@@ -1106,42 +989,6 @@ class TestAsyncInvoices:
             payment_token_id="payt_xxxxxxxxxxxxx",
         )
         assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_4(self, async_client: AsyncWhop) -> None:
-        response = await async_client.invoices.with_raw_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = await response.parse()
-        assert_matches_type(Invoice, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_4(self, async_client: AsyncWhop) -> None:
-        async with async_client.invoices.with_streaming_response.create(
-            collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
-            plan={},
-            product_id="prod_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = await response.parse()
-            assert_matches_type(Invoice, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1226,6 +1073,200 @@ class TestAsyncInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product={"title": "title"},
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
+        response = await async_client.invoices.with_raw_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product={"title": "title"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
+        async with async_client.invoices.with_streaming_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product={"title": "title"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(Invoice, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product_id="prod_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
+        response = await async_client.invoices.with_raw_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product_id="prod_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
+        async with async_client.invoices.with_streaming_response.create(
+            collection_method="send_invoice",
+            company_id="biz_xxxxxxxxxxxxxx",
+            plan={},
+            product_id="prod_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(Invoice, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.update(
+            id="inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.update(
+            id="inv_xxxxxxxxxxxxxx",
+            automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            billing_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "name": "name",
+                "phone": "phone",
+                "postal_code": "postal_code",
+                "state": "state",
+                "tax_id_type": "ad_nrt",
+                "tax_id_value": "tax_id_value",
+            },
+            charge_buyer_fee=True,
+            collection_method="send_invoice",
+            customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
+            line_items=[
+                {
+                    "label": "label",
+                    "unit_price": 6.9,
+                    "quantity": 6.9,
+                }
+            ],
+            mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            plan={
+                "billing_period": 42,
+                "custom_fields": [
+                    {
+                        "field_type": "text",
+                        "name": "name",
+                        "id": "id",
+                        "order": 42,
+                        "placeholder": "placeholder",
+                        "required": True,
+                    }
+                ],
+                "description": "description",
+                "expiration_days": 42,
+                "initial_price": 6.9,
+                "internal_notes": "internal_notes",
+                "legacy_payment_method_controls": True,
+                "payment_method_configuration": {
+                    "disabled": ["acss_debit"],
+                    "enabled": ["acss_debit"],
+                    "include_platform_defaults": True,
+                },
+                "plan_type": "renewal",
+                "release_method": "buy_now",
+                "renewal_price": 6.9,
+                "stock": 42,
+                "trial_period_days": 42,
+                "unlimited_stock": True,
+                "visibility": "visible",
+            },
+        )
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
+        response = await async_client.invoices.with_raw_response.update(
+            id="inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(Invoice, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
+        async with async_client.invoices.with_streaming_response.update(
+            id="inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(Invoice, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.invoices.with_raw_response.update(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.invoices.with_streaming_response.list(
             company_id="biz_xxxxxxxxxxxxxx",
@@ -1237,6 +1278,48 @@ class TestAsyncInvoices:
             assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.delete(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceDeleteResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
+        response = await async_client.invoices.with_raw_response.delete(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceDeleteResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
+        async with async_client.invoices.with_streaming_response.delete(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceDeleteResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.invoices.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

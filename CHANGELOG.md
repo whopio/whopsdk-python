@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.0.37 (2026-04-10)
+
+Full Changelog: [v0.0.36...v0.0.37](https://github.com/whopio/whopsdk-python/compare/v0.0.36...v0.0.37)
+
+### Features
+
+* **api:** api update ([d2693a0](https://github.com/whopio/whopsdk-python/commit/d2693a0106620b442ef9e981cd8f8cc44ef26e8f))
+* **api:** api update ([1e398a6](https://github.com/whopio/whopsdk-python/commit/1e398a68ff927c66eefaef4eae88fb2aecef9581))
+* **api:** api update ([d17a56f](https://github.com/whopio/whopsdk-python/commit/d17a56ff7a5e89ce7863e3d44bd06912fc3ce94c))
+* **api:** api update ([b85a378](https://github.com/whopio/whopsdk-python/commit/b85a3787bb1871cb46cbdde7bb809f590cb143ef))
+* **api:** manual updates ([c401009](https://github.com/whopio/whopsdk-python/commit/c40100933895bfe8f2f20d480e8348b7092b4c89))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([2a7a622](https://github.com/whopio/whopsdk-python/commit/2a7a622f89f262b1b2b6df0fb6354947db0e20f9))
+
 ## 0.0.36 (2026-04-07)
 
 Full Changelog: [v0.0.35...v0.0.36](https://github.com/whopio/whopsdk-python/compare/v0.0.35...v0.0.36)
