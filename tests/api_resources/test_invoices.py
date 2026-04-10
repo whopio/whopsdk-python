@@ -30,8 +30,6 @@ class TestInvoices:
         invoice = client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -75,6 +73,8 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -83,8 +83,10 @@ class TestInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -94,8 +96,6 @@ class TestInvoices:
         invoice = client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -120,10 +120,7 @@ class TestInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
-            product={
-                "title": "title",
-                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-            },
+            product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             billing_address={
                 "city": "city",
@@ -139,6 +136,8 @@ class TestInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -147,8 +146,10 @@ class TestInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -593,8 +594,6 @@ class TestAsyncInvoices:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            member_id="mber_xxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -638,6 +637,8 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -646,8 +647,10 @@ class TestAsyncInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -657,8 +660,6 @@ class TestAsyncInvoices:
         invoice = await async_client.invoices.create(
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
-            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
-            email_address="email_address",
             plan={
                 "billing_period": 42,
                 "custom_fields": [
@@ -683,10 +684,7 @@ class TestAsyncInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
-            product={
-                "title": "title",
-                "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-            },
+            product_id="prod_xxxxxxxxxxxxx",
             automatically_finalizes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             billing_address={
                 "city": "city",
@@ -702,6 +700,8 @@ class TestAsyncInvoices:
             },
             charge_buyer_fee=True,
             customer_name="customer_name",
+            due_date=parse_datetime("2023-12-01T05:00:00.401Z"),
+            email_address="email_address",
             line_items=[
                 {
                     "label": "label",
@@ -710,8 +710,10 @@ class TestAsyncInvoices:
                 }
             ],
             mailing_address_id="ma_xxxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
+            save_as_draft=True,
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
