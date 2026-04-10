@@ -82,12 +82,14 @@ from .api_version import APIVersion as APIVersion
 from .card_brands import CardBrands as CardBrands
 from .lesson_types import LessonTypes as LessonTypes
 from .setup_intent import SetupIntent as SetupIntent
+from .checkout_font import CheckoutFont as CheckoutFont
 from .refund_status import RefundStatus as RefundStatus
 from .review_status import ReviewStatus as ReviewStatus
 from .upload_status import UploadStatus as UploadStatus
 from .webhook_event import WebhookEvent as WebhookEvent
 from .cancel_options import CancelOptions as CancelOptions
 from .checkout_modes import CheckoutModes as CheckoutModes
+from .checkout_shape import CheckoutShape as CheckoutShape
 from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
 from .app_list_params import AppListParams as AppListParams
@@ -164,6 +166,7 @@ from .company_update_params import CompanyUpdateParams as CompanyUpdateParams
 from .dispute_list_response import DisputeListResponse as DisputeListResponse
 from .dm_member_list_params import DmMemberListParams as DmMemberListParams
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
+from .invoice_update_params import InvoiceUpdateParams as InvoiceUpdateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_list_response import MessageListResponse as MessageListResponse
@@ -204,6 +207,7 @@ from .dm_feed_member_statuses import DmFeedMemberStatuses as DmFeedMemberStatuse
 from .dm_member_create_params import DmMemberCreateParams as DmMemberCreateParams
 from .dm_member_list_response import DmMemberListResponse as DmMemberListResponse
 from .dm_member_update_params import DmMemberUpdateParams as DmMemberUpdateParams
+from .invoice_delete_response import InvoiceDeleteResponse as InvoiceDeleteResponse
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
