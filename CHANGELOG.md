@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0 (2026-04-14)
+
+Full Changelog: [v0.0.37...v0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.37...v0.1.0)
+
+### Features
+
+* **api:** api update ([20538da](https://github.com/whopio/whopsdk-python/commit/20538dac0521ceefba7459719d9f06361f7bc105))
+* **api:** api update ([4b47351](https://github.com/whopio/whopsdk-python/commit/4b473516d13634548a42f06b421747d03c54192f))
+
+
+### Bug Fixes
+
+* ensure file data are only sent as 1 parameter ([0621a7d](https://github.com/whopio/whopsdk-python/commit/0621a7d6524577f1fd7d17a63ea5f1cc2d34bb3a))
+
 ## 0.0.37 (2026-04-10)
 
 Full Changelog: [v0.0.36...v0.0.37](https://github.com/whopio/whopsdk-python/compare/v0.0.36...v0.0.37)
