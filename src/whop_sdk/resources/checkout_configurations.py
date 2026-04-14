@@ -57,6 +57,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
         ]
@@ -93,6 +94,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
+              codes. Defaults to true.
+
           checkout_styling: Checkout styling overrides for this session. Overrides plan and company
               defaults.
 
@@ -123,6 +127,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling
         ]
@@ -160,6 +165,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
+              codes. Defaults to true.
+
           checkout_styling: Checkout styling overrides for this session. Overrides plan and company
               defaults.
 
@@ -190,6 +198,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         company_id: str,
         mode: Literal["setup"],
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling
         ]
@@ -224,6 +233,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
           company_id: The unique identifier of the company to create the checkout configuration for.
               Only required in setup mode.
 
+          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
+              codes. Defaults to true.
+
           checkout_styling: Checkout styling overrides for this session. Overrides plan and company
               defaults.
 
@@ -254,6 +266,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
         ]
@@ -288,6 +301,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                 {
                     "plan": plan,
                     "affiliate_code": affiliate_code,
+                    "allow_promo_codes": allow_promo_codes,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
                     "metadata": metadata,
@@ -453,6 +467,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
         ]
@@ -489,6 +504,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
+              codes. Defaults to true.
+
           checkout_styling: Checkout styling overrides for this session. Overrides plan and company
               defaults.
 
@@ -519,6 +537,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan_id: str,
         affiliate_code: Optional[str] | Omit = omit,
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling
         ]
@@ -556,6 +575,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
 
+          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
+              codes. Defaults to true.
+
           checkout_styling: Checkout styling overrides for this session. Overrides plan and company
               defaults.
 
@@ -586,6 +608,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         company_id: str,
         mode: Literal["setup"],
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling
         ]
@@ -620,6 +643,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
           company_id: The unique identifier of the company to create the checkout configuration for.
               Only required in setup mode.
 
+          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
+              codes. Defaults to true.
+
           checkout_styling: Checkout styling overrides for this session. Overrides plan and company
               defaults.
 
@@ -650,6 +676,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
+        allow_promo_codes: Optional[bool] | Omit = omit,
         checkout_styling: Optional[
             checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
         ]
@@ -684,6 +711,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                 {
                     "plan": plan,
                     "affiliate_code": affiliate_code,
+                    "allow_promo_codes": allow_promo_codes,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
                     "metadata": metadata,
