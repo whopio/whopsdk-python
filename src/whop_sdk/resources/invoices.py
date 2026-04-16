@@ -76,6 +76,7 @@ class InvoicesResource(SyncAPIResource):
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         save_as_draft: Optional[bool] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -104,9 +105,9 @@ class InvoicesResource(SyncAPIResource):
           product: The properties of the product to create for this invoice. Provide this to create
               a new product inline.
 
-          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
-              Only valid when collection_method is charge_automatically. If not provided, the
-              charge will be processed immediately.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
+              charge_automatically, triggers an automatic charge. For send_invoice, sends the
+              invoice email to the customer at the specified time.
 
           billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
               be used together with mailing_address_id.
@@ -139,6 +140,9 @@ class InvoicesResource(SyncAPIResource):
 
           save_as_draft: When true, creates the invoice as a draft without sending or charging. Relaxes
               customer and due date requirements.
+
+          subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start. When set
+              on a renewal plan invoice, this anchors all future billing periods to this date.
 
           extra_headers: Send extra headers
 
@@ -170,6 +174,7 @@ class InvoicesResource(SyncAPIResource):
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         save_as_draft: Optional[bool] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -197,9 +202,9 @@ class InvoicesResource(SyncAPIResource):
 
           product_id: The unique identifier of an existing product to create this invoice for.
 
-          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
-              Only valid when collection_method is charge_automatically. If not provided, the
-              charge will be processed immediately.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
+              charge_automatically, triggers an automatic charge. For send_invoice, sends the
+              invoice email to the customer at the specified time.
 
           billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
               be used together with mailing_address_id.
@@ -232,6 +237,9 @@ class InvoicesResource(SyncAPIResource):
 
           save_as_draft: When true, creates the invoice as a draft without sending or charging. Relaxes
               customer and due date requirements.
+
+          subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start. When set
+              on a renewal plan invoice, this anchors all future billing periods to this date.
 
           extra_headers: Send extra headers
 
@@ -269,6 +277,7 @@ class InvoicesResource(SyncAPIResource):
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         save_as_draft: Optional[bool] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         product_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -297,6 +306,7 @@ class InvoicesResource(SyncAPIResource):
                     "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,
                     "save_as_draft": save_as_draft,
+                    "subscription_billing_anchor_at": subscription_billing_anchor_at,
                     "product_id": product_id,
                 },
                 invoice_create_params.InvoiceCreateParams,
@@ -360,6 +370,7 @@ class InvoicesResource(SyncAPIResource):
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         plan: Optional[invoice_update_params.Plan] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -375,7 +386,9 @@ class InvoicesResource(SyncAPIResource):
         - `invoice:update`
 
         Args:
-          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
+              charge_automatically, triggers an automatic charge. For send_invoice, sends the
+              invoice email at the specified time.
 
           billing_address: Inline billing address to create or update a mailing address for this invoice.
 
@@ -398,6 +411,8 @@ class InvoicesResource(SyncAPIResource):
           payment_method_id: The unique identifier of the payment method to charge.
 
           plan: Updated plan attributes.
+
+          subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start.
 
           extra_headers: Send extra headers
 
@@ -425,6 +440,7 @@ class InvoicesResource(SyncAPIResource):
                     "member_id": member_id,
                     "payment_method_id": payment_method_id,
                     "plan": plan,
+                    "subscription_billing_anchor_at": subscription_billing_anchor_at,
                 },
                 invoice_update_params.InvoiceUpdateParams,
             ),
@@ -720,6 +736,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         save_as_draft: Optional[bool] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -748,9 +765,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
           product: The properties of the product to create for this invoice. Provide this to create
               a new product inline.
 
-          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
-              Only valid when collection_method is charge_automatically. If not provided, the
-              charge will be processed immediately.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
+              charge_automatically, triggers an automatic charge. For send_invoice, sends the
+              invoice email to the customer at the specified time.
 
           billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
               be used together with mailing_address_id.
@@ -783,6 +800,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           save_as_draft: When true, creates the invoice as a draft without sending or charging. Relaxes
               customer and due date requirements.
+
+          subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start. When set
+              on a renewal plan invoice, this anchors all future billing periods to this date.
 
           extra_headers: Send extra headers
 
@@ -814,6 +834,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         save_as_draft: Optional[bool] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -841,9 +862,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           product_id: The unique identifier of an existing product to create this invoice for.
 
-          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
-              Only valid when collection_method is charge_automatically. If not provided, the
-              charge will be processed immediately.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
+              charge_automatically, triggers an automatic charge. For send_invoice, sends the
+              invoice email to the customer at the specified time.
 
           billing_address: Inline billing address to create a new mailing address for this invoice. Cannot
               be used together with mailing_address_id.
@@ -876,6 +897,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           save_as_draft: When true, creates the invoice as a draft without sending or charging. Relaxes
               customer and due date requirements.
+
+          subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start. When set
+              on a renewal plan invoice, this anchors all future billing periods to this date.
 
           extra_headers: Send extra headers
 
@@ -913,6 +937,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         payment_method_id: Optional[str] | Omit = omit,
         payment_token_id: Optional[str] | Omit = omit,
         save_as_draft: Optional[bool] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         product_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -941,6 +966,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "payment_method_id": payment_method_id,
                     "payment_token_id": payment_token_id,
                     "save_as_draft": save_as_draft,
+                    "subscription_billing_anchor_at": subscription_billing_anchor_at,
                     "product_id": product_id,
                 },
                 invoice_create_params.InvoiceCreateParams,
@@ -1004,6 +1030,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         plan: Optional[invoice_update_params.Plan] | Omit = omit,
+        subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1019,7 +1046,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `invoice:update`
 
         Args:
-          automatically_finalizes_at: The date and time when the invoice will be automatically finalized and charged.
+          automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
+              charge_automatically, triggers an automatic charge. For send_invoice, sends the
+              invoice email at the specified time.
 
           billing_address: Inline billing address to create or update a mailing address for this invoice.
 
@@ -1042,6 +1071,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
           payment_method_id: The unique identifier of the payment method to charge.
 
           plan: Updated plan attributes.
+
+          subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start.
 
           extra_headers: Send extra headers
 
@@ -1069,6 +1100,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "member_id": member_id,
                     "payment_method_id": payment_method_id,
                     "plan": plan,
+                    "subscription_billing_anchor_at": subscription_billing_anchor_at,
                 },
                 invoice_update_params.InvoiceUpdateParams,
             ),

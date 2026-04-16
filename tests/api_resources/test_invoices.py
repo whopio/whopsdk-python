@@ -105,6 +105,7 @@ class TestInvoices:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
             save_as_draft=True,
+            subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -217,6 +218,7 @@ class TestInvoices:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
             save_as_draft=True,
+            subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -365,6 +367,7 @@ class TestInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
+            subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -703,6 +706,7 @@ class TestAsyncInvoices:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
             save_as_draft=True,
+            subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -815,6 +819,7 @@ class TestAsyncInvoices:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             payment_token_id="payt_xxxxxxxxxxxxx",
             save_as_draft=True,
+            subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
@@ -963,6 +968,7 @@ class TestAsyncInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
+            subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])
 
