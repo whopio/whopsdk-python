@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared.who_can_post_types import WhoCanPostTypes
 from .shared.who_can_comment_types import WhoCanCommentTypes
 from .shared.email_notification_preferences import EmailNotificationPreferences
@@ -13,6 +14,12 @@ __all__ = ["ForumUpdateParams", "BannerImage"]
 
 
 class ForumUpdateParams(TypedDict, total=False):
+    banned_words: Optional[SequenceNotStr[str]]
+    """A list of words that are automatically blocked from posts in this forum.
+
+    For example, ['spam', 'scam'].
+    """
+
     banner_image: Optional[BannerImage]
     """The banner image displayed at the top of the forum page.
 

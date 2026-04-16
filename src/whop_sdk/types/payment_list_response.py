@@ -158,6 +158,9 @@ class Plan(BaseModel):
     id: str
     """The unique identifier for the plan."""
 
+    internal_notes: Optional[str] = None
+    """A personal description or notes section for the business."""
+
 
 class Product(BaseModel):
     """The product this payment was made for"""

@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import forum_list_params, forum_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -91,6 +91,7 @@ class ForumsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        banned_words: Optional[SequenceNotStr[str]] | Omit = omit,
         banner_image: Optional[forum_update_params.BannerImage] | Omit = omit,
         email_notification_preference: Optional[EmailNotificationPreferences] | Omit = omit,
         who_can_comment: Optional[WhoCanCommentTypes] | Omit = omit,
@@ -111,6 +112,9 @@ class ForumsResource(SyncAPIResource):
         - `forum:moderate`
 
         Args:
+          banned_words: A list of words that are automatically blocked from posts in this forum. For
+              example, ['spam', 'scam'].
+
           banner_image: The banner image displayed at the top of the forum page. Pass null to remove the
               existing banner.
 
@@ -134,6 +138,7 @@ class ForumsResource(SyncAPIResource):
             path_template("/forums/{id}", id=id),
             body=maybe_transform(
                 {
+                    "banned_words": banned_words,
                     "banner_image": banner_image,
                     "email_notification_preference": email_notification_preference,
                     "who_can_comment": who_can_comment,
@@ -280,6 +285,7 @@ class AsyncForumsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        banned_words: Optional[SequenceNotStr[str]] | Omit = omit,
         banner_image: Optional[forum_update_params.BannerImage] | Omit = omit,
         email_notification_preference: Optional[EmailNotificationPreferences] | Omit = omit,
         who_can_comment: Optional[WhoCanCommentTypes] | Omit = omit,
@@ -300,6 +306,9 @@ class AsyncForumsResource(AsyncAPIResource):
         - `forum:moderate`
 
         Args:
+          banned_words: A list of words that are automatically blocked from posts in this forum. For
+              example, ['spam', 'scam'].
+
           banner_image: The banner image displayed at the top of the forum page. Pass null to remove the
               existing banner.
 
@@ -323,6 +332,7 @@ class AsyncForumsResource(AsyncAPIResource):
             path_template("/forums/{id}", id=id),
             body=await async_maybe_transform(
                 {
+                    "banned_words": banned_words,
                     "banner_image": banner_image,
                     "email_notification_preference": email_notification_preference,
                     "who_can_comment": who_can_comment,
