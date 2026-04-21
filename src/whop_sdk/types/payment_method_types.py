@@ -45,6 +45,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "interac",
     "kakao_pay",
     "klarna",
+    "klarna_pay_now",
     "konbini",
     "kr_card",
     "kr_market",
