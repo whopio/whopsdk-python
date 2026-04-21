@@ -122,6 +122,7 @@ from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .refund_list_params import RefundListParams as RefundListParams
 from .review_list_params import ReviewListParams as ReviewListParams
 from .user_list_response import UserListResponse as UserListResponse
+from .user_update_params import UserUpdateParams as UserUpdateParams
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
 from .company_list_params import CompanyListParams as CompanyListParams
 from .course_visibilities import CourseVisibilities as CourseVisibilities
