@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.0.38 (2026-04-21)
+
+Full Changelog: [v0.0.37...v0.0.38](https://github.com/whopio/whopsdk-python/compare/v0.0.37...v0.0.38)
+
+### Features
+
+* **api:** api update ([97b9b12](https://github.com/whopio/whopsdk-python/commit/97b9b1226bcb82069279ddbe8d8fb07529736f2b))
+* **api:** api update ([c852b50](https://github.com/whopio/whopsdk-python/commit/c852b50e8ced417ca89f12b73edd2890812178d4))
+* **api:** api update ([fedd3e6](https://github.com/whopio/whopsdk-python/commit/fedd3e6e44946e6a8303fbfe97fe6f21d72e8ebe))
+* **api:** api update ([9363c3a](https://github.com/whopio/whopsdk-python/commit/9363c3a9b52cc0cb8fd6b5023d3192f9be460413))
+* **api:** api update ([20538da](https://github.com/whopio/whopsdk-python/commit/20538dac0521ceefba7459719d9f06361f7bc105))
+* **api:** api update ([4b47351](https://github.com/whopio/whopsdk-python/commit/4b473516d13634548a42f06b421747d03c54192f))
+* **api:** manual updates ([781a2ab](https://github.com/whopio/whopsdk-python/commit/781a2ab7b8894e4b3646bf493d8019a54c9c367d))
+
+
+### Bug Fixes
+
+* ensure file data are only sent as 1 parameter ([0621a7d](https://github.com/whopio/whopsdk-python/commit/0621a7d6524577f1fd7d17a63ea5f1cc2d34bb3a))
+* **lib:** add verify_user_token helper with remote JWKS caching ([#45](https://github.com/whopio/whopsdk-python/issues/45)) ([2ffb934](https://github.com/whopio/whopsdk-python/commit/2ffb934599d94bdf3f9a3a0e50eb6cecb9d7bec9))
+* **tests:** pass required company_id to invoices.list() calls ([#47](https://github.com/whopio/whopsdk-python/issues/47)) ([be92086](https://github.com/whopio/whopsdk-python/commit/be92086b544b528895fedf5c964e97829a48edf5))
+* **types:** add BannerImage to forum_update_params ([#46](https://github.com/whopio/whopsdk-python/issues/46)) ([256c465](https://github.com/whopio/whopsdk-python/commit/256c4657611fb50b7b913cd5be54adaf79d745a5))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([256a80a](https://github.com/whopio/whopsdk-python/commit/256a80ad59d58be17ef5ecd6fc863f71cbb41b4f))
+
 ## 0.0.37 (2026-04-10)
 
 Full Changelog: [v0.0.36...v0.0.37](https://github.com/whopio/whopsdk-python/compare/v0.0.36...v0.0.37)

@@ -26,7 +26,11 @@ __all__ = [
 
 class InvoiceUpdateParams(TypedDict, total=False):
     automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The date and time when the invoice will be automatically finalized and charged."""
+    """The date and time when the invoice will be automatically finalized.
+
+    For charge_automatically, triggers an automatic charge. For send_invoice, sends
+    the invoice email at the specified time.
+    """
 
     billing_address: Optional[BillingAddress]
     """Inline billing address to create or update a mailing address for this invoice."""
@@ -60,6 +64,9 @@ class InvoiceUpdateParams(TypedDict, total=False):
 
     plan: Optional[Plan]
     """Updated plan attributes."""
+
+    subscription_billing_anchor_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date that defines when the subscription billing cycle should start."""
 
 
 class BillingAddress(TypedDict, total=False):

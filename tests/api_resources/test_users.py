@@ -9,7 +9,11 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import User, UserListResponse, UserCheckAccessResponse
+from whop_sdk.types import (
+    User,
+    UserListResponse,
+    UserCheckAccessResponse,
+)
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -22,7 +26,16 @@ class TestUsers:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         user = client.users.retrieve(
-            "user_xxxxxxxxxxxxx",
+            id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Whop) -> None:
+        user = client.users.retrieve(
+            id="user_xxxxxxxxxxxxx",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -30,7 +43,7 @@ class TestUsers:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.users.with_raw_response.retrieve(
-            "user_xxxxxxxxxxxxx",
+            id="user_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -42,7 +55,7 @@ class TestUsers:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.users.with_streaming_response.retrieve(
-            "user_xxxxxxxxxxxxx",
+            id="user_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -57,7 +70,62 @@ class TestUsers:
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.users.with_raw_response.retrieve(
-                "",
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update(self, client: Whop) -> None:
+        user = client.users.update(
+            id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Whop) -> None:
+        user = client.users.update(
+            id="user_xxxxxxxxxxxxx",
+            bio="bio",
+            company_id="biz_xxxxxxxxxxxxxx",
+            name="name",
+            profile_picture={"id": "id"},
+            username="username",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Whop) -> None:
+        response = client.users.with_raw_response.update(
+            id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Whop) -> None:
+        with client.users.with_streaming_response.update(
+            id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(User, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.users.with_raw_response.update(
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -152,45 +220,6 @@ class TestUsers:
                 id="user_xxxxxxxxxxxxx",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_update_profile(self, client: Whop) -> None:
-        user = client.users.update_profile()
-        assert_matches_type(User, user, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_update_profile_with_all_params(self, client: Whop) -> None:
-        user = client.users.update_profile(
-            bio="bio",
-            name="name",
-            profile_picture={"id": "id"},
-            username="username",
-        )
-        assert_matches_type(User, user, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_update_profile(self, client: Whop) -> None:
-        response = client.users.with_raw_response.update_profile()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(User, user, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_update_profile(self, client: Whop) -> None:
-        with client.users.with_streaming_response.update_profile() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(User, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncUsers:
     parametrize = pytest.mark.parametrize(
@@ -201,7 +230,16 @@ class TestAsyncUsers:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         user = await async_client.users.retrieve(
-            "user_xxxxxxxxxxxxx",
+            id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
+        user = await async_client.users.retrieve(
+            id="user_xxxxxxxxxxxxx",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -209,7 +247,7 @@ class TestAsyncUsers:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.users.with_raw_response.retrieve(
-            "user_xxxxxxxxxxxxx",
+            id="user_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -221,7 +259,7 @@ class TestAsyncUsers:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.users.with_streaming_response.retrieve(
-            "user_xxxxxxxxxxxxx",
+            id="user_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -236,7 +274,62 @@ class TestAsyncUsers:
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.users.with_raw_response.retrieve(
-                "",
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
+        user = await async_client.users.update(
+            id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
+        user = await async_client.users.update(
+            id="user_xxxxxxxxxxxxx",
+            bio="bio",
+            company_id="biz_xxxxxxxxxxxxxx",
+            name="name",
+            profile_picture={"id": "id"},
+            username="username",
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
+        response = await async_client.users.with_raw_response.update(
+            id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(User, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
+        async with async_client.users.with_streaming_response.update(
+            id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(User, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.users.with_raw_response.update(
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -330,42 +423,3 @@ class TestAsyncUsers:
                 resource_id="",
                 id="user_xxxxxxxxxxxxx",
             )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_update_profile(self, async_client: AsyncWhop) -> None:
-        user = await async_client.users.update_profile()
-        assert_matches_type(User, user, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_update_profile_with_all_params(self, async_client: AsyncWhop) -> None:
-        user = await async_client.users.update_profile(
-            bio="bio",
-            name="name",
-            profile_picture={"id": "id"},
-            username="username",
-        )
-        assert_matches_type(User, user, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_update_profile(self, async_client: AsyncWhop) -> None:
-        response = await async_client.users.with_raw_response.update_profile()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(User, user, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_update_profile(self, async_client: AsyncWhop) -> None:
-        async with async_client.users.with_streaming_response.update_profile() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(User, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True

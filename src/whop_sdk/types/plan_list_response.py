@@ -112,7 +112,7 @@ class PlanListResponse(BaseModel):
     description: Optional[str] = None
     """A text description of the plan visible to customers.
 
-    Maximum 500 characters. Null if no description is set.
+    Maximum 1000 characters. Null if no description is set.
     """
 
     expiration_days: Optional[int] = None

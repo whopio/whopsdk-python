@@ -1,6 +1,6 @@
 [project]
 name = "whop-sdk"
-version = "0.0.37"
+version = "0.0.38"
 description = "The official Python library for the Whop API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -43,6 +43,7 @@ Repository = "https://github.com/whopio/whopsdk-python"
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 webhooks = ["standardwebhooks >= 1.0.1, < 2"]
+user-tokens = ["pyjwt[crypto] >= 2.8.0, < 3"]
 
 [tool.rye]
 managed = true

@@ -5,12 +5,19 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["UserUpdateProfileParams", "ProfilePicture"]
+__all__ = ["UserUpdateParams", "ProfilePicture"]
 
 
-class UserUpdateProfileParams(TypedDict, total=False):
+class UserUpdateParams(TypedDict, total=False):
     bio: Optional[str]
     """A short biography displayed on the user's public profile."""
+
+    company_id: Optional[str]
+    """
+    When provided, updates the user's profile overrides for this company instead of
+    the global profile. Pass name and profile_picture to set overrides, or null to
+    clear them.
+    """
 
     name: Optional[str]
     """The user's display name shown on their public profile. Maximum 100 characters."""

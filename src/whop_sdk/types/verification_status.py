@@ -18,4 +18,5 @@ VerificationStatus: TypeAlias = Literal[
     "expired",
     "abandoned",
     "review",
+    "action_required",
 ]

@@ -115,6 +115,12 @@ class CheckoutConfiguration(BaseModel):
     affiliate_code: Optional[str] = None
     """The affiliate code to use for the checkout configuration"""
 
+    allow_promo_codes: bool
+    """Whether the checkout configuration allows promo codes.
+
+    When false, the promo code input is hidden and promo codes are rejected.
+    """
+
     company_id: str
     """The ID of the company to use for the checkout configuration"""
 

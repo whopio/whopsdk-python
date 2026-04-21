@@ -43,6 +43,12 @@ class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
     affiliate_code: Optional[str]
     """An affiliate tracking code to attribute the checkout to a specific affiliate."""
 
+    allow_promo_codes: Optional[bool]
+    """
+    Whether the checkout should show the promo code input field and accept promo
+    codes. Defaults to true.
+    """
+
     checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling]
     """Checkout styling overrides for this session.
 
@@ -340,6 +346,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     affiliate_code: Optional[str]
     """An affiliate tracking code to attribute the checkout to a specific affiliate."""
 
+    allow_promo_codes: Optional[bool]
+    """
+    Whether the checkout should show the promo code input field and accept promo
+    codes. Defaults to true.
+    """
+
     checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
     """Checkout styling overrides for this session.
 
@@ -420,6 +432,12 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
     """
 
     mode: Required[Literal["setup"]]
+
+    allow_promo_codes: Optional[bool]
+    """
+    Whether the checkout should show the promo code input field and accept promo
+    codes. Defaults to true.
+    """
 
     checkout_styling: Optional[CreateCheckoutSessionInputModeSetupCheckoutStyling]
     """Checkout styling overrides for this session.

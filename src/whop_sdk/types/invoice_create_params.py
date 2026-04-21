@@ -56,10 +56,10 @@ class CreateInvoiceInputWithProduct(TypedDict, total=False):
     """
 
     automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The date and time when the invoice will be automatically finalized and charged.
+    """The date and time when the invoice will be automatically finalized.
 
-    Only valid when collection_method is charge_automatically. If not provided, the
-    charge will be processed immediately.
+    For charge_automatically, triggers an automatic charge. For send_invoice, sends
+    the invoice email to the customer at the specified time.
     """
 
     billing_address: Optional[CreateInvoiceInputWithProductBillingAddress]
@@ -126,6 +126,13 @@ class CreateInvoiceInputWithProduct(TypedDict, total=False):
     """When true, creates the invoice as a draft without sending or charging.
 
     Relaxes customer and due date requirements.
+    """
+
+    subscription_billing_anchor_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date that defines when the subscription billing cycle should start.
+
+    When set on a renewal plan invoice, this anchors all future billing periods to
+    this date.
     """
 
 
@@ -335,10 +342,10 @@ class CreateInvoiceInputWithProductID(TypedDict, total=False):
     """The unique identifier of an existing product to create this invoice for."""
 
     automatically_finalizes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The date and time when the invoice will be automatically finalized and charged.
+    """The date and time when the invoice will be automatically finalized.
 
-    Only valid when collection_method is charge_automatically. If not provided, the
-    charge will be processed immediately.
+    For charge_automatically, triggers an automatic charge. For send_invoice, sends
+    the invoice email to the customer at the specified time.
     """
 
     billing_address: Optional[CreateInvoiceInputWithProductIDBillingAddress]
@@ -405,6 +412,13 @@ class CreateInvoiceInputWithProductID(TypedDict, total=False):
     """When true, creates the invoice as a draft without sending or charging.
 
     Relaxes customer and due date requirements.
+    """
+
+    subscription_billing_anchor_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The date that defines when the subscription billing cycle should start.
+
+    When set on a renewal plan invoice, this anchors all future billing periods to
+    this date.
     """
 
 
