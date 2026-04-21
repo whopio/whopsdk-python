@@ -154,6 +154,7 @@ from .shipment_list_params import ShipmentListParams as ShipmentListParams
 from .social_link_websites import SocialLinkWebsites as SocialLinkWebsites
 from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
+from .user_retrieve_params import UserRetrieveParams as UserRetrieveParams
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
 from .affiliate_list_params import AffiliateListParams as AffiliateListParams
 from .ai_chat_create_params import AIChatCreateParams as AIChatCreateParams
@@ -271,7 +272,6 @@ from .payment_method_list_params import PaymentMethodListParams as PaymentMethod
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
-from .user_update_profile_params import UserUpdateProfileParams as UserUpdateProfileParams
 from .verification_list_response import VerificationListResponse as VerificationListResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
