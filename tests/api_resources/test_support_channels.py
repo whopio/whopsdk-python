@@ -113,32 +113,29 @@ class TestSupportChannels:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        support_channel = client.support_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        support_channel = client.support_channels.list()
         assert_matches_type(SyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         support_channel = client.support_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
             first=42,
             last=42,
             open=True,
             order="created_at",
+            view="all",
         )
         assert_matches_type(SyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.support_channels.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = client.support_channels.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -148,9 +145,7 @@ class TestSupportChannels:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.support_channels.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        with client.support_channels.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -257,32 +252,29 @@ class TestAsyncSupportChannels:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        support_channel = await async_client.support_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        support_channel = await async_client.support_channels.list()
         assert_matches_type(AsyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         support_channel = await async_client.support_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
             first=42,
             last=42,
             open=True,
             order="created_at",
+            view="all",
         )
         assert_matches_type(AsyncCursorPage[SupportChannelListResponse], support_channel, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.support_channels.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = await async_client.support_channels.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -292,9 +284,7 @@ class TestAsyncSupportChannels:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.support_channels.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        async with async_client.support_channels.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
