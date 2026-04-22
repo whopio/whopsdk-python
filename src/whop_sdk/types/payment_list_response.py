@@ -260,6 +260,12 @@ class PaymentListResponse(BaseModel):
     Null if the payment was not made with a card.
     """
 
+    checkout_configuration_id: Optional[str] = None
+    """The ID of the checkout session/configuration that produced this payment, if any.
+
+    Use this to map payments back to the checkout configuration that created them.
+    """
+
     company: Optional[Company] = None
     """The company for the payment."""
 
