@@ -114,6 +114,13 @@ class MembershipListResponse(BaseModel):
     Null if the customer did not provide a reason.
     """
 
+    checkout_configuration_id: Optional[str] = None
+    """
+    The ID of the checkout session/configuration that produced this membership, if
+    any. Use this to map memberships back to the checkout configuration that created
+    them.
+    """
+
     company: Company
     """The company this membership belongs to."""
 
