@@ -141,14 +141,15 @@ class SupportChannelsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         open: Optional[bool] | Omit = omit,
         order: Optional[Literal["created_at", "last_post_sent_at"]] | Omit = omit,
+        view: Optional[Literal["all", "admin", "customer"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -165,11 +166,12 @@ class SupportChannelsResource(SyncAPIResource):
         - `support_chat:read`
 
         Args:
-          company_id: The unique identifier of the company to list support channels for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The unique identifier of the company to list support channels for. When omitted,
+              returns support channels across all companies the user has access to.
 
           direction: The direction of the sort.
 
@@ -181,6 +183,8 @@ class SupportChannelsResource(SyncAPIResource):
               return channels awaiting a response, or false for resolved channels.
 
           order: Sort options for message channels
+
+          view: The perspective to filter support channels by.
 
           extra_headers: Send extra headers
 
@@ -200,14 +204,15 @@ class SupportChannelsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "open": open,
                         "order": order,
+                        "view": view,
                     },
                     support_channel_list_params.SupportChannelListParams,
                 ),
@@ -330,14 +335,15 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         open: Optional[bool] | Omit = omit,
         order: Optional[Literal["created_at", "last_post_sent_at"]] | Omit = omit,
+        view: Optional[Literal["all", "admin", "customer"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -354,11 +360,12 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         - `support_chat:read`
 
         Args:
-          company_id: The unique identifier of the company to list support channels for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The unique identifier of the company to list support channels for. When omitted,
+              returns support channels across all companies the user has access to.
 
           direction: The direction of the sort.
 
@@ -370,6 +377,8 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
               return channels awaiting a response, or false for resolved channels.
 
           order: Sort options for message channels
+
+          view: The perspective to filter support channels by.
 
           extra_headers: Send extra headers
 
@@ -389,14 +398,15 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "open": open,
                         "order": order,
+                        "view": view,
                     },
                     support_channel_list_params.SupportChannelListParams,
                 ),
