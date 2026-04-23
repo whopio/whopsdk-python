@@ -124,7 +124,7 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguratio
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in
@@ -328,7 +328,7 @@ class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(Ty
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in
@@ -416,7 +416,7 @@ class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in
@@ -501,7 +501,7 @@ class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, t
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in
