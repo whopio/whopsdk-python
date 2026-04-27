@@ -20,8 +20,8 @@ class SupportChannelListParams(TypedDict, total=False):
     company_id: Optional[str]
     """The unique identifier of the company to list support channels for.
 
-    When omitted, returns support channels across all companies the user has access
-    to.
+    Includes channels of child companies. When omitted, returns support channels
+    across all companies the user has access to.
     """
 
     direction: Optional[Direction]

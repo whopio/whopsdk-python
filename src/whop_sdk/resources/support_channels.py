@@ -172,8 +172,9 @@ class SupportChannelsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The unique identifier of the company to list support channels for. When omitted,
-              returns support channels across all companies the user has access to.
+          company_id: The unique identifier of the company to list support channels for. Includes
+              channels of child companies. When omitted, returns support channels across all
+              companies the user has access to.
 
           direction: The direction of the sort.
 
@@ -368,8 +369,9 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: The unique identifier of the company to list support channels for. When omitted,
-              returns support channels across all companies the user has access to.
+          company_id: The unique identifier of the company to list support channels for. Includes
+              channels of child companies. When omitted, returns support channels across all
+              companies the user has access to.
 
           direction: The direction of the sort.
 
