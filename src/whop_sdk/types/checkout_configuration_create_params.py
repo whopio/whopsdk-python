@@ -298,6 +298,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling(TypedDict, to
     Overrides plan and company defaults.
     """
 
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
+    """
+
     border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 
@@ -386,6 +392,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling(TypedDict, 
     Overrides plan and company defaults.
     """
 
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
+    """
+
     border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 
@@ -469,6 +481,12 @@ class CreateCheckoutSessionInputModeSetupCheckoutStyling(TypedDict, total=False)
     """Checkout styling overrides for this session.
 
     Overrides plan and company defaults.
+    """
+
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
     """
 
     border_style: Optional[CheckoutShape]

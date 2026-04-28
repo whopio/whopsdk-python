@@ -123,6 +123,12 @@ class CheckoutStyling(TypedDict, total=False):
     Pass null to inherit from the company default.
     """
 
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
+    """
+
     border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 

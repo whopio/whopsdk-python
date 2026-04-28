@@ -91,6 +91,7 @@ class TestCheckoutConfigurations:
             affiliate_code="affiliate_code",
             allow_promo_codes=True,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -156,6 +157,7 @@ class TestCheckoutConfigurations:
             affiliate_code="affiliate_code",
             allow_promo_codes=True,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -216,6 +218,7 @@ class TestCheckoutConfigurations:
             mode="setup",
             allow_promo_codes=True,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -435,6 +438,7 @@ class TestAsyncCheckoutConfigurations:
             affiliate_code="affiliate_code",
             allow_promo_codes=True,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -500,6 +504,7 @@ class TestAsyncCheckoutConfigurations:
             affiliate_code="affiliate_code",
             allow_promo_codes=True,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -560,6 +565,7 @@ class TestAsyncCheckoutConfigurations:
             mode="setup",
             allow_promo_codes=True,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
