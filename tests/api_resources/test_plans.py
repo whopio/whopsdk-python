@@ -40,6 +40,7 @@ class TestPlans:
             product_id="prod_xxxxxxxxxxxxx",
             billing_period=42,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -164,6 +165,7 @@ class TestPlans:
             id="plan_xxxxxxxxxxxxx",
             billing_period=42,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -356,6 +358,7 @@ class TestAsyncPlans:
             product_id="prod_xxxxxxxxxxxxx",
             billing_period=42,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
@@ -480,6 +483,7 @@ class TestAsyncPlans:
             id="plan_xxxxxxxxxxxxx",
             billing_period=42,
             checkout_styling={
+                "background_color": "background_color",
                 "border_style": "rounded",
                 "button_color": "button_color",
                 "font_family": "system",
