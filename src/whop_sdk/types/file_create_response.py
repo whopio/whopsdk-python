@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .upload_status import UploadStatus
@@ -39,7 +40,11 @@ class FileCreateResponse(BaseModel):
     """
 
     url: Optional[str] = None
-    """The CDN URL for accessing the file.
+    """The URL for accessing the file.
 
-    Null if the file has not finished uploading.
+    For public files, this is a permanent CDN URL. For private files, this is a
+    signed URL that expires. Null if the file has not finished uploading.
     """
+
+    visibility: Literal["public", "private"]
+    """Whether the file is publicly accessible or requires authentication."""
