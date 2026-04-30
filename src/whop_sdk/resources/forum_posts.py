@@ -265,6 +265,7 @@ class ForumPostsResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_bounty_anchors: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         parent_id: Optional[str] | Omit = omit,
         pinned: Optional[bool] | Omit = omit,
@@ -291,6 +292,8 @@ class ForumPostsResource(SyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           first: Returns the first _n_ elements from the list.
+
+          include_bounty_anchors: Whether to include top-level bounty discussion anchors as rich forum items.
 
           last: Returns the last _n_ elements from the list.
 
@@ -322,6 +325,7 @@ class ForumPostsResource(SyncAPIResource):
                         "after": after,
                         "before": before,
                         "first": first,
+                        "include_bounty_anchors": include_bounty_anchors,
                         "last": last,
                         "parent_id": parent_id,
                         "pinned": pinned,
@@ -566,6 +570,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_bounty_anchors: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         parent_id: Optional[str] | Omit = omit,
         pinned: Optional[bool] | Omit = omit,
@@ -592,6 +597,8 @@ class AsyncForumPostsResource(AsyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           first: Returns the first _n_ elements from the list.
+
+          include_bounty_anchors: Whether to include top-level bounty discussion anchors as rich forum items.
 
           last: Returns the last _n_ elements from the list.
 
@@ -623,6 +630,7 @@ class AsyncForumPostsResource(AsyncAPIResource):
                         "after": after,
                         "before": before,
                         "first": first,
+                        "include_bounty_anchors": include_bounty_anchors,
                         "last": last,
                         "parent_id": parent_id,
                         "pinned": pinned,
