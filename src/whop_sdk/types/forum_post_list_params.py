@@ -21,6 +21,9 @@ class ForumPostListParams(TypedDict, total=False):
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
+    include_bounty_anchors: Optional[bool]
+    """Whether to include top-level bounty discussion anchors as rich forum items."""
+
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
