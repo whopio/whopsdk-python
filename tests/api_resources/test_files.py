@@ -27,6 +27,15 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create_with_all_params(self, client: Whop) -> None:
+        file = client.files.create(
+            filename="filename",
+            visibility="public",
+        )
+        assert_matches_type(FileCreateResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.files.with_raw_response.create(
             filename="filename",
@@ -104,6 +113,15 @@ class TestAsyncFiles:
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         file = await async_client.files.create(
             filename="filename",
+        )
+        assert_matches_type(FileCreateResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
+        file = await async_client.files.create(
+            filename="filename",
+            visibility="public",
         )
         assert_matches_type(FileCreateResponse, file, path=["response"])
 
