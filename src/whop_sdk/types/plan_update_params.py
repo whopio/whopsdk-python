@@ -16,6 +16,9 @@ __all__ = ["PlanUpdateParams", "CheckoutStyling", "CustomField", "Image", "Payme
 
 
 class PlanUpdateParams(TypedDict, total=False):
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
+
     billing_period: Optional[int]
     """The number of days between recurring charges.
 

@@ -508,6 +508,25 @@ class Payment(BaseModel):
     otherwise false. Used to decide if Whop can attempt the charge again.
     """
 
+    settlement_amount: float
+    """
+    The payment amount in the creator's settlement currency (what the creator priced
+    in). Equal to final_amount for single-currency payments.
+    """
+
+    settlement_currency: str
+    """
+    The currency in which the creator receives payouts and fees are charged (e.g.,
+    'usd', 'eur'). For multi-currency payments this differs from the payment
+    currency.
+    """
+
+    settlement_exchange_rate: Optional[float] = None
+    """
+    The locked exchange rate used to convert from the buyer's payment currency to
+    the creator's settlement currency. Null for single-currency payments.
+    """
+
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
 

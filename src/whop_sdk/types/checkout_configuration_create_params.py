@@ -195,6 +195,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
     currency: Required[Currency]
     """The respective currency identifier for the plan."""
 
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
+
     application_fee_amount: Optional[float]
     """The application fee amount collected by the platform from this connected
     account.

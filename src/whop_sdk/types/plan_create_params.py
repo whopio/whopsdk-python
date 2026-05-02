@@ -24,6 +24,9 @@ class PlanCreateParams(TypedDict, total=False):
     product_id: Required[str]
     """The unique identifier of the product to attach this plan to."""
 
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
+
     billing_period: Optional[int]
     """The number of days between recurring charges.
 
