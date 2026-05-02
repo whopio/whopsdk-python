@@ -38,6 +38,7 @@ class TestPlans:
         plan = client.plans.create(
             company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
+            adaptive_pricing_enabled=True,
             billing_period=42,
             checkout_styling={
                 "background_color": "background_color",
@@ -163,6 +164,7 @@ class TestPlans:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         plan = client.plans.update(
             id="plan_xxxxxxxxxxxxx",
+            adaptive_pricing_enabled=True,
             billing_period=42,
             checkout_styling={
                 "background_color": "background_color",
@@ -356,6 +358,7 @@ class TestAsyncPlans:
         plan = await async_client.plans.create(
             company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
+            adaptive_pricing_enabled=True,
             billing_period=42,
             checkout_styling={
                 "background_color": "background_color",
@@ -481,6 +484,7 @@ class TestAsyncPlans:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.update(
             id="plan_xxxxxxxxxxxxx",
+            adaptive_pricing_enabled=True,
             billing_period=42,
             checkout_styling={
                 "background_color": "background_color",

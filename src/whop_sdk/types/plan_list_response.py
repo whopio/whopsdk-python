@@ -88,6 +88,12 @@ class PlanListResponse(BaseModel):
     id: str
     """The unique identifier for the plan."""
 
+    adaptive_pricing_enabled: bool
+    """Whether the creator has turned on adaptive pricing for this plan.
+
+    Raw setting — does not check processor compatibility or feature flags.
+    """
+
     billing_period: Optional[int] = None
     """The number of days between each recurring charge.
 

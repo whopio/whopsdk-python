@@ -346,6 +346,13 @@ class PaymentListResponse(BaseModel):
     otherwise false. Used to decide if Whop can attempt the charge again.
     """
 
+    settlement_currency: str
+    """
+    The currency in which the creator receives payouts and fees are charged (e.g.,
+    'usd', 'eur'). For multi-currency payments this differs from the payment
+    currency.
+    """
+
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
 

@@ -62,6 +62,7 @@ class PlansResource(SyncAPIResource):
         *,
         company_id: str,
         product_id: str,
+        adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
@@ -105,6 +106,8 @@ class PlansResource(SyncAPIResource):
           company_id: The unique identifier of the company to create this plan for.
 
           product_id: The unique identifier of the product to attach this plan to.
+
+          adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
@@ -172,6 +175,7 @@ class PlansResource(SyncAPIResource):
                 {
                     "company_id": company_id,
                     "product_id": product_id,
+                    "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
@@ -243,6 +247,7 @@ class PlansResource(SyncAPIResource):
         self,
         id: str,
         *,
+        adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
@@ -282,6 +287,8 @@ class PlansResource(SyncAPIResource):
         - `plan:basic:read`
 
         Args:
+          adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
+
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
@@ -348,6 +355,7 @@ class PlansResource(SyncAPIResource):
             path_template("/plans/{id}", id=id),
             body=maybe_transform(
                 {
+                    "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
@@ -542,6 +550,7 @@ class AsyncPlansResource(AsyncAPIResource):
         *,
         company_id: str,
         product_id: str,
+        adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
@@ -585,6 +594,8 @@ class AsyncPlansResource(AsyncAPIResource):
           company_id: The unique identifier of the company to create this plan for.
 
           product_id: The unique identifier of the product to attach this plan to.
+
+          adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
@@ -652,6 +663,7 @@ class AsyncPlansResource(AsyncAPIResource):
                 {
                     "company_id": company_id,
                     "product_id": product_id,
+                    "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
@@ -723,6 +735,7 @@ class AsyncPlansResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
@@ -762,6 +775,8 @@ class AsyncPlansResource(AsyncAPIResource):
         - `plan:basic:read`
 
         Args:
+          adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
+
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
@@ -828,6 +843,7 @@ class AsyncPlansResource(AsyncAPIResource):
             path_template("/plans/{id}", id=id),
             body=await async_maybe_transform(
                 {
+                    "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
