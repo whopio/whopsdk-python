@@ -92,6 +92,7 @@ class PlatformConfigMeta(TypedDict, total=False):
             "SEE_MENU",
             "REQUEST_TIME",
             "EVENT_RSVP",
+            "SEE_DETAILS",
         ]
     ]
     """Call-to-action button type."""
