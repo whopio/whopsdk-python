@@ -4,10 +4,16 @@ from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import company_list_params, company_create_params, company_update_params
+from ..types import (
+    company_list_params,
+    company_create_params,
+    company_update_params,
+    company_create_api_key_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,6 +29,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.company import Company
 from ..types.shared.direction import Direction
 from ..types.company_list_response import CompanyListResponse
+from ..types.company_create_api_key_response import CompanyCreateAPIKeyResponse
 
 __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
@@ -337,6 +344,63 @@ class CompaniesResource(SyncAPIResource):
             model=CompanyListResponse,
         )
 
+    def create_api_key(
+        self,
+        parent_company_id: str,
+        *,
+        child_company_id: str,
+        name: Optional[str] | Omit = omit,
+        permissions: Optional[Iterable[company_create_api_key_params.Permission]] | Omit = omit,
+        role: Optional[Literal["owner", "admin", "moderator", "sales_manager", "advertiser"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompanyCreateAPIKeyResponse:
+        """
+        Create an API key for a connected account (child company) owned by a parent
+        company.
+
+        Args:
+          child_company_id: The unique identifier of the connected account to create the API key for (e.g.
+              'biz_xxx').
+
+          name: A human-readable name for the API key, such as 'Production API Key'.
+
+          permissions: Granular permission statements defining which actions this API key can perform.
+              Either permissions or role must be provided.
+
+          role: The different system roles that can be assigned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not parent_company_id:
+            raise ValueError(f"Expected a non-empty value for `parent_company_id` but received {parent_company_id!r}")
+        return self._post(
+            path_template("/companies/{parent_company_id}/api_keys", parent_company_id=parent_company_id),
+            body=maybe_transform(
+                {
+                    "child_company_id": child_company_id,
+                    "name": name,
+                    "permissions": permissions,
+                    "role": role,
+                },
+                company_create_api_key_params.CompanyCreateAPIKeyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompanyCreateAPIKeyResponse,
+        )
+
 
 class AsyncCompaniesResource(AsyncAPIResource):
     """Companies"""
@@ -648,6 +712,63 @@ class AsyncCompaniesResource(AsyncAPIResource):
             model=CompanyListResponse,
         )
 
+    async def create_api_key(
+        self,
+        parent_company_id: str,
+        *,
+        child_company_id: str,
+        name: Optional[str] | Omit = omit,
+        permissions: Optional[Iterable[company_create_api_key_params.Permission]] | Omit = omit,
+        role: Optional[Literal["owner", "admin", "moderator", "sales_manager", "advertiser"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompanyCreateAPIKeyResponse:
+        """
+        Create an API key for a connected account (child company) owned by a parent
+        company.
+
+        Args:
+          child_company_id: The unique identifier of the connected account to create the API key for (e.g.
+              'biz_xxx').
+
+          name: A human-readable name for the API key, such as 'Production API Key'.
+
+          permissions: Granular permission statements defining which actions this API key can perform.
+              Either permissions or role must be provided.
+
+          role: The different system roles that can be assigned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not parent_company_id:
+            raise ValueError(f"Expected a non-empty value for `parent_company_id` but received {parent_company_id!r}")
+        return await self._post(
+            path_template("/companies/{parent_company_id}/api_keys", parent_company_id=parent_company_id),
+            body=await async_maybe_transform(
+                {
+                    "child_company_id": child_company_id,
+                    "name": name,
+                    "permissions": permissions,
+                    "role": role,
+                },
+                company_create_api_key_params.CompanyCreateAPIKeyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompanyCreateAPIKeyResponse,
+        )
+
 
 class CompaniesResourceWithRawResponse:
     def __init__(self, companies: CompaniesResource) -> None:
@@ -664,6 +785,9 @@ class CompaniesResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             companies.list,
+        )
+        self.create_api_key = to_raw_response_wrapper(
+            companies.create_api_key,
         )
 
 
@@ -683,6 +807,9 @@ class AsyncCompaniesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             companies.list,
         )
+        self.create_api_key = async_to_raw_response_wrapper(
+            companies.create_api_key,
+        )
 
 
 class CompaniesResourceWithStreamingResponse:
@@ -701,6 +828,9 @@ class CompaniesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             companies.list,
         )
+        self.create_api_key = to_streamed_response_wrapper(
+            companies.create_api_key,
+        )
 
 
 class AsyncCompaniesResourceWithStreamingResponse:
@@ -718,4 +848,7 @@ class AsyncCompaniesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             companies.list,
+        )
+        self.create_api_key = async_to_streamed_response_wrapper(
+            companies.create_api_key,
         )
