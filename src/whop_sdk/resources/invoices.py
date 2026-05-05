@@ -370,6 +370,7 @@ class InvoicesResource(SyncAPIResource):
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         plan: Optional[invoice_update_params.Plan] | Omit = omit,
+        product_id: Optional[str] | Omit = omit,
         subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -412,6 +413,9 @@ class InvoicesResource(SyncAPIResource):
 
           plan: Updated plan attributes.
 
+          product_id: The unique identifier of an existing product to attach to this invoice. Only
+              allowed while the invoice is still a draft.
+
           subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start.
 
           extra_headers: Send extra headers
@@ -440,6 +444,7 @@ class InvoicesResource(SyncAPIResource):
                     "member_id": member_id,
                     "payment_method_id": payment_method_id,
                     "plan": plan,
+                    "product_id": product_id,
                     "subscription_billing_anchor_at": subscription_billing_anchor_at,
                 },
                 invoice_update_params.InvoiceUpdateParams,
@@ -1030,6 +1035,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
         plan: Optional[invoice_update_params.Plan] | Omit = omit,
+        product_id: Optional[str] | Omit = omit,
         subscription_billing_anchor_at: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1072,6 +1078,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           plan: Updated plan attributes.
 
+          product_id: The unique identifier of an existing product to attach to this invoice. Only
+              allowed while the invoice is still a draft.
+
           subscription_billing_anchor_at: The date that defines when the subscription billing cycle should start.
 
           extra_headers: Send extra headers
@@ -1100,6 +1109,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     "member_id": member_id,
                     "payment_method_id": payment_method_id,
                     "plan": plan,
+                    "product_id": product_id,
                     "subscription_billing_anchor_at": subscription_billing_anchor_at,
                 },
                 invoice_update_params.InvoiceUpdateParams,

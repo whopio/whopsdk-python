@@ -65,6 +65,12 @@ class InvoiceUpdateParams(TypedDict, total=False):
     plan: Optional[Plan]
     """Updated plan attributes."""
 
+    product_id: Optional[str]
+    """The unique identifier of an existing product to attach to this invoice.
+
+    Only allowed while the invoice is still a draft.
+    """
+
     subscription_billing_anchor_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The date that defines when the subscription billing cycle should start."""
 
