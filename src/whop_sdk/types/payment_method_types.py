@@ -22,6 +22,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "bizum",
     "blik",
     "boleto",
+    "ca_bank_transfer",
     "capchase_pay",
     "card",
     "cashapp",
