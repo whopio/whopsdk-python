@@ -93,6 +93,7 @@ class PlatformConfigMeta(TypedDict, total=False):
             "REQUEST_TIME",
             "EVENT_RSVP",
             "SEE_DETAILS",
+            "VIEW_INSTAGRAM_PROFILE",
         ]
     ]
     """Call-to-action button type."""
