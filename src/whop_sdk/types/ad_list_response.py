@@ -50,6 +50,7 @@ class PlatformConfigMetaAdPlatformConfigType(BaseModel):
             "REQUEST_TIME",
             "EVENT_RSVP",
             "SEE_DETAILS",
+            "VIEW_INSTAGRAM_PROFILE",
         ]
     ] = None
 
