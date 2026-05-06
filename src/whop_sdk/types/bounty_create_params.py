@@ -48,3 +48,15 @@ class BountyCreateParams(TypedDict, total=False):
     Defaults to the requester's personal balance when omitted. The requester must be
     the user themself or an owner/admin of the company.
     """
+
+    post_markdown_content: Optional[str]
+    """Optional markdown body for the anchor forum post.
+
+    Falls back to the bounty description when omitted.
+    """
+
+    post_title: Optional[str]
+    """Optional title for the anchor forum post.
+
+    Falls back to the bounty title when omitted.
+    """

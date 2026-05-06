@@ -45,6 +45,8 @@ class TestBounties:
             allowed_country_codes=["string"],
             experience_id="exp_xxxxxxxxxxxxxx",
             origin_account_id="origin_account_id",
+            post_markdown_content="post_markdown_content",
+            post_title="post_title",
         )
         assert_matches_type(BountyCreateResponse, bounty, path=["response"])
 
@@ -193,6 +195,8 @@ class TestAsyncBounties:
             allowed_country_codes=["string"],
             experience_id="exp_xxxxxxxxxxxxxx",
             origin_account_id="origin_account_id",
+            post_markdown_content="post_markdown_content",
+            post_title="post_title",
         )
         assert_matches_type(BountyCreateResponse, bounty, path=["response"])
 
