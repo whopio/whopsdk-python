@@ -38,7 +38,16 @@ class AdCampaignListParams(TypedDict, total=False):
 
     status: Optional[
         Literal[
-            "active", "paused", "inactive", "stale", "pending_refund", "payment_failed", "draft", "in_review", "flagged"
+            "active",
+            "paused",
+            "inactive",
+            "stale",
+            "pending_refund",
+            "payment_failed",
+            "draft",
+            "in_review",
+            "flagged",
+            "importing",
         ]
     ]
     """The status of an ad campaign."""

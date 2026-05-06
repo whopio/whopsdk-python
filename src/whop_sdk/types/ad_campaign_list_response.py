@@ -83,7 +83,16 @@ class AdCampaignListResponse(BaseModel):
     """Total revenue generated from users who converted through this campaign"""
 
     status: Literal[
-        "active", "paused", "inactive", "stale", "pending_refund", "payment_failed", "draft", "in_review", "flagged"
+        "active",
+        "paused",
+        "inactive",
+        "stale",
+        "pending_refund",
+        "payment_failed",
+        "draft",
+        "in_review",
+        "flagged",
+        "importing",
     ]
     """Current status of the campaign (active, paused, or inactive)"""
 
