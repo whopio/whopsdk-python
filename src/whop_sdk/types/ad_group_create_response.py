@@ -28,7 +28,16 @@ class AdCampaign(BaseModel):
     """The platforms where an ad campaign can run."""
 
     status: Literal[
-        "active", "paused", "inactive", "stale", "pending_refund", "payment_failed", "draft", "in_review", "flagged"
+        "active",
+        "paused",
+        "inactive",
+        "stale",
+        "pending_refund",
+        "payment_failed",
+        "draft",
+        "in_review",
+        "flagged",
+        "importing",
     ]
     """Current status of the campaign (active, paused, or inactive)"""
 
