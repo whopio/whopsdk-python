@@ -62,6 +62,8 @@ class BountiesResource(SyncAPIResource):
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
+        post_markdown_content: Optional[str] | Omit = omit,
+        post_title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -98,6 +100,12 @@ class BountiesResource(SyncAPIResource):
               Defaults to the requester's personal balance when omitted. The requester must be
               the user themself or an owner/admin of the company.
 
+          post_markdown_content: Optional markdown body for the anchor forum post. Falls back to the bounty
+              description when omitted.
+
+          post_title: Optional title for the anchor forum post. Falls back to the bounty title when
+              omitted.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -118,6 +126,8 @@ class BountiesResource(SyncAPIResource):
                     "allowed_country_codes": allowed_country_codes,
                     "experience_id": experience_id,
                     "origin_account_id": origin_account_id,
+                    "post_markdown_content": post_markdown_content,
+                    "post_title": post_title,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
@@ -265,6 +275,8 @@ class AsyncBountiesResource(AsyncAPIResource):
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
+        post_markdown_content: Optional[str] | Omit = omit,
+        post_title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -301,6 +313,12 @@ class AsyncBountiesResource(AsyncAPIResource):
               Defaults to the requester's personal balance when omitted. The requester must be
               the user themself or an owner/admin of the company.
 
+          post_markdown_content: Optional markdown body for the anchor forum post. Falls back to the bounty
+              description when omitted.
+
+          post_title: Optional title for the anchor forum post. Falls back to the bounty title when
+              omitted.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -321,6 +339,8 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "allowed_country_codes": allowed_country_codes,
                     "experience_id": experience_id,
                     "origin_account_id": origin_account_id,
+                    "post_markdown_content": post_markdown_content,
+                    "post_title": post_title,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
