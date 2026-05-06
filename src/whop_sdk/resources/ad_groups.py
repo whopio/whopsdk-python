@@ -332,7 +332,7 @@ class AdGroupsResource(SyncAPIResource):
 
         Required permissions:
 
-        - `ad_campaign:delete`
+        - `ad_campaign:update`
 
         Args:
           extra_headers: Send extra headers
@@ -656,7 +656,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
         Required permissions:
 
-        - `ad_campaign:delete`
+        - `ad_campaign:update`
 
         Args:
           extra_headers: Send extra headers
