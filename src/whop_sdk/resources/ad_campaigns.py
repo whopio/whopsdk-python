@@ -273,6 +273,7 @@ class AdCampaignsResource(SyncAPIResource):
                 "in_review",
                 "flagged",
                 "importing",
+                "imported",
             ]
         ]
         | Omit = omit,
@@ -666,6 +667,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                 "in_review",
                 "flagged",
                 "importing",
+                "imported",
             ]
         ]
         | Omit = omit,
