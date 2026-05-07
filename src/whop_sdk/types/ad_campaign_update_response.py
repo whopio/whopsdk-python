@@ -496,6 +496,7 @@ class AdCampaignUpdateResponse(BaseModel):
         "in_review",
         "flagged",
         "importing",
+        "imported",
     ]
     """Current status of the campaign (active, paused, or inactive)"""
 

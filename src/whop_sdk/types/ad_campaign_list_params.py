@@ -48,6 +48,7 @@ class AdCampaignListParams(TypedDict, total=False):
             "in_review",
             "flagged",
             "importing",
+            "imported",
         ]
     ]
     """The status of an ad campaign."""
