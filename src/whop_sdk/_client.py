@@ -63,6 +63,7 @@ if TYPE_CHECKING:
         reactions,
         shipments,
         transfers,
+        ad_reports,
         affiliates,
         app_builds,
         dm_members,
@@ -123,6 +124,7 @@ if TYPE_CHECKING:
     from .resources.reactions import ReactionsResource, AsyncReactionsResource
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
     from .resources.transfers import TransfersResource, AsyncTransfersResource
+    from .resources.ad_reports import AdReportsResource, AsyncAdReportsResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
     from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
     from .resources.conversions import ConversionsResource, AsyncConversionsResource
@@ -606,6 +608,13 @@ class Whop(SyncAPIClient):
         from .resources.conversions import ConversionsResource
 
         return ConversionsResource(self)
+
+    @cached_property
+    def ad_reports(self) -> AdReportsResource:
+        """Ad reports"""
+        from .resources.ad_reports import AdReportsResource
+
+        return AdReportsResource(self)
 
     @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
@@ -1168,6 +1177,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncConversionsResource(self)
 
     @cached_property
+    def ad_reports(self) -> AsyncAdReportsResource:
+        """Ad reports"""
+        from .resources.ad_reports import AsyncAdReportsResource
+
+        return AsyncAdReportsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1654,6 +1670,13 @@ class WhopWithRawResponse:
 
         return ConversionsResourceWithRawResponse(self._client.conversions)
 
+    @cached_property
+    def ad_reports(self) -> ad_reports.AdReportsResourceWithRawResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AdReportsResourceWithRawResponse
+
+        return AdReportsResourceWithRawResponse(self._client.ad_reports)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -2028,6 +2051,13 @@ class AsyncWhopWithRawResponse:
 
         return AsyncConversionsResourceWithRawResponse(self._client.conversions)
 
+    @cached_property
+    def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithRawResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AsyncAdReportsResourceWithRawResponse
+
+        return AsyncAdReportsResourceWithRawResponse(self._client.ad_reports)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -2401,6 +2431,13 @@ class WhopWithStreamedResponse:
         from .resources.conversions import ConversionsResourceWithStreamingResponse
 
         return ConversionsResourceWithStreamingResponse(self._client.conversions)
+
+    @cached_property
+    def ad_reports(self) -> ad_reports.AdReportsResourceWithStreamingResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AdReportsResourceWithStreamingResponse
+
+        return AdReportsResourceWithStreamingResponse(self._client.ad_reports)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2779,6 +2816,13 @@ class AsyncWhopWithStreamedResponse:
         from .resources.conversions import AsyncConversionsResourceWithStreamingResponse
 
         return AsyncConversionsResourceWithStreamingResponse(self._client.conversions)
+
+    @cached_property
+    def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithStreamingResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AsyncAdReportsResourceWithStreamingResponse
+
+        return AsyncAdReportsResourceWithStreamingResponse(self._client.ad_reports)
 
 
 Client = Whop
