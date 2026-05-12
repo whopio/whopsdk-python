@@ -19,7 +19,11 @@ from ._types import (
     RequestOptions,
     not_given,
 )
-from ._utils import is_given, get_async_library
+from ._utils import (
+    is_given,
+    is_mapping_t,
+    get_async_library,
+)
 from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
@@ -32,6 +36,7 @@ from ._base_client import (
 
 if TYPE_CHECKING:
     from .resources import (
+        ads,
         apps,
         files,
         leads,
@@ -45,19 +50,23 @@ if TYPE_CHECKING:
         refunds,
         reviews,
         ai_chats,
+        bounties,
         disputes,
         invoices,
         messages,
         payments,
         products,
         webhooks,
+        ad_groups,
         companies,
         reactions,
         shipments,
         transfers,
+        ad_reports,
         affiliates,
         app_builds,
         dm_members,
+        conversions,
         dm_channels,
         experiences,
         fee_markups,
@@ -65,6 +74,7 @@ if TYPE_CHECKING:
         memberships,
         promo_codes,
         withdrawals,
+        ad_campaigns,
         access_tokens,
         account_links,
         chat_channels,
@@ -86,6 +96,7 @@ if TYPE_CHECKING:
         company_token_transactions,
         course_lesson_interactions,
     )
+    from .resources.ads import AdsResource, AsyncAdsResource
     from .resources.apps import AppsResource, AsyncAppsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
@@ -99,18 +110,22 @@ if TYPE_CHECKING:
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
+    from .resources.bounties import BountiesResource, AsyncBountiesResource
     from .resources.disputes import DisputesResource, AsyncDisputesResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
     from .resources.messages import MessagesResource, AsyncMessagesResource
     from .resources.payments import PaymentsResource, AsyncPaymentsResource
     from .resources.products import ProductsResource, AsyncProductsResource
     from .resources.webhooks import WebhooksResource, AsyncWebhooksResource
+    from .resources.ad_groups import AdGroupsResource, AsyncAdGroupsResource
     from .resources.companies import CompaniesResource, AsyncCompaniesResource
     from .resources.reactions import ReactionsResource, AsyncReactionsResource
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
     from .resources.transfers import TransfersResource, AsyncTransfersResource
+    from .resources.ad_reports import AdReportsResource, AsyncAdReportsResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
     from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
+    from .resources.conversions import ConversionsResource, AsyncConversionsResource
     from .resources.dm_channels import DmChannelsResource, AsyncDmChannelsResource
     from .resources.experiences import ExperiencesResource, AsyncExperiencesResource
     from .resources.fee_markups import FeeMarkupsResource, AsyncFeeMarkupsResource
@@ -118,6 +133,7 @@ if TYPE_CHECKING:
     from .resources.memberships import MembershipsResource, AsyncMembershipsResource
     from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
     from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
+    from .resources.ad_campaigns import AdCampaignsResource, AsyncAdCampaignsResource
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.account_links import AccountLinksResource, AsyncAccountLinksResource
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
@@ -207,6 +223,15 @@ class Whop(SyncAPIClient):
             base_url = os.environ.get("WHOP_BASE_URL")
         if base_url is None:
             base_url = f"https://api.whop.com/api/v1"
+
+        custom_headers_env = os.environ.get("WHOP_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
 
         super().__init__(
             version=__version__,
@@ -541,6 +566,48 @@ class Whop(SyncAPIClient):
         return AffiliatesResource(self)
 
     @cached_property
+    def bounties(self) -> BountiesResource:
+        """Bounties"""
+        from .resources.bounties import BountiesResource
+
+        return BountiesResource(self)
+
+    @cached_property
+    def ad_campaigns(self) -> AdCampaignsResource:
+        """Ad campaigns"""
+        from .resources.ad_campaigns import AdCampaignsResource
+
+        return AdCampaignsResource(self)
+
+    @cached_property
+    def ad_groups(self) -> AdGroupsResource:
+        """Ad groups"""
+        from .resources.ad_groups import AdGroupsResource
+
+        return AdGroupsResource(self)
+
+    @cached_property
+    def ads(self) -> AdsResource:
+        """Ads"""
+        from .resources.ads import AdsResource
+
+        return AdsResource(self)
+
+    @cached_property
+    def conversions(self) -> ConversionsResource:
+        """Conversions"""
+        from .resources.conversions import ConversionsResource
+
+        return ConversionsResource(self)
+
+    @cached_property
+    def ad_reports(self) -> AdReportsResource:
+        """Ad reports"""
+        from .resources.ad_reports import AdReportsResource
+
+        return AdReportsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
         return WhopWithRawResponse(self)
 
@@ -716,6 +783,15 @@ class AsyncWhop(AsyncAPIClient):
             base_url = os.environ.get("WHOP_BASE_URL")
         if base_url is None:
             base_url = f"https://api.whop.com/api/v1"
+
+        custom_headers_env = os.environ.get("WHOP_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
 
         super().__init__(
             version=__version__,
@@ -1048,6 +1124,48 @@ class AsyncWhop(AsyncAPIClient):
         from .resources.affiliates import AsyncAffiliatesResource
 
         return AsyncAffiliatesResource(self)
+
+    @cached_property
+    def bounties(self) -> AsyncBountiesResource:
+        """Bounties"""
+        from .resources.bounties import AsyncBountiesResource
+
+        return AsyncBountiesResource(self)
+
+    @cached_property
+    def ad_campaigns(self) -> AsyncAdCampaignsResource:
+        """Ad campaigns"""
+        from .resources.ad_campaigns import AsyncAdCampaignsResource
+
+        return AsyncAdCampaignsResource(self)
+
+    @cached_property
+    def ad_groups(self) -> AsyncAdGroupsResource:
+        """Ad groups"""
+        from .resources.ad_groups import AsyncAdGroupsResource
+
+        return AsyncAdGroupsResource(self)
+
+    @cached_property
+    def ads(self) -> AsyncAdsResource:
+        """Ads"""
+        from .resources.ads import AsyncAdsResource
+
+        return AsyncAdsResource(self)
+
+    @cached_property
+    def conversions(self) -> AsyncConversionsResource:
+        """Conversions"""
+        from .resources.conversions import AsyncConversionsResource
+
+        return AsyncConversionsResource(self)
+
+    @cached_property
+    def ad_reports(self) -> AsyncAdReportsResource:
+        """Ad reports"""
+        from .resources.ad_reports import AsyncAdReportsResource
+
+        return AsyncAdReportsResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
@@ -1494,6 +1612,48 @@ class WhopWithRawResponse:
 
         return AffiliatesResourceWithRawResponse(self._client.affiliates)
 
+    @cached_property
+    def bounties(self) -> bounties.BountiesResourceWithRawResponse:
+        """Bounties"""
+        from .resources.bounties import BountiesResourceWithRawResponse
+
+        return BountiesResourceWithRawResponse(self._client.bounties)
+
+    @cached_property
+    def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithRawResponse:
+        """Ad campaigns"""
+        from .resources.ad_campaigns import AdCampaignsResourceWithRawResponse
+
+        return AdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
+
+    @cached_property
+    def ad_groups(self) -> ad_groups.AdGroupsResourceWithRawResponse:
+        """Ad groups"""
+        from .resources.ad_groups import AdGroupsResourceWithRawResponse
+
+        return AdGroupsResourceWithRawResponse(self._client.ad_groups)
+
+    @cached_property
+    def ads(self) -> ads.AdsResourceWithRawResponse:
+        """Ads"""
+        from .resources.ads import AdsResourceWithRawResponse
+
+        return AdsResourceWithRawResponse(self._client.ads)
+
+    @cached_property
+    def conversions(self) -> conversions.ConversionsResourceWithRawResponse:
+        """Conversions"""
+        from .resources.conversions import ConversionsResourceWithRawResponse
+
+        return ConversionsResourceWithRawResponse(self._client.conversions)
+
+    @cached_property
+    def ad_reports(self) -> ad_reports.AdReportsResourceWithRawResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AdReportsResourceWithRawResponse
+
+        return AdReportsResourceWithRawResponse(self._client.ad_reports)
+
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1826,6 +1986,48 @@ class AsyncWhopWithRawResponse:
 
         return AsyncAffiliatesResourceWithRawResponse(self._client.affiliates)
 
+    @cached_property
+    def bounties(self) -> bounties.AsyncBountiesResourceWithRawResponse:
+        """Bounties"""
+        from .resources.bounties import AsyncBountiesResourceWithRawResponse
+
+        return AsyncBountiesResourceWithRawResponse(self._client.bounties)
+
+    @cached_property
+    def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithRawResponse:
+        """Ad campaigns"""
+        from .resources.ad_campaigns import AsyncAdCampaignsResourceWithRawResponse
+
+        return AsyncAdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
+
+    @cached_property
+    def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithRawResponse:
+        """Ad groups"""
+        from .resources.ad_groups import AsyncAdGroupsResourceWithRawResponse
+
+        return AsyncAdGroupsResourceWithRawResponse(self._client.ad_groups)
+
+    @cached_property
+    def ads(self) -> ads.AsyncAdsResourceWithRawResponse:
+        """Ads"""
+        from .resources.ads import AsyncAdsResourceWithRawResponse
+
+        return AsyncAdsResourceWithRawResponse(self._client.ads)
+
+    @cached_property
+    def conversions(self) -> conversions.AsyncConversionsResourceWithRawResponse:
+        """Conversions"""
+        from .resources.conversions import AsyncConversionsResourceWithRawResponse
+
+        return AsyncConversionsResourceWithRawResponse(self._client.conversions)
+
+    @cached_property
+    def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithRawResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AsyncAdReportsResourceWithRawResponse
+
+        return AsyncAdReportsResourceWithRawResponse(self._client.ad_reports)
+
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -2157,6 +2359,48 @@ class WhopWithStreamedResponse:
         from .resources.affiliates import AffiliatesResourceWithStreamingResponse
 
         return AffiliatesResourceWithStreamingResponse(self._client.affiliates)
+
+    @cached_property
+    def bounties(self) -> bounties.BountiesResourceWithStreamingResponse:
+        """Bounties"""
+        from .resources.bounties import BountiesResourceWithStreamingResponse
+
+        return BountiesResourceWithStreamingResponse(self._client.bounties)
+
+    @cached_property
+    def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithStreamingResponse:
+        """Ad campaigns"""
+        from .resources.ad_campaigns import AdCampaignsResourceWithStreamingResponse
+
+        return AdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
+
+    @cached_property
+    def ad_groups(self) -> ad_groups.AdGroupsResourceWithStreamingResponse:
+        """Ad groups"""
+        from .resources.ad_groups import AdGroupsResourceWithStreamingResponse
+
+        return AdGroupsResourceWithStreamingResponse(self._client.ad_groups)
+
+    @cached_property
+    def ads(self) -> ads.AdsResourceWithStreamingResponse:
+        """Ads"""
+        from .resources.ads import AdsResourceWithStreamingResponse
+
+        return AdsResourceWithStreamingResponse(self._client.ads)
+
+    @cached_property
+    def conversions(self) -> conversions.ConversionsResourceWithStreamingResponse:
+        """Conversions"""
+        from .resources.conversions import ConversionsResourceWithStreamingResponse
+
+        return ConversionsResourceWithStreamingResponse(self._client.conversions)
+
+    @cached_property
+    def ad_reports(self) -> ad_reports.AdReportsResourceWithStreamingResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AdReportsResourceWithStreamingResponse
+
+        return AdReportsResourceWithStreamingResponse(self._client.ad_reports)
 
 
 class AsyncWhopWithStreamedResponse:
@@ -2493,6 +2737,48 @@ class AsyncWhopWithStreamedResponse:
         from .resources.affiliates import AsyncAffiliatesResourceWithStreamingResponse
 
         return AsyncAffiliatesResourceWithStreamingResponse(self._client.affiliates)
+
+    @cached_property
+    def bounties(self) -> bounties.AsyncBountiesResourceWithStreamingResponse:
+        """Bounties"""
+        from .resources.bounties import AsyncBountiesResourceWithStreamingResponse
+
+        return AsyncBountiesResourceWithStreamingResponse(self._client.bounties)
+
+    @cached_property
+    def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithStreamingResponse:
+        """Ad campaigns"""
+        from .resources.ad_campaigns import AsyncAdCampaignsResourceWithStreamingResponse
+
+        return AsyncAdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
+
+    @cached_property
+    def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithStreamingResponse:
+        """Ad groups"""
+        from .resources.ad_groups import AsyncAdGroupsResourceWithStreamingResponse
+
+        return AsyncAdGroupsResourceWithStreamingResponse(self._client.ad_groups)
+
+    @cached_property
+    def ads(self) -> ads.AsyncAdsResourceWithStreamingResponse:
+        """Ads"""
+        from .resources.ads import AsyncAdsResourceWithStreamingResponse
+
+        return AsyncAdsResourceWithStreamingResponse(self._client.ads)
+
+    @cached_property
+    def conversions(self) -> conversions.AsyncConversionsResourceWithStreamingResponse:
+        """Conversions"""
+        from .resources.conversions import AsyncConversionsResourceWithStreamingResponse
+
+        return AsyncConversionsResourceWithStreamingResponse(self._client.conversions)
+
+    @cached_property
+    def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithStreamingResponse:
+        """Ad reports"""
+        from .resources.ad_reports import AsyncAdReportsResourceWithStreamingResponse
+
+        return AsyncAdReportsResourceWithStreamingResponse(self._client.ad_reports)
 
 
 Client = Whop

@@ -65,6 +65,12 @@ class InvoiceUpdateParams(TypedDict, total=False):
     plan: Optional[Plan]
     """Updated plan attributes."""
 
+    product_id: Optional[str]
+    """The unique identifier of an existing product to attach to this invoice.
+
+    Only allowed while the invoice is still a draft.
+    """
+
     subscription_billing_anchor_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The date that defines when the subscription billing cycle should start."""
 
@@ -161,7 +167,7 @@ class PlanPaymentMethodConfiguration(TypedDict, total=False):
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in

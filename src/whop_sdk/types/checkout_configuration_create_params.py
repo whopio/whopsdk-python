@@ -124,7 +124,7 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguratio
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in
@@ -194,6 +194,9 @@ class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
 
     currency: Required[Currency]
     """The respective currency identifier for the plan."""
+
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
 
     application_fee_amount: Optional[float]
     """The application fee amount collected by the platform from this connected
@@ -298,6 +301,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling(TypedDict, to
     Overrides plan and company defaults.
     """
 
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
+    """
+
     border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 
@@ -328,7 +337,7 @@ class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(Ty
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in
@@ -386,6 +395,12 @@ class CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling(TypedDict, 
     Overrides plan and company defaults.
     """
 
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
+    """
+
     border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 
@@ -416,7 +431,7 @@ class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in
@@ -471,6 +486,12 @@ class CreateCheckoutSessionInputModeSetupCheckoutStyling(TypedDict, total=False)
     Overrides plan and company defaults.
     """
 
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
+    """
+
     border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 
@@ -501,7 +522,7 @@ class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, t
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in

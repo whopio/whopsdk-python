@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["FileCreateParams"]
 
@@ -12,4 +13,10 @@ class FileCreateParams(TypedDict, total=False):
     """
     The name of the file including its extension (e.g., "photo.png" or
     "document.pdf").
+    """
+
+    visibility: Optional[Literal["public", "private"]]
+    """
+    Controls whether an uploaded file is publicly accessible or requires
+    authentication to access.
     """

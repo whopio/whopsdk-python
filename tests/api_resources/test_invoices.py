@@ -367,6 +367,7 @@ class TestInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
+            product_id="prod_xxxxxxxxxxxxx",
             subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])
@@ -974,6 +975,7 @@ class TestAsyncInvoices:
                 "unlimited_stock": True,
                 "visibility": "visible",
             },
+            product_id="prod_xxxxxxxxxxxxx",
             subscription_billing_anchor_at=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Invoice, invoice, path=["response"])

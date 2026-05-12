@@ -10,7 +10,9 @@ __all__ = ["PaymentRefundParams"]
 
 class PaymentRefundParams(TypedDict, total=False):
     partial_amount: Optional[float]
-    """The amount to refund in the payment currency.
+    """The amount to refund.
 
-    If omitted, the full payment amount is refunded.
+    For multi-currency payments, this is in the charge currency (what the buyer
+    paid). For single-currency, this is in the payment currency. If omitted, the
+    full payment amount is refunded.
     """

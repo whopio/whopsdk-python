@@ -17,7 +17,7 @@ class Data(BaseModel):
     """
 
     id: str
-    """The unique identifier for the verification."""
+    """The numeric id of the verification record."""
 
     last_error_code: Optional[VerificationErrorCode] = None
     """An error code for a verification attempt."""

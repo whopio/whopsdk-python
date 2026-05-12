@@ -131,7 +131,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import SocialLinkWebsites, CompanyListResponse
+from whop_sdk.types import SocialLinkWebsites, CompanyListResponse, CompanyCreateAPIKeyResponse
 ```
 
 Methods:
@@ -140,6 +140,7 @@ Methods:
 - <code title="get /companies/{id}">client.companies.<a href="./src/whop_sdk/resources/companies.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
 - <code title="patch /companies/{id}">client.companies.<a href="./src/whop_sdk/resources/companies.py">update</a>(id, \*\*<a href="src/whop_sdk/types/company_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
 - <code title="get /companies">client.companies.<a href="./src/whop_sdk/resources/companies.py">list</a>(\*\*<a href="src/whop_sdk/types/company_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/company_list_response.py">SyncCursorPage[CompanyListResponse]</a></code>
+- <code title="post /companies/{parent_company_id}/api_keys">client.companies.<a href="./src/whop_sdk/resources/companies.py">create_api_key</a>(parent_company_id, \*\*<a href="src/whop_sdk/types/company_create_api_key_params.py">params</a>) -> <a href="./src/whop_sdk/types/company_create_api_key_response.py">CompanyCreateAPIKeyResponse</a></code>
 
 # Webhooks
 
@@ -984,3 +985,96 @@ Methods:
 - <code title="patch /affiliates/{id}/overrides/{override_id}">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">update</a>(override_id, \*, id, \*\*<a href="src/whop_sdk/types/affiliates/override_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliates/override_update_response.py">OverrideUpdateResponse</a></code>
 - <code title="get /affiliates/{id}/overrides">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">list</a>(id, \*\*<a href="src/whop_sdk/types/affiliates/override_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliates/override_list_response.py">SyncCursorPage[OverrideListResponse]</a></code>
 - <code title="delete /affiliates/{id}/overrides/{override_id}">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">delete</a>(override_id, \*, id) -> <a href="./src/whop_sdk/types/affiliates/override_delete_response.py">OverrideDeleteResponse</a></code>
+
+# Bounties
+
+Types:
+
+```python
+from whop_sdk.types import BountyCreateResponse, BountyRetrieveResponse, BountyListResponse
+```
+
+Methods:
+
+- <code title="post /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_create_response.py">BountyCreateResponse</a></code>
+- <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty_retrieve_response.py">BountyRetrieveResponse</a></code>
+- <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_response.py">SyncCursorPage[BountyListResponse]</a></code>
+
+# AdCampaigns
+
+Types:
+
+```python
+from whop_sdk.types import (
+    AdCampaignRetrieveResponse,
+    AdCampaignUpdateResponse,
+    AdCampaignListResponse,
+    AdCampaignPauseResponse,
+    AdCampaignUnpauseResponse,
+)
+```
+
+Methods:
+
+- <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_retrieve_response.py">AdCampaignRetrieveResponse</a></code>
+- <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_update_response.py">AdCampaignUpdateResponse</a></code>
+- <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_list_response.py">SyncCursorPage[AdCampaignListResponse]</a></code>
+- <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_pause_response.py">AdCampaignPauseResponse</a></code>
+- <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_unpause_response.py">AdCampaignUnpauseResponse</a></code>
+
+# AdGroups
+
+Types:
+
+```python
+from whop_sdk.types import (
+    AdGroupRetrieveResponse,
+    AdGroupUpdateResponse,
+    AdGroupListResponse,
+    AdGroupDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_group_retrieve_response.py">AdGroupRetrieveResponse</a></code>
+- <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_update_response.py">AdGroupUpdateResponse</a></code>
+- <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_list_response.py">SyncCursorPage[AdGroupListResponse]</a></code>
+- <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
+
+# Ads
+
+Types:
+
+```python
+from whop_sdk.types import AdRetrieveResponse, AdListResponse
+```
+
+Methods:
+
+- <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_retrieve_response.py">AdRetrieveResponse</a></code>
+- <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_list_response.py">SyncCursorPage[AdListResponse]</a></code>
+
+# Conversions
+
+Types:
+
+```python
+from whop_sdk.types import ConversionCreateResponse
+```
+
+Methods:
+
+- <code title="post /conversions">client.conversions.<a href="./src/whop_sdk/resources/conversions.py">create</a>(\*\*<a href="src/whop_sdk/types/conversion_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/conversion_create_response.py">ConversionCreateResponse</a></code>
+
+# AdReports
+
+Types:
+
+```python
+from whop_sdk.types import AdReportRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /ad_reports">client.ad_reports.<a href="./src/whop_sdk/resources/ad_reports.py">retrieve</a>(\*\*<a href="src/whop_sdk/types/ad_report_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_report_retrieve_response.py">AdReportRetrieveResponse</a></code>

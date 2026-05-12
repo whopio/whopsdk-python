@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .ads import (
+    AdsResource,
+    AsyncAdsResource,
+    AdsResourceWithRawResponse,
+    AsyncAdsResourceWithRawResponse,
+    AdsResourceWithStreamingResponse,
+    AsyncAdsResourceWithStreamingResponse,
+)
 from .apps import (
     AppsResource,
     AsyncAppsResource,
@@ -104,6 +112,14 @@ from .ai_chats import (
     AIChatsResourceWithStreamingResponse,
     AsyncAIChatsResourceWithStreamingResponse,
 )
+from .bounties import (
+    BountiesResource,
+    AsyncBountiesResource,
+    BountiesResourceWithRawResponse,
+    AsyncBountiesResourceWithRawResponse,
+    BountiesResourceWithStreamingResponse,
+    AsyncBountiesResourceWithStreamingResponse,
+)
 from .disputes import (
     DisputesResource,
     AsyncDisputesResource,
@@ -152,6 +168,14 @@ from .webhooks import (
     WebhooksResourceWithStreamingResponse,
     AsyncWebhooksResourceWithStreamingResponse,
 )
+from .ad_groups import (
+    AdGroupsResource,
+    AsyncAdGroupsResource,
+    AdGroupsResourceWithRawResponse,
+    AsyncAdGroupsResourceWithRawResponse,
+    AdGroupsResourceWithStreamingResponse,
+    AsyncAdGroupsResourceWithStreamingResponse,
+)
 from .companies import (
     CompaniesResource,
     AsyncCompaniesResource,
@@ -184,6 +208,14 @@ from .transfers import (
     TransfersResourceWithStreamingResponse,
     AsyncTransfersResourceWithStreamingResponse,
 )
+from .ad_reports import (
+    AdReportsResource,
+    AsyncAdReportsResource,
+    AdReportsResourceWithRawResponse,
+    AsyncAdReportsResourceWithRawResponse,
+    AdReportsResourceWithStreamingResponse,
+    AsyncAdReportsResourceWithStreamingResponse,
+)
 from .affiliates import (
     AffiliatesResource,
     AsyncAffiliatesResource,
@@ -207,6 +239,14 @@ from .dm_members import (
     AsyncDmMembersResourceWithRawResponse,
     DmMembersResourceWithStreamingResponse,
     AsyncDmMembersResourceWithStreamingResponse,
+)
+from .conversions import (
+    ConversionsResource,
+    AsyncConversionsResource,
+    ConversionsResourceWithRawResponse,
+    AsyncConversionsResourceWithRawResponse,
+    ConversionsResourceWithStreamingResponse,
+    AsyncConversionsResourceWithStreamingResponse,
 )
 from .dm_channels import (
     DmChannelsResource,
@@ -263,6 +303,14 @@ from .withdrawals import (
     AsyncWithdrawalsResourceWithRawResponse,
     WithdrawalsResourceWithStreamingResponse,
     AsyncWithdrawalsResourceWithStreamingResponse,
+)
+from .ad_campaigns import (
+    AdCampaignsResource,
+    AsyncAdCampaignsResource,
+    AdCampaignsResourceWithRawResponse,
+    AsyncAdCampaignsResourceWithRawResponse,
+    AdCampaignsResourceWithStreamingResponse,
+    AsyncAdCampaignsResourceWithStreamingResponse,
 )
 from .access_tokens import (
     AccessTokensResource,
@@ -744,4 +792,40 @@ __all__ = [
     "AsyncAffiliatesResourceWithRawResponse",
     "AffiliatesResourceWithStreamingResponse",
     "AsyncAffiliatesResourceWithStreamingResponse",
+    "BountiesResource",
+    "AsyncBountiesResource",
+    "BountiesResourceWithRawResponse",
+    "AsyncBountiesResourceWithRawResponse",
+    "BountiesResourceWithStreamingResponse",
+    "AsyncBountiesResourceWithStreamingResponse",
+    "AdCampaignsResource",
+    "AsyncAdCampaignsResource",
+    "AdCampaignsResourceWithRawResponse",
+    "AsyncAdCampaignsResourceWithRawResponse",
+    "AdCampaignsResourceWithStreamingResponse",
+    "AsyncAdCampaignsResourceWithStreamingResponse",
+    "AdGroupsResource",
+    "AsyncAdGroupsResource",
+    "AdGroupsResourceWithRawResponse",
+    "AsyncAdGroupsResourceWithRawResponse",
+    "AdGroupsResourceWithStreamingResponse",
+    "AsyncAdGroupsResourceWithStreamingResponse",
+    "AdsResource",
+    "AsyncAdsResource",
+    "AdsResourceWithRawResponse",
+    "AsyncAdsResourceWithRawResponse",
+    "AdsResourceWithStreamingResponse",
+    "AsyncAdsResourceWithStreamingResponse",
+    "ConversionsResource",
+    "AsyncConversionsResource",
+    "ConversionsResourceWithRawResponse",
+    "AsyncConversionsResourceWithRawResponse",
+    "ConversionsResourceWithStreamingResponse",
+    "AsyncConversionsResourceWithStreamingResponse",
+    "AdReportsResource",
+    "AsyncAdReportsResource",
+    "AdReportsResourceWithRawResponse",
+    "AsyncAdReportsResourceWithRawResponse",
+    "AdReportsResourceWithStreamingResponse",
+    "AsyncAdReportsResourceWithStreamingResponse",
 ]

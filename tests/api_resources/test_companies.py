@@ -11,6 +11,7 @@ from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
     CompanyListResponse,
+    CompanyCreateAPIKeyResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -215,6 +216,70 @@ class TestCompanies:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_api_key(self, client: Whop) -> None:
+        company = client.companies.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+        )
+        assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_api_key_with_all_params(self, client: Whop) -> None:
+        company = client.companies.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+            name="name",
+            permissions=[
+                {
+                    "actions": ["string"],
+                    "grant": True,
+                    "resources": ["string"],
+                }
+            ],
+            role="owner",
+        )
+        assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_api_key(self, client: Whop) -> None:
+        response = client.companies.with_raw_response.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        company = response.parse()
+        assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_api_key(self, client: Whop) -> None:
+        with client.companies.with_streaming_response.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            company = response.parse()
+            assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_create_api_key(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `parent_company_id` but received ''"):
+            client.companies.with_raw_response.create_api_key(
+                parent_company_id="",
+                child_company_id="child_company_id",
+            )
+
 
 class TestAsyncCompanies:
     parametrize = pytest.mark.parametrize(
@@ -413,3 +478,67 @@ class TestAsyncCompanies:
             assert_matches_type(AsyncCursorPage[CompanyListResponse], company, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_api_key(self, async_client: AsyncWhop) -> None:
+        company = await async_client.companies.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+        )
+        assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_api_key_with_all_params(self, async_client: AsyncWhop) -> None:
+        company = await async_client.companies.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+            name="name",
+            permissions=[
+                {
+                    "actions": ["string"],
+                    "grant": True,
+                    "resources": ["string"],
+                }
+            ],
+            role="owner",
+        )
+        assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_api_key(self, async_client: AsyncWhop) -> None:
+        response = await async_client.companies.with_raw_response.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        company = await response.parse()
+        assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_api_key(self, async_client: AsyncWhop) -> None:
+        async with async_client.companies.with_streaming_response.create_api_key(
+            parent_company_id="parent_company_id",
+            child_company_id="child_company_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            company = await response.parse()
+            assert_matches_type(CompanyCreateAPIKeyResponse, company, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_create_api_key(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `parent_company_id` but received ''"):
+            await async_client.companies.with_raw_response.create_api_key(
+                parent_company_id="",
+                child_company_id="child_company_id",
+            )

@@ -16,6 +16,9 @@ __all__ = ["PlanUpdateParams", "CheckoutStyling", "CustomField", "Image", "Payme
 
 
 class PlanUpdateParams(TypedDict, total=False):
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
+
     billing_period: Optional[int]
     """The number of days between recurring charges.
 
@@ -116,6 +119,12 @@ class CheckoutStyling(TypedDict, total=False):
     Pass null to remove all overrides and inherit from the company default.
     """
 
+    background_color: Optional[str]
+    """
+    A hex color code for the checkout page background, applied to the order summary
+    panel (e.g. #F4F4F5).
+    """
+
     border_style: Optional[CheckoutShape]
     """The different border-radius styles available for checkout pages."""
 
@@ -173,7 +182,7 @@ class PaymentMethodConfiguration(TypedDict, total=False):
     defaults with additional methods.
     """
 
-    include_platform_defaults: Required[bool]
+    include_platform_defaults: Optional[bool]
     """
     Whether Whop's platform default payment method enablement settings are included
     in this configuration. The full list of default payment methods can be found in

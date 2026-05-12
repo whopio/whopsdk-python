@@ -397,6 +397,12 @@ class Payment(BaseModel):
     Null if the payment was not made with a card.
     """
 
+    checkout_configuration_id: Optional[str] = None
+    """The ID of the checkout session/configuration that produced this payment, if any.
+
+    Use this to map payments back to the checkout configuration that created them.
+    """
+
     company: Optional[Company] = None
     """The company for the payment."""
 
@@ -500,6 +506,25 @@ class Payment(BaseModel):
     True when the payment status is `open` and its membership is in one of the
     retry-eligible states (`active`, `trialing`, `completed`, or `past_due`);
     otherwise false. Used to decide if Whop can attempt the charge again.
+    """
+
+    settlement_amount: float
+    """
+    The payment amount in the creator's settlement currency (what the creator priced
+    in). Equal to final_amount for single-currency payments.
+    """
+
+    settlement_currency: str
+    """
+    The currency in which the creator receives payouts and fees are charged (e.g.,
+    'usd', 'eur'). For multi-currency payments this differs from the payment
+    currency.
+    """
+
+    settlement_exchange_rate: Optional[float] = None
+    """
+    The locked exchange rate used to convert from the buyer's payment currency to
+    the creator's settlement currency. Null for single-currency payments.
     """
 
     status: Optional[ReceiptStatus] = None
