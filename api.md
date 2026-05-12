@@ -1028,7 +1028,6 @@ Types:
 
 ```python
 from whop_sdk.types import (
-    AdGroupCreateResponse,
     AdGroupRetrieveResponse,
     AdGroupUpdateResponse,
     AdGroupListResponse,
@@ -1038,7 +1037,6 @@ from whop_sdk.types import (
 
 Methods:
 
-- <code title="post /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">create</a>(\*\*<a href="src/whop_sdk/types/ad_group_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_create_response.py">AdGroupCreateResponse</a></code>
 - <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_group_retrieve_response.py">AdGroupRetrieveResponse</a></code>
 - <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_update_response.py">AdGroupUpdateResponse</a></code>
 - <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_list_response.py">SyncCursorPage[AdGroupListResponse]</a></code>
@@ -1049,12 +1047,11 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AdCreateResponse, AdRetrieveResponse, AdListResponse
+from whop_sdk.types import AdRetrieveResponse, AdListResponse
 ```
 
 Methods:
 
-- <code title="post /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">create</a>(\*\*<a href="src/whop_sdk/types/ad_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_create_response.py">AdCreateResponse</a></code>
 - <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_retrieve_response.py">AdRetrieveResponse</a></code>
 - <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_list_response.py">SyncCursorPage[AdListResponse]</a></code>
 

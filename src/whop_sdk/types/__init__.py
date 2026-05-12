@@ -97,7 +97,6 @@ from .app_list_params import AppListParams as AppListParams
 from .authorized_user import AuthorizedUser as AuthorizedUser
 from .billing_reasons import BillingReasons as BillingReasons
 from .fee_markup_type import FeeMarkupType as FeeMarkupType
-from .ad_create_params import AdCreateParams as AdCreateParams
 from .ad_list_response import AdListResponse as AdListResponse
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
@@ -112,7 +111,6 @@ from .forum_list_params import ForumListParams as ForumListParams
 from .promo_code_status import PromoCodeStatus as PromoCodeStatus
 from .withdrawal_speeds import WithdrawalSpeeds as WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus as WithdrawalStatus
-from .ad_create_response import AdCreateResponse as AdCreateResponse
 from .bounty_list_params import BountyListParams as BountyListParams
 from .course_list_params import CourseListParams as CourseListParams
 from .dispute_alert_type import DisputeAlertType as DisputeAlertType
@@ -192,7 +190,6 @@ from .topup_create_response import TopupCreateResponse as TopupCreateResponse
 from .webhook_create_params import WebhookCreateParams as WebhookCreateParams
 from .webhook_list_response import WebhookListResponse as WebhookListResponse
 from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
-from .ad_group_create_params import AdGroupCreateParams as AdGroupCreateParams
 from .ad_group_list_response import AdGroupListResponse as AdGroupListResponse
 from .ad_group_update_params import AdGroupUpdateParams as AdGroupUpdateParams
 from .bounty_create_response import BountyCreateResponse as BountyCreateResponse
@@ -231,7 +228,6 @@ from .refund_reference_status import RefundReferenceStatus as RefundReferenceSta
 from .verification_error_code import VerificationErrorCode as VerificationErrorCode
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
-from .ad_group_create_response import AdGroupCreateResponse as AdGroupCreateResponse
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse
 from .ad_group_update_response import AdGroupUpdateResponse as AdGroupUpdateResponse
 from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse

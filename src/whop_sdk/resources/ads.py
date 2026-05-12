@@ -8,9 +8,9 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_list_params, ad_create_params
+from ..types import ad_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -22,7 +22,6 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_list_response import AdListResponse
-from ..types.ad_create_response import AdCreateResponse
 from ..types.ad_retrieve_response import AdRetrieveResponse
 
 __all__ = ["AdsResource", "AsyncAdsResource"]
@@ -49,72 +48,6 @@ class AdsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return AdsResourceWithStreamingResponse(self)
-
-    def create(
-        self,
-        *,
-        ad_group_id: str,
-        creative_set_id: Optional[str] | Omit = omit,
-        existing_instagram_media_id: Optional[str] | Omit = omit,
-        existing_post_id: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_create_params.PlatformConfig] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCreateResponse:
-        """
-        Create an ad within an ad group.
-
-        Required permissions:
-
-        - `ad_campaign:create`
-        - `ad_campaign:basic:read`
-
-        Args:
-          ad_group_id: The unique identifier of the ad group to create this ad in.
-
-          creative_set_id: The unique identifier of the creative set to use.
-
-          existing_instagram_media_id: ID of an existing Instagram media item to use as the ad creative (instead of a
-              creative set or Facebook post).
-
-          existing_post_id: ID of an existing Facebook post to use as the ad creative (instead of a creative
-              set).
-
-          platform_config: Platform-specific configuration. Must match the campaign platform.
-
-          status: The status of an external ad.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/ads",
-            body=maybe_transform(
-                {
-                    "ad_group_id": ad_group_id,
-                    "creative_set_id": creative_set_id,
-                    "existing_instagram_media_id": existing_instagram_media_id,
-                    "existing_post_id": existing_post_id,
-                    "platform_config": platform_config,
-                    "status": status,
-                },
-                ad_create_params.AdCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AdCreateResponse,
-        )
 
     def retrieve(
         self,
@@ -262,72 +195,6 @@ class AsyncAdsResource(AsyncAPIResource):
         """
         return AsyncAdsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        ad_group_id: str,
-        creative_set_id: Optional[str] | Omit = omit,
-        existing_instagram_media_id: Optional[str] | Omit = omit,
-        existing_post_id: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_create_params.PlatformConfig] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCreateResponse:
-        """
-        Create an ad within an ad group.
-
-        Required permissions:
-
-        - `ad_campaign:create`
-        - `ad_campaign:basic:read`
-
-        Args:
-          ad_group_id: The unique identifier of the ad group to create this ad in.
-
-          creative_set_id: The unique identifier of the creative set to use.
-
-          existing_instagram_media_id: ID of an existing Instagram media item to use as the ad creative (instead of a
-              creative set or Facebook post).
-
-          existing_post_id: ID of an existing Facebook post to use as the ad creative (instead of a creative
-              set).
-
-          platform_config: Platform-specific configuration. Must match the campaign platform.
-
-          status: The status of an external ad.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/ads",
-            body=await async_maybe_transform(
-                {
-                    "ad_group_id": ad_group_id,
-                    "creative_set_id": creative_set_id,
-                    "existing_instagram_media_id": existing_instagram_media_id,
-                    "existing_post_id": existing_post_id,
-                    "platform_config": platform_config,
-                    "status": status,
-                },
-                ad_create_params.AdCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AdCreateResponse,
-        )
-
     async def retrieve(
         self,
         id: str,
@@ -456,9 +323,6 @@ class AdsResourceWithRawResponse:
     def __init__(self, ads: AdsResource) -> None:
         self._ads = ads
 
-        self.create = to_raw_response_wrapper(
-            ads.create,
-        )
         self.retrieve = to_raw_response_wrapper(
             ads.retrieve,
         )
@@ -471,9 +335,6 @@ class AsyncAdsResourceWithRawResponse:
     def __init__(self, ads: AsyncAdsResource) -> None:
         self._ads = ads
 
-        self.create = async_to_raw_response_wrapper(
-            ads.create,
-        )
         self.retrieve = async_to_raw_response_wrapper(
             ads.retrieve,
         )
@@ -486,9 +347,6 @@ class AdsResourceWithStreamingResponse:
     def __init__(self, ads: AdsResource) -> None:
         self._ads = ads
 
-        self.create = to_streamed_response_wrapper(
-            ads.create,
-        )
         self.retrieve = to_streamed_response_wrapper(
             ads.retrieve,
         )
@@ -501,9 +359,6 @@ class AsyncAdsResourceWithStreamingResponse:
     def __init__(self, ads: AsyncAdsResource) -> None:
         self._ads = ads
 
-        self.create = async_to_streamed_response_wrapper(
-            ads.create,
-        )
         self.retrieve = async_to_streamed_response_wrapper(
             ads.retrieve,
         )
