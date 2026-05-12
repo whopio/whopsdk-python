@@ -40,14 +40,6 @@ from .plans import (
     PlansResourceWithStreamingResponse,
     AsyncPlansResourceWithStreamingResponse,
 )
-from .stats import (
-    StatsResource,
-    AsyncStatsResource,
-    StatsResourceWithRawResponse,
-    AsyncStatsResourceWithRawResponse,
-    StatsResourceWithStreamingResponse,
-    AsyncStatsResourceWithStreamingResponse,
-)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -119,14 +111,6 @@ from .ai_chats import (
     AsyncAIChatsResourceWithRawResponse,
     AIChatsResourceWithStreamingResponse,
     AsyncAIChatsResourceWithStreamingResponse,
-)
-from .bounties import (
-    BountiesResource,
-    AsyncBountiesResource,
-    BountiesResourceWithRawResponse,
-    AsyncBountiesResourceWithRawResponse,
-    BountiesResourceWithStreamingResponse,
-    AsyncBountiesResourceWithStreamingResponse,
 )
 from .disputes import (
     DisputesResource,
@@ -800,18 +784,6 @@ __all__ = [
     "AsyncAffiliatesResourceWithRawResponse",
     "AffiliatesResourceWithStreamingResponse",
     "AsyncAffiliatesResourceWithStreamingResponse",
-    "BountiesResource",
-    "AsyncBountiesResource",
-    "BountiesResourceWithRawResponse",
-    "AsyncBountiesResourceWithRawResponse",
-    "BountiesResourceWithStreamingResponse",
-    "AsyncBountiesResourceWithStreamingResponse",
-    "StatsResource",
-    "AsyncStatsResource",
-    "StatsResourceWithRawResponse",
-    "AsyncStatsResourceWithRawResponse",
-    "StatsResourceWithStreamingResponse",
-    "AsyncStatsResourceWithStreamingResponse",
     "AdCampaignsResource",
     "AsyncAdCampaignsResource",
     "AdCampaignsResourceWithRawResponse",
