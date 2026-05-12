@@ -1089,3 +1089,15 @@ from whop_sdk.types import ConversionCreateResponse
 Methods:
 
 - <code title="post /conversions">client.conversions.<a href="./src/whop_sdk/resources/conversions.py">create</a>(\*\*<a href="src/whop_sdk/types/conversion_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/conversion_create_response.py">ConversionCreateResponse</a></code>
+
+# AdReports
+
+Types:
+
+```python
+from whop_sdk.types import AdReportRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /ad_reports">client.ad_reports.<a href="./src/whop_sdk/resources/ad_reports.py">retrieve</a>(\*\*<a href="src/whop_sdk/types/ad_report_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_report_retrieve_response.py">AdReportRetrieveResponse</a></code>

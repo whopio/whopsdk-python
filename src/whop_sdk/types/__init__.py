@@ -274,6 +274,7 @@ from .withdrawal_create_params import WithdrawalCreateParams as WithdrawalCreate
 from .withdrawal_list_response import WithdrawalListResponse as WithdrawalListResponse
 from .ad_campaign_list_response import AdCampaignListResponse as AdCampaignListResponse
 from .ad_campaign_update_params import AdCampaignUpdateParams as AdCampaignUpdateParams
+from .ad_report_retrieve_params import AdReportRetrieveParams as AdReportRetrieveParams
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
 from .company_token_transaction import CompanyTokenTransaction as CompanyTokenTransaction
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
@@ -307,6 +308,7 @@ from .stat_query_metric_response import StatQueryMetricResponse as StatQueryMetr
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .verification_list_response import VerificationListResponse as VerificationListResponse
 from .ad_campaign_update_response import AdCampaignUpdateResponse as AdCampaignUpdateResponse
+from .ad_report_retrieve_response import AdReportRetrieveResponse as AdReportRetrieveResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
 from .course_lesson_list_response import CourseLessonListResponse as CourseLessonListResponse

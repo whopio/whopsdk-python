@@ -216,6 +216,14 @@ from .transfers import (
     TransfersResourceWithStreamingResponse,
     AsyncTransfersResourceWithStreamingResponse,
 )
+from .ad_reports import (
+    AdReportsResource,
+    AsyncAdReportsResource,
+    AdReportsResourceWithRawResponse,
+    AsyncAdReportsResourceWithRawResponse,
+    AdReportsResourceWithStreamingResponse,
+    AsyncAdReportsResourceWithStreamingResponse,
+)
 from .affiliates import (
     AffiliatesResource,
     AsyncAffiliatesResource,
@@ -828,4 +836,10 @@ __all__ = [
     "AsyncConversionsResourceWithRawResponse",
     "ConversionsResourceWithStreamingResponse",
     "AsyncConversionsResourceWithStreamingResponse",
+    "AdReportsResource",
+    "AsyncAdReportsResource",
+    "AdReportsResourceWithRawResponse",
+    "AsyncAdReportsResourceWithRawResponse",
+    "AdReportsResourceWithStreamingResponse",
+    "AsyncAdReportsResourceWithStreamingResponse",
 ]
