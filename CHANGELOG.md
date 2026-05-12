@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.0.39 (2026-05-12)
+
+Full Changelog: [v0.0.38...v0.0.39](https://github.com/whopio/whopsdk-python/compare/v0.0.38...v0.0.39)
+
+### Features
+
+* **api:** api update ([07b6d5a](https://github.com/whopio/whopsdk-python/commit/07b6d5a807cafea21cd5ee1e2a1da3135f9719e6))
+* **api:** api update ([fdc14c2](https://github.com/whopio/whopsdk-python/commit/fdc14c2643bb806d17852ec5bd84f88676384b80))
+* **api:** api update ([71ae92b](https://github.com/whopio/whopsdk-python/commit/71ae92b686c20eb0774a43d07150ca731227f03c))
+* **api:** api update ([f9b62fd](https://github.com/whopio/whopsdk-python/commit/f9b62fd162ca2276feda6238c6d9ebdc7369dac7))
+* **api:** api update ([3dc47ca](https://github.com/whopio/whopsdk-python/commit/3dc47caad3be1e127325ca93e6e1f7fdd0ffc688))
+* **api:** api update ([323fbd8](https://github.com/whopio/whopsdk-python/commit/323fbd8d90993aa0b94310e3abe9d38620afdd08))
+* **api:** api update ([b0d4573](https://github.com/whopio/whopsdk-python/commit/b0d4573d9160057f550e6b829e8b4c581285e88c))
+* **api:** api update ([684cebd](https://github.com/whopio/whopsdk-python/commit/684cebd6d6634cfbce22e6bf5269d3c15f10388d))
+* **api:** api update ([cb4b06e](https://github.com/whopio/whopsdk-python/commit/cb4b06e28716bf53ed67ca7ac411f5e1d17496e9))
+* **api:** api update ([95abdfe](https://github.com/whopio/whopsdk-python/commit/95abdfe89b150735daa9d0caaed4834d47cc3762))
+* **api:** api update ([07e70b5](https://github.com/whopio/whopsdk-python/commit/07e70b5f3043647dd06dd54a435ac5db55eae06d))
+* **api:** api update ([0f7ed96](https://github.com/whopio/whopsdk-python/commit/0f7ed96e61417a26bf2075b687e9c0f60cf0f1ba))
+* **api:** api update ([b61b0ee](https://github.com/whopio/whopsdk-python/commit/b61b0ee58364761c8c904d82e8d195b2d5f73efb))
+* **api:** api update ([da275a3](https://github.com/whopio/whopsdk-python/commit/da275a3907434c24f3a3433d38e4c883bfa1207d))
+* **api:** api update ([b671eaa](https://github.com/whopio/whopsdk-python/commit/b671eaa7a5fd7c67ee29af64eaad905b690d9f0f))
+* **api:** api update ([44f542f](https://github.com/whopio/whopsdk-python/commit/44f542f1c1083fda63e974e60177a4bbc992b29e))
+* **api:** api update ([3189146](https://github.com/whopio/whopsdk-python/commit/3189146ef827f1e6db20cbcb38e08ff0632fc031))
+* **api:** api update ([b3f3ebf](https://github.com/whopio/whopsdk-python/commit/b3f3ebf63f5400817e222df485260eb1e6d972ff))
+* **api:** api update ([b5be3d5](https://github.com/whopio/whopsdk-python/commit/b5be3d54f1884ecdaacaa2ec0de13d961e5e3ab6))
+* **api:** api update ([1e5a3f2](https://github.com/whopio/whopsdk-python/commit/1e5a3f2d0314c3905ce099b004f4855794e05082))
+* **api:** api update ([f1d06ff](https://github.com/whopio/whopsdk-python/commit/f1d06ff881c5d7667edde20d8bd2ee7246807173))
+* **api:** api update ([eea02e9](https://github.com/whopio/whopsdk-python/commit/eea02e91bfcb142e308c88d7cdc5232b3a2c419e))
+* **api:** api update ([0449c0b](https://github.com/whopio/whopsdk-python/commit/0449c0b3e63ac52b829408c1e92d1c9495c235c4))
+* **api:** manual updates ([2c5cf8e](https://github.com/whopio/whopsdk-python/commit/2c5cf8e8cfe64fb3e590642a88f80739e1c07bfd))
+* **api:** manual updates ([7c5bc89](https://github.com/whopio/whopsdk-python/commit/7c5bc893874112c223d48fed0241e4ed306a5ecb))
+* **api:** manual updates ([958431f](https://github.com/whopio/whopsdk-python/commit/958431fa3e654c28c3905b96f605a09761a1b6a6))
+* **api:** manual updates ([7118787](https://github.com/whopio/whopsdk-python/commit/711878788c103db837f1df186e28c53580743fba))
+* **api:** manual updates ([69d6c5c](https://github.com/whopio/whopsdk-python/commit/69d6c5cadc4d7a1bb7f2bb44b06e8f424d8e7bd0))
+* **internal/types:** support eagerly validating pydantic iterators ([542b177](https://github.com/whopio/whopsdk-python/commit/542b177414ab37a4c0f6409984e95d422f5214d5))
+* support setting headers via env ([c943353](https://github.com/whopio/whopsdk-python/commit/c943353561b164a19d00b96933fe17ecee3a1601))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([ef59956](https://github.com/whopio/whopsdk-python/commit/ef59956178cd2fdb2ffe9f522d5b2faae11b15ad))
+* use correct field name format for multipart file arrays ([f30e380](https://github.com/whopio/whopsdk-python/commit/f30e380baa7acbf33ccdf33e5d14d477018e3428))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([6b442f0](https://github.com/whopio/whopsdk-python/commit/6b442f0c46d096523edfe775f8bb0c602b8f9bd3))
+* **internal:** reformat pyproject.toml ([eb865b0](https://github.com/whopio/whopsdk-python/commit/eb865b00e455c264ee6d9a3ccc99b68372e868da))
+
 ## 0.0.38 (2026-04-21)
 
 Full Changelog: [v0.0.37...v0.0.38](https://github.com/whopio/whopsdk-python/compare/v0.0.37...v0.0.38)
