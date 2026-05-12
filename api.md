@@ -986,40 +986,6 @@ Methods:
 - <code title="get /affiliates/{id}/overrides">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">list</a>(id, \*\*<a href="src/whop_sdk/types/affiliates/override_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/affiliates/override_list_response.py">SyncCursorPage[OverrideListResponse]</a></code>
 - <code title="delete /affiliates/{id}/overrides/{override_id}">client.affiliates.overrides.<a href="./src/whop_sdk/resources/affiliates/overrides.py">delete</a>(override_id, \*, id) -> <a href="./src/whop_sdk/types/affiliates/override_delete_response.py">OverrideDeleteResponse</a></code>
 
-# Bounties
-
-Types:
-
-```python
-from whop_sdk.types import BountyCreateResponse, BountyRetrieveResponse, BountyListResponse
-```
-
-Methods:
-
-- <code title="post /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_create_response.py">BountyCreateResponse</a></code>
-- <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty_retrieve_response.py">BountyRetrieveResponse</a></code>
-- <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_response.py">SyncCursorPage[BountyListResponse]</a></code>
-
-# Stats
-
-Types:
-
-```python
-from whop_sdk.types import (
-    StatDescribeResponse,
-    StatQueryMetricResponse,
-    StatQueryRawResponse,
-    StatRunSqlResponse,
-)
-```
-
-Methods:
-
-- <code title="get /stats/describe">client.stats.<a href="./src/whop_sdk/resources/stats.py">describe</a>(\*\*<a href="src/whop_sdk/types/stat_describe_params.py">params</a>) -> <a href="./src/whop_sdk/types/stat_describe_response.py">StatDescribeResponse</a></code>
-- <code title="get /stats/metric">client.stats.<a href="./src/whop_sdk/resources/stats.py">query_metric</a>(\*\*<a href="src/whop_sdk/types/stat_query_metric_params.py">params</a>) -> <a href="./src/whop_sdk/types/stat_query_metric_response.py">StatQueryMetricResponse</a></code>
-- <code title="get /stats/raw">client.stats.<a href="./src/whop_sdk/resources/stats.py">query_raw</a>(\*\*<a href="src/whop_sdk/types/stat_query_raw_params.py">params</a>) -> <a href="./src/whop_sdk/types/stat_query_raw_response.py">StatQueryRawResponse</a></code>
-- <code title="get /stats/sql">client.stats.<a href="./src/whop_sdk/resources/stats.py">run_sql</a>(\*\*<a href="src/whop_sdk/types/stat_run_sql_params.py">params</a>) -> <a href="./src/whop_sdk/types/stat_run_sql_response.py">StatRunSqlResponse</a></code>
-
 # AdCampaigns
 
 Types:
