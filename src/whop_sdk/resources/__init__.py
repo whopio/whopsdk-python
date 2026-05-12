@@ -112,6 +112,14 @@ from .ai_chats import (
     AIChatsResourceWithStreamingResponse,
     AsyncAIChatsResourceWithStreamingResponse,
 )
+from .bounties import (
+    BountiesResource,
+    AsyncBountiesResource,
+    BountiesResourceWithRawResponse,
+    AsyncBountiesResourceWithRawResponse,
+    BountiesResourceWithStreamingResponse,
+    AsyncBountiesResourceWithStreamingResponse,
+)
 from .disputes import (
     DisputesResource,
     AsyncDisputesResource,
@@ -784,6 +792,12 @@ __all__ = [
     "AsyncAffiliatesResourceWithRawResponse",
     "AffiliatesResourceWithStreamingResponse",
     "AsyncAffiliatesResourceWithStreamingResponse",
+    "BountiesResource",
+    "AsyncBountiesResource",
+    "BountiesResourceWithRawResponse",
+    "AsyncBountiesResourceWithRawResponse",
+    "BountiesResourceWithStreamingResponse",
+    "AsyncBountiesResourceWithStreamingResponse",
     "AdCampaignsResource",
     "AsyncAdCampaignsResource",
     "AdCampaignsResourceWithRawResponse",
