@@ -113,6 +113,7 @@ from .promo_code_status import PromoCodeStatus as PromoCodeStatus
 from .withdrawal_speeds import WithdrawalSpeeds as WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus as WithdrawalStatus
 from .ad_create_response import AdCreateResponse as AdCreateResponse
+from .bounty_list_params import BountyListParams as BountyListParams
 from .course_list_params import CourseListParams as CourseListParams
 from .dispute_alert_type import DisputeAlertType as DisputeAlertType
 from .file_create_params import FileCreateParams as FileCreateParams
@@ -146,6 +147,8 @@ from .verification_status import VerificationStatus as VerificationStatus
 from .webhook_list_params import WebhookListParams as WebhookListParams
 from .ad_group_list_params import AdGroupListParams as AdGroupListParams
 from .ad_retrieve_response import AdRetrieveResponse as AdRetrieveResponse
+from .bounty_create_params import BountyCreateParams as BountyCreateParams
+from .bounty_list_response import BountyListResponse as BountyListResponse
 from .course_create_params import CourseCreateParams as CourseCreateParams
 from .course_list_response import CourseListResponse as CourseListResponse
 from .course_update_params import CourseUpdateParams as CourseUpdateParams
@@ -192,6 +195,7 @@ from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
 from .ad_group_create_params import AdGroupCreateParams as AdGroupCreateParams
 from .ad_group_list_response import AdGroupListResponse as AdGroupListResponse
 from .ad_group_update_params import AdGroupUpdateParams as AdGroupUpdateParams
+from .bounty_create_response import BountyCreateResponse as BountyCreateResponse
 from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
 from .dm_channel_list_params import DmChannelListParams as DmChannelListParams
 from .entry_approve_response import EntryApproveResponse as EntryApproveResponse
@@ -230,6 +234,7 @@ from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteRespo
 from .ad_group_create_response import AdGroupCreateResponse as AdGroupCreateResponse
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse
 from .ad_group_update_response import AdGroupUpdateResponse as AdGroupUpdateResponse
+from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
 from .conversion_create_params import ConversionCreateParams as ConversionCreateParams
 from .dm_channel_create_params import DmChannelCreateParams as DmChannelCreateParams

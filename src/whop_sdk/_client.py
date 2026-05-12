@@ -50,6 +50,7 @@ if TYPE_CHECKING:
         refunds,
         reviews,
         ai_chats,
+        bounties,
         disputes,
         invoices,
         messages,
@@ -109,6 +110,7 @@ if TYPE_CHECKING:
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
+    from .resources.bounties import BountiesResource, AsyncBountiesResource
     from .resources.disputes import DisputesResource, AsyncDisputesResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
     from .resources.messages import MessagesResource, AsyncMessagesResource
@@ -612,6 +614,13 @@ class Whop(SyncAPIClient):
         from .resources.affiliates import AffiliatesResource
 
         return AffiliatesResource(self)
+
+    @cached_property
+    def bounties(self) -> BountiesResource:
+        """Bounties"""
+        from .resources.bounties import BountiesResource
+
+        return BountiesResource(self)
 
     @cached_property
     def ad_campaigns(self) -> AdCampaignsResource:
@@ -1217,6 +1226,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAffiliatesResource(self)
 
     @cached_property
+    def bounties(self) -> AsyncBountiesResource:
+        """Bounties"""
+        from .resources.bounties import AsyncBountiesResource
+
+        return AsyncBountiesResource(self)
+
+    @cached_property
     def ad_campaigns(self) -> AsyncAdCampaignsResource:
         """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResource
@@ -1747,6 +1763,13 @@ class WhopWithRawResponse:
         return AffiliatesResourceWithRawResponse(self._client.affiliates)
 
     @cached_property
+    def bounties(self) -> bounties.BountiesResourceWithRawResponse:
+        """Bounties"""
+        from .resources.bounties import BountiesResourceWithRawResponse
+
+        return BountiesResourceWithRawResponse(self._client.bounties)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithRawResponse:
         """Ad campaigns"""
         from .resources.ad_campaigns import AdCampaignsResourceWithRawResponse
@@ -2164,6 +2187,13 @@ class AsyncWhopWithRawResponse:
         return AsyncAffiliatesResourceWithRawResponse(self._client.affiliates)
 
     @cached_property
+    def bounties(self) -> bounties.AsyncBountiesResourceWithRawResponse:
+        """Bounties"""
+        from .resources.bounties import AsyncBountiesResourceWithRawResponse
+
+        return AsyncBountiesResourceWithRawResponse(self._client.bounties)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithRawResponse:
         """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResourceWithRawResponse
@@ -2579,6 +2609,13 @@ class WhopWithStreamedResponse:
         from .resources.affiliates import AffiliatesResourceWithStreamingResponse
 
         return AffiliatesResourceWithStreamingResponse(self._client.affiliates)
+
+    @cached_property
+    def bounties(self) -> bounties.BountiesResourceWithStreamingResponse:
+        """Bounties"""
+        from .resources.bounties import BountiesResourceWithStreamingResponse
+
+        return BountiesResourceWithStreamingResponse(self._client.bounties)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithStreamingResponse:
@@ -3000,6 +3037,13 @@ class AsyncWhopWithStreamedResponse:
         from .resources.affiliates import AsyncAffiliatesResourceWithStreamingResponse
 
         return AsyncAffiliatesResourceWithStreamingResponse(self._client.affiliates)
+
+    @cached_property
+    def bounties(self) -> bounties.AsyncBountiesResourceWithStreamingResponse:
+        """Bounties"""
+        from .resources.bounties import AsyncBountiesResourceWithStreamingResponse
+
+        return AsyncBountiesResourceWithStreamingResponse(self._client.bounties)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithStreamingResponse:
