@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_group_list_params, ad_group_create_params, ad_group_update_params
+from ..types import ad_group_list_params, ad_group_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -22,7 +22,6 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_group_list_response import AdGroupListResponse
-from ..types.ad_group_create_response import AdGroupCreateResponse
 from ..types.ad_group_delete_response import AdGroupDeleteResponse
 from ..types.ad_group_update_response import AdGroupUpdateResponse
 from ..types.ad_group_retrieve_response import AdGroupRetrieveResponse
@@ -51,78 +50,6 @@ class AdGroupsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return AdGroupsResourceWithStreamingResponse(self)
-
-    def create(
-        self,
-        *,
-        campaign_id: str,
-        budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
-        config: Optional[ad_group_create_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_group_create_params.PlatformConfig] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupCreateResponse:
-        """
-        Creates a new ad group within a campaign.
-
-        Required permissions:
-
-        - `ad_campaign:create`
-        - `ad_campaign:basic:read`
-
-        Args:
-          campaign_id: The ad campaign to create this ad group within.
-
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          config: Unified ad group configuration (bidding, optimization, targeting).
-
-          daily_budget: Daily budget in dollars.
-
-          name: Human-readable ad group name.
-
-          platform_config: Platform-specific ad group configuration.
-
-          status: The status of an external ad group.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/ad_groups",
-            body=maybe_transform(
-                {
-                    "campaign_id": campaign_id,
-                    "budget": budget,
-                    "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "name": name,
-                    "platform_config": platform_config,
-                    "status": status,
-                },
-                ad_group_create_params.AdGroupCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AdGroupCreateResponse,
-        )
 
     def retrieve(
         self,
@@ -376,78 +303,6 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         """
         return AsyncAdGroupsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        campaign_id: str,
-        budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
-        config: Optional[ad_group_create_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_group_create_params.PlatformConfig] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupCreateResponse:
-        """
-        Creates a new ad group within a campaign.
-
-        Required permissions:
-
-        - `ad_campaign:create`
-        - `ad_campaign:basic:read`
-
-        Args:
-          campaign_id: The ad campaign to create this ad group within.
-
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          config: Unified ad group configuration (bidding, optimization, targeting).
-
-          daily_budget: Daily budget in dollars.
-
-          name: Human-readable ad group name.
-
-          platform_config: Platform-specific ad group configuration.
-
-          status: The status of an external ad group.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/ad_groups",
-            body=await async_maybe_transform(
-                {
-                    "campaign_id": campaign_id,
-                    "budget": budget,
-                    "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "name": name,
-                    "platform_config": platform_config,
-                    "status": status,
-                },
-                ad_group_create_params.AdGroupCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AdGroupCreateResponse,
-        )
-
     async def retrieve(
         self,
         id: str,
@@ -682,9 +537,6 @@ class AdGroupsResourceWithRawResponse:
     def __init__(self, ad_groups: AdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
-        self.create = to_raw_response_wrapper(
-            ad_groups.create,
-        )
         self.retrieve = to_raw_response_wrapper(
             ad_groups.retrieve,
         )
@@ -703,9 +555,6 @@ class AsyncAdGroupsResourceWithRawResponse:
     def __init__(self, ad_groups: AsyncAdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
-        self.create = async_to_raw_response_wrapper(
-            ad_groups.create,
-        )
         self.retrieve = async_to_raw_response_wrapper(
             ad_groups.retrieve,
         )
@@ -724,9 +573,6 @@ class AdGroupsResourceWithStreamingResponse:
     def __init__(self, ad_groups: AdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
-        self.create = to_streamed_response_wrapper(
-            ad_groups.create,
-        )
         self.retrieve = to_streamed_response_wrapper(
             ad_groups.retrieve,
         )
@@ -745,9 +591,6 @@ class AsyncAdGroupsResourceWithStreamingResponse:
     def __init__(self, ad_groups: AsyncAdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
-        self.create = async_to_streamed_response_wrapper(
-            ad_groups.create,
-        )
         self.retrieve = async_to_streamed_response_wrapper(
             ad_groups.retrieve,
         )
