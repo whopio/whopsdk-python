@@ -8,8 +8,8 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_campaign_list_params, ad_campaign_create_params, ad_campaign_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..types import ad_campaign_list_params, ad_campaign_update_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -23,7 +23,6 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_campaign_list_response import AdCampaignListResponse
 from ..types.ad_campaign_pause_response import AdCampaignPauseResponse
-from ..types.ad_campaign_create_response import AdCampaignCreateResponse
 from ..types.ad_campaign_update_response import AdCampaignUpdateResponse
 from ..types.ad_campaign_unpause_response import AdCampaignUnpauseResponse
 from ..types.ad_campaign_retrieve_response import AdCampaignRetrieveResponse
@@ -53,88 +52,6 @@ class AdCampaignsResource(SyncAPIResource):
         """
         return AdCampaignsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        company_id: str,
-        config: ad_campaign_create_params.Config,
-        platform: Literal["meta", "tiktok"],
-        title: str,
-        ad_creative_set_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
-        target_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignCreateResponse:
-        """
-        Creates a new ad campaign for a product.
-
-        Required permissions:
-
-        - `ad_campaign:create`
-        - `access_pass:basic:read`
-        - `company:balance:read`
-
-        Args:
-          company_id: The company ID to create this ad campaign for.
-
-          config: Unified campaign configuration (conversion goal, budget, bidding, etc.).
-
-          platform: The ad platform to run on (e.g., meta, tiktok).
-
-          title: The title of the ad campaign. Must be max 100 characters.
-
-          ad_creative_set_ids: Array of creative set IDs to link to this campaign.
-
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          daily_budget: Daily budget in dollars (minimum $5). Required unless lifetime_budget is set in
-              config.
-
-          product_id: The unique identifier of the product to promote.
-
-          target_country_codes: Array of ISO3166 country codes for territory targeting.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/ad_campaigns",
-            body=maybe_transform(
-                {
-                    "company_id": company_id,
-                    "config": config,
-                    "platform": platform,
-                    "title": title,
-                    "ad_creative_set_ids": ad_creative_set_ids,
-                    "budget": budget,
-                    "budget_type": budget_type,
-                    "daily_budget": daily_budget,
-                    "product_id": product_id,
-                    "target_country_codes": target_country_codes,
-                },
-                ad_campaign_create_params.AdCampaignCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AdCampaignCreateResponse,
-        )
-
     def retrieve(
         self,
         id: str,
@@ -152,8 +69,6 @@ class AdCampaignsResource(SyncAPIResource):
         Required permissions:
 
         - `ad_campaign:basic:read`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
           extra_headers: Send extra headers
@@ -178,14 +93,7 @@ class AdCampaignsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        ad_creative_set_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
-        config: Optional[ad_campaign_update_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
-        target_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
-        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -194,30 +102,15 @@ class AdCampaignsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaignUpdateResponse:
         """
-        Updates an existing ad campaign.
+        Updates an ad campaign synchronously.
 
         Required permissions:
 
         - `ad_campaign:update`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
-          ad_creative_set_ids: Array of creative set IDs to link to this campaign.
-
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          config: Unified campaign configuration (conversion goal, budget, bidding, etc.).
-
-          daily_budget: Daily budget in dollars (minimum $5).
-
-          product_id: The unique identifier of the product (access pass) to promote.
-
-          target_country_codes: Array of ISO3166 country codes for territory targeting.
-
-          title: The title of the ad campaign. Must be max 100 characters.
+          budget: The campaign budget in dollars. The interpretation (daily or lifetime) follows
+              the campaign's existing budget type.
 
           extra_headers: Send extra headers
 
@@ -231,19 +124,7 @@ class AdCampaignsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
             path_template("/ad_campaigns/{id}", id=id),
-            body=maybe_transform(
-                {
-                    "ad_creative_set_ids": ad_creative_set_ids,
-                    "budget": budget,
-                    "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "product_id": product_id,
-                    "target_country_codes": target_country_codes,
-                    "title": title,
-                },
-                ad_campaign_update_params.AdCampaignUpdateParams,
-            ),
+            body=maybe_transform({"budget": budget}, ad_campaign_update_params.AdCampaignUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -261,22 +142,7 @@ class AdCampaignsResource(SyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
-        status: Optional[
-            Literal[
-                "active",
-                "paused",
-                "inactive",
-                "stale",
-                "pending_refund",
-                "payment_failed",
-                "draft",
-                "in_review",
-                "flagged",
-                "importing",
-                "imported",
-            ]
-        ]
-        | Omit = omit,
+        status: Optional[Literal["active", "paused", "payment_failed", "draft", "in_review", "flagged"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -291,7 +157,6 @@ class AdCampaignsResource(SyncAPIResource):
         Required permissions:
 
         - `ad_campaign:basic:read`
-        - `access_pass:basic:read`
 
         Args:
           company_id: The unique identifier of the company to list ad campaigns for.
@@ -363,8 +228,6 @@ class AdCampaignsResource(SyncAPIResource):
         Required permissions:
 
         - `ad_campaign:update`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
           extra_headers: Send extra headers
@@ -402,8 +265,6 @@ class AdCampaignsResource(SyncAPIResource):
         Required permissions:
 
         - `ad_campaign:update`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
           extra_headers: Send extra headers
@@ -447,88 +308,6 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         """
         return AsyncAdCampaignsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        company_id: str,
-        config: ad_campaign_create_params.Config,
-        platform: Literal["meta", "tiktok"],
-        title: str,
-        ad_creative_set_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
-        target_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignCreateResponse:
-        """
-        Creates a new ad campaign for a product.
-
-        Required permissions:
-
-        - `ad_campaign:create`
-        - `access_pass:basic:read`
-        - `company:balance:read`
-
-        Args:
-          company_id: The company ID to create this ad campaign for.
-
-          config: Unified campaign configuration (conversion goal, budget, bidding, etc.).
-
-          platform: The ad platform to run on (e.g., meta, tiktok).
-
-          title: The title of the ad campaign. Must be max 100 characters.
-
-          ad_creative_set_ids: Array of creative set IDs to link to this campaign.
-
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          daily_budget: Daily budget in dollars (minimum $5). Required unless lifetime_budget is set in
-              config.
-
-          product_id: The unique identifier of the product to promote.
-
-          target_country_codes: Array of ISO3166 country codes for territory targeting.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/ad_campaigns",
-            body=await async_maybe_transform(
-                {
-                    "company_id": company_id,
-                    "config": config,
-                    "platform": platform,
-                    "title": title,
-                    "ad_creative_set_ids": ad_creative_set_ids,
-                    "budget": budget,
-                    "budget_type": budget_type,
-                    "daily_budget": daily_budget,
-                    "product_id": product_id,
-                    "target_country_codes": target_country_codes,
-                },
-                ad_campaign_create_params.AdCampaignCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AdCampaignCreateResponse,
-        )
-
     async def retrieve(
         self,
         id: str,
@@ -546,8 +325,6 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         Required permissions:
 
         - `ad_campaign:basic:read`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
           extra_headers: Send extra headers
@@ -572,14 +349,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        ad_creative_set_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
-        config: Optional[ad_campaign_update_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
-        target_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
-        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -588,30 +358,15 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaignUpdateResponse:
         """
-        Updates an existing ad campaign.
+        Updates an ad campaign synchronously.
 
         Required permissions:
 
         - `ad_campaign:update`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
-          ad_creative_set_ids: Array of creative set IDs to link to this campaign.
-
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          config: Unified campaign configuration (conversion goal, budget, bidding, etc.).
-
-          daily_budget: Daily budget in dollars (minimum $5).
-
-          product_id: The unique identifier of the product (access pass) to promote.
-
-          target_country_codes: Array of ISO3166 country codes for territory targeting.
-
-          title: The title of the ad campaign. Must be max 100 characters.
+          budget: The campaign budget in dollars. The interpretation (daily or lifetime) follows
+              the campaign's existing budget type.
 
           extra_headers: Send extra headers
 
@@ -625,19 +380,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
             path_template("/ad_campaigns/{id}", id=id),
-            body=await async_maybe_transform(
-                {
-                    "ad_creative_set_ids": ad_creative_set_ids,
-                    "budget": budget,
-                    "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "product_id": product_id,
-                    "target_country_codes": target_country_codes,
-                    "title": title,
-                },
-                ad_campaign_update_params.AdCampaignUpdateParams,
-            ),
+            body=await async_maybe_transform({"budget": budget}, ad_campaign_update_params.AdCampaignUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -655,22 +398,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
-        status: Optional[
-            Literal[
-                "active",
-                "paused",
-                "inactive",
-                "stale",
-                "pending_refund",
-                "payment_failed",
-                "draft",
-                "in_review",
-                "flagged",
-                "importing",
-                "imported",
-            ]
-        ]
-        | Omit = omit,
+        status: Optional[Literal["active", "paused", "payment_failed", "draft", "in_review", "flagged"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -685,7 +413,6 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         Required permissions:
 
         - `ad_campaign:basic:read`
-        - `access_pass:basic:read`
 
         Args:
           company_id: The unique identifier of the company to list ad campaigns for.
@@ -757,8 +484,6 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         Required permissions:
 
         - `ad_campaign:update`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
           extra_headers: Send extra headers
@@ -796,8 +521,6 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         Required permissions:
 
         - `ad_campaign:update`
-        - `access_pass:basic:read`
-        - `company:balance:read`
 
         Args:
           extra_headers: Send extra headers
@@ -823,9 +546,6 @@ class AdCampaignsResourceWithRawResponse:
     def __init__(self, ad_campaigns: AdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
-        self.create = to_raw_response_wrapper(
-            ad_campaigns.create,
-        )
         self.retrieve = to_raw_response_wrapper(
             ad_campaigns.retrieve,
         )
@@ -847,9 +567,6 @@ class AsyncAdCampaignsResourceWithRawResponse:
     def __init__(self, ad_campaigns: AsyncAdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
-        self.create = async_to_raw_response_wrapper(
-            ad_campaigns.create,
-        )
         self.retrieve = async_to_raw_response_wrapper(
             ad_campaigns.retrieve,
         )
@@ -871,9 +588,6 @@ class AdCampaignsResourceWithStreamingResponse:
     def __init__(self, ad_campaigns: AdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
-        self.create = to_streamed_response_wrapper(
-            ad_campaigns.create,
-        )
         self.retrieve = to_streamed_response_wrapper(
             ad_campaigns.retrieve,
         )
@@ -895,9 +609,6 @@ class AsyncAdCampaignsResourceWithStreamingResponse:
     def __init__(self, ad_campaigns: AsyncAdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
-        self.create = async_to_streamed_response_wrapper(
-            ad_campaigns.create,
-        )
         self.retrieve = async_to_streamed_response_wrapper(
             ad_campaigns.retrieve,
         )

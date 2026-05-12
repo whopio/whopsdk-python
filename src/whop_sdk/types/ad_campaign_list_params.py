@@ -36,19 +36,5 @@ class AdCampaignListParams(TypedDict, total=False):
     query: Optional[str]
     """Case-insensitive substring match against the campaign title."""
 
-    status: Optional[
-        Literal[
-            "active",
-            "paused",
-            "inactive",
-            "stale",
-            "pending_refund",
-            "payment_failed",
-            "draft",
-            "in_review",
-            "flagged",
-            "importing",
-            "imported",
-        ]
-    ]
+    status: Optional[Literal["active", "paused", "payment_failed", "draft", "in_review", "flagged"]]
     """The status of an ad campaign."""

@@ -12,7 +12,6 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     AdCampaignListResponse,
     AdCampaignPauseResponse,
-    AdCampaignCreateResponse,
     AdCampaignUpdateResponse,
     AdCampaignUnpauseResponse,
     AdCampaignRetrieveResponse,
@@ -25,76 +24,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestAdCampaigns:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create(self, client: Whop) -> None:
-        ad_campaign = client.ad_campaigns.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={},
-            platform="meta",
-            title="title",
-        )
-        assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params(self, client: Whop) -> None:
-        ad_campaign = client.ad_campaigns.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={
-                "bid_amount": 42,
-                "bid_strategy": "lowest_cost",
-                "budget_optimization": True,
-                "end_time": "end_time",
-                "lifetime_budget": 42,
-                "objective": "awareness",
-                "special_categories": ["string"],
-                "start_time": "start_time",
-                "status": "active",
-            },
-            platform="meta",
-            title="title",
-            ad_creative_set_ids=["string"],
-            budget=6.9,
-            budget_type="daily",
-            daily_budget=6.9,
-            product_id="prod_xxxxxxxxxxxxx",
-            target_country_codes=["string"],
-        )
-        assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create(self, client: Whop) -> None:
-        response = client.ad_campaigns.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={},
-            platform="meta",
-            title="title",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        ad_campaign = response.parse()
-        assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create(self, client: Whop) -> None:
-        with client.ad_campaigns.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={},
-            platform="meta",
-            title="title",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            ad_campaign = response.parse()
-            assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -151,24 +80,7 @@ class TestAdCampaigns:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
-            ad_creative_set_ids=["string"],
             budget=6.9,
-            budget_type="daily",
-            config={
-                "bid_amount": 42,
-                "bid_strategy": "lowest_cost",
-                "budget_optimization": True,
-                "end_time": "end_time",
-                "lifetime_budget": 42,
-                "objective": "awareness",
-                "special_categories": ["string"],
-                "start_time": "start_time",
-                "status": "active",
-            },
-            daily_budget=6.9,
-            product_id="prod_xxxxxxxxxxxxx",
-            target_country_codes=["string"],
-            title="title",
         )
         assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
 
@@ -348,76 +260,6 @@ class TestAsyncAdCampaigns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncWhop) -> None:
-        ad_campaign = await async_client.ad_campaigns.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={},
-            platform="meta",
-            title="title",
-        )
-        assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
-        ad_campaign = await async_client.ad_campaigns.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={
-                "bid_amount": 42,
-                "bid_strategy": "lowest_cost",
-                "budget_optimization": True,
-                "end_time": "end_time",
-                "lifetime_budget": 42,
-                "objective": "awareness",
-                "special_categories": ["string"],
-                "start_time": "start_time",
-                "status": "active",
-            },
-            platform="meta",
-            title="title",
-            ad_creative_set_ids=["string"],
-            budget=6.9,
-            budget_type="daily",
-            daily_budget=6.9,
-            product_id="prod_xxxxxxxxxxxxx",
-            target_country_codes=["string"],
-        )
-        assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
-        response = await async_client.ad_campaigns.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={},
-            platform="meta",
-            title="title",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        ad_campaign = await response.parse()
-        assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
-        async with async_client.ad_campaigns.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            config={},
-            platform="meta",
-            title="title",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            ad_campaign = await response.parse()
-            assert_matches_type(AdCampaignCreateResponse, ad_campaign, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.retrieve(
             "adcamp_xxxxxxxxxxx",
@@ -471,24 +313,7 @@ class TestAsyncAdCampaigns:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
-            ad_creative_set_ids=["string"],
             budget=6.9,
-            budget_type="daily",
-            config={
-                "bid_amount": 42,
-                "bid_strategy": "lowest_cost",
-                "budget_optimization": True,
-                "end_time": "end_time",
-                "lifetime_budget": 42,
-                "objective": "awareness",
-                "special_categories": ["string"],
-                "start_time": "start_time",
-                "status": "active",
-            },
-            daily_budget=6.9,
-            product_id="prod_xxxxxxxxxxxxx",
-            target_country_codes=["string"],
-            title="title",
         )
         assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
 

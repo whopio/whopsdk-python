@@ -72,6 +72,7 @@ class AdsResource(SyncAPIResource):
         Required permissions:
 
         - `ad_campaign:create`
+        - `ad_campaign:basic:read`
 
         Args:
           ad_group_id: The unique identifier of the ad group to create this ad in.
@@ -283,6 +284,7 @@ class AsyncAdsResource(AsyncAPIResource):
         Required permissions:
 
         - `ad_campaign:create`
+        - `ad_campaign:basic:read`
 
         Args:
           ad_group_id: The unique identifier of the ad group to create this ad in.
