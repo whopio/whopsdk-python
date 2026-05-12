@@ -272,7 +272,6 @@ from .stat_query_metric_params import StatQueryMetricParams as StatQueryMetricPa
 from .verification_list_params import VerificationListParams as VerificationListParams
 from .withdrawal_create_params import WithdrawalCreateParams as WithdrawalCreateParams
 from .withdrawal_list_response import WithdrawalListResponse as WithdrawalListResponse
-from .ad_campaign_create_params import AdCampaignCreateParams as AdCampaignCreateParams
 from .ad_campaign_list_response import AdCampaignListResponse as AdCampaignListResponse
 from .ad_campaign_update_params import AdCampaignUpdateParams as AdCampaignUpdateParams
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
@@ -307,7 +306,6 @@ from .setup_intent_list_response import SetupIntentListResponse as SetupIntentLi
 from .stat_query_metric_response import StatQueryMetricResponse as StatQueryMetricResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .verification_list_response import VerificationListResponse as VerificationListResponse
-from .ad_campaign_create_response import AdCampaignCreateResponse as AdCampaignCreateResponse
 from .ad_campaign_update_response import AdCampaignUpdateResponse as AdCampaignUpdateResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams

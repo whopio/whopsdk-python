@@ -1026,7 +1026,6 @@ Types:
 
 ```python
 from whop_sdk.types import (
-    AdCampaignCreateResponse,
     AdCampaignRetrieveResponse,
     AdCampaignUpdateResponse,
     AdCampaignListResponse,
@@ -1037,7 +1036,6 @@ from whop_sdk.types import (
 
 Methods:
 
-- <code title="post /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">create</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_create_response.py">AdCampaignCreateResponse</a></code>
 - <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_retrieve_response.py">AdCampaignRetrieveResponse</a></code>
 - <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_update_response.py">AdCampaignUpdateResponse</a></code>
 - <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_list_response.py">SyncCursorPage[AdCampaignListResponse]</a></code>
