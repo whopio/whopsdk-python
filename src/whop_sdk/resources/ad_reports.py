@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -54,8 +55,8 @@ class AdReportsResource(SyncAPIResource):
         ad_campaign_id: Optional[str] | Omit = omit,
         ad_group_id: Optional[str] | Omit = omit,
         ad_id: Optional[str] | Omit = omit,
+        breakdown: Optional[Literal["daily", "hourly"]] | Omit = omit,
         currency: Optional[str] | Omit = omit,
-        include_daily: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -66,8 +67,8 @@ class AdReportsResource(SyncAPIResource):
         """Performance report for an ad campaign, ad group, or ad.
 
         Returns aggregate totals
-        and an optional per-day breakdown. Exactly one of `adCampaignId`, `adGroupId`,
-        or `adId` must be provided.
+        and, when `breakdown` is set, a per-bucket time series at that grain. Exactly
+        one of `adCampaignId`, `adGroupId`, or `adId` must be provided.
 
         Required permissions:
 
@@ -87,10 +88,10 @@ class AdReportsResource(SyncAPIResource):
           ad_id: The unique identifier of an ad. Mutually exclusive with `adCampaignId` and
               `adGroupId`.
 
+          breakdown: Bucket size for external ad stat rows.
+
           currency: ISO 4217 currency code to report `spend` in. Defaults to the company's ads
               reporting currency.
-
-          include_daily: When true, includes a per-day breakdown alongside the summary.
 
           extra_headers: Send extra headers
 
@@ -114,8 +115,8 @@ class AdReportsResource(SyncAPIResource):
                         "ad_campaign_id": ad_campaign_id,
                         "ad_group_id": ad_group_id,
                         "ad_id": ad_id,
+                        "breakdown": breakdown,
                         "currency": currency,
-                        "include_daily": include_daily,
                     },
                     ad_report_retrieve_params.AdReportRetrieveParams,
                 ),
@@ -154,8 +155,8 @@ class AsyncAdReportsResource(AsyncAPIResource):
         ad_campaign_id: Optional[str] | Omit = omit,
         ad_group_id: Optional[str] | Omit = omit,
         ad_id: Optional[str] | Omit = omit,
+        breakdown: Optional[Literal["daily", "hourly"]] | Omit = omit,
         currency: Optional[str] | Omit = omit,
-        include_daily: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,8 +167,8 @@ class AsyncAdReportsResource(AsyncAPIResource):
         """Performance report for an ad campaign, ad group, or ad.
 
         Returns aggregate totals
-        and an optional per-day breakdown. Exactly one of `adCampaignId`, `adGroupId`,
-        or `adId` must be provided.
+        and, when `breakdown` is set, a per-bucket time series at that grain. Exactly
+        one of `adCampaignId`, `adGroupId`, or `adId` must be provided.
 
         Required permissions:
 
@@ -187,10 +188,10 @@ class AsyncAdReportsResource(AsyncAPIResource):
           ad_id: The unique identifier of an ad. Mutually exclusive with `adCampaignId` and
               `adGroupId`.
 
+          breakdown: Bucket size for external ad stat rows.
+
           currency: ISO 4217 currency code to report `spend` in. Defaults to the company's ads
               reporting currency.
-
-          include_daily: When true, includes a per-day breakdown alongside the summary.
 
           extra_headers: Send extra headers
 
@@ -214,8 +215,8 @@ class AsyncAdReportsResource(AsyncAPIResource):
                         "ad_campaign_id": ad_campaign_id,
                         "ad_group_id": ad_group_id,
                         "ad_id": ad_id,
+                        "breakdown": breakdown,
                         "currency": currency,
-                        "include_daily": include_daily,
                     },
                     ad_report_retrieve_params.AdReportRetrieveParams,
                 ),
