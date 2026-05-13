@@ -161,12 +161,24 @@ class Plan(BaseModel):
     internal_notes: Optional[str] = None
     """A personal description or notes section for the business."""
 
+    metadata: Dict[str, object]
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
+    """
+
 
 class Product(BaseModel):
     """The product this payment was made for"""
 
     id: str
     """The unique identifier for the product."""
+
+    metadata: Dict[str, object]
+    """Custom key-value pairs stored on the product.
+
+    Included in webhook payloads for payment and membership events.
+    """
 
     route: str
     """

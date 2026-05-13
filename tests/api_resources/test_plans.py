@@ -63,6 +63,7 @@ class TestPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             override_tax_type="inclusive",
             payment_method_configuration={
                 "disabled": ["acss_debit"],
@@ -189,6 +190,7 @@ class TestPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             payment_method_configuration={
@@ -383,6 +385,7 @@ class TestAsyncPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             override_tax_type="inclusive",
             payment_method_configuration={
                 "disabled": ["acss_debit"],
@@ -509,6 +512,7 @@ class TestAsyncPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             payment_method_configuration={
