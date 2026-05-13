@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -14,7 +14,15 @@ from .refund_reference_type import RefundReferenceType
 from .refund_reference_status import RefundReferenceStatus
 from .shared.membership_status import MembershipStatus
 
-__all__ = ["RefundRetrieveResponse", "Payment", "PaymentMember", "PaymentMembership", "PaymentUser"]
+__all__ = [
+    "RefundRetrieveResponse",
+    "Payment",
+    "PaymentMember",
+    "PaymentMembership",
+    "PaymentPlan",
+    "PaymentProduct",
+    "PaymentUser",
+]
 
 
 class PaymentMember(BaseModel):
@@ -35,6 +43,32 @@ class PaymentMembership(BaseModel):
 
     status: MembershipStatus
     """The state of the membership."""
+
+
+class PaymentPlan(BaseModel):
+    """The plan attached to this payment."""
+
+    id: str
+    """The unique identifier for the plan."""
+
+    metadata: Dict[str, object]
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
+    """
+
+
+class PaymentProduct(BaseModel):
+    """The product this payment was made for"""
+
+    id: str
+    """The unique identifier for the product."""
+
+    metadata: Dict[str, object]
+    """Custom key-value pairs stored on the product.
+
+    Included in webhook payloads for payment and membership events.
+    """
 
 
 class PaymentUser(BaseModel):
@@ -92,6 +126,13 @@ class Payment(BaseModel):
     membership: Optional[PaymentMembership] = None
     """The membership attached to this payment."""
 
+    metadata: Optional[Dict[str, object]] = None
+    """The custom metadata stored on this payment.
+
+    This will be copied over to the checkout configuration for which this payment
+    was made
+    """
+
     paid_at: Optional[datetime] = None
     """The time at which this payment was successfully collected.
 
@@ -100,6 +141,12 @@ class Payment(BaseModel):
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
+
+    plan: Optional[PaymentPlan] = None
+    """The plan attached to this payment."""
+
+    product: Optional[PaymentProduct] = None
+    """The product this payment was made for"""
 
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""
