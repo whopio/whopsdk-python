@@ -7,7 +7,21 @@ from .._models import BaseModel
 from .external_ad_status import ExternalAdStatus
 from .ad_campaign_platform import AdCampaignPlatform
 
-__all__ = ["AdListResponse"]
+__all__ = ["AdListResponse", "AdCampaign", "AdGroup"]
+
+
+class AdCampaign(BaseModel):
+    """The ad campaign this ad belongs to."""
+
+    id: str
+    """The unique identifier for this ad campaign."""
+
+
+class AdGroup(BaseModel):
+    """The parent ad group this ad belongs to."""
+
+    id: str
+    """The unique identifier for this ad group."""
 
 
 class AdListResponse(BaseModel):
@@ -15,6 +29,12 @@ class AdListResponse(BaseModel):
 
     id: str
     """The unique identifier for this ad."""
+
+    ad_campaign: AdCampaign
+    """The ad campaign this ad belongs to."""
+
+    ad_group: AdGroup
+    """The parent ad group this ad belongs to."""
 
     created_at: datetime
     """When the ad was created."""

@@ -8,7 +8,14 @@ from .ad_budget_type import AdBudgetType
 from .ad_group_status import AdGroupStatus
 from .ad_campaign_platform import AdCampaignPlatform
 
-__all__ = ["AdGroupListResponse"]
+__all__ = ["AdGroupListResponse", "AdCampaign"]
+
+
+class AdCampaign(BaseModel):
+    """The ad campaign this ad group belongs to."""
+
+    id: str
+    """The unique identifier for this ad campaign."""
 
 
 class AdGroupListResponse(BaseModel):
@@ -16,6 +23,9 @@ class AdGroupListResponse(BaseModel):
 
     id: str
     """The unique identifier for this ad group."""
+
+    ad_campaign: AdCampaign
+    """The ad campaign this ad group belongs to."""
 
     budget: Optional[float] = None
     """Budget amount in dollars."""
