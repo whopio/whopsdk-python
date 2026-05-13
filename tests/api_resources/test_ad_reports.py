@@ -36,8 +36,8 @@ class TestAdReports:
             ad_campaign_id="ad_campaign_id",
             ad_group_id="ad_group_id",
             ad_id="ad_id",
+            breakdown="daily",
             currency="currency",
-            include_daily=True,
         )
         assert_matches_type(AdReportRetrieveResponse, ad_report, path=["response"])
 
@@ -93,8 +93,8 @@ class TestAsyncAdReports:
             ad_campaign_id="ad_campaign_id",
             ad_group_id="ad_group_id",
             ad_id="ad_id",
+            breakdown="daily",
             currency="currency",
-            include_daily=True,
         )
         assert_matches_type(AdReportRetrieveResponse, ad_report, path=["response"])
 

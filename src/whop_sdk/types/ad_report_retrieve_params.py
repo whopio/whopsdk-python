@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -36,11 +36,11 @@ class AdReportRetrieveParams(TypedDict, total=False):
     Mutually exclusive with `adCampaignId` and `adGroupId`.
     """
 
+    breakdown: Optional[Literal["daily", "hourly"]]
+    """Bucket size for external ad stat rows."""
+
     currency: Optional[str]
     """ISO 4217 currency code to report `spend` in.
 
     Defaults to the company's ads reporting currency.
     """
-
-    include_daily: Optional[bool]
-    """When true, includes a per-day breakdown alongside the summary."""
