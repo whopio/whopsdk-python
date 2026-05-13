@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .granularities import Granularities
 
 __all__ = ["AdReportRetrieveParams"]
 
@@ -36,7 +37,7 @@ class AdReportRetrieveParams(TypedDict, total=False):
     Mutually exclusive with `adCampaignId` and `adGroupId`.
     """
 
-    breakdown: Optional[Literal["daily", "hourly"]]
+    breakdown: Optional[Granularities]
     """Bucket size for external ad stat rows."""
 
     currency: Optional[str]
