@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_report_retrieve_params
+from ..types import Granularities, ad_report_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,6 +19,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.granularities import Granularities
 from ..types.ad_report_retrieve_response import AdReportRetrieveResponse
 
 __all__ = ["AdReportsResource", "AsyncAdReportsResource"]
@@ -55,7 +55,7 @@ class AdReportsResource(SyncAPIResource):
         ad_campaign_id: Optional[str] | Omit = omit,
         ad_group_id: Optional[str] | Omit = omit,
         ad_id: Optional[str] | Omit = omit,
-        breakdown: Optional[Literal["daily", "hourly"]] | Omit = omit,
+        breakdown: Optional[Granularities] | Omit = omit,
         currency: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -155,7 +155,7 @@ class AsyncAdReportsResource(AsyncAPIResource):
         ad_campaign_id: Optional[str] | Omit = omit,
         ad_group_id: Optional[str] | Omit = omit,
         ad_id: Optional[str] | Omit = omit,
-        breakdown: Optional[Literal["daily", "hourly"]] | Omit = omit,
+        breakdown: Optional[Granularities] | Omit = omit,
         currency: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

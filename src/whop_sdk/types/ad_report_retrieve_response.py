@@ -2,10 +2,11 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .granularities import Granularities
 from .shared.currency import Currency
+from .result_label_keys import ResultLabelKeys
 
 __all__ = ["AdReportRetrieveResponse", "Breakdown", "Summary"]
 
@@ -26,7 +27,7 @@ class Breakdown(BaseModel):
     clicks: int
     """Clicks in this bucket."""
 
-    granularity: Literal["daily", "hourly"]
+    granularity: Granularities
     """The bucket size of this row (`daily` or `hourly`)."""
 
     impressions: int
@@ -41,34 +42,7 @@ class Breakdown(BaseModel):
     result_count: Optional[int] = None
     """Count of the primary optimization result in this bucket."""
 
-    result_label_key: Optional[
-        Literal[
-            "app_installs",
-            "messaging_conversations_started",
-            "post_engagement",
-            "event_responses",
-            "impressions",
-            "website_purchases",
-            "landing_page_views",
-            "leads",
-            "link_clicks",
-            "quality_calls",
-            "appointments_booked",
-            "messaging_purchases",
-            "page_likes",
-            "instagram_profile_visits",
-            "reach",
-            "reminders_set",
-            "new_subscribers",
-            "video_views",
-            "registrations",
-            "content_views",
-            "searches",
-            "website_schedules",
-            "website_submit_applications",
-            "custom",
-        ]
-    ] = None
+    result_label_key: Optional[ResultLabelKeys] = None
     """Types of optimization results tracked from external ad platforms"""
 
     result_label_override: Optional[str] = None
@@ -129,34 +103,7 @@ class Summary(BaseModel):
     see `resultLabelKey`.
     """
 
-    result_label_key: Optional[
-        Literal[
-            "app_installs",
-            "messaging_conversations_started",
-            "post_engagement",
-            "event_responses",
-            "impressions",
-            "website_purchases",
-            "landing_page_views",
-            "leads",
-            "link_clicks",
-            "quality_calls",
-            "appointments_booked",
-            "messaging_purchases",
-            "page_likes",
-            "instagram_profile_visits",
-            "reach",
-            "reminders_set",
-            "new_subscribers",
-            "video_views",
-            "registrations",
-            "content_views",
-            "searches",
-            "website_schedules",
-            "website_submit_applications",
-            "custom",
-        ]
-    ] = None
+    result_label_key: Optional[ResultLabelKeys] = None
     """Types of optimization results tracked from external ad platforms"""
 
     result_label_override: Optional[str] = None

@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .external_ad_status import ExternalAdStatus
 
 __all__ = ["AdListParams"]
 
@@ -48,5 +49,5 @@ class AdListParams(TypedDict, total=False):
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
-    status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]]
+    status: Optional[ExternalAdStatus]
     """The status of an external ad."""
