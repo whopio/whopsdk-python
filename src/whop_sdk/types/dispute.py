@@ -154,8 +154,8 @@ class Payment(BaseModel):
     created_at: datetime
     """The datetime the payment was created."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""

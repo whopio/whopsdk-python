@@ -410,8 +410,8 @@ class Payment(BaseModel):
     created_at: datetime
     """The datetime the payment was created."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
@@ -511,22 +511,15 @@ class Payment(BaseModel):
 
     settlement_amount: float
     """
-    The payment amount in the creator's settlement currency (what the creator priced
-    in). Equal to final_amount for single-currency payments.
+    The total amount charged to the customer for this payment, including taxes and
+    after any discounts. In the currency specified by the currency field.
     """
 
-    settlement_currency: str
-    """
-    The currency in which the creator receives payouts and fees are charged (e.g.,
-    'usd', 'eur'). For multi-currency payments this differs from the payment
-    currency.
-    """
+    settlement_currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     settlement_exchange_rate: Optional[float] = None
-    """
-    The locked exchange rate used to convert from the buyer's payment currency to
-    the creator's settlement currency. Null for single-currency payments.
-    """
+    """Deprecated. Always returns null."""
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
