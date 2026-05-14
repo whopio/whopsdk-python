@@ -54,7 +54,7 @@ class DataPaymentPlan(BaseModel):
     id: str
     """The unique identifier for the plan."""
 
-    metadata: Dict[str, object]
+    metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the plan.
 
     Included in webhook payloads for payment and membership events.
@@ -67,7 +67,7 @@ class DataPaymentProduct(BaseModel):
     id: str
     """The unique identifier for the product."""
 
-    metadata: Dict[str, object]
+    metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the product.
 
     Included in webhook payloads for payment and membership events.
