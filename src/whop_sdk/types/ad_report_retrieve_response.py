@@ -9,7 +9,73 @@ from .granularities import Granularities
 from .shared.currency import Currency
 from .result_label_keys import ResultLabelKeys
 
-__all__ = ["AdReportRetrieveResponse", "Breakdown", "BreakdownSummary", "Granularity", "Summary"]
+__all__ = [
+    "AdReportRetrieveResponse",
+    "Breakdown",
+    "BreakdownGranularity",
+    "BreakdownSummary",
+    "Granularity",
+    "Summary",
+]
+
+
+class BreakdownGranularity(BaseModel):
+    """Per-bucket ad performance for an ad campaign, ad group, or ad.
+
+    Bucket grain is set by the `ad_report` query's `granularity` argument.
+    """
+
+    bucket_start: datetime
+    """The bucket's start time as a real UTC instant.
+
+    `(statDate, statHour)` resolved in the ad account's reporting timezone — render
+    this in the viewer's local timezone.
+    """
+
+    clicks: int
+    """Clicks in this bucket."""
+
+    granularity: Granularities
+    """The bucket size of this row (`daily` or `hourly`)."""
+
+    impressions: int
+    """Impressions in this bucket."""
+
+    reach: int
+    """Unique users reached in this bucket.
+
+    Always `0` for hourly rows (Meta does not return reach at hourly grain).
+    """
+
+    result_count: Optional[int] = None
+    """Count of the primary optimization result in this bucket."""
+
+    result_label_key: Optional[ResultLabelKeys] = None
+    """Types of optimization results tracked from external ad platforms"""
+
+    result_label_override: Optional[str] = None
+    """Advertiser-defined label for the result when `resultLabelKey` is `custom`."""
+
+    spend: float
+    """
+    Charged spend in this bucket in the requested reporting currency — the amount
+    billed including platform fees, not the platform-side net spend.
+    """
+
+    spend_currency: Currency
+    """Currency of the `spend` value."""
+
+    stat_date: datetime
+    """The date these stats cover (midnight UTC).
+
+    For hourly rows, see `statHour` and `bucketStart`.
+    """
+
+    stat_hour: Optional[int] = None
+    """Hour of the day in the ad account's reporting timezone (0-23).
+
+    `null` for daily rows.
+    """
 
 
 class BreakdownSummary(BaseModel):
@@ -72,6 +138,13 @@ class Breakdown(BaseModel):
 
     id: str
     """Tag of the entity (ad campaign, ad group, or ad)."""
+
+    granularity: Optional[List[BreakdownGranularity]] = None
+    """
+    Per-bucket time series for this entity over the date range, ordered ascending by
+    `bucketStart`. `null` when the `granularity` arg on `adReport` is omitted;
+    otherwise contains rows at the requested grain (`daily` or `hourly`).
+    """
 
     level: Literal["campaign", "ad_group", "ad"]
     """The entity level of this row — matches the `breakdown` arg."""
