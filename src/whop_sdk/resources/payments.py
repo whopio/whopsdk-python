@@ -263,6 +263,7 @@ class PaymentsResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
+        checkout_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
@@ -306,6 +307,8 @@ class PaymentsResource(SyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           billing_reasons: Filter payments by their billing reason.
+
+          checkout_configuration_ids: Only return payments from these checkout configurations.
 
           company_id: The unique identifier of the company to list payments for.
 
@@ -362,6 +365,7 @@ class PaymentsResource(SyncAPIResource):
                         "after": after,
                         "before": before,
                         "billing_reasons": billing_reasons,
+                        "checkout_configuration_ids": checkout_configuration_ids,
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
@@ -826,6 +830,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
+        checkout_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
@@ -869,6 +874,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           billing_reasons: Filter payments by their billing reason.
+
+          checkout_configuration_ids: Only return payments from these checkout configurations.
 
           company_id: The unique identifier of the company to list payments for.
 
@@ -925,6 +932,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                         "after": after,
                         "before": before,
                         "billing_reasons": billing_reasons,
+                        "checkout_configuration_ids": checkout_configuration_ids,
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
