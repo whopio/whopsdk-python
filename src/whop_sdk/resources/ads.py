@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -22,6 +23,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_list_response import AdListResponse
+from ..types.shared.direction import Direction
 from ..types.external_ad_status import ExternalAdStatus
 
 __all__ = ["AdsResource", "AsyncAdsResource"]
@@ -98,6 +100,10 @@ class AdsResource(SyncAPIResource):
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        order_by: Optional[Literal["spend", "roas"]] | Omit = omit,
+        order_direction: Optional[Direction] | Omit = omit,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[ExternalAdStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -135,6 +141,14 @@ class AdsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
+          order_by: Columns that the listAds query can sort by.
+
+          order_direction: The direction of the sort.
+
+          stats_from: Start of the stats date range used when order_by is a stats column.
+
+          stats_to: End of the stats date range used when order_by is a stats column.
+
           status: The status of an external ad.
 
           extra_headers: Send extra headers
@@ -164,6 +178,10 @@ class AdsResource(SyncAPIResource):
                         "created_before": created_before,
                         "first": first,
                         "last": last,
+                        "order_by": order_by,
+                        "order_direction": order_direction,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_list_params.AdListParams,
@@ -320,6 +338,10 @@ class AsyncAdsResource(AsyncAPIResource):
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        order_by: Optional[Literal["spend", "roas"]] | Omit = omit,
+        order_direction: Optional[Direction] | Omit = omit,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[ExternalAdStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -357,6 +379,14 @@ class AsyncAdsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
+          order_by: Columns that the listAds query can sort by.
+
+          order_direction: The direction of the sort.
+
+          stats_from: Start of the stats date range used when order_by is a stats column.
+
+          stats_to: End of the stats date range used when order_by is a stats column.
+
           status: The status of an external ad.
 
           extra_headers: Send extra headers
@@ -386,6 +416,10 @@ class AsyncAdsResource(AsyncAPIResource):
                         "created_before": created_before,
                         "first": first,
                         "last": last,
+                        "order_by": order_by,
+                        "order_direction": order_direction,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_list_params.AdListParams,
