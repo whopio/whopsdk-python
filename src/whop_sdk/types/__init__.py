@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .ad import Ad as Ad
 from .lead import Lead as Lead
 from .user import User as User
 from .course import Course as Course
@@ -70,6 +71,7 @@ from .status import Status as Status
 from .ai_chat import AIChat as AIChat
 from .dispute import Dispute as Dispute
 from .webhook import Webhook as Webhook
+from .ad_group import AdGroup as AdGroup
 from .app_type import AppType as AppType
 from .affiliate import Affiliate as Affiliate
 from .dm_member import DmMember as DmMember
@@ -78,25 +80,30 @@ from .dm_channel import DmChannel as DmChannel
 from .embed_type import EmbedType as EmbedType
 from .promo_code import PromoCode as PromoCode
 from .withdrawal import Withdrawal as Withdrawal
+from .ad_campaign import AdCampaign as AdCampaign
 from .api_version import APIVersion as APIVersion
 from .card_brands import CardBrands as CardBrands
 from .lesson_types import LessonTypes as LessonTypes
 from .setup_intent import SetupIntent as SetupIntent
 from .checkout_font import CheckoutFont as CheckoutFont
+from .granularities import Granularities as Granularities
 from .refund_status import RefundStatus as RefundStatus
 from .review_status import ReviewStatus as ReviewStatus
 from .upload_status import UploadStatus as UploadStatus
 from .webhook_event import WebhookEvent as WebhookEvent
+from .ad_budget_type import AdBudgetType as AdBudgetType
 from .ad_list_params import AdListParams as AdListParams
 from .cancel_options import CancelOptions as CancelOptions
 from .checkout_modes import CheckoutModes as CheckoutModes
 from .checkout_shape import CheckoutShape as CheckoutShape
 from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
+from .ad_group_status import AdGroupStatus as AdGroupStatus
 from .app_list_params import AppListParams as AppListParams
 from .authorized_user import AuthorizedUser as AuthorizedUser
 from .billing_reasons import BillingReasons as BillingReasons
 from .fee_markup_type import FeeMarkupType as FeeMarkupType
+from .file_visibility import FileVisibility as FileVisibility
 from .ad_list_response import AdListResponse as AdListResponse
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
@@ -109,11 +116,14 @@ from .app_update_params import AppUpdateParams as AppUpdateParams
 from .entry_list_params import EntryListParams as EntryListParams
 from .forum_list_params import ForumListParams as ForumListParams
 from .promo_code_status import PromoCodeStatus as PromoCodeStatus
+from .result_label_keys import ResultLabelKeys as ResultLabelKeys
 from .withdrawal_speeds import WithdrawalSpeeds as WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus as WithdrawalStatus
+from .ad_campaign_status import AdCampaignStatus as AdCampaignStatus
 from .bounty_list_params import BountyListParams as BountyListParams
 from .course_list_params import CourseListParams as CourseListParams
 from .dispute_alert_type import DisputeAlertType as DisputeAlertType
+from .external_ad_status import ExternalAdStatus as ExternalAdStatus
 from .file_create_params import FileCreateParams as FileCreateParams
 from .lead_create_params import LeadCreateParams as LeadCreateParams
 from .lead_list_response import LeadListResponse as LeadListResponse
@@ -143,8 +153,8 @@ from .tax_identifier_type import TaxIdentifierType as TaxIdentifierType
 from .topup_create_params import TopupCreateParams as TopupCreateParams
 from .verification_status import VerificationStatus as VerificationStatus
 from .webhook_list_params import WebhookListParams as WebhookListParams
+from .ad_campaign_platform import AdCampaignPlatform as AdCampaignPlatform
 from .ad_group_list_params import AdGroupListParams as AdGroupListParams
-from .ad_retrieve_response import AdRetrieveResponse as AdRetrieveResponse
 from .bounty_create_params import BountyCreateParams as BountyCreateParams
 from .bounty_list_response import BountyListResponse as BountyListResponse
 from .course_create_params import CourseCreateParams as CourseCreateParams
@@ -229,7 +239,6 @@ from .verification_error_code import VerificationErrorCode as VerificationErrorC
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse
-from .ad_group_update_response import AdGroupUpdateResponse as AdGroupUpdateResponse
 from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
 from .conversion_create_params import ConversionCreateParams as ConversionCreateParams
@@ -272,8 +281,6 @@ from .dm_member_delete_response import DmMemberDeleteResponse as DmMemberDeleteR
 from .payout_method_list_params import PayoutMethodListParams as PayoutMethodListParams
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams
-from .ad_campaign_pause_response import AdCampaignPauseResponse as AdCampaignPauseResponse
-from .ad_group_retrieve_response import AdGroupRetrieveResponse as AdGroupRetrieveResponse
 from .affiliate_archive_response import AffiliateArchiveResponse as AffiliateArchiveResponse
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
@@ -295,7 +302,6 @@ from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDele
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .verification_list_response import VerificationListResponse as VerificationListResponse
-from .ad_campaign_update_response import AdCampaignUpdateResponse as AdCampaignUpdateResponse
 from .ad_report_retrieve_response import AdReportRetrieveResponse as AdReportRetrieveResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
@@ -310,7 +316,6 @@ from .payout_method_list_response import PayoutMethodListResponse as PayoutMetho
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
 from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .account_link_create_response import AccountLinkCreateResponse as AccountLinkCreateResponse
-from .ad_campaign_unpause_response import AdCampaignUnpauseResponse as AdCampaignUnpauseResponse
 from .affiliate_unarchive_response import AffiliateUnarchiveResponse as AffiliateUnarchiveResponse
 from .course_chapter_create_params import CourseChapterCreateParams as CourseChapterCreateParams
 from .course_chapter_list_response import CourseChapterListResponse as CourseChapterListResponse
@@ -324,7 +329,6 @@ from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFa
 from .payment_method_list_response import PaymentMethodListResponse as PaymentMethodListResponse
 from .refund_created_webhook_event import RefundCreatedWebhookEvent as RefundCreatedWebhookEvent
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent as RefundUpdatedWebhookEvent
-from .ad_campaign_retrieve_response import AdCampaignRetrieveResponse as AdCampaignRetrieveResponse
 from .authorized_user_create_params import AuthorizedUserCreateParams as AuthorizedUserCreateParams
 from .authorized_user_delete_params import AuthorizedUserDeleteParams as AuthorizedUserDeleteParams
 from .authorized_user_list_response import AuthorizedUserListResponse as AuthorizedUserListResponse

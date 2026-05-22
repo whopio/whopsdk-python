@@ -160,12 +160,24 @@ class Plan(BaseModel):
     internal_notes: Optional[str] = None
     """A personal description or notes section for the business."""
 
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
+    """
+
 
 class Product(BaseModel):
     """The product this payment was made for"""
 
     id: str
     """The unique identifier for the product."""
+
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the product.
+
+    Included in webhook payloads for payment and membership events.
+    """
 
     route: str
     """
@@ -271,8 +283,8 @@ class PaymentListResponse(BaseModel):
     created_at: datetime
     """The datetime the payment was created."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
@@ -345,12 +357,8 @@ class PaymentListResponse(BaseModel):
     otherwise false. Used to decide if Whop can attempt the charge again.
     """
 
-    settlement_currency: str
-    """
-    The currency in which the creator receives payouts and fees are charged (e.g.,
-    'usd', 'eur'). For multi-currency payments this differs from the payment
-    currency.
-    """
+    settlement_currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
