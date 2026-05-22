@@ -80,6 +80,10 @@ class TestAds:
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
             last=42,
+            order_by="spend",
+            order_direction="asc",
+            stats_from=parse_datetime("2023-12-01T05:00:00.401Z"),
+            stats_to=parse_datetime("2023-12-01T05:00:00.401Z"),
             status="active",
         )
         assert_matches_type(SyncCursorPage[AdListResponse], ad, path=["response"])
@@ -257,6 +261,10 @@ class TestAsyncAds:
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
             last=42,
+            order_by="spend",
+            order_direction="asc",
+            stats_from=parse_datetime("2023-12-01T05:00:00.401Z"),
+            stats_to=parse_datetime("2023-12-01T05:00:00.401Z"),
             status="active",
         )
         assert_matches_type(AsyncCursorPage[AdListResponse], ad, path=["response"])

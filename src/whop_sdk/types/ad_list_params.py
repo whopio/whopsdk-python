@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .shared.direction import Direction
 from .external_ad_status import ExternalAdStatus
 
 __all__ = ["AdListParams"]
@@ -48,6 +49,18 @@ class AdListParams(TypedDict, total=False):
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
+
+    order_by: Optional[Literal["spend", "roas"]]
+    """Columns that the listAds query can sort by."""
+
+    order_direction: Optional[Direction]
+    """The direction of the sort."""
+
+    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Start of the stats date range used when order_by is a stats column."""
+
+    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """End of the stats date range used when order_by is a stats column."""
 
     status: Optional[ExternalAdStatus]
     """The status of an external ad."""
