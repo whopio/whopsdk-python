@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .ad_campaign_status import AdCampaignStatus
 
 __all__ = ["AdCampaignListParams"]
 
@@ -36,5 +37,5 @@ class AdCampaignListParams(TypedDict, total=False):
     query: Optional[str]
     """Case-insensitive substring match against the campaign title."""
 
-    status: Optional[Literal["active", "paused", "payment_failed", "draft", "in_review", "flagged"]]
+    status: Optional[AdCampaignStatus]
     """The status of an ad campaign."""

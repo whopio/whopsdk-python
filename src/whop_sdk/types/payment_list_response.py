@@ -9,6 +9,7 @@ from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.promo_type import PromoType
 from .payment_method_types import PaymentMethodTypes
+from .receipt_tax_behavior import ReceiptTaxBehavior
 from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
 from .shared.friendly_receipt_status import FriendlyReceiptStatus
@@ -160,12 +161,24 @@ class Plan(BaseModel):
     internal_notes: Optional[str] = None
     """A personal description or notes section for the business."""
 
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
+    """
+
 
 class Product(BaseModel):
     """The product this payment was made for"""
 
     id: str
     """The unique identifier for the product."""
+
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the product.
+
+    Included in webhook payloads for payment and membership events.
+    """
 
     route: str
     """
@@ -271,8 +284,8 @@ class PaymentListResponse(BaseModel):
     created_at: datetime
     """The datetime the payment was created."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
@@ -345,12 +358,8 @@ class PaymentListResponse(BaseModel):
     otherwise false. Used to decide if Whop can attempt the charge again.
     """
 
-    settlement_currency: str
-    """
-    The currency in which the creator receives payouts and fees are charged (e.g.,
-    'usd', 'eur'). For multi-currency payments this differs from the payment
-    currency.
-    """
+    settlement_currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
@@ -360,6 +369,15 @@ class PaymentListResponse(BaseModel):
 
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""
+
+    tax_amount: Optional[float] = None
+    """The calculated amount of the sales/VAT tax (if applicable)."""
+
+    tax_behavior: Optional[ReceiptTaxBehavior] = None
+    """
+    The type of tax inclusivity applied to the receipt, for determining whether the
+    tax is included in the final price, or paid on top.
+    """
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""

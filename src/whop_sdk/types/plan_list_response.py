@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -150,6 +150,12 @@ class PlanListResponse(BaseModel):
     """The number of users who currently hold an active membership through this plan.
 
     Only visible to authorized team members.
+    """
+
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
     """
 
     payment_method_configuration: Optional[PaymentMethodConfiguration] = None
