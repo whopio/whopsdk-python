@@ -249,6 +249,9 @@ class Plan(BaseModel):
     'exclusive' (tax added at checkout), or 'unspecified' (tax not configured).
     """
 
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
+    """The 3D Secure behavior for a plan."""
+
     title: Optional[str] = None
     """
     The display name of the plan shown to customers on the product page and at
