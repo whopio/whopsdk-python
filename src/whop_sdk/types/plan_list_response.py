@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.currency import Currency
@@ -206,6 +207,9 @@ class PlanListResponse(BaseModel):
 
     Only visible to authorized team members. Null if the requester lacks permission.
     """
+
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
+    """The 3D Secure behavior for a plan."""
 
     title: Optional[str] = None
     """

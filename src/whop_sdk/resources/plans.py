@@ -81,6 +81,7 @@ class PlansResource(SyncAPIResource):
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -157,6 +158,8 @@ class PlansResource(SyncAPIResource):
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
+          three_ds_level: The 3D Secure behavior for a plan.
+
           title: The display name of the plan shown to customers on the product page.
 
           trial_period_days: The number of free trial days before the first charge on a recurring plan.
@@ -199,6 +202,7 @@ class PlansResource(SyncAPIResource):
                     "renewal_price": renewal_price,
                     "split_pay_required_payments": split_pay_required_payments,
                     "stock": stock,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,
@@ -272,6 +276,7 @@ class PlansResource(SyncAPIResource):
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -344,6 +349,8 @@ class PlansResource(SyncAPIResource):
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
               Provided in the plan's currency (e.g., 19.99 for $19.99).
 
+          three_ds_level: The 3D Secure behavior for a plan.
+
           title: The display name of the plan shown to customers on the product page.
 
           trial_period_days: The number of free trial days before the first charge on a recurring plan.
@@ -385,6 +392,7 @@ class PlansResource(SyncAPIResource):
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,
@@ -581,6 +589,7 @@ class AsyncPlansResource(AsyncAPIResource):
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -657,6 +666,8 @@ class AsyncPlansResource(AsyncAPIResource):
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
+          three_ds_level: The 3D Secure behavior for a plan.
+
           title: The display name of the plan shown to customers on the product page.
 
           trial_period_days: The number of free trial days before the first charge on a recurring plan.
@@ -699,6 +710,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "renewal_price": renewal_price,
                     "split_pay_required_payments": split_pay_required_payments,
                     "stock": stock,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,
@@ -772,6 +784,7 @@ class AsyncPlansResource(AsyncAPIResource):
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -844,6 +857,8 @@ class AsyncPlansResource(AsyncAPIResource):
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
               Provided in the plan's currency (e.g., 19.99 for $19.99).
 
+          three_ds_level: The 3D Secure behavior for a plan.
+
           title: The display name of the plan shown to customers on the product page.
 
           trial_period_days: The number of free trial days before the first charge on a recurring plan.
@@ -885,6 +900,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,

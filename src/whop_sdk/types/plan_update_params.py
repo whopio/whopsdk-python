@@ -107,6 +107,9 @@ class PlanUpdateParams(TypedDict, total=False):
     Provided in the plan's currency (e.g., 19.99 for $19.99).
     """
 
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
+    """The 3D Secure behavior for a plan."""
+
     title: Optional[str]
     """The display name of the plan shown to customers on the product page."""
 
