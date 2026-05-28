@@ -131,9 +131,9 @@ class AdCampaignsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
@@ -156,11 +156,11 @@ class AdCampaignsResource(SyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list ad campaigns for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The unique identifier of the company to list ad campaigns for.
 
           created_after: Only return ad campaigns created after this timestamp.
 
@@ -192,9 +192,9 @@ class AdCampaignsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
@@ -387,9 +387,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
@@ -412,11 +412,11 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list ad campaigns for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The unique identifier of the company to list ad campaigns for.
 
           created_after: Only return ad campaigns created after this timestamp.
 
@@ -448,9 +448,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
