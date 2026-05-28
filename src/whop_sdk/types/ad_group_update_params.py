@@ -694,6 +694,7 @@ class PlatformConfigMeta(TypedDict, total=False):
             "IMAGINE",
             "LEAD_FROM_IG_DIRECT",
             "LEAD_FROM_MESSENGER",
+            "LEAD_FORM_MESSENGER",
             "WEBSITE_AND_LEAD_FORM",
             "WEBSITE_AND_PHONE_CALL",
             "BROADCAST_CHANNEL",
@@ -763,7 +764,9 @@ class PlatformConfigMeta(TypedDict, total=False):
     is_dynamic_creative: Optional[bool]
     """Represents `true` or `false` values."""
 
-    lead_conversion_location: Optional[Literal["website", "instant_forms", "messenger", "instagram", "calls", "app"]]
+    lead_conversion_location: Optional[
+        Literal["website", "instant_forms", "website_and_instant_forms", "messenger", "instagram", "calls", "app"]
+    ]
 
     lead_form_config: Optional[PlatformConfigMetaLeadFormConfig]
     """Configuration for a Meta lead gen instant form."""
