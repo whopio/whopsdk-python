@@ -106,6 +106,9 @@ class Membership(BaseModel):
     id: str
     """The unique identifier for the membership."""
 
+    phone_number: Optional[str] = None
+    """The phone number associated with this membership."""
+
     status: MembershipStatus
     """The state of the membership."""
 
