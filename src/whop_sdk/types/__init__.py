@@ -384,6 +384,9 @@ from .course_lesson_interaction_list_params import (
 from .course_lesson_submit_assessment_params import (
     CourseLessonSubmitAssessmentParams as CourseLessonSubmitAssessmentParams,
 )
+from .identity_profile_updated_webhook_event import (
+    IdentityProfileUpdatedWebhookEvent as IdentityProfileUpdatedWebhookEvent,
+)
 from .company_token_transaction_create_params import (
     CompanyTokenTransactionCreateParams as CompanyTokenTransactionCreateParams,
 )
@@ -392,6 +395,12 @@ from .company_token_transaction_list_response import (
 )
 from .dm_feed_member_notification_preferences import (
     DmFeedMemberNotificationPreferences as DmFeedMemberNotificationPreferences,
+)
+from .identity_profile_approved_webhook_event import (
+    IdentityProfileApprovedWebhookEvent as IdentityProfileApprovedWebhookEvent,
+)
+from .identity_profile_rejected_webhook_event import (
+    IdentityProfileRejectedWebhookEvent as IdentityProfileRejectedWebhookEvent,
 )
 from .course_lesson_mark_as_completed_response import (
     CourseLessonMarkAsCompletedResponse as CourseLessonMarkAsCompletedResponse,
@@ -416,6 +425,9 @@ from .invoice_marked_uncollectible_webhook_event import (
 )
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
+)
+from .identity_profile_needs_action_webhook_event import (
+    IdentityProfileNeedsActionWebhookEvent as IdentityProfileNeedsActionWebhookEvent,
 )
 from .payout_account_status_updated_webhook_event import (
     PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
