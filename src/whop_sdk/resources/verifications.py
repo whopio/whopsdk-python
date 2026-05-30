@@ -26,6 +26,8 @@ __all__ = ["VerificationsResource", "AsyncVerificationsResource"]
 
 
 class VerificationsResource(SyncAPIResource):
+    """Verifications"""
+
     @cached_property
     def with_raw_response(self) -> VerificationsResourceWithRawResponse:
         """
@@ -148,6 +150,8 @@ class VerificationsResource(SyncAPIResource):
 
 
 class AsyncVerificationsResource(AsyncAPIResource):
+    """Verifications"""
+
     @cached_property
     def with_raw_response(self) -> AsyncVerificationsResourceWithRawResponse:
         """

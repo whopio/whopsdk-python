@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .checkout_modes import CheckoutModes
@@ -95,6 +96,9 @@ class Plan(BaseModel):
     The recurring price charged every billing_period in the plan's base_currency
     (e.g., 9.99 for $9.99/period). Zero for one-time plans.
     """
+
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
+    """The 3D Secure behavior for a plan."""
 
     trial_period_days: Optional[int] = None
     """The number of free trial days before the first charge on a renewal plan.

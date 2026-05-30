@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .checkout_font import CheckoutFont
@@ -71,6 +71,13 @@ class PlanCreateParams(TypedDict, total=False):
     legacy_payment_method_controls: Optional[bool]
     """Whether this plan uses legacy payment method controls."""
 
+    metadata: Optional[Dict[str, object]]
+    """Custom key-value pairs to store on the plan.
+
+    Included in webhook payloads for payment and membership events. Max 50 keys, 500
+    chars per key, 5000 chars per value.
+    """
+
     override_tax_type: Optional[TaxType]
     """
     Whether or not the tax is included in a plan's price (or if it hasn't been set
@@ -103,6 +110,9 @@ class PlanCreateParams(TypedDict, total=False):
 
     Ignored when unlimited_stock is true.
     """
+
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
+    """The 3D Secure behavior for a plan."""
 
     title: Optional[str]
     """The display name of the plan shown to customers on the product page."""
