@@ -94,4 +94,7 @@ Currency: TypeAlias = Literal[
     "cny",
     "usdt",
     "kzt",
+    "awg",
+    "whop_usd",
+    "xau",
 ]

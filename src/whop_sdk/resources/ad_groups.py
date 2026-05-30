@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_group_list_params, ad_group_update_params
+from ..types import AdBudgetType, AdGroupStatus, ad_group_list_params, ad_group_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,10 +20,11 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.ad_group import AdGroup
+from ..types.ad_budget_type import AdBudgetType
+from ..types.ad_group_status import AdGroupStatus
 from ..types.ad_group_list_response import AdGroupListResponse
 from ..types.ad_group_delete_response import AdGroupDeleteResponse
-from ..types.ad_group_update_response import AdGroupUpdateResponse
-from ..types.ad_group_retrieve_response import AdGroupRetrieveResponse
 
 __all__ = ["AdGroupsResource", "AsyncAdGroupsResource"]
 
@@ -61,7 +61,7 @@ class AdGroupsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupRetrieveResponse:
+    ) -> AdGroup:
         """
         Retrieves a single ad group by its unique identifier.
 
@@ -85,7 +85,7 @@ class AdGroupsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdGroupRetrieveResponse,
+            cast_to=AdGroup,
         )
 
     def update(
@@ -93,19 +93,19 @@ class AdGroupsResource(SyncAPIResource):
         id: str,
         *,
         budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
+        budget_type: Optional[AdBudgetType] | Omit = omit,
         config: Optional[ad_group_update_params.Config] | Omit = omit,
         daily_budget: Optional[float] | Omit = omit,
         name: Optional[str] | Omit = omit,
         platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
+        status: Optional[AdGroupStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupUpdateResponse:
+    ) -> AdGroup:
         """
         Updates an existing ad group.
 
@@ -156,7 +156,7 @@ class AdGroupsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdGroupUpdateResponse,
+            cast_to=AdGroup,
         )
 
     def list(
@@ -171,7 +171,7 @@ class AdGroupsResource(SyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
+        status: Optional[AdGroupStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -280,6 +280,82 @@ class AdGroupsResource(SyncAPIResource):
             cast_to=AdGroupDeleteResponse,
         )
 
+    def pause(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroup:
+        """
+        Pauses an ad group.
+
+        Required permissions:
+
+        - `ad_campaign:update`
+        - `ad_campaign:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/ad_groups/{id}/pause", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdGroup,
+        )
+
+    def unpause(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroup:
+        """
+        Resumes a paused ad group.
+
+        Required permissions:
+
+        - `ad_campaign:update`
+        - `ad_campaign:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/ad_groups/{id}/unpause", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdGroup,
+        )
+
 
 class AsyncAdGroupsResource(AsyncAPIResource):
     """Ad groups"""
@@ -313,7 +389,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupRetrieveResponse:
+    ) -> AdGroup:
         """
         Retrieves a single ad group by its unique identifier.
 
@@ -337,7 +413,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdGroupRetrieveResponse,
+            cast_to=AdGroup,
         )
 
     async def update(
@@ -345,19 +421,19 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         id: str,
         *,
         budget: Optional[float] | Omit = omit,
-        budget_type: Optional[Literal["daily", "lifetime"]] | Omit = omit,
+        budget_type: Optional[AdBudgetType] | Omit = omit,
         config: Optional[ad_group_update_params.Config] | Omit = omit,
         daily_budget: Optional[float] | Omit = omit,
         name: Optional[str] | Omit = omit,
         platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
+        status: Optional[AdGroupStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupUpdateResponse:
+    ) -> AdGroup:
         """
         Updates an existing ad group.
 
@@ -408,7 +484,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdGroupUpdateResponse,
+            cast_to=AdGroup,
         )
 
     def list(
@@ -423,7 +499,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
-        status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]] | Omit = omit,
+        status: Optional[AdGroupStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -532,6 +608,82 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             cast_to=AdGroupDeleteResponse,
         )
 
+    async def pause(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroup:
+        """
+        Pauses an ad group.
+
+        Required permissions:
+
+        - `ad_campaign:update`
+        - `ad_campaign:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/ad_groups/{id}/pause", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdGroup,
+        )
+
+    async def unpause(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroup:
+        """
+        Resumes a paused ad group.
+
+        Required permissions:
+
+        - `ad_campaign:update`
+        - `ad_campaign:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/ad_groups/{id}/unpause", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdGroup,
+        )
+
 
 class AdGroupsResourceWithRawResponse:
     def __init__(self, ad_groups: AdGroupsResource) -> None:
@@ -548,6 +700,12 @@ class AdGroupsResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             ad_groups.delete,
+        )
+        self.pause = to_raw_response_wrapper(
+            ad_groups.pause,
+        )
+        self.unpause = to_raw_response_wrapper(
+            ad_groups.unpause,
         )
 
 
@@ -567,6 +725,12 @@ class AsyncAdGroupsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             ad_groups.delete,
         )
+        self.pause = async_to_raw_response_wrapper(
+            ad_groups.pause,
+        )
+        self.unpause = async_to_raw_response_wrapper(
+            ad_groups.unpause,
+        )
 
 
 class AdGroupsResourceWithStreamingResponse:
@@ -585,6 +749,12 @@ class AdGroupsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             ad_groups.delete,
         )
+        self.pause = to_streamed_response_wrapper(
+            ad_groups.pause,
+        )
+        self.unpause = to_streamed_response_wrapper(
+            ad_groups.unpause,
+        )
 
 
 class AsyncAdGroupsResourceWithStreamingResponse:
@@ -602,4 +772,10 @@ class AsyncAdGroupsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             ad_groups.delete,
+        )
+        self.pause = async_to_streamed_response_wrapper(
+            ad_groups.pause,
+        )
+        self.unpause = async_to_streamed_response_wrapper(
+            ad_groups.unpause,
         )
