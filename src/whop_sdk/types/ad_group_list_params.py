@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .ad_group_status import AdGroupStatus
 
 __all__ = ["AdGroupListParams"]
 
@@ -39,5 +40,5 @@ class AdGroupListParams(TypedDict, total=False):
     query: Optional[str]
     """Case-insensitive substring match against the ad group name."""
 
-    status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]]
+    status: Optional[AdGroupStatus]
     """The status of an external ad group."""

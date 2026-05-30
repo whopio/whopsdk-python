@@ -87,6 +87,15 @@ class Message(BaseModel):
     is_pinned: bool
     """Whether this message is pinned to the top of the channel for easy access."""
 
+    mentions: List[str]
+    """A list of user IDs that are explicitly mentioned in this message."""
+
+    mentions_everyone: bool
+    """
+    Whether the message includes an @everyone mention that notifies all channel
+    members.
+    """
+
     message_type: DmsPostTypes
     """The classification of this message: regular, system, or automated."""
 
