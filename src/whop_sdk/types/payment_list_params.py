@@ -27,6 +27,9 @@ class PaymentListParams(TypedDict, total=False):
     billing_reasons: Optional[List[BillingReasons]]
     """Filter payments by their billing reason."""
 
+    checkout_configuration_ids: Optional[SequenceNotStr[str]]
+    """Only return payments from these checkout configurations."""
+
     company_id: Optional[str]
     """The unique identifier of the company to list payments for."""
 
