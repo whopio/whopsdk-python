@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -35,6 +35,8 @@ __all__ = ["ProductsResource", "AsyncProductsResource"]
 
 
 class ProductsResource(SyncAPIResource):
+    """Products"""
+
     @cached_property
     def with_raw_response(self) -> ProductsResourceWithRawResponse:
         """
@@ -70,6 +72,7 @@ class ProductsResource(SyncAPIResource):
         headline: Optional[str] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
@@ -125,6 +128,10 @@ class ProductsResource(SyncAPIResource):
 
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
+          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           plan_options: Configuration for an automatically generated plan to attach to this product.
 
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
@@ -163,6 +170,7 @@ class ProductsResource(SyncAPIResource):
                     "headline": headline,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
+                    "metadata": metadata,
                     "plan_options": plan_options,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
@@ -230,6 +238,7 @@ class ProductsResource(SyncAPIResource):
         headline: Optional[str] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
@@ -280,6 +289,10 @@ class ProductsResource(SyncAPIResource):
 
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
+          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
 
           redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
@@ -320,6 +333,7 @@ class ProductsResource(SyncAPIResource):
                     "headline": headline,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
+                    "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
@@ -463,6 +477,8 @@ class ProductsResource(SyncAPIResource):
 
 
 class AsyncProductsResource(AsyncAPIResource):
+    """Products"""
+
     @cached_property
     def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:
         """
@@ -498,6 +514,7 @@ class AsyncProductsResource(AsyncAPIResource):
         headline: Optional[str] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
@@ -553,6 +570,10 @@ class AsyncProductsResource(AsyncAPIResource):
 
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
+          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           plan_options: Configuration for an automatically generated plan to attach to this product.
 
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
@@ -591,6 +612,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "headline": headline,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
+                    "metadata": metadata,
                     "plan_options": plan_options,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
@@ -658,6 +680,7 @@ class AsyncProductsResource(AsyncAPIResource):
         headline: Optional[str] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
@@ -708,6 +731,10 @@ class AsyncProductsResource(AsyncAPIResource):
 
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
+          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
 
           redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
@@ -748,6 +775,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "headline": headline,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
+                    "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
