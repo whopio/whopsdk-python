@@ -35,6 +35,8 @@ __all__ = ["DmMembersResource", "AsyncDmMembersResource"]
 
 
 class DmMembersResource(SyncAPIResource):
+    """Dm members"""
+
     @cached_property
     def with_raw_response(self) -> DmMembersResourceWithRawResponse:
         """
@@ -297,6 +299,8 @@ class DmMembersResource(SyncAPIResource):
 
 
 class AsyncDmMembersResource(AsyncAPIResource):
+    """Dm members"""
+
     @cached_property
     def with_raw_response(self) -> AsyncDmMembersResourceWithRawResponse:
         """

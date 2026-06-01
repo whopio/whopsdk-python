@@ -2,9 +2,9 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from ..._models import BaseModel
+from ..social_link_websites import SocialLinkWebsites
 
 __all__ = ["Company", "FeaturedAffiliateProduct", "Logo", "OwnerUser", "SocialLink"]
 
@@ -54,7 +54,7 @@ class SocialLink(BaseModel):
     url: str
     """The URL of the social media profile or external link."""
 
-    website: Literal["x", "instagram", "facebook", "tiktok", "youtube", "linkedin", "twitch", "website", "custom"]
+    website: SocialLinkWebsites
     """The website"""
 
 
