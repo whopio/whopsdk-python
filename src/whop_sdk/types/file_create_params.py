@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
+
+from .file_visibility import FileVisibility
 
 __all__ = ["FileCreateParams"]
 
@@ -15,7 +17,7 @@ class FileCreateParams(TypedDict, total=False):
     "document.pdf").
     """
 
-    visibility: Optional[Literal["public", "private"]]
+    visibility: Optional[FileVisibility]
     """
     Controls whether an uploaded file is publicly accessible or requires
     authentication to access.
