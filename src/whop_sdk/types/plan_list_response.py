@@ -1,7 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.currency import Currency
@@ -152,6 +153,12 @@ class PlanListResponse(BaseModel):
     Only visible to authorized team members.
     """
 
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
+    """
+
     payment_method_configuration: Optional[PaymentMethodConfiguration] = None
     """
     The explicit payment method configuration specifying which payment methods are
@@ -200,6 +207,9 @@ class PlanListResponse(BaseModel):
 
     Only visible to authorized team members. Null if the requester lacks permission.
     """
+
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
+    """The 3D Secure behavior for a plan."""
 
     title: Optional[str] = None
     """
