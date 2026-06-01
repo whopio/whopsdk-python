@@ -116,4 +116,10 @@ TaxIdentifierType: TypeAlias = Literal[
     "zw_tin",
     "sr_fin",
     "xi_vat",
+    "al_tin",
+    "ci_tin",
+    "gh_tin",
+    "mo_tin",
+    "ne_nif",
+    "py_ruc",
 ]
