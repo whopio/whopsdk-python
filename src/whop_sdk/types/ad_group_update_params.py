@@ -6,6 +6,8 @@ from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
+from .ad_budget_type import AdBudgetType
+from .ad_group_status import AdGroupStatus
 
 __all__ = [
     "AdGroupUpdateParams",
@@ -46,7 +48,7 @@ class AdGroupUpdateParams(TypedDict, total=False):
     budget: Optional[float]
     """Budget amount in dollars."""
 
-    budget_type: Optional[Literal["daily", "lifetime"]]
+    budget_type: Optional[AdBudgetType]
     """The budget type for an ad campaign or ad group."""
 
     config: Optional[Config]
@@ -61,7 +63,7 @@ class AdGroupUpdateParams(TypedDict, total=False):
     platform_config: Optional[PlatformConfig]
     """Platform-specific ad group configuration."""
 
-    status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]]
+    status: Optional[AdGroupStatus]
     """The status of an external ad group."""
 
 
@@ -692,6 +694,7 @@ class PlatformConfigMeta(TypedDict, total=False):
             "IMAGINE",
             "LEAD_FROM_IG_DIRECT",
             "LEAD_FROM_MESSENGER",
+            "LEAD_FORM_MESSENGER",
             "WEBSITE_AND_LEAD_FORM",
             "WEBSITE_AND_PHONE_CALL",
             "BROADCAST_CHANNEL",
@@ -761,7 +764,9 @@ class PlatformConfigMeta(TypedDict, total=False):
     is_dynamic_creative: Optional[bool]
     """Represents `true` or `false` values."""
 
-    lead_conversion_location: Optional[Literal["website", "instant_forms", "messenger", "instagram", "calls", "app"]]
+    lead_conversion_location: Optional[
+        Literal["website", "instant_forms", "website_and_instant_forms", "messenger", "instagram", "calls", "app"]
+    ]
 
     lead_form_config: Optional[PlatformConfigMetaLeadFormConfig]
     """Configuration for a Meta lead gen instant form."""
