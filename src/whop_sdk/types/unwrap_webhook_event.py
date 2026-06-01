@@ -29,8 +29,12 @@ from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
+from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhookEvent
+from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
+from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
+from .identity_profile_needs_action_webhook_event import IdentityProfileNeedsActionWebhookEvent
 from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
 from .resolution_center_case_created_webhook_event import ResolutionCenterCaseCreatedWebhookEvent
 from .resolution_center_case_decided_webhook_event import ResolutionCenterCaseDecidedWebhookEvent
@@ -42,39 +46,43 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        CourseLessonInteractionCompletedWebhookEvent,
+        DisputeCreatedWebhookEvent,
+        DisputeUpdatedWebhookEvent,
+        DisputeAlertCreatedWebhookEvent,
+        EntryApprovedWebhookEvent,
+        EntryCreatedWebhookEvent,
+        EntryDeletedWebhookEvent,
+        EntryDeniedWebhookEvent,
+        IdentityProfileApprovedWebhookEvent,
+        IdentityProfileNeedsActionWebhookEvent,
+        IdentityProfileRejectedWebhookEvent,
+        IdentityProfileUpdatedWebhookEvent,
         InvoiceCreatedWebhookEvent,
         InvoiceMarkedUncollectibleWebhookEvent,
         InvoicePaidWebhookEvent,
         InvoicePastDueWebhookEvent,
         InvoiceVoidedWebhookEvent,
         MembershipActivatedWebhookEvent,
+        MembershipCancelAtPeriodEndChangedWebhookEvent,
         MembershipDeactivatedWebhookEvent,
-        EntryCreatedWebhookEvent,
-        EntryApprovedWebhookEvent,
-        EntryDeniedWebhookEvent,
-        EntryDeletedWebhookEvent,
-        SetupIntentRequiresActionWebhookEvent,
-        SetupIntentSucceededWebhookEvent,
-        SetupIntentCanceledWebhookEvent,
-        WithdrawalCreatedWebhookEvent,
-        WithdrawalUpdatedWebhookEvent,
-        CourseLessonInteractionCompletedWebhookEvent,
-        PayoutMethodCreatedWebhookEvent,
-        VerificationSucceededWebhookEvent,
-        PayoutAccountStatusUpdatedWebhookEvent,
-        ResolutionCenterCaseCreatedWebhookEvent,
-        ResolutionCenterCaseUpdatedWebhookEvent,
-        ResolutionCenterCaseDecidedWebhookEvent,
         PaymentCreatedWebhookEvent,
-        PaymentSucceededWebhookEvent,
         PaymentFailedWebhookEvent,
         PaymentPendingWebhookEvent,
-        DisputeCreatedWebhookEvent,
-        DisputeUpdatedWebhookEvent,
+        PaymentSucceededWebhookEvent,
+        PayoutAccountStatusUpdatedWebhookEvent,
+        PayoutMethodCreatedWebhookEvent,
         RefundCreatedWebhookEvent,
         RefundUpdatedWebhookEvent,
-        DisputeAlertCreatedWebhookEvent,
-        MembershipCancelAtPeriodEndChangedWebhookEvent,
+        ResolutionCenterCaseCreatedWebhookEvent,
+        ResolutionCenterCaseDecidedWebhookEvent,
+        ResolutionCenterCaseUpdatedWebhookEvent,
+        SetupIntentCanceledWebhookEvent,
+        SetupIntentRequiresActionWebhookEvent,
+        SetupIntentSucceededWebhookEvent,
+        VerificationSucceededWebhookEvent,
+        WithdrawalCreatedWebhookEvent,
+        WithdrawalUpdatedWebhookEvent,
     ],
     PropertyInfo(discriminator="type"),
 ]
