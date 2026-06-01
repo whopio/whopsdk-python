@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -36,6 +36,8 @@ __all__ = ["PlansResource", "AsyncPlansResource"]
 
 
 class PlansResource(SyncAPIResource):
+    """Plans"""
+
     @cached_property
     def with_raw_response(self) -> PlansResourceWithRawResponse:
         """
@@ -71,6 +73,7 @@ class PlansResource(SyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
@@ -78,6 +81,7 @@ class PlansResource(SyncAPIResource):
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -132,6 +136,10 @@ class PlansResource(SyncAPIResource):
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
+          metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
@@ -149,6 +157,8 @@ class PlansResource(SyncAPIResource):
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
+
+          three_ds_level: The 3D Secure behavior for a plan.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -184,6 +194,7 @@ class PlansResource(SyncAPIResource):
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "legacy_payment_method_controls": legacy_payment_method_controls,
+                    "metadata": metadata,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
@@ -191,6 +202,7 @@ class PlansResource(SyncAPIResource):
                     "renewal_price": renewal_price,
                     "split_pay_required_payments": split_pay_required_payments,
                     "stock": stock,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,
@@ -256,6 +268,7 @@ class PlansResource(SyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
@@ -263,6 +276,7 @@ class PlansResource(SyncAPIResource):
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -311,6 +325,10 @@ class PlansResource(SyncAPIResource):
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
+          metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
@@ -330,6 +348,8 @@ class PlansResource(SyncAPIResource):
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
               Provided in the plan's currency (e.g., 19.99 for $19.99).
+
+          three_ds_level: The 3D Secure behavior for a plan.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -364,6 +384,7 @@ class PlansResource(SyncAPIResource):
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "legacy_payment_method_controls": legacy_payment_method_controls,
+                    "metadata": metadata,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
@@ -371,6 +392,7 @@ class PlansResource(SyncAPIResource):
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,
@@ -522,6 +544,8 @@ class PlansResource(SyncAPIResource):
 
 
 class AsyncPlansResource(AsyncAPIResource):
+    """Plans"""
+
     @cached_property
     def with_raw_response(self) -> AsyncPlansResourceWithRawResponse:
         """
@@ -557,6 +581,7 @@ class AsyncPlansResource(AsyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: Optional[PlanType] | Omit = omit,
@@ -564,6 +589,7 @@ class AsyncPlansResource(AsyncAPIResource):
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -618,6 +644,10 @@ class AsyncPlansResource(AsyncAPIResource):
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
+          metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
               up)
 
@@ -635,6 +665,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
+
+          three_ds_level: The 3D Secure behavior for a plan.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -670,6 +702,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "legacy_payment_method_controls": legacy_payment_method_controls,
+                    "metadata": metadata,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
@@ -677,6 +710,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "renewal_price": renewal_price,
                     "split_pay_required_payments": split_pay_required_payments,
                     "stock": stock,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,
@@ -742,6 +776,7 @@ class AsyncPlansResource(AsyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: Optional[TaxType] | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
@@ -749,6 +784,7 @@ class AsyncPlansResource(AsyncAPIResource):
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -797,6 +833,10 @@ class AsyncPlansResource(AsyncAPIResource):
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
+          metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
+              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
+              value.
+
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
           override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
@@ -816,6 +856,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
               Provided in the plan's currency (e.g., 19.99 for $19.99).
+
+          three_ds_level: The 3D Secure behavior for a plan.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -850,6 +892,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
                     "legacy_payment_method_controls": legacy_payment_method_controls,
+                    "metadata": metadata,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
@@ -857,6 +900,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
                     "strike_through_renewal_price": strike_through_renewal_price,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "trial_period_days": trial_period_days,
                     "unlimited_stock": unlimited_stock,

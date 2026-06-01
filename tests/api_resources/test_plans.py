@@ -63,6 +63,7 @@ class TestPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             override_tax_type="inclusive",
             payment_method_configuration={
                 "disabled": ["acss_debit"],
@@ -74,6 +75,7 @@ class TestPlans:
             renewal_price=6.9,
             split_pay_required_payments=42,
             stock=42,
+            three_ds_level="mandate_challenge",
             title="title",
             trial_period_days=42,
             unlimited_stock=True,
@@ -189,6 +191,7 @@ class TestPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             payment_method_configuration={
@@ -200,6 +203,7 @@ class TestPlans:
             stock=42,
             strike_through_initial_price=6.9,
             strike_through_renewal_price=6.9,
+            three_ds_level="mandate_challenge",
             title="title",
             trial_period_days=42,
             unlimited_stock=True,
@@ -383,6 +387,7 @@ class TestAsyncPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             override_tax_type="inclusive",
             payment_method_configuration={
                 "disabled": ["acss_debit"],
@@ -394,6 +399,7 @@ class TestAsyncPlans:
             renewal_price=6.9,
             split_pay_required_payments=42,
             stock=42,
+            three_ds_level="mandate_challenge",
             title="title",
             trial_period_days=42,
             unlimited_stock=True,
@@ -509,6 +515,7 @@ class TestAsyncPlans:
             initial_price=6.9,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
+            metadata={"foo": "bar"},
             offer_cancel_discount=True,
             override_tax_type="inclusive",
             payment_method_configuration={
@@ -520,6 +527,7 @@ class TestAsyncPlans:
             stock=42,
             strike_through_initial_price=6.9,
             strike_through_renewal_price=6.9,
+            three_ds_level="mandate_challenge",
             title="title",
             trial_period_days=42,
             unlimited_stock=True,
