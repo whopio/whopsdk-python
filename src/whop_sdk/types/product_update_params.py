@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Dict, Iterable, Optional
 from typing_extensions import Required, TypedDict
 
 from .shared.custom_cta import CustomCta
@@ -58,6 +58,13 @@ class ProductUpdateParams(TypedDict, total=False):
 
     member_affiliate_status: Optional[GlobalAffiliateStatus]
     """The different statuses of the global affiliate program for a product."""
+
+    metadata: Optional[Dict[str, object]]
+    """Custom key-value pairs to store on the product.
+
+    Included in webhook payloads for payment and membership events. Max 50 keys, 500
+    chars per key, 5000 chars per value.
+    """
 
     product_tax_code_id: Optional[str]
     """The unique identifier of the tax classification code to apply to this product."""
