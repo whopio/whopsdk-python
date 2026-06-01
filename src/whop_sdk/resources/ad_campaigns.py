@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_campaign_list_params, ad_campaign_update_params
+from ..types import AdCampaignStatus, ad_campaign_list_params, ad_campaign_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,11 +20,9 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.ad_campaign import AdCampaign
+from ..types.ad_campaign_status import AdCampaignStatus
 from ..types.ad_campaign_list_response import AdCampaignListResponse
-from ..types.ad_campaign_pause_response import AdCampaignPauseResponse
-from ..types.ad_campaign_update_response import AdCampaignUpdateResponse
-from ..types.ad_campaign_unpause_response import AdCampaignUnpauseResponse
-from ..types.ad_campaign_retrieve_response import AdCampaignRetrieveResponse
 
 __all__ = ["AdCampaignsResource", "AsyncAdCampaignsResource"]
 
@@ -62,7 +59,7 @@ class AdCampaignsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignRetrieveResponse:
+    ) -> AdCampaign:
         """
         Retrieves a single ad campaign by its unique identifier.
 
@@ -86,7 +83,7 @@ class AdCampaignsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignRetrieveResponse,
+            cast_to=AdCampaign,
         )
 
     def update(
@@ -100,7 +97,7 @@ class AdCampaignsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignUpdateResponse:
+    ) -> AdCampaign:
         """
         Updates an ad campaign synchronously.
 
@@ -128,21 +125,22 @@ class AdCampaignsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignUpdateResponse,
+            cast_to=AdCampaign,
         )
 
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
-        status: Optional[Literal["active", "paused", "payment_failed", "draft", "in_review", "flagged"]] | Omit = omit,
+        status: Optional[AdCampaignStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -159,17 +157,20 @@ class AdCampaignsResource(SyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list ad campaigns for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The unique identifier of the company to list ad campaigns for.
 
           created_after: Only return ad campaigns created after this timestamp.
 
           created_before: Only return ad campaigns created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
+
+          include_paused: When false, excludes paused campaigns so pagination matches the dashboard's
+              hide-paused toggle.
 
           last: Returns the last _n_ elements from the list.
 
@@ -195,12 +196,13 @@ class AdCampaignsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
+                        "include_paused": include_paused,
                         "last": last,
                         "query": query,
                         "status": status,
@@ -221,7 +223,7 @@ class AdCampaignsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignPauseResponse:
+    ) -> AdCampaign:
         """
         Pauses an ad campaign, optionally until a specific date.
 
@@ -245,7 +247,7 @@ class AdCampaignsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignPauseResponse,
+            cast_to=AdCampaign,
         )
 
     def unpause(
@@ -258,7 +260,7 @@ class AdCampaignsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignUnpauseResponse:
+    ) -> AdCampaign:
         """
         Resumes a paused ad campaign.
 
@@ -282,7 +284,7 @@ class AdCampaignsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignUnpauseResponse,
+            cast_to=AdCampaign,
         )
 
 
@@ -318,7 +320,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignRetrieveResponse:
+    ) -> AdCampaign:
         """
         Retrieves a single ad campaign by its unique identifier.
 
@@ -342,7 +344,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignRetrieveResponse,
+            cast_to=AdCampaign,
         )
 
     async def update(
@@ -356,7 +358,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignUpdateResponse:
+    ) -> AdCampaign:
         """
         Updates an ad campaign synchronously.
 
@@ -384,21 +386,22 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignUpdateResponse,
+            cast_to=AdCampaign,
         )
 
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
-        status: Optional[Literal["active", "paused", "payment_failed", "draft", "in_review", "flagged"]] | Omit = omit,
+        status: Optional[AdCampaignStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -415,17 +418,20 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list ad campaigns for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
+
+          company_id: The unique identifier of the company to list ad campaigns for.
 
           created_after: Only return ad campaigns created after this timestamp.
 
           created_before: Only return ad campaigns created before this timestamp.
 
           first: Returns the first _n_ elements from the list.
+
+          include_paused: When false, excludes paused campaigns so pagination matches the dashboard's
+              hide-paused toggle.
 
           last: Returns the last _n_ elements from the list.
 
@@ -451,12 +457,13 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
+                        "include_paused": include_paused,
                         "last": last,
                         "query": query,
                         "status": status,
@@ -477,7 +484,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignPauseResponse:
+    ) -> AdCampaign:
         """
         Pauses an ad campaign, optionally until a specific date.
 
@@ -501,7 +508,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignPauseResponse,
+            cast_to=AdCampaign,
         )
 
     async def unpause(
@@ -514,7 +521,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdCampaignUnpauseResponse:
+    ) -> AdCampaign:
         """
         Resumes a paused ad campaign.
 
@@ -538,7 +545,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdCampaignUnpauseResponse,
+            cast_to=AdCampaign,
         )
 
 

@@ -10,11 +10,8 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
+    AdCampaign,
     AdCampaignListResponse,
-    AdCampaignPauseResponse,
-    AdCampaignUpdateResponse,
-    AdCampaignUnpauseResponse,
-    AdCampaignRetrieveResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -31,7 +28,7 @@ class TestAdCampaigns:
         ad_campaign = client.ad_campaigns.retrieve(
             "adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignRetrieveResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -43,7 +40,7 @@ class TestAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = response.parse()
-        assert_matches_type(AdCampaignRetrieveResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -55,7 +52,7 @@ class TestAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = response.parse()
-            assert_matches_type(AdCampaignRetrieveResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -73,7 +70,7 @@ class TestAdCampaigns:
         ad_campaign = client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -82,7 +79,7 @@ class TestAdCampaigns:
             id="adcamp_xxxxxxxxxxx",
             budget=6.9,
         )
-        assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -94,7 +91,7 @@ class TestAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = response.parse()
-        assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -106,7 +103,7 @@ class TestAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = response.parse()
-            assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -121,21 +118,20 @@ class TestAdCampaigns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        ad_campaign = client.ad_campaigns.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        ad_campaign = client.ad_campaigns.list()
         assert_matches_type(SyncCursorPage[AdCampaignListResponse], ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
+            include_paused=True,
             last=42,
             query="query",
             status="active",
@@ -145,9 +141,7 @@ class TestAdCampaigns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.ad_campaigns.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = client.ad_campaigns.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -157,9 +151,7 @@ class TestAdCampaigns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.ad_campaigns.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        with client.ad_campaigns.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -174,7 +166,7 @@ class TestAdCampaigns:
         ad_campaign = client.ad_campaigns.pause(
             "adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignPauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -186,7 +178,7 @@ class TestAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = response.parse()
-        assert_matches_type(AdCampaignPauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -198,7 +190,7 @@ class TestAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = response.parse()
-            assert_matches_type(AdCampaignPauseResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -216,7 +208,7 @@ class TestAdCampaigns:
         ad_campaign = client.ad_campaigns.unpause(
             "adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignUnpauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -228,7 +220,7 @@ class TestAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = response.parse()
-        assert_matches_type(AdCampaignUnpauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -240,7 +232,7 @@ class TestAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = response.parse()
-            assert_matches_type(AdCampaignUnpauseResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -264,7 +256,7 @@ class TestAsyncAdCampaigns:
         ad_campaign = await async_client.ad_campaigns.retrieve(
             "adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignRetrieveResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -276,7 +268,7 @@ class TestAsyncAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = await response.parse()
-        assert_matches_type(AdCampaignRetrieveResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -288,7 +280,7 @@ class TestAsyncAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = await response.parse()
-            assert_matches_type(AdCampaignRetrieveResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -306,7 +298,7 @@ class TestAsyncAdCampaigns:
         ad_campaign = await async_client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -315,7 +307,7 @@ class TestAsyncAdCampaigns:
             id="adcamp_xxxxxxxxxxx",
             budget=6.9,
         )
-        assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -327,7 +319,7 @@ class TestAsyncAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = await response.parse()
-        assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -339,7 +331,7 @@ class TestAsyncAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = await response.parse()
-            assert_matches_type(AdCampaignUpdateResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -354,21 +346,20 @@ class TestAsyncAdCampaigns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        ad_campaign = await async_client.ad_campaigns.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        ad_campaign = await async_client.ad_campaigns.list()
         assert_matches_type(AsyncCursorPage[AdCampaignListResponse], ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.list(
-            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
+            include_paused=True,
             last=42,
             query="query",
             status="active",
@@ -378,9 +369,7 @@ class TestAsyncAdCampaigns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.ad_campaigns.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = await async_client.ad_campaigns.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -390,9 +379,7 @@ class TestAsyncAdCampaigns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.ad_campaigns.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        async with async_client.ad_campaigns.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -407,7 +394,7 @@ class TestAsyncAdCampaigns:
         ad_campaign = await async_client.ad_campaigns.pause(
             "adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignPauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -419,7 +406,7 @@ class TestAsyncAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = await response.parse()
-        assert_matches_type(AdCampaignPauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -431,7 +418,7 @@ class TestAsyncAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = await response.parse()
-            assert_matches_type(AdCampaignPauseResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -449,7 +436,7 @@ class TestAsyncAdCampaigns:
         ad_campaign = await async_client.ad_campaigns.unpause(
             "adcamp_xxxxxxxxxxx",
         )
-        assert_matches_type(AdCampaignUnpauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -461,7 +448,7 @@ class TestAsyncAdCampaigns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_campaign = await response.parse()
-        assert_matches_type(AdCampaignUnpauseResponse, ad_campaign, path=["response"])
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -473,7 +460,7 @@ class TestAsyncAdCampaigns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_campaign = await response.parse()
-            assert_matches_type(AdCampaignUnpauseResponse, ad_campaign, path=["response"])
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
