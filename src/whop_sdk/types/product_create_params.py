@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Dict, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
@@ -68,6 +68,13 @@ class ProductCreateParams(TypedDict, total=False):
 
     member_affiliate_status: Optional[GlobalAffiliateStatus]
     """The different statuses of the global affiliate program for a product."""
+
+    metadata: Optional[Dict[str, object]]
+    """Custom key-value pairs to store on the product.
+
+    Included in webhook payloads for payment and membership events. Max 50 keys, 500
+    chars per key, 5000 chars per value.
+    """
 
     plan_options: Optional[PlanOptions]
     """Configuration for an automatically generated plan to attach to this product."""

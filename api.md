@@ -154,39 +154,43 @@ from whop_sdk.types import (
     WebhookCreateResponse,
     WebhookListResponse,
     WebhookDeleteResponse,
+    CourseLessonInteractionCompletedWebhookEvent,
+    DisputeCreatedWebhookEvent,
+    DisputeUpdatedWebhookEvent,
+    DisputeAlertCreatedWebhookEvent,
+    EntryApprovedWebhookEvent,
+    EntryCreatedWebhookEvent,
+    EntryDeletedWebhookEvent,
+    EntryDeniedWebhookEvent,
+    IdentityProfileApprovedWebhookEvent,
+    IdentityProfileNeedsActionWebhookEvent,
+    IdentityProfileRejectedWebhookEvent,
+    IdentityProfileUpdatedWebhookEvent,
     InvoiceCreatedWebhookEvent,
     InvoiceMarkedUncollectibleWebhookEvent,
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
     InvoiceVoidedWebhookEvent,
     MembershipActivatedWebhookEvent,
+    MembershipCancelAtPeriodEndChangedWebhookEvent,
     MembershipDeactivatedWebhookEvent,
-    EntryCreatedWebhookEvent,
-    EntryApprovedWebhookEvent,
-    EntryDeniedWebhookEvent,
-    EntryDeletedWebhookEvent,
-    SetupIntentRequiresActionWebhookEvent,
-    SetupIntentSucceededWebhookEvent,
-    SetupIntentCanceledWebhookEvent,
-    WithdrawalCreatedWebhookEvent,
-    WithdrawalUpdatedWebhookEvent,
-    CourseLessonInteractionCompletedWebhookEvent,
-    PayoutMethodCreatedWebhookEvent,
-    VerificationSucceededWebhookEvent,
-    PayoutAccountStatusUpdatedWebhookEvent,
-    ResolutionCenterCaseCreatedWebhookEvent,
-    ResolutionCenterCaseUpdatedWebhookEvent,
-    ResolutionCenterCaseDecidedWebhookEvent,
     PaymentCreatedWebhookEvent,
-    PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,
     PaymentPendingWebhookEvent,
-    DisputeCreatedWebhookEvent,
-    DisputeUpdatedWebhookEvent,
+    PaymentSucceededWebhookEvent,
+    PayoutAccountStatusUpdatedWebhookEvent,
+    PayoutMethodCreatedWebhookEvent,
     RefundCreatedWebhookEvent,
     RefundUpdatedWebhookEvent,
-    DisputeAlertCreatedWebhookEvent,
-    MembershipCancelAtPeriodEndChangedWebhookEvent,
+    ResolutionCenterCaseCreatedWebhookEvent,
+    ResolutionCenterCaseDecidedWebhookEvent,
+    ResolutionCenterCaseUpdatedWebhookEvent,
+    SetupIntentCanceledWebhookEvent,
+    SetupIntentRequiresActionWebhookEvent,
+    SetupIntentSucceededWebhookEvent,
+    VerificationSucceededWebhookEvent,
+    WithdrawalCreatedWebhookEvent,
+    WithdrawalUpdatedWebhookEvent,
     UnwrapWebhookEvent,
 )
 ```
@@ -811,7 +815,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import UploadStatus, FileCreateResponse, FileRetrieveResponse
+from whop_sdk.types import FileVisibility, UploadStatus, FileCreateResponse, FileRetrieveResponse
 ```
 
 Methods:
@@ -1005,22 +1009,16 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import (
-    AdCampaignRetrieveResponse,
-    AdCampaignUpdateResponse,
-    AdCampaignListResponse,
-    AdCampaignPauseResponse,
-    AdCampaignUnpauseResponse,
-)
+from whop_sdk.types import AdCampaign, AdCampaignPlatform, AdCampaignStatus, AdCampaignListResponse
 ```
 
 Methods:
 
-- <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_retrieve_response.py">AdCampaignRetrieveResponse</a></code>
-- <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_update_response.py">AdCampaignUpdateResponse</a></code>
+- <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+- <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_list_response.py">SyncCursorPage[AdCampaignListResponse]</a></code>
-- <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_pause_response.py">AdCampaignPauseResponse</a></code>
-- <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_unpause_response.py">AdCampaignUnpauseResponse</a></code>
+- <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+- <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 
 # AdGroups
 
@@ -1028,8 +1026,9 @@ Types:
 
 ```python
 from whop_sdk.types import (
-    AdGroupRetrieveResponse,
-    AdGroupUpdateResponse,
+    AdBudgetType,
+    AdGroup,
+    AdGroupStatus,
     AdGroupListResponse,
     AdGroupDeleteResponse,
 )
@@ -1037,23 +1036,27 @@ from whop_sdk.types import (
 
 Methods:
 
-- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_group_retrieve_response.py">AdGroupRetrieveResponse</a></code>
-- <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_update_response.py">AdGroupUpdateResponse</a></code>
+- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_list_response.py">SyncCursorPage[AdGroupListResponse]</a></code>
 - <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
+- <code title="post /ad_groups/{id}/pause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="post /ad_groups/{id}/unpause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 
 # Ads
 
 Types:
 
 ```python
-from whop_sdk.types import AdRetrieveResponse, AdListResponse
+from whop_sdk.types import Ad, ExternalAdStatus, AdListResponse
 ```
 
 Methods:
 
-- <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_retrieve_response.py">AdRetrieveResponse</a></code>
+- <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_list_response.py">SyncCursorPage[AdListResponse]</a></code>
+- <code title="post /ads/{id}/pause">client.ads.<a href="./src/whop_sdk/resources/ads.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
+- <code title="post /ads/{id}/unpause">client.ads.<a href="./src/whop_sdk/resources/ads.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 
 # Conversions
 
@@ -1072,7 +1075,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AdReportRetrieveResponse
+from whop_sdk.types import Granularities, ResultLabelKeys, AdReportRetrieveResponse
 ```
 
 Methods:
