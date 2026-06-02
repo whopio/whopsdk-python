@@ -34,6 +34,12 @@ class AdGroupListParams(TypedDict, total=False):
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
+    include_paused: Optional[bool]
+    """
+    When false, excludes paused ad groups so pagination matches the dashboard's
+    hide-paused toggle.
+    """
+
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
