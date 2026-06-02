@@ -10,10 +10,9 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
+    AdGroup,
     AdGroupListResponse,
     AdGroupDeleteResponse,
-    AdGroupUpdateResponse,
-    AdGroupRetrieveResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -30,7 +29,7 @@ class TestAdGroups:
         ad_group = client.ad_groups.retrieve(
             "adgrp_xxxxxxxxxxxx",
         )
-        assert_matches_type(AdGroupRetrieveResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -42,7 +41,7 @@ class TestAdGroups:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_group = response.parse()
-        assert_matches_type(AdGroupRetrieveResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -54,7 +53,7 @@ class TestAdGroups:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_group = response.parse()
-            assert_matches_type(AdGroupRetrieveResponse, ad_group, path=["response"])
+            assert_matches_type(AdGroup, ad_group, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -72,7 +71,7 @@ class TestAdGroups:
         ad_group = client.ad_groups.update(
             id="adgrp_xxxxxxxxxxxx",
         )
-        assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -421,7 +420,7 @@ class TestAdGroups:
             },
             status="active",
         )
-        assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -433,7 +432,7 @@ class TestAdGroups:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_group = response.parse()
-        assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -445,7 +444,7 @@ class TestAdGroups:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_group = response.parse()
-            assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+            assert_matches_type(AdGroup, ad_group, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -474,6 +473,7 @@ class TestAdGroups:
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
+            include_paused=True,
             last=42,
             query="query",
             status="active",
@@ -544,6 +544,90 @@ class TestAdGroups:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_pause(self, client: Whop) -> None:
+        ad_group = client.ad_groups.pause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_pause(self, client: Whop) -> None:
+        response = client.ad_groups.with_raw_response.pause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = response.parse()
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_pause(self, client: Whop) -> None:
+        with client.ad_groups.with_streaming_response.pause(
+            "adgrp_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = response.parse()
+            assert_matches_type(AdGroup, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_pause(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.ad_groups.with_raw_response.pause(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_unpause(self, client: Whop) -> None:
+        ad_group = client.ad_groups.unpause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_unpause(self, client: Whop) -> None:
+        response = client.ad_groups.with_raw_response.unpause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = response.parse()
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_unpause(self, client: Whop) -> None:
+        with client.ad_groups.with_streaming_response.unpause(
+            "adgrp_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = response.parse()
+            assert_matches_type(AdGroup, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_unpause(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.ad_groups.with_raw_response.unpause(
+                "",
+            )
+
 
 class TestAsyncAdGroups:
     parametrize = pytest.mark.parametrize(
@@ -556,7 +640,7 @@ class TestAsyncAdGroups:
         ad_group = await async_client.ad_groups.retrieve(
             "adgrp_xxxxxxxxxxxx",
         )
-        assert_matches_type(AdGroupRetrieveResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -568,7 +652,7 @@ class TestAsyncAdGroups:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_group = await response.parse()
-        assert_matches_type(AdGroupRetrieveResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -580,7 +664,7 @@ class TestAsyncAdGroups:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_group = await response.parse()
-            assert_matches_type(AdGroupRetrieveResponse, ad_group, path=["response"])
+            assert_matches_type(AdGroup, ad_group, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -598,7 +682,7 @@ class TestAsyncAdGroups:
         ad_group = await async_client.ad_groups.update(
             id="adgrp_xxxxxxxxxxxx",
         )
-        assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -947,7 +1031,7 @@ class TestAsyncAdGroups:
             },
             status="active",
         )
-        assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -959,7 +1043,7 @@ class TestAsyncAdGroups:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         ad_group = await response.parse()
-        assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+        assert_matches_type(AdGroup, ad_group, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -971,7 +1055,7 @@ class TestAsyncAdGroups:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             ad_group = await response.parse()
-            assert_matches_type(AdGroupUpdateResponse, ad_group, path=["response"])
+            assert_matches_type(AdGroup, ad_group, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1000,6 +1084,7 @@ class TestAsyncAdGroups:
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
+            include_paused=True,
             last=42,
             query="query",
             status="active",
@@ -1067,5 +1152,89 @@ class TestAsyncAdGroups:
     async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.ad_groups.with_raw_response.delete(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_pause(self, async_client: AsyncWhop) -> None:
+        ad_group = await async_client.ad_groups.pause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_pause(self, async_client: AsyncWhop) -> None:
+        response = await async_client.ad_groups.with_raw_response.pause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = await response.parse()
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_pause(self, async_client: AsyncWhop) -> None:
+        async with async_client.ad_groups.with_streaming_response.pause(
+            "adgrp_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = await response.parse()
+            assert_matches_type(AdGroup, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_pause(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.ad_groups.with_raw_response.pause(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_unpause(self, async_client: AsyncWhop) -> None:
+        ad_group = await async_client.ad_groups.unpause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_unpause(self, async_client: AsyncWhop) -> None:
+        response = await async_client.ad_groups.with_raw_response.unpause(
+            "adgrp_xxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = await response.parse()
+        assert_matches_type(AdGroup, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_unpause(self, async_client: AsyncWhop) -> None:
+        async with async_client.ad_groups.with_streaming_response.unpause(
+            "adgrp_xxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = await response.parse()
+            assert_matches_type(AdGroup, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_unpause(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.ad_groups.with_raw_response.unpause(
                 "",
             )
