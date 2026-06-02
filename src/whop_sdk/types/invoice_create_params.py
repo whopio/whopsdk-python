@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
+from .shared.currency import Currency
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
 from .tax_identifier_type import TaxIdentifierType
@@ -188,6 +189,9 @@ class CreateInvoiceInputWithProductPlan(TypedDict, total=False):
     """
     The plan attributes defining the price, currency, and billing interval for this invoice.
     """
+
+    base_currency: Optional[Currency]
+    """The available currencies on the platform"""
 
     billing_period: Optional[int]
     """The interval in days at which the plan charges (renewal plans)."""
@@ -474,6 +478,9 @@ class CreateInvoiceInputWithProductIDPlan(TypedDict, total=False):
     """
     The plan attributes defining the price, currency, and billing interval for this invoice.
     """
+
+    base_currency: Optional[Currency]
+    """The available currencies on the platform"""
 
     billing_period: Optional[int]
     """The interval in days at which the plan charges (renewal plans)."""
