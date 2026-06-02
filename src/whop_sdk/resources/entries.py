@@ -31,6 +31,8 @@ __all__ = ["EntriesResource", "AsyncEntriesResource"]
 
 
 class EntriesResource(SyncAPIResource):
+    """Entries"""
+
     @cached_property
     def with_raw_response(self) -> EntriesResourceWithRawResponse:
         """
@@ -261,6 +263,8 @@ class EntriesResource(SyncAPIResource):
 
 
 class AsyncEntriesResource(AsyncAPIResource):
+    """Entries"""
+
     @cached_property
     def with_raw_response(self) -> AsyncEntriesResourceWithRawResponse:
         """
