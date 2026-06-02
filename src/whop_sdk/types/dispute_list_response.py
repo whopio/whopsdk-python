@@ -74,10 +74,7 @@ class DisputeListResponse(BaseModel):
     """The three-letter ISO currency code for the disputed amount."""
 
     editable: Optional[bool] = None
-    """Whether the dispute evidence can still be edited and submitted.
-
-    Returns true only when the dispute status requires a response.
-    """
+    """Whether the dispute evidence can still be edited and submitted."""
 
     needs_response_by: Optional[datetime] = None
     """The deadline by which dispute evidence must be submitted.
