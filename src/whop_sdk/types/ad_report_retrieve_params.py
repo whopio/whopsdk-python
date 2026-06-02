@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .granularities import Granularities
 
 __all__ = ["AdReportRetrieveParams"]
 
@@ -21,19 +22,30 @@ class AdReportRetrieveParams(TypedDict, total=False):
     ad_campaign_id: Optional[str]
     """The unique identifier of an ad campaign.
 
-    Mutually exclusive with `adGroupId` and `adId`.
+    Mutually exclusive with `companyId`, `adGroupId`, and `adId`.
     """
 
     ad_group_id: Optional[str]
     """The unique identifier of an ad group.
 
-    Mutually exclusive with `adCampaignId` and `adId`.
+    Mutually exclusive with `companyId`, `adCampaignId`, and `adId`.
     """
 
     ad_id: Optional[str]
     """The unique identifier of an ad.
 
-    Mutually exclusive with `adCampaignId` and `adGroupId`.
+    Mutually exclusive with `companyId`, `adCampaignId`, and `adGroupId`.
+    """
+
+    breakdown: Optional[Literal["campaign", "ad_group", "ad"]]
+    """Entity level to group an ad report by."""
+
+    company_id: Optional[str]
+    """The unique identifier of a company.
+
+    Mutually exclusive with `adCampaignId`, `adGroupId`, and `adId`. Use with
+    `breakdown` to fan out across every campaign, ad group, or ad in the company
+    without paging.
     """
 
     currency: Optional[str]
@@ -42,5 +54,5 @@ class AdReportRetrieveParams(TypedDict, total=False):
     Defaults to the company's ads reporting currency.
     """
 
-    include_daily: Optional[bool]
-    """When true, includes a per-day breakdown alongside the summary."""
+    granularity: Optional[Granularities]
+    """Bucket size for external ad stat rows."""

@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -157,6 +157,12 @@ class Product(BaseModel):
     """The number of users who currently hold an active membership to this product.
 
     Returns 0 if the company has disabled public member counts.
+    """
+
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the product.
+
+    Included in webhook payloads for payment and membership events.
     """
 
     owner_user: OwnerUser
