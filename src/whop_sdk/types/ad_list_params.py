@@ -47,6 +47,12 @@ class AdListParams(TypedDict, total=False):
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
+    include_paused: Optional[bool]
+    """
+    When false, excludes paused ads so pagination matches the dashboard's
+    hide-paused toggle.
+    """
+
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
@@ -55,6 +61,9 @@ class AdListParams(TypedDict, total=False):
 
     order_direction: Optional[Direction]
     """The direction of the sort."""
+
+    query: Optional[str]
+    """Case-insensitive substring match against the ad title or tag."""
 
     stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Start of the stats date range used when order_by is a stats column."""
