@@ -703,6 +703,65 @@ Methods:
 
 - <code title="post /account_links">client.account_links.<a href="./src/whop_sdk/resources/account_links.py">create</a>(\*\*<a href="src/whop_sdk/types/account_link_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_link_create_response.py">AccountLinkCreateResponse</a></code>
 
+# Accounts
+
+Types:
+
+```python
+from whop_sdk.types import Account, AccountSocialLink, AccountListResponse
+```
+
+Methods:
+
+- <code title="post /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">create</a>(\*\*<a href="src/whop_sdk/types/account_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="get /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">retrieve</a>(account_id) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="patch /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">update</a>(account_id, \*\*<a href="src/whop_sdk/types/account_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_list_response.py">AccountListResponse</a></code>
+- <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+
+# Wallets
+
+Types:
+
+```python
+from whop_sdk.types import (
+    AccountWallet,
+    WalletListResponse,
+    WalletBalanceResponse,
+    WalletSendResponse,
+)
+```
+
+Methods:
+
+- <code title="get /wallets">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">list</a>() -> <a href="./src/whop_sdk/types/wallet_list_response.py">WalletListResponse</a></code>
+- <code title="get /wallets/{account_id}/balance">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">balance</a>(account_id) -> <a href="./src/whop_sdk/types/wallet_balance_response.py">WalletBalanceResponse</a></code>
+- <code title="post /wallets/{account_id}/sends">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">send</a>(account_id, \*\*<a href="src/whop_sdk/types/wallet_send_params.py">params</a>) -> <a href="./src/whop_sdk/types/wallet_send_response.py">WalletSendResponse</a></code>
+
+# Swaps
+
+Types:
+
+```python
+from whop_sdk.types import SwapCreateQuoteResponse
+```
+
+Methods:
+
+- <code title="post /swaps/quote">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create_quote</a>(\*\*<a href="src/whop_sdk/types/swap_create_quote_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_quote_response.py">SwapCreateQuoteResponse</a></code>
+
+# Deposits
+
+Types:
+
+```python
+from whop_sdk.types import DepositCreateResponse
+```
+
+Methods:
+
+- <code title="post /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">create</a>(\*\*<a href="src/whop_sdk/types/deposit_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_create_response.py">DepositCreateResponse</a></code>
+
 # SetupIntents
 
 Types:
