@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .ad_group_status import AdGroupStatus
 
 __all__ = ["AdGroupListParams"]
 
@@ -33,11 +34,17 @@ class AdGroupListParams(TypedDict, total=False):
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
+    include_paused: Optional[bool]
+    """
+    When false, excludes paused ad groups so pagination matches the dashboard's
+    hide-paused toggle.
+    """
+
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
     query: Optional[str]
     """Case-insensitive substring match against the ad group name."""
 
-    status: Optional[Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]]
+    status: Optional[AdGroupStatus]
     """The status of an external ad group."""

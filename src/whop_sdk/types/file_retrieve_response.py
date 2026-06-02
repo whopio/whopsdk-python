@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from typing_extensions import Literal
 
 from .._models import BaseModel
 from .upload_status import UploadStatus
+from .file_visibility import FileVisibility
 
 __all__ = ["FileRetrieveResponse"]
 
@@ -34,5 +34,5 @@ class FileRetrieveResponse(BaseModel):
     signed URL that expires. Null if the file has not finished uploading.
     """
 
-    visibility: Literal["public", "private"]
+    visibility: FileVisibility
     """Whether the file is publicly accessible or requires authentication."""

@@ -37,12 +37,24 @@ class Plan(BaseModel):
     id: str
     """The unique identifier for the plan."""
 
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
+    """
+
 
 class Product(BaseModel):
     """The product this membership grants access to."""
 
     id: str
     """The unique identifier for the product."""
+
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the product.
+
+    Included in webhook payloads for payment and membership events.
+    """
 
     title: str
     """
