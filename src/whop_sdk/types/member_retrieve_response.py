@@ -60,7 +60,10 @@ class MemberRetrieveResponse(BaseModel):
     """The company for the member."""
 
     company_token_balance: float
-    """The member's token balance for this company"""
+    """The member's token balance for this company.
+
+    Computed live from the ledger, not from a cache.
+    """
 
     created_at: datetime
     """The datetime the company member was created."""
