@@ -240,7 +240,8 @@ class AccountsResource(SyncAPIResource):
         """Lists accounts visible to the credential.
 
         User tokens return the user's business
-        accounts; business account API keys return connected accounts.
+        accounts; business account API keys return the requesting business account and
+        its connected accounts.
 
         Args:
           page: The page number to retrieve
@@ -272,6 +273,28 @@ class AccountsResource(SyncAPIResource):
                 ),
             ),
             cast_to=AccountListResponse,
+        )
+
+    def me(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Account:
+        """
+        Retrieves the business account associated with the current business account API
+        key.
+        """
+        return self._get(
+            "/accounts/me",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Account,
         )
 
 
@@ -491,7 +514,8 @@ class AsyncAccountsResource(AsyncAPIResource):
         """Lists accounts visible to the credential.
 
         User tokens return the user's business
-        accounts; business account API keys return connected accounts.
+        accounts; business account API keys return the requesting business account and
+        its connected accounts.
 
         Args:
           page: The page number to retrieve
@@ -525,6 +549,28 @@ class AsyncAccountsResource(AsyncAPIResource):
             cast_to=AccountListResponse,
         )
 
+    async def me(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Account:
+        """
+        Retrieves the business account associated with the current business account API
+        key.
+        """
+        return await self._get(
+            "/accounts/me",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Account,
+        )
+
 
 class AccountsResourceWithRawResponse:
     def __init__(self, accounts: AccountsResource) -> None:
@@ -541,6 +587,9 @@ class AccountsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             accounts.list,
+        )
+        self.me = to_raw_response_wrapper(
+            accounts.me,
         )
 
 
@@ -560,6 +609,9 @@ class AsyncAccountsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             accounts.list,
         )
+        self.me = async_to_raw_response_wrapper(
+            accounts.me,
+        )
 
 
 class AccountsResourceWithStreamingResponse:
@@ -578,6 +630,9 @@ class AccountsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             accounts.list,
         )
+        self.me = to_streamed_response_wrapper(
+            accounts.me,
+        )
 
 
 class AsyncAccountsResourceWithStreamingResponse:
@@ -595,4 +650,7 @@ class AsyncAccountsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             accounts.list,
+        )
+        self.me = async_to_streamed_response_wrapper(
+            accounts.me,
         )

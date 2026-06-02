@@ -201,6 +201,34 @@ class TestAccounts:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_me(self, client: Whop) -> None:
+        account = client.accounts.me()
+        assert_matches_type(Account, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_me(self, client: Whop) -> None:
+        response = client.accounts.with_raw_response.me()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        account = response.parse()
+        assert_matches_type(Account, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_me(self, client: Whop) -> None:
+        with client.accounts.with_streaming_response.me() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            account = response.parse()
+            assert_matches_type(Account, account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncAccounts:
     parametrize = pytest.mark.parametrize(
@@ -385,5 +413,33 @@ class TestAsyncAccounts:
 
             account = await response.parse()
             assert_matches_type(AccountListResponse, account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_me(self, async_client: AsyncWhop) -> None:
+        account = await async_client.accounts.me()
+        assert_matches_type(Account, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_me(self, async_client: AsyncWhop) -> None:
+        response = await async_client.accounts.with_raw_response.me()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        account = await response.parse()
+        assert_matches_type(Account, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_me(self, async_client: AsyncWhop) -> None:
+        async with async_client.accounts.with_streaming_response.me() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            account = await response.parse()
+            assert_matches_type(Account, account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
