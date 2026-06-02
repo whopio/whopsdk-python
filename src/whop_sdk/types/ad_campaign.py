@@ -5,8 +5,11 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .ad_budget_type import AdBudgetType
+from .ad_campaign_status import AdCampaignStatus
+from .ad_campaign_platform import AdCampaignPlatform
 
-__all__ = ["AdCampaignPauseResponse", "CreatedByUser", "MetaConfig"]
+__all__ = ["AdCampaign", "CreatedByUser", "MetaConfig"]
 
 
 class CreatedByUser(BaseModel):
@@ -65,7 +68,7 @@ class MetaConfig(BaseModel):
     """The campaign status as set by the advertiser (active or paused)."""
 
 
-class AdCampaignPauseResponse(BaseModel):
+class AdCampaign(BaseModel):
     """An advertising campaign running on an external platform or within Whop."""
 
     id: str
@@ -74,7 +77,7 @@ class AdCampaignPauseResponse(BaseModel):
     budget: Optional[float] = None
     """Total budget in dollars."""
 
-    budget_type: Optional[Literal["daily", "lifetime"]] = None
+    budget_type: Optional[AdBudgetType] = None
     """The budget type for an ad campaign or ad group."""
 
     created_at: datetime
@@ -89,10 +92,10 @@ class AdCampaignPauseResponse(BaseModel):
     Null for non-Meta campaigns.
     """
 
-    platform: Literal["meta", "tiktok"]
+    platform: AdCampaignPlatform
     """The external ad platform this campaign is running on (e.g., meta, tiktok)."""
 
-    status: Literal["active", "paused", "payment_failed", "draft", "in_review", "flagged"]
+    status: AdCampaignStatus
     """Current status of the campaign (active, paused, or inactive)."""
 
     title: str
