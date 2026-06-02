@@ -13,6 +13,7 @@ from ..billing_reasons import BillingReasons
 from ..dispute_statuses import DisputeStatuses
 from .membership_status import MembershipStatus
 from ..payment_method_types import PaymentMethodTypes
+from ..receipt_tax_behavior import ReceiptTaxBehavior
 from .friendly_receipt_status import FriendlyReceiptStatus
 from ..resolution_center_case_status import ResolutionCenterCaseStatus
 from ..resolution_center_case_issue_type import ResolutionCenterCaseIssueType
@@ -114,10 +115,7 @@ class Dispute(BaseModel):
     """The three-letter ISO currency code for the disputed amount."""
 
     editable: Optional[bool] = None
-    """Whether the dispute evidence can still be edited and submitted.
-
-    Returns true only when the dispute status requires a response.
-    """
+    """Whether the dispute evidence can still be edited and submitted."""
 
     needs_response_by: Optional[datetime] = None
     """The deadline by which dispute evidence must be submitted.
@@ -201,6 +199,9 @@ class Membership(BaseModel):
     id: str
     """The unique identifier for the membership."""
 
+    phone_number: Optional[str] = None
+    """The phone number associated with this membership."""
+
     status: MembershipStatus
     """The state of the membership."""
 
@@ -256,12 +257,24 @@ class Plan(BaseModel):
     internal_notes: Optional[str] = None
     """A personal description or notes section for the business."""
 
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the plan.
+
+    Included in webhook payloads for payment and membership events.
+    """
+
 
 class Product(BaseModel):
     """The product this payment was made for"""
 
     id: str
     """The unique identifier for the product."""
+
+    metadata: Optional[Dict[str, object]] = None
+    """Custom key-value pairs stored on the product.
+
+    Included in webhook payloads for payment and membership events.
+    """
 
     route: str
     """
@@ -409,8 +422,8 @@ class Payment(BaseModel):
     created_at: datetime
     """The datetime the payment was created."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
@@ -510,22 +523,15 @@ class Payment(BaseModel):
 
     settlement_amount: float
     """
-    The payment amount in the creator's settlement currency (what the creator priced
-    in). Equal to final_amount for single-currency payments.
+    The total amount charged to the customer for this payment, including taxes and
+    after any discounts. In the currency specified by the currency field.
     """
 
-    settlement_currency: str
-    """
-    The currency in which the creator receives payouts and fees are charged (e.g.,
-    'usd', 'eur'). For multi-currency payments this differs from the payment
-    currency.
-    """
+    settlement_currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     settlement_exchange_rate: Optional[float] = None
-    """
-    The locked exchange rate used to convert from the buyer's payment currency to
-    the creator's settlement currency. Null for single-currency payments.
-    """
+    """Deprecated. Always returns null."""
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
@@ -535,6 +541,18 @@ class Payment(BaseModel):
 
     subtotal: Optional[float] = None
     """The subtotal to show to the creator (excluding buyer fees)."""
+
+    tax_amount: Optional[float] = None
+    """The calculated amount of the sales/VAT tax (if applicable)."""
+
+    tax_behavior: Optional[ReceiptTaxBehavior] = None
+    """
+    The type of tax inclusivity applied to the receipt, for determining whether the
+    tax is included in the final price, or paid on top.
+    """
+
+    tax_refunded_amount: Optional[float] = None
+    """The amount of tax that has been refunded (if applicable)."""
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""

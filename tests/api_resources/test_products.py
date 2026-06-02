@@ -48,6 +48,7 @@ class TestProducts:
             headline="headline",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
             plan_options={
                 "base_currency": "usd",
                 "billing_period": 42,
@@ -169,6 +170,7 @@ class TestProducts:
             headline="headline",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
@@ -342,6 +344,7 @@ class TestAsyncProducts:
             headline="headline",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
             plan_options={
                 "base_currency": "usd",
                 "billing_period": 42,
@@ -463,6 +466,7 @@ class TestAsyncProducts:
             headline="headline",
             member_affiliate_percentage=6.9,
             member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
             product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
