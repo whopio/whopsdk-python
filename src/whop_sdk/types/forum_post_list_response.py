@@ -1,11 +1,37 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["ForumPostListResponse", "User"]
+__all__ = ["ForumPostListResponse", "Attachment", "User"]
+
+
+class Attachment(BaseModel):
+    """Represents an image attachment"""
+
+    id: str
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
+
+    content_type: Optional[str] = None
+    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
+
+    filename: Optional[str] = None
+    """The original filename of the uploaded attachment, including its file extension."""
+
+    url: Optional[str] = None
+    """A pre-optimized URL for rendering this attachment on the client.
+
+    This should be used for displaying attachments in apps.
+    """
 
 
 class User(BaseModel):
@@ -35,6 +61,9 @@ class ForumPostListResponse(BaseModel):
     `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
     ID.
     """
+
+    attachments: List[Attachment]
+    """All file attachments on this post, such as images, documents, and videos."""
 
     comment_count: int
     """The total number of direct comments on this post."""
