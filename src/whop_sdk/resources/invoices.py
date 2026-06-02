@@ -35,6 +35,8 @@ __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
 
 class InvoicesResource(SyncAPIResource):
+    """Invoices"""
+
     @cached_property
     def with_raw_response(self) -> InvoicesResourceWithRawResponse:
         """
@@ -90,7 +92,6 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
-        - `plan:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -189,7 +190,6 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
-        - `plan:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -334,7 +334,6 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
-        - `plan:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -459,10 +458,10 @@ class InvoicesResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -485,16 +484,15 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
-        - `plan:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list invoices for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           collection_methods: Filter invoices by their collection method.
+
+          company_id: The unique identifier of the company to list invoices for.
 
           created_after: Only return invoices created after this timestamp.
 
@@ -531,10 +529,10 @@ class InvoicesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
                         "collection_methods": collection_methods,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -702,6 +700,8 @@ class InvoicesResource(SyncAPIResource):
 
 
 class AsyncInvoicesResource(AsyncAPIResource):
+    """Invoices"""
+
     @cached_property
     def with_raw_response(self) -> AsyncInvoicesResourceWithRawResponse:
         """
@@ -757,7 +757,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
-        - `plan:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -856,7 +855,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
-        - `plan:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -1001,7 +999,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
-        - `plan:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -1126,10 +1123,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
+        company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
@@ -1152,16 +1149,15 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
-        - `plan:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list invoices for.
-
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           collection_methods: Filter invoices by their collection method.
+
+          company_id: The unique identifier of the company to list invoices for.
 
           created_after: Only return invoices created after this timestamp.
 
@@ -1198,10 +1194,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
                         "after": after,
                         "before": before,
                         "collection_methods": collection_methods,
+                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
