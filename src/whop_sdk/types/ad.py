@@ -2,11 +2,12 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
+from .external_ad_status import ExternalAdStatus
+from .ad_campaign_platform import AdCampaignPlatform
 
-__all__ = ["AdRetrieveResponse", "AdCampaign", "AdGroup"]
+__all__ = ["Ad", "AdCampaign", "AdGroup"]
 
 
 class AdCampaign(BaseModel):
@@ -23,7 +24,7 @@ class AdGroup(BaseModel):
     """The unique identifier for this ad group."""
 
 
-class AdRetrieveResponse(BaseModel):
+class Ad(BaseModel):
     """An ad belonging to an ad group."""
 
     id: str
@@ -38,10 +39,10 @@ class AdRetrieveResponse(BaseModel):
     created_at: datetime
     """When the ad was created."""
 
-    platform: Literal["meta", "tiktok"]
+    platform: AdCampaignPlatform
     """The external ad platform this ad is running on (e.g., meta, tiktok)."""
 
-    status: Literal["active", "paused", "inactive", "in_review", "rejected", "flagged"]
+    status: ExternalAdStatus
     """Current delivery status of the ad."""
 
     title: Optional[str] = None

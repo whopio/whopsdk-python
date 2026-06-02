@@ -15,7 +15,7 @@ class VerificationListResponse(BaseModel):
     """
 
     id: str
-    """The numeric id of the verification record."""
+    """The identifier of the verification (verf_xxx)."""
 
     last_error_code: Optional[VerificationErrorCode] = None
     """An error code for a verification attempt."""
