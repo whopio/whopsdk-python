@@ -95,4 +95,6 @@ Currency: TypeAlias = Literal[
     "usdt",
     "kzt",
     "awg",
+    "whop_usd",
+    "xau",
 ]
