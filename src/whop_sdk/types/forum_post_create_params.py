@@ -63,6 +63,12 @@ class ForumPostCreateParams(TypedDict, total=False):
     poll: Optional[Poll]
     """A poll to attach to this post, allowing members to vote on options."""
 
+    rich_content: Optional[str]
+    """The rich content of the post in Tiptap JSON format.
+
+    When provided, takes priority over the markdown content field for rendering.
+    """
+
     title: Optional[str]
     """The title of the post, displayed prominently at the top.
 
