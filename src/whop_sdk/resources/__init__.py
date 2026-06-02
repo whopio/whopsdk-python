@@ -40,6 +40,14 @@ from .plans import (
     PlansResourceWithStreamingResponse,
     AsyncPlansResourceWithStreamingResponse,
 )
+from .swaps import (
+    SwapsResource,
+    AsyncSwapsResource,
+    SwapsResourceWithRawResponse,
+    AsyncSwapsResourceWithRawResponse,
+    SwapsResourceWithStreamingResponse,
+    AsyncSwapsResourceWithStreamingResponse,
+)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -104,6 +112,22 @@ from .reviews import (
     ReviewsResourceWithStreamingResponse,
     AsyncReviewsResourceWithStreamingResponse,
 )
+from .wallets import (
+    WalletsResource,
+    AsyncWalletsResource,
+    WalletsResourceWithRawResponse,
+    AsyncWalletsResourceWithRawResponse,
+    WalletsResourceWithStreamingResponse,
+    AsyncWalletsResourceWithStreamingResponse,
+)
+from .accounts import (
+    AccountsResource,
+    AsyncAccountsResource,
+    AccountsResourceWithRawResponse,
+    AsyncAccountsResourceWithRawResponse,
+    AccountsResourceWithStreamingResponse,
+    AsyncAccountsResourceWithStreamingResponse,
+)
 from .ai_chats import (
     AIChatsResource,
     AsyncAIChatsResource,
@@ -119,6 +143,14 @@ from .bounties import (
     AsyncBountiesResourceWithRawResponse,
     BountiesResourceWithStreamingResponse,
     AsyncBountiesResourceWithStreamingResponse,
+)
+from .deposits import (
+    DepositsResource,
+    AsyncDepositsResource,
+    DepositsResourceWithRawResponse,
+    AsyncDepositsResourceWithRawResponse,
+    DepositsResourceWithStreamingResponse,
+    AsyncDepositsResourceWithStreamingResponse,
 )
 from .disputes import (
     DisputesResource,
@@ -696,6 +728,30 @@ __all__ = [
     "AsyncAccountLinksResourceWithRawResponse",
     "AccountLinksResourceWithStreamingResponse",
     "AsyncAccountLinksResourceWithStreamingResponse",
+    "AccountsResource",
+    "AsyncAccountsResource",
+    "AccountsResourceWithRawResponse",
+    "AsyncAccountsResourceWithRawResponse",
+    "AccountsResourceWithStreamingResponse",
+    "AsyncAccountsResourceWithStreamingResponse",
+    "WalletsResource",
+    "AsyncWalletsResource",
+    "WalletsResourceWithRawResponse",
+    "AsyncWalletsResourceWithRawResponse",
+    "WalletsResourceWithStreamingResponse",
+    "AsyncWalletsResourceWithStreamingResponse",
+    "SwapsResource",
+    "AsyncSwapsResource",
+    "SwapsResourceWithRawResponse",
+    "AsyncSwapsResourceWithRawResponse",
+    "SwapsResourceWithStreamingResponse",
+    "AsyncSwapsResourceWithStreamingResponse",
+    "DepositsResource",
+    "AsyncDepositsResource",
+    "DepositsResourceWithRawResponse",
+    "AsyncDepositsResourceWithRawResponse",
+    "DepositsResourceWithStreamingResponse",
+    "AsyncDepositsResourceWithStreamingResponse",
     "SetupIntentsResource",
     "AsyncSetupIntentsResource",
     "SetupIntentsResourceWithRawResponse",
