@@ -30,6 +30,8 @@ __all__ = ["TransfersResource", "AsyncTransfersResource"]
 
 
 class TransfersResource(SyncAPIResource):
+    """Transfers"""
+
     @cached_property
     def with_raw_response(self) -> TransfersResourceWithRawResponse:
         """
@@ -81,7 +83,9 @@ class TransfersResource(SyncAPIResource):
           currency: The currency of the transfer amount, such as 'usd'.
 
           destination_id: The identifier of the account receiving the funds. Accepts a user ID
-              ('user_xxx'), company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
+              ('user_xxx'), company ID ('biz_xxx'), ledger account ID ('ldgr_xxx'), or an
+              email address — emails without an existing Whop user trigger a placeholder-user
+              signup.
 
           origin_id: The identifier of the account sending the funds. Accepts a user ID ('user_xxx'),
               company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
@@ -247,6 +251,8 @@ class TransfersResource(SyncAPIResource):
 
 
 class AsyncTransfersResource(AsyncAPIResource):
+    """Transfers"""
+
     @cached_property
     def with_raw_response(self) -> AsyncTransfersResourceWithRawResponse:
         """
@@ -298,7 +304,9 @@ class AsyncTransfersResource(AsyncAPIResource):
           currency: The currency of the transfer amount, such as 'usd'.
 
           destination_id: The identifier of the account receiving the funds. Accepts a user ID
-              ('user_xxx'), company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
+              ('user_xxx'), company ID ('biz_xxx'), ledger account ID ('ldgr_xxx'), or an
+              email address — emails without an existing Whop user trigger a placeholder-user
+              signup.
 
           origin_id: The identifier of the account sending the funds. Accepts a user ID ('user_xxx'),
               company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
