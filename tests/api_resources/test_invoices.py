@@ -409,9 +409,7 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
-        invoice = client.invoices.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        invoice = client.invoices.list()
         assert_matches_type(SyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -436,9 +434,7 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
-        response = client.invoices.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = client.invoices.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -448,9 +444,7 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
-        with client.invoices.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        with client.invoices.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -1017,9 +1011,7 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
-        invoice = await async_client.invoices.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        invoice = await async_client.invoices.list()
         assert_matches_type(AsyncCursorPage[InvoiceListItem], invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1044,9 +1036,7 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.invoices.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = await async_client.invoices.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1056,9 +1046,7 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.invoices.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        ) as response:
+        async with async_client.invoices.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
