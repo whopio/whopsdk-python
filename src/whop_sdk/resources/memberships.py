@@ -37,6 +37,8 @@ __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
 
 class MembershipsResource(SyncAPIResource):
+    """Memberships"""
+
     @cached_property
     def with_raw_response(self) -> MembershipsResourceWithRawResponse:
         """
@@ -308,7 +310,7 @@ class MembershipsResource(SyncAPIResource):
 
         Required permissions:
 
-        - `member:manage`
+        - `membership:cancel`
         - `member:email:read`
         - `member:basic:read`
 
@@ -465,6 +467,8 @@ class MembershipsResource(SyncAPIResource):
 
 
 class AsyncMembershipsResource(AsyncAPIResource):
+    """Memberships"""
+
     @cached_property
     def with_raw_response(self) -> AsyncMembershipsResourceWithRawResponse:
         """
@@ -738,7 +742,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
         Required permissions:
 
-        - `member:manage`
+        - `membership:cancel`
         - `member:email:read`
         - `member:basic:read`
 
