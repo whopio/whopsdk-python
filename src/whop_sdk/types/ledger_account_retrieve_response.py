@@ -20,6 +20,7 @@ __all__ = [
     "PayoutAccountDetailsAddress",
     "PayoutAccountDetailsBusinessRepresentative",
     "PayoutAccountDetailsLatestVerification",
+    "TreasuryBalance",
 ]
 
 
@@ -173,6 +174,28 @@ class PayoutAccountDetails(BaseModel):
     """
 
 
+class TreasuryBalance(BaseModel):
+    """The balance cache associated with the account by currency."""
+
+    balance: float
+    """The amount of the balance."""
+
+    balance_usd: float
+    """The balance converted to USD."""
+
+    currency: Currency
+    """The currency of the balance."""
+
+    pending_balance: float
+    """The amount of the balance that is pending."""
+
+    reserve_balance: float
+    """The amount of the balance that is reserved."""
+
+    total_withdrawable_balance: float
+    """The amount of the balance that is withdrawable."""
+
+
 class LedgerAccountRetrieveResponse(BaseModel):
     """
     A ledger account represents a financial account on Whop that can hold many balances.
@@ -198,3 +221,6 @@ class LedgerAccountRetrieveResponse(BaseModel):
 
     transfer_fee: Optional[float] = None
     """The fee for transfers, if applicable."""
+
+    treasury_balance: Optional[TreasuryBalance] = None
+    """The balance cache associated with the account by currency."""
