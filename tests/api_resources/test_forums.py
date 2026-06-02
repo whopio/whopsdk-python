@@ -75,6 +75,7 @@ class TestForums:
         forum = client.forums.update(
             id="id",
             banned_words=["string"],
+            banner_image={"id": "id"},
             email_notification_preference="all_admin_posts",
             who_can_comment="everyone",
             who_can_post="everyone",
@@ -224,6 +225,7 @@ class TestAsyncForums:
         forum = await async_client.forums.update(
             id="id",
             banned_words=["string"],
+            banner_image={"id": "id"},
             email_notification_preference="all_admin_posts",
             who_can_comment="everyone",
             who_can_post="everyone",
