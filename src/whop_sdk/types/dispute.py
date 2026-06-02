@@ -154,8 +154,8 @@ class Payment(BaseModel):
     created_at: datetime
     """The datetime the payment was created."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    currency: Currency
+    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
@@ -335,10 +335,7 @@ class Dispute(BaseModel):
     """
 
     editable: Optional[bool] = None
-    """Whether the dispute evidence can still be edited and submitted.
-
-    Returns true only when the dispute status requires a response.
-    """
+    """Whether the dispute evidence can still be edited and submitted."""
 
     needs_response_by: Optional[datetime] = None
     """The deadline by which dispute evidence must be submitted.
