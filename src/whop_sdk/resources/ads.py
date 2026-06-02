@@ -99,9 +99,11 @@ class AdsResource(SyncAPIResource):
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order_by: Optional[Literal["spend", "roas"]] | Omit = omit,
         order_direction: Optional[Direction] | Omit = omit,
+        query: Optional[str] | Omit = omit,
         stats_from: Union[str, datetime, None] | Omit = omit,
         stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[ExternalAdStatus] | Omit = omit,
@@ -139,11 +141,16 @@ class AdsResource(SyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
+          include_paused: When false, excludes paused ads so pagination matches the dashboard's
+              hide-paused toggle.
+
           last: Returns the last _n_ elements from the list.
 
           order_by: Columns that the listAds query can sort by.
 
           order_direction: The direction of the sort.
+
+          query: Case-insensitive substring match against the ad title or tag.
 
           stats_from: Start of the stats date range used when order_by is a stats column.
 
@@ -177,9 +184,11 @@ class AdsResource(SyncAPIResource):
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
+                        "include_paused": include_paused,
                         "last": last,
                         "order_by": order_by,
                         "order_direction": order_direction,
+                        "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
@@ -337,9 +346,11 @@ class AsyncAdsResource(AsyncAPIResource):
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order_by: Optional[Literal["spend", "roas"]] | Omit = omit,
         order_direction: Optional[Direction] | Omit = omit,
+        query: Optional[str] | Omit = omit,
         stats_from: Union[str, datetime, None] | Omit = omit,
         stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[ExternalAdStatus] | Omit = omit,
@@ -377,11 +388,16 @@ class AsyncAdsResource(AsyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
+          include_paused: When false, excludes paused ads so pagination matches the dashboard's
+              hide-paused toggle.
+
           last: Returns the last _n_ elements from the list.
 
           order_by: Columns that the listAds query can sort by.
 
           order_direction: The direction of the sort.
+
+          query: Case-insensitive substring match against the ad title or tag.
 
           stats_from: Start of the stats date range used when order_by is a stats column.
 
@@ -415,9 +431,11 @@ class AsyncAdsResource(AsyncAPIResource):
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
+                        "include_paused": include_paused,
                         "last": last,
                         "order_by": order_by,
                         "order_direction": order_direction,
+                        "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
