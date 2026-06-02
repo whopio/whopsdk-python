@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import file_create_params
+from ..types import FileVisibility, file_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,6 +18,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.file_visibility import FileVisibility
 from ..types.file_create_response import FileCreateResponse
 from ..types.file_retrieve_response import FileRetrieveResponse
 
@@ -26,6 +26,8 @@ __all__ = ["FilesResource", "AsyncFilesResource"]
 
 
 class FilesResource(SyncAPIResource):
+    """Files"""
+
     @cached_property
     def with_raw_response(self) -> FilesResourceWithRawResponse:
         """
@@ -49,7 +51,7 @@ class FilesResource(SyncAPIResource):
         self,
         *,
         filename: str,
-        visibility: Optional[Literal["public", "private"]] | Omit = omit,
+        visibility: Optional[FileVisibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -126,6 +128,8 @@ class FilesResource(SyncAPIResource):
 
 
 class AsyncFilesResource(AsyncAPIResource):
+    """Files"""
+
     @cached_property
     def with_raw_response(self) -> AsyncFilesResourceWithRawResponse:
         """
@@ -149,7 +153,7 @@ class AsyncFilesResource(AsyncAPIResource):
         self,
         *,
         filename: str,
-        visibility: Optional[Literal["public", "private"]] | Omit = omit,
+        visibility: Optional[FileVisibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
