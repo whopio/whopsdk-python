@@ -12,6 +12,7 @@ PaymentProvider: TypeAlias = Literal[
     "sezzle",
     "splitit",
     "platform_balance",
+    "crypto_balance",
     "multi_psp",
     "adyen",
     "claritypay",
