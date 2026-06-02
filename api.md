@@ -708,7 +708,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Account, AccountListResponse
+from whop_sdk.types import Account, AccountSocialLink, AccountListResponse
 ```
 
 Methods:
@@ -717,6 +717,7 @@ Methods:
 - <code title="get /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">retrieve</a>(account_id) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
 - <code title="patch /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">update</a>(account_id, \*\*<a href="src/whop_sdk/types/account_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
 - <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_list_response.py">AccountListResponse</a></code>
+- <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
 
 # Wallets
 

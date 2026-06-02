@@ -140,6 +140,7 @@ from .user_list_response import UserListResponse as UserListResponse
 from .user_update_params import UserUpdateParams as UserUpdateParams
 from .wallet_send_params import WalletSendParams as WalletSendParams
 from .account_list_params import AccountListParams as AccountListParams
+from .account_social_link import AccountSocialLink as AccountSocialLink
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
 from .company_list_params import CompanyListParams as CompanyListParams
 from .course_visibilities import CourseVisibilities as CourseVisibilities
