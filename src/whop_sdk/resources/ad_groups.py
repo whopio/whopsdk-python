@@ -169,6 +169,7 @@ class AdGroupsResource(SyncAPIResource):
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
@@ -202,6 +203,9 @@ class AdGroupsResource(SyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
+          include_paused: When false, excludes paused ad groups so pagination matches the dashboard's
+              hide-paused toggle.
+
           last: Returns the last _n_ elements from the list.
 
           query: Case-insensitive substring match against the ad group name.
@@ -233,6 +237,7 @@ class AdGroupsResource(SyncAPIResource):
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
+                        "include_paused": include_paused,
                         "last": last,
                         "query": query,
                         "status": status,
@@ -497,6 +502,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
@@ -530,6 +536,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
+          include_paused: When false, excludes paused ad groups so pagination matches the dashboard's
+              hide-paused toggle.
+
           last: Returns the last _n_ elements from the list.
 
           query: Case-insensitive substring match against the ad group name.
@@ -561,6 +570,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
+                        "include_paused": include_paused,
                         "last": last,
                         "query": query,
                         "status": status,
