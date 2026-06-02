@@ -9,12 +9,7 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import (
-    WalletListResponse,
-    WalletPingResponse,
-    WalletSendResponse,
-    WalletBalanceResponse,
-)
+from whop_sdk.types import WalletListResponse, WalletSendResponse, WalletBalanceResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -91,34 +86,6 @@ class TestWallets:
             client.wallets.with_raw_response.balance(
                 "",
             )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_ping(self, client: Whop) -> None:
-        wallet = client.wallets.ping()
-        assert_matches_type(WalletPingResponse, wallet, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_ping(self, client: Whop) -> None:
-        response = client.wallets.with_raw_response.ping()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        wallet = response.parse()
-        assert_matches_type(WalletPingResponse, wallet, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_ping(self, client: Whop) -> None:
-        with client.wallets.with_streaming_response.ping() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            wallet = response.parse()
-            assert_matches_type(WalletPingResponse, wallet, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -245,34 +212,6 @@ class TestAsyncWallets:
             await async_client.wallets.with_raw_response.balance(
                 "",
             )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_ping(self, async_client: AsyncWhop) -> None:
-        wallet = await async_client.wallets.ping()
-        assert_matches_type(WalletPingResponse, wallet, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_ping(self, async_client: AsyncWhop) -> None:
-        response = await async_client.wallets.with_raw_response.ping()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        wallet = await response.parse()
-        assert_matches_type(WalletPingResponse, wallet, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_ping(self, async_client: AsyncWhop) -> None:
-        async with async_client.wallets.with_streaming_response.ping() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            wallet = await response.parse()
-            assert_matches_type(WalletPingResponse, wallet, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

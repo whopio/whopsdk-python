@@ -179,7 +179,6 @@ from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .user_retrieve_params import UserRetrieveParams as UserRetrieveParams
 from .wallet_list_response import WalletListResponse as WalletListResponse
-from .wallet_ping_response import WalletPingResponse as WalletPingResponse
 from .wallet_send_response import WalletSendResponse as WalletSendResponse
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
 from .account_create_params import AccountCreateParams as AccountCreateParams

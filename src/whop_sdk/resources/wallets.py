@@ -17,7 +17,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.wallet_list_response import WalletListResponse
-from ..types.wallet_ping_response import WalletPingResponse
 from ..types.wallet_send_response import WalletSendResponse
 from ..types.wallet_balance_response import WalletBalanceResponse
 
@@ -94,25 +93,6 @@ class WalletsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WalletBalanceResponse,
-        )
-
-    def ping(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WalletPingResponse:
-        """Unauthenticated health check for the native wallet routes."""
-        return self._get(
-            "/wallets/ping",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=WalletPingResponse,
         )
 
     def send(
@@ -234,25 +214,6 @@ class AsyncWalletsResource(AsyncAPIResource):
             cast_to=WalletBalanceResponse,
         )
 
-    async def ping(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WalletPingResponse:
-        """Unauthenticated health check for the native wallet routes."""
-        return await self._get(
-            "/wallets/ping",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=WalletPingResponse,
-        )
-
     async def send(
         self,
         account_id: str,
@@ -310,9 +271,6 @@ class WalletsResourceWithRawResponse:
         self.balance = to_raw_response_wrapper(
             wallets.balance,
         )
-        self.ping = to_raw_response_wrapper(
-            wallets.ping,
-        )
         self.send = to_raw_response_wrapper(
             wallets.send,
         )
@@ -327,9 +285,6 @@ class AsyncWalletsResourceWithRawResponse:
         )
         self.balance = async_to_raw_response_wrapper(
             wallets.balance,
-        )
-        self.ping = async_to_raw_response_wrapper(
-            wallets.ping,
         )
         self.send = async_to_raw_response_wrapper(
             wallets.send,
@@ -346,9 +301,6 @@ class WalletsResourceWithStreamingResponse:
         self.balance = to_streamed_response_wrapper(
             wallets.balance,
         )
-        self.ping = to_streamed_response_wrapper(
-            wallets.ping,
-        )
         self.send = to_streamed_response_wrapper(
             wallets.send,
         )
@@ -363,9 +315,6 @@ class AsyncWalletsResourceWithStreamingResponse:
         )
         self.balance = async_to_streamed_response_wrapper(
             wallets.balance,
-        )
-        self.ping = async_to_streamed_response_wrapper(
-            wallets.ping,
         )
         self.send = async_to_streamed_response_wrapper(
             wallets.send,
