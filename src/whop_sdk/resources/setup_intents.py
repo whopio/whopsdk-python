@@ -28,6 +28,8 @@ __all__ = ["SetupIntentsResource", "AsyncSetupIntentsResource"]
 
 
 class SetupIntentsResource(SyncAPIResource):
+    """Setup intents"""
+
     @cached_property
     def with_raw_response(self) -> SetupIntentsResourceWithRawResponse:
         """
@@ -167,6 +169,8 @@ class SetupIntentsResource(SyncAPIResource):
 
 
 class AsyncSetupIntentsResource(AsyncAPIResource):
+    """Setup intents"""
+
     @cached_property
     def with_raw_response(self) -> AsyncSetupIntentsResourceWithRawResponse:
         """
