@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.0](https://github.com/whopio/whopsdk-python/compare/v0.0.39...v0.1.0) (2026-06-03)
+## [0.0.40](https://github.com/whopio/whopsdk-python/compare/v0.0.39...v0.0.40) (2026-06-03)
 
 
 ### Features
