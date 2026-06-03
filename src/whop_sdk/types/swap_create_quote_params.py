@@ -18,6 +18,9 @@ class SwapCreateQuoteParams(TypedDict, total=False):
     to_token: Required[str]
     """Destination token contract address."""
 
+    account_id: Optional[str]
+    """Caller-owned account whose wallet address should be used."""
+
     from_address: Optional[str]
 
     from_chain: Union[str, int, None]
