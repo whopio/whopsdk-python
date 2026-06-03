@@ -82,6 +82,9 @@ class Context(TypedDict, total=False):
     ad_set_id: Optional[str]
     """Ad set ID."""
 
+    fbc: Optional[str]
+    """Facebook click cookie (\\__fbc, format fb.1.{timestamp}.{fbclid})."""
+
     fbclid: Optional[str]
     """Facebook click ID."""
 
@@ -157,6 +160,12 @@ class User(TypedDict, total=False):
 
     last_name: Optional[str]
     """Last name."""
+
+    linked_anonymous_id: Optional[str]
+    """A second anonymous identifier to link to this user (e.g.
+
+    captured across an iframe boundary).
+    """
 
     member_id: Optional[str]
     """The Whop member ID."""
