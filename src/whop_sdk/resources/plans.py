@@ -65,6 +65,7 @@ class PlansResource(SyncAPIResource):
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
+        collect_phone_numbers: Optional[bool] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -116,6 +117,8 @@ class PlansResource(SyncAPIResource):
 
           checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
               default.
+
+          collect_phone_numbers: Whether to collect the buyer's phone number at checkout for this plan.
 
           currency: The available currencies on the platform
 
@@ -186,6 +189,7 @@ class PlansResource(SyncAPIResource):
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
+                    "collect_phone_numbers": collect_phone_numbers,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -260,6 +264,7 @@ class PlansResource(SyncAPIResource):
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
+        collect_phone_numbers: Optional[bool] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -306,6 +311,8 @@ class PlansResource(SyncAPIResource):
 
           checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
               inherit from the company default.
+
+          collect_phone_numbers: Whether to collect the buyer's phone number at checkout for this plan.
 
           currency: The available currencies on the platform
 
@@ -376,6 +383,7 @@ class PlansResource(SyncAPIResource):
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
+                    "collect_phone_numbers": collect_phone_numbers,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -573,6 +581,7 @@ class AsyncPlansResource(AsyncAPIResource):
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
+        collect_phone_numbers: Optional[bool] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -624,6 +633,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
               default.
+
+          collect_phone_numbers: Whether to collect the buyer's phone number at checkout for this plan.
 
           currency: The available currencies on the platform
 
@@ -694,6 +705,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
+                    "collect_phone_numbers": collect_phone_numbers,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -768,6 +780,7 @@ class AsyncPlansResource(AsyncAPIResource):
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
+        collect_phone_numbers: Optional[bool] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -814,6 +827,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
               inherit from the company default.
+
+          collect_phone_numbers: Whether to collect the buyer's phone number at checkout for this plan.
 
           currency: The available currencies on the platform
 
@@ -884,6 +899,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
+                    "collect_phone_numbers": collect_phone_numbers,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
