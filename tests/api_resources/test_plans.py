@@ -174,6 +174,7 @@ class TestPlans:
                 "button_color": "button_color",
                 "font_family": "system",
             },
+            collect_phone_numbers=True,
             currency="usd",
             custom_fields=[
                 {
@@ -498,6 +499,7 @@ class TestAsyncPlans:
                 "button_color": "button_color",
                 "font_family": "system",
             },
+            collect_phone_numbers=True,
             currency="usd",
             custom_fields=[
                 {
