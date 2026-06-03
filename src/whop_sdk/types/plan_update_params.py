@@ -31,6 +31,9 @@ class PlanUpdateParams(TypedDict, total=False):
     Pass null to remove all overrides and inherit from the company default.
     """
 
+    collect_phone_number: Optional[bool]
+    """Whether to collect the buyer's phone number at checkout for this plan."""
+
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
