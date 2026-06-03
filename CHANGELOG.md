@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.0.40](https://github.com/whopio/whopsdk-python/compare/v0.0.39...v0.0.40) (2026-06-03)
+
+
+### Features
+
+* **api:** extend response for accounts endpoint + /me ([89fa6c3](https://github.com/whopio/whopsdk-python/commit/89fa6c33480566b439955979c21ecd01cc89be84))
+
+
+### Bug Fixes
+
+* **backend:** remove wallets ping ([eb1eb47](https://github.com/whopio/whopsdk-python/commit/eb1eb47672dd2656bdbf6eddf5f7f3ba5e8c254a))
+* **stainless:** add custom code tracking files ([425185c](https://github.com/whopio/whopsdk-python/commit/425185c8ca0aa223efe019b9f87457b91534ea9d))
+
+
+### Chores
+
+* restore changelog ([a2d6f27](https://github.com/whopio/whopsdk-python/commit/a2d6f270cb90850c0abfb7c935135e24e852592a))
+* restore user token helpers ([c679fdf](https://github.com/whopio/whopsdk-python/commit/c679fdfadd8018906b8fa2948d75e6268a0da658))
+
 ## 0.0.39 (2026-05-12)
 
 Full Changelog: [v0.0.38...v0.0.39](https://github.com/whopio/whopsdk-python/compare/v0.0.38...v0.0.39)
