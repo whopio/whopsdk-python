@@ -479,9 +479,6 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
     source_url: Optional[str]
     """The URL of the page where the checkout is being initiated from."""
 
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
-    """The 3D Secure behavior for a plan."""
-
 
 class CreateCheckoutSessionInputModeSetupCheckoutStyling(TypedDict, total=False):
     """Checkout styling overrides for this session.
