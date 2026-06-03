@@ -17,7 +17,17 @@ class ConversionCreateParams(TypedDict, total=False):
     """The company to associate with this event."""
 
     event_name: Required[
-        Literal["lead", "submit_application", "contact", "complete_registration", "schedule", "custom"]
+        Literal[
+            "lead",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "schedule",
+            "custom",
+            "page",
+            "leave",
+            "identify",
+        ]
     ]
     """The type of event."""
 
@@ -45,6 +55,9 @@ class ConversionCreateParams(TypedDict, total=False):
     custom_name: Optional[str]
     """Custom event name when event_name is 'custom'."""
 
+    duration: Optional[int]
+    """For 'leave' events: milliseconds the visitor spent on the page."""
+
     event_id: Optional[str]
     """Client-provided identifier for deduplication. Generated if omitted."""
 
@@ -59,6 +72,18 @@ class ConversionCreateParams(TypedDict, total=False):
 
     referrer_url: Optional[str]
     """The referring URL."""
+
+    resumed: Optional[bool]
+    """For 'page' events: true when the page was restored from the back/forward cache."""
+
+    source: Optional[str]
+    """
+    For 'identify' events: where the identity was captured (url, form, manual,
+    iframe).
+    """
+
+    title: Optional[str]
+    """For 'page' events: the document title."""
 
     url: Optional[str]
     """The URL where the event occurred."""
@@ -82,11 +107,20 @@ class Context(TypedDict, total=False):
     ad_set_id: Optional[str]
     """Ad set ID."""
 
+    fbc: Optional[str]
+    """Facebook click cookie (\\__fbc, format fb.1.{timestamp}.{fbclid})."""
+
     fbclid: Optional[str]
     """Facebook click ID."""
 
     fbp: Optional[str]
     """Facebook browser pixel ID."""
+
+    fingerprint: Optional[str]
+    """Client-side device fingerprint."""
+
+    fingerprint_confidence: Optional[float]
+    """Confidence score (0-1) for the device fingerprint."""
 
     ga: Optional[str]
     """Google Analytics client ID."""
@@ -99,6 +133,15 @@ class Context(TypedDict, total=False):
 
     ip_address: Optional[str]
     """IP address."""
+
+    language: Optional[str]
+    """Browser language (e.g. en-US)."""
+
+    screen_resolution: Optional[str]
+    """Screen resolution (e.g. 1920x1080)."""
+
+    timezone: Optional[str]
+    """IANA timezone (e.g. America/New_York)."""
 
     ttclid: Optional[str]
     """TikTok click ID."""
@@ -157,6 +200,15 @@ class User(TypedDict, total=False):
 
     last_name: Optional[str]
     """Last name."""
+
+    linked_anonymous_id: Optional[str]
+    """A second anonymous identifier to link to this user (e.g.
+
+    captured across an iframe boundary).
+    """
+
+    linked_wuid: Optional[str]
+    """A wuid from a linked frame, captured across an iframe boundary."""
 
     member_id: Optional[str]
     """The Whop member ID."""
