@@ -39,6 +39,9 @@ class PlanCreateParams(TypedDict, total=False):
     Pass null to inherit from the company default.
     """
 
+    collect_phone_number: Optional[bool]
+    """Whether to collect the buyer's phone number at checkout for this plan."""
+
     currency: Optional[Currency]
     """The available currencies on the platform"""
 
