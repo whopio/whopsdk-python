@@ -23,7 +23,17 @@ class TestAds:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         ad = client.ads.retrieve(
-            "ad_xxxxxxxxxxxxxxx",
+            id="ad_xxxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Ad, ad, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Whop) -> None:
+        ad = client.ads.retrieve(
+            id="ad_xxxxxxxxxxxxxxx",
+            stats_from=parse_datetime("2023-12-01T05:00:00.401Z"),
+            stats_to=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -31,7 +41,7 @@ class TestAds:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.ads.with_raw_response.retrieve(
-            "ad_xxxxxxxxxxxxxxx",
+            id="ad_xxxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -43,7 +53,7 @@ class TestAds:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.ads.with_streaming_response.retrieve(
-            "ad_xxxxxxxxxxxxxxx",
+            id="ad_xxxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -58,7 +68,7 @@ class TestAds:
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.ads.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -71,7 +81,10 @@ class TestAds:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         ad = client.ads.list(
+            ad_campaign_id="ad_campaign_id",
+            ad_campaign_ids=["string"],
             ad_group_id="ad_group_id",
+            ad_group_ids=["string"],
             after="after",
             before="before",
             campaign_id="campaign_id",
@@ -79,7 +92,6 @@ class TestAds:
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
-            include_paused=True,
             last=42,
             order_by="spend",
             order_direction="asc",
@@ -206,7 +218,17 @@ class TestAsyncAds:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.retrieve(
-            "ad_xxxxxxxxxxxxxxx",
+            id="ad_xxxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Ad, ad, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
+        ad = await async_client.ads.retrieve(
+            id="ad_xxxxxxxxxxxxxxx",
+            stats_from=parse_datetime("2023-12-01T05:00:00.401Z"),
+            stats_to=parse_datetime("2023-12-01T05:00:00.401Z"),
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -214,7 +236,7 @@ class TestAsyncAds:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.ads.with_raw_response.retrieve(
-            "ad_xxxxxxxxxxxxxxx",
+            id="ad_xxxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -226,7 +248,7 @@ class TestAsyncAds:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.ads.with_streaming_response.retrieve(
-            "ad_xxxxxxxxxxxxxxx",
+            id="ad_xxxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -241,7 +263,7 @@ class TestAsyncAds:
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.ads.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -254,7 +276,10 @@ class TestAsyncAds:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.list(
+            ad_campaign_id="ad_campaign_id",
+            ad_campaign_ids=["string"],
             ad_group_id="ad_group_id",
+            ad_group_ids=["string"],
             after="after",
             before="before",
             campaign_id="campaign_id",
@@ -262,7 +287,6 @@ class TestAsyncAds:
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
-            include_paused=True,
             last=42,
             order_by="spend",
             order_direction="asc",
