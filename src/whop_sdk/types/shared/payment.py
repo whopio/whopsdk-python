@@ -30,6 +30,7 @@ __all__ = [
     "FinancingTransaction",
     "Member",
     "Membership",
+    "MembershipCustomFieldResponse",
     "PaymentMethod",
     "PaymentMethodCard",
     "Plan",
@@ -193,11 +194,30 @@ class Member(BaseModel):
     """The phone number for the member, if available."""
 
 
+class MembershipCustomFieldResponse(BaseModel):
+    """The response from a custom field on checkout"""
+
+    id: str
+    """The unique identifier for the custom field response."""
+
+    answer: str
+    """The response a user gave to the specific question or field."""
+
+    question: str
+    """The question asked by the custom field"""
+
+
 class Membership(BaseModel):
     """The membership attached to this payment."""
 
     id: str
     """The unique identifier for the membership."""
+
+    custom_field_responses: List[MembershipCustomFieldResponse]
+    """
+    The customer's responses to custom checkout questions configured on the product
+    at the time of purchase.
+    """
 
     phone_number: Optional[str] = None
     """The phone number associated with this membership."""
