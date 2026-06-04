@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
-from ..types import wallet_send_params
+from ..types import wallet_send_params, wallet_sign_message_params
 from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,6 +21,7 @@ from .._base_client import make_request_options
 from ..types.wallet_list_response import WalletListResponse
 from ..types.wallet_send_response import WalletSendResponse
 from ..types.wallet_balance_response import WalletBalanceResponse
+from ..types.wallet_sign_message_response import WalletSignMessageResponse
 
 __all__ = ["WalletsResource", "AsyncWalletsResource"]
 
@@ -141,6 +144,63 @@ class WalletsResource(SyncAPIResource):
             cast_to=WalletSendResponse,
         )
 
+    def sign_message(
+        self,
+        *,
+        account_id: str,
+        chain_id: int,
+        message: object,
+        type: Literal["personal_sign", "typed_data"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletSignMessageResponse:
+        """Produces a personal_sign or EIP-712 signature from the account's wallet.
+
+        Nothing
+        is broadcast on-chain.
+
+        Args:
+          account_id: The business or user account ID whose wallet signs.
+
+          chain_id: EIP-155 chain ID the signature is intended for (e.g. 9745 for Plasma).
+
+          message: A UTF-8 string for personal_sign, or an EIP-712 object (domain, types,
+              primaryType, message) for typed_data.
+
+          type: Signature scheme.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/wallets/sign-message",
+            body=maybe_transform(
+                {
+                    "chain_id": chain_id,
+                    "message": message,
+                    "type": type,
+                },
+                wallet_sign_message_params.WalletSignMessageParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, wallet_sign_message_params.WalletSignMessageParams),
+            ),
+            cast_to=WalletSignMessageResponse,
+        )
+
 
 class AsyncWalletsResource(AsyncAPIResource):
     @cached_property
@@ -260,6 +320,65 @@ class AsyncWalletsResource(AsyncAPIResource):
             cast_to=WalletSendResponse,
         )
 
+    async def sign_message(
+        self,
+        *,
+        account_id: str,
+        chain_id: int,
+        message: object,
+        type: Literal["personal_sign", "typed_data"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletSignMessageResponse:
+        """Produces a personal_sign or EIP-712 signature from the account's wallet.
+
+        Nothing
+        is broadcast on-chain.
+
+        Args:
+          account_id: The business or user account ID whose wallet signs.
+
+          chain_id: EIP-155 chain ID the signature is intended for (e.g. 9745 for Plasma).
+
+          message: A UTF-8 string for personal_sign, or an EIP-712 object (domain, types,
+              primaryType, message) for typed_data.
+
+          type: Signature scheme.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/wallets/sign-message",
+            body=await async_maybe_transform(
+                {
+                    "chain_id": chain_id,
+                    "message": message,
+                    "type": type,
+                },
+                wallet_sign_message_params.WalletSignMessageParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id}, wallet_sign_message_params.WalletSignMessageParams
+                ),
+            ),
+            cast_to=WalletSignMessageResponse,
+        )
+
 
 class WalletsResourceWithRawResponse:
     def __init__(self, wallets: WalletsResource) -> None:
@@ -273,6 +392,9 @@ class WalletsResourceWithRawResponse:
         )
         self.send = to_raw_response_wrapper(
             wallets.send,
+        )
+        self.sign_message = to_raw_response_wrapper(
+            wallets.sign_message,
         )
 
 
@@ -289,6 +411,9 @@ class AsyncWalletsResourceWithRawResponse:
         self.send = async_to_raw_response_wrapper(
             wallets.send,
         )
+        self.sign_message = async_to_raw_response_wrapper(
+            wallets.sign_message,
+        )
 
 
 class WalletsResourceWithStreamingResponse:
@@ -304,6 +429,9 @@ class WalletsResourceWithStreamingResponse:
         self.send = to_streamed_response_wrapper(
             wallets.send,
         )
+        self.sign_message = to_streamed_response_wrapper(
+            wallets.sign_message,
+        )
 
 
 class AsyncWalletsResourceWithStreamingResponse:
@@ -318,4 +446,7 @@ class AsyncWalletsResourceWithStreamingResponse:
         )
         self.send = async_to_streamed_response_wrapper(
             wallets.send,
+        )
+        self.sign_message = async_to_streamed_response_wrapper(
+            wallets.sign_message,
         )
