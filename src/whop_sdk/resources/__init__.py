@@ -472,6 +472,14 @@ from .support_channels import (
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
 )
+from .identity_profiles import (
+    IdentityProfilesResource,
+    AsyncIdentityProfilesResource,
+    IdentityProfilesResourceWithRawResponse,
+    AsyncIdentityProfilesResourceWithRawResponse,
+    IdentityProfilesResourceWithStreamingResponse,
+    AsyncIdentityProfilesResourceWithStreamingResponse,
+)
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
     AsyncCheckoutConfigurationsResource,
@@ -782,6 +790,12 @@ __all__ = [
     "AsyncVerificationsResourceWithRawResponse",
     "VerificationsResourceWithStreamingResponse",
     "AsyncVerificationsResourceWithStreamingResponse",
+    "IdentityProfilesResource",
+    "AsyncIdentityProfilesResource",
+    "IdentityProfilesResourceWithRawResponse",
+    "AsyncIdentityProfilesResourceWithRawResponse",
+    "IdentityProfilesResourceWithStreamingResponse",
+    "AsyncIdentityProfilesResourceWithStreamingResponse",
     "LeadsResource",
     "AsyncLeadsResource",
     "LeadsResourceWithRawResponse",

@@ -842,6 +842,30 @@ Methods:
 - <code title="get /verifications/{id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/verification_retrieve_response.py">VerificationRetrieveResponse</a></code>
 - <code title="get /verifications">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">list</a>(\*\*<a href="src/whop_sdk/types/verification_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/verification_list_response.py">SyncCursorPage[VerificationListResponse]</a></code>
 
+# IdentityProfiles
+
+Types:
+
+```python
+from whop_sdk.types import (
+    IdentityProfile,
+    IdentityProfileKind,
+    IdentityProfileStatus,
+    IdentityProfileCreateResponse,
+    IdentityProfileListResponse,
+    IdentityProfileListVerificationsResponse,
+)
+```
+
+Methods:
+
+- <code title="post /identity_profiles">client.identity_profiles.<a href="./src/whop_sdk/resources/identity_profiles.py">create</a>(\*\*<a href="src/whop_sdk/types/identity_profile_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/identity_profile_create_response.py">IdentityProfileCreateResponse</a></code>
+- <code title="get /identity_profiles/{id}">client.identity_profiles.<a href="./src/whop_sdk/resources/identity_profiles.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/identity_profile.py">IdentityProfile</a></code>
+- <code title="get /identity_profiles">client.identity_profiles.<a href="./src/whop_sdk/resources/identity_profiles.py">list</a>(\*\*<a href="src/whop_sdk/types/identity_profile_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/identity_profile_list_response.py">SyncCursorPage[IdentityProfileListResponse]</a></code>
+- <code title="post /identity_profiles/{identity_profile_id}/attach">client.identity_profiles.<a href="./src/whop_sdk/resources/identity_profiles.py">attach</a>(identity_profile_id, \*\*<a href="src/whop_sdk/types/identity_profile_attach_params.py">params</a>) -> <a href="./src/whop_sdk/types/identity_profile.py">IdentityProfile</a></code>
+- <code title="get /identity_profiles/{id}/verifications">client.identity_profiles.<a href="./src/whop_sdk/resources/identity_profiles.py">list_verifications</a>(id, \*\*<a href="src/whop_sdk/types/identity_profile_list_verifications_params.py">params</a>) -> <a href="./src/whop_sdk/types/identity_profile_list_verifications_response.py">SyncCursorPage[IdentityProfileListVerificationsResponse]</a></code>
+- <code title="delete /identity_profiles/{id}">client.identity_profiles.<a href="./src/whop_sdk/resources/identity_profiles.py">unlink</a>(id, \*\*<a href="src/whop_sdk/types/identity_profile_unlink_params.py">params</a>) -> <a href="./src/whop_sdk/types/identity_profile.py">IdentityProfile</a></code>
+
 # Leads
 
 Types:
