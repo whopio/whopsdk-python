@@ -728,6 +728,7 @@ from whop_sdk.types import (
     AccountWallet,
     WalletListResponse,
     WalletBalanceResponse,
+    WalletCreateWithdrawalResponse,
     WalletSendResponse,
 )
 ```
@@ -736,6 +737,7 @@ Methods:
 
 - <code title="get /wallets">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">list</a>() -> <a href="./src/whop_sdk/types/wallet_list_response.py">WalletListResponse</a></code>
 - <code title="get /wallets/{account_id}/balance">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">balance</a>(account_id) -> <a href="./src/whop_sdk/types/wallet_balance_response.py">WalletBalanceResponse</a></code>
+- <code title="post /wallets/{account_id}/withdrawals">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">create_withdrawal</a>(account_id, \*\*<a href="src/whop_sdk/types/wallet_create_withdrawal_params.py">params</a>) -> <a href="./src/whop_sdk/types/wallet_create_withdrawal_response.py">WalletCreateWithdrawalResponse</a></code>
 - <code title="post /wallets/{account_id}/sends">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">send</a>(account_id, \*\*<a href="src/whop_sdk/types/wallet_send_params.py">params</a>) -> <a href="./src/whop_sdk/types/wallet_send_response.py">WalletSendResponse</a></code>
 
 # Swaps
