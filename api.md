@@ -275,6 +275,18 @@ Methods:
 
 - <code title="get /ledger_accounts/{id}">client.ledger_accounts.<a href="./src/whop_sdk/resources/ledger_accounts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ledger_account_retrieve_response.py">LedgerAccountRetrieveResponse</a></code>
 
+# LedgerLines
+
+Types:
+
+```python
+from whop_sdk.types import LedgerLine
+```
+
+Methods:
+
+- <code title="get /ledger_lines">client.ledger_lines.<a href="./src/whop_sdk/resources/ledger_lines.py">list</a>(\*\*<a href="src/whop_sdk/types/ledger_line_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ledger_line.py">SyncCursorPage[LedgerLine]</a></code>
+
 # Memberships
 
 Types:

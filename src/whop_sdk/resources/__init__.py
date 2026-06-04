@@ -344,6 +344,14 @@ from .ad_campaigns import (
     AdCampaignsResourceWithStreamingResponse,
     AsyncAdCampaignsResourceWithStreamingResponse,
 )
+from .ledger_lines import (
+    LedgerLinesResource,
+    AsyncLedgerLinesResource,
+    LedgerLinesResourceWithRawResponse,
+    AsyncLedgerLinesResourceWithRawResponse,
+    LedgerLinesResourceWithStreamingResponse,
+    AsyncLedgerLinesResourceWithStreamingResponse,
+)
 from .access_tokens import (
     AccessTokensResource,
     AsyncAccessTokensResource,
@@ -572,6 +580,12 @@ __all__ = [
     "AsyncLedgerAccountsResourceWithRawResponse",
     "LedgerAccountsResourceWithStreamingResponse",
     "AsyncLedgerAccountsResourceWithStreamingResponse",
+    "LedgerLinesResource",
+    "AsyncLedgerLinesResource",
+    "LedgerLinesResourceWithRawResponse",
+    "AsyncLedgerLinesResourceWithRawResponse",
+    "LedgerLinesResourceWithStreamingResponse",
+    "AsyncLedgerLinesResourceWithStreamingResponse",
     "MembershipsResource",
     "AsyncMembershipsResource",
     "MembershipsResourceWithRawResponse",
