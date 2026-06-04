@@ -6,66 +6,42 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 from .ad_budget_type import AdBudgetType
+from .shared.currency import Currency
 from .ad_campaign_status import AdCampaignStatus
 from .ad_campaign_platform import AdCampaignPlatform
 
-__all__ = ["AdCampaign", "CreatedByUser", "MetaConfig"]
+__all__ = ["AdCampaign", "Issue"]
 
 
-class CreatedByUser(BaseModel):
-    """The user who created this ad campaign."""
+class Issue(BaseModel):
+    """A platform-reported issue on an ad object (rejection, policy flag, etc.)."""
 
-    id: str
-    """The unique identifier for the user."""
+    created_at: datetime
+    """When the issue was first reported."""
 
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
+    error_code: Optional[str] = None
+    """Platform-specific error code."""
 
-    username: str
-    """The user's unique username shown on their public profile."""
+    error_message: Optional[str] = None
+    """Full error detail from the platform."""
 
+    error_summary: str
+    """Short description of the issue."""
 
-class MetaConfig(BaseModel):
-    """Meta-specific campaign configuration (objective, budget mode, etc.).
+    resolution_status: Literal["open", "resolved", "acknowledged"]
+    """Current resolution status."""
 
-    Null for non-Meta campaigns.
+    resource_id: Optional[str] = None
+    """The Whop ID of the ad object this issue is on (the ad, ad group, or campaign).
+
+    Null when the issue isn't tied to a local object.
     """
 
-    bid_amount: Optional[int] = None
-    """Bid cap amount in cents. Only used when bid_strategy is bid_cap."""
-
-    bid_strategy: Optional[Literal["lowest_cost", "bid_cap", "cost_cap"]] = None
-    """The bidding strategy used to optimize spend for this campaign."""
-
-    budget_optimization: Optional[bool] = None
+    resource_type: str
     """
-    Whether campaign budget optimization (CBO) is enabled, allowing the platform to
-    distribute budget across ad groups.
+    The kind of ad object this issue is on: `ad`, `ad_group`, `campaign`, or
+    `asset_share`. Pairs with `resourceId`.
     """
-
-    effective_status: Optional[Literal["active", "paused", "deleted", "in_review", "rejected", "with_issues"]] = None
-    """
-    The actual delivery status, accounting for platform overrides (e.g., in_review,
-    rejected).
-    """
-
-    end_time: Optional[str] = None
-    """The scheduled end time of the campaign (ISO8601)."""
-
-    objective: Optional[Literal["awareness", "traffic", "engagement", "leads", "sales"]] = None
-    """The campaign objective that determines how Meta optimizes delivery."""
-
-    special_categories: Optional[List[str]] = None
-    """
-    Special ad categories required by the platform (e.g., housing, employment,
-    credit).
-    """
-
-    start_time: Optional[str] = None
-    """The scheduled start time of the campaign (ISO8601)."""
-
-    status: Optional[Literal["active", "paused"]] = None
-    """The campaign status as set by the advertiser (active or paused)."""
 
 
 class AdCampaign(BaseModel):
@@ -80,29 +56,84 @@ class AdCampaign(BaseModel):
     budget_type: Optional[AdBudgetType] = None
     """The budget type for an ad campaign or ad group."""
 
+    clicks: int
+    """Total clicks on the campaign's ads in the stats window."""
+
+    cost_per_result: Optional[float] = None
+    """Cost in dollars per optimization result (spend / results).
+
+    Null when there are no results.
+    """
+
+    cpc: float
+    """Cost per click in dollars (spend / clicks). 0 when there are no clicks."""
+
+    cpm: Optional[float] = None
+    """Cost per 1,000 impressions in dollars (spend / impressions × 1000)."""
+
     created_at: datetime
     """When the ad campaign was created."""
 
-    created_by_user: CreatedByUser
-    """The user who created this ad campaign."""
+    ctr: float
+    """Click-through rate as a fraction of impressions (clicks / impressions, 0–1)."""
 
-    meta_config: Optional[MetaConfig] = None
-    """Meta-specific campaign configuration (objective, budget mode, etc.).
+    frequency: Optional[float] = None
+    """
+    Average number of times each person saw an ad (impressions / reach), as reported
+    by the platform.
+    """
 
-    Null for non-Meta campaigns.
+    impressions: int
+    """Total impressions (views) on the campaign's ads in the stats window."""
+
+    issues: List[Issue]
+    """
+    Open platform issues affecting this campaign and its descendant ad groups and
+    ads, deduplicated per object. Empty when there are none.
     """
 
     platform: AdCampaignPlatform
     """The external ad platform this campaign is running on (e.g., meta, tiktok)."""
 
+    purchase_value: float
+    """Total USD value of Whop pixel-attributed purchases in the stats window."""
+
+    purchases: int
+    """Number of Whop pixel-attributed purchases (last-click) in the stats window."""
+
+    reach: int
+    """Unique users reached in the stats window (deduplicated by the platform)."""
+
+    results: int
+    """
+    Total optimization results reported by the external ad platform in the stats
+    window. What counts as a result depends on what the campaign's ad groups
+    optimize for — see `resultLabelKey`.
+    """
+
+    roas: float
+    """
+    Return on ad spend as a ratio (purchaseValue / spend) — 2.5 means $2.50 of
+    attributed purchase value per $1 spent. 0 when there is no spend.
+    """
+
+    spend: float
+    """Amount charged for this campaign in dollars in the stats window."""
+
+    spend_currency: Optional[Currency] = None
+    """The available currencies on the platform"""
+
     status: AdCampaignStatus
-    """Current status of the campaign (active, paused, or inactive)."""
+    """Current status of the campaign."""
 
     title: str
     """The campaign name shown in the Whop dashboard."""
 
-    total_spend: float
-    """Total amount spent in dollars."""
+    unique_ctr: Optional[float] = None
+    """
+    Unique click-through rate as a fraction of impressions (unique clicks /
+    impressions, 0–1).
+    """
 
     updated_at: datetime
     """When the ad campaign was last updated."""
