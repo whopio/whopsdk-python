@@ -7,7 +7,7 @@ from typing import Dict, Iterable, Optional
 import httpx
 
 from ..types import account_list_params, account_create_params, account_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -132,17 +132,31 @@ class AccountsResource(SyncAPIResource):
         affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[Dict[str, object]] | Omit = omit,
         business_type: Optional[str] | Omit = omit,
+        country: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         featured_affiliate_product_id: Optional[str] | Omit = omit,
+        home_preferences: SequenceNotStr[str] | Omit = omit,
         industry_group: Optional[str] | Omit = omit,
         industry_type: Optional[str] | Omit = omit,
+        invoice_prefix: Optional[str] | Omit = omit,
         logo: Optional[Dict[str, object]] | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
+        onboarding_type: Optional[str] | Omit = omit,
+        opengraph_image: Optional[Dict[str, object]] | Omit = omit,
+        opengraph_image_variant: Optional[str] | Omit = omit,
+        other_business_description: Optional[str] | Omit = omit,
+        other_industry_description: Optional[str] | Omit = omit,
+        require_2fa: bool | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: bool | Omit = omit,
+        show_joined_whops: bool | Omit = omit,
+        show_reviews_dtc: bool | Omit = omit,
+        show_user_directory: bool | Omit = omit,
         social_links: Iterable[Dict[str, object]] | Omit = omit,
+        store_page_config: Optional[Dict[str, object]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -165,27 +179,56 @@ class AccountsResource(SyncAPIResource):
 
           business_type: The high-level business category for the account.
 
+          country: The country the account is located in.
+
           description: A promotional description for the account.
 
           featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass null to clear.
+
+          home_preferences: Preferences for the public business home page.
 
           industry_group: The industry group the account belongs to.
 
           industry_type: The specific industry vertical the account operates in.
 
+          invoice_prefix: The prefix to use for account invoices.
+
           logo: Attachment input for the account logo.
 
           metadata: Arbitrary key/value metadata to store on the account.
+
+          onboarding_type: The type of onboarding the account has completed.
+
+          opengraph_image: Attachment input for the account Open Graph image.
+
+          opengraph_image_variant: The account Open Graph image variant.
+
+          other_business_description: The description of the business type when business_type is other.
+
+          other_industry_description: The description of the industry type when industry_type is other.
+
+          require_2fa: Whether the account requires authorized users to have two-factor authentication
+              enabled.
 
           route: The unique URL slug for the account.
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this account.
 
+          show_joined_whops: Whether the account appears in joined whops on other accounts.
+
+          show_reviews_dtc: Whether reviews are displayed on direct-to-consumer product pages.
+
+          show_user_directory: Whether the account shows users in the user directory.
+
           social_links: The full list of social links to display for the account.
+
+          store_page_config: Store page display configuration for the account.
 
           target_audience: The target audience for this account.
 
           title: The display name of the account.
+
+          use_logo_as_opengraph_image_fallback: Whether the account uses its logo as the fallback Open Graph image.
 
           extra_headers: Send extra headers
 
@@ -205,17 +248,31 @@ class AccountsResource(SyncAPIResource):
                     "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "country": country,
                     "description": description,
                     "featured_affiliate_product_id": featured_affiliate_product_id,
+                    "home_preferences": home_preferences,
                     "industry_group": industry_group,
                     "industry_type": industry_type,
+                    "invoice_prefix": invoice_prefix,
                     "logo": logo,
                     "metadata": metadata,
+                    "onboarding_type": onboarding_type,
+                    "opengraph_image": opengraph_image,
+                    "opengraph_image_variant": opengraph_image_variant,
+                    "other_business_description": other_business_description,
+                    "other_industry_description": other_industry_description,
+                    "require_2fa": require_2fa,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
+                    "show_joined_whops": show_joined_whops,
+                    "show_reviews_dtc": show_reviews_dtc,
+                    "show_user_directory": show_user_directory,
                     "social_links": social_links,
+                    "store_page_config": store_page_config,
                     "target_audience": target_audience,
                     "title": title,
+                    "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },
                 account_update_params.AccountUpdateParams,
             ),
@@ -406,17 +463,31 @@ class AsyncAccountsResource(AsyncAPIResource):
         affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[Dict[str, object]] | Omit = omit,
         business_type: Optional[str] | Omit = omit,
+        country: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         featured_affiliate_product_id: Optional[str] | Omit = omit,
+        home_preferences: SequenceNotStr[str] | Omit = omit,
         industry_group: Optional[str] | Omit = omit,
         industry_type: Optional[str] | Omit = omit,
+        invoice_prefix: Optional[str] | Omit = omit,
         logo: Optional[Dict[str, object]] | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
+        onboarding_type: Optional[str] | Omit = omit,
+        opengraph_image: Optional[Dict[str, object]] | Omit = omit,
+        opengraph_image_variant: Optional[str] | Omit = omit,
+        other_business_description: Optional[str] | Omit = omit,
+        other_industry_description: Optional[str] | Omit = omit,
+        require_2fa: bool | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: bool | Omit = omit,
+        show_joined_whops: bool | Omit = omit,
+        show_reviews_dtc: bool | Omit = omit,
+        show_user_directory: bool | Omit = omit,
         social_links: Iterable[Dict[str, object]] | Omit = omit,
+        store_page_config: Optional[Dict[str, object]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
+        use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -439,27 +510,56 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           business_type: The high-level business category for the account.
 
+          country: The country the account is located in.
+
           description: A promotional description for the account.
 
           featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass null to clear.
+
+          home_preferences: Preferences for the public business home page.
 
           industry_group: The industry group the account belongs to.
 
           industry_type: The specific industry vertical the account operates in.
 
+          invoice_prefix: The prefix to use for account invoices.
+
           logo: Attachment input for the account logo.
 
           metadata: Arbitrary key/value metadata to store on the account.
+
+          onboarding_type: The type of onboarding the account has completed.
+
+          opengraph_image: Attachment input for the account Open Graph image.
+
+          opengraph_image_variant: The account Open Graph image variant.
+
+          other_business_description: The description of the business type when business_type is other.
+
+          other_industry_description: The description of the industry type when industry_type is other.
+
+          require_2fa: Whether the account requires authorized users to have two-factor authentication
+              enabled.
 
           route: The unique URL slug for the account.
 
           send_customer_emails: Whether Whop sends transactional emails to customers on behalf of this account.
 
+          show_joined_whops: Whether the account appears in joined whops on other accounts.
+
+          show_reviews_dtc: Whether reviews are displayed on direct-to-consumer product pages.
+
+          show_user_directory: Whether the account shows users in the user directory.
+
           social_links: The full list of social links to display for the account.
+
+          store_page_config: Store page display configuration for the account.
 
           target_audience: The target audience for this account.
 
           title: The display name of the account.
+
+          use_logo_as_opengraph_image_fallback: Whether the account uses its logo as the fallback Open Graph image.
 
           extra_headers: Send extra headers
 
@@ -479,17 +579,31 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
                     "business_type": business_type,
+                    "country": country,
                     "description": description,
                     "featured_affiliate_product_id": featured_affiliate_product_id,
+                    "home_preferences": home_preferences,
                     "industry_group": industry_group,
                     "industry_type": industry_type,
+                    "invoice_prefix": invoice_prefix,
                     "logo": logo,
                     "metadata": metadata,
+                    "onboarding_type": onboarding_type,
+                    "opengraph_image": opengraph_image,
+                    "opengraph_image_variant": opengraph_image_variant,
+                    "other_business_description": other_business_description,
+                    "other_industry_description": other_industry_description,
+                    "require_2fa": require_2fa,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
+                    "show_joined_whops": show_joined_whops,
+                    "show_reviews_dtc": show_reviews_dtc,
+                    "show_user_directory": show_user_directory,
                     "social_links": social_links,
+                    "store_page_config": store_page_config,
                     "target_audience": target_audience,
                     "title": title,
+                    "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },
                 account_update_params.AccountUpdateParams,
             ),
