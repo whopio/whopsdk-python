@@ -108,6 +108,7 @@ from .fee_markup_type import FeeMarkupType as FeeMarkupType
 from .file_visibility import FileVisibility as FileVisibility
 from .ad_list_response import AdListResponse as AdListResponse
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
+from .identity_profile import IdentityProfile as IdentityProfile
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
 from .plan_list_params import PlanListParams as PlanListParams
@@ -195,6 +196,7 @@ from .company_update_params import CompanyUpdateParams as CompanyUpdateParams
 from .deposit_create_params import DepositCreateParams as DepositCreateParams
 from .dispute_list_response import DisputeListResponse as DisputeListResponse
 from .dm_member_list_params import DmMemberListParams as DmMemberListParams
+from .identity_profile_kind import IdentityProfileKind as IdentityProfileKind
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_update_params import InvoiceUpdateParams as InvoiceUpdateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
@@ -242,6 +244,7 @@ from .dm_feed_member_statuses import DmFeedMemberStatuses as DmFeedMemberStatuse
 from .dm_member_create_params import DmMemberCreateParams as DmMemberCreateParams
 from .dm_member_list_response import DmMemberListResponse as DmMemberListResponse
 from .dm_member_update_params import DmMemberUpdateParams as DmMemberUpdateParams
+from .identity_profile_status import IdentityProfileStatus as IdentityProfileStatus
 from .invoice_delete_response import InvoiceDeleteResponse as InvoiceDeleteResponse
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
@@ -338,6 +341,7 @@ from .course_chapter_update_params import CourseChapterUpdateParams as CourseCha
 from .course_lesson_start_response import CourseLessonStartResponse as CourseLessonStartResponse
 from .course_student_list_response import CourseStudentListResponse as CourseStudentListResponse
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent as EntryApprovedWebhookEvent
+from .identity_profile_list_params import IdentityProfileListParams as IdentityProfileListParams
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
 from .notification_create_response import NotificationCreateResponse as NotificationCreateResponse
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFailedWebhookEvent
@@ -360,6 +364,10 @@ from .support_channel_list_response import SupportChannelListResponse as Support
 from .company_token_transaction_type import CompanyTokenTransactionType as CompanyTokenTransactionType
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
 from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
+from .identity_profile_attach_params import IdentityProfileAttachParams as IdentityProfileAttachParams
+from .identity_profile_create_params import IdentityProfileCreateParams as IdentityProfileCreateParams
+from .identity_profile_list_response import IdentityProfileListResponse as IdentityProfileListResponse
+from .identity_profile_unlink_params import IdentityProfileUnlinkParams as IdentityProfileUnlinkParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_method_retrieve_params import PaymentMethodRetrieveParams as PaymentMethodRetrieveParams
 from .verification_retrieve_response import VerificationRetrieveResponse as VerificationRetrieveResponse
@@ -370,6 +378,7 @@ from .membership_add_free_days_params import MembershipAddFreeDaysParams as Memb
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent as PaymentSucceededWebhookEvent
 from .payout_method_retrieve_response import PayoutMethodRetrieveResponse as PayoutMethodRetrieveResponse
 from .course_student_retrieve_response import CourseStudentRetrieveResponse as CourseStudentRetrieveResponse
+from .identity_profile_create_response import IdentityProfileCreateResponse as IdentityProfileCreateResponse
 from .ledger_account_retrieve_response import LedgerAccountRetrieveResponse as LedgerAccountRetrieveResponse
 from .payment_method_retrieve_response import PaymentMethodRetrieveResponse as PaymentMethodRetrieveResponse
 from .payout_account_retrieve_response import PayoutAccountRetrieveResponse as PayoutAccountRetrieveResponse
@@ -435,6 +444,9 @@ from .resolution_center_case_platform_response import (
 from .resolution_center_case_retrieve_response import (
     ResolutionCenterCaseRetrieveResponse as ResolutionCenterCaseRetrieveResponse,
 )
+from .identity_profile_list_verifications_params import (
+    IdentityProfileListVerificationsParams as IdentityProfileListVerificationsParams,
+)
 from .invoice_marked_uncollectible_webhook_event import (
     InvoiceMarkedUncollectibleWebhookEvent as InvoiceMarkedUncollectibleWebhookEvent,
 )
@@ -446,6 +458,9 @@ from .identity_profile_needs_action_webhook_event import (
 )
 from .payout_account_status_updated_webhook_event import (
     PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
+)
+from .identity_profile_list_verifications_response import (
+    IdentityProfileListVerificationsResponse as IdentityProfileListVerificationsResponse,
 )
 from .resolution_center_case_created_webhook_event import (
     ResolutionCenterCaseCreatedWebhookEvent as ResolutionCenterCaseCreatedWebhookEvent,

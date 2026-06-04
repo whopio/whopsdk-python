@@ -95,6 +95,7 @@ if TYPE_CHECKING:
         payout_accounts,
         authorized_users,
         support_channels,
+        identity_profiles,
         checkout_configurations,
         resolution_center_cases,
         company_token_transactions,
@@ -158,6 +159,7 @@ if TYPE_CHECKING:
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
+    from .resources.identity_profiles import IdentityProfilesResource, AsyncIdentityProfilesResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -569,6 +571,13 @@ class Whop(SyncAPIClient):
         from .resources.verifications import VerificationsResource
 
         return VerificationsResource(self)
+
+    @cached_property
+    def identity_profiles(self) -> IdentityProfilesResource:
+        """Identity profiles"""
+        from .resources.identity_profiles import IdentityProfilesResource
+
+        return IdentityProfilesResource(self)
 
     @cached_property
     def leads(self) -> LeadsResource:
@@ -1205,6 +1214,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncVerificationsResource(self)
 
     @cached_property
+    def identity_profiles(self) -> AsyncIdentityProfilesResource:
+        """Identity profiles"""
+        from .resources.identity_profiles import AsyncIdentityProfilesResource
+
+        return AsyncIdentityProfilesResource(self)
+
+    @cached_property
     def leads(self) -> AsyncLeadsResource:
         """Leads"""
         from .resources.leads import AsyncLeadsResource
@@ -1766,6 +1782,13 @@ class WhopWithRawResponse:
         return VerificationsResourceWithRawResponse(self._client.verifications)
 
     @cached_property
+    def identity_profiles(self) -> identity_profiles.IdentityProfilesResourceWithRawResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import IdentityProfilesResourceWithRawResponse
+
+        return IdentityProfilesResourceWithRawResponse(self._client.identity_profiles)
+
+    @cached_property
     def leads(self) -> leads.LeadsResourceWithRawResponse:
         """Leads"""
         from .resources.leads import LeadsResourceWithRawResponse
@@ -2210,6 +2233,13 @@ class AsyncWhopWithRawResponse:
         from .resources.verifications import AsyncVerificationsResourceWithRawResponse
 
         return AsyncVerificationsResourceWithRawResponse(self._client.verifications)
+
+    @cached_property
+    def identity_profiles(self) -> identity_profiles.AsyncIdentityProfilesResourceWithRawResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import AsyncIdentityProfilesResourceWithRawResponse
+
+        return AsyncIdentityProfilesResourceWithRawResponse(self._client.identity_profiles)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithRawResponse:
@@ -2660,6 +2690,13 @@ class WhopWithStreamedResponse:
         return VerificationsResourceWithStreamingResponse(self._client.verifications)
 
     @cached_property
+    def identity_profiles(self) -> identity_profiles.IdentityProfilesResourceWithStreamingResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import IdentityProfilesResourceWithStreamingResponse
+
+        return IdentityProfilesResourceWithStreamingResponse(self._client.identity_profiles)
+
+    @cached_property
     def leads(self) -> leads.LeadsResourceWithStreamingResponse:
         """Leads"""
         from .resources.leads import LeadsResourceWithStreamingResponse
@@ -3108,6 +3145,13 @@ class AsyncWhopWithStreamedResponse:
         from .resources.verifications import AsyncVerificationsResourceWithStreamingResponse
 
         return AsyncVerificationsResourceWithStreamingResponse(self._client.verifications)
+
+    @cached_property
+    def identity_profiles(self) -> identity_profiles.AsyncIdentityProfilesResourceWithStreamingResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import AsyncIdentityProfilesResourceWithStreamingResponse
+
+        return AsyncIdentityProfilesResourceWithStreamingResponse(self._client.identity_profiles)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithStreamingResponse:
