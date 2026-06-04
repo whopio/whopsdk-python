@@ -9,7 +9,12 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import WalletListResponse, WalletSendResponse, WalletBalanceResponse
+from whop_sdk.types import (
+    WalletListResponse,
+    WalletSendResponse,
+    WalletBalanceResponse,
+    WalletCreateWithdrawalResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -85,6 +90,67 @@ class TestWallets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             client.wallets.with_raw_response.balance(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_withdrawal(self, client: Whop) -> None:
+        wallet = client.wallets.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+        )
+        assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_withdrawal_with_all_params(self, client: Whop) -> None:
+        wallet = client.wallets.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+            asset="asset",
+        )
+        assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_withdrawal(self, client: Whop) -> None:
+        response = client.wallets.with_raw_response.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        wallet = response.parse()
+        assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_withdrawal(self, client: Whop) -> None:
+        with client.wallets.with_streaming_response.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            wallet = response.parse()
+            assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_create_withdrawal(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+            client.wallets.with_raw_response.create_withdrawal(
+                account_id="",
+                amount="amount",
+                payout_method_id="payout_method_id",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -211,6 +277,67 @@ class TestAsyncWallets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             await async_client.wallets.with_raw_response.balance(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_withdrawal(self, async_client: AsyncWhop) -> None:
+        wallet = await async_client.wallets.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+        )
+        assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_withdrawal_with_all_params(self, async_client: AsyncWhop) -> None:
+        wallet = await async_client.wallets.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+            asset="asset",
+        )
+        assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_withdrawal(self, async_client: AsyncWhop) -> None:
+        response = await async_client.wallets.with_raw_response.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        wallet = await response.parse()
+        assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_withdrawal(self, async_client: AsyncWhop) -> None:
+        async with async_client.wallets.with_streaming_response.create_withdrawal(
+            account_id="account_id",
+            amount="amount",
+            payout_method_id="payout_method_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            wallet = await response.parse()
+            assert_matches_type(WalletCreateWithdrawalResponse, wallet, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_create_withdrawal(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+            await async_client.wallets.with_raw_response.create_withdrawal(
+                account_id="",
+                amount="amount",
+                payout_method_id="payout_method_id",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
