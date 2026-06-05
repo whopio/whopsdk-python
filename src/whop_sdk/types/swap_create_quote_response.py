@@ -14,8 +14,6 @@ class SwapCreateQuoteResponse(BaseModel):
 
     amount_out: str
 
-    cross_chain: bool
-
     fee_bps: int
 
     from_token: Dict[str, object]
