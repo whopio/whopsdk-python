@@ -30,6 +30,7 @@ from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEv
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
 from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhookEvent
+from .verification_rfi_created_webhook_event import VerificationRfiCreatedWebhookEvent
 from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
 from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
@@ -80,6 +81,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         SetupIntentCanceledWebhookEvent,
         SetupIntentRequiresActionWebhookEvent,
         SetupIntentSucceededWebhookEvent,
+        VerificationRfiCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,
         WithdrawalCreatedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
