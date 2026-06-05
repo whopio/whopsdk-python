@@ -120,6 +120,7 @@ from .result_label_keys import ResultLabelKeys as ResultLabelKeys
 from .withdrawal_speeds import WithdrawalSpeeds as WithdrawalSpeeds
 from .withdrawal_status import WithdrawalStatus as WithdrawalStatus
 from .ad_campaign_status import AdCampaignStatus as AdCampaignStatus
+from .ad_retrieve_params import AdRetrieveParams as AdRetrieveParams
 from .bounty_list_params import BountyListParams as BountyListParams
 from .course_list_params import CourseListParams as CourseListParams
 from .dispute_alert_type import DisputeAlertType as DisputeAlertType
@@ -239,6 +240,7 @@ from .verification_error_code import VerificationErrorCode as VerificationErrorC
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse
+from .ad_group_retrieve_params import AdGroupRetrieveParams as AdGroupRetrieveParams
 from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
 from .conversion_create_params import ConversionCreateParams as ConversionCreateParams
@@ -302,6 +304,7 @@ from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDele
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .verification_list_response import VerificationListResponse as VerificationListResponse
+from .ad_campaign_retrieve_params import AdCampaignRetrieveParams as AdCampaignRetrieveParams
 from .ad_report_retrieve_response import AdReportRetrieveResponse as AdReportRetrieveResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
