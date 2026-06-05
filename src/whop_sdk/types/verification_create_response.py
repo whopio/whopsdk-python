@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["VerificationRetrieveResponse", "Rfi"]
+__all__ = ["VerificationCreateResponse", "Rfi"]
 
 
 class Rfi(BaseModel):
@@ -22,7 +22,7 @@ class Rfi(BaseModel):
     type: Optional[str] = None
 
 
-class VerificationRetrieveResponse(BaseModel):
+class VerificationCreateResponse(BaseModel):
     id: str
     """The identity profile ID, e.g. idpf\\__\\**"""
 
@@ -30,7 +30,7 @@ class VerificationRetrieveResponse(BaseModel):
 
     kind: Literal["individual", "business"]
 
-    rfis: List[Rfi]
+    session_url: Optional[str] = None
 
     status: Literal["not_started", "pending", "approved", "rejected", "action_required"]
 
@@ -50,4 +50,4 @@ class VerificationRetrieveResponse(BaseModel):
 
     last_name: Optional[str] = None
 
-    session_url: Optional[str] = None
+    rfis: Optional[List[Rfi]] = None

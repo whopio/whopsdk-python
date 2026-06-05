@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["VerificationRetrieveResponse", "Rfi"]
+__all__ = ["VerificationDeleteResponse", "Rfi"]
 
 
 class Rfi(BaseModel):
@@ -22,7 +22,7 @@ class Rfi(BaseModel):
     type: Optional[str] = None
 
 
-class VerificationRetrieveResponse(BaseModel):
+class VerificationDeleteResponse(BaseModel):
     id: str
     """The identity profile ID, e.g. idpf\\__\\**"""
 
