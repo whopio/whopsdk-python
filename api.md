@@ -743,11 +743,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import SwapCreateQuoteResponse
+from whop_sdk.types import SwapCreateResponse, SwapRetrieveResponse, SwapCreateQuoteResponse
 ```
 
 Methods:
 
+- <code title="post /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create</a>(\*\*<a href="src/whop_sdk/types/swap_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_response.py">SwapCreateResponse</a></code>
+- <code title="get /swaps/{account_id}">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">retrieve</a>(account_id) -> <a href="./src/whop_sdk/types/swap_retrieve_response.py">SwapRetrieveResponse</a></code>
 - <code title="post /swaps/quote">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create_quote</a>(\*\*<a href="src/whop_sdk/types/swap_create_quote_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_quote_response.py">SwapCreateQuoteResponse</a></code>
 
 # Deposits
