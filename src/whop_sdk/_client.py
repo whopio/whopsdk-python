@@ -84,7 +84,6 @@ if TYPE_CHECKING:
         chat_channels,
         notifications,
         setup_intents,
-        verifications,
         course_lessons,
         dispute_alerts,
         payout_methods,
@@ -147,7 +146,6 @@ if TYPE_CHECKING:
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
     from .resources.notifications import NotificationsResource, AsyncNotificationsResource
     from .resources.setup_intents import SetupIntentsResource, AsyncSetupIntentsResource
-    from .resources.verifications import VerificationsResource, AsyncVerificationsResource
     from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
     from .resources.dispute_alerts import DisputeAlertsResource, AsyncDisputeAlertsResource
     from .resources.payout_methods import PayoutMethodsResource, AsyncPayoutMethodsResource
@@ -562,13 +560,6 @@ class Whop(SyncAPIClient):
         from .resources.payout_methods import PayoutMethodsResource
 
         return PayoutMethodsResource(self)
-
-    @cached_property
-    def verifications(self) -> VerificationsResource:
-        """Verifications"""
-        from .resources.verifications import VerificationsResource
-
-        return VerificationsResource(self)
 
     @cached_property
     def leads(self) -> LeadsResource:
@@ -1198,13 +1189,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPayoutMethodsResource(self)
 
     @cached_property
-    def verifications(self) -> AsyncVerificationsResource:
-        """Verifications"""
-        from .resources.verifications import AsyncVerificationsResource
-
-        return AsyncVerificationsResource(self)
-
-    @cached_property
     def leads(self) -> AsyncLeadsResource:
         """Leads"""
         from .resources.leads import AsyncLeadsResource
@@ -1759,13 +1743,6 @@ class WhopWithRawResponse:
         return PayoutMethodsResourceWithRawResponse(self._client.payout_methods)
 
     @cached_property
-    def verifications(self) -> verifications.VerificationsResourceWithRawResponse:
-        """Verifications"""
-        from .resources.verifications import VerificationsResourceWithRawResponse
-
-        return VerificationsResourceWithRawResponse(self._client.verifications)
-
-    @cached_property
     def leads(self) -> leads.LeadsResourceWithRawResponse:
         """Leads"""
         from .resources.leads import LeadsResourceWithRawResponse
@@ -2203,13 +2180,6 @@ class AsyncWhopWithRawResponse:
         from .resources.payout_methods import AsyncPayoutMethodsResourceWithRawResponse
 
         return AsyncPayoutMethodsResourceWithRawResponse(self._client.payout_methods)
-
-    @cached_property
-    def verifications(self) -> verifications.AsyncVerificationsResourceWithRawResponse:
-        """Verifications"""
-        from .resources.verifications import AsyncVerificationsResourceWithRawResponse
-
-        return AsyncVerificationsResourceWithRawResponse(self._client.verifications)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithRawResponse:
@@ -2653,13 +2623,6 @@ class WhopWithStreamedResponse:
         return PayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
 
     @cached_property
-    def verifications(self) -> verifications.VerificationsResourceWithStreamingResponse:
-        """Verifications"""
-        from .resources.verifications import VerificationsResourceWithStreamingResponse
-
-        return VerificationsResourceWithStreamingResponse(self._client.verifications)
-
-    @cached_property
     def leads(self) -> leads.LeadsResourceWithStreamingResponse:
         """Leads"""
         from .resources.leads import LeadsResourceWithStreamingResponse
@@ -3101,13 +3064,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.payout_methods import AsyncPayoutMethodsResourceWithStreamingResponse
 
         return AsyncPayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
-
-    @cached_property
-    def verifications(self) -> verifications.AsyncVerificationsResourceWithStreamingResponse:
-        """Verifications"""
-        from .resources.verifications import AsyncVerificationsResourceWithStreamingResponse
-
-        return AsyncVerificationsResourceWithStreamingResponse(self._client.verifications)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithStreamingResponse:

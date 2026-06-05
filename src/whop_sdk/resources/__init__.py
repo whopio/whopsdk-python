@@ -384,14 +384,6 @@ from .setup_intents import (
     SetupIntentsResourceWithStreamingResponse,
     AsyncSetupIntentsResourceWithStreamingResponse,
 )
-from .verifications import (
-    VerificationsResource,
-    AsyncVerificationsResource,
-    VerificationsResourceWithRawResponse,
-    AsyncVerificationsResourceWithRawResponse,
-    VerificationsResourceWithStreamingResponse,
-    AsyncVerificationsResourceWithStreamingResponse,
-)
 from .course_lessons import (
     CourseLessonsResource,
     AsyncCourseLessonsResource,
@@ -776,12 +768,6 @@ __all__ = [
     "AsyncPayoutMethodsResourceWithRawResponse",
     "PayoutMethodsResourceWithStreamingResponse",
     "AsyncPayoutMethodsResourceWithStreamingResponse",
-    "VerificationsResource",
-    "AsyncVerificationsResource",
-    "VerificationsResourceWithRawResponse",
-    "AsyncVerificationsResourceWithRawResponse",
-    "VerificationsResourceWithStreamingResponse",
-    "AsyncVerificationsResourceWithStreamingResponse",
     "LeadsResource",
     "AsyncLeadsResource",
     "LeadsResourceWithRawResponse",
