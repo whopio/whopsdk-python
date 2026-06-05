@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["VerificationListResponse", "Data", "DataRfi", "Pagination"]
+__all__ = ["VerificationDeleteResponse", "Rfi"]
 
 
-class DataRfi(BaseModel):
+class Rfi(BaseModel):
     id: Optional[str] = None
 
     created_at: Optional[str] = None
@@ -22,7 +22,7 @@ class DataRfi(BaseModel):
     type: Optional[str] = None
 
 
-class Data(BaseModel):
+class VerificationDeleteResponse(BaseModel):
     id: str
     """The verification ID, e.g. idpf\\__\\**"""
 
@@ -30,7 +30,7 @@ class Data(BaseModel):
 
     kind: Literal["individual", "business"]
 
-    rfis: List[DataRfi]
+    rfis: List[Rfi]
 
     status: Literal["not_started", "pending", "approved", "rejected", "action_required"]
 
@@ -51,26 +51,3 @@ class Data(BaseModel):
     last_name: Optional[str] = None
 
     session_url: Optional[str] = None
-
-
-class Pagination(BaseModel):
-    current_page: float
-    """Current page number"""
-
-    next_page: Optional[float] = None
-    """Next page number"""
-
-    prev_page: Optional[float] = None
-    """Previous page number"""
-
-    total_count: float
-    """Total number of records"""
-
-    total_pages: float
-    """Total number of pages"""
-
-
-class VerificationListResponse(BaseModel):
-    data: List[Data]
-
-    pagination: Pagination
