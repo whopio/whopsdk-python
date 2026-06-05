@@ -829,17 +829,11 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import (
-    VerificationErrorCode,
-    VerificationStatus,
-    VerificationRetrieveResponse,
-    VerificationListResponse,
-)
+from whop_sdk.types import VerificationErrorCode, VerificationStatus, VerificationListResponse
 ```
 
 Methods:
 
-- <code title="get /verifications/{id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/verification_retrieve_response.py">VerificationRetrieveResponse</a></code>
 - <code title="get /verifications">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">list</a>(\*\*<a href="src/whop_sdk/types/verification_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/verification_list_response.py">SyncCursorPage[VerificationListResponse]</a></code>
 
 # Leads

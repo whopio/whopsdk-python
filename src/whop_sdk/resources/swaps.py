@@ -49,7 +49,6 @@ class SwapsResource(SyncAPIResource):
         amount: str,
         from_token: str,
         to_token: str,
-        account_id: Optional[str] | Omit = omit,
         from_address: Optional[str] | Omit = omit,
         from_chain: Union[str, int, None] | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
@@ -74,8 +73,6 @@ class SwapsResource(SyncAPIResource):
 
           to_token: Destination token contract address.
 
-          account_id: Caller-owned account whose wallet address should be used.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -91,7 +88,6 @@ class SwapsResource(SyncAPIResource):
                     "amount": amount,
                     "from_token": from_token,
                     "to_token": to_token,
-                    "account_id": account_id,
                     "from_address": from_address,
                     "from_chain": from_chain,
                     "metadata": metadata,
@@ -134,7 +130,6 @@ class AsyncSwapsResource(AsyncAPIResource):
         amount: str,
         from_token: str,
         to_token: str,
-        account_id: Optional[str] | Omit = omit,
         from_address: Optional[str] | Omit = omit,
         from_chain: Union[str, int, None] | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
@@ -159,8 +154,6 @@ class AsyncSwapsResource(AsyncAPIResource):
 
           to_token: Destination token contract address.
 
-          account_id: Caller-owned account whose wallet address should be used.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -176,7 +169,6 @@ class AsyncSwapsResource(AsyncAPIResource):
                     "amount": amount,
                     "from_token": from_token,
                     "to_token": to_token,
-                    "account_id": account_id,
                     "from_address": from_address,
                     "from_chain": from_chain,
                     "metadata": metadata,
