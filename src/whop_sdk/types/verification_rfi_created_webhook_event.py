@@ -1,15 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .verification_status import VerificationStatus
 from .verification_error_code import VerificationErrorCode
 
-__all__ = ["VerificationRetrieveResponse"]
+__all__ = ["VerificationRfiCreatedWebhookEvent", "Data"]
 
 
-class VerificationRetrieveResponse(BaseModel):
+class Data(BaseModel):
     """
     An identity verification session used to confirm a person or entity's identity for payout account eligibility.
     """
@@ -28,3 +30,26 @@ class VerificationRetrieveResponse(BaseModel):
 
     status: VerificationStatus
     """The current status of this verification session."""
+
+
+class VerificationRfiCreatedWebhookEvent(BaseModel):
+    id: str
+    """A unique ID for every single webhook request"""
+
+    api_version: Literal["v1"]
+    """The API version for this webhook"""
+
+    data: Data
+    """
+    An identity verification session used to confirm a person or entity's identity
+    for payout account eligibility.
+    """
+
+    timestamp: datetime
+    """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
+
+    type: Literal["verification.rfi_created"]
+    """The webhook event type"""
+
+    company_id: Optional[str] = None
+    """The company ID that this webhook event is associated with"""

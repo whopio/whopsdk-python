@@ -362,7 +362,6 @@ from .course_chapter_delete_response import CourseChapterDeleteResponse as Cours
 from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_method_retrieve_params import PaymentMethodRetrieveParams as PaymentMethodRetrieveParams
-from .verification_retrieve_response import VerificationRetrieveResponse as VerificationRetrieveResponse
 from .authorized_user_delete_response import AuthorizedUserDeleteResponse as AuthorizedUserDeleteResponse
 from .company_create_api_key_response import CompanyCreateAPIKeyResponse as CompanyCreateAPIKeyResponse
 from .dispute_alert_retrieve_response import DisputeAlertRetrieveResponse as DisputeAlertRetrieveResponse
@@ -401,6 +400,9 @@ from .course_lesson_submit_assessment_params import (
 )
 from .identity_profile_updated_webhook_event import (
     IdentityProfileUpdatedWebhookEvent as IdentityProfileUpdatedWebhookEvent,
+)
+from .verification_rfi_created_webhook_event import (
+    VerificationRfiCreatedWebhookEvent as VerificationRfiCreatedWebhookEvent,
 )
 from .company_token_transaction_create_params import (
     CompanyTokenTransactionCreateParams as CompanyTokenTransactionCreateParams,

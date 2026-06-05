@@ -28,6 +28,7 @@ WebhookEvent: TypeAlias = Literal[
     "identity_profile.rejected",
     "identity_profile.needs_action",
     "identity_profile.updated",
+    "verification.rfi_created",
     "payout_account.status_updated",
     "resolution_center_case.created",
     "resolution_center_case.updated",
