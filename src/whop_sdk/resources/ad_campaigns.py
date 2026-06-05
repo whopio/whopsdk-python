@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ..types import AdCampaignStatus, ad_campaign_list_params, ad_campaign_update_params
+from ..types import AdCampaignStatus, ad_campaign_list_params, ad_campaign_update_params, ad_campaign_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -53,6 +53,8 @@ class AdCampaignsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,6 +70,12 @@ class AdCampaignsResource(SyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
+          stats_from: Inclusive start of the window for the campaign's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for the campaign's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -81,7 +89,17 @@ class AdCampaignsResource(SyncAPIResource):
         return self._get(
             path_template("/ad_campaigns/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
+                    },
+                    ad_campaign_retrieve_params.AdCampaignRetrieveParams,
+                ),
             ),
             cast_to=AdCampaign,
         )
@@ -139,6 +157,8 @@ class AdCampaignsResource(SyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[AdCampaignStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -170,7 +190,13 @@ class AdCampaignsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          query: Case-insensitive substring match against the campaign title.
+          query: Case-insensitive substring match against the campaign title or ID.
+
+          stats_from: Inclusive start of the window for each campaign's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for each campaign's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
 
           status: The status of an ad campaign.
 
@@ -200,6 +226,8 @@ class AdCampaignsResource(SyncAPIResource):
                         "first": first,
                         "last": last,
                         "query": query,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_campaign_list_params.AdCampaignListParams,
@@ -309,6 +337,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -324,6 +354,12 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
+          stats_from: Inclusive start of the window for the campaign's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for the campaign's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -337,7 +373,17 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         return await self._get(
             path_template("/ad_campaigns/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
+                    },
+                    ad_campaign_retrieve_params.AdCampaignRetrieveParams,
+                ),
             ),
             cast_to=AdCampaign,
         )
@@ -395,6 +441,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[AdCampaignStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -426,7 +474,13 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          query: Case-insensitive substring match against the campaign title.
+          query: Case-insensitive substring match against the campaign title or ID.
+
+          stats_from: Inclusive start of the window for each campaign's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for each campaign's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
 
           status: The status of an ad campaign.
 
@@ -456,6 +510,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                         "first": first,
                         "last": last,
                         "query": query,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_campaign_list_params.AdCampaignListParams,
