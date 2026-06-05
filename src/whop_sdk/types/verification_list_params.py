@@ -2,24 +2,23 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["VerificationListParams"]
 
 
 class VerificationListParams(TypedDict, total=False):
-    payout_account_id: Required[str]
-    """The unique identifier of the payout account to list verifications for."""
+    account_id: str
+    """Filter verifications to a specific account."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    page: int
+    """The page number to retrieve."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    per: int
+    """The number of resources to return per page."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    profile_type: Literal["individual", "business"]
+    """Filter by profile type."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    status: Literal["not_started", "pending", "approved", "rejected"]
+    """Filter by derived verification status."""
