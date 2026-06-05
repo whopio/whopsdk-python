@@ -1,30 +1,53 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .verification_status import VerificationStatus
-from .verification_error_code import VerificationErrorCode
 
-__all__ = ["VerificationRetrieveResponse"]
+__all__ = ["VerificationRetrieveResponse", "Rfi"]
+
+
+class Rfi(BaseModel):
+    id: Optional[str] = None
+
+    created_at: Optional[str] = None
+
+    description: Optional[str] = None
+
+    error_message: Optional[str] = None
+
+    status: Optional[Literal["outstanding", "invalid"]] = None
+
+    type: Optional[str] = None
 
 
 class VerificationRetrieveResponse(BaseModel):
-    """
-    An identity verification session used to confirm a person or entity's identity for payout account eligibility.
-    """
-
     id: str
-    """The numeric id of the verification record."""
+    """The verification ID, e.g. idpf\\__\\**"""
 
-    last_error_code: Optional[VerificationErrorCode] = None
-    """An error code for a verification attempt."""
+    created_at: str
 
-    last_error_reason: Optional[str] = None
-    """A human-readable explanation of the most recent verification error.
+    kind: Literal["individual", "business"]
 
-    Null if no error has occurred.
-    """
+    rfis: List[Rfi]
 
-    status: VerificationStatus
-    """The current status of this verification session."""
+    status: Literal["not_started", "pending", "approved", "rejected", "action_required"]
+
+    updated_at: str
+
+    address: Optional[object] = None
+
+    business_name: Optional[str] = None
+
+    business_structure: Optional[str] = None
+
+    country: Optional[str] = None
+
+    date_of_birth: Optional[str] = None
+
+    first_name: Optional[str] = None
+
+    last_name: Optional[str] = None
+
+    session_url: Optional[str] = None

@@ -156,7 +156,6 @@ from .product_list_params import ProductListParams as ProductListParams
 from .setup_intent_status import SetupIntentStatus as SetupIntentStatus
 from .tax_identifier_type import TaxIdentifierType as TaxIdentifierType
 from .topup_create_params import TopupCreateParams as TopupCreateParams
-from .verification_status import VerificationStatus as VerificationStatus
 from .webhook_list_params import WebhookListParams as WebhookListParams
 from .ad_campaign_platform import AdCampaignPlatform as AdCampaignPlatform
 from .ad_group_list_params import AdGroupListParams as AdGroupListParams
@@ -247,7 +246,6 @@ from .membership_pause_params import MembershipPauseParams as MembershipPausePar
 from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .refund_reference_status import RefundReferenceStatus as RefundReferenceStatus
-from .verification_error_code import VerificationErrorCode as VerificationErrorCode
 from .wallet_balance_response import WalletBalanceResponse as WalletBalanceResponse
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
@@ -316,7 +314,9 @@ from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDele
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .swap_create_quote_response import SwapCreateQuoteResponse as SwapCreateQuoteResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
+from .verification_create_params import VerificationCreateParams as VerificationCreateParams
 from .verification_list_response import VerificationListResponse as VerificationListResponse
+from .verification_update_params import VerificationUpdateParams as VerificationUpdateParams
 from .ad_report_retrieve_response import AdReportRetrieveResponse as AdReportRetrieveResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
@@ -344,6 +344,9 @@ from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFa
 from .payment_method_list_response import PaymentMethodListResponse as PaymentMethodListResponse
 from .refund_created_webhook_event import RefundCreatedWebhookEvent as RefundCreatedWebhookEvent
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent as RefundUpdatedWebhookEvent
+from .verification_create_response import VerificationCreateResponse as VerificationCreateResponse
+from .verification_delete_response import VerificationDeleteResponse as VerificationDeleteResponse
+from .verification_update_response import VerificationUpdateResponse as VerificationUpdateResponse
 from .authorized_user_create_params import AuthorizedUserCreateParams as AuthorizedUserCreateParams
 from .authorized_user_delete_params import AuthorizedUserDeleteParams as AuthorizedUserDeleteParams
 from .authorized_user_list_response import AuthorizedUserListResponse as AuthorizedUserListResponse
