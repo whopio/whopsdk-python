@@ -79,6 +79,7 @@ if TYPE_CHECKING:
         promo_codes,
         withdrawals,
         ad_campaigns,
+        ledger_lines,
         access_tokens,
         account_links,
         chat_channels,
@@ -142,6 +143,7 @@ if TYPE_CHECKING:
     from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
     from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
     from .resources.ad_campaigns import AdCampaignsResource, AsyncAdCampaignsResource
+    from .resources.ledger_lines import LedgerLinesResource, AsyncLedgerLinesResource
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.account_links import AccountLinksResource, AsyncAccountLinksResource
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
@@ -328,6 +330,13 @@ class Whop(SyncAPIClient):
         from .resources.ledger_accounts import LedgerAccountsResource
 
         return LedgerAccountsResource(self)
+
+    @cached_property
+    def ledger_lines(self) -> LedgerLinesResource:
+        """Ledger lines"""
+        from .resources.ledger_lines import LedgerLinesResource
+
+        return LedgerLinesResource(self)
 
     @cached_property
     def memberships(self) -> MembershipsResource:
@@ -964,6 +973,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncLedgerAccountsResource(self)
 
     @cached_property
+    def ledger_lines(self) -> AsyncLedgerLinesResource:
+        """Ledger lines"""
+        from .resources.ledger_lines import AsyncLedgerLinesResource
+
+        return AsyncLedgerLinesResource(self)
+
+    @cached_property
     def memberships(self) -> AsyncMembershipsResource:
         """Memberships"""
         from .resources.memberships import AsyncMembershipsResource
@@ -1525,6 +1541,13 @@ class WhopWithRawResponse:
         return LedgerAccountsResourceWithRawResponse(self._client.ledger_accounts)
 
     @cached_property
+    def ledger_lines(self) -> ledger_lines.LedgerLinesResourceWithRawResponse:
+        """Ledger lines"""
+        from .resources.ledger_lines import LedgerLinesResourceWithRawResponse
+
+        return LedgerLinesResourceWithRawResponse(self._client.ledger_lines)
+
+    @cached_property
     def memberships(self) -> memberships.MembershipsResourceWithRawResponse:
         """Memberships"""
         from .resources.memberships import MembershipsResourceWithRawResponse
@@ -1969,6 +1992,13 @@ class AsyncWhopWithRawResponse:
         from .resources.ledger_accounts import AsyncLedgerAccountsResourceWithRawResponse
 
         return AsyncLedgerAccountsResourceWithRawResponse(self._client.ledger_accounts)
+
+    @cached_property
+    def ledger_lines(self) -> ledger_lines.AsyncLedgerLinesResourceWithRawResponse:
+        """Ledger lines"""
+        from .resources.ledger_lines import AsyncLedgerLinesResourceWithRawResponse
+
+        return AsyncLedgerLinesResourceWithRawResponse(self._client.ledger_lines)
 
     @cached_property
     def memberships(self) -> memberships.AsyncMembershipsResourceWithRawResponse:
@@ -2419,6 +2449,13 @@ class WhopWithStreamedResponse:
         return LedgerAccountsResourceWithStreamingResponse(self._client.ledger_accounts)
 
     @cached_property
+    def ledger_lines(self) -> ledger_lines.LedgerLinesResourceWithStreamingResponse:
+        """Ledger lines"""
+        from .resources.ledger_lines import LedgerLinesResourceWithStreamingResponse
+
+        return LedgerLinesResourceWithStreamingResponse(self._client.ledger_lines)
+
+    @cached_property
     def memberships(self) -> memberships.MembershipsResourceWithStreamingResponse:
         """Memberships"""
         from .resources.memberships import MembershipsResourceWithStreamingResponse
@@ -2865,6 +2902,13 @@ class AsyncWhopWithStreamedResponse:
         from .resources.ledger_accounts import AsyncLedgerAccountsResourceWithStreamingResponse
 
         return AsyncLedgerAccountsResourceWithStreamingResponse(self._client.ledger_accounts)
+
+    @cached_property
+    def ledger_lines(self) -> ledger_lines.AsyncLedgerLinesResourceWithStreamingResponse:
+        """Ledger lines"""
+        from .resources.ledger_lines import AsyncLedgerLinesResourceWithStreamingResponse
+
+        return AsyncLedgerLinesResourceWithStreamingResponse(self._client.ledger_lines)
 
     @cached_property
     def memberships(self) -> memberships.AsyncMembershipsResourceWithStreamingResponse:
