@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SwapCreateQuoteParams"]
+__all__ = ["SwapCreateParams"]
 
 
-class SwapCreateQuoteParams(TypedDict, total=False):
+class SwapCreateParams(TypedDict, total=False):
+    account_id: Required[str]
+    """The business or user account ID whose wallet should execute the swap."""
+
     amount: Required[str]
     """Input token amount."""
 
@@ -18,14 +21,8 @@ class SwapCreateQuoteParams(TypedDict, total=False):
     to_token: Required[str]
     """Destination token contract address."""
 
-    from_address: Optional[str]
-
     from_chain: Union[str, int, None]
 
-    metadata: Dict[str, object]
-
     slippage_bps: Optional[int]
-
-    to_address: Optional[str]
 
     to_chain: Union[str, int, None]
