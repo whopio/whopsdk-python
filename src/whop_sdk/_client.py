@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from .resources import (
         ads,
         apps,
+        cards,
         files,
         leads,
         plans,
@@ -79,6 +80,7 @@ if TYPE_CHECKING:
         promo_codes,
         withdrawals,
         ad_campaigns,
+        card_account,
         access_tokens,
         account_links,
         chat_channels,
@@ -102,6 +104,7 @@ if TYPE_CHECKING:
     )
     from .resources.ads import AdsResource, AsyncAdsResource
     from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.cards import CardsResource, AsyncCardsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
@@ -142,6 +145,7 @@ if TYPE_CHECKING:
     from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
     from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
     from .resources.ad_campaigns import AdCampaignsResource, AsyncAdCampaignsResource
+    from .resources.card_account import CardAccountResource, AsyncCardAccountResource
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.account_links import AccountLinksResource, AsyncAccountLinksResource
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
@@ -534,6 +538,18 @@ class Whop(SyncAPIClient):
         from .resources.deposits import DepositsResource
 
         return DepositsResource(self)
+
+    @cached_property
+    def cards(self) -> CardsResource:
+        from .resources.cards import CardsResource
+
+        return CardsResource(self)
+
+    @cached_property
+    def card_account(self) -> CardAccountResource:
+        from .resources.card_account import CardAccountResource
+
+        return CardAccountResource(self)
 
     @cached_property
     def setup_intents(self) -> SetupIntentsResource:
@@ -1170,6 +1186,18 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncDepositsResource(self)
 
     @cached_property
+    def cards(self) -> AsyncCardsResource:
+        from .resources.cards import AsyncCardsResource
+
+        return AsyncCardsResource(self)
+
+    @cached_property
+    def card_account(self) -> AsyncCardAccountResource:
+        from .resources.card_account import AsyncCardAccountResource
+
+        return AsyncCardAccountResource(self)
+
+    @cached_property
     def setup_intents(self) -> AsyncSetupIntentsResource:
         """Setup intents"""
         from .resources.setup_intents import AsyncSetupIntentsResource
@@ -1731,6 +1759,18 @@ class WhopWithRawResponse:
         return DepositsResourceWithRawResponse(self._client.deposits)
 
     @cached_property
+    def cards(self) -> cards.CardsResourceWithRawResponse:
+        from .resources.cards import CardsResourceWithRawResponse
+
+        return CardsResourceWithRawResponse(self._client.cards)
+
+    @cached_property
+    def card_account(self) -> card_account.CardAccountResourceWithRawResponse:
+        from .resources.card_account import CardAccountResourceWithRawResponse
+
+        return CardAccountResourceWithRawResponse(self._client.card_account)
+
+    @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithRawResponse:
         """Setup intents"""
         from .resources.setup_intents import SetupIntentsResourceWithRawResponse
@@ -2175,6 +2215,18 @@ class AsyncWhopWithRawResponse:
         from .resources.deposits import AsyncDepositsResourceWithRawResponse
 
         return AsyncDepositsResourceWithRawResponse(self._client.deposits)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithRawResponse:
+        from .resources.cards import AsyncCardsResourceWithRawResponse
+
+        return AsyncCardsResourceWithRawResponse(self._client.cards)
+
+    @cached_property
+    def card_account(self) -> card_account.AsyncCardAccountResourceWithRawResponse:
+        from .resources.card_account import AsyncCardAccountResourceWithRawResponse
+
+        return AsyncCardAccountResourceWithRawResponse(self._client.card_account)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithRawResponse:
@@ -2625,6 +2677,18 @@ class WhopWithStreamedResponse:
         return DepositsResourceWithStreamingResponse(self._client.deposits)
 
     @cached_property
+    def cards(self) -> cards.CardsResourceWithStreamingResponse:
+        from .resources.cards import CardsResourceWithStreamingResponse
+
+        return CardsResourceWithStreamingResponse(self._client.cards)
+
+    @cached_property
+    def card_account(self) -> card_account.CardAccountResourceWithStreamingResponse:
+        from .resources.card_account import CardAccountResourceWithStreamingResponse
+
+        return CardAccountResourceWithStreamingResponse(self._client.card_account)
+
+    @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithStreamingResponse:
         """Setup intents"""
         from .resources.setup_intents import SetupIntentsResourceWithStreamingResponse
@@ -3073,6 +3137,18 @@ class AsyncWhopWithStreamedResponse:
         from .resources.deposits import AsyncDepositsResourceWithStreamingResponse
 
         return AsyncDepositsResourceWithStreamingResponse(self._client.deposits)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithStreamingResponse:
+        from .resources.cards import AsyncCardsResourceWithStreamingResponse
+
+        return AsyncCardsResourceWithStreamingResponse(self._client.cards)
+
+    @cached_property
+    def card_account(self) -> card_account.AsyncCardAccountResourceWithStreamingResponse:
+        from .resources.card_account import AsyncCardAccountResourceWithStreamingResponse
+
+        return AsyncCardAccountResourceWithStreamingResponse(self._client.card_account)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithStreamingResponse:
