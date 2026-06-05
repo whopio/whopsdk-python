@@ -19,6 +19,7 @@ from .._base_client import make_request_options
 from ..types.wallet_list_response import WalletListResponse
 from ..types.wallet_send_response import WalletSendResponse
 from ..types.wallet_balance_response import WalletBalanceResponse
+from ..types.wallet_supported_assets_response import WalletSupportedAssetsResponse
 
 __all__ = ["WalletsResource", "AsyncWalletsResource"]
 
@@ -141,6 +142,29 @@ class WalletsResource(SyncAPIResource):
             cast_to=WalletSendResponse,
         )
 
+    def supported_assets(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletSupportedAssetsResponse:
+        """Returns the platform catalog of swap-enabled tokens (from TokenRegistry).
+
+        Public
+        — no API key required.
+        """
+        return self._get(
+            "/wallets/supported-assets",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WalletSupportedAssetsResponse,
+        )
+
 
 class AsyncWalletsResource(AsyncAPIResource):
     @cached_property
@@ -260,6 +284,29 @@ class AsyncWalletsResource(AsyncAPIResource):
             cast_to=WalletSendResponse,
         )
 
+    async def supported_assets(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletSupportedAssetsResponse:
+        """Returns the platform catalog of swap-enabled tokens (from TokenRegistry).
+
+        Public
+        — no API key required.
+        """
+        return await self._get(
+            "/wallets/supported-assets",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WalletSupportedAssetsResponse,
+        )
+
 
 class WalletsResourceWithRawResponse:
     def __init__(self, wallets: WalletsResource) -> None:
@@ -273,6 +320,9 @@ class WalletsResourceWithRawResponse:
         )
         self.send = to_raw_response_wrapper(
             wallets.send,
+        )
+        self.supported_assets = to_raw_response_wrapper(
+            wallets.supported_assets,
         )
 
 
@@ -289,6 +339,9 @@ class AsyncWalletsResourceWithRawResponse:
         self.send = async_to_raw_response_wrapper(
             wallets.send,
         )
+        self.supported_assets = async_to_raw_response_wrapper(
+            wallets.supported_assets,
+        )
 
 
 class WalletsResourceWithStreamingResponse:
@@ -304,6 +357,9 @@ class WalletsResourceWithStreamingResponse:
         self.send = to_streamed_response_wrapper(
             wallets.send,
         )
+        self.supported_assets = to_streamed_response_wrapper(
+            wallets.supported_assets,
+        )
 
 
 class AsyncWalletsResourceWithStreamingResponse:
@@ -318,4 +374,7 @@ class AsyncWalletsResourceWithStreamingResponse:
         )
         self.send = async_to_streamed_response_wrapper(
             wallets.send,
+        )
+        self.supported_assets = async_to_streamed_response_wrapper(
+            wallets.supported_assets,
         )
