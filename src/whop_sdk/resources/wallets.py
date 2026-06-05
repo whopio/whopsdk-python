@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import wallet_send_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import wallet_send_params, wallet_create_withdrawal_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -19,6 +19,7 @@ from .._base_client import make_request_options
 from ..types.wallet_list_response import WalletListResponse
 from ..types.wallet_send_response import WalletSendResponse
 from ..types.wallet_balance_response import WalletBalanceResponse
+from ..types.wallet_create_withdrawal_response import WalletCreateWithdrawalResponse
 
 __all__ = ["WalletsResource", "AsyncWalletsResource"]
 
@@ -93,6 +94,63 @@ class WalletsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WalletBalanceResponse,
+        )
+
+    def create_withdrawal(
+        self,
+        *,
+        account_id: str,
+        amount: str,
+        payout_method_id: str,
+        asset: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletCreateWithdrawalResponse:
+        """
+        Withdraws from an account's ledger balance to a linked payout method (bank,
+        card, or external crypto wallet).
+
+        Args:
+          account_id: The business or user account ID to withdraw from.
+
+          amount: Amount to withdraw, as a decimal string in the given asset (e.g. "100.00").
+
+          payout_method_id: A payout method already linked to the account.
+
+          asset: Currency to withdraw. Defaults to usd.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/wallets/withdrawals",
+            body=maybe_transform(
+                {
+                    "amount": amount,
+                    "payout_method_id": payout_method_id,
+                    "asset": asset,
+                },
+                wallet_create_withdrawal_params.WalletCreateWithdrawalParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"account_id": account_id}, wallet_create_withdrawal_params.WalletCreateWithdrawalParams
+                ),
+            ),
+            cast_to=WalletCreateWithdrawalResponse,
         )
 
     def send(
@@ -214,6 +272,63 @@ class AsyncWalletsResource(AsyncAPIResource):
             cast_to=WalletBalanceResponse,
         )
 
+    async def create_withdrawal(
+        self,
+        *,
+        account_id: str,
+        amount: str,
+        payout_method_id: str,
+        asset: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletCreateWithdrawalResponse:
+        """
+        Withdraws from an account's ledger balance to a linked payout method (bank,
+        card, or external crypto wallet).
+
+        Args:
+          account_id: The business or user account ID to withdraw from.
+
+          amount: Amount to withdraw, as a decimal string in the given asset (e.g. "100.00").
+
+          payout_method_id: A payout method already linked to the account.
+
+          asset: Currency to withdraw. Defaults to usd.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/wallets/withdrawals",
+            body=await async_maybe_transform(
+                {
+                    "amount": amount,
+                    "payout_method_id": payout_method_id,
+                    "asset": asset,
+                },
+                wallet_create_withdrawal_params.WalletCreateWithdrawalParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id}, wallet_create_withdrawal_params.WalletCreateWithdrawalParams
+                ),
+            ),
+            cast_to=WalletCreateWithdrawalResponse,
+        )
+
     async def send(
         self,
         account_id: str,
@@ -271,6 +386,9 @@ class WalletsResourceWithRawResponse:
         self.balance = to_raw_response_wrapper(
             wallets.balance,
         )
+        self.create_withdrawal = to_raw_response_wrapper(
+            wallets.create_withdrawal,
+        )
         self.send = to_raw_response_wrapper(
             wallets.send,
         )
@@ -285,6 +403,9 @@ class AsyncWalletsResourceWithRawResponse:
         )
         self.balance = async_to_raw_response_wrapper(
             wallets.balance,
+        )
+        self.create_withdrawal = async_to_raw_response_wrapper(
+            wallets.create_withdrawal,
         )
         self.send = async_to_raw_response_wrapper(
             wallets.send,
@@ -301,6 +422,9 @@ class WalletsResourceWithStreamingResponse:
         self.balance = to_streamed_response_wrapper(
             wallets.balance,
         )
+        self.create_withdrawal = to_streamed_response_wrapper(
+            wallets.create_withdrawal,
+        )
         self.send = to_streamed_response_wrapper(
             wallets.send,
         )
@@ -315,6 +439,9 @@ class AsyncWalletsResourceWithStreamingResponse:
         )
         self.balance = async_to_streamed_response_wrapper(
             wallets.balance,
+        )
+        self.create_withdrawal = async_to_streamed_response_wrapper(
+            wallets.create_withdrawal,
         )
         self.send = async_to_streamed_response_wrapper(
             wallets.send,
