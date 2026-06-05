@@ -211,6 +211,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         source_url: Optional[str] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -250,6 +251,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           source_url: The URL of the page where the checkout is being initiated from.
 
+          three_ds_level: The 3D Secure behavior for a plan.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -288,6 +291,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         source_url: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         company_id: str | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -311,6 +315,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                     "source_url": source_url,
                     "plan_id": plan_id,
                     "company_id": company_id,
+                    "three_ds_level": three_ds_level,
                 },
                 checkout_configuration_create_params.CheckoutConfigurationCreateParams,
             ),
@@ -621,6 +626,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
         source_url: Optional[str] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -660,6 +666,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           source_url: The URL of the page where the checkout is being initiated from.
 
+          three_ds_level: The 3D Secure behavior for a plan.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -698,6 +706,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         source_url: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         company_id: str | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -721,6 +730,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                     "source_url": source_url,
                     "plan_id": plan_id,
                     "company_id": company_id,
+                    "three_ds_level": three_ds_level,
                 },
                 checkout_configuration_create_params.CheckoutConfigurationCreateParams,
             ),
