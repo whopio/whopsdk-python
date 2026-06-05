@@ -44,6 +44,7 @@ class TestInvoices:
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -160,6 +161,7 @@ class TestInvoices:
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -339,6 +341,7 @@ class TestInvoices:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -646,6 +649,7 @@ class TestAsyncInvoices:
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -762,6 +766,7 @@ class TestAsyncInvoices:
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -941,6 +946,7 @@ class TestAsyncInvoices:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
