@@ -144,14 +144,6 @@ from .bounties import (
     BountiesResourceWithStreamingResponse,
     AsyncBountiesResourceWithStreamingResponse,
 )
-from .deposits import (
-    DepositsResource,
-    AsyncDepositsResource,
-    DepositsResourceWithRawResponse,
-    AsyncDepositsResourceWithRawResponse,
-    DepositsResourceWithStreamingResponse,
-    AsyncDepositsResourceWithStreamingResponse,
-)
 from .disputes import (
     DisputesResource,
     AsyncDisputesResource,
@@ -746,12 +738,6 @@ __all__ = [
     "AsyncSwapsResourceWithRawResponse",
     "SwapsResourceWithStreamingResponse",
     "AsyncSwapsResourceWithStreamingResponse",
-    "DepositsResource",
-    "AsyncDepositsResource",
-    "DepositsResourceWithRawResponse",
-    "AsyncDepositsResourceWithRawResponse",
-    "DepositsResourceWithStreamingResponse",
-    "AsyncDepositsResourceWithStreamingResponse",
     "SetupIntentsResource",
     "AsyncSetupIntentsResource",
     "SetupIntentsResourceWithRawResponse",
