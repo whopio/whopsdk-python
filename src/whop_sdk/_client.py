@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from .resources import (
         ads,
         apps,
+        cards,
         files,
         leads,
         plans,
@@ -95,6 +96,7 @@ if TYPE_CHECKING:
         payout_accounts,
         authorized_users,
         support_channels,
+        financial_activity,
         checkout_configurations,
         resolution_center_cases,
         company_token_transactions,
@@ -102,6 +104,7 @@ if TYPE_CHECKING:
     )
     from .resources.ads import AdsResource, AsyncAdsResource
     from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.cards import CardsResource, AsyncCardsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
@@ -158,6 +161,7 @@ if TYPE_CHECKING:
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
+    from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -524,6 +528,12 @@ class Whop(SyncAPIClient):
         return WalletsResource(self)
 
     @cached_property
+    def financial_activity(self) -> FinancialActivityResource:
+        from .resources.financial_activity import FinancialActivityResource
+
+        return FinancialActivityResource(self)
+
+    @cached_property
     def swaps(self) -> SwapsResource:
         from .resources.swaps import SwapsResource
 
@@ -534,6 +544,12 @@ class Whop(SyncAPIClient):
         from .resources.deposits import DepositsResource
 
         return DepositsResource(self)
+
+    @cached_property
+    def cards(self) -> CardsResource:
+        from .resources.cards import CardsResource
+
+        return CardsResource(self)
 
     @cached_property
     def setup_intents(self) -> SetupIntentsResource:
@@ -1158,6 +1174,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncWalletsResource(self)
 
     @cached_property
+    def financial_activity(self) -> AsyncFinancialActivityResource:
+        from .resources.financial_activity import AsyncFinancialActivityResource
+
+        return AsyncFinancialActivityResource(self)
+
+    @cached_property
     def swaps(self) -> AsyncSwapsResource:
         from .resources.swaps import AsyncSwapsResource
 
@@ -1168,6 +1190,12 @@ class AsyncWhop(AsyncAPIClient):
         from .resources.deposits import AsyncDepositsResource
 
         return AsyncDepositsResource(self)
+
+    @cached_property
+    def cards(self) -> AsyncCardsResource:
+        from .resources.cards import AsyncCardsResource
+
+        return AsyncCardsResource(self)
 
     @cached_property
     def setup_intents(self) -> AsyncSetupIntentsResource:
@@ -1719,6 +1747,12 @@ class WhopWithRawResponse:
         return WalletsResourceWithRawResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.FinancialActivityResourceWithRawResponse:
+        from .resources.financial_activity import FinancialActivityResourceWithRawResponse
+
+        return FinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithRawResponse:
         from .resources.swaps import SwapsResourceWithRawResponse
 
@@ -1729,6 +1763,12 @@ class WhopWithRawResponse:
         from .resources.deposits import DepositsResourceWithRawResponse
 
         return DepositsResourceWithRawResponse(self._client.deposits)
+
+    @cached_property
+    def cards(self) -> cards.CardsResourceWithRawResponse:
+        from .resources.cards import CardsResourceWithRawResponse
+
+        return CardsResourceWithRawResponse(self._client.cards)
 
     @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithRawResponse:
@@ -2165,6 +2205,12 @@ class AsyncWhopWithRawResponse:
         return AsyncWalletsResourceWithRawResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithRawResponse:
+        from .resources.financial_activity import AsyncFinancialActivityResourceWithRawResponse
+
+        return AsyncFinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithRawResponse:
         from .resources.swaps import AsyncSwapsResourceWithRawResponse
 
@@ -2175,6 +2221,12 @@ class AsyncWhopWithRawResponse:
         from .resources.deposits import AsyncDepositsResourceWithRawResponse
 
         return AsyncDepositsResourceWithRawResponse(self._client.deposits)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithRawResponse:
+        from .resources.cards import AsyncCardsResourceWithRawResponse
+
+        return AsyncCardsResourceWithRawResponse(self._client.cards)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithRawResponse:
@@ -2613,6 +2665,12 @@ class WhopWithStreamedResponse:
         return WalletsResourceWithStreamingResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.FinancialActivityResourceWithStreamingResponse:
+        from .resources.financial_activity import FinancialActivityResourceWithStreamingResponse
+
+        return FinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithStreamingResponse:
         from .resources.swaps import SwapsResourceWithStreamingResponse
 
@@ -2623,6 +2681,12 @@ class WhopWithStreamedResponse:
         from .resources.deposits import DepositsResourceWithStreamingResponse
 
         return DepositsResourceWithStreamingResponse(self._client.deposits)
+
+    @cached_property
+    def cards(self) -> cards.CardsResourceWithStreamingResponse:
+        from .resources.cards import CardsResourceWithStreamingResponse
+
+        return CardsResourceWithStreamingResponse(self._client.cards)
 
     @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithStreamingResponse:
@@ -3063,6 +3127,12 @@ class AsyncWhopWithStreamedResponse:
         return AsyncWalletsResourceWithStreamingResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithStreamingResponse:
+        from .resources.financial_activity import AsyncFinancialActivityResourceWithStreamingResponse
+
+        return AsyncFinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithStreamingResponse:
         from .resources.swaps import AsyncSwapsResourceWithStreamingResponse
 
@@ -3073,6 +3143,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.deposits import AsyncDepositsResourceWithStreamingResponse
 
         return AsyncDepositsResourceWithStreamingResponse(self._client.deposits)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithStreamingResponse:
+        from .resources.cards import AsyncCardsResourceWithStreamingResponse
+
+        return AsyncCardsResourceWithStreamingResponse(self._client.cards)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithStreamingResponse:
