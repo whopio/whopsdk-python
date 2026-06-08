@@ -6,6 +6,7 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .ad_group_status import AdGroupStatus
 
@@ -13,6 +14,15 @@ __all__ = ["AdGroupListParams"]
 
 
 class AdGroupListParams(TypedDict, total=False):
+    ad_campaign_id: Optional[str]
+    """Filter by ad campaign. Provide exactly one of ad_campaign_id or company_id."""
+
+    ad_campaign_ids: Optional[SequenceNotStr[str]]
+    """Only return ad groups belonging to these ad campaigns (max 100).
+
+    Can be combined with companyId or used on its own.
+    """
+
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -20,10 +30,10 @@ class AdGroupListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     campaign_id: Optional[str]
-    """Filter by campaign. Provide exactly one of campaign_id or company_id."""
+    """Filter by campaign."""
 
     company_id: Optional[str]
-    """Filter by company. Provide exactly one of campaign_id or company_id."""
+    """Filter by company. Provide companyId or adCampaignIds."""
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return ad groups created after this timestamp."""
@@ -34,17 +44,23 @@ class AdGroupListParams(TypedDict, total=False):
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
-    include_paused: Optional[bool]
-    """
-    When false, excludes paused ad groups so pagination matches the dashboard's
-    hide-paused toggle.
-    """
-
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
     query: Optional[str]
-    """Case-insensitive substring match against the ad group name."""
+    """Case-insensitive substring match against the ad group name or ID."""
+
+    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """
+    Inclusive start of the window for each ad group's metric fields (spend,
+    impressions, …). Omit both statsFrom and statsTo for all-time stats.
+    """
+
+    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Inclusive end of the window for each ad group's metric fields.
+
+    Omit both statsFrom and statsTo for all-time stats.
+    """
 
     status: Optional[AdGroupStatus]
     """The status of an external ad group."""
