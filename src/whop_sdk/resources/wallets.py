@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
-from ..types import wallet_send_params
-from .._types import Body, Query, Headers, NotGiven, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from ..types import wallet_send_params, wallet_balance_params, wallet_deposit_address_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -19,6 +21,7 @@ from .._base_client import make_request_options
 from ..types.wallet_list_response import WalletListResponse
 from ..types.wallet_send_response import WalletSendResponse
 from ..types.wallet_balance_response import WalletBalanceResponse
+from ..types.wallet_deposit_address_response import WalletDepositAddressResponse
 
 __all__ = ["WalletsResource", "AsyncWalletsResource"]
 
@@ -64,8 +67,8 @@ class WalletsResource(SyncAPIResource):
 
     def balance(
         self,
-        account_id: str,
         *,
+        account_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,6 +80,8 @@ class WalletsResource(SyncAPIResource):
         Returns per-token balances held in an account's wallet.
 
         Args:
+          account_id: The business or user account ID whose wallet balance should be returned.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -85,20 +90,77 @@ class WalletsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return self._get(
-            path_template("/wallets/{account_id}/balance", account_id=account_id),
+            "/wallets/balance",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, wallet_balance_params.WalletBalanceParams),
             ),
             cast_to=WalletBalanceResponse,
         )
 
+    def deposit_address(
+        self,
+        *,
+        account_id: str,
+        asset: str | Omit = omit,
+        network: Literal["plasma", "base", "ethereum", "solana"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletDepositAddressResponse:
+        """
+        Returns the account's provisioned EVM and Solana deposit addresses, the networks
+        that auto-credit its balance, and a signed hosted onramp URL. Addresses are
+        provisioned asynchronously — while provisioning, addresses are null and status
+        is "provisioning"; poll until status is "ready".
+
+        Args:
+          account_id: The business or user account ID whose deposit address should be returned.
+
+          asset: Optional asset symbol the caller intends to deposit (e.g. USDT). Unsupported
+              assets are rejected with a 400 rather than silently ignored.
+
+          network: Optional network the caller intends to deposit on (e.g. plasma). Unsupported
+              networks are rejected with a 400 rather than silently ignored.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/wallets/deposit-address",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "asset": asset,
+                        "network": network,
+                    },
+                    wallet_deposit_address_params.WalletDepositAddressParams,
+                ),
+            ),
+            cast_to=WalletDepositAddressResponse,
+        )
+
     def send(
         self,
-        account_id: str,
         *,
+        account_id: str,
         amount: str,
         to: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -112,6 +174,8 @@ class WalletsResource(SyncAPIResource):
         Sends USDT from an account's wallet to another Whop user or business.
 
         Args:
+          account_id: The sending account ID.
+
           amount: USDT amount to send.
 
           to: Recipient user ID, business account ID, ledger account ID, or email.
@@ -124,10 +188,8 @@ class WalletsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return self._post(
-            path_template("/wallets/{account_id}/sends", account_id=account_id),
+            "/wallets/send",
             body=maybe_transform(
                 {
                     "amount": amount,
@@ -136,7 +198,11 @@ class WalletsResource(SyncAPIResource):
                 wallet_send_params.WalletSendParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
             ),
             cast_to=WalletSendResponse,
         )
@@ -183,8 +249,8 @@ class AsyncWalletsResource(AsyncAPIResource):
 
     async def balance(
         self,
-        account_id: str,
         *,
+        account_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -196,6 +262,8 @@ class AsyncWalletsResource(AsyncAPIResource):
         Returns per-token balances held in an account's wallet.
 
         Args:
+          account_id: The business or user account ID whose wallet balance should be returned.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -204,20 +272,79 @@ class AsyncWalletsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return await self._get(
-            path_template("/wallets/{account_id}/balance", account_id=account_id),
+            "/wallets/balance",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id}, wallet_balance_params.WalletBalanceParams
+                ),
             ),
             cast_to=WalletBalanceResponse,
         )
 
+    async def deposit_address(
+        self,
+        *,
+        account_id: str,
+        asset: str | Omit = omit,
+        network: Literal["plasma", "base", "ethereum", "solana"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WalletDepositAddressResponse:
+        """
+        Returns the account's provisioned EVM and Solana deposit addresses, the networks
+        that auto-credit its balance, and a signed hosted onramp URL. Addresses are
+        provisioned asynchronously — while provisioning, addresses are null and status
+        is "provisioning"; poll until status is "ready".
+
+        Args:
+          account_id: The business or user account ID whose deposit address should be returned.
+
+          asset: Optional asset symbol the caller intends to deposit (e.g. USDT). Unsupported
+              assets are rejected with a 400 rather than silently ignored.
+
+          network: Optional network the caller intends to deposit on (e.g. plasma). Unsupported
+              networks are rejected with a 400 rather than silently ignored.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/wallets/deposit-address",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "asset": asset,
+                        "network": network,
+                    },
+                    wallet_deposit_address_params.WalletDepositAddressParams,
+                ),
+            ),
+            cast_to=WalletDepositAddressResponse,
+        )
+
     async def send(
         self,
-        account_id: str,
         *,
+        account_id: str,
         amount: str,
         to: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -231,6 +358,8 @@ class AsyncWalletsResource(AsyncAPIResource):
         Sends USDT from an account's wallet to another Whop user or business.
 
         Args:
+          account_id: The sending account ID.
+
           amount: USDT amount to send.
 
           to: Recipient user ID, business account ID, ledger account ID, or email.
@@ -243,10 +372,8 @@ class AsyncWalletsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return await self._post(
-            path_template("/wallets/{account_id}/sends", account_id=account_id),
+            "/wallets/send",
             body=await async_maybe_transform(
                 {
                     "amount": amount,
@@ -255,7 +382,11 @@ class AsyncWalletsResource(AsyncAPIResource):
                 wallet_send_params.WalletSendParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
             ),
             cast_to=WalletSendResponse,
         )
@@ -270,6 +401,9 @@ class WalletsResourceWithRawResponse:
         )
         self.balance = to_raw_response_wrapper(
             wallets.balance,
+        )
+        self.deposit_address = to_raw_response_wrapper(
+            wallets.deposit_address,
         )
         self.send = to_raw_response_wrapper(
             wallets.send,
@@ -286,6 +420,9 @@ class AsyncWalletsResourceWithRawResponse:
         self.balance = async_to_raw_response_wrapper(
             wallets.balance,
         )
+        self.deposit_address = async_to_raw_response_wrapper(
+            wallets.deposit_address,
+        )
         self.send = async_to_raw_response_wrapper(
             wallets.send,
         )
@@ -301,6 +438,9 @@ class WalletsResourceWithStreamingResponse:
         self.balance = to_streamed_response_wrapper(
             wallets.balance,
         )
+        self.deposit_address = to_streamed_response_wrapper(
+            wallets.deposit_address,
+        )
         self.send = to_streamed_response_wrapper(
             wallets.send,
         )
@@ -315,6 +455,9 @@ class AsyncWalletsResourceWithStreamingResponse:
         )
         self.balance = async_to_streamed_response_wrapper(
             wallets.balance,
+        )
+        self.deposit_address = async_to_streamed_response_wrapper(
+            wallets.deposit_address,
         )
         self.send = async_to_streamed_response_wrapper(
             wallets.send,
