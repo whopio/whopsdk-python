@@ -384,14 +384,6 @@ from .setup_intents import (
     SetupIntentsResourceWithStreamingResponse,
     AsyncSetupIntentsResourceWithStreamingResponse,
 )
-from .verifications import (
-    VerificationsResource,
-    AsyncVerificationsResource,
-    VerificationsResourceWithRawResponse,
-    AsyncVerificationsResourceWithRawResponse,
-    VerificationsResourceWithStreamingResponse,
-    AsyncVerificationsResourceWithStreamingResponse,
-)
 from .course_lessons import (
     CourseLessonsResource,
     AsyncCourseLessonsResource,
@@ -471,6 +463,14 @@ from .support_channels import (
     AsyncSupportChannelsResourceWithRawResponse,
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
+)
+from .financial_activity import (
+    FinancialActivityResource,
+    AsyncFinancialActivityResource,
+    FinancialActivityResourceWithRawResponse,
+    AsyncFinancialActivityResourceWithRawResponse,
+    FinancialActivityResourceWithStreamingResponse,
+    AsyncFinancialActivityResourceWithStreamingResponse,
 )
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
@@ -740,6 +740,12 @@ __all__ = [
     "AsyncWalletsResourceWithRawResponse",
     "WalletsResourceWithStreamingResponse",
     "AsyncWalletsResourceWithStreamingResponse",
+    "FinancialActivityResource",
+    "AsyncFinancialActivityResource",
+    "FinancialActivityResourceWithRawResponse",
+    "AsyncFinancialActivityResourceWithRawResponse",
+    "FinancialActivityResourceWithStreamingResponse",
+    "AsyncFinancialActivityResourceWithStreamingResponse",
     "SwapsResource",
     "AsyncSwapsResource",
     "SwapsResourceWithRawResponse",
@@ -776,12 +782,6 @@ __all__ = [
     "AsyncPayoutMethodsResourceWithRawResponse",
     "PayoutMethodsResourceWithStreamingResponse",
     "AsyncPayoutMethodsResourceWithStreamingResponse",
-    "VerificationsResource",
-    "AsyncVerificationsResource",
-    "VerificationsResourceWithRawResponse",
-    "AsyncVerificationsResourceWithRawResponse",
-    "VerificationsResourceWithStreamingResponse",
-    "AsyncVerificationsResourceWithStreamingResponse",
     "LeadsResource",
     "AsyncLeadsResource",
     "LeadsResourceWithRawResponse",
