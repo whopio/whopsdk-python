@@ -52,7 +52,17 @@ class ConversionsResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        event_name: Literal["lead", "submit_application", "contact", "complete_registration", "schedule", "custom"],
+        event_name: Literal[
+            "lead",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "schedule",
+            "custom",
+            "page",
+            "leave",
+            "identify",
+        ],
         action_source: Optional[
             Literal[
                 "email",
@@ -70,11 +80,15 @@ class ConversionsResource(SyncAPIResource):
         context: Optional[conversion_create_params.Context] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_name: Optional[str] | Omit = omit,
+        duration: Optional[int] | Omit = omit,
         event_id: Optional[str] | Omit = omit,
         event_time: Union[str, datetime, None] | Omit = omit,
         plan_id: Optional[str] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
         referrer_url: Optional[str] | Omit = omit,
+        resumed: Optional[bool] | Omit = omit,
+        source: Optional[str] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         url: Optional[str] | Omit = omit,
         user: Optional[conversion_create_params.User] | Omit = omit,
         value: Optional[float] | Omit = omit,
@@ -103,7 +117,11 @@ class ConversionsResource(SyncAPIResource):
 
           currency: The available currencies on the platform
 
-          custom_name: Custom event name when event_name is 'custom'.
+          custom_name: Custom event name when event_name is 'custom'. Stored as-is; forwarded to Meta
+              CAPI (prefixed with the business id) only when the combined name fits Meta's
+              50-char limit (~35 chars for this value), otherwise stored but not sent.
+
+          duration: For 'leave' events: milliseconds the visitor spent on the page.
 
           event_id: Client-provided identifier for deduplication. Generated if omitted.
 
@@ -114,6 +132,13 @@ class ConversionsResource(SyncAPIResource):
           product_id: The product associated with the event.
 
           referrer_url: The referring URL.
+
+          resumed: For 'page' events: true when the page was restored from the back/forward cache.
+
+          source: For 'identify' events: where the identity was captured (url, form, manual,
+              iframe).
+
+          title: For 'page' events: the document title.
 
           url: The URL where the event occurred.
 
@@ -139,11 +164,15 @@ class ConversionsResource(SyncAPIResource):
                     "context": context,
                     "currency": currency,
                     "custom_name": custom_name,
+                    "duration": duration,
                     "event_id": event_id,
                     "event_time": event_time,
                     "plan_id": plan_id,
                     "product_id": product_id,
                     "referrer_url": referrer_url,
+                    "resumed": resumed,
+                    "source": source,
+                    "title": title,
                     "url": url,
                     "user": user,
                     "value": value,
@@ -183,7 +212,17 @@ class AsyncConversionsResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        event_name: Literal["lead", "submit_application", "contact", "complete_registration", "schedule", "custom"],
+        event_name: Literal[
+            "lead",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "schedule",
+            "custom",
+            "page",
+            "leave",
+            "identify",
+        ],
         action_source: Optional[
             Literal[
                 "email",
@@ -201,11 +240,15 @@ class AsyncConversionsResource(AsyncAPIResource):
         context: Optional[conversion_create_params.Context] | Omit = omit,
         currency: Optional[Currency] | Omit = omit,
         custom_name: Optional[str] | Omit = omit,
+        duration: Optional[int] | Omit = omit,
         event_id: Optional[str] | Omit = omit,
         event_time: Union[str, datetime, None] | Omit = omit,
         plan_id: Optional[str] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
         referrer_url: Optional[str] | Omit = omit,
+        resumed: Optional[bool] | Omit = omit,
+        source: Optional[str] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         url: Optional[str] | Omit = omit,
         user: Optional[conversion_create_params.User] | Omit = omit,
         value: Optional[float] | Omit = omit,
@@ -234,7 +277,11 @@ class AsyncConversionsResource(AsyncAPIResource):
 
           currency: The available currencies on the platform
 
-          custom_name: Custom event name when event_name is 'custom'.
+          custom_name: Custom event name when event_name is 'custom'. Stored as-is; forwarded to Meta
+              CAPI (prefixed with the business id) only when the combined name fits Meta's
+              50-char limit (~35 chars for this value), otherwise stored but not sent.
+
+          duration: For 'leave' events: milliseconds the visitor spent on the page.
 
           event_id: Client-provided identifier for deduplication. Generated if omitted.
 
@@ -245,6 +292,13 @@ class AsyncConversionsResource(AsyncAPIResource):
           product_id: The product associated with the event.
 
           referrer_url: The referring URL.
+
+          resumed: For 'page' events: true when the page was restored from the back/forward cache.
+
+          source: For 'identify' events: where the identity was captured (url, form, manual,
+              iframe).
+
+          title: For 'page' events: the document title.
 
           url: The URL where the event occurred.
 
@@ -270,11 +324,15 @@ class AsyncConversionsResource(AsyncAPIResource):
                     "context": context,
                     "currency": currency,
                     "custom_name": custom_name,
+                    "duration": duration,
                     "event_id": event_id,
                     "event_time": event_time,
                     "plan_id": plan_id,
                     "product_id": product_id,
                     "referrer_url": referrer_url,
+                    "resumed": resumed,
+                    "source": source,
+                    "title": title,
                     "url": url,
                     "user": user,
                     "value": value,
