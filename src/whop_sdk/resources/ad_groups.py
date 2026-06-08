@@ -117,6 +117,7 @@ class AdGroupsResource(SyncAPIResource):
         name: Optional[str] | Omit = omit,
         platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -147,6 +148,8 @@ class AdGroupsResource(SyncAPIResource):
 
           status: The status of an external ad group.
 
+          title: Human-readable ad group title.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -168,6 +171,7 @@ class AdGroupsResource(SyncAPIResource):
                     "name": name,
                     "platform_config": platform_config,
                     "status": status,
+                    "title": title,
                 },
                 ad_group_update_params.AdGroupUpdateParams,
             ),
@@ -482,6 +486,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         name: Optional[str] | Omit = omit,
         platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -512,6 +517,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           status: The status of an external ad group.
 
+          title: Human-readable ad group title.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -533,6 +540,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                     "name": name,
                     "platform_config": platform_config,
                     "status": status,
+                    "title": title,
                 },
                 ad_group_update_params.AdGroupUpdateParams,
             ),

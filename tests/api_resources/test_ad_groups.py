@@ -429,6 +429,7 @@ class TestAdGroups:
                 },
             },
             status="active",
+            title="title",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -1053,6 +1054,7 @@ class TestAsyncAdGroups:
                 },
             },
             status="active",
+            title="title",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 

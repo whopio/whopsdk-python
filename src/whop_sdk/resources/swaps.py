@@ -6,9 +6,9 @@ from typing import Dict, Union, Optional
 
 import httpx
 
-from ..types import swap_create_params, swap_create_quote_params
+from ..types import swap_create_params, swap_retrieve_params, swap_create_quote_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -65,7 +65,7 @@ class SwapsResource(SyncAPIResource):
         """Executes a swap from the account's wallet.
 
         Runs asynchronously — poll GET
-        /swaps/{account_id} for status.
+        /swaps?account_id=... for status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -106,8 +106,8 @@ class SwapsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        account_id: str,
         *,
+        account_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -119,6 +119,8 @@ class SwapsResource(SyncAPIResource):
         Returns the status of the account's in-flight or most recent swap.
 
         Args:
+          account_id: Business or user account ID (biz*\\** / user*\\**).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -127,12 +129,14 @@ class SwapsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return self._get(
-            path_template("/swaps/{account_id}", account_id=account_id),
+            "/swaps",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, swap_retrieve_params.SwapRetrieveParams),
             ),
             cast_to=SwapRetrieveResponse,
         )
@@ -238,7 +242,7 @@ class AsyncSwapsResource(AsyncAPIResource):
         """Executes a swap from the account's wallet.
 
         Runs asynchronously — poll GET
-        /swaps/{account_id} for status.
+        /swaps?account_id=... for status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -279,8 +283,8 @@ class AsyncSwapsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        account_id: str,
         *,
+        account_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,6 +296,8 @@ class AsyncSwapsResource(AsyncAPIResource):
         Returns the status of the account's in-flight or most recent swap.
 
         Args:
+          account_id: Business or user account ID (biz*\\** / user*\\**).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -300,12 +306,14 @@ class AsyncSwapsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return await self._get(
-            path_template("/swaps/{account_id}", account_id=account_id),
+            "/swaps",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, swap_retrieve_params.SwapRetrieveParams),
             ),
             cast_to=SwapRetrieveResponse,
         )

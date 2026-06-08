@@ -178,6 +178,7 @@ from .review_list_response import ReviewListResponse as ReviewListResponse
 from .shipment_list_params import ShipmentListParams as ShipmentListParams
 from .social_link_websites import SocialLinkWebsites as SocialLinkWebsites
 from .swap_create_response import SwapCreateResponse as SwapCreateResponse
+from .swap_retrieve_params import SwapRetrieveParams as SwapRetrieveParams
 from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .user_retrieve_params import UserRetrieveParams as UserRetrieveParams
@@ -211,6 +212,7 @@ from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_update_params import ProductUpdateParams as ProductUpdateParams
 from .refund_reference_type import RefundReferenceType as RefundReferenceType
 from .topup_create_response import TopupCreateResponse as TopupCreateResponse
+from .wallet_balance_params import WalletBalanceParams as WalletBalanceParams
 from .webhook_create_params import WebhookCreateParams as WebhookCreateParams
 from .webhook_list_response import WebhookListResponse as WebhookListResponse
 from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
