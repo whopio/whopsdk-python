@@ -144,14 +144,6 @@ from .bounties import (
     BountiesResourceWithStreamingResponse,
     AsyncBountiesResourceWithStreamingResponse,
 )
-from .deposits import (
-    DepositsResource,
-    AsyncDepositsResource,
-    DepositsResourceWithRawResponse,
-    AsyncDepositsResourceWithRawResponse,
-    DepositsResourceWithStreamingResponse,
-    AsyncDepositsResourceWithStreamingResponse,
-)
 from .disputes import (
     DisputesResource,
     AsyncDisputesResource,
@@ -472,6 +464,14 @@ from .support_channels import (
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
 )
+from .financial_activity import (
+    FinancialActivityResource,
+    AsyncFinancialActivityResource,
+    FinancialActivityResourceWithRawResponse,
+    AsyncFinancialActivityResourceWithRawResponse,
+    FinancialActivityResourceWithStreamingResponse,
+    AsyncFinancialActivityResourceWithStreamingResponse,
+)
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
     AsyncCheckoutConfigurationsResource,
@@ -740,18 +740,18 @@ __all__ = [
     "AsyncWalletsResourceWithRawResponse",
     "WalletsResourceWithStreamingResponse",
     "AsyncWalletsResourceWithStreamingResponse",
+    "FinancialActivityResource",
+    "AsyncFinancialActivityResource",
+    "FinancialActivityResourceWithRawResponse",
+    "AsyncFinancialActivityResourceWithRawResponse",
+    "FinancialActivityResourceWithStreamingResponse",
+    "AsyncFinancialActivityResourceWithStreamingResponse",
     "SwapsResource",
     "AsyncSwapsResource",
     "SwapsResourceWithRawResponse",
     "AsyncSwapsResourceWithRawResponse",
     "SwapsResourceWithStreamingResponse",
     "AsyncSwapsResourceWithStreamingResponse",
-    "DepositsResource",
-    "AsyncDepositsResource",
-    "DepositsResourceWithRawResponse",
-    "AsyncDepositsResourceWithRawResponse",
-    "DepositsResourceWithStreamingResponse",
-    "AsyncDepositsResourceWithStreamingResponse",
     "SetupIntentsResource",
     "AsyncSetupIntentsResource",
     "SetupIntentsResourceWithRawResponse",
