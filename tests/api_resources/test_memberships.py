@@ -24,6 +24,53 @@ class TestMemberships:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create(self, client: Whop) -> None:
+        membership = client.memberships.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Whop) -> None:
+        membership = client.memberships.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+            metadata={"foo": "bar"},
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Whop) -> None:
+        response = client.memberships.with_raw_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Whop) -> None:
+        with client.memberships.with_streaming_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         membership = client.memberships.retrieve(
             "mem_xxxxxxxxxxxxxx",
@@ -402,6 +449,53 @@ class TestAsyncMemberships:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+            metadata={"foo": "bar"},
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
+        response = await async_client.memberships.with_raw_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = await response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
+        async with async_client.memberships.with_streaming_response.create(
+            plan_id="plan_xxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = await response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

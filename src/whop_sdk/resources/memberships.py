@@ -12,6 +12,7 @@ from ..types import (
     membership_list_params,
     membership_pause_params,
     membership_cancel_params,
+    membership_create_params,
     membership_update_params,
     membership_add_free_days_params,
 )
@@ -57,6 +58,63 @@ class MembershipsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return MembershipsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        plan_id: str,
+        user_id: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """Grant a free membership on a free plan to a user.
+
+        Use this to give users access
+        to a product without charging them. The plan's initial and renewal prices must
+        both be zero.
+
+        Required permissions:
+
+        - `membership:create`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          plan_id: The unique identifier of the free plan to grant. The plan's initial and renewal
+              prices must both be zero.
+
+          user_id: The unique identifier of the user to grant the membership to.
+
+          metadata: Custom key-value pairs to attach to the membership.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/memberships",
+            body=maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "user_id": user_id,
+                    "metadata": metadata,
+                },
+                membership_create_params.MembershipCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
 
     def retrieve(
         self,
@@ -488,6 +546,63 @@ class AsyncMembershipsResource(AsyncAPIResource):
         """
         return AsyncMembershipsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        plan_id: str,
+        user_id: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """Grant a free membership on a free plan to a user.
+
+        Use this to give users access
+        to a product without charging them. The plan's initial and renewal prices must
+        both be zero.
+
+        Required permissions:
+
+        - `membership:create`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          plan_id: The unique identifier of the free plan to grant. The plan's initial and renewal
+              prices must both be zero.
+
+          user_id: The unique identifier of the user to grant the membership to.
+
+          metadata: Custom key-value pairs to attach to the membership.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/memberships",
+            body=await async_maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "user_id": user_id,
+                    "metadata": metadata,
+                },
+                membership_create_params.MembershipCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
     async def retrieve(
         self,
         id: str,
@@ -904,6 +1019,9 @@ class MembershipsResourceWithRawResponse:
     def __init__(self, memberships: MembershipsResource) -> None:
         self._memberships = memberships
 
+        self.create = to_raw_response_wrapper(
+            memberships.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             memberships.retrieve,
         )
@@ -934,6 +1052,9 @@ class AsyncMembershipsResourceWithRawResponse:
     def __init__(self, memberships: AsyncMembershipsResource) -> None:
         self._memberships = memberships
 
+        self.create = async_to_raw_response_wrapper(
+            memberships.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             memberships.retrieve,
         )
@@ -964,6 +1085,9 @@ class MembershipsResourceWithStreamingResponse:
     def __init__(self, memberships: MembershipsResource) -> None:
         self._memberships = memberships
 
+        self.create = to_streamed_response_wrapper(
+            memberships.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             memberships.retrieve,
         )
@@ -994,6 +1118,9 @@ class AsyncMembershipsResourceWithStreamingResponse:
     def __init__(self, memberships: AsyncMembershipsResource) -> None:
         self._memberships = memberships
 
+        self.create = async_to_streamed_response_wrapper(
+            memberships.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             memberships.retrieve,
         )
