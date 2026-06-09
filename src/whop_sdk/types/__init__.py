@@ -138,6 +138,7 @@ from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .refund_list_params import RefundListParams as RefundListParams
 from .review_list_params import ReviewListParams as ReviewListParams
 from .swap_create_params import SwapCreateParams as SwapCreateParams
+from .user_list_response import UserListResponse as UserListResponse
 from .user_update_params import UserUpdateParams as UserUpdateParams
 from .wallet_send_params import WalletSendParams as WalletSendParams
 from .account_list_params import AccountListParams as AccountListParams
@@ -211,7 +212,6 @@ from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_update_params import ProductUpdateParams as ProductUpdateParams
 from .refund_reference_type import RefundReferenceType as RefundReferenceType
 from .topup_create_response import TopupCreateResponse as TopupCreateResponse
-from .user_update_me_params import UserUpdateMeParams as UserUpdateMeParams
 from .wallet_balance_params import WalletBalanceParams as WalletBalanceParams
 from .webhook_create_params import WebhookCreateParams as WebhookCreateParams
 from .webhook_list_response import WebhookListResponse as WebhookListResponse
