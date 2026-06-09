@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import wallet_send_params
+from ..types import wallet_send_params, wallet_balance_params
 from .._types import Body, Query, Headers, NotGiven, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -64,8 +64,8 @@ class WalletsResource(SyncAPIResource):
 
     def balance(
         self,
-        account_id: str,
         *,
+        account_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,9 +74,13 @@ class WalletsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WalletBalanceResponse:
         """
-        Returns per-token balances held in an account's wallet.
+        Returns the crypto held in each of the account's crypto wallets, as Fragment's
+        ledger mirrors it — one row per crypto wallet / chain / token, with its USD
+        value.
 
         Args:
+          account_id: The business or user account ID whose wallet balance should be returned.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -85,20 +89,22 @@ class WalletsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return self._get(
-            path_template("/wallets/{account_id}/balance", account_id=account_id),
+            "/wallets/balance",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, wallet_balance_params.WalletBalanceParams),
             ),
             cast_to=WalletBalanceResponse,
         )
 
     def send(
         self,
-        account_id: str,
         *,
+        account_id: str,
         amount: str,
         to: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -112,6 +118,8 @@ class WalletsResource(SyncAPIResource):
         Sends USDT from an account's wallet to another Whop user or business.
 
         Args:
+          account_id: The sending account ID.
+
           amount: USDT amount to send.
 
           to: Recipient user ID, business account ID, ledger account ID, or email.
@@ -124,10 +132,8 @@ class WalletsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return self._post(
-            path_template("/wallets/{account_id}/sends", account_id=account_id),
+            "/wallets/send",
             body=maybe_transform(
                 {
                     "amount": amount,
@@ -136,7 +142,11 @@ class WalletsResource(SyncAPIResource):
                 wallet_send_params.WalletSendParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
             ),
             cast_to=WalletSendResponse,
         )
@@ -183,8 +193,8 @@ class AsyncWalletsResource(AsyncAPIResource):
 
     async def balance(
         self,
-        account_id: str,
         *,
+        account_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -193,9 +203,13 @@ class AsyncWalletsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WalletBalanceResponse:
         """
-        Returns per-token balances held in an account's wallet.
+        Returns the crypto held in each of the account's crypto wallets, as Fragment's
+        ledger mirrors it — one row per crypto wallet / chain / token, with its USD
+        value.
 
         Args:
+          account_id: The business or user account ID whose wallet balance should be returned.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -204,20 +218,24 @@ class AsyncWalletsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return await self._get(
-            path_template("/wallets/{account_id}/balance", account_id=account_id),
+            "/wallets/balance",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id}, wallet_balance_params.WalletBalanceParams
+                ),
             ),
             cast_to=WalletBalanceResponse,
         )
 
     async def send(
         self,
-        account_id: str,
         *,
+        account_id: str,
         amount: str,
         to: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -231,6 +249,8 @@ class AsyncWalletsResource(AsyncAPIResource):
         Sends USDT from an account's wallet to another Whop user or business.
 
         Args:
+          account_id: The sending account ID.
+
           amount: USDT amount to send.
 
           to: Recipient user ID, business account ID, ledger account ID, or email.
@@ -243,10 +263,8 @@ class AsyncWalletsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         return await self._post(
-            path_template("/wallets/{account_id}/sends", account_id=account_id),
+            "/wallets/send",
             body=await async_maybe_transform(
                 {
                     "amount": amount,
@@ -255,7 +273,11 @@ class AsyncWalletsResource(AsyncAPIResource):
                 wallet_send_params.WalletSendParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
             ),
             cast_to=WalletSendResponse,
         )
