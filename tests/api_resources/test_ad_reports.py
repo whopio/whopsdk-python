@@ -33,13 +33,13 @@ class TestAdReports:
         ad_report = client.ad_reports.retrieve(
             from_=parse_datetime("2023-12-01T05:00:00.401Z"),
             to=parse_datetime("2023-12-01T05:00:00.401Z"),
-            ad_campaign_id="ad_campaign_id",
-            ad_group_id="ad_group_id",
-            ad_id="ad_id",
+            ad_campaign_ids=["string"],
+            ad_group_ids=["string"],
+            ad_ids=["string"],
             breakdown="campaign",
             company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
-            granularity="daily",
+            granularity="hourly",
         )
         assert_matches_type(AdReportRetrieveResponse, ad_report, path=["response"])
 
@@ -92,13 +92,13 @@ class TestAsyncAdReports:
         ad_report = await async_client.ad_reports.retrieve(
             from_=parse_datetime("2023-12-01T05:00:00.401Z"),
             to=parse_datetime("2023-12-01T05:00:00.401Z"),
-            ad_campaign_id="ad_campaign_id",
-            ad_group_id="ad_group_id",
-            ad_id="ad_id",
+            ad_campaign_ids=["string"],
+            ad_group_ids=["string"],
+            ad_ids=["string"],
             breakdown="campaign",
             company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
-            granularity="daily",
+            granularity="hourly",
         )
         assert_matches_type(AdReportRetrieveResponse, ad_report, path=["response"])
 
