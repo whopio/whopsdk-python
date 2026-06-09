@@ -88,6 +88,11 @@ class TestUsers:
             account_id="account_id",
             bio="bio",
             name="name",
+            profile_picture={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            username="username",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -332,6 +337,11 @@ class TestAsyncUsers:
             account_id="account_id",
             bio="bio",
             name="name",
+            profile_picture={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            username="username",
         )
         assert_matches_type(User, user, path=["response"])
 
