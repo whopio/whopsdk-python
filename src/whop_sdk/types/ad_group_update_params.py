@@ -66,6 +66,9 @@ class AdGroupUpdateParams(TypedDict, total=False):
     status: Optional[AdGroupStatus]
     """The status of an external ad group."""
 
+    title: Optional[str]
+    """Human-readable ad group title."""
+
 
 class ConfigTargeting(TypedDict, total=False):
     """Audience targeting settings (demographics, geo, interests, audiences, devices)."""
