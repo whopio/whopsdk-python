@@ -387,16 +387,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import User, UserCheckAccessResponse
+from whop_sdk.types import User
 ```
 
 Methods:
 
 - <code title="get /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/user_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
 - <code title="patch /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">update</a>(id, \*\*<a href="src/whop_sdk/types/user_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
-- <code title="get /users">client.users.<a href="./src/whop_sdk/resources/users.py">list</a>(\*\*<a href="src/whop_sdk/types/user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">SyncCursorPage[User]</a></code>
-- <code title="get /users/{id}/access/{resource_id}">client.users.<a href="./src/whop_sdk/resources/users.py">check_access</a>(resource_id, \*, id) -> <a href="./src/whop_sdk/types/user_check_access_response.py">UserCheckAccessResponse</a></code>
-- <code title="patch /users/me">client.users.<a href="./src/whop_sdk/resources/users.py">update_me</a>(\*\*<a href="src/whop_sdk/types/user_update_me_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
 
 # Payments
 
