@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["UserRetrieveParams"]
 
 
 class UserRetrieveParams(TypedDict, total=False):
-    account_id: str
+    company_id: Optional[str]
     """
-    When set, returns the user's account-specific profile overrides for this
-    account.
+    When provided, returns the user's company-specific profile overrides (name,
+    profile picture) instead of their global profile.
     """

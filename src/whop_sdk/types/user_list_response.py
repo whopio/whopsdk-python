@@ -5,7 +5,7 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["User", "ProfilePicture"]
+__all__ = ["UserListResponse", "ProfilePicture"]
 
 
 class ProfilePicture(BaseModel):
@@ -21,7 +21,7 @@ class ProfilePicture(BaseModel):
     """
 
 
-class User(BaseModel):
+class UserListResponse(BaseModel):
     """A user account on Whop.
 
     Contains profile information, identity details, and social connections.
