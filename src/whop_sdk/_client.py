@@ -41,6 +41,7 @@ if TYPE_CHECKING:
         files,
         leads,
         plans,
+        stats,
         swaps,
         users,
         forums,
@@ -95,6 +96,9 @@ if TYPE_CHECKING:
         payout_accounts,
         authorized_users,
         support_channels,
+        card_transactions,
+        identity_profiles,
+        financial_activity,
         checkout_configurations,
         resolution_center_cases,
         company_token_transactions,
@@ -105,6 +109,7 @@ if TYPE_CHECKING:
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
+    from .resources.stats import StatsResource, AsyncStatsResource
     from .resources.swaps import SwapsResource, AsyncSwapsResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.forums import ForumsResource, AsyncForumsResource
@@ -158,6 +163,9 @@ if TYPE_CHECKING:
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
+    from .resources.card_transactions import CardTransactionsResource, AsyncCardTransactionsResource
+    from .resources.identity_profiles import IdentityProfilesResource, AsyncIdentityProfilesResource
+    from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -393,6 +401,13 @@ class Whop(SyncAPIClient):
         return PaymentsResource(self)
 
     @cached_property
+    def card_transactions(self) -> CardTransactionsResource:
+        """Card transactions"""
+        from .resources.card_transactions import CardTransactionsResource
+
+        return CardTransactionsResource(self)
+
+    @cached_property
     def support_channels(self) -> SupportChannelsResource:
         """Support channels"""
         from .resources.support_channels import SupportChannelsResource
@@ -524,6 +539,19 @@ class Whop(SyncAPIClient):
         return WalletsResource(self)
 
     @cached_property
+    def financial_activity(self) -> FinancialActivityResource:
+        from .resources.financial_activity import FinancialActivityResource
+
+        return FinancialActivityResource(self)
+
+    @cached_property
+    def stats(self) -> StatsResource:
+        """Stats"""
+        from .resources.stats import StatsResource
+
+        return StatsResource(self)
+
+    @cached_property
     def swaps(self) -> SwapsResource:
         from .resources.swaps import SwapsResource
 
@@ -569,6 +597,13 @@ class Whop(SyncAPIClient):
         from .resources.verifications import VerificationsResource
 
         return VerificationsResource(self)
+
+    @cached_property
+    def identity_profiles(self) -> IdentityProfilesResource:
+        """Identity profiles"""
+        from .resources.identity_profiles import IdentityProfilesResource
+
+        return IdentityProfilesResource(self)
 
     @cached_property
     def leads(self) -> LeadsResource:
@@ -1027,6 +1062,13 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPaymentsResource(self)
 
     @cached_property
+    def card_transactions(self) -> AsyncCardTransactionsResource:
+        """Card transactions"""
+        from .resources.card_transactions import AsyncCardTransactionsResource
+
+        return AsyncCardTransactionsResource(self)
+
+    @cached_property
     def support_channels(self) -> AsyncSupportChannelsResource:
         """Support channels"""
         from .resources.support_channels import AsyncSupportChannelsResource
@@ -1158,6 +1200,19 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncWalletsResource(self)
 
     @cached_property
+    def financial_activity(self) -> AsyncFinancialActivityResource:
+        from .resources.financial_activity import AsyncFinancialActivityResource
+
+        return AsyncFinancialActivityResource(self)
+
+    @cached_property
+    def stats(self) -> AsyncStatsResource:
+        """Stats"""
+        from .resources.stats import AsyncStatsResource
+
+        return AsyncStatsResource(self)
+
+    @cached_property
     def swaps(self) -> AsyncSwapsResource:
         from .resources.swaps import AsyncSwapsResource
 
@@ -1203,6 +1258,13 @@ class AsyncWhop(AsyncAPIClient):
         from .resources.verifications import AsyncVerificationsResource
 
         return AsyncVerificationsResource(self)
+
+    @cached_property
+    def identity_profiles(self) -> AsyncIdentityProfilesResource:
+        """Identity profiles"""
+        from .resources.identity_profiles import AsyncIdentityProfilesResource
+
+        return AsyncIdentityProfilesResource(self)
 
     @cached_property
     def leads(self) -> AsyncLeadsResource:
@@ -1588,6 +1650,13 @@ class WhopWithRawResponse:
         return PaymentsResourceWithRawResponse(self._client.payments)
 
     @cached_property
+    def card_transactions(self) -> card_transactions.CardTransactionsResourceWithRawResponse:
+        """Card transactions"""
+        from .resources.card_transactions import CardTransactionsResourceWithRawResponse
+
+        return CardTransactionsResourceWithRawResponse(self._client.card_transactions)
+
+    @cached_property
     def support_channels(self) -> support_channels.SupportChannelsResourceWithRawResponse:
         """Support channels"""
         from .resources.support_channels import SupportChannelsResourceWithRawResponse
@@ -1719,6 +1788,19 @@ class WhopWithRawResponse:
         return WalletsResourceWithRawResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.FinancialActivityResourceWithRawResponse:
+        from .resources.financial_activity import FinancialActivityResourceWithRawResponse
+
+        return FinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.StatsResourceWithRawResponse:
+        """Stats"""
+        from .resources.stats import StatsResourceWithRawResponse
+
+        return StatsResourceWithRawResponse(self._client.stats)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithRawResponse:
         from .resources.swaps import SwapsResourceWithRawResponse
 
@@ -1764,6 +1846,13 @@ class WhopWithRawResponse:
         from .resources.verifications import VerificationsResourceWithRawResponse
 
         return VerificationsResourceWithRawResponse(self._client.verifications)
+
+    @cached_property
+    def identity_profiles(self) -> identity_profiles.IdentityProfilesResourceWithRawResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import IdentityProfilesResourceWithRawResponse
+
+        return IdentityProfilesResourceWithRawResponse(self._client.identity_profiles)
 
     @cached_property
     def leads(self) -> leads.LeadsResourceWithRawResponse:
@@ -2034,6 +2123,13 @@ class AsyncWhopWithRawResponse:
         return AsyncPaymentsResourceWithRawResponse(self._client.payments)
 
     @cached_property
+    def card_transactions(self) -> card_transactions.AsyncCardTransactionsResourceWithRawResponse:
+        """Card transactions"""
+        from .resources.card_transactions import AsyncCardTransactionsResourceWithRawResponse
+
+        return AsyncCardTransactionsResourceWithRawResponse(self._client.card_transactions)
+
+    @cached_property
     def support_channels(self) -> support_channels.AsyncSupportChannelsResourceWithRawResponse:
         """Support channels"""
         from .resources.support_channels import AsyncSupportChannelsResourceWithRawResponse
@@ -2165,6 +2261,19 @@ class AsyncWhopWithRawResponse:
         return AsyncWalletsResourceWithRawResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithRawResponse:
+        from .resources.financial_activity import AsyncFinancialActivityResourceWithRawResponse
+
+        return AsyncFinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.AsyncStatsResourceWithRawResponse:
+        """Stats"""
+        from .resources.stats import AsyncStatsResourceWithRawResponse
+
+        return AsyncStatsResourceWithRawResponse(self._client.stats)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithRawResponse:
         from .resources.swaps import AsyncSwapsResourceWithRawResponse
 
@@ -2210,6 +2319,13 @@ class AsyncWhopWithRawResponse:
         from .resources.verifications import AsyncVerificationsResourceWithRawResponse
 
         return AsyncVerificationsResourceWithRawResponse(self._client.verifications)
+
+    @cached_property
+    def identity_profiles(self) -> identity_profiles.AsyncIdentityProfilesResourceWithRawResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import AsyncIdentityProfilesResourceWithRawResponse
+
+        return AsyncIdentityProfilesResourceWithRawResponse(self._client.identity_profiles)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithRawResponse:
@@ -2482,6 +2598,13 @@ class WhopWithStreamedResponse:
         return PaymentsResourceWithStreamingResponse(self._client.payments)
 
     @cached_property
+    def card_transactions(self) -> card_transactions.CardTransactionsResourceWithStreamingResponse:
+        """Card transactions"""
+        from .resources.card_transactions import CardTransactionsResourceWithStreamingResponse
+
+        return CardTransactionsResourceWithStreamingResponse(self._client.card_transactions)
+
+    @cached_property
     def support_channels(self) -> support_channels.SupportChannelsResourceWithStreamingResponse:
         """Support channels"""
         from .resources.support_channels import SupportChannelsResourceWithStreamingResponse
@@ -2613,6 +2736,19 @@ class WhopWithStreamedResponse:
         return WalletsResourceWithStreamingResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.FinancialActivityResourceWithStreamingResponse:
+        from .resources.financial_activity import FinancialActivityResourceWithStreamingResponse
+
+        return FinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.StatsResourceWithStreamingResponse:
+        """Stats"""
+        from .resources.stats import StatsResourceWithStreamingResponse
+
+        return StatsResourceWithStreamingResponse(self._client.stats)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithStreamingResponse:
         from .resources.swaps import SwapsResourceWithStreamingResponse
 
@@ -2658,6 +2794,13 @@ class WhopWithStreamedResponse:
         from .resources.verifications import VerificationsResourceWithStreamingResponse
 
         return VerificationsResourceWithStreamingResponse(self._client.verifications)
+
+    @cached_property
+    def identity_profiles(self) -> identity_profiles.IdentityProfilesResourceWithStreamingResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import IdentityProfilesResourceWithStreamingResponse
+
+        return IdentityProfilesResourceWithStreamingResponse(self._client.identity_profiles)
 
     @cached_property
     def leads(self) -> leads.LeadsResourceWithStreamingResponse:
@@ -2932,6 +3075,13 @@ class AsyncWhopWithStreamedResponse:
         return AsyncPaymentsResourceWithStreamingResponse(self._client.payments)
 
     @cached_property
+    def card_transactions(self) -> card_transactions.AsyncCardTransactionsResourceWithStreamingResponse:
+        """Card transactions"""
+        from .resources.card_transactions import AsyncCardTransactionsResourceWithStreamingResponse
+
+        return AsyncCardTransactionsResourceWithStreamingResponse(self._client.card_transactions)
+
+    @cached_property
     def support_channels(self) -> support_channels.AsyncSupportChannelsResourceWithStreamingResponse:
         """Support channels"""
         from .resources.support_channels import AsyncSupportChannelsResourceWithStreamingResponse
@@ -3063,6 +3213,19 @@ class AsyncWhopWithStreamedResponse:
         return AsyncWalletsResourceWithStreamingResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithStreamingResponse:
+        from .resources.financial_activity import AsyncFinancialActivityResourceWithStreamingResponse
+
+        return AsyncFinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.AsyncStatsResourceWithStreamingResponse:
+        """Stats"""
+        from .resources.stats import AsyncStatsResourceWithStreamingResponse
+
+        return AsyncStatsResourceWithStreamingResponse(self._client.stats)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithStreamingResponse:
         from .resources.swaps import AsyncSwapsResourceWithStreamingResponse
 
@@ -3108,6 +3271,13 @@ class AsyncWhopWithStreamedResponse:
         from .resources.verifications import AsyncVerificationsResourceWithStreamingResponse
 
         return AsyncVerificationsResourceWithStreamingResponse(self._client.verifications)
+
+    @cached_property
+    def identity_profiles(self) -> identity_profiles.AsyncIdentityProfilesResourceWithStreamingResponse:
+        """Identity profiles"""
+        from .resources.identity_profiles import AsyncIdentityProfilesResourceWithStreamingResponse
+
+        return AsyncIdentityProfilesResourceWithStreamingResponse(self._client.identity_profiles)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithStreamingResponse:

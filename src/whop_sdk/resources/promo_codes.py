@@ -4,10 +4,11 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import PromoCodeStatus, promo_code_list_params, promo_code_create_params
+from ..types import PromoCodeStatus, promo_code_list_params, promo_code_create_params, promo_code_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -196,6 +197,48 @@ class PromoCodesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
             path_template("/promo_codes/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PromoCode,
+        )
+
+    def update(
+        self,
+        id: str,
+        *,
+        status: Literal["active", "inactive"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PromoCode:
+        """
+        Update whether a promo code can be used at checkout.
+
+        Required permissions:
+
+        - `promo_code:update`
+        - `access_pass:basic:read`
+
+        Args:
+          status: The status to apply to the promo code.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            path_template("/promo_codes/{id}", id=id),
+            body=maybe_transform({"status": status}, promo_code_update_params.PromoCodeUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -498,6 +541,48 @@ class AsyncPromoCodesResource(AsyncAPIResource):
             cast_to=PromoCode,
         )
 
+    async def update(
+        self,
+        id: str,
+        *,
+        status: Literal["active", "inactive"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PromoCode:
+        """
+        Update whether a promo code can be used at checkout.
+
+        Required permissions:
+
+        - `promo_code:update`
+        - `access_pass:basic:read`
+
+        Args:
+          status: The status to apply to the promo code.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            path_template("/promo_codes/{id}", id=id),
+            body=await async_maybe_transform({"status": status}, promo_code_update_params.PromoCodeUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PromoCode,
+        )
+
     def list(
         self,
         *,
@@ -632,6 +717,9 @@ class PromoCodesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             promo_codes.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            promo_codes.update,
+        )
         self.list = to_raw_response_wrapper(
             promo_codes.list,
         )
@@ -649,6 +737,9 @@ class AsyncPromoCodesResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             promo_codes.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            promo_codes.update,
         )
         self.list = async_to_raw_response_wrapper(
             promo_codes.list,
@@ -668,6 +759,9 @@ class PromoCodesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             promo_codes.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            promo_codes.update,
+        )
         self.list = to_streamed_response_wrapper(
             promo_codes.list,
         )
@@ -685,6 +779,9 @@ class AsyncPromoCodesResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             promo_codes.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            promo_codes.update,
         )
         self.list = async_to_streamed_response_wrapper(
             promo_codes.list,
