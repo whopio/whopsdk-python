@@ -1,89 +1,43 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-from datetime import datetime
+from typing import List, Optional
 
 from .._models import BaseModel
-from .payout_destination_category import PayoutDestinationCategory
 
-__all__ = ["PayoutMethodListResponse", "Company", "Destination"]
+__all__ = ["PayoutMethodListResponse", "Pagination", "PayoutMethod"]
 
 
-class Company(BaseModel):
-    """The company associated with this payout destination.
+class Pagination(BaseModel):
+    current_page: int
 
-    Null if not linked to a specific company.
-    """
+    next_page: Optional[int] = None
 
+    prev_page: Optional[int] = None
+
+    total_count: int
+
+    total_pages: int
+
+
+class PayoutMethod(BaseModel):
     id: str
-    """The unique identifier for the company."""
 
+    destination_currency_code: str
 
-class Destination(BaseModel):
-    """The payout destination configuration linked to this token.
+    is_default: bool
 
-    Null if not yet configured.
-    """
+    status: str
 
-    category: PayoutDestinationCategory
-    """The category of the payout destination"""
+    token_type: str
 
-    country_code: str
-    """The country code of the payout destination"""
+    institution_name: Optional[str] = None
 
-    name: str
-    """The name of the payer associated with the payout destination"""
+    nickname: Optional[str] = None
+
+    payout_destination_id: Optional[str] = None
 
 
 class PayoutMethodListResponse(BaseModel):
-    """
-    A configured payout destination where a user receives earned funds, such as a bank account or digital wallet.
-    """
+    pagination: Pagination
 
-    id: str
-    """The unique identifier for the payout token."""
-
-    account_reference: Optional[str] = None
-    """
-    A masked identifier for the payout destination, such as the last four digits of
-    a bank account or an email address. Null if no reference is available.
-    """
-
-    company: Optional[Company] = None
-    """The company associated with this payout destination.
-
-    Null if not linked to a specific company.
-    """
-
-    created_at: datetime
-    """The datetime the payout token was created."""
-
-    currency: str
-    """
-    The three-letter ISO currency code that payouts are delivered in for this
-    destination.
-    """
-
-    destination: Optional[Destination] = None
-    """The payout destination configuration linked to this token.
-
-    Null if not yet configured.
-    """
-
-    institution_name: Optional[str] = None
-    """The name of the bank or financial institution receiving payouts.
-
-    Null if not applicable or not provided.
-    """
-
-    is_default: bool
-    """
-    Whether this is the default payout destination for the associated payout
-    account.
-    """
-
-    nickname: Optional[str] = None
-    """A user-defined label to help identify this payout destination.
-
-    Not sent to the provider. Null if no nickname has been set.
-    """
+    payout_methods: List[PayoutMethod]

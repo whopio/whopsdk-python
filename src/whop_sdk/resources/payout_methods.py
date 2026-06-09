@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
 from ..types import payout_method_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -17,8 +15,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.payout_method_list_response import PayoutMethodListResponse
 from ..types.payout_method_retrieve_response import PayoutMethodRetrieveResponse
 
@@ -26,8 +23,6 @@ __all__ = ["PayoutMethodsResource", "AsyncPayoutMethodsResource"]
 
 
 class PayoutMethodsResource(SyncAPIResource):
-    """Payout methods"""
-
     @cached_property
     def with_raw_response(self) -> PayoutMethodsResourceWithRawResponse:
         """
@@ -87,36 +82,26 @@ class PayoutMethodsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str,
+        page: int | Omit = omit,
+        per: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[PayoutMethodListResponse]:
+    ) -> PayoutMethodListResponse:
         """
-        Returns a list of active payout methods configured for a company, ordered by
-        most recently created.
-
-        Required permissions:
-
-        - `payout:destination:read`
+        Lists all saved payout methods (configured bank accounts, wallets, or other
+        destinations) for the given account.
 
         Args:
-          company_id: The unique identifier of the company to list payout methods for.
+          account_id: The business or user account ID whose payout methods should be returned.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          page: Page number (default: 1).
 
-          before: Returns the elements in the list that come before the specified cursor.
-
-          first: Returns the first _n_ elements from the list.
-
-          last: Returns the last _n_ elements from the list.
+          per: Records per page (default: 10, max: 50).
 
           extra_headers: Send extra headers
 
@@ -126,9 +111,8 @@ class PayoutMethodsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/payout_methods",
-            page=SyncCursorPage[PayoutMethodListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -136,22 +120,18 @@ class PayoutMethodsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
-                        "after": after,
-                        "before": before,
-                        "first": first,
-                        "last": last,
+                        "account_id": account_id,
+                        "page": page,
+                        "per": per,
                     },
                     payout_method_list_params.PayoutMethodListParams,
                 ),
             ),
-            model=PayoutMethodListResponse,
+            cast_to=PayoutMethodListResponse,
         )
 
 
 class AsyncPayoutMethodsResource(AsyncAPIResource):
-    """Payout methods"""
-
     @cached_property
     def with_raw_response(self) -> AsyncPayoutMethodsResourceWithRawResponse:
         """
@@ -208,39 +188,29 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
             cast_to=PayoutMethodRetrieveResponse,
         )
 
-    def list(
+    async def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str,
+        page: int | Omit = omit,
+        per: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[PayoutMethodListResponse, AsyncCursorPage[PayoutMethodListResponse]]:
+    ) -> PayoutMethodListResponse:
         """
-        Returns a list of active payout methods configured for a company, ordered by
-        most recently created.
-
-        Required permissions:
-
-        - `payout:destination:read`
+        Lists all saved payout methods (configured bank accounts, wallets, or other
+        destinations) for the given account.
 
         Args:
-          company_id: The unique identifier of the company to list payout methods for.
+          account_id: The business or user account ID whose payout methods should be returned.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          page: Page number (default: 1).
 
-          before: Returns the elements in the list that come before the specified cursor.
-
-          first: Returns the first _n_ elements from the list.
-
-          last: Returns the last _n_ elements from the list.
+          per: Records per page (default: 10, max: 50).
 
           extra_headers: Send extra headers
 
@@ -250,26 +220,23 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/payout_methods",
-            page=AsyncCursorPage[PayoutMethodListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
-                        "company_id": company_id,
-                        "after": after,
-                        "before": before,
-                        "first": first,
-                        "last": last,
+                        "account_id": account_id,
+                        "page": page,
+                        "per": per,
                     },
                     payout_method_list_params.PayoutMethodListParams,
                 ),
             ),
-            model=PayoutMethodListResponse,
+            cast_to=PayoutMethodListResponse,
         )
 
 

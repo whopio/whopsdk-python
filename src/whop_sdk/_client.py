@@ -95,6 +95,7 @@ if TYPE_CHECKING:
         payout_accounts,
         authorized_users,
         support_channels,
+        financial_activity,
         checkout_configurations,
         resolution_center_cases,
         company_token_transactions,
@@ -158,6 +159,7 @@ if TYPE_CHECKING:
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
+    from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -524,6 +526,12 @@ class Whop(SyncAPIClient):
         return WalletsResource(self)
 
     @cached_property
+    def financial_activity(self) -> FinancialActivityResource:
+        from .resources.financial_activity import FinancialActivityResource
+
+        return FinancialActivityResource(self)
+
+    @cached_property
     def swaps(self) -> SwapsResource:
         from .resources.swaps import SwapsResource
 
@@ -558,7 +566,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def payout_methods(self) -> PayoutMethodsResource:
-        """Payout methods"""
         from .resources.payout_methods import PayoutMethodsResource
 
         return PayoutMethodsResource(self)
@@ -1158,6 +1165,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncWalletsResource(self)
 
     @cached_property
+    def financial_activity(self) -> AsyncFinancialActivityResource:
+        from .resources.financial_activity import AsyncFinancialActivityResource
+
+        return AsyncFinancialActivityResource(self)
+
+    @cached_property
     def swaps(self) -> AsyncSwapsResource:
         from .resources.swaps import AsyncSwapsResource
 
@@ -1192,7 +1205,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def payout_methods(self) -> AsyncPayoutMethodsResource:
-        """Payout methods"""
         from .resources.payout_methods import AsyncPayoutMethodsResource
 
         return AsyncPayoutMethodsResource(self)
@@ -1719,6 +1731,12 @@ class WhopWithRawResponse:
         return WalletsResourceWithRawResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.FinancialActivityResourceWithRawResponse:
+        from .resources.financial_activity import FinancialActivityResourceWithRawResponse
+
+        return FinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithRawResponse:
         from .resources.swaps import SwapsResourceWithRawResponse
 
@@ -1753,7 +1771,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithRawResponse:
-        """Payout methods"""
         from .resources.payout_methods import PayoutMethodsResourceWithRawResponse
 
         return PayoutMethodsResourceWithRawResponse(self._client.payout_methods)
@@ -2165,6 +2182,12 @@ class AsyncWhopWithRawResponse:
         return AsyncWalletsResourceWithRawResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithRawResponse:
+        from .resources.financial_activity import AsyncFinancialActivityResourceWithRawResponse
+
+        return AsyncFinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithRawResponse:
         from .resources.swaps import AsyncSwapsResourceWithRawResponse
 
@@ -2199,7 +2222,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithRawResponse:
-        """Payout methods"""
         from .resources.payout_methods import AsyncPayoutMethodsResourceWithRawResponse
 
         return AsyncPayoutMethodsResourceWithRawResponse(self._client.payout_methods)
@@ -2613,6 +2635,12 @@ class WhopWithStreamedResponse:
         return WalletsResourceWithStreamingResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.FinancialActivityResourceWithStreamingResponse:
+        from .resources.financial_activity import FinancialActivityResourceWithStreamingResponse
+
+        return FinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithStreamingResponse:
         from .resources.swaps import SwapsResourceWithStreamingResponse
 
@@ -2647,7 +2675,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithStreamingResponse:
-        """Payout methods"""
         from .resources.payout_methods import PayoutMethodsResourceWithStreamingResponse
 
         return PayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
@@ -3063,6 +3090,12 @@ class AsyncWhopWithStreamedResponse:
         return AsyncWalletsResourceWithStreamingResponse(self._client.wallets)
 
     @cached_property
+    def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithStreamingResponse:
+        from .resources.financial_activity import AsyncFinancialActivityResourceWithStreamingResponse
+
+        return AsyncFinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithStreamingResponse:
         from .resources.swaps import AsyncSwapsResourceWithStreamingResponse
 
@@ -3097,7 +3130,6 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithStreamingResponse:
-        """Payout methods"""
         from .resources.payout_methods import AsyncPayoutMethodsResourceWithStreamingResponse
 
         return AsyncPayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)

@@ -2,24 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["PayoutMethodListParams"]
 
 
 class PayoutMethodListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list payout methods for."""
+    account_id: Required[str]
+    """The business or user account ID whose payout methods should be returned."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    page: int
+    """Page number (default: 1)."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
-
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
-
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    per: int
+    """Records per page (default: 10, max: 50)."""
