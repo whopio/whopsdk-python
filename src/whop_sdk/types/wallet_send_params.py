@@ -8,6 +8,9 @@ __all__ = ["WalletSendParams"]
 
 
 class WalletSendParams(TypedDict, total=False):
+    account_id: Required[str]
+    """The sending account ID."""
+
     amount: Required[str]
     """USDT amount to send."""
 
