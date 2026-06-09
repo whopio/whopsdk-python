@@ -141,6 +141,52 @@ class TestPromoCodes:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_update(self, client: Whop) -> None:
+        promo_code = client.promo_codes.update(
+            id="promo_xxxxxxxxxxxx",
+            status="active",
+        )
+        assert_matches_type(PromoCode, promo_code, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Whop) -> None:
+        response = client.promo_codes.with_raw_response.update(
+            id="promo_xxxxxxxxxxxx",
+            status="active",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        promo_code = response.parse()
+        assert_matches_type(PromoCode, promo_code, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Whop) -> None:
+        with client.promo_codes.with_streaming_response.update(
+            id="promo_xxxxxxxxxxxx",
+            status="active",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            promo_code = response.parse()
+            assert_matches_type(PromoCode, promo_code, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.promo_codes.with_raw_response.update(
+                id="",
+                status="active",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_list(self, client: Whop) -> None:
         promo_code = client.promo_codes.list(
             company_id="biz_xxxxxxxxxxxxxx",
@@ -352,6 +398,52 @@ class TestAsyncPromoCodes:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.promo_codes.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
+        promo_code = await async_client.promo_codes.update(
+            id="promo_xxxxxxxxxxxx",
+            status="active",
+        )
+        assert_matches_type(PromoCode, promo_code, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
+        response = await async_client.promo_codes.with_raw_response.update(
+            id="promo_xxxxxxxxxxxx",
+            status="active",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        promo_code = await response.parse()
+        assert_matches_type(PromoCode, promo_code, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
+        async with async_client.promo_codes.with_streaming_response.update(
+            id="promo_xxxxxxxxxxxx",
+            status="active",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            promo_code = await response.parse()
+            assert_matches_type(PromoCode, promo_code, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.promo_codes.with_raw_response.update(
+                id="",
+                status="active",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
