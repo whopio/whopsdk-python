@@ -35,7 +35,19 @@ class AdCampaignListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     query: Optional[str]
-    """Case-insensitive substring match against the campaign title."""
+    """Case-insensitive substring match against the campaign title or ID."""
+
+    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """
+    Inclusive start of the window for each campaign's metric fields (spend,
+    impressions, …). Omit both statsFrom and statsTo for all-time stats.
+    """
+
+    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Inclusive end of the window for each campaign's metric fields.
+
+    Omit both statsFrom and statsTo for all-time stats.
+    """
 
     status: Optional[AdCampaignStatus]
     """The status of an ad campaign."""
