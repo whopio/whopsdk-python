@@ -7,8 +7,8 @@ from datetime import datetime
 
 import httpx
 
-from ..types import AdBudgetType, AdGroupStatus, ad_group_list_params, ad_group_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..types import AdBudgetType, AdGroupStatus, ad_group_list_params, ad_group_update_params, ad_group_retrieve_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -55,6 +55,8 @@ class AdGroupsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -70,6 +72,12 @@ class AdGroupsResource(SyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
+          stats_from: Inclusive start of the window for the ad group's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for the ad group's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -83,7 +91,17 @@ class AdGroupsResource(SyncAPIResource):
         return self._get(
             path_template("/ad_groups/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
+                    },
+                    ad_group_retrieve_params.AdGroupRetrieveParams,
+                ),
             ),
             cast_to=AdGroup,
         )
@@ -99,6 +117,7 @@ class AdGroupsResource(SyncAPIResource):
         name: Optional[str] | Omit = omit,
         platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,6 +148,8 @@ class AdGroupsResource(SyncAPIResource):
 
           status: The status of an external ad group.
 
+          title: Human-readable ad group title.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -150,6 +171,7 @@ class AdGroupsResource(SyncAPIResource):
                     "name": name,
                     "platform_config": platform_config,
                     "status": status,
+                    "title": title,
                 },
                 ad_group_update_params.AdGroupUpdateParams,
             ),
@@ -162,6 +184,8 @@ class AdGroupsResource(SyncAPIResource):
     def list(
         self,
         *,
+        ad_campaign_id: Optional[str] | Omit = omit,
+        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         campaign_id: Optional[str] | Omit = omit,
@@ -169,9 +193,10 @@ class AdGroupsResource(SyncAPIResource):
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
-        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -189,13 +214,18 @@ class AdGroupsResource(SyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
+          ad_campaign_id: Filter by ad campaign. Provide exactly one of ad_campaign_id or company_id.
+
+          ad_campaign_ids: Only return ad groups belonging to these ad campaigns (max 100). Can be combined
+              with companyId or used on its own.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          campaign_id: Filter by campaign. Provide exactly one of campaign_id or company_id.
+          campaign_id: Filter by campaign.
 
-          company_id: Filter by company. Provide exactly one of campaign_id or company_id.
+          company_id: Filter by company. Provide companyId or adCampaignIds.
 
           created_after: Only return ad groups created after this timestamp.
 
@@ -203,12 +233,15 @@ class AdGroupsResource(SyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
-          include_paused: When false, excludes paused ad groups so pagination matches the dashboard's
-              hide-paused toggle.
-
           last: Returns the last _n_ elements from the list.
 
-          query: Case-insensitive substring match against the ad group name.
+          query: Case-insensitive substring match against the ad group name or ID.
+
+          stats_from: Inclusive start of the window for each ad group's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for each ad group's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
 
           status: The status of an external ad group.
 
@@ -230,6 +263,8 @@ class AdGroupsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "ad_campaign_id": ad_campaign_id,
+                        "ad_campaign_ids": ad_campaign_ids,
                         "after": after,
                         "before": before,
                         "campaign_id": campaign_id,
@@ -237,9 +272,10 @@ class AdGroupsResource(SyncAPIResource):
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
-                        "include_paused": include_paused,
                         "last": last,
                         "query": query,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_group_list_params.AdGroupListParams,
@@ -388,6 +424,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -403,6 +441,12 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
+          stats_from: Inclusive start of the window for the ad group's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for the ad group's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -416,7 +460,17 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         return await self._get(
             path_template("/ad_groups/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
+                    },
+                    ad_group_retrieve_params.AdGroupRetrieveParams,
+                ),
             ),
             cast_to=AdGroup,
         )
@@ -432,6 +486,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         name: Optional[str] | Omit = omit,
         platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
+        title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -462,6 +517,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           status: The status of an external ad group.
 
+          title: Human-readable ad group title.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -483,6 +540,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                     "name": name,
                     "platform_config": platform_config,
                     "status": status,
+                    "title": title,
                 },
                 ad_group_update_params.AdGroupUpdateParams,
             ),
@@ -495,6 +553,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        ad_campaign_id: Optional[str] | Omit = omit,
+        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         campaign_id: Optional[str] | Omit = omit,
@@ -502,9 +562,10 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         first: Optional[int] | Omit = omit,
-        include_paused: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         query: Optional[str] | Omit = omit,
+        stats_from: Union[str, datetime, None] | Omit = omit,
+        stats_to: Union[str, datetime, None] | Omit = omit,
         status: Optional[AdGroupStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -522,13 +583,18 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
+          ad_campaign_id: Filter by ad campaign. Provide exactly one of ad_campaign_id or company_id.
+
+          ad_campaign_ids: Only return ad groups belonging to these ad campaigns (max 100). Can be combined
+              with companyId or used on its own.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          campaign_id: Filter by campaign. Provide exactly one of campaign_id or company_id.
+          campaign_id: Filter by campaign.
 
-          company_id: Filter by company. Provide exactly one of campaign_id or company_id.
+          company_id: Filter by company. Provide companyId or adCampaignIds.
 
           created_after: Only return ad groups created after this timestamp.
 
@@ -536,12 +602,15 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
-          include_paused: When false, excludes paused ad groups so pagination matches the dashboard's
-              hide-paused toggle.
-
           last: Returns the last _n_ elements from the list.
 
-          query: Case-insensitive substring match against the ad group name.
+          query: Case-insensitive substring match against the ad group name or ID.
+
+          stats_from: Inclusive start of the window for each ad group's metric fields (spend,
+              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+          stats_to: Inclusive end of the window for each ad group's metric fields. Omit both
+              statsFrom and statsTo for all-time stats.
 
           status: The status of an external ad group.
 
@@ -563,6 +632,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "ad_campaign_id": ad_campaign_id,
+                        "ad_campaign_ids": ad_campaign_ids,
                         "after": after,
                         "before": before,
                         "campaign_id": campaign_id,
@@ -570,9 +641,10 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
-                        "include_paused": include_paused,
                         "last": last,
                         "query": query,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_group_list_params.AdGroupListParams,
