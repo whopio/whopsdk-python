@@ -233,6 +233,7 @@ class TestCheckoutConfigurations:
             },
             redirect_url="redirect_url",
             source_url="source_url",
+            three_ds_level="mandate_challenge",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -581,6 +582,7 @@ class TestAsyncCheckoutConfigurations:
             },
             redirect_url="redirect_url",
             source_url="source_url",
+            three_ds_level="mandate_challenge",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
