@@ -4,12 +4,15 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["UserUpdateParams", "ProfilePicture"]
+__all__ = ["UserUpdateMeParams", "ProfilePicture"]
 
 
-class UserUpdateParams(TypedDict, total=False):
+class UserUpdateMeParams(TypedDict, total=False):
     account_id: str
-    """The account whose profile override to update. Required for API key callers."""
+    """
+    When set, updates the authenticated user's profile override for this account
+    instead of their global profile.
+    """
 
     bio: str
 

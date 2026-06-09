@@ -180,6 +180,7 @@ class Whop(SyncAPIClient):
     api_key: str
     webhook_key: str | None
     app_id: str | None
+    version: str | None
 
     def __init__(
         self,
@@ -187,6 +188,7 @@ class Whop(SyncAPIClient):
         api_key: str | None = None,
         webhook_key: str | None = None,
         app_id: str | None = None,
+        version: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -212,6 +214,7 @@ class Whop(SyncAPIClient):
         - `api_key` from `WHOP_API_KEY`
         - `webhook_key` from `WHOP_WEBHOOK_SECRET`
         - `app_id` from `WHOP_APP_ID`
+        - `version` from `WHOP_API_VERSION`
         """
         if api_key is None:
             api_key = os.environ.get("WHOP_API_KEY")
@@ -228,6 +231,10 @@ class Whop(SyncAPIClient):
         if app_id is None:
             app_id = os.environ.get("WHOP_APP_ID")
         self.app_id = app_id
+
+        if version is None:
+            version = os.environ.get("WHOP_API_VERSION") or "2026-06-08"
+        self.version = version
 
         if base_url is None:
             base_url = os.environ.get("WHOP_BASE_URL")
@@ -382,7 +389,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def users(self) -> UsersResource:
-        """Users"""
         from .resources.users import UsersResource
 
         return UsersResource(self)
@@ -723,6 +729,7 @@ class Whop(SyncAPIClient):
             **super().default_headers,
             "X-Stainless-Async": "false",
             "X-Whop-App-Id": self.app_id if self.app_id is not None else Omit(),
+            "Api-Version-Date": self.version if self.version is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -732,6 +739,7 @@ class Whop(SyncAPIClient):
         api_key: str | None = None,
         webhook_key: str | None = None,
         app_id: str | None = None,
+        version: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -768,6 +776,7 @@ class Whop(SyncAPIClient):
             api_key=api_key or self.api_key,
             webhook_key=webhook_key or self.webhook_key,
             app_id=app_id or self.app_id,
+            version=version or self.version,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -820,6 +829,7 @@ class AsyncWhop(AsyncAPIClient):
     api_key: str
     webhook_key: str | None
     app_id: str | None
+    version: str | None
 
     def __init__(
         self,
@@ -827,6 +837,7 @@ class AsyncWhop(AsyncAPIClient):
         api_key: str | None = None,
         webhook_key: str | None = None,
         app_id: str | None = None,
+        version: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -852,6 +863,7 @@ class AsyncWhop(AsyncAPIClient):
         - `api_key` from `WHOP_API_KEY`
         - `webhook_key` from `WHOP_WEBHOOK_SECRET`
         - `app_id` from `WHOP_APP_ID`
+        - `version` from `WHOP_API_VERSION`
         """
         if api_key is None:
             api_key = os.environ.get("WHOP_API_KEY")
@@ -868,6 +880,10 @@ class AsyncWhop(AsyncAPIClient):
         if app_id is None:
             app_id = os.environ.get("WHOP_APP_ID")
         self.app_id = app_id
+
+        if version is None:
+            version = os.environ.get("WHOP_API_VERSION") or "2026-06-08"
+        self.version = version
 
         if base_url is None:
             base_url = os.environ.get("WHOP_BASE_URL")
@@ -1022,7 +1038,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def users(self) -> AsyncUsersResource:
-        """Users"""
         from .resources.users import AsyncUsersResource
 
         return AsyncUsersResource(self)
@@ -1363,6 +1378,7 @@ class AsyncWhop(AsyncAPIClient):
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
             "X-Whop-App-Id": self.app_id if self.app_id is not None else Omit(),
+            "Api-Version-Date": self.version if self.version is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -1372,6 +1388,7 @@ class AsyncWhop(AsyncAPIClient):
         api_key: str | None = None,
         webhook_key: str | None = None,
         app_id: str | None = None,
+        version: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -1408,6 +1425,7 @@ class AsyncWhop(AsyncAPIClient):
             api_key=api_key or self.api_key,
             webhook_key=webhook_key or self.webhook_key,
             app_id=app_id or self.app_id,
+            version=version or self.version,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -1589,7 +1607,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def users(self) -> users.UsersResourceWithRawResponse:
-        """Users"""
         from .resources.users import UsersResourceWithRawResponse
 
         return UsersResourceWithRawResponse(self._client.users)
@@ -2041,7 +2058,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithRawResponse:
-        """Users"""
         from .resources.users import AsyncUsersResourceWithRawResponse
 
         return AsyncUsersResourceWithRawResponse(self._client.users)
@@ -2495,7 +2511,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def users(self) -> users.UsersResourceWithStreamingResponse:
-        """Users"""
         from .resources.users import UsersResourceWithStreamingResponse
 
         return UsersResourceWithStreamingResponse(self._client.users)
@@ -2951,7 +2966,6 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
-        """Users"""
         from .resources.users import AsyncUsersResourceWithStreamingResponse
 
         return AsyncUsersResourceWithStreamingResponse(self._client.users)
