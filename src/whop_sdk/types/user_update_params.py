@@ -2,15 +2,38 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing import Optional
+from typing_extensions import Required, TypedDict
 
-__all__ = ["UserUpdateParams"]
+__all__ = ["UserUpdateParams", "ProfilePicture"]
 
 
 class UserUpdateParams(TypedDict, total=False):
-    account_id: str
-    """The account whose profile override to update. Required for API key callers."""
+    bio: Optional[str]
+    """A short biography displayed on the user's public profile."""
 
-    bio: str
+    company_id: Optional[str]
+    """
+    When provided, updates the user's profile overrides for this company instead of
+    the global profile. Pass name and profile_picture to set overrides, or null to
+    clear them.
+    """
 
-    name: str
+    name: Optional[str]
+    """The user's display name shown on their public profile. Maximum 100 characters."""
+
+    profile_picture: Optional[ProfilePicture]
+    """The user's profile picture image attachment."""
+
+    username: Optional[str]
+    """The user's unique username.
+
+    Alphanumeric characters and hyphens only. Maximum 42 characters.
+    """
+
+
+class ProfilePicture(TypedDict, total=False):
+    """The user's profile picture image attachment."""
+
+    id: Required[str]
+    """The ID of an existing file object."""

@@ -2,23 +2,24 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["UserListParams"]
 
 
 class UserListParams(TypedDict, total=False):
-    after: str
-    """A cursor; returns users after this position."""
+    after: Optional[str]
+    """Returns the elements in the list that come after the specified cursor."""
 
-    before: str
-    """A cursor; returns users before this position."""
+    before: Optional[str]
+    """Returns the elements in the list that come before the specified cursor."""
 
-    first: int
-    """The number of users to return (max 50)."""
+    first: Optional[int]
+    """Returns the first _n_ elements from the list."""
 
-    last: int
-    """The number of users to return from the end of the range."""
+    last: Optional[int]
+    """Returns the last _n_ elements from the list."""
 
-    query: str
-    """A search term to filter users by name or username."""
+    query: Optional[str]
+    """Search term to filter by name or username."""
