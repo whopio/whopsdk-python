@@ -41,7 +41,6 @@ if TYPE_CHECKING:
         files,
         leads,
         plans,
-        users,
         forums,
         topups,
         courses,
@@ -101,7 +100,6 @@ if TYPE_CHECKING:
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
-    from .resources.users import UsersResource, AsyncUsersResource
     from .resources.forums import ForumsResource, AsyncForumsResource
     from .resources.topups import TopupsResource, AsyncTopupsResource
     from .resources.courses import CoursesResource, AsyncCoursesResource
@@ -369,13 +367,6 @@ class Whop(SyncAPIClient):
         from .resources.chat_channels import ChatChannelsResource
 
         return ChatChannelsResource(self)
-
-    @cached_property
-    def users(self) -> UsersResource:
-        """Users"""
-        from .resources.users import UsersResource
-
-        return UsersResource(self)
 
     @cached_property
     def payments(self) -> PaymentsResource:
@@ -981,13 +972,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncChatChannelsResource(self)
 
     @cached_property
-    def users(self) -> AsyncUsersResource:
-        """Users"""
-        from .resources.users import AsyncUsersResource
-
-        return AsyncUsersResource(self)
-
-    @cached_property
     def payments(self) -> AsyncPaymentsResource:
         """Payments"""
         from .resources.payments import AsyncPaymentsResource
@@ -1518,13 +1502,6 @@ class WhopWithRawResponse:
         return ChatChannelsResourceWithRawResponse(self._client.chat_channels)
 
     @cached_property
-    def users(self) -> users.UsersResourceWithRawResponse:
-        """Users"""
-        from .resources.users import UsersResourceWithRawResponse
-
-        return UsersResourceWithRawResponse(self._client.users)
-
-    @cached_property
     def payments(self) -> payments.PaymentsResourceWithRawResponse:
         """Payments"""
         from .resources.payments import PaymentsResourceWithRawResponse
@@ -1938,13 +1915,6 @@ class AsyncWhopWithRawResponse:
         from .resources.chat_channels import AsyncChatChannelsResourceWithRawResponse
 
         return AsyncChatChannelsResourceWithRawResponse(self._client.chat_channels)
-
-    @cached_property
-    def users(self) -> users.AsyncUsersResourceWithRawResponse:
-        """Users"""
-        from .resources.users import AsyncUsersResourceWithRawResponse
-
-        return AsyncUsersResourceWithRawResponse(self._client.users)
 
     @cached_property
     def payments(self) -> payments.AsyncPaymentsResourceWithRawResponse:
@@ -2364,13 +2334,6 @@ class WhopWithStreamedResponse:
         return ChatChannelsResourceWithStreamingResponse(self._client.chat_channels)
 
     @cached_property
-    def users(self) -> users.UsersResourceWithStreamingResponse:
-        """Users"""
-        from .resources.users import UsersResourceWithStreamingResponse
-
-        return UsersResourceWithStreamingResponse(self._client.users)
-
-    @cached_property
     def payments(self) -> payments.PaymentsResourceWithStreamingResponse:
         """Payments"""
         from .resources.payments import PaymentsResourceWithStreamingResponse
@@ -2788,13 +2751,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.chat_channels import AsyncChatChannelsResourceWithStreamingResponse
 
         return AsyncChatChannelsResourceWithStreamingResponse(self._client.chat_channels)
-
-    @cached_property
-    def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
-        """Users"""
-        from .resources.users import AsyncUsersResourceWithStreamingResponse
-
-        return AsyncUsersResourceWithStreamingResponse(self._client.users)
 
     @cached_property
     def payments(self) -> payments.AsyncPaymentsResourceWithStreamingResponse:

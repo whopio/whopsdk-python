@@ -40,14 +40,6 @@ from .plans import (
     PlansResourceWithStreamingResponse,
     AsyncPlansResourceWithStreamingResponse,
 )
-from .users import (
-    UsersResource,
-    AsyncUsersResource,
-    UsersResourceWithRawResponse,
-    AsyncUsersResourceWithRawResponse,
-    UsersResourceWithStreamingResponse,
-    AsyncUsersResourceWithStreamingResponse,
-)
 from .forums import (
     ForumsResource,
     AsyncForumsResource,
@@ -582,12 +574,6 @@ __all__ = [
     "AsyncChatChannelsResourceWithRawResponse",
     "ChatChannelsResourceWithStreamingResponse",
     "AsyncChatChannelsResourceWithStreamingResponse",
-    "UsersResource",
-    "AsyncUsersResource",
-    "UsersResourceWithRawResponse",
-    "AsyncUsersResourceWithRawResponse",
-    "UsersResourceWithStreamingResponse",
-    "AsyncUsersResourceWithStreamingResponse",
     "PaymentsResource",
     "AsyncPaymentsResource",
     "PaymentsResourceWithRawResponse",

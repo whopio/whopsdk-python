@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from .ad import Ad as Ad
 from .lead import Lead as Lead
-from .user import User as User
 from .course import Course as Course
 from .lesson import Lesson as Lesson
 from .shared import (
@@ -109,7 +108,6 @@ from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
 from .plan_list_params import PlanListParams as PlanListParams
-from .user_list_params import UserListParams as UserListParams
 from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams
@@ -135,8 +133,6 @@ from .plan_list_response import PlanListResponse as PlanListResponse
 from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .refund_list_params import RefundListParams as RefundListParams
 from .review_list_params import ReviewListParams as ReviewListParams
-from .user_list_response import UserListResponse as UserListResponse
-from .user_update_params import UserUpdateParams as UserUpdateParams
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
 from .company_list_params import CompanyListParams as CompanyListParams
 from .course_visibilities import CourseVisibilities as CourseVisibilities
@@ -173,7 +169,6 @@ from .shipment_list_params import ShipmentListParams as ShipmentListParams
 from .social_link_websites import SocialLinkWebsites as SocialLinkWebsites
 from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
-from .user_retrieve_params import UserRetrieveParams as UserRetrieveParams
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
 from .affiliate_list_params import AffiliateListParams as AffiliateListParams
 from .ai_chat_create_params import AIChatCreateParams as AIChatCreateParams
@@ -302,7 +297,6 @@ from .payment_list_fees_response import PaymentListFeesResponse as PaymentListFe
 from .payment_method_list_params import PaymentMethodListParams as PaymentMethodListParams
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
-from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .verification_list_response import VerificationListResponse as VerificationListResponse
 from .ad_campaign_retrieve_params import AdCampaignRetrieveParams as AdCampaignRetrieveParams
 from .ad_report_retrieve_response import AdReportRetrieveResponse as AdReportRetrieveResponse
