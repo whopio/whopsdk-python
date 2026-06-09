@@ -16,17 +16,11 @@ __all__ = ["AdCampaign", "Issue"]
 class Issue(BaseModel):
     """A platform-reported issue on an ad object (rejection, policy flag, etc.)."""
 
+    category: Optional[Literal["policy_rejection", "creative_media", "audience_targeting", "ad_volume_limit"]] = None
+    """Whop's canonical category that a raw platform issue is bucketed into."""
+
     created_at: datetime
     """When the issue was first reported."""
-
-    error_code: Optional[str] = None
-    """Platform-specific error code."""
-
-    error_message: Optional[str] = None
-    """Full error detail from the platform."""
-
-    error_summary: str
-    """Short description of the issue."""
 
     resolution_status: Literal["open", "resolved", "acknowledged"]
     """Current resolution status."""
@@ -41,6 +35,12 @@ class Issue(BaseModel):
     """The kind of ad object this issue is on: `ad`, `ad_group`, or `ad_campaign`.
 
     Pairs with `resourceId`.
+    """
+
+    subtype: Optional[str] = None
+    """Finer-grained sub-bucket within the category (e.g.
+
+    the specific Meta policy for a rejection).
     """
 
 
