@@ -1,32 +1,36 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List
 from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["WalletBalanceResponse", "Token"]
+__all__ = ["WalletBalanceResponse", "Balance"]
 
 
-class Token(BaseModel):
-    balance: str
+class Balance(BaseModel):
+    balance: float
 
-    icon_url: Optional[str] = None
+    balance_usd: float
 
-    name: str
+    currency: str
 
-    price_usd: float
+    pending_balance: float
 
-    symbol: str
+    pending_balance_usd: float
 
-    token_address: Optional[str] = None
+    reserve_balance: float
 
-    value_usd: str
+    reserve_balance_usd: float
+
+    withdrawable_balance: float
+
+    withdrawable_balance_usd: float
 
 
 class WalletBalanceResponse(BaseModel):
-    object: Literal["balance"]
+    balances: List[Balance]
 
-    tokens: List[Token]
+    object: Literal["balance"]
 
     total_usd: str
