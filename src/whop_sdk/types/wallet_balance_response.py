@@ -5,28 +5,26 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["WalletBalanceResponse", "Token"]
+__all__ = ["WalletBalanceResponse", "Balance"]
 
 
-class Token(BaseModel):
-    balance: str
+class Balance(BaseModel):
+    address: Optional[str] = None
 
-    icon_url: Optional[str] = None
+    amount: float
 
-    name: str
+    chain_id: Optional[str] = None
 
-    price_usd: float
+    currency: str
 
-    symbol: str
+    network: Optional[str] = None
 
-    token_address: Optional[str] = None
-
-    value_usd: str
+    usd_value: float
 
 
 class WalletBalanceResponse(BaseModel):
-    object: Literal["balance"]
+    balances: List[Balance]
 
-    tokens: List[Token]
+    object: Literal["balance"]
 
     total_usd: str
