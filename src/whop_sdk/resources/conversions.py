@@ -117,7 +117,7 @@ class ConversionsResource(SyncAPIResource):
 
           currency: The available currencies on the platform
 
-          custom_name: Custom event name when event_name is 'custom'.
+          custom_name: Custom event name when event_name is 'custom'. Maximum 35 chars for this value.
 
           duration: For 'leave' events: milliseconds the visitor spent on the page.
 
@@ -275,7 +275,7 @@ class AsyncConversionsResource(AsyncAPIResource):
 
           currency: The available currencies on the platform
 
-          custom_name: Custom event name when event_name is 'custom'.
+          custom_name: Custom event name when event_name is 'custom'. Maximum 35 chars for this value.
 
           duration: For 'leave' events: milliseconds the visitor spent on the page.
 
