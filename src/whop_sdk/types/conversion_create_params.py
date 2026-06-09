@@ -53,7 +53,7 @@ class ConversionCreateParams(TypedDict, total=False):
     """The available currencies on the platform"""
 
     custom_name: Optional[str]
-    """Custom event name when event_name is 'custom'."""
+    """Custom event name when event_name is 'custom'. Maximum 35 chars for this value."""
 
     duration: Optional[int]
     """For 'leave' events: milliseconds the visitor spent on the page."""
