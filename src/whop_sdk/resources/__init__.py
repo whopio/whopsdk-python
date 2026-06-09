@@ -360,6 +360,14 @@ from .account_links import (
     AccountLinksResourceWithStreamingResponse,
     AsyncAccountLinksResourceWithStreamingResponse,
 )
+from .calculate_tax import (
+    CalculateTaxResource,
+    AsyncCalculateTaxResource,
+    CalculateTaxResourceWithRawResponse,
+    AsyncCalculateTaxResourceWithRawResponse,
+    CalculateTaxResourceWithStreamingResponse,
+    AsyncCalculateTaxResourceWithStreamingResponse,
+)
 from .chat_channels import (
     ChatChannelsResource,
     AsyncChatChannelsResource,
@@ -471,6 +479,14 @@ from .support_channels import (
     AsyncSupportChannelsResourceWithRawResponse,
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
+)
+from .financial_activity import (
+    FinancialActivityResource,
+    AsyncFinancialActivityResource,
+    FinancialActivityResourceWithRawResponse,
+    AsyncFinancialActivityResourceWithRawResponse,
+    FinancialActivityResourceWithStreamingResponse,
+    AsyncFinancialActivityResourceWithStreamingResponse,
 )
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
@@ -740,6 +756,12 @@ __all__ = [
     "AsyncWalletsResourceWithRawResponse",
     "WalletsResourceWithStreamingResponse",
     "AsyncWalletsResourceWithStreamingResponse",
+    "FinancialActivityResource",
+    "AsyncFinancialActivityResource",
+    "FinancialActivityResourceWithRawResponse",
+    "AsyncFinancialActivityResourceWithRawResponse",
+    "FinancialActivityResourceWithStreamingResponse",
+    "AsyncFinancialActivityResourceWithStreamingResponse",
     "SwapsResource",
     "AsyncSwapsResource",
     "SwapsResourceWithRawResponse",
@@ -752,6 +774,12 @@ __all__ = [
     "AsyncDepositsResourceWithRawResponse",
     "DepositsResourceWithStreamingResponse",
     "AsyncDepositsResourceWithStreamingResponse",
+    "CalculateTaxResource",
+    "AsyncCalculateTaxResource",
+    "CalculateTaxResourceWithRawResponse",
+    "AsyncCalculateTaxResourceWithRawResponse",
+    "CalculateTaxResourceWithStreamingResponse",
+    "AsyncCalculateTaxResourceWithStreamingResponse",
     "SetupIntentsResource",
     "AsyncSetupIntentsResource",
     "SetupIntentsResourceWithRawResponse",
