@@ -472,6 +472,14 @@ from .support_channels import (
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
 )
+from .financial_activity import (
+    FinancialActivityResource,
+    AsyncFinancialActivityResource,
+    FinancialActivityResourceWithRawResponse,
+    AsyncFinancialActivityResourceWithRawResponse,
+    FinancialActivityResourceWithStreamingResponse,
+    AsyncFinancialActivityResourceWithStreamingResponse,
+)
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
     AsyncCheckoutConfigurationsResource,
@@ -740,6 +748,12 @@ __all__ = [
     "AsyncWalletsResourceWithRawResponse",
     "WalletsResourceWithStreamingResponse",
     "AsyncWalletsResourceWithStreamingResponse",
+    "FinancialActivityResource",
+    "AsyncFinancialActivityResource",
+    "FinancialActivityResourceWithRawResponse",
+    "AsyncFinancialActivityResourceWithRawResponse",
+    "FinancialActivityResourceWithStreamingResponse",
+    "AsyncFinancialActivityResourceWithStreamingResponse",
     "SwapsResource",
     "AsyncSwapsResource",
     "SwapsResourceWithRawResponse",
