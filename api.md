@@ -756,13 +756,19 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import SwapCreateResponse, SwapRetrieveResponse, SwapCreateQuoteResponse
+from whop_sdk.types import (
+    SwapCreateResponse,
+    SwapRetrieveResponse,
+    SwapListResponse,
+    SwapCreateQuoteResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create</a>(\*\*<a href="src/whop_sdk/types/swap_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_response.py">SwapCreateResponse</a></code>
-- <code title="get /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">retrieve</a>(\*\*<a href="src/whop_sdk/types/swap_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_retrieve_response.py">SwapRetrieveResponse</a></code>
+- <code title="get /swaps/{id}">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/swap_retrieve_response.py">SwapRetrieveResponse</a></code>
+- <code title="get /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">list</a>(\*\*<a href="src/whop_sdk/types/swap_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_list_response.py">SwapListResponse</a></code>
 - <code title="post /swaps/quote">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create_quote</a>(\*\*<a href="src/whop_sdk/types/swap_create_quote_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_quote_response.py">SwapCreateQuoteResponse</a></code>
 
 # Deposits

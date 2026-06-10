@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from datetime import datetime
+from typing import Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -22,22 +21,13 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.plan import Plan
-from ..types.shared.currency import Currency
-from ..types.shared.tax_type import TaxType
-from ..types.shared.direction import Direction
-from ..types.shared.plan_type import PlanType
-from ..types.shared.visibility import Visibility
 from ..types.plan_list_response import PlanListResponse
 from ..types.plan_delete_response import PlanDeleteResponse
-from ..types.shared.release_method import ReleaseMethod
-from ..types.shared.visibility_filter import VisibilityFilter
 
 __all__ = ["PlansResource", "AsyncPlansResource"]
 
 
 class PlansResource(SyncAPIResource):
-    """Plans"""
-
     @cached_property
     def with_raw_response(self) -> PlansResourceWithRawResponse:
         """
@@ -60,12 +50,12 @@ class PlansResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
         product_id: str,
+        account_id: str | Omit = omit,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
-        checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
+        checkout_styling: Optional[object] | Omit = omit,
+        currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
@@ -73,19 +63,19 @@ class PlansResource(SyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        override_tax_type: Optional[TaxType] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
+        override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
-        plan_type: Optional[PlanType] | Omit = omit,
-        release_method: Optional[ReleaseMethod] | Omit = omit,
+        plan_type: str | Omit = omit,
+        release_method: str | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Literal["mandate_challenge", "frictionless"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -98,76 +88,66 @@ class PlansResource(SyncAPIResource):
         The plan defines the billing interval,
         price, and availability for customers.
 
-        Required permissions:
-
-        - `plan:create`
-        - `access_pass:basic:read`
-        - `plan:basic:read`
-
         Args:
-          company_id: The unique identifier of the company to create this plan for.
-
           product_id: The unique identifier of the product to attach this plan to.
+
+          account_id: The unique identifier of the account to create this plan for. Defaults to the
+              caller's account.
 
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
-          checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
-              default.
+          checkout_styling: Checkout styling overrides for this plan.
 
-          currency: The available currencies on the platform
+          currency: The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
           custom_fields: An array of custom field definitions to collect from customers at checkout.
+              Omitting this field clears existing custom fields.
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked. Used for
-              expiration-based plans.
+          expiration_days: The number of days until the membership expires and access is revoked.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase. For one-time plans, this is the full
-              price. For recurring plans, this is an additional charge on top of the renewal
-              price. Provided in the plan's currency (e.g., 10.43 for $10.43).
+          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
+              for $10.43).
 
           internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events.
 
-          override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
-              up)
+          override_tax_type: Override the default tax classification for this specific plan.
 
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
-              company's defaults apply.
+              account's defaults apply.
 
-          plan_type: The type of plan that can be attached to a product
+          plan_type: The billing type of the plan, such as one_time or renewal.
 
-          release_method: The methods of how a plan can be released.
+          release_method: The method used to sell this plan (e.g., buy_now, waitlist).
 
-          renewal_price: The amount charged each billing period for recurring plans. Provided in the
-              plan's currency (e.g., 10.43 for $10.43).
+          renewal_price: The amount charged each billing period for recurring plans, in the plan's
+              currency.
 
           split_pay_required_payments: The number of installment payments required before the subscription pauses.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
-          three_ds_level: The 3D Secure behavior for a plan.
+          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
           trial_period_days: The number of free trial days before the first charge on a recurring plan.
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
-              Defaults to true.
 
-          visibility: Visibility of a resource
+          visibility: Whether the plan is visible to customers or hidden from public view.
 
           extra_headers: Send extra headers
 
@@ -181,8 +161,8 @@ class PlansResource(SyncAPIResource):
             "/plans",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
                     "product_id": product_id,
+                    "account_id": account_id,
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
@@ -230,10 +210,6 @@ class PlansResource(SyncAPIResource):
         """
         Retrieves the details of an existing plan.
 
-        Required permissions:
-
-        - `plan:basic:read`
-
         Args:
           extra_headers: Send extra headers
 
@@ -259,8 +235,8 @@ class PlansResource(SyncAPIResource):
         *,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
-        checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
+        checkout_styling: Optional[object] | Omit = omit,
+        currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
@@ -268,19 +244,19 @@ class PlansResource(SyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
-        override_tax_type: Optional[TaxType] | Omit = omit,
+        override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Literal["mandate_challenge", "frictionless"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,64 +268,53 @@ class PlansResource(SyncAPIResource):
         Update a plan's pricing, billing interval, visibility, stock, and other
         settings.
 
-        Required permissions:
-
-        - `plan:update`
-        - `access_pass:basic:read`
-        - `plan:basic:read`
-
         Args:
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
-          checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
-              inherit from the company default.
+          checkout_styling: Checkout styling overrides for this plan.
 
-          currency: The available currencies on the platform
+          currency: The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
           custom_fields: An array of custom field definitions to collect from customers at checkout.
+              Omitting this field clears existing custom fields.
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked. For
-              example, 365 for one-year access.
+          expiration_days: The number of days until the membership expires and access is revoked.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase. Provided in the plan's currency (e.g.,
-              10.43 for $10.43).
+          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
+              for $10.43).
 
           internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events.
 
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
-          override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
-              up)
+          override_tax_type: Override the default tax classification for this specific plan.
 
-          payment_method_configuration: Explicit payment method configuration for the plan. Sending null removes any
-              custom configuration.
+          payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
+              account's defaults apply.
 
-          renewal_price: The amount charged each billing period for recurring plans. Provided in the
-              plan's currency (e.g., 10.43 for $10.43).
+          renewal_price: The amount charged each billing period for recurring plans, in the plan's
+              currency.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
           strike_through_initial_price: A comparison price displayed with a strikethrough for the initial price.
-              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
-              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
-          three_ds_level: The 3D Secure behavior for a plan.
+          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -357,7 +322,7 @@ class PlansResource(SyncAPIResource):
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 
-          visibility: Visibility of a resource
+          visibility: Whether the plan is visible to customers or hidden from public view.
 
           extra_headers: Send extra headers
 
@@ -409,20 +374,19 @@ class PlansResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]]
-        | Omit = omit,
-        plan_types: Optional[List[PlanType]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        release_methods: Optional[List[ReleaseMethod]] | Omit = omit,
-        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"] | Omit = omit,
+        plan_types: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        release_methods: SequenceNotStr[str] | Omit = omit,
+        visibilities: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -431,31 +395,27 @@ class PlansResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListResponse]:
         """
-        Returns a paginated list of plans belonging to a company, with optional
+        Returns a paginated list of plans belonging to an account, with optional
         filtering by visibility, type, release method, and product.
 
-        Required permissions:
-
-        - `plan:basic:read`
-
         Args:
-          company_id: The unique identifier of the company to list plans for.
+          account_id: The unique identifier of the account to list plans for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns plans after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: A cursor; returns plans before this position.
 
           created_after: Only return plans created after this timestamp.
 
           created_before: Only return plans created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of plans to return (default and max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of plans to return from the end of the range.
 
-          order: The ways a relation of Plans can be ordered
+          order: The field to sort results by. Defaults to created_at.
 
           plan_types: Filter to only plans matching these billing types.
 
@@ -483,7 +443,7 @@ class PlansResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -519,10 +479,6 @@ class PlansResource(SyncAPIResource):
         Existing memberships on this plan will
         not be affected.
 
-        Required permissions:
-
-        - `plan:delete`
-
         Args:
           extra_headers: Send extra headers
 
@@ -544,8 +500,6 @@ class PlansResource(SyncAPIResource):
 
 
 class AsyncPlansResource(AsyncAPIResource):
-    """Plans"""
-
     @cached_property
     def with_raw_response(self) -> AsyncPlansResourceWithRawResponse:
         """
@@ -568,12 +522,12 @@ class AsyncPlansResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
         product_id: str,
+        account_id: str | Omit = omit,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
-        checkout_styling: Optional[plan_create_params.CheckoutStyling] | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
+        checkout_styling: Optional[object] | Omit = omit,
+        currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
@@ -581,19 +535,19 @@ class AsyncPlansResource(AsyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        override_tax_type: Optional[TaxType] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
+        override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
-        plan_type: Optional[PlanType] | Omit = omit,
-        release_method: Optional[ReleaseMethod] | Omit = omit,
+        plan_type: str | Omit = omit,
+        release_method: str | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Literal["mandate_challenge", "frictionless"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -606,76 +560,66 @@ class AsyncPlansResource(AsyncAPIResource):
         The plan defines the billing interval,
         price, and availability for customers.
 
-        Required permissions:
-
-        - `plan:create`
-        - `access_pass:basic:read`
-        - `plan:basic:read`
-
         Args:
-          company_id: The unique identifier of the company to create this plan for.
-
           product_id: The unique identifier of the product to attach this plan to.
+
+          account_id: The unique identifier of the account to create this plan for. Defaults to the
+              caller's account.
 
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
-          checkout_styling: Checkout styling overrides for this plan. Pass null to inherit from the company
-              default.
+          checkout_styling: Checkout styling overrides for this plan.
 
-          currency: The available currencies on the platform
+          currency: The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
           custom_fields: An array of custom field definitions to collect from customers at checkout.
+              Omitting this field clears existing custom fields.
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked. Used for
-              expiration-based plans.
+          expiration_days: The number of days until the membership expires and access is revoked.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase. For one-time plans, this is the full
-              price. For recurring plans, this is an additional charge on top of the renewal
-              price. Provided in the plan's currency (e.g., 10.43 for $10.43).
+          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
+              for $10.43).
 
           internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events.
 
-          override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
-              up)
+          override_tax_type: Override the default tax classification for this specific plan.
 
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
-              company's defaults apply.
+              account's defaults apply.
 
-          plan_type: The type of plan that can be attached to a product
+          plan_type: The billing type of the plan, such as one_time or renewal.
 
-          release_method: The methods of how a plan can be released.
+          release_method: The method used to sell this plan (e.g., buy_now, waitlist).
 
-          renewal_price: The amount charged each billing period for recurring plans. Provided in the
-              plan's currency (e.g., 10.43 for $10.43).
+          renewal_price: The amount charged each billing period for recurring plans, in the plan's
+              currency.
 
           split_pay_required_payments: The number of installment payments required before the subscription pauses.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
-          three_ds_level: The 3D Secure behavior for a plan.
+          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
           trial_period_days: The number of free trial days before the first charge on a recurring plan.
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
-              Defaults to true.
 
-          visibility: Visibility of a resource
+          visibility: Whether the plan is visible to customers or hidden from public view.
 
           extra_headers: Send extra headers
 
@@ -689,8 +633,8 @@ class AsyncPlansResource(AsyncAPIResource):
             "/plans",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
                     "product_id": product_id,
+                    "account_id": account_id,
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
@@ -738,10 +682,6 @@ class AsyncPlansResource(AsyncAPIResource):
         """
         Retrieves the details of an existing plan.
 
-        Required permissions:
-
-        - `plan:basic:read`
-
         Args:
           extra_headers: Send extra headers
 
@@ -767,8 +707,8 @@ class AsyncPlansResource(AsyncAPIResource):
         *,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
-        checkout_styling: Optional[plan_update_params.CheckoutStyling] | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
+        checkout_styling: Optional[object] | Omit = omit,
+        currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         expiration_days: Optional[int] | Omit = omit,
@@ -776,19 +716,19 @@ class AsyncPlansResource(AsyncAPIResource):
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
         legacy_payment_method_controls: Optional[bool] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
-        override_tax_type: Optional[TaxType] | Omit = omit,
+        override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Literal["mandate_challenge", "frictionless"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -800,64 +740,53 @@ class AsyncPlansResource(AsyncAPIResource):
         Update a plan's pricing, billing interval, visibility, stock, and other
         settings.
 
-        Required permissions:
-
-        - `plan:update`
-        - `access_pass:basic:read`
-        - `plan:basic:read`
-
         Args:
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
-          checkout_styling: Checkout styling overrides for this plan. Pass null to remove all overrides and
-              inherit from the company default.
+          checkout_styling: Checkout styling overrides for this plan.
 
-          currency: The available currencies on the platform
+          currency: The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
           custom_fields: An array of custom field definitions to collect from customers at checkout.
+              Omitting this field clears existing custom fields.
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked. For
-              example, 365 for one-year access.
+          expiration_days: The number of days until the membership expires and access is revoked.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase. Provided in the plan's currency (e.g.,
-              10.43 for $10.43).
+          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
+              for $10.43).
 
           internal_notes: Private notes visible only to the business owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events.
 
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
-          override_tax_type: Whether or not the tax is included in a plan's price (or if it hasn't been set
-              up)
+          override_tax_type: Override the default tax classification for this specific plan.
 
-          payment_method_configuration: Explicit payment method configuration for the plan. Sending null removes any
-              custom configuration.
+          payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
+              account's defaults apply.
 
-          renewal_price: The amount charged each billing period for recurring plans. Provided in the
-              plan's currency (e.g., 10.43 for $10.43).
+          renewal_price: The amount charged each billing period for recurring plans, in the plan's
+              currency.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
           strike_through_initial_price: A comparison price displayed with a strikethrough for the initial price.
-              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
-              Provided in the plan's currency (e.g., 19.99 for $19.99).
 
-          three_ds_level: The 3D Secure behavior for a plan.
+          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -865,7 +794,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 
-          visibility: Visibility of a resource
+          visibility: Whether the plan is visible to customers or hidden from public view.
 
           extra_headers: Send extra headers
 
@@ -917,20 +846,19 @@ class AsyncPlansResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]]
-        | Omit = omit,
-        plan_types: Optional[List[PlanType]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        release_methods: Optional[List[ReleaseMethod]] | Omit = omit,
-        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"] | Omit = omit,
+        plan_types: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        release_methods: SequenceNotStr[str] | Omit = omit,
+        visibilities: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -939,31 +867,27 @@ class AsyncPlansResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
         """
-        Returns a paginated list of plans belonging to a company, with optional
+        Returns a paginated list of plans belonging to an account, with optional
         filtering by visibility, type, release method, and product.
 
-        Required permissions:
-
-        - `plan:basic:read`
-
         Args:
-          company_id: The unique identifier of the company to list plans for.
+          account_id: The unique identifier of the account to list plans for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns plans after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: A cursor; returns plans before this position.
 
           created_after: Only return plans created after this timestamp.
 
           created_before: Only return plans created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of plans to return (default and max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of plans to return from the end of the range.
 
-          order: The ways a relation of Plans can be ordered
+          order: The field to sort results by. Defaults to created_at.
 
           plan_types: Filter to only plans matching these billing types.
 
@@ -991,7 +915,7 @@ class AsyncPlansResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -1026,10 +950,6 @@ class AsyncPlansResource(AsyncAPIResource):
 
         Existing memberships on this plan will
         not be affected.
-
-        Required permissions:
-
-        - `plan:delete`
 
         Args:
           extra_headers: Send extra headers
