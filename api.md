@@ -39,7 +39,6 @@ from whop_sdk.types import (
     Message,
     PageInfo,
     Payment,
-    Plan,
     PlanType,
     Product,
     ProductListItem,
@@ -208,16 +207,8 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CheckoutFont, CheckoutShape, PlanListResponse, PlanDeleteResponse
+from whop_sdk.types import CheckoutFont, CheckoutShape
 ```
-
-Methods:
-
-- <code title="post /plans">client.plans.<a href="./src/whop_sdk/resources/plans.py">create</a>(\*\*<a href="src/whop_sdk/types/plan_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
-- <code title="get /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
-- <code title="patch /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">update</a>(id, \*\*<a href="src/whop_sdk/types/plan_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
-- <code title="get /plans">client.plans.<a href="./src/whop_sdk/resources/plans.py">list</a>(\*\*<a href="src/whop_sdk/types/plan_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/plan_list_response.py">SyncCursorPage[PlanListResponse]</a></code>
-- <code title="delete /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">delete</a>(id) -> <a href="./src/whop_sdk/types/plan_delete_response.py">PlanDeleteResponse</a></code>
 
 # Entries
 

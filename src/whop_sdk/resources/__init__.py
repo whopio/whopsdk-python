@@ -32,14 +32,6 @@ from .leads import (
     LeadsResourceWithStreamingResponse,
     AsyncLeadsResourceWithStreamingResponse,
 )
-from .plans import (
-    PlansResource,
-    AsyncPlansResource,
-    PlansResourceWithRawResponse,
-    AsyncPlansResourceWithRawResponse,
-    PlansResourceWithStreamingResponse,
-    AsyncPlansResourceWithStreamingResponse,
-)
 from .forums import (
     ForumsResource,
     AsyncForumsResource,
@@ -502,12 +494,6 @@ __all__ = [
     "AsyncWebhooksResourceWithRawResponse",
     "WebhooksResourceWithStreamingResponse",
     "AsyncWebhooksResourceWithStreamingResponse",
-    "PlansResource",
-    "AsyncPlansResource",
-    "PlansResourceWithRawResponse",
-    "AsyncPlansResourceWithRawResponse",
-    "PlansResourceWithStreamingResponse",
-    "AsyncPlansResourceWithStreamingResponse",
     "EntriesResource",
     "AsyncEntriesResource",
     "EntriesResourceWithRawResponse",

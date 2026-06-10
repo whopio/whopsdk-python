@@ -8,7 +8,6 @@ from .course import Course as Course
 from .lesson import Lesson as Lesson
 from .shared import (
     App as App,
-    Plan as Plan,
     Entry as Entry,
     Forum as Forum,
     Company as Company,
@@ -107,7 +106,6 @@ from .ad_list_response import AdListResponse as AdListResponse
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
-from .plan_list_params import PlanListParams as PlanListParams
 from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams
@@ -128,9 +126,6 @@ from .lead_create_params import LeadCreateParams as LeadCreateParams
 from .lead_list_response import LeadListResponse as LeadListResponse
 from .lead_update_params import LeadUpdateParams as LeadUpdateParams
 from .member_list_params import MemberListParams as MemberListParams
-from .plan_create_params import PlanCreateParams as PlanCreateParams
-from .plan_list_response import PlanListResponse as PlanListResponse
-from .plan_update_params import PlanUpdateParams as PlanUpdateParams
 from .refund_list_params import RefundListParams as RefundListParams
 from .review_list_params import ReviewListParams as ReviewListParams
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
@@ -160,7 +155,6 @@ from .course_update_params import CourseUpdateParams as CourseUpdateParams
 from .file_create_response import FileCreateResponse as FileCreateResponse
 from .member_list_response import MemberListResponse as MemberListResponse
 from .payment_method_types import PaymentMethodTypes as PaymentMethodTypes
-from .plan_delete_response import PlanDeleteResponse as PlanDeleteResponse
 from .reaction_list_params import ReactionListParams as ReactionListParams
 from .receipt_tax_behavior import ReceiptTaxBehavior as ReceiptTaxBehavior
 from .refund_list_response import RefundListResponse as RefundListResponse

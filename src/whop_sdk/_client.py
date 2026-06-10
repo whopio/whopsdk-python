@@ -40,7 +40,6 @@ if TYPE_CHECKING:
         apps,
         files,
         leads,
-        plans,
         forums,
         topups,
         courses,
@@ -99,7 +98,6 @@ if TYPE_CHECKING:
     from .resources.apps import AppsResource, AsyncAppsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
-    from .resources.plans import PlansResource, AsyncPlansResource
     from .resources.forums import ForumsResource, AsyncForumsResource
     from .resources.topups import TopupsResource, AsyncTopupsResource
     from .resources.courses import CoursesResource, AsyncCoursesResource
@@ -283,13 +281,6 @@ class Whop(SyncAPIClient):
         from .resources.webhooks import WebhooksResource
 
         return WebhooksResource(self)
-
-    @cached_property
-    def plans(self) -> PlansResource:
-        """Plans"""
-        from .resources.plans import PlansResource
-
-        return PlansResource(self)
 
     @cached_property
     def entries(self) -> EntriesResource:
@@ -888,13 +879,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncWebhooksResource(self)
 
     @cached_property
-    def plans(self) -> AsyncPlansResource:
-        """Plans"""
-        from .resources.plans import AsyncPlansResource
-
-        return AsyncPlansResource(self)
-
-    @cached_property
     def entries(self) -> AsyncEntriesResource:
         """Entries"""
         from .resources.entries import AsyncEntriesResource
@@ -1418,13 +1402,6 @@ class WhopWithRawResponse:
         return WebhooksResourceWithRawResponse(self._client.webhooks)
 
     @cached_property
-    def plans(self) -> plans.PlansResourceWithRawResponse:
-        """Plans"""
-        from .resources.plans import PlansResourceWithRawResponse
-
-        return PlansResourceWithRawResponse(self._client.plans)
-
-    @cached_property
     def entries(self) -> entries.EntriesResourceWithRawResponse:
         """Entries"""
         from .resources.entries import EntriesResourceWithRawResponse
@@ -1831,13 +1808,6 @@ class AsyncWhopWithRawResponse:
         from .resources.webhooks import AsyncWebhooksResourceWithRawResponse
 
         return AsyncWebhooksResourceWithRawResponse(self._client.webhooks)
-
-    @cached_property
-    def plans(self) -> plans.AsyncPlansResourceWithRawResponse:
-        """Plans"""
-        from .resources.plans import AsyncPlansResourceWithRawResponse
-
-        return AsyncPlansResourceWithRawResponse(self._client.plans)
 
     @cached_property
     def entries(self) -> entries.AsyncEntriesResourceWithRawResponse:
@@ -2250,13 +2220,6 @@ class WhopWithStreamedResponse:
         return WebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
-    def plans(self) -> plans.PlansResourceWithStreamingResponse:
-        """Plans"""
-        from .resources.plans import PlansResourceWithStreamingResponse
-
-        return PlansResourceWithStreamingResponse(self._client.plans)
-
-    @cached_property
     def entries(self) -> entries.EntriesResourceWithStreamingResponse:
         """Entries"""
         from .resources.entries import EntriesResourceWithStreamingResponse
@@ -2665,13 +2628,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.webhooks import AsyncWebhooksResourceWithStreamingResponse
 
         return AsyncWebhooksResourceWithStreamingResponse(self._client.webhooks)
-
-    @cached_property
-    def plans(self) -> plans.AsyncPlansResourceWithStreamingResponse:
-        """Plans"""
-        from .resources.plans import AsyncPlansResourceWithStreamingResponse
-
-        return AsyncPlansResourceWithStreamingResponse(self._client.plans)
 
     @cached_property
     def entries(self) -> entries.AsyncEntriesResourceWithStreamingResponse:
