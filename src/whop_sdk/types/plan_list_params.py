@@ -10,8 +10,8 @@ __all__ = ["PlanListParams"]
 
 
 class PlanListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list plans for."""
+    account_id: Required[str]
+    """The unique identifier of the account to list plans for."""
 
     after: str
     """A cursor; returns plans after this position."""

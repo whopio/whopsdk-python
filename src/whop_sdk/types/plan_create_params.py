@@ -14,6 +14,12 @@ class PlanCreateParams(TypedDict, total=False):
     product_id: Required[str]
     """The unique identifier of the product to attach this plan to."""
 
+    account_id: str
+    """The unique identifier of the account to create this plan for.
+
+    Defaults to the caller's account.
+    """
+
     adaptive_pricing_enabled: Optional[bool]
     """Whether this plan accepts local currency payments via adaptive pricing."""
 
@@ -25,12 +31,6 @@ class PlanCreateParams(TypedDict, total=False):
 
     checkout_styling: Optional[object]
     """Checkout styling overrides for this plan."""
-
-    company_id: str
-    """The unique identifier of the company to create this plan for.
-
-    Defaults to the caller's company.
-    """
 
     currency: str
     """The three-letter ISO currency code for the plan's pricing. Defaults to USD."""
@@ -74,7 +74,7 @@ class PlanCreateParams(TypedDict, total=False):
     payment_method_configuration: Optional[PaymentMethodConfiguration]
     """Explicit payment method configuration for the plan.
 
-    When not provided, the company's defaults apply.
+    When not provided, the account's defaults apply.
     """
 
     plan_type: str
@@ -145,7 +145,7 @@ class Image(TypedDict, total=False):
 class PaymentMethodConfiguration(TypedDict, total=False):
     """Explicit payment method configuration for the plan.
 
-    When not provided, the company's defaults apply.
+    When not provided, the account's defaults apply.
     """
 
     disabled: SequenceNotStr[str]

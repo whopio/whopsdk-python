@@ -51,10 +51,10 @@ class PlansResource(SyncAPIResource):
         self,
         *,
         product_id: str,
+        account_id: str | Omit = omit,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[object] | Omit = omit,
-        company_id: str | Omit = omit,
         currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -91,15 +91,15 @@ class PlansResource(SyncAPIResource):
         Args:
           product_id: The unique identifier of the product to attach this plan to.
 
+          account_id: The unique identifier of the account to create this plan for. Defaults to the
+              caller's account.
+
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
           checkout_styling: Checkout styling overrides for this plan.
-
-          company_id: The unique identifier of the company to create this plan for. Defaults to the
-              caller's company.
 
           currency: The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
@@ -125,7 +125,7 @@ class PlansResource(SyncAPIResource):
           override_tax_type: Override the default tax classification for this specific plan.
 
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
-              company's defaults apply.
+              account's defaults apply.
 
           plan_type: The billing type of the plan, such as one_time or renewal.
 
@@ -162,10 +162,10 @@ class PlansResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "product_id": product_id,
+                    "account_id": account_id,
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
-                    "company_id": company_id,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -302,7 +302,7 @@ class PlansResource(SyncAPIResource):
           override_tax_type: Override the default tax classification for this specific plan.
 
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
-              company's defaults apply.
+              account's defaults apply.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
@@ -374,7 +374,7 @@ class PlansResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: str | Omit = omit,
@@ -395,11 +395,11 @@ class PlansResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListResponse]:
         """
-        Returns a paginated list of plans belonging to a company, with optional
+        Returns a paginated list of plans belonging to an account, with optional
         filtering by visibility, type, release method, and product.
 
         Args:
-          company_id: The unique identifier of the company to list plans for.
+          account_id: The unique identifier of the account to list plans for.
 
           after: A cursor; returns plans after this position.
 
@@ -443,7 +443,7 @@ class PlansResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -523,10 +523,10 @@ class AsyncPlansResource(AsyncAPIResource):
         self,
         *,
         product_id: str,
+        account_id: str | Omit = omit,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
         checkout_styling: Optional[object] | Omit = omit,
-        company_id: str | Omit = omit,
         currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_create_params.CustomField]] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -563,15 +563,15 @@ class AsyncPlansResource(AsyncAPIResource):
         Args:
           product_id: The unique identifier of the product to attach this plan to.
 
+          account_id: The unique identifier of the account to create this plan for. Defaults to the
+              caller's account.
+
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
               for yearly.
 
           checkout_styling: Checkout styling overrides for this plan.
-
-          company_id: The unique identifier of the company to create this plan for. Defaults to the
-              caller's company.
 
           currency: The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
@@ -597,7 +597,7 @@ class AsyncPlansResource(AsyncAPIResource):
           override_tax_type: Override the default tax classification for this specific plan.
 
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
-              company's defaults apply.
+              account's defaults apply.
 
           plan_type: The billing type of the plan, such as one_time or renewal.
 
@@ -634,10 +634,10 @@ class AsyncPlansResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "product_id": product_id,
+                    "account_id": account_id,
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
                     "checkout_styling": checkout_styling,
-                    "company_id": company_id,
                     "currency": currency,
                     "custom_fields": custom_fields,
                     "description": description,
@@ -774,7 +774,7 @@ class AsyncPlansResource(AsyncAPIResource):
           override_tax_type: Override the default tax classification for this specific plan.
 
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
-              company's defaults apply.
+              account's defaults apply.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
@@ -846,7 +846,7 @@ class AsyncPlansResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: str | Omit = omit,
@@ -867,11 +867,11 @@ class AsyncPlansResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
         """
-        Returns a paginated list of plans belonging to a company, with optional
+        Returns a paginated list of plans belonging to an account, with optional
         filtering by visibility, type, release method, and product.
 
         Args:
-          company_id: The unique identifier of the company to list plans for.
+          account_id: The unique identifier of the account to list plans for.
 
           after: A cursor; returns plans after this position.
 
@@ -915,7 +915,7 @@ class AsyncPlansResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,

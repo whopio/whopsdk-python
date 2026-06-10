@@ -35,10 +35,10 @@ class TestPlans:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         plan = client.plans.create(
             product_id="product_id",
+            account_id="account_id",
             adaptive_pricing_enabled=True,
             billing_period=0,
             checkout_styling={},
-            company_id="company_id",
             currency="currency",
             custom_fields=[
                 {
@@ -241,7 +241,7 @@ class TestPlans:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         plan = client.plans.list(
-            company_id="company_id",
+            account_id="account_id",
         )
         assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -249,7 +249,7 @@ class TestPlans:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         plan = client.plans.list(
-            company_id="company_id",
+            account_id="account_id",
             after="after",
             before="before",
             created_after="created_after",
@@ -269,7 +269,7 @@ class TestPlans:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.plans.with_raw_response.list(
-            company_id="company_id",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -281,7 +281,7 @@ class TestPlans:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.plans.with_streaming_response.list(
-            company_id="company_id",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -352,10 +352,10 @@ class TestAsyncPlans:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.create(
             product_id="product_id",
+            account_id="account_id",
             adaptive_pricing_enabled=True,
             billing_period=0,
             checkout_styling={},
-            company_id="company_id",
             currency="currency",
             custom_fields=[
                 {
@@ -558,7 +558,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.list(
-            company_id="company_id",
+            account_id="account_id",
         )
         assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -566,7 +566,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.list(
-            company_id="company_id",
+            account_id="account_id",
             after="after",
             before="before",
             created_after="created_after",
@@ -586,7 +586,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.plans.with_raw_response.list(
-            company_id="company_id",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -598,7 +598,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.plans.with_streaming_response.list(
-            company_id="company_id",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

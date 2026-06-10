@@ -68,7 +68,7 @@ class PlanUpdateParams(TypedDict, total=False):
     payment_method_configuration: Optional[PaymentMethodConfiguration]
     """Explicit payment method configuration for the plan.
 
-    When not provided, the company's defaults apply.
+    When not provided, the account's defaults apply.
     """
 
     renewal_price: Optional[float]
@@ -136,7 +136,7 @@ class Image(TypedDict, total=False):
 class PaymentMethodConfiguration(TypedDict, total=False):
     """Explicit payment method configuration for the plan.
 
-    When not provided, the company's defaults apply.
+    When not provided, the account's defaults apply.
     """
 
     disabled: SequenceNotStr[str]

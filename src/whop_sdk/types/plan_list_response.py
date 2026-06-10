@@ -11,17 +11,17 @@ class PlanListResponse(BaseModel):
     id: str
     """The ID of the plan, which will look like plan\\__******\\********"""
 
+    account: Optional[object] = None
+    """The account that sells this plan, an object with an id and title.
+
+    Null for standalone invoice plans
+    """
+
     adaptive_pricing_enabled: bool
     """Whether this plan accepts local currency payments via adaptive pricing"""
 
     billing_period: Optional[float] = None
     """The number of days between recurring charges. Null for one-time plans"""
-
-    company: Optional[object] = None
-    """The company that sells this plan, an object with an id and title.
-
-    Null for standalone invoice plans
-    """
 
     created_at: str
     """When the plan was created, as an ISO 8601 timestamp"""
