@@ -58,10 +58,10 @@ class ConversionsResource(SyncAPIResource):
             "contact",
             "complete_registration",
             "schedule",
+            "view_content",
+            "add_to_cart",
             "custom",
             "page",
-            "leave",
-            "identify",
         ],
         action_source: Optional[
             Literal[
@@ -216,10 +216,10 @@ class AsyncConversionsResource(AsyncAPIResource):
             "contact",
             "complete_registration",
             "schedule",
+            "view_content",
+            "add_to_cart",
             "custom",
             "page",
-            "leave",
-            "identify",
         ],
         action_source: Optional[
             Literal[
