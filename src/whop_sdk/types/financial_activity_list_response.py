@@ -25,6 +25,7 @@ __all__ = [
     "DataResourceUnionMember3Card",
     "DataResourceUnionMember4",
     "DataSource",
+    "DataSourcePayoutDestination",
     "PageInfo",
 ]
 
@@ -159,10 +160,48 @@ DataResource: TypeAlias = Union[
 ]
 
 
+class DataSourcePayoutDestination(BaseModel):
+    """Payout destination display info (withdrawal sources only)."""
+
+    icon_url: Optional[str] = None
+
+    payer_name: Optional[str] = None
+
+
 class DataSource(BaseModel):
     id: str
 
     object: str
+
+    created_at: Optional[datetime] = None
+    """
+    Withdrawal creation time as an ISO 8601 timestamp (withdrawal sources only;
+    requires payout:withdrawal:read).
+    """
+
+    estimated_arrival: Optional[datetime] = None
+    """
+    Estimated arrival as an ISO 8601 timestamp (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    payer_name: Optional[str] = None
+    """
+    Name of the entity processing the payout (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    payout_destination: Optional[DataSourcePayoutDestination] = None
+    """Payout destination display info (withdrawal sources only)."""
+
+    payout_token_nickname: Optional[str] = None
+    """Saved payout destination nickname (withdrawal sources only)."""
+
+    status: Optional[str] = None
+    """
+    Withdrawal lifecycle status (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
@@ -182,6 +221,8 @@ class Data(BaseModel):
 
     amount: str
     """Signed amount in the currency's smallest precision units."""
+
+    created_at: Optional[datetime] = None
 
     currency: DataCurrency
 
