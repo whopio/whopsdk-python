@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import plan_list_params, plan_create_params, plan_update_params
+from ..types import plan_list_params, plan_create_params, plan_update_params, plan_calculate_tax_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,6 +23,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.plan import Plan
 from ..types.plan_list_response import PlanListResponse
 from ..types.plan_delete_response import PlanDeleteResponse
+from ..types.plan_calculate_tax_response import PlanCalculateTaxResponse
 
 __all__ = ["PlansResource", "AsyncPlansResource"]
 
@@ -498,6 +499,58 @@ class PlansResource(SyncAPIResource):
             cast_to=PlanDeleteResponse,
         )
 
+    def calculate_tax(
+        self,
+        id: str,
+        *,
+        address: Optional[plan_calculate_tax_params.Address] | Omit = omit,
+        ip_address: str | Omit = omit,
+        tax_ids: Optional[Iterable[plan_calculate_tax_params.TaxID]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PlanCalculateTaxResponse:
+        """
+        Calculates the tax owed on a plan based on the buyer's location.
+
+        Args:
+          address: The buyer's billing address. Provide this or ip_address.
+
+          ip_address: The buyer's IP address, used to resolve their location when no address is
+              provided.
+
+          tax_ids: The buyer's tax IDs, such as a VAT number, used to apply B2B reverse-charge
+              exemptions.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/plans/{id}/calculate_tax", id=id),
+            body=maybe_transform(
+                {
+                    "address": address,
+                    "ip_address": ip_address,
+                    "tax_ids": tax_ids,
+                },
+                plan_calculate_tax_params.PlanCalculateTaxParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PlanCalculateTaxResponse,
+        )
+
 
 class AsyncPlansResource(AsyncAPIResource):
     @cached_property
@@ -970,6 +1023,58 @@ class AsyncPlansResource(AsyncAPIResource):
             cast_to=PlanDeleteResponse,
         )
 
+    async def calculate_tax(
+        self,
+        id: str,
+        *,
+        address: Optional[plan_calculate_tax_params.Address] | Omit = omit,
+        ip_address: str | Omit = omit,
+        tax_ids: Optional[Iterable[plan_calculate_tax_params.TaxID]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PlanCalculateTaxResponse:
+        """
+        Calculates the tax owed on a plan based on the buyer's location.
+
+        Args:
+          address: The buyer's billing address. Provide this or ip_address.
+
+          ip_address: The buyer's IP address, used to resolve their location when no address is
+              provided.
+
+          tax_ids: The buyer's tax IDs, such as a VAT number, used to apply B2B reverse-charge
+              exemptions.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/plans/{id}/calculate_tax", id=id),
+            body=await async_maybe_transform(
+                {
+                    "address": address,
+                    "ip_address": ip_address,
+                    "tax_ids": tax_ids,
+                },
+                plan_calculate_tax_params.PlanCalculateTaxParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PlanCalculateTaxResponse,
+        )
+
 
 class PlansResourceWithRawResponse:
     def __init__(self, plans: PlansResource) -> None:
@@ -989,6 +1094,9 @@ class PlansResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             plans.delete,
+        )
+        self.calculate_tax = to_raw_response_wrapper(
+            plans.calculate_tax,
         )
 
 
@@ -1011,6 +1119,9 @@ class AsyncPlansResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             plans.delete,
         )
+        self.calculate_tax = async_to_raw_response_wrapper(
+            plans.calculate_tax,
+        )
 
 
 class PlansResourceWithStreamingResponse:
@@ -1032,6 +1143,9 @@ class PlansResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             plans.delete,
         )
+        self.calculate_tax = to_streamed_response_wrapper(
+            plans.calculate_tax,
+        )
 
 
 class AsyncPlansResourceWithStreamingResponse:
@@ -1052,4 +1166,7 @@ class AsyncPlansResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             plans.delete,
+        )
+        self.calculate_tax = async_to_streamed_response_wrapper(
+            plans.calculate_tax,
         )

@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     PlanListResponse,
     PlanDeleteResponse,
+    PlanCalculateTaxResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Plan
@@ -333,6 +334,71 @@ class TestPlans:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_calculate_tax(self, client: Whop) -> None:
+        plan = client.plans.calculate_tax(
+            id="id",
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_calculate_tax_with_all_params(self, client: Whop) -> None:
+        plan = client.plans.calculate_tax(
+            id="id",
+            address={
+                "country": "country",
+                "city": "city",
+                "line1": "line1",
+                "line2": "line2",
+                "postal_code": "postal_code",
+                "state": "state",
+            },
+            ip_address="ip_address",
+            tax_ids=[
+                {
+                    "type": "type",
+                    "value": "value",
+                }
+            ],
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_calculate_tax(self, client: Whop) -> None:
+        response = client.plans.with_raw_response.calculate_tax(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        plan = response.parse()
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_calculate_tax(self, client: Whop) -> None:
+        with client.plans.with_streaming_response.calculate_tax(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            plan = response.parse()
+            assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_calculate_tax(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.plans.with_raw_response.calculate_tax(
+                id="",
+            )
+
 
 class TestAsyncPlans:
     parametrize = pytest.mark.parametrize(
@@ -648,4 +714,69 @@ class TestAsyncPlans:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.plans.with_raw_response.delete(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_calculate_tax(self, async_client: AsyncWhop) -> None:
+        plan = await async_client.plans.calculate_tax(
+            id="id",
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_calculate_tax_with_all_params(self, async_client: AsyncWhop) -> None:
+        plan = await async_client.plans.calculate_tax(
+            id="id",
+            address={
+                "country": "country",
+                "city": "city",
+                "line1": "line1",
+                "line2": "line2",
+                "postal_code": "postal_code",
+                "state": "state",
+            },
+            ip_address="ip_address",
+            tax_ids=[
+                {
+                    "type": "type",
+                    "value": "value",
+                }
+            ],
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_calculate_tax(self, async_client: AsyncWhop) -> None:
+        response = await async_client.plans.with_raw_response.calculate_tax(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        plan = await response.parse()
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_calculate_tax(self, async_client: AsyncWhop) -> None:
+        async with async_client.plans.with_streaming_response.calculate_tax(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            plan = await response.parse()
+            assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_calculate_tax(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.plans.with_raw_response.calculate_tax(
+                id="",
             )
