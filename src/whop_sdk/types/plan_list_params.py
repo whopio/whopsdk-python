@@ -2,16 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
-from .shared.direction import Direction
-from .shared.plan_type import PlanType
-from .shared.release_method import ReleaseMethod
-from .shared.visibility_filter import VisibilityFilter
 
 __all__ = ["PlanListParams"]
 
@@ -20,38 +13,38 @@ class PlanListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list plans for."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    after: str
+    """A cursor; returns plans after this position."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    before: str
+    """A cursor; returns plans before this position."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: str
     """Only return plans created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: str
     """Only return plans created before this timestamp."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Literal["asc", "desc"]
+    """The sort direction for results. Defaults to descending."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    first: int
+    """The number of plans to return (default and max 100)."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    last: int
+    """The number of plans to return from the end of the range."""
 
-    order: Optional[Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]]
-    """The ways a relation of Plans can be ordered"""
+    order: Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]
+    """The field to sort results by. Defaults to created_at."""
 
-    plan_types: Optional[List[PlanType]]
+    plan_types: SequenceNotStr[str]
     """Filter to only plans matching these billing types."""
 
-    product_ids: Optional[SequenceNotStr[str]]
+    product_ids: SequenceNotStr[str]
     """Filter to only plans belonging to these product identifiers."""
 
-    release_methods: Optional[List[ReleaseMethod]]
+    release_methods: SequenceNotStr[str]
     """Filter to only plans matching these release methods."""
 
-    visibilities: Optional[List[VisibilityFilter]]
+    visibilities: SequenceNotStr[str]
     """Filter to only plans matching these visibility states."""
