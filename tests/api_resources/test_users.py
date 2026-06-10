@@ -88,6 +88,11 @@ class TestUsers:
             account_id="account_id",
             bio="bio",
             name="name",
+            profile_picture={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            username="username",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -227,6 +232,7 @@ class TestUsers:
     @parametrize
     def test_method_update_me_with_all_params(self, client: Whop) -> None:
         user = client.users.update_me(
+            account_id="account_id",
             bio="bio",
             name="name",
             profile_picture={
@@ -332,6 +338,11 @@ class TestAsyncUsers:
             account_id="account_id",
             bio="bio",
             name="name",
+            profile_picture={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            username="username",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -471,6 +482,7 @@ class TestAsyncUsers:
     @parametrize
     async def test_method_update_me_with_all_params(self, async_client: AsyncWhop) -> None:
         user = await async_client.users.update_me(
+            account_id="account_id",
             bio="bio",
             name="name",
             profile_picture={

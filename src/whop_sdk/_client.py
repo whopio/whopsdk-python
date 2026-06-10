@@ -305,7 +305,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def plans(self) -> PlansResource:
-        """Plans"""
         from .resources.plans import PlansResource
 
         return PlansResource(self)
@@ -954,7 +953,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def plans(self) -> AsyncPlansResource:
-        """Plans"""
         from .resources.plans import AsyncPlansResource
 
         return AsyncPlansResource(self)
@@ -1523,7 +1521,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithRawResponse:
-        """Plans"""
         from .resources.plans import PlansResourceWithRawResponse
 
         return PlansResourceWithRawResponse(self._client.plans)
@@ -1974,7 +1971,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithRawResponse:
-        """Plans"""
         from .resources.plans import AsyncPlansResourceWithRawResponse
 
         return AsyncPlansResourceWithRawResponse(self._client.plans)
@@ -2427,7 +2423,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithStreamingResponse:
-        """Plans"""
         from .resources.plans import PlansResourceWithStreamingResponse
 
         return PlansResourceWithStreamingResponse(self._client.plans)
@@ -2880,7 +2875,6 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithStreamingResponse:
-        """Plans"""
         from .resources.plans import AsyncPlansResourceWithStreamingResponse
 
         return AsyncPlansResourceWithStreamingResponse(self._client.plans)
