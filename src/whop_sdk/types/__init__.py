@@ -24,7 +24,6 @@ from .shared import (
     PlanType as PlanType,
     Reaction as Reaction,
     Shipment as Shipment,
-    Transfer as Transfer,
     CustomCta as CustomCta,
     Direction as Direction,
     ForumPost as ForumPost,
@@ -142,7 +141,6 @@ from .review_list_params import ReviewListParams as ReviewListParams
 from .swap_create_params import SwapCreateParams as SwapCreateParams
 from .swap_list_response import SwapListResponse as SwapListResponse
 from .user_update_params import UserUpdateParams as UserUpdateParams
-from .wallet_send_params import WalletSendParams as WalletSendParams
 from .account_list_params import AccountListParams as AccountListParams
 from .account_social_link import AccountSocialLink as AccountSocialLink
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
@@ -186,7 +184,6 @@ from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .user_retrieve_params import UserRetrieveParams as UserRetrieveParams
 from .wallet_list_response import WalletListResponse as WalletListResponse
-from .wallet_send_response import WalletSendResponse as WalletSendResponse
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
 from .account_create_params import AccountCreateParams as AccountCreateParams
 from .account_list_response import AccountListResponse as AccountListResponse
@@ -291,6 +288,7 @@ from .refund_retrieve_response import RefundRetrieveResponse as RefundRetrieveRe
 from .review_retrieve_response import ReviewRetrieveResponse as ReviewRetrieveResponse
 from .setup_intent_list_params import SetupIntentListParams as SetupIntentListParams
 from .swap_create_quote_params import SwapCreateQuoteParams as SwapCreateQuoteParams
+from .transfer_create_response import TransferCreateResponse as TransferCreateResponse
 from .verification_list_params import VerificationListParams as VerificationListParams
 from .withdrawal_create_params import WithdrawalCreateParams as WithdrawalCreateParams
 from .withdrawal_list_response import WithdrawalListResponse as WithdrawalListResponse
@@ -326,6 +324,7 @@ from .payment_method_list_params import PaymentMethodListParams as PaymentMethod
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .swap_create_quote_response import SwapCreateQuoteResponse as SwapCreateQuoteResponse
+from .transfer_retrieve_response import TransferRetrieveResponse as TransferRetrieveResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
 from .verification_list_response import VerificationListResponse as VerificationListResponse
 from .ad_campaign_retrieve_params import AdCampaignRetrieveParams as AdCampaignRetrieveParams

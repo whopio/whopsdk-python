@@ -2,49 +2,38 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
-
-from .._utils import PropertyInfo
-from .shared.direction import Direction
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["TransferListParams"]
 
 
 class TransferListParams(TypedDict, total=False):
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    after: str
+    """Cursor to fetch the page after (from page_info.end_cursor)."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    before: str
+    """Cursor to fetch the page before (from page_info.start_cursor)."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return transfers created after this timestamp."""
+    created_after: str
+    """Only transfers created strictly after this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return transfers created before this timestamp."""
+    created_before: str
+    """Only transfers created strictly before this ISO 8601 timestamp."""
 
-    destination_id: Optional[str]
-    """Filter to transfers received by this account.
+    destination_id: str
+    """Filter to transfers received by this account."""
 
-    Accepts a user, company, or ledger account ID.
-    """
+    direction: Literal["asc", "desc"]
+    """Sort direction. Defaults to desc."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    first: int
+    """Number of transfers to return from the start of the window."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    last: int
+    """Number of transfers to return from the end of the window."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    order: Literal["created_at", "amount"]
+    """Sort column. Defaults to created_at."""
 
-    order: Optional[Literal["amount", "created_at"]]
-    """Which columns can be used to sort."""
-
-    origin_id: Optional[str]
-    """Filter to transfers sent from this account.
-
-    Accepts a user, company, or ledger account ID.
-    """
+    origin_id: str
+    """Filter to transfers sent from this account."""

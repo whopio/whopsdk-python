@@ -327,7 +327,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def transfers(self) -> TransfersResource:
-        """Transfers"""
         from .resources.transfers import TransfersResource
 
         return TransfersResource(self)
@@ -981,7 +980,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def transfers(self) -> AsyncTransfersResource:
-        """Transfers"""
         from .resources.transfers import AsyncTransfersResource
 
         return AsyncTransfersResource(self)
@@ -1555,7 +1553,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def transfers(self) -> transfers.TransfersResourceWithRawResponse:
-        """Transfers"""
         from .resources.transfers import TransfersResourceWithRawResponse
 
         return TransfersResourceWithRawResponse(self._client.transfers)
@@ -2011,7 +2008,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def transfers(self) -> transfers.AsyncTransfersResourceWithRawResponse:
-        """Transfers"""
         from .resources.transfers import AsyncTransfersResourceWithRawResponse
 
         return AsyncTransfersResourceWithRawResponse(self._client.transfers)
@@ -2469,7 +2465,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def transfers(self) -> transfers.TransfersResourceWithStreamingResponse:
-        """Transfers"""
         from .resources.transfers import TransfersResourceWithStreamingResponse
 
         return TransfersResourceWithStreamingResponse(self._client.transfers)
@@ -2927,7 +2922,6 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def transfers(self) -> transfers.AsyncTransfersResourceWithStreamingResponse:
-        """Transfers"""
         from .resources.transfers import AsyncTransfersResourceWithStreamingResponse
 
         return AsyncTransfersResourceWithStreamingResponse(self._client.transfers)

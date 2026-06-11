@@ -53,7 +53,6 @@ from whop_sdk.types import (
     ShipmentSubstatus,
     SupportChannel,
     TaxType,
-    Transfer,
     Visibility,
     VisibilityFilter,
     WhoCanCommentTypes,
@@ -261,13 +260,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import TransferListResponse
+from whop_sdk.types import TransferCreateResponse, TransferRetrieveResponse, TransferListResponse
 ```
 
 Methods:
 
-- <code title="post /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">create</a>(\*\*<a href="src/whop_sdk/types/transfer_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/transfer.py">Transfer</a></code>
-- <code title="get /transfers/{id}">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/transfer.py">Transfer</a></code>
+- <code title="post /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">create</a>(\*\*<a href="src/whop_sdk/types/transfer_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/transfer_create_response.py">TransferCreateResponse</a></code>
+- <code title="get /transfers/{id}">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/transfer_retrieve_response.py">TransferRetrieveResponse</a></code>
 - <code title="get /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">list</a>(\*\*<a href="src/whop_sdk/types/transfer_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/transfer_list_response.py">SyncCursorPage[TransferListResponse]</a></code>
 
 # LedgerAccounts
@@ -732,13 +731,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AccountWallet, WalletListResponse, WalletSendResponse
+from whop_sdk.types import AccountWallet, WalletListResponse
 ```
 
 Methods:
 
 - <code title="get /wallets">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">list</a>() -> <a href="./src/whop_sdk/types/wallet_list_response.py">WalletListResponse</a></code>
-- <code title="post /wallets/send">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">send</a>(\*\*<a href="src/whop_sdk/types/wallet_send_params.py">params</a>) -> <a href="./src/whop_sdk/types/wallet_send_response.py">WalletSendResponse</a></code>
 
 # FinancialActivity
 
