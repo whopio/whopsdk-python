@@ -39,7 +39,7 @@ class TestAdReports:
             breakdown="campaign",
             company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
-            granularity="daily",
+            granularity="hourly",
         )
         assert_matches_type(AdReportRetrieveResponse, ad_report, path=["response"])
 
@@ -98,7 +98,7 @@ class TestAsyncAdReports:
             breakdown="campaign",
             company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
-            granularity="daily",
+            granularity="hourly",
         )
         assert_matches_type(AdReportRetrieveResponse, ad_report, path=["response"])
 
