@@ -26,16 +26,13 @@ class TestPlans:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Whop) -> None:
-        plan = client.plans.create(
-            product_id="product_id",
-        )
+        plan = client.plans.create()
         assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         plan = client.plans.create(
-            product_id="product_id",
             account_id="account_id",
             adaptive_pricing_enabled=True,
             billing_period=0,
@@ -68,6 +65,7 @@ class TestPlans:
                 "include_platform_defaults": True,
             },
             plan_type="plan_type",
+            product_id="product_id",
             release_method="release_method",
             renewal_price=0,
             split_pay_required_payments=0,
@@ -83,9 +81,7 @@ class TestPlans:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
-        response = client.plans.with_raw_response.create(
-            product_id="product_id",
-        )
+        response = client.plans.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -95,9 +91,7 @@ class TestPlans:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
-        with client.plans.with_streaming_response.create(
-            product_id="product_id",
-        ) as response:
+        with client.plans.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -408,16 +402,13 @@ class TestAsyncPlans:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
-        plan = await async_client.plans.create(
-            product_id="product_id",
-        )
+        plan = await async_client.plans.create()
         assert_matches_type(Plan, plan, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.create(
-            product_id="product_id",
             account_id="account_id",
             adaptive_pricing_enabled=True,
             billing_period=0,
@@ -450,6 +441,7 @@ class TestAsyncPlans:
                 "include_platform_defaults": True,
             },
             plan_type="plan_type",
+            product_id="product_id",
             release_method="release_method",
             renewal_price=0,
             split_pay_required_payments=0,
@@ -465,9 +457,7 @@ class TestAsyncPlans:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
-        response = await async_client.plans.with_raw_response.create(
-            product_id="product_id",
-        )
+        response = await async_client.plans.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -477,9 +467,7 @@ class TestAsyncPlans:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
-        async with async_client.plans.with_streaming_response.create(
-            product_id="product_id",
-        ) as response:
+        async with async_client.plans.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

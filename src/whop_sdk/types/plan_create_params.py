@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
 
@@ -11,9 +11,6 @@ __all__ = ["PlanCreateParams", "CustomField", "Image", "PaymentMethodConfigurati
 
 
 class PlanCreateParams(TypedDict, total=False):
-    product_id: Required[str]
-    """The unique identifier of the product to attach this plan to."""
-
     account_id: str
     """The unique identifier of the account to create this plan for.
 
@@ -79,6 +76,9 @@ class PlanCreateParams(TypedDict, total=False):
 
     plan_type: str
     """The billing type of the plan, such as one_time or renewal."""
+
+    product_id: str
+    """The unique identifier of the product to attach this plan to."""
 
     release_method: str
     """The method used to sell this plan (e.g., buy_now, waitlist)."""

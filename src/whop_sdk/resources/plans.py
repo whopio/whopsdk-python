@@ -51,7 +51,6 @@ class PlansResource(SyncAPIResource):
     def create(
         self,
         *,
-        product_id: str,
         account_id: str | Omit = omit,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
@@ -68,6 +67,7 @@ class PlansResource(SyncAPIResource):
         override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: str | Omit = omit,
+        product_id: str | Omit = omit,
         release_method: str | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
@@ -90,8 +90,6 @@ class PlansResource(SyncAPIResource):
         price, and availability for customers.
 
         Args:
-          product_id: The unique identifier of the product to attach this plan to.
-
           account_id: The unique identifier of the account to create this plan for. Defaults to the
               caller's account.
 
@@ -130,6 +128,8 @@ class PlansResource(SyncAPIResource):
 
           plan_type: The billing type of the plan, such as one_time or renewal.
 
+          product_id: The unique identifier of the product to attach this plan to.
+
           release_method: The method used to sell this plan (e.g., buy_now, waitlist).
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
@@ -162,7 +162,6 @@ class PlansResource(SyncAPIResource):
             "/plans",
             body=maybe_transform(
                 {
-                    "product_id": product_id,
                     "account_id": account_id,
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
@@ -179,6 +178,7 @@ class PlansResource(SyncAPIResource):
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
+                    "product_id": product_id,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
                     "split_pay_required_payments": split_pay_required_payments,
@@ -575,7 +575,6 @@ class AsyncPlansResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        product_id: str,
         account_id: str | Omit = omit,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
@@ -592,6 +591,7 @@ class AsyncPlansResource(AsyncAPIResource):
         override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
         plan_type: str | Omit = omit,
+        product_id: str | Omit = omit,
         release_method: str | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
@@ -614,8 +614,6 @@ class AsyncPlansResource(AsyncAPIResource):
         price, and availability for customers.
 
         Args:
-          product_id: The unique identifier of the product to attach this plan to.
-
           account_id: The unique identifier of the account to create this plan for. Defaults to the
               caller's account.
 
@@ -654,6 +652,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           plan_type: The billing type of the plan, such as one_time or renewal.
 
+          product_id: The unique identifier of the product to attach this plan to.
+
           release_method: The method used to sell this plan (e.g., buy_now, waitlist).
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
@@ -686,7 +686,6 @@ class AsyncPlansResource(AsyncAPIResource):
             "/plans",
             body=await async_maybe_transform(
                 {
-                    "product_id": product_id,
                     "account_id": account_id,
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
@@ -703,6 +702,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
                     "plan_type": plan_type,
+                    "product_id": product_id,
                     "release_method": release_method,
                     "renewal_price": renewal_price,
                     "split_pay_required_payments": split_pay_required_payments,
