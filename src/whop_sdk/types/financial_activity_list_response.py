@@ -173,6 +173,12 @@ class DataSource(BaseModel):
 
     object: str
 
+    chain: Optional[str] = None
+    """
+    Chain the deposit landed on, for example plasma (onchain_transaction sources
+    only).
+    """
+
     created_at: Optional[datetime] = None
     """
     Withdrawal creation time as an ISO 8601 timestamp (withdrawal sources only;
@@ -197,11 +203,20 @@ class DataSource(BaseModel):
     payout_token_nickname: Optional[str] = None
     """Saved payout destination nickname (withdrawal sources only)."""
 
+    sender_address: Optional[str] = None
+    """
+    Sender wallet address or onramp provider identifier (onchain_transaction sources
+    only).
+    """
+
     status: Optional[str] = None
     """
     Withdrawal lifecycle status (withdrawal sources only; requires
     payout:withdrawal:read).
     """
+
+    tx_hash: Optional[str] = None
+    """On-chain transaction hash (onchain_transaction sources only)."""
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
