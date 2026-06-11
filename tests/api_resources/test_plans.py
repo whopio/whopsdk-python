@@ -12,8 +12,8 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     PlanListResponse,
     PlanDeleteResponse,
+    PlanCalculateTaxResponse,
 )
-from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Plan
 
@@ -27,8 +27,7 @@ class TestPlans:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         plan = client.plans.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -36,50 +35,48 @@ class TestPlans:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         plan = client.plans.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
+            account_id="account_id",
             adaptive_pricing_enabled=True,
-            billing_period=42,
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
+            billing_period=0,
+            checkout_styling={},
+            currency="currency",
             custom_fields=[
                 {
+                    "id": "id",
                     "field_type": "text",
                     "name": "name",
-                    "id": "id",
-                    "order": 42,
+                    "order": 0,
                     "placeholder": "placeholder",
                     "required": True,
                 }
             ],
             description="description",
-            expiration_days=42,
-            image={"id": "id"},
-            initial_price=6.9,
+            expiration_days=0,
+            image={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            initial_price=0,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
-            metadata={"foo": "bar"},
-            override_tax_type="inclusive",
+            metadata={},
+            override_tax_type="override_tax_type",
             payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
+                "disabled": ["string"],
+                "enabled": ["string"],
                 "include_platform_defaults": True,
             },
-            plan_type="renewal",
-            release_method="buy_now",
-            renewal_price=6.9,
-            split_pay_required_payments=42,
-            stock=42,
+            plan_type="plan_type",
+            release_method="release_method",
+            renewal_price=0,
+            split_pay_required_payments=0,
+            stock=0,
             three_ds_level="mandate_challenge",
             title="title",
-            trial_period_days=42,
+            trial_period_days=0,
             unlimited_stock=True,
-            visibility="visible",
+            visibility="visibility",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -87,8 +84,7 @@ class TestPlans:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.plans.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
         )
 
         assert response.is_closed is True
@@ -100,8 +96,7 @@ class TestPlans:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.plans.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -115,7 +110,7 @@ class TestPlans:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         plan = client.plans.retrieve(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -123,7 +118,7 @@ class TestPlans:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.plans.with_raw_response.retrieve(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -135,7 +130,7 @@ class TestPlans:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.plans.with_streaming_response.retrieve(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -157,7 +152,7 @@ class TestPlans:
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         plan = client.plans.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -165,49 +160,47 @@ class TestPlans:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         plan = client.plans.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
             adaptive_pricing_enabled=True,
-            billing_period=42,
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
+            billing_period=0,
+            checkout_styling={},
+            currency="currency",
             custom_fields=[
                 {
+                    "id": "id",
                     "field_type": "text",
                     "name": "name",
-                    "id": "id",
-                    "order": 42,
+                    "order": 0,
                     "placeholder": "placeholder",
                     "required": True,
                 }
             ],
             description="description",
-            expiration_days=42,
-            image={"id": "id"},
-            initial_price=6.9,
+            expiration_days=0,
+            image={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            initial_price=0,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
-            metadata={"foo": "bar"},
+            metadata={},
             offer_cancel_discount=True,
-            override_tax_type="inclusive",
+            override_tax_type="override_tax_type",
             payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
+                "disabled": ["string"],
+                "enabled": ["string"],
                 "include_platform_defaults": True,
             },
-            renewal_price=6.9,
-            stock=42,
-            strike_through_initial_price=6.9,
-            strike_through_renewal_price=6.9,
+            renewal_price=0,
+            stock=0,
+            strike_through_initial_price=0,
+            strike_through_renewal_price=0,
             three_ds_level="mandate_challenge",
             title="title",
-            trial_period_days=42,
+            trial_period_days=0,
             unlimited_stock=True,
-            visibility="visible",
+            visibility="visibility",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -215,7 +208,7 @@ class TestPlans:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.plans.with_raw_response.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -227,7 +220,7 @@ class TestPlans:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.plans.with_streaming_response.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -249,7 +242,7 @@ class TestPlans:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         plan = client.plans.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
         assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -257,19 +250,19 @@ class TestPlans:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         plan = client.plans.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             after="after",
             before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            last=42,
+            first=0,
+            last=0,
             order="id",
-            plan_types=["renewal"],
+            plan_types=["string"],
             product_ids=["string"],
-            release_methods=["buy_now"],
-            visibilities=["visible"],
+            release_methods=["string"],
+            visibilities=["string"],
         )
         assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -277,7 +270,7 @@ class TestPlans:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.plans.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -289,7 +282,7 @@ class TestPlans:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.plans.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -303,7 +296,7 @@ class TestPlans:
     @parametrize
     def test_method_delete(self, client: Whop) -> None:
         plan = client.plans.delete(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
@@ -311,7 +304,7 @@ class TestPlans:
     @parametrize
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.plans.with_raw_response.delete(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -323,7 +316,7 @@ class TestPlans:
     @parametrize
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.plans.with_streaming_response.delete(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -341,6 +334,71 @@ class TestPlans:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_calculate_tax(self, client: Whop) -> None:
+        plan = client.plans.calculate_tax(
+            id="id",
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_calculate_tax_with_all_params(self, client: Whop) -> None:
+        plan = client.plans.calculate_tax(
+            id="id",
+            address={
+                "country": "country",
+                "city": "city",
+                "line1": "line1",
+                "line2": "line2",
+                "postal_code": "postal_code",
+                "state": "state",
+            },
+            ip_address="ip_address",
+            tax_ids=[
+                {
+                    "type": "type",
+                    "value": "value",
+                }
+            ],
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_calculate_tax(self, client: Whop) -> None:
+        response = client.plans.with_raw_response.calculate_tax(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        plan = response.parse()
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_calculate_tax(self, client: Whop) -> None:
+        with client.plans.with_streaming_response.calculate_tax(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            plan = response.parse()
+            assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_calculate_tax(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.plans.with_raw_response.calculate_tax(
+                id="",
+            )
+
 
 class TestAsyncPlans:
     parametrize = pytest.mark.parametrize(
@@ -351,8 +409,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -360,50 +417,48 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
+            account_id="account_id",
             adaptive_pricing_enabled=True,
-            billing_period=42,
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
+            billing_period=0,
+            checkout_styling={},
+            currency="currency",
             custom_fields=[
                 {
+                    "id": "id",
                     "field_type": "text",
                     "name": "name",
-                    "id": "id",
-                    "order": 42,
+                    "order": 0,
                     "placeholder": "placeholder",
                     "required": True,
                 }
             ],
             description="description",
-            expiration_days=42,
-            image={"id": "id"},
-            initial_price=6.9,
+            expiration_days=0,
+            image={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            initial_price=0,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
-            metadata={"foo": "bar"},
-            override_tax_type="inclusive",
+            metadata={},
+            override_tax_type="override_tax_type",
             payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
+                "disabled": ["string"],
+                "enabled": ["string"],
                 "include_platform_defaults": True,
             },
-            plan_type="renewal",
-            release_method="buy_now",
-            renewal_price=6.9,
-            split_pay_required_payments=42,
-            stock=42,
+            plan_type="plan_type",
+            release_method="release_method",
+            renewal_price=0,
+            split_pay_required_payments=0,
+            stock=0,
             three_ds_level="mandate_challenge",
             title="title",
-            trial_period_days=42,
+            trial_period_days=0,
             unlimited_stock=True,
-            visibility="visible",
+            visibility="visibility",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -411,8 +466,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.plans.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
         )
 
         assert response.is_closed is True
@@ -424,8 +478,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.plans.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            product_id="prod_xxxxxxxxxxxxx",
+            product_id="product_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -439,7 +492,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.retrieve(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -447,7 +500,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.plans.with_raw_response.retrieve(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -459,7 +512,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.plans.with_streaming_response.retrieve(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -481,7 +534,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -489,49 +542,47 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
             adaptive_pricing_enabled=True,
-            billing_period=42,
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
+            billing_period=0,
+            checkout_styling={},
+            currency="currency",
             custom_fields=[
                 {
+                    "id": "id",
                     "field_type": "text",
                     "name": "name",
-                    "id": "id",
-                    "order": 42,
+                    "order": 0,
                     "placeholder": "placeholder",
                     "required": True,
                 }
             ],
             description="description",
-            expiration_days=42,
-            image={"id": "id"},
-            initial_price=6.9,
+            expiration_days=0,
+            image={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            initial_price=0,
             internal_notes="internal_notes",
             legacy_payment_method_controls=True,
-            metadata={"foo": "bar"},
+            metadata={},
             offer_cancel_discount=True,
-            override_tax_type="inclusive",
+            override_tax_type="override_tax_type",
             payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
+                "disabled": ["string"],
+                "enabled": ["string"],
                 "include_platform_defaults": True,
             },
-            renewal_price=6.9,
-            stock=42,
-            strike_through_initial_price=6.9,
-            strike_through_renewal_price=6.9,
+            renewal_price=0,
+            stock=0,
+            strike_through_initial_price=0,
+            strike_through_renewal_price=0,
             three_ds_level="mandate_challenge",
             title="title",
-            trial_period_days=42,
+            trial_period_days=0,
             unlimited_stock=True,
-            visibility="visible",
+            visibility="visibility",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -539,7 +590,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.plans.with_raw_response.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -551,7 +602,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.plans.with_streaming_response.update(
-            id="plan_xxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -573,7 +624,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
         assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -581,19 +632,19 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             after="after",
             before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            last=42,
+            first=0,
+            last=0,
             order="id",
-            plan_types=["renewal"],
+            plan_types=["string"],
             product_ids=["string"],
-            release_methods=["buy_now"],
-            visibilities=["visible"],
+            release_methods=["string"],
+            visibilities=["string"],
         )
         assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -601,7 +652,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.plans.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -613,7 +664,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.plans.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -627,7 +678,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.delete(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
@@ -635,7 +686,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.plans.with_raw_response.delete(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -647,7 +698,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.plans.with_streaming_response.delete(
-            "plan_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -663,4 +714,69 @@ class TestAsyncPlans:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.plans.with_raw_response.delete(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_calculate_tax(self, async_client: AsyncWhop) -> None:
+        plan = await async_client.plans.calculate_tax(
+            id="id",
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_calculate_tax_with_all_params(self, async_client: AsyncWhop) -> None:
+        plan = await async_client.plans.calculate_tax(
+            id="id",
+            address={
+                "country": "country",
+                "city": "city",
+                "line1": "line1",
+                "line2": "line2",
+                "postal_code": "postal_code",
+                "state": "state",
+            },
+            ip_address="ip_address",
+            tax_ids=[
+                {
+                    "type": "type",
+                    "value": "value",
+                }
+            ],
+        )
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_calculate_tax(self, async_client: AsyncWhop) -> None:
+        response = await async_client.plans.with_raw_response.calculate_tax(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        plan = await response.parse()
+        assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_calculate_tax(self, async_client: AsyncWhop) -> None:
+        async with async_client.plans.with_streaming_response.calculate_tax(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            plan = await response.parse()
+            assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_calculate_tax(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.plans.with_raw_response.calculate_tax(
+                id="",
             )
