@@ -208,7 +208,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CheckoutFont, CheckoutShape, PlanListResponse, PlanDeleteResponse
+from whop_sdk.types import (
+    CheckoutFont,
+    CheckoutShape,
+    PlanListResponse,
+    PlanDeleteResponse,
+    PlanCalculateTaxResponse,
+)
 ```
 
 Methods:
@@ -218,6 +224,7 @@ Methods:
 - <code title="patch /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">update</a>(id, \*\*<a href="src/whop_sdk/types/plan_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
 - <code title="get /plans">client.plans.<a href="./src/whop_sdk/resources/plans.py">list</a>(\*\*<a href="src/whop_sdk/types/plan_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/plan_list_response.py">SyncCursorPage[PlanListResponse]</a></code>
 - <code title="delete /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">delete</a>(id) -> <a href="./src/whop_sdk/types/plan_delete_response.py">PlanDeleteResponse</a></code>
+- <code title="post /plans/{id}/calculate_tax">client.plans.<a href="./src/whop_sdk/resources/plans.py">calculate_tax</a>(id, \*\*<a href="src/whop_sdk/types/plan_calculate_tax_params.py">params</a>) -> <a href="./src/whop_sdk/types/plan_calculate_tax_response.py">PlanCalculateTaxResponse</a></code>
 
 # Entries
 
@@ -756,13 +763,19 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import SwapCreateResponse, SwapRetrieveResponse, SwapCreateQuoteResponse
+from whop_sdk.types import (
+    SwapCreateResponse,
+    SwapRetrieveResponse,
+    SwapListResponse,
+    SwapCreateQuoteResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create</a>(\*\*<a href="src/whop_sdk/types/swap_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_response.py">SwapCreateResponse</a></code>
-- <code title="get /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">retrieve</a>(\*\*<a href="src/whop_sdk/types/swap_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_retrieve_response.py">SwapRetrieveResponse</a></code>
+- <code title="get /swaps/{id}">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/swap_retrieve_response.py">SwapRetrieveResponse</a></code>
+- <code title="get /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">list</a>(\*\*<a href="src/whop_sdk/types/swap_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_list_response.py">SwapListResponse</a></code>
 - <code title="post /swaps/quote">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create_quote</a>(\*\*<a href="src/whop_sdk/types/swap_create_quote_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_quote_response.py">SwapCreateQuoteResponse</a></code>
 
 # Deposits
@@ -770,12 +783,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import DepositCreateResponse
+from whop_sdk.types import DepositCreateResponse, DepositListResponse
 ```
 
 Methods:
 
 - <code title="post /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">create</a>(\*\*<a href="src/whop_sdk/types/deposit_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_create_response.py">DepositCreateResponse</a></code>
+- <code title="get /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">list</a>(\*\*<a href="src/whop_sdk/types/deposit_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_list_response.py">DepositListResponse</a></code>
 
 # SetupIntents
 
