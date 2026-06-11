@@ -15,13 +15,13 @@ class Token(BaseModel):
 
     name: str
 
-    price_usd: float
+    price_usd: Optional[float] = None
 
     symbol: str
 
     token_address: Optional[str] = None
 
-    value_usd: str
+    value_usd: Optional[str] = None
 
 
 class WalletBalanceResponse(BaseModel):

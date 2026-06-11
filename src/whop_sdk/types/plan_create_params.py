@@ -2,27 +2,23 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-from .checkout_font import CheckoutFont
-from .checkout_shape import CheckoutShape
-from .shared.currency import Currency
-from .shared.tax_type import TaxType
-from .shared.plan_type import PlanType
-from .shared.visibility import Visibility
-from .payment_method_types import PaymentMethodTypes
-from .shared.release_method import ReleaseMethod
+from .._types import SequenceNotStr
 
-__all__ = ["PlanCreateParams", "CheckoutStyling", "CustomField", "Image", "PaymentMethodConfiguration"]
+__all__ = ["PlanCreateParams", "CustomField", "Image", "PaymentMethodConfiguration"]
 
 
 class PlanCreateParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to create this plan for."""
-
     product_id: Required[str]
     """The unique identifier of the product to attach this plan to."""
+
+    account_id: str
+    """The unique identifier of the account to create this plan for.
+
+    Defaults to the caller's account.
+    """
 
     adaptive_pricing_enabled: Optional[bool]
     """Whether this plan accepts local currency payments via adaptive pricing."""
@@ -33,36 +29,31 @@ class PlanCreateParams(TypedDict, total=False):
     For example, 30 for monthly or 365 for yearly.
     """
 
-    checkout_styling: Optional[CheckoutStyling]
-    """Checkout styling overrides for this plan.
+    checkout_styling: Optional[object]
+    """Checkout styling overrides for this plan."""
 
-    Pass null to inherit from the company default.
-    """
-
-    currency: Optional[Currency]
-    """The available currencies on the platform"""
+    currency: str
+    """The three-letter ISO currency code for the plan's pricing. Defaults to USD."""
 
     custom_fields: Optional[Iterable[CustomField]]
-    """An array of custom field definitions to collect from customers at checkout."""
+    """An array of custom field definitions to collect from customers at checkout.
+
+    Omitting this field clears existing custom fields.
+    """
 
     description: Optional[str]
     """A text description of the plan displayed to customers on the product page."""
 
     expiration_days: Optional[int]
-    """The number of days until the membership expires and access is revoked.
-
-    Used for expiration-based plans.
-    """
+    """The number of days until the membership expires and access is revoked."""
 
     image: Optional[Image]
     """An image displayed on the product page to represent this plan."""
 
     initial_price: Optional[float]
-    """The amount charged on the first purchase.
-
-    For one-time plans, this is the full price. For recurring plans, this is an
-    additional charge on top of the renewal price. Provided in the plan's currency
-    (e.g., 10.43 for $10.43).
+    """
+    The amount charged on the first purchase, in the plan's currency (e.g., 10.43
+    for $10.43).
     """
 
     internal_notes: Optional[str]
@@ -71,35 +62,31 @@ class PlanCreateParams(TypedDict, total=False):
     legacy_payment_method_controls: Optional[bool]
     """Whether this plan uses legacy payment method controls."""
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[object]
     """Custom key-value pairs to store on the plan.
 
-    Included in webhook payloads for payment and membership events. Max 50 keys, 500
-    chars per key, 5000 chars per value.
+    Included in webhook payloads for payment and membership events.
     """
 
-    override_tax_type: Optional[TaxType]
-    """
-    Whether or not the tax is included in a plan's price (or if it hasn't been set
-    up)
-    """
+    override_tax_type: str
+    """Override the default tax classification for this specific plan."""
 
     payment_method_configuration: Optional[PaymentMethodConfiguration]
     """Explicit payment method configuration for the plan.
 
-    When not provided, the company's defaults apply.
+    When not provided, the account's defaults apply.
     """
 
-    plan_type: Optional[PlanType]
-    """The type of plan that can be attached to a product"""
+    plan_type: str
+    """The billing type of the plan, such as one_time or renewal."""
 
-    release_method: Optional[ReleaseMethod]
-    """The methods of how a plan can be released."""
+    release_method: str
+    """The method used to sell this plan (e.g., buy_now, waitlist)."""
 
     renewal_price: Optional[float]
-    """The amount charged each billing period for recurring plans.
-
-    Provided in the plan's currency (e.g., 10.43 for $10.43).
+    """
+    The amount charged each billing period for recurring plans, in the plan's
+    currency.
     """
 
     split_pay_required_payments: Optional[int]
@@ -111,8 +98,8 @@ class PlanCreateParams(TypedDict, total=False):
     Ignored when unlimited_stock is true.
     """
 
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
-    """The 3D Secure behavior for a plan."""
+    three_ds_level: Literal["mandate_challenge", "frictionless"]
+    """The 3D Secure behavior for this plan. Send null to inherit the account default."""
 
     title: Optional[str]
     """The display name of the plan shown to customers on the product page."""
@@ -121,87 +108,48 @@ class PlanCreateParams(TypedDict, total=False):
     """The number of free trial days before the first charge on a recurring plan."""
 
     unlimited_stock: Optional[bool]
-    """Whether the plan has unlimited stock.
+    """Whether the plan has unlimited stock. When true, the stock field is ignored."""
 
-    When true, the stock field is ignored. Defaults to true.
-    """
-
-    visibility: Optional[Visibility]
-    """Visibility of a resource"""
-
-
-class CheckoutStyling(TypedDict, total=False):
-    """Checkout styling overrides for this plan.
-
-    Pass null to inherit from the company default.
-    """
-
-    background_color: Optional[str]
-    """
-    A hex color code for the checkout page background, applied to the order summary
-    panel (e.g. #F4F4F5).
-    """
-
-    border_style: Optional[CheckoutShape]
-    """The different border-radius styles available for checkout pages."""
-
-    button_color: Optional[str]
-    """A hex color code for the button color (e.g. #FF5733)."""
-
-    font_family: Optional[CheckoutFont]
-    """The different font families available for checkout pages."""
+    visibility: str
+    """Whether the plan is visible to customers or hidden from public view."""
 
 
 class CustomField(TypedDict, total=False):
-    field_type: Required[Literal["text"]]
+    id: str
+    """The ID of the custom field (if being updated)."""
+
+    field_type: Literal["text"]
     """The type of the custom field."""
 
-    name: Required[str]
+    name: str
     """The name of the custom field."""
 
-    id: Optional[str]
-    """The ID of the custom field (if being updated)"""
-
-    order: Optional[int]
+    order: int
     """The order of the field."""
 
     placeholder: Optional[str]
-    """The placeholder value of the field."""
+    """An example response displayed in the input field."""
 
-    required: Optional[bool]
+    required: bool
     """Whether or not the field is required."""
 
 
 class Image(TypedDict, total=False):
     """An image displayed on the product page to represent this plan."""
 
-    id: Required[str]
-    """The ID of an existing file object."""
+    id: str
+
+    direct_upload_id: str
 
 
 class PaymentMethodConfiguration(TypedDict, total=False):
     """Explicit payment method configuration for the plan.
 
-    When not provided, the company's defaults apply.
+    When not provided, the account's defaults apply.
     """
 
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
+    disabled: SequenceNotStr[str]
 
-    Only applies if the include_platform_defaults is true.
-    """
+    enabled: SequenceNotStr[str]
 
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Optional[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
+    include_platform_defaults: bool
