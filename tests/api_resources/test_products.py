@@ -9,7 +9,10 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import ProductDeleteResponse
+from whop_sdk.types import (
+    ProductDeleteResponse,
+)
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Product, ProductListItem
 
@@ -23,6 +26,7 @@ class TestProducts:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         product = client.products.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -31,23 +35,44 @@ class TestProducts:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         product = client.products.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
             collect_shipping_address=True,
-            company_id="company_id",
-            custom_cta="custom_cta",
+            custom_cta="get_access",
             custom_cta_url="custom_cta_url",
             custom_statement_descriptor="custom_statement_descriptor",
             description="description",
-            global_affiliate_percentage=0,
-            global_affiliate_status="global_affiliate_status",
+            experience_ids=["string"],
+            global_affiliate_percentage=6.9,
+            global_affiliate_status="enabled",
             headline="headline",
-            member_affiliate_percentage=0,
-            member_affiliate_status="member_affiliate_status",
-            metadata={},
-            product_tax_code_id="product_tax_code_id",
+            member_affiliate_percentage=6.9,
+            member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
+            plan_options={
+                "base_currency": "usd",
+                "billing_period": 42,
+                "custom_fields": [
+                    {
+                        "field_type": "text",
+                        "name": "name",
+                        "id": "id",
+                        "order": 42,
+                        "placeholder": "placeholder",
+                        "required": True,
+                    }
+                ],
+                "initial_price": 6.9,
+                "plan_type": "renewal",
+                "release_method": "buy_now",
+                "renewal_price": 6.9,
+                "visibility": "visible",
+            },
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
-            visibility="visibility",
+            send_welcome_message=True,
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -55,6 +80,7 @@ class TestProducts:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.products.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         )
 
@@ -67,6 +93,7 @@ class TestProducts:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.products.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         ) as response:
             assert not response.is_closed
@@ -81,7 +108,7 @@ class TestProducts:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         product = client.products.retrieve(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -89,7 +116,7 @@ class TestProducts:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.products.with_raw_response.retrieve(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -101,7 +128,7 @@ class TestProducts:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.products.with_streaming_response.retrieve(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -123,7 +150,7 @@ class TestProducts:
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         product = client.products.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -131,12 +158,29 @@ class TestProducts:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         product = client.products.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
+            collect_shipping_address=True,
+            custom_cta="get_access",
+            custom_cta_url="custom_cta_url",
+            custom_statement_descriptor="custom_statement_descriptor",
             description="description",
+            gallery_images=[{"id": "id"}],
+            global_affiliate_percentage=6.9,
+            global_affiliate_status="enabled",
             headline="headline",
-            metadata={},
+            member_affiliate_percentage=6.9,
+            member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
+            redirect_purchase_url="redirect_purchase_url",
+            route="route",
+            send_welcome_message=True,
+            store_page_config={
+                "custom_cta": "custom_cta",
+                "show_price": True,
+            },
             title="title",
-            visibility="visibility",
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -144,7 +188,7 @@ class TestProducts:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.products.with_raw_response.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -156,7 +200,7 @@ class TestProducts:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.products.with_streaming_response.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -178,7 +222,7 @@ class TestProducts:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         product = client.products.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SyncCursorPage[ProductListItem], product, path=["response"])
 
@@ -186,15 +230,17 @@ class TestProducts:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         product = client.products.list(
-            company_id="company_id",
-            access_pass_types=["string"],
+            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
-            first=0,
-            last=0,
-            order="order",
-            visibilities=["string"],
+            first=42,
+            last=42,
+            order="active_memberships_count",
+            product_types=["regular"],
+            visibilities=["visible"],
         )
         assert_matches_type(SyncCursorPage[ProductListItem], product, path=["response"])
 
@@ -202,7 +248,7 @@ class TestProducts:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.products.with_raw_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -214,7 +260,7 @@ class TestProducts:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.products.with_streaming_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -228,7 +274,7 @@ class TestProducts:
     @parametrize
     def test_method_delete(self, client: Whop) -> None:
         product = client.products.delete(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
@@ -236,7 +282,7 @@ class TestProducts:
     @parametrize
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.products.with_raw_response.delete(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -248,7 +294,7 @@ class TestProducts:
     @parametrize
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.products.with_streaming_response.delete(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -276,6 +322,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -284,23 +331,44 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
             collect_shipping_address=True,
-            company_id="company_id",
-            custom_cta="custom_cta",
+            custom_cta="get_access",
             custom_cta_url="custom_cta_url",
             custom_statement_descriptor="custom_statement_descriptor",
             description="description",
-            global_affiliate_percentage=0,
-            global_affiliate_status="global_affiliate_status",
+            experience_ids=["string"],
+            global_affiliate_percentage=6.9,
+            global_affiliate_status="enabled",
             headline="headline",
-            member_affiliate_percentage=0,
-            member_affiliate_status="member_affiliate_status",
-            metadata={},
-            product_tax_code_id="product_tax_code_id",
+            member_affiliate_percentage=6.9,
+            member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
+            plan_options={
+                "base_currency": "usd",
+                "billing_period": 42,
+                "custom_fields": [
+                    {
+                        "field_type": "text",
+                        "name": "name",
+                        "id": "id",
+                        "order": 42,
+                        "placeholder": "placeholder",
+                        "required": True,
+                    }
+                ],
+                "initial_price": 6.9,
+                "plan_type": "renewal",
+                "release_method": "buy_now",
+                "renewal_price": 6.9,
+                "visibility": "visible",
+            },
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
-            visibility="visibility",
+            send_welcome_message=True,
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -308,6 +376,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         )
 
@@ -320,6 +389,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
             title="title",
         ) as response:
             assert not response.is_closed
@@ -334,7 +404,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.retrieve(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -342,7 +412,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.retrieve(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -354,7 +424,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.retrieve(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -376,7 +446,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -384,12 +454,29 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
+            collect_shipping_address=True,
+            custom_cta="get_access",
+            custom_cta_url="custom_cta_url",
+            custom_statement_descriptor="custom_statement_descriptor",
             description="description",
+            gallery_images=[{"id": "id"}],
+            global_affiliate_percentage=6.9,
+            global_affiliate_status="enabled",
             headline="headline",
-            metadata={},
+            member_affiliate_percentage=6.9,
+            member_affiliate_status="enabled",
+            metadata={"foo": "bar"},
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
+            redirect_purchase_url="redirect_purchase_url",
+            route="route",
+            send_welcome_message=True,
+            store_page_config={
+                "custom_cta": "custom_cta",
+                "show_price": True,
+            },
             title="title",
-            visibility="visibility",
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -397,7 +484,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -409,7 +496,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.update(
-            id="id",
+            id="prod_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -431,7 +518,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AsyncCursorPage[ProductListItem], product, path=["response"])
 
@@ -439,15 +526,17 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.list(
-            company_id="company_id",
-            access_pass_types=["string"],
+            company_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
+            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
-            first=0,
-            last=0,
-            order="order",
-            visibilities=["string"],
+            first=42,
+            last=42,
+            order="active_memberships_count",
+            product_types=["regular"],
+            visibilities=["visible"],
         )
         assert_matches_type(AsyncCursorPage[ProductListItem], product, path=["response"])
 
@@ -455,7 +544,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -467,7 +556,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.list(
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -481,7 +570,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.delete(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
         assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
@@ -489,7 +578,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.delete(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -501,7 +590,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.delete(
-            "id",
+            "prod_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
