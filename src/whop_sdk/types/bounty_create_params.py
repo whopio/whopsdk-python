@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
 from .shared.currency import Currency
@@ -37,6 +37,15 @@ class BountyCreateParams(TypedDict, total=False):
     """The ISO3166 country codes where this bounty should be visible.
 
     Empty means globally visible.
+    """
+
+    business_goal_type: Optional[
+        Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+    ]
+    """What the poster is trying to accomplish with a workforce bounty.
+
+    Used for product taxonomy and analytics, separate from the bounty's
+    implementation type.
     """
 
     experience_id: Optional[str]
