@@ -60,6 +60,10 @@ class BountiesResource(SyncAPIResource):
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Optional[
+            Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+        ]
+        | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
@@ -94,6 +98,9 @@ class BountiesResource(SyncAPIResource):
           allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
               globally visible.
 
+          business_goal_type: What the poster is trying to accomplish with a workforce bounty. Used for
+              product taxonomy and analytics, separate from the bounty's implementation type.
+
           experience_id: An optional experience to scope the bounty to.
 
           origin_account_id: The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
@@ -124,6 +131,7 @@ class BountiesResource(SyncAPIResource):
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
@@ -273,6 +281,10 @@ class AsyncBountiesResource(AsyncAPIResource):
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Optional[
+            Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+        ]
+        | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
@@ -307,6 +319,9 @@ class AsyncBountiesResource(AsyncAPIResource):
           allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
               globally visible.
 
+          business_goal_type: What the poster is trying to accomplish with a workforce bounty. Used for
+              product taxonomy and analytics, separate from the bounty's implementation type.
+
           experience_id: An optional experience to scope the bounty to.
 
           origin_account_id: The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
@@ -337,6 +352,7 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
