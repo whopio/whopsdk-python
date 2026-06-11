@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Any, Union, cast
+from datetime import datetime
+
 import httpx
 
 from ..types import wallet_send_params, wallet_balance_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -104,7 +107,10 @@ class WalletsResource(SyncAPIResource):
         *,
         account_id: str,
         amount: str,
-        to: str,
+        expires_at: Union[str, datetime] | Omit = omit,
+        link: bool | Omit = omit,
+        redeemable_count: int | Omit = omit,
+        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -112,15 +118,27 @@ class WalletsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WalletSendResponse:
-        """
-        Sends USDT from an account's wallet to another Whop user or business.
+        """Sends USDT from an account's wallet to another Whop user or business.
+
+        With link:
+        true instead of to, funds a claim link anyone with the URL can redeem (requires
+        the airdrop_link:manage scope) and returns its claim_url.
 
         Args:
           account_id: The sending account ID.
 
-          amount: USDT amount to send.
+          amount: USDT amount to send — or the per-claim USD amount when link is true.
 
-          to: Recipient user ID, business account ID, ledger account ID, or email.
+          expires_at: Claim-link expiry as an ISO 8601 timestamp (link mode only). Defaults to 24
+              hours from creation.
+
+          link: When true, creates a claim link instead of sending to a recipient. Mutually
+              exclusive with to. Requires the airdrop_link:manage scope.
+
+          redeemable_count: How many different users can claim the link (link mode only). Defaults to 1.
+
+          to: Recipient user ID, business account ID, ledger account ID, or email. Omit when
+              link is true.
 
           extra_headers: Send extra headers
 
@@ -130,23 +148,31 @@ class WalletsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/wallets/send",
-            body=maybe_transform(
-                {
-                    "amount": amount,
-                    "to": to,
-                },
-                wallet_send_params.WalletSendParams,
+        return cast(
+            WalletSendResponse,
+            self._post(
+                "/wallets/send",
+                body=maybe_transform(
+                    {
+                        "amount": amount,
+                        "expires_at": expires_at,
+                        "link": link,
+                        "redeemable_count": redeemable_count,
+                        "to": to,
+                    },
+                    wallet_send_params.WalletSendParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
+                ),
+                cast_to=cast(
+                    Any, WalletSendResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
-            ),
-            cast_to=WalletSendResponse,
         )
 
 
@@ -233,7 +259,10 @@ class AsyncWalletsResource(AsyncAPIResource):
         *,
         account_id: str,
         amount: str,
-        to: str,
+        expires_at: Union[str, datetime] | Omit = omit,
+        link: bool | Omit = omit,
+        redeemable_count: int | Omit = omit,
+        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -241,15 +270,27 @@ class AsyncWalletsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WalletSendResponse:
-        """
-        Sends USDT from an account's wallet to another Whop user or business.
+        """Sends USDT from an account's wallet to another Whop user or business.
+
+        With link:
+        true instead of to, funds a claim link anyone with the URL can redeem (requires
+        the airdrop_link:manage scope) and returns its claim_url.
 
         Args:
           account_id: The sending account ID.
 
-          amount: USDT amount to send.
+          amount: USDT amount to send — or the per-claim USD amount when link is true.
 
-          to: Recipient user ID, business account ID, ledger account ID, or email.
+          expires_at: Claim-link expiry as an ISO 8601 timestamp (link mode only). Defaults to 24
+              hours from creation.
+
+          link: When true, creates a claim link instead of sending to a recipient. Mutually
+              exclusive with to. Requires the airdrop_link:manage scope.
+
+          redeemable_count: How many different users can claim the link (link mode only). Defaults to 1.
+
+          to: Recipient user ID, business account ID, ledger account ID, or email. Omit when
+              link is true.
 
           extra_headers: Send extra headers
 
@@ -259,23 +300,31 @@ class AsyncWalletsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/wallets/send",
-            body=await async_maybe_transform(
-                {
-                    "amount": amount,
-                    "to": to,
-                },
-                wallet_send_params.WalletSendParams,
+        return cast(
+            WalletSendResponse,
+            await self._post(
+                "/wallets/send",
+                body=await async_maybe_transform(
+                    {
+                        "amount": amount,
+                        "expires_at": expires_at,
+                        "link": link,
+                        "redeemable_count": redeemable_count,
+                        "to": to,
+                    },
+                    wallet_send_params.WalletSendParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
+                ),
+                cast_to=cast(
+                    Any, WalletSendResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"account_id": account_id}, wallet_send_params.WalletSendParams),
-            ),
-            cast_to=WalletSendResponse,
         )
 
 
