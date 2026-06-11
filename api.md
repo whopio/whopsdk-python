@@ -783,12 +783,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import DepositCreateResponse
+from whop_sdk.types import DepositCreateResponse, DepositListResponse
 ```
 
 Methods:
 
 - <code title="post /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">create</a>(\*\*<a href="src/whop_sdk/types/deposit_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_create_response.py">DepositCreateResponse</a></code>
+- <code title="get /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">list</a>(\*\*<a href="src/whop_sdk/types/deposit_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_list_response.py">DepositListResponse</a></code>
 
 # SetupIntents
 
