@@ -752,6 +752,18 @@ Methods:
 
 - <code title="get /financial-activity">client.financial_activity.<a href="./src/whop_sdk/resources/financial_activity.py">list</a>(\*\*<a href="src/whop_sdk/types/financial_activity_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/financial_activity_list_response.py">FinancialActivityListResponse</a></code>
 
+# Payouts
+
+Types:
+
+```python
+from whop_sdk.types import PayoutListResponse
+```
+
+Methods:
+
+- <code title="get /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_list_response.py">SyncCursorPage[PayoutListResponse]</a></code>
+
 # Swaps
 
 Types:
