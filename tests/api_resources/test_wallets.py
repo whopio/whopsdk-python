@@ -14,6 +14,7 @@ from whop_sdk.types import (
     WalletSendResponse,
     WalletBalanceResponse,
 )
+from whop_sdk._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -89,6 +90,18 @@ class TestWallets:
         wallet = client.wallets.send(
             account_id="account_id",
             amount="amount",
+        )
+        assert_matches_type(WalletSendResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_send_with_all_params(self, client: Whop) -> None:
+        wallet = client.wallets.send(
+            account_id="account_id",
+            amount="amount",
+            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            link=True,
+            redeemable_count=0,
             to="to",
         )
         assert_matches_type(WalletSendResponse, wallet, path=["response"])
@@ -99,7 +112,6 @@ class TestWallets:
         response = client.wallets.with_raw_response.send(
             account_id="account_id",
             amount="amount",
-            to="to",
         )
 
         assert response.is_closed is True
@@ -113,7 +125,6 @@ class TestWallets:
         with client.wallets.with_streaming_response.send(
             account_id="account_id",
             amount="amount",
-            to="to",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -197,6 +208,18 @@ class TestAsyncWallets:
         wallet = await async_client.wallets.send(
             account_id="account_id",
             amount="amount",
+        )
+        assert_matches_type(WalletSendResponse, wallet, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_send_with_all_params(self, async_client: AsyncWhop) -> None:
+        wallet = await async_client.wallets.send(
+            account_id="account_id",
+            amount="amount",
+            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            link=True,
+            redeemable_count=0,
             to="to",
         )
         assert_matches_type(WalletSendResponse, wallet, path=["response"])
@@ -207,7 +230,6 @@ class TestAsyncWallets:
         response = await async_client.wallets.with_raw_response.send(
             account_id="account_id",
             amount="amount",
-            to="to",
         )
 
         assert response.is_closed is True
@@ -221,7 +243,6 @@ class TestAsyncWallets:
         async with async_client.wallets.with_streaming_response.send(
             account_id="account_id",
             amount="amount",
-            to="to",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
