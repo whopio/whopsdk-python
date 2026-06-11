@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ..types import wallet_send_params, wallet_balance_params
+from ..types import wallet_send_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,7 +21,6 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.wallet_list_response import WalletListResponse
 from ..types.wallet_send_response import WalletSendResponse
-from ..types.wallet_balance_response import WalletBalanceResponse
 
 __all__ = ["WalletsResource", "AsyncWalletsResource"]
 
@@ -63,43 +62,6 @@ class WalletsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WalletListResponse,
-        )
-
-    def balance(
-        self,
-        *,
-        account_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WalletBalanceResponse:
-        """
-        Returns per-token balances held in an account's wallet.
-
-        Args:
-          account_id: The business or user account ID whose wallet balance should be returned.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/wallets/balance",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"account_id": account_id}, wallet_balance_params.WalletBalanceParams),
-            ),
-            cast_to=WalletBalanceResponse,
         )
 
     def send(
@@ -215,45 +177,6 @@ class AsyncWalletsResource(AsyncAPIResource):
             cast_to=WalletListResponse,
         )
 
-    async def balance(
-        self,
-        *,
-        account_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WalletBalanceResponse:
-        """
-        Returns per-token balances held in an account's wallet.
-
-        Args:
-          account_id: The business or user account ID whose wallet balance should be returned.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/wallets/balance",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"account_id": account_id}, wallet_balance_params.WalletBalanceParams
-                ),
-            ),
-            cast_to=WalletBalanceResponse,
-        )
-
     async def send(
         self,
         *,
@@ -335,9 +258,6 @@ class WalletsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             wallets.list,
         )
-        self.balance = to_raw_response_wrapper(
-            wallets.balance,
-        )
         self.send = to_raw_response_wrapper(
             wallets.send,
         )
@@ -349,9 +269,6 @@ class AsyncWalletsResourceWithRawResponse:
 
         self.list = async_to_raw_response_wrapper(
             wallets.list,
-        )
-        self.balance = async_to_raw_response_wrapper(
-            wallets.balance,
         )
         self.send = async_to_raw_response_wrapper(
             wallets.send,
@@ -365,9 +282,6 @@ class WalletsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             wallets.list,
         )
-        self.balance = to_streamed_response_wrapper(
-            wallets.balance,
-        )
         self.send = to_streamed_response_wrapper(
             wallets.send,
         )
@@ -379,9 +293,6 @@ class AsyncWalletsResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             wallets.list,
-        )
-        self.balance = async_to_streamed_response_wrapper(
-            wallets.balance,
         )
         self.send = async_to_streamed_response_wrapper(
             wallets.send,

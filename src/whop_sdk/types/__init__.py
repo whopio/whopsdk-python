@@ -215,7 +215,6 @@ from .product_update_params import ProductUpdateParams as ProductUpdateParams
 from .refund_reference_type import RefundReferenceType as RefundReferenceType
 from .topup_create_response import TopupCreateResponse as TopupCreateResponse
 from .user_update_me_params import UserUpdateMeParams as UserUpdateMeParams
-from .wallet_balance_params import WalletBalanceParams as WalletBalanceParams
 from .webhook_create_params import WebhookCreateParams as WebhookCreateParams
 from .webhook_list_response import WebhookListResponse as WebhookListResponse
 from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
@@ -257,7 +256,6 @@ from .message_delete_response import MessageDeleteResponse as MessageDeleteRespo
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .refund_reference_status import RefundReferenceStatus as RefundReferenceStatus
 from .verification_error_code import VerificationErrorCode as VerificationErrorCode
-from .wallet_balance_response import WalletBalanceResponse as WalletBalanceResponse
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse

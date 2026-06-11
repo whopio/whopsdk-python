@@ -732,18 +732,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import (
-    AccountWallet,
-    WalletListResponse,
-    WalletBalanceResponse,
-    WalletSendResponse,
-)
+from whop_sdk.types import AccountWallet, WalletListResponse, WalletSendResponse
 ```
 
 Methods:
 
 - <code title="get /wallets">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">list</a>() -> <a href="./src/whop_sdk/types/wallet_list_response.py">WalletListResponse</a></code>
-- <code title="get /wallets/balance">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">balance</a>(\*\*<a href="src/whop_sdk/types/wallet_balance_params.py">params</a>) -> <a href="./src/whop_sdk/types/wallet_balance_response.py">WalletBalanceResponse</a></code>
 - <code title="post /wallets/send">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">send</a>(\*\*<a href="src/whop_sdk/types/wallet_send_params.py">params</a>) -> <a href="./src/whop_sdk/types/wallet_send_response.py">WalletSendResponse</a></code>
 
 # FinancialActivity
