@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SwapRetrieveParams"]
+__all__ = ["DepositListParams"]
 
 
-class SwapRetrieveParams(TypedDict, total=False):
+class DepositListParams(TypedDict, total=False):
     account_id: Required[str]
-    """Business or user account ID (biz*\\** / user*\\**)."""
+    """Business account ID (biz\\__\\**)."""
