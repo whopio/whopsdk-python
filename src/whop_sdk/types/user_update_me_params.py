@@ -8,6 +8,12 @@ __all__ = ["UserUpdateMeParams", "ProfilePicture"]
 
 
 class UserUpdateMeParams(TypedDict, total=False):
+    account_id: str
+    """
+    When set, updates the authenticated user's profile override for this account
+    instead of their global profile.
+    """
+
     bio: str
 
     name: str
