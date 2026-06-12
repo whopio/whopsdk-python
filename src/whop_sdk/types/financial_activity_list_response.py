@@ -24,7 +24,9 @@ __all__ = [
     "DataResourceUnionMember3Bank",
     "DataResourceUnionMember3Card",
     "DataResourceUnionMember4",
+    "DataResourceUnionMember5",
     "DataSource",
+    "DataSourcePayoutDestination",
     "PageInfo",
 ]
 
@@ -149,20 +151,106 @@ class DataResourceUnionMember4(BaseModel):
     provider: Optional[str] = None
 
 
+class DataResourceUnionMember5(BaseModel):
+    id: str
+
+    merchant_category: Optional[str] = None
+
+    merchant_icon_url: Optional[str] = None
+
+    merchant_name: Optional[str] = None
+
+    object: Literal["card_transaction"]
+
+    status: Optional[str] = None
+
+    usd_amount: Optional[str] = None
+    """The processor-settled USD amount as a decimal string.
+
+    The ledger's USDT leg is posted 1:1 from this value.
+    """
+
+
 DataResource: TypeAlias = Union[
     DataResourceUnionMember0,
     DataResourceUnionMember1,
     DataResourceUnionMember2,
     DataResourceUnionMember3,
     DataResourceUnionMember4,
+    DataResourceUnionMember5,
     None,
 ]
+
+
+class DataSourcePayoutDestination(BaseModel):
+    """Payout destination display info (withdrawal sources only)."""
+
+    icon_url: Optional[str] = None
+
+    payer_name: Optional[str] = None
 
 
 class DataSource(BaseModel):
     id: str
 
     object: str
+
+    chain: Optional[str] = None
+    """
+    Chain the deposit landed on, for example plasma (onchain_transaction sources
+    only).
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Withdrawal creation time as an ISO 8601 timestamp (withdrawal sources only;
+    requires payout:withdrawal:read).
+    """
+
+    estimated_arrival: Optional[datetime] = None
+    """
+    Estimated arrival as an ISO 8601 timestamp (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    from_amount: Optional[str] = None
+    """Amount converted out of from_currency as a decimal string (swap sources only)."""
+
+    from_currency: Optional[str] = None
+    """Lowercase currency code converted from (swap sources only)."""
+
+    payer_name: Optional[str] = None
+    """
+    Name of the entity processing the payout (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    payout_destination: Optional[DataSourcePayoutDestination] = None
+    """Payout destination display info (withdrawal sources only)."""
+
+    payout_token_nickname: Optional[str] = None
+    """Saved payout destination nickname (withdrawal sources only)."""
+
+    sender_address: Optional[str] = None
+    """
+    Sender wallet address or onramp provider identifier (onchain_transaction sources
+    only).
+    """
+
+    status: Optional[str] = None
+    """
+    Withdrawal lifecycle status (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    to_amount: Optional[str] = None
+    """Amount received in to_currency as a decimal string (swap sources only)."""
+
+    to_currency: Optional[str] = None
+    """Lowercase currency code converted to (swap sources only)."""
+
+    tx_hash: Optional[str] = None
+    """On-chain transaction hash (onchain_transaction and swap sources only)."""
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
@@ -182,6 +270,8 @@ class Data(BaseModel):
 
     amount: str
     """Signed amount in the currency's smallest precision units."""
+
+    created_at: Optional[datetime] = None
 
     currency: DataCurrency
 
