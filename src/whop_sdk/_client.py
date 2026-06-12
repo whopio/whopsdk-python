@@ -59,7 +59,6 @@ if TYPE_CHECKING:
         companies,
         reactions,
         shipments,
-        transfers,
         ad_reports,
         affiliates,
         app_builds,
@@ -117,7 +116,6 @@ if TYPE_CHECKING:
     from .resources.companies import CompaniesResource, AsyncCompaniesResource
     from .resources.reactions import ReactionsResource, AsyncReactionsResource
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
-    from .resources.transfers import TransfersResource, AsyncTransfersResource
     from .resources.ad_reports import AdReportsResource, AsyncAdReportsResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
     from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
@@ -295,13 +293,6 @@ class Whop(SyncAPIClient):
         from .resources.forum_posts import ForumPostsResource
 
         return ForumPostsResource(self)
-
-    @cached_property
-    def transfers(self) -> TransfersResource:
-        """Transfers"""
-        from .resources.transfers import TransfersResource
-
-        return TransfersResource(self)
 
     @cached_property
     def ledger_accounts(self) -> LedgerAccountsResource:
@@ -893,13 +884,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncForumPostsResource(self)
 
     @cached_property
-    def transfers(self) -> AsyncTransfersResource:
-        """Transfers"""
-        from .resources.transfers import AsyncTransfersResource
-
-        return AsyncTransfersResource(self)
-
-    @cached_property
     def ledger_accounts(self) -> AsyncLedgerAccountsResource:
         """Ledger accounts"""
         from .resources.ledger_accounts import AsyncLedgerAccountsResource
@@ -1416,13 +1400,6 @@ class WhopWithRawResponse:
         return ForumPostsResourceWithRawResponse(self._client.forum_posts)
 
     @cached_property
-    def transfers(self) -> transfers.TransfersResourceWithRawResponse:
-        """Transfers"""
-        from .resources.transfers import TransfersResourceWithRawResponse
-
-        return TransfersResourceWithRawResponse(self._client.transfers)
-
-    @cached_property
     def ledger_accounts(self) -> ledger_accounts.LedgerAccountsResourceWithRawResponse:
         """Ledger accounts"""
         from .resources.ledger_accounts import LedgerAccountsResourceWithRawResponse
@@ -1822,13 +1799,6 @@ class AsyncWhopWithRawResponse:
         from .resources.forum_posts import AsyncForumPostsResourceWithRawResponse
 
         return AsyncForumPostsResourceWithRawResponse(self._client.forum_posts)
-
-    @cached_property
-    def transfers(self) -> transfers.AsyncTransfersResourceWithRawResponse:
-        """Transfers"""
-        from .resources.transfers import AsyncTransfersResourceWithRawResponse
-
-        return AsyncTransfersResourceWithRawResponse(self._client.transfers)
 
     @cached_property
     def ledger_accounts(self) -> ledger_accounts.AsyncLedgerAccountsResourceWithRawResponse:
@@ -2234,13 +2204,6 @@ class WhopWithStreamedResponse:
         return ForumPostsResourceWithStreamingResponse(self._client.forum_posts)
 
     @cached_property
-    def transfers(self) -> transfers.TransfersResourceWithStreamingResponse:
-        """Transfers"""
-        from .resources.transfers import TransfersResourceWithStreamingResponse
-
-        return TransfersResourceWithStreamingResponse(self._client.transfers)
-
-    @cached_property
     def ledger_accounts(self) -> ledger_accounts.LedgerAccountsResourceWithStreamingResponse:
         """Ledger accounts"""
         from .resources.ledger_accounts import LedgerAccountsResourceWithStreamingResponse
@@ -2642,13 +2605,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.forum_posts import AsyncForumPostsResourceWithStreamingResponse
 
         return AsyncForumPostsResourceWithStreamingResponse(self._client.forum_posts)
-
-    @cached_property
-    def transfers(self) -> transfers.AsyncTransfersResourceWithStreamingResponse:
-        """Transfers"""
-        from .resources.transfers import AsyncTransfersResourceWithStreamingResponse
-
-        return AsyncTransfersResourceWithStreamingResponse(self._client.transfers)
 
     @cached_property
     def ledger_accounts(self) -> ledger_accounts.AsyncLedgerAccountsResourceWithStreamingResponse:

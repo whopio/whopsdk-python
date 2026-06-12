@@ -184,14 +184,6 @@ from .shipments import (
     ShipmentsResourceWithStreamingResponse,
     AsyncShipmentsResourceWithStreamingResponse,
 )
-from .transfers import (
-    TransfersResource,
-    AsyncTransfersResource,
-    TransfersResourceWithRawResponse,
-    AsyncTransfersResourceWithRawResponse,
-    TransfersResourceWithStreamingResponse,
-    AsyncTransfersResourceWithStreamingResponse,
-)
 from .ad_reports import (
     AdReportsResource,
     AsyncAdReportsResource,
@@ -506,12 +498,6 @@ __all__ = [
     "AsyncForumPostsResourceWithRawResponse",
     "ForumPostsResourceWithStreamingResponse",
     "AsyncForumPostsResourceWithStreamingResponse",
-    "TransfersResource",
-    "AsyncTransfersResource",
-    "TransfersResourceWithRawResponse",
-    "AsyncTransfersResourceWithRawResponse",
-    "TransfersResourceWithStreamingResponse",
-    "AsyncTransfersResourceWithStreamingResponse",
     "LedgerAccountsResource",
     "AsyncLedgerAccountsResource",
     "LedgerAccountsResourceWithRawResponse",

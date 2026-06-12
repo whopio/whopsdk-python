@@ -22,7 +22,6 @@ from .shared import (
     PlanType as PlanType,
     Reaction as Reaction,
     Shipment as Shipment,
-    Transfer as Transfer,
     CustomCta as CustomCta,
     Direction as Direction,
     ForumPost as ForumPost,
@@ -161,7 +160,6 @@ from .refund_list_response import RefundListResponse as RefundListResponse
 from .review_list_response import ReviewListResponse as ReviewListResponse
 from .shipment_list_params import ShipmentListParams as ShipmentListParams
 from .social_link_websites import SocialLinkWebsites as SocialLinkWebsites
-from .transfer_list_params import TransferListParams as TransferListParams
 from .unwrap_webhook_event import UnwrapWebhookEvent as UnwrapWebhookEvent
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
 from .affiliate_list_params import AffiliateListParams as AffiliateListParams
@@ -207,8 +205,6 @@ from .reaction_delete_params import ReactionDeleteParams as ReactionDeleteParams
 from .reaction_list_response import ReactionListResponse as ReactionListResponse
 from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
 from .shipment_list_response import ShipmentListResponse as ShipmentListResponse
-from .transfer_create_params import TransferCreateParams as TransferCreateParams
-from .transfer_list_response import TransferListResponse as TransferListResponse
 from .withdrawal_list_params import WithdrawalListParams as WithdrawalListParams
 from .ad_campaign_list_params import AdCampaignListParams as AdCampaignListParams
 from .affiliate_create_params import AffiliateCreateParams as AffiliateCreateParams

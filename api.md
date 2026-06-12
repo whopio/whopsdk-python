@@ -52,7 +52,6 @@ from whop_sdk.types import (
     ShipmentSubstatus,
     SupportChannel,
     TaxType,
-    Transfer,
     Visibility,
     VisibilityFilter,
     WhoCanCommentTypes,
@@ -239,20 +238,6 @@ Methods:
 - <code title="get /forum_posts/{id}">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/forum_post.py">ForumPost</a></code>
 - <code title="patch /forum_posts/{id}">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">update</a>(id, \*\*<a href="src/whop_sdk/types/forum_post_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/forum_post.py">ForumPost</a></code>
 - <code title="get /forum_posts">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">list</a>(\*\*<a href="src/whop_sdk/types/forum_post_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/forum_post_list_response.py">SyncCursorPage[ForumPostListResponse]</a></code>
-
-# Transfers
-
-Types:
-
-```python
-from whop_sdk.types import TransferListResponse
-```
-
-Methods:
-
-- <code title="post /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">create</a>(\*\*<a href="src/whop_sdk/types/transfer_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/transfer.py">Transfer</a></code>
-- <code title="get /transfers/{id}">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/transfer.py">Transfer</a></code>
-- <code title="get /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">list</a>(\*\*<a href="src/whop_sdk/types/transfer_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/transfer_list_response.py">SyncCursorPage[TransferListResponse]</a></code>
 
 # LedgerAccounts
 
