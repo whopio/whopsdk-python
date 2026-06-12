@@ -69,11 +69,30 @@ class AdListParams(TypedDict, total=False):
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
-    order: Optional[Literal["created_at", "spend", "return_on_ad_spend"]]
-    """The fields ad resources can be ordered by."""
+    order: Optional[
+        Literal[
+            "created_at",
+            "spend",
+            "impressions",
+            "clicks",
+            "reach",
+            "unique_clicks",
+            "results",
+            "click_through_rate",
+            "cost_per_click",
+            "cost_per_mille",
+            "cost_per_result",
+            "frequency",
+            "return_on_ad_spend",
+        ]
+    ]
+    """The fields the ads dashboard lists (campaigns, ad sets) can be ordered by.
+
+    Stat columns are computed over the provided stats date range.
+    """
 
     order_by: Optional[Literal["spend", "return_on_ad_spend", "roas"]]
-    """Columns that the listAds query can sort by. Deprecated — use AdOrder."""
+    """Columns that the listAds query can sort by. Deprecated — use AdStatOrder."""
 
     order_direction: Optional[Direction]
     """The direction of the sort."""
