@@ -154,6 +154,13 @@ class DataResourceUnionMember4(BaseModel):
 class DataResourceUnionMember5(BaseModel):
     id: str
 
+    cashback_usd: Optional[str] = None
+    """Cashback earned on this transaction as a USD decimal string.
+
+    Zero for declined or ineligible transactions; null when cashback has not been
+    computed yet.
+    """
+
     merchant_category: Optional[str] = None
 
     merchant_icon_url: Optional[str] = None
