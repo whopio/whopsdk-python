@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["DepositCreateResponse", "Bank", "BankInstruction", "BankMethod", "DepositAddress", "Destination"]
+__all__ = ["DepositCreateResponse", "Methods", "MethodsBank", "MethodsBankCurrency", "MethodsCrypto"]
 
 
-class BankInstruction(BaseModel):
+class MethodsBankCurrency(BaseModel):
     account_number: Optional[str] = None
 
     currency: str
@@ -19,59 +19,49 @@ class BankInstruction(BaseModel):
 
     deposit_reference: Optional[str] = None
 
+    rails: List[str]
+    """Active deposit rails for this currency, e.g. ach, wire, sepa."""
+
     routing_number: Optional[str] = None
 
 
-class BankMethod(BaseModel):
-    currency: str
+class MethodsBank(BaseModel):
+    """Bank deposit details.
 
-    rail: str
+    Only present when bank deposits are active for the destination account.
+    """
 
-
-class Bank(BaseModel):
-    instructions: Optional[List[BankInstruction]] = None
-
-    methods: List[BankMethod]
-
-    onboarding_link: Optional[str] = None
-
-    status: Literal[
-        "not_started",
-        "pending_identification",
-        "pending_review",
-        "requires_signing",
-        "active",
-        "user_required",
-        "suspended",
-    ]
+    currencies: List[MethodsBankCurrency]
 
 
-class DepositAddress(BaseModel):
+class MethodsCrypto(BaseModel):
     evm: str
 
     solana: str
 
+    wallet: str
 
-class Destination(BaseModel):
-    address: str
 
-    currency: str
+class Methods(BaseModel):
+    bank: Optional[MethodsBank] = None
+    """Bank deposit details.
 
-    network: str
+    Only present when bank deposits are active for the destination account.
+    """
 
-    account_id: Optional[str] = None
+    crypto: MethodsCrypto
 
 
 class DepositCreateResponse(BaseModel):
-    bank: Optional[Bank] = None
-
-    deposit_address: DepositAddress
-
-    destination: Destination
+    account: Optional[str] = None
+    """Account ID of the destination owner. Null for raw wallet address destinations."""
 
     hosted_url: Optional[str] = None
+    """URL of the hosted deposit page. Only present for business destinations."""
 
     metadata: Dict[str, object]
+
+    methods: Methods
 
     object: Literal["deposit"]
 
