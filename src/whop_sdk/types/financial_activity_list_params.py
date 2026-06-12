@@ -26,7 +26,12 @@ class FinancialActivityListParams(TypedDict, total=False):
     """Maximum number of rows to return."""
 
     line_types: SequenceNotStr[str]
-    """Optional ledger line categories to include."""
+    """Optional ledger line categories to include.
+
+    Some categories (for example onchain_deposit, which covers inbound crypto
+    deposits such as MoonPay onramps) are only returned when explicitly requested
+    here.
+    """
 
     posted_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only include rows posted after this ISO 8601 timestamp."""
