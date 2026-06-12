@@ -53,7 +53,7 @@ class Methods(BaseModel):
 
 
 class DepositCreateResponse(BaseModel):
-    account: Optional[str] = None
+    account_id: Optional[str] = None
     """Account ID of the destination owner. Null for raw wallet address destinations."""
 
     hosted_url: Optional[str] = None
