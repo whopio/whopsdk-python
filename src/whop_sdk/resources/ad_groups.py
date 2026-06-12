@@ -8,13 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
-    AdBudgetType,
-    AdGroupStatus,
-    ad_group_list_params,
-    ad_group_update_params,
-    ad_group_retrieve_params,
-)
+from ..types import AdGroupStatus, ad_group_list_params, ad_group_update_params, ad_group_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -28,7 +22,6 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_group import AdGroup
-from ..types.ad_budget_type import AdBudgetType
 from ..types.ad_group_status import AdGroupStatus
 from ..types.shared.direction import Direction
 from ..types.ad_group_list_response import AdGroupListResponse
@@ -119,12 +112,6 @@ class AdGroupsResource(SyncAPIResource):
         id: str,
         *,
         budget: Optional[float] | Omit = omit,
-        budget_type: Optional[AdBudgetType] | Omit = omit,
-        config: Optional[ad_group_update_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
-        status: Optional[AdGroupStatus] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -133,8 +120,10 @@ class AdGroupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
-        """
-        Updates an existing ad group.
+        """Updates an ad group synchronously and returns it immediately (local-first).
+
+        The
+        platform push runs in the background; any errors surface on the dashboard.
 
         Required permissions:
 
@@ -142,19 +131,8 @@ class AdGroupsResource(SyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          config: Unified ad group configuration (bidding, optimization, targeting).
-
-          daily_budget: Daily budget in dollars.
-
-          name: Human-readable ad group name.
-
-          platform_config: Platform-specific ad group configuration.
-
-          status: The status of an external ad group.
+          budget: Budget amount in dollars. The interpretation (daily or lifetime) follows the ad
+              group's existing budget type.
 
           title: Human-readable ad group title.
 
@@ -173,12 +151,6 @@ class AdGroupsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "budget": budget,
-                    "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "name": name,
-                    "platform_config": platform_config,
-                    "status": status,
                     "title": title,
                 },
                 ad_group_update_params.AdGroupUpdateParams,
@@ -514,12 +486,6 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         id: str,
         *,
         budget: Optional[float] | Omit = omit,
-        budget_type: Optional[AdBudgetType] | Omit = omit,
-        config: Optional[ad_group_update_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
-        status: Optional[AdGroupStatus] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -528,8 +494,10 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
-        """
-        Updates an existing ad group.
+        """Updates an ad group synchronously and returns it immediately (local-first).
+
+        The
+        platform push runs in the background; any errors surface on the dashboard.
 
         Required permissions:
 
@@ -537,19 +505,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         - `ad_campaign:basic:read`
 
         Args:
-          budget: Budget amount in dollars.
-
-          budget_type: The budget type for an ad campaign or ad group.
-
-          config: Unified ad group configuration (bidding, optimization, targeting).
-
-          daily_budget: Daily budget in dollars.
-
-          name: Human-readable ad group name.
-
-          platform_config: Platform-specific ad group configuration.
-
-          status: The status of an external ad group.
+          budget: Budget amount in dollars. The interpretation (daily or lifetime) follows the ad
+              group's existing budget type.
 
           title: Human-readable ad group title.
 
@@ -568,12 +525,6 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "budget": budget,
-                    "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "name": name,
-                    "platform_config": platform_config,
-                    "status": status,
                     "title": title,
                 },
                 ad_group_update_params.AdGroupUpdateParams,
