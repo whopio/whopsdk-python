@@ -33,9 +33,11 @@ from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhoo
 from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
 from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
+from .membership_trial_ending_soon_webhook_event import MembershipTrialEndingSoonWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
 from .identity_profile_needs_action_webhook_event import IdentityProfileNeedsActionWebhookEvent
 from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
+from .ledger_account_funds_available_webhook_event import LedgerAccountFundsAvailableWebhookEvent
 from .resolution_center_case_created_webhook_event import ResolutionCenterCaseCreatedWebhookEvent
 from .resolution_center_case_decided_webhook_event import ResolutionCenterCaseDecidedWebhookEvent
 from .resolution_center_case_updated_webhook_event import ResolutionCenterCaseUpdatedWebhookEvent
@@ -53,6 +55,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         InvoiceVoidedWebhookEvent,
         MembershipActivatedWebhookEvent,
         MembershipDeactivatedWebhookEvent,
+        MembershipTrialEndingSoonWebhookEvent,
         EntryCreatedWebhookEvent,
         EntryApprovedWebhookEvent,
         EntryDeniedWebhookEvent,
@@ -60,6 +63,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         SetupIntentRequiresActionWebhookEvent,
         SetupIntentSucceededWebhookEvent,
         SetupIntentCanceledWebhookEvent,
+        LedgerAccountFundsAvailableWebhookEvent,
         WithdrawalCreatedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
         CourseLessonInteractionCompletedWebhookEvent,

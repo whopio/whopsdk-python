@@ -15,3 +15,6 @@ class AdCampaignUpdateParams(TypedDict, total=False):
     The interpretation (daily or lifetime) follows the campaign's existing budget
     type.
     """
+
+    desired_cpr: Optional[float]
+    """The advertiser's desired cost per result in dollars."""

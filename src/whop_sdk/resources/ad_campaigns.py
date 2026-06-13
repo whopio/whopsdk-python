@@ -116,6 +116,7 @@ class AdCampaignsResource(SyncAPIResource):
         id: str,
         *,
         budget: Optional[float] | Omit = omit,
+        desired_cpr: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -135,6 +136,8 @@ class AdCampaignsResource(SyncAPIResource):
           budget: The campaign budget in dollars. The interpretation (daily or lifetime) follows
               the campaign's existing budget type.
 
+          desired_cpr: The advertiser's desired cost per result in dollars.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -147,7 +150,13 @@ class AdCampaignsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
             path_template("/ad_campaigns/{id}", id=id),
-            body=maybe_transform({"budget": budget}, ad_campaign_update_params.AdCampaignUpdateParams),
+            body=maybe_transform(
+                {
+                    "budget": budget,
+                    "desired_cpr": desired_cpr,
+                },
+                ad_campaign_update_params.AdCampaignUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -427,6 +436,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         id: str,
         *,
         budget: Optional[float] | Omit = omit,
+        desired_cpr: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -446,6 +456,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
           budget: The campaign budget in dollars. The interpretation (daily or lifetime) follows
               the campaign's existing budget type.
 
+          desired_cpr: The advertiser's desired cost per result in dollars.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -458,7 +470,13 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
             path_template("/ad_campaigns/{id}", id=id),
-            body=await async_maybe_transform({"budget": budget}, ad_campaign_update_params.AdCampaignUpdateParams),
+            body=await async_maybe_transform(
+                {
+                    "budget": budget,
+                    "desired_cpr": desired_cpr,
+                },
+                ad_campaign_update_params.AdCampaignUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
