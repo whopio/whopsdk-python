@@ -2,107 +2,24 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import TypedDict
 
-from .shared.custom_cta import CustomCta
-from .shared.visibility import Visibility
-from .shared.global_affiliate_status import GlobalAffiliateStatus
-
-__all__ = ["ProductUpdateParams", "GalleryImage", "StorePageConfig"]
+__all__ = ["ProductUpdateParams"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
-    collect_shipping_address: Optional[bool]
-    """Whether the checkout flow collects a shipping address from the customer."""
-
-    custom_cta: Optional[CustomCta]
-    """The different types of custom CTAs that can be selected."""
-
-    custom_cta_url: Optional[str]
-    """
-    A URL that the call-to-action button links to instead of the default checkout
-    flow.
-    """
-
-    custom_statement_descriptor: Optional[str]
-    """A custom text label that appears on the customer's bank statement.
-
-    Must be 5-22 characters, contain at least one letter, and not contain <, >, \\,,
-    ', or " characters.
-    """
-
     description: Optional[str]
-    """A written description of the product displayed on its product page."""
-
-    gallery_images: Optional[Iterable[GalleryImage]]
-    """The gallery images for the product."""
-
-    global_affiliate_percentage: Optional[float]
-    """
-    The commission rate as a percentage that affiliates earn through the global
-    affiliate program.
-    """
-
-    global_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for a product."""
+    """A written description displayed on the product page."""
 
     headline: Optional[str]
-    """A short marketing headline displayed prominently on the product page."""
+    """A short marketing headline for the product page."""
 
-    member_affiliate_percentage: Optional[float]
-    """
-    The commission rate as a percentage that members earn through the member
-    affiliate program.
-    """
+    metadata: Optional[object]
+    """Custom key-value pairs to store on the product."""
 
-    member_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for a product."""
+    title: str
+    """The display name of the product."""
 
-    metadata: Optional[Dict[str, object]]
-    """Custom key-value pairs to store on the product.
-
-    Included in webhook payloads for payment and membership events. Max 50 keys, 500
-    chars per key, 5000 chars per value.
-    """
-
-    product_tax_code_id: Optional[str]
-    """The unique identifier of the tax classification code to apply to this product."""
-
-    redirect_purchase_url: Optional[str]
-    """A URL to redirect the customer to after completing a purchase."""
-
-    route: Optional[str]
-    """The URL slug for the product's public link."""
-
-    send_welcome_message: Optional[bool]
-    """
-    Whether to send an automated welcome message via support chat when a user joins
-    this product.
-    """
-
-    store_page_config: Optional[StorePageConfig]
-    """Layout and display configuration for this product on the company's store page."""
-
-    title: Optional[str]
-    """The display name of the product. Maximum 80 characters."""
-
-    visibility: Optional[Visibility]
-    """Visibility of a resource"""
-
-
-class GalleryImage(TypedDict, total=False):
-    """Input for an attachment"""
-
-    id: Required[str]
-    """The ID of an existing file object."""
-
-
-class StorePageConfig(TypedDict, total=False):
-    """Layout and display configuration for this product on the company's store page."""
-
-    custom_cta: Optional[str]
-    """Custom call-to-action text for the product's store page."""
-
-    show_price: Optional[bool]
-    """Whether or not to show the price on the product's store page."""
+    visibility: str
+    """Whether the product is visible to customers."""

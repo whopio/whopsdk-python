@@ -4,10 +4,16 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import AdCampaignStatus, ad_campaign_list_params, ad_campaign_update_params, ad_campaign_retrieve_params
+from ..types import (
+    AdCampaignStatus,
+    ad_campaign_list_params,
+    ad_campaign_update_params,
+    ad_campaign_retrieve_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +27,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_campaign import AdCampaign
+from ..types.shared.direction import Direction
 from ..types.ad_campaign_status import AdCampaignStatus
 from ..types.ad_campaign_list_response import AdCampaignListResponse
 
@@ -117,7 +124,8 @@ class AdCampaignsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Updates an ad campaign synchronously.
+        Updates an ad campaign synchronously and returns it immediately (local-first).
+        The platform push runs in the background; any errors surface on the dashboard.
 
         Required permissions:
 
@@ -154,8 +162,27 @@ class AdCampaignsResource(SyncAPIResource):
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        order: Optional[
+            Literal[
+                "created_at",
+                "spend",
+                "impressions",
+                "clicks",
+                "reach",
+                "unique_clicks",
+                "results",
+                "click_through_rate",
+                "cost_per_click",
+                "cost_per_mille",
+                "cost_per_result",
+                "frequency",
+                "return_on_ad_spend",
+            ]
+        ]
+        | Omit = omit,
         query: Optional[str] | Omit = omit,
         stats_from: Union[str, datetime, None] | Omit = omit,
         stats_to: Union[str, datetime, None] | Omit = omit,
@@ -186,9 +213,14 @@ class AdCampaignsResource(SyncAPIResource):
 
           created_before: Only return ad campaigns created before this timestamp.
 
+          direction: The direction of the sort.
+
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          order: The fields the ads dashboard lists (campaigns, ad sets) can be ordered by. Stat
+              columns are computed over the provided stats date range.
 
           query: Case-insensitive substring match against the campaign title or ID.
 
@@ -223,8 +255,10 @@ class AdCampaignsResource(SyncAPIResource):
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
@@ -401,7 +435,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Updates an ad campaign synchronously.
+        Updates an ad campaign synchronously and returns it immediately (local-first).
+        The platform push runs in the background; any errors surface on the dashboard.
 
         Required permissions:
 
@@ -438,8 +473,27 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
+        direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
+        order: Optional[
+            Literal[
+                "created_at",
+                "spend",
+                "impressions",
+                "clicks",
+                "reach",
+                "unique_clicks",
+                "results",
+                "click_through_rate",
+                "cost_per_click",
+                "cost_per_mille",
+                "cost_per_result",
+                "frequency",
+                "return_on_ad_spend",
+            ]
+        ]
+        | Omit = omit,
         query: Optional[str] | Omit = omit,
         stats_from: Union[str, datetime, None] | Omit = omit,
         stats_to: Union[str, datetime, None] | Omit = omit,
@@ -470,9 +524,14 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
 
           created_before: Only return ad campaigns created before this timestamp.
 
+          direction: The direction of the sort.
+
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
+
+          order: The fields the ads dashboard lists (campaigns, ad sets) can be ordered by. Stat
+              columns are computed over the provided stats date range.
 
           query: Case-insensitive substring match against the campaign title or ID.
 
@@ -507,8 +566,10 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
