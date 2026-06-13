@@ -2,14 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
-from .._utils import PropertyInfo
-from .shared.direction import Direction
-from .shared.access_pass_type import AccessPassType
-from .shared.visibility_filter import VisibilityFilter
+from .._types import SequenceNotStr
 
 __all__ = ["ProductListParams"]
 
@@ -18,32 +13,26 @@ class ProductListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list products for."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    access_pass_types: SequenceNotStr[str]
+    """Filter to only products matching these types."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    after: str
+    """A cursor; returns products after this position."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return products created after this timestamp."""
+    before: str
+    """A cursor; returns products before this position."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return products created before this timestamp."""
+    direction: Literal["asc", "desc"]
+    """The sort direction for results. Defaults to descending."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    first: int
+    """The number of products to return (default and max 100)."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    last: int
+    """The number of products to return from the end of the range."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    order: str
+    """The field to sort results by. Defaults to created_at."""
 
-    order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]]
-    """The ways a relation of AccessPasses can be ordered"""
-
-    product_types: Optional[List[AccessPassType]]
-    """Filter to only products matching these type classifications."""
-
-    visibilities: Optional[List[VisibilityFilter]]
+    visibilities: SequenceNotStr[str]
     """Filter to only products matching these visibility states."""
