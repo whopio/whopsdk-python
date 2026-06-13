@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import Granularities, ad_report_retrieve_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -53,9 +53,9 @@ class AdReportsResource(SyncAPIResource):
         *,
         from_: Union[str, datetime],
         to: Union[str, datetime],
-        ad_campaign_id: Optional[str] | Omit = omit,
-        ad_group_id: Optional[str] | Omit = omit,
-        ad_id: Optional[str] | Omit = omit,
+        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ad_group_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ad_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         breakdown: Optional[Literal["campaign", "ad_group", "ad"]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         currency: Optional[str] | Omit = omit,
@@ -67,13 +67,13 @@ class AdReportsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdReportRetrieveResponse:
-        """Performance report for a company, ad campaign, ad group, or ad.
+        """Performance report for a company, ad campaigns, ad groups, or ads.
 
-        Always returns
-        aggregate `summary` totals. Set `granularity` (`daily`/`hourly`) to additionally
-        get a time series, or set `breakdown` (`campaign`/`ad_group`/`ad`) to
-        additionally get per-entity rows inside the requested scope. Exactly one of
-        `companyId`, `adCampaignId`, `adGroupId`, or `adId` must be provided.
+        Always
+        returns aggregate `summary` totals summed across the scope. Set `granularity` to
+        additionally get a time series, or set `breakdown` (`campaign`/`ad_group`/`ad`)
+        to additionally get per-entity rows inside the requested scope. Exactly one of
+        `companyId`, `adCampaignIds`, `adGroupIds`, or `adIds` must be provided.
 
         Required permissions:
 
@@ -84,20 +84,20 @@ class AdReportsResource(SyncAPIResource):
 
           to: Inclusive end of the reporting window.
 
-          ad_campaign_id: The unique identifier of an ad campaign. Mutually exclusive with `companyId`,
-              `adGroupId`, and `adId`.
+          ad_campaign_ids: Scope the report to these ad campaigns (max 100); stats are summed across them.
+              Mutually exclusive with `companyId`, `adGroupIds`, and `adIds`.
 
-          ad_group_id: The unique identifier of an ad group. Mutually exclusive with `companyId`,
-              `adCampaignId`, and `adId`.
+          ad_group_ids: Scope the report to these ad groups (max 100); stats are summed across them.
+              Mutually exclusive with `companyId`, `adCampaignIds`, and `adIds`.
 
-          ad_id: The unique identifier of an ad. Mutually exclusive with `companyId`,
-              `adCampaignId`, and `adGroupId`.
+          ad_ids: Scope the report to these ads (max 100); stats are summed across them. Mutually
+              exclusive with `companyId`, `adCampaignIds`, and `adGroupIds`.
 
           breakdown: Entity level to group an ad report by.
 
-          company_id: The unique identifier of a company. Mutually exclusive with `adCampaignId`,
-              `adGroupId`, and `adId`. Use with `breakdown` to fan out across every campaign,
-              ad group, or ad in the company without paging.
+          company_id: The unique identifier of a company. Mutually exclusive with `adCampaignIds`,
+              `adGroupIds`, and `adIds`. Use with `breakdown` to fan out across every
+              campaign, ad group, or ad in the company without paging.
 
           currency: ISO 4217 currency code to report `spend` in. Defaults to the company's ads
               reporting currency.
@@ -123,9 +123,9 @@ class AdReportsResource(SyncAPIResource):
                     {
                         "from_": from_,
                         "to": to,
-                        "ad_campaign_id": ad_campaign_id,
-                        "ad_group_id": ad_group_id,
-                        "ad_id": ad_id,
+                        "ad_campaign_ids": ad_campaign_ids,
+                        "ad_group_ids": ad_group_ids,
+                        "ad_ids": ad_ids,
                         "breakdown": breakdown,
                         "company_id": company_id,
                         "currency": currency,
@@ -165,9 +165,9 @@ class AsyncAdReportsResource(AsyncAPIResource):
         *,
         from_: Union[str, datetime],
         to: Union[str, datetime],
-        ad_campaign_id: Optional[str] | Omit = omit,
-        ad_group_id: Optional[str] | Omit = omit,
-        ad_id: Optional[str] | Omit = omit,
+        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ad_group_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        ad_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         breakdown: Optional[Literal["campaign", "ad_group", "ad"]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         currency: Optional[str] | Omit = omit,
@@ -179,13 +179,13 @@ class AsyncAdReportsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdReportRetrieveResponse:
-        """Performance report for a company, ad campaign, ad group, or ad.
+        """Performance report for a company, ad campaigns, ad groups, or ads.
 
-        Always returns
-        aggregate `summary` totals. Set `granularity` (`daily`/`hourly`) to additionally
-        get a time series, or set `breakdown` (`campaign`/`ad_group`/`ad`) to
-        additionally get per-entity rows inside the requested scope. Exactly one of
-        `companyId`, `adCampaignId`, `adGroupId`, or `adId` must be provided.
+        Always
+        returns aggregate `summary` totals summed across the scope. Set `granularity` to
+        additionally get a time series, or set `breakdown` (`campaign`/`ad_group`/`ad`)
+        to additionally get per-entity rows inside the requested scope. Exactly one of
+        `companyId`, `adCampaignIds`, `adGroupIds`, or `adIds` must be provided.
 
         Required permissions:
 
@@ -196,20 +196,20 @@ class AsyncAdReportsResource(AsyncAPIResource):
 
           to: Inclusive end of the reporting window.
 
-          ad_campaign_id: The unique identifier of an ad campaign. Mutually exclusive with `companyId`,
-              `adGroupId`, and `adId`.
+          ad_campaign_ids: Scope the report to these ad campaigns (max 100); stats are summed across them.
+              Mutually exclusive with `companyId`, `adGroupIds`, and `adIds`.
 
-          ad_group_id: The unique identifier of an ad group. Mutually exclusive with `companyId`,
-              `adCampaignId`, and `adId`.
+          ad_group_ids: Scope the report to these ad groups (max 100); stats are summed across them.
+              Mutually exclusive with `companyId`, `adCampaignIds`, and `adIds`.
 
-          ad_id: The unique identifier of an ad. Mutually exclusive with `companyId`,
-              `adCampaignId`, and `adGroupId`.
+          ad_ids: Scope the report to these ads (max 100); stats are summed across them. Mutually
+              exclusive with `companyId`, `adCampaignIds`, and `adGroupIds`.
 
           breakdown: Entity level to group an ad report by.
 
-          company_id: The unique identifier of a company. Mutually exclusive with `adCampaignId`,
-              `adGroupId`, and `adId`. Use with `breakdown` to fan out across every campaign,
-              ad group, or ad in the company without paging.
+          company_id: The unique identifier of a company. Mutually exclusive with `adCampaignIds`,
+              `adGroupIds`, and `adIds`. Use with `breakdown` to fan out across every
+              campaign, ad group, or ad in the company without paging.
 
           currency: ISO 4217 currency code to report `spend` in. Defaults to the company's ads
               reporting currency.
@@ -235,9 +235,9 @@ class AsyncAdReportsResource(AsyncAPIResource):
                     {
                         "from_": from_,
                         "to": to,
-                        "ad_campaign_id": ad_campaign_id,
-                        "ad_group_id": ad_group_id,
-                        "ad_id": ad_id,
+                        "ad_campaign_ids": ad_campaign_ids,
+                        "ad_group_ids": ad_group_ids,
+                        "ad_ids": ad_ids,
                         "breakdown": breakdown,
                         "company_id": company_id,
                         "currency": currency,

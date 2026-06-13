@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .shared.direction import Direction
 from .ad_campaign_status import AdCampaignStatus
 
 __all__ = ["AdCampaignListParams"]
@@ -28,14 +29,51 @@ class AdCampaignListParams(TypedDict, total=False):
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return ad campaigns created before this timestamp."""
 
+    direction: Optional[Direction]
+    """The direction of the sort."""
+
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
+    order: Optional[
+        Literal[
+            "created_at",
+            "spend",
+            "impressions",
+            "clicks",
+            "reach",
+            "unique_clicks",
+            "results",
+            "click_through_rate",
+            "cost_per_click",
+            "cost_per_mille",
+            "cost_per_result",
+            "frequency",
+            "return_on_ad_spend",
+        ]
+    ]
+    """The fields the ads dashboard lists (campaigns, ad sets) can be ordered by.
+
+    Stat columns are computed over the provided stats date range.
+    """
+
     query: Optional[str]
-    """Case-insensitive substring match against the campaign title."""
+    """Case-insensitive substring match against the campaign title or ID."""
+
+    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """
+    Inclusive start of the window for each campaign's metric fields (spend,
+    impressions, …). Omit both statsFrom and statsTo for all-time stats.
+    """
+
+    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Inclusive end of the window for each campaign's metric fields.
+
+    Omit both statsFrom and statsTo for all-time stats.
+    """
 
     status: Optional[AdCampaignStatus]
     """The status of an ad campaign."""

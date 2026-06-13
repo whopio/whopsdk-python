@@ -96,6 +96,14 @@ from .members import (
     MembersResourceWithStreamingResponse,
     AsyncMembersResourceWithStreamingResponse,
 )
+from .payouts import (
+    PayoutsResource,
+    AsyncPayoutsResource,
+    PayoutsResourceWithRawResponse,
+    AsyncPayoutsResourceWithRawResponse,
+    PayoutsResourceWithStreamingResponse,
+    AsyncPayoutsResourceWithStreamingResponse,
+)
 from .refunds import (
     RefundsResource,
     AsyncRefundsResource,
@@ -472,6 +480,14 @@ from .support_channels import (
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
 )
+from .financial_activity import (
+    FinancialActivityResource,
+    AsyncFinancialActivityResource,
+    FinancialActivityResourceWithRawResponse,
+    AsyncFinancialActivityResourceWithRawResponse,
+    FinancialActivityResourceWithStreamingResponse,
+    AsyncFinancialActivityResourceWithStreamingResponse,
+)
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
     AsyncCheckoutConfigurationsResource,
@@ -740,6 +756,18 @@ __all__ = [
     "AsyncWalletsResourceWithRawResponse",
     "WalletsResourceWithStreamingResponse",
     "AsyncWalletsResourceWithStreamingResponse",
+    "FinancialActivityResource",
+    "AsyncFinancialActivityResource",
+    "FinancialActivityResourceWithRawResponse",
+    "AsyncFinancialActivityResourceWithRawResponse",
+    "FinancialActivityResourceWithStreamingResponse",
+    "AsyncFinancialActivityResourceWithStreamingResponse",
+    "PayoutsResource",
+    "AsyncPayoutsResource",
+    "PayoutsResourceWithRawResponse",
+    "AsyncPayoutsResourceWithRawResponse",
+    "PayoutsResourceWithStreamingResponse",
+    "AsyncPayoutsResourceWithStreamingResponse",
     "SwapsResource",
     "AsyncSwapsResource",
     "SwapsResourceWithRawResponse",

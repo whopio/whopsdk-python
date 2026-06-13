@@ -53,7 +53,6 @@ from whop_sdk.types import (
     ShipmentSubstatus,
     SupportChannel,
     TaxType,
-    Transfer,
     Visibility,
     VisibilityFilter,
     WhoCanCommentTypes,
@@ -171,9 +170,11 @@ from whop_sdk.types import (
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
     InvoiceVoidedWebhookEvent,
+    LedgerAccountFundsAvailableWebhookEvent,
     MembershipActivatedWebhookEvent,
     MembershipCancelAtPeriodEndChangedWebhookEvent,
     MembershipDeactivatedWebhookEvent,
+    MembershipTrialEndingSoonWebhookEvent,
     PaymentCreatedWebhookEvent,
     PaymentFailedWebhookEvent,
     PaymentPendingWebhookEvent,
@@ -208,7 +209,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CheckoutFont, CheckoutShape, PlanListResponse, PlanDeleteResponse
+from whop_sdk.types import (
+    CheckoutFont,
+    CheckoutShape,
+    PlanListResponse,
+    PlanDeleteResponse,
+    PlanCalculateTaxResponse,
+)
 ```
 
 Methods:
@@ -218,6 +225,7 @@ Methods:
 - <code title="patch /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">update</a>(id, \*\*<a href="src/whop_sdk/types/plan_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
 - <code title="get /plans">client.plans.<a href="./src/whop_sdk/resources/plans.py">list</a>(\*\*<a href="src/whop_sdk/types/plan_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/plan_list_response.py">SyncCursorPage[PlanListResponse]</a></code>
 - <code title="delete /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">delete</a>(id) -> <a href="./src/whop_sdk/types/plan_delete_response.py">PlanDeleteResponse</a></code>
+- <code title="post /plans/{id}/calculate_tax">client.plans.<a href="./src/whop_sdk/resources/plans.py">calculate_tax</a>(id, \*\*<a href="src/whop_sdk/types/plan_calculate_tax_params.py">params</a>) -> <a href="./src/whop_sdk/types/plan_calculate_tax_response.py">PlanCalculateTaxResponse</a></code>
 
 # Entries
 
@@ -254,13 +262,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import TransferListResponse
+from whop_sdk.types import TransferCreateResponse, TransferRetrieveResponse, TransferListResponse
 ```
 
 Methods:
 
-- <code title="post /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">create</a>(\*\*<a href="src/whop_sdk/types/transfer_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/transfer.py">Transfer</a></code>
-- <code title="get /transfers/{id}">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/transfer.py">Transfer</a></code>
+- <code title="post /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">create</a>(\*\*<a href="src/whop_sdk/types/transfer_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/transfer_create_response.py">TransferCreateResponse</a></code>
+- <code title="get /transfers/{id}">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/transfer_retrieve_response.py">TransferRetrieveResponse</a></code>
 - <code title="get /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">list</a>(\*\*<a href="src/whop_sdk/types/transfer_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/transfer_list_response.py">SyncCursorPage[TransferListResponse]</a></code>
 
 # LedgerAccounts
@@ -387,15 +395,16 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import User, UserListResponse, UserCheckAccessResponse
+from whop_sdk.types import User, UserCheckAccessResponse
 ```
 
 Methods:
 
 - <code title="get /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/user_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
 - <code title="patch /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">update</a>(id, \*\*<a href="src/whop_sdk/types/user_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
-- <code title="get /users">client.users.<a href="./src/whop_sdk/resources/users.py">list</a>(\*\*<a href="src/whop_sdk/types/user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/user_list_response.py">SyncCursorPage[UserListResponse]</a></code>
+- <code title="get /users">client.users.<a href="./src/whop_sdk/resources/users.py">list</a>(\*\*<a href="src/whop_sdk/types/user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">SyncCursorPage[User]</a></code>
 - <code title="get /users/{id}/access/{resource_id}">client.users.<a href="./src/whop_sdk/resources/users.py">check_access</a>(resource_id, \*, id) -> <a href="./src/whop_sdk/types/user_check_access_response.py">UserCheckAccessResponse</a></code>
+- <code title="patch /users/me">client.users.<a href="./src/whop_sdk/resources/users.py">update_me</a>(\*\*<a href="src/whop_sdk/types/user_update_me_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
 
 # Payments
 
@@ -724,30 +733,55 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import (
-    AccountWallet,
-    WalletListResponse,
-    WalletBalanceResponse,
-    WalletSendResponse,
-)
+from whop_sdk.types import AccountWallet, WalletListResponse
 ```
 
 Methods:
 
 - <code title="get /wallets">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">list</a>() -> <a href="./src/whop_sdk/types/wallet_list_response.py">WalletListResponse</a></code>
-- <code title="get /wallets/{account_id}/balance">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">balance</a>(account_id) -> <a href="./src/whop_sdk/types/wallet_balance_response.py">WalletBalanceResponse</a></code>
-- <code title="post /wallets/{account_id}/sends">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">send</a>(account_id, \*\*<a href="src/whop_sdk/types/wallet_send_params.py">params</a>) -> <a href="./src/whop_sdk/types/wallet_send_response.py">WalletSendResponse</a></code>
+
+# FinancialActivity
+
+Types:
+
+```python
+from whop_sdk.types import FinancialActivityListResponse
+```
+
+Methods:
+
+- <code title="get /financial-activity">client.financial_activity.<a href="./src/whop_sdk/resources/financial_activity.py">list</a>(\*\*<a href="src/whop_sdk/types/financial_activity_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/financial_activity_list_response.py">FinancialActivityListResponse</a></code>
+
+# Payouts
+
+Types:
+
+```python
+from whop_sdk.types import PayoutListResponse
+```
+
+Methods:
+
+- <code title="get /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_list_response.py">SyncCursorPage[PayoutListResponse]</a></code>
 
 # Swaps
 
 Types:
 
 ```python
-from whop_sdk.types import SwapCreateQuoteResponse
+from whop_sdk.types import (
+    SwapCreateResponse,
+    SwapRetrieveResponse,
+    SwapListResponse,
+    SwapCreateQuoteResponse,
+)
 ```
 
 Methods:
 
+- <code title="post /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create</a>(\*\*<a href="src/whop_sdk/types/swap_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_response.py">SwapCreateResponse</a></code>
+- <code title="get /swaps/{id}">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/swap_retrieve_response.py">SwapRetrieveResponse</a></code>
+- <code title="get /swaps">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">list</a>(\*\*<a href="src/whop_sdk/types/swap_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_list_response.py">SwapListResponse</a></code>
 - <code title="post /swaps/quote">client.swaps.<a href="./src/whop_sdk/resources/swaps.py">create_quote</a>(\*\*<a href="src/whop_sdk/types/swap_create_quote_params.py">params</a>) -> <a href="./src/whop_sdk/types/swap_create_quote_response.py">SwapCreateQuoteResponse</a></code>
 
 # Deposits
@@ -755,12 +789,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import DepositCreateResponse
+from whop_sdk.types import DepositCreateResponse, DepositListResponse
 ```
 
 Methods:
 
 - <code title="post /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">create</a>(\*\*<a href="src/whop_sdk/types/deposit_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_create_response.py">DepositCreateResponse</a></code>
+- <code title="get /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">list</a>(\*\*<a href="src/whop_sdk/types/deposit_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_list_response.py">DepositListResponse</a></code>
 
 # SetupIntents
 
@@ -1073,7 +1108,7 @@ from whop_sdk.types import AdCampaign, AdCampaignPlatform, AdCampaignStatus, AdC
 
 Methods:
 
-- <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+- <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_list_response.py">SyncCursorPage[AdCampaignListResponse]</a></code>
 - <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
@@ -1095,7 +1130,7 @@ from whop_sdk.types import (
 
 Methods:
 
-- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_list_response.py">SyncCursorPage[AdGroupListResponse]</a></code>
 - <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
@@ -1112,7 +1147,7 @@ from whop_sdk.types import Ad, ExternalAdStatus, AdListResponse
 
 Methods:
 
-- <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
+- <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_list_response.py">SyncCursorPage[AdListResponse]</a></code>
 - <code title="post /ads/{id}/pause">client.ads.<a href="./src/whop_sdk/resources/ads.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="post /ads/{id}/unpause">client.ads.<a href="./src/whop_sdk/resources/ads.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>

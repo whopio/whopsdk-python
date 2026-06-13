@@ -6,9 +6,9 @@ from typing import Dict, Union, Optional
 
 import httpx
 
-from ..types import swap_create_quote_params
+from ..types import swap_list_params, swap_create_params, swap_create_quote_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -18,6 +18,9 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.swap_list_response import SwapListResponse
+from ..types.swap_create_response import SwapCreateResponse
+from ..types.swap_retrieve_response import SwapRetrieveResponse
 from ..types.swap_create_quote_response import SwapCreateQuoteResponse
 
 __all__ = ["SwapsResource", "AsyncSwapsResource"]
@@ -42,6 +45,136 @@ class SwapsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return SwapsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        account_id: str,
+        amount: str,
+        from_token: str,
+        to_token: str,
+        from_chain: Union[str, int, None] | Omit = omit,
+        slippage_bps: Optional[int] | Omit = omit,
+        to_chain: Union[str, int, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SwapCreateResponse:
+        """Executes a swap from the account's wallet.
+
+        Runs asynchronously — poll GET
+        /swaps/{id} for status.
+
+        Args:
+          account_id: Business or user account ID (biz*\\** / user*\\**).
+
+          amount: Input token amount.
+
+          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
+
+          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/swaps",
+            body=maybe_transform(
+                {
+                    "account_id": account_id,
+                    "amount": amount,
+                    "from_token": from_token,
+                    "to_token": to_token,
+                    "from_chain": from_chain,
+                    "slippage_bps": slippage_bps,
+                    "to_chain": to_chain,
+                },
+                swap_create_params.SwapCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SwapCreateResponse,
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SwapRetrieveResponse:
+        """
+        Returns the status of a specific swap, by the id returned from POST /swaps.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/swaps/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SwapRetrieveResponse,
+        )
+
+    def list(
+        self,
+        *,
+        account_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SwapListResponse:
+        """
+        Lists the account's swaps — currently its in-flight or most recent swap, so zero
+        or one rows.
+
+        Args:
+          account_id: Business or user account ID (biz*\\** / user*\\**).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/swaps",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, swap_list_params.SwapListParams),
+            ),
+            cast_to=SwapListResponse,
+        )
 
     def create_quote(
         self,
@@ -69,9 +202,9 @@ class SwapsResource(SyncAPIResource):
         Args:
           amount: Input token amount.
 
-          from_token: Source token contract address.
+          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
 
-          to_token: Destination token contract address.
+          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
 
           extra_headers: Send extra headers
 
@@ -124,6 +257,136 @@ class AsyncSwapsResource(AsyncAPIResource):
         """
         return AsyncSwapsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        account_id: str,
+        amount: str,
+        from_token: str,
+        to_token: str,
+        from_chain: Union[str, int, None] | Omit = omit,
+        slippage_bps: Optional[int] | Omit = omit,
+        to_chain: Union[str, int, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SwapCreateResponse:
+        """Executes a swap from the account's wallet.
+
+        Runs asynchronously — poll GET
+        /swaps/{id} for status.
+
+        Args:
+          account_id: Business or user account ID (biz*\\** / user*\\**).
+
+          amount: Input token amount.
+
+          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
+
+          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/swaps",
+            body=await async_maybe_transform(
+                {
+                    "account_id": account_id,
+                    "amount": amount,
+                    "from_token": from_token,
+                    "to_token": to_token,
+                    "from_chain": from_chain,
+                    "slippage_bps": slippage_bps,
+                    "to_chain": to_chain,
+                },
+                swap_create_params.SwapCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SwapCreateResponse,
+        )
+
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SwapRetrieveResponse:
+        """
+        Returns the status of a specific swap, by the id returned from POST /swaps.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/swaps/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SwapRetrieveResponse,
+        )
+
+    async def list(
+        self,
+        *,
+        account_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SwapListResponse:
+        """
+        Lists the account's swaps — currently its in-flight or most recent swap, so zero
+        or one rows.
+
+        Args:
+          account_id: Business or user account ID (biz*\\** / user*\\**).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/swaps",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, swap_list_params.SwapListParams),
+            ),
+            cast_to=SwapListResponse,
+        )
+
     async def create_quote(
         self,
         *,
@@ -150,9 +413,9 @@ class AsyncSwapsResource(AsyncAPIResource):
         Args:
           amount: Input token amount.
 
-          from_token: Source token contract address.
+          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
 
-          to_token: Destination token contract address.
+          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
 
           extra_headers: Send extra headers
 
@@ -189,6 +452,15 @@ class SwapsResourceWithRawResponse:
     def __init__(self, swaps: SwapsResource) -> None:
         self._swaps = swaps
 
+        self.create = to_raw_response_wrapper(
+            swaps.create,
+        )
+        self.retrieve = to_raw_response_wrapper(
+            swaps.retrieve,
+        )
+        self.list = to_raw_response_wrapper(
+            swaps.list,
+        )
         self.create_quote = to_raw_response_wrapper(
             swaps.create_quote,
         )
@@ -198,6 +470,15 @@ class AsyncSwapsResourceWithRawResponse:
     def __init__(self, swaps: AsyncSwapsResource) -> None:
         self._swaps = swaps
 
+        self.create = async_to_raw_response_wrapper(
+            swaps.create,
+        )
+        self.retrieve = async_to_raw_response_wrapper(
+            swaps.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            swaps.list,
+        )
         self.create_quote = async_to_raw_response_wrapper(
             swaps.create_quote,
         )
@@ -207,6 +488,15 @@ class SwapsResourceWithStreamingResponse:
     def __init__(self, swaps: SwapsResource) -> None:
         self._swaps = swaps
 
+        self.create = to_streamed_response_wrapper(
+            swaps.create,
+        )
+        self.retrieve = to_streamed_response_wrapper(
+            swaps.retrieve,
+        )
+        self.list = to_streamed_response_wrapper(
+            swaps.list,
+        )
         self.create_quote = to_streamed_response_wrapper(
             swaps.create_quote,
         )
@@ -216,6 +506,15 @@ class AsyncSwapsResourceWithStreamingResponse:
     def __init__(self, swaps: AsyncSwapsResource) -> None:
         self._swaps = swaps
 
+        self.create = async_to_streamed_response_wrapper(
+            swaps.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            swaps.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            swaps.list,
+        )
         self.create_quote = async_to_streamed_response_wrapper(
             swaps.create_quote,
         )
