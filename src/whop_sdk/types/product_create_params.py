@@ -2,151 +2,60 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Optional
+from typing_extensions import Required, TypedDict
 
-from .._types import SequenceNotStr
-from .shared.currency import Currency
-from .shared.plan_type import PlanType
-from .shared.custom_cta import CustomCta
-from .shared.visibility import Visibility
-from .shared.release_method import ReleaseMethod
-from .shared.global_affiliate_status import GlobalAffiliateStatus
-
-__all__ = ["ProductCreateParams", "PlanOptions", "PlanOptionsCustomField"]
+__all__ = ["ProductCreateParams"]
 
 
 class ProductCreateParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to create this product for."""
-
     title: Required[str]
     """The display name of the product. Maximum 80 characters."""
 
     collect_shipping_address: Optional[bool]
-    """Whether the checkout flow collects a shipping address from the customer."""
+    """Whether to collect a shipping address at checkout."""
 
-    custom_cta: Optional[CustomCta]
-    """The different types of custom CTAs that can be selected."""
+    company_id: str
+    """The unique identifier of the company to create this product for."""
+
+    custom_cta: Optional[str]
+    """The call-to-action button label."""
 
     custom_cta_url: Optional[str]
-    """
-    A URL that the call-to-action button links to instead of the default checkout
-    flow.
-    """
+    """A URL the call-to-action button links to."""
 
     custom_statement_descriptor: Optional[str]
-    """A custom text label that appears on the customer's bank statement.
-
-    Must be 5-22 characters, contain at least one letter, and not contain <, >, \\,,
-    ', or " characters.
-    """
+    """Custom bank statement descriptor. Must start with WHOP\\**."""
 
     description: Optional[str]
-    """A written description of the product displayed on its product page."""
-
-    experience_ids: Optional[SequenceNotStr[str]]
-    """The unique identifiers of experiences to connect to this product."""
+    """A written description displayed on the product page."""
 
     global_affiliate_percentage: Optional[float]
-    """
-    The commission rate as a percentage that affiliates earn through the global
-    affiliate program.
-    """
+    """The commission rate affiliates earn."""
 
-    global_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for a product."""
+    global_affiliate_status: str
+    """The enrollment status in the global affiliate program."""
 
     headline: Optional[str]
-    """A short marketing headline displayed prominently on the product page."""
+    """A short marketing headline for the product page."""
 
     member_affiliate_percentage: Optional[float]
-    """
-    The commission rate as a percentage that members earn through the member
-    affiliate program.
-    """
+    """The commission rate members earn."""
 
-    member_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for a product."""
+    member_affiliate_status: str
+    """The enrollment status in the member affiliate program."""
 
-    metadata: Optional[Dict[str, object]]
-    """Custom key-value pairs to store on the product.
-
-    Included in webhook payloads for payment and membership events. Max 50 keys, 500
-    chars per key, 5000 chars per value.
-    """
-
-    plan_options: Optional[PlanOptions]
-    """Configuration for an automatically generated plan to attach to this product."""
+    metadata: Optional[object]
+    """Custom key-value pairs to store on the product."""
 
     product_tax_code_id: Optional[str]
-    """The unique identifier of the tax classification code to apply to this product."""
+    """The unique identifier of the tax classification code."""
 
     redirect_purchase_url: Optional[str]
-    """A URL to redirect the customer to after completing a purchase."""
+    """A URL to redirect the customer to after purchase."""
 
     route: Optional[str]
     """The URL slug for the product's public link."""
 
-    send_welcome_message: Optional[bool]
-    """
-    Whether to send an automated welcome message via support chat when a user joins
-    this product. Defaults to true.
-    """
-
-    visibility: Optional[Visibility]
-    """Visibility of a resource"""
-
-
-class PlanOptionsCustomField(TypedDict, total=False):
-    field_type: Required[Literal["text"]]
-    """The type of the custom field."""
-
-    name: Required[str]
-    """The name of the custom field."""
-
-    id: Optional[str]
-    """The ID of the custom field (if being updated)"""
-
-    order: Optional[int]
-    """The order of the field."""
-
-    placeholder: Optional[str]
-    """The placeholder value of the field."""
-
-    required: Optional[bool]
-    """Whether or not the field is required."""
-
-
-class PlanOptions(TypedDict, total=False):
-    """Configuration for an automatically generated plan to attach to this product."""
-
-    base_currency: Optional[Currency]
-    """The available currencies on the platform"""
-
-    billing_period: Optional[int]
-    """The interval at which the plan charges (renewal plans)."""
-
-    custom_fields: Optional[Iterable[PlanOptionsCustomField]]
-    """An array of custom field objects."""
-
-    initial_price: Optional[float]
-    """An additional amount charged upon first purchase.
-
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
-    """
-
-    plan_type: Optional[PlanType]
-    """The type of plan that can be attached to a product"""
-
-    release_method: Optional[ReleaseMethod]
-    """The methods of how a plan can be released."""
-
-    renewal_price: Optional[float]
-    """The amount the customer is charged every billing period.
-
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43 USD.
-    """
-
-    visibility: Optional[Visibility]
-    """Visibility of a resource"""
+    visibility: str
+    """Whether the product is visible to customers."""
