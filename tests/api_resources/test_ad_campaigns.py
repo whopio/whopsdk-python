@@ -88,6 +88,7 @@ class TestAdCampaigns:
         ad_campaign = client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
             budget=6.9,
+            desired_cpr=6.9,
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -140,8 +141,10 @@ class TestAdCampaigns:
             company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            direction="asc",
             first=42,
             last=42,
+            order="created_at",
             query="query",
             stats_from=parse_datetime("2023-12-01T05:00:00.401Z"),
             stats_to=parse_datetime("2023-12-01T05:00:00.401Z"),
@@ -327,6 +330,7 @@ class TestAsyncAdCampaigns:
         ad_campaign = await async_client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
             budget=6.9,
+            desired_cpr=6.9,
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -379,8 +383,10 @@ class TestAsyncAdCampaigns:
             company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            direction="asc",
             first=42,
             last=42,
+            order="created_at",
             query="query",
             stats_from=parse_datetime("2023-12-01T05:00:00.401Z"),
             stats_to=parse_datetime("2023-12-01T05:00:00.401Z"),

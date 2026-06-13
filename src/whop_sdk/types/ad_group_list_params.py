@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .ad_group_status import AdGroupStatus
+from .shared.direction import Direction
 
 __all__ = ["AdGroupListParams"]
 
@@ -41,11 +42,36 @@ class AdGroupListParams(TypedDict, total=False):
     created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Only return ad groups created before this timestamp."""
 
+    direction: Optional[Direction]
+    """The direction of the sort."""
+
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
+
+    order: Optional[
+        Literal[
+            "created_at",
+            "spend",
+            "impressions",
+            "clicks",
+            "reach",
+            "unique_clicks",
+            "results",
+            "click_through_rate",
+            "cost_per_click",
+            "cost_per_mille",
+            "cost_per_result",
+            "frequency",
+            "return_on_ad_spend",
+        ]
+    ]
+    """The fields the ads dashboard lists (campaigns, ad sets) can be ordered by.
+
+    Stat columns are computed over the provided stats date range.
+    """
 
     query: Optional[str]
     """Case-insensitive substring match against the ad group name or ID."""

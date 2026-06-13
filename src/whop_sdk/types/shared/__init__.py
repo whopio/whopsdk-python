@@ -13,7 +13,6 @@ from .currency import Currency as Currency
 from .reaction import Reaction as Reaction
 from .shipment import Shipment as Shipment
 from .tax_type import TaxType as TaxType
-from .transfer import Transfer as Transfer
 from .app_build import AppBuild as AppBuild
 from .direction import Direction as Direction
 from .page_info import PageInfo as PageInfo
