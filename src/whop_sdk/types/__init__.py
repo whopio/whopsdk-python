@@ -461,6 +461,9 @@ from .identity_profile_needs_action_webhook_event import (
 from .payout_account_status_updated_webhook_event import (
     PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
 )
+from .ledger_account_funds_available_webhook_event import (
+    LedgerAccountFundsAvailableWebhookEvent as LedgerAccountFundsAvailableWebhookEvent,
+)
 from .resolution_center_case_created_webhook_event import (
     ResolutionCenterCaseCreatedWebhookEvent as ResolutionCenterCaseCreatedWebhookEvent,
 )

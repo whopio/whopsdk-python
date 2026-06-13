@@ -170,6 +170,7 @@ from whop_sdk.types import (
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
     InvoiceVoidedWebhookEvent,
+    LedgerAccountFundsAvailableWebhookEvent,
     MembershipActivatedWebhookEvent,
     MembershipCancelAtPeriodEndChangedWebhookEvent,
     MembershipDeactivatedWebhookEvent,
