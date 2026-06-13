@@ -88,6 +88,7 @@ class TestAdCampaigns:
         ad_campaign = client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
             budget=6.9,
+            desired_cpr=6.9,
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -329,6 +330,7 @@ class TestAsyncAdCampaigns:
         ad_campaign = await async_client.ad_campaigns.update(
             id="adcamp_xxxxxxxxxxx",
             budget=6.9,
+            desired_cpr=6.9,
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
