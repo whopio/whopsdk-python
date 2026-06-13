@@ -174,6 +174,7 @@ from whop_sdk.types import (
     MembershipActivatedWebhookEvent,
     MembershipCancelAtPeriodEndChangedWebhookEvent,
     MembershipDeactivatedWebhookEvent,
+    MembershipTrialEndingSoonWebhookEvent,
     PaymentCreatedWebhookEvent,
     PaymentFailedWebhookEvent,
     PaymentPendingWebhookEvent,

@@ -12,6 +12,7 @@ WebhookEvent: TypeAlias = Literal[
     "invoice.voided",
     "membership.activated",
     "membership.deactivated",
+    "membership.trial_ending_soon",
     "entry.created",
     "entry.approved",
     "entry.denied",

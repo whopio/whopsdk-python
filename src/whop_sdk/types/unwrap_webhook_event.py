@@ -33,6 +33,7 @@ from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhoo
 from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
 from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
+from .membership_trial_ending_soon_webhook_event import MembershipTrialEndingSoonWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
 from .identity_profile_needs_action_webhook_event import IdentityProfileNeedsActionWebhookEvent
 from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
@@ -68,6 +69,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         MembershipActivatedWebhookEvent,
         MembershipCancelAtPeriodEndChangedWebhookEvent,
         MembershipDeactivatedWebhookEvent,
+        MembershipTrialEndingSoonWebhookEvent,
         PaymentCreatedWebhookEvent,
         PaymentFailedWebhookEvent,
         PaymentPendingWebhookEvent,

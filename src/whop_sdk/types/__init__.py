@@ -452,6 +452,9 @@ from .resolution_center_case_retrieve_response import (
 from .invoice_marked_uncollectible_webhook_event import (
     InvoiceMarkedUncollectibleWebhookEvent as InvoiceMarkedUncollectibleWebhookEvent,
 )
+from .membership_trial_ending_soon_webhook_event import (
+    MembershipTrialEndingSoonWebhookEvent as MembershipTrialEndingSoonWebhookEvent,
+)
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
 )
