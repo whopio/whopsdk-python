@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from datetime import datetime
+from datetime import date, datetime
 
 import httpx
 
@@ -48,6 +48,8 @@ class FinancialActivityResource(SyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        available_after: Union[str, date] | Omit = omit,
+        available_before: Union[str, date] | Omit = omit,
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
@@ -71,6 +73,13 @@ class FinancialActivityResource(SyncAPIResource):
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          available_after: Only include rows whose funds became withdrawable on or after this YYYY-MM-DD
+              settlement date (UTC), distinct from posted_at. Requires currency.
+
+          available_before: Only include rows whose funds became withdrawable on or before this YYYY-MM-DD
+              settlement date (UTC). Set equal to available_after for a single day. Requires
+              currency.
 
           currency: Optional currency code filter, for example usd.
 
@@ -106,6 +115,8 @@ class FinancialActivityResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "account_id": account_id,
+                        "available_after": available_after,
+                        "available_before": available_before,
                         "currency": currency,
                         "cursor": cursor,
                         "limit": limit,
@@ -145,6 +156,8 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        available_after: Union[str, date] | Omit = omit,
+        available_before: Union[str, date] | Omit = omit,
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
@@ -168,6 +181,13 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          available_after: Only include rows whose funds became withdrawable on or after this YYYY-MM-DD
+              settlement date (UTC), distinct from posted_at. Requires currency.
+
+          available_before: Only include rows whose funds became withdrawable on or before this YYYY-MM-DD
+              settlement date (UTC). Set equal to available_after for a single day. Requires
+              currency.
 
           currency: Optional currency code filter, for example usd.
 
@@ -203,6 +223,8 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "account_id": account_id,
+                        "available_after": available_after,
+                        "available_before": available_before,
                         "currency": currency,
                         "cursor": cursor,
                         "limit": limit,

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from datetime import datetime
+from datetime import date, datetime
 from typing_extensions import Annotated, TypedDict
 
 from .._types import SequenceNotStr
@@ -15,6 +15,19 @@ __all__ = ["FinancialActivityListParams"]
 class FinancialActivityListParams(TypedDict, total=False):
     account_id: str
     """The owning account ID (a biz\\__ identifier). Provide this or user_id."""
+
+    available_after: Annotated[Union[str, date], PropertyInfo(format="iso8601")]
+    """
+    Only include rows whose funds became withdrawable on or after this YYYY-MM-DD
+    settlement date (UTC), distinct from posted_at. Requires currency.
+    """
+
+    available_before: Annotated[Union[str, date], PropertyInfo(format="iso8601")]
+    """
+    Only include rows whose funds became withdrawable on or before this YYYY-MM-DD
+    settlement date (UTC). Set equal to available_after for a single day. Requires
+    currency.
+    """
 
     currency: str
     """Optional currency code filter, for example usd."""

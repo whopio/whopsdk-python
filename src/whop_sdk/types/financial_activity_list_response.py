@@ -278,6 +278,16 @@ class Data(BaseModel):
     amount: str
     """Signed amount in the currency's smallest precision units."""
 
+    available_at: Optional[datetime] = None
+    """
+    ISO 8601 timestamp these funds became (or are scheduled to become) withdrawable:
+    the posted time for already-settled funds, or 00:00:00 UTC on the scheduled
+    release date for pending funds. Present only on inflows entering the balance
+    (payments, top-ups, incoming transfers/affiliate); null on withdrawals, refunds,
+    disputes and on-chain rows. The available_after/before filters window on its UTC
+    settlement date.
+    """
+
     created_at: Optional[datetime] = None
 
     currency: DataCurrency
