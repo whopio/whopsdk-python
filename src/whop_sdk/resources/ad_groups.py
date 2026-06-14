@@ -134,7 +134,7 @@ class AdGroupsResource(SyncAPIResource):
           budget: Budget amount in dollars. The interpretation (daily or lifetime) follows the ad
               group's existing budget type.
 
-          title: Human-readable ad group title.
+          title: Human-readable ad group title. Max 255 characters.
 
           extra_headers: Send extra headers
 
@@ -508,7 +508,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           budget: Budget amount in dollars. The interpretation (daily or lifetime) follows the ad
               group's existing budget type.
 
-          title: Human-readable ad group title.
+          title: Human-readable ad group title. Max 255 characters.
 
           extra_headers: Send extra headers
 
