@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from .resources import (
         ads,
         apps,
+        cards,
         files,
         leads,
         plans,
@@ -104,6 +105,7 @@ if TYPE_CHECKING:
     )
     from .resources.ads import AdsResource, AsyncAdsResource
     from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.cards import CardsResource, AsyncCardsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
@@ -542,6 +544,12 @@ class Whop(SyncAPIClient):
         from .resources.payouts import PayoutsResource
 
         return PayoutsResource(self)
+
+    @cached_property
+    def cards(self) -> CardsResource:
+        from .resources.cards import CardsResource
+
+        return CardsResource(self)
 
     @cached_property
     def swaps(self) -> SwapsResource:
@@ -1197,6 +1205,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPayoutsResource(self)
 
     @cached_property
+    def cards(self) -> AsyncCardsResource:
+        from .resources.cards import AsyncCardsResource
+
+        return AsyncCardsResource(self)
+
+    @cached_property
     def swaps(self) -> AsyncSwapsResource:
         from .resources.swaps import AsyncSwapsResource
 
@@ -1770,6 +1784,12 @@ class WhopWithRawResponse:
         return PayoutsResourceWithRawResponse(self._client.payouts)
 
     @cached_property
+    def cards(self) -> cards.CardsResourceWithRawResponse:
+        from .resources.cards import CardsResourceWithRawResponse
+
+        return CardsResourceWithRawResponse(self._client.cards)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithRawResponse:
         from .resources.swaps import SwapsResourceWithRawResponse
 
@@ -2223,6 +2243,12 @@ class AsyncWhopWithRawResponse:
         from .resources.payouts import AsyncPayoutsResourceWithRawResponse
 
         return AsyncPayoutsResourceWithRawResponse(self._client.payouts)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithRawResponse:
+        from .resources.cards import AsyncCardsResourceWithRawResponse
+
+        return AsyncCardsResourceWithRawResponse(self._client.cards)
 
     @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithRawResponse:
@@ -2682,6 +2708,12 @@ class WhopWithStreamedResponse:
         return PayoutsResourceWithStreamingResponse(self._client.payouts)
 
     @cached_property
+    def cards(self) -> cards.CardsResourceWithStreamingResponse:
+        from .resources.cards import CardsResourceWithStreamingResponse
+
+        return CardsResourceWithStreamingResponse(self._client.cards)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithStreamingResponse:
         from .resources.swaps import SwapsResourceWithStreamingResponse
 
@@ -3139,6 +3171,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.payouts import AsyncPayoutsResourceWithStreamingResponse
 
         return AsyncPayoutsResourceWithStreamingResponse(self._client.payouts)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithStreamingResponse:
+        from .resources.cards import AsyncCardsResourceWithStreamingResponse
+
+        return AsyncCardsResourceWithStreamingResponse(self._client.cards)
 
     @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithStreamingResponse:

@@ -764,6 +764,18 @@ Methods:
 
 - <code title="get /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_list_response.py">SyncCursorPage[PayoutListResponse]</a></code>
 
+# Cards
+
+Types:
+
+```python
+from whop_sdk.types import CardListResponse
+```
+
+Methods:
+
+- <code title="get /cards">client.cards.<a href="./src/whop_sdk/resources/cards.py">list</a>(\*\*<a href="src/whop_sdk/types/card_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_list_response.py">CardListResponse</a></code>
+
 # Swaps
 
 Types:
