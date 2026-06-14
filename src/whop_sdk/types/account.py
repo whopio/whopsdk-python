@@ -6,12 +6,46 @@ from .._models import BaseModel
 from .account_wallet import AccountWallet
 from .account_social_link import AccountSocialLink
 
-__all__ = ["Account"]
+__all__ = ["Account", "Balance"]
+
+
+class Balance(BaseModel):
+    """The account's holdings (crypto and fiat), each with its USD value.
+
+    Empty when total_usd is null (not computed)
+    """
+
+    balance: str
+    """The total amount held in native units, as a decimal string"""
+
+    breakdown: object
+    """
+    The holding split into available, pending, and reserve amounts (native-unit
+    decimal strings). On-chain crypto is entirely available; good_funds and fiat
+    cash can have pending/reserve portions
+    """
+
+    icon_url: Optional[str] = None
+    """The URL of the holding's icon, when available"""
+
+    name: str
+    """The holding's display name"""
+
+    price_usd: Optional[float] = None
+    """The USD price per unit, or null when no exchange rate is available"""
+
+    symbol: str
+    """The holding's display symbol, e.g. USDT, cbBTC, or EUR"""
+
+    value_usd: Optional[str] = None
+    """The total USD value of the holding, or null when no exchange rate is available"""
 
 
 class Account(BaseModel):
     id: str
     """The ID of the account, which will look like biz\\__******\\********"""
+
+    balances: List[Balance]
 
     banner_image_url: Optional[str] = None
     """The URL of the account banner image"""
@@ -97,6 +131,14 @@ class Account(BaseModel):
 
     title: str
     """The display name of the account"""
+
+    total_usd: Optional[str] = None
+    """Total USD value across all balances with a known exchange rate.
+
+    Only computed on single-account reads (retrieve and me); null (with an empty
+    balances array) on list responses, on writes, when the caller's token lacks the
+    balance-read permission, and when the balance source is unavailable
+    """
 
     use_logo_as_opengraph_image_fallback: bool
     """Whether the account uses its logo as the fallback Open Graph image"""
