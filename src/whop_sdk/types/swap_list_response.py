@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["SwapRetrieveResponse"]
+__all__ = ["SwapListResponse", "Data"]
 
 
-class SwapRetrieveResponse(BaseModel):
+class Data(BaseModel):
     id: str
 
     account_id: str
@@ -20,3 +20,7 @@ class SwapRetrieveResponse(BaseModel):
     tx_hashes: List[str]
 
     error: Optional[str] = None
+
+
+class SwapListResponse(BaseModel):
+    data: List[Data]

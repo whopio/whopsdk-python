@@ -96,6 +96,14 @@ from .members import (
     MembersResourceWithStreamingResponse,
     AsyncMembersResourceWithStreamingResponse,
 )
+from .payouts import (
+    PayoutsResource,
+    AsyncPayoutsResource,
+    PayoutsResourceWithRawResponse,
+    AsyncPayoutsResourceWithRawResponse,
+    PayoutsResourceWithStreamingResponse,
+    AsyncPayoutsResourceWithStreamingResponse,
+)
 from .refunds import (
     RefundsResource,
     AsyncRefundsResource,
@@ -754,6 +762,12 @@ __all__ = [
     "AsyncFinancialActivityResourceWithRawResponse",
     "FinancialActivityResourceWithStreamingResponse",
     "AsyncFinancialActivityResourceWithStreamingResponse",
+    "PayoutsResource",
+    "AsyncPayoutsResource",
+    "PayoutsResourceWithRawResponse",
+    "AsyncPayoutsResourceWithRawResponse",
+    "PayoutsResourceWithStreamingResponse",
+    "AsyncPayoutsResourceWithStreamingResponse",
     "SwapsResource",
     "AsyncSwapsResource",
     "SwapsResourceWithRawResponse",

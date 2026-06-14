@@ -78,7 +78,9 @@ class FinancialActivityResource(SyncAPIResource):
 
           limit: Maximum number of rows to return.
 
-          line_types: Optional ledger line categories to include.
+          line_types: Optional ledger line categories to include. Some categories (for example
+              onchain_deposit, which covers inbound crypto deposits such as MoonPay onramps)
+              are only returned when explicitly requested here.
 
           posted_after: Only include rows posted after this ISO 8601 timestamp.
 
@@ -173,7 +175,9 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
 
           limit: Maximum number of rows to return.
 
-          line_types: Optional ledger line categories to include.
+          line_types: Optional ledger line categories to include. Some categories (for example
+              onchain_deposit, which covers inbound crypto deposits such as MoonPay onramps)
+              are only returned when explicitly requested here.
 
           posted_after: Only include rows posted after this ISO 8601 timestamp.
 
