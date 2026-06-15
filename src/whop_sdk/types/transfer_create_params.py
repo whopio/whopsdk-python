@@ -18,7 +18,7 @@ class TransferCreateParams(TypedDict, total=False):
     origin_id: Required[str]
     """The account sending the funds.
 
-    A user ID (user_xxx), company ID (biz_xxx), or ledger account ID (ldgr_xxx).
+    A user ID (user_xxx), account ID (biz_xxx), or ledger account ID (ldgr_xxx).
     """
 
     currency: str

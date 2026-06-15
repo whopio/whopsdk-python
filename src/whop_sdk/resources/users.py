@@ -213,8 +213,8 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCheckAccessResponse:
         """
-        Checks whether a user has access to a company, product, or experience the caller
-        can reach.
+        Checks whether a user has access to an account, product, or experience the
+        caller can reach.
 
         Args:
           extra_headers: Send extra headers
@@ -480,8 +480,8 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCheckAccessResponse:
         """
-        Checks whether a user has access to a company, product, or experience the caller
-        can reach.
+        Checks whether a user has access to an account, product, or experience the
+        caller can reach.
 
         Args:
           extra_headers: Send extra headers

@@ -79,7 +79,7 @@ class TransfersResource(SyncAPIResource):
         Args:
           amount: The amount to move, in the transfer currency. For example 25.00.
 
-          origin_id: The account sending the funds. A user ID (user_xxx), company ID (biz_xxx), or
+          origin_id: The account sending the funds. A user ID (user_xxx), account ID (biz_xxx), or
               ledger account ID (ldgr_xxx).
 
           currency: The currency, such as usd. Required for ledger transfers.
@@ -302,7 +302,7 @@ class AsyncTransfersResource(AsyncAPIResource):
         Args:
           amount: The amount to move, in the transfer currency. For example 25.00.
 
-          origin_id: The account sending the funds. A user ID (user_xxx), company ID (biz_xxx), or
+          origin_id: The account sending the funds. A user ID (user_xxx), account ID (biz_xxx), or
               ledger account ID (ldgr_xxx).
 
           currency: The currency, such as usd. Required for ledger transfers.
