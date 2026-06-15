@@ -129,8 +129,8 @@ class ProductsResource(SyncAPIResource):
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
           metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           plan_options: Configuration for an automatically generated plan to attach to this product.
 
@@ -290,8 +290,8 @@ class ProductsResource(SyncAPIResource):
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
           metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
 
@@ -571,8 +571,8 @@ class AsyncProductsResource(AsyncAPIResource):
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
           metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           plan_options: Configuration for an automatically generated plan to attach to this product.
 
@@ -732,8 +732,8 @@ class AsyncProductsResource(AsyncAPIResource):
           member_affiliate_status: The different statuses of the global affiliate program for a product.
 
           metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 500 chars per key, 5000 chars per
-              value.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
 
