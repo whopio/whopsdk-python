@@ -154,12 +154,30 @@ class DataResourceUnionMember4(BaseModel):
 class DataResourceUnionMember5(BaseModel):
     id: str
 
+    authorized_at: Optional[datetime] = None
+    """ISO 8601 timestamp the transaction was authorized."""
+
+    card_id: Optional[str] = None
+    """Identifier of the card that the transaction was charged to."""
+
     cashback_usd: Optional[str] = None
     """Cashback earned on this transaction as a USD decimal string.
 
     Zero for declined or ineligible transactions; null when cashback has not been
     computed yet.
     """
+
+    declined_reason: Optional[str] = None
+    """Reason the transaction was declined (when status is declined)."""
+
+    local_amount: Optional[str] = None
+    """Amount the merchant charged in their local currency, as a decimal string.
+
+    Pair with local_currency.
+    """
+
+    local_currency: Optional[str] = None
+    """ISO 4217 currency code of the merchant-charged amount in local_amount."""
 
     merchant_category: Optional[str] = None
 
@@ -168,6 +186,9 @@ class DataResourceUnionMember5(BaseModel):
     merchant_name: Optional[str] = None
 
     object: Literal["card_transaction"]
+
+    posted_at: Optional[datetime] = None
+    """ISO 8601 timestamp the transaction was settled by the card network."""
 
     status: Optional[str] = None
 
