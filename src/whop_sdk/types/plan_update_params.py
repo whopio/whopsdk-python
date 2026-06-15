@@ -56,7 +56,8 @@ class PlanUpdateParams(TypedDict, total=False):
     metadata: Optional[object]
     """Custom key-value pairs to store on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
     offer_cancel_discount: Optional[bool]

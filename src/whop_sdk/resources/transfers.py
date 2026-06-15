@@ -92,7 +92,8 @@ class TransfersResource(SyncAPIResource):
 
           idempotence_key: Ledger transfers only. A unique key to prevent duplicate transfers.
 
-          metadata: Ledger transfers only. Custom key-value pairs attached to the transfer.
+          metadata: Ledger transfers only. Custom key-value pairs attached to the transfer. Max 50
+              keys, 100 chars per key, 500 chars per string value.
 
           notes: Ledger transfers only. A short note describing the transfer.
 
@@ -315,7 +316,8 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           idempotence_key: Ledger transfers only. A unique key to prevent duplicate transfers.
 
-          metadata: Ledger transfers only. Custom key-value pairs attached to the transfer.
+          metadata: Ledger transfers only. Custom key-value pairs attached to the transfer. Max 50
+              keys, 100 chars per key, 500 chars per string value.
 
           notes: Ledger transfers only. A short note describing the transfer.
 

@@ -41,7 +41,11 @@ class TransferCreateParams(TypedDict, total=False):
     """Ledger transfers only. A unique key to prevent duplicate transfers."""
 
     metadata: Optional[Dict[str, object]]
-    """Ledger transfers only. Custom key-value pairs attached to the transfer."""
+    """Ledger transfers only.
+
+    Custom key-value pairs attached to the transfer. Max 50 keys, 100 chars per key,
+    500 chars per string value.
+    """
 
     notes: Optional[str]
     """Ledger transfers only. A short note describing the transfer."""

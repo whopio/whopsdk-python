@@ -119,7 +119,8 @@ class PlansResource(SyncAPIResource):
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           override_tax_type: Override the default tax classification for this specific plan.
 
@@ -296,7 +297,8 @@ class PlansResource(SyncAPIResource):
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
@@ -643,7 +645,8 @@ class AsyncPlansResource(AsyncAPIResource):
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           override_tax_type: Override the default tax classification for this specific plan.
 
@@ -820,7 +823,8 @@ class AsyncPlansResource(AsyncAPIResource):
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
-              payment and membership events.
+              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
+              string value.
 
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
