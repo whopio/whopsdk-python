@@ -9,6 +9,9 @@ __all__ = ["SwapCreateResponse"]
 
 
 class SwapCreateResponse(BaseModel):
+    id: str
+    """Swap ID — poll GET /swaps/{id} for status."""
+
     account_id: str
 
     object: Literal["swap"]
