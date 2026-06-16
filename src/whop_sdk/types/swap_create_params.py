@@ -16,10 +16,10 @@ class SwapCreateParams(TypedDict, total=False):
     """Input token amount."""
 
     from_token: Required[str]
-    """Source token contract address."""
+    """Source token, by contract address or ticker symbol (e.g. "USDT")."""
 
     to_token: Required[str]
-    """Destination token contract address."""
+    """Destination token, by contract address or ticker symbol (e.g. "XAUT")."""
 
     from_chain: Union[str, int, None]
 

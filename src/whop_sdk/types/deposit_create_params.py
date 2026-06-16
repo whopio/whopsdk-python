@@ -9,14 +9,14 @@ __all__ = ["DepositCreateParams", "Destination", "DestinationUnionMember1"]
 
 
 class DepositCreateParams(TypedDict, total=False):
-    amount: Required[float]
-    """Amount to deposit."""
-
     destination: Required[Destination]
     """Destination account ID or wallet address.
 
     Object form is supported for compatibility.
     """
+
+    amount: float
+    """Optional amount to deposit."""
 
     metadata: Dict[str, object]
     """Arbitrary metadata echoed in the response."""
