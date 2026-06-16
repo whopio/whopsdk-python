@@ -153,6 +153,8 @@ from whop_sdk.types import (
     WebhookCreateResponse,
     WebhookListResponse,
     WebhookDeleteResponse,
+    ChatMessageCreatedWebhookEvent,
+    ChatReactionCreatedWebhookEvent,
     CourseLessonInteractionCompletedWebhookEvent,
     DisputeCreatedWebhookEvent,
     DisputeUpdatedWebhookEvent,

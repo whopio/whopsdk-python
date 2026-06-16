@@ -22,7 +22,9 @@ from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent
+from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
+from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent
 from .dispute_alert_created_webhook_event import DisputeAlertCreatedWebhookEvent
 from .payout_method_created_webhook_event import PayoutMethodCreatedWebhookEvent
 from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
@@ -48,6 +50,8 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        ChatMessageCreatedWebhookEvent,
+        ChatReactionCreatedWebhookEvent,
         CourseLessonInteractionCompletedWebhookEvent,
         DisputeCreatedWebhookEvent,
         DisputeUpdatedWebhookEvent,
