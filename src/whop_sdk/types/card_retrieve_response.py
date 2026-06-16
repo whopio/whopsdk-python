@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["CardListResponse", "Data", "DataBilling", "DataLimit", "DataSecrets"]
+__all__ = ["CardRetrieveResponse", "Billing", "Limit", "Secrets"]
 
 
-class DataBilling(BaseModel):
+class Billing(BaseModel):
     """The billing address."""
 
     city: Optional[str] = None
@@ -25,7 +25,7 @@ class DataBilling(BaseModel):
     region: Optional[str] = None
 
 
-class DataLimit(BaseModel):
+class Limit(BaseModel):
     """The spending limit configuration."""
 
     amount: int
@@ -35,7 +35,7 @@ class DataLimit(BaseModel):
     """The limit window, for example per24HourPeriod or perAuthorization."""
 
 
-class DataSecrets(BaseModel):
+class Secrets(BaseModel):
     """The card's sensitive details.
 
     Only present on GET /cards/:card_id (retrieve); null for cards that are not active or whose details could not be retrieved.
@@ -51,11 +51,11 @@ class DataSecrets(BaseModel):
     """The cardholder name printed on the card."""
 
 
-class Data(BaseModel):
+class CardRetrieveResponse(BaseModel):
     id: str
     """The icrd\\__ identifier of the card."""
 
-    billing: Optional[DataBilling] = None
+    billing: Optional[Billing] = None
     """The billing address."""
 
     canceled_at: Optional[datetime] = None
@@ -69,7 +69,7 @@ class Data(BaseModel):
     last4: Optional[str] = None
     """The last 4 digits of the card number. Null for pending invitation cards."""
 
-    limit: Optional[DataLimit] = None
+    limit: Optional[Limit] = None
     """The spending limit configuration."""
 
     name: Optional[str] = None
@@ -88,13 +88,9 @@ class Data(BaseModel):
     user_id: Optional[str] = None
     """The user\\__ identifier of the cardholder, when assigned."""
 
-    secrets: Optional[DataSecrets] = None
+    secrets: Optional[Secrets] = None
     """The card's sensitive details.
 
     Only present on GET /cards/:card_id (retrieve); null for cards that are not
     active or whose details could not be retrieved.
     """
-
-
-class CardListResponse(BaseModel):
-    data: List[Data]

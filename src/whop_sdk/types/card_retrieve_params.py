@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["CardListParams"]
+__all__ = ["CardRetrieveParams"]
 
 
-class CardListParams(TypedDict, total=False):
+class CardRetrieveParams(TypedDict, total=False):
     account_id: str
     """The owning account ID (a biz\\__ identifier). Provide this or user_id."""
 
