@@ -240,6 +240,14 @@ from .reactions import (
     ReactionsResourceWithStreamingResponse,
     AsyncReactionsResourceWithStreamingResponse,
 )
+from .referrals import (
+    ReferralsResource,
+    AsyncReferralsResource,
+    ReferralsResourceWithRawResponse,
+    AsyncReferralsResourceWithRawResponse,
+    ReferralsResourceWithStreamingResponse,
+    AsyncReferralsResourceWithStreamingResponse,
+)
 from .shipments import (
     ShipmentsResource,
     AsyncShipmentsResource,
@@ -776,6 +784,12 @@ __all__ = [
     "AsyncPayoutsResourceWithRawResponse",
     "PayoutsResourceWithStreamingResponse",
     "AsyncPayoutsResourceWithStreamingResponse",
+    "ReferralsResource",
+    "AsyncReferralsResource",
+    "ReferralsResourceWithRawResponse",
+    "AsyncReferralsResourceWithRawResponse",
+    "ReferralsResourceWithStreamingResponse",
+    "AsyncReferralsResourceWithStreamingResponse",
     "CardsResource",
     "AsyncCardsResource",
     "CardsResourceWithRawResponse",
