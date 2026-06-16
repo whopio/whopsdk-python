@@ -181,6 +181,8 @@ from whop_sdk.types import (
     ResolutionCenterCaseCreatedWebhookEvent,
     ResolutionCenterCaseUpdatedWebhookEvent,
     ResolutionCenterCaseDecidedWebhookEvent,
+    ChatMessageCreatedWebhookEvent,
+    ChatReactionCreatedWebhookEvent,
     PaymentCreatedWebhookEvent,
     PaymentSucceededWebhookEvent,
     PaymentFailedWebhookEvent,

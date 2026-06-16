@@ -34,6 +34,8 @@ WebhookEvent: TypeAlias = Literal[
     "resolution_center_case.created",
     "resolution_center_case.updated",
     "resolution_center_case.decided",
+    "chat.message.created",
+    "chat.reaction.created",
     "payment.created",
     "payment.succeeded",
     "payment.failed",
