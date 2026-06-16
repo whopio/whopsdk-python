@@ -523,6 +523,20 @@ class Payment(BaseModel):
     otherwise false. Used to decide if Whop can attempt the charge again.
     """
 
+    risk_score: Optional[int] = None
+    """
+    Whop's in-house fraud risk score for this payment, from 0 (lowest risk) to 100
+    (highest risk). Null when the payment has not been scored or scoring has not yet
+    completed.
+    """
+
+    risk_signals: Optional[Dict[str, object]] = None
+    """
+    A curated set of factors behind the risk score, grouped by category (business
+    transaction history, buyer, device). Each entry has a key, human-readable label,
+    category, and value. Null when there is no risk assessment for this payment.
+    """
+
     settlement_amount: float
     """
     The total amount charged to the customer for this payment, including taxes and
