@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["VerificationListResponse", "Data", "DataRfi", "DataRfiRequestedFile"]
+__all__ = ["VerificationUpdateResponse", "Rfi", "RfiRequestedFile"]
 
 
-class DataRfiRequestedFile(BaseModel):
+class RfiRequestedFile(BaseModel):
     category: Optional[str] = None
 
     is_optional: Optional[bool] = None
@@ -16,7 +16,7 @@ class DataRfiRequestedFile(BaseModel):
     kind: Optional[str] = None
 
 
-class DataRfi(BaseModel):
+class Rfi(BaseModel):
     id: Optional[str] = None
 
     created_at: Optional[str] = None
@@ -25,7 +25,7 @@ class DataRfi(BaseModel):
 
     error_message: Optional[str] = None
 
-    requested_files: Optional[List[DataRfiRequestedFile]] = None
+    requested_files: Optional[List[RfiRequestedFile]] = None
     """Documents the provider is requesting (file-upload RFIs).
 
     The `kind` is what to send back when answering.
@@ -36,7 +36,7 @@ class DataRfi(BaseModel):
     type: Optional[str] = None
 
 
-class Data(BaseModel):
+class VerificationUpdateResponse(BaseModel):
     id: Optional[str] = None
     """The verification ID, e.g. idpf\\__\\**"""
 
@@ -58,14 +58,10 @@ class Data(BaseModel):
 
     last_name: Optional[str] = None
 
-    rfis: Optional[List[DataRfi]] = None
+    rfis: Optional[List[Rfi]] = None
 
     session_url: Optional[str] = None
 
     status: Optional[Literal["not_started", "pending", "approved", "rejected", "action_required"]] = None
 
     updated_at: Optional[str] = None
-
-
-class VerificationListResponse(BaseModel):
-    data: Optional[List[Data]] = None

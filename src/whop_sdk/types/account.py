@@ -143,5 +143,13 @@ class Account(BaseModel):
     use_logo_as_opengraph_image_fallback: bool
     """Whether the account uses its logo as the fallback Open Graph image"""
 
+    verification: object
+    """The account's identity-verification status.
+
+    `individual` is KYC, `business` is KYB; each is null when that profile has not
+    been created, otherwise { status } where status is one of not_started, pending,
+    approved, rejected
+    """
+
     wallet: Optional[AccountWallet] = None
     """The account's primary crypto wallet, or null if none has been provisioned"""

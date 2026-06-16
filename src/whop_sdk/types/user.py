@@ -67,3 +67,11 @@ class User(BaseModel):
 
     username: str
     """The user's unique username"""
+
+    verification: object
+    """The user's identity-verification status.
+
+    `individual` is KYC, `business` is KYB; each is null when that profile has not
+    been created, otherwise { status } where status is one of not_started, pending,
+    approved, rejected
+    """
