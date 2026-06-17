@@ -570,6 +570,9 @@ class Payment(BaseModel):
     tax_refunded_amount: Optional[float] = None
     """The amount of tax that has been refunded (if applicable)."""
 
+    three_ds_verified: bool
+    """Whether 3D Secure authentication was completed for this payment."""
+
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""
 
