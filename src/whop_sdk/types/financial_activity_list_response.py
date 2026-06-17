@@ -24,7 +24,9 @@ __all__ = [
     "DataResourceUnionMember3Bank",
     "DataResourceUnionMember3Card",
     "DataResourceUnionMember4",
+    "DataResourceUnionMember5",
     "DataSource",
+    "DataSourcePayoutDestination",
     "PageInfo",
 ]
 
@@ -149,20 +151,134 @@ class DataResourceUnionMember4(BaseModel):
     provider: Optional[str] = None
 
 
+class DataResourceUnionMember5(BaseModel):
+    id: str
+
+    authorized_at: Optional[datetime] = None
+    """ISO 8601 timestamp the transaction was authorized."""
+
+    card_id: Optional[str] = None
+    """Identifier of the card that the transaction was charged to."""
+
+    cashback_usd: Optional[str] = None
+    """Cashback earned on this transaction as a USD decimal string.
+
+    Zero for declined or ineligible transactions; null when cashback has not been
+    computed yet.
+    """
+
+    declined_reason: Optional[str] = None
+    """Reason the transaction was declined (when status is declined)."""
+
+    local_amount: Optional[str] = None
+    """Amount the merchant charged in their local currency, as a decimal string.
+
+    Pair with local_currency.
+    """
+
+    local_currency: Optional[str] = None
+    """ISO 4217 currency code of the merchant-charged amount in local_amount."""
+
+    merchant_category: Optional[str] = None
+
+    merchant_icon_url: Optional[str] = None
+
+    merchant_name: Optional[str] = None
+
+    object: Literal["card_transaction"]
+
+    posted_at: Optional[datetime] = None
+    """ISO 8601 timestamp the transaction was settled by the card network."""
+
+    status: Optional[str] = None
+
+    usd_amount: Optional[str] = None
+    """The processor-settled USD amount as a decimal string.
+
+    The ledger's USDT leg is posted 1:1 from this value.
+    """
+
+
 DataResource: TypeAlias = Union[
     DataResourceUnionMember0,
     DataResourceUnionMember1,
     DataResourceUnionMember2,
     DataResourceUnionMember3,
     DataResourceUnionMember4,
+    DataResourceUnionMember5,
     None,
 ]
+
+
+class DataSourcePayoutDestination(BaseModel):
+    """Payout destination display info (withdrawal sources only)."""
+
+    icon_url: Optional[str] = None
+
+    payer_name: Optional[str] = None
 
 
 class DataSource(BaseModel):
     id: str
 
     object: str
+
+    chain: Optional[str] = None
+    """
+    Chain the deposit landed on, for example plasma (onchain_transaction sources
+    only).
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Withdrawal creation time as an ISO 8601 timestamp (withdrawal sources only;
+    requires payout:withdrawal:read).
+    """
+
+    estimated_arrival: Optional[datetime] = None
+    """
+    Estimated arrival as an ISO 8601 timestamp (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    from_amount: Optional[str] = None
+    """Amount converted out of from_currency as a decimal string (swap sources only)."""
+
+    from_currency: Optional[str] = None
+    """Lowercase currency code converted from (swap sources only)."""
+
+    payer_name: Optional[str] = None
+    """
+    Name of the entity processing the payout (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    payout_destination: Optional[DataSourcePayoutDestination] = None
+    """Payout destination display info (withdrawal sources only)."""
+
+    payout_token_nickname: Optional[str] = None
+    """Saved payout destination nickname (withdrawal sources only)."""
+
+    sender_address: Optional[str] = None
+    """
+    Sender wallet address or onramp provider identifier (onchain_transaction sources
+    only).
+    """
+
+    status: Optional[str] = None
+    """
+    Withdrawal lifecycle status (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    to_amount: Optional[str] = None
+    """Amount received in to_currency as a decimal string (swap sources only)."""
+
+    to_currency: Optional[str] = None
+    """Lowercase currency code converted to (swap sources only)."""
+
+    tx_hash: Optional[str] = None
+    """On-chain transaction hash (onchain_transaction and swap sources only)."""
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
@@ -182,6 +298,18 @@ class Data(BaseModel):
 
     amount: str
     """Signed amount in the currency's smallest precision units."""
+
+    available_at: Optional[datetime] = None
+    """
+    ISO 8601 timestamp these funds became (or are scheduled to become) withdrawable:
+    the posted time for already-settled funds, or 00:00:00 UTC on the scheduled
+    release date for pending funds. Present only on inflows entering the balance
+    (payments, top-ups, incoming transfers/affiliate); null on withdrawals, refunds,
+    disputes and on-chain rows. The available_after/before filters window on its UTC
+    settlement date.
+    """
+
+    created_at: Optional[datetime] = None
 
     currency: DataCurrency
 
