@@ -1,30 +1,67 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .verification_status import VerificationStatus
-from .verification_error_code import VerificationErrorCode
 
-__all__ = ["VerificationRetrieveResponse"]
+__all__ = ["VerificationRetrieveResponse", "Rfi", "RfiRequestedFile"]
+
+
+class RfiRequestedFile(BaseModel):
+    category: Optional[str] = None
+
+    is_optional: Optional[bool] = None
+
+    kind: Optional[str] = None
+
+
+class Rfi(BaseModel):
+    id: Optional[str] = None
+
+    created_at: Optional[str] = None
+
+    description: Optional[str] = None
+
+    error_message: Optional[str] = None
+
+    requested_files: Optional[List[RfiRequestedFile]] = None
+    """Documents the provider is requesting (file-upload RFIs).
+
+    The `kind` is what to send back when answering.
+    """
+
+    status: Optional[Literal["outstanding", "invalid"]] = None
+
+    type: Optional[str] = None
 
 
 class VerificationRetrieveResponse(BaseModel):
-    """
-    An identity verification session used to confirm a person or entity's identity for payout account eligibility.
-    """
+    id: Optional[str] = None
+    """The verification ID, e.g. idpf\\__\\**"""
 
-    id: str
-    """The numeric id of the verification record."""
+    address: Optional[object] = None
 
-    last_error_code: Optional[VerificationErrorCode] = None
-    """An error code for a verification attempt."""
+    business_name: Optional[str] = None
 
-    last_error_reason: Optional[str] = None
-    """A human-readable explanation of the most recent verification error.
+    business_structure: Optional[str] = None
 
-    Null if no error has occurred.
-    """
+    country: Optional[str] = None
 
-    status: VerificationStatus
-    """The current status of this verification session."""
+    created_at: Optional[str] = None
+
+    date_of_birth: Optional[str] = None
+
+    first_name: Optional[str] = None
+
+    kind: Optional[Literal["individual", "business"]] = None
+
+    last_name: Optional[str] = None
+
+    rfis: Optional[List[Rfi]] = None
+
+    session_url: Optional[str] = None
+
+    status: Optional[Literal["not_started", "pending", "approved", "rejected", "action_required"]] = None
+
+    updated_at: Optional[str] = None

@@ -260,7 +260,8 @@ class Plan(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
 
@@ -273,7 +274,8 @@ class Product(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the product.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
     route: str
@@ -521,6 +523,20 @@ class Payment(BaseModel):
     otherwise false. Used to decide if Whop can attempt the charge again.
     """
 
+    risk_score: Optional[int] = None
+    """
+    Whop's in-house fraud risk score for this payment, from 0 (lowest risk) to 100
+    (highest risk). Null when the payment has not been scored or scoring has not yet
+    completed.
+    """
+
+    risk_signals: Optional[Dict[str, object]] = None
+    """
+    A curated set of factors behind the risk score, grouped by category (business
+    transaction history, buyer, device). Each entry has a key, human-readable label,
+    category, and value. Null when there is no risk assessment for this payment.
+    """
+
     settlement_amount: float
     """
     The total amount charged to the customer for this payment, including taxes and
@@ -553,6 +569,9 @@ class Payment(BaseModel):
 
     tax_refunded_amount: Optional[float] = None
     """The amount of tax that has been refunded (if applicable)."""
+
+    three_ds_verified: bool
+    """Whether 3D Secure authentication was completed for this payment."""
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""

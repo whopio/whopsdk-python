@@ -9,6 +9,8 @@ __all__ = ["SwapRetrieveResponse"]
 
 
 class SwapRetrieveResponse(BaseModel):
+    id: str
+
     account_id: str
 
     object: Literal["swap"]
