@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 from .shared.currency import Currency
 
 __all__ = ["BountyCreateParams"]
@@ -68,4 +70,20 @@ class BountyCreateParams(TypedDict, total=False):
     """Optional title for the anchor forum post.
 
     Falls back to the bounty title when omitted.
+    """
+
+    scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]]
+    """How often a scheduled bounty republishes a new bounty."""
+
+    scheduled_publish_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """When to publish the bounty.
+
+    When provided, the bounty is created as a hidden draft and published at this
+    time instead of immediately. Must be in the future.
+    """
+
+    scheduled_timezone: Optional[str]
+    """The IANA timezone used for recurring occurrences.
+
+    Required when scheduled_publish_at is provided.
     """
