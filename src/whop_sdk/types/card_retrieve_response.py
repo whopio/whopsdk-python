@@ -28,8 +28,8 @@ class Billing(BaseModel):
 class Limit(BaseModel):
     """The spending limit configuration."""
 
-    amount: int
-    """The limit amount in cents."""
+    amount: float
+    """The limit amount in dollars."""
 
     frequency: str
     """The limit window, for example per24HourPeriod or perAuthorization."""
