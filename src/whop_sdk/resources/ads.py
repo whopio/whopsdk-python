@@ -122,7 +122,24 @@ class AdsResource(SyncAPIResource):
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        order: Optional[Literal["created_at", "spend", "return_on_ad_spend"]] | Omit = omit,
+        order: Optional[
+            Literal[
+                "created_at",
+                "spend",
+                "impressions",
+                "clicks",
+                "reach",
+                "unique_clicks",
+                "results",
+                "click_through_rate",
+                "cost_per_click",
+                "cost_per_mille",
+                "cost_per_result",
+                "frequency",
+                "return_on_ad_spend",
+            ]
+        ]
+        | Omit = omit,
         order_by: Optional[Literal["spend", "return_on_ad_spend", "roas"]] | Omit = omit,
         order_direction: Optional[Direction] | Omit = omit,
         query: Optional[str] | Omit = omit,
@@ -175,9 +192,10 @@ class AdsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The fields ad resources can be ordered by.
+          order: The fields the ads dashboard lists (campaigns, ad sets) can be ordered by. Stat
+              columns are computed over the provided stats date range.
 
-          order_by: Columns that the listAds query can sort by. Deprecated — use AdOrder.
+          order_by: Columns that the listAds query can sort by. Deprecated — use AdStatOrder.
 
           order_direction: The direction of the sort.
 
@@ -407,7 +425,24 @@ class AsyncAdsResource(AsyncAPIResource):
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        order: Optional[Literal["created_at", "spend", "return_on_ad_spend"]] | Omit = omit,
+        order: Optional[
+            Literal[
+                "created_at",
+                "spend",
+                "impressions",
+                "clicks",
+                "reach",
+                "unique_clicks",
+                "results",
+                "click_through_rate",
+                "cost_per_click",
+                "cost_per_mille",
+                "cost_per_result",
+                "frequency",
+                "return_on_ad_spend",
+            ]
+        ]
+        | Omit = omit,
         order_by: Optional[Literal["spend", "return_on_ad_spend", "roas"]] | Omit = omit,
         order_direction: Optional[Direction] | Omit = omit,
         query: Optional[str] | Omit = omit,
@@ -460,9 +495,10 @@ class AsyncAdsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The fields ad resources can be ordered by.
+          order: The fields the ads dashboard lists (campaigns, ad sets) can be ordered by. Stat
+              columns are computed over the provided stats date range.
 
-          order_by: Columns that the listAds query can sort by. Deprecated — use AdOrder.
+          order_by: Columns that the listAds query can sort by. Deprecated — use AdStatOrder.
 
           order_direction: The direction of the sort.
 
