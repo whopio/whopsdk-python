@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
-from ..types import card_list_params, card_retrieve_params
+from ..types import card_list_params, card_create_params, card_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -17,6 +19,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.card_list_response import CardListResponse
+from ..types.card_create_response import CardCreateResponse
 from ..types.card_retrieve_response import CardRetrieveResponse
 
 __all__ = ["CardsResource", "AsyncCardsResource"]
@@ -41,6 +44,68 @@ class CardsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return CardsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        name: str | Omit = omit,
+        spend_limit: float | Omit = omit,
+        spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
+        transaction_limit: float | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CardCreateResponse:
+        """Issues a virtual card for an individual (consumer) card issuing account.
+
+        The
+        ledger's owner is passed as exactly one of account*id (a biz* identifier) or
+        user*id (a user* identifier). Returns the newly created card resource.
+
+        Args:
+          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          name: A display name for the card.
+
+          spend_limit: Spending limit amount, in dollars.
+
+          spend_limit_frequency: The spending limit window.
+
+          transaction_limit: Per-transaction limit amount, in dollars.
+
+          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/cards",
+            body=maybe_transform(
+                {
+                    "account_id": account_id,
+                    "name": name,
+                    "spend_limit": spend_limit,
+                    "spend_limit_frequency": spend_limit_frequency,
+                    "transaction_limit": transaction_limit,
+                    "user_id": user_id,
+                },
+                card_create_params.CardCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CardCreateResponse,
+        )
 
     def retrieve(
         self,
@@ -165,6 +230,68 @@ class AsyncCardsResource(AsyncAPIResource):
         """
         return AsyncCardsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        name: str | Omit = omit,
+        spend_limit: float | Omit = omit,
+        spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
+        transaction_limit: float | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CardCreateResponse:
+        """Issues a virtual card for an individual (consumer) card issuing account.
+
+        The
+        ledger's owner is passed as exactly one of account*id (a biz* identifier) or
+        user*id (a user* identifier). Returns the newly created card resource.
+
+        Args:
+          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          name: A display name for the card.
+
+          spend_limit: Spending limit amount, in dollars.
+
+          spend_limit_frequency: The spending limit window.
+
+          transaction_limit: Per-transaction limit amount, in dollars.
+
+          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/cards",
+            body=await async_maybe_transform(
+                {
+                    "account_id": account_id,
+                    "name": name,
+                    "spend_limit": spend_limit,
+                    "spend_limit_frequency": spend_limit_frequency,
+                    "transaction_limit": transaction_limit,
+                    "user_id": user_id,
+                },
+                card_create_params.CardCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CardCreateResponse,
+        )
+
     async def retrieve(
         self,
         card_id: str,
@@ -272,6 +399,9 @@ class CardsResourceWithRawResponse:
     def __init__(self, cards: CardsResource) -> None:
         self._cards = cards
 
+        self.create = to_raw_response_wrapper(
+            cards.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             cards.retrieve,
         )
@@ -284,6 +414,9 @@ class AsyncCardsResourceWithRawResponse:
     def __init__(self, cards: AsyncCardsResource) -> None:
         self._cards = cards
 
+        self.create = async_to_raw_response_wrapper(
+            cards.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             cards.retrieve,
         )
@@ -296,6 +429,9 @@ class CardsResourceWithStreamingResponse:
     def __init__(self, cards: CardsResource) -> None:
         self._cards = cards
 
+        self.create = to_streamed_response_wrapper(
+            cards.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             cards.retrieve,
         )
@@ -308,6 +444,9 @@ class AsyncCardsResourceWithStreamingResponse:
     def __init__(self, cards: AsyncCardsResource) -> None:
         self._cards = cards
 
+        self.create = async_to_streamed_response_wrapper(
+            cards.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             cards.retrieve,
         )

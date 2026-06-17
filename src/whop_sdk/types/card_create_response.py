@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["CardRetrieveResponse", "Billing", "Limit", "Secrets"]
+__all__ = ["CardCreateResponse", "Billing", "Limit", "Secrets"]
 
 
 class Billing(BaseModel):
@@ -51,7 +51,7 @@ class Secrets(BaseModel):
     """The cardholder name printed on the card."""
 
 
-class CardRetrieveResponse(BaseModel):
+class CardCreateResponse(BaseModel):
     id: str
     """The icrd\\__ identifier of the card."""
 

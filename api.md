@@ -803,11 +803,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CardRetrieveResponse, CardListResponse
+from whop_sdk.types import CardCreateResponse, CardRetrieveResponse, CardListResponse
 ```
 
 Methods:
 
+- <code title="post /cards">client.cards.<a href="./src/whop_sdk/resources/cards.py">create</a>(\*\*<a href="src/whop_sdk/types/card_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_create_response.py">CardCreateResponse</a></code>
 - <code title="get /cards/{card_id}">client.cards.<a href="./src/whop_sdk/resources/cards.py">retrieve</a>(card_id, \*\*<a href="src/whop_sdk/types/card_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_retrieve_response.py">CardRetrieveResponse</a></code>
 - <code title="get /cards">client.cards.<a href="./src/whop_sdk/resources/cards.py">list</a>(\*\*<a href="src/whop_sdk/types/card_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_list_response.py">CardListResponse</a></code>
 
