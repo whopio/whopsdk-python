@@ -6,7 +6,7 @@ from typing_extensions import Literal
 from .._models import BaseModel
 from .account_social_link import AccountSocialLink
 
-__all__ = ["Account", "Balance", "Wallet"]
+__all__ = ["Account", "Balance", "RecommendedAction", "Wallet"]
 
 
 class Balance(BaseModel):
@@ -39,6 +39,19 @@ class Balance(BaseModel):
 
     value_usd: Optional[str] = None
     """The total USD value of the holding, or null when no exchange rate is available"""
+
+
+class RecommendedAction(BaseModel):
+    """Recommended actions to drive volume on the account"""
+
+    cta: str
+    """The URL the call-to-action links to"""
+
+    cta_label: str
+    """The label for the action's call-to-action button"""
+
+    title: str
+    """The headline describing the recommended action"""
 
 
 class Wallet(BaseModel):
@@ -112,6 +125,8 @@ class Account(BaseModel):
 
     parent_account_id: Optional[str] = None
     """The parent account ID for connected accounts"""
+
+    recommended_actions: List[RecommendedAction]
 
     require_2fa: bool
     """
