@@ -46,9 +46,6 @@ class BusinessListResponse(BaseModel):
 
     referral_started_at: Optional[datetime] = None
 
-    referred_by_account_id: Optional[str] = None
-    """The company that made the referral, if a company referred."""
-
     status: Literal["active", "removed"]
 
     total_earnings: float
