@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -68,6 +69,9 @@ class BountiesResource(SyncAPIResource):
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
         post_title: Optional[str] | Omit = omit,
+        scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]] | Omit = omit,
+        scheduled_publish_at: Union[str, datetime, None] | Omit = omit,
+        scheduled_timezone: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -113,6 +117,14 @@ class BountiesResource(SyncAPIResource):
           post_title: Optional title for the anchor forum post. Falls back to the bounty title when
               omitted.
 
+          scheduled_frequency: How often a scheduled bounty republishes a new bounty.
+
+          scheduled_publish_at: When to publish the bounty. When provided, the bounty is created as a hidden
+              draft and published at this time instead of immediately. Must be in the future.
+
+          scheduled_timezone: The IANA timezone used for recurring occurrences. Required when
+              scheduled_publish_at is provided.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -136,6 +148,9 @@ class BountiesResource(SyncAPIResource):
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
                     "post_title": post_title,
+                    "scheduled_frequency": scheduled_frequency,
+                    "scheduled_publish_at": scheduled_publish_at,
+                    "scheduled_timezone": scheduled_timezone,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
@@ -187,7 +202,7 @@ class BountiesResource(SyncAPIResource):
         experience_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived"]] | Omit = omit,
+        status: Optional[Literal["published", "archived", "scheduled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -289,6 +304,9 @@ class AsyncBountiesResource(AsyncAPIResource):
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
         post_title: Optional[str] | Omit = omit,
+        scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]] | Omit = omit,
+        scheduled_publish_at: Union[str, datetime, None] | Omit = omit,
+        scheduled_timezone: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -334,6 +352,14 @@ class AsyncBountiesResource(AsyncAPIResource):
           post_title: Optional title for the anchor forum post. Falls back to the bounty title when
               omitted.
 
+          scheduled_frequency: How often a scheduled bounty republishes a new bounty.
+
+          scheduled_publish_at: When to publish the bounty. When provided, the bounty is created as a hidden
+              draft and published at this time instead of immediately. Must be in the future.
+
+          scheduled_timezone: The IANA timezone used for recurring occurrences. Required when
+              scheduled_publish_at is provided.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -357,6 +383,9 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
                     "post_title": post_title,
+                    "scheduled_frequency": scheduled_frequency,
+                    "scheduled_publish_at": scheduled_publish_at,
+                    "scheduled_timezone": scheduled_timezone,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
@@ -408,7 +437,7 @@ class AsyncBountiesResource(AsyncAPIResource):
         experience_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived"]] | Omit = omit,
+        status: Optional[Literal["published", "archived", "scheduled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
