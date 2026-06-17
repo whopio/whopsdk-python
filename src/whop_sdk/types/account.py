@@ -1,17 +1,77 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .account_wallet import AccountWallet
 from .account_social_link import AccountSocialLink
 
-__all__ = ["Account"]
+__all__ = ["Account", "Balance", "RecommendedAction", "Wallet"]
+
+
+class Balance(BaseModel):
+    """The account's holdings (crypto and fiat), each with its USD value.
+
+    Empty when total_usd is null (not computed)
+    """
+
+    balance: str
+    """The total amount held in native units, as a decimal string"""
+
+    breakdown: object
+    """
+    The holding split into available, pending, and reserve amounts (native-unit
+    decimal strings). On-chain crypto is entirely available; good_funds and fiat
+    cash can have pending/reserve portions
+    """
+
+    icon_url: Optional[str] = None
+    """The URL of the holding's icon, when available"""
+
+    name: str
+    """The holding's display name"""
+
+    price_usd: Optional[float] = None
+    """The USD price per unit, or null when no exchange rate is available"""
+
+    symbol: str
+    """The holding's display symbol, e.g. USDT, cbBTC, or EUR"""
+
+    value_usd: Optional[str] = None
+    """The total USD value of the holding, or null when no exchange rate is available"""
+
+
+class RecommendedAction(BaseModel):
+    """Recommended actions to drive volume on the account"""
+
+    cta: str
+    """The URL the call-to-action links to"""
+
+    cta_label: str
+    """The label for the action's call-to-action button"""
+
+    title: str
+    """The headline describing the recommended action"""
+
+
+class Wallet(BaseModel):
+    """The account's primary crypto wallet, or null if none has been provisioned"""
+
+    id: str
+    """The ID of the wallet, which will look like wallet\\__******\\********"""
+
+    address: str
+    """The on-chain address of the wallet"""
+
+    network: Literal["solana", "ethereum", "bitcoin"]
+    """The blockchain network the wallet lives on"""
 
 
 class Account(BaseModel):
     id: str
     """The ID of the account, which will look like biz\\__******\\********"""
+
+    balances: List[Balance]
 
     banner_image_url: Optional[str] = None
     """The URL of the account banner image"""
@@ -66,6 +126,8 @@ class Account(BaseModel):
     parent_account_id: Optional[str] = None
     """The parent account ID for connected accounts"""
 
+    recommended_actions: List[RecommendedAction]
+
     require_2fa: bool
     """
     Whether the account requires authorized users to have two-factor authentication
@@ -98,8 +160,24 @@ class Account(BaseModel):
     title: str
     """The display name of the account"""
 
+    total_usd: Optional[str] = None
+    """Total USD value across all balances with a known exchange rate.
+
+    Only computed on single-account reads (retrieve and me); null (with an empty
+    balances array) on list responses, on writes, when the caller's token lacks the
+    balance-read permission, and when the balance source is unavailable
+    """
+
     use_logo_as_opengraph_image_fallback: bool
     """Whether the account uses its logo as the fallback Open Graph image"""
 
-    wallet: Optional[AccountWallet] = None
+    verification: object
+    """The account's identity-verification status.
+
+    `individual` is KYC, `business` is KYB; each is null when that profile has not
+    been created, otherwise { status } where status is one of not_started, pending,
+    approved, rejected
+    """
+
+    wallet: Optional[Wallet] = None
     """The account's primary crypto wallet, or null if none has been provisioned"""
