@@ -128,14 +128,6 @@ from .reviews import (
     ReviewsResourceWithStreamingResponse,
     AsyncReviewsResourceWithStreamingResponse,
 )
-from .wallets import (
-    WalletsResource,
-    AsyncWalletsResource,
-    WalletsResourceWithRawResponse,
-    AsyncWalletsResourceWithRawResponse,
-    WalletsResourceWithStreamingResponse,
-    AsyncWalletsResourceWithStreamingResponse,
-)
 from .accounts import (
     AccountsResource,
     AsyncAccountsResource,
@@ -766,12 +758,6 @@ __all__ = [
     "AsyncAccountsResourceWithRawResponse",
     "AccountsResourceWithStreamingResponse",
     "AsyncAccountsResourceWithStreamingResponse",
-    "WalletsResource",
-    "AsyncWalletsResource",
-    "WalletsResourceWithRawResponse",
-    "AsyncWalletsResourceWithRawResponse",
-    "WalletsResourceWithStreamingResponse",
-    "AsyncWalletsResourceWithStreamingResponse",
     "FinancialActivityResource",
     "AsyncFinancialActivityResource",
     "FinancialActivityResourceWithRawResponse",

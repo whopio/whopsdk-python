@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .account_wallet import AccountWallet
 from .account_social_link import AccountSocialLink
 
-__all__ = ["Account", "Balance"]
+__all__ = ["Account", "Balance", "Wallet"]
 
 
 class Balance(BaseModel):
@@ -39,6 +39,19 @@ class Balance(BaseModel):
 
     value_usd: Optional[str] = None
     """The total USD value of the holding, or null when no exchange rate is available"""
+
+
+class Wallet(BaseModel):
+    """The account's primary crypto wallet, or null if none has been provisioned"""
+
+    id: str
+    """The ID of the wallet, which will look like wallet\\__******\\********"""
+
+    address: str
+    """The on-chain address of the wallet"""
+
+    network: Literal["solana", "ethereum", "bitcoin"]
+    """The blockchain network the wallet lives on"""
 
 
 class Account(BaseModel):
@@ -151,5 +164,5 @@ class Account(BaseModel):
     approved, rejected
     """
 
-    wallet: Optional[AccountWallet] = None
+    wallet: Optional[Wallet] = None
     """The account's primary crypto wallet, or null if none has been provisioned"""

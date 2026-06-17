@@ -52,7 +52,6 @@ if TYPE_CHECKING:
         payouts,
         refunds,
         reviews,
-        wallets,
         accounts,
         ai_chats,
         bounties,
@@ -120,7 +119,6 @@ if TYPE_CHECKING:
     from .resources.payouts import PayoutsResource, AsyncPayoutsResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
-    from .resources.wallets import WalletsResource, AsyncWalletsResource
     from .resources.accounts import AccountsResource, AsyncAccountsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
     from .resources.bounties import BountiesResource, AsyncBountiesResource
@@ -528,12 +526,6 @@ class Whop(SyncAPIClient):
         from .resources.accounts import AccountsResource
 
         return AccountsResource(self)
-
-    @cached_property
-    def wallets(self) -> WalletsResource:
-        from .resources.wallets import WalletsResource
-
-        return WalletsResource(self)
 
     @cached_property
     def financial_activity(self) -> FinancialActivityResource:
@@ -1195,12 +1187,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAccountsResource(self)
 
     @cached_property
-    def wallets(self) -> AsyncWalletsResource:
-        from .resources.wallets import AsyncWalletsResource
-
-        return AsyncWalletsResource(self)
-
-    @cached_property
     def financial_activity(self) -> AsyncFinancialActivityResource:
         from .resources.financial_activity import AsyncFinancialActivityResource
 
@@ -1780,12 +1766,6 @@ class WhopWithRawResponse:
         return AccountsResourceWithRawResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.WalletsResourceWithRawResponse:
-        from .resources.wallets import WalletsResourceWithRawResponse
-
-        return WalletsResourceWithRawResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.FinancialActivityResourceWithRawResponse:
         from .resources.financial_activity import FinancialActivityResourceWithRawResponse
 
@@ -2245,12 +2225,6 @@ class AsyncWhopWithRawResponse:
         from .resources.accounts import AsyncAccountsResourceWithRawResponse
 
         return AsyncAccountsResourceWithRawResponse(self._client.accounts)
-
-    @cached_property
-    def wallets(self) -> wallets.AsyncWalletsResourceWithRawResponse:
-        from .resources.wallets import AsyncWalletsResourceWithRawResponse
-
-        return AsyncWalletsResourceWithRawResponse(self._client.wallets)
 
     @cached_property
     def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithRawResponse:
@@ -2716,12 +2690,6 @@ class WhopWithStreamedResponse:
         return AccountsResourceWithStreamingResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.WalletsResourceWithStreamingResponse:
-        from .resources.wallets import WalletsResourceWithStreamingResponse
-
-        return WalletsResourceWithStreamingResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.FinancialActivityResourceWithStreamingResponse:
         from .resources.financial_activity import FinancialActivityResourceWithStreamingResponse
 
@@ -3185,12 +3153,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.accounts import AsyncAccountsResourceWithStreamingResponse
 
         return AsyncAccountsResourceWithStreamingResponse(self._client.accounts)
-
-    @cached_property
-    def wallets(self) -> wallets.AsyncWalletsResourceWithStreamingResponse:
-        from .resources.wallets import AsyncWalletsResourceWithStreamingResponse
-
-        return AsyncWalletsResourceWithStreamingResponse(self._client.wallets)
 
     @cached_property
     def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithStreamingResponse:

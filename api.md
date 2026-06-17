@@ -730,18 +730,6 @@ Methods:
 - <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">SyncCursorPage[Account]</a></code>
 - <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
 
-# Wallets
-
-Types:
-
-```python
-from whop_sdk.types import AccountWallet, WalletListResponse
-```
-
-Methods:
-
-- <code title="get /wallets">client.wallets.<a href="./src/whop_sdk/resources/wallets.py">list</a>() -> <a href="./src/whop_sdk/types/wallet_list_response.py">WalletListResponse</a></code>
-
 # FinancialActivity
 
 Types:
