@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["CheckoutConfigurationListResponse"]
+__all__ = ["CheckoutConfigurationCreateResponse"]
 
 
-class CheckoutConfigurationListResponse(BaseModel):
+class CheckoutConfigurationCreateResponse(BaseModel):
     id: str
     """The unique identifier of the checkout configuration."""
 

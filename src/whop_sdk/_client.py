@@ -370,7 +370,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def checkout_configurations(self) -> CheckoutConfigurationsResource:
-        """Checkout configurations"""
         from .resources.checkout_configurations import CheckoutConfigurationsResource
 
         return CheckoutConfigurationsResource(self)
@@ -1029,7 +1028,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def checkout_configurations(self) -> AsyncCheckoutConfigurationsResource:
-        """Checkout configurations"""
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResource
 
         return AsyncCheckoutConfigurationsResource(self)
@@ -1608,7 +1606,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithRawResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import CheckoutConfigurationsResourceWithRawResponse
 
         return CheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
@@ -2069,7 +2066,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithRawResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithRawResponse
 
         return AsyncCheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
@@ -2532,7 +2528,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithStreamingResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import CheckoutConfigurationsResourceWithStreamingResponse
 
         return CheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)
@@ -2997,7 +2992,6 @@ class AsyncWhopWithStreamedResponse:
     def checkout_configurations(
         self,
     ) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithStreamingResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithStreamingResponse
 
         return AsyncCheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)

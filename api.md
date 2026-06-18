@@ -353,14 +353,20 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CheckoutModes, CheckoutConfigurationListResponse
+from whop_sdk.types import (
+    CheckoutModes,
+    CheckoutConfigurationCreateResponse,
+    CheckoutConfigurationRetrieveResponse,
+    CheckoutConfigurationListResponse,
+)
 ```
 
 Methods:
 
-- <code title="post /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">create</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
-- <code title="get /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
+- <code title="post /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">create</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/checkout_configuration_create_response.py">CheckoutConfigurationCreateResponse</a></code>
+- <code title="get /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/checkout_configuration_retrieve_response.py">CheckoutConfigurationRetrieveResponse</a></code>
 - <code title="get /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">list</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/checkout_configuration_list_response.py">SyncCursorPage[CheckoutConfigurationListResponse]</a></code>
+- <code title="delete /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">delete</a>(id) -> None</code>
 
 # Messages
 

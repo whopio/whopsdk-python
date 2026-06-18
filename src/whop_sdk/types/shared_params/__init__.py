@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from .currency import Currency as Currency
-from .tax_type import TaxType as TaxType
 from .direction import Direction as Direction
 from .plan_type import PlanType as PlanType
 from .promo_type import PromoType as PromoType
