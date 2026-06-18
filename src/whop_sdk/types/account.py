@@ -50,6 +50,9 @@ class RecommendedAction(BaseModel):
     cta_label: str
     """The label for the action's call-to-action button"""
 
+    icon_url: Optional[str] = None
+    """The URL of the action's illustration icon, or null if it has none"""
+
     title: str
     """The headline describing the recommended action"""
 
