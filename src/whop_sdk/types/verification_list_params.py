@@ -2,24 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["VerificationListParams"]
 
 
 class VerificationListParams(TypedDict, total=False):
-    payout_account_id: Required[str]
-    """The unique identifier of the payout account to list verifications for."""
-
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
-
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
-
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
-
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    account_id: Required[str]
+    """The account ID to list verifications for (biz\\__ tag)."""
