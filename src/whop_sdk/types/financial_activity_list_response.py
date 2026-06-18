@@ -223,11 +223,20 @@ class DataSource(BaseModel):
 
     object: str
 
+    amount_float: Optional[float] = None
+    """
+    Withdrawal amount as a decimal number in the destination currency (withdrawal
+    sources only; requires payout:withdrawal:read).
+    """
+
     chain: Optional[str] = None
     """
     Chain the deposit landed on, for example plasma (onchain_transaction sources
     only).
     """
+
+    claim_url: Optional[str] = None
+    """Public claim URL for the airdrop link (airdrop_link sources only)."""
 
     created_at: Optional[datetime] = None
     """
@@ -266,9 +275,11 @@ class DataSource(BaseModel):
     """
 
     status: Optional[str] = None
-    """
-    Withdrawal lifecycle status (withdrawal sources only; requires
-    payout:withdrawal:read).
+    """Lifecycle status.
+
+    On withdrawal sources this is the withdrawal status (requires
+    payout:withdrawal:read); on airdrop_link sources it is the claim-link status
+    (ungated).
     """
 
     to_amount: Optional[str] = None
