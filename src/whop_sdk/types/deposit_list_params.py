@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["WalletBalanceParams"]
+__all__ = ["DepositListParams"]
 
 
-class WalletBalanceParams(TypedDict, total=False):
+class DepositListParams(TypedDict, total=False):
     account_id: Required[str]
-    """The business or user account ID whose wallet balance should be returned."""
+    """Business account ID (biz\\__\\**)."""

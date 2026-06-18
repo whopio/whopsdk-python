@@ -57,7 +57,8 @@ class DataPaymentPlan(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
 
@@ -70,7 +71,8 @@ class DataPaymentProduct(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the product.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
 
