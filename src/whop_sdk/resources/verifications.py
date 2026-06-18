@@ -57,6 +57,7 @@ class VerificationsResource(SyncAPIResource):
         address: Dict[str, object] | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
@@ -84,6 +85,10 @@ class VerificationsResource(SyncAPIResource):
           business_name: Optional pre-fill claim for businesses.
 
           business_structure: Optional. Business structure (e.g. llc, corporation).
+
+          business_website: Optional. Business website URL. Accepted for both individual and business
+              verifications on company accounts; persisted to the account's metadata and used
+              to provision the payout account on approval. Whop store pages are rejected.
 
           country: Optional pre-fill claim. Country code; for businesses, the country of
               incorporation.
@@ -125,6 +130,7 @@ class VerificationsResource(SyncAPIResource):
                     "address": address,
                     "business_name": business_name,
                     "business_structure": business_structure,
+                    "business_website": business_website,
                     "country": country,
                     "date_of_birth": date_of_birth,
                     "first_name": first_name,
@@ -356,6 +362,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         address: Dict[str, object] | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
@@ -383,6 +390,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
           business_name: Optional pre-fill claim for businesses.
 
           business_structure: Optional. Business structure (e.g. llc, corporation).
+
+          business_website: Optional. Business website URL. Accepted for both individual and business
+              verifications on company accounts; persisted to the account's metadata and used
+              to provision the payout account on approval. Whop store pages are rejected.
 
           country: Optional pre-fill claim. Country code; for businesses, the country of
               incorporation.
@@ -424,6 +435,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
                     "address": address,
                     "business_name": business_name,
                     "business_structure": business_structure,
+                    "business_website": business_website,
                     "country": country,
                     "date_of_birth": date_of_birth,
                     "first_name": first_name,

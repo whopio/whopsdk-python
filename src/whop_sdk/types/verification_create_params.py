@@ -21,6 +21,14 @@ class VerificationCreateParams(TypedDict, total=False):
     business_structure: str
     """Optional. Business structure (e.g. llc, corporation)."""
 
+    business_website: str
+    """Optional.
+
+    Business website URL. Accepted for both individual and business verifications on
+    company accounts; persisted to the account's metadata and used to provision the
+    payout account on approval. Whop store pages are rejected.
+    """
+
     country: str
     """Optional pre-fill claim.
 
