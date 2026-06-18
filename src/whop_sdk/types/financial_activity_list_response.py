@@ -279,7 +279,8 @@ class DataSource(BaseModel):
 
     On withdrawal sources this is the withdrawal status (requires
     payout:withdrawal:read); on airdrop_link sources it is the claim-link status
-    (ungated).
+    (ungated); on payment and top-up sources it is the friendly payment status such
+    as succeeded/pending/failed (ungated).
     """
 
     to_amount: Optional[str] = None
