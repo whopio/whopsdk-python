@@ -79,38 +79,36 @@ class VerificationsResource(SyncAPIResource):
         Args:
           account_id: The account ID to verify (biz\\__ tag).
 
-          address: Address (line1, city, state, postal_code). line1, city and postal_code are
-              required for individuals when this request sets up the payout account; not
-              required for businesses.
+          address: Optional pre-fill claim. Address (line1, city, state, postal_code).
 
-          business_name: Business name. Required for businesses.
+          business_name: Optional pre-fill claim for businesses.
 
-          business_structure: Business structure (e.g. llc, corporation).
+          business_structure: Optional. Business structure (e.g. llc, corporation).
 
-          country: Country code. Required. For businesses this is the country of incorporation.
+          country: Optional pre-fill claim. Country code; for businesses, the country of
+              incorporation.
 
-          date_of_birth: Date of birth. Required for individuals when this request sets up the payout
-              account.
+          date_of_birth: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          first_name: First name. Required for individuals when this request sets up the payout
-              account.
+          first_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
           kind: The verification type. Defaults to individual.
 
-          last_name: Last name. Required for individuals when this request sets up the payout
-              account.
+          last_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          phone: Pre-fill the phone number.
+          phone: Optional pre-fill claim — phone number.
 
-          place_of_incorporation: Place of incorporation (state/region). Required for businesses; maps to the
-              address state.
+          place_of_incorporation: Optional. Place of incorporation (state/region); maps to the business address
+              state.
 
           restart: Whether to restart an in-flight verification.
 
-          tax_identification_number: Tax identification number — SSN for individuals, EIN for businesses. Required
-              for business; recommended for individuals. Tokenized in transit, never stored
-              raw, and pre-fills the payout account's tax-id requirement so no RFI is raised
-              for it.
+          tax_identification_number: Optional. Tax identification number — SSN for individuals, EIN for businesses.
+              Tokenized in transit, never stored raw; stored on the profile so the payout
+              account, provisioned on approval, doesn't raise a tax-id RFI.
 
           extra_headers: Send extra headers
 
@@ -380,38 +378,36 @@ class AsyncVerificationsResource(AsyncAPIResource):
         Args:
           account_id: The account ID to verify (biz\\__ tag).
 
-          address: Address (line1, city, state, postal_code). line1, city and postal_code are
-              required for individuals when this request sets up the payout account; not
-              required for businesses.
+          address: Optional pre-fill claim. Address (line1, city, state, postal_code).
 
-          business_name: Business name. Required for businesses.
+          business_name: Optional pre-fill claim for businesses.
 
-          business_structure: Business structure (e.g. llc, corporation).
+          business_structure: Optional. Business structure (e.g. llc, corporation).
 
-          country: Country code. Required. For businesses this is the country of incorporation.
+          country: Optional pre-fill claim. Country code; for businesses, the country of
+              incorporation.
 
-          date_of_birth: Date of birth. Required for individuals when this request sets up the payout
-              account.
+          date_of_birth: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          first_name: First name. Required for individuals when this request sets up the payout
-              account.
+          first_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
           kind: The verification type. Defaults to individual.
 
-          last_name: Last name. Required for individuals when this request sets up the payout
-              account.
+          last_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          phone: Pre-fill the phone number.
+          phone: Optional pre-fill claim — phone number.
 
-          place_of_incorporation: Place of incorporation (state/region). Required for businesses; maps to the
-              address state.
+          place_of_incorporation: Optional. Place of incorporation (state/region); maps to the business address
+              state.
 
           restart: Whether to restart an in-flight verification.
 
-          tax_identification_number: Tax identification number — SSN for individuals, EIN for businesses. Required
-              for business; recommended for individuals. Tokenized in transit, never stored
-              raw, and pre-fills the payout account's tax-id requirement so no RFI is raised
-              for it.
+          tax_identification_number: Optional. Tax identification number — SSN for individuals, EIN for businesses.
+              Tokenized in transit, never stored raw; stored on the profile so the payout
+              account, provisioned on approval, doesn't raise a tax-id RFI.
 
           extra_headers: Send extra headers
 
