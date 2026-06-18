@@ -47,6 +47,12 @@ class VerificationUpdateResponse(BaseModel):
     business_structure: Optional[str] = None
 
     country: Optional[str] = None
+    """ISO 3166-1 alpha-2 country code (e.g.
+
+    `US`, `GB`). For individuals this is the country of citizenship or residence
+    reported by the identity provider; for businesses this is the country of
+    incorporation.
+    """
 
     created_at: Optional[str] = None
 
