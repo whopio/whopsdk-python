@@ -43,12 +43,6 @@ class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
     affiliate_code: Optional[str]
     """An affiliate tracking code to attribute the checkout to a specific affiliate."""
 
-    allow_promo_codes: Optional[bool]
-    """
-    Whether the checkout should show the promo code input field and accept promo
-    codes. Defaults to true.
-    """
-
     checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling]
     """Checkout styling overrides for this session.
 
@@ -72,9 +66,6 @@ class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
 
     redirect_url: Optional[str]
     """The URL to redirect the user to after checkout is completed."""
-
-    source_url: Optional[str]
-    """The URL of the page where the checkout is being initiated from."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, total=False):
@@ -355,12 +346,6 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
     affiliate_code: Optional[str]
     """An affiliate tracking code to attribute the checkout to a specific affiliate."""
 
-    allow_promo_codes: Optional[bool]
-    """
-    Whether the checkout should show the promo code input field and accept promo
-    codes. Defaults to true.
-    """
-
     checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
     """Checkout styling overrides for this session.
 
@@ -384,9 +369,6 @@ class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
 
     redirect_url: Optional[str]
     """The URL to redirect the user to after checkout is completed."""
-
-    source_url: Optional[str]
-    """The URL of the page where the checkout is being initiated from."""
 
 
 class CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling(TypedDict, total=False):
@@ -448,12 +430,6 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
 
     mode: Required[Literal["setup"]]
 
-    allow_promo_codes: Optional[bool]
-    """
-    Whether the checkout should show the promo code input field and accept promo
-    codes. Defaults to true.
-    """
-
     checkout_styling: Optional[CreateCheckoutSessionInputModeSetupCheckoutStyling]
     """Checkout styling overrides for this session.
 
@@ -475,9 +451,6 @@ class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
 
     redirect_url: Optional[str]
     """The URL to redirect the user to after checkout is completed."""
-
-    source_url: Optional[str]
-    """The URL of the page where the checkout is being initiated from."""
 
     three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
     """The 3D Secure behavior for a plan."""

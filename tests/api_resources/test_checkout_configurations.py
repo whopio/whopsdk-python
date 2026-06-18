@@ -90,7 +90,6 @@ class TestCheckoutConfigurations:
                 "visibility": "visible",
             },
             affiliate_code="affiliate_code",
-            allow_promo_codes=True,
             checkout_styling={
                 "background_color": "background_color",
                 "border_style": "rounded",
@@ -106,7 +105,6 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
-            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -156,7 +154,6 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.create(
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
-            allow_promo_codes=True,
             checkout_styling={
                 "background_color": "background_color",
                 "border_style": "rounded",
@@ -172,7 +169,6 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
-            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -217,7 +213,6 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.create(
             company_id="biz_xxxxxxxxxxxxxx",
             mode="setup",
-            allow_promo_codes=True,
             checkout_styling={
                 "background_color": "background_color",
                 "border_style": "rounded",
@@ -232,7 +227,6 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
-            source_url="source_url",
             three_ds_level="mandate_challenge",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
@@ -439,7 +433,6 @@ class TestAsyncCheckoutConfigurations:
                 "visibility": "visible",
             },
             affiliate_code="affiliate_code",
-            allow_promo_codes=True,
             checkout_styling={
                 "background_color": "background_color",
                 "border_style": "rounded",
@@ -455,7 +448,6 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
-            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -505,7 +497,6 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.create(
             plan_id="plan_xxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
-            allow_promo_codes=True,
             checkout_styling={
                 "background_color": "background_color",
                 "border_style": "rounded",
@@ -521,7 +512,6 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
-            source_url="source_url",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
 
@@ -566,7 +556,6 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.create(
             company_id="biz_xxxxxxxxxxxxxx",
             mode="setup",
-            allow_promo_codes=True,
             checkout_styling={
                 "background_color": "background_color",
                 "border_style": "rounded",
@@ -581,7 +570,6 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             redirect_url="redirect_url",
-            source_url="source_url",
             three_ds_level="mandate_challenge",
         )
         assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
