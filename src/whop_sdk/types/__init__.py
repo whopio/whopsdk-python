@@ -98,6 +98,7 @@ from .checkout_modes import CheckoutModes as CheckoutModes
 from .checkout_shape import CheckoutShape as CheckoutShape
 from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
+from .social_account import SocialAccount as SocialAccount
 from .ad_group_status import AdGroupStatus as AdGroupStatus
 from .app_list_params import AppListParams as AppListParams
 from .authorized_user import AuthorizedUser as AuthorizedUser
@@ -326,6 +327,7 @@ from .payment_list_fees_response import PaymentListFeesResponse as PaymentListFe
 from .payment_method_list_params import PaymentMethodListParams as PaymentMethodListParams
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
+from .social_account_list_params import SocialAccountListParams as SocialAccountListParams
 from .swap_create_quote_response import SwapCreateQuoteResponse as SwapCreateQuoteResponse
 from .transfer_retrieve_response import TransferRetrieveResponse as TransferRetrieveResponse
 from .user_check_access_response import UserCheckAccessResponse as UserCheckAccessResponse
@@ -361,6 +363,7 @@ from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFa
 from .payment_method_list_response import PaymentMethodListResponse as PaymentMethodListResponse
 from .refund_created_webhook_event import RefundCreatedWebhookEvent as RefundCreatedWebhookEvent
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent as RefundUpdatedWebhookEvent
+from .social_account_create_params import SocialAccountCreateParams as SocialAccountCreateParams
 from .verification_create_response import VerificationCreateResponse as VerificationCreateResponse
 from .verification_delete_response import VerificationDeleteResponse as VerificationDeleteResponse
 from .verification_update_response import VerificationUpdateResponse as VerificationUpdateResponse
@@ -383,6 +386,7 @@ from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as Dispu
 from .financial_activity_list_params import FinancialActivityListParams as FinancialActivityListParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_method_retrieve_params import PaymentMethodRetrieveParams as PaymentMethodRetrieveParams
+from .social_account_create_response import SocialAccountCreateResponse as SocialAccountCreateResponse
 from .verification_retrieve_response import VerificationRetrieveResponse as VerificationRetrieveResponse
 from .authorized_user_delete_response import AuthorizedUserDeleteResponse as AuthorizedUserDeleteResponse
 from .company_create_api_key_response import CompanyCreateAPIKeyResponse as CompanyCreateAPIKeyResponse

@@ -125,6 +125,19 @@ Methods:
 - <code title="get /products">client.products.<a href="./src/whop_sdk/resources/products.py">list</a>(\*\*<a href="src/whop_sdk/types/product_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/product_list_item.py">SyncCursorPage[ProductListItem]</a></code>
 - <code title="delete /products/{id}">client.products.<a href="./src/whop_sdk/resources/products.py">delete</a>(id) -> <a href="./src/whop_sdk/types/product_delete_response.py">ProductDeleteResponse</a></code>
 
+# SocialAccounts
+
+Types:
+
+```python
+from whop_sdk.types import SocialAccount, SocialAccountCreateResponse
+```
+
+Methods:
+
+- <code title="post /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">create</a>(\*\*<a href="src/whop_sdk/types/social_account_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_create_response.py">SocialAccountCreateResponse</a></code>
+- <code title="get /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/social_account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account.py">SyncCursorPage[SocialAccount]</a></code>
+
 # Companies
 
 Types:

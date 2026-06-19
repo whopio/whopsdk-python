@@ -472,6 +472,14 @@ from .payout_accounts import (
     PayoutAccountsResourceWithStreamingResponse,
     AsyncPayoutAccountsResourceWithStreamingResponse,
 )
+from .social_accounts import (
+    SocialAccountsResource,
+    AsyncSocialAccountsResource,
+    SocialAccountsResourceWithRawResponse,
+    AsyncSocialAccountsResourceWithRawResponse,
+    SocialAccountsResourceWithStreamingResponse,
+    AsyncSocialAccountsResourceWithStreamingResponse,
+)
 from .authorized_users import (
     AuthorizedUsersResource,
     AsyncAuthorizedUsersResource,
@@ -554,6 +562,12 @@ __all__ = [
     "AsyncProductsResourceWithRawResponse",
     "ProductsResourceWithStreamingResponse",
     "AsyncProductsResourceWithStreamingResponse",
+    "SocialAccountsResource",
+    "AsyncSocialAccountsResource",
+    "SocialAccountsResourceWithRawResponse",
+    "AsyncSocialAccountsResourceWithRawResponse",
+    "SocialAccountsResourceWithStreamingResponse",
+    "AsyncSocialAccountsResourceWithStreamingResponse",
     "CompaniesResource",
     "AsyncCompaniesResource",
     "CompaniesResourceWithRawResponse",

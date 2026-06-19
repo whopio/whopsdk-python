@@ -95,6 +95,7 @@ if TYPE_CHECKING:
         ledger_accounts,
         payment_methods,
         payout_accounts,
+        social_accounts,
         authorized_users,
         support_channels,
         financial_activity,
@@ -160,6 +161,7 @@ if TYPE_CHECKING:
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
     from .resources.payment_methods import PaymentMethodsResource, AsyncPaymentMethodsResource
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
+    from .resources.social_accounts import SocialAccountsResource, AsyncSocialAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
@@ -292,6 +294,12 @@ class Whop(SyncAPIClient):
         from .resources.products import ProductsResource
 
         return ProductsResource(self)
+
+    @cached_property
+    def social_accounts(self) -> SocialAccountsResource:
+        from .resources.social_accounts import SocialAccountsResource
+
+        return SocialAccountsResource(self)
 
     @cached_property
     def companies(self) -> CompaniesResource:
@@ -952,6 +960,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncProductsResource(self)
 
     @cached_property
+    def social_accounts(self) -> AsyncSocialAccountsResource:
+        from .resources.social_accounts import AsyncSocialAccountsResource
+
+        return AsyncSocialAccountsResource(self)
+
+    @cached_property
     def companies(self) -> AsyncCompaniesResource:
         """Companies"""
         from .resources.companies import AsyncCompaniesResource
@@ -1530,6 +1544,12 @@ class WhopWithRawResponse:
         return ProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.SocialAccountsResourceWithRawResponse:
+        from .resources.social_accounts import SocialAccountsResourceWithRawResponse
+
+        return SocialAccountsResourceWithRawResponse(self._client.social_accounts)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithRawResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithRawResponse
@@ -1988,6 +2008,12 @@ class AsyncWhopWithRawResponse:
         from .resources.products import AsyncProductsResourceWithRawResponse
 
         return AsyncProductsResourceWithRawResponse(self._client.products)
+
+    @cached_property
+    def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithRawResponse:
+        from .resources.social_accounts import AsyncSocialAccountsResourceWithRawResponse
+
+        return AsyncSocialAccountsResourceWithRawResponse(self._client.social_accounts)
 
     @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithRawResponse:
@@ -2452,6 +2478,12 @@ class WhopWithStreamedResponse:
         return ProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.SocialAccountsResourceWithStreamingResponse:
+        from .resources.social_accounts import SocialAccountsResourceWithStreamingResponse
+
+        return SocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithStreamingResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithStreamingResponse
@@ -2912,6 +2944,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.products import AsyncProductsResourceWithStreamingResponse
 
         return AsyncProductsResourceWithStreamingResponse(self._client.products)
+
+    @cached_property
+    def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithStreamingResponse:
+        from .resources.social_accounts import AsyncSocialAccountsResourceWithStreamingResponse
+
+        return AsyncSocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
 
     @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithStreamingResponse:
