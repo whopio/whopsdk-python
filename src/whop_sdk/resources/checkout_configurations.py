@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, overload
+from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
 from ..types import checkout_configuration_list_params, checkout_configuration_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,17 +20,14 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.currency import Currency
-from ..types.shared.direction import Direction
-from ..types.shared.checkout_configuration import CheckoutConfiguration
 from ..types.checkout_configuration_list_response import CheckoutConfigurationListResponse
+from ..types.checkout_configuration_create_response import CheckoutConfigurationCreateResponse
+from ..types.checkout_configuration_retrieve_response import CheckoutConfigurationRetrieveResponse
 
 __all__ = ["CheckoutConfigurationsResource", "AsyncCheckoutConfigurationsResource"]
 
 
 class CheckoutConfigurationsResource(SyncAPIResource):
-    """Checkout configurations"""
-
     @cached_property
     def with_raw_response(self) -> CheckoutConfigurationsResourceWithRawResponse:
         """
@@ -51,270 +47,72 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         """
         return CheckoutConfigurationsResourceWithStreamingResponse(self)
 
-    @overload
     def create(
         self,
         *,
-        plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
-        ]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        mode: Literal["payment"] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration
-        ]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Creates a new checkout configuration
-
-        Required permissions:
-
-        - `checkout_configuration:create`
-        - `plan:create`
-        - `access_pass:create`
-        - `access_pass:update`
-        - `checkout_configuration:basic:read`
-
-        Args:
-          plan: The plan attributes to create a new plan inline for this checkout configuration.
-
-          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
-
-          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
-              codes. Defaults to true.
-
-          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
-              defaults.
-
-          currency: The available currencies on the platform
-
-          metadata: Custom key-value metadata to attach to the checkout configuration.
-
-          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
-              to setup mode. If not provided, the platform or company defaults will apply.
-
-          redirect_url: The URL to redirect the user to after checkout is completed.
-
-          source_url: The URL of the page where the checkout is being initiated from.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        plan_id: str,
-        affiliate_code: Optional[str] | Omit = omit,
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling
-        ]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        mode: Literal["payment"] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration
-        ]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Creates a new checkout configuration
-
-        Required permissions:
-
-        - `checkout_configuration:create`
-        - `plan:create`
-        - `access_pass:create`
-        - `access_pass:update`
-        - `checkout_configuration:basic:read`
-
-        Args:
-          plan_id: The unique identifier of an existing plan to use for this checkout
-              configuration.
-
-          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
-
-          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
-              codes. Defaults to true.
-
-          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
-              defaults.
-
-          currency: The available currencies on the platform
-
-          metadata: Custom key-value metadata to attach to the checkout configuration.
-
-          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
-              to setup mode. If not provided, the platform or company defaults will apply.
-
-          redirect_url: The URL to redirect the user to after checkout is completed.
-
-          source_url: The URL of the page where the checkout is being initiated from.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        company_id: str,
-        mode: Literal["setup"],
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling
-        ]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration
-        ]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Creates a new checkout configuration
-
-        Required permissions:
-
-        - `checkout_configuration:create`
-        - `plan:create`
-        - `access_pass:create`
-        - `access_pass:update`
-        - `checkout_configuration:basic:read`
-
-        Args:
-          company_id: The unique identifier of the company to create the checkout configuration for.
-              Only required in setup mode.
-
-          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
-              codes. Defaults to true.
-
-          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
-              defaults.
-
-          currency: The available currencies on the platform
-
-          metadata: Custom key-value metadata to attach to the checkout configuration.
-
-          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
-              to setup mode. If not provided, the platform or company defaults will apply.
-
-          redirect_url: The URL to redirect the user to after checkout is completed.
-
-          source_url: The URL of the page where the checkout is being initiated from.
-
-          three_ds_level: The 3D Secure behavior for a plan.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["plan"], ["plan_id"], ["company_id", "mode"])
-    def create(
-        self,
-        *,
-        plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
-        affiliate_code: Optional[str] | Omit = omit,
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
-        ]
-        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
-        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        mode: Literal["payment"] | Literal["setup"] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration
-        ]
-        | Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration
-        ]
-        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        plan_id: str | Omit = omit,
         company_id: str | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        currency: Optional[str] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
+        mode: Literal["payment", "setup"] | Omit = omit,
+        payment_method_configuration: Optional[checkout_configuration_create_params.PaymentMethodConfiguration]
+        | Omit = omit,
+        plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
+        plan_id: Optional[str] | Omit = omit,
+        redirect_url: Optional[str] | Omit = omit,
+        three_ds_level: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
+    ) -> CheckoutConfigurationCreateResponse:
+        """Creates a checkout configuration for a plan.
+
+        Mode defaults to 'payment'.
+
+        Args:
+          affiliate_code: An affiliate code to apply.
+
+          company_id: The ID of the company.
+
+          currency: The currency code.
+
+          metadata: Arbitrary key-value metadata.
+
+          mode: Checkout mode. Defaults to 'payment'.
+
+          plan: Plan attributes to create a new plan inline for this checkout configuration.
+              Mutually exclusive with plan_id.
+
+          plan_id: The ID of an existing plan to attach.
+
+          redirect_url: URL to redirect after checkout.
+
+          three_ds_level: 3D Secure enforcement level.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._post(
             "/checkout_configurations",
             body=maybe_transform(
                 {
-                    "plan": plan,
                     "affiliate_code": affiliate_code,
-                    "allow_promo_codes": allow_promo_codes,
-                    "checkout_styling": checkout_styling,
+                    "company_id": company_id,
                     "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
                     "payment_method_configuration": payment_method_configuration,
-                    "redirect_url": redirect_url,
-                    "source_url": source_url,
+                    "plan": plan,
                     "plan_id": plan_id,
-                    "company_id": company_id,
+                    "redirect_url": redirect_url,
                     "three_ds_level": three_ds_level,
                 },
                 checkout_configuration_create_params.CheckoutConfigurationCreateParams,
@@ -322,7 +120,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CheckoutConfiguration,
+            cast_to=CheckoutConfigurationCreateResponse,
         )
 
     def retrieve(
@@ -335,13 +133,10 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Retrieves the details of an existing checkout configuration.
+    ) -> CheckoutConfigurationRetrieveResponse:
+        """Retrieves a checkout configuration by ID.
 
-        Required permissions:
-
-        - `checkout_configuration:basic:read`
+        No authentication required.
 
         Args:
           extra_headers: Send extra headers
@@ -359,21 +154,19 @@ class CheckoutConfigurationsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CheckoutConfiguration,
+            cast_to=CheckoutConfigurationRetrieveResponse,
         )
 
     def list(
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        plan_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        created_after: int | Omit = omit,
+        created_before: int | Omit = omit,
+        direction: str | Omit = omit,
+        first: int | Omit = omit,
+        plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -382,32 +175,22 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CheckoutConfigurationListResponse]:
         """
-        Returns a paginated list of checkout configurations for a company, with optional
-        filtering by plan and creation date.
-
-        Required permissions:
-
-        - `checkout_configuration:basic:read`
+        Returns a paginated list of checkout configurations for a company.
 
         Args:
-          company_id: The unique identifier of the company to list checkout configurations for.
+          company_id: The ID of the company to list checkout configurations for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor for forward pagination.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          created_after: Filter to configurations created after this Unix timestamp.
 
-          created_after: Only return checkout configurations created after this timestamp.
+          created_before: Filter to configurations created before this Unix timestamp.
 
-          created_before: Only return checkout configurations created before this timestamp.
+          direction: Sort direction: asc or desc. Defaults to desc.
 
-          direction: The direction of the sort.
+          first: Number of results to return (forward pagination).
 
-          first: Returns the first _n_ elements from the list.
-
-          last: Returns the last _n_ elements from the list.
-
-          plan_id: Filter checkout configurations to only those associated with this plan
-              identifier.
+          plan_id: Filter by plan ID.
 
           extra_headers: Send extra headers
 
@@ -429,12 +212,10 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                     {
                         "company_id": company_id,
                         "after": after,
-                        "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
-                        "last": last,
                         "plan_id": plan_id,
                     },
                     checkout_configuration_list_params.CheckoutConfigurationListParams,
@@ -443,10 +224,42 @@ class CheckoutConfigurationsResource(SyncAPIResource):
             model=CheckoutConfigurationListResponse,
         )
 
+    def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Deletes a checkout configuration.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            path_template("/checkout_configurations/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
-    """Checkout configurations"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCheckoutConfigurationsResourceWithRawResponse:
         """
@@ -466,270 +279,72 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         """
         return AsyncCheckoutConfigurationsResourceWithStreamingResponse(self)
 
-    @overload
     async def create(
         self,
         *,
-        plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan,
         affiliate_code: Optional[str] | Omit = omit,
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
-        ]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        mode: Literal["payment"] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration
-        ]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Creates a new checkout configuration
-
-        Required permissions:
-
-        - `checkout_configuration:create`
-        - `plan:create`
-        - `access_pass:create`
-        - `access_pass:update`
-        - `checkout_configuration:basic:read`
-
-        Args:
-          plan: The plan attributes to create a new plan inline for this checkout configuration.
-
-          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
-
-          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
-              codes. Defaults to true.
-
-          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
-              defaults.
-
-          currency: The available currencies on the platform
-
-          metadata: Custom key-value metadata to attach to the checkout configuration.
-
-          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
-              to setup mode. If not provided, the platform or company defaults will apply.
-
-          redirect_url: The URL to redirect the user to after checkout is completed.
-
-          source_url: The URL of the page where the checkout is being initiated from.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        plan_id: str,
-        affiliate_code: Optional[str] | Omit = omit,
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling
-        ]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        mode: Literal["payment"] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration
-        ]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Creates a new checkout configuration
-
-        Required permissions:
-
-        - `checkout_configuration:create`
-        - `plan:create`
-        - `access_pass:create`
-        - `access_pass:update`
-        - `checkout_configuration:basic:read`
-
-        Args:
-          plan_id: The unique identifier of an existing plan to use for this checkout
-              configuration.
-
-          affiliate_code: An affiliate tracking code to attribute the checkout to a specific affiliate.
-
-          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
-              codes. Defaults to true.
-
-          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
-              defaults.
-
-          currency: The available currencies on the platform
-
-          metadata: Custom key-value metadata to attach to the checkout configuration.
-
-          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
-              to setup mode. If not provided, the platform or company defaults will apply.
-
-          redirect_url: The URL to redirect the user to after checkout is completed.
-
-          source_url: The URL of the page where the checkout is being initiated from.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        company_id: str,
-        mode: Literal["setup"],
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling
-        ]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration
-        ]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Creates a new checkout configuration
-
-        Required permissions:
-
-        - `checkout_configuration:create`
-        - `plan:create`
-        - `access_pass:create`
-        - `access_pass:update`
-        - `checkout_configuration:basic:read`
-
-        Args:
-          company_id: The unique identifier of the company to create the checkout configuration for.
-              Only required in setup mode.
-
-          allow_promo_codes: Whether the checkout should show the promo code input field and accept promo
-              codes. Defaults to true.
-
-          checkout_styling: Checkout styling overrides for this session. Overrides plan and company
-              defaults.
-
-          currency: The available currencies on the platform
-
-          metadata: Custom key-value metadata to attach to the checkout configuration.
-
-          payment_method_configuration: The explicit payment method configuration for the checkout session. Only applies
-              to setup mode. If not provided, the platform or company defaults will apply.
-
-          redirect_url: The URL to redirect the user to after checkout is completed.
-
-          source_url: The URL of the page where the checkout is being initiated from.
-
-          three_ds_level: The 3D Secure behavior for a plan.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["plan"], ["plan_id"], ["company_id", "mode"])
-    async def create(
-        self,
-        *,
-        plan: checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPlan | Omit = omit,
-        affiliate_code: Optional[str] | Omit = omit,
-        allow_promo_codes: Optional[bool] | Omit = omit,
-        checkout_styling: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling
-        ]
-        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
-        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupCheckoutStyling]
-        | Omit = omit,
-        currency: Optional[Currency] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        mode: Literal["payment"] | Literal["setup"] | Omit = omit,
-        payment_method_configuration: Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration
-        ]
-        | Optional[
-            checkout_configuration_create_params.CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration
-        ]
-        | Optional[checkout_configuration_create_params.CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration]
-        | Omit = omit,
-        redirect_url: Optional[str] | Omit = omit,
-        source_url: Optional[str] | Omit = omit,
-        plan_id: str | Omit = omit,
         company_id: str | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        currency: Optional[str] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
+        mode: Literal["payment", "setup"] | Omit = omit,
+        payment_method_configuration: Optional[checkout_configuration_create_params.PaymentMethodConfiguration]
+        | Omit = omit,
+        plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
+        plan_id: Optional[str] | Omit = omit,
+        redirect_url: Optional[str] | Omit = omit,
+        three_ds_level: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
+    ) -> CheckoutConfigurationCreateResponse:
+        """Creates a checkout configuration for a plan.
+
+        Mode defaults to 'payment'.
+
+        Args:
+          affiliate_code: An affiliate code to apply.
+
+          company_id: The ID of the company.
+
+          currency: The currency code.
+
+          metadata: Arbitrary key-value metadata.
+
+          mode: Checkout mode. Defaults to 'payment'.
+
+          plan: Plan attributes to create a new plan inline for this checkout configuration.
+              Mutually exclusive with plan_id.
+
+          plan_id: The ID of an existing plan to attach.
+
+          redirect_url: URL to redirect after checkout.
+
+          three_ds_level: 3D Secure enforcement level.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._post(
             "/checkout_configurations",
             body=await async_maybe_transform(
                 {
-                    "plan": plan,
                     "affiliate_code": affiliate_code,
-                    "allow_promo_codes": allow_promo_codes,
-                    "checkout_styling": checkout_styling,
+                    "company_id": company_id,
                     "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
                     "payment_method_configuration": payment_method_configuration,
-                    "redirect_url": redirect_url,
-                    "source_url": source_url,
+                    "plan": plan,
                     "plan_id": plan_id,
-                    "company_id": company_id,
+                    "redirect_url": redirect_url,
                     "three_ds_level": three_ds_level,
                 },
                 checkout_configuration_create_params.CheckoutConfigurationCreateParams,
@@ -737,7 +352,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CheckoutConfiguration,
+            cast_to=CheckoutConfigurationCreateResponse,
         )
 
     async def retrieve(
@@ -750,13 +365,10 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CheckoutConfiguration:
-        """
-        Retrieves the details of an existing checkout configuration.
+    ) -> CheckoutConfigurationRetrieveResponse:
+        """Retrieves a checkout configuration by ID.
 
-        Required permissions:
-
-        - `checkout_configuration:basic:read`
+        No authentication required.
 
         Args:
           extra_headers: Send extra headers
@@ -774,21 +386,19 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CheckoutConfiguration,
+            cast_to=CheckoutConfigurationRetrieveResponse,
         )
 
     def list(
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        plan_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        created_after: int | Omit = omit,
+        created_before: int | Omit = omit,
+        direction: str | Omit = omit,
+        first: int | Omit = omit,
+        plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -797,32 +407,22 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CheckoutConfigurationListResponse, AsyncCursorPage[CheckoutConfigurationListResponse]]:
         """
-        Returns a paginated list of checkout configurations for a company, with optional
-        filtering by plan and creation date.
-
-        Required permissions:
-
-        - `checkout_configuration:basic:read`
+        Returns a paginated list of checkout configurations for a company.
 
         Args:
-          company_id: The unique identifier of the company to list checkout configurations for.
+          company_id: The ID of the company to list checkout configurations for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor for forward pagination.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          created_after: Filter to configurations created after this Unix timestamp.
 
-          created_after: Only return checkout configurations created after this timestamp.
+          created_before: Filter to configurations created before this Unix timestamp.
 
-          created_before: Only return checkout configurations created before this timestamp.
+          direction: Sort direction: asc or desc. Defaults to desc.
 
-          direction: The direction of the sort.
+          first: Number of results to return (forward pagination).
 
-          first: Returns the first _n_ elements from the list.
-
-          last: Returns the last _n_ elements from the list.
-
-          plan_id: Filter checkout configurations to only those associated with this plan
-              identifier.
+          plan_id: Filter by plan ID.
 
           extra_headers: Send extra headers
 
@@ -844,18 +444,50 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                     {
                         "company_id": company_id,
                         "after": after,
-                        "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
-                        "last": last,
                         "plan_id": plan_id,
                     },
                     checkout_configuration_list_params.CheckoutConfigurationListParams,
                 ),
             ),
             model=CheckoutConfigurationListResponse,
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Deletes a checkout configuration.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            path_template("/checkout_configurations/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
 
@@ -872,6 +504,9 @@ class CheckoutConfigurationsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             checkout_configurations.list,
         )
+        self.delete = to_raw_response_wrapper(
+            checkout_configurations.delete,
+        )
 
 
 class AsyncCheckoutConfigurationsResourceWithRawResponse:
@@ -886,6 +521,9 @@ class AsyncCheckoutConfigurationsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             checkout_configurations.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            checkout_configurations.delete,
         )
 
 
@@ -902,6 +540,9 @@ class CheckoutConfigurationsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             checkout_configurations.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            checkout_configurations.delete,
+        )
 
 
 class AsyncCheckoutConfigurationsResourceWithStreamingResponse:
@@ -916,4 +557,7 @@ class AsyncCheckoutConfigurationsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             checkout_configurations.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            checkout_configurations.delete,
         )
