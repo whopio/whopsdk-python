@@ -51,6 +51,7 @@ class SocialAccountsResource(SyncAPIResource):
         *,
         platform: Literal["meta_business"],
         redirect_url: str,
+        account_id: str | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -61,14 +62,21 @@ class SocialAccountsResource(SyncAPIResource):
     ) -> SocialAccountCreateResponse:
         """
         Starts an OAuth connection flow for a social account and returns an
-        authorize_url to redirect the user to. Today the only supported platform is
+        authorize*url to redirect the user to. Today the only supported platform is
         meta_business, which grants the advertise scope so the connected Facebook page
-        and Instagram account can run ads.
+        and Instagram account can run ads. The required permission follows the requested
+        capability: the advertise scope requires ad_campaign:create (so advertiser roles
+        can connect), other scopes require social_account:create. The connection is
+        authorized against the account given by account_id (a biz* identifier); an
+        account-scoped API key may omit it to default to its own account.
 
         Args:
           platform: The platform to connect the social account on.
 
           redirect_url: The Whop URL to redirect the user to after they finish connecting.
+
+          account_id: The Account (biz\\__ identifier) to connect the social account for. An
+              account-scoped API key may omit this to default to its own account.
 
           scopes: Capabilities to grant for the connected social account, for example `advertise`.
 
@@ -86,6 +94,7 @@ class SocialAccountsResource(SyncAPIResource):
                 {
                     "platform": platform,
                     "redirect_url": redirect_url,
+                    "account_id": account_id,
                     "scopes": scopes,
                 },
                 social_account_create_params.SocialAccountCreateParams,
@@ -202,6 +211,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         *,
         platform: Literal["meta_business"],
         redirect_url: str,
+        account_id: str | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -212,14 +222,21 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
     ) -> SocialAccountCreateResponse:
         """
         Starts an OAuth connection flow for a social account and returns an
-        authorize_url to redirect the user to. Today the only supported platform is
+        authorize*url to redirect the user to. Today the only supported platform is
         meta_business, which grants the advertise scope so the connected Facebook page
-        and Instagram account can run ads.
+        and Instagram account can run ads. The required permission follows the requested
+        capability: the advertise scope requires ad_campaign:create (so advertiser roles
+        can connect), other scopes require social_account:create. The connection is
+        authorized against the account given by account_id (a biz* identifier); an
+        account-scoped API key may omit it to default to its own account.
 
         Args:
           platform: The platform to connect the social account on.
 
           redirect_url: The Whop URL to redirect the user to after they finish connecting.
+
+          account_id: The Account (biz\\__ identifier) to connect the social account for. An
+              account-scoped API key may omit this to default to its own account.
 
           scopes: Capabilities to grant for the connected social account, for example `advertise`.
 
@@ -237,6 +254,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
                 {
                     "platform": platform,
                     "redirect_url": redirect_url,
+                    "account_id": account_id,
                     "scopes": scopes,
                 },
                 social_account_create_params.SocialAccountCreateParams,

@@ -36,6 +36,7 @@ class TestSocialAccounts:
         social_account = client.social_accounts.create(
             platform="meta_business",
             redirect_url="redirect_url",
+            account_id="account_id",
             scopes=["advertise"],
         )
         assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
@@ -133,6 +134,7 @@ class TestAsyncSocialAccounts:
         social_account = await async_client.social_accounts.create(
             platform="meta_business",
             redirect_url="redirect_url",
+            account_id="account_id",
             scopes=["advertise"],
         )
         assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])

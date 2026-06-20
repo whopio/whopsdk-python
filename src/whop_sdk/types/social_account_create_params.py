@@ -15,6 +15,12 @@ class SocialAccountCreateParams(TypedDict, total=False):
     redirect_url: Required[str]
     """The Whop URL to redirect the user to after they finish connecting."""
 
+    account_id: str
+    """The Account (biz\\__ identifier) to connect the social account for.
+
+    An account-scoped API key may omit this to default to its own account.
+    """
+
     scopes: List[Literal["advertise"]]
     """
     Capabilities to grant for the connected social account, for example `advertise`.
