@@ -7,9 +7,9 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import social_account_list_params, social_account_create_params
+from ..types import social_account_list_params, social_account_create_params, social_account_delete_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -22,6 +22,7 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.social_account import SocialAccount
 from ..types.social_account_create_response import SocialAccountCreateResponse
+from ..types.social_account_delete_response import SocialAccountDeleteResponse
 
 __all__ = ["SocialAccountsResource", "AsyncSocialAccountsResource"]
 
@@ -185,6 +186,58 @@ class SocialAccountsResource(SyncAPIResource):
             model=SocialAccount,
         )
 
+    def delete(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountDeleteResponse:
+        """
+        Disconnects a social account from an account or user by discarding the link
+        record. The underlying social account record is retained.
+
+        Args:
+          account_id: The Account that the social account is connected to. Provide either this or
+              user_id.
+
+          user_id: The User that the social account is connected to. Provide either this or
+              account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            path_template("/social_accounts/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "user_id": user_id,
+                    },
+                    social_account_delete_params.SocialAccountDeleteParams,
+                ),
+            ),
+            cast_to=SocialAccountDeleteResponse,
+        )
+
 
 class AsyncSocialAccountsResource(AsyncAPIResource):
     @cached_property
@@ -345,6 +398,58 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
             model=SocialAccount,
         )
 
+    async def delete(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountDeleteResponse:
+        """
+        Disconnects a social account from an account or user by discarding the link
+        record. The underlying social account record is retained.
+
+        Args:
+          account_id: The Account that the social account is connected to. Provide either this or
+              user_id.
+
+          user_id: The User that the social account is connected to. Provide either this or
+              account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            path_template("/social_accounts/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "user_id": user_id,
+                    },
+                    social_account_delete_params.SocialAccountDeleteParams,
+                ),
+            ),
+            cast_to=SocialAccountDeleteResponse,
+        )
+
 
 class SocialAccountsResourceWithRawResponse:
     def __init__(self, social_accounts: SocialAccountsResource) -> None:
@@ -355,6 +460,9 @@ class SocialAccountsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             social_accounts.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            social_accounts.delete,
         )
 
 
@@ -368,6 +476,9 @@ class AsyncSocialAccountsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             social_accounts.list,
         )
+        self.delete = async_to_raw_response_wrapper(
+            social_accounts.delete,
+        )
 
 
 class SocialAccountsResourceWithStreamingResponse:
@@ -380,6 +491,9 @@ class SocialAccountsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             social_accounts.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            social_accounts.delete,
+        )
 
 
 class AsyncSocialAccountsResourceWithStreamingResponse:
@@ -391,4 +505,7 @@ class AsyncSocialAccountsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             social_accounts.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            social_accounts.delete,
         )

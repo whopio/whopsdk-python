@@ -130,13 +130,14 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import SocialAccount, SocialAccountCreateResponse
+from whop_sdk.types import SocialAccount, SocialAccountCreateResponse, SocialAccountDeleteResponse
 ```
 
 Methods:
 
 - <code title="post /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">create</a>(\*\*<a href="src/whop_sdk/types/social_account_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_create_response.py">SocialAccountCreateResponse</a></code>
 - <code title="get /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/social_account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account.py">SyncCursorPage[SocialAccount]</a></code>
+- <code title="delete /social_accounts/{id}">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/social_account_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_delete_response.py">SocialAccountDeleteResponse</a></code>
 
 # Companies
 

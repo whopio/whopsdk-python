@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     SocialAccount,
     SocialAccountCreateResponse,
+    SocialAccountDeleteResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -113,6 +114,58 @@ class TestSocialAccounts:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Whop) -> None:
+        social_account = client.social_accounts.delete(
+            id="id",
+        )
+        assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Whop) -> None:
+        social_account = client.social_accounts.delete(
+            id="id",
+            account_id="account_id",
+            user_id="user_id",
+        )
+        assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Whop) -> None:
+        response = client.social_accounts.with_raw_response.delete(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        social_account = response.parse()
+        assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Whop) -> None:
+        with client.social_accounts.with_streaming_response.delete(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            social_account = response.parse()
+            assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.social_accounts.with_raw_response.delete(
+                id="",
+            )
+
 
 class TestAsyncSocialAccounts:
     parametrize = pytest.mark.parametrize(
@@ -210,3 +263,55 @@ class TestAsyncSocialAccounts:
             assert_matches_type(AsyncCursorPage[SocialAccount], social_account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
+        social_account = await async_client.social_accounts.delete(
+            id="id",
+        )
+        assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
+        social_account = await async_client.social_accounts.delete(
+            id="id",
+            account_id="account_id",
+            user_id="user_id",
+        )
+        assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
+        response = await async_client.social_accounts.with_raw_response.delete(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        social_account = await response.parse()
+        assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
+        async with async_client.social_accounts.with_streaming_response.delete(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            social_account = await response.parse()
+            assert_matches_type(SocialAccountDeleteResponse, social_account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.social_accounts.with_raw_response.delete(
+                id="",
+            )
