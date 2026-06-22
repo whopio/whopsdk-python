@@ -42,9 +42,8 @@ class Balance(BaseModel):
 
 
 class Capabilities(BaseModel):
-    """Payment rails enabled for this account (active, inactive, or pending).
-
-    pending means onboarding or review is in progress. Only computed on retrieve and me for callers with the company:balance:read scope; null otherwise
+    """
+    Each payment rail's status: active, inactive, or pending (pending means onboarding or review is in progress)
     """
 
     accept_bank_payments: Literal["active", "inactive", "pending"]
@@ -82,9 +81,8 @@ class Capabilities(BaseModel):
 
 
 class RecommendedAction(BaseModel):
-    """Optional actions that unlock capabilities or grow the account.
-
-    Same shape as required_actions. Only computed on retrieve and me; null otherwise
+    """
+    Optional actions that unlock capabilities or grow the account, same shape as required_actions
     """
 
     action: Literal["apply_for_financing", "migrate_from_stripe", "accept_first_payment", "join_whop_university"]
@@ -115,9 +113,8 @@ class RecommendedAction(BaseModel):
 
 
 class RequiredAction(BaseModel):
-    """Obligations the account holder must resolve, ordered by display priority.
-
-    Only computed on retrieve and me for callers with the company:balance:read scope; null otherwise
+    """
+    Actions the account owner must take to unblock capabilities like payouts and card spend, ordered by display priority
     """
 
     action: Literal["deposit_funds", "submit_information_request", "verify_identity", "connect_fulfillment_tracker"]
@@ -173,10 +170,9 @@ class Account(BaseModel):
     """The high-level business category for the account"""
 
     capabilities: Optional[Capabilities] = None
-    """Payment rails enabled for this account (active, inactive, or pending).
-
-    pending means onboarding or review is in progress. Only computed on retrieve and
-    me for callers with the company:balance:read scope; null otherwise
+    """
+    Each payment rail's status: active, inactive, or pending (pending means
+    onboarding or review is in progress)
     """
 
     country: Optional[str] = None
@@ -254,10 +250,7 @@ class Account(BaseModel):
     social_links: List[AccountSocialLink]
 
     status: Optional[str] = None
-    """Whether the account can operate on Whop: active or suspended.
-
-    Only computed on retrieve and me; null otherwise
-    """
+    """Whether the account can operate on Whop — active or suspended"""
 
     store_page_config: object
     """Store page display configuration for the account"""
@@ -269,11 +262,7 @@ class Account(BaseModel):
     """The display name of the account"""
 
     total_earned_usd: Optional[float] = None
-    """Lifetime sales for the account, normalized to USD.
-
-    Only computed on retrieve and me for callers with the stats:read scope; null
-    otherwise
-    """
+    """Lifetime sales for the account, normalized to USD"""
 
     total_usd: Optional[str] = None
     """Total USD value across all balances with a known exchange rate.
