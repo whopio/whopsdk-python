@@ -88,25 +88,30 @@ class EarningListResponse(BaseModel):
 
     account: Optional[Account] = None
 
-    amount: Optional[float] = None
-    """What the referrer earns, in USD. Null until the earning settles."""
-
-    base_amount: float
-    """The seller payment the earning was calculated from, in USD."""
-
     cancelation_reason: Optional[str] = None
     """Why the earning was canceled or reversed, if applicable."""
 
-    created_at: datetime
+    commission_amount_usd: Optional[str] = None
+    """What the referrer earns, in USD. Null until the earning settles."""
 
-    currency: str
+    created_at: datetime
 
     object: Literal["business_referral_earning"]
 
     payout_at: Optional[datetime] = None
 
     payout_percentage: Optional[float] = None
+    """The referrer's share of Whop's gross profit, as a fraction (0.3 = 30%).
+
+    Null until the earning settles.
+    """
 
     receipt: Optional[Receipt] = None
 
     status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"]
+
+    transaction_amount_usd: str
+    """The sale amount the commission is calculated from, in USD."""
+
+    whop_gross_profit_usd: Optional[str] = None
+    """Whop's gross profit on the sale, in USD. Null until the earning settles."""

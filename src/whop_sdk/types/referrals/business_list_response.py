@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["BusinessListResponse", "Account"]
+__all__ = ["BusinessListResponse", "Account", "EarningsUsd", "VolumeUsd"]
 
 
 class Account(BaseModel):
@@ -20,27 +20,44 @@ class Account(BaseModel):
     title: str
 
 
+class EarningsUsd(BaseModel):
+    completed: str
+    """Commission already paid out, in USD."""
+
+    pending: str
+    """Commission scheduled but not yet paid, in USD."""
+
+    total: str
+    """Pending + completed commission, in USD."""
+
+
+class VolumeUsd(BaseModel):
+    attributed: str
+    """
+    Credited GMV (awaiting_settlement + settled); excludes canceled and reversed, in
+    USD.
+    """
+
+    awaiting_settlement: str
+    """GMV awaiting settlement (commission not yet computed), in USD."""
+
+    settled: str
+    """GMV of pending + completed payments, in USD."""
+
+
 class BusinessListResponse(BaseModel):
     id: str
 
     account: Optional[Account] = None
 
-    completed_payout: float
-    """Earnings already paid out, in USD."""
-
     created_at: datetime
 
-    currency: str
+    earnings_usd: EarningsUsd
 
     object: Literal["business_referral"]
 
     payout_percentage: float
-
-    pending_payout: float
-    """Earnings awaiting payout, in USD."""
-
-    processing_volume: float
-    """All-time gross processing volume for the business, in USD."""
+    """The referrer's share of Whop's gross profit, as a fraction (0.3 = 30%)."""
 
     referral_expires_at: Optional[datetime] = None
 
@@ -48,5 +65,4 @@ class BusinessListResponse(BaseModel):
 
     status: Literal["active", "removed"]
 
-    total_earnings: float
-    """All-time affiliate earnings from this business (pending + completed), in USD."""
+    volume_usd: VolumeUsd
