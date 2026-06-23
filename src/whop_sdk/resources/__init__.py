@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .ads import (
-    AdsResource,
-    AsyncAdsResource,
-    AdsResourceWithRawResponse,
-    AsyncAdsResourceWithRawResponse,
-    AdsResourceWithStreamingResponse,
-    AsyncAdsResourceWithStreamingResponse,
-)
 from .apps import (
     AppsResource,
     AsyncAppsResource,
@@ -152,14 +144,6 @@ from .webhooks import (
     WebhooksResourceWithStreamingResponse,
     AsyncWebhooksResourceWithStreamingResponse,
 )
-from .ad_groups import (
-    AdGroupsResource,
-    AsyncAdGroupsResource,
-    AdGroupsResourceWithRawResponse,
-    AsyncAdGroupsResourceWithRawResponse,
-    AdGroupsResourceWithStreamingResponse,
-    AsyncAdGroupsResourceWithStreamingResponse,
-)
 from .companies import (
     CompaniesResource,
     AsyncCompaniesResource,
@@ -279,14 +263,6 @@ from .withdrawals import (
     AsyncWithdrawalsResourceWithRawResponse,
     WithdrawalsResourceWithStreamingResponse,
     AsyncWithdrawalsResourceWithStreamingResponse,
-)
-from .ad_campaigns import (
-    AdCampaignsResource,
-    AsyncAdCampaignsResource,
-    AdCampaignsResourceWithRawResponse,
-    AsyncAdCampaignsResourceWithRawResponse,
-    AdCampaignsResourceWithStreamingResponse,
-    AsyncAdCampaignsResourceWithStreamingResponse,
 )
 from .access_tokens import (
     AccessTokensResource,
@@ -756,24 +732,6 @@ __all__ = [
     "AsyncBountiesResourceWithRawResponse",
     "BountiesResourceWithStreamingResponse",
     "AsyncBountiesResourceWithStreamingResponse",
-    "AdCampaignsResource",
-    "AsyncAdCampaignsResource",
-    "AdCampaignsResourceWithRawResponse",
-    "AsyncAdCampaignsResourceWithRawResponse",
-    "AdCampaignsResourceWithStreamingResponse",
-    "AsyncAdCampaignsResourceWithStreamingResponse",
-    "AdGroupsResource",
-    "AsyncAdGroupsResource",
-    "AdGroupsResourceWithRawResponse",
-    "AsyncAdGroupsResourceWithRawResponse",
-    "AdGroupsResourceWithStreamingResponse",
-    "AsyncAdGroupsResourceWithStreamingResponse",
-    "AdsResource",
-    "AsyncAdsResource",
-    "AdsResourceWithRawResponse",
-    "AsyncAdsResourceWithRawResponse",
-    "AdsResourceWithStreamingResponse",
-    "AsyncAdsResourceWithStreamingResponse",
     "ConversionsResource",
     "AsyncConversionsResource",
     "ConversionsResourceWithRawResponse",
