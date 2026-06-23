@@ -2,78 +2,50 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
-
-from .._utils import PropertyInfo
-from .shared.direction import Direction
-from .ad_campaign_status import AdCampaignStatus
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AdCampaignListParams"]
 
 
 class AdCampaignListParams(TypedDict, total=False):
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    account_id: str
+    """The account the campaigns belong to.
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
-
-    company_id: Optional[str]
-    """The unique identifier of the company to list ad campaigns for."""
-
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return ad campaigns created after this timestamp."""
-
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return ad campaigns created before this timestamp."""
-
-    direction: Optional[Direction]
-    """The direction of the sort."""
-
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
-
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
-
-    order: Optional[
-        Literal[
-            "created_at",
-            "spend",
-            "impressions",
-            "clicks",
-            "reach",
-            "unique_clicks",
-            "results",
-            "click_through_rate",
-            "cost_per_click",
-            "cost_per_mille",
-            "cost_per_result",
-            "frequency",
-            "return_on_ad_spend",
-        ]
-    ]
-    """The fields the ads dashboard lists (campaigns, ad sets) can be ordered by.
-
-    Stat columns are computed over the provided stats date range.
+    Defaults to the account-scoped key's own account.
     """
 
-    query: Optional[str]
-    """Case-insensitive substring match against the campaign title or ID."""
+    after: str
+    """Cursor to fetch the page after (from page_info.end_cursor)."""
 
-    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """
-    Inclusive start of the window for each campaign's metric fields (spend,
-    impressions, …). Omit both statsFrom and statsTo for all-time stats.
-    """
+    before: str
+    """Cursor to fetch the page before (from page_info.start_cursor)."""
 
-    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Inclusive end of the window for each campaign's metric fields.
+    created_after: str
+    """Only return campaigns created after this timestamp."""
 
-    Omit both statsFrom and statsTo for all-time stats.
-    """
+    created_before: str
+    """Only return campaigns created before this timestamp."""
 
-    status: Optional[AdCampaignStatus]
-    """The status of an ad campaign."""
+    direction: Literal["asc", "desc"]
+    """The sort direction. Defaults to desc."""
+
+    first: int
+    """The number of campaigns to return."""
+
+    last: int
+    """The number of campaigns to return from the end of the range."""
+
+    order: Literal["created_at", "updated_at"]
+    """The field to sort by. Defaults to created_at."""
+
+    query: str
+    """Filter campaigns by a title or ID substring."""
+
+    stats_from: str
+    """Start of the stats window. Defaults to all-time."""
+
+    stats_to: str
+    """End of the stats window. Defaults to now."""
+
+    status: Literal["draft", "active", "paused", "payment_failed"]
+    """Only return campaigns with this status."""

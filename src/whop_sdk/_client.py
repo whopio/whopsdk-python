@@ -691,21 +691,18 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def ad_campaigns(self) -> AdCampaignsResource:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AdCampaignsResource
 
         return AdCampaignsResource(self)
 
     @cached_property
     def ad_groups(self) -> AdGroupsResource:
-        """Ad groups"""
         from .resources.ad_groups import AdGroupsResource
 
         return AdGroupsResource(self)
 
     @cached_property
     def ads(self) -> AdsResource:
-        """Ads"""
         from .resources.ads import AdsResource
 
         return AdsResource(self)
@@ -1355,21 +1352,18 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def ad_campaigns(self) -> AsyncAdCampaignsResource:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResource
 
         return AsyncAdCampaignsResource(self)
 
     @cached_property
     def ad_groups(self) -> AsyncAdGroupsResource:
-        """Ad groups"""
         from .resources.ad_groups import AsyncAdGroupsResource
 
         return AsyncAdGroupsResource(self)
 
     @cached_property
     def ads(self) -> AsyncAdsResource:
-        """Ads"""
         from .resources.ads import AsyncAdsResource
 
         return AsyncAdsResource(self)
@@ -1939,21 +1933,18 @@ class WhopWithRawResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithRawResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AdCampaignsResourceWithRawResponse
 
         return AdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AdGroupsResourceWithRawResponse:
-        """Ad groups"""
         from .resources.ad_groups import AdGroupsResourceWithRawResponse
 
         return AdGroupsResourceWithRawResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AdsResourceWithRawResponse:
-        """Ads"""
         from .resources.ads import AdsResourceWithRawResponse
 
         return AdsResourceWithRawResponse(self._client.ads)
@@ -2407,21 +2398,18 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithRawResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResourceWithRawResponse
 
         return AsyncAdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithRawResponse:
-        """Ad groups"""
         from .resources.ad_groups import AsyncAdGroupsResourceWithRawResponse
 
         return AsyncAdGroupsResourceWithRawResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AsyncAdsResourceWithRawResponse:
-        """Ads"""
         from .resources.ads import AsyncAdsResourceWithRawResponse
 
         return AsyncAdsResourceWithRawResponse(self._client.ads)
@@ -2875,21 +2863,18 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithStreamingResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AdCampaignsResourceWithStreamingResponse
 
         return AdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AdGroupsResourceWithStreamingResponse:
-        """Ad groups"""
         from .resources.ad_groups import AdGroupsResourceWithStreamingResponse
 
         return AdGroupsResourceWithStreamingResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AdsResourceWithStreamingResponse:
-        """Ads"""
         from .resources.ads import AdsResourceWithStreamingResponse
 
         return AdsResourceWithStreamingResponse(self._client.ads)
@@ -3347,21 +3332,18 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithStreamingResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResourceWithStreamingResponse
 
         return AsyncAdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithStreamingResponse:
-        """Ad groups"""
         from .resources.ad_groups import AsyncAdGroupsResourceWithStreamingResponse
 
         return AsyncAdGroupsResourceWithStreamingResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AsyncAdsResourceWithStreamingResponse:
-        """Ads"""
         from .resources.ads import AsyncAdsResourceWithStreamingResponse
 
         return AsyncAdsResourceWithStreamingResponse(self._client.ads)

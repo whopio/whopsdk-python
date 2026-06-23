@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
+from typing import List
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
-    AdCampaignStatus,
     ad_campaign_list_params,
+    ad_campaign_create_params,
     ad_campaign_update_params,
     ad_campaign_retrieve_params,
 )
@@ -27,16 +26,11 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_campaign import AdCampaign
-from ..types.shared.direction import Direction
-from ..types.ad_campaign_status import AdCampaignStatus
-from ..types.ad_campaign_list_response import AdCampaignListResponse
 
 __all__ = ["AdCampaignsResource", "AsyncAdCampaignsResource"]
 
 
 class AdCampaignsResource(SyncAPIResource):
-    """Ad campaigns"""
-
     @cached_property
     def with_raw_response(self) -> AdCampaignsResourceWithRawResponse:
         """
@@ -56,12 +50,17 @@ class AdCampaignsResource(SyncAPIResource):
         """
         return AdCampaignsResourceWithStreamingResponse(self)
 
-    def retrieve(
+    def create(
         self,
-        id: str,
         *,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
+        objective: Literal["awareness", "traffic", "engagement", "leads", "sales"],
+        platform: Literal["meta"],
+        title: str,
+        account_id: str | Omit = omit,
+        budget_amount: float | Omit = omit,
+        budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
+        budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -70,18 +69,80 @@ class AdCampaignsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Retrieves a single ad campaign by its unique identifier.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Creates an ad campaign for an account.
 
         Args:
-          stats_from: Inclusive start of the window for the campaign's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          objective: The goal the campaign optimizes toward.
 
-          stats_to: Inclusive end of the window for the campaign's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          platform: The ad network the campaign runs on.
+
+          title: The title of the campaign.
+
+          account_id: The account to create the campaign under. Defaults to the account-scoped key's
+              own account.
+
+          budget_amount:
+              The campaign budget, in USD. Required for CBO (budget_optimization:
+              ad_campaign); omit for ABO.
+
+          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO).
+              Defaults to ad_group.
+
+          budget_type: Whether the budget is spent per day or over the campaign's lifetime. Defaults to
+              daily.
+
+          special_ad_categories: Regulated categories the campaign falls under. Ads in these categories are
+              subject to extra targeting restrictions.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/ad_campaigns",
+            body=maybe_transform(
+                {
+                    "objective": objective,
+                    "platform": platform,
+                    "title": title,
+                    "account_id": account_id,
+                    "budget_amount": budget_amount,
+                    "budget_optimization": budget_optimization,
+                    "budget_type": budget_type,
+                    "special_ad_categories": special_ad_categories,
+                },
+                ad_campaign_create_params.AdCampaignCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaign,
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaign:
+        """
+        Retrieves a single ad campaign with stats over the requested window.
+
+        Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
 
           extra_headers: Send extra headers
 
@@ -115,8 +176,8 @@ class AdCampaignsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        budget: Optional[float] | Omit = omit,
-        desired_cpr: Optional[float] | Omit = omit,
+        budget_amount: float | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -125,18 +186,12 @@ class AdCampaignsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Updates an ad campaign synchronously and returns it immediately (local-first).
-        The platform push runs in the background; any errors surface on the dashboard.
-
-        Required permissions:
-
-        - `ad_campaign:update`
+        Updates an ad campaign's editable fields.
 
         Args:
-          budget: The campaign budget in dollars. The interpretation (daily or lifetime) follows
-              the campaign's existing budget type.
+          budget_amount: The campaign budget, in the account's currency.
 
-          desired_cpr: The advertiser's desired cost per result in dollars.
+          title: The name of the campaign.
 
           extra_headers: Send extra headers
 
@@ -152,8 +207,8 @@ class AdCampaignsResource(SyncAPIResource):
             path_template("/ad_campaigns/{id}", id=id),
             body=maybe_transform(
                 {
-                    "budget": budget,
-                    "desired_cpr": desired_cpr,
+                    "budget_amount": budget_amount,
+                    "title": title,
                 },
                 ad_campaign_update_params.AdCampaignUpdateParams,
             ),
@@ -166,80 +221,56 @@ class AdCampaignsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[
-            Literal[
-                "created_at",
-                "spend",
-                "impressions",
-                "clicks",
-                "reach",
-                "unique_clicks",
-                "results",
-                "click_through_rate",
-                "cost_per_click",
-                "cost_per_mille",
-                "cost_per_result",
-                "frequency",
-                "return_on_ad_spend",
-            ]
-        ]
-        | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
-        status: Optional[AdCampaignStatus] | Omit = omit,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "updated_at"] | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        status: Literal["draft", "active", "paused", "payment_failed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[AdCampaignListResponse]:
+    ) -> SyncCursorPage[AdCampaign]:
         """
-        Returns a paginated list of ad campaigns for a company, with optional filtering
-        by status, and creation date.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Lists the ad campaigns for an account, with stats over the requested window.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: The account the campaigns belong to. Defaults to the account-scoped key's own
+              account.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to fetch the page after (from page_info.end_cursor).
 
-          company_id: The unique identifier of the company to list ad campaigns for.
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          created_after: Only return ad campaigns created after this timestamp.
+          created_after: Only return campaigns created after this timestamp.
 
-          created_before: Only return ad campaigns created before this timestamp.
+          created_before: Only return campaigns created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction. Defaults to desc.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of campaigns to return.
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of campaigns to return from the end of the range.
 
-          order: The fields the ads dashboard lists (campaigns, ad sets) can be ordered by. Stat
-              columns are computed over the provided stats date range.
+          order: The field to sort by. Defaults to created_at.
 
-          query: Case-insensitive substring match against the campaign title or ID.
+          query: Filter campaigns by a title or ID substring.
 
-          stats_from: Inclusive start of the window for each campaign's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          stats_from: Start of the stats window. Defaults to all-time.
 
-          stats_to: Inclusive end of the window for each campaign's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          stats_to: End of the stats window. Defaults to now.
 
-          status: The status of an ad campaign.
+          status: Only return campaigns with this status.
 
           extra_headers: Send extra headers
 
@@ -251,7 +282,7 @@ class AdCampaignsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/ad_campaigns",
-            page=SyncCursorPage[AdCampaignListResponse],
+            page=SyncCursorPage[AdCampaign],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -259,9 +290,9 @@ class AdCampaignsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -276,7 +307,7 @@ class AdCampaignsResource(SyncAPIResource):
                     ad_campaign_list_params.AdCampaignListParams,
                 ),
             ),
-            model=AdCampaignListResponse,
+            model=AdCampaign,
         )
 
     def pause(
@@ -291,11 +322,7 @@ class AdCampaignsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Pauses an ad campaign, optionally until a specific date.
-
-        Required permissions:
-
-        - `ad_campaign:update`
+        Pauses an active ad campaign.
 
         Args:
           extra_headers: Send extra headers
@@ -330,10 +357,6 @@ class AdCampaignsResource(SyncAPIResource):
         """
         Resumes a paused ad campaign.
 
-        Required permissions:
-
-        - `ad_campaign:update`
-
         Args:
           extra_headers: Send extra headers
 
@@ -355,8 +378,6 @@ class AdCampaignsResource(SyncAPIResource):
 
 
 class AsyncAdCampaignsResource(AsyncAPIResource):
-    """Ad campaigns"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAdCampaignsResourceWithRawResponse:
         """
@@ -376,12 +397,17 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         """
         return AsyncAdCampaignsResourceWithStreamingResponse(self)
 
-    async def retrieve(
+    async def create(
         self,
-        id: str,
         *,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
+        objective: Literal["awareness", "traffic", "engagement", "leads", "sales"],
+        platform: Literal["meta"],
+        title: str,
+        account_id: str | Omit = omit,
+        budget_amount: float | Omit = omit,
+        budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
+        budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -390,18 +416,80 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Retrieves a single ad campaign by its unique identifier.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Creates an ad campaign for an account.
 
         Args:
-          stats_from: Inclusive start of the window for the campaign's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          objective: The goal the campaign optimizes toward.
 
-          stats_to: Inclusive end of the window for the campaign's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          platform: The ad network the campaign runs on.
+
+          title: The title of the campaign.
+
+          account_id: The account to create the campaign under. Defaults to the account-scoped key's
+              own account.
+
+          budget_amount:
+              The campaign budget, in USD. Required for CBO (budget_optimization:
+              ad_campaign); omit for ABO.
+
+          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO).
+              Defaults to ad_group.
+
+          budget_type: Whether the budget is spent per day or over the campaign's lifetime. Defaults to
+              daily.
+
+          special_ad_categories: Regulated categories the campaign falls under. Ads in these categories are
+              subject to extra targeting restrictions.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/ad_campaigns",
+            body=await async_maybe_transform(
+                {
+                    "objective": objective,
+                    "platform": platform,
+                    "title": title,
+                    "account_id": account_id,
+                    "budget_amount": budget_amount,
+                    "budget_optimization": budget_optimization,
+                    "budget_type": budget_type,
+                    "special_ad_categories": special_ad_categories,
+                },
+                ad_campaign_create_params.AdCampaignCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaign,
+        )
+
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaign:
+        """
+        Retrieves a single ad campaign with stats over the requested window.
+
+        Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
 
           extra_headers: Send extra headers
 
@@ -435,8 +523,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        budget: Optional[float] | Omit = omit,
-        desired_cpr: Optional[float] | Omit = omit,
+        budget_amount: float | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -445,18 +533,12 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Updates an ad campaign synchronously and returns it immediately (local-first).
-        The platform push runs in the background; any errors surface on the dashboard.
-
-        Required permissions:
-
-        - `ad_campaign:update`
+        Updates an ad campaign's editable fields.
 
         Args:
-          budget: The campaign budget in dollars. The interpretation (daily or lifetime) follows
-              the campaign's existing budget type.
+          budget_amount: The campaign budget, in the account's currency.
 
-          desired_cpr: The advertiser's desired cost per result in dollars.
+          title: The name of the campaign.
 
           extra_headers: Send extra headers
 
@@ -472,8 +554,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             path_template("/ad_campaigns/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "budget": budget,
-                    "desired_cpr": desired_cpr,
+                    "budget_amount": budget_amount,
+                    "title": title,
                 },
                 ad_campaign_update_params.AdCampaignUpdateParams,
             ),
@@ -486,80 +568,56 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[
-            Literal[
-                "created_at",
-                "spend",
-                "impressions",
-                "clicks",
-                "reach",
-                "unique_clicks",
-                "results",
-                "click_through_rate",
-                "cost_per_click",
-                "cost_per_mille",
-                "cost_per_result",
-                "frequency",
-                "return_on_ad_spend",
-            ]
-        ]
-        | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
-        status: Optional[AdCampaignStatus] | Omit = omit,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "updated_at"] | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        status: Literal["draft", "active", "paused", "payment_failed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AdCampaignListResponse, AsyncCursorPage[AdCampaignListResponse]]:
+    ) -> AsyncPaginator[AdCampaign, AsyncCursorPage[AdCampaign]]:
         """
-        Returns a paginated list of ad campaigns for a company, with optional filtering
-        by status, and creation date.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Lists the ad campaigns for an account, with stats over the requested window.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: The account the campaigns belong to. Defaults to the account-scoped key's own
+              account.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to fetch the page after (from page_info.end_cursor).
 
-          company_id: The unique identifier of the company to list ad campaigns for.
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          created_after: Only return ad campaigns created after this timestamp.
+          created_after: Only return campaigns created after this timestamp.
 
-          created_before: Only return ad campaigns created before this timestamp.
+          created_before: Only return campaigns created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction. Defaults to desc.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of campaigns to return.
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of campaigns to return from the end of the range.
 
-          order: The fields the ads dashboard lists (campaigns, ad sets) can be ordered by. Stat
-              columns are computed over the provided stats date range.
+          order: The field to sort by. Defaults to created_at.
 
-          query: Case-insensitive substring match against the campaign title or ID.
+          query: Filter campaigns by a title or ID substring.
 
-          stats_from: Inclusive start of the window for each campaign's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          stats_from: Start of the stats window. Defaults to all-time.
 
-          stats_to: Inclusive end of the window for each campaign's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          stats_to: End of the stats window. Defaults to now.
 
-          status: The status of an ad campaign.
+          status: Only return campaigns with this status.
 
           extra_headers: Send extra headers
 
@@ -571,7 +629,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/ad_campaigns",
-            page=AsyncCursorPage[AdCampaignListResponse],
+            page=AsyncCursorPage[AdCampaign],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -579,9 +637,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -596,7 +654,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                     ad_campaign_list_params.AdCampaignListParams,
                 ),
             ),
-            model=AdCampaignListResponse,
+            model=AdCampaign,
         )
 
     async def pause(
@@ -611,11 +669,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Pauses an ad campaign, optionally until a specific date.
-
-        Required permissions:
-
-        - `ad_campaign:update`
+        Pauses an active ad campaign.
 
         Args:
           extra_headers: Send extra headers
@@ -650,10 +704,6 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         """
         Resumes a paused ad campaign.
 
-        Required permissions:
-
-        - `ad_campaign:update`
-
         Args:
           extra_headers: Send extra headers
 
@@ -678,6 +728,9 @@ class AdCampaignsResourceWithRawResponse:
     def __init__(self, ad_campaigns: AdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
+        self.create = to_raw_response_wrapper(
+            ad_campaigns.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             ad_campaigns.retrieve,
         )
@@ -699,6 +752,9 @@ class AsyncAdCampaignsResourceWithRawResponse:
     def __init__(self, ad_campaigns: AsyncAdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
+        self.create = async_to_raw_response_wrapper(
+            ad_campaigns.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             ad_campaigns.retrieve,
         )
@@ -720,6 +776,9 @@ class AdCampaignsResourceWithStreamingResponse:
     def __init__(self, ad_campaigns: AdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
+        self.create = to_streamed_response_wrapper(
+            ad_campaigns.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             ad_campaigns.retrieve,
         )
@@ -741,6 +800,9 @@ class AsyncAdCampaignsResourceWithStreamingResponse:
     def __init__(self, ad_campaigns: AsyncAdCampaignsResource) -> None:
         self._ad_campaigns = ad_campaigns
 
+        self.create = async_to_streamed_response_wrapper(
+            ad_campaigns.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             ad_campaigns.retrieve,
         )

@@ -1165,14 +1165,15 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AdCampaign, AdCampaignPlatform, AdCampaignStatus, AdCampaignListResponse
+from whop_sdk.types import AdCampaign
 ```
 
 Methods:
 
+- <code title="post /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">create</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
-- <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_list_response.py">SyncCursorPage[AdCampaignListResponse]</a></code>
+- <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">SyncCursorPage[AdCampaign]</a></code>
 - <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 
@@ -1181,20 +1182,15 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import (
-    AdBudgetType,
-    AdGroup,
-    AdGroupStatus,
-    AdGroupListResponse,
-    AdGroupDeleteResponse,
-)
+from whop_sdk.types import AdGroup, AdGroupListResponse, AdGroupDeleteResponse
 ```
 
 Methods:
 
-- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="post /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">create</a>(\*\*<a href="src/whop_sdk/types/ad_group_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
-- <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_list_response.py">SyncCursorPage[AdGroupListResponse]</a></code>
+- <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_list_response.py">AdGroupListResponse</a></code>
 - <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
 - <code title="post /ad_groups/{id}/pause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="post /ad_groups/{id}/unpause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
@@ -1204,13 +1200,16 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Ad, ExternalAdStatus, AdListResponse
+from whop_sdk.types import Ad, AdDeleteResponse
 ```
 
 Methods:
 
+- <code title="post /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">create</a>(\*\*<a href="src/whop_sdk/types/ad_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
-- <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_list_response.py">SyncCursorPage[AdListResponse]</a></code>
+- <code title="patch /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
+- <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">SyncCursorPage[Ad]</a></code>
+- <code title="delete /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_delete_response.py">AdDeleteResponse</a></code>
 - <code title="post /ads/{id}/pause">client.ads.<a href="./src/whop_sdk/resources/ads.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="post /ads/{id}/unpause">client.ads.<a href="./src/whop_sdk/resources/ads.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 

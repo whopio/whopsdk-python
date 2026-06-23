@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["AdGroupUpdateParams"]
+__all__ = ["AdGroupCreateParams"]
 
 
-class AdGroupUpdateParams(TypedDict, total=False):
+class AdGroupCreateParams(TypedDict, total=False):
+    ad_campaign_id: Required[str]
+    """The ad campaign to create the ad group in."""
+
     audience: object
     """Demographic targeting: { automatic, minimum_age, maximum_age, gender }."""
 
