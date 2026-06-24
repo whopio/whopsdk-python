@@ -7,7 +7,12 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import social_account_list_params, social_account_create_params, social_account_delete_params
+from ..types import (
+    social_account_list_params,
+    social_account_posts_params,
+    social_account_create_params,
+    social_account_delete_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +26,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.social_account import SocialAccount
+from ..types.social_account_posts_response import SocialAccountPostsResponse
 from ..types.social_account_create_response import SocialAccountCreateResponse
 from ..types.social_account_delete_response import SocialAccountDeleteResponse
 
@@ -238,6 +244,66 @@ class SocialAccountsResource(SyncAPIResource):
             cast_to=SocialAccountDeleteResponse,
         )
 
+    def posts(
+        self,
+        id: str,
+        *,
+        account_id: str,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        post_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountPostsResponse:
+        """Lists the existing posts of a connected social account.
+
+        Supported for Facebook
+        pages and Instagram accounts. Pass post*id to return only that single post. The
+        owning account is passed as account_id (a biz* identifier).
+
+        Args:
+          account_id: The Account (a biz\\__ identifier) the social account is connected to.
+
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          first: The number of posts to return.
+
+          post_id: Return only the single post with this platform id, instead of the full list.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/social_accounts/{id}/posts", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "after": after,
+                        "first": first,
+                        "post_id": post_id,
+                    },
+                    social_account_posts_params.SocialAccountPostsParams,
+                ),
+            ),
+            cast_to=SocialAccountPostsResponse,
+        )
+
 
 class AsyncSocialAccountsResource(AsyncAPIResource):
     @cached_property
@@ -450,6 +516,66 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
             cast_to=SocialAccountDeleteResponse,
         )
 
+    async def posts(
+        self,
+        id: str,
+        *,
+        account_id: str,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        post_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountPostsResponse:
+        """Lists the existing posts of a connected social account.
+
+        Supported for Facebook
+        pages and Instagram accounts. Pass post*id to return only that single post. The
+        owning account is passed as account_id (a biz* identifier).
+
+        Args:
+          account_id: The Account (a biz\\__ identifier) the social account is connected to.
+
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          first: The number of posts to return.
+
+          post_id: Return only the single post with this platform id, instead of the full list.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/social_accounts/{id}/posts", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "after": after,
+                        "first": first,
+                        "post_id": post_id,
+                    },
+                    social_account_posts_params.SocialAccountPostsParams,
+                ),
+            ),
+            cast_to=SocialAccountPostsResponse,
+        )
+
 
 class SocialAccountsResourceWithRawResponse:
     def __init__(self, social_accounts: SocialAccountsResource) -> None:
@@ -463,6 +589,9 @@ class SocialAccountsResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             social_accounts.delete,
+        )
+        self.posts = to_raw_response_wrapper(
+            social_accounts.posts,
         )
 
 
@@ -479,6 +608,9 @@ class AsyncSocialAccountsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             social_accounts.delete,
         )
+        self.posts = async_to_raw_response_wrapper(
+            social_accounts.posts,
+        )
 
 
 class SocialAccountsResourceWithStreamingResponse:
@@ -494,6 +626,9 @@ class SocialAccountsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             social_accounts.delete,
         )
+        self.posts = to_streamed_response_wrapper(
+            social_accounts.posts,
+        )
 
 
 class AsyncSocialAccountsResourceWithStreamingResponse:
@@ -508,4 +643,7 @@ class AsyncSocialAccountsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             social_accounts.delete,
+        )
+        self.posts = async_to_streamed_response_wrapper(
+            social_accounts.posts,
         )

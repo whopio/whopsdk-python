@@ -158,6 +158,7 @@ from .message_list_params import MessageListParams as MessageListParams
 from .payment_list_params import PaymentListParams as PaymentListParams
 from .product_list_params import ProductListParams as ProductListParams
 from .setup_intent_status import SetupIntentStatus as SetupIntentStatus
+from .social_account_post import SocialAccountPost as SocialAccountPost
 from .tax_identifier_type import TaxIdentifierType as TaxIdentifierType
 from .topup_create_params import TopupCreateParams as TopupCreateParams
 from .verification_status import VerificationStatus as VerificationStatus
@@ -344,6 +345,7 @@ from .experience_duplicate_params import ExperienceDuplicateParams as Experience
 from .payout_destination_category import PayoutDestinationCategory as PayoutDestinationCategory
 from .payout_method_list_response import PayoutMethodListResponse as PayoutMethodListResponse
 from .plan_calculate_tax_response import PlanCalculateTaxResponse as PlanCalculateTaxResponse
+from .social_account_posts_params import SocialAccountPostsParams as SocialAccountPostsParams
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
 from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .account_link_create_response import AccountLinkCreateResponse as AccountLinkCreateResponse
@@ -376,6 +378,7 @@ from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent as Invoice
 from .payment_created_webhook_event import PaymentCreatedWebhookEvent as PaymentCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent as PaymentPendingWebhookEvent
 from .resolution_center_case_status import ResolutionCenterCaseStatus as ResolutionCenterCaseStatus
+from .social_account_posts_response import SocialAccountPostsResponse as SocialAccountPostsResponse
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
 from .company_token_transaction_type import CompanyTokenTransactionType as CompanyTokenTransactionType
