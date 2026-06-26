@@ -17,9 +17,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.account import Account
-from ..types.account_list_response import AccountListResponse
 
 __all__ = ["AccountsResource", "AsyncAccountsResource"]
 
@@ -177,21 +177,21 @@ class AccountsResource(SyncAPIResource):
 
           banner_image: Attachment input for the account banner image.
 
-          business_type: The high-level business category for the account.
+          business_type: High-level business category for the account.
 
-          country: The country the account is located in.
+          country: Country where the account is located.
 
-          description: A promotional description for the account.
+          description: Account promotional description.
 
-          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass null to clear.
+          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass `null` to clear.
 
-          home_preferences: Preferences for the public business home page.
+          home_preferences: Public account home page preferences.
 
-          industry_group: The industry group the account belongs to.
+          industry_group: Account industry group.
 
-          industry_type: The specific industry vertical the account operates in.
+          industry_type: Specific industry vertical for the account.
 
-          invoice_prefix: The prefix to use for account invoices.
+          invoice_prefix: Prefix used for account invoices.
 
           logo: Attachment input for the account logo.
 
@@ -222,7 +222,7 @@ class AccountsResource(SyncAPIResource):
 
           social_links: The full list of social links to display for the account.
 
-          store_page_config: Store page display configuration for the account.
+          store_page_config: Account store page display configuration.
 
           target_audience: The target audience for this account.
 
@@ -285,15 +285,17 @@ class AccountsResource(SyncAPIResource):
     def list(
         self,
         *,
-        page: int | Omit = omit,
-        per: int | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccountListResponse:
+    ) -> SyncCursorPage[Account]:
         """Lists accounts visible to the credential.
 
         User tokens return the user's business
@@ -301,10 +303,13 @@ class AccountsResource(SyncAPIResource):
         its connected accounts.
 
         Args:
-          page: The page number to retrieve
+          after: A cursor; returns accounts after this position.
 
-          per: The number of resources to return per page. There is a limit of 50 results per
-              page.
+          before: A cursor; returns accounts before this position.
+
+          first: The number of accounts to return (default 10, max 50).
+
+          last: The number of accounts to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -314,8 +319,9 @@ class AccountsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/accounts",
+            page=SyncCursorPage[Account],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -323,13 +329,15 @@ class AccountsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "page": page,
-                        "per": per,
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
                     },
                     account_list_params.AccountListParams,
                 ),
             ),
-            cast_to=AccountListResponse,
+            model=Account,
         )
 
     def me(
@@ -508,21 +516,21 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           banner_image: Attachment input for the account banner image.
 
-          business_type: The high-level business category for the account.
+          business_type: High-level business category for the account.
 
-          country: The country the account is located in.
+          country: Country where the account is located.
 
-          description: A promotional description for the account.
+          description: Account promotional description.
 
-          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass null to clear.
+          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass `null` to clear.
 
-          home_preferences: Preferences for the public business home page.
+          home_preferences: Public account home page preferences.
 
-          industry_group: The industry group the account belongs to.
+          industry_group: Account industry group.
 
-          industry_type: The specific industry vertical the account operates in.
+          industry_type: Specific industry vertical for the account.
 
-          invoice_prefix: The prefix to use for account invoices.
+          invoice_prefix: Prefix used for account invoices.
 
           logo: Attachment input for the account logo.
 
@@ -553,7 +561,7 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           social_links: The full list of social links to display for the account.
 
-          store_page_config: Store page display configuration for the account.
+          store_page_config: Account store page display configuration.
 
           target_audience: The target audience for this account.
 
@@ -613,18 +621,20 @@ class AsyncAccountsResource(AsyncAPIResource):
             cast_to=Account,
         )
 
-    async def list(
+    def list(
         self,
         *,
-        page: int | Omit = omit,
-        per: int | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccountListResponse:
+    ) -> AsyncPaginator[Account, AsyncCursorPage[Account]]:
         """Lists accounts visible to the credential.
 
         User tokens return the user's business
@@ -632,10 +642,13 @@ class AsyncAccountsResource(AsyncAPIResource):
         its connected accounts.
 
         Args:
-          page: The page number to retrieve
+          after: A cursor; returns accounts after this position.
 
-          per: The number of resources to return per page. There is a limit of 50 results per
-              page.
+          before: A cursor; returns accounts before this position.
+
+          first: The number of accounts to return (default 10, max 50).
+
+          last: The number of accounts to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -645,22 +658,25 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/accounts",
+            page=AsyncCursorPage[Account],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
-                        "page": page,
-                        "per": per,
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
                     },
                     account_list_params.AccountListParams,
                 ),
             ),
-            cast_to=AccountListResponse,
+            model=Account,
         )
 
     async def me(
