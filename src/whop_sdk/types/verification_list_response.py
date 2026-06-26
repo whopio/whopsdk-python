@@ -1,30 +1,77 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .verification_status import VerificationStatus
-from .verification_error_code import VerificationErrorCode
 
-__all__ = ["VerificationListResponse"]
+__all__ = ["VerificationListResponse", "Data", "DataRfi", "DataRfiRequestedFile"]
+
+
+class DataRfiRequestedFile(BaseModel):
+    category: Optional[str] = None
+
+    is_optional: Optional[bool] = None
+
+    kind: Optional[str] = None
+
+
+class DataRfi(BaseModel):
+    id: Optional[str] = None
+
+    created_at: Optional[str] = None
+
+    description: Optional[str] = None
+
+    error_message: Optional[str] = None
+
+    requested_files: Optional[List[DataRfiRequestedFile]] = None
+    """Documents the provider is requesting (file-upload RFIs).
+
+    The `kind` is what to send back when answering.
+    """
+
+    status: Optional[Literal["outstanding", "invalid"]] = None
+
+    type: Optional[str] = None
+
+
+class Data(BaseModel):
+    id: Optional[str] = None
+    """The verification ID, e.g. idpf\\__\\**"""
+
+    address: Optional[object] = None
+
+    business_name: Optional[str] = None
+
+    business_structure: Optional[str] = None
+
+    country: Optional[str] = None
+    """ISO 3166-1 alpha-2 country code (e.g.
+
+    `US`, `GB`). For individuals this is the country of citizenship or residence
+    reported by the identity provider; for businesses this is the country of
+    incorporation.
+    """
+
+    created_at: Optional[str] = None
+
+    date_of_birth: Optional[str] = None
+
+    first_name: Optional[str] = None
+
+    kind: Optional[Literal["individual", "business"]] = None
+
+    last_name: Optional[str] = None
+
+    rfis: Optional[List[DataRfi]] = None
+
+    session_url: Optional[str] = None
+
+    status: Optional[Literal["not_started", "pending", "approved", "rejected", "action_required"]] = None
+
+    updated_at: Optional[str] = None
 
 
 class VerificationListResponse(BaseModel):
-    """
-    An identity verification session used to confirm a person or entity's identity for payout account eligibility.
-    """
-
-    id: str
-    """The numeric id of the verification record."""
-
-    last_error_code: Optional[VerificationErrorCode] = None
-    """An error code for a verification attempt."""
-
-    last_error_reason: Optional[str] = None
-    """A human-readable explanation of the most recent verification error.
-
-    Null if no error has occurred.
-    """
-
-    status: VerificationStatus
-    """The current status of this verification session."""
+    data: Optional[List[Data]] = None
