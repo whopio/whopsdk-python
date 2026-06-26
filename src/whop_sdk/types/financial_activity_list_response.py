@@ -32,58 +32,77 @@ __all__ = [
 
 
 class DataCurrency(BaseModel):
+    """Currency for this ledger activity."""
+
     code: str
+    """Currency code."""
 
     precision: str
-    """Precision factor for the currency, for example 100000000 for USD."""
+    """Precision factor for the currency, for example `100000000` for USD."""
 
 
 class DataResourceUnionMember0(BaseModel):
     id: str
+    """Account ID."""
 
     logo_url: Optional[str] = None
+    """Account logo URL."""
 
     object: Literal["account"]
 
     route: Optional[str] = None
+    """Account route."""
 
     title: Optional[str] = None
+    """Account display name."""
 
 
 class DataResourceUnionMember1(BaseModel):
     id: str
+    """User ID."""
 
     name: Optional[str] = None
+    """User display name."""
 
     object: Literal["user"]
 
     profile_picture_url: Optional[str] = None
+    """User profile image URL."""
 
     username: Optional[str] = None
+    """User's username."""
 
 
 class DataResourceUnionMember2OwnerUnionMember0(BaseModel):
     id: str
+    """Account ID."""
 
     logo_url: Optional[str] = None
+    """Account logo URL."""
 
     object: Literal["account"]
 
     route: Optional[str] = None
+    """Account route."""
 
     title: Optional[str] = None
+    """Account display name."""
 
 
 class DataResourceUnionMember2OwnerUnionMember1(BaseModel):
     id: str
+    """User ID."""
 
     name: Optional[str] = None
+    """User display name."""
 
     object: Literal["user"]
 
     profile_picture_url: Optional[str] = None
+    """User profile image URL."""
 
     username: Optional[str] = None
+    """User's username."""
 
 
 DataResourceUnionMember2Owner: TypeAlias = Union[
@@ -93,6 +112,7 @@ DataResourceUnionMember2Owner: TypeAlias = Union[
 
 class DataResourceUnionMember2(BaseModel):
     id: str
+    """Ledger account ID."""
 
     object: Literal["ledger_account"]
 
@@ -101,58 +121,77 @@ class DataResourceUnionMember2(BaseModel):
 
 class DataResourceUnionMember3Bank(BaseModel):
     account_name: Optional[str] = None
+    """Bank account holder name."""
 
     account_type: Optional[str] = None
+    """Bank account type."""
 
     bank_name: Optional[str] = None
+    """Bank name."""
 
     last4: Optional[str] = None
+    """Last four digits of the bank account."""
 
 
 class DataResourceUnionMember3Card(BaseModel):
     brand: Optional[str] = None
+    """Card brand."""
 
     exp_month: Optional[int] = None
+    """Card expiration month."""
 
     exp_year: Optional[int] = None
+    """Card expiration year."""
 
     last4: Optional[str] = None
+    """Last four digits of the card."""
 
 
 class DataResourceUnionMember3(BaseModel):
     id: str
+    """Payment method ID."""
 
     bank: Optional[DataResourceUnionMember3Bank] = None
 
     card: Optional[DataResourceUnionMember3Card] = None
 
     email_identifier: Optional[str] = None
+    """Email identifier for email-based payment methods."""
 
     gateway_type: Optional[str] = None
+    """Payment gateway type."""
 
     object: Literal["payment_method"]
 
     payment_method_type: Optional[str] = None
+    """Payment method type."""
 
 
 class DataResourceUnionMember4(BaseModel):
     id: str
+    """Payout method ID."""
 
     account_reference: Optional[str] = None
+    """Masked account reference."""
 
     destination_currency_code: Optional[str] = None
+    """Destination currency code."""
 
     institution_name: Optional[str] = None
+    """Payout institution name."""
 
     nickname: Optional[str] = None
+    """Payout method nickname."""
 
     object: Literal["payout_method"]
 
     provider: Optional[str] = None
+    """Payout provider."""
 
 
 class DataResourceUnionMember5(BaseModel):
     id: str
+    """Card transaction ID."""
 
     authorized_at: Optional[datetime] = None
     """ISO 8601 timestamp the transaction was authorized."""
@@ -180,10 +219,13 @@ class DataResourceUnionMember5(BaseModel):
     """ISO 4217 currency code of the merchant-charged amount in local_amount."""
 
     merchant_category: Optional[str] = None
+    """Merchant category."""
 
     merchant_icon_url: Optional[str] = None
+    """Merchant icon URL."""
 
     merchant_name: Optional[str] = None
+    """Merchant display name."""
 
     object: Literal["card_transaction"]
 
@@ -191,6 +233,7 @@ class DataResourceUnionMember5(BaseModel):
     """ISO 8601 timestamp the transaction was settled by the card network."""
 
     status: Optional[str] = None
+    """Current card transaction status."""
 
     usd_amount: Optional[str] = None
     """The processor-settled USD amount as a decimal string.
@@ -219,6 +262,8 @@ class DataSourcePayoutDestination(BaseModel):
 
 
 class DataSource(BaseModel):
+    """Source of this ledger activity."""
+
     id: str
 
     object: str
@@ -307,6 +352,7 @@ class DataSource(BaseModel):
 
 class Data(BaseModel):
     id: str
+    """Ledger activity ID."""
 
     amount: str
     """Signed amount in the currency's smallest precision units."""
@@ -322,18 +368,24 @@ class Data(BaseModel):
     """
 
     created_at: Optional[datetime] = None
+    """When the activity record was created."""
 
     currency: DataCurrency
+    """Currency for this ledger activity."""
 
     line_type: str
+    """Type of ledger activity."""
 
     object: Literal["ledger_activity"]
 
     posted_at: datetime
+    """When the activity posted to the ledger."""
 
     resource: Optional[DataResource] = None
+    """Resource associated with this ledger activity."""
 
     source: Optional[DataSource] = None
+    """Source of this ledger activity."""
 
 
 class PageInfo(BaseModel):

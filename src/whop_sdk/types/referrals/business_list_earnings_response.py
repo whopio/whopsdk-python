@@ -25,14 +25,19 @@ class AccessPass(BaseModel):
 
 
 class Account(BaseModel):
+    """Referred account."""
+
     id: str
-    """The referred business (a biz\\__ identifier)."""
+    """Referred account ID."""
 
     logo_url: Optional[str] = None
+    """Referred account logo URL."""
 
     route: str
+    """Referred account route."""
 
     title: str
+    """Referred account display name."""
 
 
 class ReceiptAlternativePaymentMethod(BaseModel):
@@ -87,6 +92,7 @@ class BusinessListEarningsResponse(BaseModel):
     access_pass: Optional[AccessPass] = None
 
     account: Optional[Account] = None
+    """Referred account."""
 
     cancelation_reason: Optional[str] = None
     """Why the earning was canceled or reversed, if applicable."""

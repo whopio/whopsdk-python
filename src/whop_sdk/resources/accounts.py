@@ -177,21 +177,21 @@ class AccountsResource(SyncAPIResource):
 
           banner_image: Attachment input for the account banner image.
 
-          business_type: The high-level business category for the account.
+          business_type: High-level business category for the account.
 
-          country: The country the account is located in.
+          country: Country where the account is located.
 
-          description: A promotional description for the account.
+          description: Account promotional description.
 
-          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass null to clear.
+          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass `null` to clear.
 
-          home_preferences: Preferences for the public business home page.
+          home_preferences: Public account home page preferences.
 
-          industry_group: The industry group the account belongs to.
+          industry_group: Account industry group.
 
-          industry_type: The specific industry vertical the account operates in.
+          industry_type: Specific industry vertical for the account.
 
-          invoice_prefix: The prefix to use for account invoices.
+          invoice_prefix: Prefix used for account invoices.
 
           logo: Attachment input for the account logo.
 
@@ -222,7 +222,7 @@ class AccountsResource(SyncAPIResource):
 
           social_links: The full list of social links to display for the account.
 
-          store_page_config: Store page display configuration for the account.
+          store_page_config: Account store page display configuration.
 
           target_audience: The target audience for this account.
 
@@ -516,21 +516,21 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           banner_image: Attachment input for the account banner image.
 
-          business_type: The high-level business category for the account.
+          business_type: High-level business category for the account.
 
-          country: The country the account is located in.
+          country: Country where the account is located.
 
-          description: A promotional description for the account.
+          description: Account promotional description.
 
-          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass null to clear.
+          featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass `null` to clear.
 
-          home_preferences: Preferences for the public business home page.
+          home_preferences: Public account home page preferences.
 
-          industry_group: The industry group the account belongs to.
+          industry_group: Account industry group.
 
-          industry_type: The specific industry vertical the account operates in.
+          industry_type: Specific industry vertical for the account.
 
-          invoice_prefix: The prefix to use for account invoices.
+          invoice_prefix: Prefix used for account invoices.
 
           logo: Attachment input for the account logo.
 
@@ -561,7 +561,7 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           social_links: The full list of social links to display for the account.
 
-          store_page_config: Store page display configuration for the account.
+          store_page_config: Account store page display configuration.
 
           target_audience: The target audience for this account.
 

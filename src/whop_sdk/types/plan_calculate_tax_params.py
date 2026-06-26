@@ -29,7 +29,7 @@ class Address(TypedDict, total=False):
     """The buyer's billing address. Provide this or ip_address."""
 
     country: Required[str]
-    """The two-letter ISO 3166-1 country code, for example US, DE, or GB."""
+    """The two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
     city: Optional[str]
     """The city name."""
@@ -44,12 +44,12 @@ class Address(TypedDict, total=False):
     """The postal or ZIP code."""
 
     state: Optional[str]
-    """The state, province, or region code, for example CA."""
+    """The state, province, or region code, for example `CA`."""
 
 
 class TaxID(TypedDict, total=False):
     type: str
-    """The tax ID type, for example eu_vat."""
+    """Tax ID type, for example `eu_vat`."""
 
     value: str
-    """The tax ID number, for example DE123456789."""
+    """Tax ID number, for example `DE123456789`."""

@@ -82,7 +82,7 @@ class TransfersResource(SyncAPIResource):
           origin_id: The account sending the funds. A user ID (user_xxx), account ID (biz_xxx), or
               ledger account ID (ldgr_xxx).
 
-          currency: The currency, such as usd. Required for ledger transfers.
+          currency: Currency, such as `usd`. Required for ledger transfers.
 
           destination_id: The recipient. Required for ledger and wallet*send (a user*/biz*/ldgr* ID, or —
               for sends — an email). Omit for claim_link.
@@ -306,7 +306,7 @@ class AsyncTransfersResource(AsyncAPIResource):
           origin_id: The account sending the funds. A user ID (user_xxx), account ID (biz_xxx), or
               ledger account ID (ldgr_xxx).
 
-          currency: The currency, such as usd. Required for ledger transfers.
+          currency: Currency, such as `usd`. Required for ledger transfers.
 
           destination_id: The recipient. Required for ledger and wallet*send (a user*/biz*/ldgr* ID, or —
               for sends — an email). Omit for claim_link.

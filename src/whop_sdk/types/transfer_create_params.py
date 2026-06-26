@@ -22,7 +22,7 @@ class TransferCreateParams(TypedDict, total=False):
     """
 
     currency: str
-    """The currency, such as usd. Required for ledger transfers."""
+    """Currency, such as `usd`. Required for ledger transfers."""
 
     destination_id: str
     """The recipient.

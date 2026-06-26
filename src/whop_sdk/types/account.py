@@ -10,40 +10,37 @@ __all__ = ["Account", "Balance", "Capabilities", "RecommendedAction", "RequiredA
 
 
 class Balance(BaseModel):
-    """The account's holdings (crypto and fiat), each with its USD value.
-
-    Empty when total_usd is null (not computed)
-    """
+    """Account holdings, each with USD value. Empty when `total_usd` is `null`."""
 
     balance: str
-    """The total amount held in native units, as a decimal string"""
+    """Total amount held in native units, as a decimal string."""
 
     breakdown: object
     """
-    The holding split into available, pending, and reserve amounts (native-unit
-    decimal strings). On-chain crypto is entirely available; good_funds and fiat
-    cash can have pending/reserve portions
+    Balance split into available, pending, and reserve amounts, as native-unit
+    decimal strings. On-chain crypto is entirely available; good_funds and fiat cash
+    can have pending or reserve portions.
     """
 
     icon_url: Optional[str] = None
-    """The URL of the holding's icon, when available"""
+    """Holding icon URL."""
 
     name: str
     """The holding's display name"""
 
     price_usd: Optional[float] = None
-    """The USD price per unit, or null when no exchange rate is available"""
+    """USD price per unit, or `null` when no exchange rate is available."""
 
     symbol: str
-    """The holding's display symbol, e.g. USDT, cbBTC, or EUR"""
+    """Holding display symbol, such as `USDT`, `cbBTC`, or `EUR`."""
 
     value_usd: Optional[str] = None
-    """The total USD value of the holding, or null when no exchange rate is available"""
+    """Holding USD value, or `null` when no exchange rate is available."""
 
 
 class Capabilities(BaseModel):
     """
-    Each payment rail's status: active, inactive, or pending (pending means onboarding or review is in progress)
+    Payment rails enabled for this account, each `active`, `inactive`, or `pending` (onboarding or review in progress). Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise.
     """
 
     accept_bank_payments: Literal["active", "inactive", "pending"]
@@ -82,7 +79,7 @@ class Capabilities(BaseModel):
 
 class RecommendedAction(BaseModel):
     """
-    Optional actions that unlock capabilities or grow the account, same shape as required_actions
+    Optional actions that unlock capabilities or grow the account, same shape as `required_actions`. Computed only on `retrieve` and `me`; `null` otherwise.
     """
 
     action: Literal["apply_for_financing", "migrate_from_stripe", "accept_first_payment", "join_whop_university"]
@@ -103,7 +100,7 @@ class RecommendedAction(BaseModel):
     """Supporting copy, or empty"""
 
     icon_url: Optional[str] = None
-    """Illustration icon URL, or null"""
+    """Illustration icon URL, or `null`"""
 
     status: Literal["optional"]
     """Always optional — never blocking"""
@@ -114,7 +111,7 @@ class RecommendedAction(BaseModel):
 
 class RequiredAction(BaseModel):
     """
-    Actions the account owner must take to unblock capabilities like payouts and card spend, ordered by display priority
+    Actions the account owner must take to unblock capabilities like payouts and card spend, ordered by display priority. Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise.
     """
 
     action: Literal["deposit_funds", "submit_information_request", "verify_identity", "connect_fulfillment_tracker"]
@@ -145,10 +142,10 @@ class RequiredAction(BaseModel):
 
 
 class Wallet(BaseModel):
-    """The account's primary crypto wallet, or null if none has been provisioned"""
+    """Account primary crypto wallet, or `null` if none has been provisioned."""
 
     id: str
-    """The ID of the wallet, which will look like wallet\\__******\\********"""
+    """Wallet ID, prefixed `wallet_`."""
 
     address: str
     """The on-chain address of the wallet"""
@@ -159,129 +156,133 @@ class Wallet(BaseModel):
 
 class Account(BaseModel):
     id: str
-    """The ID of the account, which will look like biz\\__******\\********"""
+    """Account ID, prefixed `biz_`."""
 
     balances: List[Balance]
 
     banner_image_url: Optional[str] = None
-    """The URL of the account banner image"""
+    """Account banner image URL."""
 
     business_type: Optional[str] = None
-    """The high-level business category for the account"""
+    """High-level business category for the account."""
 
     capabilities: Optional[Capabilities] = None
     """
-    Each payment rail's status: active, inactive, or pending (pending means
-    onboarding or review is in progress)
+    Payment rails enabled for this account, each `active`, `inactive`, or `pending`
+    (onboarding or review in progress). Computed only on `retrieve` and `me` for
+    callers with `company:balance:read` scope; `null` otherwise.
     """
 
     country: Optional[str] = None
-    """The country the account is located in"""
+    """Country where the account is located."""
 
     created_at: str
-    """When the account was created, as an ISO 8601 timestamp"""
+    """When the account was created, as an ISO 8601 timestamp."""
 
     description: Optional[str] = None
-    """A promotional description for the account"""
+    """Account promotional description."""
 
     email: Optional[str] = None
-    """The email address of the account owner"""
+    """Account owner email address."""
 
     home_preferences: List[str]
 
     industry_group: Optional[str] = None
-    """The industry group the account belongs to"""
+    """Account industry group."""
 
     industry_type: Optional[str] = None
-    """The specific industry vertical the account operates in"""
+    """Specific industry vertical for the account."""
 
     invoice_prefix: Optional[str] = None
-    """The prefix used for account invoices"""
+    """Prefix used for account invoices."""
 
     logo_url: Optional[str] = None
-    """The URL of the account logo image"""
+    """Account logo image URL."""
 
     metadata: object
-    """Arbitrary key/value metadata supplied when the account was created"""
+    """Arbitrary key/value metadata supplied at account creation."""
 
     onboarding_type: Optional[str] = None
-    """The type of onboarding the account has completed"""
+    """Type of onboarding the account has completed."""
 
     opengraph_image_url: Optional[str] = None
-    """The URL of the account Open Graph image"""
+    """Account Open Graph image URL."""
 
     opengraph_image_variant: Optional[str] = None
-    """The account Open Graph image variant"""
+    """Account Open Graph image variant."""
 
     other_business_description: Optional[str] = None
-    """The description of the business type when business_type is other"""
+    """Business type details when business_type is `other`."""
 
     other_industry_description: Optional[str] = None
-    """The description of the industry type when industry_type is other"""
+    """Industry details when industry_type is `other`."""
 
     parent_account_id: Optional[str] = None
-    """The parent account ID for connected accounts"""
+    """Parent account ID for connected accounts."""
 
     recommended_actions: Optional[List[RecommendedAction]] = None
 
     require_2fa: bool
-    """
-    Whether the account requires authorized users to have two-factor authentication
-    enabled
-    """
+    """Whether authorized users must enable two-factor authentication."""
 
     required_actions: Optional[List[RequiredAction]] = None
 
     route: str
-    """The account's public route identifier"""
+    """Account public route identifier."""
 
     send_customer_emails: bool
-    """Whether Whop sends transactional emails to customers on behalf of this account"""
+    """Whether Whop sends transactional emails to customers on behalf of this account."""
 
     show_joined_whops: bool
-    """Whether the account appears in joined whops on other accounts"""
+    """Whether the account appears in joined whops on other accounts."""
 
     show_reviews_dtc: bool
-    """Whether reviews are displayed on direct-to-consumer product pages"""
+    """Whether reviews are displayed on direct-to-consumer product pages."""
 
     show_user_directory: bool
-    """Whether the account shows users in the user directory"""
+    """Whether the account shows users in the user directory."""
 
     social_links: List[AccountSocialLink]
 
     status: Optional[str] = None
-    """Whether the account can operate on Whop — active or suspended"""
+    """Whether the account can operate on Whop: `active` or `suspended`.
+
+    Computed only on `retrieve` and `me`; `null` otherwise.
+    """
 
     store_page_config: object
-    """Store page display configuration for the account"""
+    """Account store page display configuration."""
 
     target_audience: Optional[str] = None
-    """The target audience for this account"""
+    """Target audience for this account."""
 
     title: str
-    """The display name of the account"""
+    """Account display name."""
 
     total_earned_usd: Optional[float] = None
-    """Lifetime sales for the account, normalized to USD"""
+    """Account lifetime sales, normalized to USD.
+
+    Computed only on `retrieve` and `me` for callers with `stats:read` scope; `null`
+    otherwise.
+    """
 
     total_usd: Optional[str] = None
-    """Total USD value across all balances with a known exchange rate.
+    """Total USD value across balances with known exchange rates.
 
-    Only computed on single-account reads (retrieve and me); null (with an empty
-    balances array) on list responses, on writes, when the caller's token lacks the
-    balance-read permission, and when the balance source is unavailable
+    Computed only on single-account reads (`retrieve` and `me`); `null` on list
+    responses, writes, missing balance-read permission, or unavailable balance
+    source.
     """
 
     use_logo_as_opengraph_image_fallback: bool
-    """Whether the account uses its logo as the fallback Open Graph image"""
+    """Whether the account uses its logo as the fallback Open Graph image."""
 
     verification: object
-    """The account's identity-verification status.
-
-    `individual` is KYC, `business` is KYB; each is null when that profile has not
-    been created, otherwise { status } where status is one of not_started, pending,
-    approved, rejected
+    """
+    Account identity verification status for the `individual` (KYC) and `business`
+    (KYB) profiles. Each is `null` until created, otherwise a `status` of
+    `not_started`, `pending`, `approved`, or `rejected`.
     """
 
     wallet: Optional[Wallet] = None
-    """The account's primary crypto wallet, or null if none has been provisioned"""
+    """Account primary crypto wallet, or `null` if none has been provisioned."""

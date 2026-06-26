@@ -8,40 +8,40 @@ __all__ = ["User", "Balance"]
 
 
 class Balance(BaseModel):
-    """The user's holdings (crypto and fiat), each with its USD value.
+    """User holdings (crypto and fiat), each with USD value.
 
-    Empty when total_usd is null (not computed)
+    Empty when `total_usd` is `null`.
     """
 
     balance: str
-    """The total amount held in native units, as a decimal string"""
+    """Total amount held in native units, as a decimal string."""
 
     breakdown: object
     """
-    The holding split into available, pending, and reserve amounts (native-unit
-    decimal strings). On-chain crypto is entirely available; good_funds and fiat
-    cash can have pending/reserve portions
+    Balance split into available, pending, and reserve amounts, as native-unit
+    decimal strings. On-chain crypto is entirely available; good_funds and fiat cash
+    can have pending or reserve portions.
     """
 
     icon_url: Optional[str] = None
-    """The URL of the holding's icon, when available"""
+    """Holding icon URL."""
 
     name: str
     """The holding's display name"""
 
     price_usd: Optional[float] = None
-    """The USD price per unit, or null when no exchange rate is available"""
+    """USD price per unit, or `null` when no exchange rate is available."""
 
     symbol: str
-    """The holding's display symbol, e.g. USDT, cbBTC, or EUR"""
+    """Holding display symbol, such as `USDT`, `cbBTC`, or `EUR`."""
 
     value_usd: Optional[str] = None
-    """The total USD value of the holding, or null when no exchange rate is available"""
+    """Holding USD value, or `null` when no exchange rate is available."""
 
 
 class User(BaseModel):
     id: str
-    """The ID of the user, which will look like user\\__******\\********"""
+    """User ID, prefixed `user_`."""
 
     balances: List[Balance]
 
@@ -58,20 +58,18 @@ class User(BaseModel):
     """The user's profile picture, an object with a url"""
 
     total_usd: Optional[str] = None
-    """Total USD value across all balances with a known exchange rate.
+    """Total USD value across the user's balances with known exchange rates.
 
-    Only computed on the self-view (GET /users/me) for callers with the balance-read
-    scope; null (with an empty balances array) otherwise and when the balance source
-    is unavailable
+    Computed only on `GET /users/me` self-view for callers with balance-read scope;
+    `null` otherwise.
     """
 
     username: str
     """The user's unique username"""
 
     verification: object
-    """The user's identity-verification status.
-
-    `individual` is KYC, `business` is KYB; each is null when that profile has not
-    been created, otherwise { status } where status is one of not_started, pending,
-    approved, rejected
+    """
+    Identity verification status for the user's `individual` (KYC) and `business`
+    (KYB) profiles. Each is `null` until created, otherwise a `status` of
+    `not_started`, `pending`, `approved`, or `rejected`.
     """

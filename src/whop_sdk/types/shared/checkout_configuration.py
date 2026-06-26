@@ -55,9 +55,9 @@ class Plan(BaseModel):
     """
 
     billing_period: Optional[int] = None
-    """The number of days between each recurring charge.
-
-    Null for one-time plans. For example, 30 for monthly or 365 for annual billing.
+    """
+    Number of days between recurring charges, such as 30 for monthly or 365 for
+    annual. `null` for one-time plans.
     """
 
     currency: Currency
@@ -67,9 +67,9 @@ class Plan(BaseModel):
     """
 
     expiration_days: Optional[int] = None
-    """The number of days until the membership expires (for expiration-based plans).
-
-    For example, 365 for a one-year access pass.
+    """
+    Access duration in days for expiration-based plans, such as 365 for a one-year
+    pass.
     """
 
     initial_price: float
@@ -87,8 +87,8 @@ class Plan(BaseModel):
 
     release_method: ReleaseMethod
     """
-    The method used to sell this plan: 'buy_now' for immediate purchase or
-    'waitlist' for waitlist-based access.
+    Sales method for this plan: `buy_now` for immediate purchase or `waitlist` for
+    waitlist-based access.
     """
 
     renewal_price: float
@@ -101,10 +101,10 @@ class Plan(BaseModel):
     """The 3D Secure behavior for a plan."""
 
     trial_period_days: Optional[int] = None
-    """The number of free trial days before the first charge on a renewal plan.
+    """Free trial days before first renewal charge.
 
-    Null if no trial is configured or the current user has already used a trial for
-    this plan.
+    `null` if no trial is configured or the user has already used a trial for this
+    plan.
     """
 
     visibility: Visibility

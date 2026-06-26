@@ -54,7 +54,7 @@ class EarningsResource(SyncAPIResource):
         include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        sort: Literal["created_at", "amount", "payout_at"] | Omit = omit,
+        sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -143,7 +143,7 @@ class AsyncEarningsResource(AsyncAPIResource):
         include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        sort: Literal["created_at", "amount", "payout_at"] | Omit = omit,
+        sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

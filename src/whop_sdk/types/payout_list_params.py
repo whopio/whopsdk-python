@@ -18,7 +18,7 @@ class PayoutListParams(TypedDict, total=False):
     """Cursor to fetch the page before (from page_info.start_cursor)."""
 
     currency: str
-    """Optional currency code filter, for example usd."""
+    """Optional currency code filter, for example `usd`."""
 
     first: int
     """Number of payouts to return from the start of the window."""

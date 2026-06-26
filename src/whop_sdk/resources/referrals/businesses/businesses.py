@@ -99,6 +99,8 @@ class BusinessesResource(SyncAPIResource):
         first: int | Omit = omit,
         has_earnings: bool | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        sort: Literal["created_at", "referral_started_at", "referral_expires_at", "payout_percentage"] | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -122,6 +124,10 @@ class BusinessesResource(SyncAPIResource):
               caller.
 
           last: Number of business referrals to return from the end of the window.
+
+          order: Sort direction.
+
+          sort: Field to sort business referrals by.
 
           status: Filter by referral status.
 
@@ -148,6 +154,8 @@ class BusinessesResource(SyncAPIResource):
                         "first": first,
                         "has_earnings": has_earnings,
                         "last": last,
+                        "order": order,
+                        "sort": sort,
                         "status": status,
                     },
                     business_list_params.BusinessListParams,
@@ -165,7 +173,7 @@ class BusinessesResource(SyncAPIResource):
         include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        sort: Literal["created_at", "amount", "payout_at"] | Omit = omit,
+        sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -287,6 +295,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
         first: int | Omit = omit,
         has_earnings: bool | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        sort: Literal["created_at", "referral_started_at", "referral_expires_at", "payout_percentage"] | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -310,6 +320,10 @@ class AsyncBusinessesResource(AsyncAPIResource):
               caller.
 
           last: Number of business referrals to return from the end of the window.
+
+          order: Sort direction.
+
+          sort: Field to sort business referrals by.
 
           status: Filter by referral status.
 
@@ -336,6 +350,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
                         "first": first,
                         "has_earnings": has_earnings,
                         "last": last,
+                        "order": order,
+                        "sort": sort,
                         "status": status,
                     },
                     business_list_params.BusinessListParams,
@@ -353,7 +369,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
         include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        sort: Literal["created_at", "amount", "payout_at"] | Omit = omit,
+        sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

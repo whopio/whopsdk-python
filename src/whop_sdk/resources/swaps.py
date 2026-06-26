@@ -65,17 +65,25 @@ class SwapsResource(SyncAPIResource):
     ) -> SwapCreateResponse:
         """Executes a swap from the account's wallet.
 
-        Runs asynchronously — poll GET
+        Runs asynchronously; poll GET
         /swaps/{id} for status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
 
-          amount: Input token amount.
+          amount: Source token amount.
 
-          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
+          from_token: Source token contract address or ticker symbol, such as "USDT".
 
-          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
+          to_token: Destination token contract address or ticker symbol, such as "XAUT".
+
+          from_chain: Source chain name or chain ID. Defaults to the source token's chain when
+              omitted.
+
+          slippage_bps: Maximum slippage tolerance in basis points.
+
+          to_chain: Destination chain name or chain ID. Defaults to the destination token's chain
+              when omitted.
 
           extra_headers: Send extra headers
 
@@ -149,9 +157,10 @@ class SwapsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapListResponse:
-        """
-        Lists the account's swaps — currently its in-flight or most recent swap, so zero
-        or one rows.
+        """Lists the account's swaps.
+
+        Currently returns the in-flight or most recent swap,
+        so zero or one rows.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -200,11 +209,25 @@ class SwapsResource(SyncAPIResource):
         No funds move and nothing is persisted.
 
         Args:
-          amount: Input token amount.
+          amount: Source token amount.
 
-          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
+          from_token: Source token contract address or ticker symbol, such as "USDT".
 
-          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
+          to_token: Destination token contract address or ticker symbol, such as "XAUT".
+
+          from_address: Source wallet address used for the quote.
+
+          from_chain: Source chain name or chain ID. Defaults to the source token's chain when
+              omitted.
+
+          metadata: Metadata to include with the quote response.
+
+          slippage_bps: Maximum slippage tolerance in basis points.
+
+          to_address: Destination wallet address used for the quote.
+
+          to_chain: Destination chain name or chain ID. Defaults to the destination token's chain
+              when omitted.
 
           extra_headers: Send extra headers
 
@@ -276,17 +299,25 @@ class AsyncSwapsResource(AsyncAPIResource):
     ) -> SwapCreateResponse:
         """Executes a swap from the account's wallet.
 
-        Runs asynchronously — poll GET
+        Runs asynchronously; poll GET
         /swaps/{id} for status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
 
-          amount: Input token amount.
+          amount: Source token amount.
 
-          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
+          from_token: Source token contract address or ticker symbol, such as "USDT".
 
-          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
+          to_token: Destination token contract address or ticker symbol, such as "XAUT".
+
+          from_chain: Source chain name or chain ID. Defaults to the source token's chain when
+              omitted.
+
+          slippage_bps: Maximum slippage tolerance in basis points.
+
+          to_chain: Destination chain name or chain ID. Defaults to the destination token's chain
+              when omitted.
 
           extra_headers: Send extra headers
 
@@ -360,9 +391,10 @@ class AsyncSwapsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapListResponse:
-        """
-        Lists the account's swaps — currently its in-flight or most recent swap, so zero
-        or one rows.
+        """Lists the account's swaps.
+
+        Currently returns the in-flight or most recent swap,
+        so zero or one rows.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -411,11 +443,25 @@ class AsyncSwapsResource(AsyncAPIResource):
         No funds move and nothing is persisted.
 
         Args:
-          amount: Input token amount.
+          amount: Source token amount.
 
-          from_token: Source token, by contract address or ticker symbol (e.g. "USDT").
+          from_token: Source token contract address or ticker symbol, such as "USDT".
 
-          to_token: Destination token, by contract address or ticker symbol (e.g. "XAUT").
+          to_token: Destination token contract address or ticker symbol, such as "XAUT".
+
+          from_address: Source wallet address used for the quote.
+
+          from_chain: Source chain name or chain ID. Defaults to the source token's chain when
+              omitted.
+
+          metadata: Metadata to include with the quote response.
+
+          slippage_bps: Maximum slippage tolerance in basis points.
+
+          to_address: Destination wallet address used for the quote.
+
+          to_chain: Destination chain name or chain ID. Defaults to the destination token's chain
+              when omitted.
 
           extra_headers: Send extra headers
 

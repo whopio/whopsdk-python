@@ -79,6 +79,8 @@ class TestBusinesses:
             first=100,
             has_earnings=True,
             last=100,
+            order="asc",
+            sort="created_at",
             status="active",
         )
         assert_matches_type(SyncCursorPage[BusinessListResponse], business, path=["response"])
@@ -211,6 +213,8 @@ class TestAsyncBusinesses:
             first=100,
             has_earnings=True,
             last=100,
+            order="asc",
+            sort="created_at",
             status="active",
         )
         assert_matches_type(AsyncCursorPage[BusinessListResponse], business, path=["response"])

@@ -21,10 +21,7 @@ class PlanCreateParams(TypedDict, total=False):
     """Whether this plan accepts local currency payments via adaptive pricing."""
 
     billing_period: Optional[int]
-    """The number of days between recurring charges.
-
-    For example, 30 for monthly or 365 for yearly.
-    """
+    """Recurring billing interval in days, such as 30 for monthly or 365 for annual."""
 
     checkout_styling: Optional[object]
     """Checkout styling overrides for this plan."""
@@ -42,19 +39,16 @@ class PlanCreateParams(TypedDict, total=False):
     """A text description of the plan displayed to customers on the product page."""
 
     expiration_days: Optional[int]
-    """The number of days until the membership expires and access is revoked."""
+    """Access duration in days before the membership expires."""
 
     image: Optional[Image]
     """An image displayed on the product page to represent this plan."""
 
     initial_price: Optional[float]
-    """
-    The amount charged on the first purchase, in the plan's currency (e.g., 10.43
-    for $10.43).
-    """
+    """Initial amount charged in the plan's currency, e.g. 10.43 for $10.43."""
 
     internal_notes: Optional[str]
-    """Private notes visible only to the business owner. Not shown to customers."""
+    """Private notes visible only to the account owner. Not shown to customers."""
 
     legacy_payment_method_controls: Optional[bool]
     """Whether this plan uses legacy payment method controls."""
@@ -76,13 +70,13 @@ class PlanCreateParams(TypedDict, total=False):
     """
 
     plan_type: str
-    """The billing type of the plan, such as one_time or renewal."""
+    """Plan billing type, such as `one_time` or `renewal`."""
 
     product_id: str
     """The unique identifier of the product to attach this plan to."""
 
     release_method: str
-    """The method used to sell this plan (e.g., buy_now, waitlist)."""
+    """Sales method for this plan, such as `buy_now` or `waitlist`."""
 
     renewal_price: Optional[float]
     """
@@ -91,7 +85,7 @@ class PlanCreateParams(TypedDict, total=False):
     """
 
     split_pay_required_payments: Optional[int]
-    """The number of installment payments required before the subscription pauses."""
+    """Installment payments required before the subscription pauses."""
 
     stock: Optional[int]
     """The maximum number of units available for purchase.
@@ -100,13 +94,13 @@ class PlanCreateParams(TypedDict, total=False):
     """
 
     three_ds_level: Literal["mandate_challenge", "frictionless"]
-    """The 3D Secure behavior for this plan. Send null to inherit the account default."""
+    """3D Secure behavior for this plan. Send `null` to inherit the account default."""
 
     title: Optional[str]
     """The display name of the plan shown to customers on the product page."""
 
     trial_period_days: Optional[int]
-    """The number of free trial days before the first charge on a recurring plan."""
+    """Free trial duration before the first recurring charge."""
 
     unlimited_stock: Optional[bool]
     """Whether the plan has unlimited stock. When true, the stock field is ignored."""

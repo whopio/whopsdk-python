@@ -10,9 +10,13 @@ __all__ = ["PayoutListResponse", "PayoutToken", "PayoutTokenPayoutDestination"]
 
 
 class PayoutTokenPayoutDestination(BaseModel):
+    """Payout destination display details."""
+
     icon_url: Optional[str] = None
+    """Payout destination icon URL."""
 
     payer_name: Optional[str] = None
+    """Payout destination display name."""
 
 
 class PayoutToken(BaseModel):
@@ -22,19 +26,24 @@ class PayoutToken(BaseModel):
     """
 
     nickname: Optional[str] = None
+    """Saved payout method nickname."""
 
     payout_destination: Optional[PayoutTokenPayoutDestination] = None
+    """Payout destination display details."""
 
 
 class PayoutListResponse(BaseModel):
     id: str
+    """Payout ID."""
 
     amount: float
     """The payout amount in whole currency units."""
 
     created_at: datetime
+    """When the payout was created."""
 
     currency: str
+    """Payout currency."""
 
     estimated_arrival: Optional[datetime] = None
     """Estimated time the funds become available in the destination account."""
@@ -54,5 +63,7 @@ class PayoutListResponse(BaseModel):
     """
 
     speed: Literal["standard", "instant"]
+    """Payout delivery speed."""
 
     status: Literal["requested", "awaiting_payment", "in_transit", "completed", "failed", "canceled", "denied"]
+    """Current payout status."""

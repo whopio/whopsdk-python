@@ -13,16 +13,25 @@ class SwapCreateParams(TypedDict, total=False):
     """Business or user account ID (biz*\\** / user*\\**)."""
 
     amount: Required[str]
-    """Input token amount."""
+    """Source token amount."""
 
     from_token: Required[str]
-    """Source token, by contract address or ticker symbol (e.g. "USDT")."""
+    """Source token contract address or ticker symbol, such as "USDT"."""
 
     to_token: Required[str]
-    """Destination token, by contract address or ticker symbol (e.g. "XAUT")."""
+    """Destination token contract address or ticker symbol, such as "XAUT"."""
 
     from_chain: Union[str, int, None]
+    """Source chain name or chain ID.
+
+    Defaults to the source token's chain when omitted.
+    """
 
     slippage_bps: Optional[int]
+    """Maximum slippage tolerance in basis points."""
 
     to_chain: Union[str, int, None]
+    """Destination chain name or chain ID.
+
+    Defaults to the destination token's chain when omitted.
+    """

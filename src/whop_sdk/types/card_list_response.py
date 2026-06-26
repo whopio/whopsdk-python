@@ -13,16 +13,22 @@ class DataBilling(BaseModel):
     """The billing address."""
 
     city: Optional[str] = None
+    """Billing city."""
 
     country_code: Optional[str] = None
+    """Billing country code."""
 
     line1: Optional[str] = None
+    """Street address line 1."""
 
     line2: Optional[str] = None
+    """Street address line 2."""
 
     postal_code: Optional[str] = None
+    """Billing postal code."""
 
     region: Optional[str] = None
+    """Billing region or state."""
 
 
 class DataLimit(BaseModel):
@@ -32,7 +38,7 @@ class DataLimit(BaseModel):
     """The limit amount in dollars."""
 
     frequency: str
-    """The limit window, for example per24HourPeriod or perAuthorization."""
+    """Limit window, for example `per24HourPeriod` or `perAuthorization`."""
 
 
 class DataSecrets(BaseModel):
@@ -59,20 +65,25 @@ class Data(BaseModel):
     """The billing address."""
 
     canceled_at: Optional[datetime] = None
+    """When the card was canceled."""
 
     created_at: Optional[datetime] = None
+    """When the card was created."""
 
     expiration_month: Optional[str] = None
+    """Card expiration month."""
 
     expiration_year: Optional[str] = None
+    """Card expiration year."""
 
     last4: Optional[str] = None
-    """The last 4 digits of the card number. Null for pending invitation cards."""
+    """Last four digits of the card number. `null` for pending invitation cards."""
 
     limit: Optional[DataLimit] = None
     """The spending limit configuration."""
 
     name: Optional[str] = None
+    """Card display name."""
 
     object: Literal["card"]
 

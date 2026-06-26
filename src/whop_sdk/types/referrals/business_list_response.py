@@ -10,14 +10,19 @@ __all__ = ["BusinessListResponse", "Account", "EarningsUsd", "VolumeUsd"]
 
 
 class Account(BaseModel):
+    """Referred account."""
+
     id: str
-    """The referred business (a biz\\__ identifier)."""
+    """Referred account ID."""
 
     logo_url: Optional[str] = None
+    """Referred account logo URL."""
 
     route: str
+    """Referred account route."""
 
     title: str
+    """Referred account display name."""
 
 
 class EarningsUsd(BaseModel):
@@ -47,22 +52,28 @@ class VolumeUsd(BaseModel):
 
 class BusinessListResponse(BaseModel):
     id: str
+    """Business referral ID."""
 
     account: Optional[Account] = None
+    """Referred account."""
 
     created_at: datetime
+    """When the business referral was created."""
 
     earnings_usd: EarningsUsd
 
     object: Literal["business_referral"]
 
     payout_percentage: float
-    """The referrer's share of Whop's gross profit, as a fraction (0.3 = 30%)."""
+    """Referrer's share of Whop gross profit, as a fraction (0.3 = 30%)."""
 
     referral_expires_at: Optional[datetime] = None
+    """When the referral expires."""
 
     referral_started_at: Optional[datetime] = None
+    """When the referral became active."""
 
     status: Literal["active", "removed"]
+    """Current referral status."""
 
     volume_usd: VolumeUsd

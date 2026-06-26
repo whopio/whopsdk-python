@@ -95,8 +95,7 @@ class PlansResource(SyncAPIResource):
 
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
-          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
-              for yearly.
+          billing_period: Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
           checkout_styling: Checkout styling overrides for this plan.
 
@@ -107,14 +106,13 @@ class PlansResource(SyncAPIResource):
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked.
+          expiration_days: Access duration in days before the membership expires.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
-              for $10.43).
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
-          internal_notes: Private notes visible only to the business owner. Not shown to customers.
+          internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
@@ -127,25 +125,25 @@ class PlansResource(SyncAPIResource):
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
               account's defaults apply.
 
-          plan_type: The billing type of the plan, such as one_time or renewal.
+          plan_type: Plan billing type, such as `one_time` or `renewal`.
 
           product_id: The unique identifier of the product to attach this plan to.
 
-          release_method: The method used to sell this plan (e.g., buy_now, waitlist).
+          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
 
-          split_pay_required_payments: The number of installment payments required before the subscription pauses.
+          split_pay_required_payments: Installment payments required before the subscription pauses.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
-          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
+          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days before the first charge on a recurring plan.
+          trial_period_days: Free trial duration before the first recurring charge.
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 
@@ -273,8 +271,7 @@ class PlansResource(SyncAPIResource):
         Args:
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
-          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
-              for yearly.
+          billing_period: Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
           checkout_styling: Checkout styling overrides for this plan.
 
@@ -285,14 +282,13 @@ class PlansResource(SyncAPIResource):
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked.
+          expiration_days: Access duration in days before the membership expires.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
-              for $10.43).
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
-          internal_notes: Private notes visible only to the business owner. Not shown to customers.
+          internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
@@ -317,11 +313,11 @@ class PlansResource(SyncAPIResource):
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
 
-          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
+          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days before the first charge on a recurring plan.
+          trial_period_days: Free trial duration before the first recurring charge.
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 
@@ -621,8 +617,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
-          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
-              for yearly.
+          billing_period: Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
           checkout_styling: Checkout styling overrides for this plan.
 
@@ -633,14 +628,13 @@ class AsyncPlansResource(AsyncAPIResource):
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked.
+          expiration_days: Access duration in days before the membership expires.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
-              for $10.43).
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
-          internal_notes: Private notes visible only to the business owner. Not shown to customers.
+          internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
@@ -653,25 +647,25 @@ class AsyncPlansResource(AsyncAPIResource):
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
               account's defaults apply.
 
-          plan_type: The billing type of the plan, such as one_time or renewal.
+          plan_type: Plan billing type, such as `one_time` or `renewal`.
 
           product_id: The unique identifier of the product to attach this plan to.
 
-          release_method: The method used to sell this plan (e.g., buy_now, waitlist).
+          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
 
-          split_pay_required_payments: The number of installment payments required before the subscription pauses.
+          split_pay_required_payments: Installment payments required before the subscription pauses.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
-          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
+          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days before the first charge on a recurring plan.
+          trial_period_days: Free trial duration before the first recurring charge.
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 
@@ -799,8 +793,7 @@ class AsyncPlansResource(AsyncAPIResource):
         Args:
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
-          billing_period: The number of days between recurring charges. For example, 30 for monthly or 365
-              for yearly.
+          billing_period: Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
           checkout_styling: Checkout styling overrides for this plan.
 
@@ -811,14 +804,13 @@ class AsyncPlansResource(AsyncAPIResource):
 
           description: A text description of the plan displayed to customers on the product page.
 
-          expiration_days: The number of days until the membership expires and access is revoked.
+          expiration_days: Access duration in days before the membership expires.
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: The amount charged on the first purchase, in the plan's currency (e.g., 10.43
-              for $10.43).
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
-          internal_notes: Private notes visible only to the business owner. Not shown to customers.
+          internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
           legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
@@ -843,11 +835,11 @@ class AsyncPlansResource(AsyncAPIResource):
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
 
-          three_ds_level: The 3D Secure behavior for this plan. Send null to inherit the account default.
+          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
-          trial_period_days: The number of free trial days before the first charge on a recurring plan.
+          trial_period_days: Free trial duration before the first recurring charge.
 
           unlimited_stock: Whether the plan has unlimited stock. When true, the stock field is ignored.
 

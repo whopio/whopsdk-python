@@ -64,31 +64,31 @@ class FinancialActivityResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FinancialActivityListResponse:
-        """Lists financial activity rows for a ledger account.
-
-        Rows are derived from ledger
-        lines and include typed resource and source objects that clients can use for
-        presentation and navigation. The ledger's owner is passed as exactly one of
-        account*id (a biz* identifier) or user*id (a user* identifier).
+        """
+        Returns a paginated activity feed for one account or user, derived from ledger
+        lines with typed resource and source objects for presentation. Pass exactly one
+        of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
+        Filter by line type, currency, posted timestamp, or settlement date to reconcile
+        a specific window.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
-          available_after: Only include rows whose funds became withdrawable on or after this YYYY-MM-DD
+          available_after: Only include rows whose funds became withdrawable on or after this `YYYY-MM-DD`
               settlement date (UTC), distinct from posted_at. Requires currency.
 
-          available_before: Only include rows whose funds became withdrawable on or before this YYYY-MM-DD
+          available_before: Only include rows whose funds became withdrawable on or before this `YYYY-MM-DD`
               settlement date (UTC). Set equal to available_after for a single day. Requires
               currency.
 
-          currency: Optional currency code filter, for example usd.
+          currency: Optional currency code filter, for example `usd`.
 
           cursor: Cursor returned by the previous page.
 
           limit: Maximum number of rows to return.
 
           line_types: Optional ledger line categories to include. Some categories (for example
-              onchain_deposit, which covers inbound crypto deposits such as MoonPay onramps)
+              `onchain_deposit`, which covers inbound crypto deposits such as MoonPay onramps)
               are only returned when explicitly requested here.
 
           posted_after: Only include rows posted after this ISO 8601 timestamp.
@@ -172,31 +172,31 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FinancialActivityListResponse:
-        """Lists financial activity rows for a ledger account.
-
-        Rows are derived from ledger
-        lines and include typed resource and source objects that clients can use for
-        presentation and navigation. The ledger's owner is passed as exactly one of
-        account*id (a biz* identifier) or user*id (a user* identifier).
+        """
+        Returns a paginated activity feed for one account or user, derived from ledger
+        lines with typed resource and source objects for presentation. Pass exactly one
+        of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
+        Filter by line type, currency, posted timestamp, or settlement date to reconcile
+        a specific window.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
-          available_after: Only include rows whose funds became withdrawable on or after this YYYY-MM-DD
+          available_after: Only include rows whose funds became withdrawable on or after this `YYYY-MM-DD`
               settlement date (UTC), distinct from posted_at. Requires currency.
 
-          available_before: Only include rows whose funds became withdrawable on or before this YYYY-MM-DD
+          available_before: Only include rows whose funds became withdrawable on or before this `YYYY-MM-DD`
               settlement date (UTC). Set equal to available_after for a single day. Requires
               currency.
 
-          currency: Optional currency code filter, for example usd.
+          currency: Optional currency code filter, for example `usd`.
 
           cursor: Cursor returned by the previous page.
 
           limit: Maximum number of rows to return.
 
           line_types: Optional ledger line categories to include. Some categories (for example
-              onchain_deposit, which covers inbound crypto deposits such as MoonPay onramps)
+              `onchain_deposit`, which covers inbound crypto deposits such as MoonPay onramps)
               are only returned when explicitly requested here.
 
           posted_after: Only include rows posted after this ISO 8601 timestamp.

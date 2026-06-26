@@ -5,30 +5,52 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["Plan"]
+__all__ = ["Plan", "CustomField"]
+
+
+class CustomField(BaseModel):
+    """Custom input fields collected on the checkout form."""
+
+    id: str
+    """Custom field ID."""
+
+    field_type: Literal["text"]
+    """Custom field input type."""
+
+    name: str
+    """Field label shown to customer at checkout."""
+
+    order: float
+    """Field position on checkout form."""
+
+    placeholder: Optional[str] = None
+    """Placeholder text shown in empty field."""
+
+    required: bool
+    """Whether the customer must complete this field to check out."""
 
 
 class Plan(BaseModel):
     id: str
-    """The ID of the plan, which will look like plan\\__******\\********"""
+    """Plan ID, prefixed `plan_`."""
 
     account: Optional[object] = None
-    """The account that sells this plan, an object with an id and title.
-
-    Null for standalone invoice plans
-    """
+    """Account that sells this plan; `null` for standalone invoice plans."""
 
     adaptive_pricing_enabled: bool
-    """Whether this plan accepts local currency payments via adaptive pricing"""
+    """Whether this plan accepts local currency payments via adaptive pricing."""
 
     billing_period: Optional[float] = None
-    """The number of days between recurring charges. Null for one-time plans"""
+    """Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+    `null` for one-time plans.
+    """
 
     collect_tax: bool
-    """Whether tax is collected on purchases of this plan"""
+    """Whether tax is collected on purchases of this plan."""
 
     created_at: str
-    """When the plan was created, as an ISO 8601 timestamp"""
+    """When the plan was created, as an ISO 8601 timestamp."""
 
     currency: Literal[
         "usd",
@@ -122,97 +144,82 @@ class Plan(BaseModel):
         "whop_usd",
         "xau",
     ]
-    """The three-letter ISO currency code all prices on this plan are denominated in"""
+    """Three-letter ISO currency code for this plan's prices."""
 
-    custom_fields: List[object]
-    """
-    Custom input fields displayed on the checkout form, objects with id, field_type,
-    name, order, placeholder and required
-    """
+    custom_fields: List[CustomField]
 
     description: Optional[str] = None
-    """A text description of the plan visible to customers"""
+    """Customer-visible plan description."""
 
     expiration_days: Optional[float] = None
-    """The number of days until the membership expires, for expiration-based plans"""
+    """Access duration in days for expiration-based plans."""
 
     initial_price: float
-    """The initial purchase price in the plan's currency"""
+    """Initial purchase price in plan currency."""
 
     internal_notes: Optional[str] = None
-    """Private notes visible only to authorized team members"""
+    """Private notes visible only to authorized team members."""
 
     invoice: Optional[object] = None
-    """The invoice this plan was generated for, an object with an id.
-
-    Null unless the plan was created for an invoice
-    """
+    """Invoice this plan was generated for; `null` unless created for an invoice."""
 
     member_count: Optional[float] = None
-    """The number of active memberships on this plan.
-
-    Only visible to authorized team members
-    """
+    """Active memberships through this plan, when visible to the requester."""
 
     metadata: Optional[object] = None
-    """Custom key-value pairs stored on the plan"""
+    """Custom key-value pairs stored on the plan."""
 
     payment_method_configuration: Optional[object] = None
     """
-    The explicit payment method configuration for the plan, an object with enabled,
-    disabled and include_platform_defaults. Null if the plan uses default settings
+    Payment method configuration (`enabled`, `disabled`,
+    `include_platform_defaults`); `null` when plan uses default settings.
     """
 
     plan_type: Literal["renewal", "one_time"]
     """
-    The billing model for this plan: 'renewal' for recurring subscriptions or
-    'one_time' for single payments
+    Billing model for this plan: `renewal` (recurring) or `one_time` (single
+    payment).
     """
 
     product: Optional[object] = None
-    """The product this plan belongs to, an object with an id and title.
-
-    Null for standalone plans
-    """
+    """Product this plan belongs to; `null` for standalone plans."""
 
     purchase_url: str
-    """The full URL where customers can purchase this plan directly"""
+    """URL where customers can purchase this plan directly."""
 
     release_method: Literal["buy_now", "waitlist"]
-    """The method used to sell this plan, e.g. 'buy_now' or 'waitlist'"""
+    """Sales method for this plan, such as `buy_now` or `waitlist`."""
 
     renewal_price: float
-    """The recurring price charged every billing period in the plan's currency"""
+    """Recurring price charged every billing period."""
 
     split_pay_required_payments: Optional[float] = None
-    """The number of installment payments required before the subscription pauses"""
+    """Installment payments required before the subscription pauses."""
 
     stock: Optional[float] = None
-    """The number of units available for purchase.
+    """Units available for purchase, when visible to the requester."""
 
-    Only visible to authorized team members
-    """
-
-    tax_type: str
-    """How tax is handled for this plan: 'inclusive', 'exclusive', or 'unspecified'"""
+    tax_type: Literal["inclusive", "exclusive", "unspecified"]
+    """How tax is handled for this plan."""
 
     three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
-    """The 3D Secure behavior for this plan.
-
-    Null means the plan inherits the account default
-    """
+    """3D Secure behavior for this plan; `null` inherits account default."""
 
     title: Optional[str] = None
-    """The display name of the plan shown to customers"""
+    """Plan display name shown to customers."""
 
     trial_period_days: Optional[float] = None
-    """The number of free trial days before the first charge on a recurring plan"""
+    """Free trial days before the first renewal charge.
+
+    `null` if no trial is configured or the user has already used a trial for this
+    plan.
+    """
 
     unlimited_stock: bool
-    """Whether the plan has unlimited stock"""
+    """Whether the plan has unlimited stock."""
 
     updated_at: str
-    """When the plan was last updated, as an ISO 8601 timestamp"""
+    """When the plan was last updated, as an ISO 8601 timestamp."""
 
     visibility: Literal["visible", "hidden", "archived", "quick_link"]
-    """Whether the plan is visible to customers or hidden from public view"""
+    """Whether the plan is visible to customers or hidden from public view."""

@@ -73,7 +73,7 @@ class PayoutsResource(SyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          currency: Optional currency code filter, for example usd.
+          currency: Optional currency code filter, for example `usd`.
 
           first: Number of payouts to return from the start of the window.
 
@@ -165,7 +165,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          currency: Optional currency code filter, for example usd.
+          currency: Optional currency code filter, for example `usd`.
 
           first: Number of payouts to return from the start of the window.
 

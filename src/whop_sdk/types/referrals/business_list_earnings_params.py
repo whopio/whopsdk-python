@@ -25,7 +25,7 @@ class BusinessListEarningsParams(TypedDict, total=False):
     order: Literal["asc", "desc"]
     """Sort direction."""
 
-    sort: Literal["created_at", "amount", "payout_at"]
+    sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"]
     """Field to sort earnings by."""
 
     status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"]

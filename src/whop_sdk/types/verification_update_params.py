@@ -10,39 +10,39 @@ __all__ = ["VerificationUpdateParams", "Rfi"]
 
 class VerificationUpdateParams(TypedDict, total=False):
     business_address: Dict[str, object]
-    """The business address."""
+    """Business address to submit for verification."""
 
     business_name: str
-    """The business name."""
+    """Legal business name to submit for verification."""
 
     business_structure: str
-    """The business structure."""
+    """Business entity structure to submit for verification."""
 
     country: str
-    """The country code."""
+    """Country code to submit for verification."""
 
     date_of_birth: str
-    """The date of birth."""
+    """Date of birth to submit for individual verification."""
 
     first_name: str
-    """The first name on the verification."""
+    """First name to submit for individual verification."""
 
     last_name: str
-    """The last name on the verification."""
+    """Last name to submit for individual verification."""
 
     personal_address: Dict[str, object]
-    """The personal address."""
+    """Personal address to submit for individual verification."""
 
     rfis: Iterable[Rfi]
-    """RFI responses.
+    """Responses to outstanding RFIs.
 
-    Each entry must include id and a value, address, or files payload.
+    Each entry must include an RFI ID and a value, address, or files payload.
     """
 
 
 class Rfi(TypedDict, total=False):
     id: Required[str]
-    """The RFI tag (paa\\__\\**)."""
+    """RFI ID being answered."""
 
     address: Dict[str, object]
     """Address payload for address RFIs."""
@@ -51,7 +51,7 @@ class Rfi(TypedDict, total=False):
     """File upload payload for document RFIs."""
 
     value: str
-    """The value for text/date/phone RFIs."""
+    """Answer value for text, date, or phone RFIs."""
 
     value_type: Literal["raw", "vault_token"]
-    """Defaults to raw."""
+    """How the answer value is encoded. Defaults to `raw`."""

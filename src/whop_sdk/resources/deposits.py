@@ -67,11 +67,11 @@ class DepositsResource(SyncAPIResource):
           destination: Destination account ID or wallet address. Object form is supported for
               compatibility.
 
-          amount: Optional amount to deposit.
+          amount: Amount to prefill on hosted deposit page.
 
-          metadata: Arbitrary metadata echoed in the response.
+          metadata: Metadata to include with the deposit response.
 
-          network: Optional destination network override.
+          network: Destination network override.
 
           extra_headers: Send extra headers
 
@@ -181,11 +181,11 @@ class AsyncDepositsResource(AsyncAPIResource):
           destination: Destination account ID or wallet address. Object form is supported for
               compatibility.
 
-          amount: Optional amount to deposit.
+          amount: Amount to prefill on hosted deposit page.
 
-          metadata: Arbitrary metadata echoed in the response.
+          metadata: Metadata to include with the deposit response.
 
-          network: Optional destination network override.
+          network: Destination network override.
 
           extra_headers: Send extra headers
 
