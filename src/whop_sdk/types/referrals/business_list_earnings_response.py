@@ -115,6 +115,7 @@ class BusinessListEarningsResponse(BaseModel):
     receipt: Optional[Receipt] = None
 
     status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"]
+    """Current status of the earning."""
 
     transaction_amount_usd: str
     """The sale amount the commission is calculated from, in USD."""
