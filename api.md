@@ -146,6 +146,20 @@ Methods:
 - <code title="delete /social_accounts/{id}">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/social_account_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_delete_response.py">SocialAccountDeleteResponse</a></code>
 - <code title="get /social_accounts/{id}/posts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">posts</a>(id, \*\*<a href="src/whop_sdk/types/social_account_posts_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_posts_response.py">SocialAccountPostsResponse</a></code>
 
+# Audiences
+
+Types:
+
+```python
+from whop_sdk.types import Audience, AudienceDeleteResponse
+```
+
+Methods:
+
+- <code title="post /audiences">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">create</a>(\*\*<a href="src/whop_sdk/types/audience_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">Audience</a></code>
+- <code title="get /audiences">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">list</a>(\*\*<a href="src/whop_sdk/types/audience_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">SyncCursorPage[Audience]</a></code>
+- <code title="delete /audiences/{audience_id}">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">delete</a>(audience_id) -> <a href="./src/whop_sdk/types/audience_delete_response.py">AudienceDeleteResponse</a></code>
+
 # Companies
 
 Types:

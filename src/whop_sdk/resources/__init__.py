@@ -216,6 +216,14 @@ from .ad_groups import (
     AdGroupsResourceWithStreamingResponse,
     AsyncAdGroupsResourceWithStreamingResponse,
 )
+from .audiences import (
+    AudiencesResource,
+    AsyncAudiencesResource,
+    AudiencesResourceWithRawResponse,
+    AsyncAudiencesResourceWithRawResponse,
+    AudiencesResourceWithStreamingResponse,
+    AsyncAudiencesResourceWithStreamingResponse,
+)
 from .companies import (
     CompaniesResource,
     AsyncCompaniesResource,
@@ -568,6 +576,12 @@ __all__ = [
     "AsyncSocialAccountsResourceWithRawResponse",
     "SocialAccountsResourceWithStreamingResponse",
     "AsyncSocialAccountsResourceWithStreamingResponse",
+    "AudiencesResource",
+    "AsyncAudiencesResource",
+    "AudiencesResourceWithRawResponse",
+    "AsyncAudiencesResourceWithRawResponse",
+    "AudiencesResourceWithStreamingResponse",
+    "AsyncAudiencesResourceWithStreamingResponse",
     "CompaniesResource",
     "AsyncCompaniesResource",
     "CompaniesResourceWithRawResponse",

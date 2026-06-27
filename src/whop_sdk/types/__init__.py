@@ -73,6 +73,7 @@ from .dispute import Dispute as Dispute
 from .webhook import Webhook as Webhook
 from .ad_group import AdGroup as AdGroup
 from .app_type import AppType as AppType
+from .audience import Audience as Audience
 from .affiliate import Affiliate as Affiliate
 from .dm_member import DmMember as DmMember
 from .languages import Languages as Languages
@@ -164,6 +165,7 @@ from .topup_create_params import TopupCreateParams as TopupCreateParams
 from .verification_status import VerificationStatus as VerificationStatus
 from .webhook_list_params import WebhookListParams as WebhookListParams
 from .ad_group_list_params import AdGroupListParams as AdGroupListParams
+from .audience_list_params import AudienceListParams as AudienceListParams
 from .bounty_create_params import BountyCreateParams as BountyCreateParams
 from .bounty_list_response import BountyListResponse as BountyListResponse
 from .card_create_response import CardCreateResponse as CardCreateResponse
@@ -221,6 +223,7 @@ from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
 from .ad_group_create_params import AdGroupCreateParams as AdGroupCreateParams
 from .ad_group_list_response import AdGroupListResponse as AdGroupListResponse
 from .ad_group_update_params import AdGroupUpdateParams as AdGroupUpdateParams
+from .audience_create_params import AudienceCreateParams as AudienceCreateParams
 from .bounty_create_response import BountyCreateResponse as BountyCreateResponse
 from .card_retrieve_response import CardRetrieveResponse as CardRetrieveResponse
 from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
@@ -261,6 +264,7 @@ from .verification_error_code import VerificationErrorCode as VerificationErrorC
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse
+from .audience_delete_response import AudienceDeleteResponse as AudienceDeleteResponse
 from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
 from .conversion_create_params import ConversionCreateParams as ConversionCreateParams

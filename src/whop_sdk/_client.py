@@ -63,6 +63,7 @@ if TYPE_CHECKING:
         products,
         webhooks,
         ad_groups,
+        audiences,
         companies,
         reactions,
         referrals,
@@ -131,6 +132,7 @@ if TYPE_CHECKING:
     from .resources.products import ProductsResource, AsyncProductsResource
     from .resources.webhooks import WebhooksResource, AsyncWebhooksResource
     from .resources.ad_groups import AdGroupsResource, AsyncAdGroupsResource
+    from .resources.audiences import AudiencesResource, AsyncAudiencesResource
     from .resources.companies import CompaniesResource, AsyncCompaniesResource
     from .resources.reactions import ReactionsResource, AsyncReactionsResource
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
@@ -300,6 +302,12 @@ class Whop(SyncAPIClient):
         from .resources.social_accounts import SocialAccountsResource
 
         return SocialAccountsResource(self)
+
+    @cached_property
+    def audiences(self) -> AudiencesResource:
+        from .resources.audiences import AudiencesResource
+
+        return AudiencesResource(self)
 
     @cached_property
     def companies(self) -> CompaniesResource:
@@ -963,6 +971,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncSocialAccountsResource(self)
 
     @cached_property
+    def audiences(self) -> AsyncAudiencesResource:
+        from .resources.audiences import AsyncAudiencesResource
+
+        return AsyncAudiencesResource(self)
+
+    @cached_property
     def companies(self) -> AsyncCompaniesResource:
         """Companies"""
         from .resources.companies import AsyncCompaniesResource
@@ -1544,6 +1558,12 @@ class WhopWithRawResponse:
         return SocialAccountsResourceWithRawResponse(self._client.social_accounts)
 
     @cached_property
+    def audiences(self) -> audiences.AudiencesResourceWithRawResponse:
+        from .resources.audiences import AudiencesResourceWithRawResponse
+
+        return AudiencesResourceWithRawResponse(self._client.audiences)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithRawResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithRawResponse
@@ -2005,6 +2025,12 @@ class AsyncWhopWithRawResponse:
         from .resources.social_accounts import AsyncSocialAccountsResourceWithRawResponse
 
         return AsyncSocialAccountsResourceWithRawResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AsyncAudiencesResourceWithRawResponse:
+        from .resources.audiences import AsyncAudiencesResourceWithRawResponse
+
+        return AsyncAudiencesResourceWithRawResponse(self._client.audiences)
 
     @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithRawResponse:
@@ -2472,6 +2498,12 @@ class WhopWithStreamedResponse:
         return SocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
 
     @cached_property
+    def audiences(self) -> audiences.AudiencesResourceWithStreamingResponse:
+        from .resources.audiences import AudiencesResourceWithStreamingResponse
+
+        return AudiencesResourceWithStreamingResponse(self._client.audiences)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithStreamingResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithStreamingResponse
@@ -2935,6 +2967,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.social_accounts import AsyncSocialAccountsResourceWithStreamingResponse
 
         return AsyncSocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AsyncAudiencesResourceWithStreamingResponse:
+        from .resources.audiences import AsyncAudiencesResourceWithStreamingResponse
+
+        return AsyncAudiencesResourceWithStreamingResponse(self._client.audiences)
 
     @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithStreamingResponse:
