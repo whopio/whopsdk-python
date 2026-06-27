@@ -28,6 +28,9 @@ class AdCampaign(BaseModel):
     id: str
     """Unique identifier for the ad campaign."""
 
+    added_to_carts: float
+    """Whop pixel-attributed add-to-cart events, last-click."""
+
     bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
     """The bidding strategy the campaign uses."""
 
@@ -47,10 +50,34 @@ class AdCampaign(BaseModel):
     """Clicks divided by impressions, between 0 and 1."""
 
     clicks: float
-    """The number of clicks for all ads within this campaign."""
+    """The number of clicks."""
+
+    completed_registrations: float
+    """Whop pixel-attributed complete-registration events, last-click."""
+
+    contacts: float
+    """Whop pixel-attributed contact events, last-click."""
+
+    cost_per_added_to_cart: Optional[float] = None
+    """
+    Spend divided by attributed add-to-cart events; null when they are not the goal
+    and none are attributed.
+    """
 
     cost_per_click: float
     """Spend divided by clicks; 0 when there are no clicks."""
+
+    cost_per_completed_registration: Optional[float] = None
+    """
+    Spend divided by attributed complete-registration events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_contact: Optional[float] = None
+    """
+    Spend divided by attributed contact events; null when contacts are not the goal
+    and none are attributed.
+    """
 
     cost_per_lead: Optional[float] = None
     """
@@ -68,10 +95,37 @@ class AdCampaign(BaseModel):
     """
 
     cost_per_result: Optional[float] = None
-    """Spend divided by results; null when nothing is being optimized for."""
+    """
+    Spend divided by Whop pixel-attributed results; null when nothing
+    Whop-attributable is being optimized for.
+    """
+
+    cost_per_schedule: Optional[float] = None
+    """
+    Spend divided by attributed schedule events; null when schedules are not the
+    goal and none are attributed.
+    """
+
+    cost_per_submitted_application: Optional[float] = None
+    """
+    Spend divided by attributed submit-application events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_viewed_content: Optional[float] = None
+    """
+    Spend divided by attributed view-content events; null when they are not the goal
+    and none are attributed.
+    """
 
     created_at: str
     """When the campaign was created, as an ISO 8601 timestamp."""
+
+    custom_conversions: float
+    """
+    Whop pixel-attributed custom (merchant-defined) conversion events, last-click,
+    across all custom event names.
+    """
 
     frequency: Optional[float] = None
     """Platform-reported impressions divided by reach."""
@@ -104,10 +158,13 @@ class AdCampaign(BaseModel):
     """Whop pixel-attributed purchases, last-click."""
 
     reach: float
-    """The number of unique people who saw an ad."""
+    """The number of unique people who saw this."""
 
     return_on_ad_spend: float
     """Purchase value divided by spend; 0 when there is no spend."""
+
+    schedules: float
+    """Whop pixel-attributed schedule events, last-click."""
 
     special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]]
 
@@ -120,6 +177,9 @@ class AdCampaign(BaseModel):
     status: Literal["draft", "active", "paused", "payment_failed"]
     """The lifecycle status of the ad campaign."""
 
+    submitted_applications: float
+    """Whop pixel-attributed submit-application events, last-click."""
+
     title: str
     """The title of the ad campaign."""
 
@@ -131,3 +191,6 @@ class AdCampaign(BaseModel):
 
     updated_at: str
     """When the campaign was last updated, as an ISO 8601 timestamp."""
+
+    viewed_contents: float
+    """Whop pixel-attributed view-content events, last-click."""

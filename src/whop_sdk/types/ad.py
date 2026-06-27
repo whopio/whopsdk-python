@@ -34,6 +34,9 @@ class Ad(BaseModel):
     ad_group: object
     """The ad group this ad belongs to, an object with an id."""
 
+    added_to_carts: float
+    """Whop pixel-attributed add-to-cart events, last-click."""
+
     call_to_action: Optional[
         Literal[
             "learn_more",
@@ -77,8 +80,32 @@ class Ad(BaseModel):
     clicks: float
     """The number of clicks."""
 
+    completed_registrations: float
+    """Whop pixel-attributed complete-registration events, last-click."""
+
+    contacts: float
+    """Whop pixel-attributed contact events, last-click."""
+
+    cost_per_added_to_cart: Optional[float] = None
+    """
+    Spend divided by attributed add-to-cart events; null when they are not the goal
+    and none are attributed.
+    """
+
     cost_per_click: float
     """Spend divided by clicks; 0 when there are no clicks."""
+
+    cost_per_completed_registration: Optional[float] = None
+    """
+    Spend divided by attributed complete-registration events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_contact: Optional[float] = None
+    """
+    Spend divided by attributed contact events; null when contacts are not the goal
+    and none are attributed.
+    """
 
     cost_per_lead: Optional[float] = None
     """
@@ -95,10 +122,34 @@ class Ad(BaseModel):
     none are attributed.
     """
 
+    cost_per_schedule: Optional[float] = None
+    """
+    Spend divided by attributed schedule events; null when schedules are not the
+    goal and none are attributed.
+    """
+
+    cost_per_submitted_application: Optional[float] = None
+    """
+    Spend divided by attributed submit-application events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_viewed_content: Optional[float] = None
+    """
+    Spend divided by attributed view-content events; null when they are not the goal
+    and none are attributed.
+    """
+
     created_at: str
     """When the ad was created, as an ISO 8601 timestamp."""
 
     creatives: List[object]
+
+    custom_conversions: float
+    """
+    Whop pixel-attributed custom (merchant-defined) conversion events, last-click,
+    across all custom event names.
+    """
 
     descriptions: List[str]
 
@@ -129,6 +180,9 @@ class Ad(BaseModel):
     return_on_ad_spend: float
     """Purchase value divided by spend; 0 when there is no spend."""
 
+    schedules: float
+    """Whop pixel-attributed schedule events, last-click."""
+
     social_accounts: List[object]
 
     spend: float
@@ -139,6 +193,9 @@ class Ad(BaseModel):
 
     status: Literal["active", "paused", "in_review", "rejected"]
     """The delivery status of the ad."""
+
+    submitted_applications: float
+    """Whop pixel-attributed submit-application events, last-click."""
 
     title: Optional[str] = None
     """The display title of the ad. Falls back to the creative set caption when unset."""
@@ -157,3 +214,6 @@ class Ad(BaseModel):
 
     url_parameters: object
     """Query parameters appended to the URL, as a string-to-string map."""
+
+    viewed_contents: float
+    """Whop pixel-attributed view-content events, last-click."""

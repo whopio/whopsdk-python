@@ -31,6 +31,9 @@ class AdGroup(BaseModel):
     ad_campaign: object
     """The ad campaign this ad group belongs to, an object with an id."""
 
+    added_to_carts: float
+    """Whop pixel-attributed add-to-cart events, last-click."""
+
     audience: object
     """Demographic targeting: automatic (Advantage+), age range, gender."""
 
@@ -48,6 +51,12 @@ class AdGroup(BaseModel):
 
     clicks: float
     """The number of clicks."""
+
+    completed_registrations: float
+    """Whop pixel-attributed complete-registration events, last-click."""
+
+    contacts: float
+    """Whop pixel-attributed contact events, last-click."""
 
     conversion_event: Union[
         Literal[
@@ -79,8 +88,26 @@ class AdGroup(BaseModel):
     conversion_location: Optional[Literal["website"]] = None
     """Where conversions happen."""
 
+    cost_per_added_to_cart: Optional[float] = None
+    """
+    Spend divided by attributed add-to-cart events; null when they are not the goal
+    and none are attributed.
+    """
+
     cost_per_click: float
     """Spend divided by clicks; 0 when there are no clicks."""
+
+    cost_per_completed_registration: Optional[float] = None
+    """
+    Spend divided by attributed complete-registration events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_contact: Optional[float] = None
+    """
+    Spend divided by attributed contact events; null when contacts are not the goal
+    and none are attributed.
+    """
 
     cost_per_lead: Optional[float] = None
     """
@@ -97,8 +124,32 @@ class AdGroup(BaseModel):
     none are attributed.
     """
 
+    cost_per_schedule: Optional[float] = None
+    """
+    Spend divided by attributed schedule events; null when schedules are not the
+    goal and none are attributed.
+    """
+
+    cost_per_submitted_application: Optional[float] = None
+    """
+    Spend divided by attributed submit-application events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_viewed_content: Optional[float] = None
+    """
+    Spend divided by attributed view-content events; null when they are not the goal
+    and none are attributed.
+    """
+
     created_at: str
     """When the ad group was created, ISO 8601."""
+
+    custom_conversions: float
+    """
+    Whop pixel-attributed custom (merchant-defined) conversion events, last-click,
+    across all custom event names.
+    """
 
     desired_cost_per_result: Optional[float] = None
     """Target/cap cost for average_target / maximum_target."""
@@ -146,6 +197,9 @@ class AdGroup(BaseModel):
     return_on_ad_spend: float
     """Purchase value divided by spend; 0 when there is no spend."""
 
+    schedules: float
+    """Whop pixel-attributed schedule events, last-click."""
+
     spend: float
     """The amount charged, in spend_currency."""
 
@@ -158,6 +212,9 @@ class AdGroup(BaseModel):
     status: Literal["active", "paused", "rejected"]
     """Delivery status of the ad group."""
 
+    submitted_applications: float
+    """Whop pixel-attributed submit-application events, last-click."""
+
     title: Optional[str] = None
     """The display title of the ad group."""
 
@@ -169,3 +226,6 @@ class AdGroup(BaseModel):
 
     updated_at: str
     """When the ad group was last updated, ISO 8601."""
+
+    viewed_contents: float
+    """Whop pixel-attributed view-content events, last-click."""
