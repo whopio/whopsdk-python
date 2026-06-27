@@ -14,6 +14,9 @@ class BusinessListParams(TypedDict, total=False):
     before: str
     """Cursor to fetch the page before (from page_info.start_cursor)."""
 
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
+
     first: int
     """Number of business referrals to return from the start of the window."""
 
@@ -26,11 +29,8 @@ class BusinessListParams(TypedDict, total=False):
     last: int
     """Number of business referrals to return from the end of the window."""
 
-    order: Literal["asc", "desc"]
-    """Sort direction."""
-
-    sort: Literal["created_at", "referral_started_at", "referral_expires_at", "payout_percentage"]
-    """Field to sort business referrals by."""
+    order: Literal["created_at", "referral_started_at", "referral_expires_at", "payout_percentage"]
+    """The field to sort business referrals by."""
 
     status: Literal["active", "removed"]
     """Filter by referral status."""

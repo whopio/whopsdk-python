@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["CheckoutConfigurationListParams"]
 
@@ -20,11 +20,14 @@ class CheckoutConfigurationListParams(TypedDict, total=False):
     created_before: int
     """Filter to configurations created before this Unix timestamp."""
 
-    direction: str
-    """Sort direction: asc or desc. Defaults to desc."""
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
 
     first: int
     """Number of results to return (forward pagination)."""
+
+    order: Literal["created_at"]
+    """The field to sort checkout configurations by."""
 
     plan_id: str
     """Filter by plan ID."""

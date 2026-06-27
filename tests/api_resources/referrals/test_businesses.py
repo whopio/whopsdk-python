@@ -76,11 +76,11 @@ class TestBusinesses:
         business = client.referrals.businesses.list(
             after="after",
             before="before",
+            direction="asc",
             first=100,
             has_earnings=True,
             last=100,
-            order="asc",
-            sort="created_at",
+            order="created_at",
             status="active",
         )
         assert_matches_type(SyncCursorPage[BusinessListResponse], business, path=["response"])
@@ -119,11 +119,11 @@ class TestBusinesses:
         business = client.referrals.businesses.list_earnings(
             after="after",
             before="before",
+            direction="asc",
             first=100,
             include="receipt_fees",
             last=100,
-            order="asc",
-            sort="created_at",
+            order="created_at",
             status="awaiting_settlement",
         )
         assert_matches_type(SyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
@@ -210,11 +210,11 @@ class TestAsyncBusinesses:
         business = await async_client.referrals.businesses.list(
             after="after",
             before="before",
+            direction="asc",
             first=100,
             has_earnings=True,
             last=100,
-            order="asc",
-            sort="created_at",
+            order="created_at",
             status="active",
         )
         assert_matches_type(AsyncCursorPage[BusinessListResponse], business, path=["response"])
@@ -253,11 +253,11 @@ class TestAsyncBusinesses:
         business = await async_client.referrals.businesses.list_earnings(
             after="after",
             before="before",
+            direction="asc",
             first=100,
             include="receipt_fees",
             last=100,
-            order="asc",
-            sort="created_at",
+            order="created_at",
             status="awaiting_settlement",
         )
         assert_matches_type(AsyncCursorPage[BusinessListEarningsResponse], business, path=["response"])

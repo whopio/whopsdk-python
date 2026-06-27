@@ -21,11 +21,17 @@ class SocialAccountListParams(TypedDict, total=False):
     before: str
     """Cursor to fetch the page before (from page_info.start_cursor)."""
 
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
+
     first: int
     """The number of social accounts to return."""
 
     last: int
     """The number of social accounts to return from the end of the range."""
+
+    order: Literal["display_order", "created_at"]
+    """The field to sort social accounts by."""
 
     platform: Literal["x", "instagram", "youtube", "tiktok", "facebook"]
     """Only return social accounts for the platform that is specified."""

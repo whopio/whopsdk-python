@@ -33,11 +33,11 @@ class TestEarnings:
             id="id",
             after="after",
             before="before",
+            direction="asc",
             first=100,
             include="receipt_fees",
             last=100,
-            order="asc",
-            sort="created_at",
+            order="created_at",
             status="awaiting_settlement",
         )
         assert_matches_type(SyncCursorPage[EarningListResponse], earning, path=["response"])
@@ -97,11 +97,11 @@ class TestAsyncEarnings:
             id="id",
             after="after",
             before="before",
+            direction="asc",
             first=100,
             include="receipt_fees",
             last=100,
-            order="asc",
-            sort="created_at",
+            order="created_at",
             status="awaiting_settlement",
         )
         assert_matches_type(AsyncCursorPage[EarningListResponse], earning, path=["response"])

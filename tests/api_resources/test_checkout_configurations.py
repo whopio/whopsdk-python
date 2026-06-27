@@ -155,8 +155,9 @@ class TestCheckoutConfigurations:
             after="after",
             created_after=0,
             created_before=0,
-            direction="direction",
+            direction="asc",
             first=0,
+            order="created_at",
             plan_id="plan_id",
         )
         assert_matches_type(
@@ -374,8 +375,9 @@ class TestAsyncCheckoutConfigurations:
             after="after",
             created_after=0,
             created_before=0,
-            direction="direction",
+            direction="asc",
             first=0,
+            order="created_at",
             plan_id="plan_id",
         )
         assert_matches_type(

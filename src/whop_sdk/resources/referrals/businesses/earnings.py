@@ -50,11 +50,11 @@ class EarningsResource(SyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
+        order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -68,12 +68,12 @@ class EarningsResource(SyncAPIResource):
         recent first.
 
         Args:
+          direction: Sort direction.
+
           include: Comma-separated extras to embed. Supported: receipt_fees (adds amount_after_fees
               and the receipt_fees breakdown).
 
-          order: Sort direction.
-
-          sort: Field to sort earnings by.
+          order: The field to sort earnings by.
 
           status: Filter by earning status.
 
@@ -99,11 +99,11 @@ class EarningsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "include": include,
                         "last": last,
                         "order": order,
-                        "sort": sort,
                         "status": status,
                     },
                     earning_list_params.EarningListParams,
@@ -139,11 +139,11 @@ class AsyncEarningsResource(AsyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
+        order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -157,12 +157,12 @@ class AsyncEarningsResource(AsyncAPIResource):
         recent first.
 
         Args:
+          direction: Sort direction.
+
           include: Comma-separated extras to embed. Supported: receipt_fees (adds amount_after_fees
               and the receipt_fees breakdown).
 
-          order: Sort direction.
-
-          sort: Field to sort earnings by.
+          order: The field to sort earnings by.
 
           status: Filter by earning status.
 
@@ -188,11 +188,11 @@ class AsyncEarningsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "include": include,
                         "last": last,
                         "order": order,
-                        "sort": sort,
                         "status": status,
                     },
                     earning_list_params.EarningListParams,

@@ -188,8 +188,10 @@ class TestAccounts:
         account = client.accounts.list(
             after="after",
             before="before",
+            direction="asc",
             first=0,
             last=0,
+            order="created_at",
         )
         assert_matches_type(SyncCursorPage[Account], account, path=["response"])
 
@@ -419,8 +421,10 @@ class TestAsyncAccounts:
         account = await async_client.accounts.list(
             after="after",
             before="before",
+            direction="asc",
             first=0,
             last=0,
+            order="created_at",
         )
         assert_matches_type(AsyncCursorPage[Account], account, path=["response"])
 

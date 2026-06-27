@@ -164,8 +164,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         after: str | Omit = omit,
         created_after: int | Omit = omit,
         created_before: int | Omit = omit,
-        direction: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -186,9 +187,11 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           created_before: Filter to configurations created before this Unix timestamp.
 
-          direction: Sort direction: asc or desc. Defaults to desc.
+          direction: Sort direction.
 
           first: Number of results to return (forward pagination).
+
+          order: The field to sort checkout configurations by.
 
           plan_id: Filter by plan ID.
 
@@ -216,6 +219,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "order": order,
                         "plan_id": plan_id,
                     },
                     checkout_configuration_list_params.CheckoutConfigurationListParams,
@@ -396,8 +400,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         after: str | Omit = omit,
         created_after: int | Omit = omit,
         created_before: int | Omit = omit,
-        direction: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -418,9 +423,11 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           created_before: Filter to configurations created before this Unix timestamp.
 
-          direction: Sort direction: asc or desc. Defaults to desc.
+          direction: Sort direction.
 
           first: Number of results to return (forward pagination).
+
+          order: The field to sort checkout configurations by.
 
           plan_id: Filter by plan ID.
 
@@ -448,6 +455,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "order": order,
                         "plan_id": plan_id,
                     },
                     checkout_configuration_list_params.CheckoutConfigurationListParams,

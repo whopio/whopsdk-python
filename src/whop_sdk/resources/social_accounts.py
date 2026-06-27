@@ -118,8 +118,10 @@ class SocialAccountsResource(SyncAPIResource):
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["display_order", "created_at"] | Omit = omit,
         platform: Literal["x", "instagram", "youtube", "tiktok", "facebook"] | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
         user_id: str | Omit = omit,
@@ -145,9 +147,13 @@ class SocialAccountsResource(SyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
+          direction: Sort direction.
+
           first: The number of social accounts to return.
 
           last: The number of social accounts to return from the end of the range.
+
+          order: The field to sort social accounts by.
 
           platform: Only return social accounts for the platform that is specified.
 
@@ -179,8 +185,10 @@ class SocialAccountsResource(SyncAPIResource):
                         "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "platform": platform,
                         "scopes": scopes,
                         "user_id": user_id,
@@ -390,8 +398,10 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["display_order", "created_at"] | Omit = omit,
         platform: Literal["x", "instagram", "youtube", "tiktok", "facebook"] | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
         user_id: str | Omit = omit,
@@ -417,9 +427,13 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
+          direction: Sort direction.
+
           first: The number of social accounts to return.
 
           last: The number of social accounts to return from the end of the range.
+
+          order: The field to sort social accounts by.
 
           platform: Only return social accounts for the platform that is specified.
 
@@ -451,8 +465,10 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
                         "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "platform": platform,
                         "scopes": scopes,
                         "user_id": user_id,

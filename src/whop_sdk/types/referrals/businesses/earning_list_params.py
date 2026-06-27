@@ -12,6 +12,9 @@ class EarningListParams(TypedDict, total=False):
 
     before: str
 
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
+
     first: int
 
     include: Literal["receipt_fees"]
@@ -22,11 +25,8 @@ class EarningListParams(TypedDict, total=False):
 
     last: int
 
-    order: Literal["asc", "desc"]
-    """Sort direction."""
-
-    sort: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"]
-    """Field to sort earnings by."""
+    order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"]
+    """The field to sort earnings by."""
 
     status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"]
     """Filter by earning status."""

@@ -197,6 +197,16 @@ class TestVerifications:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_list_with_all_params(self, client: Whop) -> None:
+        verification = client.verifications.list(
+            account_id="account_id",
+            direction="asc",
+            order="updated_at",
+        )
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.verifications.with_raw_response.list(
             account_id="account_id",
@@ -438,6 +448,16 @@ class TestAsyncVerifications:
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         verification = await async_client.verifications.list(
             account_id="account_id",
+        )
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
+        verification = await async_client.verifications.list(
+            account_id="account_id",
+            direction="asc",
+            order="updated_at",
         )
         assert_matches_type(VerificationListResponse, verification, path=["response"])
 

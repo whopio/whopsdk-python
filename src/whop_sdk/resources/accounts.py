@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -287,8 +288,10 @@ class AccountsResource(SyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -307,9 +310,13 @@ class AccountsResource(SyncAPIResource):
 
           before: A cursor; returns accounts before this position.
 
+          direction: Sort direction.
+
           first: The number of accounts to return (default 10, max 50).
 
           last: The number of accounts to return from the end of the range.
+
+          order: The field to sort accounts by.
 
           extra_headers: Send extra headers
 
@@ -331,8 +338,10 @@ class AccountsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                     },
                     account_list_params.AccountListParams,
                 ),
@@ -626,8 +635,10 @@ class AsyncAccountsResource(AsyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -646,9 +657,13 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           before: A cursor; returns accounts before this position.
 
+          direction: Sort direction.
+
           first: The number of accounts to return (default 10, max 50).
 
           last: The number of accounts to return from the end of the range.
+
+          order: The field to sort accounts by.
 
           extra_headers: Send extra headers
 
@@ -670,8 +685,10 @@ class AsyncAccountsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                     },
                     account_list_params.AccountListParams,
                 ),
