@@ -80,37 +80,40 @@ class VerificationsResource(SyncAPIResource):
         Args:
           account_id: The account ID to verify (biz\\__ tag).
 
-          address: Address to prefill in provider session.
+          address: Optional pre-fill claim. Address (line1, city, state, postal_code).
 
-          business_name: Legal business name to prefill in provider session.
+          business_name: Optional pre-fill claim for businesses.
 
-          business_structure: Business entity structure, such as `llc` or `corporation`.
+          business_structure: Optional. Business structure (e.g. llc, corporation).
 
-          business_website: Business website URL for account verifications. Stored on the account and used
-              when provisioning the payout account. Whop store pages are rejected.
+          business_website: Optional. Business website URL. Accepted for both individual and business
+              verifications on company accounts; persisted to the account's metadata and used
+              to provision the payout account on approval. Whop store pages are rejected.
 
-          country: Country code for provider session. For businesses, use the country of
+          country: Optional pre-fill claim. Country code; for businesses, the country of
               incorporation.
 
-          date_of_birth: Date of birth to prefill in provider session. Approved values come from the
-              provider.
+          date_of_birth: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          first_name: First name to prefill in provider session. Approved values come from the
-              provider.
+          first_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          kind: Verification profile type. Defaults to `individual`.
+          kind: The verification type. Defaults to individual.
 
-          last_name: Last name to prefill in provider session. Approved values come from the
-              provider.
+          last_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          phone: Phone number to prefill in provider session.
+          phone: Optional pre-fill claim — phone number.
 
-          place_of_incorporation: State or region of incorporation for business verification.
+          place_of_incorporation: Optional. Place of incorporation (state/region); maps to the business address
+              state.
 
           restart: Whether to restart an in-flight verification.
 
-          tax_identification_number: Tax ID for verification, such as an SSN for individuals or EIN for businesses.
-              Tokenized in transit and stored only on the profile.
+          tax_identification_number: Optional. Tax identification number — SSN for individuals, EIN for businesses.
+              Tokenized in transit, never stored raw; stored on the profile so the payout
+              account, provisioned on approval, doesn't raise a tax-id RFI.
 
           extra_headers: Send extra headers
 
@@ -195,7 +198,7 @@ class VerificationsResource(SyncAPIResource):
         first_name: str | Omit = omit,
         last_name: str | Omit = omit,
         personal_address: Dict[str, object] | Omit = omit,
-        rfis: Iterable[verification_update_params.Rfi] | Omit = omit,
+        requested_information: Iterable[verification_update_params.RequestedInformation] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,23 +211,23 @@ class VerificationsResource(SyncAPIResource):
         RFIs.
 
         Args:
-          business_address: Business address to submit for verification.
+          business_address: The business address.
 
-          business_name: Legal business name to submit for verification.
+          business_name: The business name.
 
-          business_structure: Business entity structure to submit for verification.
+          business_structure: The business structure.
 
-          country: Country code to submit for verification.
+          country: The country code.
 
-          date_of_birth: Date of birth to submit for individual verification.
+          date_of_birth: The date of birth.
 
-          first_name: First name to submit for individual verification.
+          first_name: The first name on the verification.
 
-          last_name: Last name to submit for individual verification.
+          last_name: The last name on the verification.
 
-          personal_address: Personal address to submit for individual verification.
+          personal_address: The personal address.
 
-          rfis: Responses to outstanding RFIs. Each entry must include an RFI ID and a value,
+          requested_information: Answers to requested information. Each entry must include id and a value,
               address, or files payload.
 
           extra_headers: Send extra headers
@@ -249,7 +252,7 @@ class VerificationsResource(SyncAPIResource):
                     "first_name": first_name,
                     "last_name": last_name,
                     "personal_address": personal_address,
-                    "rfis": rfis,
+                    "requested_information": requested_information,
                 },
                 verification_update_params.VerificationUpdateParams,
             ),
@@ -382,37 +385,40 @@ class AsyncVerificationsResource(AsyncAPIResource):
         Args:
           account_id: The account ID to verify (biz\\__ tag).
 
-          address: Address to prefill in provider session.
+          address: Optional pre-fill claim. Address (line1, city, state, postal_code).
 
-          business_name: Legal business name to prefill in provider session.
+          business_name: Optional pre-fill claim for businesses.
 
-          business_structure: Business entity structure, such as `llc` or `corporation`.
+          business_structure: Optional. Business structure (e.g. llc, corporation).
 
-          business_website: Business website URL for account verifications. Stored on the account and used
-              when provisioning the payout account. Whop store pages are rejected.
+          business_website: Optional. Business website URL. Accepted for both individual and business
+              verifications on company accounts; persisted to the account's metadata and used
+              to provision the payout account on approval. Whop store pages are rejected.
 
-          country: Country code for provider session. For businesses, use the country of
+          country: Optional pre-fill claim. Country code; for businesses, the country of
               incorporation.
 
-          date_of_birth: Date of birth to prefill in provider session. Approved values come from the
-              provider.
+          date_of_birth: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          first_name: First name to prefill in provider session. Approved values come from the
-              provider.
+          first_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          kind: Verification profile type. Defaults to `individual`.
+          kind: The verification type. Defaults to individual.
 
-          last_name: Last name to prefill in provider session. Approved values come from the
-              provider.
+          last_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
+              Sumsub on approval.
 
-          phone: Phone number to prefill in provider session.
+          phone: Optional pre-fill claim — phone number.
 
-          place_of_incorporation: State or region of incorporation for business verification.
+          place_of_incorporation: Optional. Place of incorporation (state/region); maps to the business address
+              state.
 
           restart: Whether to restart an in-flight verification.
 
-          tax_identification_number: Tax ID for verification, such as an SSN for individuals or EIN for businesses.
-              Tokenized in transit and stored only on the profile.
+          tax_identification_number: Optional. Tax identification number — SSN for individuals, EIN for businesses.
+              Tokenized in transit, never stored raw; stored on the profile so the payout
+              account, provisioned on approval, doesn't raise a tax-id RFI.
 
           extra_headers: Send extra headers
 
@@ -499,7 +505,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         first_name: str | Omit = omit,
         last_name: str | Omit = omit,
         personal_address: Dict[str, object] | Omit = omit,
-        rfis: Iterable[verification_update_params.Rfi] | Omit = omit,
+        requested_information: Iterable[verification_update_params.RequestedInformation] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -512,23 +518,23 @@ class AsyncVerificationsResource(AsyncAPIResource):
         RFIs.
 
         Args:
-          business_address: Business address to submit for verification.
+          business_address: The business address.
 
-          business_name: Legal business name to submit for verification.
+          business_name: The business name.
 
-          business_structure: Business entity structure to submit for verification.
+          business_structure: The business structure.
 
-          country: Country code to submit for verification.
+          country: The country code.
 
-          date_of_birth: Date of birth to submit for individual verification.
+          date_of_birth: The date of birth.
 
-          first_name: First name to submit for individual verification.
+          first_name: The first name on the verification.
 
-          last_name: Last name to submit for individual verification.
+          last_name: The last name on the verification.
 
-          personal_address: Personal address to submit for individual verification.
+          personal_address: The personal address.
 
-          rfis: Responses to outstanding RFIs. Each entry must include an RFI ID and a value,
+          requested_information: Answers to requested information. Each entry must include id and a value,
               address, or files payload.
 
           extra_headers: Send extra headers
@@ -553,7 +559,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
                     "first_name": first_name,
                     "last_name": last_name,
                     "personal_address": personal_address,
-                    "rfis": rfis,
+                    "requested_information": requested_information,
                 },
                 verification_update_params.VerificationUpdateParams,
             ),

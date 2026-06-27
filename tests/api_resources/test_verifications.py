@@ -141,7 +141,7 @@ class TestVerifications:
             first_name="first_name",
             last_name="last_name",
             personal_address={"foo": "bar"},
-            rfis=[
+            requested_information=[
                 {
                     "id": "id",
                     "address": {"foo": "bar"},
@@ -387,7 +387,7 @@ class TestAsyncVerifications:
             first_name="first_name",
             last_name="last_name",
             personal_address={"foo": "bar"},
-            rfis=[
+            requested_information=[
                 {
                     "id": "id",
                     "address": {"foo": "bar"},

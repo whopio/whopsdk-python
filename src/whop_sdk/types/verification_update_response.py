@@ -5,88 +5,91 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["VerificationUpdateResponse", "Rfi", "RfiRequestedFile"]
+__all__ = ["VerificationUpdateResponse", "RequestedInformation", "RequestedInformationRequestedFile"]
 
 
-class RfiRequestedFile(BaseModel):
+class RequestedInformationRequestedFile(BaseModel):
     category: Optional[str] = None
-    """Provider document category."""
+    """
+    Identifier to send back with the uploaded file so it routes correctly; null for
+    a generic upload.
+    """
 
     is_optional: Optional[bool] = None
-    """Whether this document can be omitted."""
+    """Whether this slot can be left empty."""
 
     kind: Optional[str] = None
-    """Document kind to upload when answering the RFI."""
+    """Provider-specific document kind, when applicable."""
+
+    label: Optional[str] = None
+    """Label for this upload slot (e.g. "Front of ID Document")."""
+
+    multiple: Optional[bool] = None
+    """Whether this slot accepts more than one file."""
 
 
-class Rfi(BaseModel):
+class RequestedInformation(BaseModel):
     id: Optional[str] = None
-    """RFI ID to send when answering this request."""
-
-    created_at: Optional[str] = None
-    """When the RFI was created."""
+    """The requested information item id (inrqi\\__\\**). Use this when answering."""
 
     description: Optional[str] = None
-    """Request text from verification provider."""
+    """Additional guidance for the field beyond the label."""
 
     error_message: Optional[str] = None
-    """Provider error for invalid response, if any."""
+    """The reason a previously submitted value was rejected, or null."""
 
-    requested_files: Optional[List[RfiRequestedFile]] = None
-    """Documents requested for a file-upload RFI."""
+    field: Optional[str] = None
+    """Stable snake_case key for the field (e.g. ssn, business_description)."""
 
-    status: Optional[Literal["outstanding", "invalid"]] = None
-    """RFI status."""
+    label: Optional[str] = None
+    """Human-readable label for the field (e.g. "Social Security Number")."""
+
+    requested_files: Optional[List[RequestedInformationRequestedFile]] = None
+    """
+    Upload slots for a files item — always at least one when type is `files`, empty
+    otherwise.
+    """
 
     type: Optional[str] = None
-    """Expected answer type for this RFI."""
+    """How to render the input: text, date, phone, address, or files."""
 
 
 class VerificationUpdateResponse(BaseModel):
     id: Optional[str] = None
-    """Verification ID, prefixed `idpf_`."""
+    """The verification ID, e.g. idpf\\__\\**"""
 
     address: Optional[object] = None
-    """Address associated with the verification profile."""
 
     business_name: Optional[str] = None
-    """Legal business name for business verification."""
 
     business_structure: Optional[str] = None
-    """Business entity structure, such as `llc` or `corporation`."""
 
     country: Optional[str] = None
-    """Two-letter ISO 3166-1 country code reported by the identity provider."""
+    """ISO 3166-1 alpha-2 country code (e.g.
+
+    `US`, `GB`). For individuals this is the country of citizenship or residence
+    reported by the identity provider; for businesses this is the country of
+    incorporation.
+    """
 
     created_at: Optional[str] = None
-    """When the verification profile was created."""
 
     date_of_birth: Optional[str] = None
-    """Date of birth for individual verification."""
 
     first_name: Optional[str] = None
-    """First name for individual verification."""
 
     kind: Optional[Literal["individual", "business"]] = None
-    """Verification profile type."""
 
     last_name: Optional[str] = None
-    """Last name for individual verification."""
 
-    rfis: Optional[List[Rfi]] = None
+    requested_information: Optional[List[RequestedInformation]] = None
     """
-    Outstanding or invalid requests for information that must be answered to
-    continue verification.
+    The outstanding information this verification still needs — payout RFIs and
+    audit RMIs, one uniform shape.
     """
 
     session_url: Optional[str] = None
-    """Hosted provider session URL for pending verifications."""
 
     status: Optional[Literal["not_started", "pending", "approved", "rejected", "action_required"]] = None
-    """Current verification status.
-
-    `action_required` means one or more RFIs need a response.
-    """
 
     updated_at: Optional[str] = None
-    """When the verification profile was last updated."""
