@@ -9,10 +9,8 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import (
-    Account,
-    AccountListResponse,
-)
+from whop_sdk.types import Account
+from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -182,16 +180,20 @@ class TestAccounts:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         account = client.accounts.list()
-        assert_matches_type(AccountListResponse, account, path=["response"])
+        assert_matches_type(SyncCursorPage[Account], account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         account = client.accounts.list(
-            page=0,
-            per=0,
+            after="after",
+            before="before",
+            direction="asc",
+            first=0,
+            last=0,
+            order="created_at",
         )
-        assert_matches_type(AccountListResponse, account, path=["response"])
+        assert_matches_type(SyncCursorPage[Account], account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -201,7 +203,7 @@ class TestAccounts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         account = response.parse()
-        assert_matches_type(AccountListResponse, account, path=["response"])
+        assert_matches_type(SyncCursorPage[Account], account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -211,7 +213,7 @@ class TestAccounts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             account = response.parse()
-            assert_matches_type(AccountListResponse, account, path=["response"])
+            assert_matches_type(SyncCursorPage[Account], account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -411,16 +413,20 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.list()
-        assert_matches_type(AccountListResponse, account, path=["response"])
+        assert_matches_type(AsyncCursorPage[Account], account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.list(
-            page=0,
-            per=0,
+            after="after",
+            before="before",
+            direction="asc",
+            first=0,
+            last=0,
+            order="created_at",
         )
-        assert_matches_type(AccountListResponse, account, path=["response"])
+        assert_matches_type(AsyncCursorPage[Account], account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -430,7 +436,7 @@ class TestAsyncAccounts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         account = await response.parse()
-        assert_matches_type(AccountListResponse, account, path=["response"])
+        assert_matches_type(AsyncCursorPage[Account], account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -440,7 +446,7 @@ class TestAsyncAccounts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             account = await response.parse()
-            assert_matches_type(AccountListResponse, account, path=["response"])
+            assert_matches_type(AsyncCursorPage[Account], account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
