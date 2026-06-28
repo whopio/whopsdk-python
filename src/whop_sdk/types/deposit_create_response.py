@@ -5,7 +5,14 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["DepositCreateResponse", "Methods", "MethodsBank", "MethodsBankCurrency", "MethodsCrypto"]
+__all__ = [
+    "DepositCreateResponse",
+    "Methods",
+    "MethodsBank",
+    "MethodsBankCurrency",
+    "MethodsCrypto",
+    "MethodsCryptoSupportedCurrency",
+]
 
 
 class MethodsBankCurrency(BaseModel):
@@ -41,17 +48,29 @@ class MethodsBank(BaseModel):
     """Bank transfer currencies available for this deposit."""
 
 
+class MethodsCryptoSupportedCurrency(BaseModel):
+    icon_url: Optional[str] = None
+    """Token icon URL. Null when no icon is available."""
+
+    name: str
+    """Token symbol, such as `USDC`."""
+
+
 class MethodsCrypto(BaseModel):
-    """Crypto wallet addresses available for this deposit."""
+    deposit_address: Optional[str] = None
+    """Address to send funds to on this network.
 
-    evm: str
-    """EVM-compatible deposit address."""
+    Null when the provider has not issued one yet.
+    """
 
-    solana: str
-    """Solana deposit address."""
+    icon_url: Optional[str] = None
+    """Network icon URL."""
 
-    wallet: str
-    """Primary wallet address for destination account."""
+    name: str
+    """Network display name, such as `Ethereum` or `Solana`."""
+
+    supported_currencies: List[MethodsCryptoSupportedCurrency]
+    """Tokens accepted for deposit on this network."""
 
 
 class Methods(BaseModel):
@@ -63,8 +82,11 @@ class Methods(BaseModel):
     Only present when bank deposits are active for the destination account.
     """
 
-    crypto: MethodsCrypto
-    """Crypto wallet addresses available for this deposit."""
+    crypto: List[MethodsCrypto]
+    """
+    Crypto networks available for this deposit, each with its on-chain deposit
+    address and the tokens accepted on that network.
+    """
 
 
 class DepositCreateResponse(BaseModel):
