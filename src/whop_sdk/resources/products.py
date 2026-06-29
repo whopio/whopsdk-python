@@ -194,6 +194,7 @@ class ProductsResource(SyncAPIResource):
         description: Optional[str] | Omit = omit,
         headline: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
         title: str | Omit = omit,
         visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -212,6 +213,8 @@ class ProductsResource(SyncAPIResource):
           headline: A short marketing headline for the product page.
 
           metadata: Custom key-value pairs to store on the product.
+
+          product_tax_code_id: The unique identifier of the tax classification code.
 
           title: The display name of the product.
 
@@ -234,6 +237,7 @@ class ProductsResource(SyncAPIResource):
                     "description": description,
                     "headline": headline,
                     "metadata": metadata,
+                    "product_tax_code_id": product_tax_code_id,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -523,6 +527,7 @@ class AsyncProductsResource(AsyncAPIResource):
         description: Optional[str] | Omit = omit,
         headline: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
         title: str | Omit = omit,
         visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -541,6 +546,8 @@ class AsyncProductsResource(AsyncAPIResource):
           headline: A short marketing headline for the product page.
 
           metadata: Custom key-value pairs to store on the product.
+
+          product_tax_code_id: The unique identifier of the tax classification code.
 
           title: The display name of the product.
 
@@ -563,6 +570,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "description": description,
                     "headline": headline,
                     "metadata": metadata,
+                    "product_tax_code_id": product_tax_code_id,
                     "title": title,
                     "visibility": visibility,
                 },

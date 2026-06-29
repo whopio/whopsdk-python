@@ -135,6 +135,7 @@ class TestProducts:
             description="description",
             headline="headline",
             metadata={},
+            product_tax_code_id="product_tax_code_id",
             title="title",
             visibility="visibility",
         )
@@ -388,6 +389,7 @@ class TestAsyncProducts:
             description="description",
             headline="headline",
             metadata={},
+            product_tax_code_id="product_tax_code_id",
             title="title",
             visibility="visibility",
         )

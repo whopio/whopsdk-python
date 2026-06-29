@@ -18,6 +18,9 @@ class ProductUpdateParams(TypedDict, total=False):
     metadata: Optional[object]
     """Custom key-value pairs to store on the product."""
 
+    product_tax_code_id: Optional[str]
+    """The unique identifier of the tax classification code."""
+
     title: str
     """The display name of the product."""
 
