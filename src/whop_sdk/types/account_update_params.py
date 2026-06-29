@@ -24,28 +24,28 @@ class AccountUpdateParams(TypedDict, total=False):
     """Attachment input for the account banner image."""
 
     business_type: Optional[str]
-    """The high-level business category for the account."""
+    """High-level business category for the account."""
 
     country: Optional[str]
-    """The country the account is located in."""
+    """Country where the account is located."""
 
     description: Optional[str]
-    """A promotional description for the account."""
+    """Account promotional description."""
 
     featured_affiliate_product_id: Optional[str]
-    """The ID of the product to feature for affiliates. Pass null to clear."""
+    """The ID of the product to feature for affiliates. Pass `null` to clear."""
 
     home_preferences: SequenceNotStr[str]
-    """Preferences for the public business home page."""
+    """Public account home page preferences."""
 
     industry_group: Optional[str]
-    """The industry group the account belongs to."""
+    """Account industry group."""
 
     industry_type: Optional[str]
-    """The specific industry vertical the account operates in."""
+    """Specific industry vertical for the account."""
 
     invoice_prefix: Optional[str]
-    """The prefix to use for account invoices."""
+    """Prefix used for account invoices."""
 
     logo: Optional[Dict[str, object]]
     """Attachment input for the account logo."""
@@ -93,7 +93,7 @@ class AccountUpdateParams(TypedDict, total=False):
     """The full list of social links to display for the account."""
 
     store_page_config: Optional[Dict[str, object]]
-    """Store page display configuration for the account."""
+    """Account store page display configuration."""
 
     target_audience: Optional[str]
     """The target audience for this account."""
