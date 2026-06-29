@@ -32,6 +32,7 @@ class TestCards:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         card = client.cards.create(
             account_id="account_id",
+            assigned_user_id="assigned_user_id",
             name="name",
             spend_limit=0,
             spend_limit_frequency="daily",
@@ -168,6 +169,7 @@ class TestAsyncCards:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         card = await async_client.cards.create(
             account_id="account_id",
+            assigned_user_id="assigned_user_id",
             name="name",
             spend_limit=0,
             spend_limit_frequency="daily",

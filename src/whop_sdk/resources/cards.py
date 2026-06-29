@@ -49,6 +49,7 @@ class CardsResource(SyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        assigned_user_id: str | Omit = omit,
         name: str | Omit = omit,
         spend_limit: float | Omit = omit,
         spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
@@ -61,14 +62,21 @@ class CardsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardCreateResponse:
-        """Issues a virtual card for an individual (consumer) card issuing account.
+        """Issues a virtual card.
 
-        The
-        ledger's owner is passed as exactly one of account*id (a biz* identifier) or
-        user*id (a user* identifier). Returns the newly created card resource.
+        For an individual (consumer) card issuing account, the
+        card is issued to the account's own cardholder. For a company (business) card
+        issuing account, pass assigned*user_id to issue the card to a company member; if
+        that member is not yet an approved card-issuing user, the card is provisioned
+        asynchronously or an onboarding invitation is sent (HTTP 202). The ledger's
+        owner is passed as exactly one of account_id (a biz* identifier) or user*id (a
+        user* identifier). Returns the newly created card resource.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          assigned_user_id: The company member (a user\\__ identifier) to assign the card to. Required for
+              company (business) card issuing accounts.
 
           name: A display name for the card.
 
@@ -93,6 +101,7 @@ class CardsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "account_id": account_id,
+                    "assigned_user_id": assigned_user_id,
                     "name": name,
                     "spend_limit": spend_limit,
                     "spend_limit_frequency": spend_limit_frequency,
@@ -234,6 +243,7 @@ class AsyncCardsResource(AsyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        assigned_user_id: str | Omit = omit,
         name: str | Omit = omit,
         spend_limit: float | Omit = omit,
         spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
@@ -246,14 +256,21 @@ class AsyncCardsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardCreateResponse:
-        """Issues a virtual card for an individual (consumer) card issuing account.
+        """Issues a virtual card.
 
-        The
-        ledger's owner is passed as exactly one of account*id (a biz* identifier) or
-        user*id (a user* identifier). Returns the newly created card resource.
+        For an individual (consumer) card issuing account, the
+        card is issued to the account's own cardholder. For a company (business) card
+        issuing account, pass assigned*user_id to issue the card to a company member; if
+        that member is not yet an approved card-issuing user, the card is provisioned
+        asynchronously or an onboarding invitation is sent (HTTP 202). The ledger's
+        owner is passed as exactly one of account_id (a biz* identifier) or user*id (a
+        user* identifier). Returns the newly created card resource.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          assigned_user_id: The company member (a user\\__ identifier) to assign the card to. Required for
+              company (business) card issuing accounts.
 
           name: A display name for the card.
 
@@ -278,6 +295,7 @@ class AsyncCardsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "account_id": account_id,
+                    "assigned_user_id": assigned_user_id,
                     "name": name,
                     "spend_limit": spend_limit,
                     "spend_limit_frequency": spend_limit_frequency,
