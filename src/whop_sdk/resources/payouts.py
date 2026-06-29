@@ -59,12 +59,11 @@ class PayoutsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PayoutListResponse]:
-        """Lists payouts (withdrawal requests) for a ledger account, most recent first.
-
-        The
-        ledger's owner is passed as exactly one of account*id (a biz* identifier) or
-        user*id (a user* identifier). The saved payout method on each payout
-        additionally requires the payout:destination:read scope and is null without it.
+        """
+        Lists payouts (withdrawal requests) for an account or user, most recent first.
+        Pass exactly one of account*id (a biz* identifier) or user*id (a user*
+        identifier). The saved payout method on each payout additionally requires the
+        payout:destination:read scope and is null without it.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -151,12 +150,11 @@ class AsyncPayoutsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PayoutListResponse, AsyncCursorPage[PayoutListResponse]]:
-        """Lists payouts (withdrawal requests) for a ledger account, most recent first.
-
-        The
-        ledger's owner is passed as exactly one of account*id (a biz* identifier) or
-        user*id (a user* identifier). The saved payout method on each payout
-        additionally requires the payout:destination:read scope and is null without it.
+        """
+        Lists payouts (withdrawal requests) for an account or user, most recent first.
+        Pass exactly one of account*id (a biz* identifier) or user*id (a user*
+        identifier). The saved payout method on each payout additionally requires the
+        payout:destination:read scope and is null without it.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.

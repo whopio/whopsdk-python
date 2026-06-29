@@ -42,24 +42,24 @@ class Limit(BaseModel):
 
 
 class Secrets(BaseModel):
-    """The card's sensitive details.
+    """Sensitive card details.
 
-    Only present on GET /cards/:card_id (retrieve); null for cards that are not active or whose details could not be retrieved.
+    Present only on `GET /cards/:card_id` for active cards; `null` when the card is inactive or details cannot be retrieved.
     """
 
     card_number: str
-    """The full card number."""
+    """Full card number."""
 
     cvc: str
-    """The card verification code."""
+    """Card verification code."""
 
     name_on_card: Optional[str] = None
-    """The cardholder name printed on the card."""
+    """Cardholder name printed on the card."""
 
 
 class CardRetrieveResponse(BaseModel):
     id: str
-    """The icrd\\__ identifier of the card."""
+    """Card ID, prefixed `icrd_`."""
 
     billing: Optional[Billing] = None
     """The billing address."""
@@ -97,11 +97,11 @@ class CardRetrieveResponse(BaseModel):
     """The card type."""
 
     user_id: Optional[str] = None
-    """The user\\__ identifier of the cardholder, when assigned."""
+    """Cardholder user ID, prefixed `user_`, when assigned."""
 
     secrets: Optional[Secrets] = None
-    """The card's sensitive details.
+    """Sensitive card details.
 
-    Only present on GET /cards/:card_id (retrieve); null for cards that are not
-    active or whose details could not be retrieved.
+    Present only on `GET /cards/:card_id` for active cards; `null` when the card is
+    inactive or details cannot be retrieved.
     """

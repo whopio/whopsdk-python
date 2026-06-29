@@ -68,9 +68,9 @@ class CardsResource(SyncAPIResource):
         card is issued to the account's own cardholder. For a company (business) card
         issuing account, pass assigned*user_id to issue the card to a company member; if
         that member is not yet an approved card-issuing user, the card is provisioned
-        asynchronously or an onboarding invitation is sent (HTTP 202). The ledger's
-        owner is passed as exactly one of account_id (a biz* identifier) or user*id (a
-        user* identifier). Returns the newly created card resource.
+        asynchronously or an onboarding invitation is sent (HTTP 202). Pass exactly one
+        of account_id (a biz* identifier) or user*id (a user* identifier). Returns the
+        newly created card resource.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -179,13 +179,13 @@ class CardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardListResponse:
         """
-        Lists the issued (Whop Card) virtual and physical cards for a ledger account,
-        including pending invitation cards that have not been issued by the card
-        provider yet. The ledger's owner is passed as exactly one of account*id (a biz*
-        identifier) or user*id (a user* identifier). Non-owner team members only see
-        cards assigned to them. Users without the payout:account:read scope can still
-        list cards assigned to them (for example moderators or external cardholders).
-        Use GET /cards/:card_id to retrieve a single card with its secrets.
+        Lists issued Whop virtual cards for an account or user, including pending
+        invitation cards that have not been issued by the card provider yet. Pass
+        exactly one of account*id (a biz* identifier) or user*id (a user* identifier).
+        Non-owner team members only see cards assigned to them. Users without the
+        payout:account:read scope can still list cards assigned to them (for example
+        moderators or external cardholders). Use GET /cards/:card_id to retrieve a
+        single card with its secrets.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -262,9 +262,9 @@ class AsyncCardsResource(AsyncAPIResource):
         card is issued to the account's own cardholder. For a company (business) card
         issuing account, pass assigned*user_id to issue the card to a company member; if
         that member is not yet an approved card-issuing user, the card is provisioned
-        asynchronously or an onboarding invitation is sent (HTTP 202). The ledger's
-        owner is passed as exactly one of account_id (a biz* identifier) or user*id (a
-        user* identifier). Returns the newly created card resource.
+        asynchronously or an onboarding invitation is sent (HTTP 202). Pass exactly one
+        of account_id (a biz* identifier) or user*id (a user* identifier). Returns the
+        newly created card resource.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -373,13 +373,13 @@ class AsyncCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardListResponse:
         """
-        Lists the issued (Whop Card) virtual and physical cards for a ledger account,
-        including pending invitation cards that have not been issued by the card
-        provider yet. The ledger's owner is passed as exactly one of account*id (a biz*
-        identifier) or user*id (a user* identifier). Non-owner team members only see
-        cards assigned to them. Users without the payout:account:read scope can still
-        list cards assigned to them (for example moderators or external cardholders).
-        Use GET /cards/:card_id to retrieve a single card with its secrets.
+        Lists issued Whop virtual cards for an account or user, including pending
+        invitation cards that have not been issued by the card provider yet. Pass
+        exactly one of account*id (a biz* identifier) or user*id (a user* identifier).
+        Non-owner team members only see cards assigned to them. Users without the
+        payout:account:read scope can still list cards assigned to them (for example
+        moderators or external cardholders). Use GET /cards/:card_id to retrieve a
+        single card with its secrets.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
