@@ -24,7 +24,7 @@ class WithdrawalCreateParams(TypedDict, total=False):
     """The ID of the payout method to use for the withdrawal."""
 
     platform_covers_fees: Optional[bool]
-    """Whether the platform covers the payout fees instead of the connected account."""
+    """Whether the platform covers the payout fees."""
 
     statement_descriptor: Optional[str]
     """Custom statement descriptor for the withdrawal.

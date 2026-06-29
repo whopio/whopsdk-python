@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["Granularities"]
 
-Granularities: TypeAlias = Literal["daily", "hourly"]
+Granularities: TypeAlias = Literal["hourly", "daily", "weekly", "monthly"]
