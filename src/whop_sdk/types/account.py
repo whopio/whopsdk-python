@@ -163,6 +163,12 @@ class Account(BaseModel):
     banner_image_url: Optional[str] = None
     """Account banner image URL."""
 
+    business_address: Optional[object] = None
+    """
+    Account business address used to calculate tax, with `line1`, `line2`, `city`,
+    `state`, `postal_code`, and `country`. `null` when no address is set.
+    """
+
     business_type: Optional[str] = None
     """High-level business category for the account."""
 
@@ -220,6 +226,12 @@ class Account(BaseModel):
     parent_account_id: Optional[str] = None
     """Parent account ID for connected accounts."""
 
+    product_tax_code: Optional[object] = None
+    """
+    Tax classification code applied by default to the account's products, with `id`,
+    `name`, and `product_type`. `null` when no default is set.
+    """
+
     recommended_actions: Optional[List[RecommendedAction]] = None
 
     require_2fa: bool
@@ -255,6 +267,21 @@ class Account(BaseModel):
 
     target_audience: Optional[str] = None
     """Target audience for this account."""
+
+    tax_identifiers: List[object]
+    """Account tax/VAT registrations, each with `id`, `tax_id_type`, and
+    `tax_id_value`.
+
+    Empty when none are set.
+    """
+
+    tax_remitted_by: Optional[str] = None
+    """
+    Who calculates and remits tax for the account: `whop` (Whop calculates and
+    remits), `self` (Whop calculates; the account collects and remits), or `none`
+    (neither; the account is responsible). `null` until the account enrolls in the
+    Whop tax service.
+    """
 
     title: str
     """Account display name."""

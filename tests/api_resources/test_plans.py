@@ -352,7 +352,7 @@ class TestPlans:
             ip_address="ip_address",
             tax_ids=[
                 {
-                    "type": "type",
+                    "type": "ad_nrt",
                     "value": "value",
                 }
             ],
@@ -728,7 +728,7 @@ class TestAsyncPlans:
             ip_address="ip_address",
             tax_ids=[
                 {
-                    "type": "type",
+                    "type": "ad_nrt",
                     "value": "value",
                 }
             ],

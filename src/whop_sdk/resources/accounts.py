@@ -60,7 +60,9 @@ class AccountsResource(SyncAPIResource):
         """Creates an account.
 
         User tokens create business accounts; business account API
-        keys create connected accounts.
+        keys create connected accounts. Tax fields (`tax_remitted_by`,
+        `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured
+        with Update Account, not at creation.
 
         Args:
           email: The email address of the account owner. Required for business account API key
@@ -132,6 +134,7 @@ class AccountsResource(SyncAPIResource):
         affiliate_application_required: bool | Omit = omit,
         affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[Dict[str, object]] | Omit = omit,
+        business_address: account_update_params.BusinessAddress | Omit = omit,
         business_type: Optional[str] | Omit = omit,
         country: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -147,6 +150,7 @@ class AccountsResource(SyncAPIResource):
         opengraph_image_variant: Optional[str] | Omit = omit,
         other_business_description: Optional[str] | Omit = omit,
         other_industry_description: Optional[str] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
         require_2fa: bool | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: bool | Omit = omit,
@@ -156,6 +160,8 @@ class AccountsResource(SyncAPIResource):
         social_links: Iterable[Dict[str, object]] | Omit = omit,
         store_page_config: Optional[Dict[str, object]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
+        tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
+        tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -177,6 +183,9 @@ class AccountsResource(SyncAPIResource):
           affiliate_instructions: Guidelines shown to affiliates promoting this account.
 
           banner_image: Attachment input for the account banner image.
+
+          business_address: Account business address used to calculate tax. A complete address in a
+              supported country is required when `tax_remitted_by` is `self`.
 
           business_type: High-level business category for the account.
 
@@ -208,6 +217,8 @@ class AccountsResource(SyncAPIResource):
 
           other_industry_description: The description of the industry type when industry_type is other.
 
+          product_tax_code_id: ID of the tax classification code applied by default to the account's products.
+
           require_2fa: Whether the account requires authorized users to have two-factor authentication
               enabled.
 
@@ -226,6 +237,15 @@ class AccountsResource(SyncAPIResource):
           store_page_config: Account store page display configuration.
 
           target_audience: The target audience for this account.
+
+          tax_identifiers: Account tax/VAT registrations to add or update. When `tax_remitted_by` is
+              `self`, tax is calculated and collected only in the countries where the account
+              holds a registration.
+
+          tax_remitted_by: Who calculates and remits tax for the account: `whop` (Whop calculates and
+              remits), `self` (Whop calculates; the account collects and remits), or `none`
+              (neither; the account is responsible). `self` requires a `business_address` in a
+              supported country.
 
           title: The display name of the account.
 
@@ -248,6 +268,7 @@ class AccountsResource(SyncAPIResource):
                     "affiliate_application_required": affiliate_application_required,
                     "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
+                    "business_address": business_address,
                     "business_type": business_type,
                     "country": country,
                     "description": description,
@@ -263,6 +284,7 @@ class AccountsResource(SyncAPIResource):
                     "opengraph_image_variant": opengraph_image_variant,
                     "other_business_description": other_business_description,
                     "other_industry_description": other_industry_description,
+                    "product_tax_code_id": product_tax_code_id,
                     "require_2fa": require_2fa,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
@@ -272,6 +294,8 @@ class AccountsResource(SyncAPIResource):
                     "social_links": social_links,
                     "store_page_config": store_page_config,
                     "target_audience": target_audience,
+                    "tax_identifiers": tax_identifiers,
+                    "tax_remitted_by": tax_remitted_by,
                     "title": title,
                     "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },
@@ -407,7 +431,9 @@ class AsyncAccountsResource(AsyncAPIResource):
         """Creates an account.
 
         User tokens create business accounts; business account API
-        keys create connected accounts.
+        keys create connected accounts. Tax fields (`tax_remitted_by`,
+        `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured
+        with Update Account, not at creation.
 
         Args:
           email: The email address of the account owner. Required for business account API key
@@ -479,6 +505,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         affiliate_application_required: bool | Omit = omit,
         affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[Dict[str, object]] | Omit = omit,
+        business_address: account_update_params.BusinessAddress | Omit = omit,
         business_type: Optional[str] | Omit = omit,
         country: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -494,6 +521,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         opengraph_image_variant: Optional[str] | Omit = omit,
         other_business_description: Optional[str] | Omit = omit,
         other_industry_description: Optional[str] | Omit = omit,
+        product_tax_code_id: Optional[str] | Omit = omit,
         require_2fa: bool | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_customer_emails: bool | Omit = omit,
@@ -503,6 +531,8 @@ class AsyncAccountsResource(AsyncAPIResource):
         social_links: Iterable[Dict[str, object]] | Omit = omit,
         store_page_config: Optional[Dict[str, object]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
+        tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
+        tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -524,6 +554,9 @@ class AsyncAccountsResource(AsyncAPIResource):
           affiliate_instructions: Guidelines shown to affiliates promoting this account.
 
           banner_image: Attachment input for the account banner image.
+
+          business_address: Account business address used to calculate tax. A complete address in a
+              supported country is required when `tax_remitted_by` is `self`.
 
           business_type: High-level business category for the account.
 
@@ -555,6 +588,8 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           other_industry_description: The description of the industry type when industry_type is other.
 
+          product_tax_code_id: ID of the tax classification code applied by default to the account's products.
+
           require_2fa: Whether the account requires authorized users to have two-factor authentication
               enabled.
 
@@ -573,6 +608,15 @@ class AsyncAccountsResource(AsyncAPIResource):
           store_page_config: Account store page display configuration.
 
           target_audience: The target audience for this account.
+
+          tax_identifiers: Account tax/VAT registrations to add or update. When `tax_remitted_by` is
+              `self`, tax is calculated and collected only in the countries where the account
+              holds a registration.
+
+          tax_remitted_by: Who calculates and remits tax for the account: `whop` (Whop calculates and
+              remits), `self` (Whop calculates; the account collects and remits), or `none`
+              (neither; the account is responsible). `self` requires a `business_address` in a
+              supported country.
 
           title: The display name of the account.
 
@@ -595,6 +639,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "affiliate_application_required": affiliate_application_required,
                     "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
+                    "business_address": business_address,
                     "business_type": business_type,
                     "country": country,
                     "description": description,
@@ -610,6 +655,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "opengraph_image_variant": opengraph_image_variant,
                     "other_business_description": other_business_description,
                     "other_industry_description": other_industry_description,
+                    "product_tax_code_id": product_tax_code_id,
                     "require_2fa": require_2fa,
                     "route": route,
                     "send_customer_emails": send_customer_emails,
@@ -619,6 +665,8 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "social_links": social_links,
                     "store_page_config": store_page_config,
                     "target_audience": target_audience,
+                    "tax_identifiers": tax_identifiers,
+                    "tax_remitted_by": tax_remitted_by,
                     "title": title,
                     "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },

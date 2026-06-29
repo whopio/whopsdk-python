@@ -113,6 +113,14 @@ class TestAccounts:
             affiliate_application_required=True,
             affiliate_instructions="affiliate_instructions",
             banner_image={"foo": "bar"},
+            business_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "postal_code": "postal_code",
+                "state": "state",
+            },
             business_type="business_type",
             country="country",
             description="description",
@@ -128,6 +136,7 @@ class TestAccounts:
             opengraph_image_variant="opengraph_image_variant",
             other_business_description="other_business_description",
             other_industry_description="other_industry_description",
+            product_tax_code_id="product_tax_code_id",
             require_2fa=True,
             route="route",
             send_customer_emails=True,
@@ -137,6 +146,13 @@ class TestAccounts:
             social_links=[{"foo": "bar"}],
             store_page_config={"foo": "bar"},
             target_audience="target_audience",
+            tax_identifiers=[
+                {
+                    "tax_id_type": "ad_nrt",
+                    "tax_id_value": "tax_id_value",
+                }
+            ],
+            tax_remitted_by="whop",
             title="title",
             use_logo_as_opengraph_image_fallback=True,
         )
@@ -346,6 +362,14 @@ class TestAsyncAccounts:
             affiliate_application_required=True,
             affiliate_instructions="affiliate_instructions",
             banner_image={"foo": "bar"},
+            business_address={
+                "city": "city",
+                "country": "country",
+                "line1": "line1",
+                "line2": "line2",
+                "postal_code": "postal_code",
+                "state": "state",
+            },
             business_type="business_type",
             country="country",
             description="description",
@@ -361,6 +385,7 @@ class TestAsyncAccounts:
             opengraph_image_variant="opengraph_image_variant",
             other_business_description="other_business_description",
             other_industry_description="other_industry_description",
+            product_tax_code_id="product_tax_code_id",
             require_2fa=True,
             route="route",
             send_customer_emails=True,
@@ -370,6 +395,13 @@ class TestAsyncAccounts:
             social_links=[{"foo": "bar"}],
             store_page_config={"foo": "bar"},
             target_audience="target_audience",
+            tax_identifiers=[
+                {
+                    "tax_id_type": "ad_nrt",
+                    "tax_id_value": "tax_id_value",
+                }
+            ],
+            tax_remitted_by="whop",
             title="title",
             use_logo_as_opengraph_image_fallback=True,
         )
