@@ -783,6 +783,19 @@ Methods:
 
 - <code title="get /financial-activity">client.financial_activity.<a href="./src/whop_sdk/resources/financial_activity.py">list</a>(\*\*<a href="src/whop_sdk/types/financial_activity_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/financial_activity_list_response.py">FinancialActivityListResponse</a></code>
 
+# Stats
+
+Types:
+
+```python
+from whop_sdk.types import StatRetrieveResponse, StatListResponse
+```
+
+Methods:
+
+- <code title="get /stats/{metric}">client.stats.<a href="./src/whop_sdk/resources/stats.py">retrieve</a>(metric, \*\*<a href="src/whop_sdk/types/stat_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/stat_retrieve_response.py">StatRetrieveResponse</a></code>
+- <code title="get /stats">client.stats.<a href="./src/whop_sdk/resources/stats.py">list</a>() -> <a href="./src/whop_sdk/types/stat_list_response.py">StatListResponse</a></code>
+
 # Payouts
 
 Types:

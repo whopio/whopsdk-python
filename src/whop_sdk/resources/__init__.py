@@ -48,6 +48,14 @@ from .plans import (
     PlansResourceWithStreamingResponse,
     AsyncPlansResourceWithStreamingResponse,
 )
+from .stats import (
+    StatsResource,
+    AsyncStatsResource,
+    StatsResourceWithRawResponse,
+    AsyncStatsResourceWithRawResponse,
+    StatsResourceWithStreamingResponse,
+    AsyncStatsResourceWithStreamingResponse,
+)
 from .swaps import (
     SwapsResource,
     AsyncSwapsResource,
@@ -792,6 +800,12 @@ __all__ = [
     "AsyncFinancialActivityResourceWithRawResponse",
     "FinancialActivityResourceWithStreamingResponse",
     "AsyncFinancialActivityResourceWithStreamingResponse",
+    "StatsResource",
+    "AsyncStatsResource",
+    "StatsResourceWithRawResponse",
+    "AsyncStatsResourceWithRawResponse",
+    "StatsResourceWithStreamingResponse",
+    "AsyncStatsResourceWithStreamingResponse",
     "PayoutsResource",
     "AsyncPayoutsResource",
     "PayoutsResourceWithRawResponse",
