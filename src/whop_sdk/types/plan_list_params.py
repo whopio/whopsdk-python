@@ -34,7 +34,7 @@ class PlanListParams(TypedDict, total=False):
     last: int
     """The number of plans to return from the end of the range."""
 
-    order: Literal["id", "active_members_count", "created_at", "internal_notes", "expires_at"]
+    order: Literal["id", "active_members_count", "created_at", "internal_notes", "expiration_days"]
     """The field to sort results by. Defaults to created_at."""
 
     plan_types: SequenceNotStr[str]
