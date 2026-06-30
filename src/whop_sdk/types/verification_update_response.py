@@ -44,6 +44,13 @@ class RequestedInformation(BaseModel):
     label: Optional[str] = None
     """Human-readable label for the field (e.g. "Social Security Number")."""
 
+    options: Optional[List[str]] = None
+    """Allowed values for a `select` field (e.g.
+
+    account_type, business_structure) — the submitted value must be one of these;
+    empty for other types.
+    """
+
     requested_files: Optional[List[RequestedInformationRequestedFile]] = None
     """
     Upload slots for a files item — always at least one when type is `files`, empty
@@ -51,7 +58,7 @@ class RequestedInformation(BaseModel):
     """
 
     type: Optional[str] = None
-    """How to render the input: text, date, phone, address, or files."""
+    """How to render the input: text, date, phone, address, files, or select."""
 
 
 class VerificationUpdateResponse(BaseModel):
