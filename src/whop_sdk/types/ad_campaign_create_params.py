@@ -24,6 +24,12 @@ class AdCampaignCreateParams(TypedDict, total=False):
     Defaults to the account-scoped key's own account.
     """
 
+    bid_type: Literal["minimum_cost", "average_target", "maximum_target"]
+    """
+    CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
+    maximum_target (bid cap). CBO only.
+    """
+
     budget_amount: float
     """The campaign budget, in USD.
 
@@ -42,8 +48,20 @@ class AdCampaignCreateParams(TypedDict, total=False):
     Defaults to daily.
     """
 
+    desired_cost_per_result: float
+    """Target/cap cost per result in USD for average_target / maximum_target bidding.
+
+    CBO only.
+    """
+
+    ends_at: str
+    """Campaign schedule end (ISO 8601). CBO only."""
+
     special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]]
     """Regulated categories the campaign falls under.
 
     Ads in these categories are subject to extra targeting restrictions.
     """
+
+    starts_at: str
+    """Campaign schedule start (ISO 8601). CBO only."""

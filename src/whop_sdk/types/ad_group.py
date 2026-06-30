@@ -34,8 +34,8 @@ class AdGroup(BaseModel):
     added_to_carts: float
     """Whop pixel-attributed add-to-cart events, last-click."""
 
-    audience: object
-    """Demographic targeting: automatic (Advantage+), age range, gender."""
+    audiences: object
+    """Saved-audience targeting: { include, exclude } arrays of audience IDs."""
 
     bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
     """Bid strategy."""
@@ -85,8 +85,22 @@ class AdGroup(BaseModel):
     A standard event, or any custom pixel event name.
     """
 
-    conversion_location: Optional[Literal["website"]] = None
-    """Where conversions happen."""
+    conversion_location: Optional[
+        Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+    ] = None
+    """
+    Where results happen: website, profile (IG/FB), messaging (DM), on_ad
+    (engagement), or the lead destinations (instant_forms,
+    instant_forms_and_messenger, website_and_instant_forms).
+    """
 
     cost_per_added_to_cart: Optional[float] = None
     """
@@ -151,11 +165,20 @@ class AdGroup(BaseModel):
     across all custom event names.
     """
 
+    demographics: object
+    """Demographic targeting: automatic (Advantage+), age range, gender."""
+
     desired_cost_per_result: Optional[float] = None
     """Target/cap cost for average_target / maximum_target."""
 
     devices: object
     """Device targeting: platforms and operating systems."""
+
+    dynamic_creative: bool
+    """
+    Whether ads within this ad group have their creatives and copy dynamically AB
+    tested.
+    """
 
     ends_at: Optional[str] = None
     """Schedule end, ISO 8601."""
@@ -171,8 +194,12 @@ class AdGroup(BaseModel):
 
     issues: List[Issue]
 
+    languages: List[str]
+
     leads: float
     """Whop pixel-attributed leads, last-click."""
+
+    message_apps: List[str]
 
     minimum_daily_spend: Optional[float] = None
     """Daily spend floor within the budget."""
@@ -192,7 +219,10 @@ class AdGroup(BaseModel):
     """The number of unique people who saw this."""
 
     regions: object
-    """Geo targeting: include/exclude countries, cities, zips."""
+    """Geo targeting: include/exclude countries, regions (ISO 3166-2 states, e.g.
+
+    US-CA), cities, zips.
+    """
 
     return_on_ad_spend: float
     """Purchase value divided by spend; 0 when there is no spend."""

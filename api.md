@@ -1199,7 +1199,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AdCampaign
+from whop_sdk.types import AdCampaign, AdCampaignDeleteResponse
 ```
 
 Methods:
@@ -1208,6 +1208,7 @@ Methods:
 - <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">SyncCursorPage[AdCampaign]</a></code>
+- <code title="delete /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_delete_response.py">AdCampaignDeleteResponse</a></code>
 - <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 

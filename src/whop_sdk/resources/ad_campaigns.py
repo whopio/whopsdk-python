@@ -26,6 +26,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_campaign import AdCampaign
+from ..types.ad_campaign_delete_response import AdCampaignDeleteResponse
 
 __all__ = ["AdCampaignsResource", "AsyncAdCampaignsResource"]
 
@@ -57,10 +58,14 @@ class AdCampaignsResource(SyncAPIResource):
         platform: Literal["meta"],
         title: str,
         account_id: str | Omit = omit,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
         budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
         budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        desired_cost_per_result: float | Omit = omit,
+        ends_at: str | Omit = omit,
         special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]] | Omit = omit,
+        starts_at: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -81,6 +86,9 @@ class AdCampaignsResource(SyncAPIResource):
           account_id: The account to create the campaign under. Defaults to the account-scoped key's
               own account.
 
+          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
+              maximum_target (bid cap). CBO only.
+
           budget_amount:
               The campaign budget, in USD. Required for CBO (budget_optimization:
               ad_campaign); omit for ABO.
@@ -91,8 +99,15 @@ class AdCampaignsResource(SyncAPIResource):
           budget_type: Whether the budget is spent per day or over the campaign's lifetime. Defaults to
               daily.
 
+          desired_cost_per_result: Target/cap cost per result in USD for average_target / maximum_target bidding.
+              CBO only.
+
+          ends_at: Campaign schedule end (ISO 8601). CBO only.
+
           special_ad_categories: Regulated categories the campaign falls under. Ads in these categories are
               subject to extra targeting restrictions.
+
+          starts_at: Campaign schedule start (ISO 8601). CBO only.
 
           extra_headers: Send extra headers
 
@@ -110,10 +125,14 @@ class AdCampaignsResource(SyncAPIResource):
                     "platform": platform,
                     "title": title,
                     "account_id": account_id,
+                    "bid_type": bid_type,
                     "budget_amount": budget_amount,
                     "budget_optimization": budget_optimization,
                     "budget_type": budget_type,
+                    "desired_cost_per_result": desired_cost_per_result,
+                    "ends_at": ends_at,
                     "special_ad_categories": special_ad_categories,
+                    "starts_at": starts_at,
                 },
                 ad_campaign_create_params.AdCampaignCreateParams,
             ),
@@ -177,6 +196,8 @@ class AdCampaignsResource(SyncAPIResource):
         id: str,
         *,
         budget_amount: float | Omit = omit,
+        ends_at: str | Omit = omit,
+        starts_at: str | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -185,11 +206,19 @@ class AdCampaignsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
-        """
-        Updates an ad campaign's editable fields.
+        """Updates an ad campaign's editable fields (title, budget, schedule).
+
+        Objective,
+        budget optimization, budget type, special ad categories, bid type and desired
+        cost per result are fixed at creation and cannot be changed.
 
         Args:
-          budget_amount: The campaign budget, in the account's currency.
+          budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
+              per the campaign's existing budget type.
+
+          ends_at: Campaign schedule end (ISO 8601). CBO only.
+
+          starts_at: Campaign schedule start (ISO 8601). CBO only.
 
           title: The name of the campaign.
 
@@ -208,6 +237,8 @@ class AdCampaignsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "budget_amount": budget_amount,
+                    "ends_at": ends_at,
+                    "starts_at": starts_at,
                     "title": title,
                 },
                 ad_campaign_update_params.AdCampaignUpdateParams,
@@ -310,6 +341,40 @@ class AdCampaignsResource(SyncAPIResource):
             model=AdCampaign,
         )
 
+    def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaignDeleteResponse:
+        """
+        Deletes an ad campaign and archives it on the ad platform (cascades to ad groups
+        and ads). Returns true on success.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            path_template("/ad_campaigns/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaignDeleteResponse,
+        )
+
     def pause(
         self,
         id: str,
@@ -404,10 +469,14 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         platform: Literal["meta"],
         title: str,
         account_id: str | Omit = omit,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
         budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
         budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        desired_cost_per_result: float | Omit = omit,
+        ends_at: str | Omit = omit,
         special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]] | Omit = omit,
+        starts_at: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -428,6 +497,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
           account_id: The account to create the campaign under. Defaults to the account-scoped key's
               own account.
 
+          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
+              maximum_target (bid cap). CBO only.
+
           budget_amount:
               The campaign budget, in USD. Required for CBO (budget_optimization:
               ad_campaign); omit for ABO.
@@ -438,8 +510,15 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
           budget_type: Whether the budget is spent per day or over the campaign's lifetime. Defaults to
               daily.
 
+          desired_cost_per_result: Target/cap cost per result in USD for average_target / maximum_target bidding.
+              CBO only.
+
+          ends_at: Campaign schedule end (ISO 8601). CBO only.
+
           special_ad_categories: Regulated categories the campaign falls under. Ads in these categories are
               subject to extra targeting restrictions.
+
+          starts_at: Campaign schedule start (ISO 8601). CBO only.
 
           extra_headers: Send extra headers
 
@@ -457,10 +536,14 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                     "platform": platform,
                     "title": title,
                     "account_id": account_id,
+                    "bid_type": bid_type,
                     "budget_amount": budget_amount,
                     "budget_optimization": budget_optimization,
                     "budget_type": budget_type,
+                    "desired_cost_per_result": desired_cost_per_result,
+                    "ends_at": ends_at,
                     "special_ad_categories": special_ad_categories,
+                    "starts_at": starts_at,
                 },
                 ad_campaign_create_params.AdCampaignCreateParams,
             ),
@@ -524,6 +607,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         id: str,
         *,
         budget_amount: float | Omit = omit,
+        ends_at: str | Omit = omit,
+        starts_at: str | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -532,11 +617,19 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
-        """
-        Updates an ad campaign's editable fields.
+        """Updates an ad campaign's editable fields (title, budget, schedule).
+
+        Objective,
+        budget optimization, budget type, special ad categories, bid type and desired
+        cost per result are fixed at creation and cannot be changed.
 
         Args:
-          budget_amount: The campaign budget, in the account's currency.
+          budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
+              per the campaign's existing budget type.
+
+          ends_at: Campaign schedule end (ISO 8601). CBO only.
+
+          starts_at: Campaign schedule start (ISO 8601). CBO only.
 
           title: The name of the campaign.
 
@@ -555,6 +648,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "budget_amount": budget_amount,
+                    "ends_at": ends_at,
+                    "starts_at": starts_at,
                     "title": title,
                 },
                 ad_campaign_update_params.AdCampaignUpdateParams,
@@ -657,6 +752,40 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             model=AdCampaign,
         )
 
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaignDeleteResponse:
+        """
+        Deletes an ad campaign and archives it on the ad platform (cascades to ad groups
+        and ads). Returns true on success.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            path_template("/ad_campaigns/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaignDeleteResponse,
+        )
+
     async def pause(
         self,
         id: str,
@@ -740,6 +869,9 @@ class AdCampaignsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             ad_campaigns.list,
         )
+        self.delete = to_raw_response_wrapper(
+            ad_campaigns.delete,
+        )
         self.pause = to_raw_response_wrapper(
             ad_campaigns.pause,
         )
@@ -763,6 +895,9 @@ class AsyncAdCampaignsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             ad_campaigns.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            ad_campaigns.delete,
         )
         self.pause = async_to_raw_response_wrapper(
             ad_campaigns.pause,
@@ -788,6 +923,9 @@ class AdCampaignsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             ad_campaigns.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            ad_campaigns.delete,
+        )
         self.pause = to_streamed_response_wrapper(
             ad_campaigns.pause,
         )
@@ -811,6 +949,9 @@ class AsyncAdCampaignsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             ad_campaigns.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            ad_campaigns.delete,
         )
         self.pause = async_to_streamed_response_wrapper(
             ad_campaigns.pause,

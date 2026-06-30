@@ -2,15 +2,20 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import List, Union
 from typing_extensions import Literal, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["AdGroupUpdateParams"]
 
 
 class AdGroupUpdateParams(TypedDict, total=False):
-    audience: object
-    """Demographic targeting: { automatic, minimum_age, maximum_age, gender }."""
+    audiences: object
+    """Saved-audience targeting: { include, exclude } arrays of audience IDs.
+
+    Incompatible with demographics.automatic (Advantage+).
+    """
 
     bid_type: Literal["minimum_cost", "average_target", "maximum_target"]
     """Bid strategy."""
@@ -48,8 +53,24 @@ class AdGroupUpdateParams(TypedDict, total=False):
     A standard event, or any custom pixel event name.
     """
 
-    conversion_location: Literal["website"]
-    """Where conversions happen."""
+    conversion_location: Literal[
+        "website",
+        "profile",
+        "messaging",
+        "on_ad",
+        "instant_forms",
+        "instant_forms_and_messenger",
+        "website_and_instant_forms",
+    ]
+    """
+    Where results happen: website (conversions), profile (IG/FB engagement),
+    messaging (DM), on_ad (engagement on the ad, surface follows the optimization
+    goal), or the lead destinations (instant_forms, instant_forms_and_messenger,
+    website_and_instant_forms). The lead form itself is set on the ad.
+    """
+
+    demographics: object
+    """Demographic targeting: { automatic, minimum_age, maximum_age, gender }."""
 
     desired_cost_per_result: float
     """Target/cap cost for average_target / maximum_target."""
@@ -63,6 +84,18 @@ class AdGroupUpdateParams(TypedDict, total=False):
     frequency_cap: object
     """{ maximum_impressions, per_days } — only valid for reach optimization."""
 
+    languages: SequenceNotStr[str]
+    """Languages to target as ISO 639 codes (e.g.
+
+    en, es). Empty/omitted = all languages.
+    """
+
+    message_apps: List[Literal["messenger", "instagram", "whatsapp"]]
+    """Required when conversion_location is messaging: which apps to message on.
+
+    Combinations map to the matching Meta destination.
+    """
+
     minimum_daily_spend: float
     """Daily spend floor within the budget."""
 
@@ -73,7 +106,10 @@ class AdGroupUpdateParams(TypedDict, total=False):
     """'automatic' (Advantage+) or a list of { platform, positions }."""
 
     regions: object
-    """Geo targeting: { include / exclude: { countries, cities, zips } }."""
+    """
+    Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
+    (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips } }.
+    """
 
     starts_at: str
     """Schedule start, ISO 8601."""

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import List, Union
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import ad_group_list_params, ad_group_create_params, ad_group_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -50,7 +50,7 @@ class AdGroupsResource(SyncAPIResource):
         self,
         *,
         ad_campaign_id: str,
-        audience: object | Omit = omit,
+        audiences: object | Omit = omit,
         bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
         budget_type: Literal["daily", "lifetime"] | Omit = omit,
@@ -77,11 +77,24 @@ class AdGroupsResource(SyncAPIResource):
             None,
         ]
         | Omit = omit,
-        conversion_location: Literal["website"] | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
         devices: object | Omit = omit,
+        dynamic_creative: bool | Omit = omit,
         ends_at: str | Omit = omit,
         frequency_cap: object | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
         minimum_daily_spend: float | Omit = omit,
         optimization_goal: str | Omit = omit,
         placements: object | Omit = omit,
@@ -102,7 +115,8 @@ class AdGroupsResource(SyncAPIResource):
         Args:
           ad_campaign_id: The ad campaign to create the ad group in.
 
-          audience: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
+          audiences: Saved-audience targeting: { include, exclude } arrays of audience IDs.
+              Incompatible with demographics.automatic (Advantage+).
 
           bid_type: Bid strategy.
 
@@ -112,15 +126,29 @@ class AdGroupsResource(SyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where conversions happen.
+          conversion_location: Where results happen: website (conversions), profile (IG/FB engagement),
+              messaging (DM), on_ad (engagement on the ad, surface follows the optimization
+              goal), or the lead destinations (instant_forms, instant_forms_and_messenger,
+              website_and_instant_forms). The lead form itself is set on the ad.
+
+          demographics: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
           devices: Device targeting: { platforms, operating_systems: [{ os, minimum_version }] }.
 
+          dynamic_creative: Run Meta dynamic (Advantage+) creative for this ad set. Set at creation;
+              immutable afterward.
+
           ends_at: Schedule end, ISO 8601.
 
           frequency_cap: { maximum_impressions, per_days } — only valid for reach optimization.
+
+          languages: Languages to target as ISO 639 codes (e.g. en, es). Empty/omitted = all
+              languages.
+
+          message_apps: Required when conversion_location is messaging: which apps to message on.
+              Combinations map to the matching Meta destination.
 
           minimum_daily_spend: Daily spend floor within the budget.
 
@@ -128,7 +156,8 @@ class AdGroupsResource(SyncAPIResource):
 
           placements: 'automatic' (Advantage+) or a list of { platform, positions }.
 
-          regions: Geo targeting: { include / exclude: { countries, cities, zips } }.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
+              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips } }.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -149,16 +178,20 @@ class AdGroupsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "ad_campaign_id": ad_campaign_id,
-                    "audience": audience,
+                    "audiences": audiences,
                     "bid_type": bid_type,
                     "budget_amount": budget_amount,
                     "budget_type": budget_type,
                     "conversion_event": conversion_event,
                     "conversion_location": conversion_location,
+                    "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
                     "devices": devices,
+                    "dynamic_creative": dynamic_creative,
                     "ends_at": ends_at,
                     "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
                     "minimum_daily_spend": minimum_daily_spend,
                     "optimization_goal": optimization_goal,
                     "placements": placements,
@@ -212,7 +245,7 @@ class AdGroupsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        audience: object | Omit = omit,
+        audiences: object | Omit = omit,
         bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
         budget_type: Literal["daily", "lifetime"] | Omit = omit,
@@ -239,11 +272,23 @@ class AdGroupsResource(SyncAPIResource):
             None,
         ]
         | Omit = omit,
-        conversion_location: Literal["website"] | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
         devices: object | Omit = omit,
         ends_at: str | Omit = omit,
         frequency_cap: object | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
         minimum_daily_spend: float | Omit = omit,
         optimization_goal: str | Omit = omit,
         placements: object | Omit = omit,
@@ -263,7 +308,8 @@ class AdGroupsResource(SyncAPIResource):
         Only the keys you send are changed.
 
         Args:
-          audience: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
+          audiences: Saved-audience targeting: { include, exclude } arrays of audience IDs.
+              Incompatible with demographics.automatic (Advantage+).
 
           bid_type: Bid strategy.
 
@@ -273,7 +319,12 @@ class AdGroupsResource(SyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where conversions happen.
+          conversion_location: Where results happen: website (conversions), profile (IG/FB engagement),
+              messaging (DM), on_ad (engagement on the ad, surface follows the optimization
+              goal), or the lead destinations (instant_forms, instant_forms_and_messenger,
+              website_and_instant_forms). The lead form itself is set on the ad.
+
+          demographics: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
@@ -283,13 +334,20 @@ class AdGroupsResource(SyncAPIResource):
 
           frequency_cap: { maximum_impressions, per_days } — only valid for reach optimization.
 
+          languages: Languages to target as ISO 639 codes (e.g. en, es). Empty/omitted = all
+              languages.
+
+          message_apps: Required when conversion_location is messaging: which apps to message on.
+              Combinations map to the matching Meta destination.
+
           minimum_daily_spend: Daily spend floor within the budget.
 
           optimization_goal: What the ad group optimizes for (e.g. conversions, link_clicks, reach).
 
           placements: 'automatic' (Advantage+) or a list of { platform, positions }.
 
-          regions: Geo targeting: { include / exclude: { countries, cities, zips } }.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
+              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips } }.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -311,16 +369,19 @@ class AdGroupsResource(SyncAPIResource):
             path_template("/ad_groups/{id}", id=id),
             body=maybe_transform(
                 {
-                    "audience": audience,
+                    "audiences": audiences,
                     "bid_type": bid_type,
                     "budget_amount": budget_amount,
                     "budget_type": budget_type,
                     "conversion_event": conversion_event,
                     "conversion_location": conversion_location,
+                    "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
                     "devices": devices,
                     "ends_at": ends_at,
                     "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
                     "minimum_daily_spend": minimum_daily_spend,
                     "optimization_goal": optimization_goal,
                     "placements": placements,
@@ -406,7 +467,7 @@ class AdGroupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroupDeleteResponse:
-        """Deletes (discards) an ad group.
+        """Deletes an ad group.
 
         Returns true on success.
 
@@ -520,7 +581,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         self,
         *,
         ad_campaign_id: str,
-        audience: object | Omit = omit,
+        audiences: object | Omit = omit,
         bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
         budget_type: Literal["daily", "lifetime"] | Omit = omit,
@@ -547,11 +608,24 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             None,
         ]
         | Omit = omit,
-        conversion_location: Literal["website"] | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
         devices: object | Omit = omit,
+        dynamic_creative: bool | Omit = omit,
         ends_at: str | Omit = omit,
         frequency_cap: object | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
         minimum_daily_spend: float | Omit = omit,
         optimization_goal: str | Omit = omit,
         placements: object | Omit = omit,
@@ -572,7 +646,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         Args:
           ad_campaign_id: The ad campaign to create the ad group in.
 
-          audience: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
+          audiences: Saved-audience targeting: { include, exclude } arrays of audience IDs.
+              Incompatible with demographics.automatic (Advantage+).
 
           bid_type: Bid strategy.
 
@@ -582,15 +657,29 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where conversions happen.
+          conversion_location: Where results happen: website (conversions), profile (IG/FB engagement),
+              messaging (DM), on_ad (engagement on the ad, surface follows the optimization
+              goal), or the lead destinations (instant_forms, instant_forms_and_messenger,
+              website_and_instant_forms). The lead form itself is set on the ad.
+
+          demographics: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
           devices: Device targeting: { platforms, operating_systems: [{ os, minimum_version }] }.
 
+          dynamic_creative: Run Meta dynamic (Advantage+) creative for this ad set. Set at creation;
+              immutable afterward.
+
           ends_at: Schedule end, ISO 8601.
 
           frequency_cap: { maximum_impressions, per_days } — only valid for reach optimization.
+
+          languages: Languages to target as ISO 639 codes (e.g. en, es). Empty/omitted = all
+              languages.
+
+          message_apps: Required when conversion_location is messaging: which apps to message on.
+              Combinations map to the matching Meta destination.
 
           minimum_daily_spend: Daily spend floor within the budget.
 
@@ -598,7 +687,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           placements: 'automatic' (Advantage+) or a list of { platform, positions }.
 
-          regions: Geo targeting: { include / exclude: { countries, cities, zips } }.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
+              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips } }.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -619,16 +709,20 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "ad_campaign_id": ad_campaign_id,
-                    "audience": audience,
+                    "audiences": audiences,
                     "bid_type": bid_type,
                     "budget_amount": budget_amount,
                     "budget_type": budget_type,
                     "conversion_event": conversion_event,
                     "conversion_location": conversion_location,
+                    "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
                     "devices": devices,
+                    "dynamic_creative": dynamic_creative,
                     "ends_at": ends_at,
                     "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
                     "minimum_daily_spend": minimum_daily_spend,
                     "optimization_goal": optimization_goal,
                     "placements": placements,
@@ -682,7 +776,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        audience: object | Omit = omit,
+        audiences: object | Omit = omit,
         bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
         budget_type: Literal["daily", "lifetime"] | Omit = omit,
@@ -709,11 +803,23 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             None,
         ]
         | Omit = omit,
-        conversion_location: Literal["website"] | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
         devices: object | Omit = omit,
         ends_at: str | Omit = omit,
         frequency_cap: object | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
         minimum_daily_spend: float | Omit = omit,
         optimization_goal: str | Omit = omit,
         placements: object | Omit = omit,
@@ -733,7 +839,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         Only the keys you send are changed.
 
         Args:
-          audience: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
+          audiences: Saved-audience targeting: { include, exclude } arrays of audience IDs.
+              Incompatible with demographics.automatic (Advantage+).
 
           bid_type: Bid strategy.
 
@@ -743,7 +850,12 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where conversions happen.
+          conversion_location: Where results happen: website (conversions), profile (IG/FB engagement),
+              messaging (DM), on_ad (engagement on the ad, surface follows the optimization
+              goal), or the lead destinations (instant_forms, instant_forms_and_messenger,
+              website_and_instant_forms). The lead form itself is set on the ad.
+
+          demographics: Demographic targeting: { automatic, minimum_age, maximum_age, gender }.
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
@@ -753,13 +865,20 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           frequency_cap: { maximum_impressions, per_days } — only valid for reach optimization.
 
+          languages: Languages to target as ISO 639 codes (e.g. en, es). Empty/omitted = all
+              languages.
+
+          message_apps: Required when conversion_location is messaging: which apps to message on.
+              Combinations map to the matching Meta destination.
+
           minimum_daily_spend: Daily spend floor within the budget.
 
           optimization_goal: What the ad group optimizes for (e.g. conversions, link_clicks, reach).
 
           placements: 'automatic' (Advantage+) or a list of { platform, positions }.
 
-          regions: Geo targeting: { include / exclude: { countries, cities, zips } }.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
+              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips } }.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -781,16 +900,19 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             path_template("/ad_groups/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "audience": audience,
+                    "audiences": audiences,
                     "bid_type": bid_type,
                     "budget_amount": budget_amount,
                     "budget_type": budget_type,
                     "conversion_event": conversion_event,
                     "conversion_location": conversion_location,
+                    "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
                     "devices": devices,
                     "ends_at": ends_at,
                     "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
                     "minimum_daily_spend": minimum_daily_spend,
                     "optimization_goal": optimization_goal,
                     "placements": placements,
@@ -876,7 +998,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroupDeleteResponse:
-        """Deletes (discards) an ad group.
+        """Deletes an ad group.
 
         Returns true on success.
 
