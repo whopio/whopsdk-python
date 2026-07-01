@@ -198,6 +198,7 @@ class AdCampaignsResource(SyncAPIResource):
         budget_amount: float | Omit = omit,
         ends_at: str | Omit = omit,
         starts_at: str | Omit = omit,
+        status: Literal["active"] | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -206,11 +207,11 @@ class AdCampaignsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
-        """Updates an ad campaign's editable fields (title, budget, schedule).
-
-        Objective,
-        budget optimization, budget type, special ad categories, bid type and desired
-        cost per result are fixed at creation and cannot be changed.
+        """
+        Updates an ad campaign's editable fields (title, budget, schedule), and launches
+        a draft campaign by setting status to active. Objective, budget optimization,
+        budget type, special ad categories, bid type and desired cost per result are
+        fixed at creation and cannot be changed.
 
         Args:
           budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
@@ -219,6 +220,9 @@ class AdCampaignsResource(SyncAPIResource):
           ends_at: Campaign schedule end (ISO 8601). CBO only.
 
           starts_at: Campaign schedule start (ISO 8601). CBO only.
+
+          status: Set to active to launch a draft campaign (moderates and pushes it live).
+              Live-campaign pause and resume use the pause and unpause actions.
 
           title: The name of the campaign.
 
@@ -239,6 +243,7 @@ class AdCampaignsResource(SyncAPIResource):
                     "budget_amount": budget_amount,
                     "ends_at": ends_at,
                     "starts_at": starts_at,
+                    "status": status,
                     "title": title,
                 },
                 ad_campaign_update_params.AdCampaignUpdateParams,
@@ -609,6 +614,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         budget_amount: float | Omit = omit,
         ends_at: str | Omit = omit,
         starts_at: str | Omit = omit,
+        status: Literal["active"] | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -617,11 +623,11 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
-        """Updates an ad campaign's editable fields (title, budget, schedule).
-
-        Objective,
-        budget optimization, budget type, special ad categories, bid type and desired
-        cost per result are fixed at creation and cannot be changed.
+        """
+        Updates an ad campaign's editable fields (title, budget, schedule), and launches
+        a draft campaign by setting status to active. Objective, budget optimization,
+        budget type, special ad categories, bid type and desired cost per result are
+        fixed at creation and cannot be changed.
 
         Args:
           budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
@@ -630,6 +636,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
           ends_at: Campaign schedule end (ISO 8601). CBO only.
 
           starts_at: Campaign schedule start (ISO 8601). CBO only.
+
+          status: Set to active to launch a draft campaign (moderates and pushes it live).
+              Live-campaign pause and resume use the pause and unpause actions.
 
           title: The name of the campaign.
 
@@ -650,6 +659,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                     "budget_amount": budget_amount,
                     "ends_at": ends_at,
                     "starts_at": starts_at,
+                    "status": status,
                     "title": title,
                 },
                 ad_campaign_update_params.AdCampaignUpdateParams,

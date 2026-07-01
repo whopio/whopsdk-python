@@ -163,8 +163,34 @@ class Ad(BaseModel):
 
     issues: List[Issue]
 
+    lead_form: Optional[object] = None
+    """
+    The instant lead form on the ad (Meta lead ads), or null when the ad group's
+    conversion_location is not an instant-form destination. An object with name,
+    form_type (more_volume or higher_intent), an optional intro, questions, a
+    privacy_policy, an optional completion screen, and phone_verification.
+    """
+
     leads: float
     """Whop pixel-attributed leads, last-click."""
+
+    messaging_config: Optional[object] = None
+    """
+    The click-to-message welcome copy, an object with message and keyword, or null
+    when the ad has none.
+    """
+
+    multi_advertiser_ads: bool
+    """Whether the ad can appear alongside other advertisers' ads in the same unit.
+
+    Defaults to true.
+    """
+
+    post_id: Optional[str] = None
+    """
+    The existing post this ad promotes (a Facebook post or Instagram media), or null
+    when it uses uploaded creatives.
+    """
 
     primary_texts: List[str]
 

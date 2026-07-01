@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AdCampaignUpdateParams"]
 
@@ -19,6 +19,12 @@ class AdCampaignUpdateParams(TypedDict, total=False):
 
     starts_at: str
     """Campaign schedule start (ISO 8601). CBO only."""
+
+    status: Literal["active"]
+    """Set to active to launch a draft campaign (moderates and pushes it live).
+
+    Live-campaign pause and resume use the pause and unpause actions.
+    """
 
     title: str
     """The name of the campaign."""

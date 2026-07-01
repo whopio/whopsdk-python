@@ -30,7 +30,7 @@ class TestAds:
         ad = client.ads.create(
             ad_group={},
             ad_group_id="ad_group_id",
-            call_to_action="shop_now",
+            call_to_action="apply_now",
             creatives=[
                 {
                     "id": "id",
@@ -39,6 +39,62 @@ class TestAds:
             ],
             descriptions=["string"],
             headlines=["string"],
+            lead_form={
+                "completion": {
+                    "button_text": "button_text",
+                    "description": "description",
+                    "headline": "headline",
+                    "url": "url",
+                },
+                "disclaimer": {
+                    "body": "body",
+                    "checkboxes": [
+                        {
+                            "checked_by_default": True,
+                            "key": "key",
+                            "required": True,
+                            "text": "text",
+                        }
+                    ],
+                    "title": "title",
+                },
+                "form_type": "more_volume",
+                "intro": {
+                    "background_image_url": "background_image_url",
+                    "description": "description",
+                    "headline": "headline",
+                },
+                "name": "name",
+                "phone_verification": True,
+                "privacy_policy": {
+                    "link_text": "link_text",
+                    "url": "url",
+                },
+                "questions": [
+                    {
+                        "format": "short_answer",
+                        "label": "label",
+                        "options": [
+                            {
+                                "key": "key",
+                                "logic": {
+                                    "action": "go_to_question",
+                                    "target_end_page_index": 0,
+                                    "target_question_index": 0,
+                                },
+                                "value": "value",
+                            }
+                        ],
+                        "type": "email",
+                    }
+                ],
+            },
+            messaging_config={
+                "keyword": "keyword",
+                "message": "message",
+            },
+            multi_advertiser_ads=True,
+            post_id="post_id",
             primary_texts=["string"],
             social_accounts=[{"id": "id"}],
             title="title",
@@ -134,7 +190,7 @@ class TestAds:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ad = client.ads.update(
             id="id",
-            call_to_action="shop_now",
+            call_to_action="apply_now",
             creatives=[
                 {
                     "id": "id",
@@ -143,6 +199,62 @@ class TestAds:
             ],
             descriptions=["string"],
             headlines=["string"],
+            lead_form={
+                "completion": {
+                    "button_text": "button_text",
+                    "description": "description",
+                    "headline": "headline",
+                    "url": "url",
+                },
+                "disclaimer": {
+                    "body": "body",
+                    "checkboxes": [
+                        {
+                            "checked_by_default": True,
+                            "key": "key",
+                            "required": True,
+                            "text": "text",
+                        }
+                    ],
+                    "title": "title",
+                },
+                "form_type": "more_volume",
+                "intro": {
+                    "background_image_url": "background_image_url",
+                    "description": "description",
+                    "headline": "headline",
+                },
+                "name": "name",
+                "phone_verification": True,
+                "privacy_policy": {
+                    "link_text": "link_text",
+                    "url": "url",
+                },
+                "questions": [
+                    {
+                        "format": "short_answer",
+                        "label": "label",
+                        "options": [
+                            {
+                                "key": "key",
+                                "logic": {
+                                    "action": "go_to_question",
+                                    "target_end_page_index": 0,
+                                    "target_question_index": 0,
+                                },
+                                "value": "value",
+                            }
+                        ],
+                        "type": "email",
+                    }
+                ],
+            },
+            messaging_config={
+                "keyword": "keyword",
+                "message": "message",
+            },
+            multi_advertiser_ads=True,
+            post_id="post_id",
             primary_texts=["string"],
             social_accounts=[{"id": "id"}],
             title="title",
@@ -379,7 +491,7 @@ class TestAsyncAds:
         ad = await async_client.ads.create(
             ad_group={},
             ad_group_id="ad_group_id",
-            call_to_action="shop_now",
+            call_to_action="apply_now",
             creatives=[
                 {
                     "id": "id",
@@ -388,6 +500,62 @@ class TestAsyncAds:
             ],
             descriptions=["string"],
             headlines=["string"],
+            lead_form={
+                "completion": {
+                    "button_text": "button_text",
+                    "description": "description",
+                    "headline": "headline",
+                    "url": "url",
+                },
+                "disclaimer": {
+                    "body": "body",
+                    "checkboxes": [
+                        {
+                            "checked_by_default": True,
+                            "key": "key",
+                            "required": True,
+                            "text": "text",
+                        }
+                    ],
+                    "title": "title",
+                },
+                "form_type": "more_volume",
+                "intro": {
+                    "background_image_url": "background_image_url",
+                    "description": "description",
+                    "headline": "headline",
+                },
+                "name": "name",
+                "phone_verification": True,
+                "privacy_policy": {
+                    "link_text": "link_text",
+                    "url": "url",
+                },
+                "questions": [
+                    {
+                        "format": "short_answer",
+                        "label": "label",
+                        "options": [
+                            {
+                                "key": "key",
+                                "logic": {
+                                    "action": "go_to_question",
+                                    "target_end_page_index": 0,
+                                    "target_question_index": 0,
+                                },
+                                "value": "value",
+                            }
+                        ],
+                        "type": "email",
+                    }
+                ],
+            },
+            messaging_config={
+                "keyword": "keyword",
+                "message": "message",
+            },
+            multi_advertiser_ads=True,
+            post_id="post_id",
             primary_texts=["string"],
             social_accounts=[{"id": "id"}],
             title="title",
@@ -483,7 +651,7 @@ class TestAsyncAds:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.update(
             id="id",
-            call_to_action="shop_now",
+            call_to_action="apply_now",
             creatives=[
                 {
                     "id": "id",
@@ -492,6 +660,62 @@ class TestAsyncAds:
             ],
             descriptions=["string"],
             headlines=["string"],
+            lead_form={
+                "completion": {
+                    "button_text": "button_text",
+                    "description": "description",
+                    "headline": "headline",
+                    "url": "url",
+                },
+                "disclaimer": {
+                    "body": "body",
+                    "checkboxes": [
+                        {
+                            "checked_by_default": True,
+                            "key": "key",
+                            "required": True,
+                            "text": "text",
+                        }
+                    ],
+                    "title": "title",
+                },
+                "form_type": "more_volume",
+                "intro": {
+                    "background_image_url": "background_image_url",
+                    "description": "description",
+                    "headline": "headline",
+                },
+                "name": "name",
+                "phone_verification": True,
+                "privacy_policy": {
+                    "link_text": "link_text",
+                    "url": "url",
+                },
+                "questions": [
+                    {
+                        "format": "short_answer",
+                        "label": "label",
+                        "options": [
+                            {
+                                "key": "key",
+                                "logic": {
+                                    "action": "go_to_question",
+                                    "target_end_page_index": 0,
+                                    "target_question_index": 0,
+                                },
+                                "value": "value",
+                            }
+                        ],
+                        "type": "email",
+                    }
+                ],
+            },
+            messaging_config={
+                "keyword": "keyword",
+                "message": "message",
+            },
+            multi_advertiser_ads=True,
+            post_id="post_id",
             primary_texts=["string"],
             social_accounts=[{"id": "id"}],
             title="title",

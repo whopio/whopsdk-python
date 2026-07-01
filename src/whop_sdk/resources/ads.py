@@ -52,12 +52,37 @@ class AdsResource(SyncAPIResource):
         ad_group: object | Omit = omit,
         ad_group_id: str | Omit = omit,
         call_to_action: Literal[
-            "shop_now", "learn_more", "sign_up", "subscribe", "order_now", "get_offer", "see_details"
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
         ]
         | Omit = omit,
         creatives: Iterable[ad_create_params.Creative] | Omit = omit,
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_create_params.LeadForm | Omit = omit,
+        messaging_config: ad_create_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_create_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -89,6 +114,19 @@ class AdsResource(SyncAPIResource):
 
           headlines: The headline variants shown on the ad.
 
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
+
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
+
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
+
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
+
           primary_texts: The primary text variants shown in the ad body.
 
           social_accounts: The social accounts (Facebook page, Instagram profile) the ad runs under.
@@ -117,6 +155,10 @@ class AdsResource(SyncAPIResource):
                     "creatives": creatives,
                     "descriptions": descriptions,
                     "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,
@@ -185,12 +227,37 @@ class AdsResource(SyncAPIResource):
         id: str,
         *,
         call_to_action: Literal[
-            "shop_now", "learn_more", "sign_up", "subscribe", "order_now", "get_offer", "see_details"
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
         ]
         | Omit = omit,
         creatives: Iterable[ad_update_params.Creative] | Omit = omit,
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_update_params.LeadForm | Omit = omit,
+        messaging_config: ad_update_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_update_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -216,6 +283,19 @@ class AdsResource(SyncAPIResource):
           descriptions: The description variants shown on the ad.
 
           headlines: The headline variants shown on the ad.
+
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
+
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
+
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
+
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -245,6 +325,10 @@ class AdsResource(SyncAPIResource):
                     "creatives": creatives,
                     "descriptions": descriptions,
                     "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,
@@ -485,12 +569,37 @@ class AsyncAdsResource(AsyncAPIResource):
         ad_group: object | Omit = omit,
         ad_group_id: str | Omit = omit,
         call_to_action: Literal[
-            "shop_now", "learn_more", "sign_up", "subscribe", "order_now", "get_offer", "see_details"
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
         ]
         | Omit = omit,
         creatives: Iterable[ad_create_params.Creative] | Omit = omit,
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_create_params.LeadForm | Omit = omit,
+        messaging_config: ad_create_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_create_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -522,6 +631,19 @@ class AsyncAdsResource(AsyncAPIResource):
 
           headlines: The headline variants shown on the ad.
 
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
+
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
+
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
+
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
+
           primary_texts: The primary text variants shown in the ad body.
 
           social_accounts: The social accounts (Facebook page, Instagram profile) the ad runs under.
@@ -550,6 +672,10 @@ class AsyncAdsResource(AsyncAPIResource):
                     "creatives": creatives,
                     "descriptions": descriptions,
                     "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,
@@ -618,12 +744,37 @@ class AsyncAdsResource(AsyncAPIResource):
         id: str,
         *,
         call_to_action: Literal[
-            "shop_now", "learn_more", "sign_up", "subscribe", "order_now", "get_offer", "see_details"
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
         ]
         | Omit = omit,
         creatives: Iterable[ad_update_params.Creative] | Omit = omit,
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_update_params.LeadForm | Omit = omit,
+        messaging_config: ad_update_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_update_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -649,6 +800,19 @@ class AsyncAdsResource(AsyncAPIResource):
           descriptions: The description variants shown on the ad.
 
           headlines: The headline variants shown on the ad.
+
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
+
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
+
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
+
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -678,6 +842,10 @@ class AsyncAdsResource(AsyncAPIResource):
                     "creatives": creatives,
                     "descriptions": descriptions,
                     "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,

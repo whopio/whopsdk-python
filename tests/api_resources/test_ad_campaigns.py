@@ -148,6 +148,7 @@ class TestAdCampaigns:
             budget_amount=0,
             ends_at="ends_at",
             starts_at="starts_at",
+            status="active",
             title="title",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
@@ -493,6 +494,7 @@ class TestAsyncAdCampaigns:
             budget_amount=0,
             ends_at="ends_at",
             starts_at="starts_at",
+            status="active",
             title="title",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
