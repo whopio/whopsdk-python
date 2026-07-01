@@ -60,7 +60,6 @@ class TestAds:
                 },
                 "form_type": "more_volume",
                 "intro": {
-                    "background_image_url": "background_image_url",
                     "description": "description",
                     "headline": "headline",
                 },
@@ -220,7 +219,6 @@ class TestAds:
                 },
                 "form_type": "more_volume",
                 "intro": {
-                    "background_image_url": "background_image_url",
                     "description": "description",
                     "headline": "headline",
                 },
@@ -521,7 +519,6 @@ class TestAsyncAds:
                 },
                 "form_type": "more_volume",
                 "intro": {
-                    "background_image_url": "background_image_url",
                     "description": "description",
                     "headline": "headline",
                 },
@@ -681,7 +678,6 @@ class TestAsyncAds:
                 },
                 "form_type": "more_volume",
                 "intro": {
-                    "background_image_url": "background_image_url",
                     "description": "description",
                     "headline": "headline",
                 },

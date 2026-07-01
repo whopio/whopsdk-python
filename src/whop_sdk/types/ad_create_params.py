@@ -157,11 +157,7 @@ class LeadFormDisclaimer(TypedDict, total=False):
 
 
 class LeadFormIntro(TypedDict, total=False):
-    """
-    Optional intro screen shown before the questions; background_image_url sets a custom background.
-    """
-
-    background_image_url: str
+    """Optional intro screen shown before the questions."""
 
     description: str
 
@@ -246,10 +242,7 @@ class LeadForm(TypedDict, total=False):
     """
 
     intro: LeadFormIntro
-    """
-    Optional intro screen shown before the questions; background_image_url sets a
-    custom background.
-    """
+    """Optional intro screen shown before the questions."""
 
     name: str
     """Internal name for the form. Auto-generated if omitted."""
