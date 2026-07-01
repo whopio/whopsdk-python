@@ -88,7 +88,8 @@ class BountiesResource(SyncAPIResource):
 
         Args:
           base_unit_amount: The amount paid to each approved submission. The total bounty pool funded is
-              this amount times accepted_submissions_limit.
+              this amount times accepted_submissions_limit, and must be at least 5 in the
+              bounty's currency.
 
           currency: The currency for the bounty pool funding amount.
 
@@ -97,7 +98,8 @@ class BountiesResource(SyncAPIResource):
           title: The title of the bounty.
 
           accepted_submissions_limit: The number of submissions that can be approved before the bounty closes.
-              Defaults to 1.
+              Defaults to 1. The total pool (base_unit_amount times this limit) must be at
+              least 5 in the bounty's currency.
 
           allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
               globally visible.
@@ -323,7 +325,8 @@ class AsyncBountiesResource(AsyncAPIResource):
 
         Args:
           base_unit_amount: The amount paid to each approved submission. The total bounty pool funded is
-              this amount times accepted_submissions_limit.
+              this amount times accepted_submissions_limit, and must be at least 5 in the
+              bounty's currency.
 
           currency: The currency for the bounty pool funding amount.
 
@@ -332,7 +335,8 @@ class AsyncBountiesResource(AsyncAPIResource):
           title: The title of the bounty.
 
           accepted_submissions_limit: The number of submissions that can be approved before the bounty closes.
-              Defaults to 1.
+              Defaults to 1. The total pool (base_unit_amount times this limit) must be at
+              least 5 in the bounty's currency.
 
           allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
               globally visible.
