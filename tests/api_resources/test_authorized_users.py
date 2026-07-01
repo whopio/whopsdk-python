@@ -40,6 +40,14 @@ class TestAuthorizedUsers:
             company_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
+            elevation={
+                "authenticator_data": "authenticator_data",
+                "client_data_json": "client_data_json",
+                "credential_id": "credential_id",
+                "signature": "signature",
+                "totp_code": "totp_code",
+                "use_finance_session": True,
+            },
             send_emails=True,
         )
         assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
@@ -234,6 +242,14 @@ class TestAsyncAuthorizedUsers:
             company_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
+            elevation={
+                "authenticator_data": "authenticator_data",
+                "client_data_json": "client_data_json",
+                "credential_id": "credential_id",
+                "signature": "signature",
+                "totp_code": "totp_code",
+                "use_finance_session": True,
+            },
             send_emails=True,
         )
         assert_matches_type(AuthorizedUser, authorized_user, path=["response"])
