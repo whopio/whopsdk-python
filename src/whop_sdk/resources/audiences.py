@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Dict
-
 import httpx
 
 from ..types import audience_list_params, audience_create_params
@@ -49,7 +47,7 @@ class AudiencesResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        column_mapping: Dict[str, str],
+        column_mapping: audience_create_params.ColumnMapping,
         file_id: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -60,17 +58,18 @@ class AudiencesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Audience:
         """
-        Creates a custom audience from an uploaded CSV file and starts processing it.
+        Creates an audience from an uploaded customer identity CSV file and starts
+        processing it.
 
         Args:
-          account_id: The ID of the account that will own the audience.
+          account_id: Account ID, prefixed `biz_`.
 
-          column_mapping: Map of identity field (email, phone, first_name, last_name, country) to the CSV
-              column header that holds it. Map at least an email or phone column.
+          column_mapping: Maps supported identity fields to CSV column headers. Map at least one of
+              `email` or `phone`.
 
-          file_id: A direct upload ID returned by the standard media upload endpoint.
+          file_id: Direct upload ID from the standard media upload endpoint.
 
-          name: A display name for the audience.
+          name: Audience display name.
 
           extra_headers: Send extra headers
 
@@ -111,19 +110,19 @@ class AudiencesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[Audience]:
-        """
-        Lists the custom audiences (uploaded CSV customer lists) for an account.
+        """Lists uploaded customer-list audiences for an account.
+
+        Pass `audience_id` to
+        return a specific audience.
 
         Args:
-          account_id: The ID of the account that owns the audiences, which will look like
-              biz\\__******\\********.
+          account_id: Account ID, prefixed `biz_`.
 
-          after: A cursor; returns audiences after this position.
+          after: Cursor for the next page of audiences.
 
-          audience_id: Optional audience ID to filter the response to one audience, which will look
-              like adaud\\__******\\********.
+          audience_id: Audience ID, prefixed `adaud_`, used to filter the response to one audience.
 
-          first: The number of audiences to return (default 20, max 100).
+          first: Number of audiences to return. Defaults to 20; maximum 100.
 
           extra_headers: Send extra headers
 
@@ -166,7 +165,7 @@ class AudiencesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AudienceDeleteResponse:
         """
-        Deletes (soft-discards) a custom audience.
+        Deletes an audience so it is no longer available for targeting.
 
         Args:
           extra_headers: Send extra headers
@@ -212,7 +211,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        column_mapping: Dict[str, str],
+        column_mapping: audience_create_params.ColumnMapping,
         file_id: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -223,17 +222,18 @@ class AsyncAudiencesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Audience:
         """
-        Creates a custom audience from an uploaded CSV file and starts processing it.
+        Creates an audience from an uploaded customer identity CSV file and starts
+        processing it.
 
         Args:
-          account_id: The ID of the account that will own the audience.
+          account_id: Account ID, prefixed `biz_`.
 
-          column_mapping: Map of identity field (email, phone, first_name, last_name, country) to the CSV
-              column header that holds it. Map at least an email or phone column.
+          column_mapping: Maps supported identity fields to CSV column headers. Map at least one of
+              `email` or `phone`.
 
-          file_id: A direct upload ID returned by the standard media upload endpoint.
+          file_id: Direct upload ID from the standard media upload endpoint.
 
-          name: A display name for the audience.
+          name: Audience display name.
 
           extra_headers: Send extra headers
 
@@ -274,19 +274,19 @@ class AsyncAudiencesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Audience, AsyncCursorPage[Audience]]:
-        """
-        Lists the custom audiences (uploaded CSV customer lists) for an account.
+        """Lists uploaded customer-list audiences for an account.
+
+        Pass `audience_id` to
+        return a specific audience.
 
         Args:
-          account_id: The ID of the account that owns the audiences, which will look like
-              biz\\__******\\********.
+          account_id: Account ID, prefixed `biz_`.
 
-          after: A cursor; returns audiences after this position.
+          after: Cursor for the next page of audiences.
 
-          audience_id: Optional audience ID to filter the response to one audience, which will look
-              like adaud\\__******\\********.
+          audience_id: Audience ID, prefixed `adaud_`, used to filter the response to one audience.
 
-          first: The number of audiences to return (default 20, max 100).
+          first: Number of audiences to return. Defaults to 20; maximum 100.
 
           extra_headers: Send extra headers
 
@@ -329,7 +329,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AudienceDeleteResponse:
         """
-        Deletes (soft-discards) a custom audience.
+        Deletes an audience so it is no longer available for targeting.
 
         Args:
           extra_headers: Send extra headers

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -9,34 +10,37 @@ __all__ = ["Audience"]
 
 class Audience(BaseModel):
     id: str
-    """The ID of the audience, which will look like adaud\\__******\\********"""
+    """Audience ID, prefixed `adaud_`."""
 
     created_at: float
-    """When the audience was created, as a Unix timestamp"""
+    """Unix timestamp when the audience was created."""
 
     error_message: Optional[str] = None
-    """Populated when the audience is partial or failed"""
+    """Processing error message. `null` unless processing is partial or failed."""
 
     matched_rows: float
-    """Rows uploaded to the ad platform"""
+    """Rows successfully uploaded to connected ad accounts."""
 
     name: str
-    """The display name of the audience"""
+    """Audience display name."""
 
-    platform_audience_ids: List[object]
-    """External ad-platform audience IDs created for this audience"""
+    platform_audience_ids: List[str]
 
     processed_rows: float
-    """Rows ingested so far"""
+    """Rows processed from the uploaded CSV."""
 
     progress_percent: float
-    """Processing progress from 0 to 100"""
+    """Processing progress from 0 to 100."""
 
-    status: str
-    """Processing status: pending, processing, syncing, ready, partial, or failed"""
+    status: Literal["pending", "processing", "syncing", "ready", "partial", "failed"]
+    """Current state of the audience import.
+
+    `syncing` means Whop is sending matched rows to connected ad accounts. When
+    status is `partial` or `failed`, `error_message` explains what went wrong.
+    """
 
     total_rows: float
-    """Total data rows detected in the uploaded CSV"""
+    """Total rows detected in the uploaded CSV."""
 
     updated_at: float
-    """When the audience was last updated, as a Unix timestamp"""
+    """Unix timestamp when the audience was last updated."""

@@ -23,7 +23,24 @@ class TestAudiences:
     def test_method_create(self, client: Whop) -> None:
         audience = client.audiences.create(
             account_id="account_id",
-            column_mapping={"foo": "string"},
+            column_mapping={},
+            file_id="file_id",
+            name="name",
+        )
+        assert_matches_type(Audience, audience, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Whop) -> None:
+        audience = client.audiences.create(
+            account_id="account_id",
+            column_mapping={
+                "country": "country",
+                "email": "email",
+                "first_name": "first_name",
+                "last_name": "last_name",
+                "phone": "phone",
+            },
             file_id="file_id",
             name="name",
         )
@@ -34,7 +51,7 @@ class TestAudiences:
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.audiences.with_raw_response.create(
             account_id="account_id",
-            column_mapping={"foo": "string"},
+            column_mapping={},
             file_id="file_id",
             name="name",
         )
@@ -49,7 +66,7 @@ class TestAudiences:
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.audiences.with_streaming_response.create(
             account_id="account_id",
-            column_mapping={"foo": "string"},
+            column_mapping={},
             file_id="file_id",
             name="name",
         ) as response:
@@ -159,7 +176,24 @@ class TestAsyncAudiences:
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.create(
             account_id="account_id",
-            column_mapping={"foo": "string"},
+            column_mapping={},
+            file_id="file_id",
+            name="name",
+        )
+        assert_matches_type(Audience, audience, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
+        audience = await async_client.audiences.create(
+            account_id="account_id",
+            column_mapping={
+                "country": "country",
+                "email": "email",
+                "first_name": "first_name",
+                "last_name": "last_name",
+                "phone": "phone",
+            },
             file_id="file_id",
             name="name",
         )
@@ -170,7 +204,7 @@ class TestAsyncAudiences:
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.audiences.with_raw_response.create(
             account_id="account_id",
-            column_mapping={"foo": "string"},
+            column_mapping={},
             file_id="file_id",
             name="name",
         )
@@ -185,7 +219,7 @@ class TestAsyncAudiences:
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.audiences.with_streaming_response.create(
             account_id="account_id",
-            column_mapping={"foo": "string"},
+            column_mapping={},
             file_id="file_id",
             name="name",
         ) as response:

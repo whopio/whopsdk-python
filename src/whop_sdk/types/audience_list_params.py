@@ -9,19 +9,13 @@ __all__ = ["AudienceListParams"]
 
 class AudienceListParams(TypedDict, total=False):
     account_id: Required[str]
-    """
-    The ID of the account that owns the audiences, which will look like
-    biz\\__******\\********.
-    """
+    """Account ID, prefixed `biz_`."""
 
     after: str
-    """A cursor; returns audiences after this position."""
+    """Cursor for the next page of audiences."""
 
     audience_id: str
-    """
-    Optional audience ID to filter the response to one audience, which will look
-    like adaud\\__******\\********.
-    """
+    """Audience ID, prefixed `adaud_`, used to filter the response to one audience."""
 
     first: int
-    """The number of audiences to return (default 20, max 100)."""
+    """Number of audiences to return. Defaults to 20; maximum 100."""
