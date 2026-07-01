@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["BusinessListResponse", "Account", "EarningsUsd", "VolumeUsd"]
+__all__ = ["BusinessListResponse", "Account", "EarningsUsd", "User", "UserProfilePicture", "VolumeUsd"]
 
 
 class Account(BaseModel):
@@ -34,6 +34,29 @@ class EarningsUsd(BaseModel):
 
     total: str
     """Pending + completed commission, in USD."""
+
+
+class UserProfilePicture(BaseModel):
+    """The user's profile picture."""
+
+    url: str
+    """The user's profile picture URL."""
+
+
+class User(BaseModel):
+    """Owner of the referred account."""
+
+    id: str
+    """User ID, prefixed `user_`."""
+
+    name: Optional[str] = None
+    """The user's display name."""
+
+    profile_picture: UserProfilePicture
+    """The user's profile picture."""
+
+    username: str
+    """The user's unique username."""
 
 
 class VolumeUsd(BaseModel):
@@ -75,5 +98,8 @@ class BusinessListResponse(BaseModel):
 
     status: Literal["active", "removed"]
     """Current referral status."""
+
+    user: Optional[User] = None
+    """Owner of the referred account."""
 
     volume_usd: VolumeUsd

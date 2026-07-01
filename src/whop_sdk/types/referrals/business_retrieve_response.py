@@ -13,6 +13,8 @@ __all__ = [
     "AccountRecommendedAction",
     "AccountRequiredAction",
     "EarningsUsd",
+    "User",
+    "UserProfilePicture",
     "VolumeUsd",
 ]
 
@@ -143,6 +145,29 @@ class EarningsUsd(BaseModel):
     """Pending + completed commission, in USD."""
 
 
+class UserProfilePicture(BaseModel):
+    """The user's profile picture."""
+
+    url: str
+    """The user's profile picture URL."""
+
+
+class User(BaseModel):
+    """Owner of the referred account."""
+
+    id: str
+    """User ID, prefixed `user_`."""
+
+    name: Optional[str] = None
+    """The user's display name."""
+
+    profile_picture: UserProfilePicture
+    """The user's profile picture."""
+
+    username: str
+    """The user's unique username."""
+
+
 class VolumeUsd(BaseModel):
     attributed: str
     """
@@ -182,5 +207,8 @@ class BusinessRetrieveResponse(BaseModel):
 
     status: Literal["active", "removed"]
     """Current referral status."""
+
+    user: Optional[User] = None
+    """Owner of the referred account."""
 
     volume_usd: VolumeUsd
