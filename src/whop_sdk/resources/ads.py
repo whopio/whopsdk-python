@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
+from typing import Iterable
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import ExternalAdStatus, ad_list_params, ad_retrieve_params
+from ..types import ad_list_params, ad_create_params, ad_update_params, ad_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -22,16 +21,12 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.ad_list_response import AdListResponse
-from ..types.shared.direction import Direction
-from ..types.external_ad_status import ExternalAdStatus
+from ..types.ad_delete_response import AdDeleteResponse
 
 __all__ = ["AdsResource", "AsyncAdsResource"]
 
 
 class AdsResource(SyncAPIResource):
-    """Ads"""
-
     @cached_property
     def with_raw_response(self) -> AdsResourceWithRawResponse:
         """
@@ -51,12 +46,48 @@ class AdsResource(SyncAPIResource):
         """
         return AdsResourceWithStreamingResponse(self)
 
-    def retrieve(
+    def create(
         self,
-        id: str,
         *,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
+        ad_group: object | Omit = omit,
+        ad_group_id: str | Omit = omit,
+        call_to_action: Literal[
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
+        ]
+        | Omit = omit,
+        creatives: Iterable[ad_create_params.Creative] | Omit = omit,
+        descriptions: SequenceNotStr[str] | Omit = omit,
+        headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_create_params.LeadForm | Omit = omit,
+        messaging_config: ad_create_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
+        primary_texts: SequenceNotStr[str] | Omit = omit,
+        social_accounts: Iterable[ad_create_params.SocialAccount] | Omit = omit,
+        title: str | Omit = omit,
+        url: str | Omit = omit,
+        url_parameters: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,18 +96,103 @@ class AdsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Ad:
         """
-        Retrieve an ad by its unique identifier.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Creates an ad in an ad group.
 
         Args:
-          stats_from: Inclusive start of the window for the ad's metric fields (spend, impressions,
-              …). Omit both statsFrom and statsTo for all-time stats.
+          ad_group: An inline ad group to create (same shape as POST /ad_groups, including
+              ad_campaign_id). Creates the ad group and the ad together. Provide this OR
+              ad_group_id.
 
-          stats_to: Inclusive end of the window for the ad's metric fields. Omit both statsFrom and
-              statsTo for all-time stats.
+          ad_group_id: The existing ad group to create the ad in. Provide this OR ad_group, not both.
+
+          call_to_action: The call-to-action button shown on the ad.
+
+          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
+              omit format for the original/uncropped asset.
+
+          descriptions: The description variants shown on the ad.
+
+          headlines: The headline variants shown on the ad.
+
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
+
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
+
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
+
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
+
+          primary_texts: The primary text variants shown in the ad body.
+
+          social_accounts: The social accounts (Facebook page, Instagram profile) the ad runs under.
+
+          title: The display name of the ad.
+
+          url: The URL the ad links to.
+
+          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/ads",
+            body=maybe_transform(
+                {
+                    "ad_group": ad_group,
+                    "ad_group_id": ad_group_id,
+                    "call_to_action": call_to_action,
+                    "creatives": creatives,
+                    "descriptions": descriptions,
+                    "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
+                    "primary_texts": primary_texts,
+                    "social_accounts": social_accounts,
+                    "title": title,
+                    "url": url,
+                    "url_parameters": url_parameters,
+                },
+                ad_create_params.AdCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Ad,
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Ad:
+        """
+        Retrieves a single ad with stats over the requested window.
+
+        Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
 
           extra_headers: Send extra headers
 
@@ -106,91 +222,185 @@ class AdsResource(SyncAPIResource):
             cast_to=Ad,
         )
 
-    def list(
+    def update(
         self,
+        id: str,
         *,
-        ad_campaign_id: Optional[str] | Omit = omit,
-        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ad_group_id: Optional[str] | Omit = omit,
-        ad_group_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        campaign_id: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["created_at", "spend", "return_on_ad_spend"]] | Omit = omit,
-        order_by: Optional[Literal["spend", "return_on_ad_spend", "roas"]] | Omit = omit,
-        order_direction: Optional[Direction] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
-        status: Optional[ExternalAdStatus] | Omit = omit,
+        call_to_action: Literal[
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
+        ]
+        | Omit = omit,
+        creatives: Iterable[ad_update_params.Creative] | Omit = omit,
+        descriptions: SequenceNotStr[str] | Omit = omit,
+        headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_update_params.LeadForm | Omit = omit,
+        messaging_config: ad_update_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
+        primary_texts: SequenceNotStr[str] | Omit = omit,
+        social_accounts: Iterable[ad_update_params.SocialAccount] | Omit = omit,
+        title: str | Omit = omit,
+        url: str | Omit = omit,
+        url_parameters: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[AdListResponse]:
+    ) -> Ad:
         """
-        List ads scoped by ad group, campaign, or company.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Updates an ad's editable fields.
 
         Args:
-          ad_campaign_id: Filter by ad campaign. Provide exactly one of ad_group_id, ad_campaign_id, or
-              company_id.
+          call_to_action: The call-to-action button shown on the ad.
 
-          ad_campaign_ids: Only return ads belonging to these ad campaigns (max 100). Can be combined with
-              companyId or used on its own.
+          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
+              omit format for the original/uncropped asset. Replaces a live ad's creative on
+              the platform.
 
-          ad_group_id: Filter by ad group. Provide exactly one of ad_group_id, ad_campaign_id, or
-              company_id.
+          descriptions: The description variants shown on the ad.
 
-          ad_group_ids: Only return ads belonging to these ad groups (max 100). Can be combined with
-              companyId or used on its own.
+          headlines: The headline variants shown on the ad.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
 
-          before: Returns the elements in the list that come before the specified cursor.
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
 
-          campaign_id: Filter by campaign.
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
 
-          company_id: Filter by company. Provide exactly one of ad_group_id, ad_campaign_id, or
-              company_id.
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
+
+          primary_texts: The primary text variants shown in the ad body.
+
+          social_accounts: The social accounts the ad runs under.
+
+          title: The display name of the ad.
+
+          url: The URL the ad links to.
+
+          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            path_template("/ads/{id}", id=id),
+            body=maybe_transform(
+                {
+                    "call_to_action": call_to_action,
+                    "creatives": creatives,
+                    "descriptions": descriptions,
+                    "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
+                    "primary_texts": primary_texts,
+                    "social_accounts": social_accounts,
+                    "title": title,
+                    "url": url,
+                    "url_parameters": url_parameters,
+                },
+                ad_update_params.AdUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Ad,
+        )
+
+    def list(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        ad_campaign_id: str | Omit = omit,
+        ad_group_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "updated_at"] | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        status: Literal["active", "paused", "in_review", "rejected"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[Ad]:
+        """
+        Lists the ads for an account, with stats over the requested window.
+
+        Args:
+          account_id: The account the ads belong to. Defaults to the account-scoped key's own account.
+
+          ad_campaign_id: Only return ads in this ad campaign.
+
+          ad_group_id: Only return ads in this ad group.
+
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
           created_after: Only return ads created after this timestamp.
 
           created_before: Only return ads created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction. Defaults to desc.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of ads to return.
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of ads to return from the end of the range.
 
-          order: The fields ad resources can be ordered by.
+          order: The field to sort by. Defaults to created_at.
 
-          order_by: Columns that the listAds query can sort by. Deprecated — use AdOrder.
+          query: Filter ads by a title or ID substring.
 
-          order_direction: The direction of the sort.
+          stats_from: Start of the stats window. Defaults to all-time.
 
-          query: Case-insensitive substring match against the ad title or ID.
+          stats_to: End of the stats window. Defaults to now.
 
-          stats_from: Inclusive start of the window for each ad's metric fields (spend, impressions,
-              …) and for stats-column sorting. Omit both statsFrom and statsTo for all-time
-              stats.
-
-          stats_to: Inclusive end of the window for each ad's metric fields and for stats-column
-              sorting. Omit both statsFrom and statsTo for all-time stats.
-
-          status: The status of an external ad.
+          status: Only return ads with this status.
 
           extra_headers: Send extra headers
 
@@ -202,7 +412,7 @@ class AdsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/ads",
-            page=SyncCursorPage[AdListResponse],
+            page=SyncCursorPage[Ad],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -210,22 +420,17 @@ class AdsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
-                        "ad_campaign_ids": ad_campaign_ids,
                         "ad_group_id": ad_group_id,
-                        "ad_group_ids": ad_group_ids,
                         "after": after,
                         "before": before,
-                        "campaign_id": campaign_id,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
-                        "order_by": order_by,
-                        "order_direction": order_direction,
                         "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
@@ -234,7 +439,41 @@ class AdsResource(SyncAPIResource):
                     ad_list_params.AdListParams,
                 ),
             ),
-            model=AdListResponse,
+            model=Ad,
+        )
+
+    def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdDeleteResponse:
+        """Deletes an ad.
+
+        Returns true on success.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            path_template("/ads/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdDeleteResponse,
         )
 
     def pause(
@@ -249,12 +488,7 @@ class AdsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Ad:
         """
-        Pauses an ad.
-
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Pauses an active ad.
 
         Args:
           extra_headers: Send extra headers
@@ -289,11 +523,6 @@ class AdsResource(SyncAPIResource):
         """
         Resumes a paused ad.
 
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
-
         Args:
           extra_headers: Send extra headers
 
@@ -315,8 +544,6 @@ class AdsResource(SyncAPIResource):
 
 
 class AsyncAdsResource(AsyncAPIResource):
-    """Ads"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAdsResourceWithRawResponse:
         """
@@ -336,12 +563,48 @@ class AsyncAdsResource(AsyncAPIResource):
         """
         return AsyncAdsResourceWithStreamingResponse(self)
 
-    async def retrieve(
+    async def create(
         self,
-        id: str,
         *,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
+        ad_group: object | Omit = omit,
+        ad_group_id: str | Omit = omit,
+        call_to_action: Literal[
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
+        ]
+        | Omit = omit,
+        creatives: Iterable[ad_create_params.Creative] | Omit = omit,
+        descriptions: SequenceNotStr[str] | Omit = omit,
+        headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_create_params.LeadForm | Omit = omit,
+        messaging_config: ad_create_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
+        primary_texts: SequenceNotStr[str] | Omit = omit,
+        social_accounts: Iterable[ad_create_params.SocialAccount] | Omit = omit,
+        title: str | Omit = omit,
+        url: str | Omit = omit,
+        url_parameters: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -350,18 +613,103 @@ class AsyncAdsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Ad:
         """
-        Retrieve an ad by its unique identifier.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Creates an ad in an ad group.
 
         Args:
-          stats_from: Inclusive start of the window for the ad's metric fields (spend, impressions,
-              …). Omit both statsFrom and statsTo for all-time stats.
+          ad_group: An inline ad group to create (same shape as POST /ad_groups, including
+              ad_campaign_id). Creates the ad group and the ad together. Provide this OR
+              ad_group_id.
 
-          stats_to: Inclusive end of the window for the ad's metric fields. Omit both statsFrom and
-              statsTo for all-time stats.
+          ad_group_id: The existing ad group to create the ad in. Provide this OR ad_group, not both.
+
+          call_to_action: The call-to-action button shown on the ad.
+
+          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
+              omit format for the original/uncropped asset.
+
+          descriptions: The description variants shown on the ad.
+
+          headlines: The headline variants shown on the ad.
+
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
+
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
+
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
+
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
+
+          primary_texts: The primary text variants shown in the ad body.
+
+          social_accounts: The social accounts (Facebook page, Instagram profile) the ad runs under.
+
+          title: The display name of the ad.
+
+          url: The URL the ad links to.
+
+          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/ads",
+            body=await async_maybe_transform(
+                {
+                    "ad_group": ad_group,
+                    "ad_group_id": ad_group_id,
+                    "call_to_action": call_to_action,
+                    "creatives": creatives,
+                    "descriptions": descriptions,
+                    "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
+                    "primary_texts": primary_texts,
+                    "social_accounts": social_accounts,
+                    "title": title,
+                    "url": url,
+                    "url_parameters": url_parameters,
+                },
+                ad_create_params.AdCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Ad,
+        )
+
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Ad:
+        """
+        Retrieves a single ad with stats over the requested window.
+
+        Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
 
           extra_headers: Send extra headers
 
@@ -391,91 +739,185 @@ class AsyncAdsResource(AsyncAPIResource):
             cast_to=Ad,
         )
 
-    def list(
+    async def update(
         self,
+        id: str,
         *,
-        ad_campaign_id: Optional[str] | Omit = omit,
-        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ad_group_id: Optional[str] | Omit = omit,
-        ad_group_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        campaign_id: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["created_at", "spend", "return_on_ad_spend"]] | Omit = omit,
-        order_by: Optional[Literal["spend", "return_on_ad_spend", "roas"]] | Omit = omit,
-        order_direction: Optional[Direction] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
-        status: Optional[ExternalAdStatus] | Omit = omit,
+        call_to_action: Literal[
+            "apply_now",
+            "book_now",
+            "call_now",
+            "contact_us",
+            "download",
+            "get_directions",
+            "get_offer",
+            "get_quote",
+            "learn_more",
+            "listen_now",
+            "message_page",
+            "no_button",
+            "open_link",
+            "order_now",
+            "request_time",
+            "see_details",
+            "see_menu",
+            "send_updates",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "watch_more",
+        ]
+        | Omit = omit,
+        creatives: Iterable[ad_update_params.Creative] | Omit = omit,
+        descriptions: SequenceNotStr[str] | Omit = omit,
+        headlines: SequenceNotStr[str] | Omit = omit,
+        lead_form: ad_update_params.LeadForm | Omit = omit,
+        messaging_config: ad_update_params.MessagingConfig | Omit = omit,
+        multi_advertiser_ads: bool | Omit = omit,
+        post_id: str | Omit = omit,
+        primary_texts: SequenceNotStr[str] | Omit = omit,
+        social_accounts: Iterable[ad_update_params.SocialAccount] | Omit = omit,
+        title: str | Omit = omit,
+        url: str | Omit = omit,
+        url_parameters: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AdListResponse, AsyncCursorPage[AdListResponse]]:
+    ) -> Ad:
         """
-        List ads scoped by ad group, campaign, or company.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Updates an ad's editable fields.
 
         Args:
-          ad_campaign_id: Filter by ad campaign. Provide exactly one of ad_group_id, ad_campaign_id, or
-              company_id.
+          call_to_action: The call-to-action button shown on the ad.
 
-          ad_campaign_ids: Only return ads belonging to these ad campaigns (max 100). Can be combined with
-              companyId or used on its own.
+          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
+              omit format for the original/uncropped asset. Replaces a live ad's creative on
+              the platform.
 
-          ad_group_id: Filter by ad group. Provide exactly one of ad_group_id, ad_campaign_id, or
-              company_id.
+          descriptions: The description variants shown on the ad.
 
-          ad_group_ids: Only return ads belonging to these ad groups (max 100). Can be combined with
-              companyId or used on its own.
+          headlines: The headline variants shown on the ad.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          lead_form: Instant lead form for the ad. Only allowed when the ad group's
+              conversion_location is an instant-form destination (instant_forms,
+              instant_forms_and_messenger, website_and_instant_forms).
 
-          before: Returns the elements in the list that come before the specified cursor.
+          messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
+              (keyword).
 
-          campaign_id: Filter by campaign.
+          multi_advertiser_ads: Whether the ad can appear alongside other advertisers' ads in the same unit.
+              Defaults to true.
 
-          company_id: Filter by company. Provide exactly one of ad_group_id, ad_campaign_id, or
-              company_id.
+          post_id: Promote an existing post instead of uploading creatives — a Facebook post or
+              Instagram media id. Mutually exclusive with creatives.
+
+          primary_texts: The primary text variants shown in the ad body.
+
+          social_accounts: The social accounts the ad runs under.
+
+          title: The display name of the ad.
+
+          url: The URL the ad links to.
+
+          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            path_template("/ads/{id}", id=id),
+            body=await async_maybe_transform(
+                {
+                    "call_to_action": call_to_action,
+                    "creatives": creatives,
+                    "descriptions": descriptions,
+                    "headlines": headlines,
+                    "lead_form": lead_form,
+                    "messaging_config": messaging_config,
+                    "multi_advertiser_ads": multi_advertiser_ads,
+                    "post_id": post_id,
+                    "primary_texts": primary_texts,
+                    "social_accounts": social_accounts,
+                    "title": title,
+                    "url": url,
+                    "url_parameters": url_parameters,
+                },
+                ad_update_params.AdUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Ad,
+        )
+
+    def list(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        ad_campaign_id: str | Omit = omit,
+        ad_group_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "updated_at"] | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        status: Literal["active", "paused", "in_review", "rejected"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[Ad, AsyncCursorPage[Ad]]:
+        """
+        Lists the ads for an account, with stats over the requested window.
+
+        Args:
+          account_id: The account the ads belong to. Defaults to the account-scoped key's own account.
+
+          ad_campaign_id: Only return ads in this ad campaign.
+
+          ad_group_id: Only return ads in this ad group.
+
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
           created_after: Only return ads created after this timestamp.
 
           created_before: Only return ads created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction. Defaults to desc.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of ads to return.
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of ads to return from the end of the range.
 
-          order: The fields ad resources can be ordered by.
+          order: The field to sort by. Defaults to created_at.
 
-          order_by: Columns that the listAds query can sort by. Deprecated — use AdOrder.
+          query: Filter ads by a title or ID substring.
 
-          order_direction: The direction of the sort.
+          stats_from: Start of the stats window. Defaults to all-time.
 
-          query: Case-insensitive substring match against the ad title or ID.
+          stats_to: End of the stats window. Defaults to now.
 
-          stats_from: Inclusive start of the window for each ad's metric fields (spend, impressions,
-              …) and for stats-column sorting. Omit both statsFrom and statsTo for all-time
-              stats.
-
-          stats_to: Inclusive end of the window for each ad's metric fields and for stats-column
-              sorting. Omit both statsFrom and statsTo for all-time stats.
-
-          status: The status of an external ad.
+          status: Only return ads with this status.
 
           extra_headers: Send extra headers
 
@@ -487,7 +929,7 @@ class AsyncAdsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/ads",
-            page=AsyncCursorPage[AdListResponse],
+            page=AsyncCursorPage[Ad],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -495,22 +937,17 @@ class AsyncAdsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
-                        "ad_campaign_ids": ad_campaign_ids,
                         "ad_group_id": ad_group_id,
-                        "ad_group_ids": ad_group_ids,
                         "after": after,
                         "before": before,
-                        "campaign_id": campaign_id,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
-                        "order_by": order_by,
-                        "order_direction": order_direction,
                         "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
@@ -519,7 +956,41 @@ class AsyncAdsResource(AsyncAPIResource):
                     ad_list_params.AdListParams,
                 ),
             ),
-            model=AdListResponse,
+            model=Ad,
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdDeleteResponse:
+        """Deletes an ad.
+
+        Returns true on success.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            path_template("/ads/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdDeleteResponse,
         )
 
     async def pause(
@@ -534,12 +1005,7 @@ class AsyncAdsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Ad:
         """
-        Pauses an ad.
-
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Pauses an active ad.
 
         Args:
           extra_headers: Send extra headers
@@ -574,11 +1040,6 @@ class AsyncAdsResource(AsyncAPIResource):
         """
         Resumes a paused ad.
 
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
-
         Args:
           extra_headers: Send extra headers
 
@@ -603,11 +1064,20 @@ class AdsResourceWithRawResponse:
     def __init__(self, ads: AdsResource) -> None:
         self._ads = ads
 
+        self.create = to_raw_response_wrapper(
+            ads.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             ads.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            ads.update,
+        )
         self.list = to_raw_response_wrapper(
             ads.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            ads.delete,
         )
         self.pause = to_raw_response_wrapper(
             ads.pause,
@@ -621,11 +1091,20 @@ class AsyncAdsResourceWithRawResponse:
     def __init__(self, ads: AsyncAdsResource) -> None:
         self._ads = ads
 
+        self.create = async_to_raw_response_wrapper(
+            ads.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             ads.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            ads.update,
+        )
         self.list = async_to_raw_response_wrapper(
             ads.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            ads.delete,
         )
         self.pause = async_to_raw_response_wrapper(
             ads.pause,
@@ -639,11 +1118,20 @@ class AdsResourceWithStreamingResponse:
     def __init__(self, ads: AdsResource) -> None:
         self._ads = ads
 
+        self.create = to_streamed_response_wrapper(
+            ads.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             ads.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            ads.update,
+        )
         self.list = to_streamed_response_wrapper(
             ads.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            ads.delete,
         )
         self.pause = to_streamed_response_wrapper(
             ads.pause,
@@ -657,11 +1145,20 @@ class AsyncAdsResourceWithStreamingResponse:
     def __init__(self, ads: AsyncAdsResource) -> None:
         self._ads = ads
 
+        self.create = async_to_streamed_response_wrapper(
+            ads.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             ads.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            ads.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             ads.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            ads.delete,
         )
         self.pause = async_to_streamed_response_wrapper(
             ads.pause,

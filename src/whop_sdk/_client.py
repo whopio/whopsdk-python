@@ -38,9 +38,11 @@ if TYPE_CHECKING:
     from .resources import (
         ads,
         apps,
+        cards,
         files,
         leads,
         plans,
+        stats,
         swaps,
         users,
         forums,
@@ -48,9 +50,9 @@ if TYPE_CHECKING:
         courses,
         entries,
         members,
+        payouts,
         refunds,
         reviews,
-        wallets,
         accounts,
         ai_chats,
         bounties,
@@ -62,8 +64,10 @@ if TYPE_CHECKING:
         products,
         webhooks,
         ad_groups,
+        audiences,
         companies,
         reactions,
+        referrals,
         shipments,
         transfers,
         ad_reports,
@@ -93,6 +97,7 @@ if TYPE_CHECKING:
         ledger_accounts,
         payment_methods,
         payout_accounts,
+        social_accounts,
         authorized_users,
         support_channels,
         financial_activity,
@@ -103,9 +108,11 @@ if TYPE_CHECKING:
     )
     from .resources.ads import AdsResource, AsyncAdsResource
     from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.cards import CardsResource, AsyncCardsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
     from .resources.plans import PlansResource, AsyncPlansResource
+    from .resources.stats import StatsResource, AsyncStatsResource
     from .resources.swaps import SwapsResource, AsyncSwapsResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.forums import ForumsResource, AsyncForumsResource
@@ -113,9 +120,9 @@ if TYPE_CHECKING:
     from .resources.courses import CoursesResource, AsyncCoursesResource
     from .resources.entries import EntriesResource, AsyncEntriesResource
     from .resources.members import MembersResource, AsyncMembersResource
+    from .resources.payouts import PayoutsResource, AsyncPayoutsResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
-    from .resources.wallets import WalletsResource, AsyncWalletsResource
     from .resources.accounts import AccountsResource, AsyncAccountsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
     from .resources.bounties import BountiesResource, AsyncBountiesResource
@@ -127,6 +134,7 @@ if TYPE_CHECKING:
     from .resources.products import ProductsResource, AsyncProductsResource
     from .resources.webhooks import WebhooksResource, AsyncWebhooksResource
     from .resources.ad_groups import AdGroupsResource, AsyncAdGroupsResource
+    from .resources.audiences import AudiencesResource, AsyncAudiencesResource
     from .resources.companies import CompaniesResource, AsyncCompaniesResource
     from .resources.reactions import ReactionsResource, AsyncReactionsResource
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
@@ -157,9 +165,11 @@ if TYPE_CHECKING:
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
     from .resources.payment_methods import PaymentMethodsResource, AsyncPaymentMethodsResource
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
+    from .resources.social_accounts import SocialAccountsResource, AsyncSocialAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
+    from .resources.referrals.referrals import ReferralsResource, AsyncReferralsResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -233,7 +243,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-06-08"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-01"
         self.version = version
 
         if base_url is None:
@@ -290,6 +300,18 @@ class Whop(SyncAPIClient):
         return ProductsResource(self)
 
     @cached_property
+    def social_accounts(self) -> SocialAccountsResource:
+        from .resources.social_accounts import SocialAccountsResource
+
+        return SocialAccountsResource(self)
+
+    @cached_property
+    def audiences(self) -> AudiencesResource:
+        from .resources.audiences import AudiencesResource
+
+        return AudiencesResource(self)
+
+    @cached_property
     def companies(self) -> CompaniesResource:
         """Companies"""
         from .resources.companies import CompaniesResource
@@ -305,7 +327,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def plans(self) -> PlansResource:
-        """Plans"""
         from .resources.plans import PlansResource
 
         return PlansResource(self)
@@ -326,7 +347,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def transfers(self) -> TransfersResource:
-        """Transfers"""
         from .resources.transfers import TransfersResource
 
         return TransfersResource(self)
@@ -368,7 +388,6 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def checkout_configurations(self) -> CheckoutConfigurationsResource:
-        """Checkout configurations"""
         from .resources.checkout_configurations import CheckoutConfigurationsResource
 
         return CheckoutConfigurationsResource(self)
@@ -526,16 +545,35 @@ class Whop(SyncAPIClient):
         return AccountsResource(self)
 
     @cached_property
-    def wallets(self) -> WalletsResource:
-        from .resources.wallets import WalletsResource
-
-        return WalletsResource(self)
-
-    @cached_property
     def financial_activity(self) -> FinancialActivityResource:
         from .resources.financial_activity import FinancialActivityResource
 
         return FinancialActivityResource(self)
+
+    @cached_property
+    def stats(self) -> StatsResource:
+        """Stats"""
+        from .resources.stats import StatsResource
+
+        return StatsResource(self)
+
+    @cached_property
+    def payouts(self) -> PayoutsResource:
+        from .resources.payouts import PayoutsResource
+
+        return PayoutsResource(self)
+
+    @cached_property
+    def referrals(self) -> ReferralsResource:
+        from .resources.referrals import ReferralsResource
+
+        return ReferralsResource(self)
+
+    @cached_property
+    def cards(self) -> CardsResource:
+        from .resources.cards import CardsResource
+
+        return CardsResource(self)
 
     @cached_property
     def swaps(self) -> SwapsResource:
@@ -670,21 +708,18 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def ad_campaigns(self) -> AdCampaignsResource:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AdCampaignsResource
 
         return AdCampaignsResource(self)
 
     @cached_property
     def ad_groups(self) -> AdGroupsResource:
-        """Ad groups"""
         from .resources.ad_groups import AdGroupsResource
 
         return AdGroupsResource(self)
 
     @cached_property
     def ads(self) -> AdsResource:
-        """Ads"""
         from .resources.ads import AdsResource
 
         return AdsResource(self)
@@ -882,7 +917,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-06-08"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-01"
         self.version = version
 
         if base_url is None:
@@ -939,6 +974,18 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncProductsResource(self)
 
     @cached_property
+    def social_accounts(self) -> AsyncSocialAccountsResource:
+        from .resources.social_accounts import AsyncSocialAccountsResource
+
+        return AsyncSocialAccountsResource(self)
+
+    @cached_property
+    def audiences(self) -> AsyncAudiencesResource:
+        from .resources.audiences import AsyncAudiencesResource
+
+        return AsyncAudiencesResource(self)
+
+    @cached_property
     def companies(self) -> AsyncCompaniesResource:
         """Companies"""
         from .resources.companies import AsyncCompaniesResource
@@ -954,7 +1001,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def plans(self) -> AsyncPlansResource:
-        """Plans"""
         from .resources.plans import AsyncPlansResource
 
         return AsyncPlansResource(self)
@@ -975,7 +1021,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def transfers(self) -> AsyncTransfersResource:
-        """Transfers"""
         from .resources.transfers import AsyncTransfersResource
 
         return AsyncTransfersResource(self)
@@ -1017,7 +1062,6 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def checkout_configurations(self) -> AsyncCheckoutConfigurationsResource:
-        """Checkout configurations"""
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResource
 
         return AsyncCheckoutConfigurationsResource(self)
@@ -1175,16 +1219,35 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAccountsResource(self)
 
     @cached_property
-    def wallets(self) -> AsyncWalletsResource:
-        from .resources.wallets import AsyncWalletsResource
-
-        return AsyncWalletsResource(self)
-
-    @cached_property
     def financial_activity(self) -> AsyncFinancialActivityResource:
         from .resources.financial_activity import AsyncFinancialActivityResource
 
         return AsyncFinancialActivityResource(self)
+
+    @cached_property
+    def stats(self) -> AsyncStatsResource:
+        """Stats"""
+        from .resources.stats import AsyncStatsResource
+
+        return AsyncStatsResource(self)
+
+    @cached_property
+    def payouts(self) -> AsyncPayoutsResource:
+        from .resources.payouts import AsyncPayoutsResource
+
+        return AsyncPayoutsResource(self)
+
+    @cached_property
+    def referrals(self) -> AsyncReferralsResource:
+        from .resources.referrals import AsyncReferralsResource
+
+        return AsyncReferralsResource(self)
+
+    @cached_property
+    def cards(self) -> AsyncCardsResource:
+        from .resources.cards import AsyncCardsResource
+
+        return AsyncCardsResource(self)
 
     @cached_property
     def swaps(self) -> AsyncSwapsResource:
@@ -1319,21 +1382,18 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def ad_campaigns(self) -> AsyncAdCampaignsResource:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResource
 
         return AsyncAdCampaignsResource(self)
 
     @cached_property
     def ad_groups(self) -> AsyncAdGroupsResource:
-        """Ad groups"""
         from .resources.ad_groups import AsyncAdGroupsResource
 
         return AsyncAdGroupsResource(self)
 
     @cached_property
     def ads(self) -> AsyncAdsResource:
-        """Ads"""
         from .resources.ads import AsyncAdsResource
 
         return AsyncAdsResource(self)
@@ -1508,6 +1568,18 @@ class WhopWithRawResponse:
         return ProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.SocialAccountsResourceWithRawResponse:
+        from .resources.social_accounts import SocialAccountsResourceWithRawResponse
+
+        return SocialAccountsResourceWithRawResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AudiencesResourceWithRawResponse:
+        from .resources.audiences import AudiencesResourceWithRawResponse
+
+        return AudiencesResourceWithRawResponse(self._client.audiences)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithRawResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithRawResponse
@@ -1523,7 +1595,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithRawResponse:
-        """Plans"""
         from .resources.plans import PlansResourceWithRawResponse
 
         return PlansResourceWithRawResponse(self._client.plans)
@@ -1544,7 +1615,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def transfers(self) -> transfers.TransfersResourceWithRawResponse:
-        """Transfers"""
         from .resources.transfers import TransfersResourceWithRawResponse
 
         return TransfersResourceWithRawResponse(self._client.transfers)
@@ -1586,7 +1656,6 @@ class WhopWithRawResponse:
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithRawResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import CheckoutConfigurationsResourceWithRawResponse
 
         return CheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
@@ -1744,16 +1813,35 @@ class WhopWithRawResponse:
         return AccountsResourceWithRawResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.WalletsResourceWithRawResponse:
-        from .resources.wallets import WalletsResourceWithRawResponse
-
-        return WalletsResourceWithRawResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.FinancialActivityResourceWithRawResponse:
         from .resources.financial_activity import FinancialActivityResourceWithRawResponse
 
         return FinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.StatsResourceWithRawResponse:
+        """Stats"""
+        from .resources.stats import StatsResourceWithRawResponse
+
+        return StatsResourceWithRawResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.PayoutsResourceWithRawResponse:
+        from .resources.payouts import PayoutsResourceWithRawResponse
+
+        return PayoutsResourceWithRawResponse(self._client.payouts)
+
+    @cached_property
+    def referrals(self) -> referrals.ReferralsResourceWithRawResponse:
+        from .resources.referrals import ReferralsResourceWithRawResponse
+
+        return ReferralsResourceWithRawResponse(self._client.referrals)
+
+    @cached_property
+    def cards(self) -> cards.CardsResourceWithRawResponse:
+        from .resources.cards import CardsResourceWithRawResponse
+
+        return CardsResourceWithRawResponse(self._client.cards)
 
     @cached_property
     def swaps(self) -> swaps.SwapsResourceWithRawResponse:
@@ -1888,21 +1976,18 @@ class WhopWithRawResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithRawResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AdCampaignsResourceWithRawResponse
 
         return AdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AdGroupsResourceWithRawResponse:
-        """Ad groups"""
         from .resources.ad_groups import AdGroupsResourceWithRawResponse
 
         return AdGroupsResourceWithRawResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AdsResourceWithRawResponse:
-        """Ads"""
         from .resources.ads import AdsResourceWithRawResponse
 
         return AdsResourceWithRawResponse(self._client.ads)
@@ -1959,6 +2044,18 @@ class AsyncWhopWithRawResponse:
         return AsyncProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithRawResponse:
+        from .resources.social_accounts import AsyncSocialAccountsResourceWithRawResponse
+
+        return AsyncSocialAccountsResourceWithRawResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AsyncAudiencesResourceWithRawResponse:
+        from .resources.audiences import AsyncAudiencesResourceWithRawResponse
+
+        return AsyncAudiencesResourceWithRawResponse(self._client.audiences)
+
+    @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithRawResponse:
         """Companies"""
         from .resources.companies import AsyncCompaniesResourceWithRawResponse
@@ -1974,7 +2071,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithRawResponse:
-        """Plans"""
         from .resources.plans import AsyncPlansResourceWithRawResponse
 
         return AsyncPlansResourceWithRawResponse(self._client.plans)
@@ -1995,7 +2091,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def transfers(self) -> transfers.AsyncTransfersResourceWithRawResponse:
-        """Transfers"""
         from .resources.transfers import AsyncTransfersResourceWithRawResponse
 
         return AsyncTransfersResourceWithRawResponse(self._client.transfers)
@@ -2037,7 +2132,6 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithRawResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithRawResponse
 
         return AsyncCheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
@@ -2195,16 +2289,35 @@ class AsyncWhopWithRawResponse:
         return AsyncAccountsResourceWithRawResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.AsyncWalletsResourceWithRawResponse:
-        from .resources.wallets import AsyncWalletsResourceWithRawResponse
-
-        return AsyncWalletsResourceWithRawResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithRawResponse:
         from .resources.financial_activity import AsyncFinancialActivityResourceWithRawResponse
 
         return AsyncFinancialActivityResourceWithRawResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.AsyncStatsResourceWithRawResponse:
+        """Stats"""
+        from .resources.stats import AsyncStatsResourceWithRawResponse
+
+        return AsyncStatsResourceWithRawResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.AsyncPayoutsResourceWithRawResponse:
+        from .resources.payouts import AsyncPayoutsResourceWithRawResponse
+
+        return AsyncPayoutsResourceWithRawResponse(self._client.payouts)
+
+    @cached_property
+    def referrals(self) -> referrals.AsyncReferralsResourceWithRawResponse:
+        from .resources.referrals import AsyncReferralsResourceWithRawResponse
+
+        return AsyncReferralsResourceWithRawResponse(self._client.referrals)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithRawResponse:
+        from .resources.cards import AsyncCardsResourceWithRawResponse
+
+        return AsyncCardsResourceWithRawResponse(self._client.cards)
 
     @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithRawResponse:
@@ -2341,21 +2454,18 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithRawResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResourceWithRawResponse
 
         return AsyncAdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithRawResponse:
-        """Ad groups"""
         from .resources.ad_groups import AsyncAdGroupsResourceWithRawResponse
 
         return AsyncAdGroupsResourceWithRawResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AsyncAdsResourceWithRawResponse:
-        """Ads"""
         from .resources.ads import AsyncAdsResourceWithRawResponse
 
         return AsyncAdsResourceWithRawResponse(self._client.ads)
@@ -2412,6 +2522,18 @@ class WhopWithStreamedResponse:
         return ProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.SocialAccountsResourceWithStreamingResponse:
+        from .resources.social_accounts import SocialAccountsResourceWithStreamingResponse
+
+        return SocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AudiencesResourceWithStreamingResponse:
+        from .resources.audiences import AudiencesResourceWithStreamingResponse
+
+        return AudiencesResourceWithStreamingResponse(self._client.audiences)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithStreamingResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithStreamingResponse
@@ -2427,7 +2549,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithStreamingResponse:
-        """Plans"""
         from .resources.plans import PlansResourceWithStreamingResponse
 
         return PlansResourceWithStreamingResponse(self._client.plans)
@@ -2448,7 +2569,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def transfers(self) -> transfers.TransfersResourceWithStreamingResponse:
-        """Transfers"""
         from .resources.transfers import TransfersResourceWithStreamingResponse
 
         return TransfersResourceWithStreamingResponse(self._client.transfers)
@@ -2490,7 +2610,6 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithStreamingResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import CheckoutConfigurationsResourceWithStreamingResponse
 
         return CheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)
@@ -2648,16 +2767,35 @@ class WhopWithStreamedResponse:
         return AccountsResourceWithStreamingResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.WalletsResourceWithStreamingResponse:
-        from .resources.wallets import WalletsResourceWithStreamingResponse
-
-        return WalletsResourceWithStreamingResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.FinancialActivityResourceWithStreamingResponse:
         from .resources.financial_activity import FinancialActivityResourceWithStreamingResponse
 
         return FinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.StatsResourceWithStreamingResponse:
+        """Stats"""
+        from .resources.stats import StatsResourceWithStreamingResponse
+
+        return StatsResourceWithStreamingResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.PayoutsResourceWithStreamingResponse:
+        from .resources.payouts import PayoutsResourceWithStreamingResponse
+
+        return PayoutsResourceWithStreamingResponse(self._client.payouts)
+
+    @cached_property
+    def referrals(self) -> referrals.ReferralsResourceWithStreamingResponse:
+        from .resources.referrals import ReferralsResourceWithStreamingResponse
+
+        return ReferralsResourceWithStreamingResponse(self._client.referrals)
+
+    @cached_property
+    def cards(self) -> cards.CardsResourceWithStreamingResponse:
+        from .resources.cards import CardsResourceWithStreamingResponse
+
+        return CardsResourceWithStreamingResponse(self._client.cards)
 
     @cached_property
     def swaps(self) -> swaps.SwapsResourceWithStreamingResponse:
@@ -2794,21 +2932,18 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithStreamingResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AdCampaignsResourceWithStreamingResponse
 
         return AdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AdGroupsResourceWithStreamingResponse:
-        """Ad groups"""
         from .resources.ad_groups import AdGroupsResourceWithStreamingResponse
 
         return AdGroupsResourceWithStreamingResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AdsResourceWithStreamingResponse:
-        """Ads"""
         from .resources.ads import AdsResourceWithStreamingResponse
 
         return AdsResourceWithStreamingResponse(self._client.ads)
@@ -2865,6 +3000,18 @@ class AsyncWhopWithStreamedResponse:
         return AsyncProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithStreamingResponse:
+        from .resources.social_accounts import AsyncSocialAccountsResourceWithStreamingResponse
+
+        return AsyncSocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AsyncAudiencesResourceWithStreamingResponse:
+        from .resources.audiences import AsyncAudiencesResourceWithStreamingResponse
+
+        return AsyncAudiencesResourceWithStreamingResponse(self._client.audiences)
+
+    @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithStreamingResponse:
         """Companies"""
         from .resources.companies import AsyncCompaniesResourceWithStreamingResponse
@@ -2880,7 +3027,6 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithStreamingResponse:
-        """Plans"""
         from .resources.plans import AsyncPlansResourceWithStreamingResponse
 
         return AsyncPlansResourceWithStreamingResponse(self._client.plans)
@@ -2901,7 +3047,6 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def transfers(self) -> transfers.AsyncTransfersResourceWithStreamingResponse:
-        """Transfers"""
         from .resources.transfers import AsyncTransfersResourceWithStreamingResponse
 
         return AsyncTransfersResourceWithStreamingResponse(self._client.transfers)
@@ -2945,7 +3090,6 @@ class AsyncWhopWithStreamedResponse:
     def checkout_configurations(
         self,
     ) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithStreamingResponse:
-        """Checkout configurations"""
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithStreamingResponse
 
         return AsyncCheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)
@@ -3103,16 +3247,35 @@ class AsyncWhopWithStreamedResponse:
         return AsyncAccountsResourceWithStreamingResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.AsyncWalletsResourceWithStreamingResponse:
-        from .resources.wallets import AsyncWalletsResourceWithStreamingResponse
-
-        return AsyncWalletsResourceWithStreamingResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithStreamingResponse:
         from .resources.financial_activity import AsyncFinancialActivityResourceWithStreamingResponse
 
         return AsyncFinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
+
+    @cached_property
+    def stats(self) -> stats.AsyncStatsResourceWithStreamingResponse:
+        """Stats"""
+        from .resources.stats import AsyncStatsResourceWithStreamingResponse
+
+        return AsyncStatsResourceWithStreamingResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.AsyncPayoutsResourceWithStreamingResponse:
+        from .resources.payouts import AsyncPayoutsResourceWithStreamingResponse
+
+        return AsyncPayoutsResourceWithStreamingResponse(self._client.payouts)
+
+    @cached_property
+    def referrals(self) -> referrals.AsyncReferralsResourceWithStreamingResponse:
+        from .resources.referrals import AsyncReferralsResourceWithStreamingResponse
+
+        return AsyncReferralsResourceWithStreamingResponse(self._client.referrals)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithStreamingResponse:
+        from .resources.cards import AsyncCardsResourceWithStreamingResponse
+
+        return AsyncCardsResourceWithStreamingResponse(self._client.cards)
 
     @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithStreamingResponse:
@@ -3251,21 +3414,18 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithStreamingResponse:
-        """Ad campaigns"""
         from .resources.ad_campaigns import AsyncAdCampaignsResourceWithStreamingResponse
 
         return AsyncAdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithStreamingResponse:
-        """Ad groups"""
         from .resources.ad_groups import AsyncAdGroupsResourceWithStreamingResponse
 
         return AsyncAdGroupsResourceWithStreamingResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AsyncAdsResourceWithStreamingResponse:
-        """Ads"""
         from .resources.ads import AsyncAdsResourceWithStreamingResponse
 
         return AsyncAdsResourceWithStreamingResponse(self._client.ads)
