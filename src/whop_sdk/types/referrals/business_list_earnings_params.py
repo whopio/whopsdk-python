@@ -17,12 +17,6 @@ class BusinessListEarningsParams(TypedDict, total=False):
 
     first: int
 
-    include: Literal["receipt_fees"]
-    """Comma-separated extras to embed.
-
-    Supported: receipt_fees (adds amount_after_fees and the receipt_fees breakdown).
-    """
-
     last: int
 
     order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"]

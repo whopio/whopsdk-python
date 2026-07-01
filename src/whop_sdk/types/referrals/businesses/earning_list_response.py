@@ -1,27 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from ...._models import BaseModel
 
-__all__ = [
-    "EarningListResponse",
-    "AccessPass",
-    "Account",
-    "Receipt",
-    "ReceiptAlternativePaymentMethod",
-    "ReceiptReceiptFee",
-]
-
-
-class AccessPass(BaseModel):
-    id: str
-
-    route: str
-
-    title: str
+__all__ = ["EarningListResponse", "Account", "Product", "Resource", "ResourceAlternativePaymentMethod"]
 
 
 class Account(BaseModel):
@@ -40,32 +25,26 @@ class Account(BaseModel):
     """Referred account display name."""
 
 
-class ReceiptAlternativePaymentMethod(BaseModel):
+class Product(BaseModel):
+    id: str
+
+    route: str
+
+    title: str
+
+
+class ResourceAlternativePaymentMethod(BaseModel):
     image_url: Optional[str] = None
 
     name: str
 
 
-class ReceiptReceiptFee(BaseModel):
-    currency: str
+class Resource(BaseModel):
+    """The resource that generated the affiliate earning."""
 
-    description: Optional[str] = None
-
-    label: str
-
-    raw_amount: float
-
-    specific_fee_origin: str
-
-    type_of_fee: str
-
-    value: str
-
-
-class Receipt(BaseModel):
     id: str
 
-    alternative_payment_method: Optional[ReceiptAlternativePaymentMethod] = None
+    alternative_payment_method: Optional[ResourceAlternativePaymentMethod] = None
 
     brand: Optional[str] = None
 
@@ -75,21 +54,15 @@ class Receipt(BaseModel):
 
     last4: Optional[str] = None
 
+    object: Literal["receipt"]
+
     payment_method_type: Optional[str] = None
 
     processor: Optional[str] = None
 
-    amount_after_fees: Optional[float] = None
-    """Only present when include=receipt_fees."""
-
-    receipt_fees: Optional[List[ReceiptReceiptFee]] = None
-    """Only present when include=receipt_fees."""
-
 
 class EarningListResponse(BaseModel):
     id: Optional[str] = None
-
-    access_pass: Optional[AccessPass] = None
 
     account: Optional[Account] = None
     """Referred account."""
@@ -112,13 +85,13 @@ class EarningListResponse(BaseModel):
     Null until the earning settles.
     """
 
-    receipt: Optional[Receipt] = None
+    product: Optional[Product] = None
+
+    resource: Optional[Resource] = None
+    """The resource that generated the affiliate earning."""
 
     status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"]
     """Current status of the earning."""
 
     transaction_amount_usd: str
     """The sale amount the commission is calculated from, in USD."""
-
-    whop_gross_profit_usd: Optional[str] = None
-    """Whop's gross profit on the sale, in USD. Null until the earning settles."""

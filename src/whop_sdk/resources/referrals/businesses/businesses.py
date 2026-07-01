@@ -122,8 +122,8 @@ class BusinessesResource(SyncAPIResource):
 
           first: Number of business referrals to return from the start of the window.
 
-          has_earnings: When true, only businesses that have paid out at least one earning to the
-              caller.
+          has_earnings: When true, only businesses with at least one non-canceled, non-reversed earning
+              paid to the caller.
 
           last: Number of business referrals to return from the end of the window.
 
@@ -171,7 +171,6 @@ class BusinessesResource(SyncAPIResource):
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
-        include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
@@ -188,9 +187,6 @@ class BusinessesResource(SyncAPIResource):
 
         Args:
           direction: Sort direction.
-
-          include: Comma-separated extras to embed. Supported: receipt_fees (adds amount_after_fees
-              and the receipt_fees breakdown).
 
           order: The field to sort earnings by.
 
@@ -218,7 +214,6 @@ class BusinessesResource(SyncAPIResource):
                         "before": before,
                         "direction": direction,
                         "first": first,
-                        "include": include,
                         "last": last,
                         "order": order,
                         "status": status,
@@ -318,8 +313,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
 
           first: Number of business referrals to return from the start of the window.
 
-          has_earnings: When true, only businesses that have paid out at least one earning to the
-              caller.
+          has_earnings: When true, only businesses with at least one non-canceled, non-reversed earning
+              paid to the caller.
 
           last: Number of business referrals to return from the end of the window.
 
@@ -367,7 +362,6 @@ class AsyncBusinessesResource(AsyncAPIResource):
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
-        include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
@@ -384,9 +378,6 @@ class AsyncBusinessesResource(AsyncAPIResource):
 
         Args:
           direction: Sort direction.
-
-          include: Comma-separated extras to embed. Supported: receipt_fees (adds amount_after_fees
-              and the receipt_fees breakdown).
 
           order: The field to sort earnings by.
 
@@ -414,7 +405,6 @@ class AsyncBusinessesResource(AsyncAPIResource):
                         "before": before,
                         "direction": direction,
                         "first": first,
-                        "include": include,
                         "last": last,
                         "order": order,
                         "status": status,

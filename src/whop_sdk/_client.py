@@ -243,7 +243,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-06-20"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-01"
         self.version = version
 
         if base_url is None:
@@ -917,7 +917,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-06-20"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-01"
         self.version = version
 
         if base_url is None:

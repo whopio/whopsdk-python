@@ -22,8 +22,8 @@ class BusinessListParams(TypedDict, total=False):
 
     has_earnings: bool
     """
-    When true, only businesses that have paid out at least one earning to the
-    caller.
+    When true, only businesses with at least one non-canceled, non-reversed earning
+    paid to the caller.
     """
 
     last: int

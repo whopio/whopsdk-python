@@ -52,7 +52,6 @@ class EarningsResource(SyncAPIResource):
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
-        include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
@@ -69,9 +68,6 @@ class EarningsResource(SyncAPIResource):
 
         Args:
           direction: Sort direction.
-
-          include: Comma-separated extras to embed. Supported: receipt_fees (adds amount_after_fees
-              and the receipt_fees breakdown).
 
           order: The field to sort earnings by.
 
@@ -101,7 +97,6 @@ class EarningsResource(SyncAPIResource):
                         "before": before,
                         "direction": direction,
                         "first": first,
-                        "include": include,
                         "last": last,
                         "order": order,
                         "status": status,
@@ -141,7 +136,6 @@ class AsyncEarningsResource(AsyncAPIResource):
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
-        include: Literal["receipt_fees"] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
@@ -158,9 +152,6 @@ class AsyncEarningsResource(AsyncAPIResource):
 
         Args:
           direction: Sort direction.
-
-          include: Comma-separated extras to embed. Supported: receipt_fees (adds amount_after_fees
-              and the receipt_fees breakdown).
 
           order: The field to sort earnings by.
 
@@ -190,7 +181,6 @@ class AsyncEarningsResource(AsyncAPIResource):
                         "before": before,
                         "direction": direction,
                         "first": first,
-                        "include": include,
                         "last": last,
                         "order": order,
                         "status": status,
