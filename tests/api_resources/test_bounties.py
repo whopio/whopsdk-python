@@ -14,6 +14,7 @@ from whop_sdk.types import (
     BountyCreateResponse,
     BountyRetrieveResponse,
 )
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -43,10 +44,14 @@ class TestBounties:
             title="title",
             accepted_submissions_limit=42,
             allowed_country_codes=["string"],
+            business_goal_type="clipping",
             experience_id="exp_xxxxxxxxxxxxxx",
             origin_account_id="origin_account_id",
             post_markdown_content="post_markdown_content",
             post_title="post_title",
+            scheduled_frequency="once",
+            scheduled_publish_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            scheduled_timezone="scheduled_timezone",
         )
         assert_matches_type(BountyCreateResponse, bounty, path=["response"])
 
@@ -193,10 +198,14 @@ class TestAsyncBounties:
             title="title",
             accepted_submissions_limit=42,
             allowed_country_codes=["string"],
+            business_goal_type="clipping",
             experience_id="exp_xxxxxxxxxxxxxx",
             origin_account_id="origin_account_id",
             post_markdown_content="post_markdown_content",
             post_title="post_title",
+            scheduled_frequency="once",
+            scheduled_publish_at=parse_datetime("2023-12-01T05:00:00.401Z"),
+            scheduled_timezone="scheduled_timezone",
         )
         assert_matches_type(BountyCreateResponse, bounty, path=["response"])
 
