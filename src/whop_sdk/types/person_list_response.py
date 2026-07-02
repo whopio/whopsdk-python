@@ -34,6 +34,8 @@ class DataCampaign(BaseModel):
 class Data(BaseModel):
     id: str
 
+    account_id: str
+
     first_seen_at: int
 
     last_seen_at: int
