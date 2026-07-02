@@ -431,15 +431,15 @@ class AdGroupsResource(SyncAPIResource):
             "updated_at",
             "spend",
             "impressions",
-            "clicks",
             "reach",
+            "clicks",
             "unique_clicks",
-            "results",
-            "click_through_rate",
-            "cost_per_click",
-            "cost_per_mille",
-            "cost_per_result",
             "frequency",
+            "click_through_rate",
+            "results",
+            "cost_per_mille",
+            "cost_per_click",
+            "cost_per_result",
             "return_on_ad_spend",
         ]
         | Omit = omit,
@@ -478,7 +478,8 @@ class AdGroupsResource(SyncAPIResource):
 
           order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
               …) rank over the stats_from/stats_to window across the whole list, not just the
-              current page.
+              current page. results, cost_per_result and return_on_ad_spend rank by the same
+              Whop pixel-attributed values the response reports.
 
           query: Filter ad groups by a title or ID substring.
 
@@ -1033,15 +1034,15 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             "updated_at",
             "spend",
             "impressions",
-            "clicks",
             "reach",
+            "clicks",
             "unique_clicks",
-            "results",
-            "click_through_rate",
-            "cost_per_click",
-            "cost_per_mille",
-            "cost_per_result",
             "frequency",
+            "click_through_rate",
+            "results",
+            "cost_per_mille",
+            "cost_per_click",
+            "cost_per_result",
             "return_on_ad_spend",
         ]
         | Omit = omit,
@@ -1080,7 +1081,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
               …) rank over the stats_from/stats_to window across the whole list, not just the
-              current page.
+              current page. results, cost_per_result and return_on_ad_spend rank by the same
+              Whop pixel-attributed values the response reports.
 
           query: Filter ad groups by a title or ID substring.
 
