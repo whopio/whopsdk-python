@@ -27,7 +27,7 @@ class BountyRetrieveResponse(BaseModel):
     description: str
     """The description of the bounty."""
 
-    status: Literal["published", "archived"]
+    status: Literal["published", "archived", "scheduled"]
     """The current lifecycle status of the bounty."""
 
     title: str
