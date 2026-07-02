@@ -130,8 +130,8 @@ class BusinessesResource(SyncAPIResource):
 
           first: Number of business referrals to return from the start of the window.
 
-          has_earnings: When true, only businesses with at least one non-canceled, non-reversed earning
-              paid to the caller.
+          has_earnings: When true, only businesses with pending or completed earnings paid to the
+              caller.
 
           last: Number of business referrals to return from the end of the window.
 
@@ -329,8 +329,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
 
           first: Number of business referrals to return from the start of the window.
 
-          has_earnings: When true, only businesses with at least one non-canceled, non-reversed earning
-              paid to the caller.
+          has_earnings: When true, only businesses with pending or completed earnings paid to the
+              caller.
 
           last: Number of business referrals to return from the end of the window.
 
