@@ -10,41 +10,42 @@ __all__ = ["PlanCalculateTaxParams", "Address", "TaxID"]
 
 class PlanCalculateTaxParams(TypedDict, total=False):
     address: Optional[Address]
-    """The buyer's billing address. Provide this or ip_address."""
+    """Buyer billing address used for tax calculation.
+
+    Provide either `address.country` or `ip_address`; include state and postal code
+    when available for more accurate results.
+    """
 
     ip_address: str
-    """
-    The buyer's IP address, used to resolve their location when no address is
-    provided.
-    """
+    """Buyer IP address used to infer location when no billing address is provided."""
 
     tax_ids: Optional[Iterable[TaxID]]
-    """
-    The buyer's tax IDs, such as a VAT number, used to apply B2B reverse-charge
-    exemptions.
-    """
+    """Optional buyer tax ID for B2B exemptions. At most one entry is supported."""
 
 
 class Address(TypedDict, total=False):
-    """The buyer's billing address. Provide this or ip_address."""
+    """Buyer billing address used for tax calculation.
+
+    Provide either `address.country` or `ip_address`; include state and postal code when available for more accurate results.
+    """
 
     country: Required[str]
-    """The two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
+    """ISO 3166-1 alpha-2 country code, such as `US`, `DE`, or `GB`."""
 
     city: Optional[str]
-    """The city name."""
+    """City name."""
 
     line1: Optional[str]
-    """The first line of the street address."""
+    """First line of the street address."""
 
     line2: Optional[str]
-    """The second line of the street address."""
+    """Second line of the street address."""
 
     postal_code: Optional[str]
-    """The postal or ZIP code."""
+    """Postal or ZIP code."""
 
     state: Optional[str]
-    """The state, province, or region code, for example `CA`."""
+    """State, province, or region code, such as `CA`."""
 
 
 class TaxID(TypedDict, total=False):
@@ -161,7 +162,7 @@ class TaxID(TypedDict, total=False):
         "zw_tin",
         "sr_fin",
     ]
-    """Tax ID type, for example `eu_vat`."""
+    """Tax ID type, such as `eu_vat` for an EU VAT number."""
 
     value: str
-    """Tax ID number, for example `DE123456789`."""
+    """Tax ID value, for example `DE123456789`."""

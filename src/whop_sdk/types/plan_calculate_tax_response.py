@@ -9,33 +9,34 @@ __all__ = ["PlanCalculateTaxResponse"]
 
 class PlanCalculateTaxResponse(BaseModel):
     currency: str
-    """The three-letter ISO 4217 currency code of the amounts."""
+    """Three-letter ISO 4217 currency code for the returned amounts."""
 
     status: Literal["calculated", "not_calculated"]
-    """Whether tax was successfully calculated.
+    """Whether Whop calculated tax for this preview.
 
-    Returns not_calculated when tax could not be determined.
+    `not_calculated` means no tax could be determined, so `tax_amount` is 0 and
+    `total` equals `subtotal`.
     """
 
     subtotal: int
-    """The plan price in the currency's smallest unit, for example cents.
+    """Plan price in the currency's smallest unit, for example cents.
 
-    For exclusive tax this is the pre-tax amount; for inclusive tax it already
-    contains the tax and equals the total.
+    For exclusive tax, this is the pre-tax amount; for inclusive tax, it already
+    includes tax and equals the total.
     """
 
     tax_amount: int
-    """The tax owed, in the currency's smallest unit.
+    """Calculated tax amount in the currency's smallest unit.
 
-    For exclusive tax it is added on top of the subtotal; for inclusive tax it is
-    the portion already contained in the subtotal.
+    For exclusive tax, this is added on top of the subtotal; for inclusive tax, it
+    is the portion of the subtotal that is tax.
     """
 
     tax_behavior: Literal["exclusive", "inclusive"]
     """
-    Whether tax is added on top of the price (exclusive) or already included in it
-    (inclusive).
+    Whether tax is added on top of the plan price or already included in it for this
+    buyer's location.
     """
 
     total: int
-    """The total amount the buyer pays, in the currency's smallest unit."""
+    """Amount the buyer would pay in the currency's smallest unit."""

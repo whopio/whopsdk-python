@@ -512,16 +512,16 @@ class PlansResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanCalculateTaxResponse:
         """
-        Calculates the tax owed on a plan based on the buyer's location.
+        Previews tax for a plan before checkout, based on the buyer's location.
 
         Args:
-          address: The buyer's billing address. Provide this or ip_address.
+          address: Buyer billing address used for tax calculation. Provide either `address.country`
+              or `ip_address`; include state and postal code when available for more accurate
+              results.
 
-          ip_address: The buyer's IP address, used to resolve their location when no address is
-              provided.
+          ip_address: Buyer IP address used to infer location when no billing address is provided.
 
-          tax_ids: The buyer's tax IDs, such as a VAT number, used to apply B2B reverse-charge
-              exemptions.
+          tax_ids: Optional buyer tax ID for B2B exemptions. At most one entry is supported.
 
           extra_headers: Send extra headers
 
@@ -1034,16 +1034,16 @@ class AsyncPlansResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanCalculateTaxResponse:
         """
-        Calculates the tax owed on a plan based on the buyer's location.
+        Previews tax for a plan before checkout, based on the buyer's location.
 
         Args:
-          address: The buyer's billing address. Provide this or ip_address.
+          address: Buyer billing address used for tax calculation. Provide either `address.country`
+              or `ip_address`; include state and postal code when available for more accurate
+              results.
 
-          ip_address: The buyer's IP address, used to resolve their location when no address is
-              provided.
+          ip_address: Buyer IP address used to infer location when no billing address is provided.
 
-          tax_ids: The buyer's tax IDs, such as a VAT number, used to apply B2B reverse-charge
-              exemptions.
+          tax_ids: Optional buyer tax ID for B2B exemptions. At most one entry is supported.
 
           extra_headers: Send extra headers
 

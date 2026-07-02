@@ -342,11 +342,11 @@ class TestPlans:
         plan = client.plans.calculate_tax(
             id="id",
             address={
-                "country": "country",
+                "country": "DE",
                 "city": "city",
                 "line1": "line1",
                 "line2": "line2",
-                "postal_code": "postal_code",
+                "postal_code": "10115",
                 "state": "state",
             },
             ip_address="ip_address",
@@ -718,11 +718,11 @@ class TestAsyncPlans:
         plan = await async_client.plans.calculate_tax(
             id="id",
             address={
-                "country": "country",
+                "country": "DE",
                 "city": "city",
                 "line1": "line1",
                 "line2": "line2",
-                "postal_code": "postal_code",
+                "postal_code": "10115",
                 "state": "state",
             },
             ip_address="ip_address",
