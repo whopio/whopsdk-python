@@ -42,6 +42,9 @@ class Elevation(TypedDict, total=False):
     credential_id: Optional[str]
     """The WebAuthn credential ID (base64)."""
 
+    email_code: Optional[str]
+    """The 6-digit code emailed to the user."""
+
     signature: Optional[str]
     """The WebAuthn signature (base64)."""
 

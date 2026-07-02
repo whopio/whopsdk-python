@@ -26,6 +26,7 @@ __all__ = [
     "Plan",
     "Product",
     "PromoCode",
+    "ShippingAddress",
     "User",
 ]
 
@@ -225,6 +226,34 @@ class PromoCode(BaseModel):
     """The type (% or flat amount) of the promo."""
 
 
+class ShippingAddress(BaseModel):
+    """The shipping address provided by the customer for physical goods.
+
+    Null if no shipping address was collected.
+    """
+
+    city: Optional[str] = None
+    """The city of the address."""
+
+    country: Optional[str] = None
+    """The country of the address."""
+
+    line1: Optional[str] = None
+    """The line 1 of the address."""
+
+    line2: Optional[str] = None
+    """The line 2 of the address."""
+
+    name: Optional[str] = None
+    """The name of the customer."""
+
+    postal_code: Optional[str] = None
+    """The postal code of the address."""
+
+    state: Optional[str] = None
+    """The state of the address."""
+
+
 class User(BaseModel):
     """The user that made this payment."""
 
@@ -365,6 +394,12 @@ class PaymentListResponse(BaseModel):
 
     settlement_currency: Currency
     """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
+
+    shipping_address: Optional[ShippingAddress] = None
+    """The shipping address provided by the customer for physical goods.
+
+    Null if no shipping address was collected.
+    """
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
