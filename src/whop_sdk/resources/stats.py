@@ -52,9 +52,9 @@ class StatsResource(SyncAPIResource):
         self,
         metric: str,
         *,
-        account_id: str,
         from_: Union[str, date],
         to: Union[str, date],
+        account_id: str | Omit = omit,
         breakdown_by: str | Omit = omit,
         card_network: str | Omit = omit,
         convert_to: str | Omit = omit,
@@ -74,11 +74,11 @@ class StatsResource(SyncAPIResource):
         Retrieves a metric as a time series of points for an account over a date range.
 
         Args:
-          account_id: The account to measure, for example biz_AbC123.
-
           from_: Start of the date range (YYYY-MM-DD).
 
           to: End of the date range (YYYY-MM-DD).
+
+          account_id: The account this query concerns, for example biz_AbC123.
 
           breakdown_by: Split the metric out by one of its properties — each point gets a breakdown
               array. For example breakdown_by=currency returns an entry for usd, an entry for
@@ -127,9 +127,9 @@ class StatsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "account_id": account_id,
                         "from_": from_,
                         "to": to,
+                        "account_id": account_id,
                         "breakdown_by": breakdown_by,
                         "card_network": card_network,
                         "convert_to": convert_to,
@@ -194,9 +194,9 @@ class AsyncStatsResource(AsyncAPIResource):
         self,
         metric: str,
         *,
-        account_id: str,
         from_: Union[str, date],
         to: Union[str, date],
+        account_id: str | Omit = omit,
         breakdown_by: str | Omit = omit,
         card_network: str | Omit = omit,
         convert_to: str | Omit = omit,
@@ -216,11 +216,11 @@ class AsyncStatsResource(AsyncAPIResource):
         Retrieves a metric as a time series of points for an account over a date range.
 
         Args:
-          account_id: The account to measure, for example biz_AbC123.
-
           from_: Start of the date range (YYYY-MM-DD).
 
           to: End of the date range (YYYY-MM-DD).
+
+          account_id: The account this query concerns, for example biz_AbC123.
 
           breakdown_by: Split the metric out by one of its properties — each point gets a breakdown
               array. For example breakdown_by=currency returns an entry for usd, an entry for
@@ -269,9 +269,9 @@ class AsyncStatsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "account_id": account_id,
                         "from_": from_,
                         "to": to,
+                        "account_id": account_id,
                         "breakdown_by": breakdown_by,
                         "card_network": card_network,
                         "convert_to": convert_to,

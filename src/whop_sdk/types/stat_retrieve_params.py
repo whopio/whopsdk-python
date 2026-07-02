@@ -12,14 +12,14 @@ __all__ = ["StatRetrieveParams"]
 
 
 class StatRetrieveParams(TypedDict, total=False):
-    account_id: Required[str]
-    """The account to measure, for example biz_AbC123."""
-
     from_: Required[Annotated[Union[str, date], PropertyInfo(alias="from", format="iso8601")]]
     """Start of the date range (YYYY-MM-DD)."""
 
     to: Required[Annotated[Union[str, date], PropertyInfo(format="iso8601")]]
     """End of the date range (YYYY-MM-DD)."""
+
+    account_id: str
+    """The account this query concerns, for example biz_AbC123."""
 
     breakdown_by: str
     """

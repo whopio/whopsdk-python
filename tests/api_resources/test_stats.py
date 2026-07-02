@@ -23,7 +23,6 @@ class TestStats:
     def test_method_retrieve(self, client: Whop) -> None:
         stat = client.stats.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
         )
@@ -34,9 +33,9 @@ class TestStats:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         stat = client.stats.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
+            account_id="account_id",
             breakdown_by="breakdown_by",
             card_network="card_network",
             convert_to="convert_to",
@@ -53,7 +52,6 @@ class TestStats:
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.stats.with_raw_response.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
         )
@@ -68,7 +66,6 @@ class TestStats:
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.stats.with_streaming_response.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
         ) as response:
@@ -86,7 +83,6 @@ class TestStats:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metric` but received ''"):
             client.stats.with_raw_response.retrieve(
                 metric="",
-                account_id="account_id",
                 from_=parse_date("2019-12-27"),
                 to=parse_date("2019-12-27"),
             )
@@ -130,7 +126,6 @@ class TestAsyncStats:
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         stat = await async_client.stats.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
         )
@@ -141,9 +136,9 @@ class TestAsyncStats:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         stat = await async_client.stats.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
+            account_id="account_id",
             breakdown_by="breakdown_by",
             card_network="card_network",
             convert_to="convert_to",
@@ -160,7 +155,6 @@ class TestAsyncStats:
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.stats.with_raw_response.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
         )
@@ -175,7 +169,6 @@ class TestAsyncStats:
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.stats.with_streaming_response.retrieve(
             metric="metric",
-            account_id="account_id",
             from_=parse_date("2019-12-27"),
             to=parse_date("2019-12-27"),
         ) as response:
@@ -193,7 +186,6 @@ class TestAsyncStats:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metric` but received ''"):
             await async_client.stats.with_raw_response.retrieve(
                 metric="",
-                account_id="account_id",
                 from_=parse_date("2019-12-27"),
                 to=parse_date("2019-12-27"),
             )
