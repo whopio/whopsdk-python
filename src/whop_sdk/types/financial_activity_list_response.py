@@ -17,14 +17,15 @@ __all__ = [
     "DataResourceUnionMember0",
     "DataResourceUnionMember1",
     "DataResourceUnionMember2",
-    "DataResourceUnionMember2Owner",
-    "DataResourceUnionMember2OwnerUnionMember0",
-    "DataResourceUnionMember2OwnerUnionMember1",
     "DataResourceUnionMember3",
-    "DataResourceUnionMember3Bank",
-    "DataResourceUnionMember3Card",
+    "DataResourceUnionMember3Owner",
+    "DataResourceUnionMember3OwnerUnionMember0",
+    "DataResourceUnionMember3OwnerUnionMember1",
     "DataResourceUnionMember4",
+    "DataResourceUnionMember4Bank",
+    "DataResourceUnionMember4Card",
     "DataResourceUnionMember5",
+    "DataResourceUnionMember6",
     "DataSource",
     "DataSourcePayoutDestination",
     "PageInfo",
@@ -73,7 +74,20 @@ class DataResourceUnionMember1(BaseModel):
     """User's username."""
 
 
-class DataResourceUnionMember2OwnerUnionMember0(BaseModel):
+class DataResourceUnionMember2(BaseModel):
+    id: str
+    """Bounty ID."""
+
+    object: Literal["bounty"]
+
+    status: str
+    """Bounty lifecycle status."""
+
+    title: str
+    """Bounty title."""
+
+
+class DataResourceUnionMember3OwnerUnionMember0(BaseModel):
     id: str
     """Account ID."""
 
@@ -89,7 +103,7 @@ class DataResourceUnionMember2OwnerUnionMember0(BaseModel):
     """Account display name."""
 
 
-class DataResourceUnionMember2OwnerUnionMember1(BaseModel):
+class DataResourceUnionMember3OwnerUnionMember1(BaseModel):
     id: str
     """User ID."""
 
@@ -105,21 +119,21 @@ class DataResourceUnionMember2OwnerUnionMember1(BaseModel):
     """User's username."""
 
 
-DataResourceUnionMember2Owner: TypeAlias = Union[
-    DataResourceUnionMember2OwnerUnionMember0, DataResourceUnionMember2OwnerUnionMember1, None
+DataResourceUnionMember3Owner: TypeAlias = Union[
+    DataResourceUnionMember3OwnerUnionMember0, DataResourceUnionMember3OwnerUnionMember1, None
 ]
 
 
-class DataResourceUnionMember2(BaseModel):
+class DataResourceUnionMember3(BaseModel):
     id: str
     """Ledger account ID."""
 
     object: Literal["ledger_account"]
 
-    owner: Optional[DataResourceUnionMember2Owner] = None
+    owner: Optional[DataResourceUnionMember3Owner] = None
 
 
-class DataResourceUnionMember3Bank(BaseModel):
+class DataResourceUnionMember4Bank(BaseModel):
     account_name: Optional[str] = None
     """Bank account holder name."""
 
@@ -133,7 +147,7 @@ class DataResourceUnionMember3Bank(BaseModel):
     """Last four digits of the bank account."""
 
 
-class DataResourceUnionMember3Card(BaseModel):
+class DataResourceUnionMember4Card(BaseModel):
     brand: Optional[str] = None
     """Card brand."""
 
@@ -147,13 +161,13 @@ class DataResourceUnionMember3Card(BaseModel):
     """Last four digits of the card."""
 
 
-class DataResourceUnionMember3(BaseModel):
+class DataResourceUnionMember4(BaseModel):
     id: str
     """Payment method ID."""
 
-    bank: Optional[DataResourceUnionMember3Bank] = None
+    bank: Optional[DataResourceUnionMember4Bank] = None
 
-    card: Optional[DataResourceUnionMember3Card] = None
+    card: Optional[DataResourceUnionMember4Card] = None
 
     email_identifier: Optional[str] = None
     """Email identifier for email-based payment methods."""
@@ -167,7 +181,7 @@ class DataResourceUnionMember3(BaseModel):
     """Payment method type."""
 
 
-class DataResourceUnionMember4(BaseModel):
+class DataResourceUnionMember5(BaseModel):
     id: str
     """Payout method ID."""
 
@@ -189,7 +203,7 @@ class DataResourceUnionMember4(BaseModel):
     """Payout provider."""
 
 
-class DataResourceUnionMember5(BaseModel):
+class DataResourceUnionMember6(BaseModel):
     id: str
     """Card transaction ID."""
 
@@ -249,6 +263,7 @@ DataResource: TypeAlias = Union[
     DataResourceUnionMember3,
     DataResourceUnionMember4,
     DataResourceUnionMember5,
+    DataResourceUnionMember6,
     None,
 ]
 
@@ -312,6 +327,9 @@ class DataSource(BaseModel):
 
     payout_token_nickname: Optional[str] = None
     """Saved payout destination nickname (withdrawal sources only)."""
+
+    reason: Optional[str] = None
+    """Transfer reason on transfer sources, for example pool_top_up or bounty_return."""
 
     sender_address: Optional[str] = None
     """
