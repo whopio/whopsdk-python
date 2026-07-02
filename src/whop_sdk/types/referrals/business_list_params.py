@@ -29,7 +29,9 @@ class BusinessListParams(TypedDict, total=False):
     last: int
     """Number of business referrals to return from the end of the window."""
 
-    order: Literal["created_at", "referral_started_at", "referral_expires_at", "payout_percentage"]
+    order: Literal[
+        "created_at", "referral_started_at", "referral_expires_at", "payout_percentage", "volume_usd", "earnings_usd"
+    ]
     """The field to sort business referrals by."""
 
     status: Literal["active", "removed"]

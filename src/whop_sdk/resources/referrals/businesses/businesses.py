@@ -100,7 +100,15 @@ class BusinessesResource(SyncAPIResource):
         first: int | Omit = omit,
         has_earnings: bool | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "referral_started_at", "referral_expires_at", "payout_percentage"] | Omit = omit,
+        order: Literal[
+            "created_at",
+            "referral_started_at",
+            "referral_expires_at",
+            "payout_percentage",
+            "volume_usd",
+            "earnings_usd",
+        ]
+        | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -291,7 +299,15 @@ class AsyncBusinessesResource(AsyncAPIResource):
         first: int | Omit = omit,
         has_earnings: bool | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "referral_started_at", "referral_expires_at", "payout_percentage"] | Omit = omit,
+        order: Literal[
+            "created_at",
+            "referral_started_at",
+            "referral_expires_at",
+            "payout_percentage",
+            "volume_usd",
+            "earnings_usd",
+        ]
+        | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
