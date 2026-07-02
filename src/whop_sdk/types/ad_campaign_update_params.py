@@ -2,16 +2,29 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AdCampaignUpdateParams"]
 
 
 class AdCampaignUpdateParams(TypedDict, total=False):
-    budget: Optional[float]
-    """The campaign budget in dollars.
+    budget_amount: float
+    """The campaign budget, in the account's currency.
 
-    The interpretation (daily or lifetime) follows the campaign's existing budget
-    type.
+    Interpreted as daily or lifetime per the campaign's existing budget type.
     """
+
+    ends_at: str
+    """Campaign schedule end (ISO 8601). CBO only."""
+
+    starts_at: str
+    """Campaign schedule start (ISO 8601). CBO only."""
+
+    status: Literal["active"]
+    """Set to active to launch a draft campaign (moderates and pushes it live).
+
+    Live-campaign pause and resume use the pause and unpause actions.
+    """
+
+    title: str
+    """The name of the campaign."""
