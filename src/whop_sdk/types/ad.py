@@ -14,8 +14,8 @@ class Issue(BaseModel):
     id: str
     """Unique identifier for the issue."""
 
-    category: Optional[Literal["policy_rejection", "creative_media", "audience_targeting", "ad_volume_limit"]] = None
-    """The kind of problem the issue represents."""
+    message: str
+    """A description of what the issue is and how it can be resolved."""
 
     resource_id: Optional[str] = None
     """The ID of the campaign, ad group, or ad the issue is attached to."""
