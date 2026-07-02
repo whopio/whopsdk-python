@@ -2,17 +2,26 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AccountListParams"]
 
 
 class AccountListParams(TypedDict, total=False):
-    page: int
-    """The page number to retrieve"""
+    after: str
+    """A cursor; returns accounts after this position."""
 
-    per: int
-    """The number of resources to return per page.
+    before: str
+    """A cursor; returns accounts before this position."""
 
-    There is a limit of 50 results per page.
-    """
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
+
+    first: int
+    """The number of accounts to return (default 10, max 50)."""
+
+    last: int
+    """The number of accounts to return from the end of the range."""
+
+    order: Literal["created_at"]
+    """The field to sort accounts by."""
