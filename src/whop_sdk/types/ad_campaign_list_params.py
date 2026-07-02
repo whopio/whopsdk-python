@@ -35,8 +35,27 @@ class AdCampaignListParams(TypedDict, total=False):
     last: int
     """The number of campaigns to return from the end of the range."""
 
-    order: Literal["created_at", "updated_at"]
-    """The field to sort by. Defaults to created_at."""
+    order: Literal[
+        "created_at",
+        "updated_at",
+        "spend",
+        "impressions",
+        "clicks",
+        "reach",
+        "unique_clicks",
+        "results",
+        "click_through_rate",
+        "cost_per_click",
+        "cost_per_mille",
+        "cost_per_result",
+        "frequency",
+        "return_on_ad_spend",
+    ]
+    """The field to sort by.
+
+    Defaults to created_at. Stat columns (spend, impressions, …) rank over the
+    stats_from/stats_to window across the whole list, not just the current page.
+    """
 
     query: str
     """Filter campaigns by a title or ID substring."""

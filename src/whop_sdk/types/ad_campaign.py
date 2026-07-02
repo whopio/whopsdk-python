@@ -160,6 +160,31 @@ class AdCampaign(BaseModel):
     reach: float
     """The number of unique people who saw this."""
 
+    result_event: Optional[
+        Literal[
+            "purchase",
+            "lead",
+            "schedule",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "view_content",
+            "add_to_cart",
+            "custom",
+        ]
+    ] = None
+    """
+    The Whop pixel conversion event whose attributed count represents results — the
+    optimization goal, or the highest-volume attributed event for campaigns that
+    budget per ad group. Null when the goal isn't a Whop-attributed event.
+    """
+
+    result_event_name: Optional[str] = None
+    """
+    The merchant-defined event name when result_event is custom; null for the
+    standard events.
+    """
+
     return_on_ad_spend: float
     """Purchase value divided by spend; 0 when there is no spend."""
 
@@ -174,7 +199,19 @@ class AdCampaign(BaseModel):
     spend_currency: Optional[str] = None
     """The ISO 4217 currency code of all monetary metrics."""
 
-    status: Literal["draft", "active", "paused", "payment_failed"]
+    status: Literal[
+        "active",
+        "paused",
+        "inactive",
+        "stale",
+        "pending_refund",
+        "payment_failed",
+        "draft",
+        "in_review",
+        "flagged",
+        "importing",
+        "imported",
+    ]
     """The lifecycle status of the ad campaign."""
 
     submitted_applications: float

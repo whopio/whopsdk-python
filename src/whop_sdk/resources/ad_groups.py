@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_group_list_params, ad_group_create_params, ad_group_update_params
+from ..types import ad_group_list_params, ad_group_create_params, ad_group_update_params, ad_group_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,9 +18,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_group import AdGroup
-from ..types.ad_group_list_response import AdGroupListResponse
 from ..types.ad_group_delete_response import AdGroupDeleteResponse
 
 __all__ = ["AdGroupsResource", "AsyncAdGroupsResource"]
@@ -212,6 +212,8 @@ class AdGroupsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -223,6 +225,10 @@ class AdGroupsResource(SyncAPIResource):
         Retrieves a single ad group.
 
         Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -236,7 +242,17 @@ class AdGroupsResource(SyncAPIResource):
         return self._get(
             path_template("/ad_groups/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
+                    },
+                    ad_group_retrieve_params.AdGroupRetrieveParams,
+                ),
             ),
             cast_to=AdGroup,
         )
@@ -403,8 +419,33 @@ class AdGroupsResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
-        order: Literal["created_at", "updated_at"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal[
+            "created_at",
+            "updated_at",
+            "spend",
+            "impressions",
+            "clicks",
+            "reach",
+            "unique_clicks",
+            "results",
+            "click_through_rate",
+            "cost_per_click",
+            "cost_per_mille",
+            "cost_per_result",
+            "frequency",
+            "return_on_ad_spend",
+        ]
+        | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
         status: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -412,7 +453,7 @@ class AdGroupsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupListResponse:
+    ) -> SyncCursorPage[AdGroup]:
         """
         Lists ad groups for the account, newest first.
 
@@ -421,9 +462,29 @@ class AdGroupsResource(SyncAPIResource):
 
           ad_campaign_id: Filter to ad groups in this campaign.
 
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          before: Cursor to fetch the page before (from page_info.start_cursor).
+
+          created_after: Only return ad groups created after this timestamp.
+
+          created_before: Only return ad groups created before this timestamp.
+
           direction: The sort direction. Defaults to desc.
 
-          order: The field to sort by. Defaults to created_at.
+          first: The number of ad groups to return.
+
+          last: The number of ad groups to return from the end of the range.
+
+          order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
+              …) rank over the stats_from/stats_to window across the whole list, not just the
+              current page.
+
+          query: Filter ad groups by a title or ID substring.
+
+          stats_from: Start of the stats window. Defaults to all-time.
+
+          stats_to: End of the stats window. Defaults to now.
 
           status: Filter to a status (active, paused, in_review, rejected).
 
@@ -435,8 +496,9 @@ class AdGroupsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/ad_groups",
+            page=SyncCursorPage[AdGroup],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -446,14 +508,23 @@ class AdGroupsResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
+                        "after": after,
+                        "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
+                        "first": first,
+                        "last": last,
                         "order": order,
+                        "query": query,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_group_list_params.AdGroupListParams,
                 ),
             ),
-            cast_to=AdGroupListResponse,
+            model=AdGroup,
         )
 
     def delete(
@@ -743,6 +814,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -754,6 +827,10 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         Retrieves a single ad group.
 
         Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -767,7 +844,17 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         return await self._get(
             path_template("/ad_groups/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
+                    },
+                    ad_group_retrieve_params.AdGroupRetrieveParams,
+                ),
             ),
             cast_to=AdGroup,
         )
@@ -929,13 +1016,38 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             cast_to=AdGroup,
         )
 
-    async def list(
+    def list(
         self,
         *,
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
-        order: Literal["created_at", "updated_at"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal[
+            "created_at",
+            "updated_at",
+            "spend",
+            "impressions",
+            "clicks",
+            "reach",
+            "unique_clicks",
+            "results",
+            "click_through_rate",
+            "cost_per_click",
+            "cost_per_mille",
+            "cost_per_result",
+            "frequency",
+            "return_on_ad_spend",
+        ]
+        | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
         status: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -943,7 +1055,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AdGroupListResponse:
+    ) -> AsyncPaginator[AdGroup, AsyncCursorPage[AdGroup]]:
         """
         Lists ad groups for the account, newest first.
 
@@ -952,9 +1064,29 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           ad_campaign_id: Filter to ad groups in this campaign.
 
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          before: Cursor to fetch the page before (from page_info.start_cursor).
+
+          created_after: Only return ad groups created after this timestamp.
+
+          created_before: Only return ad groups created before this timestamp.
+
           direction: The sort direction. Defaults to desc.
 
-          order: The field to sort by. Defaults to created_at.
+          first: The number of ad groups to return.
+
+          last: The number of ad groups to return from the end of the range.
+
+          order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
+              …) rank over the stats_from/stats_to window across the whole list, not just the
+              current page.
+
+          query: Filter ad groups by a title or ID substring.
+
+          stats_from: Start of the stats window. Defaults to all-time.
+
+          stats_to: End of the stats window. Defaults to now.
 
           status: Filter to a status (active, paused, in_review, rejected).
 
@@ -966,25 +1098,35 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/ad_groups",
+            page=AsyncCursorPage[AdGroup],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
+                        "after": after,
+                        "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
+                        "first": first,
+                        "last": last,
                         "order": order,
+                        "query": query,
+                        "stats_from": stats_from,
+                        "stats_to": stats_to,
                         "status": status,
                     },
                     ad_group_list_params.AdGroupListParams,
                 ),
             ),
-            cast_to=AdGroupListResponse,
+            model=AdGroup,
         )
 
     async def delete(

@@ -1217,15 +1217,15 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AdGroup, AdGroupListResponse, AdGroupDeleteResponse
+from whop_sdk.types import AdGroup, AdGroupDeleteResponse
 ```
 
 Methods:
 
 - <code title="post /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">create</a>(\*\*<a href="src/whop_sdk/types/ad_group_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
-- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
-- <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_list_response.py">AdGroupListResponse</a></code>
+- <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">SyncCursorPage[AdGroup]</a></code>
 - <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
 - <code title="post /ad_groups/{id}/pause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="post /ad_groups/{id}/unpause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>

@@ -265,7 +265,23 @@ class AdCampaignsResource(SyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "updated_at"] | Omit = omit,
+        order: Literal[
+            "created_at",
+            "updated_at",
+            "spend",
+            "impressions",
+            "clicks",
+            "reach",
+            "unique_clicks",
+            "results",
+            "click_through_rate",
+            "cost_per_click",
+            "cost_per_mille",
+            "cost_per_result",
+            "frequency",
+            "return_on_ad_spend",
+        ]
+        | Omit = omit,
         query: str | Omit = omit,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
@@ -298,7 +314,9 @@ class AdCampaignsResource(SyncAPIResource):
 
           last: The number of campaigns to return from the end of the range.
 
-          order: The field to sort by. Defaults to created_at.
+          order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
+              …) rank over the stats_from/stats_to window across the whole list, not just the
+              current page.
 
           query: Filter campaigns by a title or ID substring.
 
@@ -681,7 +699,23 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "updated_at"] | Omit = omit,
+        order: Literal[
+            "created_at",
+            "updated_at",
+            "spend",
+            "impressions",
+            "clicks",
+            "reach",
+            "unique_clicks",
+            "results",
+            "click_through_rate",
+            "cost_per_click",
+            "cost_per_mille",
+            "cost_per_result",
+            "frequency",
+            "return_on_ad_spend",
+        ]
+        | Omit = omit,
         query: str | Omit = omit,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
@@ -714,7 +748,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
 
           last: The number of campaigns to return from the end of the range.
 
-          order: The field to sort by. Defaults to created_at.
+          order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
+              …) rank over the stats_from/stats_to window across the whole list, not just the
+              current page.
 
           query: Filter campaigns by a title or ID substring.
 

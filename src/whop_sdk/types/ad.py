@@ -5,7 +5,40 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Ad", "Issue"]
+__all__ = ["Ad", "AdCampaign", "AdGroup", "Creative", "Issue"]
+
+
+class AdCampaign(BaseModel):
+    """The ad campaign this ad belongs to, an object with an id."""
+
+    id: str
+    """The referenced entity's id."""
+
+
+class AdGroup(BaseModel):
+    """The ad group this ad belongs to, an object with an id."""
+
+    id: str
+    """The referenced entity's id."""
+
+
+class Creative(BaseModel):
+    """The creatives used by this ad.
+
+    The original/uncropped asset has a null format; square, vertical, and horizontal entries are its per-placement crops.
+    """
+
+    id: str
+    """The creative attachment's file id."""
+
+    format: Optional[Literal["square", "vertical", "horizontal"]] = None
+    """The placement crop this asset covers, or null for the original/uncropped asset."""
+
+    media_type: Optional[str] = None
+    """The kind of asset, image or video."""
+
+    url: Optional[str] = None
+    """CDN url of the asset."""
 
 
 class Issue(BaseModel):
@@ -28,10 +61,10 @@ class Ad(BaseModel):
     id: str
     """Unique identifier for the ad."""
 
-    ad_campaign: object
+    ad_campaign: AdCampaign
     """The ad campaign this ad belongs to, an object with an id."""
 
-    ad_group: object
+    ad_group: AdGroup
     """The ad group this ad belongs to, an object with an id."""
 
     added_to_carts: float
@@ -122,6 +155,12 @@ class Ad(BaseModel):
     none are attributed.
     """
 
+    cost_per_result: Optional[float] = None
+    """
+    Spend divided by Whop pixel-attributed results; null when nothing
+    Whop-attributable is being optimized for.
+    """
+
     cost_per_schedule: Optional[float] = None
     """
     Spend divided by attributed schedule events; null when schedules are not the
@@ -143,7 +182,7 @@ class Ad(BaseModel):
     created_at: str
     """When the ad was created, as an ISO 8601 timestamp."""
 
-    creatives: List[object]
+    creatives: List[Creative]
 
     custom_conversions: float
     """
@@ -202,6 +241,31 @@ class Ad(BaseModel):
 
     reach: float
     """The number of unique people who saw this."""
+
+    result_event: Optional[
+        Literal[
+            "purchase",
+            "lead",
+            "schedule",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "view_content",
+            "add_to_cart",
+            "custom",
+        ]
+    ] = None
+    """
+    The Whop pixel conversion event whose attributed count represents results — the
+    optimization goal, or the highest-volume attributed event for campaigns that
+    budget per ad group. Null when the goal isn't a Whop-attributed event.
+    """
+
+    result_event_name: Optional[str] = None
+    """
+    The merchant-defined event name when result_event is custom; null for the
+    standard events.
+    """
 
     return_on_ad_spend: float
     """Purchase value divided by spend; 0 when there is no spend."""

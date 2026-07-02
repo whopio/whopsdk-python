@@ -5,7 +5,14 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AdGroup", "Issue"]
+__all__ = ["AdGroup", "AdCampaign", "Issue"]
+
+
+class AdCampaign(BaseModel):
+    """The ad campaign this ad group belongs to, an object with an id."""
+
+    id: str
+    """The referenced entity's id."""
 
 
 class Issue(BaseModel):
@@ -28,7 +35,7 @@ class AdGroup(BaseModel):
     id: str
     """Unique identifier for the ad group."""
 
-    ad_campaign: object
+    ad_campaign: AdCampaign
     """The ad campaign this ad group belongs to, an object with an id."""
 
     added_to_carts: float
@@ -138,6 +145,12 @@ class AdGroup(BaseModel):
     none are attributed.
     """
 
+    cost_per_result: Optional[float] = None
+    """
+    Spend divided by Whop pixel-attributed results; null when nothing
+    Whop-attributable is being optimized for.
+    """
+
     cost_per_schedule: Optional[float] = None
     """
     Spend divided by attributed schedule events; null when schedules are not the
@@ -222,6 +235,31 @@ class AdGroup(BaseModel):
     """Geo targeting: include/exclude countries, regions (ISO 3166-2 states, e.g.
 
     US-CA), cities, zips.
+    """
+
+    result_event: Optional[
+        Literal[
+            "purchase",
+            "lead",
+            "schedule",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "view_content",
+            "add_to_cart",
+            "custom",
+        ]
+    ] = None
+    """
+    The Whop pixel conversion event whose attributed count represents results — the
+    optimization goal, or the highest-volume attributed event for campaigns that
+    budget per ad group. Null when the goal isn't a Whop-attributed event.
+    """
+
+    result_event_name: Optional[str] = None
+    """
+    The merchant-defined event name when result_event is custom; null for the
+    standard events.
     """
 
     return_on_ad_spend: float
