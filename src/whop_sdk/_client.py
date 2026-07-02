@@ -45,7 +45,9 @@ if TYPE_CHECKING:
         stats,
         swaps,
         users,
+        events,
         forums,
+        people,
         topups,
         courses,
         entries,
@@ -115,7 +117,9 @@ if TYPE_CHECKING:
     from .resources.stats import StatsResource, AsyncStatsResource
     from .resources.swaps import SwapsResource, AsyncSwapsResource
     from .resources.users import UsersResource, AsyncUsersResource
+    from .resources.events import EventsResource, AsyncEventsResource
     from .resources.forums import ForumsResource, AsyncForumsResource
+    from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.topups import TopupsResource, AsyncTopupsResource
     from .resources.courses import CoursesResource, AsyncCoursesResource
     from .resources.entries import EntriesResource, AsyncEntriesResource
@@ -310,6 +314,18 @@ class Whop(SyncAPIClient):
         from .resources.audiences import AudiencesResource
 
         return AudiencesResource(self)
+
+    @cached_property
+    def people(self) -> PeopleResource:
+        from .resources.people import PeopleResource
+
+        return PeopleResource(self)
+
+    @cached_property
+    def events(self) -> EventsResource:
+        from .resources.events import EventsResource
+
+        return EventsResource(self)
 
     @cached_property
     def companies(self) -> CompaniesResource:
@@ -986,6 +1002,18 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAudiencesResource(self)
 
     @cached_property
+    def people(self) -> AsyncPeopleResource:
+        from .resources.people import AsyncPeopleResource
+
+        return AsyncPeopleResource(self)
+
+    @cached_property
+    def events(self) -> AsyncEventsResource:
+        from .resources.events import AsyncEventsResource
+
+        return AsyncEventsResource(self)
+
+    @cached_property
     def companies(self) -> AsyncCompaniesResource:
         """Companies"""
         from .resources.companies import AsyncCompaniesResource
@@ -1580,6 +1608,18 @@ class WhopWithRawResponse:
         return AudiencesResourceWithRawResponse(self._client.audiences)
 
     @cached_property
+    def people(self) -> people.PeopleResourceWithRawResponse:
+        from .resources.people import PeopleResourceWithRawResponse
+
+        return PeopleResourceWithRawResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithRawResponse:
+        from .resources.events import EventsResourceWithRawResponse
+
+        return EventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithRawResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithRawResponse
@@ -2054,6 +2094,18 @@ class AsyncWhopWithRawResponse:
         from .resources.audiences import AsyncAudiencesResourceWithRawResponse
 
         return AsyncAudiencesResourceWithRawResponse(self._client.audiences)
+
+    @cached_property
+    def people(self) -> people.AsyncPeopleResourceWithRawResponse:
+        from .resources.people import AsyncPeopleResourceWithRawResponse
+
+        return AsyncPeopleResourceWithRawResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithRawResponse:
+        from .resources.events import AsyncEventsResourceWithRawResponse
+
+        return AsyncEventsResourceWithRawResponse(self._client.events)
 
     @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithRawResponse:
@@ -2534,6 +2586,18 @@ class WhopWithStreamedResponse:
         return AudiencesResourceWithStreamingResponse(self._client.audiences)
 
     @cached_property
+    def people(self) -> people.PeopleResourceWithStreamingResponse:
+        from .resources.people import PeopleResourceWithStreamingResponse
+
+        return PeopleResourceWithStreamingResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithStreamingResponse:
+        from .resources.events import EventsResourceWithStreamingResponse
+
+        return EventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithStreamingResponse:
         """Companies"""
         from .resources.companies import CompaniesResourceWithStreamingResponse
@@ -3010,6 +3074,18 @@ class AsyncWhopWithStreamedResponse:
         from .resources.audiences import AsyncAudiencesResourceWithStreamingResponse
 
         return AsyncAudiencesResourceWithStreamingResponse(self._client.audiences)
+
+    @cached_property
+    def people(self) -> people.AsyncPeopleResourceWithStreamingResponse:
+        from .resources.people import AsyncPeopleResourceWithStreamingResponse
+
+        return AsyncPeopleResourceWithStreamingResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+        from .resources.events import AsyncEventsResourceWithStreamingResponse
+
+        return AsyncEventsResourceWithStreamingResponse(self._client.events)
 
     @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithStreamingResponse:

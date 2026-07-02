@@ -160,6 +160,31 @@ Methods:
 - <code title="get /audiences">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">list</a>(\*\*<a href="src/whop_sdk/types/audience_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">SyncCursorPage[Audience]</a></code>
 - <code title="delete /audiences/{audience_id}">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">delete</a>(audience_id) -> <a href="./src/whop_sdk/types/audience_delete_response.py">AudienceDeleteResponse</a></code>
 
+# People
+
+Types:
+
+```python
+from whop_sdk.types import PersonRetrieveResponse, PersonListResponse
+```
+
+Methods:
+
+- <code title="get /people/{person_id}">client.people.<a href="./src/whop_sdk/resources/people.py">retrieve</a>(person_id, \*\*<a href="src/whop_sdk/types/person_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/person_retrieve_response.py">PersonRetrieveResponse</a></code>
+- <code title="get /people">client.people.<a href="./src/whop_sdk/resources/people.py">list</a>(\*\*<a href="src/whop_sdk/types/person_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/person_list_response.py">PersonListResponse</a></code>
+
+# Events
+
+Types:
+
+```python
+from whop_sdk.types import EventListResponse
+```
+
+Methods:
+
+- <code title="get /events">client.events.<a href="./src/whop_sdk/resources/events.py">list</a>(\*\*<a href="src/whop_sdk/types/event_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/event_list_response.py">EventListResponse</a></code>
+
 # Companies
 
 Types:

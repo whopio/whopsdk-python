@@ -72,6 +72,14 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
+from .events import (
+    EventsResource,
+    AsyncEventsResource,
+    EventsResourceWithRawResponse,
+    AsyncEventsResourceWithRawResponse,
+    EventsResourceWithStreamingResponse,
+    AsyncEventsResourceWithStreamingResponse,
+)
 from .forums import (
     ForumsResource,
     AsyncForumsResource,
@@ -79,6 +87,14 @@ from .forums import (
     AsyncForumsResourceWithRawResponse,
     ForumsResourceWithStreamingResponse,
     AsyncForumsResourceWithStreamingResponse,
+)
+from .people import (
+    PeopleResource,
+    AsyncPeopleResource,
+    PeopleResourceWithRawResponse,
+    AsyncPeopleResourceWithRawResponse,
+    PeopleResourceWithStreamingResponse,
+    AsyncPeopleResourceWithStreamingResponse,
 )
 from .topups import (
     TopupsResource,
@@ -590,6 +606,18 @@ __all__ = [
     "AsyncAudiencesResourceWithRawResponse",
     "AudiencesResourceWithStreamingResponse",
     "AsyncAudiencesResourceWithStreamingResponse",
+    "PeopleResource",
+    "AsyncPeopleResource",
+    "PeopleResourceWithRawResponse",
+    "AsyncPeopleResourceWithRawResponse",
+    "PeopleResourceWithStreamingResponse",
+    "AsyncPeopleResourceWithStreamingResponse",
+    "EventsResource",
+    "AsyncEventsResource",
+    "EventsResourceWithRawResponse",
+    "AsyncEventsResourceWithRawResponse",
+    "EventsResourceWithStreamingResponse",
+    "AsyncEventsResourceWithStreamingResponse",
     "CompaniesResource",
     "AsyncCompaniesResource",
     "CompaniesResourceWithRawResponse",
