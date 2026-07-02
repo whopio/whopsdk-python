@@ -99,6 +99,7 @@ class TestAdGroups:
             id="id",
             stats_from="stats_from",
             stats_to="stats_to",
+            time_zone="time_zone",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -230,6 +231,7 @@ class TestAdGroups:
             stats_from="stats_from",
             stats_to="stats_to",
             status="status",
+            time_zone="time_zone",
         )
         assert_matches_type(SyncCursorPage[AdGroup], ad_group, path=["response"])
 
@@ -465,6 +467,7 @@ class TestAsyncAdGroups:
             id="id",
             stats_from="stats_from",
             stats_to="stats_to",
+            time_zone="time_zone",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -596,6 +599,7 @@ class TestAsyncAdGroups:
             stats_from="stats_from",
             stats_to="stats_to",
             status="status",
+            time_zone="time_zone",
         )
         assert_matches_type(AsyncCursorPage[AdGroup], ad_group, path=["response"])
 

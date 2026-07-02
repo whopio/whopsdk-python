@@ -13,3 +13,6 @@ class AdGroupRetrieveParams(TypedDict, total=False):
 
     stats_to: str
     """End of the stats window."""
+
+    time_zone: str
+    """IANA timezone the stats window is interpreted in. Defaults to UTC."""

@@ -70,3 +70,10 @@ class AdGroupListParams(TypedDict, total=False):
 
     status: str
     """Filter to a status (active, paused, in_review, rejected)."""
+
+    time_zone: str
+    """IANA timezone (e.g.
+
+    America/New_York) the stats window is interpreted in. Bare stats_from/stats_to
+    dates resolve to day boundaries on this clock. Defaults to UTC.
+    """

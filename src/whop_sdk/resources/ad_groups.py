@@ -214,6 +214,7 @@ class AdGroupsResource(SyncAPIResource):
         *,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -228,6 +229,8 @@ class AdGroupsResource(SyncAPIResource):
           stats_from: Start of the stats window.
 
           stats_to: End of the stats window.
+
+          time_zone: IANA timezone the stats window is interpreted in. Defaults to UTC.
 
           extra_headers: Send extra headers
 
@@ -250,6 +253,7 @@ class AdGroupsResource(SyncAPIResource):
                     {
                         "stats_from": stats_from,
                         "stats_to": stats_to,
+                        "time_zone": time_zone,
                     },
                     ad_group_retrieve_params.AdGroupRetrieveParams,
                 ),
@@ -447,6 +451,7 @@ class AdGroupsResource(SyncAPIResource):
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
         status: str | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -489,6 +494,10 @@ class AdGroupsResource(SyncAPIResource):
 
           status: Filter to a status (active, paused, in_review, rejected).
 
+          time_zone: IANA timezone (e.g. America/New_York) the stats window is interpreted in. Bare
+              stats_from/stats_to dates resolve to day boundaries on this clock. Defaults to
+              UTC.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -521,6 +530,7 @@ class AdGroupsResource(SyncAPIResource):
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
+                        "time_zone": time_zone,
                     },
                     ad_group_list_params.AdGroupListParams,
                 ),
@@ -817,6 +827,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         *,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -831,6 +842,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           stats_from: Start of the stats window.
 
           stats_to: End of the stats window.
+
+          time_zone: IANA timezone the stats window is interpreted in. Defaults to UTC.
 
           extra_headers: Send extra headers
 
@@ -853,6 +866,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                     {
                         "stats_from": stats_from,
                         "stats_to": stats_to,
+                        "time_zone": time_zone,
                     },
                     ad_group_retrieve_params.AdGroupRetrieveParams,
                 ),
@@ -1050,6 +1064,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
         status: str | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1092,6 +1107,10 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           status: Filter to a status (active, paused, in_review, rejected).
 
+          time_zone: IANA timezone (e.g. America/New_York) the stats window is interpreted in. Bare
+              stats_from/stats_to dates resolve to day boundaries on this clock. Defaults to
+              UTC.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1124,6 +1143,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
+                        "time_zone": time_zone,
                     },
                     ad_group_list_params.AdGroupListParams,
                 ),

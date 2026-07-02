@@ -70,3 +70,10 @@ class AdCampaignListParams(TypedDict, total=False):
 
     status: Literal["draft", "active", "paused", "payment_failed"]
     """Only return campaigns with this status."""
+
+    time_zone: str
+    """IANA timezone (e.g.
+
+    America/New_York) the stats window is interpreted in. Bare stats_from/stats_to
+    dates resolve to day boundaries on this clock. Defaults to UTC.
+    """

@@ -148,6 +148,7 @@ class AdCampaignsResource(SyncAPIResource):
         *,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -162,6 +163,8 @@ class AdCampaignsResource(SyncAPIResource):
           stats_from: Start of the stats window.
 
           stats_to: End of the stats window.
+
+          time_zone: IANA timezone the stats window is interpreted in. Defaults to UTC.
 
           extra_headers: Send extra headers
 
@@ -184,6 +187,7 @@ class AdCampaignsResource(SyncAPIResource):
                     {
                         "stats_from": stats_from,
                         "stats_to": stats_to,
+                        "time_zone": time_zone,
                     },
                     ad_campaign_retrieve_params.AdCampaignRetrieveParams,
                 ),
@@ -286,6 +290,7 @@ class AdCampaignsResource(SyncAPIResource):
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
         status: Literal["draft", "active", "paused", "payment_failed"] | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -327,6 +332,10 @@ class AdCampaignsResource(SyncAPIResource):
 
           status: Only return campaigns with this status.
 
+          time_zone: IANA timezone (e.g. America/New_York) the stats window is interpreted in. Bare
+              stats_from/stats_to dates resolve to day boundaries on this clock. Defaults to
+              UTC.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -358,6 +367,7 @@ class AdCampaignsResource(SyncAPIResource):
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
+                        "time_zone": time_zone,
                     },
                     ad_campaign_list_params.AdCampaignListParams,
                 ),
@@ -583,6 +593,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         *,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -597,6 +608,8 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
           stats_from: Start of the stats window.
 
           stats_to: End of the stats window.
+
+          time_zone: IANA timezone the stats window is interpreted in. Defaults to UTC.
 
           extra_headers: Send extra headers
 
@@ -619,6 +632,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                     {
                         "stats_from": stats_from,
                         "stats_to": stats_to,
+                        "time_zone": time_zone,
                     },
                     ad_campaign_retrieve_params.AdCampaignRetrieveParams,
                 ),
@@ -721,6 +735,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
         status: Literal["draft", "active", "paused", "payment_failed"] | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -762,6 +777,10 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
 
           status: Only return campaigns with this status.
 
+          time_zone: IANA timezone (e.g. America/New_York) the stats window is interpreted in. Bare
+              stats_from/stats_to dates resolve to day boundaries on this clock. Defaults to
+              UTC.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -793,6 +812,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
+                        "time_zone": time_zone,
                     },
                     ad_campaign_list_params.AdCampaignListParams,
                 ),
