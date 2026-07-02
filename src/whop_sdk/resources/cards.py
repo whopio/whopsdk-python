@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import card_list_params, card_create_params, card_retrieve_params
+from ..types import card_list_params, card_create_params, card_update_params, card_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,6 +20,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.card_list_response import CardListResponse
 from ..types.card_create_response import CardCreateResponse
+from ..types.card_update_response import CardUpdateResponse
 from ..types.card_retrieve_response import CardRetrieveResponse
 
 __all__ = ["CardsResource", "AsyncCardsResource"]
@@ -164,6 +165,99 @@ class CardsResource(SyncAPIResource):
                 ),
             ),
             cast_to=CardRetrieveResponse,
+        )
+
+    def update(
+        self,
+        card_id: str,
+        *,
+        account_id: str | Omit = omit,
+        billing: card_update_params.Billing | Omit = omit,
+        canceled: bool | Omit = omit,
+        frozen: bool | Omit = omit,
+        name: str | Omit = omit,
+        pin: str | Omit = omit,
+        remove_limit: bool | Omit = omit,
+        spend_limit: float | Omit = omit,
+        spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
+        transaction_limit: float | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CardUpdateResponse:
+        """Updates an issued card.
+
+        All fields are optional; only the fields you pass are
+        changed. Updates the card name, billing address, and spending limits in one
+        call, sets a new PIN, freezes or unfreezes the card, or cancels it. Pass
+        canceled: true alone to cancel the card — cancellation is permanent and a
+        canceled card cannot be uncanceled. Pass exactly one of account*id (a biz*
+        identifier) or user*id (a user* identifier). Assigned cardholders without the
+        payout:account:update scope can update the PIN and freeze state of their own
+        card. The PIN can only be changed on a card assigned to the acting user. Returns
+        the updated card resource.
+
+        Args:
+          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          billing: New billing address. Requires line1, city, region, postal_code, and
+              country_code.
+
+          canceled: Pass `true` to permanently cancel the card. A canceled card cannot be
+              uncanceled. Cannot be combined with other fields.
+
+          frozen: Pass `true` to freeze the card, `false` to unfreeze it.
+
+          name: A display name for the card.
+
+          pin: New 4-digit PIN. Can only be set on a card assigned to the acting user.
+
+          remove_limit: Pass `true` to remove the spending limit (make the card unlimited).
+
+          spend_limit: Spending limit amount, in dollars.
+
+          spend_limit_frequency: The spending limit window.
+
+          transaction_limit: Per-transaction limit amount, in dollars.
+
+          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not card_id:
+            raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
+        return self._patch(
+            path_template("/cards/{card_id}", card_id=card_id),
+            body=maybe_transform(
+                {
+                    "account_id": account_id,
+                    "billing": billing,
+                    "canceled": canceled,
+                    "frozen": frozen,
+                    "name": name,
+                    "pin": pin,
+                    "remove_limit": remove_limit,
+                    "spend_limit": spend_limit,
+                    "spend_limit_frequency": spend_limit_frequency,
+                    "transaction_limit": transaction_limit,
+                    "user_id": user_id,
+                },
+                card_update_params.CardUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CardUpdateResponse,
         )
 
     def list(
@@ -360,6 +454,99 @@ class AsyncCardsResource(AsyncAPIResource):
             cast_to=CardRetrieveResponse,
         )
 
+    async def update(
+        self,
+        card_id: str,
+        *,
+        account_id: str | Omit = omit,
+        billing: card_update_params.Billing | Omit = omit,
+        canceled: bool | Omit = omit,
+        frozen: bool | Omit = omit,
+        name: str | Omit = omit,
+        pin: str | Omit = omit,
+        remove_limit: bool | Omit = omit,
+        spend_limit: float | Omit = omit,
+        spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
+        transaction_limit: float | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CardUpdateResponse:
+        """Updates an issued card.
+
+        All fields are optional; only the fields you pass are
+        changed. Updates the card name, billing address, and spending limits in one
+        call, sets a new PIN, freezes or unfreezes the card, or cancels it. Pass
+        canceled: true alone to cancel the card — cancellation is permanent and a
+        canceled card cannot be uncanceled. Pass exactly one of account*id (a biz*
+        identifier) or user*id (a user* identifier). Assigned cardholders without the
+        payout:account:update scope can update the PIN and freeze state of their own
+        card. The PIN can only be changed on a card assigned to the acting user. Returns
+        the updated card resource.
+
+        Args:
+          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          billing: New billing address. Requires line1, city, region, postal_code, and
+              country_code.
+
+          canceled: Pass `true` to permanently cancel the card. A canceled card cannot be
+              uncanceled. Cannot be combined with other fields.
+
+          frozen: Pass `true` to freeze the card, `false` to unfreeze it.
+
+          name: A display name for the card.
+
+          pin: New 4-digit PIN. Can only be set on a card assigned to the acting user.
+
+          remove_limit: Pass `true` to remove the spending limit (make the card unlimited).
+
+          spend_limit: Spending limit amount, in dollars.
+
+          spend_limit_frequency: The spending limit window.
+
+          transaction_limit: Per-transaction limit amount, in dollars.
+
+          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not card_id:
+            raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
+        return await self._patch(
+            path_template("/cards/{card_id}", card_id=card_id),
+            body=await async_maybe_transform(
+                {
+                    "account_id": account_id,
+                    "billing": billing,
+                    "canceled": canceled,
+                    "frozen": frozen,
+                    "name": name,
+                    "pin": pin,
+                    "remove_limit": remove_limit,
+                    "spend_limit": spend_limit,
+                    "spend_limit_frequency": spend_limit_frequency,
+                    "transaction_limit": transaction_limit,
+                    "user_id": user_id,
+                },
+                card_update_params.CardUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CardUpdateResponse,
+        )
+
     async def list(
         self,
         *,
@@ -423,6 +610,9 @@ class CardsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             cards.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            cards.update,
+        )
         self.list = to_raw_response_wrapper(
             cards.list,
         )
@@ -437,6 +627,9 @@ class AsyncCardsResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             cards.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            cards.update,
         )
         self.list = async_to_raw_response_wrapper(
             cards.list,
@@ -453,6 +646,9 @@ class CardsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             cards.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            cards.update,
+        )
         self.list = to_streamed_response_wrapper(
             cards.list,
         )
@@ -467,6 +663,9 @@ class AsyncCardsResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             cards.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            cards.update,
         )
         self.list = async_to_streamed_response_wrapper(
             cards.list,

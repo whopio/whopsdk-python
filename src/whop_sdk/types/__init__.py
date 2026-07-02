@@ -128,6 +128,7 @@ from .ad_retrieve_params import AdRetrieveParams as AdRetrieveParams
 from .bounty_list_params import BountyListParams as BountyListParams
 from .card_create_params import CardCreateParams as CardCreateParams
 from .card_list_response import CardListResponse as CardListResponse
+from .card_update_params import CardUpdateParams as CardUpdateParams
 from .course_list_params import CourseListParams as CourseListParams
 from .dispute_alert_type import DisputeAlertType as DisputeAlertType
 from .file_create_params import FileCreateParams as FileCreateParams
@@ -174,6 +175,7 @@ from .bounty_create_params import BountyCreateParams as BountyCreateParams
 from .bounty_list_response import BountyListResponse as BountyListResponse
 from .card_create_response import CardCreateResponse as CardCreateResponse
 from .card_retrieve_params import CardRetrieveParams as CardRetrieveParams
+from .card_update_response import CardUpdateResponse as CardUpdateResponse
 from .course_create_params import CourseCreateParams as CourseCreateParams
 from .course_list_response import CourseListResponse as CourseListResponse
 from .course_update_params import CourseUpdateParams as CourseUpdateParams
