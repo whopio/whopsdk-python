@@ -127,6 +127,24 @@ class AdCampaign(BaseModel):
     across all custom event names.
     """
 
+    delivery_status: Literal[
+        "payment_failed",
+        "all_ads_rejected",
+        "draft",
+        "paused",
+        "issues",
+        "scheduled",
+        "completed",
+        "no_ad_groups",
+        "no_ads",
+        "ad_groups_off",
+        "active",
+    ]
+    """The current delivery state, mirroring the Delivery column in the ads dashboard.
+
+    When several states apply at once, the highest-precedence one is returned.
+    """
+
     frequency: Optional[float] = None
     """Platform-reported impressions divided by reach."""
 

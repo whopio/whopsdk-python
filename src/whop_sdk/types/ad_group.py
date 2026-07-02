@@ -16,7 +16,10 @@ class AdCampaign(BaseModel):
 
 
 class Issue(BaseModel):
-    """Open issues affecting this ad group. Empty when there are none."""
+    """Open issues affecting this ad group and its descendant ads.
+
+    Empty when there are none.
+    """
 
     id: str
     """Unique identifier for the issue."""
@@ -176,6 +179,26 @@ class AdGroup(BaseModel):
     """
     Whop pixel-attributed custom (merchant-defined) conversion events, last-click,
     across all custom event names.
+    """
+
+    delivery_status: Literal[
+        "all_ads_rejected",
+        "rejected",
+        "campaign_paused",
+        "paused",
+        "processing",
+        "issues",
+        "scheduled",
+        "completed",
+        "no_ads",
+        "ads_off",
+        "learning_limited",
+        "learning",
+        "active",
+    ]
+    """The current delivery state, mirroring the Delivery column in the ads dashboard.
+
+    When several states apply at once, the highest-precedence one is returned.
     """
 
     demographics: object

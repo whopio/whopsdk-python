@@ -190,6 +190,23 @@ class Ad(BaseModel):
     across all custom event names.
     """
 
+    delivery_status: Literal[
+        "rejected",
+        "in_review",
+        "campaign_paused",
+        "ad_group_paused",
+        "paused",
+        "processing",
+        "issues",
+        "learning_limited",
+        "learning",
+        "active",
+    ]
+    """The current delivery state, mirroring the Delivery column in the ads dashboard.
+
+    When several states apply at once, the highest-precedence one is returned.
+    """
+
     descriptions: List[str]
 
     frequency: Optional[float] = None
