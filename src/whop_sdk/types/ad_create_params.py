@@ -97,7 +97,13 @@ class AdCreateParams(TypedDict, total=False):
     post_id: str
     """
     Promote an existing post instead of uploading creatives — a Facebook post or
-    Instagram media id. Mutually exclusive with creatives.
+    Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+    """
+
+    post_source: Literal["facebook", "instagram"]
+    """
+    Which network post_id refers to — facebook (a page post) or instagram (a media
+    id). Authoritative; when omitted the source is inferred from the id shape.
     """
 
     primary_texts: SequenceNotStr[str]

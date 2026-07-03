@@ -83,6 +83,7 @@ class AdsResource(SyncAPIResource):
         messaging_config: ad_create_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
+        post_source: Literal["facebook", "instagram"] | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_create_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -125,7 +126,10 @@ class AdsResource(SyncAPIResource):
               Defaults to true.
 
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
-              Instagram media id. Mutually exclusive with creatives.
+              Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
+          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
+              id). Authoritative; when omitted the source is inferred from the id shape.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -159,6 +163,7 @@ class AdsResource(SyncAPIResource):
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,
+                    "post_source": post_source,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,
@@ -262,6 +267,7 @@ class AdsResource(SyncAPIResource):
         messaging_config: ad_update_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
+        post_source: Literal["facebook", "instagram"] | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_update_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -299,7 +305,10 @@ class AdsResource(SyncAPIResource):
               Defaults to true.
 
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
-              Instagram media id. Mutually exclusive with creatives.
+              Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
+          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
+              id). Authoritative; when omitted the source is inferred from the id shape.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -333,6 +342,7 @@ class AdsResource(SyncAPIResource):
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,
+                    "post_source": post_source,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,
@@ -629,6 +639,7 @@ class AsyncAdsResource(AsyncAPIResource):
         messaging_config: ad_create_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
+        post_source: Literal["facebook", "instagram"] | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_create_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -671,7 +682,10 @@ class AsyncAdsResource(AsyncAPIResource):
               Defaults to true.
 
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
-              Instagram media id. Mutually exclusive with creatives.
+              Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
+          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
+              id). Authoritative; when omitted the source is inferred from the id shape.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -705,6 +719,7 @@ class AsyncAdsResource(AsyncAPIResource):
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,
+                    "post_source": post_source,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,
@@ -808,6 +823,7 @@ class AsyncAdsResource(AsyncAPIResource):
         messaging_config: ad_update_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
+        post_source: Literal["facebook", "instagram"] | Omit = omit,
         primary_texts: SequenceNotStr[str] | Omit = omit,
         social_accounts: Iterable[ad_update_params.SocialAccount] | Omit = omit,
         title: str | Omit = omit,
@@ -845,7 +861,10 @@ class AsyncAdsResource(AsyncAPIResource):
               Defaults to true.
 
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
-              Instagram media id. Mutually exclusive with creatives.
+              Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
+          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
+              id). Authoritative; when omitted the source is inferred from the id shape.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -879,6 +898,7 @@ class AsyncAdsResource(AsyncAPIResource):
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,
+                    "post_source": post_source,
                     "primary_texts": primary_texts,
                     "social_accounts": social_accounts,
                     "title": title,
