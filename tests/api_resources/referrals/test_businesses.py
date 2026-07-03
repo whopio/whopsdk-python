@@ -75,6 +75,8 @@ class TestBusinesses:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         business = client.referrals.businesses.list(
+            active_after="active_after",
+            active_before="active_before",
             after="after",
             before="before",
             direction="asc",
@@ -148,6 +150,8 @@ class TestBusinesses:
         business = client.referrals.businesses.list_earnings(
             after="after",
             before="before",
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
             first=100,
             last=100,
@@ -236,6 +240,8 @@ class TestAsyncBusinesses:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         business = await async_client.referrals.businesses.list(
+            active_after="active_after",
+            active_before="active_before",
             after="after",
             before="before",
             direction="asc",
@@ -309,6 +315,8 @@ class TestAsyncBusinesses:
         business = await async_client.referrals.businesses.list_earnings(
             after="after",
             before="before",
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
             first=100,
             last=100,

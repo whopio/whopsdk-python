@@ -8,6 +8,12 @@ __all__ = ["BusinessListParams"]
 
 
 class BusinessListParams(TypedDict, total=False):
+    active_after: str
+    """Only return business referrals with a transaction after this timestamp."""
+
+    active_before: str
+    """Only return business referrals with a transaction before this timestamp."""
+
     after: str
     """Cursor to fetch the page after (from page_info.end_cursor)."""
 

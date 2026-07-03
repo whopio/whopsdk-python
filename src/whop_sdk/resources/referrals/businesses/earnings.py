@@ -50,6 +50,8 @@ class EarningsResource(SyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -67,6 +69,10 @@ class EarningsResource(SyncAPIResource):
         recent first.
 
         Args:
+          created_after: Only return earnings created after this timestamp.
+
+          created_before: Only return earnings created before this timestamp.
+
           direction: Sort direction.
 
           order: The field to sort earnings by.
@@ -95,6 +101,8 @@ class EarningsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
@@ -134,6 +142,8 @@ class AsyncEarningsResource(AsyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -151,6 +161,10 @@ class AsyncEarningsResource(AsyncAPIResource):
         recent first.
 
         Args:
+          created_after: Only return earnings created after this timestamp.
+
+          created_before: Only return earnings created before this timestamp.
+
           direction: Sort direction.
 
           order: The field to sort earnings by.
@@ -179,6 +193,8 @@ class AsyncEarningsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,

@@ -95,6 +95,8 @@ class BusinessesResource(SyncAPIResource):
     def list(
         self,
         *,
+        active_after: str | Omit = omit,
+        active_before: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
@@ -123,6 +125,10 @@ class BusinessesResource(SyncAPIResource):
         first.
 
         Args:
+          active_after: Only return business referrals with a transaction after this timestamp.
+
+          active_before: Only return business referrals with a transaction before this timestamp.
+
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
@@ -158,6 +164,8 @@ class BusinessesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "active_after": active_after,
+                        "active_before": active_before,
                         "after": after,
                         "before": before,
                         "direction": direction,
@@ -200,6 +208,8 @@ class BusinessesResource(SyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -217,6 +227,10 @@ class BusinessesResource(SyncAPIResource):
         first.
 
         Args:
+          created_after: Only return earnings created after this timestamp.
+
+          created_before: Only return earnings created before this timestamp.
+
           direction: Sort direction.
 
           order: The field to sort earnings by.
@@ -243,6 +257,8 @@ class BusinessesResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
@@ -316,6 +332,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
     def list(
         self,
         *,
+        active_after: str | Omit = omit,
+        active_before: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
@@ -344,6 +362,10 @@ class AsyncBusinessesResource(AsyncAPIResource):
         first.
 
         Args:
+          active_after: Only return business referrals with a transaction after this timestamp.
+
+          active_before: Only return business referrals with a transaction before this timestamp.
+
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
@@ -379,6 +401,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "active_after": active_after,
+                        "active_before": active_before,
                         "after": after,
                         "before": before,
                         "direction": direction,
@@ -421,6 +445,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -438,6 +464,10 @@ class AsyncBusinessesResource(AsyncAPIResource):
         first.
 
         Args:
+          created_after: Only return earnings created after this timestamp.
+
+          created_before: Only return earnings created before this timestamp.
+
           direction: Sort direction.
 
           order: The field to sort earnings by.
@@ -464,6 +494,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,

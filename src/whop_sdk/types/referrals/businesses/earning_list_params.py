@@ -12,6 +12,12 @@ class EarningListParams(TypedDict, total=False):
 
     before: str
 
+    created_after: str
+    """Only return earnings created after this timestamp."""
+
+    created_before: str
+    """Only return earnings created before this timestamp."""
+
     direction: Literal["asc", "desc"]
     """Sort direction."""
 
