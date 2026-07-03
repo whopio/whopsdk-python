@@ -1,12 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from ...._models import BaseModel
 
-__all__ = ["EarningListResponse", "Account", "Product", "Resource", "ResourceAlternativePaymentMethod"]
+__all__ = [
+    "EarningListResponse",
+    "Account",
+    "FinancialActivity",
+    "Product",
+    "Resource",
+    "ResourceAlternativePaymentMethod",
+]
 
 
 class Account(BaseModel):
@@ -23,6 +30,25 @@ class Account(BaseModel):
 
     title: str
     """Referred account display name."""
+
+
+class FinancialActivity(BaseModel):
+    account_type: Literal["income", "expense"]
+    """Whether the line is income Whop collected or a cost Whop paid."""
+
+    amount: str
+    """Line amount in its native currency."""
+
+    amount_usd: str
+    """Line amount in USD."""
+
+    created_at: Optional[datetime] = None
+
+    currency: str
+    """Currency of the native amount."""
+
+    line_category: Optional[str] = None
+    """Fee or cost category of the line."""
 
 
 class Product(BaseModel):
@@ -74,6 +100,12 @@ class EarningListResponse(BaseModel):
     """What the referrer earns, in USD. Null until the earning settles."""
 
     created_at: datetime
+
+    financial_activity: Optional[List[FinancialActivity]] = None
+    """Income and cost lines behind this earning's commission.
+
+    Null for earnings settled before this data was recorded.
+    """
 
     object: Literal["business_referral_earning"]
 
