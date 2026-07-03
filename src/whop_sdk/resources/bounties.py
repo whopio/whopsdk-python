@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -60,10 +61,17 @@ class BountiesResource(SyncAPIResource):
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Optional[
+            Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+        ]
+        | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
         post_title: Optional[str] | Omit = omit,
+        scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]] | Omit = omit,
+        scheduled_publish_at: Union[str, datetime, None] | Omit = omit,
+        scheduled_timezone: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,7 +88,8 @@ class BountiesResource(SyncAPIResource):
 
         Args:
           base_unit_amount: The amount paid to each approved submission. The total bounty pool funded is
-              this amount times accepted_submissions_limit.
+              this amount times accepted_submissions_limit, and must be at least 5 in the
+              bounty's currency.
 
           currency: The currency for the bounty pool funding amount.
 
@@ -89,10 +98,14 @@ class BountiesResource(SyncAPIResource):
           title: The title of the bounty.
 
           accepted_submissions_limit: The number of submissions that can be approved before the bounty closes.
-              Defaults to 1.
+              Defaults to 1. The total pool (base_unit_amount times this limit) must be at
+              least 5 in the bounty's currency.
 
           allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
               globally visible.
+
+          business_goal_type: What the poster is trying to accomplish with a workforce bounty. Used for
+              product taxonomy and analytics, separate from the bounty's implementation type.
 
           experience_id: An optional experience to scope the bounty to.
 
@@ -105,6 +118,14 @@ class BountiesResource(SyncAPIResource):
 
           post_title: Optional title for the anchor forum post. Falls back to the bounty title when
               omitted.
+
+          scheduled_frequency: How often a scheduled bounty republishes a new bounty.
+
+          scheduled_publish_at: When to publish the bounty. When provided, the bounty is created as a hidden
+              draft and published at this time instead of immediately. Must be in the future.
+
+          scheduled_timezone: The IANA timezone used for recurring occurrences. Required when
+              scheduled_publish_at is provided.
 
           extra_headers: Send extra headers
 
@@ -124,10 +145,14 @@ class BountiesResource(SyncAPIResource):
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
                     "post_title": post_title,
+                    "scheduled_frequency": scheduled_frequency,
+                    "scheduled_publish_at": scheduled_publish_at,
+                    "scheduled_timezone": scheduled_timezone,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
@@ -179,7 +204,7 @@ class BountiesResource(SyncAPIResource):
         experience_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived"]] | Omit = omit,
+        status: Optional[Literal["published", "archived", "scheduled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -273,10 +298,17 @@ class AsyncBountiesResource(AsyncAPIResource):
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Optional[
+            Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+        ]
+        | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
         post_title: Optional[str] | Omit = omit,
+        scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]] | Omit = omit,
+        scheduled_publish_at: Union[str, datetime, None] | Omit = omit,
+        scheduled_timezone: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -293,7 +325,8 @@ class AsyncBountiesResource(AsyncAPIResource):
 
         Args:
           base_unit_amount: The amount paid to each approved submission. The total bounty pool funded is
-              this amount times accepted_submissions_limit.
+              this amount times accepted_submissions_limit, and must be at least 5 in the
+              bounty's currency.
 
           currency: The currency for the bounty pool funding amount.
 
@@ -302,10 +335,14 @@ class AsyncBountiesResource(AsyncAPIResource):
           title: The title of the bounty.
 
           accepted_submissions_limit: The number of submissions that can be approved before the bounty closes.
-              Defaults to 1.
+              Defaults to 1. The total pool (base_unit_amount times this limit) must be at
+              least 5 in the bounty's currency.
 
           allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
               globally visible.
+
+          business_goal_type: What the poster is trying to accomplish with a workforce bounty. Used for
+              product taxonomy and analytics, separate from the bounty's implementation type.
 
           experience_id: An optional experience to scope the bounty to.
 
@@ -318,6 +355,14 @@ class AsyncBountiesResource(AsyncAPIResource):
 
           post_title: Optional title for the anchor forum post. Falls back to the bounty title when
               omitted.
+
+          scheduled_frequency: How often a scheduled bounty republishes a new bounty.
+
+          scheduled_publish_at: When to publish the bounty. When provided, the bounty is created as a hidden
+              draft and published at this time instead of immediately. Must be in the future.
+
+          scheduled_timezone: The IANA timezone used for recurring occurrences. Required when
+              scheduled_publish_at is provided.
 
           extra_headers: Send extra headers
 
@@ -337,10 +382,14 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
                     "post_title": post_title,
+                    "scheduled_frequency": scheduled_frequency,
+                    "scheduled_publish_at": scheduled_publish_at,
+                    "scheduled_timezone": scheduled_timezone,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
@@ -392,7 +441,7 @@ class AsyncBountiesResource(AsyncAPIResource):
         experience_id: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived"]] | Omit = omit,
+        status: Optional[Literal["published", "archived", "scheduled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
