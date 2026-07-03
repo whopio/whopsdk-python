@@ -13,6 +13,7 @@ from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.referrals import (
     BusinessListResponse,
     BusinessRetrieveResponse,
+    BusinessLeaderboardResponse,
     BusinessListEarningsResponse,
 )
 
@@ -104,6 +105,34 @@ class TestBusinesses:
 
             business = response.parse()
             assert_matches_type(SyncCursorPage[BusinessListResponse], business, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_leaderboard(self, client: Whop) -> None:
+        business = client.referrals.businesses.leaderboard()
+        assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_leaderboard(self, client: Whop) -> None:
+        response = client.referrals.businesses.with_raw_response.leaderboard()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        business = response.parse()
+        assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_leaderboard(self, client: Whop) -> None:
+        with client.referrals.businesses.with_streaming_response.leaderboard() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            business = response.parse()
+            assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -237,6 +266,34 @@ class TestAsyncBusinesses:
 
             business = await response.parse()
             assert_matches_type(AsyncCursorPage[BusinessListResponse], business, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_leaderboard(self, async_client: AsyncWhop) -> None:
+        business = await async_client.referrals.businesses.leaderboard()
+        assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_leaderboard(self, async_client: AsyncWhop) -> None:
+        response = await async_client.referrals.businesses.with_raw_response.leaderboard()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        business = await response.parse()
+        assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_leaderboard(self, async_client: AsyncWhop) -> None:
+        async with async_client.referrals.businesses.with_streaming_response.leaderboard() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            business = await response.parse()
+            assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

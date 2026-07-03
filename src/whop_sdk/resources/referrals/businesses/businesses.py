@@ -29,6 +29,7 @@ from ...._base_client import AsyncPaginator, make_request_options
 from ....types.referrals import business_list_params, business_list_earnings_params
 from ....types.referrals.business_list_response import BusinessListResponse
 from ....types.referrals.business_retrieve_response import BusinessRetrieveResponse
+from ....types.referrals.business_leaderboard_response import BusinessLeaderboardResponse
 from ....types.referrals.business_list_earnings_response import BusinessListEarningsResponse
 
 __all__ = ["BusinessesResource", "AsyncBusinessesResource"]
@@ -170,6 +171,28 @@ class BusinessesResource(SyncAPIResource):
                 ),
             ),
             model=BusinessListResponse,
+        )
+
+    def leaderboard(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BusinessLeaderboardResponse:
+        """
+        Ranks referrers by total business referral earnings and includes the caller's
+        own standing.
+        """
+        return self._get(
+            "/referrals/businesses/leaderboard",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BusinessLeaderboardResponse,
         )
 
     def list_earnings(
@@ -371,6 +394,28 @@ class AsyncBusinessesResource(AsyncAPIResource):
             model=BusinessListResponse,
         )
 
+    async def leaderboard(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BusinessLeaderboardResponse:
+        """
+        Ranks referrers by total business referral earnings and includes the caller's
+        own standing.
+        """
+        return await self._get(
+            "/referrals/businesses/leaderboard",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BusinessLeaderboardResponse,
+        )
+
     def list_earnings(
         self,
         *,
@@ -442,6 +487,9 @@ class BusinessesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             businesses.list,
         )
+        self.leaderboard = to_raw_response_wrapper(
+            businesses.leaderboard,
+        )
         self.list_earnings = to_raw_response_wrapper(
             businesses.list_earnings,
         )
@@ -460,6 +508,9 @@ class AsyncBusinessesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             businesses.list,
+        )
+        self.leaderboard = async_to_raw_response_wrapper(
+            businesses.leaderboard,
         )
         self.list_earnings = async_to_raw_response_wrapper(
             businesses.list_earnings,
@@ -480,6 +531,9 @@ class BusinessesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             businesses.list,
         )
+        self.leaderboard = to_streamed_response_wrapper(
+            businesses.leaderboard,
+        )
         self.list_earnings = to_streamed_response_wrapper(
             businesses.list_earnings,
         )
@@ -498,6 +552,9 @@ class AsyncBusinessesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             businesses.list,
+        )
+        self.leaderboard = async_to_streamed_response_wrapper(
+            businesses.leaderboard,
         )
         self.list_earnings = async_to_streamed_response_wrapper(
             businesses.list_earnings,
