@@ -33,22 +33,22 @@ class Account(BaseModel):
 
 
 class FinancialActivity(BaseModel):
-    account_type: Literal["income", "expense"]
-    """Whether the line is income Whop collected or a cost Whop paid."""
-
     amount: str
     """Line amount in its native currency."""
 
     amount_usd: str
     """Line amount in USD."""
 
+    category: Optional[str] = None
+    """Fee or cost category of the line."""
+
     created_at: Optional[datetime] = None
 
     currency: str
     """Currency of the native amount."""
 
-    line_category: Optional[str] = None
-    """Fee or cost category of the line."""
+    type: Literal["income", "expense"]
+    """Whether the line is income Whop collected or a cost Whop paid."""
 
 
 class Product(BaseModel):
