@@ -54,14 +54,22 @@ class StatsResource(SyncAPIResource):
         *,
         from_: Union[str, date],
         to: Union[str, date],
+        access_level: str | Omit = omit,
         account_id: str | Omit = omit,
         breakdown_by: str | Omit = omit,
         card_network: str | Omit = omit,
+        category: str | Omit = omit,
         convert_to: str | Omit = omit,
         currency: str | Omit = omit,
+        fee_type: str | Omit = omit,
         interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        most_recent_action: str | Omit = omit,
         payment_method: str | Omit = omit,
+        product: str | Omit = omit,
+        segment: str | Omit = omit,
         snapshot_window: Literal["30d"] | Omit = omit,
+        source: str | Omit = omit,
+        status: str | Omit = omit,
         time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -78,6 +86,9 @@ class StatsResource(SyncAPIResource):
 
           to: End of the date range (YYYY-MM-DD).
 
+          access_level: Filter to a single access level. Pair with breakdown_by=access_level. Available
+              on metrics that list access_level.
+
           account_id: The account this query concerns, for example biz_AbC123.
 
           breakdown_by: Split the metric out by one of its properties — each point gets a breakdown
@@ -86,6 +97,10 @@ class StatsResource(SyncAPIResource):
 
           card_network: Filter to a single card brand, for example visa. A refinement of
               payment_method=card. Available on metrics that list card_network.
+
+          category: Filter to a single balance-activity category, for example payments. Pair with
+              breakdown_by=category to split the activity. Available on metrics that list
+              category.
 
           convert_to: Display currency for money metrics — every amount is converted into this ISO
               currency using the exchange rate on each period's date. Defaults to usd. Ignored
@@ -96,14 +111,34 @@ class StatsResource(SyncAPIResource):
               reported in that currency, not converted. Pair with breakdown_by=currency to
               split a metric by currency. Available on metrics that list currency.
 
+          fee_type: Filter to a single fee type. Pair with breakdown_by=fee_type to split fees by
+              type. Available on metrics that list fee_type.
+
           interval: How wide each point is. Defaults to day. Snapshot metrics are day-only.
+
+          most_recent_action: Filter to a single most-recent member action. Pair with
+              breakdown_by=most_recent_action. Available on metrics that list
+              most_recent_action.
 
           payment_method: Filter to a single payment method, for example card or crypto. Available on
               metrics that list payment_method.
 
+          product: Filter to a single product (access pass id), for example prod_AbC123. Pair with
+              breakdown_by=product. Available on metrics that list product.
+
+          segment: Filter to a single wallet-balance segment, for example available. Pair with
+              breakdown_by=segment to split the balance. Available on metrics that list
+              segment.
+
           snapshot_window: Trailing window for snapshot metrics. Only accepted by snapshot metrics (each
               lists its allowed windows in the catalog); defaults to the metric's first
               supported window. Only 30d today.
+
+          source: Filter to a single GMV source, for example payments. Pair with
+              breakdown_by=source to split by source. Available on metrics that list source.
+
+          status: Filter to a single membership status. Pair with breakdown_by=status. Available
+              on metrics that list status.
 
           time_zone: IANA time zone to bucket the series in, for example America/New_York. Defaults
               to UTC. Not accepted by snapshot metrics, which are UTC only.
@@ -129,14 +164,22 @@ class StatsResource(SyncAPIResource):
                     {
                         "from_": from_,
                         "to": to,
+                        "access_level": access_level,
                         "account_id": account_id,
                         "breakdown_by": breakdown_by,
                         "card_network": card_network,
+                        "category": category,
                         "convert_to": convert_to,
                         "currency": currency,
+                        "fee_type": fee_type,
                         "interval": interval,
+                        "most_recent_action": most_recent_action,
                         "payment_method": payment_method,
+                        "product": product,
+                        "segment": segment,
                         "snapshot_window": snapshot_window,
+                        "source": source,
+                        "status": status,
                         "time_zone": time_zone,
                     },
                     stat_retrieve_params.StatRetrieveParams,
@@ -196,14 +239,22 @@ class AsyncStatsResource(AsyncAPIResource):
         *,
         from_: Union[str, date],
         to: Union[str, date],
+        access_level: str | Omit = omit,
         account_id: str | Omit = omit,
         breakdown_by: str | Omit = omit,
         card_network: str | Omit = omit,
+        category: str | Omit = omit,
         convert_to: str | Omit = omit,
         currency: str | Omit = omit,
+        fee_type: str | Omit = omit,
         interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        most_recent_action: str | Omit = omit,
         payment_method: str | Omit = omit,
+        product: str | Omit = omit,
+        segment: str | Omit = omit,
         snapshot_window: Literal["30d"] | Omit = omit,
+        source: str | Omit = omit,
+        status: str | Omit = omit,
         time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -220,6 +271,9 @@ class AsyncStatsResource(AsyncAPIResource):
 
           to: End of the date range (YYYY-MM-DD).
 
+          access_level: Filter to a single access level. Pair with breakdown_by=access_level. Available
+              on metrics that list access_level.
+
           account_id: The account this query concerns, for example biz_AbC123.
 
           breakdown_by: Split the metric out by one of its properties — each point gets a breakdown
@@ -228,6 +282,10 @@ class AsyncStatsResource(AsyncAPIResource):
 
           card_network: Filter to a single card brand, for example visa. A refinement of
               payment_method=card. Available on metrics that list card_network.
+
+          category: Filter to a single balance-activity category, for example payments. Pair with
+              breakdown_by=category to split the activity. Available on metrics that list
+              category.
 
           convert_to: Display currency for money metrics — every amount is converted into this ISO
               currency using the exchange rate on each period's date. Defaults to usd. Ignored
@@ -238,14 +296,34 @@ class AsyncStatsResource(AsyncAPIResource):
               reported in that currency, not converted. Pair with breakdown_by=currency to
               split a metric by currency. Available on metrics that list currency.
 
+          fee_type: Filter to a single fee type. Pair with breakdown_by=fee_type to split fees by
+              type. Available on metrics that list fee_type.
+
           interval: How wide each point is. Defaults to day. Snapshot metrics are day-only.
+
+          most_recent_action: Filter to a single most-recent member action. Pair with
+              breakdown_by=most_recent_action. Available on metrics that list
+              most_recent_action.
 
           payment_method: Filter to a single payment method, for example card or crypto. Available on
               metrics that list payment_method.
 
+          product: Filter to a single product (access pass id), for example prod_AbC123. Pair with
+              breakdown_by=product. Available on metrics that list product.
+
+          segment: Filter to a single wallet-balance segment, for example available. Pair with
+              breakdown_by=segment to split the balance. Available on metrics that list
+              segment.
+
           snapshot_window: Trailing window for snapshot metrics. Only accepted by snapshot metrics (each
               lists its allowed windows in the catalog); defaults to the metric's first
               supported window. Only 30d today.
+
+          source: Filter to a single GMV source, for example payments. Pair with
+              breakdown_by=source to split by source. Available on metrics that list source.
+
+          status: Filter to a single membership status. Pair with breakdown_by=status. Available
+              on metrics that list status.
 
           time_zone: IANA time zone to bucket the series in, for example America/New_York. Defaults
               to UTC. Not accepted by snapshot metrics, which are UTC only.
@@ -271,14 +349,22 @@ class AsyncStatsResource(AsyncAPIResource):
                     {
                         "from_": from_,
                         "to": to,
+                        "access_level": access_level,
                         "account_id": account_id,
                         "breakdown_by": breakdown_by,
                         "card_network": card_network,
+                        "category": category,
                         "convert_to": convert_to,
                         "currency": currency,
+                        "fee_type": fee_type,
                         "interval": interval,
+                        "most_recent_action": most_recent_action,
                         "payment_method": payment_method,
+                        "product": product,
+                        "segment": segment,
                         "snapshot_window": snapshot_window,
+                        "source": source,
+                        "status": status,
                         "time_zone": time_zone,
                     },
                     stat_retrieve_params.StatRetrieveParams,

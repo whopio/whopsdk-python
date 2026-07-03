@@ -18,6 +18,13 @@ class StatRetrieveParams(TypedDict, total=False):
     to: Required[Annotated[Union[str, date], PropertyInfo(format="iso8601")]]
     """End of the date range (YYYY-MM-DD)."""
 
+    access_level: str
+    """Filter to a single access level.
+
+    Pair with breakdown_by=access_level. Available on metrics that list
+    access_level.
+    """
+
     account_id: str
     """The account this query concerns, for example biz_AbC123."""
 
@@ -35,6 +42,13 @@ class StatRetrieveParams(TypedDict, total=False):
     card_network.
     """
 
+    category: str
+    """Filter to a single balance-activity category, for example payments.
+
+    Pair with breakdown_by=category to split the activity. Available on metrics that
+    list category.
+    """
+
     convert_to: str
     """
     Display currency for money metrics — every amount is converted into this ISO
@@ -50,8 +64,22 @@ class StatRetrieveParams(TypedDict, total=False):
     split a metric by currency. Available on metrics that list currency.
     """
 
+    fee_type: str
+    """Filter to a single fee type.
+
+    Pair with breakdown_by=fee_type to split fees by type. Available on metrics that
+    list fee_type.
+    """
+
     interval: Literal["hour", "day", "week", "month"]
     """How wide each point is. Defaults to day. Snapshot metrics are day-only."""
+
+    most_recent_action: str
+    """Filter to a single most-recent member action.
+
+    Pair with breakdown_by=most_recent_action. Available on metrics that list
+    most_recent_action.
+    """
 
     payment_method: str
     """Filter to a single payment method, for example card or crypto.
@@ -59,11 +87,37 @@ class StatRetrieveParams(TypedDict, total=False):
     Available on metrics that list payment_method.
     """
 
+    product: str
+    """Filter to a single product (access pass id), for example prod_AbC123.
+
+    Pair with breakdown_by=product. Available on metrics that list product.
+    """
+
+    segment: str
+    """Filter to a single wallet-balance segment, for example available.
+
+    Pair with breakdown_by=segment to split the balance. Available on metrics that
+    list segment.
+    """
+
     snapshot_window: Literal["30d"]
     """Trailing window for snapshot metrics.
 
     Only accepted by snapshot metrics (each lists its allowed windows in the
     catalog); defaults to the metric's first supported window. Only 30d today.
+    """
+
+    source: str
+    """Filter to a single GMV source, for example payments.
+
+    Pair with breakdown_by=source to split by source. Available on metrics that list
+    source.
+    """
+
+    status: str
+    """Filter to a single membership status.
+
+    Pair with breakdown_by=status. Available on metrics that list status.
     """
 
     time_zone: str
