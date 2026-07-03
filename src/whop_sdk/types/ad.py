@@ -248,6 +248,12 @@ class Ad(BaseModel):
     when it uses uploaded creatives.
     """
 
+    post_source: Optional[Literal["facebook", "instagram"]] = None
+    """
+    Which network post_id refers to — facebook (a page post) or instagram (a media
+    id) — or null when the ad uses uploaded creatives.
+    """
+
     primary_texts: List[str]
 
     purchase_value: float
