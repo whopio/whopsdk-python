@@ -1,0 +1,129 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import List, Optional
+from datetime import datetime
+from typing_extensions import Literal
+
+from ...._models import BaseModel
+
+__all__ = [
+    "EarningListResponse",
+    "Account",
+    "FinancialActivity",
+    "Product",
+    "Resource",
+    "ResourceAlternativePaymentMethod",
+]
+
+
+class Account(BaseModel):
+    """Referred account."""
+
+    id: str
+    """Referred account ID."""
+
+    logo_url: Optional[str] = None
+    """Referred account logo URL."""
+
+    route: str
+    """Referred account route."""
+
+    title: str
+    """Referred account display name."""
+
+
+class FinancialActivity(BaseModel):
+    account_type: Literal["income", "expense"]
+    """Whether the line is income Whop collected or a cost Whop paid."""
+
+    amount: str
+    """Line amount in its native currency."""
+
+    amount_usd: str
+    """Line amount in USD."""
+
+    created_at: Optional[datetime] = None
+
+    currency: str
+    """Currency of the native amount."""
+
+    line_category: Optional[str] = None
+    """Fee or cost category of the line."""
+
+
+class Product(BaseModel):
+    id: str
+
+    route: str
+
+    title: str
+
+
+class ResourceAlternativePaymentMethod(BaseModel):
+    image_url: Optional[str] = None
+
+    name: str
+
+
+class Resource(BaseModel):
+    """The resource that generated the affiliate earning."""
+
+    id: str
+
+    alternative_payment_method: Optional[ResourceAlternativePaymentMethod] = None
+
+    brand: Optional[str] = None
+
+    created_at: datetime
+
+    currency: str
+
+    last4: Optional[str] = None
+
+    object: Literal["receipt"]
+
+    payment_method_type: Optional[str] = None
+
+    processor: Optional[str] = None
+
+
+class EarningListResponse(BaseModel):
+    id: Optional[str] = None
+
+    account: Optional[Account] = None
+    """Referred account."""
+
+    cancelation_reason: Optional[str] = None
+    """Why the earning was canceled or reversed, if applicable."""
+
+    commission_amount_usd: Optional[str] = None
+    """What the referrer earns, in USD. Null until the earning settles."""
+
+    created_at: datetime
+
+    financial_activity: Optional[List[FinancialActivity]] = None
+    """Income and cost lines behind this earning's commission.
+
+    Null for earnings settled before this data was recorded.
+    """
+
+    object: Literal["business_referral_earning"]
+
+    payout_at: Optional[datetime] = None
+
+    payout_percentage: Optional[float] = None
+    """The referrer's share of Whop's gross profit, as a fraction (0.3 = 30%).
+
+    Null until the earning settles.
+    """
+
+    product: Optional[Product] = None
+
+    resource: Optional[Resource] = None
+    """The resource that generated the affiliate earning."""
+
+    status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"]
+    """Current status of the earning."""
+
+    transaction_amount_usd: str
+    """The sale amount the commission is calculated from, in USD."""
