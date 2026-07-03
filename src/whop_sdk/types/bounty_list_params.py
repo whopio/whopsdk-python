@@ -32,5 +32,5 @@ class BountyListParams(TypedDict, total=False):
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
-    status: Optional[Literal["published", "archived"]]
+    status: Optional[Literal["published", "archived", "scheduled"]]
     """The available bounty statuses to choose from."""
