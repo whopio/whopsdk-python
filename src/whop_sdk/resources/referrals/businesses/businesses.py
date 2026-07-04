@@ -15,7 +15,7 @@ from .earnings import (
     AsyncEarningsResourceWithStreamingResponse,
 )
 from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ...._utils import path_template, maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -26,7 +26,7 @@ from ...._response import (
 )
 from ....pagination import SyncCursorPage, AsyncCursorPage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.referrals import business_list_params, business_list_earnings_params
+from ....types.referrals import business_list_params, business_leaderboard_params, business_list_earnings_params
 from ....types.referrals.business_list_response import BusinessListResponse
 from ....types.referrals.business_retrieve_response import BusinessRetrieveResponse
 from ....types.referrals.business_leaderboard_response import BusinessLeaderboardResponse
@@ -184,6 +184,7 @@ class BusinessesResource(SyncAPIResource):
     def leaderboard(
         self,
         *,
+        period: Literal["day", "month", "year", "all_time"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,13 +193,30 @@ class BusinessesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BusinessLeaderboardResponse:
         """
-        Ranks referrers by total business referral earnings and includes the caller's
-        own standing.
+        Ranks referrers by business referral earnings — all-time by default, or over the
+        current day, month, or year — and includes the caller's own standing.
+
+        Args:
+          period: Time window for the rankings. `day`, `month`, and `year` count earnings since
+              the start of the current calendar day, month, or year; `all_time` ranks lifetime
+              earnings.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
             "/referrals/businesses/leaderboard",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"period": period}, business_leaderboard_params.BusinessLeaderboardParams),
             ),
             cast_to=BusinessLeaderboardResponse,
         )
@@ -421,6 +439,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
     async def leaderboard(
         self,
         *,
+        period: Literal["day", "month", "year", "all_time"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -429,13 +448,32 @@ class AsyncBusinessesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BusinessLeaderboardResponse:
         """
-        Ranks referrers by total business referral earnings and includes the caller's
-        own standing.
+        Ranks referrers by business referral earnings — all-time by default, or over the
+        current day, month, or year — and includes the caller's own standing.
+
+        Args:
+          period: Time window for the rankings. `day`, `month`, and `year` count earnings since
+              the start of the current calendar day, month, or year; `all_time` ranks lifetime
+              earnings.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
             "/referrals/businesses/leaderboard",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"period": period}, business_leaderboard_params.BusinessLeaderboardParams
+                ),
             ),
             cast_to=BusinessLeaderboardResponse,
         )

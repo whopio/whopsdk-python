@@ -852,7 +852,7 @@ Methods:
 
 - <code title="get /referrals/businesses/{id}">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/referrals/business_retrieve_response.py">BusinessRetrieveResponse</a></code>
 - <code title="get /referrals/businesses">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">list</a>(\*\*<a href="src/whop_sdk/types/referrals/business_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/referrals/business_list_response.py">SyncCursorPage[BusinessListResponse]</a></code>
-- <code title="get /referrals/businesses/leaderboard">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">leaderboard</a>() -> <a href="./src/whop_sdk/types/referrals/business_leaderboard_response.py">BusinessLeaderboardResponse</a></code>
+- <code title="get /referrals/businesses/leaderboard">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">leaderboard</a>(\*\*<a href="src/whop_sdk/types/referrals/business_leaderboard_params.py">params</a>) -> <a href="./src/whop_sdk/types/referrals/business_leaderboard_response.py">BusinessLeaderboardResponse</a></code>
 - <code title="get /referrals/businesses/earnings">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">list_earnings</a>(\*\*<a href="src/whop_sdk/types/referrals/business_list_earnings_params.py">params</a>) -> <a href="./src/whop_sdk/types/referrals/business_list_earnings_response.py">SyncCursorPage[BusinessListEarningsResponse]</a></code>
 
 ### Earnings

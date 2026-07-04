@@ -118,6 +118,14 @@ class TestBusinesses:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_leaderboard_with_all_params(self, client: Whop) -> None:
+        business = client.referrals.businesses.leaderboard(
+            period="day",
+        )
+        assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_leaderboard(self, client: Whop) -> None:
         response = client.referrals.businesses.with_raw_response.leaderboard()
 
@@ -279,6 +287,14 @@ class TestAsyncBusinesses:
     @parametrize
     async def test_method_leaderboard(self, async_client: AsyncWhop) -> None:
         business = await async_client.referrals.businesses.leaderboard()
+        assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_leaderboard_with_all_params(self, async_client: AsyncWhop) -> None:
+        business = await async_client.referrals.businesses.leaderboard(
+            period="day",
+        )
         assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
