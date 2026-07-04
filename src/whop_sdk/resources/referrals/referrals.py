@@ -2,6 +2,14 @@
 
 from __future__ import annotations
 
+from .partners import (
+    PartnersResource,
+    AsyncPartnersResource,
+    PartnersResourceWithRawResponse,
+    AsyncPartnersResourceWithRawResponse,
+    PartnersResourceWithStreamingResponse,
+    AsyncPartnersResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from .businesses.businesses import (
@@ -20,6 +28,10 @@ class ReferralsResource(SyncAPIResource):
     @cached_property
     def businesses(self) -> BusinessesResource:
         return BusinessesResource(self._client)
+
+    @cached_property
+    def partners(self) -> PartnersResource:
+        return PartnersResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> ReferralsResourceWithRawResponse:
@@ -45,6 +57,10 @@ class AsyncReferralsResource(AsyncAPIResource):
     @cached_property
     def businesses(self) -> AsyncBusinessesResource:
         return AsyncBusinessesResource(self._client)
+
+    @cached_property
+    def partners(self) -> AsyncPartnersResource:
+        return AsyncPartnersResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncReferralsResourceWithRawResponse:
@@ -74,6 +90,10 @@ class ReferralsResourceWithRawResponse:
     def businesses(self) -> BusinessesResourceWithRawResponse:
         return BusinessesResourceWithRawResponse(self._referrals.businesses)
 
+    @cached_property
+    def partners(self) -> PartnersResourceWithRawResponse:
+        return PartnersResourceWithRawResponse(self._referrals.partners)
+
 
 class AsyncReferralsResourceWithRawResponse:
     def __init__(self, referrals: AsyncReferralsResource) -> None:
@@ -82,6 +102,10 @@ class AsyncReferralsResourceWithRawResponse:
     @cached_property
     def businesses(self) -> AsyncBusinessesResourceWithRawResponse:
         return AsyncBusinessesResourceWithRawResponse(self._referrals.businesses)
+
+    @cached_property
+    def partners(self) -> AsyncPartnersResourceWithRawResponse:
+        return AsyncPartnersResourceWithRawResponse(self._referrals.partners)
 
 
 class ReferralsResourceWithStreamingResponse:
@@ -92,6 +116,10 @@ class ReferralsResourceWithStreamingResponse:
     def businesses(self) -> BusinessesResourceWithStreamingResponse:
         return BusinessesResourceWithStreamingResponse(self._referrals.businesses)
 
+    @cached_property
+    def partners(self) -> PartnersResourceWithStreamingResponse:
+        return PartnersResourceWithStreamingResponse(self._referrals.partners)
+
 
 class AsyncReferralsResourceWithStreamingResponse:
     def __init__(self, referrals: AsyncReferralsResource) -> None:
@@ -100,3 +128,7 @@ class AsyncReferralsResourceWithStreamingResponse:
     @cached_property
     def businesses(self) -> AsyncBusinessesResourceWithStreamingResponse:
         return AsyncBusinessesResourceWithStreamingResponse(self._referrals.businesses)
+
+    @cached_property
+    def partners(self) -> AsyncPartnersResourceWithStreamingResponse:
+        return AsyncPartnersResourceWithStreamingResponse(self._referrals.partners)

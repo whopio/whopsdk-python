@@ -867,6 +867,18 @@ Methods:
 
 - <code title="get /referrals/businesses/{id}/earnings">client.referrals.businesses.earnings.<a href="./src/whop_sdk/resources/referrals/businesses/earnings.py">list</a>(id, \*\*<a href="src/whop_sdk/types/referrals/businesses/earning_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/referrals/businesses/earning_list_response.py">SyncCursorPage[EarningListResponse]</a></code>
 
+## Partners
+
+Types:
+
+```python
+from whop_sdk.types.referrals import PartnerCreateResponse
+```
+
+Methods:
+
+- <code title="post /referrals/partners">client.referrals.partners.<a href="./src/whop_sdk/resources/referrals/partners.py">create</a>() -> <a href="./src/whop_sdk/types/referrals/partner_create_response.py">PartnerCreateResponse</a></code>
+
 # Cards
 
 Types:
