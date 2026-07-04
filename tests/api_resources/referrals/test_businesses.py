@@ -14,7 +14,6 @@ from whop_sdk.types.referrals import (
     BusinessListResponse,
     BusinessRetrieveResponse,
     BusinessLeaderboardResponse,
-    BusinessListEarningsResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -146,50 +145,6 @@ class TestBusinesses:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_list_earnings(self, client: Whop) -> None:
-        business = client.referrals.businesses.list_earnings()
-        assert_matches_type(SyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_list_earnings_with_all_params(self, client: Whop) -> None:
-        business = client.referrals.businesses.list_earnings(
-            after="after",
-            before="before",
-            created_after="created_after",
-            created_before="created_before",
-            direction="asc",
-            first=100,
-            last=100,
-            order="created_at",
-            status="awaiting_settlement",
-        )
-        assert_matches_type(SyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_list_earnings(self, client: Whop) -> None:
-        response = client.referrals.businesses.with_raw_response.list_earnings()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        business = response.parse()
-        assert_matches_type(SyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_list_earnings(self, client: Whop) -> None:
-        with client.referrals.businesses.with_streaming_response.list_earnings() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            business = response.parse()
-            assert_matches_type(SyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncBusinesses:
     parametrize = pytest.mark.parametrize(
@@ -316,49 +271,5 @@ class TestAsyncBusinesses:
 
             business = await response.parse()
             assert_matches_type(BusinessLeaderboardResponse, business, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_list_earnings(self, async_client: AsyncWhop) -> None:
-        business = await async_client.referrals.businesses.list_earnings()
-        assert_matches_type(AsyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_list_earnings_with_all_params(self, async_client: AsyncWhop) -> None:
-        business = await async_client.referrals.businesses.list_earnings(
-            after="after",
-            before="before",
-            created_after="created_after",
-            created_before="created_before",
-            direction="asc",
-            first=100,
-            last=100,
-            order="created_at",
-            status="awaiting_settlement",
-        )
-        assert_matches_type(AsyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_list_earnings(self, async_client: AsyncWhop) -> None:
-        response = await async_client.referrals.businesses.with_raw_response.list_earnings()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        business = await response.parse()
-        assert_matches_type(AsyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_list_earnings(self, async_client: AsyncWhop) -> None:
-        async with async_client.referrals.businesses.with_streaming_response.list_earnings() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            business = await response.parse()
-            assert_matches_type(AsyncCursorPage[BusinessListEarningsResponse], business, path=["response"])
 
         assert cast(Any, response.is_closed) is True

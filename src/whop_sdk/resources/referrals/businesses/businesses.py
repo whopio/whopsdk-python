@@ -26,11 +26,10 @@ from ...._response import (
 )
 from ....pagination import SyncCursorPage, AsyncCursorPage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.referrals import business_list_params, business_leaderboard_params, business_list_earnings_params
+from ....types.referrals import business_list_params, business_leaderboard_params
 from ....types.referrals.business_list_response import BusinessListResponse
 from ....types.referrals.business_retrieve_response import BusinessRetrieveResponse
 from ....types.referrals.business_leaderboard_response import BusinessLeaderboardResponse
-from ....types.referrals.business_list_earnings_response import BusinessListEarningsResponse
 
 __all__ = ["BusinessesResource", "AsyncBusinessesResource"]
 
@@ -219,74 +218,6 @@ class BusinessesResource(SyncAPIResource):
                 query=maybe_transform({"period": period}, business_leaderboard_params.BusinessLeaderboardParams),
             ),
             cast_to=BusinessLeaderboardResponse,
-        )
-
-    def list_earnings(
-        self,
-        *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        created_after: str | Omit = omit,
-        created_before: str | Omit = omit,
-        direction: Literal["asc", "desc"] | Omit = omit,
-        first: int | Omit = omit,
-        last: int | Omit = omit,
-        order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
-        status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[BusinessListEarningsResponse]:
-        """
-        Lists every business referral earning the authenticated user has, most recent
-        first.
-
-        Args:
-          created_after: Only return earnings created after this timestamp.
-
-          created_before: Only return earnings created before this timestamp.
-
-          direction: Sort direction.
-
-          order: The field to sort earnings by.
-
-          status: Filter by earning status.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/referrals/businesses/earnings",
-            page=SyncCursorPage[BusinessListEarningsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "created_after": created_after,
-                        "created_before": created_before,
-                        "direction": direction,
-                        "first": first,
-                        "last": last,
-                        "order": order,
-                        "status": status,
-                    },
-                    business_list_earnings_params.BusinessListEarningsParams,
-                ),
-            ),
-            model=BusinessListEarningsResponse,
         )
 
 
@@ -478,74 +409,6 @@ class AsyncBusinessesResource(AsyncAPIResource):
             cast_to=BusinessLeaderboardResponse,
         )
 
-    def list_earnings(
-        self,
-        *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        created_after: str | Omit = omit,
-        created_before: str | Omit = omit,
-        direction: Literal["asc", "desc"] | Omit = omit,
-        first: int | Omit = omit,
-        last: int | Omit = omit,
-        order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
-        status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[BusinessListEarningsResponse, AsyncCursorPage[BusinessListEarningsResponse]]:
-        """
-        Lists every business referral earning the authenticated user has, most recent
-        first.
-
-        Args:
-          created_after: Only return earnings created after this timestamp.
-
-          created_before: Only return earnings created before this timestamp.
-
-          direction: Sort direction.
-
-          order: The field to sort earnings by.
-
-          status: Filter by earning status.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/referrals/businesses/earnings",
-            page=AsyncCursorPage[BusinessListEarningsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "created_after": created_after,
-                        "created_before": created_before,
-                        "direction": direction,
-                        "first": first,
-                        "last": last,
-                        "order": order,
-                        "status": status,
-                    },
-                    business_list_earnings_params.BusinessListEarningsParams,
-                ),
-            ),
-            model=BusinessListEarningsResponse,
-        )
-
 
 class BusinessesResourceWithRawResponse:
     def __init__(self, businesses: BusinessesResource) -> None:
@@ -559,9 +422,6 @@ class BusinessesResourceWithRawResponse:
         )
         self.leaderboard = to_raw_response_wrapper(
             businesses.leaderboard,
-        )
-        self.list_earnings = to_raw_response_wrapper(
-            businesses.list_earnings,
         )
 
     @cached_property
@@ -582,9 +442,6 @@ class AsyncBusinessesResourceWithRawResponse:
         self.leaderboard = async_to_raw_response_wrapper(
             businesses.leaderboard,
         )
-        self.list_earnings = async_to_raw_response_wrapper(
-            businesses.list_earnings,
-        )
 
     @cached_property
     def earnings(self) -> AsyncEarningsResourceWithRawResponse:
@@ -604,9 +461,6 @@ class BusinessesResourceWithStreamingResponse:
         self.leaderboard = to_streamed_response_wrapper(
             businesses.leaderboard,
         )
-        self.list_earnings = to_streamed_response_wrapper(
-            businesses.list_earnings,
-        )
 
     @cached_property
     def earnings(self) -> EarningsResourceWithStreamingResponse:
@@ -625,9 +479,6 @@ class AsyncBusinessesResourceWithStreamingResponse:
         )
         self.leaderboard = async_to_streamed_response_wrapper(
             businesses.leaderboard,
-        )
-        self.list_earnings = async_to_streamed_response_wrapper(
-            businesses.list_earnings,
         )
 
     @cached_property
