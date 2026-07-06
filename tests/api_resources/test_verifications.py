@@ -143,12 +143,53 @@ class TestVerifications:
             personal_address={"foo": "bar"},
             requested_information=[
                 {
-                    "id": "id",
+                    "id": "inrqi_textxxxxxxxx",
                     "address": {"foo": "bar"},
-                    "files": [{}],
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
+                    "value": "https://example.com",
+                    "value_type": "raw",
+                },
+                {
+                    "id": "inrqi_addrxxxxxxxx",
+                    "address": {
+                        "city": "bar",
+                        "country": "bar",
+                        "line1": "bar",
+                        "postal_code": "bar",
+                        "state": "bar",
+                    },
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
                     "value": "value",
                     "value_type": "raw",
-                }
+                },
+                {
+                    "id": "inrqi_filexxxxxxxx",
+                    "address": {"foo": "bar"},
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "identity_document_front",
+                            "direct_upload_id": "upload_xxxxxxxxxxxx",
+                            "kind": "identity_document",
+                        }
+                    ],
+                    "value": "value",
+                    "value_type": "raw",
+                },
             ],
         )
         assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
@@ -399,12 +440,53 @@ class TestAsyncVerifications:
             personal_address={"foo": "bar"},
             requested_information=[
                 {
-                    "id": "id",
+                    "id": "inrqi_textxxxxxxxx",
                     "address": {"foo": "bar"},
-                    "files": [{}],
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
+                    "value": "https://example.com",
+                    "value_type": "raw",
+                },
+                {
+                    "id": "inrqi_addrxxxxxxxx",
+                    "address": {
+                        "city": "bar",
+                        "country": "bar",
+                        "line1": "bar",
+                        "postal_code": "bar",
+                        "state": "bar",
+                    },
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
                     "value": "value",
                     "value_type": "raw",
-                }
+                },
+                {
+                    "id": "inrqi_filexxxxxxxx",
+                    "address": {"foo": "bar"},
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "identity_document_front",
+                            "direct_upload_id": "upload_xxxxxxxxxxxx",
+                            "kind": "identity_document",
+                        }
+                    ],
+                    "value": "value",
+                    "value_type": "raw",
+                },
             ],
         )
         assert_matches_type(VerificationUpdateResponse, verification, path=["response"])

@@ -11,18 +11,21 @@ __all__ = ["VerificationUpdateResponse", "RequestedInformation", "RequestedInfor
 class RequestedInformationRequestedFile(BaseModel):
     category: Optional[str] = None
     """
-    Identifier to send back with the uploaded file so it routes correctly; null for
-    a generic upload.
+    File category to include with the uploaded file so Whop can route the document
+    correctly. `null` for a generic upload.
     """
 
     is_optional: Optional[bool] = None
     """Whether this slot can be left empty."""
 
     kind: Optional[str] = None
-    """Provider-specific document kind, when applicable."""
+    """Specific document type requested, such as `Bank Statement`.
+
+    `null` for standard identity and business document uploads.
+    """
 
     label: Optional[str] = None
-    """Label for this upload slot (e.g. "Front of ID Document")."""
+    """Label for this upload slot, such as `Front of ID Document`."""
 
     multiple: Optional[bool] = None
     """Whether this slot accepts more than one file."""
@@ -30,19 +33,25 @@ class RequestedInformationRequestedFile(BaseModel):
 
 class RequestedInformation(BaseModel):
     id: Optional[str] = None
-    """The requested information item id (inrqi\\__\\**). Use this when answering."""
+    """Requested information item ID, prefixed `inrqi_`.
+
+    Include this ID when submitting an answer.
+    """
 
     description: Optional[str] = None
-    """Additional guidance for the field beyond the label."""
+    """Additional instructions for this requested item, or `null`."""
 
     error_message: Optional[str] = None
-    """The reason a previously submitted value was rejected, or null."""
+    """Reason a previously submitted value was rejected.
+
+    `null` if no submitted value has been rejected.
+    """
 
     field: Optional[str] = None
-    """Stable snake_case key for the field (e.g. ssn, business_description)."""
+    """Stable field key, such as `ssn` or `business_description`."""
 
     label: Optional[str] = None
-    """Human-readable label for the field (e.g. "Social Security Number")."""
+    """Human-readable label for the field, such as `Social Security Number`."""
 
     options: Optional[List[str]] = None
     """Allowed values for a `select` field (e.g.
@@ -52,51 +61,82 @@ class RequestedInformation(BaseModel):
     """
 
     requested_files: Optional[List[RequestedInformationRequestedFile]] = None
-    """
-    Upload slots for a files item — always at least one when type is `files`, empty
-    otherwise.
+    """Document upload slots for this item.
+
+    Present when `type` is `files`; upload one file for each required slot and
+    include the slot's `category` when submitting the answer.
     """
 
     type: Optional[str] = None
-    """How to render the input: text, date, phone, address, files, or select."""
+    """
+    Input type expected for this item: `text`, `date`, `phone`, `address`, `files`,
+    or `select`.
+    """
 
 
 class VerificationUpdateResponse(BaseModel):
     id: Optional[str] = None
-    """The verification ID, e.g. idpf\\__\\**"""
+    """Verification profile ID, prefixed `idpf_`."""
+
+    access_token: Optional[str] = None
+    """
+    Token for embedding the verification session directly in your own UI, as an
+    alternative to redirecting to `session_url`. Follows the same presence rules as
+    `session_url`.
+    """
 
     address: Optional[object] = None
+    """
+    Personal or business address on the verification profile, with `line1`, `line2`,
+    `city`, `state`, `postal_code`, and `country`. `null` when no address is set.
+    """
 
     business_name: Optional[str] = None
+    """Legal business name on a business verification."""
 
     business_structure: Optional[str] = None
+    """Business entity type, such as `llc` or `corporation`."""
 
     country: Optional[str] = None
-    """ISO 3166-1 alpha-2 country code (e.g.
-
-    `US`, `GB`). For individuals this is the country of citizenship or residence
-    reported by the identity provider; for businesses this is the country of
-    incorporation.
-    """
+    """ISO 3166-1 alpha-2 country code for the individual or business being verified."""
 
     created_at: Optional[str] = None
+    """When the verification profile was created, as an ISO 8601 timestamp."""
 
     date_of_birth: Optional[str] = None
+    """Date of birth for an individual verification, formatted as `YYYY-MM-DD`."""
 
     first_name: Optional[str] = None
+    """First name on an individual verification."""
 
     kind: Optional[Literal["individual", "business"]] = None
+    """Verification type: `individual` for a person or `business` for a business."""
 
     last_name: Optional[str] = None
+    """Last name on an individual verification."""
 
     requested_information: Optional[List[RequestedInformation]] = None
-    """
-    The outstanding information this verification still needs — payout RFIs and
-    audit RMIs, one uniform shape.
+    """Fields or documents Whop still needs before review can continue.
+
+    Submit answers with the Update Verification endpoint.
     """
 
     session_url: Optional[str] = None
+    """Hosted verification session URL for the user to complete identity checks.
+
+    Expires 7 days after creation. Omitted unless this verification's own status is
+    `pending`; `null` if `pending` with no active session.
+    """
 
     status: Optional[Literal["not_started", "pending", "approved", "rejected", "action_required"]] = None
+    """Current verification state.
+
+    `not_started` before any session has been created; `pending` while a session is
+    in progress; `action_required` when items in `requested_information` need
+    answers before review can continue; `approved` once verification succeeds;
+    `rejected` if it fails. Call the Create Verification endpoint again to start a
+    new session.
+    """
 
     updated_at: Optional[str] = None
+    """When the verification profile was last updated, as an ISO 8601 timestamp."""

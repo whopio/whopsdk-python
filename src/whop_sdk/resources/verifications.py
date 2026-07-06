@@ -75,45 +75,41 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationCreateResponse:
         """
-        Creates or resumes a verification session for an account.
+        Starts a hosted verification session for an account or user, or returns the
+        active session when one already exists.
 
         Args:
-          account_id: The account ID to verify (biz\\__ tag).
+          account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
+              for account verifications, or the caller's `user_` ID for personal verification.
 
-          address: Optional pre-fill claim. Address (line1, city, state, postal_code).
+          address: Address to prefill in the hosted verification session.
 
-          business_name: Optional pre-fill claim for businesses.
+          business_name: Legal business name to prefill for a business verification.
 
-          business_structure: Optional. Business structure (e.g. llc, corporation).
+          business_structure: Business entity type, such as `llc` or `corporation`.
 
-          business_website: Optional. Business website URL. Accepted for both individual and business
-              verifications on company accounts; persisted to the account's metadata and used
-              to provision the payout account on approval. Whop store pages are rejected.
+          business_website: Business website URL used during verification. Whop store pages are not
+              accepted.
 
-          country: Optional pre-fill claim. Country code; for businesses, the country of
+          country: ISO 3166-1 alpha-2 country code. For businesses, use the country of
               incorporation.
 
-          date_of_birth: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
-              Sumsub on approval.
+          date_of_birth: Date of birth to prefill in the hosted verification session.
 
-          first_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
-              Sumsub on approval.
+          first_name: First name to prefill in the hosted verification session.
 
-          kind: The verification type. Defaults to individual.
+          kind: Verification type. Defaults to `individual`.
 
-          last_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
-              Sumsub on approval.
+          last_name: Last name to prefill in the hosted verification session.
 
-          phone: Optional pre-fill claim — phone number.
+          phone: Phone number to prefill in the hosted verification session.
 
-          place_of_incorporation: Optional. Place of incorporation (state/region); maps to the business address
-              state.
+          place_of_incorporation: State or region where the business is incorporated.
 
-          restart: Whether to restart an in-flight verification.
+          restart: Set to `true` to abandon the current in-flight session and start a new one.
 
-          tax_identification_number: Optional. Tax identification number — SSN for individuals, EIN for businesses.
-              Tokenized in transit, never stored raw; stored on the profile so the payout
-              account, provisioned on approval, doesn't raise a tax-id RFI.
+          tax_identification_number: Tax ID for the individual or business, such as an SSN or EIN. Tokenized in
+              transit and never stored raw.
 
           extra_headers: Send extra headers
 
@@ -165,7 +161,7 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Retrieves a single identity verification profile by its idpf\\__ tag.
+        Returns a verification profile by its `idpf_` ID.
 
         Args:
           extra_headers: Send extra headers
@@ -207,28 +203,30 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationUpdateResponse:
         """
-        Updates fields on an identity verification profile, or responds to outstanding
-        RFIs.
+        Updates editable profile details or submits answers for items returned in
+        `requested_information`.
 
         Args:
-          business_address: The business address.
+          business_address: Updated business address for a business verification.
 
-          business_name: The business name.
+          business_name: Updated legal business name for a business verification.
 
-          business_structure: The business structure.
+          business_structure: Updated business entity type, such as `llc` or `corporation`.
 
-          country: The country code.
+          country: Updated ISO 3166-1 alpha-2 country code.
 
-          date_of_birth: The date of birth.
+          date_of_birth: Updated date of birth for an individual verification.
 
-          first_name: The first name on the verification.
+          first_name: Updated first name for an individual verification.
 
-          last_name: The last name on the verification.
+          last_name: Updated last name for an individual verification.
 
-          personal_address: The personal address.
+          personal_address: Updated personal address for an individual verification.
 
-          requested_information: Answers to requested information. Each entry must include id and a value,
-              address, or files payload.
+          requested_information: Answers to items returned in `requested_information`. Each entry must include
+              the requested item `id` and exactly one answer payload matching the item's
+              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
+              for `files`.
 
           extra_headers: Send extra headers
 
@@ -276,14 +274,16 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationListResponse:
         """
-        Lists identity verification profiles for an account.
+        Returns verification profiles for an account or user, including review status
+        and any items that still need answers.
 
         Args:
-          account_id: The account ID to list verifications for (biz\\__ tag).
+          account_id: Account or user ID whose verifications you want to list. Use a `biz_` account
+              ID, or the caller's `user_` ID for personal verifications.
 
-          direction: Sort direction.
+          direction: Sort direction for returned verifications.
 
-          order: The field to sort verifications by.
+          order: Field used to sort returned verifications.
 
           extra_headers: Send extra headers
 
@@ -324,7 +324,8 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationDeleteResponse:
         """
-        Unlinks a verification from the caller's accounts.
+        Unlinks a verification profile from the caller's account or user; provider
+        verification records are not erased.
 
         Args:
           extra_headers: Send extra headers
@@ -393,45 +394,41 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationCreateResponse:
         """
-        Creates or resumes a verification session for an account.
+        Starts a hosted verification session for an account or user, or returns the
+        active session when one already exists.
 
         Args:
-          account_id: The account ID to verify (biz\\__ tag).
+          account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
+              for account verifications, or the caller's `user_` ID for personal verification.
 
-          address: Optional pre-fill claim. Address (line1, city, state, postal_code).
+          address: Address to prefill in the hosted verification session.
 
-          business_name: Optional pre-fill claim for businesses.
+          business_name: Legal business name to prefill for a business verification.
 
-          business_structure: Optional. Business structure (e.g. llc, corporation).
+          business_structure: Business entity type, such as `llc` or `corporation`.
 
-          business_website: Optional. Business website URL. Accepted for both individual and business
-              verifications on company accounts; persisted to the account's metadata and used
-              to provision the payout account on approval. Whop store pages are rejected.
+          business_website: Business website URL used during verification. Whop store pages are not
+              accepted.
 
-          country: Optional pre-fill claim. Country code; for businesses, the country of
+          country: ISO 3166-1 alpha-2 country code. For businesses, use the country of
               incorporation.
 
-          date_of_birth: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
-              Sumsub on approval.
+          date_of_birth: Date of birth to prefill in the hosted verification session.
 
-          first_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
-              Sumsub on approval.
+          first_name: First name to prefill in the hosted verification session.
 
-          kind: The verification type. Defaults to individual.
+          kind: Verification type. Defaults to `individual`.
 
-          last_name: Optional pre-fill claim. Seeds the Sumsub session; attested values come from
-              Sumsub on approval.
+          last_name: Last name to prefill in the hosted verification session.
 
-          phone: Optional pre-fill claim — phone number.
+          phone: Phone number to prefill in the hosted verification session.
 
-          place_of_incorporation: Optional. Place of incorporation (state/region); maps to the business address
-              state.
+          place_of_incorporation: State or region where the business is incorporated.
 
-          restart: Whether to restart an in-flight verification.
+          restart: Set to `true` to abandon the current in-flight session and start a new one.
 
-          tax_identification_number: Optional. Tax identification number — SSN for individuals, EIN for businesses.
-              Tokenized in transit, never stored raw; stored on the profile so the payout
-              account, provisioned on approval, doesn't raise a tax-id RFI.
+          tax_identification_number: Tax ID for the individual or business, such as an SSN or EIN. Tokenized in
+              transit and never stored raw.
 
           extra_headers: Send extra headers
 
@@ -485,7 +482,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Retrieves a single identity verification profile by its idpf\\__ tag.
+        Returns a verification profile by its `idpf_` ID.
 
         Args:
           extra_headers: Send extra headers
@@ -527,28 +524,30 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationUpdateResponse:
         """
-        Updates fields on an identity verification profile, or responds to outstanding
-        RFIs.
+        Updates editable profile details or submits answers for items returned in
+        `requested_information`.
 
         Args:
-          business_address: The business address.
+          business_address: Updated business address for a business verification.
 
-          business_name: The business name.
+          business_name: Updated legal business name for a business verification.
 
-          business_structure: The business structure.
+          business_structure: Updated business entity type, such as `llc` or `corporation`.
 
-          country: The country code.
+          country: Updated ISO 3166-1 alpha-2 country code.
 
-          date_of_birth: The date of birth.
+          date_of_birth: Updated date of birth for an individual verification.
 
-          first_name: The first name on the verification.
+          first_name: Updated first name for an individual verification.
 
-          last_name: The last name on the verification.
+          last_name: Updated last name for an individual verification.
 
-          personal_address: The personal address.
+          personal_address: Updated personal address for an individual verification.
 
-          requested_information: Answers to requested information. Each entry must include id and a value,
-              address, or files payload.
+          requested_information: Answers to items returned in `requested_information`. Each entry must include
+              the requested item `id` and exactly one answer payload matching the item's
+              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
+              for `files`.
 
           extra_headers: Send extra headers
 
@@ -596,14 +595,16 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationListResponse:
         """
-        Lists identity verification profiles for an account.
+        Returns verification profiles for an account or user, including review status
+        and any items that still need answers.
 
         Args:
-          account_id: The account ID to list verifications for (biz\\__ tag).
+          account_id: Account or user ID whose verifications you want to list. Use a `biz_` account
+              ID, or the caller's `user_` ID for personal verifications.
 
-          direction: Sort direction.
+          direction: Sort direction for returned verifications.
 
-          order: The field to sort verifications by.
+          order: Field used to sort returned verifications.
 
           extra_headers: Send extra headers
 
@@ -644,7 +645,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationDeleteResponse:
         """
-        Unlinks a verification from the caller's accounts.
+        Unlinks a verification profile from the caller's account or user; provider
+        verification records are not erased.
 
         Args:
           extra_headers: Send extra headers

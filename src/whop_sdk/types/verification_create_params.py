@@ -10,68 +10,56 @@ __all__ = ["VerificationCreateParams"]
 
 class VerificationCreateParams(TypedDict, total=False):
     account_id: Required[str]
-    """The account ID to verify (biz\\__ tag)."""
+    """Account or user ID whose identity you want to verify.
+
+    Use a `biz_` account ID for account verifications, or the caller's `user_` ID
+    for personal verification.
+    """
 
     address: Dict[str, object]
-    """Optional pre-fill claim. Address (line1, city, state, postal_code)."""
+    """Address to prefill in the hosted verification session."""
 
     business_name: str
-    """Optional pre-fill claim for businesses."""
+    """Legal business name to prefill for a business verification."""
 
     business_structure: str
-    """Optional. Business structure (e.g. llc, corporation)."""
+    """Business entity type, such as `llc` or `corporation`."""
 
     business_website: str
-    """Optional.
+    """Business website URL used during verification.
 
-    Business website URL. Accepted for both individual and business verifications on
-    company accounts; persisted to the account's metadata and used to provision the
-    payout account on approval. Whop store pages are rejected.
+    Whop store pages are not accepted.
     """
 
     country: str
-    """Optional pre-fill claim.
+    """ISO 3166-1 alpha-2 country code.
 
-    Country code; for businesses, the country of incorporation.
+    For businesses, use the country of incorporation.
     """
 
     date_of_birth: str
-    """Optional pre-fill claim.
-
-    Seeds the Sumsub session; attested values come from Sumsub on approval.
-    """
+    """Date of birth to prefill in the hosted verification session."""
 
     first_name: str
-    """Optional pre-fill claim.
-
-    Seeds the Sumsub session; attested values come from Sumsub on approval.
-    """
+    """First name to prefill in the hosted verification session."""
 
     kind: Literal["individual", "business"]
-    """The verification type. Defaults to individual."""
+    """Verification type. Defaults to `individual`."""
 
     last_name: str
-    """Optional pre-fill claim.
-
-    Seeds the Sumsub session; attested values come from Sumsub on approval.
-    """
+    """Last name to prefill in the hosted verification session."""
 
     phone: str
-    """Optional pre-fill claim — phone number."""
+    """Phone number to prefill in the hosted verification session."""
 
     place_of_incorporation: str
-    """Optional.
-
-    Place of incorporation (state/region); maps to the business address state.
-    """
+    """State or region where the business is incorporated."""
 
     restart: bool
-    """Whether to restart an in-flight verification."""
+    """Set to `true` to abandon the current in-flight session and start a new one."""
 
     tax_identification_number: str
-    """Optional.
+    """Tax ID for the individual or business, such as an SSN or EIN.
 
-    Tax identification number — SSN for individuals, EIN for businesses. Tokenized
-    in transit, never stored raw; stored on the profile so the payout account,
-    provisioned on approval, doesn't raise a tax-id RFI.
+    Tokenized in transit and never stored raw.
     """

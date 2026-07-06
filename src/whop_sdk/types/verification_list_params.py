@@ -9,10 +9,13 @@ __all__ = ["VerificationListParams"]
 
 class VerificationListParams(TypedDict, total=False):
     account_id: Required[str]
-    """The account ID to list verifications for (biz\\__ tag)."""
+    """Account or user ID whose verifications you want to list.
+
+    Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+    """
 
     direction: Literal["asc", "desc"]
-    """Sort direction."""
+    """Sort direction for returned verifications."""
 
     order: Literal["updated_at", "created_at"]
-    """The field to sort verifications by."""
+    """Field used to sort returned verifications."""
