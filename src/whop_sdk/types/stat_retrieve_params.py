@@ -6,6 +6,7 @@ from typing import Union
 from datetime import date
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["StatRetrieveParams"]
@@ -27,6 +28,24 @@ class StatRetrieveParams(TypedDict, total=False):
 
     account_id: str
     """The account this query concerns, for example biz_AbC123."""
+
+    ad_campaign_ids: SequenceNotStr[str]
+    """
+    Ad campaign ids (adcamp\\__...) to scope the report to; stats are summed across
+    them. Available on metrics that list ad_campaign_ids.
+    """
+
+    ad_group_ids: SequenceNotStr[str]
+    """Ad group ids (adgrp\\__...) to scope the report to; stats are summed across them.
+
+    Available on metrics that list ad_group_ids.
+    """
+
+    ad_ids: SequenceNotStr[str]
+    """Ad ids (ad\\__...) to scope the report to; stats are summed across them.
+
+    Available on metrics that list ad_ids.
+    """
 
     breakdown_by: str
     """
@@ -52,9 +71,10 @@ class StatRetrieveParams(TypedDict, total=False):
     convert_to: str
     """
     Display currency for money metrics — every amount is converted into this ISO
-    currency using the exchange rate on each period's date. Defaults to usd. Ignored
-    when you filter or break down by currency (those report the original transaction
-    currency, unconverted).
+    currency using the exchange rate on each period's date. Defaults to usd. For the
+    ads metrics (ad_spend, ad_report), pass the account's ads reporting currency to
+    match the ad entity endpoints. Ignored when you filter or break down by currency
+    (those report the original transaction currency, unconverted).
     """
 
     currency: str

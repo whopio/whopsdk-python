@@ -291,7 +291,10 @@ class Ad(BaseModel):
     """
 
     return_on_ad_spend: float
-    """Purchase value divided by spend; 0 when there is no spend."""
+    """
+    Purchase value divided by spend, both in USD (a currency-neutral ratio); 0 when
+    there is no spend.
+    """
 
     schedules: float
     """Whop pixel-attributed schedule events, last-click."""

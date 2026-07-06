@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import stat_retrieve_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -56,6 +56,9 @@ class StatsResource(SyncAPIResource):
         to: Union[str, date],
         access_level: str | Omit = omit,
         account_id: str | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
+        ad_group_ids: SequenceNotStr[str] | Omit = omit,
+        ad_ids: SequenceNotStr[str] | Omit = omit,
         breakdown_by: str | Omit = omit,
         card_network: str | Omit = omit,
         category: str | Omit = omit,
@@ -91,6 +94,15 @@ class StatsResource(SyncAPIResource):
 
           account_id: The account this query concerns, for example biz_AbC123.
 
+          ad_campaign_ids: Ad campaign ids (adcamp\\__...) to scope the report to; stats are summed across
+              them. Available on metrics that list ad_campaign_ids.
+
+          ad_group_ids: Ad group ids (adgrp\\__...) to scope the report to; stats are summed across them.
+              Available on metrics that list ad_group_ids.
+
+          ad_ids: Ad ids (ad\\__...) to scope the report to; stats are summed across them. Available
+              on metrics that list ad_ids.
+
           breakdown_by: Split the metric out by one of its properties — each point gets a breakdown
               array. For example breakdown_by=currency returns an entry for usd, an entry for
               eur, and so on.
@@ -103,9 +115,10 @@ class StatsResource(SyncAPIResource):
               category.
 
           convert_to: Display currency for money metrics — every amount is converted into this ISO
-              currency using the exchange rate on each period's date. Defaults to usd. Ignored
-              when you filter or break down by currency (those report the original transaction
-              currency, unconverted).
+              currency using the exchange rate on each period's date. Defaults to usd. For the
+              ads metrics (ad_spend, ad_report), pass the account's ads reporting currency to
+              match the ad entity endpoints. Ignored when you filter or break down by currency
+              (those report the original transaction currency, unconverted).
 
           currency: Filter to transactions made in this original ISO currency, for example eur —
               reported in that currency, not converted. Pair with breakdown_by=currency to
@@ -166,6 +179,9 @@ class StatsResource(SyncAPIResource):
                         "to": to,
                         "access_level": access_level,
                         "account_id": account_id,
+                        "ad_campaign_ids": ad_campaign_ids,
+                        "ad_group_ids": ad_group_ids,
+                        "ad_ids": ad_ids,
                         "breakdown_by": breakdown_by,
                         "card_network": card_network,
                         "category": category,
@@ -241,6 +257,9 @@ class AsyncStatsResource(AsyncAPIResource):
         to: Union[str, date],
         access_level: str | Omit = omit,
         account_id: str | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
+        ad_group_ids: SequenceNotStr[str] | Omit = omit,
+        ad_ids: SequenceNotStr[str] | Omit = omit,
         breakdown_by: str | Omit = omit,
         card_network: str | Omit = omit,
         category: str | Omit = omit,
@@ -276,6 +295,15 @@ class AsyncStatsResource(AsyncAPIResource):
 
           account_id: The account this query concerns, for example biz_AbC123.
 
+          ad_campaign_ids: Ad campaign ids (adcamp\\__...) to scope the report to; stats are summed across
+              them. Available on metrics that list ad_campaign_ids.
+
+          ad_group_ids: Ad group ids (adgrp\\__...) to scope the report to; stats are summed across them.
+              Available on metrics that list ad_group_ids.
+
+          ad_ids: Ad ids (ad\\__...) to scope the report to; stats are summed across them. Available
+              on metrics that list ad_ids.
+
           breakdown_by: Split the metric out by one of its properties — each point gets a breakdown
               array. For example breakdown_by=currency returns an entry for usd, an entry for
               eur, and so on.
@@ -288,9 +316,10 @@ class AsyncStatsResource(AsyncAPIResource):
               category.
 
           convert_to: Display currency for money metrics — every amount is converted into this ISO
-              currency using the exchange rate on each period's date. Defaults to usd. Ignored
-              when you filter or break down by currency (those report the original transaction
-              currency, unconverted).
+              currency using the exchange rate on each period's date. Defaults to usd. For the
+              ads metrics (ad_spend, ad_report), pass the account's ads reporting currency to
+              match the ad entity endpoints. Ignored when you filter or break down by currency
+              (those report the original transaction currency, unconverted).
 
           currency: Filter to transactions made in this original ISO currency, for example eur —
               reported in that currency, not converted. Pair with breakdown_by=currency to
@@ -351,6 +380,9 @@ class AsyncStatsResource(AsyncAPIResource):
                         "to": to,
                         "access_level": access_level,
                         "account_id": account_id,
+                        "ad_campaign_ids": ad_campaign_ids,
+                        "ad_group_ids": ad_group_ids,
+                        "ad_ids": ad_ids,
                         "breakdown_by": breakdown_by,
                         "card_network": card_network,
                         "category": category,

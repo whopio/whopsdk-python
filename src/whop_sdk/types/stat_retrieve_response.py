@@ -30,6 +30,12 @@ class Data(BaseModel):
     points: List[DataPoint]
     """One entry per period, oldest first."""
 
+    currency: Optional[str] = None
+    """ISO currency the values are denominated in.
+
+    Present for currency-unit metrics: the convert_to currency, or usd.
+    """
+
 
 class StatRetrieveResponse(BaseModel):
     data: Data
