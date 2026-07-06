@@ -33,7 +33,7 @@ class TestCheckoutConfigurations:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.create(
             affiliate_code="affiliate_code",
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
             metadata={},
             mode="payment",
@@ -67,7 +67,7 @@ class TestCheckoutConfigurations:
                 "unlimited_stock": True,
                 "visibility": "visibility",
             },
-            plan_id="plan_id",
+            plan_id="plan_xxxxxxxxxxxxx",
             redirect_url="redirect_url",
             three_ds_level="three_ds_level",
         )
@@ -253,7 +253,7 @@ class TestAsyncCheckoutConfigurations:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.create(
             affiliate_code="affiliate_code",
-            company_id="company_id",
+            company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
             metadata={},
             mode="payment",
@@ -287,7 +287,7 @@ class TestAsyncCheckoutConfigurations:
                 "unlimited_stock": True,
                 "visibility": "visibility",
             },
-            plan_id="plan_id",
+            plan_id="plan_xxxxxxxxxxxxx",
             redirect_url="redirect_url",
             three_ds_level="three_ds_level",
         )

@@ -68,29 +68,32 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CheckoutConfigurationCreateResponse:
-        """Creates a checkout configuration for a plan.
-
-        Mode defaults to 'payment'.
+        """
+        Creates a reusable checkout configuration for an existing or inline plan.
 
         Args:
-          affiliate_code: An affiliate code to apply.
+          affiliate_code: Affiliate code to apply to the checkout.
 
-          company_id: The ID of the company.
+          company_id: Account ID, prefixed `biz_`.
 
-          currency: The currency code.
+          currency: Currency used for setup-mode payment method availability.
 
-          metadata: Arbitrary key-value metadata.
+          metadata: Custom key-value metadata copied to payments and memberships.
 
-          mode: Checkout mode. Defaults to 'payment'.
+          mode: Checkout mode: `payment` collects payment for a plan now; `setup` saves payment
+              details without charging. Defaults to `payment`.
 
-          plan: Plan attributes to create a new plan inline for this checkout configuration.
-              Mutually exclusive with plan_id.
+          payment_method_configuration: Payment method overrides for this checkout. `null` uses the plan or platform
+              defaults.
 
-          plan_id: The ID of an existing plan to attach.
+          plan: Plan attributes used to create or find a plan for this checkout configuration.
+              Mutually exclusive with `plan_id`.
 
-          redirect_url: URL to redirect after checkout.
+          plan_id: Existing plan ID, prefixed `plan_`. Mutually exclusive with `plan`.
 
-          three_ds_level: 3D Secure enforcement level.
+          redirect_url: URL customers are sent to after checkout.
+
+          three_ds_level: 3D Secure behavior for this checkout.
 
           extra_headers: Send extra headers
 
@@ -136,7 +139,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
     ) -> CheckoutConfigurationRetrieveResponse:
         """Retrieves a checkout configuration by ID.
 
-        No authentication required.
+        This endpoint is public so a checkout
+        page can load from the configuration URL.
 
         Args:
           extra_headers: Send extra headers
@@ -176,24 +180,24 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CheckoutConfigurationListResponse]:
         """
-        Returns a paginated list of checkout configurations for a company.
+        Lists checkout configurations for an account.
 
         Args:
-          company_id: The ID of the company to list checkout configurations for.
+          company_id: Account ID, prefixed `biz_`.
 
-          after: Cursor for forward pagination.
+          after: Cursor for the next page of results.
 
-          created_after: Filter to configurations created after this Unix timestamp.
+          created_after: Only return checkout configurations created after this Unix timestamp.
 
-          created_before: Filter to configurations created before this Unix timestamp.
+          created_before: Only return checkout configurations created before this Unix timestamp.
 
-          direction: Sort direction.
+          direction: Sort direction. Defaults to `desc`.
 
-          first: Number of results to return (forward pagination).
+          first: Number of checkout configurations to return.
 
-          order: The field to sort checkout configurations by.
+          order: Field used to sort checkout configurations.
 
-          plan_id: Filter by plan ID.
+          plan_id: Only return checkout configurations for this plan ID, prefixed `plan_`.
 
           extra_headers: Send extra headers
 
@@ -240,7 +244,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Deletes a checkout configuration.
+        Deletes a checkout configuration so its checkout URL can no longer be used.
 
         Args:
           extra_headers: Send extra headers
@@ -304,29 +308,32 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CheckoutConfigurationCreateResponse:
-        """Creates a checkout configuration for a plan.
-
-        Mode defaults to 'payment'.
+        """
+        Creates a reusable checkout configuration for an existing or inline plan.
 
         Args:
-          affiliate_code: An affiliate code to apply.
+          affiliate_code: Affiliate code to apply to the checkout.
 
-          company_id: The ID of the company.
+          company_id: Account ID, prefixed `biz_`.
 
-          currency: The currency code.
+          currency: Currency used for setup-mode payment method availability.
 
-          metadata: Arbitrary key-value metadata.
+          metadata: Custom key-value metadata copied to payments and memberships.
 
-          mode: Checkout mode. Defaults to 'payment'.
+          mode: Checkout mode: `payment` collects payment for a plan now; `setup` saves payment
+              details without charging. Defaults to `payment`.
 
-          plan: Plan attributes to create a new plan inline for this checkout configuration.
-              Mutually exclusive with plan_id.
+          payment_method_configuration: Payment method overrides for this checkout. `null` uses the plan or platform
+              defaults.
 
-          plan_id: The ID of an existing plan to attach.
+          plan: Plan attributes used to create or find a plan for this checkout configuration.
+              Mutually exclusive with `plan_id`.
 
-          redirect_url: URL to redirect after checkout.
+          plan_id: Existing plan ID, prefixed `plan_`. Mutually exclusive with `plan`.
 
-          three_ds_level: 3D Secure enforcement level.
+          redirect_url: URL customers are sent to after checkout.
+
+          three_ds_level: 3D Secure behavior for this checkout.
 
           extra_headers: Send extra headers
 
@@ -372,7 +379,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
     ) -> CheckoutConfigurationRetrieveResponse:
         """Retrieves a checkout configuration by ID.
 
-        No authentication required.
+        This endpoint is public so a checkout
+        page can load from the configuration URL.
 
         Args:
           extra_headers: Send extra headers
@@ -412,24 +420,24 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CheckoutConfigurationListResponse, AsyncCursorPage[CheckoutConfigurationListResponse]]:
         """
-        Returns a paginated list of checkout configurations for a company.
+        Lists checkout configurations for an account.
 
         Args:
-          company_id: The ID of the company to list checkout configurations for.
+          company_id: Account ID, prefixed `biz_`.
 
-          after: Cursor for forward pagination.
+          after: Cursor for the next page of results.
 
-          created_after: Filter to configurations created after this Unix timestamp.
+          created_after: Only return checkout configurations created after this Unix timestamp.
 
-          created_before: Filter to configurations created before this Unix timestamp.
+          created_before: Only return checkout configurations created before this Unix timestamp.
 
-          direction: Sort direction.
+          direction: Sort direction. Defaults to `desc`.
 
-          first: Number of results to return (forward pagination).
+          first: Number of checkout configurations to return.
 
-          order: The field to sort checkout configurations by.
+          order: Field used to sort checkout configurations.
 
-          plan_id: Filter by plan ID.
+          plan_id: Only return checkout configurations for this plan ID, prefixed `plan_`.
 
           extra_headers: Send extra headers
 
@@ -476,7 +484,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Deletes a checkout configuration.
+        Deletes a checkout configuration so its checkout URL can no longer be used.
 
         Args:
           extra_headers: Send extra headers

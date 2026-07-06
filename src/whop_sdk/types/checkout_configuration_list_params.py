@@ -9,25 +9,25 @@ __all__ = ["CheckoutConfigurationListParams"]
 
 class CheckoutConfigurationListParams(TypedDict, total=False):
     company_id: Required[str]
-    """The ID of the company to list checkout configurations for."""
+    """Account ID, prefixed `biz_`."""
 
     after: str
-    """Cursor for forward pagination."""
+    """Cursor for the next page of results."""
 
     created_after: int
-    """Filter to configurations created after this Unix timestamp."""
+    """Only return checkout configurations created after this Unix timestamp."""
 
     created_before: int
-    """Filter to configurations created before this Unix timestamp."""
+    """Only return checkout configurations created before this Unix timestamp."""
 
     direction: Literal["asc", "desc"]
-    """Sort direction."""
+    """Sort direction. Defaults to `desc`."""
 
     first: int
-    """Number of results to return (forward pagination)."""
+    """Number of checkout configurations to return."""
 
     order: Literal["created_at"]
-    """The field to sort checkout configurations by."""
+    """Field used to sort checkout configurations."""
 
     plan_id: str
-    """Filter by plan ID."""
+    """Only return checkout configurations for this plan ID, prefixed `plan_`."""

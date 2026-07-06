@@ -12,118 +12,139 @@ __all__ = ["CheckoutConfigurationCreateParams", "PaymentMethodConfiguration", "P
 
 class CheckoutConfigurationCreateParams(TypedDict, total=False):
     affiliate_code: Optional[str]
-    """An affiliate code to apply."""
+    """Affiliate code to apply to the checkout."""
 
     company_id: str
-    """The ID of the company."""
+    """Account ID, prefixed `biz_`."""
 
     currency: Optional[str]
-    """The currency code."""
+    """Currency used for setup-mode payment method availability."""
 
     metadata: Optional[object]
-    """Arbitrary key-value metadata."""
+    """Custom key-value metadata copied to payments and memberships."""
 
     mode: Literal["payment", "setup"]
-    """Checkout mode. Defaults to 'payment'."""
+    """
+    Checkout mode: `payment` collects payment for a plan now; `setup` saves payment
+    details without charging. Defaults to `payment`.
+    """
 
     payment_method_configuration: Optional[PaymentMethodConfiguration]
+    """Payment method overrides for this checkout.
+
+    `null` uses the plan or platform defaults.
+    """
 
     plan: Optional[Plan]
-    """Plan attributes to create a new plan inline for this checkout configuration.
+    """Plan attributes used to create or find a plan for this checkout configuration.
 
-    Mutually exclusive with plan_id.
+    Mutually exclusive with `plan_id`.
     """
 
     plan_id: Optional[str]
-    """The ID of an existing plan to attach."""
+    """Existing plan ID, prefixed `plan_`. Mutually exclusive with `plan`."""
 
     redirect_url: Optional[str]
-    """URL to redirect after checkout."""
+    """URL customers are sent to after checkout."""
 
     three_ds_level: Optional[str]
-    """3D Secure enforcement level."""
+    """3D Secure behavior for this checkout."""
 
 
 class PaymentMethodConfiguration(TypedDict, total=False):
+    """Payment method overrides for this checkout.
+
+    `null` uses the plan or platform defaults.
+    """
+
     disabled: SequenceNotStr[str]
+    """Payment methods explicitly disabled for checkout."""
 
     enabled: SequenceNotStr[str]
+    """Payment methods explicitly enabled for checkout."""
 
     include_platform_defaults: bool
+    """Whether platform default payment methods are included."""
 
 
 class PlanPaymentMethodConfiguration(TypedDict, total=False):
+    """Payment method overrides for the inline plan. `null` uses platform defaults."""
+
     disabled: SequenceNotStr[str]
+    """Payment methods explicitly disabled for this plan."""
 
     enabled: SequenceNotStr[str]
+    """Payment methods explicitly enabled for this plan."""
 
     include_platform_defaults: bool
+    """Whether platform default payment methods are included."""
 
 
 class Plan(TypedDict, total=False):
-    """Plan attributes to create a new plan inline for this checkout configuration.
+    """Plan attributes used to create or find a plan for this checkout configuration.
 
-    Mutually exclusive with plan_id.
+    Mutually exclusive with `plan_id`.
     """
 
     billing_period: Optional[int]
-    """The number of days between recurring charges."""
+    """Recurring billing interval in days, such as 30 for monthly or 365 for annual."""
 
     company_id: Optional[str]
-    """The company the plan should be created for.
+    """Account ID for the inline plan, prefixed `biz_`.
 
-    Defaults to the company resolved from the request.
+    Defaults to the account resolved from the request.
     """
 
     currency: Optional[str]
-    """The three-letter ISO currency code for the plan's pricing."""
+    """Three-letter ISO currency code for the plan's prices."""
 
     description: Optional[str]
-    """A text description of the plan displayed to customers."""
+    """Customer-visible plan description."""
 
     expiration_days: Optional[int]
-    """The number of days until the membership expires."""
+    """Access duration in days for expiration-based plans."""
 
     force_create_new_plan: Optional[bool]
-    """Force creating a new plan even if one with the same attributes already exists."""
+    """Whether to create a new plan instead of reusing a matching one."""
 
     initial_price: Optional[float]
-    """The amount charged on the first purchase, in the plan's currency."""
+    """Initial purchase price in the plan currency."""
 
     metadata: Optional[object]
-    """Custom key-value metadata to store on the plan."""
+    """Custom key-value metadata stored on the plan."""
 
     override_tax_type: Optional[str]
-    """Override the default tax classification for this plan."""
+    """Tax classification override for this plan."""
 
     payment_method_configuration: Optional[PlanPaymentMethodConfiguration]
+    """Payment method overrides for the inline plan. `null` uses platform defaults."""
 
     plan_type: Optional[str]
-    """The billing model for the plan, e.g. 'one_time' or 'renewal'."""
+    """
+    Billing model for the plan: `renewal` (recurring) or `one_time` (single
+    payment).
+    """
 
     product_id: Optional[str]
-    """The ID of an existing product (access pass) to attach the plan to."""
+    """Product ID the inline plan should belong to, prefixed `prod_`."""
 
     release_method: Optional[str]
-    """How the plan is sold, e.g. 'buy_now'."""
+    """Sales method for the plan, such as `buy_now` or `waitlist`."""
 
     renewal_price: Optional[float]
-    """
-    The amount charged each billing period for recurring plans, in the plan's
-    currency.
-    """
+    """Recurring price charged each billing period."""
 
     stock: Optional[int]
-    """The maximum number of units available for purchase."""
+    """Units available for purchase."""
 
     title: Optional[str]
-    """The display name of the plan shown to customers."""
+    """Plan display name shown to customers."""
 
     trial_period_days: Optional[int]
-    """The number of free trial days before the first charge."""
+    """Free trial days before the first renewal charge."""
 
     unlimited_stock: Optional[bool]
     """Whether the plan has unlimited stock."""
 
     visibility: Optional[str]
-    """Whether the plan is visible to customers or hidden."""
+    """Whether the plan is visible to customers or hidden from public view."""
