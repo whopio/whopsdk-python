@@ -1,13 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["EventListResponse", "Data", "DataContext", "DataUser"]
+__all__ = ["EventListResponse", "Context", "User"]
 
 
-class DataContext(BaseModel):
+class Context(BaseModel):
     ad_campaign_id: Optional[str] = None
 
     ad_id: Optional[str] = None
@@ -25,7 +25,7 @@ class DataContext(BaseModel):
     utm_term: Optional[str] = None
 
 
-class DataUser(BaseModel):
+class User(BaseModel):
     city: Optional[str] = None
 
     country: Optional[str] = None
@@ -43,7 +43,7 @@ class DataUser(BaseModel):
     state: Optional[str] = None
 
 
-class Data(BaseModel):
+class EventListResponse(BaseModel):
     id: str
 
     event_id: str
@@ -52,7 +52,7 @@ class Data(BaseModel):
 
     event_time: int
 
-    context: Optional[DataContext] = None
+    context: Optional[Context] = None
 
     currency: Optional[str] = None
 
@@ -66,10 +66,6 @@ class Data(BaseModel):
 
     url: Optional[str] = None
 
-    user: Optional[DataUser] = None
+    user: Optional[User] = None
 
     value: Optional[float] = None
-
-
-class EventListResponse(BaseModel):
-    data: List[Data]

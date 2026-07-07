@@ -7,12 +7,11 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared.currency import Currency
 
-__all__ = ["ConversionCreateParams", "Context", "User"]
+__all__ = ["EventCreateParams", "Context", "User"]
 
 
-class ConversionCreateParams(TypedDict, total=False):
+class EventCreateParams(TypedDict, total=False):
     company_id: Required[str]
     """The company to associate with this event."""
 
@@ -29,7 +28,7 @@ class ConversionCreateParams(TypedDict, total=False):
             "page",
         ]
     ]
-    """The type of event."""
+    """The type of conversion or engagement event"""
 
     action_source: Optional[
         Literal[
@@ -49,7 +48,100 @@ class ConversionCreateParams(TypedDict, total=False):
     context: Optional[Context]
     """Tracking and attribution context."""
 
-    currency: Optional[Currency]
+    currency: Optional[
+        Literal[
+            "usd",
+            "sgd",
+            "inr",
+            "aud",
+            "brl",
+            "cad",
+            "dkk",
+            "eur",
+            "nok",
+            "gbp",
+            "sek",
+            "chf",
+            "hkd",
+            "huf",
+            "jpy",
+            "mxn",
+            "myr",
+            "pln",
+            "czk",
+            "nzd",
+            "aed",
+            "eth",
+            "ape",
+            "cop",
+            "ron",
+            "thb",
+            "bgn",
+            "idr",
+            "dop",
+            "php",
+            "try",
+            "krw",
+            "twd",
+            "vnd",
+            "pkr",
+            "clp",
+            "uyu",
+            "ars",
+            "zar",
+            "dzd",
+            "tnd",
+            "mad",
+            "kes",
+            "kwd",
+            "jod",
+            "all",
+            "xcd",
+            "amd",
+            "bsd",
+            "bhd",
+            "bob",
+            "bam",
+            "khr",
+            "crc",
+            "xof",
+            "egp",
+            "etb",
+            "gmd",
+            "ghs",
+            "gtq",
+            "gyd",
+            "ils",
+            "jmd",
+            "mop",
+            "mga",
+            "mur",
+            "mdl",
+            "mnt",
+            "nad",
+            "ngn",
+            "mkd",
+            "omr",
+            "pyg",
+            "pen",
+            "qar",
+            "rwf",
+            "sar",
+            "rsd",
+            "lkr",
+            "tzs",
+            "ttd",
+            "uzs",
+            "rub",
+            "btc",
+            "cny",
+            "usdt",
+            "kzt",
+            "awg",
+            "whop_usd",
+            "xau",
+        ]
+    ]
     """The available currencies on the platform"""
 
     custom_name: Optional[str]

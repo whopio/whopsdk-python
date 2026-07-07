@@ -10,6 +10,7 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import PersonListResponse, PersonRetrieveResponse
+from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -74,22 +75,23 @@ class TestPeople:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         person = client.people.list()
-        assert_matches_type(PersonListResponse, person, path=["response"])
+        assert_matches_type(SyncCursorPage[PersonListResponse], person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         person = client.people.list(
             account_id="account_id",
+            after="after",
+            before="before",
             direction="asc",
             filters="filters",
             first=0,
             from_=0,
-            offset=0,
             sort="sort",
             to=0,
         )
-        assert_matches_type(PersonListResponse, person, path=["response"])
+        assert_matches_type(SyncCursorPage[PersonListResponse], person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -99,7 +101,7 @@ class TestPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         person = response.parse()
-        assert_matches_type(PersonListResponse, person, path=["response"])
+        assert_matches_type(SyncCursorPage[PersonListResponse], person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -109,7 +111,7 @@ class TestPeople:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             person = response.parse()
-            assert_matches_type(PersonListResponse, person, path=["response"])
+            assert_matches_type(SyncCursorPage[PersonListResponse], person, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -176,22 +178,23 @@ class TestAsyncPeople:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         person = await async_client.people.list()
-        assert_matches_type(PersonListResponse, person, path=["response"])
+        assert_matches_type(AsyncCursorPage[PersonListResponse], person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         person = await async_client.people.list(
             account_id="account_id",
+            after="after",
+            before="before",
             direction="asc",
             filters="filters",
             first=0,
             from_=0,
-            offset=0,
             sort="sort",
             to=0,
         )
-        assert_matches_type(PersonListResponse, person, path=["response"])
+        assert_matches_type(AsyncCursorPage[PersonListResponse], person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -201,7 +204,7 @@ class TestAsyncPeople:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         person = await response.parse()
-        assert_matches_type(PersonListResponse, person, path=["response"])
+        assert_matches_type(AsyncCursorPage[PersonListResponse], person, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -211,6 +214,6 @@ class TestAsyncPeople:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             person = await response.parse()
-            assert_matches_type(PersonListResponse, person, path=["response"])
+            assert_matches_type(AsyncCursorPage[PersonListResponse], person, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -17,6 +17,12 @@ class PersonListParams(TypedDict, total=False):
     accounts.
     """
 
+    after: str
+    """A cursor for fetching people after a previous page."""
+
+    before: str
+    """A cursor for fetching people before a later page."""
+
     direction: Literal["asc", "desc"]
     """Sort direction. Defaults to desc."""
 
@@ -24,13 +30,10 @@ class PersonListParams(TypedDict, total=False):
     """A JSON-encoded array of filters, each with field, operator, and value keys."""
 
     first: int
-    """The number of people to return (default 100, max 101)."""
+    """The number of people to return (default 100, max 100)."""
 
     from_: Annotated[int, PropertyInfo(alias="from")]
     """Start of the time range as a Unix timestamp. Defaults to 366 days before `to`."""
-
-    offset: int
-    """The number of people to skip, for offset pagination."""
 
     sort: str
     """Column to sort by (e.g.

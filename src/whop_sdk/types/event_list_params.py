@@ -20,6 +20,12 @@ class EventListParams(TypedDict, total=False):
     accounts.
     """
 
+    after: str
+    """A cursor for fetching events after a previous page."""
+
+    before: str
+    """A cursor for fetching events before a later page."""
+
     first: int
     """The number of events to return."""
 

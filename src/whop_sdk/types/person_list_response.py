@@ -4,10 +4,10 @@ from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["PersonListResponse", "Data", "DataAdSet", "DataAd", "DataCampaign"]
+__all__ = ["PersonListResponse", "AdSet", "Ad", "Campaign"]
 
 
-class DataAdSet(BaseModel):
+class AdSet(BaseModel):
     id: str
 
     name: Optional[str] = None
@@ -15,7 +15,7 @@ class DataAdSet(BaseModel):
     thumbnail_url: Optional[str] = None
 
 
-class DataAd(BaseModel):
+class Ad(BaseModel):
     id: str
 
     name: Optional[str] = None
@@ -23,7 +23,7 @@ class DataAd(BaseModel):
     thumbnail_url: Optional[str] = None
 
 
-class DataCampaign(BaseModel):
+class Campaign(BaseModel):
     id: str
 
     name: Optional[str] = None
@@ -31,7 +31,7 @@ class DataCampaign(BaseModel):
     thumbnail_url: Optional[str] = None
 
 
-class Data(BaseModel):
+class PersonListResponse(BaseModel):
     id: str
 
     account_id: str
@@ -44,13 +44,13 @@ class Data(BaseModel):
 
     purchase_count: int
 
-    ad_sets: Optional[List[DataAdSet]] = None
+    ad_sets: Optional[List[AdSet]] = None
 
-    ads: Optional[List[DataAd]] = None
+    ads: Optional[List[Ad]] = None
 
     aov: Optional[float] = None
 
-    campaigns: Optional[List[DataCampaign]] = None
+    campaigns: Optional[List[Campaign]] = None
 
     email: Optional[str] = None
 
@@ -61,9 +61,3 @@ class Data(BaseModel):
     name: Optional[str] = None
 
     phone: Optional[str] = None
-
-
-class PersonListResponse(BaseModel):
-    data: List[Data]
-
-    total_count: int

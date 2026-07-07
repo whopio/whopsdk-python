@@ -76,7 +76,6 @@ if TYPE_CHECKING:
         affiliates,
         app_builds,
         dm_members,
-        conversions,
         dm_channels,
         experiences,
         fee_markups,
@@ -146,7 +145,6 @@ if TYPE_CHECKING:
     from .resources.ad_reports import AdReportsResource, AsyncAdReportsResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
     from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
-    from .resources.conversions import ConversionsResource, AsyncConversionsResource
     from .resources.dm_channels import DmChannelsResource, AsyncDmChannelsResource
     from .resources.experiences import ExperiencesResource, AsyncExperiencesResource
     from .resources.fee_markups import FeeMarkupsResource, AsyncFeeMarkupsResource
@@ -739,13 +737,6 @@ class Whop(SyncAPIClient):
         from .resources.ads import AdsResource
 
         return AdsResource(self)
-
-    @cached_property
-    def conversions(self) -> ConversionsResource:
-        """Conversions"""
-        from .resources.conversions import ConversionsResource
-
-        return ConversionsResource(self)
 
     @cached_property
     def ad_reports(self) -> AdReportsResource:
@@ -1427,13 +1418,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAdsResource(self)
 
     @cached_property
-    def conversions(self) -> AsyncConversionsResource:
-        """Conversions"""
-        from .resources.conversions import AsyncConversionsResource
-
-        return AsyncConversionsResource(self)
-
-    @cached_property
     def ad_reports(self) -> AsyncAdReportsResource:
         """Ad reports"""
         from .resources.ad_reports import AsyncAdReportsResource
@@ -2033,13 +2017,6 @@ class WhopWithRawResponse:
         return AdsResourceWithRawResponse(self._client.ads)
 
     @cached_property
-    def conversions(self) -> conversions.ConversionsResourceWithRawResponse:
-        """Conversions"""
-        from .resources.conversions import ConversionsResourceWithRawResponse
-
-        return ConversionsResourceWithRawResponse(self._client.conversions)
-
-    @cached_property
     def ad_reports(self) -> ad_reports.AdReportsResourceWithRawResponse:
         """Ad reports"""
         from .resources.ad_reports import AdReportsResourceWithRawResponse
@@ -2523,13 +2500,6 @@ class AsyncWhopWithRawResponse:
         return AsyncAdsResourceWithRawResponse(self._client.ads)
 
     @cached_property
-    def conversions(self) -> conversions.AsyncConversionsResourceWithRawResponse:
-        """Conversions"""
-        from .resources.conversions import AsyncConversionsResourceWithRawResponse
-
-        return AsyncConversionsResourceWithRawResponse(self._client.conversions)
-
-    @cached_property
     def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithRawResponse:
         """Ad reports"""
         from .resources.ad_reports import AsyncAdReportsResourceWithRawResponse
@@ -3011,13 +2981,6 @@ class WhopWithStreamedResponse:
         from .resources.ads import AdsResourceWithStreamingResponse
 
         return AdsResourceWithStreamingResponse(self._client.ads)
-
-    @cached_property
-    def conversions(self) -> conversions.ConversionsResourceWithStreamingResponse:
-        """Conversions"""
-        from .resources.conversions import ConversionsResourceWithStreamingResponse
-
-        return ConversionsResourceWithStreamingResponse(self._client.conversions)
 
     @cached_property
     def ad_reports(self) -> ad_reports.AdReportsResourceWithStreamingResponse:
@@ -3505,13 +3468,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.ads import AsyncAdsResourceWithStreamingResponse
 
         return AsyncAdsResourceWithStreamingResponse(self._client.ads)
-
-    @cached_property
-    def conversions(self) -> conversions.AsyncConversionsResourceWithStreamingResponse:
-        """Conversions"""
-        from .resources.conversions import AsyncConversionsResourceWithStreamingResponse
-
-        return AsyncConversionsResourceWithStreamingResponse(self._client.conversions)
 
     @cached_property
     def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithStreamingResponse:

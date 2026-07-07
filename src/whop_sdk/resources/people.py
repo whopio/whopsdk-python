@@ -17,7 +17,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.person_list_response import PersonListResponse
 from ..types.person_retrieve_response import PersonRetrieveResponse
 
@@ -102,11 +103,12 @@ class PeopleResource(SyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         filters: str | Omit = omit,
         first: int | Omit = omit,
         from_: int | Omit = omit,
-        offset: int | Omit = omit,
         sort: str | Omit = omit,
         to: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -115,7 +117,7 @@ class PeopleResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PersonListResponse:
+    ) -> SyncCursorPage[PersonListResponse]:
         """
         Lists the people (visitors and customers) of an account, aggregated from pixel
         events. The account is inferred from an account API key; other credentials must
@@ -125,15 +127,17 @@ class PeopleResource(SyncAPIResource):
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
 
+          after: A cursor for fetching people after a previous page.
+
+          before: A cursor for fetching people before a later page.
+
           direction: Sort direction. Defaults to desc.
 
           filters: A JSON-encoded array of filters, each with field, operator, and value keys.
 
-          first: The number of people to return (default 100, max 101).
+          first: The number of people to return (default 100, max 100).
 
           from_: Start of the time range as a Unix timestamp. Defaults to 366 days before `to`.
-
-          offset: The number of people to skip, for offset pagination.
 
           sort: Column to sort by (e.g. last_seen_at, ltv, purchase_count). Defaults to
               last_seen_at.
@@ -148,8 +152,9 @@ class PeopleResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/people",
+            page=SyncCursorPage[PersonListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -158,18 +163,19 @@ class PeopleResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "account_id": account_id,
+                        "after": after,
+                        "before": before,
                         "direction": direction,
                         "filters": filters,
                         "first": first,
                         "from_": from_,
-                        "offset": offset,
                         "sort": sort,
                         "to": to,
                     },
                     person_list_params.PersonListParams,
                 ),
             ),
-            cast_to=PersonListResponse,
+            model=PersonListResponse,
         )
 
 
@@ -247,15 +253,16 @@ class AsyncPeopleResource(AsyncAPIResource):
             cast_to=PersonRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         filters: str | Omit = omit,
         first: int | Omit = omit,
         from_: int | Omit = omit,
-        offset: int | Omit = omit,
         sort: str | Omit = omit,
         to: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -264,7 +271,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PersonListResponse:
+    ) -> AsyncPaginator[PersonListResponse, AsyncCursorPage[PersonListResponse]]:
         """
         Lists the people (visitors and customers) of an account, aggregated from pixel
         events. The account is inferred from an account API key; other credentials must
@@ -274,15 +281,17 @@ class AsyncPeopleResource(AsyncAPIResource):
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
 
+          after: A cursor for fetching people after a previous page.
+
+          before: A cursor for fetching people before a later page.
+
           direction: Sort direction. Defaults to desc.
 
           filters: A JSON-encoded array of filters, each with field, operator, and value keys.
 
-          first: The number of people to return (default 100, max 101).
+          first: The number of people to return (default 100, max 100).
 
           from_: Start of the time range as a Unix timestamp. Defaults to 366 days before `to`.
-
-          offset: The number of people to skip, for offset pagination.
 
           sort: Column to sort by (e.g. last_seen_at, ltv, purchase_count). Defaults to
               last_seen_at.
@@ -297,28 +306,30 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/people",
+            page=AsyncCursorPage[PersonListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "account_id": account_id,
+                        "after": after,
+                        "before": before,
                         "direction": direction,
                         "filters": filters,
                         "first": first,
                         "from_": from_,
-                        "offset": offset,
                         "sort": sort,
                         "to": to,
                     },
                     person_list_params.PersonListParams,
                 ),
             ),
-            cast_to=PersonListResponse,
+            model=PersonListResponse,
         )
 
 

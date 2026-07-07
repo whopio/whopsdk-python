@@ -155,6 +155,7 @@ from .course_visibilities import CourseVisibilities as CourseVisibilities
 from .deposit_list_params import DepositListParams as DepositListParams
 from .dispute_list_params import DisputeListParams as DisputeListParams
 from .entry_list_response import EntryListResponse as EntryListResponse
+from .event_create_params import EventCreateParams as EventCreateParams
 from .event_list_response import EventListResponse as EventListResponse
 from .forum_list_response import ForumListResponse as ForumListResponse
 from .forum_update_params import ForumUpdateParams as ForumUpdateParams
@@ -211,6 +212,7 @@ from .deposit_create_params import DepositCreateParams as DepositCreateParams
 from .deposit_list_response import DepositListResponse as DepositListResponse
 from .dispute_list_response import DisputeListResponse as DisputeListResponse
 from .dm_member_list_params import DmMemberListParams as DmMemberListParams
+from .event_create_response import EventCreateResponse as EventCreateResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_update_params import InvoiceUpdateParams as InvoiceUpdateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
@@ -277,7 +279,6 @@ from .ad_group_retrieve_params import AdGroupRetrieveParams as AdGroupRetrievePa
 from .audience_delete_response import AudienceDeleteResponse as AudienceDeleteResponse
 from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
-from .conversion_create_params import ConversionCreateParams as ConversionCreateParams
 from .dm_channel_create_params import DmChannelCreateParams as DmChannelCreateParams
 from .dm_channel_list_response import DmChannelListResponse as DmChannelListResponse
 from .dm_channel_update_params import DmChannelUpdateParams as DmChannelUpdateParams
@@ -324,7 +325,6 @@ from .account_link_create_params import AccountLinkCreateParams as AccountLinkCr
 from .affiliate_archive_response import AffiliateArchiveResponse as AffiliateArchiveResponse
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
-from .conversion_create_response import ConversionCreateResponse as ConversionCreateResponse
 from .course_chapter_list_params import CourseChapterListParams as CourseChapterListParams
 from .course_student_list_params import CourseStudentListParams as CourseStudentListParams
 from .dm_channel_delete_response import DmChannelDeleteResponse as DmChannelDeleteResponse

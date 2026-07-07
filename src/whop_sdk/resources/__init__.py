@@ -320,14 +320,6 @@ from .dm_members import (
     DmMembersResourceWithStreamingResponse,
     AsyncDmMembersResourceWithStreamingResponse,
 )
-from .conversions import (
-    ConversionsResource,
-    AsyncConversionsResource,
-    ConversionsResourceWithRawResponse,
-    AsyncConversionsResourceWithRawResponse,
-    ConversionsResourceWithStreamingResponse,
-    AsyncConversionsResourceWithStreamingResponse,
-)
 from .dm_channels import (
     DmChannelsResource,
     AsyncDmChannelsResource,
@@ -984,12 +976,6 @@ __all__ = [
     "AsyncAdsResourceWithRawResponse",
     "AdsResourceWithStreamingResponse",
     "AsyncAdsResourceWithStreamingResponse",
-    "ConversionsResource",
-    "AsyncConversionsResource",
-    "ConversionsResourceWithRawResponse",
-    "AsyncConversionsResourceWithRawResponse",
-    "ConversionsResourceWithStreamingResponse",
-    "AsyncConversionsResourceWithStreamingResponse",
     "AdReportsResource",
     "AsyncAdReportsResource",
     "AdReportsResourceWithRawResponse",

@@ -171,19 +171,20 @@ from whop_sdk.types import PersonRetrieveResponse, PersonListResponse
 Methods:
 
 - <code title="get /people/{person_id}">client.people.<a href="./src/whop_sdk/resources/people.py">retrieve</a>(person_id, \*\*<a href="src/whop_sdk/types/person_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/person_retrieve_response.py">PersonRetrieveResponse</a></code>
-- <code title="get /people">client.people.<a href="./src/whop_sdk/resources/people.py">list</a>(\*\*<a href="src/whop_sdk/types/person_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/person_list_response.py">PersonListResponse</a></code>
+- <code title="get /people">client.people.<a href="./src/whop_sdk/resources/people.py">list</a>(\*\*<a href="src/whop_sdk/types/person_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/person_list_response.py">SyncCursorPage[PersonListResponse]</a></code>
 
 # Events
 
 Types:
 
 ```python
-from whop_sdk.types import EventListResponse
+from whop_sdk.types import EventCreateResponse, EventListResponse
 ```
 
 Methods:
 
-- <code title="get /events">client.events.<a href="./src/whop_sdk/resources/events.py">list</a>(\*\*<a href="src/whop_sdk/types/event_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/event_list_response.py">EventListResponse</a></code>
+- <code title="post /events">client.events.<a href="./src/whop_sdk/resources/events.py">create</a>(\*\*<a href="src/whop_sdk/types/event_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/event_create_response.py">EventCreateResponse</a></code>
+- <code title="get /events">client.events.<a href="./src/whop_sdk/resources/events.py">list</a>(\*\*<a href="src/whop_sdk/types/event_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/event_list_response.py">SyncCursorPage[EventListResponse]</a></code>
 
 # Companies
 
@@ -1290,18 +1291,6 @@ Methods:
 - <code title="delete /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_delete_response.py">AdDeleteResponse</a></code>
 - <code title="post /ads/{id}/pause">client.ads.<a href="./src/whop_sdk/resources/ads.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="post /ads/{id}/unpause">client.ads.<a href="./src/whop_sdk/resources/ads.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
-
-# Conversions
-
-Types:
-
-```python
-from whop_sdk.types import ConversionCreateResponse
-```
-
-Methods:
-
-- <code title="post /conversions">client.conversions.<a href="./src/whop_sdk/resources/conversions.py">create</a>(\*\*<a href="src/whop_sdk/types/conversion_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/conversion_create_response.py">ConversionCreateResponse</a></code>
 
 # AdReports
 
