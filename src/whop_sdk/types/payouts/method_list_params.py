@@ -33,6 +33,13 @@ class MethodListParams(TypedDict, total=False):
     Capped at 25 when an amount is provided.
     """
 
+    include_available: bool
+    """
+    When true, the response also carries available_destinations — payout rails the
+    account could add as a new payout method, with per-currency quotes when an
+    amount is provided.
+    """
+
     last: int
     """Number of payout methods to return from the end of the window."""
 

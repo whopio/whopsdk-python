@@ -53,6 +53,7 @@ class MethodsResource(SyncAPIResource):
         before: str | Omit = omit,
         currency: str | Omit = omit,
         first: int | Omit = omit,
+        include_available: bool | Omit = omit,
         last: int | Omit = omit,
         status: Literal["created", "active", "broken"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -86,6 +87,10 @@ class MethodsResource(SyncAPIResource):
           first: Number of payout methods to return from the start of the window. Capped at 25
               when an amount is provided.
 
+          include_available: When true, the response also carries available_destinations — payout rails the
+              account could add as a new payout method, with per-currency quotes when an
+              amount is provided.
+
           last: Number of payout methods to return from the end of the window.
 
           status: Optional status filter. `created` means saved but unused, `active` means a
@@ -118,6 +123,7 @@ class MethodsResource(SyncAPIResource):
                         "before": before,
                         "currency": currency,
                         "first": first,
+                        "include_available": include_available,
                         "last": last,
                         "status": status,
                         "user_id": user_id,
@@ -158,6 +164,7 @@ class AsyncMethodsResource(AsyncAPIResource):
         before: str | Omit = omit,
         currency: str | Omit = omit,
         first: int | Omit = omit,
+        include_available: bool | Omit = omit,
         last: int | Omit = omit,
         status: Literal["created", "active", "broken"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -191,6 +198,10 @@ class AsyncMethodsResource(AsyncAPIResource):
           first: Number of payout methods to return from the start of the window. Capped at 25
               when an amount is provided.
 
+          include_available: When true, the response also carries available_destinations — payout rails the
+              account could add as a new payout method, with per-currency quotes when an
+              amount is provided.
+
           last: Number of payout methods to return from the end of the window.
 
           status: Optional status filter. `created` means saved but unused, `active` means a
@@ -223,6 +234,7 @@ class AsyncMethodsResource(AsyncAPIResource):
                         "before": before,
                         "currency": currency,
                         "first": first,
+                        "include_available": include_available,
                         "last": last,
                         "status": status,
                         "user_id": user_id,
