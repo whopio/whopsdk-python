@@ -132,6 +132,7 @@ class AdCampaign(BaseModel):
         "all_ads_rejected",
         "draft",
         "paused",
+        "processing",
         "issues",
         "scheduled",
         "completed",
