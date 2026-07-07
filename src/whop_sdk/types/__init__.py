@@ -211,7 +211,6 @@ from .webhook_create_response import WebhookCreateResponse as WebhookCreateRespo
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
 from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
-from .conversion_create_params import ConversionCreateParams as ConversionCreateParams
 from .dm_channel_create_params import DmChannelCreateParams as DmChannelCreateParams
 from .dm_channel_list_response import DmChannelListResponse as DmChannelListResponse
 from .dm_channel_update_params import DmChannelUpdateParams as DmChannelUpdateParams
@@ -252,7 +251,6 @@ from .account_link_create_params import AccountLinkCreateParams as AccountLinkCr
 from .affiliate_archive_response import AffiliateArchiveResponse as AffiliateArchiveResponse
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
-from .conversion_create_response import ConversionCreateResponse as ConversionCreateResponse
 from .course_chapter_list_params import CourseChapterListParams as CourseChapterListParams
 from .course_student_list_params import CourseStudentListParams as CourseStudentListParams
 from .dm_channel_delete_response import DmChannelDeleteResponse as DmChannelDeleteResponse

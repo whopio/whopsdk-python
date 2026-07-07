@@ -969,18 +969,6 @@ Methods:
 - <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty_retrieve_response.py">BountyRetrieveResponse</a></code>
 - <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_response.py">SyncCursorPage[BountyListResponse]</a></code>
 
-# Conversions
-
-Types:
-
-```python
-from whop_sdk.types import ConversionCreateResponse
-```
-
-Methods:
-
-- <code title="post /conversions">client.conversions.<a href="./src/whop_sdk/resources/conversions.py">create</a>(\*\*<a href="src/whop_sdk/types/conversion_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/conversion_create_response.py">ConversionCreateResponse</a></code>
-
 # AdReports
 
 Types:
