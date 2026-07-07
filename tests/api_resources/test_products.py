@@ -47,6 +47,7 @@ class TestProducts:
             product_tax_code_id="product_tax_code_id",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            send_welcome_message=True,
             visibility="visibility",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -136,6 +137,7 @@ class TestProducts:
             headline="headline",
             metadata={},
             product_tax_code_id="product_tax_code_id",
+            send_welcome_message=True,
             title="title",
             visibility="visibility",
         )
@@ -301,6 +303,7 @@ class TestAsyncProducts:
             product_tax_code_id="product_tax_code_id",
             redirect_purchase_url="redirect_purchase_url",
             route="route",
+            send_welcome_message=True,
             visibility="visibility",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -390,6 +393,7 @@ class TestAsyncProducts:
             headline="headline",
             metadata={},
             product_tax_code_id="product_tax_code_id",
+            send_welcome_message=True,
             title="title",
             visibility="visibility",
         )

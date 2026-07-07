@@ -68,6 +68,7 @@ class ProductsResource(SyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -113,6 +114,9 @@ class ProductsResource(SyncAPIResource):
 
           route: The URL slug for the product's public link.
 
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product. Defaults to true.
+
           visibility: Whether the product is visible to customers.
 
           extra_headers: Send extra headers
@@ -143,6 +147,7 @@ class ProductsResource(SyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "send_welcome_message": send_welcome_message,
                     "visibility": visibility,
                 },
                 product_create_params.ProductCreateParams,
@@ -196,6 +201,7 @@ class ProductsResource(SyncAPIResource):
         headline: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         title: str | Omit = omit,
         visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -217,6 +223,9 @@ class ProductsResource(SyncAPIResource):
 
           product_tax_code_id: The unique identifier of the tax classification code. See the available
               [product categories](https://docs.numeral.com/essentials/product-categories).
+
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product.
 
           title: The display name of the product.
 
@@ -240,6 +249,7 @@ class ProductsResource(SyncAPIResource):
                     "headline": headline,
                     "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
+                    "send_welcome_message": send_welcome_message,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -403,6 +413,7 @@ class AsyncProductsResource(AsyncAPIResource):
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -448,6 +459,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           route: The URL slug for the product's public link.
 
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product. Defaults to true.
+
           visibility: Whether the product is visible to customers.
 
           extra_headers: Send extra headers
@@ -478,6 +492,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
+                    "send_welcome_message": send_welcome_message,
                     "visibility": visibility,
                 },
                 product_create_params.ProductCreateParams,
@@ -531,6 +546,7 @@ class AsyncProductsResource(AsyncAPIResource):
         headline: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
+        send_welcome_message: Optional[bool] | Omit = omit,
         title: str | Omit = omit,
         visibility: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -552,6 +568,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           product_tax_code_id: The unique identifier of the tax classification code. See the available
               [product categories](https://docs.numeral.com/essentials/product-categories).
+
+          send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
+              this product.
 
           title: The display name of the product.
 
@@ -575,6 +594,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "headline": headline,
                     "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
+                    "send_welcome_message": send_welcome_message,
                     "title": title,
                     "visibility": visibility,
                 },

@@ -25,6 +25,12 @@ class ProductUpdateParams(TypedDict, total=False):
     [product categories](https://docs.numeral.com/essentials/product-categories).
     """
 
+    send_welcome_message: Optional[bool]
+    """
+    Whether to send an automated welcome message via support chat when a user joins
+    this product.
+    """
+
     title: str
     """The display name of the product."""
 
