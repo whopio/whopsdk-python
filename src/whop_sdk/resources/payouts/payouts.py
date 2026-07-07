@@ -4,25 +4,37 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import payout_list_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import payout_list_params
+from .methods import (
+    MethodsResource,
+    AsyncMethodsResource,
+    MethodsResourceWithRawResponse,
+    AsyncMethodsResourceWithRawResponse,
+    MethodsResourceWithStreamingResponse,
+    AsyncMethodsResourceWithStreamingResponse,
+)
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.payout_list_response import PayoutListResponse
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.payout_list_response import PayoutListResponse
 
 __all__ = ["PayoutsResource", "AsyncPayoutsResource"]
 
 
 class PayoutsResource(SyncAPIResource):
+    @cached_property
+    def methods(self) -> MethodsResource:
+        return MethodsResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> PayoutsResourceWithRawResponse:
         """
@@ -114,6 +126,10 @@ class PayoutsResource(SyncAPIResource):
 
 
 class AsyncPayoutsResource(AsyncAPIResource):
+    @cached_property
+    def methods(self) -> AsyncMethodsResource:
+        return AsyncMethodsResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncPayoutsResourceWithRawResponse:
         """
@@ -212,6 +228,10 @@ class PayoutsResourceWithRawResponse:
             payouts.list,
         )
 
+    @cached_property
+    def methods(self) -> MethodsResourceWithRawResponse:
+        return MethodsResourceWithRawResponse(self._payouts.methods)
+
 
 class AsyncPayoutsResourceWithRawResponse:
     def __init__(self, payouts: AsyncPayoutsResource) -> None:
@@ -220,6 +240,10 @@ class AsyncPayoutsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             payouts.list,
         )
+
+    @cached_property
+    def methods(self) -> AsyncMethodsResourceWithRawResponse:
+        return AsyncMethodsResourceWithRawResponse(self._payouts.methods)
 
 
 class PayoutsResourceWithStreamingResponse:
@@ -230,6 +254,10 @@ class PayoutsResourceWithStreamingResponse:
             payouts.list,
         )
 
+    @cached_property
+    def methods(self) -> MethodsResourceWithStreamingResponse:
+        return MethodsResourceWithStreamingResponse(self._payouts.methods)
+
 
 class AsyncPayoutsResourceWithStreamingResponse:
     def __init__(self, payouts: AsyncPayoutsResource) -> None:
@@ -238,3 +266,7 @@ class AsyncPayoutsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             payouts.list,
         )
+
+    @cached_property
+    def methods(self) -> AsyncMethodsResourceWithStreamingResponse:
+        return AsyncMethodsResourceWithStreamingResponse(self._payouts.methods)

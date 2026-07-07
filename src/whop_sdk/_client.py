@@ -123,7 +123,6 @@ if TYPE_CHECKING:
     from .resources.courses import CoursesResource, AsyncCoursesResource
     from .resources.entries import EntriesResource, AsyncEntriesResource
     from .resources.members import MembersResource, AsyncMembersResource
-    from .resources.payouts import PayoutsResource, AsyncPayoutsResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
     from .resources.accounts import AccountsResource, AsyncAccountsResource
@@ -167,6 +166,7 @@ if TYPE_CHECKING:
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
     from .resources.payment_methods import PaymentMethodsResource, AsyncPaymentMethodsResource
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
+    from .resources.payouts.payouts import PayoutsResource, AsyncPayoutsResource
     from .resources.social_accounts import SocialAccountsResource, AsyncSocialAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource

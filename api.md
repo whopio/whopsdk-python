@@ -832,7 +832,19 @@ from whop_sdk.types import PayoutListResponse
 
 Methods:
 
-- <code title="get /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_list_response.py">SyncCursorPage[PayoutListResponse]</a></code>
+- <code title="get /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts/payouts.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_list_response.py">SyncCursorPage[PayoutListResponse]</a></code>
+
+## Methods
+
+Types:
+
+```python
+from whop_sdk.types.payouts import MethodListResponse
+```
+
+Methods:
+
+- <code title="get /payouts/methods">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payouts/method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/method_list_response.py">SyncCursorPage[MethodListResponse]</a></code>
 
 # Referrals
 
