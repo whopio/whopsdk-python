@@ -17,3 +17,9 @@ class AccountCreateParams(TypedDict, total=False):
 
     metadata: Dict[str, object]
     """Arbitrary key/value metadata to store on the account."""
+
+    title: str
+    """The display name of the account.
+
+    Defaults to `metadata.external_id` or the owner's email when omitted.
+    """
