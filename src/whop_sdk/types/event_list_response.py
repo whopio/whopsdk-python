@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["EventListResponse", "Context", "User"]
+__all__ = ["EventListResponse", "Context", "Question", "User"]
 
 
 class Context(BaseModel):
@@ -23,6 +23,20 @@ class Context(BaseModel):
     utm_source: Optional[str] = None
 
     utm_term: Optional[str] = None
+
+
+class Question(BaseModel):
+    id: Optional[str] = None
+
+    answer: Optional[str] = None
+
+    key: Optional[str] = None
+
+    options: Optional[List[str]] = None
+
+    question: Optional[str] = None
+
+    type: Optional[str] = None
 
 
 class User(BaseModel):
@@ -59,6 +73,8 @@ class EventListResponse(BaseModel):
     custom_name: Optional[str] = None
 
     path: Optional[str] = None
+
+    questions: Optional[List[Question]] = None
 
     referrer_url: Optional[str] = None
 
