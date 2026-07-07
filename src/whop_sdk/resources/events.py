@@ -50,7 +50,7 @@ class EventsResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         event_name: Literal[
             "lead",
             "submit_application",
@@ -193,10 +193,10 @@ class EventsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventCreateResponse:
         """
-        Tracks a conversion or engagement event for a company.
+        Tracks a conversion or engagement event for an account.
 
         Args:
-          company_id: The company to associate with this event.
+          account_id: The account to associate with this event.
 
           event_name: The type of conversion or engagement event
 
@@ -245,7 +245,7 @@ class EventsResource(SyncAPIResource):
             "/events",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "event_name": event_name,
                     "action_source": action_source,
                     "context": context,
@@ -366,7 +366,7 @@ class AsyncEventsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         event_name: Literal[
             "lead",
             "submit_application",
@@ -509,10 +509,10 @@ class AsyncEventsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventCreateResponse:
         """
-        Tracks a conversion or engagement event for a company.
+        Tracks a conversion or engagement event for an account.
 
         Args:
-          company_id: The company to associate with this event.
+          account_id: The account to associate with this event.
 
           event_name: The type of conversion or engagement event
 
@@ -561,7 +561,7 @@ class AsyncEventsResource(AsyncAPIResource):
             "/events",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "event_name": event_name,
                     "action_source": action_source,
                     "context": context,

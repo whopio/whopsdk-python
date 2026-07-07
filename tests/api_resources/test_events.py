@@ -23,7 +23,7 @@ class TestEvents:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         event = client.events.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
@@ -32,7 +32,7 @@ class TestEvents:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         event = client.events.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
             action_source="email",
             context={
@@ -109,7 +109,7 @@ class TestEvents:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.events.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
         )
 
@@ -122,7 +122,7 @@ class TestEvents:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.events.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
         ) as response:
             assert not response.is_closed
@@ -191,7 +191,7 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         event = await async_client.events.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
@@ -200,7 +200,7 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         event = await async_client.events.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
             action_source="email",
             context={
@@ -277,7 +277,7 @@ class TestAsyncEvents:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.events.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
         )
 
@@ -290,7 +290,7 @@ class TestAsyncEvents:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.events.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             event_name="lead",
         ) as response:
             assert not response.is_closed

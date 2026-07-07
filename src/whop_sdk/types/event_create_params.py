@@ -12,8 +12,8 @@ __all__ = ["EventCreateParams", "Context", "User"]
 
 
 class EventCreateParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The company to associate with this event."""
+    account_id: Required[str]
+    """The account to associate with this event."""
 
     event_name: Required[
         Literal[
