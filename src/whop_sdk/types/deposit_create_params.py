@@ -9,28 +9,31 @@ __all__ = ["DepositCreateParams", "Destination", "DestinationUnionMember1"]
 
 
 class DepositCreateParams(TypedDict, total=False):
-    amount: Required[float]
-    """Amount to deposit."""
-
     destination: Required[Destination]
     """Destination account ID or wallet address.
 
     Object form is supported for compatibility.
     """
 
+    amount: float
+    """Amount to prefill on hosted deposit page."""
+
     metadata: Dict[str, object]
-    """Arbitrary metadata echoed in the response."""
+    """Metadata to include with the deposit response."""
 
     network: Optional[str]
-    """Optional destination network override."""
+    """Destination network override."""
 
 
 class DestinationUnionMember1(TypedDict, total=False):
     account_id: str
+    """Destination account ID."""
 
     address: str
+    """Destination wallet address."""
 
     network: str
+    """Destination wallet network."""
 
 
 Destination: TypeAlias = Union[str, DestinationUnionMember1]
