@@ -30,6 +30,7 @@ class TestAccounts:
         account = client.accounts.create(
             email="email",
             metadata={"foo": "bar"},
+            title="title",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -279,6 +280,7 @@ class TestAsyncAccounts:
         account = await async_client.accounts.create(
             email="email",
             metadata={"foo": "bar"},
+            title="title",
         )
         assert_matches_type(Account, account, path=["response"])
 

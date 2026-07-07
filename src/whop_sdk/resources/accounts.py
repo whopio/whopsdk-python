@@ -50,6 +50,7 @@ class AccountsResource(SyncAPIResource):
         *,
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -70,6 +71,9 @@ class AccountsResource(SyncAPIResource):
 
           metadata: Arbitrary key/value metadata to store on the account.
 
+          title: The display name of the account. Defaults to `metadata.external_id` or the
+              owner's email when omitted.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -84,6 +88,7 @@ class AccountsResource(SyncAPIResource):
                 {
                     "email": email,
                     "metadata": metadata,
+                    "title": title,
                 },
                 account_create_params.AccountCreateParams,
             ),
@@ -421,6 +426,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         *,
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -441,6 +447,9 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           metadata: Arbitrary key/value metadata to store on the account.
 
+          title: The display name of the account. Defaults to `metadata.external_id` or the
+              owner's email when omitted.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -455,6 +464,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                 {
                     "email": email,
                     "metadata": metadata,
+                    "title": title,
                 },
                 account_create_params.AccountCreateParams,
             ),
