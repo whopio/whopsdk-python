@@ -1,156 +1,254 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .ad_budget_type import AdBudgetType
-from .shared.currency import Currency
-from .ad_campaign_status import AdCampaignStatus
-from .ad_campaign_platform import AdCampaignPlatform
 
 __all__ = ["AdCampaign", "Issue"]
 
 
 class Issue(BaseModel):
-    """A platform-reported issue on an ad object (rejection, policy flag, etc.)."""
+    """Open issues affecting the campaign and its descendant ad groups and ads."""
 
-    created_at: datetime
-    """When the issue was first reported."""
+    id: str
+    """Unique identifier for the issue."""
 
-    error_code: Optional[str] = None
-    """Platform-specific error code."""
-
-    error_message: Optional[str] = None
-    """Full error detail from the platform."""
-
-    error_summary: str
-    """Short description of the issue."""
-
-    resolution_status: Literal["open", "resolved", "acknowledged"]
-    """Current resolution status."""
+    message: str
+    """A description of what the issue is and how it can be resolved."""
 
     resource_id: Optional[str] = None
-    """The Whop ID of the ad object this issue is on (the ad, ad group, or campaign).
+    """The ID of the campaign, ad group, or ad the issue is attached to."""
 
-    Null when the issue isn't tied to a local object.
-    """
-
-    resource_type: str
-    """The kind of ad object this issue is on: `ad`, `ad_group`, or `ad_campaign`.
-
-    Pairs with `resourceId`.
-    """
+    resource_type: Literal["ad_campaign", "ad_group", "ad"]
+    """The type of resource the issue is attached to."""
 
 
 class AdCampaign(BaseModel):
-    """An advertising campaign running on an external platform or within Whop."""
-
     id: str
-    """The unique identifier for this ad campaign."""
+    """Unique identifier for the ad campaign."""
 
-    budget: Optional[float] = None
-    """Total budget in dollars."""
+    added_to_carts: float
+    """Whop pixel-attributed add-to-cart events, last-click."""
 
-    budget_type: Optional[AdBudgetType] = None
-    """The budget type for an ad campaign or ad group."""
+    bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
+    """The bidding strategy the campaign uses."""
+
+    budget_amount: Optional[float] = None
+    """The campaign budget in USD.
+
+    Null when budget is set at the ad group level (ABO).
+    """
+
+    budget_optimization: Optional[Literal["ad_campaign", "ad_group"]] = None
+    """Which level owns the budget — the campaign (CBO) or each ad group (ABO)."""
+
+    budget_type: Optional[Literal["daily", "lifetime"]] = None
+    """Whether the budget is spent per day or over the campaign's lifetime."""
 
     click_through_rate: float
-    """Click-through rate as a fraction of impressions (clicks / impressions, 0–1)."""
+    """Clicks divided by impressions, between 0 and 1."""
 
-    clicks: int
-    """Total clicks on the campaign's ads in the stats window."""
+    clicks: float
+    """The number of clicks."""
+
+    completed_registrations: float
+    """Whop pixel-attributed complete-registration events, last-click."""
+
+    contacts: float
+    """Whop pixel-attributed contact events, last-click."""
+
+    cost_per_added_to_cart: Optional[float] = None
+    """
+    Spend divided by attributed add-to-cart events; null when they are not the goal
+    and none are attributed.
+    """
 
     cost_per_click: float
-    """Cost per click in dollars (spend / clicks). 0 when there are no clicks."""
+    """Spend divided by clicks; 0 when there are no clicks."""
+
+    cost_per_completed_registration: Optional[float] = None
+    """
+    Spend divided by attributed complete-registration events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_contact: Optional[float] = None
+    """
+    Spend divided by attributed contact events; null when contacts are not the goal
+    and none are attributed.
+    """
 
     cost_per_lead: Optional[float] = None
-    """Cost in dollars per Whop pixel-attributed lead (spend / leads).
-
-    0 when leads are tracked but none happened yet; null when leads are not a goal
-    and none were attributed.
+    """
+    Spend divided by attributed leads; null when leads are not a goal and none are
+    attributed.
     """
 
     cost_per_mille: float
-    """Cost per 1,000 impressions in dollars (spend / impressions × 1000).
-
-    0 when there are no impressions.
-    """
+    """Spend per 1,000 impressions; 0 when there are no impressions."""
 
     cost_per_purchase: Optional[float] = None
-    """Cost in dollars per Whop pixel-attributed purchase (spend / purchases).
-
-    0 when purchases are tracked but none happened yet; null when purchases are not
-    a goal and none were attributed.
+    """
+    Spend divided by attributed purchases; null when purchases are not a goal and
+    none are attributed.
     """
 
     cost_per_result: Optional[float] = None
-    """Cost in dollars per optimization result (spend / results).
-
-    0 when a result is being optimized for but none happened yet; null when nothing
-    is being optimized for.
+    """
+    Spend divided by Whop pixel-attributed results; null when nothing
+    Whop-attributable is being optimized for.
     """
 
-    created_at: datetime
-    """When the ad campaign was created."""
+    cost_per_schedule: Optional[float] = None
+    """
+    Spend divided by attributed schedule events; null when schedules are not the
+    goal and none are attributed.
+    """
+
+    cost_per_submitted_application: Optional[float] = None
+    """
+    Spend divided by attributed submit-application events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_viewed_content: Optional[float] = None
+    """
+    Spend divided by attributed view-content events; null when they are not the goal
+    and none are attributed.
+    """
+
+    created_at: str
+    """When the campaign was created, as an ISO 8601 timestamp."""
+
+    custom_conversions: float
+    """
+    Whop pixel-attributed custom (merchant-defined) conversion events, last-click,
+    across all custom event names.
+    """
+
+    delivery_status: Literal[
+        "payment_failed",
+        "all_ads_rejected",
+        "draft",
+        "paused",
+        "issues",
+        "scheduled",
+        "completed",
+        "no_ad_groups",
+        "no_ads",
+        "ad_groups_off",
+        "active",
+    ]
+    """The current delivery state, mirroring the Delivery column in the ads dashboard.
+
+    When several states apply at once, the highest-precedence one is returned.
+    """
 
     frequency: Optional[float] = None
-    """
-    Average number of times each person saw an ad (impressions / reach), as reported
-    by the platform.
-    """
+    """Platform-reported impressions divided by reach."""
 
-    impressions: int
-    """Total impressions (views) on the campaign's ads in the stats window."""
+    impressions: float
+    """The number of impressions."""
 
     issues: List[Issue]
-    """
-    Open platform issues affecting this campaign and its descendant ad groups and
-    ads, deduplicated per object. Empty when there are none.
+
+    leads: float
+    """Whop pixel-attributed leads, last-click."""
+
+    objective: Optional[Literal["awareness", "traffic", "engagement", "leads", "sales"]] = None
+    """The goal the campaign optimizes toward."""
+
+    optimization_goal: Optional[str] = None
+    """The specific event the campaign optimizes for.
+
+    If the campaign is CBO, then all ad groups will have the same optimization goal,
+    which will be returned here.
     """
 
-    leads: int
-    """Number of Whop pixel-attributed leads (last-click) in the stats window."""
-
-    platform: AdCampaignPlatform
-    """The external ad platform this campaign is running on (e.g., meta, tiktok)."""
+    platform: Literal["meta"]
+    """The ad network the campaign runs on."""
 
     purchase_value: float
-    """Total USD value of Whop pixel-attributed purchases in the stats window."""
+    """USD value of pixel-attributed purchases."""
 
-    purchases: int
-    """Number of Whop pixel-attributed purchases (last-click) in the stats window."""
+    purchases: float
+    """Whop pixel-attributed purchases, last-click."""
 
-    reach: int
-    """Unique users reached in the stats window (deduplicated by the platform)."""
+    reach: float
+    """The number of unique people who saw this."""
+
+    result_event: Optional[
+        Literal[
+            "purchase",
+            "lead",
+            "schedule",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "view_content",
+            "add_to_cart",
+            "custom",
+        ]
+    ] = None
+    """
+    The Whop pixel conversion event whose attributed count represents results — the
+    optimization goal, or the highest-volume attributed event for campaigns that
+    budget per ad group. Null when the goal isn't a Whop-attributed event.
+    """
+
+    result_event_name: Optional[str] = None
+    """
+    The merchant-defined event name when result_event is custom; null for the
+    standard events.
+    """
 
     return_on_ad_spend: float
     """
-    Return on ad spend as a ratio (purchaseValue / spend) — 2.5 means $2.50 of
-    attributed purchase value per $1 spent. 0 when there is no spend.
+    Purchase value divided by spend, both in USD (a currency-neutral ratio); 0 when
+    there is no spend.
     """
+
+    schedules: float
+    """Whop pixel-attributed schedule events, last-click."""
+
+    special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]]
 
     spend: float
-    """Amount charged in dollars in the stats window."""
+    """The amount charged, in spend_currency."""
 
-    spend_currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    spend_currency: Optional[str] = None
+    """The ISO 4217 currency code of all monetary metrics."""
 
-    status: AdCampaignStatus
-    """Current status of the campaign."""
+    status: Literal[
+        "active",
+        "paused",
+        "inactive",
+        "stale",
+        "pending_refund",
+        "payment_failed",
+        "draft",
+        "in_review",
+        "flagged",
+        "importing",
+        "imported",
+    ]
+    """The lifecycle status of the ad campaign."""
+
+    submitted_applications: float
+    """Whop pixel-attributed submit-application events, last-click."""
 
     title: str
-    """The campaign name shown in the Whop dashboard."""
+    """The title of the ad campaign."""
 
     unique_click_through_rate: Optional[float] = None
-    """
-    Unique click-through rate as a fraction of impressions (unique clicks /
-    impressions, 0–1).
-    """
+    """Unique clicks divided by impressions, between 0 and 1."""
 
-    unique_clicks: int
-    """Unique clicks (deduplicated by the platform) in the stats window."""
+    unique_clicks: float
+    """The number of unique clicks."""
 
-    updated_at: datetime
-    """When the ad campaign was last updated."""
+    updated_at: str
+    """When the campaign was last updated, as an ISO 8601 timestamp."""
+
+    viewed_contents: float
+    """Whop pixel-attributed view-content events, last-click."""
