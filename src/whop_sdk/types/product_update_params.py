@@ -19,7 +19,11 @@ class ProductUpdateParams(TypedDict, total=False):
     """Custom key-value pairs to store on the product."""
 
     product_tax_code_id: Optional[str]
-    """The unique identifier of the tax classification code."""
+    """The unique identifier of the tax classification code.
+
+    See the available
+    [product categories](https://docs.numeral.com/essentials/product-categories).
+    """
 
     title: str
     """The display name of the product."""

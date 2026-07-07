@@ -223,6 +223,8 @@ class AccountsResource(SyncAPIResource):
           other_industry_description: The description of the industry type when industry_type is other.
 
           product_tax_code_id: ID of the tax classification code applied by default to the account's products.
+              See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           require_2fa: Whether the account requires authorized users to have two-factor authentication
               enabled.
@@ -599,6 +601,8 @@ class AsyncAccountsResource(AsyncAPIResource):
           other_industry_description: The description of the industry type when industry_type is other.
 
           product_tax_code_id: ID of the tax classification code applied by default to the account's products.
+              See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           require_2fa: Whether the account requires authorized users to have two-factor authentication
               enabled.

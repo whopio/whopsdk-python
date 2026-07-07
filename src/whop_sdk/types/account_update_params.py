@@ -76,7 +76,11 @@ class AccountUpdateParams(TypedDict, total=False):
     """The description of the industry type when industry_type is other."""
 
     product_tax_code_id: Optional[str]
-    """ID of the tax classification code applied by default to the account's products."""
+    """ID of the tax classification code applied by default to the account's products.
+
+    See the available
+    [product categories](https://docs.numeral.com/essentials/product-categories).
+    """
 
     require_2fa: bool
     """

@@ -106,7 +106,8 @@ class ProductsResource(SyncAPIResource):
 
           metadata: Custom key-value pairs to store on the product.
 
-          product_tax_code_id: The unique identifier of the tax classification code.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           redirect_purchase_url: A URL to redirect the customer to after purchase.
 
@@ -214,7 +215,8 @@ class ProductsResource(SyncAPIResource):
 
           metadata: Custom key-value pairs to store on the product.
 
-          product_tax_code_id: The unique identifier of the tax classification code.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           title: The display name of the product.
 
@@ -439,7 +441,8 @@ class AsyncProductsResource(AsyncAPIResource):
 
           metadata: Custom key-value pairs to store on the product.
 
-          product_tax_code_id: The unique identifier of the tax classification code.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           redirect_purchase_url: A URL to redirect the customer to after purchase.
 
@@ -547,7 +550,8 @@ class AsyncProductsResource(AsyncAPIResource):
 
           metadata: Custom key-value pairs to store on the product.
 
-          product_tax_code_id: The unique identifier of the tax classification code.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           title: The display name of the product.
 
