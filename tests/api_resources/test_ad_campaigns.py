@@ -146,7 +146,9 @@ class TestAdCampaigns:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.update(
             id="id",
+            bid_type="minimum_cost",
             budget_amount=0,
+            budget_optimization="ad_campaign",
             ends_at="ends_at",
             starts_at="starts_at",
             status="active",
@@ -494,7 +496,9 @@ class TestAsyncAdCampaigns:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.update(
             id="id",
+            bid_type="minimum_cost",
             budget_amount=0,
+            budget_optimization="ad_campaign",
             ends_at="ends_at",
             starts_at="starts_at",
             status="active",

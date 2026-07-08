@@ -199,7 +199,9 @@ class AdCampaignsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
+        budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
         ends_at: str | Omit = omit,
         starts_at: str | Omit = omit,
         status: Literal["active"] | Omit = omit,
@@ -212,14 +214,23 @@ class AdCampaignsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Updates an ad campaign's editable fields (title, budget, schedule), and launches
-        a draft campaign by setting status to active. Objective, budget optimization,
-        budget type, special ad categories, bid type and desired cost per result are
-        fixed at creation and cannot be changed.
+        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy,
+        and — before launch — budget optimization), and launches a draft campaign by
+        setting status to active. Objective, budget type, special ad categories and
+        desired cost per result are fixed at creation and cannot be changed.
 
         Args:
+          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
+              maximum_target (bid cap). Switching to minimum_cost clears the cap amounts
+              stored on the campaign's ad groups. CBO only.
+
           budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
               per the campaign's existing budget type.
+
+          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO). Only
+              changeable before the campaign is live on Meta; switching to ad_campaign
+              requires budget_amount in the same request, and switching to ad_group clears the
+              campaign budget.
 
           ends_at: Campaign schedule end (ISO 8601). CBO only.
 
@@ -244,7 +255,9 @@ class AdCampaignsResource(SyncAPIResource):
             path_template("/ad_campaigns/{id}", id=id),
             body=maybe_transform(
                 {
+                    "bid_type": bid_type,
                     "budget_amount": budget_amount,
+                    "budget_optimization": budget_optimization,
                     "ends_at": ends_at,
                     "starts_at": starts_at,
                     "status": status,
@@ -644,7 +657,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
         budget_amount: float | Omit = omit,
+        budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
         ends_at: str | Omit = omit,
         starts_at: str | Omit = omit,
         status: Literal["active"] | Omit = omit,
@@ -657,14 +672,23 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
         """
-        Updates an ad campaign's editable fields (title, budget, schedule), and launches
-        a draft campaign by setting status to active. Objective, budget optimization,
-        budget type, special ad categories, bid type and desired cost per result are
-        fixed at creation and cannot be changed.
+        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy,
+        and — before launch — budget optimization), and launches a draft campaign by
+        setting status to active. Objective, budget type, special ad categories and
+        desired cost per result are fixed at creation and cannot be changed.
 
         Args:
+          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
+              maximum_target (bid cap). Switching to minimum_cost clears the cap amounts
+              stored on the campaign's ad groups. CBO only.
+
           budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
               per the campaign's existing budget type.
+
+          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO). Only
+              changeable before the campaign is live on Meta; switching to ad_campaign
+              requires budget_amount in the same request, and switching to ad_group clears the
+              campaign budget.
 
           ends_at: Campaign schedule end (ISO 8601). CBO only.
 
@@ -689,7 +713,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             path_template("/ad_campaigns/{id}", id=id),
             body=await async_maybe_transform(
                 {
+                    "bid_type": bid_type,
                     "budget_amount": budget_amount,
+                    "budget_optimization": budget_optimization,
                     "ends_at": ends_at,
                     "starts_at": starts_at,
                     "status": status,
