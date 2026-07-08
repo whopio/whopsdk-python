@@ -183,7 +183,7 @@ class BusinessesResource(SyncAPIResource):
     def leaderboard(
         self,
         *,
-        period: Literal["day", "month", "year", "all_time"] | Omit = omit,
+        period: Literal["day", "month", "year", "last_30_days", "all_time"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -193,12 +193,13 @@ class BusinessesResource(SyncAPIResource):
     ) -> BusinessLeaderboardResponse:
         """
         Ranks referrers by business referral earnings — all-time by default, or over the
-        current day, month, or year — and includes the caller's own standing.
+        current day, month, year, or trailing 30 days — and includes the caller's own
+        standing.
 
         Args:
           period: Time window for the rankings. `day`, `month`, and `year` count earnings since
-              the start of the current calendar day, month, or year; `all_time` ranks lifetime
-              earnings.
+              the start of the current calendar day, month, or year; `last_30_days` counts
+              earnings over the trailing 30 days; `all_time` ranks lifetime earnings.
 
           extra_headers: Send extra headers
 
@@ -370,7 +371,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
     async def leaderboard(
         self,
         *,
-        period: Literal["day", "month", "year", "all_time"] | Omit = omit,
+        period: Literal["day", "month", "year", "last_30_days", "all_time"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -380,12 +381,13 @@ class AsyncBusinessesResource(AsyncAPIResource):
     ) -> BusinessLeaderboardResponse:
         """
         Ranks referrers by business referral earnings — all-time by default, or over the
-        current day, month, or year — and includes the caller's own standing.
+        current day, month, year, or trailing 30 days — and includes the caller's own
+        standing.
 
         Args:
           period: Time window for the rankings. `day`, `month`, and `year` count earnings since
-              the start of the current calendar day, month, or year; `all_time` ranks lifetime
-              earnings.
+              the start of the current calendar day, month, or year; `last_30_days` counts
+              earnings over the trailing 30 days; `all_time` ranks lifetime earnings.
 
           extra_headers: Send extra headers
 
