@@ -66,6 +66,12 @@ class AppUpdateParams(TypedDict, total=False):
     required_scopes: Optional[List[Literal["read_user"]]]
     """The permission scopes the app will request from users when they install it."""
 
+    route: Optional[str]
+    """
+    The unique subdomain route where the app's hosted web builds are served, such as
+    'myapp' for myapp.whop.app.
+    """
+
     skills_path: Optional[str]
     """The URL path to the skills directory of the app, such as '/assets/skills/'."""
 

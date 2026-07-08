@@ -60,6 +60,7 @@ class AppsResource(SyncAPIResource):
         base_url: Optional[str] | Omit = omit,
         icon: Optional[app_create_params.Icon] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
+        route: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -91,6 +92,9 @@ class AppsResource(SyncAPIResource):
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app.
 
+          route: The unique subdomain route where the app's hosted web builds are served, such as
+              'myapp' for myapp.whop.app.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -108,6 +112,7 @@ class AppsResource(SyncAPIResource):
                     "base_url": base_url,
                     "icon": icon,
                     "redirect_uris": redirect_uris,
+                    "route": route,
                 },
                 app_create_params.AppCreateParams,
             ),
@@ -171,6 +176,7 @@ class AppsResource(SyncAPIResource):
         openapi_path: Optional[str] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
+        route: Optional[str] | Omit = omit,
         skills_path: Optional[str] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -220,6 +226,9 @@ class AppsResource(SyncAPIResource):
 
           required_scopes: The permission scopes the app will request from users when they install it.
 
+          route: The unique subdomain route where the app's hosted web builds are served, such as
+              'myapp' for myapp.whop.app.
+
           skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
 
           status: The status of an experience interface
@@ -251,6 +260,7 @@ class AppsResource(SyncAPIResource):
                     "openapi_path": openapi_path,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
+                    "route": route,
                     "skills_path": skills_path,
                     "status": status,
                 },
@@ -394,6 +404,7 @@ class AsyncAppsResource(AsyncAPIResource):
         base_url: Optional[str] | Omit = omit,
         icon: Optional[app_create_params.Icon] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
+        route: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -425,6 +436,9 @@ class AsyncAppsResource(AsyncAPIResource):
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app.
 
+          route: The unique subdomain route where the app's hosted web builds are served, such as
+              'myapp' for myapp.whop.app.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -442,6 +456,7 @@ class AsyncAppsResource(AsyncAPIResource):
                     "base_url": base_url,
                     "icon": icon,
                     "redirect_uris": redirect_uris,
+                    "route": route,
                 },
                 app_create_params.AppCreateParams,
             ),
@@ -505,6 +520,7 @@ class AsyncAppsResource(AsyncAPIResource):
         openapi_path: Optional[str] | Omit = omit,
         redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
         required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
+        route: Optional[str] | Omit = omit,
         skills_path: Optional[str] | Omit = omit,
         status: Optional[AppStatuses] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -554,6 +570,9 @@ class AsyncAppsResource(AsyncAPIResource):
 
           required_scopes: The permission scopes the app will request from users when they install it.
 
+          route: The unique subdomain route where the app's hosted web builds are served, such as
+              'myapp' for myapp.whop.app.
+
           skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
 
           status: The status of an experience interface
@@ -585,6 +604,7 @@ class AsyncAppsResource(AsyncAPIResource):
                     "openapi_path": openapi_path,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
+                    "route": route,
                     "skills_path": skills_path,
                     "status": status,
                 },
