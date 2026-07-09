@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import user_list_params, user_update_params, user_retrieve_params, user_update_me_params
@@ -55,6 +57,11 @@ class UsersResource(SyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,6 +75,22 @@ class UsersResource(SyncAPIResource):
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this
               account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: On `GET /users/me`, also compute the caller's balance history (opt-in; runs a
+              heavier query). Ignored for other users and for callers without balance-read
+              scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
 
           extra_headers: Send extra headers
 
@@ -86,7 +109,17 @@ class UsersResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_retrieve_params.UserRetrieveParams,
+                ),
             ),
             cast_to=User,
         )
@@ -329,6 +362,11 @@ class AsyncUsersResource(AsyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -342,6 +380,22 @@ class AsyncUsersResource(AsyncAPIResource):
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this
               account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: On `GET /users/me`, also compute the caller's balance history (opt-in; runs a
+              heavier query). Ignored for other users and for callers without balance-read
+              scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
 
           extra_headers: Send extra headers
 
@@ -360,7 +414,17 @@ class AsyncUsersResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_retrieve_params.UserRetrieveParams,
+                ),
             ),
             cast_to=User,
         )
