@@ -17,7 +17,7 @@ class AppBuildCreateParams(TypedDict, total=False):
 
     For iOS and Android, this should be a .zip archive containing a
     main_js_bundle.hbc file and an optional assets folder. For web, this should be a
-    JavaScript file.
+    JavaScript file or a .zip archive of the hosted site.
     """
 
     checksum: Required[str]
@@ -49,7 +49,7 @@ class AppBuildCreateParams(TypedDict, total=False):
 class Attachment(TypedDict, total=False):
     """The build file to upload.
 
-    For iOS and Android, this should be a .zip archive containing a main_js_bundle.hbc file and an optional assets folder. For web, this should be a JavaScript file.
+    For iOS and Android, this should be a .zip archive containing a main_js_bundle.hbc file and an optional assets folder. For web, this should be a JavaScript file or a .zip archive of the hosted site.
     """
 
     id: Required[str]
