@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import AppType, app_list_params, app_create_params, app_update_params
+from ..types import AppType, app_list_params, app_logs_params, app_create_params, app_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -24,6 +25,7 @@ from ..types.app_type import AppType
 from ..types.shared.app import App
 from ..types.shared.direction import Direction
 from ..types.app_list_response import AppListResponse
+from ..types.app_logs_response import AppLogsResponse
 from ..types.shared.app_statuses import AppStatuses
 from ..types.shared.app_view_type import AppViewType
 
@@ -31,6 +33,12 @@ __all__ = ["AppsResource", "AsyncAppsResource"]
 
 
 class AppsResource(SyncAPIResource):
+    """
+    An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+    Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+    """
+
     @cached_property
     def with_raw_response(self) -> AppsResourceWithRawResponse:
         """
@@ -380,8 +388,90 @@ class AppsResource(SyncAPIResource):
             model=AppListResponse,
         )
 
+    def logs(
+        self,
+        id: str,
+        *,
+        after: str | Omit = omit,
+        app_build_id: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        level: Literal["log", "debug", "info", "warn", "error"] | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AppLogsResponse:
+        """
+        Lists a hosted app's server runtime logs, most recent first: console output,
+        uncaught exceptions, and failed-request summaries captured on whop.app hosting.
+        Logs are retained for 7 days.
+
+        Args:
+          after: A cursor for fetching logs after a previous page.
+
+          app_build_id: Only return logs from this build.
+
+          before: A cursor for fetching logs before a later page.
+
+          created_after: Start of the time window as an ISO 8601 timestamp. Defaults to 7 days before
+              created_before.
+
+          created_before: End of the time window as an ISO 8601 timestamp. Defaults to now.
+
+          first: The number of log lines to return (max 500).
+
+          level: Only return console lines of this level.
+
+          query: Only return logs whose message contains this text (case-insensitive).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/apps/{id}/logs", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "app_build_id": app_build_id,
+                        "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "first": first,
+                        "level": level,
+                        "query": query,
+                    },
+                    app_logs_params.AppLogsParams,
+                ),
+            ),
+            cast_to=AppLogsResponse,
+        )
+
 
 class AsyncAppsResource(AsyncAPIResource):
+    """
+    An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+    Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
         """
@@ -731,6 +821,82 @@ class AsyncAppsResource(AsyncAPIResource):
             model=AppListResponse,
         )
 
+    async def logs(
+        self,
+        id: str,
+        *,
+        after: str | Omit = omit,
+        app_build_id: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        level: Literal["log", "debug", "info", "warn", "error"] | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AppLogsResponse:
+        """
+        Lists a hosted app's server runtime logs, most recent first: console output,
+        uncaught exceptions, and failed-request summaries captured on whop.app hosting.
+        Logs are retained for 7 days.
+
+        Args:
+          after: A cursor for fetching logs after a previous page.
+
+          app_build_id: Only return logs from this build.
+
+          before: A cursor for fetching logs before a later page.
+
+          created_after: Start of the time window as an ISO 8601 timestamp. Defaults to 7 days before
+              created_before.
+
+          created_before: End of the time window as an ISO 8601 timestamp. Defaults to now.
+
+          first: The number of log lines to return (max 500).
+
+          level: Only return console lines of this level.
+
+          query: Only return logs whose message contains this text (case-insensitive).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/apps/{id}/logs", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "after": after,
+                        "app_build_id": app_build_id,
+                        "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "first": first,
+                        "level": level,
+                        "query": query,
+                    },
+                    app_logs_params.AppLogsParams,
+                ),
+            ),
+            cast_to=AppLogsResponse,
+        )
+
 
 class AppsResourceWithRawResponse:
     def __init__(self, apps: AppsResource) -> None:
@@ -747,6 +913,9 @@ class AppsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             apps.list,
+        )
+        self.logs = to_raw_response_wrapper(
+            apps.logs,
         )
 
 
@@ -766,6 +935,9 @@ class AsyncAppsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             apps.list,
         )
+        self.logs = async_to_raw_response_wrapper(
+            apps.logs,
+        )
 
 
 class AppsResourceWithStreamingResponse:
@@ -784,6 +956,9 @@ class AppsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             apps.list,
         )
+        self.logs = to_streamed_response_wrapper(
+            apps.logs,
+        )
 
 
 class AsyncAppsResourceWithStreamingResponse:
@@ -801,4 +976,7 @@ class AsyncAppsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             apps.list,
+        )
+        self.logs = async_to_streamed_response_wrapper(
+            apps.logs,
         )

@@ -277,6 +277,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def apps(self) -> AppsResource:
+        """
+        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        """
         from .resources.apps import AppsResource
 
         return AppsResource(self)
@@ -999,6 +1004,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def apps(self) -> AsyncAppsResource:
+        """
+        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        """
         from .resources.apps import AsyncAppsResource
 
         return AsyncAppsResource(self)
@@ -1641,6 +1651,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def apps(self) -> apps.AppsResourceWithRawResponse:
+        """
+        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        """
         from .resources.apps import AppsResourceWithRawResponse
 
         return AppsResourceWithRawResponse(self._client.apps)
@@ -2163,6 +2178,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def apps(self) -> apps.AsyncAppsResourceWithRawResponse:
+        """
+        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        """
         from .resources.apps import AsyncAppsResourceWithRawResponse
 
         return AsyncAppsResourceWithRawResponse(self._client.apps)
@@ -2689,6 +2709,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def apps(self) -> apps.AppsResourceWithStreamingResponse:
+        """
+        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        """
         from .resources.apps import AppsResourceWithStreamingResponse
 
         return AppsResourceWithStreamingResponse(self._client.apps)
@@ -3215,6 +3240,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def apps(self) -> apps.AsyncAppsResourceWithStreamingResponse:
+        """
+        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+
+        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        """
         from .resources.apps import AsyncAppsResourceWithStreamingResponse
 
         return AsyncAppsResourceWithStreamingResponse(self._client.apps)

@@ -102,6 +102,7 @@ from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
 from .social_account import SocialAccount as SocialAccount
 from .app_list_params import AppListParams as AppListParams
+from .app_logs_params import AppLogsParams as AppLogsParams
 from .authorized_user import AuthorizedUser as AuthorizedUser
 from .billing_reasons import BillingReasons as BillingReasons
 from .fee_markup_type import FeeMarkupType as FeeMarkupType
@@ -117,6 +118,7 @@ from .swap_list_params import SwapListParams as SwapListParams
 from .user_list_params import UserListParams as UserListParams
 from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
+from .app_logs_response import AppLogsResponse as AppLogsResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams
 from .entry_list_params import EntryListParams as EntryListParams
 from .event_list_params import EventListParams as EventListParams

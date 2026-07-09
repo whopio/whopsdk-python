@@ -67,7 +67,7 @@ from whop_sdk.types import (
 Types:
 
 ```python
-from whop_sdk.types import AppType, AppListResponse
+from whop_sdk.types import AppType, AppListResponse, AppLogsResponse
 ```
 
 Methods:
@@ -76,6 +76,7 @@ Methods:
 - <code title="get /apps/{id}">client.apps.<a href="./src/whop_sdk/resources/apps.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/app.py">App</a></code>
 - <code title="patch /apps/{id}">client.apps.<a href="./src/whop_sdk/resources/apps.py">update</a>(id, \*\*<a href="src/whop_sdk/types/app_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app.py">App</a></code>
 - <code title="get /apps">client.apps.<a href="./src/whop_sdk/resources/apps.py">list</a>(\*\*<a href="src/whop_sdk/types/app_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/app_list_response.py">SyncCursorPage[AppListResponse]</a></code>
+- <code title="get /apps/{id}/logs">client.apps.<a href="./src/whop_sdk/resources/apps.py">logs</a>(id, \*\*<a href="src/whop_sdk/types/app_logs_params.py">params</a>) -> <a href="./src/whop_sdk/types/app_logs_response.py">AppLogsResponse</a></code>
 
 # Invoices
 
