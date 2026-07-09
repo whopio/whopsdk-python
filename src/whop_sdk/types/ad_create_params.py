@@ -10,6 +10,7 @@ from .._types import SequenceNotStr
 __all__ = [
     "AdCreateParams",
     "Creative",
+    "CreativeCrop",
     "LeadForm",
     "LeadFormCompletion",
     "LeadFormDisclaimer",
@@ -130,8 +131,28 @@ class AdCreateParams(TypedDict, total=False):
     """Query parameters appended to the destination URL, as a string-to-string map."""
 
 
+class CreativeCrop(TypedDict, total=False):
+    """
+    The saved crop window in source pixels for a format variant, so the crop editor reopens on the exact crop. Ignored for the original/uncropped asset.
+    """
+
+    height: float
+
+    width: float
+
+    x: float
+
+    y: float
+
+
 class Creative(TypedDict, total=False):
     id: str
+
+    crop: CreativeCrop
+    """
+    The saved crop window in source pixels for a format variant, so the crop editor
+    reopens on the exact crop. Ignored for the original/uncropped asset.
+    """
 
     format: Literal["square", "vertical", "horizontal"]
 

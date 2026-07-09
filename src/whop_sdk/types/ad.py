@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Ad", "AdCampaign", "AdGroup", "Creative", "Issue"]
+__all__ = ["Ad", "AdCampaign", "AdGroup", "Creative", "CreativeCrop", "Issue"]
 
 
 class AdCampaign(BaseModel):
@@ -22,6 +22,24 @@ class AdGroup(BaseModel):
     """The referenced entity's id."""
 
 
+class CreativeCrop(BaseModel):
+    """
+    The saved crop window (source-pixel coords) for this format, or null for the original asset or an uncropped format.
+    """
+
+    height: float
+    """Height of the crop window in source pixels."""
+
+    width: float
+    """Width of the crop window in source pixels."""
+
+    x: float
+    """Left edge of the crop window in source pixels."""
+
+    y: float
+    """Top edge of the crop window in source pixels."""
+
+
 class Creative(BaseModel):
     """The creatives used by this ad.
 
@@ -30,6 +48,12 @@ class Creative(BaseModel):
 
     id: str
     """The creative attachment's file id."""
+
+    crop: Optional[CreativeCrop] = None
+    """
+    The saved crop window (source-pixel coords) for this format, or null for the
+    original asset or an uncropped format.
+    """
 
     format: Optional[Literal["square", "vertical", "horizontal"]] = None
     """The placement crop this asset covers, or null for the original/uncropped asset."""

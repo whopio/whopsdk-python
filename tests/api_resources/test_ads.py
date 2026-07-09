@@ -34,6 +34,12 @@ class TestAds:
             creatives=[
                 {
                     "id": "id",
+                    "crop": {
+                        "height": 0,
+                        "width": 0,
+                        "x": 0,
+                        "y": 0,
+                    },
                     "format": "square",
                 }
             ],
@@ -196,6 +202,12 @@ class TestAds:
             creatives=[
                 {
                     "id": "id",
+                    "crop": {
+                        "height": 0,
+                        "width": 0,
+                        "x": 0,
+                        "y": 0,
+                    },
                     "format": "square",
                 }
             ],
@@ -499,6 +511,12 @@ class TestAsyncAds:
             creatives=[
                 {
                     "id": "id",
+                    "crop": {
+                        "height": 0,
+                        "width": 0,
+                        "x": 0,
+                        "y": 0,
+                    },
                     "format": "square",
                 }
             ],
@@ -661,6 +679,12 @@ class TestAsyncAds:
             creatives=[
                 {
                     "id": "id",
+                    "crop": {
+                        "height": 0,
+                        "width": 0,
+                        "x": 0,
+                        "y": 0,
+                    },
                     "format": "square",
                 }
             ],
