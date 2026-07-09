@@ -13,8 +13,10 @@ __all__ = [
     "AccountRecommendedAction",
     "AccountRequiredAction",
     "EarningsUsd",
-    "User",
-    "UserProfilePicture",
+    "FirstTierPartner",
+    "FirstTierPartnerProfilePicture",
+    "Owner",
+    "OwnerProfilePicture",
     "VolumeUsd",
 ]
 
@@ -145,15 +147,18 @@ class EarningsUsd(BaseModel):
     """Pending + completed commission, in USD."""
 
 
-class UserProfilePicture(BaseModel):
+class FirstTierPartnerProfilePicture(BaseModel):
     """The user's profile picture."""
 
     url: str
     """The user's profile picture URL."""
 
 
-class User(BaseModel):
-    """Owner of the referred account."""
+class FirstTierPartner(BaseModel):
+    """The partner who referred the business owner onto Whop (first tier).
+
+    Null if there is no active first-tier partner.
+    """
 
     id: str
     """User ID, prefixed `user_`."""
@@ -161,7 +166,30 @@ class User(BaseModel):
     name: Optional[str] = None
     """The user's display name."""
 
-    profile_picture: UserProfilePicture
+    profile_picture: FirstTierPartnerProfilePicture
+    """The user's profile picture."""
+
+    username: str
+    """The user's unique username."""
+
+
+class OwnerProfilePicture(BaseModel):
+    """The user's profile picture."""
+
+    url: str
+    """The user's profile picture URL."""
+
+
+class Owner(BaseModel):
+    """The owner of the referred business."""
+
+    id: str
+    """User ID, prefixed `user_`."""
+
+    name: Optional[str] = None
+    """The user's display name."""
+
+    profile_picture: OwnerProfilePicture
     """The user's profile picture."""
 
     username: str
@@ -194,7 +222,22 @@ class BusinessRetrieveResponse(BaseModel):
 
     earnings_usd: EarningsUsd
 
+    first_tier_partner: Optional[FirstTierPartner] = None
+    """The partner who referred the business owner onto Whop (first tier).
+
+    Null if there is no active first-tier partner.
+    """
+
+    my_partner_tier: Literal["first", "second"]
+    """
+    Which tier the caller earns on for this business: `first` (they referred the
+    owner) or `second` (they referred the first-tier partner).
+    """
+
     object: Literal["business_referral"]
+
+    owner: Optional[Owner] = None
+    """The owner of the referred business."""
 
     payout_percentage: float
     """Referrer's share of Whop gross profit, as a fraction (0.3 = 30%).
@@ -208,16 +251,7 @@ class BusinessRetrieveResponse(BaseModel):
     referral_started_at: Optional[datetime] = None
     """When the referral became active."""
 
-    second_tier: bool
-    """
-    Whether the acting user is the second-tier (grandparent) referrer, not the
-    direct referrer.
-    """
-
     status: Literal["active", "removed"]
     """Current referral status."""
-
-    user: Optional[User] = None
-    """Owner of the referred account."""
 
     volume_usd: VolumeUsd
