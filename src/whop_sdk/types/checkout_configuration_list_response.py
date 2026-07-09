@@ -77,8 +77,8 @@ class CheckoutConfigurationListResponse(BaseModel):
     company_id: str
     """Account ID, prefixed `biz_`."""
 
-    created_at: int
-    """Unix timestamp when the checkout configuration was created."""
+    created_at: str
+    """When the checkout configuration was created, as an ISO 8601 timestamp."""
 
     mode: Literal["payment", "setup"]
     """
@@ -86,8 +86,8 @@ class CheckoutConfigurationListResponse(BaseModel):
     later.
     """
 
-    updated_at: int
-    """Unix timestamp when the checkout configuration was last updated."""
+    updated_at: str
+    """When the checkout configuration was last updated, as an ISO 8601 timestamp."""
 
     affiliate_code: Optional[str] = None
     """Affiliate code applied at checkout, or `null` when none is set."""
