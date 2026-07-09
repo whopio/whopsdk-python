@@ -82,7 +82,23 @@ class RecommendedAction(BaseModel):
     Optional actions that unlock capabilities or grow the account, same shape as `required_actions`. Computed only on `retrieve` and `me`; `null` otherwise.
     """
 
-    action: Literal["apply_for_financing", "migrate_from_stripe", "accept_first_payment", "join_whop_university"]
+    action: Literal[
+        "theme_business",
+        "create_product",
+        "create_plan",
+        "verify_identity",
+        "connect_affiliate_program",
+        "create_promotion",
+        "setup_tracking_pixel",
+        "migrate_from_stripe",
+        "accept_first_payment",
+        "launch_first_ad",
+        "invite_team_member",
+        "enable_tax_collection",
+        "create_card",
+        "join_whop_university",
+        "apply_for_financing",
+    ]
     """
     The recommendation; new values may be added, so handle unknown actions
     gracefully
@@ -101,6 +117,9 @@ class RecommendedAction(BaseModel):
 
     icon_url: Optional[str] = None
     """Illustration icon URL, or `null`"""
+
+    reasoning: Optional[str] = None
+    """Why this action was recommended for this account, or `null`"""
 
     status: Literal["optional"]
     """Always optional — never blocking"""
