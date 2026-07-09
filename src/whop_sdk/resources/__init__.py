@@ -40,6 +40,14 @@ from .leads import (
     LeadsResourceWithStreamingResponse,
     AsyncLeadsResourceWithStreamingResponse,
 )
+from .media import (
+    MediaResource,
+    AsyncMediaResource,
+    MediaResourceWithRawResponse,
+    AsyncMediaResourceWithRawResponse,
+    MediaResourceWithStreamingResponse,
+    AsyncMediaResourceWithStreamingResponse,
+)
 from .plans import (
     PlansResource,
     AsyncPlansResource,
@@ -598,6 +606,12 @@ __all__ = [
     "AsyncAudiencesResourceWithRawResponse",
     "AudiencesResourceWithStreamingResponse",
     "AsyncAudiencesResourceWithStreamingResponse",
+    "MediaResource",
+    "AsyncMediaResource",
+    "MediaResourceWithRawResponse",
+    "AsyncMediaResourceWithRawResponse",
+    "MediaResourceWithStreamingResponse",
+    "AsyncMediaResourceWithStreamingResponse",
     "PeopleResource",
     "AsyncPeopleResource",
     "PeopleResourceWithRawResponse",

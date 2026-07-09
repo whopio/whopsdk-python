@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
@@ -270,6 +270,13 @@ class App(BaseModel):
     """
     The unique subdomain route where this app's hosted web builds are served, such
     as 'myapp' for myapp.whop.app. Null if the app has not claimed a route.
+    """
+
+    secrets: Optional[Dict[str, object]] = None
+    """The app's secrets as an object of string values.
+
+    Encrypted at rest and injected into the app's hosted server runtime as
+    environment bindings. Requires the 'developer:update_app' permission.
     """
 
     skills_path: Optional[str] = None

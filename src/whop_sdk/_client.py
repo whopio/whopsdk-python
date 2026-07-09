@@ -41,6 +41,7 @@ if TYPE_CHECKING:
         cards,
         files,
         leads,
+        media,
         plans,
         stats,
         swaps,
@@ -112,6 +113,7 @@ if TYPE_CHECKING:
     from .resources.cards import CardsResource, AsyncCardsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
+    from .resources.media import MediaResource, AsyncMediaResource
     from .resources.plans import PlansResource, AsyncPlansResource
     from .resources.stats import StatsResource, AsyncStatsResource
     from .resources.swaps import SwapsResource, AsyncSwapsResource
@@ -312,6 +314,12 @@ class Whop(SyncAPIClient):
         from .resources.audiences import AudiencesResource
 
         return AudiencesResource(self)
+
+    @cached_property
+    def media(self) -> MediaResource:
+        from .resources.media import MediaResource
+
+        return MediaResource(self)
 
     @cached_property
     def people(self) -> PeopleResource:
@@ -993,6 +1001,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAudiencesResource(self)
 
     @cached_property
+    def media(self) -> AsyncMediaResource:
+        from .resources.media import AsyncMediaResource
+
+        return AsyncMediaResource(self)
+
+    @cached_property
     def people(self) -> AsyncPeopleResource:
         from .resources.people import AsyncPeopleResource
 
@@ -1592,6 +1606,12 @@ class WhopWithRawResponse:
         return AudiencesResourceWithRawResponse(self._client.audiences)
 
     @cached_property
+    def media(self) -> media.MediaResourceWithRawResponse:
+        from .resources.media import MediaResourceWithRawResponse
+
+        return MediaResourceWithRawResponse(self._client.media)
+
+    @cached_property
     def people(self) -> people.PeopleResourceWithRawResponse:
         from .resources.people import PeopleResourceWithRawResponse
 
@@ -2071,6 +2091,12 @@ class AsyncWhopWithRawResponse:
         from .resources.audiences import AsyncAudiencesResourceWithRawResponse
 
         return AsyncAudiencesResourceWithRawResponse(self._client.audiences)
+
+    @cached_property
+    def media(self) -> media.AsyncMediaResourceWithRawResponse:
+        from .resources.media import AsyncMediaResourceWithRawResponse
+
+        return AsyncMediaResourceWithRawResponse(self._client.media)
 
     @cached_property
     def people(self) -> people.AsyncPeopleResourceWithRawResponse:
@@ -2556,6 +2582,12 @@ class WhopWithStreamedResponse:
         return AudiencesResourceWithStreamingResponse(self._client.audiences)
 
     @cached_property
+    def media(self) -> media.MediaResourceWithStreamingResponse:
+        from .resources.media import MediaResourceWithStreamingResponse
+
+        return MediaResourceWithStreamingResponse(self._client.media)
+
+    @cached_property
     def people(self) -> people.PeopleResourceWithStreamingResponse:
         from .resources.people import PeopleResourceWithStreamingResponse
 
@@ -3037,6 +3069,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.audiences import AsyncAudiencesResourceWithStreamingResponse
 
         return AsyncAudiencesResourceWithStreamingResponse(self._client.audiences)
+
+    @cached_property
+    def media(self) -> media.AsyncMediaResourceWithStreamingResponse:
+        from .resources.media import AsyncMediaResourceWithStreamingResponse
+
+        return AsyncMediaResourceWithStreamingResponse(self._client.media)
 
     @cached_property
     def people(self) -> people.AsyncPeopleResourceWithStreamingResponse:

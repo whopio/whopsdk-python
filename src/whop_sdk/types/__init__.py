@@ -84,6 +84,7 @@ from .withdrawal import Withdrawal as Withdrawal
 from .ad_campaign import AdCampaign as AdCampaign
 from .api_version import APIVersion as APIVersion
 from .card_brands import CardBrands as CardBrands
+from .media_asset import MediaAsset as MediaAsset
 from .lesson_types import LessonTypes as LessonTypes
 from .setup_intent import SetupIntent as SetupIntent
 from .user_balance import UserBalance as UserBalance
@@ -217,6 +218,7 @@ from .event_create_response import EventCreateResponse as EventCreateResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_update_params import InvoiceUpdateParams as InvoiceUpdateParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
+from .media_generate_params import MediaGenerateParams as MediaGenerateParams
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_list_response import MessageListResponse as MessageListResponse
 from .message_update_params import MessageUpdateParams as MessageUpdateParams

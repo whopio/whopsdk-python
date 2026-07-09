@@ -160,6 +160,19 @@ Methods:
 - <code title="get /audiences">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">list</a>(\*\*<a href="src/whop_sdk/types/audience_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">SyncCursorPage[Audience]</a></code>
 - <code title="delete /audiences/{audience_id}">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">delete</a>(audience_id) -> <a href="./src/whop_sdk/types/audience_delete_response.py">AudienceDeleteResponse</a></code>
 
+# Media
+
+Types:
+
+```python
+from whop_sdk.types import MediaAsset
+```
+
+Methods:
+
+- <code title="get /media/{id}">client.media.<a href="./src/whop_sdk/resources/media.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/media_asset.py">MediaAsset</a></code>
+- <code title="post /media/generate">client.media.<a href="./src/whop_sdk/resources/media.py">generate</a>(\*\*<a href="src/whop_sdk/types/media_generate_params.py">params</a>) -> <a href="./src/whop_sdk/types/media_asset.py">MediaAsset</a></code>
+
 # People
 
 Types:
