@@ -86,6 +86,7 @@ from .api_version import APIVersion as APIVersion
 from .card_brands import CardBrands as CardBrands
 from .lesson_types import LessonTypes as LessonTypes
 from .setup_intent import SetupIntent as SetupIntent
+from .user_balance import UserBalance as UserBalance
 from .checkout_font import CheckoutFont as CheckoutFont
 from .granularities import Granularities as Granularities
 from .refund_status import RefundStatus as RefundStatus

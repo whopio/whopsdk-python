@@ -464,7 +464,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import User, UserCheckAccessResponse
+from whop_sdk.types import User, UserBalance, UserCheckAccessResponse
 ```
 
 Methods:
