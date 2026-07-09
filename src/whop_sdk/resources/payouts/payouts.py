@@ -31,8 +31,19 @@ __all__ = ["PayoutsResource", "AsyncPayoutsResource"]
 
 
 class PayoutsResource(SyncAPIResource):
+    """
+    Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+    Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+    """
+
     @cached_property
     def methods(self) -> MethodsResource:
+        """
+        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        """
         return MethodsResource(self._client)
 
     @cached_property
@@ -126,8 +137,19 @@ class PayoutsResource(SyncAPIResource):
 
 
 class AsyncPayoutsResource(AsyncAPIResource):
+    """
+    Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+    Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+    """
+
     @cached_property
     def methods(self) -> AsyncMethodsResource:
+        """
+        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        """
         return AsyncMethodsResource(self._client)
 
     @cached_property
@@ -230,6 +252,11 @@ class PayoutsResourceWithRawResponse:
 
     @cached_property
     def methods(self) -> MethodsResourceWithRawResponse:
+        """
+        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        """
         return MethodsResourceWithRawResponse(self._payouts.methods)
 
 
@@ -243,6 +270,11 @@ class AsyncPayoutsResourceWithRawResponse:
 
     @cached_property
     def methods(self) -> AsyncMethodsResourceWithRawResponse:
+        """
+        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        """
         return AsyncMethodsResourceWithRawResponse(self._payouts.methods)
 
 
@@ -256,6 +288,11 @@ class PayoutsResourceWithStreamingResponse:
 
     @cached_property
     def methods(self) -> MethodsResourceWithStreamingResponse:
+        """
+        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        """
         return MethodsResourceWithStreamingResponse(self._payouts.methods)
 
 
@@ -269,4 +306,9 @@ class AsyncPayoutsResourceWithStreamingResponse:
 
     @cached_property
     def methods(self) -> AsyncMethodsResourceWithStreamingResponse:
+        """
+        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        """
         return AsyncMethodsResourceWithStreamingResponse(self._payouts.methods)

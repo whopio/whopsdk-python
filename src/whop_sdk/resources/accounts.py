@@ -26,6 +26,13 @@ __all__ = ["AccountsResource", "AsyncAccountsResource"]
 
 
 class AccountsResource(SyncAPIResource):
+    """An Account represents a person or business in Whop.
+
+    Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
+
+    Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+    """
+
     @cached_property
     def with_raw_response(self) -> AccountsResourceWithRawResponse:
         """
@@ -404,6 +411,13 @@ class AccountsResource(SyncAPIResource):
 
 
 class AsyncAccountsResource(AsyncAPIResource):
+    """An Account represents a person or business in Whop.
+
+    Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
+
+    Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAccountsResourceWithRawResponse:
         """

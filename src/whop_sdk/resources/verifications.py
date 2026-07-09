@@ -28,7 +28,12 @@ __all__ = ["VerificationsResource", "AsyncVerificationsResource"]
 
 
 class VerificationsResource(SyncAPIResource):
-    """Verifications"""
+    """A Verification represents an identity review for a person or business.
+
+    Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+    Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+    """
 
     @cached_property
     def with_raw_response(self) -> VerificationsResourceWithRawResponse:
@@ -313,7 +318,12 @@ class VerificationsResource(SyncAPIResource):
 
 
 class AsyncVerificationsResource(AsyncAPIResource):
-    """Verifications"""
+    """A Verification represents an identity review for a person or business.
+
+    Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+    Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncVerificationsResourceWithRawResponse:

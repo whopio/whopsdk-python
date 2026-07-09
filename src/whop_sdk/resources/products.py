@@ -28,7 +28,12 @@ __all__ = ["ProductsResource", "AsyncProductsResource"]
 
 
 class ProductsResource(SyncAPIResource):
-    """Products"""
+    """A Product is a digital good or service sold on Whop.
+
+    Products may contain plans for pricing and/or experiences for content delivery.
+
+    Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+    """
 
     @cached_property
     def with_raw_response(self) -> ProductsResourceWithRawResponse:
@@ -373,7 +378,12 @@ class ProductsResource(SyncAPIResource):
 
 
 class AsyncProductsResource(AsyncAPIResource):
-    """Products"""
+    """A Product is a digital good or service sold on Whop.
+
+    Products may contain plans for pricing and/or experiences for content delivery.
+
+    Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:

@@ -25,6 +25,12 @@ __all__ = ["FinancialActivityResource", "AsyncFinancialActivityResource"]
 
 
 class FinancialActivityResource(SyncAPIResource):
+    """
+    A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+    Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+    """
+
     @cached_property
     def with_raw_response(self) -> FinancialActivityResourceWithRawResponse:
         """
@@ -133,6 +139,12 @@ class FinancialActivityResource(SyncAPIResource):
 
 
 class AsyncFinancialActivityResource(AsyncAPIResource):
+    """
+    A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+    Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncFinancialActivityResourceWithRawResponse:
         """

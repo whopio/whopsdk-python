@@ -32,6 +32,13 @@ __all__ = ["AdCampaignsResource", "AsyncAdCampaignsResource"]
 
 
 class AdCampaignsResource(SyncAPIResource):
+    """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+    It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+    Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+    """
+
     @cached_property
     def with_raw_response(self) -> AdCampaignsResourceWithRawResponse:
         """
@@ -490,6 +497,13 @@ class AdCampaignsResource(SyncAPIResource):
 
 
 class AsyncAdCampaignsResource(AsyncAPIResource):
+    """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+    It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+    Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAdCampaignsResourceWithRawResponse:
         """

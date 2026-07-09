@@ -27,8 +27,6 @@ __all__ = ["AdReportsResource", "AsyncAdReportsResource"]
 
 
 class AdReportsResource(SyncAPIResource):
-    """Ad reports"""
-
     @cached_property
     def with_raw_response(self) -> AdReportsResourceWithRawResponse:
         """
@@ -139,8 +137,6 @@ class AdReportsResource(SyncAPIResource):
 
 
 class AsyncAdReportsResource(AsyncAPIResource):
-    """Ad reports"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAdReportsResourceWithRawResponse:
         """

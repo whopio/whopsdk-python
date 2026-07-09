@@ -28,6 +28,13 @@ __all__ = ["CheckoutConfigurationsResource", "AsyncCheckoutConfigurationsResourc
 
 
 class CheckoutConfigurationsResource(SyncAPIResource):
+    """A Checkout Configuration is a reusable checkout link owned by an account.
+
+    In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+    Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+    """
+
     @cached_property
     def with_raw_response(self) -> CheckoutConfigurationsResourceWithRawResponse:
         """
@@ -268,6 +275,13 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
 
 class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
+    """A Checkout Configuration is a reusable checkout link owned by an account.
+
+    In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+    Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncCheckoutConfigurationsResourceWithRawResponse:
         """

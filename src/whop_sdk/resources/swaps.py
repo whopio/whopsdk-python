@@ -27,6 +27,12 @@ __all__ = ["SwapsResource", "AsyncSwapsResource"]
 
 
 class SwapsResource(SyncAPIResource):
+    """
+    Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+    Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+    """
+
     @cached_property
     def with_raw_response(self) -> SwapsResourceWithRawResponse:
         """
@@ -261,6 +267,12 @@ class SwapsResource(SyncAPIResource):
 
 
 class AsyncSwapsResource(AsyncAPIResource):
+    """
+    Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+    Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncSwapsResourceWithRawResponse:
         """

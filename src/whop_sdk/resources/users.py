@@ -24,6 +24,13 @@ __all__ = ["UsersResource", "AsyncUsersResource"]
 
 
 class UsersResource(SyncAPIResource):
+    """A User represents a person on Whop.
+
+    Users have a public profile and can buy products, join accounts, and access experiences.
+
+    Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+    """
+
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
         """
@@ -291,6 +298,13 @@ class UsersResource(SyncAPIResource):
 
 
 class AsyncUsersResource(AsyncAPIResource):
+    """A User represents a person on Whop.
+
+    Users have a public profile and can buy products, join accounts, and access experiences.
+
+    Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
         """

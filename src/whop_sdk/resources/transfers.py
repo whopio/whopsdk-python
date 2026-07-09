@@ -29,6 +29,13 @@ __all__ = ["TransfersResource", "AsyncTransfersResource"]
 
 
 class TransfersResource(SyncAPIResource):
+    """Transfers move value between identities on Whop.
+
+    They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+    Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+    """
+
     @cached_property
     def with_raw_response(self) -> TransfersResourceWithRawResponse:
         """
@@ -253,6 +260,13 @@ class TransfersResource(SyncAPIResource):
 
 
 class AsyncTransfersResource(AsyncAPIResource):
+    """Transfers move value between identities on Whop.
+
+    They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+    Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncTransfersResourceWithRawResponse:
         """

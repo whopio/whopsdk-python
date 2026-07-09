@@ -31,8 +31,6 @@ __all__ = ["BountiesResource", "AsyncBountiesResource"]
 
 
 class BountiesResource(SyncAPIResource):
-    """Bounties"""
-
     @cached_property
     def with_raw_response(self) -> BountiesResourceWithRawResponse:
         """
@@ -268,8 +266,6 @@ class BountiesResource(SyncAPIResource):
 
 
 class AsyncBountiesResource(AsyncAPIResource):
-    """Bounties"""
-
     @cached_property
     def with_raw_response(self) -> AsyncBountiesResourceWithRawResponse:
         """

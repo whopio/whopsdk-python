@@ -27,6 +27,12 @@ __all__ = ["CardsResource", "AsyncCardsResource"]
 
 
 class CardsResource(SyncAPIResource):
+    """
+    Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+    Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+    """
+
     @cached_property
     def with_raw_response(self) -> CardsResourceWithRawResponse:
         """
@@ -314,6 +320,12 @@ class CardsResource(SyncAPIResource):
 
 
 class AsyncCardsResource(AsyncAPIResource):
+    """
+    Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+    Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncCardsResourceWithRawResponse:
         """

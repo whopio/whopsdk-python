@@ -24,6 +24,13 @@ __all__ = ["AudiencesResource", "AsyncAudiencesResource"]
 
 
 class AudiencesResource(SyncAPIResource):
+    """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+    Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+    Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+    """
+
     @cached_property
     def with_raw_response(self) -> AudiencesResourceWithRawResponse:
         """
@@ -188,6 +195,13 @@ class AudiencesResource(SyncAPIResource):
 
 
 class AsyncAudiencesResource(AsyncAPIResource):
+    """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+    Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+    Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAudiencesResourceWithRawResponse:
         """

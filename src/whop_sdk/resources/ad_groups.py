@@ -27,6 +27,12 @@ __all__ = ["AdGroupsResource", "AsyncAdGroupsResource"]
 
 
 class AdGroupsResource(SyncAPIResource):
+    """
+    An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery.
+    """
+
     @cached_property
     def with_raw_response(self) -> AdGroupsResourceWithRawResponse:
         """
@@ -640,6 +646,12 @@ class AdGroupsResource(SyncAPIResource):
 
 
 class AsyncAdGroupsResource(AsyncAPIResource):
+    """
+    An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAdGroupsResourceWithRawResponse:
         """

@@ -25,6 +25,12 @@ __all__ = ["DepositsResource", "AsyncDepositsResource"]
 
 
 class DepositsResource(SyncAPIResource):
+    """
+    Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+    Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+    """
+
     @cached_property
     def with_raw_response(self) -> DepositsResourceWithRawResponse:
         """
@@ -140,6 +146,12 @@ class DepositsResource(SyncAPIResource):
 
 
 class AsyncDepositsResource(AsyncAPIResource):
+    """
+    Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+    Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncDepositsResourceWithRawResponse:
         """

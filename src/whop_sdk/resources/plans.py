@@ -29,6 +29,13 @@ __all__ = ["PlansResource", "AsyncPlansResource"]
 
 
 class PlansResource(SyncAPIResource):
+    """A Plan defines how customers buy a product.
+
+    It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+    Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+    """
+
     @cached_property
     def with_raw_response(self) -> PlansResourceWithRawResponse:
         """
@@ -551,6 +558,13 @@ class PlansResource(SyncAPIResource):
 
 
 class AsyncPlansResource(AsyncAPIResource):
+    """A Plan defines how customers buy a product.
+
+    It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+    Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncPlansResourceWithRawResponse:
         """

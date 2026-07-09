@@ -35,8 +35,19 @@ __all__ = ["BusinessesResource", "AsyncBusinessesResource"]
 
 
 class BusinessesResource(SyncAPIResource):
+    """
+    Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+    Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+    """
+
     @cached_property
     def earnings(self) -> EarningsResource:
+        """
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+        Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+        """
         return EarningsResource(self._client)
 
     @cached_property
@@ -227,8 +238,19 @@ class BusinessesResource(SyncAPIResource):
 
 
 class AsyncBusinessesResource(AsyncAPIResource):
+    """
+    Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+    Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+    """
+
     @cached_property
     def earnings(self) -> AsyncEarningsResource:
+        """
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+        Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+        """
         return AsyncEarningsResource(self._client)
 
     @cached_property
@@ -436,6 +458,11 @@ class BusinessesResourceWithRawResponse:
 
     @cached_property
     def earnings(self) -> EarningsResourceWithRawResponse:
+        """
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+        Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+        """
         return EarningsResourceWithRawResponse(self._businesses.earnings)
 
 
@@ -455,6 +482,11 @@ class AsyncBusinessesResourceWithRawResponse:
 
     @cached_property
     def earnings(self) -> AsyncEarningsResourceWithRawResponse:
+        """
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+        Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+        """
         return AsyncEarningsResourceWithRawResponse(self._businesses.earnings)
 
 
@@ -474,6 +506,11 @@ class BusinessesResourceWithStreamingResponse:
 
     @cached_property
     def earnings(self) -> EarningsResourceWithStreamingResponse:
+        """
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+        Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+        """
         return EarningsResourceWithStreamingResponse(self._businesses.earnings)
 
 
@@ -493,4 +530,9 @@ class AsyncBusinessesResourceWithStreamingResponse:
 
     @cached_property
     def earnings(self) -> AsyncEarningsResourceWithStreamingResponse:
+        """
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+
+        Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+        """
         return AsyncEarningsResourceWithStreamingResponse(self._businesses.earnings)

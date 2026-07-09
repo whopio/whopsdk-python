@@ -25,6 +25,12 @@ __all__ = ["MethodsResource", "AsyncMethodsResource"]
 
 
 class MethodsResource(SyncAPIResource):
+    """
+    Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+    Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+    """
+
     @cached_property
     def with_raw_response(self) -> MethodsResourceWithRawResponse:
         """
@@ -136,6 +142,12 @@ class MethodsResource(SyncAPIResource):
 
 
 class AsyncMethodsResource(AsyncAPIResource):
+    """
+    Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+
+    Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncMethodsResourceWithRawResponse:
         """
