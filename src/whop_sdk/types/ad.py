@@ -217,6 +217,7 @@ class Ad(BaseModel):
     delivery_status: Literal[
         "rejected",
         "in_review",
+        "draft",
         "campaign_paused",
         "ad_group_paused",
         "paused",

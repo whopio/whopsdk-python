@@ -184,6 +184,7 @@ class AdGroup(BaseModel):
     delivery_status: Literal[
         "all_ads_rejected",
         "rejected",
+        "draft",
         "no_ads",
         "campaign_paused",
         "paused",
