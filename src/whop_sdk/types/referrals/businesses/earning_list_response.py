@@ -122,6 +122,9 @@ class EarningListResponse(BaseModel):
     resource: Optional[Resource] = None
     """The resource that generated the affiliate earning."""
 
+    second_tier: bool
+    """Whether this earning is a second-tier (grandparent) commission."""
+
     status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"]
     """Current status of the earning."""
 

@@ -88,13 +88,22 @@ class BusinessListResponse(BaseModel):
     object: Literal["business_referral"]
 
     payout_percentage: float
-    """Referrer's share of Whop gross profit, as a fraction (0.3 = 30%)."""
+    """Referrer's share of Whop gross profit, as a fraction (0.3 = 30%).
+
+    Second-tier referrals earn a flat 0.1.
+    """
 
     referral_expires_at: Optional[datetime] = None
     """When the referral expires."""
 
     referral_started_at: Optional[datetime] = None
     """When the referral became active."""
+
+    second_tier: bool
+    """
+    Whether the acting user is the second-tier (grandparent) referrer, not the
+    direct referrer.
+    """
 
     status: Literal["active", "removed"]
     """Current referral status."""

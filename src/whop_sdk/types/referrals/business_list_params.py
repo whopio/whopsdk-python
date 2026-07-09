@@ -42,3 +42,6 @@ class BusinessListParams(TypedDict, total=False):
 
     status: Literal["active", "removed"]
     """Filter by referral status."""
+
+    tier: Literal["first", "second"]
+    """Filter to only first-tier referrals or only second-tier referrals."""

@@ -112,6 +112,7 @@ class BusinessesResource(SyncAPIResource):
         ]
         | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
+        tier: Literal["first", "second"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -145,6 +146,8 @@ class BusinessesResource(SyncAPIResource):
 
           status: Filter by referral status.
 
+          tier: Filter to only first-tier referrals or only second-tier referrals.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -173,6 +176,7 @@ class BusinessesResource(SyncAPIResource):
                         "last": last,
                         "order": order,
                         "status": status,
+                        "tier": tier,
                     },
                     business_list_params.BusinessListParams,
                 ),
@@ -300,6 +304,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
         ]
         | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
+        tier: Literal["first", "second"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -333,6 +338,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
 
           status: Filter by referral status.
 
+          tier: Filter to only first-tier referrals or only second-tier referrals.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -361,6 +368,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
                         "last": last,
                         "order": order,
                         "status": status,
+                        "tier": tier,
                     },
                     business_list_params.BusinessListParams,
                 ),
