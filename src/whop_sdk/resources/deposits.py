@@ -61,7 +61,8 @@ class DepositsResource(SyncAPIResource):
         """
         Resolves a deposit destination and returns the on-chain addresses that can fund
         it. No authentication is required; any business can be resolved by its account
-        ID.
+        ID. A caller authenticated as a user can additionally resolve their own user
+        account.
 
         Args:
           destination: Destination account ID or wallet address. Object form is supported for
@@ -175,7 +176,8 @@ class AsyncDepositsResource(AsyncAPIResource):
         """
         Resolves a deposit destination and returns the on-chain addresses that can fund
         it. No authentication is required; any business can be resolved by its account
-        ID.
+        ID. A caller authenticated as a user can additionally resolve their own user
+        account.
 
         Args:
           destination: Destination account ID or wallet address. Object form is supported for
