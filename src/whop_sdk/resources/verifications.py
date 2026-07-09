@@ -21,7 +21,6 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.verification_list_response import VerificationListResponse
 from ..types.verification_create_response import VerificationCreateResponse
-from ..types.verification_delete_response import VerificationDeleteResponse
 from ..types.verification_update_response import VerificationUpdateResponse
 from ..types.verification_retrieve_response import VerificationRetrieveResponse
 
@@ -312,40 +311,6 @@ class VerificationsResource(SyncAPIResource):
             cast_to=VerificationListResponse,
         )
 
-    def delete(
-        self,
-        verification_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> VerificationDeleteResponse:
-        """
-        Unlinks a verification profile from the caller's account or user; provider
-        verification records are not erased.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not verification_id:
-            raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
-        return self._delete(
-            path_template("/verifications/{verification_id}", verification_id=verification_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=VerificationDeleteResponse,
-        )
-
 
 class AsyncVerificationsResource(AsyncAPIResource):
     """Verifications"""
@@ -633,40 +598,6 @@ class AsyncVerificationsResource(AsyncAPIResource):
             cast_to=VerificationListResponse,
         )
 
-    async def delete(
-        self,
-        verification_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> VerificationDeleteResponse:
-        """
-        Unlinks a verification profile from the caller's account or user; provider
-        verification records are not erased.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not verification_id:
-            raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
-        return await self._delete(
-            path_template("/verifications/{verification_id}", verification_id=verification_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=VerificationDeleteResponse,
-        )
-
 
 class VerificationsResourceWithRawResponse:
     def __init__(self, verifications: VerificationsResource) -> None:
@@ -683,9 +614,6 @@ class VerificationsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             verifications.list,
-        )
-        self.delete = to_raw_response_wrapper(
-            verifications.delete,
         )
 
 
@@ -705,9 +633,6 @@ class AsyncVerificationsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             verifications.list,
         )
-        self.delete = async_to_raw_response_wrapper(
-            verifications.delete,
-        )
 
 
 class VerificationsResourceWithStreamingResponse:
@@ -726,9 +651,6 @@ class VerificationsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             verifications.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            verifications.delete,
-        )
 
 
 class AsyncVerificationsResourceWithStreamingResponse:
@@ -746,7 +668,4 @@ class AsyncVerificationsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             verifications.list,
-        )
-        self.delete = async_to_streamed_response_wrapper(
-            verifications.delete,
         )

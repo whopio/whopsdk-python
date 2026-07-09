@@ -1030,7 +1030,6 @@ from whop_sdk.types import (
     VerificationRetrieveResponse,
     VerificationUpdateResponse,
     VerificationListResponse,
-    VerificationDeleteResponse,
 )
 ```
 
@@ -1040,7 +1039,6 @@ Methods:
 - <code title="get /verifications/{verification_id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">retrieve</a>(verification_id) -> <a href="./src/whop_sdk/types/verification_retrieve_response.py">VerificationRetrieveResponse</a></code>
 - <code title="patch /verifications/{verification_id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">update</a>(verification_id, \*\*<a href="src/whop_sdk/types/verification_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/verification_update_response.py">VerificationUpdateResponse</a></code>
 - <code title="get /verifications">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">list</a>(\*\*<a href="src/whop_sdk/types/verification_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/verification_list_response.py">VerificationListResponse</a></code>
-- <code title="delete /verifications/{verification_id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">delete</a>(verification_id) -> <a href="./src/whop_sdk/types/verification_delete_response.py">VerificationDeleteResponse</a></code>
 
 # Leads
 

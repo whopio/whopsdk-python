@@ -78,13 +78,6 @@ class VerificationUpdateResponse(BaseModel):
     id: Optional[str] = None
     """Verification profile ID, prefixed `idpf_`."""
 
-    access_token: Optional[str] = None
-    """
-    Token for embedding the verification session directly in your own UI, as an
-    alternative to redirecting to `session_url`. Follows the same presence rules as
-    `session_url`.
-    """
-
     address: Optional[object] = None
     """
     Personal or business address on the verification profile, with `line1`, `line2`,
