@@ -227,6 +227,13 @@ class Ad(BaseModel):
     privacy_policy, an optional completion screen, and phone_verification.
     """
 
+    lead_form_id: Optional[str] = None
+    """The Meta lead form the ad uses.
+
+    Set when the ad references an existing form via lead_form_id, or once a form
+    built from lead_form has been created on Meta at launch.
+    """
+
     leads: float
     """Whop pixel-attributed leads, last-click."""
 

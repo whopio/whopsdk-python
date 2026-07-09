@@ -88,6 +88,7 @@ class TestAds:
                     }
                 ],
             },
+            lead_form_id="lead_form_id",
             messaging_config={
                 "keyword": "keyword",
                 "message": "message",
@@ -249,6 +250,7 @@ class TestAds:
                     }
                 ],
             },
+            lead_form_id="lead_form_id",
             messaging_config={
                 "keyword": "keyword",
                 "message": "message",
@@ -551,6 +553,7 @@ class TestAsyncAds:
                     }
                 ],
             },
+            lead_form_id="lead_form_id",
             messaging_config={
                 "keyword": "keyword",
                 "message": "message",
@@ -712,6 +715,7 @@ class TestAsyncAds:
                     }
                 ],
             },
+            lead_form_id="lead_form_id",
             messaging_config={
                 "keyword": "keyword",
                 "message": "message",

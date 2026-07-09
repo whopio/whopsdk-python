@@ -86,6 +86,7 @@ class AdsResource(SyncAPIResource):
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
         lead_form: ad_create_params.LeadForm | Omit = omit,
+        lead_form_id: str | Omit = omit,
         messaging_config: ad_create_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
@@ -123,7 +124,13 @@ class AdsResource(SyncAPIResource):
 
           lead_form: Instant lead form for the ad. Only allowed when the ad group's
               conversion_location is an instant-form destination (instant_forms,
-              instant_forms_and_messenger, website_and_instant_forms).
+              instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
+              lead_form_id.
+
+          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+              from a form already on the ad's Facebook page. Only allowed when the ad group's
+              conversion_location is an instant-form destination. Mutually exclusive with
+              lead_form.
 
           messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
               (keyword).
@@ -166,6 +173,7 @@ class AdsResource(SyncAPIResource):
                     "descriptions": descriptions,
                     "headlines": headlines,
                     "lead_form": lead_form,
+                    "lead_form_id": lead_form_id,
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,
@@ -270,6 +278,7 @@ class AdsResource(SyncAPIResource):
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
         lead_form: ad_update_params.LeadForm | Omit = omit,
+        lead_form_id: str | Omit = omit,
         messaging_config: ad_update_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
@@ -302,7 +311,13 @@ class AdsResource(SyncAPIResource):
 
           lead_form: Instant lead form for the ad. Only allowed when the ad group's
               conversion_location is an instant-form destination (instant_forms,
-              instant_forms_and_messenger, website_and_instant_forms).
+              instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
+              lead_form_id.
+
+          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+              from a form already on the ad's Facebook page. Only allowed when the ad group's
+              conversion_location is an instant-form destination. Mutually exclusive with
+              lead_form. Replaces a stored lead_form.
 
           messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
               (keyword).
@@ -345,6 +360,7 @@ class AdsResource(SyncAPIResource):
                     "descriptions": descriptions,
                     "headlines": headlines,
                     "lead_form": lead_form,
+                    "lead_form_id": lead_form_id,
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,
@@ -648,6 +664,7 @@ class AsyncAdsResource(AsyncAPIResource):
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
         lead_form: ad_create_params.LeadForm | Omit = omit,
+        lead_form_id: str | Omit = omit,
         messaging_config: ad_create_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
@@ -685,7 +702,13 @@ class AsyncAdsResource(AsyncAPIResource):
 
           lead_form: Instant lead form for the ad. Only allowed when the ad group's
               conversion_location is an instant-form destination (instant_forms,
-              instant_forms_and_messenger, website_and_instant_forms).
+              instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
+              lead_form_id.
+
+          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+              from a form already on the ad's Facebook page. Only allowed when the ad group's
+              conversion_location is an instant-form destination. Mutually exclusive with
+              lead_form.
 
           messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
               (keyword).
@@ -728,6 +751,7 @@ class AsyncAdsResource(AsyncAPIResource):
                     "descriptions": descriptions,
                     "headlines": headlines,
                     "lead_form": lead_form,
+                    "lead_form_id": lead_form_id,
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,
@@ -832,6 +856,7 @@ class AsyncAdsResource(AsyncAPIResource):
         descriptions: SequenceNotStr[str] | Omit = omit,
         headlines: SequenceNotStr[str] | Omit = omit,
         lead_form: ad_update_params.LeadForm | Omit = omit,
+        lead_form_id: str | Omit = omit,
         messaging_config: ad_update_params.MessagingConfig | Omit = omit,
         multi_advertiser_ads: bool | Omit = omit,
         post_id: str | Omit = omit,
@@ -864,7 +889,13 @@ class AsyncAdsResource(AsyncAPIResource):
 
           lead_form: Instant lead form for the ad. Only allowed when the ad group's
               conversion_location is an instant-form destination (instant_forms,
-              instant_forms_and_messenger, website_and_instant_forms).
+              instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
+              lead_form_id.
+
+          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+              from a form already on the ad's Facebook page. Only allowed when the ad group's
+              conversion_location is an instant-form destination. Mutually exclusive with
+              lead_form. Replaces a stored lead_form.
 
           messaging_config: Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt
               (keyword).
@@ -907,6 +938,7 @@ class AsyncAdsResource(AsyncAPIResource):
                     "descriptions": descriptions,
                     "headlines": headlines,
                     "lead_form": lead_form,
+                    "lead_form_id": lead_form_id,
                     "messaging_config": messaging_config,
                     "multi_advertiser_ads": multi_advertiser_ads,
                     "post_id": post_id,

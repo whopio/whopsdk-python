@@ -69,7 +69,15 @@ class AdUpdateParams(TypedDict, total=False):
 
     Only allowed when the ad group's conversion_location is an instant-form
     destination (instant_forms, instant_forms_and_messenger,
-    website_and_instant_forms).
+    website_and_instant_forms). Mutually exclusive with lead_form_id.
+    """
+
+    lead_form_id: str
+    """
+    Use an existing Meta instant form instead of creating one — the form's Meta id,
+    from a form already on the ad's Facebook page. Only allowed when the ad group's
+    conversion_location is an instant-form destination. Mutually exclusive with
+    lead_form. Replaces a stored lead_form.
     """
 
     messaging_config: MessagingConfig
@@ -219,7 +227,7 @@ class LeadFormQuestion(TypedDict, total=False):
 class LeadForm(TypedDict, total=False):
     """Instant lead form for the ad.
 
-    Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms).
+    Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
     """
 
     completion: LeadFormCompletion
