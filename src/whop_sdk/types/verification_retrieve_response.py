@@ -88,7 +88,11 @@ class VerificationRetrieveResponse(BaseModel):
     """Legal business name on a business verification."""
 
     business_structure: Optional[str] = None
-    """Business entity type, such as `llc` or `corporation`."""
+    """
+    Legal entity structure of the business, such as `private_corporation` or
+    `sole_proprietorship`. Supported values vary by country of incorporation — see
+    [Business structures](/developer/verification/business-structures).
+    """
 
     country: Optional[str] = None
     """ISO 3166-1 alpha-2 country code for the individual or business being verified."""

@@ -90,7 +90,9 @@ class VerificationsResource(SyncAPIResource):
 
           business_name: Legal business name to prefill for a business verification.
 
-          business_structure: Business entity type, such as `llc` or `corporation`.
+          business_structure: Legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
 
           business_website: Business website URL used during verification. Whop store pages are not
               accepted.
@@ -215,7 +217,9 @@ class VerificationsResource(SyncAPIResource):
 
           business_name: Updated legal business name for a business verification.
 
-          business_structure: Updated business entity type, such as `llc` or `corporation`.
+          business_structure: Updated legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
 
           country: Updated ISO 3166-1 alpha-2 country code.
 
@@ -380,7 +384,9 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           business_name: Legal business name to prefill for a business verification.
 
-          business_structure: Business entity type, such as `llc` or `corporation`.
+          business_structure: Legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
 
           business_website: Business website URL used during verification. Whop store pages are not
               accepted.
@@ -507,7 +513,9 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           business_name: Updated legal business name for a business verification.
 
-          business_structure: Updated business entity type, such as `llc` or `corporation`.
+          business_structure: Updated legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
 
           country: Updated ISO 3166-1 alpha-2 country code.
 

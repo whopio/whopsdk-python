@@ -23,7 +23,11 @@ class VerificationCreateParams(TypedDict, total=False):
     """Legal business name to prefill for a business verification."""
 
     business_structure: str
-    """Business entity type, such as `llc` or `corporation`."""
+    """
+    Legal entity structure of the business, such as `private_corporation` or
+    `sole_proprietorship`. Supported values vary by country of incorporation — see
+    [Business structures](/developer/verification/business-structures).
+    """
 
     business_website: str
     """Business website URL used during verification.

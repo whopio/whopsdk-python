@@ -16,7 +16,11 @@ class VerificationUpdateParams(TypedDict, total=False):
     """Updated legal business name for a business verification."""
 
     business_structure: str
-    """Updated business entity type, such as `llc` or `corporation`."""
+    """
+    Updated legal entity structure of the business, such as `private_corporation` or
+    `sole_proprietorship`. Supported values vary by country of incorporation — see
+    [Business structures](/developer/verification/business-structures).
+    """
 
     country: str
     """Updated ISO 3166-1 alpha-2 country code."""
