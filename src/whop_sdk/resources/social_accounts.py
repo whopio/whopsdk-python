@@ -35,6 +35,12 @@ __all__ = ["SocialAccountsResource", "AsyncSocialAccountsResource"]
 
 
 class SocialAccountsResource(SyncAPIResource):
+    """
+    A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+    Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+    """
+
     @cached_property
     def with_raw_response(self) -> SocialAccountsResourceWithRawResponse:
         """
@@ -67,11 +73,7 @@ class SocialAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccount:
         """
-        Provisions a Whop-managed Facebook page for a business — using the business's
-        name, logo, and banner — and returns the linked social account. Idempotent: a
-        business that already has a Whop-managed page gets that same account back.
-        Authorized against the account given by account*id (a biz* identifier); an
-        account-scoped API key may omit it to default to its own account.
+        Creates or returns a Whop-managed Facebook page for an account.
 
         Args:
           platform: The platform to create the social account on.
@@ -123,11 +125,8 @@ class SocialAccountsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[SocialAccount]:
-        """Lists the social accounts linked to an account or user.
-
-        The owner is passed as
-        exactly one of account*id (a biz* identifier) or user*id (a user* identifier);
-        an account-scoped API key defaults to its own account when neither is given.
+        """
+        Lists the social accounts linked to an account or user.
 
         Args:
           account_id: The Account that the social accounts are connected to. Provide either this or
@@ -204,8 +203,8 @@ class SocialAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountDeleteResponse:
         """
-        Disconnects a social account from an account or user by discarding the link
-        record. The underlying social account record is retained.
+        Disconnects a social account from an account or user without deleting the
+        underlying platform account.
 
         Args:
           account_id: The Account that the social account is connected to. Provide either this or
@@ -257,21 +256,20 @@ class SocialAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountConnectResponse:
         """
-        Starts an OAuth connection flow for a social account and returns an
-        authorize*url to redirect the user to. advertise is required and gated on
-        ad_campaign:create so advertiser roles can connect. The connect is authorized
-        against the account given by account_id (a biz* identifier); an account-scoped
-        API key may omit it to default to its own account.
+        Starts an OAuth connection flow and returns an authorize_url where the user can
+        connect a social account.
 
         Args:
-          platform: The platform to connect the social account on.
+          platform: The platform to connect the social account on. Today, the supported option is
+              `meta_business`.
 
           account_id: The Account (biz\\__ identifier) to connect the social account for. An
               account-scoped API key may omit this to default to its own account.
 
           redirect_url: The Whop URL to redirect the user to after they finish connecting.
 
-          scopes: Capabilities for the connected social account. `advertise` is required.
+          scopes: Capabilities to grant for the connected social account. Use `advertise` when
+              connecting a Meta Business account for ads.
 
           extra_headers: Send extra headers
 
@@ -313,11 +311,8 @@ class SocialAccountsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountPostsResponse:
-        """Lists the existing posts of a connected social account.
-
-        Supported for Facebook
-        pages and Instagram accounts. Pass post*id to return only that single post. The
-        owning account is passed as account_id (a biz* identifier).
+        """
+        Lists the existing posts of a connected Facebook page or Instagram account.
 
         Args:
           account_id: The Account (a biz\\__ identifier) the social account is connected to.
@@ -360,6 +355,12 @@ class SocialAccountsResource(SyncAPIResource):
 
 
 class AsyncSocialAccountsResource(AsyncAPIResource):
+    """
+    A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+    Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncSocialAccountsResourceWithRawResponse:
         """
@@ -392,11 +393,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccount:
         """
-        Provisions a Whop-managed Facebook page for a business — using the business's
-        name, logo, and banner — and returns the linked social account. Idempotent: a
-        business that already has a Whop-managed page gets that same account back.
-        Authorized against the account given by account*id (a biz* identifier); an
-        account-scoped API key may omit it to default to its own account.
+        Creates or returns a Whop-managed Facebook page for an account.
 
         Args:
           platform: The platform to create the social account on.
@@ -448,11 +445,8 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[SocialAccount, AsyncCursorPage[SocialAccount]]:
-        """Lists the social accounts linked to an account or user.
-
-        The owner is passed as
-        exactly one of account*id (a biz* identifier) or user*id (a user* identifier);
-        an account-scoped API key defaults to its own account when neither is given.
+        """
+        Lists the social accounts linked to an account or user.
 
         Args:
           account_id: The Account that the social accounts are connected to. Provide either this or
@@ -529,8 +523,8 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountDeleteResponse:
         """
-        Disconnects a social account from an account or user by discarding the link
-        record. The underlying social account record is retained.
+        Disconnects a social account from an account or user without deleting the
+        underlying platform account.
 
         Args:
           account_id: The Account that the social account is connected to. Provide either this or
@@ -582,21 +576,20 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountConnectResponse:
         """
-        Starts an OAuth connection flow for a social account and returns an
-        authorize*url to redirect the user to. advertise is required and gated on
-        ad_campaign:create so advertiser roles can connect. The connect is authorized
-        against the account given by account_id (a biz* identifier); an account-scoped
-        API key may omit it to default to its own account.
+        Starts an OAuth connection flow and returns an authorize_url where the user can
+        connect a social account.
 
         Args:
-          platform: The platform to connect the social account on.
+          platform: The platform to connect the social account on. Today, the supported option is
+              `meta_business`.
 
           account_id: The Account (biz\\__ identifier) to connect the social account for. An
               account-scoped API key may omit this to default to its own account.
 
           redirect_url: The Whop URL to redirect the user to after they finish connecting.
 
-          scopes: Capabilities for the connected social account. `advertise` is required.
+          scopes: Capabilities to grant for the connected social account. Use `advertise` when
+              connecting a Meta Business account for ads.
 
           extra_headers: Send extra headers
 
@@ -638,11 +631,8 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountPostsResponse:
-        """Lists the existing posts of a connected social account.
-
-        Supported for Facebook
-        pages and Instagram accounts. Pass post*id to return only that single post. The
-        owning account is passed as account_id (a biz* identifier).
+        """
+        Lists the existing posts of a connected Facebook page or Instagram account.
 
         Args:
           account_id: The Account (a biz\\__ identifier) the social account is connected to.

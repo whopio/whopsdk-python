@@ -10,7 +10,10 @@ __all__ = ["SocialAccountConnectParams"]
 
 class SocialAccountConnectParams(TypedDict, total=False):
     platform: Required[Literal["meta_business"]]
-    """The platform to connect the social account on."""
+    """The platform to connect the social account on.
+
+    Today, the supported option is `meta_business`.
+    """
 
     account_id: str
     """The Account (biz\\__ identifier) to connect the social account for.
@@ -22,4 +25,7 @@ class SocialAccountConnectParams(TypedDict, total=False):
     """The Whop URL to redirect the user to after they finish connecting."""
 
     scopes: List[Literal["advertise"]]
-    """Capabilities for the connected social account. `advertise` is required."""
+    """Capabilities to grant for the connected social account.
+
+    Use `advertise` when connecting a Meta Business account for ads.
+    """

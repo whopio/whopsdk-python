@@ -312,6 +312,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def social_accounts(self) -> SocialAccountsResource:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+        """
         from .resources.social_accounts import SocialAccountsResource
 
         return SocialAccountsResource(self)
@@ -1053,6 +1058,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def social_accounts(self) -> AsyncSocialAccountsResource:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+        """
         from .resources.social_accounts import AsyncSocialAccountsResource
 
         return AsyncSocialAccountsResource(self)
@@ -1714,6 +1724,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def social_accounts(self) -> social_accounts.SocialAccountsResourceWithRawResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+        """
         from .resources.social_accounts import SocialAccountsResourceWithRawResponse
 
         return SocialAccountsResourceWithRawResponse(self._client.social_accounts)
@@ -2257,6 +2272,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithRawResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+        """
         from .resources.social_accounts import AsyncSocialAccountsResourceWithRawResponse
 
         return AsyncSocialAccountsResourceWithRawResponse(self._client.social_accounts)
@@ -2802,6 +2822,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def social_accounts(self) -> social_accounts.SocialAccountsResourceWithStreamingResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+        """
         from .resources.social_accounts import SocialAccountsResourceWithStreamingResponse
 
         return SocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
@@ -3347,6 +3372,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithStreamingResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+        """
         from .resources.social_accounts import AsyncSocialAccountsResourceWithStreamingResponse
 
         return AsyncSocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
