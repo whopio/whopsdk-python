@@ -336,12 +336,22 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def people(self) -> PeopleResource:
+        """
+        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+        Use the People API to list the people of an account and retrieve a single person.
+        """
         from .resources.people import PeopleResource
 
         return PeopleResource(self)
 
     @cached_property
     def events(self) -> EventsResource:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events and list the events recorded for a person.
+        """
         from .resources.events import EventsResource
 
         return EventsResource(self)
@@ -1063,12 +1073,22 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def people(self) -> AsyncPeopleResource:
+        """
+        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+        Use the People API to list the people of an account and retrieve a single person.
+        """
         from .resources.people import AsyncPeopleResource
 
         return AsyncPeopleResource(self)
 
     @cached_property
     def events(self) -> AsyncEventsResource:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events and list the events recorded for a person.
+        """
         from .resources.events import AsyncEventsResource
 
         return AsyncEventsResource(self)
@@ -1710,12 +1730,22 @@ class WhopWithRawResponse:
 
     @cached_property
     def people(self) -> people.PeopleResourceWithRawResponse:
+        """
+        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+        Use the People API to list the people of an account and retrieve a single person.
+        """
         from .resources.people import PeopleResourceWithRawResponse
 
         return PeopleResourceWithRawResponse(self._client.people)
 
     @cached_property
     def events(self) -> events.EventsResourceWithRawResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events and list the events recorded for a person.
+        """
         from .resources.events import EventsResourceWithRawResponse
 
         return EventsResourceWithRawResponse(self._client.events)
@@ -2239,12 +2269,22 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def people(self) -> people.AsyncPeopleResourceWithRawResponse:
+        """
+        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+        Use the People API to list the people of an account and retrieve a single person.
+        """
         from .resources.people import AsyncPeopleResourceWithRawResponse
 
         return AsyncPeopleResourceWithRawResponse(self._client.people)
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithRawResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events and list the events recorded for a person.
+        """
         from .resources.events import AsyncEventsResourceWithRawResponse
 
         return AsyncEventsResourceWithRawResponse(self._client.events)
@@ -2770,12 +2810,22 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def people(self) -> people.PeopleResourceWithStreamingResponse:
+        """
+        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+        Use the People API to list the people of an account and retrieve a single person.
+        """
         from .resources.people import PeopleResourceWithStreamingResponse
 
         return PeopleResourceWithStreamingResponse(self._client.people)
 
     @cached_property
     def events(self) -> events.EventsResourceWithStreamingResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events and list the events recorded for a person.
+        """
         from .resources.events import EventsResourceWithStreamingResponse
 
         return EventsResourceWithStreamingResponse(self._client.events)
@@ -3301,12 +3351,22 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def people(self) -> people.AsyncPeopleResourceWithStreamingResponse:
+        """
+        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+        Use the People API to list the people of an account and retrieve a single person.
+        """
         from .resources.people import AsyncPeopleResourceWithStreamingResponse
 
         return AsyncPeopleResourceWithStreamingResponse(self._client.people)
 
     @cached_property
     def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events and list the events recorded for a person.
+        """
         from .resources.events import AsyncEventsResourceWithStreamingResponse
 
         return AsyncEventsResourceWithStreamingResponse(self._client.events)

@@ -26,6 +26,12 @@ __all__ = ["PeopleResource", "AsyncPeopleResource"]
 
 
 class PeopleResource(SyncAPIResource):
+    """
+    A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+    Use the People API to list the people of an account and retrieve a single person.
+    """
+
     @cached_property
     def with_raw_response(self) -> PeopleResourceWithRawResponse:
         """
@@ -180,6 +186,12 @@ class PeopleResource(SyncAPIResource):
 
 
 class AsyncPeopleResource(AsyncAPIResource):
+    """
+    A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+
+    Use the People API to list the people of an account and retrieve a single person.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncPeopleResourceWithRawResponse:
         """
