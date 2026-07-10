@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
@@ -65,6 +65,20 @@ class AppUpdateParams(TypedDict, total=False):
 
     required_scopes: Optional[List[Literal["read_user"]]]
     """The permission scopes the app will request from users when they install it."""
+
+    route: Optional[str]
+    """
+    The unique subdomain route where the app's hosted web builds are served, such as
+    'myapp' for myapp.whop.app.
+    """
+
+    secrets: Optional[Dict[str, object]]
+    """Secrets to add or overwrite on the app, as an object of string values (e.g.
+
+    {"MAIL_API_KEY": "..."}). Keys not included are left untouched. Pass null or an
+    empty string as the value to delete a secret. Secrets are encrypted at rest and
+    injected into the app's hosted server runtime as environment bindings.
+    """
 
     skills_path: Optional[str]
     """The URL path to the skills directory of the app, such as '/assets/skills/'."""
