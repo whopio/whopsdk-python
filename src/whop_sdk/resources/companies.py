@@ -35,8 +35,6 @@ __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
 
 class CompaniesResource(SyncAPIResource):
-    """Companies"""
-
     @cached_property
     def with_raw_response(self) -> CompaniesResourceWithRawResponse:
         """
@@ -403,8 +401,6 @@ class CompaniesResource(SyncAPIResource):
 
 
 class AsyncCompaniesResource(AsyncAPIResource):
-    """Companies"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCompaniesResourceWithRawResponse:
         """
