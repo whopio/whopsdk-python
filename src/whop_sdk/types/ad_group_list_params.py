@@ -2,65 +2,78 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Annotated, TypedDict
-
-from .._types import SequenceNotStr
-from .._utils import PropertyInfo
-from .ad_group_status import AdGroupStatus
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AdGroupListParams"]
 
 
 class AdGroupListParams(TypedDict, total=False):
-    ad_campaign_id: Optional[str]
-    """Filter by ad campaign. Provide exactly one of ad_campaign_id or company_id."""
+    account_id: str
+    """Account whose ad groups to list. Defaults to the authenticated account."""
 
-    ad_campaign_ids: Optional[SequenceNotStr[str]]
-    """Only return ad groups belonging to these ad campaigns (max 100).
+    ad_campaign_id: str
+    """Filter to ad groups in this campaign."""
 
-    Can be combined with companyId or used on its own.
-    """
+    after: str
+    """Cursor to fetch the page after (from page_info.end_cursor)."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    before: str
+    """Cursor to fetch the page before (from page_info.start_cursor)."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
-
-    campaign_id: Optional[str]
-    """Filter by campaign."""
-
-    company_id: Optional[str]
-    """Filter by company. Provide companyId or adCampaignIds."""
-
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: str
     """Only return ad groups created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: str
     """Only return ad groups created before this timestamp."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    direction: Literal["asc", "desc"]
+    """The sort direction. Defaults to desc."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    first: int
+    """The number of ad groups to return."""
 
-    query: Optional[str]
-    """Case-insensitive substring match against the ad group name or ID."""
+    last: int
+    """The number of ad groups to return from the end of the range."""
 
-    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    order: Literal[
+        "created_at",
+        "updated_at",
+        "spend",
+        "impressions",
+        "reach",
+        "clicks",
+        "unique_clicks",
+        "frequency",
+        "click_through_rate",
+        "results",
+        "cost_per_mille",
+        "cost_per_click",
+        "cost_per_result",
+        "return_on_ad_spend",
+    ]
+    """The field to sort by.
+
+    Defaults to created_at. Stat columns (spend, impressions, …) rank over the
+    stats_from/stats_to window across the whole list, not just the current page.
+    results, cost_per_result and return_on_ad_spend rank by the same Whop
+    pixel-attributed values the response reports.
     """
-    Inclusive start of the window for each ad group's metric fields (spend,
-    impressions, …). Omit both statsFrom and statsTo for all-time stats.
+
+    query: str
+    """Filter ad groups by a title or ID substring."""
+
+    stats_from: str
+    """Start of the stats window. Defaults to all-time."""
+
+    stats_to: str
+    """End of the stats window. Defaults to now."""
+
+    status: str
+    """Filter to a status (active, paused, in_review, rejected)."""
+
+    time_zone: str
+    """IANA timezone (e.g.
+
+    America/New_York) the stats window is interpreted in. Bare stats_from/stats_to
+    dates resolve to day boundaries on this clock. Defaults to UTC.
     """
-
-    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Inclusive end of the window for each ad group's metric fields.
-
-    Omit both statsFrom and statsTo for all-time stats.
-    """
-
-    status: Optional[AdGroupStatus]
-    """The status of an external ad group."""
