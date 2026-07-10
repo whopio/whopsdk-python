@@ -806,11 +806,24 @@ from whop_sdk.types import Account, AccountSocialLink
 
 Methods:
 
-- <code title="post /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">create</a>(\*\*<a href="src/whop_sdk/types/account_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
-- <code title="get /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">retrieve</a>(account_id) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
-- <code title="patch /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">update</a>(account_id, \*\*<a href="src/whop_sdk/types/account_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
-- <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">SyncCursorPage[Account]</a></code>
-- <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="post /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">create</a>(\*\*<a href="src/whop_sdk/types/account_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="get /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">retrieve</a>(account_id) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="patch /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">update</a>(account_id, \*\*<a href="src/whop_sdk/types/account_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">SyncCursorPage[Account]</a></code>
+- <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+
+## Preferences
+
+Types:
+
+```python
+from whop_sdk.types.accounts import PreferenceRetrieveResponse, PreferenceUpdateResponse
+```
+
+Methods:
+
+- <code title="get /accounts/{account_id}/preferences">client.accounts.preferences.<a href="./src/whop_sdk/resources/accounts/preferences.py">retrieve</a>(account_id) -> <a href="./src/whop_sdk/types/accounts/preference_retrieve_response.py">PreferenceRetrieveResponse</a></code>
+- <code title="patch /accounts/{account_id}/preferences">client.accounts.preferences.<a href="./src/whop_sdk/resources/accounts/preferences.py">update</a>(account_id, \*\*<a href="src/whop_sdk/types/accounts/preference_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/accounts/preference_update_response.py">PreferenceUpdateResponse</a></code>
 
 # FinancialActivity
 

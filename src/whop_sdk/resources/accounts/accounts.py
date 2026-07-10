@@ -7,20 +7,28 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import account_list_params, account_create_params, account_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import account_list_params, account_create_params, account_update_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.account import Account
+from .preferences import (
+    PreferencesResource,
+    AsyncPreferencesResource,
+    PreferencesResourceWithRawResponse,
+    AsyncPreferencesResourceWithRawResponse,
+    PreferencesResourceWithStreamingResponse,
+    AsyncPreferencesResourceWithStreamingResponse,
+)
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.account import Account
 
 __all__ = ["AccountsResource", "AsyncAccountsResource"]
 
@@ -31,6 +39,15 @@ class AccountsResource(SyncAPIResource):
 
     Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
     """
+
+    @cached_property
+    def preferences(self) -> PreferencesResource:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
+        return PreferencesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AccountsResourceWithRawResponse:
@@ -415,6 +432,15 @@ class AsyncAccountsResource(AsyncAPIResource):
 
     Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
     """
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResource:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
+        return AsyncPreferencesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAccountsResourceWithRawResponse:
@@ -813,6 +839,15 @@ class AccountsResourceWithRawResponse:
             accounts.me,
         )
 
+    @cached_property
+    def preferences(self) -> PreferencesResourceWithRawResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
+        return PreferencesResourceWithRawResponse(self._accounts.preferences)
+
 
 class AsyncAccountsResourceWithRawResponse:
     def __init__(self, accounts: AsyncAccountsResource) -> None:
@@ -833,6 +868,15 @@ class AsyncAccountsResourceWithRawResponse:
         self.me = async_to_raw_response_wrapper(
             accounts.me,
         )
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResourceWithRawResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
+        return AsyncPreferencesResourceWithRawResponse(self._accounts.preferences)
 
 
 class AccountsResourceWithStreamingResponse:
@@ -855,6 +899,15 @@ class AccountsResourceWithStreamingResponse:
             accounts.me,
         )
 
+    @cached_property
+    def preferences(self) -> PreferencesResourceWithStreamingResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
+        return PreferencesResourceWithStreamingResponse(self._accounts.preferences)
+
 
 class AsyncAccountsResourceWithStreamingResponse:
     def __init__(self, accounts: AsyncAccountsResource) -> None:
@@ -875,3 +928,12 @@ class AsyncAccountsResourceWithStreamingResponse:
         self.me = async_to_streamed_response_wrapper(
             accounts.me,
         )
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResourceWithStreamingResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
+        return AsyncPreferencesResourceWithStreamingResponse(self._accounts.preferences)
