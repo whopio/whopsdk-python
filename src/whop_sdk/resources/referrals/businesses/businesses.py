@@ -122,6 +122,8 @@ class BusinessesResource(SyncAPIResource):
             "earnings_usd",
         ]
         | Omit = omit,
+        referred_user_id: str | Omit = omit,
+        referred_username: str | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
         tier: Literal["first", "second"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -155,6 +157,12 @@ class BusinessesResource(SyncAPIResource):
 
           order: The field to sort business referrals by.
 
+          referred_user_id: Filter to businesses attributed to this referred user — the business owner for
+              first-tier referrals, or the partner you recruited for second-tier referrals.
+
+          referred_username: Same as referred_user_id but resolved by exact username. Ignored when
+              referred_user_id is present.
+
           status: Filter by referral status.
 
           tier: Filter to only first-tier referrals or only second-tier referrals.
@@ -186,6 +194,8 @@ class BusinessesResource(SyncAPIResource):
                         "has_earnings": has_earnings,
                         "last": last,
                         "order": order,
+                        "referred_user_id": referred_user_id,
+                        "referred_username": referred_username,
                         "status": status,
                         "tier": tier,
                     },
@@ -325,6 +335,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
             "earnings_usd",
         ]
         | Omit = omit,
+        referred_user_id: str | Omit = omit,
+        referred_username: str | Omit = omit,
         status: Literal["active", "removed"] | Omit = omit,
         tier: Literal["first", "second"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -358,6 +370,12 @@ class AsyncBusinessesResource(AsyncAPIResource):
 
           order: The field to sort business referrals by.
 
+          referred_user_id: Filter to businesses attributed to this referred user — the business owner for
+              first-tier referrals, or the partner you recruited for second-tier referrals.
+
+          referred_username: Same as referred_user_id but resolved by exact username. Ignored when
+              referred_user_id is present.
+
           status: Filter by referral status.
 
           tier: Filter to only first-tier referrals or only second-tier referrals.
@@ -389,6 +407,8 @@ class AsyncBusinessesResource(AsyncAPIResource):
                         "has_earnings": has_earnings,
                         "last": last,
                         "order": order,
+                        "referred_user_id": referred_user_id,
+                        "referred_username": referred_username,
                         "status": status,
                         "tier": tier,
                     },

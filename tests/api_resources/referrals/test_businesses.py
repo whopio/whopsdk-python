@@ -83,6 +83,8 @@ class TestBusinesses:
             has_earnings=True,
             last=100,
             order="created_at",
+            referred_user_id="referred_user_id",
+            referred_username="referred_username",
             status="active",
             tier="first",
         )
@@ -213,6 +215,8 @@ class TestAsyncBusinesses:
             has_earnings=True,
             last=100,
             order="created_at",
+            referred_user_id="referred_user_id",
+            referred_username="referred_username",
             status="active",
             tier="first",
         )

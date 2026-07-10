@@ -40,6 +40,18 @@ class BusinessListParams(TypedDict, total=False):
     ]
     """The field to sort business referrals by."""
 
+    referred_user_id: str
+    """
+    Filter to businesses attributed to this referred user — the business owner for
+    first-tier referrals, or the partner you recruited for second-tier referrals.
+    """
+
+    referred_username: str
+    """Same as referred_user_id but resolved by exact username.
+
+    Ignored when referred_user_id is present.
+    """
+
     status: Literal["active", "removed"]
     """Filter by referral status."""
 
