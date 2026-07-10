@@ -5,7 +5,15 @@ from typing import List, Optional
 from .._models import BaseModel
 from .user_balance import UserBalance
 
-__all__ = ["User", "BalanceHistory", "BalanceHistoryData"]
+__all__ = [
+    "User",
+    "BalanceHistory",
+    "BalanceHistoryData",
+    "EarningsUsd",
+    "EarningsUsdOwnedAccounts",
+    "EarningsUsdPersonal",
+    "EarningsUsdTotal",
+]
 
 
 class BalanceHistoryData(BaseModel):
@@ -35,6 +43,78 @@ class BalanceHistory(BaseModel):
     """Minimum value across the window, in USD."""
 
 
+class EarningsUsdOwnedAccounts(BaseModel):
+    """Gross income from companies the user owns or is owner-authorized on."""
+
+    last_24_hours: str
+    """Gross income in USD over the last 24 hours."""
+
+    last_30_days: str
+    """Gross income in USD over the last 30 days."""
+
+    last_7_days: str
+    """Gross income in USD over the last 7 days."""
+
+    lifetime: str
+    """All-time gross income in USD."""
+
+
+class EarningsUsdPersonal(BaseModel):
+    """Gross income from the user's personal wallet."""
+
+    last_24_hours: str
+    """Gross income in USD over the last 24 hours."""
+
+    last_30_days: str
+    """Gross income in USD over the last 30 days."""
+
+    last_7_days: str
+    """Gross income in USD over the last 7 days."""
+
+    lifetime: str
+    """All-time gross income in USD."""
+
+
+class EarningsUsdTotal(BaseModel):
+    """
+    Gross income from the user's personal wallet plus companies they own or are owner-authorized on.
+    """
+
+    last_24_hours: str
+    """Gross income in USD over the last 24 hours."""
+
+    last_30_days: str
+    """Gross income in USD over the last 30 days."""
+
+    last_7_days: str
+    """Gross income in USD over the last 7 days."""
+
+    lifetime: str
+    """All-time gross income in USD."""
+
+
+class EarningsUsd(BaseModel):
+    """The user's gross USD income over time.
+
+    Populated only on single-user self reads for callers with balance-read scope; `null` otherwise.
+    """
+
+    first_earned_at: Optional[str] = None
+    """The first time the user earned gross income, as an ISO 8601 timestamp."""
+
+    owned_accounts: EarningsUsdOwnedAccounts
+    """Gross income from companies the user owns or is owner-authorized on."""
+
+    personal: EarningsUsdPersonal
+    """Gross income from the user's personal wallet."""
+
+    total: EarningsUsdTotal
+    """
+    Gross income from the user's personal wallet plus companies they own or are
+    owner-authorized on.
+    """
+
+
 class User(BaseModel):
     id: str
     """User ID, prefixed `user_`."""
@@ -60,6 +140,13 @@ class User(BaseModel):
 
     created_at: str
     """When the user was created, as an ISO 8601 timestamp"""
+
+    earnings_usd: Optional[EarningsUsd] = None
+    """The user's gross USD income over time.
+
+    Populated only on single-user self reads for callers with balance-read scope;
+    `null` otherwise.
+    """
 
     name: Optional[str] = None
     """The user's display name"""
