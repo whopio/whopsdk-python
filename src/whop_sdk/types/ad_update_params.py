@@ -53,10 +53,10 @@ class AdUpdateParams(TypedDict, total=False):
     """The call-to-action button shown on the ad."""
 
     creatives: Iterable[Creative]
-    """The ad's creatives.
+    """The ad's creative assets.
 
     Each entry is an uploaded file id with an optional format; omit format for the
-    original/uncropped asset. Replaces a live ad's creative on the platform.
+    original asset. Replaces a live ad's creative on the platform.
     """
 
     descriptions: SequenceNotStr[str]
@@ -122,8 +122,9 @@ class AdUpdateParams(TypedDict, total=False):
 
 
 class CreativeCrop(TypedDict, total=False):
-    """
-    The saved crop window in source pixels for a format variant, so the crop editor reopens on the exact crop. Ignored for the original/uncropped asset.
+    """The saved crop window for this creative, in source image pixels.
+
+    Omit it for the original asset or for a format that has not been cropped.
     """
 
     height: float
@@ -139,9 +140,9 @@ class Creative(TypedDict, total=False):
     id: str
 
     crop: CreativeCrop
-    """
-    The saved crop window in source pixels for a format variant, so the crop editor
-    reopens on the exact crop. Ignored for the original/uncropped asset.
+    """The saved crop window for this creative, in source image pixels.
+
+    Omit it for the original asset or for a format that has not been cropped.
     """
 
     format: Literal["square", "vertical", "horizontal"]

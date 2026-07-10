@@ -23,8 +23,9 @@ class AdGroup(BaseModel):
 
 
 class CreativeCrop(BaseModel):
-    """
-    The saved crop window (source-pixel coords) for this format, or null for the original asset or an uncropped format.
+    """The saved crop window for this creative, in source image pixels.
+
+    Null for the original asset or a format that has not been cropped.
     """
 
     height: float
@@ -41,22 +42,22 @@ class CreativeCrop(BaseModel):
 
 
 class Creative(BaseModel):
-    """The creatives used by this ad.
+    """The creative assets used by this ad.
 
-    The original/uncropped asset has a null format; square, vertical, and horizontal entries are its per-placement crops.
+    The original asset has a null format; square, vertical, and horizontal entries are placement-specific variants.
     """
 
     id: str
     """The creative attachment's file id."""
 
     crop: Optional[CreativeCrop] = None
-    """
-    The saved crop window (source-pixel coords) for this format, or null for the
-    original asset or an uncropped format.
+    """The saved crop window for this creative, in source image pixels.
+
+    Null for the original asset or a format that has not been cropped.
     """
 
     format: Optional[Literal["square", "vertical", "horizontal"]] = None
-    """The placement crop this asset covers, or null for the original/uncropped asset."""
+    """The placement variant this asset covers, or null for the original asset."""
 
     media_type: Optional[str] = None
     """The kind of asset, image or video."""

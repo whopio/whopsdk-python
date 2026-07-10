@@ -330,6 +330,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def media(self) -> MediaResource:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
         from .resources.media import MediaResource
 
         return MediaResource(self)
@@ -580,11 +585,10 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def accounts(self) -> AccountsResource:
-        """An Account represents a person or business in Whop.
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-        Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-        Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
         """
         from .resources.accounts import AccountsResource
 
@@ -1067,6 +1071,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def media(self) -> AsyncMediaResource:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
         from .resources.media import AsyncMediaResource
 
         return AsyncMediaResource(self)
@@ -1317,11 +1326,10 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def accounts(self) -> AsyncAccountsResource:
-        """An Account represents a person or business in Whop.
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-        Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-        Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
         """
         from .resources.accounts import AsyncAccountsResource
 
@@ -1724,6 +1732,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def media(self) -> media.MediaResourceWithRawResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
         from .resources.media import MediaResourceWithRawResponse
 
         return MediaResourceWithRawResponse(self._client.media)
@@ -1974,11 +1987,10 @@ class WhopWithRawResponse:
 
     @cached_property
     def accounts(self) -> accounts.AccountsResourceWithRawResponse:
-        """An Account represents a person or business in Whop.
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-        Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-        Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
         """
         from .resources.accounts import AccountsResourceWithRawResponse
 
@@ -2263,6 +2275,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def media(self) -> media.AsyncMediaResourceWithRawResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
         from .resources.media import AsyncMediaResourceWithRawResponse
 
         return AsyncMediaResourceWithRawResponse(self._client.media)
@@ -2513,11 +2530,10 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def accounts(self) -> accounts.AsyncAccountsResourceWithRawResponse:
-        """An Account represents a person or business in Whop.
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-        Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-        Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
         """
         from .resources.accounts import AsyncAccountsResourceWithRawResponse
 
@@ -2804,6 +2820,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def media(self) -> media.MediaResourceWithStreamingResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
         from .resources.media import MediaResourceWithStreamingResponse
 
         return MediaResourceWithStreamingResponse(self._client.media)
@@ -3054,11 +3075,10 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def accounts(self) -> accounts.AccountsResourceWithStreamingResponse:
-        """An Account represents a person or business in Whop.
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-        Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-        Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
         """
         from .resources.accounts import AccountsResourceWithStreamingResponse
 
@@ -3345,6 +3365,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def media(self) -> media.AsyncMediaResourceWithStreamingResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
         from .resources.media import AsyncMediaResourceWithStreamingResponse
 
         return AsyncMediaResourceWithStreamingResponse(self._client.media)
@@ -3597,11 +3622,10 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def accounts(self) -> accounts.AsyncAccountsResourceWithStreamingResponse:
-        """An Account represents a person or business in Whop.
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-        Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-        Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
         """
         from .resources.accounts import AsyncAccountsResourceWithStreamingResponse
 

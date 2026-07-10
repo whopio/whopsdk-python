@@ -115,8 +115,8 @@ class AdsResource(SyncAPIResource):
 
           call_to_action: The call-to-action button shown on the ad.
 
-          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
-              omit format for the original/uncropped asset.
+          creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
+              format; omit format for the original asset.
 
           descriptions: The description variants shown on the ad.
 
@@ -301,9 +301,9 @@ class AdsResource(SyncAPIResource):
         Args:
           call_to_action: The call-to-action button shown on the ad.
 
-          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
-              omit format for the original/uncropped asset. Replaces a live ad's creative on
-              the platform.
+          creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
+              format; omit format for the original asset. Replaces a live ad's creative on the
+              platform.
 
           descriptions: The description variants shown on the ad.
 
@@ -693,8 +693,8 @@ class AsyncAdsResource(AsyncAPIResource):
 
           call_to_action: The call-to-action button shown on the ad.
 
-          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
-              omit format for the original/uncropped asset.
+          creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
+              format; omit format for the original asset.
 
           descriptions: The description variants shown on the ad.
 
@@ -879,9 +879,9 @@ class AsyncAdsResource(AsyncAPIResource):
         Args:
           call_to_action: The call-to-action button shown on the ad.
 
-          creatives: The ad's creatives. Each entry is an uploaded file id with an optional format;
-              omit format for the original/uncropped asset. Replaces a live ad's creative on
-              the platform.
+          creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
+              format; omit format for the original asset. Replaces a live ad's creative on the
+              platform.
 
           descriptions: The description variants shown on the ad.
 

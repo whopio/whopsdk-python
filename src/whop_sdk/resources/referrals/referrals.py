@@ -28,7 +28,7 @@ class ReferralsResource(SyncAPIResource):
     @cached_property
     def businesses(self) -> BusinessesResource:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -37,7 +37,7 @@ class ReferralsResource(SyncAPIResource):
     @cached_property
     def partners(self) -> PartnersResource:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -67,7 +67,7 @@ class AsyncReferralsResource(AsyncAPIResource):
     @cached_property
     def businesses(self) -> AsyncBusinessesResource:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -76,7 +76,7 @@ class AsyncReferralsResource(AsyncAPIResource):
     @cached_property
     def partners(self) -> AsyncPartnersResource:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -109,7 +109,7 @@ class ReferralsResourceWithRawResponse:
     @cached_property
     def businesses(self) -> BusinessesResourceWithRawResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -118,7 +118,7 @@ class ReferralsResourceWithRawResponse:
     @cached_property
     def partners(self) -> PartnersResourceWithRawResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -132,7 +132,7 @@ class AsyncReferralsResourceWithRawResponse:
     @cached_property
     def businesses(self) -> AsyncBusinessesResourceWithRawResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -141,7 +141,7 @@ class AsyncReferralsResourceWithRawResponse:
     @cached_property
     def partners(self) -> AsyncPartnersResourceWithRawResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -155,7 +155,7 @@ class ReferralsResourceWithStreamingResponse:
     @cached_property
     def businesses(self) -> BusinessesResourceWithStreamingResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -164,7 +164,7 @@ class ReferralsResourceWithStreamingResponse:
     @cached_property
     def partners(self) -> PartnersResourceWithStreamingResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -178,7 +178,7 @@ class AsyncReferralsResourceWithStreamingResponse:
     @cached_property
     def businesses(self) -> AsyncBusinessesResourceWithStreamingResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """
@@ -187,7 +187,7 @@ class AsyncReferralsResourceWithStreamingResponse:
     @cached_property
     def partners(self) -> AsyncPartnersResourceWithStreamingResponse:
         """
-        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see much volume your referred businesses have processed and how much you've earned from them.
+        Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
 
         Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
         """

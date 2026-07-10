@@ -26,11 +26,10 @@ __all__ = ["AccountsResource", "AsyncAccountsResource"]
 
 
 class AccountsResource(SyncAPIResource):
-    """An Account represents a person or business in Whop.
+    """
+    An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-    Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-    Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+    Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
     """
 
     @cached_property
@@ -411,11 +410,10 @@ class AccountsResource(SyncAPIResource):
 
 
 class AsyncAccountsResource(AsyncAPIResource):
-    """An Account represents a person or business in Whop.
+    """
+    An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
 
-    Each account has its own profile, wallet, and settings, so you can create one for every customer, creator, merchant, or seller your integration supports.
-
-    Create an account when someone needs to hold funds, receive payments, send money, or use account-scoped API features. Save the returned `id` and `wallet` details, and use `metadata` to store your own stable identifier, like a user ID from your system.
+    Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
     """
 
     @cached_property

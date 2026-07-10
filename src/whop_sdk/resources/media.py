@@ -24,6 +24,12 @@ __all__ = ["MediaResource", "AsyncMediaResource"]
 
 
 class MediaResource(SyncAPIResource):
+    """
+    A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+    Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+    """
+
     @cached_property
     def with_raw_response(self) -> MediaResourceWithRawResponse:
         """
@@ -144,6 +150,12 @@ class MediaResource(SyncAPIResource):
 
 
 class AsyncMediaResource(AsyncAPIResource):
+    """
+    A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+    Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncMediaResourceWithRawResponse:
         """
