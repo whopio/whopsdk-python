@@ -17,136 +17,243 @@ __all__ = [
     "DataResourceUnionMember0",
     "DataResourceUnionMember1",
     "DataResourceUnionMember2",
-    "DataResourceUnionMember2Owner",
-    "DataResourceUnionMember2OwnerUnionMember0",
-    "DataResourceUnionMember2OwnerUnionMember1",
     "DataResourceUnionMember3",
-    "DataResourceUnionMember3Bank",
-    "DataResourceUnionMember3Card",
+    "DataResourceUnionMember3Owner",
+    "DataResourceUnionMember3OwnerUnionMember0",
+    "DataResourceUnionMember3OwnerUnionMember1",
     "DataResourceUnionMember4",
+    "DataResourceUnionMember4Bank",
+    "DataResourceUnionMember4Card",
+    "DataResourceUnionMember5",
+    "DataResourceUnionMember6",
     "DataSource",
+    "DataSourcePayoutDestination",
     "PageInfo",
 ]
 
 
 class DataCurrency(BaseModel):
+    """Currency for this ledger activity."""
+
     code: str
+    """Currency code."""
 
     precision: str
-    """Precision factor for the currency, for example 100000000 for USD."""
+    """Precision factor for the currency, for example `100000000` for USD."""
 
 
 class DataResourceUnionMember0(BaseModel):
     id: str
+    """Account ID."""
 
     logo_url: Optional[str] = None
+    """Account logo URL."""
 
     object: Literal["account"]
 
     route: Optional[str] = None
+    """Account route."""
 
     title: Optional[str] = None
+    """Account display name."""
 
 
 class DataResourceUnionMember1(BaseModel):
     id: str
+    """User ID."""
 
     name: Optional[str] = None
+    """User display name."""
 
     object: Literal["user"]
 
     profile_picture_url: Optional[str] = None
+    """User profile image URL."""
 
     username: Optional[str] = None
-
-
-class DataResourceUnionMember2OwnerUnionMember0(BaseModel):
-    id: str
-
-    logo_url: Optional[str] = None
-
-    object: Literal["account"]
-
-    route: Optional[str] = None
-
-    title: Optional[str] = None
-
-
-class DataResourceUnionMember2OwnerUnionMember1(BaseModel):
-    id: str
-
-    name: Optional[str] = None
-
-    object: Literal["user"]
-
-    profile_picture_url: Optional[str] = None
-
-    username: Optional[str] = None
-
-
-DataResourceUnionMember2Owner: TypeAlias = Union[
-    DataResourceUnionMember2OwnerUnionMember0, DataResourceUnionMember2OwnerUnionMember1, None
-]
+    """User's username."""
 
 
 class DataResourceUnionMember2(BaseModel):
     id: str
+    """Bounty ID."""
 
-    object: Literal["ledger_account"]
+    object: Literal["bounty"]
 
-    owner: Optional[DataResourceUnionMember2Owner] = None
+    status: str
+    """Bounty lifecycle status."""
 
-
-class DataResourceUnionMember3Bank(BaseModel):
-    account_name: Optional[str] = None
-
-    account_type: Optional[str] = None
-
-    bank_name: Optional[str] = None
-
-    last4: Optional[str] = None
+    title: str
+    """Bounty title."""
 
 
-class DataResourceUnionMember3Card(BaseModel):
-    brand: Optional[str] = None
+class DataResourceUnionMember3OwnerUnionMember0(BaseModel):
+    id: str
+    """Account ID."""
 
-    exp_month: Optional[int] = None
+    logo_url: Optional[str] = None
+    """Account logo URL."""
 
-    exp_year: Optional[int] = None
+    object: Literal["account"]
 
-    last4: Optional[str] = None
+    route: Optional[str] = None
+    """Account route."""
+
+    title: Optional[str] = None
+    """Account display name."""
+
+
+class DataResourceUnionMember3OwnerUnionMember1(BaseModel):
+    id: str
+    """User ID."""
+
+    name: Optional[str] = None
+    """User display name."""
+
+    object: Literal["user"]
+
+    profile_picture_url: Optional[str] = None
+    """User profile image URL."""
+
+    username: Optional[str] = None
+    """User's username."""
+
+
+DataResourceUnionMember3Owner: TypeAlias = Union[
+    DataResourceUnionMember3OwnerUnionMember0, DataResourceUnionMember3OwnerUnionMember1, None
+]
 
 
 class DataResourceUnionMember3(BaseModel):
     id: str
+    """Ledger account ID."""
 
-    bank: Optional[DataResourceUnionMember3Bank] = None
+    object: Literal["ledger_account"]
 
-    card: Optional[DataResourceUnionMember3Card] = None
+    owner: Optional[DataResourceUnionMember3Owner] = None
 
-    email_identifier: Optional[str] = None
 
-    gateway_type: Optional[str] = None
+class DataResourceUnionMember4Bank(BaseModel):
+    account_name: Optional[str] = None
+    """Bank account holder name."""
 
-    object: Literal["payment_method"]
+    account_type: Optional[str] = None
+    """Bank account type."""
 
-    payment_method_type: Optional[str] = None
+    bank_name: Optional[str] = None
+    """Bank name."""
+
+    last4: Optional[str] = None
+    """Last four digits of the bank account."""
+
+
+class DataResourceUnionMember4Card(BaseModel):
+    brand: Optional[str] = None
+    """Card brand."""
+
+    exp_month: Optional[int] = None
+    """Card expiration month."""
+
+    exp_year: Optional[int] = None
+    """Card expiration year."""
+
+    last4: Optional[str] = None
+    """Last four digits of the card."""
 
 
 class DataResourceUnionMember4(BaseModel):
     id: str
+    """Payment method ID."""
+
+    bank: Optional[DataResourceUnionMember4Bank] = None
+
+    card: Optional[DataResourceUnionMember4Card] = None
+
+    email_identifier: Optional[str] = None
+    """Email identifier for email-based payment methods."""
+
+    gateway_type: Optional[str] = None
+    """Payment gateway type."""
+
+    object: Literal["payment_method"]
+
+    payment_method_type: Optional[str] = None
+    """Payment method type."""
+
+
+class DataResourceUnionMember5(BaseModel):
+    id: str
+    """Payout method ID."""
 
     account_reference: Optional[str] = None
+    """Masked account reference."""
 
     destination_currency_code: Optional[str] = None
+    """Destination currency code."""
 
     institution_name: Optional[str] = None
+    """Payout institution name."""
 
     nickname: Optional[str] = None
+    """Payout method nickname."""
 
     object: Literal["payout_method"]
 
     provider: Optional[str] = None
+    """Payout provider."""
+
+
+class DataResourceUnionMember6(BaseModel):
+    id: str
+    """Card transaction ID."""
+
+    authorized_at: Optional[datetime] = None
+    """ISO 8601 timestamp the transaction was authorized."""
+
+    card_id: Optional[str] = None
+    """Identifier of the card that the transaction was charged to."""
+
+    cashback_usd: Optional[str] = None
+    """Cashback earned on this transaction as a USD decimal string.
+
+    Zero for declined or ineligible transactions; null when cashback has not been
+    computed yet.
+    """
+
+    declined_reason: Optional[str] = None
+    """Reason the transaction was declined (when status is declined)."""
+
+    local_amount: Optional[str] = None
+    """Amount the merchant charged in their local currency, as a decimal string.
+
+    Pair with local_currency.
+    """
+
+    local_currency: Optional[str] = None
+    """ISO 4217 currency code of the merchant-charged amount in local_amount."""
+
+    merchant_category: Optional[str] = None
+    """Merchant category."""
+
+    merchant_icon_url: Optional[str] = None
+    """Merchant icon URL."""
+
+    merchant_name: Optional[str] = None
+    """Merchant display name."""
+
+    object: Literal["card_transaction"]
+
+    posted_at: Optional[datetime] = None
+    """ISO 8601 timestamp the transaction was settled by the card network."""
+
+    status: Optional[str] = None
+    """Current card transaction status."""
+
+    usd_amount: Optional[str] = None
+    """The processor-settled USD amount as a decimal string.
+
+    The ledger's USDT leg is posted 1:1 from this value.
+    """
 
 
 DataResource: TypeAlias = Union[
@@ -155,14 +262,98 @@ DataResource: TypeAlias = Union[
     DataResourceUnionMember2,
     DataResourceUnionMember3,
     DataResourceUnionMember4,
+    DataResourceUnionMember5,
+    DataResourceUnionMember6,
     None,
 ]
 
 
+class DataSourcePayoutDestination(BaseModel):
+    """Payout destination display info (withdrawal sources only)."""
+
+    icon_url: Optional[str] = None
+
+    payer_name: Optional[str] = None
+
+
 class DataSource(BaseModel):
+    """Source of this ledger activity."""
+
     id: str
 
     object: str
+
+    amount_float: Optional[float] = None
+    """
+    Withdrawal amount as a decimal number in the destination currency (withdrawal
+    sources only; requires payout:withdrawal:read).
+    """
+
+    chain: Optional[str] = None
+    """
+    Chain the deposit landed on, for example plasma (onchain_transaction sources
+    only).
+    """
+
+    claim_url: Optional[str] = None
+    """Public claim URL for the airdrop link (airdrop_link sources only)."""
+
+    created_at: Optional[datetime] = None
+    """
+    Withdrawal creation time as an ISO 8601 timestamp (withdrawal sources only;
+    requires payout:withdrawal:read).
+    """
+
+    estimated_arrival: Optional[datetime] = None
+    """
+    Estimated arrival as an ISO 8601 timestamp (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    from_amount: Optional[str] = None
+    """Amount converted out of from_currency as a decimal string (swap sources only)."""
+
+    from_currency: Optional[str] = None
+    """Lowercase currency code converted from (swap sources only)."""
+
+    payer_name: Optional[str] = None
+    """
+    Name of the entity processing the payout (withdrawal sources only; requires
+    payout:withdrawal:read).
+    """
+
+    payout_destination: Optional[DataSourcePayoutDestination] = None
+    """Payout destination display info (withdrawal sources only)."""
+
+    payout_token_nickname: Optional[str] = None
+    """Saved payout destination nickname (withdrawal sources only)."""
+
+    reason: Optional[str] = None
+    """Transfer reason on transfer sources, for example pool_top_up or bounty_return."""
+
+    sender_address: Optional[str] = None
+    """
+    Sender wallet address or onramp provider identifier (onchain_transaction sources
+    only).
+    """
+
+    status: Optional[str] = None
+    """Lifecycle status.
+
+    On withdrawal sources this is the withdrawal status (requires
+    payout:withdrawal:read); on airdrop_link sources it is the claim-link status
+    (ungated); on payment and top-up sources it is the friendly payment status such
+    as succeeded/pending/failed (ungated).
+    """
+
+    to_amount: Optional[str] = None
+    """Amount received in to_currency as a decimal string (swap sources only)."""
+
+    to_currency: Optional[str] = None
+    """Lowercase currency code converted to (swap sources only)."""
+
+    tx_hash: Optional[str] = None
+    """On-chain transaction hash (onchain_transaction and swap sources only)."""
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
@@ -179,21 +370,40 @@ class DataSource(BaseModel):
 
 class Data(BaseModel):
     id: str
+    """Ledger activity ID."""
 
     amount: str
     """Signed amount in the currency's smallest precision units."""
 
+    available_at: Optional[datetime] = None
+    """
+    ISO 8601 timestamp these funds became (or are scheduled to become) withdrawable:
+    the posted time for already-settled funds, or 00:00:00 UTC on the scheduled
+    release date for pending funds. Present only on inflows entering the balance
+    (payments, top-ups, incoming transfers/affiliate); null on withdrawals, refunds,
+    disputes and on-chain rows. The available_after/before filters window on its UTC
+    settlement date.
+    """
+
+    created_at: Optional[datetime] = None
+    """When the activity record was created."""
+
     currency: DataCurrency
+    """Currency for this ledger activity."""
 
     line_type: str
+    """Type of ledger activity."""
 
     object: Literal["ledger_activity"]
 
     posted_at: datetime
+    """When the activity posted to the ledger."""
 
     resource: Optional[DataResource] = None
+    """Resource associated with this ledger activity."""
 
     source: Optional[DataSource] = None
+    """Source of this ledger activity."""
 
 
 class PageInfo(BaseModel):
