@@ -108,8 +108,9 @@ class MediaResource(SyncAPIResource):
 
           duration_seconds: Video length in seconds. Video only; defaults to 5.
 
-          reference_media: Optional reference image file IDs (`file_` prefixed), up to 4. For video the
-              first reference seeds the opening frame.
+          reference_media: Optional reference image file IDs (`file_` prefixed), up to 4. For video, a
+              single reference seeds the opening frame; multiple references guide subject and
+              style instead.
 
           resolution: Video resolution. Video only; defaults to `1080p`. `1080p` is not supported by
               Seedance 2.0 Fast or Mini; `4k` is only supported by Seedance 2.0.
@@ -227,8 +228,9 @@ class AsyncMediaResource(AsyncAPIResource):
 
           duration_seconds: Video length in seconds. Video only; defaults to 5.
 
-          reference_media: Optional reference image file IDs (`file_` prefixed), up to 4. For video the
-              first reference seeds the opening frame.
+          reference_media: Optional reference image file IDs (`file_` prefixed), up to 4. For video, a
+              single reference seeds the opening frame; multiple references guide subject and
+              style instead.
 
           resolution: Video resolution. Video only; defaults to `1080p`. `1080p` is not supported by
               Seedance 2.0 Fast or Mini; `4k` is only supported by Seedance 2.0.

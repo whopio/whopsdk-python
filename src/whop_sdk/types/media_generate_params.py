@@ -25,7 +25,8 @@ class MediaGenerateParams(TypedDict, total=False):
     reference_media: SequenceNotStr[str]
     """Optional reference image file IDs (`file_` prefixed), up to 4.
 
-    For video the first reference seeds the opening frame.
+    For video, a single reference seeds the opening frame; multiple references guide
+    subject and style instead.
     """
 
     resolution: Literal["480p", "720p", "1080p", "4k"]
