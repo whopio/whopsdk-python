@@ -93,6 +93,12 @@ class AccountRecommendedAction(BaseModel):
     icon_url: Optional[str] = None
     """Illustration icon URL, or `null`"""
 
+    impact_score: Optional[int] = None
+    """
+    Estimated revenue impact from 0-100, comparable across accounts, or `null` when
+    not ranked
+    """
+
     reasoning: Optional[str] = None
     """Why this action was recommended for this account, or `null`"""
 
