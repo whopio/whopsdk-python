@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PayoutListResponse", "PayoutToken", "PayoutTokenPayoutDestination"]
+__all__ = ["PayoutCreateResponse", "PayoutToken", "PayoutTokenPayoutDestination"]
 
 
 class PayoutTokenPayoutDestination(BaseModel):
@@ -32,7 +32,7 @@ class PayoutToken(BaseModel):
     """Payout destination display details."""
 
 
-class PayoutListResponse(BaseModel):
+class PayoutCreateResponse(BaseModel):
     id: str
     """Payout ID."""
 
@@ -46,7 +46,10 @@ class PayoutListResponse(BaseModel):
     """Payout currency."""
 
     estimated_arrival: Optional[datetime] = None
-    """Estimated time the funds become available in the destination account."""
+    """Estimated time the funds become available in the destination account.
+
+    Null until the payout settles.
+    """
 
     fee_amount: float
     """The fee charged for the payout, in the payout currency."""
@@ -54,13 +57,7 @@ class PayoutListResponse(BaseModel):
     object: Literal["payout"]
 
     payer_name: Optional[str] = None
-    """Name of the entity processing the payout."""
-
-    payout_request_id: Optional[str] = None
-    """
-    The id POST /payouts returned when this payout was requested — match it to find
-    your settled payout. Null for fiat-ledger payouts.
-    """
+    """Name of the entity processing the payout. Null until the payout settles."""
 
     payout_token: Optional[PayoutToken] = None
     """The saved payout method used.
@@ -71,5 +68,5 @@ class PayoutListResponse(BaseModel):
     speed: Literal["standard", "instant"]
     """Payout delivery speed."""
 
-    status: Literal["requested", "awaiting_payment", "in_transit", "completed", "failed", "canceled", "denied"]
-    """Current payout status."""
+    status: Literal["requested", "in_transit", "completed", "failed", "canceled"]
+    """Current payout status, in the same vocabulary as GET /payouts."""

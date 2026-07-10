@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ...types import payout_list_params
+from ...types import payout_list_params, payout_create_params
 from .methods import (
     MethodsResource,
     AsyncMethodsResource,
@@ -14,7 +14,7 @@ from .methods import (
     AsyncMethodsResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -26,6 +26,7 @@ from ..._response import (
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.payout_list_response import PayoutListResponse
+from ...types.payout_create_response import PayoutCreateResponse
 
 __all__ = ["PayoutsResource", "AsyncPayoutsResource"]
 
@@ -64,6 +65,69 @@ class PayoutsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return PayoutsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        account_id: str,
+        amount: float,
+        payout_method_id: str,
+        currency: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PayoutCreateResponse:
+        """Creates a payout from a stablecoin account to a saved payout method.
+
+        The
+        account's funds are moved from its stablecoin balance through the payout
+        provider to the destination. Only available for stablecoin accounts —
+        fiat-ledger accounts use POST /withdrawals. Requires the payouts API to be
+        enabled for the account; contact support to enable it. The payout settles
+        asynchronously; poll GET /payouts for the entry whose payout_request_id matches
+        this payout's id.
+
+        Args:
+          account_id: The account to pay out from (a biz\\__ identifier).
+
+          amount: The amount to pay out in the specified currency.
+
+          payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
+
+          currency: The payout currency. Defaults to usd.
+
+          idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
+              returns the original payout instead of creating a second one.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/payouts",
+            body=maybe_transform(
+                {
+                    "account_id": account_id,
+                    "amount": amount,
+                    "payout_method_id": payout_method_id,
+                    "currency": currency,
+                    "idempotency_key": idempotency_key,
+                },
+                payout_create_params.PayoutCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PayoutCreateResponse,
+        )
 
     def list(
         self,
@@ -171,6 +235,69 @@ class AsyncPayoutsResource(AsyncAPIResource):
         """
         return AsyncPayoutsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        account_id: str,
+        amount: float,
+        payout_method_id: str,
+        currency: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PayoutCreateResponse:
+        """Creates a payout from a stablecoin account to a saved payout method.
+
+        The
+        account's funds are moved from its stablecoin balance through the payout
+        provider to the destination. Only available for stablecoin accounts —
+        fiat-ledger accounts use POST /withdrawals. Requires the payouts API to be
+        enabled for the account; contact support to enable it. The payout settles
+        asynchronously; poll GET /payouts for the entry whose payout_request_id matches
+        this payout's id.
+
+        Args:
+          account_id: The account to pay out from (a biz\\__ identifier).
+
+          amount: The amount to pay out in the specified currency.
+
+          payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
+
+          currency: The payout currency. Defaults to usd.
+
+          idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
+              returns the original payout instead of creating a second one.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/payouts",
+            body=await async_maybe_transform(
+                {
+                    "account_id": account_id,
+                    "amount": amount,
+                    "payout_method_id": payout_method_id,
+                    "currency": currency,
+                    "idempotency_key": idempotency_key,
+                },
+                payout_create_params.PayoutCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PayoutCreateResponse,
+        )
+
     def list(
         self,
         *,
@@ -246,6 +373,9 @@ class PayoutsResourceWithRawResponse:
     def __init__(self, payouts: PayoutsResource) -> None:
         self._payouts = payouts
 
+        self.create = to_raw_response_wrapper(
+            payouts.create,
+        )
         self.list = to_raw_response_wrapper(
             payouts.list,
         )
@@ -264,6 +394,9 @@ class AsyncPayoutsResourceWithRawResponse:
     def __init__(self, payouts: AsyncPayoutsResource) -> None:
         self._payouts = payouts
 
+        self.create = async_to_raw_response_wrapper(
+            payouts.create,
+        )
         self.list = async_to_raw_response_wrapper(
             payouts.list,
         )
@@ -282,6 +415,9 @@ class PayoutsResourceWithStreamingResponse:
     def __init__(self, payouts: PayoutsResource) -> None:
         self._payouts = payouts
 
+        self.create = to_streamed_response_wrapper(
+            payouts.create,
+        )
         self.list = to_streamed_response_wrapper(
             payouts.list,
         )
@@ -300,6 +436,9 @@ class AsyncPayoutsResourceWithStreamingResponse:
     def __init__(self, payouts: AsyncPayoutsResource) -> None:
         self._payouts = payouts
 
+        self.create = async_to_streamed_response_wrapper(
+            payouts.create,
+        )
         self.list = async_to_streamed_response_wrapper(
             payouts.list,
         )

@@ -187,6 +187,7 @@ from .course_update_params import CourseUpdateParams as CourseUpdateParams
 from .file_create_response import FileCreateResponse as FileCreateResponse
 from .member_list_response import MemberListResponse as MemberListResponse
 from .payment_method_types import PaymentMethodTypes as PaymentMethodTypes
+from .payout_create_params import PayoutCreateParams as PayoutCreateParams
 from .payout_list_response import PayoutListResponse as PayoutListResponse
 from .person_list_response import PersonListResponse as PersonListResponse
 from .plan_delete_response import PlanDeleteResponse as PlanDeleteResponse
@@ -248,6 +249,7 @@ from .fee_markup_list_params import FeeMarkupListParams as FeeMarkupListParams
 from .file_retrieve_response import FileRetrieveResponse as FileRetrieveResponse
 from .forum_post_list_params import ForumPostListParams as ForumPostListParams
 from .membership_list_params import MembershipListParams as MembershipListParams
+from .payout_create_response import PayoutCreateResponse as PayoutCreateResponse
 from .person_retrieve_params import PersonRetrieveParams as PersonRetrieveParams
 from .promo_code_list_params import PromoCodeListParams as PromoCodeListParams
 from .reaction_create_params import ReactionCreateParams as ReactionCreateParams

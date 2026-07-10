@@ -855,11 +855,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import PayoutListResponse
+from whop_sdk.types import PayoutCreateResponse, PayoutListResponse
 ```
 
 Methods:
 
+- <code title="post /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts/payouts.py">create</a>(\*\*<a href="src/whop_sdk/types/payout_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_create_response.py">PayoutCreateResponse</a></code>
 - <code title="get /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts/payouts.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_list_response.py">SyncCursorPage[PayoutListResponse]</a></code>
 
 ## Methods
