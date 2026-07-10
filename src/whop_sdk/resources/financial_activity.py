@@ -58,6 +58,7 @@ class FinancialActivityResource(SyncAPIResource):
         available_before: Union[str, date] | Omit = omit,
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
+        include_owned_accounts: bool | Omit = omit,
         limit: int | Omit = omit,
         line_types: SequenceNotStr[str] | Omit = omit,
         posted_after: Union[str, datetime] | Omit = omit,
@@ -75,7 +76,9 @@ class FinancialActivityResource(SyncAPIResource):
         lines with typed resource and source objects for presentation. Pass exactly one
         of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
         Filter by line type, currency, posted timestamp, or settlement date to reconcile
-        a specific window.
+        a specific window. Pass `include_owned_accounts=true` with your own `user_id` to
+        aggregate your personal ledger and the businesses you own into one feed; each
+        row then carries the owning `account`.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -90,6 +93,11 @@ class FinancialActivityResource(SyncAPIResource):
           currency: Optional currency code filter, for example `usd`.
 
           cursor: Cursor returned by the previous page.
+
+          include_owned_accounts: When true, aggregates the authenticated user's personal ledger with the
+              businesses they own (owner role with balance read) into one feed. Requires
+              user_id to be the authenticated user; cannot be combined with account_id or the
+              settlement-date filters. Each returned row includes the owning `account`.
 
           limit: Maximum number of rows to return.
 
@@ -125,6 +133,7 @@ class FinancialActivityResource(SyncAPIResource):
                         "available_before": available_before,
                         "currency": currency,
                         "cursor": cursor,
+                        "include_owned_accounts": include_owned_accounts,
                         "limit": limit,
                         "line_types": line_types,
                         "posted_after": posted_after,
@@ -172,6 +181,7 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         available_before: Union[str, date] | Omit = omit,
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
+        include_owned_accounts: bool | Omit = omit,
         limit: int | Omit = omit,
         line_types: SequenceNotStr[str] | Omit = omit,
         posted_after: Union[str, datetime] | Omit = omit,
@@ -189,7 +199,9 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         lines with typed resource and source objects for presentation. Pass exactly one
         of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
         Filter by line type, currency, posted timestamp, or settlement date to reconcile
-        a specific window.
+        a specific window. Pass `include_owned_accounts=true` with your own `user_id` to
+        aggregate your personal ledger and the businesses you own into one feed; each
+        row then carries the owning `account`.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -204,6 +216,11 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
           currency: Optional currency code filter, for example `usd`.
 
           cursor: Cursor returned by the previous page.
+
+          include_owned_accounts: When true, aggregates the authenticated user's personal ledger with the
+              businesses they own (owner role with balance read) into one feed. Requires
+              user_id to be the authenticated user; cannot be combined with account_id or the
+              settlement-date filters. Each returned row includes the owning `account`.
 
           limit: Maximum number of rows to return.
 
@@ -239,6 +256,7 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
                         "available_before": available_before,
                         "currency": currency,
                         "cursor": cursor,
+                        "include_owned_accounts": include_owned_accounts,
                         "limit": limit,
                         "line_types": line_types,
                         "posted_after": posted_after,

@@ -35,6 +35,14 @@ class FinancialActivityListParams(TypedDict, total=False):
     cursor: str
     """Cursor returned by the previous page."""
 
+    include_owned_accounts: bool
+    """
+    When true, aggregates the authenticated user's personal ledger with the
+    businesses they own (owner role with balance read) into one feed. Requires
+    user_id to be the authenticated user; cannot be combined with account_id or the
+    settlement-date filters. Each returned row includes the owning `account`.
+    """
+
     limit: int
     """Maximum number of rows to return."""
 

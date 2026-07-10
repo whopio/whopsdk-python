@@ -28,6 +28,9 @@ __all__ = [
     "DataResourceUnionMember6",
     "DataSource",
     "DataSourcePayoutDestination",
+    "DataAccount",
+    "DataAccountUnionMember0",
+    "DataAccountUnionMember1",
     "PageInfo",
 ]
 
@@ -368,6 +371,41 @@ class DataSource(BaseModel):
         __pydantic_extra__: Dict[str, builtins.object]
 
 
+class DataAccountUnionMember0(BaseModel):
+    id: str
+    """Account ID."""
+
+    logo_url: Optional[str] = None
+    """Account logo URL."""
+
+    object: Literal["account"]
+
+    route: Optional[str] = None
+    """Account route."""
+
+    title: Optional[str] = None
+    """Account display name."""
+
+
+class DataAccountUnionMember1(BaseModel):
+    id: str
+    """User ID."""
+
+    name: Optional[str] = None
+    """User display name."""
+
+    object: Literal["user"]
+
+    profile_picture_url: Optional[str] = None
+    """User profile image URL."""
+
+    username: Optional[str] = None
+    """User's username."""
+
+
+DataAccount: TypeAlias = Union[DataAccountUnionMember0, DataAccountUnionMember1]
+
+
 class Data(BaseModel):
     id: str
     """Ledger activity ID."""
@@ -404,6 +442,21 @@ class Data(BaseModel):
 
     source: Optional[DataSource] = None
     """Source of this ledger activity."""
+
+    account: Optional[DataAccount] = None
+    """The viewer account that owns this row's ledger.
+
+    Present only when the response aggregates owned accounts
+    (include_owned_accounts=true); omitted otherwise.
+    """
+
+    ledger_account_id: Optional[str] = None
+    """The ledger account (a ldgr\\__ identifier) this row belongs to.
+
+    Present only when the response aggregates owned accounts
+    (include_owned_accounts=true); omitted otherwise. Pair it with `account` to
+    scope drawers and dashboard links to the owning business.
+    """
 
 
 class PageInfo(BaseModel):
