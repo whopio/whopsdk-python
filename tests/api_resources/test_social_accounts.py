@@ -12,8 +12,8 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     SocialAccount,
     SocialAccountPostsResponse,
-    SocialAccountCreateResponse,
     SocialAccountDeleteResponse,
+    SocialAccountConnectResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -27,47 +27,42 @@ class TestSocialAccounts:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         social_account = client.social_accounts.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
         )
-        assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+        assert_matches_type(SocialAccount, social_account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         social_account = client.social_accounts.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
             account_id="account_id",
-            scopes=["advertise"],
         )
-        assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+        assert_matches_type(SocialAccount, social_account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.social_accounts.with_raw_response.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         social_account = response.parse()
-        assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+        assert_matches_type(SocialAccount, social_account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.social_accounts.with_streaming_response.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             social_account = response.parse()
-            assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+            assert_matches_type(SocialAccount, social_account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -171,6 +166,51 @@ class TestSocialAccounts:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_connect(self, client: Whop) -> None:
+        social_account = client.social_accounts.connect(
+            platform="meta_business",
+        )
+        assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_connect_with_all_params(self, client: Whop) -> None:
+        social_account = client.social_accounts.connect(
+            platform="meta_business",
+            account_id="account_id",
+            redirect_url="redirect_url",
+            scopes=["advertise"],
+        )
+        assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_connect(self, client: Whop) -> None:
+        response = client.social_accounts.with_raw_response.connect(
+            platform="meta_business",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        social_account = response.parse()
+        assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_connect(self, client: Whop) -> None:
+        with client.social_accounts.with_streaming_response.connect(
+            platform="meta_business",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            social_account = response.parse()
+            assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_posts(self, client: Whop) -> None:
         social_account = client.social_accounts.posts(
             id="id",
@@ -237,47 +277,42 @@ class TestAsyncSocialAccounts:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         social_account = await async_client.social_accounts.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
         )
-        assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+        assert_matches_type(SocialAccount, social_account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         social_account = await async_client.social_accounts.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
             account_id="account_id",
-            scopes=["advertise"],
         )
-        assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+        assert_matches_type(SocialAccount, social_account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.social_accounts.with_raw_response.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         social_account = await response.parse()
-        assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+        assert_matches_type(SocialAccount, social_account, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.social_accounts.with_streaming_response.create(
-            platform="meta_business",
-            redirect_url="redirect_url",
+            platform="facebook",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             social_account = await response.parse()
-            assert_matches_type(SocialAccountCreateResponse, social_account, path=["response"])
+            assert_matches_type(SocialAccount, social_account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -378,6 +413,51 @@ class TestAsyncSocialAccounts:
             await async_client.social_accounts.with_raw_response.delete(
                 id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_connect(self, async_client: AsyncWhop) -> None:
+        social_account = await async_client.social_accounts.connect(
+            platform="meta_business",
+        )
+        assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_connect_with_all_params(self, async_client: AsyncWhop) -> None:
+        social_account = await async_client.social_accounts.connect(
+            platform="meta_business",
+            account_id="account_id",
+            redirect_url="redirect_url",
+            scopes=["advertise"],
+        )
+        assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_connect(self, async_client: AsyncWhop) -> None:
+        response = await async_client.social_accounts.with_raw_response.connect(
+            platform="meta_business",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        social_account = await response.parse()
+        assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_connect(self, async_client: AsyncWhop) -> None:
+        async with async_client.social_accounts.with_streaming_response.connect(
+            platform="meta_business",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            social_account = await response.parse()
+            assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

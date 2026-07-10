@@ -12,6 +12,7 @@ from ..types import (
     social_account_posts_params,
     social_account_create_params,
     social_account_delete_params,
+    social_account_connect_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -27,8 +28,8 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.social_account import SocialAccount
 from ..types.social_account_posts_response import SocialAccountPostsResponse
-from ..types.social_account_create_response import SocialAccountCreateResponse
 from ..types.social_account_delete_response import SocialAccountDeleteResponse
+from ..types.social_account_connect_response import SocialAccountConnectResponse
 
 __all__ = ["SocialAccountsResource", "AsyncSocialAccountsResource"]
 
@@ -56,36 +57,27 @@ class SocialAccountsResource(SyncAPIResource):
     def create(
         self,
         *,
-        platform: Literal["meta_business"],
-        redirect_url: str,
+        platform: Literal["facebook"],
         account_id: str | Omit = omit,
-        scopes: List[Literal["advertise"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SocialAccountCreateResponse:
+    ) -> SocialAccount:
         """
-        Starts an OAuth connection flow for a social account and returns an
-        authorize*url to redirect the user to. Today the only supported platform is
-        meta_business, which grants the advertise scope so the connected Facebook page
-        and Instagram account can run ads. The required permission follows the requested
-        capability: the advertise scope requires ad_campaign:create (so advertiser roles
-        can connect), other scopes require social_account:create. The connection is
-        authorized against the account given by account_id (a biz* identifier); an
+        Provisions a Whop-managed Facebook page for a business — using the business's
+        name, logo, and banner — and returns the linked social account. Idempotent: a
+        business that already has a Whop-managed page gets that same account back.
+        Authorized against the account given by account*id (a biz* identifier); an
         account-scoped API key may omit it to default to its own account.
 
         Args:
-          platform: The platform to connect the social account on.
+          platform: The platform to create the social account on.
 
-          redirect_url: The Whop URL to redirect the user to after they finish connecting.
-
-          account_id: The Account (biz\\__ identifier) to connect the social account for. An
+          account_id: The Account (biz\\__ identifier) to create the social account for. An
               account-scoped API key may omit this to default to its own account.
-
-          scopes: Capabilities to grant for the connected social account, for example `advertise`.
 
           extra_headers: Send extra headers
 
@@ -100,16 +92,14 @@ class SocialAccountsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "platform": platform,
-                    "redirect_url": redirect_url,
                     "account_id": account_id,
-                    "scopes": scopes,
                 },
                 social_account_create_params.SocialAccountCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SocialAccountCreateResponse,
+            cast_to=SocialAccount,
         )
 
     def list(
@@ -252,6 +242,62 @@ class SocialAccountsResource(SyncAPIResource):
             cast_to=SocialAccountDeleteResponse,
         )
 
+    def connect(
+        self,
+        *,
+        platform: Literal["meta_business"],
+        account_id: str | Omit = omit,
+        redirect_url: str | Omit = omit,
+        scopes: List[Literal["advertise"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountConnectResponse:
+        """
+        Starts an OAuth connection flow for a social account and returns an
+        authorize*url to redirect the user to. advertise is required and gated on
+        ad_campaign:create so advertiser roles can connect. The connect is authorized
+        against the account given by account_id (a biz* identifier); an account-scoped
+        API key may omit it to default to its own account.
+
+        Args:
+          platform: The platform to connect the social account on.
+
+          account_id: The Account (biz\\__ identifier) to connect the social account for. An
+              account-scoped API key may omit this to default to its own account.
+
+          redirect_url: The Whop URL to redirect the user to after they finish connecting.
+
+          scopes: Capabilities for the connected social account. `advertise` is required.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/social_accounts/connect",
+            body=maybe_transform(
+                {
+                    "platform": platform,
+                    "account_id": account_id,
+                    "redirect_url": redirect_url,
+                    "scopes": scopes,
+                },
+                social_account_connect_params.SocialAccountConnectParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SocialAccountConnectResponse,
+        )
+
     def posts(
         self,
         id: str,
@@ -336,36 +382,27 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        platform: Literal["meta_business"],
-        redirect_url: str,
+        platform: Literal["facebook"],
         account_id: str | Omit = omit,
-        scopes: List[Literal["advertise"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SocialAccountCreateResponse:
+    ) -> SocialAccount:
         """
-        Starts an OAuth connection flow for a social account and returns an
-        authorize*url to redirect the user to. Today the only supported platform is
-        meta_business, which grants the advertise scope so the connected Facebook page
-        and Instagram account can run ads. The required permission follows the requested
-        capability: the advertise scope requires ad_campaign:create (so advertiser roles
-        can connect), other scopes require social_account:create. The connection is
-        authorized against the account given by account_id (a biz* identifier); an
+        Provisions a Whop-managed Facebook page for a business — using the business's
+        name, logo, and banner — and returns the linked social account. Idempotent: a
+        business that already has a Whop-managed page gets that same account back.
+        Authorized against the account given by account*id (a biz* identifier); an
         account-scoped API key may omit it to default to its own account.
 
         Args:
-          platform: The platform to connect the social account on.
+          platform: The platform to create the social account on.
 
-          redirect_url: The Whop URL to redirect the user to after they finish connecting.
-
-          account_id: The Account (biz\\__ identifier) to connect the social account for. An
+          account_id: The Account (biz\\__ identifier) to create the social account for. An
               account-scoped API key may omit this to default to its own account.
-
-          scopes: Capabilities to grant for the connected social account, for example `advertise`.
 
           extra_headers: Send extra headers
 
@@ -380,16 +417,14 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "platform": platform,
-                    "redirect_url": redirect_url,
                     "account_id": account_id,
-                    "scopes": scopes,
                 },
                 social_account_create_params.SocialAccountCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SocialAccountCreateResponse,
+            cast_to=SocialAccount,
         )
 
     def list(
@@ -532,6 +567,62 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
             cast_to=SocialAccountDeleteResponse,
         )
 
+    async def connect(
+        self,
+        *,
+        platform: Literal["meta_business"],
+        account_id: str | Omit = omit,
+        redirect_url: str | Omit = omit,
+        scopes: List[Literal["advertise"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountConnectResponse:
+        """
+        Starts an OAuth connection flow for a social account and returns an
+        authorize*url to redirect the user to. advertise is required and gated on
+        ad_campaign:create so advertiser roles can connect. The connect is authorized
+        against the account given by account_id (a biz* identifier); an account-scoped
+        API key may omit it to default to its own account.
+
+        Args:
+          platform: The platform to connect the social account on.
+
+          account_id: The Account (biz\\__ identifier) to connect the social account for. An
+              account-scoped API key may omit this to default to its own account.
+
+          redirect_url: The Whop URL to redirect the user to after they finish connecting.
+
+          scopes: Capabilities for the connected social account. `advertise` is required.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/social_accounts/connect",
+            body=await async_maybe_transform(
+                {
+                    "platform": platform,
+                    "account_id": account_id,
+                    "redirect_url": redirect_url,
+                    "scopes": scopes,
+                },
+                social_account_connect_params.SocialAccountConnectParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SocialAccountConnectResponse,
+        )
+
     async def posts(
         self,
         id: str,
@@ -606,6 +697,9 @@ class SocialAccountsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             social_accounts.delete,
         )
+        self.connect = to_raw_response_wrapper(
+            social_accounts.connect,
+        )
         self.posts = to_raw_response_wrapper(
             social_accounts.posts,
         )
@@ -623,6 +717,9 @@ class AsyncSocialAccountsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             social_accounts.delete,
+        )
+        self.connect = async_to_raw_response_wrapper(
+            social_accounts.connect,
         )
         self.posts = async_to_raw_response_wrapper(
             social_accounts.posts,
@@ -642,6 +739,9 @@ class SocialAccountsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             social_accounts.delete,
         )
+        self.connect = to_streamed_response_wrapper(
+            social_accounts.connect,
+        )
         self.posts = to_streamed_response_wrapper(
             social_accounts.posts,
         )
@@ -659,6 +759,9 @@ class AsyncSocialAccountsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             social_accounts.delete,
+        )
+        self.connect = async_to_streamed_response_wrapper(
+            social_accounts.connect,
         )
         self.posts = async_to_streamed_response_wrapper(
             social_accounts.posts,

@@ -134,17 +134,18 @@ Types:
 from whop_sdk.types import (
     SocialAccount,
     SocialAccountPost,
-    SocialAccountCreateResponse,
     SocialAccountDeleteResponse,
+    SocialAccountConnectResponse,
     SocialAccountPostsResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">create</a>(\*\*<a href="src/whop_sdk/types/social_account_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_create_response.py">SocialAccountCreateResponse</a></code>
+- <code title="post /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">create</a>(\*\*<a href="src/whop_sdk/types/social_account_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account.py">SocialAccount</a></code>
 - <code title="get /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/social_account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account.py">SyncCursorPage[SocialAccount]</a></code>
 - <code title="delete /social_accounts/{id}">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/social_account_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_delete_response.py">SocialAccountDeleteResponse</a></code>
+- <code title="post /social_accounts/connect">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">connect</a>(\*\*<a href="src/whop_sdk/types/social_account_connect_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_connect_response.py">SocialAccountConnectResponse</a></code>
 - <code title="get /social_accounts/{id}/posts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">posts</a>(id, \*\*<a href="src/whop_sdk/types/social_account_posts_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_posts_response.py">SocialAccountPostsResponse</a></code>
 
 # Audiences

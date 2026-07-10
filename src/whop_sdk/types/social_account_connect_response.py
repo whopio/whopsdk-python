@@ -2,9 +2,9 @@
 
 from .._models import BaseModel
 
-__all__ = ["SocialAccountCreateResponse"]
+__all__ = ["SocialAccountConnectResponse"]
 
 
-class SocialAccountCreateResponse(BaseModel):
+class SocialAccountConnectResponse(BaseModel):
     authorize_url: str
     """The OAuth authorization URL to redirect the user to."""
