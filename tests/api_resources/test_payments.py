@@ -72,6 +72,7 @@ class TestPayments:
                 "visibility": "visible",
             },
             metadata={"foo": "bar"},
+            promo_code_id="promo_xxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -127,6 +128,7 @@ class TestPayments:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
             metadata={"foo": "bar"},
+            promo_code_id="promo_xxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -503,6 +505,7 @@ class TestAsyncPayments:
                 "visibility": "visible",
             },
             metadata={"foo": "bar"},
+            promo_code_id="promo_xxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -558,6 +561,7 @@ class TestAsyncPayments:
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
             metadata={"foo": "bar"},
+            promo_code_id="promo_xxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
 

@@ -36,7 +36,7 @@ class AssessmentQuestionImage(BaseModel):
     """
 
     content_type: Optional[str] = None
-    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
+    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
 
     filename: Optional[str] = None
     """The original filename of the uploaded attachment, including its file extension."""
@@ -113,7 +113,7 @@ class Attachment(BaseModel):
     """
 
     content_type: Optional[str] = None
-    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
+    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
 
     filename: Optional[str] = None
     """The original filename of the uploaded attachment, including its file extension."""
@@ -142,7 +142,7 @@ class MainPdf(BaseModel):
     """
 
     content_type: Optional[str] = None
-    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
+    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
 
     filename: Optional[str] = None
     """The original filename of the uploaded attachment, including its file extension."""

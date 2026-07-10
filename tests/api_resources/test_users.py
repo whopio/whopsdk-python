@@ -35,6 +35,11 @@ class TestUsers:
         user = client.users.retrieve(
             id="id",
             account_id="account_id",
+            from_="from",
+            include_balance_history=True,
+            interval="hour",
+            time_zone="time_zone",
+            to="to",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -88,6 +93,11 @@ class TestUsers:
             account_id="account_id",
             bio="bio",
             name="name",
+            profile_picture={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            username="username",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -227,6 +237,7 @@ class TestUsers:
     @parametrize
     def test_method_update_me_with_all_params(self, client: Whop) -> None:
         user = client.users.update_me(
+            account_id="account_id",
             bio="bio",
             name="name",
             profile_picture={
@@ -279,6 +290,11 @@ class TestAsyncUsers:
         user = await async_client.users.retrieve(
             id="id",
             account_id="account_id",
+            from_="from",
+            include_balance_history=True,
+            interval="hour",
+            time_zone="time_zone",
+            to="to",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -332,6 +348,11 @@ class TestAsyncUsers:
             account_id="account_id",
             bio="bio",
             name="name",
+            profile_picture={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
+            username="username",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -471,6 +492,7 @@ class TestAsyncUsers:
     @parametrize
     async def test_method_update_me_with_all_params(self, async_client: AsyncWhop) -> None:
         user = await async_client.users.update_me(
+            account_id="account_id",
             bio="bio",
             name="name",
             profile_picture={
