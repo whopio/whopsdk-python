@@ -8,17 +8,17 @@ __all__ = ["BusinessListParams"]
 
 
 class BusinessListParams(TypedDict, total=False):
-    active_after: str
-    """Only return business referrals with a transaction after this timestamp."""
-
-    active_before: str
-    """Only return business referrals with a transaction before this timestamp."""
-
     after: str
     """Cursor to fetch the page after (from page_info.end_cursor)."""
 
     before: str
     """Cursor to fetch the page before (from page_info.start_cursor)."""
+
+    created_after: str
+    """Only return business referrals created after this timestamp."""
+
+    created_before: str
+    """Only return business referrals created before this timestamp."""
 
     direction: Literal["asc", "desc"]
     """Sort direction."""
