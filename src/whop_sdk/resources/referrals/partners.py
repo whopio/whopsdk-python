@@ -21,9 +21,9 @@ __all__ = ["PartnersResource", "AsyncPartnersResource"]
 
 class PartnersResource(SyncAPIResource):
     """
-    Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-    Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+    Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """
 
     @cached_property
@@ -61,7 +61,7 @@ class PartnersResource(SyncAPIResource):
         enrollment time.
         """
         return self._post(
-            "/referrals/partners",
+            "/partners",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -71,9 +71,9 @@ class PartnersResource(SyncAPIResource):
 
 class AsyncPartnersResource(AsyncAPIResource):
     """
-    Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-    Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+    Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """
 
     @cached_property
@@ -111,7 +111,7 @@ class AsyncPartnersResource(AsyncAPIResource):
         enrollment time.
         """
         return await self._post(
-            "/referrals/partners",
+            "/partners",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

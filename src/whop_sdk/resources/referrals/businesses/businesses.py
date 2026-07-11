@@ -36,17 +36,17 @@ __all__ = ["BusinessesResource", "AsyncBusinessesResource"]
 
 class BusinessesResource(SyncAPIResource):
     """
-    Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-    Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+    Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """
 
     @cached_property
     def earnings(self) -> EarningsResource:
         """
-        Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-        Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
         return EarningsResource(self._client)
 
@@ -95,7 +95,7 @@ class BusinessesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/referrals/businesses/{id}", id=id),
+            path_template("/partners/businesses/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -177,7 +177,7 @@ class BusinessesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/referrals/businesses",
+            "/partners/businesses",
             page=SyncCursorPage[BusinessListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -236,7 +236,7 @@ class BusinessesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
-            "/referrals/businesses/leaderboard",
+            "/partners/leaderboard",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -250,17 +250,17 @@ class BusinessesResource(SyncAPIResource):
 
 class AsyncBusinessesResource(AsyncAPIResource):
     """
-    Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-    Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+    Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """
 
     @cached_property
     def earnings(self) -> AsyncEarningsResource:
         """
-        Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-        Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
         return AsyncEarningsResource(self._client)
 
@@ -309,7 +309,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/referrals/businesses/{id}", id=id),
+            path_template("/partners/businesses/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -391,7 +391,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/referrals/businesses",
+            "/partners/businesses",
             page=AsyncCursorPage[BusinessListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -450,7 +450,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
-            "/referrals/businesses/leaderboard",
+            "/partners/leaderboard",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -481,9 +481,9 @@ class BusinessesResourceWithRawResponse:
     @cached_property
     def earnings(self) -> EarningsResourceWithRawResponse:
         """
-        Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-        Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
         return EarningsResourceWithRawResponse(self._businesses.earnings)
 
@@ -505,9 +505,9 @@ class AsyncBusinessesResourceWithRawResponse:
     @cached_property
     def earnings(self) -> AsyncEarningsResourceWithRawResponse:
         """
-        Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-        Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
         return AsyncEarningsResourceWithRawResponse(self._businesses.earnings)
 
@@ -529,9 +529,9 @@ class BusinessesResourceWithStreamingResponse:
     @cached_property
     def earnings(self) -> EarningsResourceWithStreamingResponse:
         """
-        Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-        Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
         return EarningsResourceWithStreamingResponse(self._businesses.earnings)
 
@@ -553,8 +553,8 @@ class AsyncBusinessesResourceWithStreamingResponse:
     @cached_property
     def earnings(self) -> AsyncEarningsResourceWithStreamingResponse:
         """
-        Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
-        Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
         return AsyncEarningsResourceWithStreamingResponse(self._businesses.earnings)

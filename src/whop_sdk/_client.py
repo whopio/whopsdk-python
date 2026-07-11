@@ -638,6 +638,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def referrals(self) -> ReferralsResource:
+        """
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
         from .resources.referrals import ReferralsResource
 
         return ReferralsResource(self)
@@ -1397,6 +1402,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def referrals(self) -> AsyncReferralsResource:
+        """
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
         from .resources.referrals import AsyncReferralsResource
 
         return AsyncReferralsResource(self)
@@ -2076,6 +2086,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def referrals(self) -> referrals.ReferralsResourceWithRawResponse:
+        """
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
         from .resources.referrals import ReferralsResourceWithRawResponse
 
         return ReferralsResourceWithRawResponse(self._client.referrals)
@@ -2637,6 +2652,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def referrals(self) -> referrals.AsyncReferralsResourceWithRawResponse:
+        """
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
         from .resources.referrals import AsyncReferralsResourceWithRawResponse
 
         return AsyncReferralsResourceWithRawResponse(self._client.referrals)
@@ -3200,6 +3220,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def referrals(self) -> referrals.ReferralsResourceWithStreamingResponse:
+        """
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
         from .resources.referrals import ReferralsResourceWithStreamingResponse
 
         return ReferralsResourceWithStreamingResponse(self._client.referrals)
@@ -3765,6 +3790,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def referrals(self) -> referrals.AsyncReferralsResourceWithStreamingResponse:
+        """
+        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
         from .resources.referrals import AsyncReferralsResourceWithStreamingResponse
 
         return AsyncReferralsResourceWithStreamingResponse(self._client.referrals)
