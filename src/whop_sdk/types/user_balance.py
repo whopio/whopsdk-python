@@ -8,22 +8,22 @@ __all__ = ["UserBalance", "Business", "Cash", "Crypto"]
 
 
 class Business(BaseModel):
-    """Per-company balances for companies the user owns, highest balance first.
+    """Account balances for accounts the user owns, highest balance first.
 
-    Excludes companies with no balance.
+    Excludes accounts with no balance.
     """
 
     id: str
-    """The company ID, which looks like biz\\__******\\********."""
+    """The account ID, which looks like biz\\__******\\********."""
 
     balance_usd: str
-    """The company's total balance in USD."""
+    """The account's total balance in USD."""
 
     logo_url: Optional[str] = None
-    """The company's logo URL."""
+    """The account's logo URL."""
 
     name: Optional[str] = None
-    """The company's display name."""
+    """The account's display name."""
 
 
 class Cash(BaseModel):
@@ -74,7 +74,7 @@ class UserBalance(BaseModel):
     businesses: List[Business]
 
     businesses_total_usd: str
-    """Combined USD balance across every company the user owns."""
+    """Combined USD balance across every account the user owns."""
 
     cash: List[Cash]
 
@@ -92,7 +92,7 @@ class UserBalance(BaseModel):
     total_usd: str
     """
     The user's personal balance in USD: cash (available + pending + reserve) +
-    crypto + in-flight treasury deposits. Excludes companies (see
+    crypto + in-flight treasury deposits. Excludes account balances (see
     businesses_total_usd).
     """
 

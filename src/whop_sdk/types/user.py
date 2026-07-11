@@ -28,7 +28,7 @@ class BalanceHistoryData(BaseModel):
 
 class BalanceHistory(BaseModel):
     """
-    The user's cumulative wallet balance over time (USD `{ t, v }` points plus last/min/max), for the balance chart. Opt-in and heavier: computed only on `GET /users/me` self-view when `include_balance_history=true` and the caller has balance-read scope; `null` otherwise. A migrated account that never transacted returns an empty series.
+    The user's cumulative wallet balance over time (USD `{ t, v }` points plus last/min/max), for the balance chart. Opt in with `include_balance_history=true` on `GET /users/me`; populated only for callers with balance-read scope and `null` otherwise. A user with no wallet activity returns an empty series.
     """
 
     data: List[BalanceHistoryData]
@@ -44,7 +44,7 @@ class BalanceHistory(BaseModel):
 
 
 class EarningsUsdOwnedAccounts(BaseModel):
-    """Gross income from companies the user owns or is owner-authorized on."""
+    """Gross income from accounts the user owns or is owner-authorized on."""
 
     last_24_hours: str
     """Gross income in USD over the last 24 hours."""
@@ -77,7 +77,7 @@ class EarningsUsdPersonal(BaseModel):
 
 class EarningsUsdTotal(BaseModel):
     """
-    Gross income from the user's personal wallet plus companies they own or are owner-authorized on.
+    Gross income from the user's personal wallet plus accounts they own or are owner-authorized on.
     """
 
     last_24_hours: str
@@ -103,14 +103,14 @@ class EarningsUsd(BaseModel):
     """The first time the user earned gross income, as an ISO 8601 timestamp."""
 
     owned_accounts: EarningsUsdOwnedAccounts
-    """Gross income from companies the user owns or is owner-authorized on."""
+    """Gross income from accounts the user owns or is owner-authorized on."""
 
     personal: EarningsUsdPersonal
     """Gross income from the user's personal wallet."""
 
     total: EarningsUsdTotal
     """
-    Gross income from the user's personal wallet plus companies they own or are
+    Gross income from the user's personal wallet plus accounts they own or are
     owner-authorized on.
     """
 
@@ -122,17 +122,16 @@ class User(BaseModel):
     balance: Optional[UserBalance] = None
     """
     The user's balance: personal cash + crypto + in-flight treasury deposits, plus
-    per-company balances for companies they own. Computed only on `GET /users/me`
+    account balances for accounts they own. Computed only on `GET /users/me`
     self-view for callers with balance-read scope; `null` otherwise.
     """
 
     balance_history: Optional[BalanceHistory] = None
     """
     The user's cumulative wallet balance over time (USD `{ t, v }` points plus
-    last/min/max), for the balance chart. Opt-in and heavier: computed only on
-    `GET /users/me` self-view when `include_balance_history=true` and the caller has
-    balance-read scope; `null` otherwise. A migrated account that never transacted
-    returns an empty series.
+    last/min/max), for the balance chart. Opt in with `include_balance_history=true`
+    on `GET /users/me`; populated only for callers with balance-read scope and
+    `null` otherwise. A user with no wallet activity returns an empty series.
     """
 
     bio: Optional[str] = None

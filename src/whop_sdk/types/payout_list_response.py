@@ -57,9 +57,10 @@ class PayoutListResponse(BaseModel):
     """Name of the entity processing the payout."""
 
     payout_request_id: Optional[str] = None
-    """
-    The id POST /payouts returned when this payout was requested — match it to find
-    your settled payout. Null for fiat-ledger payouts.
+    """The ID returned by POST /payouts when this payout was requested.
+
+    Match it to the settled payout in GET /payouts. Null for payouts not created by
+    POST /payouts.
     """
 
     payout_token: Optional[PayoutToken] = None

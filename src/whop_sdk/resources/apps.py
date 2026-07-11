@@ -33,10 +33,11 @@ __all__ = ["AppsResource", "AsyncAppsResource"]
 
 
 class AppsResource(SyncAPIResource):
-    """
-    An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+    """An App is software you build on Whop.
 
-    Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+    It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+    Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
     """
 
     @cached_property
@@ -466,10 +467,11 @@ class AppsResource(SyncAPIResource):
 
 
 class AsyncAppsResource(AsyncAPIResource):
-    """
-    An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+    """An App is software you build on Whop.
 
-    Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+    It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+    Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
     """
 
     @cached_property

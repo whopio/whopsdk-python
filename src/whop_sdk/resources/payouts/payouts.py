@@ -33,17 +33,17 @@ __all__ = ["PayoutsResource", "AsyncPayoutsResource"]
 
 class PayoutsResource(SyncAPIResource):
     """
-    Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+    Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+    Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
     def methods(self) -> MethodsResource:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         return MethodsResource(self._client)
 
@@ -84,12 +84,11 @@ class PayoutsResource(SyncAPIResource):
         """Creates a payout from a stablecoin account to a saved payout method.
 
         The
-        account's funds are moved from its stablecoin balance through the payout
-        provider to the destination. Only available for stablecoin accounts —
-        fiat-ledger accounts use POST /withdrawals. Requires the payouts API to be
-        enabled for the account; contact support to enable it. The payout settles
-        asynchronously; poll GET /payouts for the entry whose payout_request_id matches
-        this payout's id.
+        account's funds move from its stablecoin balance to an external bank account,
+        wallet, or crypto address. Accounts that pay out from a fiat balance use POST
+        /withdrawals. Requires the payouts API to be enabled for the account; contact
+        support to enable it. The payout settles asynchronously; poll GET /payouts for
+        the entry whose payout_request_id matches this payout's id.
 
         Args:
           account_id: The account to pay out from (a biz\\__ identifier).
@@ -202,17 +201,17 @@ class PayoutsResource(SyncAPIResource):
 
 class AsyncPayoutsResource(AsyncAPIResource):
     """
-    Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+    Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+    Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
     def methods(self) -> AsyncMethodsResource:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         return AsyncMethodsResource(self._client)
 
@@ -253,12 +252,11 @@ class AsyncPayoutsResource(AsyncAPIResource):
         """Creates a payout from a stablecoin account to a saved payout method.
 
         The
-        account's funds are moved from its stablecoin balance through the payout
-        provider to the destination. Only available for stablecoin accounts —
-        fiat-ledger accounts use POST /withdrawals. Requires the payouts API to be
-        enabled for the account; contact support to enable it. The payout settles
-        asynchronously; poll GET /payouts for the entry whose payout_request_id matches
-        this payout's id.
+        account's funds move from its stablecoin balance to an external bank account,
+        wallet, or crypto address. Accounts that pay out from a fiat balance use POST
+        /withdrawals. Requires the payouts API to be enabled for the account; contact
+        support to enable it. The payout settles asynchronously; poll GET /payouts for
+        the entry whose payout_request_id matches this payout's id.
 
         Args:
           account_id: The account to pay out from (a biz\\__ identifier).
@@ -383,9 +381,9 @@ class PayoutsResourceWithRawResponse:
     @cached_property
     def methods(self) -> MethodsResourceWithRawResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         return MethodsResourceWithRawResponse(self._payouts.methods)
 
@@ -404,9 +402,9 @@ class AsyncPayoutsResourceWithRawResponse:
     @cached_property
     def methods(self) -> AsyncMethodsResourceWithRawResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         return AsyncMethodsResourceWithRawResponse(self._payouts.methods)
 
@@ -425,9 +423,9 @@ class PayoutsResourceWithStreamingResponse:
     @cached_property
     def methods(self) -> MethodsResourceWithStreamingResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         return MethodsResourceWithStreamingResponse(self._payouts.methods)
 
@@ -446,8 +444,8 @@ class AsyncPayoutsResourceWithStreamingResponse:
     @cached_property
     def methods(self) -> AsyncMethodsResourceWithStreamingResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         return AsyncMethodsResourceWithStreamingResponse(self._payouts.methods)

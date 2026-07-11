@@ -11,23 +11,23 @@ __all__ = ["PreferenceUpdateResponse", "AdsPaymentMethods", "AdsPaymentMethodsBa
 class AdsPaymentMethodsBackup(BaseModel):
     id: str
     """
-    The funding source ID: a ledger account (`ldgr_`) for `platform_balance`, a
+    The funding source ID: a Whop balance (`ldgr_`) for `platform_balance`, or a
     payment method (`payt_`) for `card`.
     """
 
     type: Literal["platform_balance", "card"]
-    """The funding source kind: a ledger balance or a saved card."""
+    """The funding source kind: a Whop balance or a saved card."""
 
 
 class AdsPaymentMethodsPrimary(BaseModel):
     id: str
     """
-    The funding source ID: a ledger account (`ldgr_`) for `platform_balance`, a
+    The funding source ID: a Whop balance (`ldgr_`) for `platform_balance`, or a
     payment method (`payt_`) for `card`.
     """
 
     type: Literal["platform_balance", "card"]
-    """The funding source kind: a ledger balance or a saved card."""
+    """The funding source kind: a Whop balance or a saved card."""
 
 
 class AdsPaymentMethods(BaseModel):

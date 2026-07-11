@@ -21,9 +21,9 @@ __all__ = ["PartnersResource", "AsyncPartnersResource"]
 
 class PartnersResource(SyncAPIResource):
     """
-    Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
+    Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
 
-    Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+    Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
     """
 
     @cached_property
@@ -71,9 +71,9 @@ class PartnersResource(SyncAPIResource):
 
 class AsyncPartnersResource(AsyncAPIResource):
     """
-    Referrals track businesses referred to Whop and the earnings generated from their processing volume. They help you see how much volume your referred businesses have processed and how much you've earned from them.
+    Referrals track accounts you referred to Whop and the earnings generated from their processing volume. They show how much those referred accounts have processed and how much you've earned.
 
-    Use the Referrals API to list referred businesses, retrieve one referral, and review earnings across all referrals or for a single referred business.
+    Use the Referrals API to list or retrieve referred accounts, review earnings and leaderboard position, and enroll the caller as a Whop partner.
     """
 
     @cached_property

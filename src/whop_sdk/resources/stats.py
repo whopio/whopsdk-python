@@ -27,6 +27,13 @@ __all__ = ["StatsResource", "AsyncStatsResource"]
 
 
 class StatsResource(SyncAPIResource):
+    """Stats represent aggregated activity for an account over time.
+
+    They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+    Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+    """
+
     @cached_property
     def with_raw_response(self) -> StatsResourceWithRawResponse:
         """
@@ -232,6 +239,13 @@ class StatsResource(SyncAPIResource):
 
 
 class AsyncStatsResource(AsyncAPIResource):
+    """Stats represent aggregated activity for an account over time.
+
+    They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+    Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncStatsResourceWithRawResponse:
         """

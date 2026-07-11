@@ -277,10 +277,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def apps(self) -> AppsResource:
-        """
-        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+        """An App is software you build on Whop.
 
-        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AppsResource
 
@@ -612,6 +613,12 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def stats(self) -> StatsResource:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
         from .resources.stats import StatsResource
 
         return StatsResource(self)
@@ -619,9 +626,9 @@ class Whop(SyncAPIClient):
     @cached_property
     def payouts(self) -> PayoutsResource:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         from .resources.payouts import PayoutsResource
 
@@ -1023,10 +1030,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def apps(self) -> AsyncAppsResource:
-        """
-        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+        """An App is software you build on Whop.
 
-        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AsyncAppsResource
 
@@ -1358,6 +1366,12 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def stats(self) -> AsyncStatsResource:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
         from .resources.stats import AsyncStatsResource
 
         return AsyncStatsResource(self)
@@ -1365,9 +1379,9 @@ class AsyncWhop(AsyncAPIClient):
     @cached_property
     def payouts(self) -> AsyncPayoutsResource:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         from .resources.payouts import AsyncPayoutsResource
 
@@ -1689,10 +1703,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def apps(self) -> apps.AppsResourceWithRawResponse:
-        """
-        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+        """An App is software you build on Whop.
 
-        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AppsResourceWithRawResponse
 
@@ -2024,6 +2039,12 @@ class WhopWithRawResponse:
 
     @cached_property
     def stats(self) -> stats.StatsResourceWithRawResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
         from .resources.stats import StatsResourceWithRawResponse
 
         return StatsResourceWithRawResponse(self._client.stats)
@@ -2031,9 +2052,9 @@ class WhopWithRawResponse:
     @cached_property
     def payouts(self) -> payouts.PayoutsResourceWithRawResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         from .resources.payouts import PayoutsResourceWithRawResponse
 
@@ -2235,10 +2256,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def apps(self) -> apps.AsyncAppsResourceWithRawResponse:
-        """
-        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+        """An App is software you build on Whop.
 
-        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AsyncAppsResourceWithRawResponse
 
@@ -2572,6 +2594,12 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def stats(self) -> stats.AsyncStatsResourceWithRawResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
         from .resources.stats import AsyncStatsResourceWithRawResponse
 
         return AsyncStatsResourceWithRawResponse(self._client.stats)
@@ -2579,9 +2607,9 @@ class AsyncWhopWithRawResponse:
     @cached_property
     def payouts(self) -> payouts.AsyncPayoutsResourceWithRawResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         from .resources.payouts import AsyncPayoutsResourceWithRawResponse
 
@@ -2785,10 +2813,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def apps(self) -> apps.AppsResourceWithStreamingResponse:
-        """
-        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+        """An App is software you build on Whop.
 
-        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AppsResourceWithStreamingResponse
 
@@ -3122,6 +3151,12 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def stats(self) -> stats.StatsResourceWithStreamingResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
         from .resources.stats import StatsResourceWithStreamingResponse
 
         return StatsResourceWithStreamingResponse(self._client.stats)
@@ -3129,9 +3164,9 @@ class WhopWithStreamedResponse:
     @cached_property
     def payouts(self) -> payouts.PayoutsResourceWithStreamingResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         from .resources.payouts import PayoutsResourceWithStreamingResponse
 
@@ -3335,10 +3370,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def apps(self) -> apps.AsyncAppsResourceWithStreamingResponse:
-        """
-        An App is software you build on the Whop platform — from a fully-hosted web app served at `<route>.whop.app` to an API integration installed into whops as experiences. Apps belong to an account and hold their own credentials and settings.
+        """An App is software you build on Whop.
 
-        Use the Apps API to create and configure apps, and — for hosted apps — read their server runtime logs: every console line, uncaught exception, and failed request is captured for 7 days and queryable by build, level, time window, and message text.
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AsyncAppsResourceWithStreamingResponse
 
@@ -3674,6 +3710,12 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def stats(self) -> stats.AsyncStatsResourceWithStreamingResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
         from .resources.stats import AsyncStatsResourceWithStreamingResponse
 
         return AsyncStatsResourceWithStreamingResponse(self._client.stats)
@@ -3681,9 +3723,9 @@ class AsyncWhopWithStreamedResponse:
     @cached_property
     def payouts(self) -> payouts.AsyncPayoutsResourceWithStreamingResponse:
         """
-        Payouts represent money sent from an account balance to an external destination, such as a bank account or other supported payout method.
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to list payout history, monitor payout statuses, and show expected arrival details for funds leaving an account.
+        Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
         """
         from .resources.payouts import AsyncPayoutsResourceWithStreamingResponse
 

@@ -21,9 +21,9 @@ class AdsPaymentMethodsPrimary(TypedDict, total=False):
 
     id: str
     """
-    The funding source ID: a ledger account (`ldgr_`) for `platform_balance`, a
+    The funding source ID: a Whop balance (`ldgr_`) for `platform_balance`, or a
     payment method (`payt_`) for `card`. Optional for `platform_balance` — defaults
-    to the account's own balance ledger. Required for `card`.
+    to the account's default Whop balance. Required for `card`.
     """
 
 
@@ -37,9 +37,9 @@ class AdsPaymentMethodsBackup(TypedDict, total=False):
 
     id: str
     """
-    The funding source ID: a ledger account (`ldgr_`) for `platform_balance`, a
+    The funding source ID: a Whop balance (`ldgr_`) for `platform_balance`, or a
     payment method (`payt_`) for `card`. Optional for `platform_balance` — defaults
-    to the account's own balance ledger. Required for `card`.
+    to the account's default Whop balance. Required for `card`.
     """
 
 
