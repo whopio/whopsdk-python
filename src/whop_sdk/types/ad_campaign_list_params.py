@@ -2,52 +2,78 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
-from .ad_campaign_status import AdCampaignStatus
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AdCampaignListParams"]
 
 
 class AdCampaignListParams(TypedDict, total=False):
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    account_id: str
+    """The account the campaigns belong to.
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
-
-    company_id: Optional[str]
-    """The unique identifier of the company to list ad campaigns for."""
-
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return ad campaigns created after this timestamp."""
-
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return ad campaigns created before this timestamp."""
-
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
-
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
-
-    query: Optional[str]
-    """Case-insensitive substring match against the campaign title or ID."""
-
-    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """
-    Inclusive start of the window for each campaign's metric fields (spend,
-    impressions, …). Omit both statsFrom and statsTo for all-time stats.
+    Defaults to the account-scoped key's own account.
     """
 
-    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Inclusive end of the window for each campaign's metric fields.
+    after: str
+    """Cursor to fetch the page after (from page_info.end_cursor)."""
 
-    Omit both statsFrom and statsTo for all-time stats.
+    before: str
+    """Cursor to fetch the page before (from page_info.start_cursor)."""
+
+    created_after: str
+    """Only return campaigns created after this timestamp."""
+
+    created_before: str
+    """Only return campaigns created before this timestamp."""
+
+    direction: Literal["asc", "desc"]
+    """The sort direction. Defaults to desc."""
+
+    first: int
+    """The number of campaigns to return."""
+
+    last: int
+    """The number of campaigns to return from the end of the range."""
+
+    order: Literal[
+        "created_at",
+        "updated_at",
+        "spend",
+        "impressions",
+        "reach",
+        "clicks",
+        "unique_clicks",
+        "frequency",
+        "click_through_rate",
+        "results",
+        "cost_per_mille",
+        "cost_per_click",
+        "cost_per_result",
+        "return_on_ad_spend",
+    ]
+    """The field to sort by.
+
+    Defaults to created_at. Stat columns (spend, impressions, …) rank over the
+    stats_from/stats_to window across the whole list, not just the current page.
+    results, cost_per_result and return_on_ad_spend rank by the same Whop
+    pixel-attributed values the response reports.
     """
 
-    status: Optional[AdCampaignStatus]
-    """The status of an ad campaign."""
+    query: str
+    """Filter campaigns by a title or ID substring."""
+
+    stats_from: str
+    """Start of the stats window. Defaults to all-time."""
+
+    stats_to: str
+    """End of the stats window. Defaults to now."""
+
+    status: Literal["draft", "active", "paused", "payment_failed"]
+    """Only return campaigns with this status."""
+
+    time_zone: str
+    """IANA timezone (e.g.
+
+    America/New_York) the stats window is interpreted in. Bare stats_from/stats_to
+    dates resolve to day boundaries on this clock. Defaults to UTC.
+    """
