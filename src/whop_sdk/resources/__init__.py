@@ -296,6 +296,14 @@ from .transfers import (
     TransfersResourceWithStreamingResponse,
     AsyncTransfersResourceWithStreamingResponse,
 )
+from .workforce import (
+    WorkforceResource,
+    AsyncWorkforceResource,
+    WorkforceResourceWithRawResponse,
+    AsyncWorkforceResourceWithRawResponse,
+    WorkforceResourceWithStreamingResponse,
+    AsyncWorkforceResourceWithStreamingResponse,
+)
 from .ad_reports import (
     AdReportsResource,
     AsyncAdReportsResource,
@@ -972,6 +980,12 @@ __all__ = [
     "AsyncBountiesResourceWithRawResponse",
     "BountiesResourceWithStreamingResponse",
     "AsyncBountiesResourceWithStreamingResponse",
+    "WorkforceResource",
+    "AsyncWorkforceResource",
+    "WorkforceResourceWithRawResponse",
+    "AsyncWorkforceResourceWithRawResponse",
+    "WorkforceResourceWithStreamingResponse",
+    "AsyncWorkforceResourceWithStreamingResponse",
     "AdCampaignsResource",
     "AsyncAdCampaignsResource",
     "AdCampaignsResourceWithRawResponse",

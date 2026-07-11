@@ -73,6 +73,7 @@ if TYPE_CHECKING:
         referrals,
         shipments,
         transfers,
+        workforce,
         ad_reports,
         affiliates,
         app_builds,
@@ -174,6 +175,7 @@ if TYPE_CHECKING:
     from .resources.accounts.accounts import AccountsResource, AsyncAccountsResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
     from .resources.referrals.referrals import ReferralsResource, AsyncReferralsResource
+    from .resources.workforce.workforce import WorkforceResource, AsyncWorkforceResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -780,6 +782,12 @@ class Whop(SyncAPIClient):
         from .resources.bounties import BountiesResource
 
         return BountiesResource(self)
+
+    @cached_property
+    def workforce(self) -> WorkforceResource:
+        from .resources.workforce import WorkforceResource
+
+        return WorkforceResource(self)
 
     @cached_property
     def ad_campaigns(self) -> AdCampaignsResource:
@@ -1535,6 +1543,12 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncBountiesResource(self)
 
     @cached_property
+    def workforce(self) -> AsyncWorkforceResource:
+        from .resources.workforce import AsyncWorkforceResource
+
+        return AsyncWorkforceResource(self)
+
+    @cached_property
     def ad_campaigns(self) -> AsyncAdCampaignsResource:
         """An Ad Campaign is the top-level container for paid ads on an ad network.
 
@@ -2208,6 +2222,12 @@ class WhopWithRawResponse:
         return BountiesResourceWithRawResponse(self._client.bounties)
 
     @cached_property
+    def workforce(self) -> workforce.WorkforceResourceWithRawResponse:
+        from .resources.workforce import WorkforceResourceWithRawResponse
+
+        return WorkforceResourceWithRawResponse(self._client.workforce)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithRawResponse:
         """An Ad Campaign is the top-level container for paid ads on an ad network.
 
@@ -2765,6 +2785,12 @@ class AsyncWhopWithRawResponse:
         return AsyncBountiesResourceWithRawResponse(self._client.bounties)
 
     @cached_property
+    def workforce(self) -> workforce.AsyncWorkforceResourceWithRawResponse:
+        from .resources.workforce import AsyncWorkforceResourceWithRawResponse
+
+        return AsyncWorkforceResourceWithRawResponse(self._client.workforce)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithRawResponse:
         """An Ad Campaign is the top-level container for paid ads on an ad network.
 
@@ -3320,6 +3346,12 @@ class WhopWithStreamedResponse:
         from .resources.bounties import BountiesResourceWithStreamingResponse
 
         return BountiesResourceWithStreamingResponse(self._client.bounties)
+
+    @cached_property
+    def workforce(self) -> workforce.WorkforceResourceWithStreamingResponse:
+        from .resources.workforce import WorkforceResourceWithStreamingResponse
+
+        return WorkforceResourceWithStreamingResponse(self._client.workforce)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithStreamingResponse:
@@ -3881,6 +3913,12 @@ class AsyncWhopWithStreamedResponse:
         from .resources.bounties import AsyncBountiesResourceWithStreamingResponse
 
         return AsyncBountiesResourceWithStreamingResponse(self._client.bounties)
+
+    @cached_property
+    def workforce(self) -> workforce.AsyncWorkforceResourceWithStreamingResponse:
+        from .resources.workforce import AsyncWorkforceResourceWithStreamingResponse
+
+        return AsyncWorkforceResourceWithStreamingResponse(self._client.workforce)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithStreamingResponse:
