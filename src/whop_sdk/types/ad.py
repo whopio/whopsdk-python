@@ -287,6 +287,13 @@ class Ad(BaseModel):
     id) — or null when the ad uses uploaded creatives.
     """
 
+    post_thumbnail_url: Optional[str] = None
+    """Preview image of the existing post this ad promotes.
+
+    Null for ads that use uploaded creatives, or until the post's media has been
+    fetched from the network.
+    """
+
     primary_texts: List[str]
 
     purchase_value: float
