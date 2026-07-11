@@ -113,6 +113,13 @@ class StatRetrieveParams(TypedDict, total=False):
     Pair with breakdown_by=product. Available on metrics that list product.
     """
 
+    referred_user_id: str
+    """
+    Filter a referral metric to the businesses attributed to one person you
+    referred, for example user_AbC123. Available on metrics that list
+    referred_user_id.
+    """
+
     segment: str
     """Filter to a single wallet-balance segment, for example available.
 

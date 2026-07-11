@@ -67,6 +67,7 @@ class StatsResource(SyncAPIResource):
         most_recent_action: str | Omit = omit,
         payment_method: str | Omit = omit,
         product: str | Omit = omit,
+        referred_user_id: str | Omit = omit,
         segment: str | Omit = omit,
         snapshot_window: Literal["30d"] | Omit = omit,
         source: str | Omit = omit,
@@ -137,6 +138,10 @@ class StatsResource(SyncAPIResource):
           product: Filter to a single product (access pass id), for example prod_AbC123. Pair with
               breakdown_by=product. Available on metrics that list product.
 
+          referred_user_id: Filter a referral metric to the businesses attributed to one person you
+              referred, for example user_AbC123. Available on metrics that list
+              referred_user_id.
+
           segment: Filter to a single wallet-balance segment, for example available. Pair with
               breakdown_by=segment to split the balance. Available on metrics that list
               segment.
@@ -190,6 +195,7 @@ class StatsResource(SyncAPIResource):
                         "most_recent_action": most_recent_action,
                         "payment_method": payment_method,
                         "product": product,
+                        "referred_user_id": referred_user_id,
                         "segment": segment,
                         "snapshot_window": snapshot_window,
                         "source": source,
@@ -266,6 +272,7 @@ class AsyncStatsResource(AsyncAPIResource):
         most_recent_action: str | Omit = omit,
         payment_method: str | Omit = omit,
         product: str | Omit = omit,
+        referred_user_id: str | Omit = omit,
         segment: str | Omit = omit,
         snapshot_window: Literal["30d"] | Omit = omit,
         source: str | Omit = omit,
@@ -336,6 +343,10 @@ class AsyncStatsResource(AsyncAPIResource):
           product: Filter to a single product (access pass id), for example prod_AbC123. Pair with
               breakdown_by=product. Available on metrics that list product.
 
+          referred_user_id: Filter a referral metric to the businesses attributed to one person you
+              referred, for example user_AbC123. Available on metrics that list
+              referred_user_id.
+
           segment: Filter to a single wallet-balance segment, for example available. Pair with
               breakdown_by=segment to split the balance. Available on metrics that list
               segment.
@@ -389,6 +400,7 @@ class AsyncStatsResource(AsyncAPIResource):
                         "most_recent_action": most_recent_action,
                         "payment_method": payment_method,
                         "product": product,
+                        "referred_user_id": referred_user_id,
                         "segment": segment,
                         "snapshot_window": snapshot_window,
                         "source": source,
