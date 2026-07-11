@@ -79,7 +79,7 @@ class Capabilities(BaseModel):
 
 class RecommendedAction(BaseModel):
     """
-    Optional actions that unlock capabilities or grow the account, same shape as `required_actions`. Computed only on `retrieve` and `me`; `null` otherwise.
+    Deprecated: use the `GET /accounts/{account_id}/recommend_actions` endpoint instead. Optional actions that unlock capabilities or grow the account, same shape as `required_actions`. Computed only on `retrieve` and `me`; `null` otherwise.
     """
 
     action: Literal[
@@ -258,6 +258,10 @@ class Account(BaseModel):
     """
 
     recommended_actions: Optional[List[RecommendedAction]] = None
+    """
+    DEPRECATED: Use the `GET /accounts/{account_id}/recommend_actions` endpoint
+    instead.
+    """
 
     require_2fa: bool
     """Whether authorized users must enable two-factor authentication."""

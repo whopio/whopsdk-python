@@ -801,7 +801,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Account, AccountSocialLink
+from whop_sdk.types import Account, AccountSocialLink, AccountRecommendActionsResponse
 ```
 
 Methods:
@@ -811,6 +811,7 @@ Methods:
 - <code title="patch /accounts/{account_id}">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">update</a>(account_id, \*\*<a href="src/whop_sdk/types/account_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
 - <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">SyncCursorPage[Account]</a></code>
 - <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
+- <code title="get /accounts/{account_id}/recommend_actions">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">recommend_actions</a>(account_id) -> <a href="./src/whop_sdk/types/account_recommend_actions_response.py">AccountRecommendActionsResponse</a></code>
 
 ## Preferences
 
