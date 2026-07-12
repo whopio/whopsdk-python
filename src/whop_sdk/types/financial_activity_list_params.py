@@ -49,8 +49,9 @@ class FinancialActivityListParams(TypedDict, total=False):
     line_types: SequenceNotStr[str]
     """Optional ledger line categories to include.
 
-    When omitted or empty, the feed returns all visible activity categories except
-    fees. Pass `fees` or specific fee categories to include fee activity explicitly.
+    Some categories (for example `onchain_deposit`, which covers inbound crypto
+    deposits such as MoonPay onramps) are only returned when explicitly requested
+    here.
     """
 
     posted_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
