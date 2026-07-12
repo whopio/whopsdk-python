@@ -17,38 +17,41 @@ __all__ = [
 
 
 class LeaderUserProfilePicture(BaseModel):
-    """The user's profile picture."""
+    """The user's profile picture. Present only on the caller's own entry."""
 
     url: str
     """The user's profile picture URL."""
 
 
 class LeaderUser(BaseModel):
-    """The ranked referrer."""
+    """The ranked referrer.
 
-    id: str
-    """User ID, prefixed `user_`."""
+    Identity fields (id, name, username, profile_picture) are returned only on the caller's own entry; other referrers expose coarse location only.
+    """
 
     city: Optional[str] = None
-    """The city where the user is located, derived from their IP address.
+    """The city where the referrer is located, derived from their IP address.
 
     Null if location sharing is disabled.
     """
 
     country: Optional[str] = None
-    """The country where the user is located, derived from their IP address.
+    """The country where the referrer is located, derived from their IP address.
 
     Null if location sharing is disabled.
     """
 
+    id: Optional[str] = None
+    """User ID, prefixed `user_`. Present only on the caller's own entry."""
+
     name: Optional[str] = None
-    """The user's display name."""
+    """The user's display name. Present only on the caller's own entry."""
 
-    profile_picture: LeaderUserProfilePicture
-    """The user's profile picture."""
+    profile_picture: Optional[LeaderUserProfilePicture] = None
+    """The user's profile picture. Present only on the caller's own entry."""
 
-    username: str
-    """The user's unique username."""
+    username: Optional[str] = None
+    """The user's unique username. Present only on the caller's own entry."""
 
 
 class Leader(BaseModel):
@@ -68,42 +71,49 @@ class Leader(BaseModel):
     """Credited GMV across all the referrer's referred businesses, in USD."""
 
     user: Optional[LeaderUser] = None
-    """The ranked referrer."""
+    """The ranked referrer.
+
+    Identity fields (id, name, username, profile_picture) are returned only on the
+    caller's own entry; other referrers expose coarse location only.
+    """
 
 
 class MeUserProfilePicture(BaseModel):
-    """The user's profile picture."""
+    """The user's profile picture. Present only on the caller's own entry."""
 
     url: str
     """The user's profile picture URL."""
 
 
 class MeUser(BaseModel):
-    """The ranked referrer."""
+    """The ranked referrer.
 
-    id: str
-    """User ID, prefixed `user_`."""
+    Identity fields (id, name, username, profile_picture) are returned only on the caller's own entry; other referrers expose coarse location only.
+    """
 
     city: Optional[str] = None
-    """The city where the user is located, derived from their IP address.
+    """The city where the referrer is located, derived from their IP address.
 
     Null if location sharing is disabled.
     """
 
     country: Optional[str] = None
-    """The country where the user is located, derived from their IP address.
+    """The country where the referrer is located, derived from their IP address.
 
     Null if location sharing is disabled.
     """
 
+    id: Optional[str] = None
+    """User ID, prefixed `user_`. Present only on the caller's own entry."""
+
     name: Optional[str] = None
-    """The user's display name."""
+    """The user's display name. Present only on the caller's own entry."""
 
-    profile_picture: MeUserProfilePicture
-    """The user's profile picture."""
+    profile_picture: Optional[MeUserProfilePicture] = None
+    """The user's profile picture. Present only on the caller's own entry."""
 
-    username: str
-    """The user's unique username."""
+    username: Optional[str] = None
+    """The user's unique username. Present only on the caller's own entry."""
 
 
 class Me(BaseModel):
@@ -125,7 +135,11 @@ class Me(BaseModel):
     """Credited GMV across all the referrer's referred businesses, in USD."""
 
     user: Optional[MeUser] = None
-    """The ranked referrer."""
+    """The ranked referrer.
+
+    Identity fields (id, name, username, profile_picture) are returned only on the
+    caller's own entry; other referrers expose coarse location only.
+    """
 
 
 class BusinessLeaderboardResponse(BaseModel):
