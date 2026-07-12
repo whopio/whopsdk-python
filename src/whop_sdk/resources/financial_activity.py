@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from datetime import datetime
+from datetime import date, datetime
 
 import httpx
 
@@ -25,6 +25,12 @@ __all__ = ["FinancialActivityResource", "AsyncFinancialActivityResource"]
 
 
 class FinancialActivityResource(SyncAPIResource):
+    """
+    A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+    Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+    """
+
     @cached_property
     def with_raw_response(self) -> FinancialActivityResourceWithRawResponse:
         """
@@ -48,8 +54,11 @@ class FinancialActivityResource(SyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        available_after: Union[str, date] | Omit = omit,
+        available_before: Union[str, date] | Omit = omit,
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
+        include_owned_accounts: bool | Omit = omit,
         limit: int | Omit = omit,
         line_types: SequenceNotStr[str] | Omit = omit,
         posted_after: Union[str, datetime] | Omit = omit,
@@ -62,23 +71,39 @@ class FinancialActivityResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FinancialActivityListResponse:
-        """Lists financial activity rows for a ledger account.
-
-        Rows are derived from ledger
-        lines and include typed resource and source objects that clients can use for
-        presentation and navigation. The ledger's owner is passed as exactly one of
-        account*id (a biz* identifier) or user*id (a user* identifier).
+        """
+        Returns a paginated activity feed for one account or user, derived from ledger
+        lines with typed resource and source objects for presentation. Pass exactly one
+        of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
+        Filter by line type, currency, posted timestamp, or settlement date to reconcile
+        a specific window. Pass `include_owned_accounts=true` with your own `user_id` to
+        aggregate your personal ledger and the businesses you own into one feed; each
+        row then carries the owning `account`.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
-          currency: Optional currency code filter, for example usd.
+          available_after: Only include rows whose funds became withdrawable on or after this `YYYY-MM-DD`
+              settlement date (UTC), distinct from posted_at. Requires currency.
+
+          available_before: Only include rows whose funds became withdrawable on or before this `YYYY-MM-DD`
+              settlement date (UTC). Set equal to available_after for a single day. Requires
+              currency.
+
+          currency: Optional currency code filter, for example `usd`.
 
           cursor: Cursor returned by the previous page.
 
+          include_owned_accounts: When true, aggregates the authenticated user's personal ledger with the
+              businesses they own (owner role with balance read) into one feed. Requires
+              user_id to be the authenticated user; cannot be combined with account_id or the
+              settlement-date filters. Each returned row includes the owning `account`.
+
           limit: Maximum number of rows to return.
 
-          line_types: Optional ledger line categories to include.
+          line_types: Optional ledger line categories to include. When omitted or empty, the feed
+              returns all visible activity categories except fees. Pass `fees` or specific fee
+              categories to include fee activity explicitly.
 
           posted_after: Only include rows posted after this ISO 8601 timestamp.
 
@@ -104,8 +129,11 @@ class FinancialActivityResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "account_id": account_id,
+                        "available_after": available_after,
+                        "available_before": available_before,
                         "currency": currency,
                         "cursor": cursor,
+                        "include_owned_accounts": include_owned_accounts,
                         "limit": limit,
                         "line_types": line_types,
                         "posted_after": posted_after,
@@ -120,6 +148,12 @@ class FinancialActivityResource(SyncAPIResource):
 
 
 class AsyncFinancialActivityResource(AsyncAPIResource):
+    """
+    A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+    Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncFinancialActivityResourceWithRawResponse:
         """
@@ -143,8 +177,11 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        available_after: Union[str, date] | Omit = omit,
+        available_before: Union[str, date] | Omit = omit,
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
+        include_owned_accounts: bool | Omit = omit,
         limit: int | Omit = omit,
         line_types: SequenceNotStr[str] | Omit = omit,
         posted_after: Union[str, datetime] | Omit = omit,
@@ -157,23 +194,39 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FinancialActivityListResponse:
-        """Lists financial activity rows for a ledger account.
-
-        Rows are derived from ledger
-        lines and include typed resource and source objects that clients can use for
-        presentation and navigation. The ledger's owner is passed as exactly one of
-        account*id (a biz* identifier) or user*id (a user* identifier).
+        """
+        Returns a paginated activity feed for one account or user, derived from ledger
+        lines with typed resource and source objects for presentation. Pass exactly one
+        of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
+        Filter by line type, currency, posted timestamp, or settlement date to reconcile
+        a specific window. Pass `include_owned_accounts=true` with your own `user_id` to
+        aggregate your personal ledger and the businesses you own into one feed; each
+        row then carries the owning `account`.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
-          currency: Optional currency code filter, for example usd.
+          available_after: Only include rows whose funds became withdrawable on or after this `YYYY-MM-DD`
+              settlement date (UTC), distinct from posted_at. Requires currency.
+
+          available_before: Only include rows whose funds became withdrawable on or before this `YYYY-MM-DD`
+              settlement date (UTC). Set equal to available_after for a single day. Requires
+              currency.
+
+          currency: Optional currency code filter, for example `usd`.
 
           cursor: Cursor returned by the previous page.
 
+          include_owned_accounts: When true, aggregates the authenticated user's personal ledger with the
+              businesses they own (owner role with balance read) into one feed. Requires
+              user_id to be the authenticated user; cannot be combined with account_id or the
+              settlement-date filters. Each returned row includes the owning `account`.
+
           limit: Maximum number of rows to return.
 
-          line_types: Optional ledger line categories to include.
+          line_types: Optional ledger line categories to include. When omitted or empty, the feed
+              returns all visible activity categories except fees. Pass `fees` or specific fee
+              categories to include fee activity explicitly.
 
           posted_after: Only include rows posted after this ISO 8601 timestamp.
 
@@ -199,8 +252,11 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "account_id": account_id,
+                        "available_after": available_after,
+                        "available_before": available_before,
                         "currency": currency,
                         "cursor": cursor,
+                        "include_owned_accounts": include_owned_accounts,
                         "limit": limit,
                         "line_types": line_types,
                         "posted_after": posted_after,
