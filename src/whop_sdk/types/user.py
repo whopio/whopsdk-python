@@ -162,3 +162,9 @@ class User(BaseModel):
     (KYB) profiles. Each is `null` until created, otherwise a `status` of
     `not_started`, `pending`, `approved`, or `rejected`.
     """
+
+    whop_partner_enabled_at: Optional[str] = None
+    """When the user became an enrolled Whop Partner, as an ISO 8601 timestamp.
+
+    `null` if never enrolled.
+    """
