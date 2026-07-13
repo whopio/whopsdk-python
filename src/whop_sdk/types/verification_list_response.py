@@ -5,7 +5,13 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["VerificationListResponse", "Data", "DataRequestedInformation", "DataRequestedInformationRequestedFile"]
+__all__ = [
+    "VerificationListResponse",
+    "Data",
+    "DataRequestedInformation",
+    "DataRequestedInformationRequestedFile",
+    "DataRequiredDocument",
+]
 
 
 class DataRequestedInformationRequestedFile(BaseModel):
@@ -74,6 +80,23 @@ class DataRequestedInformation(BaseModel):
     """
 
 
+class DataRequiredDocument(BaseModel):
+    document: Optional[str] = None
+    """Document slot key, such as `id_card_front`, `id_card_back`, or `selfie`."""
+
+    rejection_reason: Optional[str] = None
+    """
+    Why the previous submission was rejected, when the provider requested new
+    documents or declined the verification.
+    """
+
+    status: Optional[Literal["pending_upload", "submitted"]] = None
+    """
+    `pending_upload` until the document has been relayed for review; `submitted`
+    afterwards.
+    """
+
+
 class Data(BaseModel):
     id: Optional[str] = None
     """Verification profile ID, prefixed `idpf_`."""
@@ -116,6 +139,14 @@ class Data(BaseModel):
     """Fields or documents Whop still needs before review can continue.
 
     Submit answers with the Update Verification endpoint.
+    """
+
+    required_documents: Optional[List[DataRequiredDocument]] = None
+    """Documents for a document-upload verification and their progress.
+
+    Present only on verifications created by sending `documents`. `pending_upload`
+    documents were not accepted yet — send the full set again with another Create
+    Verification call.
     """
 
     session_url: Optional[str] = None

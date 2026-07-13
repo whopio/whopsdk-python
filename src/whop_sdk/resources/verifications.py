@@ -64,6 +64,8 @@ class VerificationsResource(SyncAPIResource):
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
+        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
+        documents: Dict[str, str] | Omit = omit,
         first_name: str | Omit = omit,
         kind: Literal["individual", "business"] | Omit = omit,
         last_name: str | Omit = omit,
@@ -80,7 +82,9 @@ class VerificationsResource(SyncAPIResource):
     ) -> VerificationCreateResponse:
         """
         Starts a hosted verification session for an account or user, or returns the
-        active session when one already exists.
+        active session when one already exists. Send `documents` (with `document_type`)
+        to instead verify the person from identity documents included in this request —
+        no hosted session involved.
 
         Args:
           account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
@@ -101,6 +105,22 @@ class VerificationsResource(SyncAPIResource):
               incorporation.
 
           date_of_birth: Date of birth to prefill in the hosted verification session.
+
+          document_type: Identity document being sent. Providing it (with `documents`) verifies from
+              uploaded documents instead of a hosted session, and determines the expected
+              `documents` keys: cards and licenses need front and back, passports only the
+              photo page.
+
+          documents: Identity document files, keyed by slot (`id_card_front`, `id_card_back`,
+              `selfie`, …) with each value the file's raw bytes base64-encoded. Providing them
+              verifies the person from these documents instead of a hosted session —
+              individual verifications only, and the request must also carry `document_type`,
+              `first_name`, `last_name`, `date_of_birth`, `country`, `phone`,
+              `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and
+              `postal_code`. JPEG, PNG, and PDF are accepted (selfies must be images), up to
+              5MB per file before encoding. Send the complete set — a missing or rejected file
+              fails the whole request and nothing is submitted; review starts automatically
+              once every document is accepted.
 
           first_name: First name to prefill in the hosted verification session.
 
@@ -135,6 +155,8 @@ class VerificationsResource(SyncAPIResource):
                     "business_website": business_website,
                     "country": country,
                     "date_of_birth": date_of_birth,
+                    "document_type": document_type,
+                    "documents": documents,
                     "first_name": first_name,
                     "kind": kind,
                     "last_name": last_name,
@@ -358,6 +380,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
+        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
+        documents: Dict[str, str] | Omit = omit,
         first_name: str | Omit = omit,
         kind: Literal["individual", "business"] | Omit = omit,
         last_name: str | Omit = omit,
@@ -374,7 +398,9 @@ class AsyncVerificationsResource(AsyncAPIResource):
     ) -> VerificationCreateResponse:
         """
         Starts a hosted verification session for an account or user, or returns the
-        active session when one already exists.
+        active session when one already exists. Send `documents` (with `document_type`)
+        to instead verify the person from identity documents included in this request —
+        no hosted session involved.
 
         Args:
           account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
@@ -395,6 +421,22 @@ class AsyncVerificationsResource(AsyncAPIResource):
               incorporation.
 
           date_of_birth: Date of birth to prefill in the hosted verification session.
+
+          document_type: Identity document being sent. Providing it (with `documents`) verifies from
+              uploaded documents instead of a hosted session, and determines the expected
+              `documents` keys: cards and licenses need front and back, passports only the
+              photo page.
+
+          documents: Identity document files, keyed by slot (`id_card_front`, `id_card_back`,
+              `selfie`, …) with each value the file's raw bytes base64-encoded. Providing them
+              verifies the person from these documents instead of a hosted session —
+              individual verifications only, and the request must also carry `document_type`,
+              `first_name`, `last_name`, `date_of_birth`, `country`, `phone`,
+              `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and
+              `postal_code`. JPEG, PNG, and PDF are accepted (selfies must be images), up to
+              5MB per file before encoding. Send the complete set — a missing or rejected file
+              fails the whole request and nothing is submitted; review starts automatically
+              once every document is accepted.
 
           first_name: First name to prefill in the hosted verification session.
 
@@ -429,6 +471,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
                     "business_website": business_website,
                     "country": country,
                     "date_of_birth": date_of_birth,
+                    "document_type": document_type,
+                    "documents": documents,
                     "first_name": first_name,
                     "kind": kind,
                     "last_name": last_name,

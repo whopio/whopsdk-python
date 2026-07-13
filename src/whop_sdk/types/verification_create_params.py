@@ -44,6 +44,28 @@ class VerificationCreateParams(TypedDict, total=False):
     date_of_birth: str
     """Date of birth to prefill in the hosted verification session."""
 
+    document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"]
+    """Identity document being sent.
+
+    Providing it (with `documents`) verifies from uploaded documents instead of a
+    hosted session, and determines the expected `documents` keys: cards and licenses
+    need front and back, passports only the photo page.
+    """
+
+    documents: Dict[str, str]
+    """
+    Identity document files, keyed by slot (`id_card_front`, `id_card_back`,
+    `selfie`, …) with each value the file's raw bytes base64-encoded. Providing them
+    verifies the person from these documents instead of a hosted session —
+    individual verifications only, and the request must also carry `document_type`,
+    `first_name`, `last_name`, `date_of_birth`, `country`, `phone`,
+    `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and
+    `postal_code`. JPEG, PNG, and PDF are accepted (selfies must be images), up to
+    5MB per file before encoding. Send the complete set — a missing or rejected file
+    fails the whole request and nothing is submitted; review starts automatically
+    once every document is accepted.
+    """
+
     first_name: str
     """First name to prefill in the hosted verification session."""
 
