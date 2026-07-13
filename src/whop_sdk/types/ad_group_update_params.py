@@ -103,7 +103,22 @@ class AdGroupUpdateParams(TypedDict, total=False):
     """What the ad group optimizes for (e.g. conversions, link_clicks, reach)."""
 
     placements: object
-    """'automatic' (Advantage+) or a list of { platform, positions }."""
+    """'automatic' (Advantage+) or a list of { platform, positions }.
+
+    Omit positions to target all of a platform's.
+
+    Valid positions per platform:
+
+    - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`,
+      `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`,
+      `facebook_reels_overlay`, `biz_disco_feed`
+    - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`,
+      `profile_feed`, `profile_reels`, `ig_search`
+    - `messenger`: `story`
+    - `audience_network`: `classic`, `rewarded_video`
+    - `threads`: `threads_stream`
+    - `whatsapp`: `status`
+    """
 
     regions: object
     """
