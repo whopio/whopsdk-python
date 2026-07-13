@@ -9,8 +9,12 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import VerificationListResponse, VerificationRetrieveResponse
-from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
+from whop_sdk.types import (
+    VerificationListResponse,
+    VerificationCreateResponse,
+    VerificationUpdateResponse,
+    VerificationRetrieveResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,9 +24,66 @@ class TestVerifications:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create(self, client: Whop) -> None:
+        verification = client.verifications.create(
+            account_id="account_id",
+        )
+        assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Whop) -> None:
+        verification = client.verifications.create(
+            account_id="account_id",
+            address={"foo": "bar"},
+            business_name="business_name",
+            business_structure="business_structure",
+            business_website="business_website",
+            country="country",
+            date_of_birth="date_of_birth",
+            document_type="ID_CARD",
+            documents={"foo": "string"},
+            first_name="first_name",
+            kind="individual",
+            last_name="last_name",
+            phone="phone",
+            place_of_incorporation="place_of_incorporation",
+            restart=True,
+            tax_identification_number="tax_identification_number",
+        )
+        assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Whop) -> None:
+        response = client.verifications.with_raw_response.create(
+            account_id="account_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        verification = response.parse()
+        assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Whop) -> None:
+        with client.verifications.with_streaming_response.create(
+            account_id="account_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            verification = response.parse()
+            assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         verification = client.verifications.retrieve(
-            "verf_xxxxxxxxxxxxx",
+            "verification_id",
         )
         assert_matches_type(VerificationRetrieveResponse, verification, path=["response"])
 
@@ -30,7 +91,7 @@ class TestVerifications:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.verifications.with_raw_response.retrieve(
-            "verf_xxxxxxxxxxxxx",
+            "verification_id",
         )
 
         assert response.is_closed is True
@@ -42,7 +103,7 @@ class TestVerifications:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.verifications.with_streaming_response.retrieve(
-            "verf_xxxxxxxxxxxxx",
+            "verification_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -55,54 +116,160 @@ class TestVerifications:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `verification_id` but received ''"):
             client.verifications.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list(self, client: Whop) -> None:
-        verification = client.verifications.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
+    def test_method_update(self, client: Whop) -> None:
+        verification = client.verifications.update(
+            verification_id="verification_id",
         )
-        assert_matches_type(SyncCursorPage[VerificationListResponse], verification, path=["response"])
+        assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: Whop) -> None:
-        verification = client.verifications.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
-            after="after",
-            before="before",
-            first=42,
-            last=42,
+    def test_method_update_with_all_params(self, client: Whop) -> None:
+        verification = client.verifications.update(
+            verification_id="verification_id",
+            business_address={"foo": "bar"},
+            business_name="business_name",
+            business_structure="business_structure",
+            country="country",
+            date_of_birth="date_of_birth",
+            first_name="first_name",
+            last_name="last_name",
+            personal_address={"foo": "bar"},
+            requested_information=[
+                {
+                    "id": "inrqi_textxxxxxxxx",
+                    "address": {"foo": "bar"},
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
+                    "value": "https://example.com",
+                    "value_type": "raw",
+                },
+                {
+                    "id": "inrqi_addrxxxxxxxx",
+                    "address": {
+                        "city": "bar",
+                        "country": "bar",
+                        "line1": "bar",
+                        "postal_code": "bar",
+                        "state": "bar",
+                    },
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
+                    "value": "value",
+                    "value_type": "raw",
+                },
+                {
+                    "id": "inrqi_filexxxxxxxx",
+                    "address": {"foo": "bar"},
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "identity_document_front",
+                            "direct_upload_id": "upload_xxxxxxxxxxxx",
+                            "kind": "identity_document",
+                        }
+                    ],
+                    "value": "value",
+                    "value_type": "raw",
+                },
+            ],
         )
-        assert_matches_type(SyncCursorPage[VerificationListResponse], verification, path=["response"])
+        assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: Whop) -> None:
-        response = client.verifications.with_raw_response.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
+    def test_raw_response_update(self, client: Whop) -> None:
+        response = client.verifications.with_raw_response.update(
+            verification_id="verification_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         verification = response.parse()
-        assert_matches_type(SyncCursorPage[VerificationListResponse], verification, path=["response"])
+        assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: Whop) -> None:
-        with client.verifications.with_streaming_response.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
+    def test_streaming_response_update(self, client: Whop) -> None:
+        with client.verifications.with_streaming_response.update(
+            verification_id="verification_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             verification = response.parse()
-            assert_matches_type(SyncCursorPage[VerificationListResponse], verification, path=["response"])
+            assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `verification_id` but received ''"):
+            client.verifications.with_raw_response.update(
+                verification_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list(self, client: Whop) -> None:
+        verification = client.verifications.list(
+            account_id="account_id",
+        )
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: Whop) -> None:
+        verification = client.verifications.list(
+            account_id="account_id",
+            direction="asc",
+            order="updated_at",
+        )
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: Whop) -> None:
+        response = client.verifications.with_raw_response.list(
+            account_id="account_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        verification = response.parse()
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: Whop) -> None:
+        with client.verifications.with_streaming_response.list(
+            account_id="account_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            verification = response.parse()
+            assert_matches_type(VerificationListResponse, verification, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -114,9 +281,66 @@ class TestAsyncVerifications:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
+        verification = await async_client.verifications.create(
+            account_id="account_id",
+        )
+        assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
+        verification = await async_client.verifications.create(
+            account_id="account_id",
+            address={"foo": "bar"},
+            business_name="business_name",
+            business_structure="business_structure",
+            business_website="business_website",
+            country="country",
+            date_of_birth="date_of_birth",
+            document_type="ID_CARD",
+            documents={"foo": "string"},
+            first_name="first_name",
+            kind="individual",
+            last_name="last_name",
+            phone="phone",
+            place_of_incorporation="place_of_incorporation",
+            restart=True,
+            tax_identification_number="tax_identification_number",
+        )
+        assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
+        response = await async_client.verifications.with_raw_response.create(
+            account_id="account_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        verification = await response.parse()
+        assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
+        async with async_client.verifications.with_streaming_response.create(
+            account_id="account_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            verification = await response.parse()
+            assert_matches_type(VerificationCreateResponse, verification, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         verification = await async_client.verifications.retrieve(
-            "verf_xxxxxxxxxxxxx",
+            "verification_id",
         )
         assert_matches_type(VerificationRetrieveResponse, verification, path=["response"])
 
@@ -124,7 +348,7 @@ class TestAsyncVerifications:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.verifications.with_raw_response.retrieve(
-            "verf_xxxxxxxxxxxxx",
+            "verification_id",
         )
 
         assert response.is_closed is True
@@ -136,7 +360,7 @@ class TestAsyncVerifications:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.verifications.with_streaming_response.retrieve(
-            "verf_xxxxxxxxxxxxx",
+            "verification_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -149,53 +373,159 @@ class TestAsyncVerifications:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `verification_id` but received ''"):
             await async_client.verifications.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWhop) -> None:
-        verification = await async_client.verifications.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
+        verification = await async_client.verifications.update(
+            verification_id="verification_id",
         )
-        assert_matches_type(AsyncCursorPage[VerificationListResponse], verification, path=["response"])
+        assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
-        verification = await async_client.verifications.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
-            after="after",
-            before="before",
-            first=42,
-            last=42,
+    async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
+        verification = await async_client.verifications.update(
+            verification_id="verification_id",
+            business_address={"foo": "bar"},
+            business_name="business_name",
+            business_structure="business_structure",
+            country="country",
+            date_of_birth="date_of_birth",
+            first_name="first_name",
+            last_name="last_name",
+            personal_address={"foo": "bar"},
+            requested_information=[
+                {
+                    "id": "inrqi_textxxxxxxxx",
+                    "address": {"foo": "bar"},
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
+                    "value": "https://example.com",
+                    "value_type": "raw",
+                },
+                {
+                    "id": "inrqi_addrxxxxxxxx",
+                    "address": {
+                        "city": "bar",
+                        "country": "bar",
+                        "line1": "bar",
+                        "postal_code": "bar",
+                        "state": "bar",
+                    },
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "category",
+                            "direct_upload_id": "direct_upload_id",
+                            "kind": "kind",
+                        }
+                    ],
+                    "value": "value",
+                    "value_type": "raw",
+                },
+                {
+                    "id": "inrqi_filexxxxxxxx",
+                    "address": {"foo": "bar"},
+                    "files": [
+                        {
+                            "attachment_id": "attachment_id",
+                            "category": "identity_document_front",
+                            "direct_upload_id": "upload_xxxxxxxxxxxx",
+                            "kind": "identity_document",
+                        }
+                    ],
+                    "value": "value",
+                    "value_type": "raw",
+                },
+            ],
         )
-        assert_matches_type(AsyncCursorPage[VerificationListResponse], verification, path=["response"])
+        assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
-        response = await async_client.verifications.with_raw_response.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
+        response = await async_client.verifications.with_raw_response.update(
+            verification_id="verification_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         verification = await response.parse()
-        assert_matches_type(AsyncCursorPage[VerificationListResponse], verification, path=["response"])
+        assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
-        async with async_client.verifications.with_streaming_response.list(
-            payout_account_id="poact_xxxxxxxxxxxx",
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
+        async with async_client.verifications.with_streaming_response.update(
+            verification_id="verification_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             verification = await response.parse()
-            assert_matches_type(AsyncCursorPage[VerificationListResponse], verification, path=["response"])
+            assert_matches_type(VerificationUpdateResponse, verification, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `verification_id` but received ''"):
+            await async_client.verifications.with_raw_response.update(
+                verification_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
+        verification = await async_client.verifications.list(
+            account_id="account_id",
+        )
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
+        verification = await async_client.verifications.list(
+            account_id="account_id",
+            direction="asc",
+            order="updated_at",
+        )
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
+        response = await async_client.verifications.with_raw_response.list(
+            account_id="account_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        verification = await response.parse()
+        assert_matches_type(VerificationListResponse, verification, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
+        async with async_client.verifications.with_streaming_response.list(
+            account_id="account_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            verification = await response.parse()
+            assert_matches_type(VerificationListResponse, verification, path=["response"])
 
         assert cast(Any, response.is_closed) is True
