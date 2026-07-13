@@ -26,11 +26,17 @@ class SocialAccount(BaseModel):
 
     scopes: List[str]
 
-    url: str
-    """The URL where the social account can be accessed on the platform."""
+    url: Optional[str] = None
+    """The URL where the social account can be accessed on the platform.
 
-    username: str
-    """The username of the social account on the platform."""
+    Null while a Whop-owned page is still being provisioned.
+    """
+
+    username: Optional[str] = None
+    """The username of the social account on the platform.
+
+    Null while a Whop-owned page is still being provisioned.
+    """
 
     verified: bool
     """Whether the social account is verified on the platform."""
