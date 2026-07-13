@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
 from ..types import verification_list_params, verification_create_params, verification_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -54,11 +54,12 @@ class VerificationsResource(SyncAPIResource):
         """
         return VerificationsResourceWithStreamingResponse(self)
 
+    @overload
     def create(
         self,
         *,
         account_id: str,
-        address: Dict[str, object] | Omit = omit,
+        address: verification_create_params.CreateIndividualVerificationAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
         business_website: str | Omit = omit,
@@ -67,11 +68,9 @@ class VerificationsResource(SyncAPIResource):
         document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
         documents: Dict[str, str] | Omit = omit,
         first_name: str | Omit = omit,
-        kind: Literal["individual", "business"] | Omit = omit,
+        kind: Literal["individual"] | Omit = omit,
         last_name: str | Omit = omit,
         phone: str | Omit = omit,
-        place_of_incorporation: str | Omit = omit,
-        restart: bool | Omit = omit,
         tax_identification_number: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -82,29 +81,27 @@ class VerificationsResource(SyncAPIResource):
     ) -> VerificationCreateResponse:
         """
         Starts a hosted verification session for an account or user, or returns the
-        active session when one already exists. Send `documents` (with `document_type`)
-        to instead verify the person from identity documents included in this request —
-        no hosted session involved.
+        active session when one already exists. Any fields you include in the request
+        body are used to prefill the session. Send `documents` (with `document_type`) to
+        instead verify the person from identity documents included in this request — no
+        hosted session involved. If the account already has an `approved` verification
+        the request is rejected; unlink it first to start a new one.
 
         Args:
           account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
               for account verifications, or the caller's `user_` ID for personal verification.
 
-          address: Address to prefill in the hosted verification session.
+          business_name: Legal business name for a sole proprietor or single-member LLC.
 
-          business_name: Legal business name to prefill for a business verification.
-
-          business_structure: Legal entity structure of the business, such as `private_corporation` or
-              `sole_proprietorship`. Supported values vary by country of incorporation — see
+          business_structure: Entity type for sole proprietors, such as `single_member_llc`. Supported values
+              vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
-          business_website: Business website URL used during verification. Whop store pages are not
-              accepted.
+          business_website: Business website URL. Whop store pages are not accepted.
 
-          country: ISO 3166-1 alpha-2 country code. For businesses, use the country of
-              incorporation.
+          country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
-          date_of_birth: Date of birth to prefill in the hosted verification session.
+          date_of_birth: Formatted as `YYYY-MM-DD`.
 
           document_type: Identity document being sent. Providing it (with `documents`) verifies from
               uploaded documents instead of a hosted session, and determines the expected
@@ -122,20 +119,9 @@ class VerificationsResource(SyncAPIResource):
               fails the whole request and nothing is submitted; review starts automatically
               once every document is accepted.
 
-          first_name: First name to prefill in the hosted verification session.
-
           kind: Verification type. Defaults to `individual`.
 
-          last_name: Last name to prefill in the hosted verification session.
-
-          phone: Phone number to prefill in the hosted verification session.
-
-          place_of_incorporation: State or region where the business is incorporated.
-
-          restart: Set to `true` to abandon the current in-flight session and start a new one.
-
-          tax_identification_number: Tax ID for the individual or business, such as an SSN or EIN. Tokenized in
-              transit and never stored raw.
+          tax_identification_number: SSN or ITIN. Tokenized in transit and never stored raw.
 
           extra_headers: Send extra headers
 
@@ -145,6 +131,94 @@ class VerificationsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        account_id: str,
+        address: verification_create_params.CreateBusinessVerificationAddress | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        business_website: str | Omit = omit,
+        country: str | Omit = omit,
+        kind: Literal["business"] | Omit = omit,
+        place_of_incorporation: str | Omit = omit,
+        tax_identification_number: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationCreateResponse:
+        """
+        Starts a hosted verification session for an account or user, or returns the
+        active session when one already exists. Any fields you include in the request
+        body are used to prefill the session. Send `documents` (with `document_type`) to
+        instead verify the person from identity documents included in this request — no
+        hosted session involved. If the account already has an `approved` verification
+        the request is rejected; unlink it first to start a new one.
+
+        Args:
+          account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
+              for account verifications, or the caller's `user_` ID for personal verification.
+
+          business_name: Legal business name.
+
+          business_structure: Legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
+
+          business_website: Business website URL. Whop store pages are not accepted.
+
+          country: Country of incorporation as a two-letter ISO 3166-1 country code.
+
+          kind: Must be `business` to start a KYB verification.
+
+          place_of_incorporation: State or region where the business is incorporated.
+
+          tax_identification_number: EIN. Tokenized in transit and never stored raw.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["account_id"])
+    def create(
+        self,
+        *,
+        account_id: str,
+        address: verification_create_params.CreateIndividualVerificationAddress
+        | verification_create_params.CreateBusinessVerificationAddress
+        | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        business_website: str | Omit = omit,
+        country: str | Omit = omit,
+        date_of_birth: str | Omit = omit,
+        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
+        documents: Dict[str, str] | Omit = omit,
+        first_name: str | Omit = omit,
+        kind: Literal["individual"] | Literal["business"] | Omit = omit,
+        last_name: str | Omit = omit,
+        phone: str | Omit = omit,
+        tax_identification_number: str | Omit = omit,
+        place_of_incorporation: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationCreateResponse:
         return self._post(
             "/verifications",
             body=maybe_transform(
@@ -161,9 +235,8 @@ class VerificationsResource(SyncAPIResource):
                     "kind": kind,
                     "last_name": last_name,
                     "phone": phone,
-                    "place_of_incorporation": place_of_incorporation,
-                    "restart": restart,
                     "tax_identification_number": tax_identification_number,
+                    "place_of_incorporation": place_of_incorporation,
                 },
                 verification_create_params.VerificationCreateParams,
             ),
@@ -189,7 +262,8 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Returns a verification profile by its `idpf_` ID.
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
           extra_headers: Send extra headers
@@ -210,19 +284,18 @@ class VerificationsResource(SyncAPIResource):
             cast_to=VerificationRetrieveResponse,
         )
 
+    @overload
     def update(
         self,
         verification_id: str,
         *,
-        business_address: Dict[str, object] | Omit = omit,
-        business_name: str | Omit = omit,
-        business_structure: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
         last_name: str | Omit = omit,
-        personal_address: Dict[str, object] | Omit = omit,
-        requested_information: Iterable[verification_update_params.RequestedInformation] | Omit = omit,
+        personal_address: verification_update_params.UpdateIndividualVerificationPersonalAddress | Omit = omit,
+        requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -232,26 +305,15 @@ class VerificationsResource(SyncAPIResource):
     ) -> VerificationUpdateResponse:
         """
         Updates editable profile details or submits answers for items returned in
-        `requested_information`.
+        `requested_information`. Once a verification is `approved` its profile details
+        are locked and can no longer be edited.
 
         Args:
-          business_address: Updated business address for a business verification.
+          country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
-          business_name: Updated legal business name for a business verification.
+          date_of_birth: Formatted as `YYYY-MM-DD`.
 
-          business_structure: Updated legal entity structure of the business, such as `private_corporation` or
-              `sole_proprietorship`. Supported values vary by country of incorporation — see
-              [Business structures](/developer/verification/business-structures).
-
-          country: Updated ISO 3166-1 alpha-2 country code.
-
-          date_of_birth: Updated date of birth for an individual verification.
-
-          first_name: Updated first name for an individual verification.
-
-          last_name: Updated last name for an individual verification.
-
-          personal_address: Updated personal address for an individual verification.
+          personal_address: Personal address for the individual.
 
           requested_information: Answers to items returned in `requested_information`. Each entry must include
               the requested item `id` and exactly one answer payload matching the item's
@@ -266,21 +328,94 @@ class VerificationsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    def update(
+        self,
+        verification_id: str,
+        *,
+        business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        country: str | Omit = omit,
+        requested_information: Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
+        | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationUpdateResponse:
+        """
+        Updates editable profile details or submits answers for items returned in
+        `requested_information`. Once a verification is `approved` its profile details
+        are locked and can no longer be edited.
+
+        Args:
+          business_address: Business address.
+
+          business_name: Legal business name.
+
+          business_structure: Legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
+
+          country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
+
+          requested_information: Answers to items returned in `requested_information`. Each entry must include
+              the requested item `id` and exactly one answer payload matching the item's
+              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
+              for `files`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    def update(
+        self,
+        verification_id: str,
+        *,
+        country: str | Omit = omit,
+        date_of_birth: str | Omit = omit,
+        first_name: str | Omit = omit,
+        last_name: str | Omit = omit,
+        personal_address: verification_update_params.UpdateIndividualVerificationPersonalAddress | Omit = omit,
+        requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
+        | Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
+        | Omit = omit,
+        business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationUpdateResponse:
         if not verification_id:
             raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
         return self._patch(
             path_template("/verifications/{verification_id}", verification_id=verification_id),
             body=maybe_transform(
                 {
-                    "business_address": business_address,
-                    "business_name": business_name,
-                    "business_structure": business_structure,
                     "country": country,
                     "date_of_birth": date_of_birth,
                     "first_name": first_name,
                     "last_name": last_name,
                     "personal_address": personal_address,
                     "requested_information": requested_information,
+                    "business_address": business_address,
+                    "business_name": business_name,
+                    "business_structure": business_structure,
                 },
                 verification_update_params.VerificationUpdateParams,
             ),
@@ -304,8 +439,8 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationListResponse:
         """
-        Returns verification profiles for an account or user, including review status
-        and any items that still need answers.
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
           account_id: Account or user ID whose verifications you want to list. Use a `biz_` account
@@ -370,11 +505,12 @@ class AsyncVerificationsResource(AsyncAPIResource):
         """
         return AsyncVerificationsResourceWithStreamingResponse(self)
 
+    @overload
     async def create(
         self,
         *,
         account_id: str,
-        address: Dict[str, object] | Omit = omit,
+        address: verification_create_params.CreateIndividualVerificationAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
         business_website: str | Omit = omit,
@@ -383,11 +519,9 @@ class AsyncVerificationsResource(AsyncAPIResource):
         document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
         documents: Dict[str, str] | Omit = omit,
         first_name: str | Omit = omit,
-        kind: Literal["individual", "business"] | Omit = omit,
+        kind: Literal["individual"] | Omit = omit,
         last_name: str | Omit = omit,
         phone: str | Omit = omit,
-        place_of_incorporation: str | Omit = omit,
-        restart: bool | Omit = omit,
         tax_identification_number: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -398,29 +532,27 @@ class AsyncVerificationsResource(AsyncAPIResource):
     ) -> VerificationCreateResponse:
         """
         Starts a hosted verification session for an account or user, or returns the
-        active session when one already exists. Send `documents` (with `document_type`)
-        to instead verify the person from identity documents included in this request —
-        no hosted session involved.
+        active session when one already exists. Any fields you include in the request
+        body are used to prefill the session. Send `documents` (with `document_type`) to
+        instead verify the person from identity documents included in this request — no
+        hosted session involved. If the account already has an `approved` verification
+        the request is rejected; unlink it first to start a new one.
 
         Args:
           account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
               for account verifications, or the caller's `user_` ID for personal verification.
 
-          address: Address to prefill in the hosted verification session.
+          business_name: Legal business name for a sole proprietor or single-member LLC.
 
-          business_name: Legal business name to prefill for a business verification.
-
-          business_structure: Legal entity structure of the business, such as `private_corporation` or
-              `sole_proprietorship`. Supported values vary by country of incorporation — see
+          business_structure: Entity type for sole proprietors, such as `single_member_llc`. Supported values
+              vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
-          business_website: Business website URL used during verification. Whop store pages are not
-              accepted.
+          business_website: Business website URL. Whop store pages are not accepted.
 
-          country: ISO 3166-1 alpha-2 country code. For businesses, use the country of
-              incorporation.
+          country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
-          date_of_birth: Date of birth to prefill in the hosted verification session.
+          date_of_birth: Formatted as `YYYY-MM-DD`.
 
           document_type: Identity document being sent. Providing it (with `documents`) verifies from
               uploaded documents instead of a hosted session, and determines the expected
@@ -438,20 +570,9 @@ class AsyncVerificationsResource(AsyncAPIResource):
               fails the whole request and nothing is submitted; review starts automatically
               once every document is accepted.
 
-          first_name: First name to prefill in the hosted verification session.
-
           kind: Verification type. Defaults to `individual`.
 
-          last_name: Last name to prefill in the hosted verification session.
-
-          phone: Phone number to prefill in the hosted verification session.
-
-          place_of_incorporation: State or region where the business is incorporated.
-
-          restart: Set to `true` to abandon the current in-flight session and start a new one.
-
-          tax_identification_number: Tax ID for the individual or business, such as an SSN or EIN. Tokenized in
-              transit and never stored raw.
+          tax_identification_number: SSN or ITIN. Tokenized in transit and never stored raw.
 
           extra_headers: Send extra headers
 
@@ -461,6 +582,94 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        account_id: str,
+        address: verification_create_params.CreateBusinessVerificationAddress | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        business_website: str | Omit = omit,
+        country: str | Omit = omit,
+        kind: Literal["business"] | Omit = omit,
+        place_of_incorporation: str | Omit = omit,
+        tax_identification_number: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationCreateResponse:
+        """
+        Starts a hosted verification session for an account or user, or returns the
+        active session when one already exists. Any fields you include in the request
+        body are used to prefill the session. Send `documents` (with `document_type`) to
+        instead verify the person from identity documents included in this request — no
+        hosted session involved. If the account already has an `approved` verification
+        the request is rejected; unlink it first to start a new one.
+
+        Args:
+          account_id: Account or user ID whose identity you want to verify. Use a `biz_` account ID
+              for account verifications, or the caller's `user_` ID for personal verification.
+
+          business_name: Legal business name.
+
+          business_structure: Legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
+
+          business_website: Business website URL. Whop store pages are not accepted.
+
+          country: Country of incorporation as a two-letter ISO 3166-1 country code.
+
+          kind: Must be `business` to start a KYB verification.
+
+          place_of_incorporation: State or region where the business is incorporated.
+
+          tax_identification_number: EIN. Tokenized in transit and never stored raw.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["account_id"])
+    async def create(
+        self,
+        *,
+        account_id: str,
+        address: verification_create_params.CreateIndividualVerificationAddress
+        | verification_create_params.CreateBusinessVerificationAddress
+        | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        business_website: str | Omit = omit,
+        country: str | Omit = omit,
+        date_of_birth: str | Omit = omit,
+        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
+        documents: Dict[str, str] | Omit = omit,
+        first_name: str | Omit = omit,
+        kind: Literal["individual"] | Literal["business"] | Omit = omit,
+        last_name: str | Omit = omit,
+        phone: str | Omit = omit,
+        tax_identification_number: str | Omit = omit,
+        place_of_incorporation: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationCreateResponse:
         return await self._post(
             "/verifications",
             body=await async_maybe_transform(
@@ -477,9 +686,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
                     "kind": kind,
                     "last_name": last_name,
                     "phone": phone,
-                    "place_of_incorporation": place_of_incorporation,
-                    "restart": restart,
                     "tax_identification_number": tax_identification_number,
+                    "place_of_incorporation": place_of_incorporation,
                 },
                 verification_create_params.VerificationCreateParams,
             ),
@@ -507,7 +715,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Returns a verification profile by its `idpf_` ID.
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
           extra_headers: Send extra headers
@@ -528,19 +737,18 @@ class AsyncVerificationsResource(AsyncAPIResource):
             cast_to=VerificationRetrieveResponse,
         )
 
+    @overload
     async def update(
         self,
         verification_id: str,
         *,
-        business_address: Dict[str, object] | Omit = omit,
-        business_name: str | Omit = omit,
-        business_structure: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
         last_name: str | Omit = omit,
-        personal_address: Dict[str, object] | Omit = omit,
-        requested_information: Iterable[verification_update_params.RequestedInformation] | Omit = omit,
+        personal_address: verification_update_params.UpdateIndividualVerificationPersonalAddress | Omit = omit,
+        requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -550,26 +758,15 @@ class AsyncVerificationsResource(AsyncAPIResource):
     ) -> VerificationUpdateResponse:
         """
         Updates editable profile details or submits answers for items returned in
-        `requested_information`.
+        `requested_information`. Once a verification is `approved` its profile details
+        are locked and can no longer be edited.
 
         Args:
-          business_address: Updated business address for a business verification.
+          country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
-          business_name: Updated legal business name for a business verification.
+          date_of_birth: Formatted as `YYYY-MM-DD`.
 
-          business_structure: Updated legal entity structure of the business, such as `private_corporation` or
-              `sole_proprietorship`. Supported values vary by country of incorporation — see
-              [Business structures](/developer/verification/business-structures).
-
-          country: Updated ISO 3166-1 alpha-2 country code.
-
-          date_of_birth: Updated date of birth for an individual verification.
-
-          first_name: Updated first name for an individual verification.
-
-          last_name: Updated last name for an individual verification.
-
-          personal_address: Updated personal address for an individual verification.
+          personal_address: Personal address for the individual.
 
           requested_information: Answers to items returned in `requested_information`. Each entry must include
               the requested item `id` and exactly one answer payload matching the item's
@@ -584,21 +781,94 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    async def update(
+        self,
+        verification_id: str,
+        *,
+        business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        country: str | Omit = omit,
+        requested_information: Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
+        | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationUpdateResponse:
+        """
+        Updates editable profile details or submits answers for items returned in
+        `requested_information`. Once a verification is `approved` its profile details
+        are locked and can no longer be edited.
+
+        Args:
+          business_address: Business address.
+
+          business_name: Legal business name.
+
+          business_structure: Legal entity structure of the business, such as `private_corporation` or
+              `sole_proprietorship`. Supported values vary by country of incorporation — see
+              [Business structures](/developer/verification/business-structures).
+
+          country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
+
+          requested_information: Answers to items returned in `requested_information`. Each entry must include
+              the requested item `id` and exactly one answer payload matching the item's
+              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
+              for `files`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    async def update(
+        self,
+        verification_id: str,
+        *,
+        country: str | Omit = omit,
+        date_of_birth: str | Omit = omit,
+        first_name: str | Omit = omit,
+        last_name: str | Omit = omit,
+        personal_address: verification_update_params.UpdateIndividualVerificationPersonalAddress | Omit = omit,
+        requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
+        | Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
+        | Omit = omit,
+        business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
+        business_name: str | Omit = omit,
+        business_structure: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VerificationUpdateResponse:
         if not verification_id:
             raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
         return await self._patch(
             path_template("/verifications/{verification_id}", verification_id=verification_id),
             body=await async_maybe_transform(
                 {
-                    "business_address": business_address,
-                    "business_name": business_name,
-                    "business_structure": business_structure,
                     "country": country,
                     "date_of_birth": date_of_birth,
                     "first_name": first_name,
                     "last_name": last_name,
                     "personal_address": personal_address,
                     "requested_information": requested_information,
+                    "business_address": business_address,
+                    "business_name": business_name,
+                    "business_structure": business_structure,
                 },
                 verification_update_params.VerificationUpdateParams,
             ),
@@ -622,8 +892,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationListResponse:
         """
-        Returns verification profiles for an account or user, including review status
-        and any items that still need answers.
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
           account_id: Account or user ID whose verifications you want to list. Use a `biz_` account

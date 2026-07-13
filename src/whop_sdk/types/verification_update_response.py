@@ -7,10 +7,32 @@ from .._models import BaseModel
 
 __all__ = [
     "VerificationUpdateResponse",
+    "Address",
     "RequestedInformation",
     "RequestedInformationRequestedFile",
     "RequiredDocument",
 ]
+
+
+class Address(BaseModel):
+    """Address on the verification profile. `null` when no address is set."""
+
+    city: Optional[str] = None
+
+    country: Optional[str] = None
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
+
+    line1: Optional[str] = None
+    """First line of the street address."""
+
+    line2: Optional[str] = None
+    """Second line of the street address."""
+
+    postal_code: Optional[str] = None
+    """Postal or ZIP code."""
+
+    state: Optional[str] = None
+    """State, province, or region code, for example `CA`."""
 
 
 class RequestedInformationRequestedFile(BaseModel):
@@ -100,14 +122,11 @@ class VerificationUpdateResponse(BaseModel):
     id: Optional[str] = None
     """Verification profile ID, prefixed `idpf_`."""
 
-    address: Optional[object] = None
-    """
-    Personal or business address on the verification profile, with `line1`, `line2`,
-    `city`, `state`, `postal_code`, and `country`. `null` when no address is set.
-    """
+    address: Optional[Address] = None
+    """Address on the verification profile. `null` when no address is set."""
 
     business_name: Optional[str] = None
-    """Legal business name on a business verification."""
+    """Legal business name."""
 
     business_structure: Optional[str] = None
     """
@@ -117,22 +136,19 @@ class VerificationUpdateResponse(BaseModel):
     """
 
     country: Optional[str] = None
-    """ISO 3166-1 alpha-2 country code for the individual or business being verified."""
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
     created_at: Optional[str] = None
     """When the verification profile was created, as an ISO 8601 timestamp."""
 
     date_of_birth: Optional[str] = None
-    """Date of birth for an individual verification, formatted as `YYYY-MM-DD`."""
+    """Formatted as `YYYY-MM-DD`."""
 
     first_name: Optional[str] = None
-    """First name on an individual verification."""
 
     kind: Optional[Literal["individual", "business"]] = None
-    """Verification type: `individual` for a person or `business` for a business."""
 
     last_name: Optional[str] = None
-    """Last name on an individual verification."""
 
     requested_information: Optional[List[RequestedInformation]] = None
     """Fields or documents Whop still needs before review can continue.
@@ -151,8 +167,7 @@ class VerificationUpdateResponse(BaseModel):
     session_url: Optional[str] = None
     """Hosted verification session URL for the user to complete identity checks.
 
-    Expires 7 days after creation. Omitted unless this verification's own status is
-    `pending`; `null` if `pending` with no active session.
+    Expires 7 days after creation.
     """
 
     status: Optional[Literal["not_started", "pending", "approved", "rejected", "action_required"]] = None

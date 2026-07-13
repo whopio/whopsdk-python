@@ -2,13 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Dict
-from typing_extensions import Literal, Required, TypedDict
+from typing import Dict, Union
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-__all__ = ["VerificationCreateParams"]
+__all__ = [
+    "VerificationCreateParams",
+    "CreateIndividualVerification",
+    "CreateIndividualVerificationAddress",
+    "CreateBusinessVerification",
+    "CreateBusinessVerificationAddress",
+]
 
 
-class VerificationCreateParams(TypedDict, total=False):
+class CreateIndividualVerification(TypedDict, total=False):
     account_id: Required[str]
     """Account or user ID whose identity you want to verify.
 
@@ -16,33 +22,26 @@ class VerificationCreateParams(TypedDict, total=False):
     for personal verification.
     """
 
-    address: Dict[str, object]
-    """Address to prefill in the hosted verification session."""
+    address: CreateIndividualVerificationAddress
 
     business_name: str
-    """Legal business name to prefill for a business verification."""
+    """Legal business name for a sole proprietor or single-member LLC."""
 
     business_structure: str
-    """
-    Legal entity structure of the business, such as `private_corporation` or
-    `sole_proprietorship`. Supported values vary by country of incorporation — see
+    """Entity type for sole proprietors, such as `single_member_llc`.
+
+    Supported values vary by country of incorporation — see
     [Business structures](/developer/verification/business-structures).
     """
 
     business_website: str
-    """Business website URL used during verification.
-
-    Whop store pages are not accepted.
-    """
+    """Business website URL. Whop store pages are not accepted."""
 
     country: str
-    """ISO 3166-1 alpha-2 country code.
-
-    For businesses, use the country of incorporation.
-    """
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
     date_of_birth: str
-    """Date of birth to prefill in the hosted verification session."""
+    """Formatted as `YYYY-MM-DD`."""
 
     document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"]
     """Identity document being sent.
@@ -67,25 +66,90 @@ class VerificationCreateParams(TypedDict, total=False):
     """
 
     first_name: str
-    """First name to prefill in the hosted verification session."""
 
-    kind: Literal["individual", "business"]
+    kind: Literal["individual"]
     """Verification type. Defaults to `individual`."""
 
     last_name: str
-    """Last name to prefill in the hosted verification session."""
 
     phone: str
-    """Phone number to prefill in the hosted verification session."""
+
+    tax_identification_number: str
+    """SSN or ITIN. Tokenized in transit and never stored raw."""
+
+
+class CreateIndividualVerificationAddress(TypedDict, total=False):
+    city: str
+
+    country: str
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
+
+    line1: str
+    """First line of the street address."""
+
+    line2: str
+    """Second line of the street address."""
+
+    postal_code: str
+    """Postal or ZIP code."""
+
+    state: str
+    """State, province, or region code, for example `CA`."""
+
+
+class CreateBusinessVerification(TypedDict, total=False):
+    account_id: Required[str]
+    """Account or user ID whose identity you want to verify.
+
+    Use a `biz_` account ID for account verifications, or the caller's `user_` ID
+    for personal verification.
+    """
+
+    address: CreateBusinessVerificationAddress
+
+    business_name: str
+    """Legal business name."""
+
+    business_structure: str
+    """
+    Legal entity structure of the business, such as `private_corporation` or
+    `sole_proprietorship`. Supported values vary by country of incorporation — see
+    [Business structures](/developer/verification/business-structures).
+    """
+
+    business_website: str
+    """Business website URL. Whop store pages are not accepted."""
+
+    country: str
+    """Country of incorporation as a two-letter ISO 3166-1 country code."""
+
+    kind: Literal["business"]
+    """Must be `business` to start a KYB verification."""
 
     place_of_incorporation: str
     """State or region where the business is incorporated."""
 
-    restart: bool
-    """Set to `true` to abandon the current in-flight session and start a new one."""
-
     tax_identification_number: str
-    """Tax ID for the individual or business, such as an SSN or EIN.
+    """EIN. Tokenized in transit and never stored raw."""
 
-    Tokenized in transit and never stored raw.
-    """
+
+class CreateBusinessVerificationAddress(TypedDict, total=False):
+    city: str
+
+    country: str
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
+
+    line1: str
+    """First line of the street address."""
+
+    line2: str
+    """Second line of the street address."""
+
+    postal_code: str
+    """Postal or ZIP code."""
+
+    state: str
+    """State, province, or region code, for example `CA`."""
+
+
+VerificationCreateParams: TypeAlias = Union[CreateIndividualVerification, CreateBusinessVerification]
