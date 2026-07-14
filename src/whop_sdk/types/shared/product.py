@@ -38,6 +38,9 @@ class GalleryImage(BaseModel):
     ID.
     """
 
+    content_type: Optional[str] = None
+    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
+
     url: Optional[str] = None
     """A pre-optimized URL for rendering this attachment on the client.
 
