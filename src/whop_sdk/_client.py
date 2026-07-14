@@ -94,7 +94,6 @@ if TYPE_CHECKING:
         verifications,
         course_lessons,
         dispute_alerts,
-        payout_methods,
         course_chapters,
         course_students,
         ledger_accounts,
@@ -162,7 +161,6 @@ if TYPE_CHECKING:
     from .resources.verifications import VerificationsResource, AsyncVerificationsResource
     from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
     from .resources.dispute_alerts import DisputeAlertsResource, AsyncDisputeAlertsResource
-    from .resources.payout_methods import PayoutMethodsResource, AsyncPayoutMethodsResource
     from .resources.course_chapters import CourseChaptersResource, AsyncCourseChaptersResource
     from .resources.course_students import CourseStudentsResource, AsyncCourseStudentsResource
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
@@ -697,12 +695,6 @@ class Whop(SyncAPIClient):
         from .resources.fee_markups import FeeMarkupsResource
 
         return FeeMarkupsResource(self)
-
-    @cached_property
-    def payout_methods(self) -> PayoutMethodsResource:
-        from .resources.payout_methods import PayoutMethodsResource
-
-        return PayoutMethodsResource(self)
 
     @cached_property
     def verifications(self) -> VerificationsResource:
@@ -1463,12 +1455,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncFeeMarkupsResource(self)
 
     @cached_property
-    def payout_methods(self) -> AsyncPayoutMethodsResource:
-        from .resources.payout_methods import AsyncPayoutMethodsResource
-
-        return AsyncPayoutMethodsResource(self)
-
-    @cached_property
     def verifications(self) -> AsyncVerificationsResource:
         """A Verification represents an identity review for a person or business.
 
@@ -2147,12 +2133,6 @@ class WhopWithRawResponse:
         return FeeMarkupsResourceWithRawResponse(self._client.fee_markups)
 
     @cached_property
-    def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithRawResponse:
-        from .resources.payout_methods import PayoutMethodsResourceWithRawResponse
-
-        return PayoutMethodsResourceWithRawResponse(self._client.payout_methods)
-
-    @cached_property
     def verifications(self) -> verifications.VerificationsResourceWithRawResponse:
         """A Verification represents an identity review for a person or business.
 
@@ -2711,12 +2691,6 @@ class AsyncWhopWithRawResponse:
         from .resources.fee_markups import AsyncFeeMarkupsResourceWithRawResponse
 
         return AsyncFeeMarkupsResourceWithRawResponse(self._client.fee_markups)
-
-    @cached_property
-    def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithRawResponse:
-        from .resources.payout_methods import AsyncPayoutMethodsResourceWithRawResponse
-
-        return AsyncPayoutMethodsResourceWithRawResponse(self._client.payout_methods)
 
     @cached_property
     def verifications(self) -> verifications.AsyncVerificationsResourceWithRawResponse:
@@ -3281,12 +3255,6 @@ class WhopWithStreamedResponse:
         return FeeMarkupsResourceWithStreamingResponse(self._client.fee_markups)
 
     @cached_property
-    def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithStreamingResponse:
-        from .resources.payout_methods import PayoutMethodsResourceWithStreamingResponse
-
-        return PayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
-
-    @cached_property
     def verifications(self) -> verifications.VerificationsResourceWithStreamingResponse:
         """A Verification represents an identity review for a person or business.
 
@@ -3849,12 +3817,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.fee_markups import AsyncFeeMarkupsResourceWithStreamingResponse
 
         return AsyncFeeMarkupsResourceWithStreamingResponse(self._client.fee_markups)
-
-    @cached_property
-    def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithStreamingResponse:
-        from .resources.payout_methods import AsyncPayoutMethodsResourceWithStreamingResponse
-
-        return AsyncPayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
 
     @cached_property
     def verifications(self) -> verifications.AsyncVerificationsResourceWithStreamingResponse:

@@ -464,14 +464,6 @@ from .dispute_alerts import (
     DisputeAlertsResourceWithStreamingResponse,
     AsyncDisputeAlertsResourceWithStreamingResponse,
 )
-from .payout_methods import (
-    PayoutMethodsResource,
-    AsyncPayoutMethodsResource,
-    PayoutMethodsResourceWithRawResponse,
-    AsyncPayoutMethodsResourceWithRawResponse,
-    PayoutMethodsResourceWithStreamingResponse,
-    AsyncPayoutMethodsResourceWithStreamingResponse,
-)
 from .course_chapters import (
     CourseChaptersResource,
     AsyncCourseChaptersResource,
@@ -896,12 +888,6 @@ __all__ = [
     "AsyncFeeMarkupsResourceWithRawResponse",
     "FeeMarkupsResourceWithStreamingResponse",
     "AsyncFeeMarkupsResourceWithStreamingResponse",
-    "PayoutMethodsResource",
-    "AsyncPayoutMethodsResource",
-    "PayoutMethodsResourceWithRawResponse",
-    "AsyncPayoutMethodsResourceWithRawResponse",
-    "PayoutMethodsResourceWithStreamingResponse",
-    "AsyncPayoutMethodsResourceWithStreamingResponse",
     "VerificationsResource",
     "AsyncVerificationsResource",
     "VerificationsResourceWithRawResponse",

@@ -1028,23 +1028,6 @@ Methods:
 - <code title="get /fee_markups">client.fee_markups.<a href="./src/whop_sdk/resources/fee_markups.py">list</a>(\*\*<a href="src/whop_sdk/types/fee_markup_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/fee_markup_list_response.py">SyncCursorPage[FeeMarkupListResponse]</a></code>
 - <code title="delete /fee_markups/{id}">client.fee_markups.<a href="./src/whop_sdk/resources/fee_markups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/fee_markup_delete_response.py">FeeMarkupDeleteResponse</a></code>
 
-# PayoutMethods
-
-Types:
-
-```python
-from whop_sdk.types import (
-    PayoutDestinationCategory,
-    PayoutMethodRetrieveResponse,
-    PayoutMethodListResponse,
-)
-```
-
-Methods:
-
-- <code title="get /payout_methods/{id}">client.payout_methods.<a href="./src/whop_sdk/resources/payout_methods.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/payout_method_retrieve_response.py">PayoutMethodRetrieveResponse</a></code>
-- <code title="get /payout_methods">client.payout_methods.<a href="./src/whop_sdk/resources/payout_methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_method_list_response.py">SyncCursorPage[PayoutMethodListResponse]</a></code>
-
 # Verifications
 
 Types:
