@@ -36,7 +36,7 @@ class BreakdownGranularity(BaseModel):
     """Clicks in this bucket."""
 
     granularity: Granularities
-    """The bucket size of this row (`daily` or `hourly`)."""
+    """The bucket size of this row (`hourly`, `daily`, `weekly`, or `monthly`)."""
 
     impressions: int
     """Impressions in this bucket."""
@@ -81,20 +81,20 @@ class BreakdownGranularity(BaseModel):
 class BreakdownSummary(BaseModel):
     """Aggregate totals and rates for this entity over the date range."""
 
+    click_through_rate: float
+    """Click-through rate (clicks / impressions)."""
+
     clicks: int
     """Total clicks over the date range."""
 
-    cost_per_result: Optional[float] = None
-    """Spend divided by `resultCount`. Null when there are no results."""
-
-    cpc: float
+    cost_per_click: float
     """Cost per click in the requested reporting currency."""
 
-    cpm: Optional[float] = None
+    cost_per_mille: Optional[float] = None
     """Cost per thousand impressions in the requested reporting currency."""
 
-    ctr: float
-    """Click-through rate (clicks / impressions)."""
+    cost_per_result: Optional[float] = None
+    """Spend divided by `resultCount`. Null when there are no results."""
 
     frequency: Optional[float] = None
     """Average number of times each reached user saw an ad."""
@@ -117,10 +117,10 @@ class BreakdownSummary(BaseModel):
     result_label_override: Optional[str] = None
     """Advertiser-defined label for the result when `resultLabelKey` is `custom`."""
 
-    roas: Optional[float] = None
+    return_on_ad_spend: Optional[float] = None
     """
-    Alias for `purchaseRoas` — return on ad spend for purchases, as reported by the
-    external ad platform.
+    Alias for `purchaseReturnOnAdSpend` — return on ad spend for purchases, as
+    reported by the external ad platform.
     """
 
     spend: float
@@ -173,7 +173,7 @@ class Granularity(BaseModel):
     """Clicks in this bucket."""
 
     granularity: Granularities
-    """The bucket size of this row (`daily` or `hourly`)."""
+    """The bucket size of this row (`hourly`, `daily`, `weekly`, or `monthly`)."""
 
     impressions: int
     """Impressions in this bucket."""
@@ -218,20 +218,20 @@ class Granularity(BaseModel):
 class Summary(BaseModel):
     """Aggregate totals and rates over the date range."""
 
+    click_through_rate: float
+    """Click-through rate (clicks / impressions)."""
+
     clicks: int
     """Total clicks over the date range."""
 
-    cost_per_result: Optional[float] = None
-    """Spend divided by `resultCount`. Null when there are no results."""
-
-    cpc: float
+    cost_per_click: float
     """Cost per click in the requested reporting currency."""
 
-    cpm: Optional[float] = None
+    cost_per_mille: Optional[float] = None
     """Cost per thousand impressions in the requested reporting currency."""
 
-    ctr: float
-    """Click-through rate (clicks / impressions)."""
+    cost_per_result: Optional[float] = None
+    """Spend divided by `resultCount`. Null when there are no results."""
 
     frequency: Optional[float] = None
     """Average number of times each reached user saw an ad."""
@@ -254,10 +254,10 @@ class Summary(BaseModel):
     result_label_override: Optional[str] = None
     """Advertiser-defined label for the result when `resultLabelKey` is `custom`."""
 
-    roas: Optional[float] = None
+    return_on_ad_spend: Optional[float] = None
     """
-    Alias for `purchaseRoas` — return on ad spend for purchases, as reported by the
-    external ad platform.
+    Alias for `purchaseReturnOnAdSpend` — return on ad spend for purchases, as
+    reported by the external ad platform.
     """
 
     spend: float

@@ -43,7 +43,9 @@ class TestInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -159,7 +161,9 @@ class TestInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -338,7 +342,9 @@ class TestInvoices:
             member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -645,7 +651,9 @@ class TestAsyncInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -761,7 +769,9 @@ class TestAsyncInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",
@@ -940,7 +950,9 @@ class TestAsyncInvoices:
             member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
+                "currency": "usd",
                 "custom_fields": [
                     {
                         "field_type": "text",

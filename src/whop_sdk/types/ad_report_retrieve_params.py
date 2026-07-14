@@ -6,6 +6,7 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .granularities import Granularities
 
@@ -19,22 +20,22 @@ class AdReportRetrieveParams(TypedDict, total=False):
     to: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Inclusive end of the reporting window."""
 
-    ad_campaign_id: Optional[str]
-    """The unique identifier of an ad campaign.
+    ad_campaign_ids: Optional[SequenceNotStr[str]]
+    """Scope the report to these ad campaigns (max 100); stats are summed across them.
 
-    Mutually exclusive with `companyId`, `adGroupId`, and `adId`.
+    Mutually exclusive with `companyId`, `adGroupIds`, and `adIds`.
     """
 
-    ad_group_id: Optional[str]
-    """The unique identifier of an ad group.
+    ad_group_ids: Optional[SequenceNotStr[str]]
+    """Scope the report to these ad groups (max 100); stats are summed across them.
 
-    Mutually exclusive with `companyId`, `adCampaignId`, and `adId`.
+    Mutually exclusive with `companyId`, `adCampaignIds`, and `adIds`.
     """
 
-    ad_id: Optional[str]
-    """The unique identifier of an ad.
+    ad_ids: Optional[SequenceNotStr[str]]
+    """Scope the report to these ads (max 100); stats are summed across them.
 
-    Mutually exclusive with `companyId`, `adCampaignId`, and `adGroupId`.
+    Mutually exclusive with `companyId`, `adCampaignIds`, and `adGroupIds`.
     """
 
     breakdown: Optional[Literal["campaign", "ad_group", "ad"]]
@@ -43,7 +44,7 @@ class AdReportRetrieveParams(TypedDict, total=False):
     company_id: Optional[str]
     """The unique identifier of a company.
 
-    Mutually exclusive with `adCampaignId`, `adGroupId`, and `adId`. Use with
+    Mutually exclusive with `adCampaignIds`, `adGroupIds`, and `adIds`. Use with
     `breakdown` to fan out across every campaign, ad group, or ad in the company
     without paging.
     """
