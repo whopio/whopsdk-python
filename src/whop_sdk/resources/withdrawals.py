@@ -29,8 +29,6 @@ __all__ = ["WithdrawalsResource", "AsyncWithdrawalsResource"]
 
 
 class WithdrawalsResource(SyncAPIResource):
-    """Withdrawals"""
-
     @cached_property
     def with_raw_response(self) -> WithdrawalsResourceWithRawResponse:
         """
@@ -83,7 +81,7 @@ class WithdrawalsResource(SyncAPIResource):
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
-          platform_covers_fees: Whether the platform covers the payout fees instead of the connected account.
+          platform_covers_fees: Whether the platform covers the payout fees.
 
           statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
               characters and contain only alphanumeric characters.
@@ -231,8 +229,6 @@ class WithdrawalsResource(SyncAPIResource):
 
 
 class AsyncWithdrawalsResource(AsyncAPIResource):
-    """Withdrawals"""
-
     @cached_property
     def with_raw_response(self) -> AsyncWithdrawalsResourceWithRawResponse:
         """
@@ -285,7 +281,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
-          platform_covers_fees: Whether the platform covers the payout fees instead of the connected account.
+          platform_covers_fees: Whether the platform covers the payout fees.
 
           statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
               characters and contain only alphanumeric characters.
