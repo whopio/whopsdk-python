@@ -21,6 +21,13 @@ __all__ = [
 
 
 class UpdateIndividualVerification(TypedDict, total=False):
+    business_tax_identification_number: str
+    """The business ID number of the company, as appropriate for the company's country.
+
+    Examples are an Employer Identification Number (EIN) in the US, a Business
+    Number in Canada, or a Company Number in the UK.
+    """
+
     country: str
     """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
@@ -40,6 +47,14 @@ class UpdateIndividualVerification(TypedDict, total=False):
     Each entry must include the requested item `id` and exactly one answer payload
     matching the item's `type`: `value` for `text`, `date`, or `phone`; `address`
     for `address`; `files` for `files`.
+    """
+
+    tax_identification_number: str
+    """
+    The government-issued ID number of the person being verified — the individual
+    for a KYC verification, or the business representative for a KYB verification —
+    as appropriate for their country. Examples are a Social Security Number (SSN) in
+    the US, or a Social Insurance Number in Canada.
     """
 
 
@@ -134,6 +149,13 @@ class UpdateBusinessVerification(TypedDict, total=False):
     [Business structures](/developer/verification/business-structures).
     """
 
+    business_tax_identification_number: str
+    """The business ID number of the company, as appropriate for the company's country.
+
+    Examples are an Employer Identification Number (EIN) in the US, a Business
+    Number in Canada, or a Company Number in the UK.
+    """
+
     country: str
     """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
@@ -143,6 +165,14 @@ class UpdateBusinessVerification(TypedDict, total=False):
     Each entry must include the requested item `id` and exactly one answer payload
     matching the item's `type`: `value` for `text`, `date`, or `phone`; `address`
     for `address`; `files` for `files`.
+    """
+
+    tax_identification_number: str
+    """
+    The government-issued ID number of the person being verified — the individual
+    for a KYC verification, or the business representative for a KYB verification —
+    as appropriate for their country. Examples are a Social Security Number (SSN) in
+    the US, or a Social Insurance Number in Canada.
     """
 
 

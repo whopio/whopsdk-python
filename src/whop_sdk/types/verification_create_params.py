@@ -34,6 +34,13 @@ class CreateIndividualVerification(TypedDict, total=False):
     [Business structures](/developer/verification/business-structures).
     """
 
+    business_tax_identification_number: str
+    """The business ID number of the company, as appropriate for the company's country.
+
+    Examples are an Employer Identification Number (EIN) in the US, a Business
+    Number in Canada, or a Company Number in the UK.
+    """
+
     business_website: str
     """Business website URL. Whop store pages are not accepted."""
 
@@ -75,7 +82,12 @@ class CreateIndividualVerification(TypedDict, total=False):
     phone: str
 
     tax_identification_number: str
-    """SSN or ITIN. Tokenized in transit and never stored raw."""
+    """
+    The government-issued ID number of the person being verified — the individual
+    for a KYC verification, or the business representative for a KYB verification —
+    as appropriate for their country. Examples are a Social Security Number (SSN) in
+    the US, or a Social Insurance Number in Canada.
+    """
 
 
 class CreateIndividualVerificationAddress(TypedDict, total=False):
@@ -117,6 +129,13 @@ class CreateBusinessVerification(TypedDict, total=False):
     [Business structures](/developer/verification/business-structures).
     """
 
+    business_tax_identification_number: str
+    """The business ID number of the company, as appropriate for the company's country.
+
+    Examples are an Employer Identification Number (EIN) in the US, a Business
+    Number in Canada, or a Company Number in the UK.
+    """
+
     business_website: str
     """Business website URL. Whop store pages are not accepted."""
 
@@ -130,7 +149,12 @@ class CreateBusinessVerification(TypedDict, total=False):
     """State or region where the business is incorporated."""
 
     tax_identification_number: str
-    """EIN. Tokenized in transit and never stored raw."""
+    """
+    The government-issued ID number of the person being verified — the individual
+    for a KYC verification, or the business representative for a KYB verification —
+    as appropriate for their country. Examples are a Social Security Number (SSN) in
+    the US, or a Social Insurance Number in Canada.
+    """
 
 
 class CreateBusinessVerificationAddress(TypedDict, total=False):

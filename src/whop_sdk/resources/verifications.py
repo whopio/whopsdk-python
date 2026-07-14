@@ -62,6 +62,7 @@ class VerificationsResource(SyncAPIResource):
         address: verification_create_params.CreateIndividualVerificationAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
@@ -97,6 +98,10 @@ class VerificationsResource(SyncAPIResource):
               vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           business_website: Business website URL. Whop store pages are not accepted.
 
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
@@ -121,7 +126,10 @@ class VerificationsResource(SyncAPIResource):
 
           kind: Verification type. Defaults to `individual`.
 
-          tax_identification_number: SSN or ITIN. Tokenized in transit and never stored raw.
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -141,6 +149,7 @@ class VerificationsResource(SyncAPIResource):
         address: verification_create_params.CreateBusinessVerificationAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         kind: Literal["business"] | Omit = omit,
@@ -171,6 +180,10 @@ class VerificationsResource(SyncAPIResource):
               `sole_proprietorship`. Supported values vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           business_website: Business website URL. Whop store pages are not accepted.
 
           country: Country of incorporation as a two-letter ISO 3166-1 country code.
@@ -179,7 +192,10 @@ class VerificationsResource(SyncAPIResource):
 
           place_of_incorporation: State or region where the business is incorporated.
 
-          tax_identification_number: EIN. Tokenized in transit and never stored raw.
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -201,6 +217,7 @@ class VerificationsResource(SyncAPIResource):
         | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
@@ -226,6 +243,7 @@ class VerificationsResource(SyncAPIResource):
                     "address": address,
                     "business_name": business_name,
                     "business_structure": business_structure,
+                    "business_tax_identification_number": business_tax_identification_number,
                     "business_website": business_website,
                     "country": country,
                     "date_of_birth": date_of_birth,
@@ -289,6 +307,7 @@ class VerificationsResource(SyncAPIResource):
         self,
         verification_id: str,
         *,
+        business_tax_identification_number: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
@@ -296,6 +315,7 @@ class VerificationsResource(SyncAPIResource):
         personal_address: verification_update_params.UpdateIndividualVerificationPersonalAddress | Omit = omit,
         requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
         | Omit = omit,
+        tax_identification_number: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -309,6 +329,10 @@ class VerificationsResource(SyncAPIResource):
         are locked and can no longer be edited.
 
         Args:
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
           date_of_birth: Formatted as `YYYY-MM-DD`.
@@ -319,6 +343,11 @@ class VerificationsResource(SyncAPIResource):
               the requested item `id` and exactly one answer payload matching the item's
               `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
               for `files`.
+
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -338,9 +367,11 @@ class VerificationsResource(SyncAPIResource):
         business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         country: str | Omit = omit,
         requested_information: Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
         | Omit = omit,
+        tax_identification_number: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -362,12 +393,21 @@ class VerificationsResource(SyncAPIResource):
               `sole_proprietorship`. Supported values vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
           requested_information: Answers to items returned in `requested_information`. Each entry must include
               the requested item `id` and exactly one answer payload matching the item's
               `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
               for `files`.
+
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -383,6 +423,7 @@ class VerificationsResource(SyncAPIResource):
         self,
         verification_id: str,
         *,
+        business_tax_identification_number: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
@@ -391,6 +432,7 @@ class VerificationsResource(SyncAPIResource):
         requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
         | Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
         | Omit = omit,
+        tax_identification_number: str | Omit = omit,
         business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
@@ -407,12 +449,14 @@ class VerificationsResource(SyncAPIResource):
             path_template("/verifications/{verification_id}", verification_id=verification_id),
             body=maybe_transform(
                 {
+                    "business_tax_identification_number": business_tax_identification_number,
                     "country": country,
                     "date_of_birth": date_of_birth,
                     "first_name": first_name,
                     "last_name": last_name,
                     "personal_address": personal_address,
                     "requested_information": requested_information,
+                    "tax_identification_number": tax_identification_number,
                     "business_address": business_address,
                     "business_name": business_name,
                     "business_structure": business_structure,
@@ -513,6 +557,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         address: verification_create_params.CreateIndividualVerificationAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
@@ -548,6 +593,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
               vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           business_website: Business website URL. Whop store pages are not accepted.
 
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
@@ -572,7 +621,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           kind: Verification type. Defaults to `individual`.
 
-          tax_identification_number: SSN or ITIN. Tokenized in transit and never stored raw.
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -592,6 +644,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         address: verification_create_params.CreateBusinessVerificationAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         kind: Literal["business"] | Omit = omit,
@@ -622,6 +675,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
               `sole_proprietorship`. Supported values vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           business_website: Business website URL. Whop store pages are not accepted.
 
           country: Country of incorporation as a two-letter ISO 3166-1 country code.
@@ -630,7 +687,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           place_of_incorporation: State or region where the business is incorporated.
 
-          tax_identification_number: EIN. Tokenized in transit and never stored raw.
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -652,6 +712,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
@@ -677,6 +738,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
                     "address": address,
                     "business_name": business_name,
                     "business_structure": business_structure,
+                    "business_tax_identification_number": business_tax_identification_number,
                     "business_website": business_website,
                     "country": country,
                     "date_of_birth": date_of_birth,
@@ -742,6 +804,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         self,
         verification_id: str,
         *,
+        business_tax_identification_number: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
@@ -749,6 +812,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         personal_address: verification_update_params.UpdateIndividualVerificationPersonalAddress | Omit = omit,
         requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
         | Omit = omit,
+        tax_identification_number: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -762,6 +826,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
         are locked and can no longer be edited.
 
         Args:
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
           date_of_birth: Formatted as `YYYY-MM-DD`.
@@ -772,6 +840,11 @@ class AsyncVerificationsResource(AsyncAPIResource):
               the requested item `id` and exactly one answer payload matching the item's
               `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
               for `files`.
+
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -791,9 +864,11 @@ class AsyncVerificationsResource(AsyncAPIResource):
         business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
+        business_tax_identification_number: str | Omit = omit,
         country: str | Omit = omit,
         requested_information: Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
         | Omit = omit,
+        tax_identification_number: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -815,12 +890,21 @@ class AsyncVerificationsResource(AsyncAPIResource):
               `sole_proprietorship`. Supported values vary by country of incorporation — see
               [Business structures](/developer/verification/business-structures).
 
+          business_tax_identification_number: The business ID number of the company, as appropriate for the company's country.
+              Examples are an Employer Identification Number (EIN) in the US, a Business
+              Number in Canada, or a Company Number in the UK.
+
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
           requested_information: Answers to items returned in `requested_information`. Each entry must include
               the requested item `id` and exactly one answer payload matching the item's
               `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
               for `files`.
+
+          tax_identification_number: The government-issued ID number of the person being verified — the individual
+              for a KYC verification, or the business representative for a KYB verification —
+              as appropriate for their country. Examples are a Social Security Number (SSN) in
+              the US, or a Social Insurance Number in Canada.
 
           extra_headers: Send extra headers
 
@@ -836,6 +920,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         self,
         verification_id: str,
         *,
+        business_tax_identification_number: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
         first_name: str | Omit = omit,
@@ -844,6 +929,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         requested_information: Iterable[verification_update_params.UpdateIndividualVerificationRequestedInformation]
         | Iterable[verification_update_params.UpdateBusinessVerificationRequestedInformation]
         | Omit = omit,
+        tax_identification_number: str | Omit = omit,
         business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
@@ -860,12 +946,14 @@ class AsyncVerificationsResource(AsyncAPIResource):
             path_template("/verifications/{verification_id}", verification_id=verification_id),
             body=await async_maybe_transform(
                 {
+                    "business_tax_identification_number": business_tax_identification_number,
                     "country": country,
                     "date_of_birth": date_of_birth,
                     "first_name": first_name,
                     "last_name": last_name,
                     "personal_address": personal_address,
                     "requested_information": requested_information,
+                    "tax_identification_number": tax_identification_number,
                     "business_address": business_address,
                     "business_name": business_name,
                     "business_structure": business_structure,
