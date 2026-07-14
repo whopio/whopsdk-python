@@ -5,11 +5,22 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AccountRecommendActionsResponse", "Data"]
+__all__ = ["UserRecommendActionsResponse", "Data"]
 
 
 class Data(BaseModel):
+    account_id: Optional[str] = None
+    """
+    The account (`biz_`) a business recommendation is for, or `null` for personal
+    recommendations
+    """
+
+    account_name: Optional[str] = None
+    """The account's display name, or `null`"""
+
     action: Literal[
+        "create_business",
+        "become_affiliate",
         "theme_business",
         "create_product",
         "create_plan",
@@ -58,5 +69,5 @@ class Data(BaseModel):
     """Headline for the recommendation"""
 
 
-class AccountRecommendActionsResponse(BaseModel):
+class UserRecommendActionsResponse(BaseModel):
     data: List[Data]

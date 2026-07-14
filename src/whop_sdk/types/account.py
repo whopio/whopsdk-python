@@ -119,13 +119,10 @@ class RecommendedAction(BaseModel):
     """Illustration icon URL, or `null`"""
 
     impact_score: Optional[int] = None
-    """
-    Estimated revenue impact from 0-100, comparable across accounts, or `null` when
-    not ranked
-    """
+    """Estimated impact from 0-100, or `null` when not ranked"""
 
     reasoning: Optional[str] = None
-    """Why this action was recommended for this account, or `null`"""
+    """Why this action was recommended, or `null`"""
 
     status: Literal["optional"]
     """Always optional — never blocking"""
