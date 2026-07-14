@@ -29,8 +29,6 @@ __all__ = ["ResolutionCenterCasesResource", "AsyncResolutionCenterCasesResource"
 
 
 class ResolutionCenterCasesResource(SyncAPIResource):
-    """Resolution center cases"""
-
     @cached_property
     def with_raw_response(self) -> ResolutionCenterCasesResourceWithRawResponse:
         """
@@ -169,8 +167,6 @@ class ResolutionCenterCasesResource(SyncAPIResource):
 
 
 class AsyncResolutionCenterCasesResource(AsyncAPIResource):
-    """Resolution center cases"""
-
     @cached_property
     def with_raw_response(self) -> AsyncResolutionCenterCasesResourceWithRawResponse:
         """
