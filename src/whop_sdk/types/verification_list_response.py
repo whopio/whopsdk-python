@@ -171,14 +171,15 @@ class Data(BaseModel):
     Expires 7 days after creation.
     """
 
-    status: Optional[Literal["not_started", "pending", "approved", "rejected", "action_required"]] = None
+    status: Optional[Literal["not_started", "pending", "processing", "approved", "rejected", "action_required"]] = None
     """Current verification state.
 
     `not_started` before any session has been created; `pending` while a session is
-    in progress; `action_required` when items in `requested_information` need
-    answers before review can continue; `approved` once verification succeeds;
-    `rejected` if it fails. Call the Create Verification endpoint again to start a
-    new session.
+    in progress and needs the user's input; `processing` while the provider reviews
+    submitted documents — nothing to do but wait; `action_required` when items in
+    `requested_information` need answers before review can continue; `approved` once
+    verification succeeds; `rejected` if it fails. Call the Create Verification
+    endpoint again to start a new session.
     """
 
     updated_at: Optional[str] = None
