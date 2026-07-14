@@ -15,20 +15,13 @@ class EventCreateParams(TypedDict, total=False):
     account_id: Required[str]
     """The account to associate with this event."""
 
-    event_name: Required[
-        Literal[
-            "lead",
-            "submit_application",
-            "contact",
-            "complete_registration",
-            "schedule",
-            "view_content",
-            "add_to_cart",
-            "custom",
-            "page",
-        ]
-    ]
-    """The type of conversion or engagement event"""
+    event_name: Required[str]
+    """The type of event.
+
+    Use a standard event (lead, submit_application, contact, complete_registration,
+    schedule, view_content, add_to_cart) or pass your own name directly for a custom
+    event.
+    """
 
     action_source: Optional[
         Literal[

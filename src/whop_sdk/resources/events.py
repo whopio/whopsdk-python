@@ -57,17 +57,7 @@ class EventsResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        event_name: Literal[
-            "lead",
-            "submit_application",
-            "contact",
-            "complete_registration",
-            "schedule",
-            "view_content",
-            "add_to_cart",
-            "custom",
-            "page",
-        ],
+        event_name: str,
         action_source: Optional[
             Literal[
                 "email",
@@ -204,7 +194,11 @@ class EventsResource(SyncAPIResource):
         Args:
           account_id: The account to associate with this event.
 
-          event_name: The type of conversion or engagement event
+          event_name: The type of event.
+
+              Use a standard event (lead, submit_application, contact, complete_registration,
+              schedule, view_content, add_to_cart) or pass your own name directly for a custom
+              event.
 
           action_source: The channel where an event originated
 
@@ -379,17 +373,7 @@ class AsyncEventsResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        event_name: Literal[
-            "lead",
-            "submit_application",
-            "contact",
-            "complete_registration",
-            "schedule",
-            "view_content",
-            "add_to_cart",
-            "custom",
-            "page",
-        ],
+        event_name: str,
         action_source: Optional[
             Literal[
                 "email",
@@ -526,7 +510,11 @@ class AsyncEventsResource(AsyncAPIResource):
         Args:
           account_id: The account to associate with this event.
 
-          event_name: The type of conversion or engagement event
+          event_name: The type of event.
+
+              Use a standard event (lead, submit_application, contact, complete_registration,
+              schedule, view_content, add_to_cart) or pass your own name directly for a custom
+              event.
 
           action_source: The channel where an event originated
 

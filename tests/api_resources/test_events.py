@@ -24,7 +24,7 @@ class TestEvents:
     def test_method_create(self, client: Whop) -> None:
         event = client.events.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
 
@@ -33,7 +33,7 @@ class TestEvents:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         event = client.events.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
             action_source="email",
             context={
                 "ad_campaign_id": "ad_campaign_id",
@@ -110,7 +110,7 @@ class TestEvents:
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.events.with_raw_response.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
         )
 
         assert response.is_closed is True
@@ -123,7 +123,7 @@ class TestEvents:
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.events.with_streaming_response.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -192,7 +192,7 @@ class TestAsyncEvents:
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         event = await async_client.events.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
 
@@ -201,7 +201,7 @@ class TestAsyncEvents:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         event = await async_client.events.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
             action_source="email",
             context={
                 "ad_campaign_id": "ad_campaign_id",
@@ -278,7 +278,7 @@ class TestAsyncEvents:
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.events.with_raw_response.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
         )
 
         assert response.is_closed is True
@@ -291,7 +291,7 @@ class TestAsyncEvents:
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.events.with_streaming_response.create(
             account_id="account_id",
-            event_name="lead",
+            event_name="course_completed",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
