@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import user_list_params, user_update_params, user_retrieve_params, user_update_me_params
@@ -19,11 +21,19 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from ..types.user import User
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.user_check_access_response import UserCheckAccessResponse
+from ..types.user_recommend_actions_response import UserRecommendActionsResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
 
 
 class UsersResource(SyncAPIResource):
+    """A User represents a person on Whop.
+
+    Users have a public profile and can buy products, join accounts, and access experiences.
+
+    Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+    """
+
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
         """
@@ -48,6 +58,11 @@ class UsersResource(SyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,6 +76,22 @@ class UsersResource(SyncAPIResource):
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this
               account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: On `GET /users/me`, also compute the caller's balance history (opt-in; runs a
+              heavier query). Ignored for other users and for callers without balance-read
+              scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
 
           extra_headers: Send extra headers
 
@@ -79,7 +110,17 @@ class UsersResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_retrieve_params.UserRetrieveParams,
+                ),
             ),
             cast_to=User,
         )
@@ -91,6 +132,8 @@ class UsersResource(SyncAPIResource):
         account_id: str | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
+        profile_picture: user_update_params.ProfilePicture | Omit = omit,
+        username: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -122,6 +165,8 @@ class UsersResource(SyncAPIResource):
                 {
                     "bio": bio,
                     "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
                 },
                 user_update_params.UserUpdateParams,
             ),
@@ -209,8 +254,8 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCheckAccessResponse:
         """
-        Checks whether a user has access to a company, product, or experience the caller
-        can reach.
+        Checks whether a user has access to an account, product, or experience the
+        caller can reach.
 
         Args:
           extra_headers: Send extra headers
@@ -233,9 +278,47 @@ class UsersResource(SyncAPIResource):
             cast_to=UserCheckAccessResponse,
         )
 
+    def recommend_actions(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserRecommendActionsResponse:
+        """
+        Lists the recommended actions computed for the user: personal suggestions (e.g.
+        start a business or become an affiliate) pooled with the highest-impact actions
+        across the accounts the user owns. Business actions are tagged with their
+        `account_id`/`account_name`; personal actions leave those `null`. Self-only:
+        `id` must be `me` or the authenticated user's own tag/username.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/users/{id}/recommend_actions", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserRecommendActionsResponse,
+        )
+
     def update_me(
         self,
         *,
+        account_id: str | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
         profile_picture: user_update_me_params.ProfilePicture | Omit = omit,
@@ -247,11 +330,14 @@ class UsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
-        """Updates the authenticated user's global profile.
-
-        Not available to API keys.
+        """
+        Updates the authenticated user's global profile, or their profile override for
+        an account when account_id is given. Not available to API keys.
 
         Args:
+          account_id: When set, updates the authenticated user's profile override for this account
+              instead of their global profile.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -272,13 +358,24 @@ class UsersResource(SyncAPIResource):
                 user_update_me_params.UserUpdateMeParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, user_update_me_params.UserUpdateMeParams),
             ),
             cast_to=User,
         )
 
 
 class AsyncUsersResource(AsyncAPIResource):
+    """A User represents a person on Whop.
+
+    Users have a public profile and can buy products, join accounts, and access experiences.
+
+    Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
         """
@@ -303,6 +400,11 @@ class AsyncUsersResource(AsyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -316,6 +418,22 @@ class AsyncUsersResource(AsyncAPIResource):
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this
               account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: On `GET /users/me`, also compute the caller's balance history (opt-in; runs a
+              heavier query). Ignored for other users and for callers without balance-read
+              scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
 
           extra_headers: Send extra headers
 
@@ -334,7 +452,17 @@ class AsyncUsersResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_retrieve_params.UserRetrieveParams,
+                ),
             ),
             cast_to=User,
         )
@@ -346,6 +474,8 @@ class AsyncUsersResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
+        profile_picture: user_update_params.ProfilePicture | Omit = omit,
+        username: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -377,6 +507,8 @@ class AsyncUsersResource(AsyncAPIResource):
                 {
                     "bio": bio,
                     "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
                 },
                 user_update_params.UserUpdateParams,
             ),
@@ -464,8 +596,8 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCheckAccessResponse:
         """
-        Checks whether a user has access to a company, product, or experience the caller
-        can reach.
+        Checks whether a user has access to an account, product, or experience the
+        caller can reach.
 
         Args:
           extra_headers: Send extra headers
@@ -488,9 +620,47 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=UserCheckAccessResponse,
         )
 
+    async def recommend_actions(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserRecommendActionsResponse:
+        """
+        Lists the recommended actions computed for the user: personal suggestions (e.g.
+        start a business or become an affiliate) pooled with the highest-impact actions
+        across the accounts the user owns. Business actions are tagged with their
+        `account_id`/`account_name`; personal actions leave those `null`. Self-only:
+        `id` must be `me` or the authenticated user's own tag/username.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/users/{id}/recommend_actions", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserRecommendActionsResponse,
+        )
+
     async def update_me(
         self,
         *,
+        account_id: str | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
         profile_picture: user_update_me_params.ProfilePicture | Omit = omit,
@@ -502,11 +672,14 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
-        """Updates the authenticated user's global profile.
-
-        Not available to API keys.
+        """
+        Updates the authenticated user's global profile, or their profile override for
+        an account when account_id is given. Not available to API keys.
 
         Args:
+          account_id: When set, updates the authenticated user's profile override for this account
+              instead of their global profile.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -527,7 +700,11 @@ class AsyncUsersResource(AsyncAPIResource):
                 user_update_me_params.UserUpdateMeParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, user_update_me_params.UserUpdateMeParams),
             ),
             cast_to=User,
         )
@@ -548,6 +725,9 @@ class UsersResourceWithRawResponse:
         )
         self.check_access = to_raw_response_wrapper(
             users.check_access,
+        )
+        self.recommend_actions = to_raw_response_wrapper(
+            users.recommend_actions,
         )
         self.update_me = to_raw_response_wrapper(
             users.update_me,
@@ -570,6 +750,9 @@ class AsyncUsersResourceWithRawResponse:
         self.check_access = async_to_raw_response_wrapper(
             users.check_access,
         )
+        self.recommend_actions = async_to_raw_response_wrapper(
+            users.recommend_actions,
+        )
         self.update_me = async_to_raw_response_wrapper(
             users.update_me,
         )
@@ -591,6 +774,9 @@ class UsersResourceWithStreamingResponse:
         self.check_access = to_streamed_response_wrapper(
             users.check_access,
         )
+        self.recommend_actions = to_streamed_response_wrapper(
+            users.recommend_actions,
+        )
         self.update_me = to_streamed_response_wrapper(
             users.update_me,
         )
@@ -611,6 +797,9 @@ class AsyncUsersResourceWithStreamingResponse:
         )
         self.check_access = async_to_streamed_response_wrapper(
             users.check_access,
+        )
+        self.recommend_actions = async_to_streamed_response_wrapper(
+            users.recommend_actions,
         )
         self.update_me = async_to_streamed_response_wrapper(
             users.update_me,
