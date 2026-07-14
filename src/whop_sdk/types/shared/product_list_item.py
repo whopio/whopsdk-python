@@ -1,12 +1,35 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
 from .visibility import Visibility
 
-__all__ = ["ProductListItem"]
+__all__ = ["ProductListItem", "GalleryImage"]
+
+
+class GalleryImage(BaseModel):
+    """Represents an image attachment"""
+
+    id: str
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
+
+    content_type: Optional[str] = None
+    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
+
+    url: Optional[str] = None
+    """A pre-optimized URL for rendering this attachment on the client.
+
+    This should be used for displaying attachments in apps.
+    """
 
 
 class ProductListItem(BaseModel):
@@ -27,6 +50,9 @@ class ProductListItem(BaseModel):
     Providing it on a product creation endpoint updates the existing product with
     this identifier instead of creating a new one.
     """
+
+    gallery_images: List[GalleryImage]
+    """The gallery images for this product, ordered by position."""
 
     headline: Optional[str] = None
     """A short marketing headline displayed prominently on the product's product page."""
