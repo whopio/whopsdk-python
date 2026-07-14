@@ -8,6 +8,7 @@ from .currency import Currency
 from ..._models import BaseModel
 from .promo_type import PromoType
 from ..card_brands import CardBrands
+from ..refund_status import RefundStatus
 from .receipt_status import ReceiptStatus
 from ..billing_reasons import BillingReasons
 from ..dispute_statuses import DisputeStatuses
@@ -35,6 +36,7 @@ __all__ = [
     "Plan",
     "Product",
     "PromoCode",
+    "Refund",
     "Resolution",
     "ShippingAddress",
     "User",
@@ -319,6 +321,33 @@ class PromoCode(BaseModel):
     """The type (% or flat amount) of the promo."""
 
 
+class Refund(BaseModel):
+    """
+    A refund represents a full or partial reversal of a payment, including the amount, status, and payment provider.
+    """
+
+    id: str
+    """The unique identifier for the refund."""
+
+    amount: float
+    """
+    The refunded amount as a decimal in the specified currency, such as 10.43 for
+    $10.43 USD.
+    """
+
+    created_at: datetime
+    """The datetime the refund was created."""
+
+    currency: Currency
+    """The three-letter ISO currency code for the refunded amount."""
+
+    status: RefundStatus
+    """
+    The current processing status of the refund, such as pending, succeeded, or
+    failed.
+    """
+
+
 class Resolution(BaseModel):
     """
     A resolution center case is a dispute or support case between a user and a company, tracking the issue, status, and outcome.
@@ -537,6 +566,12 @@ class Payment(BaseModel):
 
     refunded_at: Optional[datetime] = None
     """When the payment was refunded (if applicable)."""
+
+    refunds: List[Refund]
+    """
+    The refunds issued against this payment, newest first, including failed and
+    canceled refund attempts. Limited to the 100 most recent.
+    """
 
     resolutions: Optional[List[Resolution]] = None
     """The resolution center cases opened by the customer on this payment.
