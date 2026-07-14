@@ -127,6 +127,15 @@ class AdCampaign(BaseModel):
     across all custom event names.
     """
 
+    custom_event_counts: object
+    """
+    Whop pixel-attributed custom conversions broken out by merchant-defined event
+    name, last-click, as a { event_name => count } map over the stats window. Empty
+    when no named custom events are attributed. Custom events fired without a name
+    are counted in custom_conversions but omitted here, so these values sum to at
+    most custom_conversions.
+    """
+
     delivery_status: Literal[
         "payment_failed",
         "all_ads_rejected",
@@ -202,6 +211,14 @@ class AdCampaign(BaseModel):
     """
     The merchant-defined event name when result_event is custom; null for the
     standard events.
+    """
+
+    results: Optional[float] = None
+    """The Whop pixel-attributed count behind result_event.
+
+    When a campaign's ad groups optimize different goals there is no single
+    result_event (it is null), and this is instead the sum of each ad group's own
+    attributed results. Null when nothing Whop-attributable is being optimized for.
     """
 
     return_on_ad_spend: float
