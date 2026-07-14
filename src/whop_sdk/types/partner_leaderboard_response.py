@@ -3,10 +3,10 @@
 from typing import List, Optional
 from datetime import datetime
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
 __all__ = [
-    "BusinessLeaderboardResponse",
+    "PartnerLeaderboardResponse",
     "Leader",
     "LeaderUser",
     "LeaderUserProfilePicture",
@@ -56,7 +56,7 @@ class LeaderUser(BaseModel):
 
 class Leader(BaseModel):
     first_referral_started_at: datetime
-    """When the referrer's earliest business referral became active."""
+    """When the referrer's earliest partner business became active."""
 
     rank: int
     """1-based leaderboard position."""
@@ -120,7 +120,7 @@ class Me(BaseModel):
     """The caller's own standing; null when the caller has no referral earnings."""
 
     first_referral_started_at: datetime
-    """When the referrer's earliest business referral became active."""
+    """When the referrer's earliest partner business became active."""
 
     rank: int
     """1-based leaderboard position."""
@@ -142,7 +142,7 @@ class Me(BaseModel):
     """
 
 
-class BusinessLeaderboardResponse(BaseModel):
+class PartnerLeaderboardResponse(BaseModel):
     leaders: List[Leader]
     """The top referrers by total earnings, best first."""
 

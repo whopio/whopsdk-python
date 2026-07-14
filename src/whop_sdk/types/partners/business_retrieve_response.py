@@ -234,13 +234,13 @@ class VolumeUsd(BaseModel):
 
 class BusinessRetrieveResponse(BaseModel):
     id: str
-    """Business referral ID."""
+    """Partner business ID."""
 
     account: Optional[Account] = None
     """Referred account."""
 
     created_at: datetime
-    """When the business referral was created."""
+    """When the partner business was created."""
 
     earnings_usd: EarningsUsd
 
@@ -256,7 +256,7 @@ class BusinessRetrieveResponse(BaseModel):
     owner) or `second` (they referred the first-tier partner).
     """
 
-    object: Literal["business_referral"]
+    object: Literal["partner_business"]
 
     owner: Optional[Owner] = None
     """The owner of the referred business."""

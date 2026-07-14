@@ -63,6 +63,7 @@ if TYPE_CHECKING:
         disputes,
         invoices,
         messages,
+        partners,
         payments,
         products,
         webhooks,
@@ -70,7 +71,6 @@ if TYPE_CHECKING:
         audiences,
         companies,
         reactions,
-        referrals,
         shipments,
         transfers,
         workforce,
@@ -171,8 +171,8 @@ if TYPE_CHECKING:
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.accounts.accounts import AccountsResource, AsyncAccountsResource
+    from .resources.partners.partners import PartnersResource, AsyncPartnersResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
-    from .resources.referrals.referrals import ReferralsResource, AsyncReferralsResource
     from .resources.workforce.workforce import WorkforceResource, AsyncWorkforceResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
@@ -635,15 +635,15 @@ class Whop(SyncAPIClient):
         return PayoutsResource(self)
 
     @cached_property
-    def referrals(self) -> ReferralsResource:
+    def partners(self) -> PartnersResource:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
-        from .resources.referrals import ReferralsResource
+        from .resources.partners import PartnersResource
 
-        return ReferralsResource(self)
+        return PartnersResource(self)
 
     @cached_property
     def cards(self) -> CardsResource:
@@ -1393,15 +1393,15 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPayoutsResource(self)
 
     @cached_property
-    def referrals(self) -> AsyncReferralsResource:
+    def partners(self) -> AsyncPartnersResource:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
-        from .resources.referrals import AsyncReferralsResource
+        from .resources.partners import AsyncPartnersResource
 
-        return AsyncReferralsResource(self)
+        return AsyncPartnersResource(self)
 
     @cached_property
     def cards(self) -> AsyncCardsResource:
@@ -2071,15 +2071,15 @@ class WhopWithRawResponse:
         return PayoutsResourceWithRawResponse(self._client.payouts)
 
     @cached_property
-    def referrals(self) -> referrals.ReferralsResourceWithRawResponse:
+    def partners(self) -> partners.PartnersResourceWithRawResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
-        from .resources.referrals import ReferralsResourceWithRawResponse
+        from .resources.partners import PartnersResourceWithRawResponse
 
-        return ReferralsResourceWithRawResponse(self._client.referrals)
+        return PartnersResourceWithRawResponse(self._client.partners)
 
     @cached_property
     def cards(self) -> cards.CardsResourceWithRawResponse:
@@ -2631,15 +2631,15 @@ class AsyncWhopWithRawResponse:
         return AsyncPayoutsResourceWithRawResponse(self._client.payouts)
 
     @cached_property
-    def referrals(self) -> referrals.AsyncReferralsResourceWithRawResponse:
+    def partners(self) -> partners.AsyncPartnersResourceWithRawResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
-        from .resources.referrals import AsyncReferralsResourceWithRawResponse
+        from .resources.partners import AsyncPartnersResourceWithRawResponse
 
-        return AsyncReferralsResourceWithRawResponse(self._client.referrals)
+        return AsyncPartnersResourceWithRawResponse(self._client.partners)
 
     @cached_property
     def cards(self) -> cards.AsyncCardsResourceWithRawResponse:
@@ -3193,15 +3193,15 @@ class WhopWithStreamedResponse:
         return PayoutsResourceWithStreamingResponse(self._client.payouts)
 
     @cached_property
-    def referrals(self) -> referrals.ReferralsResourceWithStreamingResponse:
+    def partners(self) -> partners.PartnersResourceWithStreamingResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
-        from .resources.referrals import ReferralsResourceWithStreamingResponse
+        from .resources.partners import PartnersResourceWithStreamingResponse
 
-        return ReferralsResourceWithStreamingResponse(self._client.referrals)
+        return PartnersResourceWithStreamingResponse(self._client.partners)
 
     @cached_property
     def cards(self) -> cards.CardsResourceWithStreamingResponse:
@@ -3757,15 +3757,15 @@ class AsyncWhopWithStreamedResponse:
         return AsyncPayoutsResourceWithStreamingResponse(self._client.payouts)
 
     @cached_property
-    def referrals(self) -> referrals.AsyncReferralsResourceWithStreamingResponse:
+    def partners(self) -> partners.AsyncPartnersResourceWithStreamingResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
-        from .resources.referrals import AsyncReferralsResourceWithStreamingResponse
+        from .resources.partners import AsyncPartnersResourceWithStreamingResponse
 
-        return AsyncReferralsResourceWithStreamingResponse(self._client.referrals)
+        return AsyncPartnersResourceWithStreamingResponse(self._client.partners)
 
     @cached_property
     def cards(self) -> cards.AsyncCardsResourceWithStreamingResponse:

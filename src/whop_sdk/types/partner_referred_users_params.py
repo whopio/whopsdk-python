@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["ReferralReferredUsersParams"]
+__all__ = ["PartnerReferredUsersParams"]
 
 
-class ReferralReferredUsersParams(TypedDict, total=False):
+class PartnerReferredUsersParams(TypedDict, total=False):
     after: str
     """Cursor to fetch the page after (from page_info.end_cursor)."""
 

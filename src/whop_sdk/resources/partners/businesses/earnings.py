@@ -18,15 +18,15 @@ from ...._response import (
 )
 from ....pagination import SyncCursorPage, AsyncCursorPage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.referrals.businesses import earning_list_params
-from ....types.referrals.businesses.earning_list_response import EarningListResponse
+from ....types.partners.businesses import earning_list_params
+from ....types.partners.businesses.earning_list_response import EarningListResponse
 
 __all__ = ["EarningsResource", "AsyncEarningsResource"]
 
 
 class EarningsResource(SyncAPIResource):
     """
-    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+    The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
     Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """
@@ -124,7 +124,7 @@ class EarningsResource(SyncAPIResource):
 
 class AsyncEarningsResource(AsyncAPIResource):
     """
-    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+    The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
     Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """

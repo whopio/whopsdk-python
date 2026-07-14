@@ -15,7 +15,7 @@ from .earnings import (
     AsyncEarningsResourceWithStreamingResponse,
 )
 from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ...._utils import path_template, maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -26,17 +26,16 @@ from ...._response import (
 )
 from ....pagination import SyncCursorPage, AsyncCursorPage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.referrals import business_list_params, business_leaderboard_params
-from ....types.referrals.business_list_response import BusinessListResponse
-from ....types.referrals.business_retrieve_response import BusinessRetrieveResponse
-from ....types.referrals.business_leaderboard_response import BusinessLeaderboardResponse
+from ....types.partners import business_list_params
+from ....types.partners.business_list_response import BusinessListResponse
+from ....types.partners.business_retrieve_response import BusinessRetrieveResponse
 
 __all__ = ["BusinessesResource", "AsyncBusinessesResource"]
 
 
 class BusinessesResource(SyncAPIResource):
     """
-    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+    The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
     Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """
@@ -44,7 +43,7 @@ class BusinessesResource(SyncAPIResource):
     @cached_property
     def earnings(self) -> EarningsResource:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
@@ -142,20 +141,20 @@ class BusinessesResource(SyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          created_after: Only return business referrals created after this timestamp.
+          created_after: Only return partner businesses created after this timestamp.
 
-          created_before: Only return business referrals created before this timestamp.
+          created_before: Only return partner businesses created before this timestamp.
 
           direction: Sort direction.
 
-          first: Number of business referrals to return from the start of the window.
+          first: Number of partner businesses to return from the start of the window.
 
           has_earnings: When true, only businesses with pending or completed earnings paid to the
               caller.
 
-          last: Number of business referrals to return from the end of the window.
+          last: Number of partner businesses to return from the end of the window.
 
-          order: The field to sort business referrals by.
+          order: The field to sort partner businesses by.
 
           referred_user_id: Filter to referrals attributed to this user. For first-tier referrals, this is
               the referred account owner; for second-tier referrals, this is the partner you
@@ -206,51 +205,10 @@ class BusinessesResource(SyncAPIResource):
             model=BusinessListResponse,
         )
 
-    def leaderboard(
-        self,
-        *,
-        period: Literal["day", "month", "year", "last_30_days", "all_time"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BusinessLeaderboardResponse:
-        """
-        Ranks referrers by business referral earnings — all-time by default, or over the
-        current day, month, year, or trailing 30 days — and includes the caller's own
-        standing.
-
-        Args:
-          period: Time window for the rankings. `day`, `month`, and `year` count earnings since
-              the start of the current calendar day, month, or year; `last_30_days` counts
-              earnings over the trailing 30 days; `all_time` ranks lifetime earnings.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/partners/leaderboard",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"period": period}, business_leaderboard_params.BusinessLeaderboardParams),
-            ),
-            cast_to=BusinessLeaderboardResponse,
-        )
-
 
 class AsyncBusinessesResource(AsyncAPIResource):
     """
-    The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+    The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
     Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
     """
@@ -258,7 +216,7 @@ class AsyncBusinessesResource(AsyncAPIResource):
     @cached_property
     def earnings(self) -> AsyncEarningsResource:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
@@ -356,20 +314,20 @@ class AsyncBusinessesResource(AsyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          created_after: Only return business referrals created after this timestamp.
+          created_after: Only return partner businesses created after this timestamp.
 
-          created_before: Only return business referrals created before this timestamp.
+          created_before: Only return partner businesses created before this timestamp.
 
           direction: Sort direction.
 
-          first: Number of business referrals to return from the start of the window.
+          first: Number of partner businesses to return from the start of the window.
 
           has_earnings: When true, only businesses with pending or completed earnings paid to the
               caller.
 
-          last: Number of business referrals to return from the end of the window.
+          last: Number of partner businesses to return from the end of the window.
 
-          order: The field to sort business referrals by.
+          order: The field to sort partner businesses by.
 
           referred_user_id: Filter to referrals attributed to this user. For first-tier referrals, this is
               the referred account owner; for second-tier referrals, this is the partner you
@@ -420,49 +378,6 @@ class AsyncBusinessesResource(AsyncAPIResource):
             model=BusinessListResponse,
         )
 
-    async def leaderboard(
-        self,
-        *,
-        period: Literal["day", "month", "year", "last_30_days", "all_time"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BusinessLeaderboardResponse:
-        """
-        Ranks referrers by business referral earnings — all-time by default, or over the
-        current day, month, year, or trailing 30 days — and includes the caller's own
-        standing.
-
-        Args:
-          period: Time window for the rankings. `day`, `month`, and `year` count earnings since
-              the start of the current calendar day, month, or year; `last_30_days` counts
-              earnings over the trailing 30 days; `all_time` ranks lifetime earnings.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/partners/leaderboard",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"period": period}, business_leaderboard_params.BusinessLeaderboardParams
-                ),
-            ),
-            cast_to=BusinessLeaderboardResponse,
-        )
-
 
 class BusinessesResourceWithRawResponse:
     def __init__(self, businesses: BusinessesResource) -> None:
@@ -474,14 +389,11 @@ class BusinessesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             businesses.list,
         )
-        self.leaderboard = to_raw_response_wrapper(
-            businesses.leaderboard,
-        )
 
     @cached_property
     def earnings(self) -> EarningsResourceWithRawResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
@@ -498,14 +410,11 @@ class AsyncBusinessesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             businesses.list,
         )
-        self.leaderboard = async_to_raw_response_wrapper(
-            businesses.leaderboard,
-        )
 
     @cached_property
     def earnings(self) -> AsyncEarningsResourceWithRawResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
@@ -522,14 +431,11 @@ class BusinessesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             businesses.list,
         )
-        self.leaderboard = to_streamed_response_wrapper(
-            businesses.leaderboard,
-        )
 
     @cached_property
     def earnings(self) -> EarningsResourceWithStreamingResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """
@@ -546,14 +452,11 @@ class AsyncBusinessesResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             businesses.list,
         )
-        self.leaderboard = async_to_streamed_response_wrapper(
-            businesses.leaderboard,
-        )
 
     @cached_property
     def earnings(self) -> AsyncEarningsResourceWithStreamingResponse:
         """
-        The Referrals API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
 
         Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
         """

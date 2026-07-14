@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["ReferralReferredUsersResponse", "Data", "DataUser", "DataUserProfilePicture", "PageInfo"]
+__all__ = ["PartnerReferredUsersResponse", "Data", "DataUser", "DataUserProfilePicture", "PageInfo"]
 
 
 class DataUserProfilePicture(BaseModel):
@@ -43,7 +43,7 @@ class PageInfo(BaseModel):
     start_cursor: Optional[str] = None
 
 
-class ReferralReferredUsersResponse(BaseModel):
+class PartnerReferredUsersResponse(BaseModel):
     data: List[Data]
 
     page_info: PageInfo

@@ -216,6 +216,14 @@ from .messages import (
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
 )
+from .partners import (
+    PartnersResource,
+    AsyncPartnersResource,
+    PartnersResourceWithRawResponse,
+    AsyncPartnersResourceWithRawResponse,
+    PartnersResourceWithStreamingResponse,
+    AsyncPartnersResourceWithStreamingResponse,
+)
 from .payments import (
     PaymentsResource,
     AsyncPaymentsResource,
@@ -271,14 +279,6 @@ from .reactions import (
     AsyncReactionsResourceWithRawResponse,
     ReactionsResourceWithStreamingResponse,
     AsyncReactionsResourceWithStreamingResponse,
-)
-from .referrals import (
-    ReferralsResource,
-    AsyncReferralsResource,
-    ReferralsResourceWithRawResponse,
-    AsyncReferralsResourceWithRawResponse,
-    ReferralsResourceWithStreamingResponse,
-    AsyncReferralsResourceWithStreamingResponse,
 )
 from .shipments import (
     ShipmentsResource,
@@ -846,12 +846,12 @@ __all__ = [
     "AsyncPayoutsResourceWithRawResponse",
     "PayoutsResourceWithStreamingResponse",
     "AsyncPayoutsResourceWithStreamingResponse",
-    "ReferralsResource",
-    "AsyncReferralsResource",
-    "ReferralsResourceWithRawResponse",
-    "AsyncReferralsResourceWithRawResponse",
-    "ReferralsResourceWithStreamingResponse",
-    "AsyncReferralsResourceWithStreamingResponse",
+    "PartnersResource",
+    "AsyncPartnersResource",
+    "PartnersResourceWithRawResponse",
+    "AsyncPartnersResourceWithRawResponse",
+    "PartnersResourceWithStreamingResponse",
+    "AsyncPartnersResourceWithStreamingResponse",
     "CardsResource",
     "AsyncCardsResource",
     "CardsResourceWithRawResponse",

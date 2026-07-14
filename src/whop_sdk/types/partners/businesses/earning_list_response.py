@@ -107,7 +107,7 @@ class EarningListResponse(BaseModel):
     Null for earnings settled before this data was recorded.
     """
 
-    object: Literal["business_referral_earning"]
+    object: Literal["partner_business_earning"]
 
     payout_at: Optional[datetime] = None
 

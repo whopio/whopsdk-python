@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Literal, TypedDict
 
-__all__ = ["BusinessLeaderboardParams"]
+__all__ = ["PartnerLeaderboardParams"]
 
 
-class BusinessLeaderboardParams(TypedDict, total=False):
+class PartnerLeaderboardParams(TypedDict, total=False):
     period: Literal["day", "month", "year", "last_30_days", "all_time"]
     """Time window for the rankings.
 

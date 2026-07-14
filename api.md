@@ -877,59 +877,48 @@ Methods:
 
 - <code title="get /payouts/methods">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payouts/method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/method_list_response.py">SyncCursorPage[MethodListResponse]</a></code>
 
-# Referrals
+# Partners
 
 Types:
 
 ```python
-from whop_sdk.types import ReferralReferredUsersResponse
+from whop_sdk.types import (
+    PartnerCreateResponse,
+    PartnerLeaderboardResponse,
+    PartnerReferredUsersResponse,
+)
 ```
 
 Methods:
 
-- <code title="get /partners/referred_users">client.referrals.<a href="./src/whop_sdk/resources/referrals/referrals.py">referred_users</a>(\*\*<a href="src/whop_sdk/types/referral_referred_users_params.py">params</a>) -> <a href="./src/whop_sdk/types/referral_referred_users_response.py">ReferralReferredUsersResponse</a></code>
+- <code title="post /partners">client.partners.<a href="./src/whop_sdk/resources/partners/partners.py">create</a>() -> <a href="./src/whop_sdk/types/partner_create_response.py">PartnerCreateResponse</a></code>
+- <code title="get /partners/leaderboard">client.partners.<a href="./src/whop_sdk/resources/partners/partners.py">leaderboard</a>(\*\*<a href="src/whop_sdk/types/partner_leaderboard_params.py">params</a>) -> <a href="./src/whop_sdk/types/partner_leaderboard_response.py">PartnerLeaderboardResponse</a></code>
+- <code title="get /partners/referred_users">client.partners.<a href="./src/whop_sdk/resources/partners/partners.py">referred_users</a>(\*\*<a href="src/whop_sdk/types/partner_referred_users_params.py">params</a>) -> <a href="./src/whop_sdk/types/partner_referred_users_response.py">PartnerReferredUsersResponse</a></code>
 
 ## Businesses
 
 Types:
 
 ```python
-from whop_sdk.types.referrals import (
-    BusinessRetrieveResponse,
-    BusinessListResponse,
-    BusinessLeaderboardResponse,
-)
+from whop_sdk.types.partners import BusinessRetrieveResponse, BusinessListResponse
 ```
 
 Methods:
 
-- <code title="get /partners/businesses/{id}">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/referrals/business_retrieve_response.py">BusinessRetrieveResponse</a></code>
-- <code title="get /partners/businesses">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">list</a>(\*\*<a href="src/whop_sdk/types/referrals/business_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/referrals/business_list_response.py">SyncCursorPage[BusinessListResponse]</a></code>
-- <code title="get /partners/leaderboard">client.referrals.businesses.<a href="./src/whop_sdk/resources/referrals/businesses/businesses.py">leaderboard</a>(\*\*<a href="src/whop_sdk/types/referrals/business_leaderboard_params.py">params</a>) -> <a href="./src/whop_sdk/types/referrals/business_leaderboard_response.py">BusinessLeaderboardResponse</a></code>
+- <code title="get /partners/businesses/{id}">client.partners.businesses.<a href="./src/whop_sdk/resources/partners/businesses/businesses.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/partners/business_retrieve_response.py">BusinessRetrieveResponse</a></code>
+- <code title="get /partners/businesses">client.partners.businesses.<a href="./src/whop_sdk/resources/partners/businesses/businesses.py">list</a>(\*\*<a href="src/whop_sdk/types/partners/business_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/partners/business_list_response.py">SyncCursorPage[BusinessListResponse]</a></code>
 
 ### Earnings
 
 Types:
 
 ```python
-from whop_sdk.types.referrals.businesses import EarningListResponse
+from whop_sdk.types.partners.businesses import EarningListResponse
 ```
 
 Methods:
 
-- <code title="get /partners/businesses/{id}/earnings">client.referrals.businesses.earnings.<a href="./src/whop_sdk/resources/referrals/businesses/earnings.py">list</a>(id, \*\*<a href="src/whop_sdk/types/referrals/businesses/earning_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/referrals/businesses/earning_list_response.py">SyncCursorPage[EarningListResponse]</a></code>
-
-## Partners
-
-Types:
-
-```python
-from whop_sdk.types.referrals import PartnerCreateResponse
-```
-
-Methods:
-
-- <code title="post /partners">client.referrals.partners.<a href="./src/whop_sdk/resources/referrals/partners.py">create</a>() -> <a href="./src/whop_sdk/types/referrals/partner_create_response.py">PartnerCreateResponse</a></code>
+- <code title="get /partners/businesses/{id}/earnings">client.partners.businesses.earnings.<a href="./src/whop_sdk/resources/partners/businesses/earnings.py">list</a>(id, \*\*<a href="src/whop_sdk/types/partners/businesses/earning_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/partners/businesses/earning_list_response.py">SyncCursorPage[EarningListResponse]</a></code>
 
 # Cards
 

@@ -8,14 +8,6 @@ from .partners import (
     PartnersResourceWithStreamingResponse,
     AsyncPartnersResourceWithStreamingResponse,
 )
-from .referrals import (
-    ReferralsResource,
-    AsyncReferralsResource,
-    ReferralsResourceWithRawResponse,
-    AsyncReferralsResourceWithRawResponse,
-    ReferralsResourceWithStreamingResponse,
-    AsyncReferralsResourceWithStreamingResponse,
-)
 from .businesses import (
     BusinessesResource,
     AsyncBusinessesResource,
@@ -38,10 +30,4 @@ __all__ = [
     "AsyncPartnersResourceWithRawResponse",
     "PartnersResourceWithStreamingResponse",
     "AsyncPartnersResourceWithStreamingResponse",
-    "ReferralsResource",
-    "AsyncReferralsResource",
-    "ReferralsResourceWithRawResponse",
-    "AsyncReferralsResourceWithRawResponse",
-    "ReferralsResourceWithStreamingResponse",
-    "AsyncReferralsResourceWithStreamingResponse",
 ]
