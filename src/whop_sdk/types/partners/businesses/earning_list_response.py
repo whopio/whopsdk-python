@@ -107,6 +107,12 @@ class EarningListResponse(BaseModel):
     Null for earnings settled before this data was recorded.
     """
 
+    income_source: Literal["sales", "ad_spend"]
+    """
+    Which income source the commission is on: product-sales gross profit or Whop Ads
+    spend billed to the business.
+    """
+
     object: Literal["partner_business_earning"]
 
     payout_at: Optional[datetime] = None
