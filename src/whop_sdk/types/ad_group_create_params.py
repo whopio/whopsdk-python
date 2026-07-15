@@ -132,7 +132,11 @@ class AdGroupCreateParams(TypedDict, total=False):
     regions: object
     """
     Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
-    (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips } }.
+    (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips,
+    custom_locations } }. custom_locations entries are pin + radius: { latitude,
+    longitude, radius, distance_unit ('mile' default, or 'kilometer'), name
+    (optional display label) }. Radius must be 1-50 miles or 1-80 km; at most 200
+    custom locations across include and exclude.
     """
 
     starts_at: str

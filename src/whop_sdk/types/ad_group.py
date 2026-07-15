@@ -267,7 +267,8 @@ class AdGroup(BaseModel):
     regions: object
     """Geo targeting: include/exclude countries, regions (ISO 3166-2 states, e.g.
 
-    US-CA), cities, zips.
+    US-CA), cities, zips, and custom_locations (pin + radius: { latitude, longitude,
+    radius, distance_unit, name }).
     """
 
     result_event: Optional[
