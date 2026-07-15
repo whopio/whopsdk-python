@@ -68,5 +68,5 @@ class PayoutCreateResponse(BaseModel):
     speed: Literal["standard", "instant"]
     """Payout delivery speed."""
 
-    status: Literal["requested", "in_transit", "completed", "failed", "canceled"]
+    status: Literal["requested", "in_transit", "denied", "completed", "failed", "canceled"]
     """Current payout status, in the same vocabulary as GET /payouts."""
