@@ -285,6 +285,7 @@ from .webhook_create_response import WebhookCreateResponse as WebhookCreateRespo
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse
 from .ad_group_retrieve_params import AdGroupRetrieveParams as AdGroupRetrieveParams
+from .audience_create_response import AudienceCreateResponse as AudienceCreateResponse
 from .audience_delete_response import AudienceDeleteResponse as AudienceDeleteResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
 from .dm_channel_create_params import DmChannelCreateParams as DmChannelCreateParams

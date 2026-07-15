@@ -31,16 +31,34 @@ class Audience(BaseModel):
     id: str
     """Audience ID, prefixed `adaud_`."""
 
+    audience_type: Literal["custom", "lookalike"]
+    """
+    `custom` = uploaded customer list; `lookalike` = Meta lookalike built from a
+    custom audience.
+    """
+
     created_at: str
     """When the audience was created, as an ISO 8601 timestamp."""
 
     error_message: Optional[str] = None
     """Processing error message. `null` unless processing is partial or failed."""
 
+    lookalike_ratio: Optional[float] = None
+    """
+    For lookalikes: the upper bound of the similarity band as a fraction (0.02 = top
+    2%). `null` for custom audiences.
+    """
+
+    lookalike_starting_ratio: Optional[float] = None
+    """For lookalikes: the lower bound of the similarity band as a fraction.
+
+    `null` for custom audiences and first-tier lookalikes.
+    """
+
     match_rates: List[MatchRate]
 
     matched_rows: float
-    """Rows successfully uploaded to connected ad accounts."""
+    """Rows successfully uploaded to connected ad accounts. Always 0 for lookalikes."""
 
     name: str
     """Audience display name."""
@@ -48,10 +66,16 @@ class Audience(BaseModel):
     platform_audience_ids: List[str]
 
     processed_rows: float
-    """Rows processed from the uploaded CSV."""
+    """Rows processed from the uploaded CSV. Always 0 for lookalikes."""
 
     progress_percent: float
     """Processing progress from 0 to 100."""
+
+    source_audience_id: Optional[str] = None
+    """For lookalikes: the audience this lookalike was built from.
+
+    `null` for custom audiences.
+    """
 
     status: Literal["pending", "processing", "syncing", "ready", "partial", "failed"]
     """Current state of the audience import.
@@ -61,7 +85,7 @@ class Audience(BaseModel):
     """
 
     total_rows: float
-    """Total rows detected in the uploaded CSV."""
+    """Total rows detected in the uploaded CSV. Always 0 for lookalikes."""
 
     updated_at: str
     """When the audience was last updated, as an ISO 8601 timestamp."""

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AudienceListParams"]
 
@@ -16,6 +16,9 @@ class AudienceListParams(TypedDict, total=False):
 
     audience_id: str
     """Audience ID, prefixed `adaud_`, used to filter the response to one audience."""
+
+    audience_type: Literal["custom", "lookalike"]
+    """Filter by audience type: `custom` (uploaded lists) or `lookalike`."""
 
     first: int
     """Number of audiences to return. Defaults to 20; maximum 100."""
