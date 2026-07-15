@@ -47,9 +47,7 @@ class Company(BaseModel):
     """The unique identifier for the company."""
 
     route: str
-    """
-    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
-    """
+    """URL slug for the account's store page, e.g. `pickaxe` in whop.com/pickaxe."""
 
     title: str
     """The display name of the company shown to customers."""
@@ -78,9 +76,9 @@ class Product(BaseModel):
     """The unique identifier for the product."""
 
     route: str
-    """
-    The URL slug used in the product's public link (e.g., 'my-product' in
-    whop.com/company/my-product).
+    """URL slug in the product's public link, e.g.
+
+    `pickaxe-analytics` in whop.com/company/pickaxe-analytics.
     """
 
     title: str
