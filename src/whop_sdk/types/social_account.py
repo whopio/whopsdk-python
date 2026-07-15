@@ -12,6 +12,12 @@ class SocialAccount(BaseModel):
     id: str
     """Unique identifier for the social account."""
 
+    error: Optional[str] = None
+    """
+    Why this social account currently can't be used for advertising — a failed share
+    or a Meta-side restriction. Null when the account is healthy.
+    """
+
     external_id: Optional[str] = None
     """The platform-specific ID for this social account."""
 
