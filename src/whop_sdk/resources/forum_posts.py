@@ -33,8 +33,6 @@ __all__ = ["ForumPostsResource", "AsyncForumPostsResource"]
 
 
 class ForumPostsResource(SyncAPIResource):
-    """Forum posts"""
-
     @cached_property
     def with_raw_response(self) -> ForumPostsResourceWithRawResponse:
         """
@@ -338,8 +336,6 @@ class ForumPostsResource(SyncAPIResource):
 
 
 class AsyncForumPostsResource(AsyncAPIResource):
-    """Forum posts"""
-
     @cached_property
     def with_raw_response(self) -> AsyncForumPostsResourceWithRawResponse:
         """
