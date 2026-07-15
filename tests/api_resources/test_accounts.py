@@ -150,6 +150,7 @@ class TestAccounts:
             social_links=[{"foo": "bar"}],
             store_page_config={"foo": "bar"},
             target_audience="target_audience",
+            tax_collection_enabled_states=["AL"],
             tax_identifiers=[
                 {
                     "tax_id_type": "ad_nrt",
@@ -442,6 +443,7 @@ class TestAsyncAccounts:
             social_links=[{"foo": "bar"}],
             store_page_config={"foo": "bar"},
             target_audience="target_audience",
+            tax_collection_enabled_states=["AL"],
             tax_identifiers=[
                 {
                     "tax_id_type": "ad_nrt",

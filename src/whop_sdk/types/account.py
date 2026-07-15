@@ -294,6 +294,8 @@ class Account(BaseModel):
     target_audience: Optional[str] = None
     """Target audience for this account."""
 
+    tax_collection_enabled_states: List[str]
+
     tax_identifiers: List[object]
     """Account tax/VAT registrations, each with `id`, `tax_id_type`, and
     `tax_id_value`.

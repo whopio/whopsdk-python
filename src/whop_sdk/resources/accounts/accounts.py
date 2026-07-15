@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
+from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -189,6 +189,62 @@ class AccountsResource(SyncAPIResource):
         social_links: Iterable[Dict[str, object]] | Omit = omit,
         store_page_config: Optional[Dict[str, object]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
+        tax_collection_enabled_states: List[
+            Literal[
+                "AL",
+                "AK",
+                "AZ",
+                "AR",
+                "CA",
+                "CO",
+                "CT",
+                "DE",
+                "DC",
+                "FL",
+                "GA",
+                "HI",
+                "ID",
+                "IL",
+                "IN",
+                "IA",
+                "KS",
+                "KY",
+                "LA",
+                "ME",
+                "MD",
+                "MA",
+                "MI",
+                "MN",
+                "MS",
+                "MO",
+                "MT",
+                "NE",
+                "NV",
+                "NH",
+                "NJ",
+                "NM",
+                "NY",
+                "NC",
+                "ND",
+                "OH",
+                "OK",
+                "OR",
+                "PA",
+                "RI",
+                "SC",
+                "SD",
+                "TN",
+                "TX",
+                "UT",
+                "VT",
+                "VA",
+                "WA",
+                "WV",
+                "WI",
+                "WY",
+            ]
+        ]
+        | Omit = omit,
         tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
         tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -269,6 +325,9 @@ class AccountsResource(SyncAPIResource):
 
           target_audience: The target audience for this account.
 
+          tax_collection_enabled_states: US state codes (50 states plus `DC`) where the account collects tax. Replaces
+              the full set on update. Only settable when `tax_remitted_by` is `self`.
+
           tax_identifiers: Account tax/VAT registrations to add or update. When `tax_remitted_by` is
               `self`, tax is calculated and collected only in the countries where the account
               holds a registration.
@@ -325,6 +384,7 @@ class AccountsResource(SyncAPIResource):
                     "social_links": social_links,
                     "store_page_config": store_page_config,
                     "target_audience": target_audience,
+                    "tax_collection_enabled_states": tax_collection_enabled_states,
                     "tax_identifiers": tax_identifiers,
                     "tax_remitted_by": tax_remitted_by,
                     "title": title,
@@ -617,6 +677,62 @@ class AsyncAccountsResource(AsyncAPIResource):
         social_links: Iterable[Dict[str, object]] | Omit = omit,
         store_page_config: Optional[Dict[str, object]] | Omit = omit,
         target_audience: Optional[str] | Omit = omit,
+        tax_collection_enabled_states: List[
+            Literal[
+                "AL",
+                "AK",
+                "AZ",
+                "AR",
+                "CA",
+                "CO",
+                "CT",
+                "DE",
+                "DC",
+                "FL",
+                "GA",
+                "HI",
+                "ID",
+                "IL",
+                "IN",
+                "IA",
+                "KS",
+                "KY",
+                "LA",
+                "ME",
+                "MD",
+                "MA",
+                "MI",
+                "MN",
+                "MS",
+                "MO",
+                "MT",
+                "NE",
+                "NV",
+                "NH",
+                "NJ",
+                "NM",
+                "NY",
+                "NC",
+                "ND",
+                "OH",
+                "OK",
+                "OR",
+                "PA",
+                "RI",
+                "SC",
+                "SD",
+                "TN",
+                "TX",
+                "UT",
+                "VT",
+                "VA",
+                "WA",
+                "WV",
+                "WI",
+                "WY",
+            ]
+        ]
+        | Omit = omit,
         tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
         tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
         title: Optional[str] | Omit = omit,
@@ -697,6 +813,9 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           target_audience: The target audience for this account.
 
+          tax_collection_enabled_states: US state codes (50 states plus `DC`) where the account collects tax. Replaces
+              the full set on update. Only settable when `tax_remitted_by` is `self`.
+
           tax_identifiers: Account tax/VAT registrations to add or update. When `tax_remitted_by` is
               `self`, tax is calculated and collected only in the countries where the account
               holds a registration.
@@ -753,6 +872,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "social_links": social_links,
                     "store_page_config": store_page_config,
                     "target_audience": target_audience,
+                    "tax_collection_enabled_states": tax_collection_enabled_states,
                     "tax_identifiers": tax_identifiers,
                     "tax_remitted_by": tax_remitted_by,
                     "title": title,
