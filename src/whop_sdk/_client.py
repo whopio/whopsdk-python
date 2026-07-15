@@ -73,7 +73,6 @@ if TYPE_CHECKING:
         reactions,
         shipments,
         transfers,
-        workforce,
         ad_reports,
         affiliates,
         app_builds,
@@ -102,6 +101,7 @@ if TYPE_CHECKING:
         social_accounts,
         authorized_users,
         support_channels,
+        bounty_submissions,
         financial_activity,
         checkout_configurations,
         resolution_center_cases,
@@ -172,8 +172,8 @@ if TYPE_CHECKING:
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.accounts.accounts import AccountsResource, AsyncAccountsResource
     from .resources.partners.partners import PartnersResource, AsyncPartnersResource
+    from .resources.bounty_submissions import BountySubmissionsResource, AsyncBountySubmissionsResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
-    from .resources.workforce.workforce import WorkforceResource, AsyncWorkforceResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -776,15 +776,27 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def bounties(self) -> BountiesResource:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import BountiesResource
 
         return BountiesResource(self)
 
     @cached_property
-    def workforce(self) -> WorkforceResource:
-        from .resources.workforce import WorkforceResource
+    def bounty_submissions(self) -> BountySubmissionsResource:
+        """A Bounty Submission is one worker's attempt on a bounty.
 
-        return WorkforceResource(self)
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import BountySubmissionsResource
+
+        return BountySubmissionsResource(self)
 
     @cached_property
     def ad_campaigns(self) -> AdCampaignsResource:
@@ -1534,15 +1546,27 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def bounties(self) -> AsyncBountiesResource:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import AsyncBountiesResource
 
         return AsyncBountiesResource(self)
 
     @cached_property
-    def workforce(self) -> AsyncWorkforceResource:
-        from .resources.workforce import AsyncWorkforceResource
+    def bounty_submissions(self) -> AsyncBountySubmissionsResource:
+        """A Bounty Submission is one worker's attempt on a bounty.
 
-        return AsyncWorkforceResource(self)
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import AsyncBountySubmissionsResource
+
+        return AsyncBountySubmissionsResource(self)
 
     @cached_property
     def ad_campaigns(self) -> AsyncAdCampaignsResource:
@@ -2212,15 +2236,27 @@ class WhopWithRawResponse:
 
     @cached_property
     def bounties(self) -> bounties.BountiesResourceWithRawResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import BountiesResourceWithRawResponse
 
         return BountiesResourceWithRawResponse(self._client.bounties)
 
     @cached_property
-    def workforce(self) -> workforce.WorkforceResourceWithRawResponse:
-        from .resources.workforce import WorkforceResourceWithRawResponse
+    def bounty_submissions(self) -> bounty_submissions.BountySubmissionsResourceWithRawResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
 
-        return WorkforceResourceWithRawResponse(self._client.workforce)
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import BountySubmissionsResourceWithRawResponse
+
+        return BountySubmissionsResourceWithRawResponse(self._client.bounty_submissions)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithRawResponse:
@@ -2774,15 +2810,27 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def bounties(self) -> bounties.AsyncBountiesResourceWithRawResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import AsyncBountiesResourceWithRawResponse
 
         return AsyncBountiesResourceWithRawResponse(self._client.bounties)
 
     @cached_property
-    def workforce(self) -> workforce.AsyncWorkforceResourceWithRawResponse:
-        from .resources.workforce import AsyncWorkforceResourceWithRawResponse
+    def bounty_submissions(self) -> bounty_submissions.AsyncBountySubmissionsResourceWithRawResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
 
-        return AsyncWorkforceResourceWithRawResponse(self._client.workforce)
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import AsyncBountySubmissionsResourceWithRawResponse
+
+        return AsyncBountySubmissionsResourceWithRawResponse(self._client.bounty_submissions)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithRawResponse:
@@ -3336,15 +3384,27 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def bounties(self) -> bounties.BountiesResourceWithStreamingResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import BountiesResourceWithStreamingResponse
 
         return BountiesResourceWithStreamingResponse(self._client.bounties)
 
     @cached_property
-    def workforce(self) -> workforce.WorkforceResourceWithStreamingResponse:
-        from .resources.workforce import WorkforceResourceWithStreamingResponse
+    def bounty_submissions(self) -> bounty_submissions.BountySubmissionsResourceWithStreamingResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
 
-        return WorkforceResourceWithStreamingResponse(self._client.workforce)
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import BountySubmissionsResourceWithStreamingResponse
+
+        return BountySubmissionsResourceWithStreamingResponse(self._client.bounty_submissions)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithStreamingResponse:
@@ -3902,15 +3962,27 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def bounties(self) -> bounties.AsyncBountiesResourceWithStreamingResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import AsyncBountiesResourceWithStreamingResponse
 
         return AsyncBountiesResourceWithStreamingResponse(self._client.bounties)
 
     @cached_property
-    def workforce(self) -> workforce.AsyncWorkforceResourceWithStreamingResponse:
-        from .resources.workforce import AsyncWorkforceResourceWithStreamingResponse
+    def bounty_submissions(self) -> bounty_submissions.AsyncBountySubmissionsResourceWithStreamingResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
 
-        return AsyncWorkforceResourceWithStreamingResponse(self._client.workforce)
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import AsyncBountySubmissionsResourceWithStreamingResponse
+
+        return AsyncBountySubmissionsResourceWithStreamingResponse(self._client.bounty_submissions)
 
     @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithStreamingResponse:

@@ -3,9 +3,9 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
-__all__ = ["WorkforceBounty", "FundingAccount", "Poster", "PosterProfilePicture"]
+__all__ = ["BountyListItem", "FundingAccount", "Poster", "PosterProfilePicture"]
 
 
 class FundingAccount(BaseModel):
@@ -51,7 +51,7 @@ class Poster(BaseModel):
     """Public username."""
 
 
-class WorkforceBounty(BaseModel):
+class BountyListItem(BaseModel):
     id: str
     """Bounty ID, prefixed `bnty_`."""
 
@@ -79,9 +79,6 @@ class WorkforceBounty(BaseModel):
 
     currency: str
     """Currency for all amounts on the bounty, as a lowercase ISO 4217 code."""
-
-    description: str
-    """Full task instructions shown to workers."""
 
     experience_id: Optional[str] = None
     """Experience the bounty is hosted in, prefixed `exp_`.

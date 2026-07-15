@@ -2,90 +2,72 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import Optional
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
-from .shared.currency import Currency
 
 __all__ = ["BountyCreateParams"]
 
 
 class BountyCreateParams(TypedDict, total=False):
-    base_unit_amount: Required[float]
-    """The amount paid to each approved submission.
+    description: Required[str]
+    """Full task instructions shown to workers."""
 
-    The total bounty pool funded is this amount times accepted_submissions_limit,
-    and must be at least 5 in the bounty's currency.
+    gross_reward_amount: Required[float]
+    """
+    Gross bounty-pool amount (USD) escrowed per accepted submission, in whole
+    dollars. Platform fees and affiliate shares are paid from this amount.
     """
 
-    currency: Required[Currency]
-    """The currency for the bounty pool funding amount."""
-
-    description: Required[str]
-    """The description of the bounty."""
-
     title: Required[str]
-    """The title of the bounty."""
+    """Short name of the task shown to workers."""
 
     accepted_submissions_limit: Optional[int]
-    """The number of submissions that can be approved before the bounty closes.
+    """Number of submissions that can be accepted (winner slots).
 
-    Defaults to 1. The total pool (base_unit_amount times this limit) must be at
-    least 5 in the bounty's currency.
+    Defaults to 1. The escrowed total is `gross_reward_amount` times this limit and
+    must be at least $5.
+    """
+
+    account_id: Optional[str]
+    """Account whose balance funds the bounty pool (`biz_` tag).
+
+    Defaults to the caller's personal balance. Requires permission to move the
+    account's funds.
     """
 
     allowed_country_codes: Optional[SequenceNotStr[str]]
-    """The ISO3166 country codes where this bounty should be visible.
+    """Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes.
 
-    Empty means globally visible.
+    Empty means worldwide.
     """
 
-    business_goal_type: Optional[
-        Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+    business_goal_type: Literal[
+        "clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"
     ]
-    """What the poster is trying to accomplish with a workforce bounty.
-
-    Used for product taxonomy and analytics, separate from the bounty's
-    implementation type.
-    """
+    """What the poster wants the work to achieve."""
 
     experience_id: Optional[str]
-    """An optional experience to scope the bounty to."""
+    """Experience to host the bounty in (`exp_` tag).
 
-    origin_account_id: Optional[str]
-    """The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
-
-    Defaults to the requester's personal balance when omitted. The requester must be
-    the user themself or an owner/admin of the company.
+    Any visibility — public for an open bounty, private for an invited one. Required
+    unless account_id is set, in which case the bounty anchors in that account's
+    public forum.
     """
 
-    post_markdown_content: Optional[str]
-    """Optional markdown body for the anchor forum post.
+    frequency: Literal["once", "hourly", "daily", "weekly", "monthly"]
+    """How often a scheduled bounty republishes.
 
-    Falls back to the bounty description when omitted.
+    Defaults to once. Only applies with publish_at.
     """
 
-    post_title: Optional[str]
-    """Optional title for the anchor forum post.
+    publish_at: Optional[str]
+    """ISO 8601 time to publish the bounty.
 
-    Falls back to the bounty title when omitted.
+    When set, the bounty is created as a hidden draft and funded + published at this
+    time instead of immediately.
     """
 
-    scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]]
-    """How often a scheduled bounty republishes a new bounty."""
-
-    scheduled_publish_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """When to publish the bounty.
-
-    When provided, the bounty is created as a hidden draft and published at this
-    time instead of immediately. Must be in the future.
-    """
-
-    scheduled_timezone: Optional[str]
-    """The IANA timezone used for recurring occurrences.
-
-    Required when scheduled_publish_at is provided.
-    """
+    publish_at_timezone: Optional[str]
+    """IANA timezone for recurring occurrences. Required when publish_at is set."""

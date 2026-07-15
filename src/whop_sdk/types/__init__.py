@@ -5,6 +5,7 @@ from __future__ import annotations
 from .ad import Ad as Ad
 from .lead import Lead as Lead
 from .user import User as User
+from .bounty import Bounty as Bounty
 from .course import Course as Course
 from .lesson import Lesson as Lesson
 from .shared import (
@@ -109,6 +110,7 @@ from .fee_markup_type import FeeMarkupType as FeeMarkupType
 from .file_visibility import FileVisibility as FileVisibility
 from .ad_create_params import AdCreateParams as AdCreateParams
 from .ad_update_params import AdUpdateParams as AdUpdateParams
+from .bounty_list_item import BountyListItem as BountyListItem
 from .card_list_params import CardListParams as CardListParams
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
@@ -120,6 +122,7 @@ from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
 from .app_logs_response import AppLogsResponse as AppLogsResponse
 from .app_update_params import AppUpdateParams as AppUpdateParams
+from .bounty_submission import BountySubmission as BountySubmission
 from .entry_list_params import EntryListParams as EntryListParams
 from .event_list_params import EventListParams as EventListParams
 from .forum_list_params import ForumListParams as ForumListParams
@@ -177,7 +180,6 @@ from .webhook_list_params import WebhookListParams as WebhookListParams
 from .ad_group_list_params import AdGroupListParams as AdGroupListParams
 from .audience_list_params import AudienceListParams as AudienceListParams
 from .bounty_create_params import BountyCreateParams as BountyCreateParams
-from .bounty_list_response import BountyListResponse as BountyListResponse
 from .card_create_response import CardCreateResponse as CardCreateResponse
 from .card_retrieve_params import CardRetrieveParams as CardRetrieveParams
 from .card_update_response import CardUpdateResponse as CardUpdateResponse
@@ -239,7 +241,6 @@ from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
 from .ad_group_create_params import AdGroupCreateParams as AdGroupCreateParams
 from .ad_group_update_params import AdGroupUpdateParams as AdGroupUpdateParams
 from .audience_create_params import AudienceCreateParams as AudienceCreateParams
-from .bounty_create_response import BountyCreateResponse as BountyCreateResponse
 from .card_retrieve_response import CardRetrieveResponse as CardRetrieveResponse
 from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
 from .dm_channel_list_params import DmChannelListParams as DmChannelListParams
@@ -285,7 +286,6 @@ from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteRespo
 from .ad_group_delete_response import AdGroupDeleteResponse as AdGroupDeleteResponse
 from .ad_group_retrieve_params import AdGroupRetrieveParams as AdGroupRetrieveParams
 from .audience_delete_response import AudienceDeleteResponse as AudienceDeleteResponse
-from .bounty_retrieve_response import BountyRetrieveResponse as BountyRetrieveResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
 from .dm_channel_create_params import DmChannelCreateParams as DmChannelCreateParams
 from .dm_channel_list_response import DmChannelListResponse as DmChannelListResponse
@@ -392,6 +392,7 @@ from .verification_update_response import VerificationUpdateResponse as Verifica
 from .authorized_user_create_params import AuthorizedUserCreateParams as AuthorizedUserCreateParams
 from .authorized_user_delete_params import AuthorizedUserDeleteParams as AuthorizedUserDeleteParams
 from .authorized_user_list_response import AuthorizedUserListResponse as AuthorizedUserListResponse
+from .bounty_submission_list_params import BountySubmissionListParams as BountySubmissionListParams
 from .company_create_api_key_params import CompanyCreateAPIKeyParams as CompanyCreateAPIKeyParams
 from .course_lesson_delete_response import CourseLessonDeleteResponse as CourseLessonDeleteResponse
 from .dispute_created_webhook_event import DisputeCreatedWebhookEvent as DisputeCreatedWebhookEvent

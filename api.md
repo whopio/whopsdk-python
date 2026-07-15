@@ -1252,29 +1252,26 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import BountyCreateResponse, BountyRetrieveResponse, BountyListResponse
+from whop_sdk.types import Bounty, BountyListItem
 ```
 
 Methods:
 
-- <code title="post /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_create_response.py">BountyCreateResponse</a></code>
-- <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty_retrieve_response.py">BountyRetrieveResponse</a></code>
-- <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_response.py">SyncCursorPage[BountyListResponse]</a></code>
+- <code title="post /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
+- <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
+- <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_item.py">SyncCursorPage[BountyListItem]</a></code>
 
-# Workforce
-
-## Bounties
+# BountySubmissions
 
 Types:
 
 ```python
-from whop_sdk.types.workforce import WorkforceBounty, WorkforceBountyListItem
+from whop_sdk.types import BountySubmission
 ```
 
 Methods:
 
-- <code title="get /workforce/bounties/{id}">client.workforce.bounties.<a href="./src/whop_sdk/resources/workforce/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/workforce/workforce_bounty.py">WorkforceBounty</a></code>
-- <code title="get /workforce/bounties">client.workforce.bounties.<a href="./src/whop_sdk/resources/workforce/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/workforce/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/workforce/workforce_bounty_list_item.py">SyncCursorPage[WorkforceBountyListItem]</a></code>
+- <code title="get /bounty_submissions">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_submission_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_submission.py">SyncCursorPage[BountySubmission]</a></code>
 
 # AdCampaigns
 

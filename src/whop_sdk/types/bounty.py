@@ -3,9 +3,9 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
-__all__ = ["WorkforceBountyListItem", "FundingAccount", "Poster", "PosterProfilePicture"]
+__all__ = ["Bounty", "FundingAccount", "Poster", "PosterProfilePicture"]
 
 
 class FundingAccount(BaseModel):
@@ -51,7 +51,7 @@ class Poster(BaseModel):
     """Public username."""
 
 
-class WorkforceBountyListItem(BaseModel):
+class Bounty(BaseModel):
     id: str
     """Bounty ID, prefixed `bnty_`."""
 
@@ -77,8 +77,96 @@ class WorkforceBountyListItem(BaseModel):
     created_at: str
     """When the bounty was created, as an ISO 8601 timestamp."""
 
-    currency: str
+    currency: Literal[
+        "usd",
+        "sgd",
+        "inr",
+        "aud",
+        "brl",
+        "cad",
+        "dkk",
+        "eur",
+        "nok",
+        "gbp",
+        "sek",
+        "chf",
+        "hkd",
+        "huf",
+        "jpy",
+        "mxn",
+        "myr",
+        "pln",
+        "czk",
+        "nzd",
+        "aed",
+        "cop",
+        "ron",
+        "thb",
+        "bgn",
+        "idr",
+        "dop",
+        "php",
+        "try",
+        "krw",
+        "twd",
+        "vnd",
+        "pkr",
+        "clp",
+        "uyu",
+        "ars",
+        "zar",
+        "dzd",
+        "tnd",
+        "mad",
+        "kes",
+        "kwd",
+        "jod",
+        "all",
+        "xcd",
+        "amd",
+        "bsd",
+        "bhd",
+        "bob",
+        "bam",
+        "khr",
+        "crc",
+        "xof",
+        "egp",
+        "etb",
+        "gmd",
+        "ghs",
+        "gtq",
+        "gyd",
+        "ils",
+        "jmd",
+        "mop",
+        "mga",
+        "mur",
+        "mdl",
+        "mnt",
+        "nad",
+        "ngn",
+        "mkd",
+        "omr",
+        "pyg",
+        "pen",
+        "qar",
+        "rwf",
+        "sar",
+        "rsd",
+        "lkr",
+        "tzs",
+        "ttd",
+        "uzs",
+        "rub",
+        "cny",
+        "kzt",
+        "awg",
+    ]
     """Currency for all amounts on the bounty, as a lowercase ISO 4217 code."""
+
+    description: str
+    """Full task instructions shown to workers."""
 
     experience_id: Optional[str] = None
     """Experience the bounty is hosted in, prefixed `exp_`.

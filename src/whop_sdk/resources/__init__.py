@@ -296,14 +296,6 @@ from .transfers import (
     TransfersResourceWithStreamingResponse,
     AsyncTransfersResourceWithStreamingResponse,
 )
-from .workforce import (
-    WorkforceResource,
-    AsyncWorkforceResource,
-    WorkforceResourceWithRawResponse,
-    AsyncWorkforceResourceWithRawResponse,
-    WorkforceResourceWithStreamingResponse,
-    AsyncWorkforceResourceWithStreamingResponse,
-)
 from .ad_reports import (
     AdReportsResource,
     AsyncAdReportsResource,
@@ -527,6 +519,14 @@ from .support_channels import (
     AsyncSupportChannelsResourceWithRawResponse,
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
+)
+from .bounty_submissions import (
+    BountySubmissionsResource,
+    AsyncBountySubmissionsResource,
+    BountySubmissionsResourceWithRawResponse,
+    AsyncBountySubmissionsResourceWithRawResponse,
+    BountySubmissionsResourceWithStreamingResponse,
+    AsyncBountySubmissionsResourceWithStreamingResponse,
 )
 from .financial_activity import (
     FinancialActivityResource,
@@ -966,12 +966,12 @@ __all__ = [
     "AsyncBountiesResourceWithRawResponse",
     "BountiesResourceWithStreamingResponse",
     "AsyncBountiesResourceWithStreamingResponse",
-    "WorkforceResource",
-    "AsyncWorkforceResource",
-    "WorkforceResourceWithRawResponse",
-    "AsyncWorkforceResourceWithRawResponse",
-    "WorkforceResourceWithStreamingResponse",
-    "AsyncWorkforceResourceWithStreamingResponse",
+    "BountySubmissionsResource",
+    "AsyncBountySubmissionsResource",
+    "BountySubmissionsResourceWithRawResponse",
+    "AsyncBountySubmissionsResourceWithRawResponse",
+    "BountySubmissionsResourceWithStreamingResponse",
+    "AsyncBountySubmissionsResourceWithStreamingResponse",
     "AdCampaignsResource",
     "AsyncAdCampaignsResource",
     "AdCampaignsResourceWithRawResponse",

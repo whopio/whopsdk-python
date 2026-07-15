@@ -2,35 +2,51 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Literal, TypedDict
-
-from .shared.direction import Direction
 
 __all__ = ["BountyListParams"]
 
 
 class BountyListParams(TypedDict, total=False):
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    account_id: str
+    """Scope the list to this account (`biz_` tag).
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
-
-    direction: Optional[Direction]
-    """The direction of the sort."""
-
-    experience_id: Optional[str]
-    """The experience to list bounties for.
-
-    When omitted, returns bounties with no experience.
+    Requires read access to the account; account API keys may pass their own account
+    or a connected account.
     """
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    after: str
+    """Cursor to paginate forwards from."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    before: str
+    """Cursor to paginate backwards from."""
 
-    status: Optional[Literal["published", "archived", "scheduled"]]
-    """The available bounty statuses to choose from."""
+    created_after: str
+    """Only bounties created after this ISO 8601 timestamp."""
+
+    created_before: str
+    """Only bounties created before this ISO 8601 timestamp."""
+
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
+
+    first: int
+    """Number of bounties to return from the start of the window."""
+
+    last: int
+    """Number of bounties to return from the end of the window."""
+
+    order: Literal["created_at", "gross_paid_out_amount"]
+    """Sort field."""
+
+    query: str
+    """Substring match on the bounty title or ID."""
+
+    status: Literal["scheduled", "open", "closed", "completed", "canceled"]
+    """Filter by lifecycle state."""
+
+    user_id: str
+    """List the bounties this user participated in (`user_` tag).
+
+    Must be the authenticated user.
+    """
