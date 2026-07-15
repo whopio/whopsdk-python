@@ -95,6 +95,7 @@ class AdGroupsResource(SyncAPIResource):
         | Omit = omit,
         demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: object | Omit = omit,
         devices: object | Omit = omit,
         dynamic_creative: bool | Omit = omit,
         ends_at: str | Omit = omit,
@@ -141,6 +142,13 @@ class AdGroupsResource(SyncAPIResource):
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
+          detailed_targeting: Detailed targeting: { interests: [{id, name}], behaviors: [{id, name}],
+              demographics: [{id, name, type}] } where type is one of life_events, industries,
+              income, family_statuses. IDs come from Meta's targeting taxonomy. At most 100
+              entries per section. Incompatible with demographics.automatic (Advantage+) and
+              Special Ad Category campaigns. Sending the field states complete intent —
+              omitted sections clear their stored entries.
+
           devices: Device targeting: { platforms, operating_systems: [{ os, minimum_version }] }.
 
           dynamic_creative: Run Meta dynamic (Advantage+) creative for this ad set. Set at creation;
@@ -175,12 +183,12 @@ class AdGroupsResource(SyncAPIResource):
               - `threads`: `threads_stream`
               - `whatsapp`: `status`
 
-          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
-              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips,
-              custom_locations } }. custom_locations entries are pin + radius: { latitude,
-              longitude, radius, distance_unit ('mile' default, or 'kilometer'), name
-              (optional display label) }. Radius must be 1-50 miles or 1-80 km; at most 200
-              custom locations across include and exclude.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), country_groups
+              (include-only, e.g. 'worldwide' for global reach), regions (ISO 3166-2 states,
+              e.g. US-CA), cities (keyed), zips, custom_locations } }. custom_locations
+              entries are pin + radius: { latitude, longitude, radius, distance_unit ('mile'
+              default, or 'kilometer'), name (optional label) }. Radius 1-50 miles or 1-80 km;
+              at most 200 custom locations across include and exclude.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -209,6 +217,7 @@ class AdGroupsResource(SyncAPIResource):
                     "conversion_location": conversion_location,
                     "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
                     "devices": devices,
                     "dynamic_creative": dynamic_creative,
                     "ends_at": ends_at,
@@ -327,6 +336,7 @@ class AdGroupsResource(SyncAPIResource):
         | Omit = omit,
         demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: object | Omit = omit,
         devices: object | Omit = omit,
         ends_at: str | Omit = omit,
         frequency_cap: object | Omit = omit,
@@ -371,6 +381,13 @@ class AdGroupsResource(SyncAPIResource):
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
+          detailed_targeting: Detailed targeting: { interests: [{id, name}], behaviors: [{id, name}],
+              demographics: [{id, name, type}] } where type is one of life_events, industries,
+              income, family_statuses. IDs come from Meta's targeting taxonomy. At most 100
+              entries per section. Incompatible with demographics.automatic (Advantage+) and
+              Special Ad Category campaigns. Sending the field states complete intent —
+              omitted sections clear their stored entries.
+
           devices: Device targeting: { platforms, operating_systems: [{ os, minimum_version }] }.
 
           ends_at: Schedule end, ISO 8601.
@@ -402,12 +419,12 @@ class AdGroupsResource(SyncAPIResource):
               - `threads`: `threads_stream`
               - `whatsapp`: `status`
 
-          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
-              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips,
-              custom_locations } }. custom_locations entries are pin + radius: { latitude,
-              longitude, radius, distance_unit ('mile' default, or 'kilometer'), name
-              (optional display label) }. Radius must be 1-50 miles or 1-80 km; at most 200
-              custom locations across include and exclude.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), country_groups
+              (include-only, e.g. 'worldwide' for global reach), regions (ISO 3166-2 states,
+              e.g. US-CA), cities (keyed), zips, custom_locations } }. custom_locations
+              entries are pin + radius: { latitude, longitude, radius, distance_unit ('mile'
+              default, or 'kilometer'), name (optional label) }. Radius 1-50 miles or 1-80 km;
+              at most 200 custom locations across include and exclude.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -437,6 +454,7 @@ class AdGroupsResource(SyncAPIResource):
                     "conversion_location": conversion_location,
                     "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
                     "devices": devices,
                     "ends_at": ends_at,
                     "frequency_cap": frequency_cap,
@@ -748,6 +766,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         | Omit = omit,
         demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: object | Omit = omit,
         devices: object | Omit = omit,
         dynamic_creative: bool | Omit = omit,
         ends_at: str | Omit = omit,
@@ -794,6 +813,13 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
+          detailed_targeting: Detailed targeting: { interests: [{id, name}], behaviors: [{id, name}],
+              demographics: [{id, name, type}] } where type is one of life_events, industries,
+              income, family_statuses. IDs come from Meta's targeting taxonomy. At most 100
+              entries per section. Incompatible with demographics.automatic (Advantage+) and
+              Special Ad Category campaigns. Sending the field states complete intent —
+              omitted sections clear their stored entries.
+
           devices: Device targeting: { platforms, operating_systems: [{ os, minimum_version }] }.
 
           dynamic_creative: Run Meta dynamic (Advantage+) creative for this ad set. Set at creation;
@@ -828,12 +854,12 @@ class AsyncAdGroupsResource(AsyncAPIResource):
               - `threads`: `threads_stream`
               - `whatsapp`: `status`
 
-          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
-              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips,
-              custom_locations } }. custom_locations entries are pin + radius: { latitude,
-              longitude, radius, distance_unit ('mile' default, or 'kilometer'), name
-              (optional display label) }. Radius must be 1-50 miles or 1-80 km; at most 200
-              custom locations across include and exclude.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), country_groups
+              (include-only, e.g. 'worldwide' for global reach), regions (ISO 3166-2 states,
+              e.g. US-CA), cities (keyed), zips, custom_locations } }. custom_locations
+              entries are pin + radius: { latitude, longitude, radius, distance_unit ('mile'
+              default, or 'kilometer'), name (optional label) }. Radius 1-50 miles or 1-80 km;
+              at most 200 custom locations across include and exclude.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -862,6 +888,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                     "conversion_location": conversion_location,
                     "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
                     "devices": devices,
                     "dynamic_creative": dynamic_creative,
                     "ends_at": ends_at,
@@ -980,6 +1007,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         | Omit = omit,
         demographics: object | Omit = omit,
         desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: object | Omit = omit,
         devices: object | Omit = omit,
         ends_at: str | Omit = omit,
         frequency_cap: object | Omit = omit,
@@ -1024,6 +1052,13 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           desired_cost_per_result: Target/cap cost for average_target / maximum_target.
 
+          detailed_targeting: Detailed targeting: { interests: [{id, name}], behaviors: [{id, name}],
+              demographics: [{id, name, type}] } where type is one of life_events, industries,
+              income, family_statuses. IDs come from Meta's targeting taxonomy. At most 100
+              entries per section. Incompatible with demographics.automatic (Advantage+) and
+              Special Ad Category campaigns. Sending the field states complete intent —
+              omitted sections clear their stored entries.
+
           devices: Device targeting: { platforms, operating_systems: [{ os, minimum_version }] }.
 
           ends_at: Schedule end, ISO 8601.
@@ -1055,12 +1090,12 @@ class AsyncAdGroupsResource(AsyncAPIResource):
               - `threads`: `threads_stream`
               - `whatsapp`: `status`
 
-          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
-              (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips,
-              custom_locations } }. custom_locations entries are pin + radius: { latitude,
-              longitude, radius, distance_unit ('mile' default, or 'kilometer'), name
-              (optional display label) }. Radius must be 1-50 miles or 1-80 km; at most 200
-              custom locations across include and exclude.
+          regions: Geo targeting: { include / exclude: { countries (ISO 3166-1), country_groups
+              (include-only, e.g. 'worldwide' for global reach), regions (ISO 3166-2 states,
+              e.g. US-CA), cities (keyed), zips, custom_locations } }. custom_locations
+              entries are pin + radius: { latitude, longitude, radius, distance_unit ('mile'
+              default, or 'kilometer'), name (optional label) }. Radius 1-50 miles or 1-80 km;
+              at most 200 custom locations across include and exclude.
 
           starts_at: Schedule start, ISO 8601.
 
@@ -1090,6 +1125,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                     "conversion_location": conversion_location,
                     "demographics": demographics,
                     "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
                     "devices": devices,
                     "ends_at": ends_at,
                     "frequency_cap": frequency_cap,

@@ -75,6 +75,16 @@ class AdGroupUpdateParams(TypedDict, total=False):
     desired_cost_per_result: float
     """Target/cap cost for average_target / maximum_target."""
 
+    detailed_targeting: object
+    """
+    Detailed targeting: { interests: [{id, name}], behaviors: [{id, name}],
+    demographics: [{id, name, type}] } where type is one of life_events, industries,
+    income, family_statuses. IDs come from Meta's targeting taxonomy. At most 100
+    entries per section. Incompatible with demographics.automatic (Advantage+) and
+    Special Ad Category campaigns. Sending the field states complete intent —
+    omitted sections clear their stored entries.
+    """
+
     devices: object
     """Device targeting: { platforms, operating_systems: [{ os, minimum_version }] }."""
 
@@ -122,12 +132,12 @@ class AdGroupUpdateParams(TypedDict, total=False):
 
     regions: object
     """
-    Geo targeting: { include / exclude: { countries (ISO 3166-1), regions
-    (states/provinces as ISO 3166-2, e.g. US-CA), cities (keyed), zips,
-    custom_locations } }. custom_locations entries are pin + radius: { latitude,
-    longitude, radius, distance_unit ('mile' default, or 'kilometer'), name
-    (optional display label) }. Radius must be 1-50 miles or 1-80 km; at most 200
-    custom locations across include and exclude.
+    Geo targeting: { include / exclude: { countries (ISO 3166-1), country_groups
+    (include-only, e.g. 'worldwide' for global reach), regions (ISO 3166-2 states,
+    e.g. US-CA), cities (keyed), zips, custom_locations } }. custom_locations
+    entries are pin + radius: { latitude, longitude, radius, distance_unit ('mile'
+    default, or 'kilometer'), name (optional label) }. Radius 1-50 miles or 1-80 km;
+    at most 200 custom locations across include and exclude.
     """
 
     starts_at: str

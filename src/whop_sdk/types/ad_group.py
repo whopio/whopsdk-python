@@ -217,6 +217,14 @@ class AdGroup(BaseModel):
     desired_cost_per_result: Optional[float] = None
     """Target/cap cost for average_target / maximum_target."""
 
+    detailed_targeting: object
+    """
+    Detailed targeting: { interests: [{id, name}], behaviors: [{id, name}],
+    demographics: [{id, name, type}] } where demographics type is one of
+    life_events, industries, income, family_statuses. Incompatible with
+    demographics.automatic (Advantage+) and Special Ad Category campaigns.
+    """
+
     devices: object
     """Device targeting: platforms and operating systems."""
 
@@ -265,10 +273,11 @@ class AdGroup(BaseModel):
     """The number of unique people who saw this."""
 
     regions: object
-    """Geo targeting: include/exclude countries, regions (ISO 3166-2 states, e.g.
-
-    US-CA), cities, zips, and custom_locations (pin + radius: { latitude, longitude,
-    radius, distance_unit, name }).
+    """
+    Geo targeting: include/exclude countries, country_groups (include-only Meta
+    groups like worldwide — global reach), regions (ISO 3166-2 states, e.g. US-CA),
+    cities, zips, and custom_locations (pin + radius: { latitude, longitude, radius,
+    distance_unit, name }).
     """
 
     result_event: Optional[
