@@ -92,6 +92,13 @@ class Ad(BaseModel):
     ad_group: AdGroup
     """The ad group this ad belongs to, an object with an id."""
 
+    added_to_cart_value: float
+    """USD value attributed to add-to-cart events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
     added_to_carts: float
     """Whop pixel-attributed add-to-cart events, last-click."""
 
@@ -138,8 +145,22 @@ class Ad(BaseModel):
     clicks: float
     """The number of clicks."""
 
+    completed_registration_value: float
+    """USD value attributed to complete-registration events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
     completed_registrations: float
     """Whop pixel-attributed complete-registration events, last-click."""
+
+    contact_value: float
+    """USD value attributed to contact events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
 
     contacts: float
     """Whop pixel-attributed contact events, last-click."""
@@ -224,6 +245,14 @@ class Ad(BaseModel):
     most custom_conversions.
     """
 
+    custom_event_values: object
+    """
+    The conversion value attributed to each merchant-defined custom event name, as a
+    { event_name => value } map paralleling custom_event_counts. Sums the value
+    passed to whop.track, normalized to USD; events fired without a value
+    contribute 0.
+    """
+
     delivery_status: Literal[
         "rejected",
         "in_review",
@@ -267,6 +296,13 @@ class Ad(BaseModel):
 
     Set when the ad references an existing form via lead_form_id, or once a form
     built from lead_form has been created on Meta at launch.
+    """
+
+    lead_value: float
+    """USD value attributed to lead events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
     """
 
     leads: float
@@ -353,6 +389,13 @@ class Ad(BaseModel):
     there is no spend.
     """
 
+    schedule_value: float
+    """USD value attributed to schedule events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
     schedules: float
     """Whop pixel-attributed schedule events, last-click."""
 
@@ -366,6 +409,13 @@ class Ad(BaseModel):
 
     status: Literal["active", "paused", "in_review", "rejected"]
     """The delivery status of the ad."""
+
+    submitted_application_value: float
+    """USD value attributed to submit-application events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
 
     submitted_applications: float
     """Whop pixel-attributed submit-application events, last-click."""
@@ -387,6 +437,13 @@ class Ad(BaseModel):
 
     url_parameters: object
     """Query parameters appended to the URL, as a string-to-string map."""
+
+    viewed_content_value: float
+    """USD value attributed to view-content events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
 
     viewed_contents: float
     """Whop pixel-attributed view-content events, last-click."""
