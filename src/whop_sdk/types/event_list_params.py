@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
+from typing import Union
+from datetime import datetime
+from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -10,9 +12,6 @@ __all__ = ["EventListParams"]
 
 
 class EventListParams(TypedDict, total=False):
-    person_id: Required[str]
-    """The ID of the person."""
-
     account_id: str
     """The ID of the account, which will look like biz\\__******\\********.
 
@@ -29,8 +28,20 @@ class EventListParams(TypedDict, total=False):
     first: int
     """The number of events to return."""
 
-    from_: Annotated[int, PropertyInfo(alias="from")]
-    """Start of the time range as a Unix timestamp."""
+    from_: Annotated[Union[str, datetime], PropertyInfo(alias="from", format="iso8601")]
+    """Start of the time range as an ISO 8601 timestamp.
 
-    to: int
-    """End of the time range as a Unix timestamp. Defaults to now."""
+    Required when person_id is omitted.
+    """
+
+    person_id: str
+    """The ID of the person.
+
+    Omit to list recent identity-linked events for the account.
+    """
+
+    to: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """End of the time range as an ISO 8601 timestamp.
+
+    Required when person_id is omitted; otherwise defaults to now.
+    """

@@ -31,7 +31,7 @@ class EventsResource(SyncAPIResource):
     """
     An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
 
-    Use the Events API to send new tracking events and list the events recorded for a person.
+    Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person.
     """
 
     @cached_property
@@ -275,13 +275,13 @@ class EventsResource(SyncAPIResource):
     def list(
         self,
         *,
-        person_id: str,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
-        from_: int | Omit = omit,
-        to: int | Omit = omit,
+        from_: Union[str, datetime] | Omit = omit,
+        person_id: str | Omit = omit,
+        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -289,14 +289,14 @@ class EventsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[EventListResponse]:
-        """Lists pixel events for a person, most recent first.
+        """Lists pixel events, most recent first.
 
-        Events are shaped like the
-        POST /events intake: attribution in context, identity in user.
+        Pass person_id for one person's journey,
+        or omit it to list identity-linked events for an account within an explicit time
+        range. Events are shaped like the POST /events intake: attribution in context,
+        identity in user.
 
         Args:
-          person_id: The ID of the person.
-
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
 
@@ -306,9 +306,14 @@ class EventsResource(SyncAPIResource):
 
           first: The number of events to return.
 
-          from_: Start of the time range as a Unix timestamp.
+          from_: Start of the time range as an ISO 8601 timestamp. Required when person_id is
+              omitted.
 
-          to: End of the time range as a Unix timestamp. Defaults to now.
+          person_id: The ID of the person. Omit to list recent identity-linked events for the
+              account.
+
+          to: End of the time range as an ISO 8601 timestamp. Required when person_id is
+              omitted; otherwise defaults to now.
 
           extra_headers: Send extra headers
 
@@ -328,12 +333,12 @@ class EventsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "person_id": person_id,
                         "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,
                         "from_": from_,
+                        "person_id": person_id,
                         "to": to,
                     },
                     event_list_params.EventListParams,
@@ -347,7 +352,7 @@ class AsyncEventsResource(AsyncAPIResource):
     """
     An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
 
-    Use the Events API to send new tracking events and list the events recorded for a person.
+    Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person.
     """
 
     @cached_property
@@ -591,13 +596,13 @@ class AsyncEventsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        person_id: str,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
-        from_: int | Omit = omit,
-        to: int | Omit = omit,
+        from_: Union[str, datetime] | Omit = omit,
+        person_id: str | Omit = omit,
+        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -605,14 +610,14 @@ class AsyncEventsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[EventListResponse, AsyncCursorPage[EventListResponse]]:
-        """Lists pixel events for a person, most recent first.
+        """Lists pixel events, most recent first.
 
-        Events are shaped like the
-        POST /events intake: attribution in context, identity in user.
+        Pass person_id for one person's journey,
+        or omit it to list identity-linked events for an account within an explicit time
+        range. Events are shaped like the POST /events intake: attribution in context,
+        identity in user.
 
         Args:
-          person_id: The ID of the person.
-
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
 
@@ -622,9 +627,14 @@ class AsyncEventsResource(AsyncAPIResource):
 
           first: The number of events to return.
 
-          from_: Start of the time range as a Unix timestamp.
+          from_: Start of the time range as an ISO 8601 timestamp. Required when person_id is
+              omitted.
 
-          to: End of the time range as a Unix timestamp. Defaults to now.
+          person_id: The ID of the person. Omit to list recent identity-linked events for the
+              account.
+
+          to: End of the time range as an ISO 8601 timestamp. Required when person_id is
+              omitted; otherwise defaults to now.
 
           extra_headers: Send extra headers
 
@@ -644,12 +654,12 @@ class AsyncEventsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "person_id": person_id,
                         "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,
                         "from_": from_,
+                        "person_id": person_id,
                         "to": to,
                     },
                     event_list_params.EventListParams,

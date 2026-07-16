@@ -10,6 +10,7 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import PersonListResponse, PersonRetrieveResponse
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -32,8 +33,8 @@ class TestPeople:
         person = client.people.retrieve(
             person_id="person_id",
             account_id="account_id",
-            from_=0,
-            to=0,
+            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
+            to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(PersonRetrieveResponse, person, path=["response"])
 
@@ -87,9 +88,9 @@ class TestPeople:
             direction="asc",
             filters="filters",
             first=0,
-            from_=0,
+            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
             sort="sort",
-            to=0,
+            to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(SyncCursorPage[PersonListResponse], person, path=["response"])
 
@@ -135,8 +136,8 @@ class TestAsyncPeople:
         person = await async_client.people.retrieve(
             person_id="person_id",
             account_id="account_id",
-            from_=0,
-            to=0,
+            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
+            to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(PersonRetrieveResponse, person, path=["response"])
 
@@ -190,9 +191,9 @@ class TestAsyncPeople:
             direction="asc",
             filters="filters",
             first=0,
-            from_=0,
+            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
             sort="sort",
-            to=0,
+            to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(AsyncCursorPage[PersonListResponse], person, path=["response"])
 

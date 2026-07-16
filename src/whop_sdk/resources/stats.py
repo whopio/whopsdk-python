@@ -88,7 +88,7 @@ class StatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> StatRetrieveResponse:
         """
-        Retrieves a metric as a time series of points for an account over a date range.
+        Retrieves a metric as a time series of points for an account over a time range.
 
         Args:
           from_: Start of the date range (YYYY-MM-DD).
@@ -300,7 +300,7 @@ class AsyncStatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> StatRetrieveResponse:
         """
-        Retrieves a metric as a time series of points for an account over a date range.
+        Retrieves a metric as a time series of points for an account over a time range.
 
         Args:
           from_: Start of the date range (YYYY-MM-DD).

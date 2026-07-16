@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 
 from .._models import BaseModel
 
@@ -36,9 +37,9 @@ class PersonListResponse(BaseModel):
 
     account_id: str
 
-    first_seen_at: int
+    first_seen_at: datetime
 
-    last_seen_at: int
+    last_seen_at: datetime
 
     person_id: str
 

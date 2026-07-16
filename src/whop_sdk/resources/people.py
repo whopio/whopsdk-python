@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Union
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -56,8 +58,8 @@ class PeopleResource(SyncAPIResource):
         person_id: str,
         *,
         account_id: str | Omit = omit,
-        from_: int | Omit = omit,
-        to: int | Omit = omit,
+        from_: Union[str, datetime] | Omit = omit,
+        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -72,9 +74,9 @@ class PeopleResource(SyncAPIResource):
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
 
-          from_: Start of the time range as a Unix timestamp.
+          from_: Start of the time range as an ISO 8601 timestamp.
 
-          to: End of the time range as a Unix timestamp. Defaults to now.
+          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
 
           extra_headers: Send extra headers
 
@@ -114,9 +116,9 @@ class PeopleResource(SyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         filters: str | Omit = omit,
         first: int | Omit = omit,
-        from_: int | Omit = omit,
+        from_: Union[str, datetime] | Omit = omit,
         sort: str | Omit = omit,
-        to: int | Omit = omit,
+        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -143,12 +145,13 @@ class PeopleResource(SyncAPIResource):
 
           first: The number of people to return (default 100, max 100).
 
-          from_: Start of the time range as a Unix timestamp. Defaults to 366 days before `to`.
+          from_: Start of the time range as an ISO 8601 timestamp. Defaults to 366 days before
+              `to`.
 
           sort: Column to sort by (e.g. last_seen_at, ltv, purchase_count). Defaults to
               last_seen_at.
 
-          to: End of the time range as a Unix timestamp. Defaults to now.
+          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
 
           extra_headers: Send extra headers
 
@@ -216,8 +219,8 @@ class AsyncPeopleResource(AsyncAPIResource):
         person_id: str,
         *,
         account_id: str | Omit = omit,
-        from_: int | Omit = omit,
-        to: int | Omit = omit,
+        from_: Union[str, datetime] | Omit = omit,
+        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -232,9 +235,9 @@ class AsyncPeopleResource(AsyncAPIResource):
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
 
-          from_: Start of the time range as a Unix timestamp.
+          from_: Start of the time range as an ISO 8601 timestamp.
 
-          to: End of the time range as a Unix timestamp. Defaults to now.
+          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
 
           extra_headers: Send extra headers
 
@@ -274,9 +277,9 @@ class AsyncPeopleResource(AsyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         filters: str | Omit = omit,
         first: int | Omit = omit,
-        from_: int | Omit = omit,
+        from_: Union[str, datetime] | Omit = omit,
         sort: str | Omit = omit,
-        to: int | Omit = omit,
+        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -303,12 +306,13 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           first: The number of people to return (default 100, max 100).
 
-          from_: Start of the time range as a Unix timestamp. Defaults to 366 days before `to`.
+          from_: Start of the time range as an ISO 8601 timestamp. Defaults to 366 days before
+              `to`.
 
           sort: Column to sort by (e.g. last_seen_at, ltv, purchase_count). Defaults to
               last_seen_at.
 
-          to: End of the time range as a Unix timestamp. Defaults to now.
+          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
 
           extra_headers: Send extra headers
 

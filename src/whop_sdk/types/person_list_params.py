@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Union
+from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -32,8 +34,11 @@ class PersonListParams(TypedDict, total=False):
     first: int
     """The number of people to return (default 100, max 100)."""
 
-    from_: Annotated[int, PropertyInfo(alias="from")]
-    """Start of the time range as a Unix timestamp. Defaults to 366 days before `to`."""
+    from_: Annotated[Union[str, datetime], PropertyInfo(alias="from", format="iso8601")]
+    """Start of the time range as an ISO 8601 timestamp.
+
+    Defaults to 366 days before `to`.
+    """
 
     sort: str
     """Column to sort by (e.g.
@@ -41,5 +46,5 @@ class PersonListParams(TypedDict, total=False):
     last_seen_at, ltv, purchase_count). Defaults to last_seen_at.
     """
 
-    to: int
-    """End of the time range as a Unix timestamp. Defaults to now."""
+    to: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """End of the time range as an ISO 8601 timestamp. Defaults to now."""

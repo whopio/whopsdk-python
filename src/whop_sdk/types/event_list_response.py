@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 
 from .._models import BaseModel
 
@@ -64,7 +65,9 @@ class EventListResponse(BaseModel):
 
     event_name: str
 
-    event_time: int
+    event_time: datetime
+
+    person_id: str
 
     context: Optional[Context] = None
 

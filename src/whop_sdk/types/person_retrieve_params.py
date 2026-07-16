@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Union
+from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -17,8 +19,8 @@ class PersonRetrieveParams(TypedDict, total=False):
     accounts.
     """
 
-    from_: Annotated[int, PropertyInfo(alias="from")]
-    """Start of the time range as a Unix timestamp."""
+    from_: Annotated[Union[str, datetime], PropertyInfo(alias="from", format="iso8601")]
+    """Start of the time range as an ISO 8601 timestamp."""
 
-    to: int
-    """End of the time range as a Unix timestamp. Defaults to now."""
+    to: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """End of the time range as an ISO 8601 timestamp. Defaults to now."""
