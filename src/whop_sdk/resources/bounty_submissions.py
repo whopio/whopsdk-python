@@ -72,13 +72,10 @@ class BountySubmissionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[BountySubmission]:
-        """Lists bounty submissions visible to the credential.
-
-        User tokens return the
-        submissions they authored plus every submission on bounties they posted; account
-        API keys return the submissions on the account's bounties. Pass account_id to
-        view another account's submissions as a team member, or bounty_id to narrow the
-        list to one bounty.
+        """
+        Lists bounty submissions visible to the credential — for a user token, the
+        submissions they authored plus those on bounties they posted; for an account API
+        key, the submissions on the account's bounties.
 
         Args:
           account_id: Scope the list to submissions on this account's bounties (`biz_` tag). Requires
@@ -189,13 +186,10 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[BountySubmission, AsyncCursorPage[BountySubmission]]:
-        """Lists bounty submissions visible to the credential.
-
-        User tokens return the
-        submissions they authored plus every submission on bounties they posted; account
-        API keys return the submissions on the account's bounties. Pass account_id to
-        view another account's submissions as a team member, or bounty_id to narrow the
-        list to one bounty.
+        """
+        Lists bounty submissions visible to the credential — for a user token, the
+        submissions they authored plus those on bounties they posted; for an account API
+        key, the submissions on the account's bounties.
 
         Args:
           account_id: Scope the list to submissions on this account's bounties (`biz_` tag). Requires

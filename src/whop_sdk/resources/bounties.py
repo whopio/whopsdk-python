@@ -73,14 +73,10 @@ class BountiesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Bounty:
-        """
-        Creates a bounty and escrows its pool (gross_reward_amount times
-        accepted_submissions_limit) from the poster's balance, or an account balance the
-        caller may move funds for (account_id). A user credential posts as itself; a
-        company API key posts as the account's owner. Publishes immediately, or a
-        recurring scheduled draft with publish_at. Every bounty is anchored in a forum:
-        a company-funded bounty defaults to the account's public forum; a personal one
-        must pass experience_id.
+        """Creates a bounty and escrows its reward pool.
+
+        Publishes immediately, or as a
+        scheduled draft when you set `publish_at`.
 
         Args:
           description: Full task instructions shown to workers.
@@ -104,8 +100,8 @@ class BountiesResource(SyncAPIResource):
               open bounty, private for an invited one. Required unless account_id is set, in
               which case the bounty anchors in that account's public forum.
 
-          frequency: How often a scheduled bounty republishes. Defaults to once. Only applies with
-              publish_at.
+          frequency: How often the schedule creates a new bounty. Each occurrence is a separate
+              bounty. Defaults to `once`; only applies with `publish_at`.
 
           publish_at: ISO 8601 time to publish the bounty. When set, the bounty is created as a hidden
               draft and funded + published at this time instead of immediately.
@@ -154,10 +150,9 @@ class BountiesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Bounty:
-        """Retrieves one bounty by ID.
+        """Retrieves a bounty by ID.
 
-        The bounty must be visible to the credential;
-        bounties outside the caller's scope return 404.
+        Bounties outside the caller's scope return `404`.
 
         Args:
           extra_headers: Send extra headers
@@ -200,13 +195,10 @@ class BountiesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[BountyListItem]:
-        """Lists bounties visible to the credential.
-
-        Account API keys return the account's
-        bounties, scheduled drafts included; user tokens return the bounties the user
-        can see and work. Pass account_id to view one account's bounties as a team
-        member (or a connected account of the caller's), or user_id (your own) to list
-        the bounties you participated in.
+        """
+        Lists bounties visible to the credential — for an account API key, the account's
+        bounties including scheduled drafts; for a user token, the bounties the user can
+        see and work.
 
         Args:
           account_id: Scope the list to this account (`biz_` tag). Requires read access to the
@@ -320,14 +312,10 @@ class AsyncBountiesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Bounty:
-        """
-        Creates a bounty and escrows its pool (gross_reward_amount times
-        accepted_submissions_limit) from the poster's balance, or an account balance the
-        caller may move funds for (account_id). A user credential posts as itself; a
-        company API key posts as the account's owner. Publishes immediately, or a
-        recurring scheduled draft with publish_at. Every bounty is anchored in a forum:
-        a company-funded bounty defaults to the account's public forum; a personal one
-        must pass experience_id.
+        """Creates a bounty and escrows its reward pool.
+
+        Publishes immediately, or as a
+        scheduled draft when you set `publish_at`.
 
         Args:
           description: Full task instructions shown to workers.
@@ -351,8 +339,8 @@ class AsyncBountiesResource(AsyncAPIResource):
               open bounty, private for an invited one. Required unless account_id is set, in
               which case the bounty anchors in that account's public forum.
 
-          frequency: How often a scheduled bounty republishes. Defaults to once. Only applies with
-              publish_at.
+          frequency: How often the schedule creates a new bounty. Each occurrence is a separate
+              bounty. Defaults to `once`; only applies with `publish_at`.
 
           publish_at: ISO 8601 time to publish the bounty. When set, the bounty is created as a hidden
               draft and funded + published at this time instead of immediately.
@@ -401,10 +389,9 @@ class AsyncBountiesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Bounty:
-        """Retrieves one bounty by ID.
+        """Retrieves a bounty by ID.
 
-        The bounty must be visible to the credential;
-        bounties outside the caller's scope return 404.
+        Bounties outside the caller's scope return `404`.
 
         Args:
           extra_headers: Send extra headers
@@ -447,13 +434,10 @@ class AsyncBountiesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[BountyListItem, AsyncCursorPage[BountyListItem]]:
-        """Lists bounties visible to the credential.
-
-        Account API keys return the account's
-        bounties, scheduled drafts included; user tokens return the bounties the user
-        can see and work. Pass account_id to view one account's bounties as a team
-        member (or a connected account of the caller's), or user_id (your own) to list
-        the bounties you participated in.
+        """
+        Lists bounties visible to the credential — for an account API key, the account's
+        bounties including scheduled drafts; for a user token, the bounties the user can
+        see and work.
 
         Args:
           account_id: Scope the list to this account (`biz_` tag). Requires read access to the

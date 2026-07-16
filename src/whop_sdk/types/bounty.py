@@ -10,7 +10,7 @@ __all__ = ["Bounty", "FundingAccount", "Poster", "PosterProfilePicture"]
 
 class FundingAccount(BaseModel):
     """
-    The account whose balance funds the bounty pool, or `null` when a user funds it personally. May differ from the account hosting `experience_id`.
+    Account whose balance funds the bounty pool, or `null` when a user funds it personally. May differ from the account hosting `experience_id`.
     """
 
     id: str
@@ -33,7 +33,9 @@ class PosterProfilePicture(BaseModel):
 
 
 class Poster(BaseModel):
-    """The user who posted the bounty."""
+    """
+    User who posted the bounty — the account owner when created with an account API key.
+    """
 
     id: str
     """User ID, prefixed `user_`."""
@@ -166,13 +168,13 @@ class Bounty(BaseModel):
     experience_id: Optional[str] = None
     """Experience the bounty is hosted in, prefixed `exp_`.
 
-    Null for platform-wide bounties; may belong to a different account than the
+    `null` for platform-wide bounties; may belong to a different account than the
     funder.
     """
 
     funding_account: Optional[FundingAccount] = None
     """
-    The account whose balance funds the bounty pool, or `null` when a user funds it
+    Account whose balance funds the bounty pool, or `null` when a user funds it
     personally. May differ from the account hosting `experience_id`.
     """
 
@@ -190,7 +192,10 @@ class Bounty(BaseModel):
     """
 
     poster: Poster
-    """The user who posted the bounty."""
+    """
+    User who posted the bounty — the account owner when created with an account API
+    key.
+    """
 
     scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]] = None
     """How often the schedule creates a new bounty.
@@ -201,8 +206,8 @@ class Bounty(BaseModel):
     scheduled_publish_at: Optional[str] = None
     """When a scheduled bounty will publish, as an ISO 8601 timestamp.
 
-    Null once published, for bounties that were never scheduled, and for terminally
-    failed drafts parked for manual rescheduling.
+    `null` once published, for bounties that were never scheduled, and for
+    terminally failed drafts parked for manual rescheduling.
     """
 
     spots_remaining: int
@@ -225,7 +230,7 @@ class Bounty(BaseModel):
     submissions_closed_at: Optional[str] = None
     """When new submissions were explicitly stopped, as an ISO 8601 timestamp.
 
-    Null when submissions were never explicitly stopped — including closed or
+    `null` when submissions were never explicitly stopped — including closed or
     completed bounties that simply filled every winner slot.
     """
 

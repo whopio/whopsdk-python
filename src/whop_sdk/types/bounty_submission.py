@@ -21,7 +21,7 @@ class WorkerProfilePicture(BaseModel):
 
 
 class Worker(BaseModel):
-    """The user who submitted the work."""
+    """User who submitted the work."""
 
     id: str
     """User ID, prefixed `user_`."""
@@ -55,11 +55,14 @@ class BountySubmission(BaseModel):
     denial_reason: Optional[str] = None
     """Why the submission was denied, when a presentable reason exists.
 
-    Always null unless `status` is `denied`.
+    Always `null` unless `status` is `denied`.
     """
 
     resolved_at: Optional[str] = None
-    """When the submission was approved or denied, as an ISO 8601 timestamp."""
+    """When the submission was approved or denied, as an ISO 8601 timestamp.
+
+    `null` until then.
+    """
 
     status: Literal["in_progress", "submitted", "approved", "denied"]
     """Lifecycle state.
@@ -72,11 +75,11 @@ class BountySubmission(BaseModel):
     submitted_at: Optional[str] = None
     """When proof was submitted for review, as an ISO 8601 timestamp.
 
-    Null while the attempt is in progress.
+    `null` while the attempt is in progress.
     """
 
     updated_at: str
     """When the submission was last updated, as an ISO 8601 timestamp."""
 
     worker: Worker
-    """The user who submitted the work."""
+    """User who submitted the work."""

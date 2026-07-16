@@ -52,9 +52,10 @@ class BountyCreateParams(TypedDict, total=False):
     """
 
     frequency: Literal["once", "hourly", "daily", "weekly", "monthly"]
-    """How often a scheduled bounty republishes.
+    """How often the schedule creates a new bounty.
 
-    Defaults to once. Only applies with publish_at.
+    Each occurrence is a separate bounty. Defaults to `once`; only applies with
+    `publish_at`.
     """
 
     publish_at: Optional[str]
