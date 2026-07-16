@@ -9,10 +9,10 @@ __all__ = ["SocialAccountConnectParams"]
 
 
 class SocialAccountConnectParams(TypedDict, total=False):
-    platform: Required[Literal["meta_business"]]
+    platform: Required[Literal["meta_business", "tiktok"]]
     """The platform to connect the social account on.
 
-    Today, the supported option is `meta_business`.
+    Supported options are `meta_business` and `tiktok`.
     """
 
     account_id: str
@@ -27,5 +27,5 @@ class SocialAccountConnectParams(TypedDict, total=False):
     scopes: List[Literal["advertise"]]
     """Capabilities to grant for the connected social account.
 
-    Use `advertise` when connecting a Meta Business account for ads.
+    Use `advertise` when connecting a Meta Business or TikTok account for ads.
     """

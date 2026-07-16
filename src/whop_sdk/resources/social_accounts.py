@@ -244,7 +244,7 @@ class SocialAccountsResource(SyncAPIResource):
     def connect(
         self,
         *,
-        platform: Literal["meta_business"],
+        platform: Literal["meta_business", "tiktok"],
         account_id: str | Omit = omit,
         redirect_url: str | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
@@ -260,8 +260,8 @@ class SocialAccountsResource(SyncAPIResource):
         connect a social account.
 
         Args:
-          platform: The platform to connect the social account on. Today, the supported option is
-              `meta_business`.
+          platform: The platform to connect the social account on. Supported options are
+              `meta_business` and `tiktok`.
 
           account_id: The Account (biz\\__ identifier) to connect the social account for. An
               account-scoped API key may omit this to default to its own account.
@@ -269,7 +269,7 @@ class SocialAccountsResource(SyncAPIResource):
           redirect_url: The Whop URL to redirect the user to after they finish connecting.
 
           scopes: Capabilities to grant for the connected social account. Use `advertise` when
-              connecting a Meta Business account for ads.
+              connecting a Meta Business or TikTok account for ads.
 
           extra_headers: Send extra headers
 
@@ -564,7 +564,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
     async def connect(
         self,
         *,
-        platform: Literal["meta_business"],
+        platform: Literal["meta_business", "tiktok"],
         account_id: str | Omit = omit,
         redirect_url: str | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
@@ -580,8 +580,8 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         connect a social account.
 
         Args:
-          platform: The platform to connect the social account on. Today, the supported option is
-              `meta_business`.
+          platform: The platform to connect the social account on. Supported options are
+              `meta_business` and `tiktok`.
 
           account_id: The Account (biz\\__ identifier) to connect the social account for. An
               account-scoped API key may omit this to default to its own account.
@@ -589,7 +589,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
           redirect_url: The Whop URL to redirect the user to after they finish connecting.
 
           scopes: Capabilities to grant for the connected social account. Use `advertise` when
-              connecting a Meta Business account for ads.
+              connecting a Meta Business or TikTok account for ads.
 
           extra_headers: Send extra headers
 
