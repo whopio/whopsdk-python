@@ -69,6 +69,7 @@ class StatsResource(SyncAPIResource):
         category: str | Omit = omit,
         convert_to: str | Omit = omit,
         currency: str | Omit = omit,
+        dispute_reason: str | Omit = omit,
         fee_type: str | Omit = omit,
         interval: Literal["hour", "day", "week", "month", "year"] | Omit = omit,
         most_recent_action: str | Omit = omit,
@@ -76,7 +77,7 @@ class StatsResource(SyncAPIResource):
         product: str | Omit = omit,
         referred_user_id: str | Omit = omit,
         segment: str | Omit = omit,
-        snapshot_window: Literal["30d"] | Omit = omit,
+        snapshot_window: Literal["7d", "28d", "30d"] | Omit = omit,
         source: str | Omit = omit,
         status: str | Omit = omit,
         time_zone: str | Omit = omit,
@@ -130,6 +131,9 @@ class StatsResource(SyncAPIResource):
               reported in that currency, not converted. Pair with breakdown_by=currency to
               split a metric by currency. Available on metrics that list currency.
 
+          dispute_reason: Filter disputes to a normalized reason, for example product_not_received. Pair
+              with breakdown_by=dispute_reason to split dispute counts by reason.
+
           fee_type: Filter to a single fee type. Pair with breakdown_by=fee_type to split fees by
               type. Available on metrics that list fee_type.
 
@@ -153,9 +157,10 @@ class StatsResource(SyncAPIResource):
               breakdown_by=segment to split the balance. Available on metrics that list
               segment.
 
-          snapshot_window: Trailing window for snapshot metrics. Only accepted by snapshot metrics (each
-              lists its allowed windows in the catalog); defaults to the metric's first
-              supported window. Only 30d today.
+          snapshot_window: Window used by a snapshot metric. Ordinary snapshots accept 30d as their
+              trailing activity window. Cohorted dispute metrics accept 7d or 28d as the
+              sales-transaction pool; their attribution window is fixed in the metric name.
+              Each metric lists its accepted values in the catalog.
 
           source: Filter to a single GMV source, for example payments. Pair with
               breakdown_by=source to split by source. Available on metrics that list source.
@@ -197,6 +202,7 @@ class StatsResource(SyncAPIResource):
                         "category": category,
                         "convert_to": convert_to,
                         "currency": currency,
+                        "dispute_reason": dispute_reason,
                         "fee_type": fee_type,
                         "interval": interval,
                         "most_recent_action": most_recent_action,
@@ -281,6 +287,7 @@ class AsyncStatsResource(AsyncAPIResource):
         category: str | Omit = omit,
         convert_to: str | Omit = omit,
         currency: str | Omit = omit,
+        dispute_reason: str | Omit = omit,
         fee_type: str | Omit = omit,
         interval: Literal["hour", "day", "week", "month", "year"] | Omit = omit,
         most_recent_action: str | Omit = omit,
@@ -288,7 +295,7 @@ class AsyncStatsResource(AsyncAPIResource):
         product: str | Omit = omit,
         referred_user_id: str | Omit = omit,
         segment: str | Omit = omit,
-        snapshot_window: Literal["30d"] | Omit = omit,
+        snapshot_window: Literal["7d", "28d", "30d"] | Omit = omit,
         source: str | Omit = omit,
         status: str | Omit = omit,
         time_zone: str | Omit = omit,
@@ -342,6 +349,9 @@ class AsyncStatsResource(AsyncAPIResource):
               reported in that currency, not converted. Pair with breakdown_by=currency to
               split a metric by currency. Available on metrics that list currency.
 
+          dispute_reason: Filter disputes to a normalized reason, for example product_not_received. Pair
+              with breakdown_by=dispute_reason to split dispute counts by reason.
+
           fee_type: Filter to a single fee type. Pair with breakdown_by=fee_type to split fees by
               type. Available on metrics that list fee_type.
 
@@ -365,9 +375,10 @@ class AsyncStatsResource(AsyncAPIResource):
               breakdown_by=segment to split the balance. Available on metrics that list
               segment.
 
-          snapshot_window: Trailing window for snapshot metrics. Only accepted by snapshot metrics (each
-              lists its allowed windows in the catalog); defaults to the metric's first
-              supported window. Only 30d today.
+          snapshot_window: Window used by a snapshot metric. Ordinary snapshots accept 30d as their
+              trailing activity window. Cohorted dispute metrics accept 7d or 28d as the
+              sales-transaction pool; their attribution window is fixed in the metric name.
+              Each metric lists its accepted values in the catalog.
 
           source: Filter to a single GMV source, for example payments. Pair with
               breakdown_by=source to split by source. Available on metrics that list source.
@@ -409,6 +420,7 @@ class AsyncStatsResource(AsyncAPIResource):
                         "category": category,
                         "convert_to": convert_to,
                         "currency": currency,
+                        "dispute_reason": dispute_reason,
                         "fee_type": fee_type,
                         "interval": interval,
                         "most_recent_action": most_recent_action,

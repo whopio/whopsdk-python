@@ -84,6 +84,12 @@ class StatRetrieveParams(TypedDict, total=False):
     split a metric by currency. Available on metrics that list currency.
     """
 
+    dispute_reason: str
+    """Filter disputes to a normalized reason, for example product_not_received.
+
+    Pair with breakdown_by=dispute_reason to split dispute counts by reason.
+    """
+
     fee_type: str
     """Filter to a single fee type.
 
@@ -127,11 +133,13 @@ class StatRetrieveParams(TypedDict, total=False):
     list segment.
     """
 
-    snapshot_window: Literal["30d"]
-    """Trailing window for snapshot metrics.
+    snapshot_window: Literal["7d", "28d", "30d"]
+    """Window used by a snapshot metric.
 
-    Only accepted by snapshot metrics (each lists its allowed windows in the
-    catalog); defaults to the metric's first supported window. Only 30d today.
+    Ordinary snapshots accept 30d as their trailing activity window. Cohorted
+    dispute metrics accept 7d or 28d as the sales-transaction pool; their
+    attribution window is fixed in the metric name. Each metric lists its accepted
+    values in the catalog.
     """
 
     source: str
