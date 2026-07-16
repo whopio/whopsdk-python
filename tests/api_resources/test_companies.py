@@ -36,6 +36,7 @@ class TestCompanies:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         company = client.companies.create(
             title="title",
+            country="us",
             description="description",
             email="email",
             logo={"id": "id"},
@@ -309,6 +310,7 @@ class TestAsyncCompanies:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         company = await async_client.companies.create(
             title="title",
+            country="us",
             description="description",
             email="email",
             logo={"id": "id"},
