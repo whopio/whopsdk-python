@@ -31,6 +31,7 @@ class TestAccounts:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         account = client.accounts.create(
+            country="country",
             email="email",
             metadata={"foo": "bar"},
             title="title",
@@ -324,6 +325,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.create(
+            country="country",
             email="email",
             metadata={"foo": "bar"},
             title="title",

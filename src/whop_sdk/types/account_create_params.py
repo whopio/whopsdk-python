@@ -9,6 +9,13 @@ __all__ = ["AccountCreateParams"]
 
 
 class AccountCreateParams(TypedDict, total=False):
+    country: str
+    """The ISO 3166-1 alpha-2 country code where the account's business is located
+    (e.g.
+
+    `US`). Defaults to the parent account's country for connected accounts.
+    """
+
     email: str
     """The email address of the account owner.
 

@@ -72,6 +72,7 @@ class AccountsResource(SyncAPIResource):
     def create(
         self,
         *,
+        country: str | Omit = omit,
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         title: str | Omit = omit,
@@ -90,6 +91,9 @@ class AccountsResource(SyncAPIResource):
         with Update Account, not at creation.
 
         Args:
+          country: The ISO 3166-1 alpha-2 country code where the account's business is located
+              (e.g. `US`). Defaults to the parent account's country for connected accounts.
+
           email: The email address of the account owner. Required for business account API key
               requests.
 
@@ -110,6 +114,7 @@ class AccountsResource(SyncAPIResource):
             "/accounts",
             body=maybe_transform(
                 {
+                    "country": country,
                     "email": email,
                     "metadata": metadata,
                     "title": title,
@@ -560,6 +565,7 @@ class AsyncAccountsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        country: str | Omit = omit,
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         title: str | Omit = omit,
@@ -578,6 +584,9 @@ class AsyncAccountsResource(AsyncAPIResource):
         with Update Account, not at creation.
 
         Args:
+          country: The ISO 3166-1 alpha-2 country code where the account's business is located
+              (e.g. `US`). Defaults to the parent account's country for connected accounts.
+
           email: The email address of the account owner. Required for business account API key
               requests.
 
@@ -598,6 +607,7 @@ class AsyncAccountsResource(AsyncAPIResource):
             "/accounts",
             body=await async_maybe_transform(
                 {
+                    "country": country,
                     "email": email,
                     "metadata": metadata,
                     "title": title,
