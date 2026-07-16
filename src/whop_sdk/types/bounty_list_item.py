@@ -69,11 +69,6 @@ class BountyListItem(BaseModel):
     `accepted_submissions_limit`.
     """
 
-    business_goal_type: Optional[
-        Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
-    ] = None
-    """What the poster wants the work to achieve."""
-
     created_at: str
     """When the bounty was created, as an ISO 8601 timestamp."""
 

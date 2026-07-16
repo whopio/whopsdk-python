@@ -43,11 +43,6 @@ class BountyCreateParams(TypedDict, total=False):
     Empty means worldwide.
     """
 
-    business_goal_type: Literal[
-        "clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"
-    ]
-    """What the poster wants the work to achieve."""
-
     experience_id: Optional[str]
     """Experience to host the bounty in (`exp_` tag).
 

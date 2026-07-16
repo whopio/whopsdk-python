@@ -62,10 +62,6 @@ class BountiesResource(SyncAPIResource):
         accepted_submissions_limit: Optional[int] | Omit = omit,
         account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
-        business_goal_type: Literal[
-            "clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"
-        ]
-        | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
         publish_at: Optional[str] | Omit = omit,
@@ -104,8 +100,6 @@ class BountiesResource(SyncAPIResource):
           allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
               means worldwide.
 
-          business_goal_type: What the poster wants the work to achieve.
-
           experience_id: Experience to host the bounty in (`exp_` tag). Any visibility — public for an
               open bounty, private for an invited one. Required unless account_id is set, in
               which case the bounty anchors in that account's public forum.
@@ -136,7 +130,6 @@ class BountiesResource(SyncAPIResource):
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
-                    "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
                     "frequency": frequency,
                     "publish_at": publish_at,
@@ -316,10 +309,6 @@ class AsyncBountiesResource(AsyncAPIResource):
         accepted_submissions_limit: Optional[int] | Omit = omit,
         account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
-        business_goal_type: Literal[
-            "clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"
-        ]
-        | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
         publish_at: Optional[str] | Omit = omit,
@@ -358,8 +347,6 @@ class AsyncBountiesResource(AsyncAPIResource):
           allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
               means worldwide.
 
-          business_goal_type: What the poster wants the work to achieve.
-
           experience_id: Experience to host the bounty in (`exp_` tag). Any visibility — public for an
               open bounty, private for an invited one. Required unless account_id is set, in
               which case the bounty anchors in that account's public forum.
@@ -390,7 +377,6 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
-                    "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
                     "frequency": frequency,
                     "publish_at": publish_at,
