@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal
 
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -18,8 +19,9 @@ from ..._response import (
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.payouts import method_list_params
+from ...types.payouts import method_list_params, method_create_params
 from ...types.payouts.method_list_response import MethodListResponse
+from ...types.payouts.method_create_response import MethodCreateResponse
 
 __all__ = ["MethodsResource", "AsyncMethodsResource"]
 
@@ -49,6 +51,77 @@ class MethodsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return MethodsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        destination_id: str,
+        fields: Dict[str, str],
+        nickname: str,
+        account_id: str | Omit = omit,
+        destination_currency: str | Omit = omit,
+        is_default: bool | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MethodCreateResponse:
+        """
+        Saves a new payout method for an account or user by submitting the destination's
+        required fields, keyed by field id (list them with GET
+        /payouts/methods?destination_id=...). Sensitive values are vaulted in transit
+        and never stored raw; a Basis Theory token id may be passed in place of a raw
+        value. The created method is immediately usable as payout_method_id on POST
+        /payouts. A field validation failure returns the destination's full
+        required_fields schema alongside the error.
+
+        Args:
+          destination_id: The payout destination to add (a pd\\__ identifier from a previous listing).
+
+          fields: The destination's required field values, keyed by field id.
+
+          nickname: A label for the payout method, unique per destination.
+
+          account_id: The account to add the payout method for (a biz\\__ identifier). Provide this or
+              user_id.
+
+          destination_currency: Currency the destination delivers payouts in.
+
+          is_default: Whether to make this the account's default payout method.
+
+          user_id: The user to add the payout method for (a user\\__ identifier). Provide this or
+              account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/payouts/methods",
+            body=maybe_transform(
+                {
+                    "destination_id": destination_id,
+                    "fields": fields,
+                    "nickname": nickname,
+                    "account_id": account_id,
+                    "destination_currency": destination_currency,
+                    "is_default": is_default,
+                    "user_id": user_id,
+                },
+                method_create_params.MethodCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MethodCreateResponse,
+        )
 
     def list(
         self,
@@ -178,6 +251,77 @@ class AsyncMethodsResource(AsyncAPIResource):
         """
         return AsyncMethodsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        destination_id: str,
+        fields: Dict[str, str],
+        nickname: str,
+        account_id: str | Omit = omit,
+        destination_currency: str | Omit = omit,
+        is_default: bool | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MethodCreateResponse:
+        """
+        Saves a new payout method for an account or user by submitting the destination's
+        required fields, keyed by field id (list them with GET
+        /payouts/methods?destination_id=...). Sensitive values are vaulted in transit
+        and never stored raw; a Basis Theory token id may be passed in place of a raw
+        value. The created method is immediately usable as payout_method_id on POST
+        /payouts. A field validation failure returns the destination's full
+        required_fields schema alongside the error.
+
+        Args:
+          destination_id: The payout destination to add (a pd\\__ identifier from a previous listing).
+
+          fields: The destination's required field values, keyed by field id.
+
+          nickname: A label for the payout method, unique per destination.
+
+          account_id: The account to add the payout method for (a biz\\__ identifier). Provide this or
+              user_id.
+
+          destination_currency: Currency the destination delivers payouts in.
+
+          is_default: Whether to make this the account's default payout method.
+
+          user_id: The user to add the payout method for (a user\\__ identifier). Provide this or
+              account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/payouts/methods",
+            body=await async_maybe_transform(
+                {
+                    "destination_id": destination_id,
+                    "fields": fields,
+                    "nickname": nickname,
+                    "account_id": account_id,
+                    "destination_currency": destination_currency,
+                    "is_default": is_default,
+                    "user_id": user_id,
+                },
+                method_create_params.MethodCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MethodCreateResponse,
+        )
+
     def list(
         self,
         *,
@@ -284,6 +428,9 @@ class MethodsResourceWithRawResponse:
     def __init__(self, methods: MethodsResource) -> None:
         self._methods = methods
 
+        self.create = to_raw_response_wrapper(
+            methods.create,
+        )
         self.list = to_raw_response_wrapper(
             methods.list,
         )
@@ -293,6 +440,9 @@ class AsyncMethodsResourceWithRawResponse:
     def __init__(self, methods: AsyncMethodsResource) -> None:
         self._methods = methods
 
+        self.create = async_to_raw_response_wrapper(
+            methods.create,
+        )
         self.list = async_to_raw_response_wrapper(
             methods.list,
         )
@@ -302,6 +452,9 @@ class MethodsResourceWithStreamingResponse:
     def __init__(self, methods: MethodsResource) -> None:
         self._methods = methods
 
+        self.create = to_streamed_response_wrapper(
+            methods.create,
+        )
         self.list = to_streamed_response_wrapper(
             methods.list,
         )
@@ -311,6 +464,9 @@ class AsyncMethodsResourceWithStreamingResponse:
     def __init__(self, methods: AsyncMethodsResource) -> None:
         self._methods = methods
 
+        self.create = async_to_streamed_response_wrapper(
+            methods.create,
+        )
         self.list = async_to_streamed_response_wrapper(
             methods.list,
         )
