@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
+from typing import Iterable
 from typing_extensions import Literal, overload
 
 import httpx
@@ -66,8 +66,8 @@ class VerificationsResource(SyncAPIResource):
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
-        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
-        documents: Dict[str, str] | Omit = omit,
+        document_type: Literal["ID_CARD", "DRIVERS", "RESIDENCE_PERMIT", "PASSPORT"] | Omit = omit,
+        documents: verification_create_params.CreateIndividualVerificationDocuments | Omit = omit,
         first_name: str | Omit = omit,
         kind: Literal["individual"] | Omit = omit,
         last_name: str | Omit = omit,
@@ -108,21 +108,24 @@ class VerificationsResource(SyncAPIResource):
 
           date_of_birth: Formatted as `YYYY-MM-DD`.
 
-          document_type: Identity document being sent. Providing it (with `documents`) verifies from
-              uploaded documents instead of a hosted session, and determines the expected
-              `documents` keys: cards and licenses need front and back, passports only the
-              photo page.
+          document_type: Identity document being sent, when verifying with `documents`. Decides exactly
+              which file slots to send: `ID_CARD` → `id_card_front` + `id_card_back` +
+              `selfie`; `DRIVERS` → `drivers_front` + `drivers_back` + `selfie`;
+              `RESIDENCE_PERMIT` → `residence_permit_front` + `residence_permit_back` +
+              `selfie`; `PASSPORT` → `passport_front` + `selfie`. See
+              [Identity documents](/developer/verification/identity-documents).
 
-          documents: Identity document files, keyed by slot (`id_card_front`, `id_card_back`,
-              `selfie`, …) with each value the file's raw bytes base64-encoded. Providing them
-              verifies the person from these documents instead of a hosted session —
+          documents: Identity document files, each value the file's raw bytes base64-encoded (JPEG,
+              PNG, or PDF, up to 5MB per file before encoding). Sending this object verifies
+              the person from the files in this request instead of a hosted session —
               individual verifications only, and the request must also carry `document_type`,
               `first_name`, `last_name`, `date_of_birth`, `country`, `phone`,
               `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and
-              `postal_code`. JPEG, PNG, and PDF are accepted (selfies must be images), up to
-              5MB per file before encoding. Send the complete set — a missing or rejected file
-              fails the whole request and nothing is submitted; review starts automatically
-              once every document is accepted.
+              `postal_code`. Send every slot for your `document_type` — a missing or rejected
+              file fails the whole request and nothing is submitted; review starts
+              automatically once every document is accepted. See
+              [Identity documents](/developer/verification/identity-documents) for a full
+              walkthrough.
 
           kind: Verification type. Defaults to `individual`.
 
@@ -221,8 +224,8 @@ class VerificationsResource(SyncAPIResource):
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
-        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
-        documents: Dict[str, str] | Omit = omit,
+        document_type: Literal["ID_CARD", "DRIVERS", "RESIDENCE_PERMIT", "PASSPORT"] | Omit = omit,
+        documents: verification_create_params.CreateIndividualVerificationDocuments | Omit = omit,
         first_name: str | Omit = omit,
         kind: Literal["individual"] | Literal["business"] | Omit = omit,
         last_name: str | Omit = omit,
@@ -561,8 +564,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
-        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
-        documents: Dict[str, str] | Omit = omit,
+        document_type: Literal["ID_CARD", "DRIVERS", "RESIDENCE_PERMIT", "PASSPORT"] | Omit = omit,
+        documents: verification_create_params.CreateIndividualVerificationDocuments | Omit = omit,
         first_name: str | Omit = omit,
         kind: Literal["individual"] | Omit = omit,
         last_name: str | Omit = omit,
@@ -603,21 +606,24 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           date_of_birth: Formatted as `YYYY-MM-DD`.
 
-          document_type: Identity document being sent. Providing it (with `documents`) verifies from
-              uploaded documents instead of a hosted session, and determines the expected
-              `documents` keys: cards and licenses need front and back, passports only the
-              photo page.
+          document_type: Identity document being sent, when verifying with `documents`. Decides exactly
+              which file slots to send: `ID_CARD` → `id_card_front` + `id_card_back` +
+              `selfie`; `DRIVERS` → `drivers_front` + `drivers_back` + `selfie`;
+              `RESIDENCE_PERMIT` → `residence_permit_front` + `residence_permit_back` +
+              `selfie`; `PASSPORT` → `passport_front` + `selfie`. See
+              [Identity documents](/developer/verification/identity-documents).
 
-          documents: Identity document files, keyed by slot (`id_card_front`, `id_card_back`,
-              `selfie`, …) with each value the file's raw bytes base64-encoded. Providing them
-              verifies the person from these documents instead of a hosted session —
+          documents: Identity document files, each value the file's raw bytes base64-encoded (JPEG,
+              PNG, or PDF, up to 5MB per file before encoding). Sending this object verifies
+              the person from the files in this request instead of a hosted session —
               individual verifications only, and the request must also carry `document_type`,
               `first_name`, `last_name`, `date_of_birth`, `country`, `phone`,
               `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and
-              `postal_code`. JPEG, PNG, and PDF are accepted (selfies must be images), up to
-              5MB per file before encoding. Send the complete set — a missing or rejected file
-              fails the whole request and nothing is submitted; review starts automatically
-              once every document is accepted.
+              `postal_code`. Send every slot for your `document_type` — a missing or rejected
+              file fails the whole request and nothing is submitted; review starts
+              automatically once every document is accepted. See
+              [Identity documents](/developer/verification/identity-documents) for a full
+              walkthrough.
 
           kind: Verification type. Defaults to `individual`.
 
@@ -716,8 +722,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
         business_website: str | Omit = omit,
         country: str | Omit = omit,
         date_of_birth: str | Omit = omit,
-        document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"] | Omit = omit,
-        documents: Dict[str, str] | Omit = omit,
+        document_type: Literal["ID_CARD", "DRIVERS", "RESIDENCE_PERMIT", "PASSPORT"] | Omit = omit,
+        documents: verification_create_params.CreateIndividualVerificationDocuments | Omit = omit,
         first_name: str | Omit = omit,
         kind: Literal["individual"] | Literal["business"] | Omit = omit,
         last_name: str | Omit = omit,

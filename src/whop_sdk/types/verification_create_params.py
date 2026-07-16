@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union
+from typing import Union
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
     "VerificationCreateParams",
     "CreateIndividualVerification",
     "CreateIndividualVerificationAddress",
+    "CreateIndividualVerificationDocuments",
     "CreateBusinessVerification",
     "CreateBusinessVerificationAddress",
 ]
@@ -50,26 +51,29 @@ class CreateIndividualVerification(TypedDict, total=False):
     date_of_birth: str
     """Formatted as `YYYY-MM-DD`."""
 
-    document_type: Literal["ID_CARD", "PASSPORT", "DRIVERS", "RESIDENCE_PERMIT"]
-    """Identity document being sent.
+    document_type: Literal["ID_CARD", "DRIVERS", "RESIDENCE_PERMIT", "PASSPORT"]
+    """Identity document being sent, when verifying with `documents`.
 
-    Providing it (with `documents`) verifies from uploaded documents instead of a
-    hosted session, and determines the expected `documents` keys: cards and licenses
-    need front and back, passports only the photo page.
+    Decides exactly which file slots to send: `ID_CARD` → `id_card_front` +
+    `id_card_back` + `selfie`; `DRIVERS` → `drivers_front` + `drivers_back` +
+    `selfie`; `RESIDENCE_PERMIT` → `residence_permit_front` +
+    `residence_permit_back` + `selfie`; `PASSPORT` → `passport_front` + `selfie`.
+    See [Identity documents](/developer/verification/identity-documents).
     """
 
-    documents: Dict[str, str]
+    documents: CreateIndividualVerificationDocuments
     """
-    Identity document files, keyed by slot (`id_card_front`, `id_card_back`,
-    `selfie`, …) with each value the file's raw bytes base64-encoded. Providing them
-    verifies the person from these documents instead of a hosted session —
+    Identity document files, each value the file's raw bytes base64-encoded (JPEG,
+    PNG, or PDF, up to 5MB per file before encoding). Sending this object verifies
+    the person from the files in this request instead of a hosted session —
     individual verifications only, and the request must also carry `document_type`,
     `first_name`, `last_name`, `date_of_birth`, `country`, `phone`,
     `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and
-    `postal_code`. JPEG, PNG, and PDF are accepted (selfies must be images), up to
-    5MB per file before encoding. Send the complete set — a missing or rejected file
-    fails the whole request and nothing is submitted; review starts automatically
-    once every document is accepted.
+    `postal_code`. Send every slot for your `document_type` — a missing or rejected
+    file fails the whole request and nothing is submitted; review starts
+    automatically once every document is accepted. See
+    [Identity documents](/developer/verification/identity-documents) for a full
+    walkthrough.
     """
 
     first_name: str
@@ -107,6 +111,60 @@ class CreateIndividualVerificationAddress(TypedDict, total=False):
 
     state: str
     """State, province, or region code, for example `CA`."""
+
+
+class CreateIndividualVerificationDocuments(TypedDict, total=False):
+    """
+    Identity document files, each value the file's raw bytes base64-encoded (JPEG, PNG, or PDF, up to 5MB per file before encoding). Sending this object verifies the person from the files in this request instead of a hosted session — individual verifications only, and the request must also carry `document_type`, `first_name`, `last_name`, `date_of_birth`, `country`, `phone`, `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and `postal_code`. Send every slot for your `document_type` — a missing or rejected file fails the whole request and nothing is submitted; review starts automatically once every document is accepted. See [Identity documents](/developer/verification/identity-documents) for a full walkthrough.
+    """
+
+    drivers_back: str
+    """Back of the driver's license, base64-encoded.
+
+    Required when `document_type` is `DRIVERS`.
+    """
+
+    drivers_front: str
+    """Front of the driver's license, base64-encoded.
+
+    Required when `document_type` is `DRIVERS`.
+    """
+
+    id_card_back: str
+    """Back of the ID card, base64-encoded.
+
+    Required when `document_type` is `ID_CARD`.
+    """
+
+    id_card_front: str
+    """Front of the ID card, base64-encoded.
+
+    Required when `document_type` is `ID_CARD`.
+    """
+
+    passport_front: str
+    """Photo page of the passport, base64-encoded.
+
+    Required when `document_type` is `PASSPORT`.
+    """
+
+    residence_permit_back: str
+    """Back of the residence permit, base64-encoded.
+
+    Required when `document_type` is `RESIDENCE_PERMIT`.
+    """
+
+    residence_permit_front: str
+    """Front of the residence permit, base64-encoded.
+
+    Required when `document_type` is `RESIDENCE_PERMIT`.
+    """
+
+    selfie: str
+    """Photo of the person's face, base64-encoded.
+
+    Always required, with every document type. Must be JPEG or PNG.
+    """
 
 
 class CreateBusinessVerification(TypedDict, total=False):
