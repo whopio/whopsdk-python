@@ -21,6 +21,7 @@ class Data(BaseModel):
     action: Literal[
         "create_business",
         "become_affiliate",
+        "become_whop_partner",
         "theme_business",
         "create_product",
         "create_plan",
