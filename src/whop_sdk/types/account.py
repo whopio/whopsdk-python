@@ -230,6 +230,13 @@ class Account(BaseModel):
     invoice_prefix: Optional[str] = None
     """Prefix used for account invoices."""
 
+    llc_formation: object
+    """
+    LLC formation state for the account: a draft state with `payment_pending`, or
+    the live filing state with registration progress, documents, and pending
+    signatures.
+    """
+
     logo_url: Optional[str] = None
     """Account logo image URL."""
 
