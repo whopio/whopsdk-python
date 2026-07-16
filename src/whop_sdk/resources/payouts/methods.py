@@ -58,6 +58,8 @@ class MethodsResource(SyncAPIResource):
         amount: float | Omit = omit,
         before: str | Omit = omit,
         currency: str | Omit = omit,
+        destination_currency: str | Omit = omit,
+        destination_id: str | Omit = omit,
         first: int | Omit = omit,
         include_available: bool | Omit = omit,
         last: int | Omit = omit,
@@ -89,6 +91,13 @@ class MethodsResource(SyncAPIResource):
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
           currency: Currency code of the amount, for example `usd`. Only meaningful with amount.
+
+          destination_currency: Currency the destination would deliver payouts in. Only meaningful with
+              destination_id; required fields vary by destination currency.
+
+          destination_id: Narrows available*destinations to this one destination (a pd* identifier from a
+              previous listing) and includes its required_fields — the values to collect to
+              add it as a payout method. Implies include_available.
 
           first: Number of payout methods to return from the start of the window. Capped at 25
               when an amount is provided.
@@ -128,6 +137,8 @@ class MethodsResource(SyncAPIResource):
                         "amount": amount,
                         "before": before,
                         "currency": currency,
+                        "destination_currency": destination_currency,
+                        "destination_id": destination_id,
                         "first": first,
                         "include_available": include_available,
                         "last": last,
@@ -175,6 +186,8 @@ class AsyncMethodsResource(AsyncAPIResource):
         amount: float | Omit = omit,
         before: str | Omit = omit,
         currency: str | Omit = omit,
+        destination_currency: str | Omit = omit,
+        destination_id: str | Omit = omit,
         first: int | Omit = omit,
         include_available: bool | Omit = omit,
         last: int | Omit = omit,
@@ -206,6 +219,13 @@ class AsyncMethodsResource(AsyncAPIResource):
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
           currency: Currency code of the amount, for example `usd`. Only meaningful with amount.
+
+          destination_currency: Currency the destination would deliver payouts in. Only meaningful with
+              destination_id; required fields vary by destination currency.
+
+          destination_id: Narrows available*destinations to this one destination (a pd* identifier from a
+              previous listing) and includes its required_fields — the values to collect to
+              add it as a payout method. Implies include_available.
 
           first: Number of payout methods to return from the start of the window. Capped at 25
               when an amount is provided.
@@ -245,6 +265,8 @@ class AsyncMethodsResource(AsyncAPIResource):
                         "amount": amount,
                         "before": before,
                         "currency": currency,
+                        "destination_currency": destination_currency,
+                        "destination_id": destination_id,
                         "first": first,
                         "include_available": include_available,
                         "last": last,

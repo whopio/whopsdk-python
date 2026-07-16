@@ -27,6 +27,20 @@ class MethodListParams(TypedDict, total=False):
     currency: str
     """Currency code of the amount, for example `usd`. Only meaningful with amount."""
 
+    destination_currency: str
+    """Currency the destination would deliver payouts in.
+
+    Only meaningful with destination_id; required fields vary by destination
+    currency.
+    """
+
+    destination_id: str
+    """
+    Narrows available*destinations to this one destination (a pd* identifier from a
+    previous listing) and includes its required_fields — the values to collect to
+    add it as a payout method. Implies include_available.
+    """
+
     first: int
     """Number of payout methods to return from the start of the window.
 
