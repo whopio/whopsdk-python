@@ -117,6 +117,7 @@ class Withdrawal(BaseModel):
             "missing_phone_number",
             "missing_remittance_info",
             "payee_name_invalid",
+            "beneficiary_name_mismatch",
             "receiving_account_locked",
             "rejected_by_compliance",
             "rtp_not_supported",
