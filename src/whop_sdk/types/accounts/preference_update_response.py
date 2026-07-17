@@ -18,6 +18,27 @@ class AdsPaymentMethodsBackup(BaseModel):
     type: Literal["platform_balance", "card"]
     """The funding source kind: a Whop balance or a saved card."""
 
+    card_brand: Optional[str] = None
+    """Card brand, present for `card` entries."""
+
+    exp_month: Optional[int] = None
+    """Expiration month, present for `card` entries."""
+
+    exp_year: Optional[int] = None
+    """Expiration year, present for `card` entries."""
+
+    icon_url: Optional[str] = None
+    """Balance owner icon URL, present for `platform_balance` entries."""
+
+    last4: Optional[str] = None
+    """Last four digits, present for `card` entries."""
+
+    title: Optional[str] = None
+    """
+    Balance name, present for company `platform_balance` entries (null for a
+    personal balance).
+    """
+
 
 class AdsPaymentMethodsPrimary(BaseModel):
     id: str
@@ -28,6 +49,27 @@ class AdsPaymentMethodsPrimary(BaseModel):
 
     type: Literal["platform_balance", "card"]
     """The funding source kind: a Whop balance or a saved card."""
+
+    card_brand: Optional[str] = None
+    """Card brand, present for `card` entries."""
+
+    exp_month: Optional[int] = None
+    """Expiration month, present for `card` entries."""
+
+    exp_year: Optional[int] = None
+    """Expiration year, present for `card` entries."""
+
+    icon_url: Optional[str] = None
+    """Balance owner icon URL, present for `platform_balance` entries."""
+
+    last4: Optional[str] = None
+    """Last four digits, present for `card` entries."""
+
+    title: Optional[str] = None
+    """
+    Balance name, present for company `platform_balance` entries (null for a
+    personal balance).
+    """
 
 
 class AdsPaymentMethods(BaseModel):
