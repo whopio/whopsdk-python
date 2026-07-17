@@ -275,6 +275,7 @@ class TestMemberships:
     def test_method_pause_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.pause(
             id="mem_xxxxxxxxxxxxxx",
+            resumes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             void_payments=True,
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -656,6 +657,7 @@ class TestAsyncMemberships:
     async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.pause(
             id="mem_xxxxxxxxxxxxxx",
+            resumes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             void_payments=True,
         )
         assert_matches_type(Membership, membership, path=["response"])
