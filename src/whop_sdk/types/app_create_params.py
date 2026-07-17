@@ -37,6 +37,12 @@ class AppCreateParams(TypedDict, total=False):
     authorizing the app.
     """
 
+    route: Optional[str]
+    """
+    The unique subdomain route where the app's hosted web builds are served, such as
+    'myapp' for myapp.whop.app.
+    """
+
 
 class Icon(TypedDict, total=False):
     """The icon image for the app in PNG, JPEG, or GIF format."""
