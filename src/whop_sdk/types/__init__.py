@@ -159,7 +159,6 @@ from .account_social_link import AccountSocialLink as AccountSocialLink
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
 from .company_list_params import CompanyListParams as CompanyListParams
 from .course_visibilities import CourseVisibilities as CourseVisibilities
-from .deposit_list_params import DepositListParams as DepositListParams
 from .dispute_list_params import DisputeListParams as DisputeListParams
 from .entry_list_response import EntryListResponse as EntryListResponse
 from .event_create_params import EventCreateParams as EventCreateParams
@@ -216,7 +215,6 @@ from .company_create_params import CompanyCreateParams as CompanyCreateParams
 from .company_list_response import CompanyListResponse as CompanyListResponse
 from .company_update_params import CompanyUpdateParams as CompanyUpdateParams
 from .deposit_create_params import DepositCreateParams as DepositCreateParams
-from .deposit_list_response import DepositListResponse as DepositListResponse
 from .dispute_list_response import DisputeListResponse as DisputeListResponse
 from .dm_member_list_params import DmMemberListParams as DmMemberListParams
 from .event_create_response import EventCreateResponse as EventCreateResponse

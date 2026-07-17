@@ -672,7 +672,7 @@ class Whop(SyncAPIClient):
         """
         Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
 
-        Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+        Use the Deposits API to create deposit instructions for an account.
         """
         from .resources.deposits import DepositsResource
 
@@ -1442,7 +1442,7 @@ class AsyncWhop(AsyncAPIClient):
         """
         Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
 
-        Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+        Use the Deposits API to create deposit instructions for an account.
         """
         from .resources.deposits import AsyncDepositsResource
 
@@ -2132,7 +2132,7 @@ class WhopWithRawResponse:
         """
         Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
 
-        Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+        Use the Deposits API to create deposit instructions for an account.
         """
         from .resources.deposits import DepositsResourceWithRawResponse
 
@@ -2704,7 +2704,7 @@ class AsyncWhopWithRawResponse:
         """
         Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
 
-        Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+        Use the Deposits API to create deposit instructions for an account.
         """
         from .resources.deposits import AsyncDepositsResourceWithRawResponse
 
@@ -3278,7 +3278,7 @@ class WhopWithStreamedResponse:
         """
         Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
 
-        Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+        Use the Deposits API to create deposit instructions for an account.
         """
         from .resources.deposits import DepositsResourceWithStreamingResponse
 
@@ -3854,7 +3854,7 @@ class AsyncWhopWithStreamedResponse:
         """
         Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
 
-        Use the Deposits API to create deposit instructions for an account and retrieve existing bank deposit activity.
+        Use the Deposits API to create deposit instructions for an account.
         """
         from .resources.deposits import AsyncDepositsResourceWithStreamingResponse
 
