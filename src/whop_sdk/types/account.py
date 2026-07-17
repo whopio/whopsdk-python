@@ -6,7 +6,18 @@ from typing_extensions import Literal
 from .._models import BaseModel
 from .account_social_link import AccountSocialLink
 
-__all__ = ["Account", "Balance", "Capabilities", "RecommendedAction", "RequiredAction", "Wallet"]
+__all__ = [
+    "Account",
+    "Balance",
+    "Capabilities",
+    "PaymentControls",
+    "PaymentControlsDisputeAlertAutoRefund",
+    "PaymentControlsReserve",
+    "PaymentControlsResolutionCenterAutoRefund",
+    "RecommendedAction",
+    "RequiredAction",
+    "Wallet",
+]
 
 
 class Balance(BaseModel):
@@ -75,6 +86,92 @@ class Capabilities(BaseModel):
 
     transfer: Literal["active", "inactive", "pending"]
     """Transfers to other accounts"""
+
+
+class PaymentControlsDisputeAlertAutoRefund(BaseModel):
+    """Automatic refund settings for pre-chargeback dispute alerts."""
+
+    locked: bool
+    """Whether the account owner is prevented from changing this threshold."""
+
+    threshold_usd: Optional[float] = None
+    """Maximum dispute alert amount automatically refunded in USD.
+
+    `null` when automatic refunds are disabled.
+    """
+
+
+class PaymentControlsReserve(BaseModel):
+    """Reserve currently applied to incoming payment volume."""
+
+    hold_period_days: int
+    """Number of days reserved funds are held before release."""
+
+    percentage: Optional[float] = None
+    """Percentage of incoming payment volume held in reserve.
+
+    `null` when no reserve is applied.
+    """
+
+
+class PaymentControlsResolutionCenterAutoRefund(BaseModel):
+    """Automatic refund settings for resolution center cases."""
+
+    card_threshold_usd: Optional[float] = None
+    """Maximum card-funded resolution center case amount automatically refunded in USD.
+
+    `null` when automatic refunds are disabled for cards.
+    """
+
+    financing_threshold_usd: Optional[float] = None
+    """
+    Maximum financing-funded resolution center case amount automatically refunded in
+    USD. `null` when automatic refunds are disabled for financing.
+    """
+
+    locked: bool
+    """Whether the account owner is prevented from changing these thresholds."""
+
+    paypal_threshold_usd: Optional[float] = None
+    """
+    Maximum PayPal-funded resolution center case amount automatically refunded in
+    USD. `null` when automatic refunds are disabled for PayPal.
+    """
+
+
+class PaymentControls(BaseModel):
+    """Payment health controls currently applied to the account.
+
+    Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise.
+    """
+
+    dispute_alert_auto_refund: PaymentControlsDisputeAlertAutoRefund
+    """Automatic refund settings for pre-chargeback dispute alerts."""
+
+    dispute_alert_fee_usd: Optional[float] = None
+    """Fee charged for each dispute alert in USD. `null` when unavailable."""
+
+    financing_disabled: bool
+    """Whether payment health controls explicitly disable financing.
+
+    This is independent of financing approval in
+    `capabilities.accept_bnpl_payments`.
+    """
+
+    high_risk_processing_fee_percentage: float
+    """Additional processing fee percentage for high-risk processing.
+
+    Currently `0` for all accounts.
+    """
+
+    pending_balance_delay_days: int
+    """Additional days payments remain pending before becoming available."""
+
+    reserve: PaymentControlsReserve
+    """Reserve currently applied to incoming payment volume."""
+
+    resolution_center_auto_refund: PaymentControlsResolutionCenterAutoRefund
+    """Automatic refund settings for resolution center cases."""
 
 
 class RecommendedAction(BaseModel):
@@ -260,6 +357,13 @@ class Account(BaseModel):
 
     parent_account_id: Optional[str] = None
     """Parent account ID for connected accounts."""
+
+    payment_controls: Optional[PaymentControls] = None
+    """Payment health controls currently applied to the account.
+
+    Computed only on `retrieve` and `me` for callers with `company:balance:read`
+    scope; `null` otherwise.
+    """
 
     product_tax_code: Optional[object] = None
     """
