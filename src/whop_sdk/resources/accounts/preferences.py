@@ -98,12 +98,12 @@ class PreferencesResource(SyncAPIResource):
 
         Each top-level key present in the body is
         replaced as a whole; omitted keys are left untouched. `ads_payment_methods`
-        always requires a `primary` entry. `backup` is optional when the primary is
-        `platform_balance` — omitting it removes any configured card — while a `card`
-        primary requires a `platform_balance` backup. A `platform_balance` entry may
-        omit `id` to use the account's default Whop balance. Configuring a `card`
-        requires a user token; account API keys can set up platform-balance billing,
-        remove a configured card, and swap `primary` and `backup`.
+        always requires a `primary` entry. `backup` is optional and any pairing is
+        allowed — two cards, `card`+`platform_balance`, or a single method — so a
+        card-only advertiser can fund ads without a platform balance. The `primary` and
+        `backup` must be different sources. A `platform_balance` entry may omit `id` to
+        use the account's default Whop balance. Configuring a `card` requires a user
+        token; account API keys can set up platform-balance billing only.
 
         Args:
           ads_payment_methods: How the account pays for Whop Ads spend. `primary` is charged first; `backup`
@@ -207,12 +207,12 @@ class AsyncPreferencesResource(AsyncAPIResource):
 
         Each top-level key present in the body is
         replaced as a whole; omitted keys are left untouched. `ads_payment_methods`
-        always requires a `primary` entry. `backup` is optional when the primary is
-        `platform_balance` — omitting it removes any configured card — while a `card`
-        primary requires a `platform_balance` backup. A `platform_balance` entry may
-        omit `id` to use the account's default Whop balance. Configuring a `card`
-        requires a user token; account API keys can set up platform-balance billing,
-        remove a configured card, and swap `primary` and `backup`.
+        always requires a `primary` entry. `backup` is optional and any pairing is
+        allowed — two cards, `card`+`platform_balance`, or a single method — so a
+        card-only advertiser can fund ads without a platform balance. The `primary` and
+        `backup` must be different sources. A `platform_balance` entry may omit `id` to
+        use the account's default Whop balance. Configuring a `card` requires a user
+        token; account API keys can set up platform-balance billing only.
 
         Args:
           ads_payment_methods: How the account pays for Whop Ads spend. `primary` is charged first; `backup`

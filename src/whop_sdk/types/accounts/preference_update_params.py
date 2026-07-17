@@ -28,8 +28,9 @@ class AdsPaymentMethodsPrimary(TypedDict, total=False):
 
 
 class AdsPaymentMethodsBackup(TypedDict, total=False):
-    """
-    Optional when the primary is `platform_balance`; omitting it removes any configured card. Required (as `platform_balance`) when the primary is `card`.
+    """Optional second method charged if the primary fails.
+
+    Any pairing is allowed (two cards, card+balance, balance+card); omit it to run on a single method. Must differ from the primary.
     """
 
     type: Required[Literal["platform_balance", "card"]]
@@ -52,7 +53,8 @@ class AdsPaymentMethods(TypedDict, total=False):
     primary: Required[AdsPaymentMethodsPrimary]
 
     backup: AdsPaymentMethodsBackup
-    """
-    Optional when the primary is `platform_balance`; omitting it removes any
-    configured card. Required (as `platform_balance`) when the primary is `card`.
+    """Optional second method charged if the primary fails.
+
+    Any pairing is allowed (two cards, card+balance, balance+card); omit it to run
+    on a single method. Must differ from the primary.
     """
