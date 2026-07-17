@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import date
 from typing_extensions import Literal
 
 import httpx
@@ -57,8 +55,8 @@ class StatsResource(SyncAPIResource):
         self,
         metric: str,
         *,
-        from_: Union[str, date],
-        to: Union[str, date],
+        from_: str,
+        to: str,
         access_level: str | Omit = omit,
         account_id: str | Omit = omit,
         ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
@@ -92,9 +90,11 @@ class StatsResource(SyncAPIResource):
         Retrieves a metric as a time series of points for an account over a time range.
 
         Args:
-          from_: Start of the date range (YYYY-MM-DD).
+          from_: Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or
+              an ISO 8601 timestamp (for example 2026-07-16T16:37:00Z), used exactly.
 
-          to: End of the date range (YYYY-MM-DD).
+          to: End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an
+              ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly.
 
           access_level: Filter to a single access level. Pair with breakdown_by=access_level. Available
               on metrics that list access_level.
@@ -275,8 +275,8 @@ class AsyncStatsResource(AsyncAPIResource):
         self,
         metric: str,
         *,
-        from_: Union[str, date],
-        to: Union[str, date],
+        from_: str,
+        to: str,
         access_level: str | Omit = omit,
         account_id: str | Omit = omit,
         ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
@@ -310,9 +310,11 @@ class AsyncStatsResource(AsyncAPIResource):
         Retrieves a metric as a time series of points for an account over a time range.
 
         Args:
-          from_: Start of the date range (YYYY-MM-DD).
+          from_: Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or
+              an ISO 8601 timestamp (for example 2026-07-16T16:37:00Z), used exactly.
 
-          to: End of the date range (YYYY-MM-DD).
+          to: End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an
+              ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly.
 
           access_level: Filter to a single access level. Pair with breakdown_by=access_level. Available
               on metrics that list access_level.

@@ -10,7 +10,6 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import StatListResponse, StatRetrieveResponse
-from whop_sdk._utils import parse_date
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,8 +22,8 @@ class TestStats:
     def test_method_retrieve(self, client: Whop) -> None:
         stat = client.stats.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
         )
         assert_matches_type(StatRetrieveResponse, stat, path=["response"])
 
@@ -33,8 +32,8 @@ class TestStats:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         stat = client.stats.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
             access_level="access_level",
             account_id="account_id",
             ad_campaign_ids=["string"],
@@ -65,8 +64,8 @@ class TestStats:
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.stats.with_raw_response.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
         )
 
         assert response.is_closed is True
@@ -79,8 +78,8 @@ class TestStats:
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.stats.with_streaming_response.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -96,8 +95,8 @@ class TestStats:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metric` but received ''"):
             client.stats.with_raw_response.retrieve(
                 metric="",
-                from_=parse_date("2019-12-27"),
-                to=parse_date("2019-12-27"),
+                from_="from",
+                to="to",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -139,8 +138,8 @@ class TestAsyncStats:
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         stat = await async_client.stats.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
         )
         assert_matches_type(StatRetrieveResponse, stat, path=["response"])
 
@@ -149,8 +148,8 @@ class TestAsyncStats:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         stat = await async_client.stats.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
             access_level="access_level",
             account_id="account_id",
             ad_campaign_ids=["string"],
@@ -181,8 +180,8 @@ class TestAsyncStats:
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.stats.with_raw_response.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
         )
 
         assert response.is_closed is True
@@ -195,8 +194,8 @@ class TestAsyncStats:
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.stats.with_streaming_response.retrieve(
             metric="metric",
-            from_=parse_date("2019-12-27"),
-            to=parse_date("2019-12-27"),
+            from_="from",
+            to="to",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -212,8 +211,8 @@ class TestAsyncStats:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metric` but received ''"):
             await async_client.stats.with_raw_response.retrieve(
                 metric="",
-                from_=parse_date("2019-12-27"),
-                to=parse_date("2019-12-27"),
+                from_="from",
+                to="to",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

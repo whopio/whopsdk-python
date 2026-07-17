@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import date
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
@@ -13,11 +11,17 @@ __all__ = ["StatRetrieveParams"]
 
 
 class StatRetrieveParams(TypedDict, total=False):
-    from_: Required[Annotated[Union[str, date], PropertyInfo(alias="from", format="iso8601")]]
-    """Start of the date range (YYYY-MM-DD)."""
+    from_: Required[Annotated[str, PropertyInfo(alias="from")]]
+    """
+    Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or
+    an ISO 8601 timestamp (for example 2026-07-16T16:37:00Z), used exactly.
+    """
 
-    to: Required[Annotated[Union[str, date], PropertyInfo(format="iso8601")]]
-    """End of the date range (YYYY-MM-DD)."""
+    to: Required[str]
+    """
+    End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an
+    ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly.
+    """
 
     access_level: str
     """Filter to a single access level.
