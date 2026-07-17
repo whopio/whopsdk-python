@@ -24,6 +24,12 @@ __all__ = ["DepositsResource", "AsyncDepositsResource"]
 
 
 class DepositsResource(SyncAPIResource):
+    """
+    Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+    Use the Deposits API to create deposit instructions for an account.
+    """
+
     @cached_property
     def with_raw_response(self) -> DepositsResourceWithRawResponse:
         """
@@ -46,8 +52,8 @@ class DepositsResource(SyncAPIResource):
     def create(
         self,
         *,
-        amount: float,
         destination: deposit_create_params.Destination,
+        amount: float | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         network: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -59,17 +65,19 @@ class DepositsResource(SyncAPIResource):
     ) -> DepositCreateResponse:
         """
         Resolves a deposit destination and returns the on-chain addresses that can fund
-        it.
+        it. No authentication is required; any business can be resolved by its account
+        ID. A caller authenticated as a user can additionally resolve their own user
+        account.
 
         Args:
-          amount: Amount to deposit.
-
           destination: Destination account ID or wallet address. Object form is supported for
               compatibility.
 
-          metadata: Arbitrary metadata echoed in the response.
+          amount: Amount to prefill on hosted deposit page.
 
-          network: Optional destination network override.
+          metadata: Metadata to include with the deposit response.
+
+          network: Destination network override.
 
           extra_headers: Send extra headers
 
@@ -83,8 +91,8 @@ class DepositsResource(SyncAPIResource):
             "/deposits",
             body=maybe_transform(
                 {
-                    "amount": amount,
                     "destination": destination,
+                    "amount": amount,
                     "metadata": metadata,
                     "network": network,
                 },
@@ -98,6 +106,12 @@ class DepositsResource(SyncAPIResource):
 
 
 class AsyncDepositsResource(AsyncAPIResource):
+    """
+    Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+    Use the Deposits API to create deposit instructions for an account.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncDepositsResourceWithRawResponse:
         """
@@ -120,8 +134,8 @@ class AsyncDepositsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        amount: float,
         destination: deposit_create_params.Destination,
+        amount: float | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         network: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -133,17 +147,19 @@ class AsyncDepositsResource(AsyncAPIResource):
     ) -> DepositCreateResponse:
         """
         Resolves a deposit destination and returns the on-chain addresses that can fund
-        it.
+        it. No authentication is required; any business can be resolved by its account
+        ID. A caller authenticated as a user can additionally resolve their own user
+        account.
 
         Args:
-          amount: Amount to deposit.
-
           destination: Destination account ID or wallet address. Object form is supported for
               compatibility.
 
-          metadata: Arbitrary metadata echoed in the response.
+          amount: Amount to prefill on hosted deposit page.
 
-          network: Optional destination network override.
+          metadata: Metadata to include with the deposit response.
+
+          network: Destination network override.
 
           extra_headers: Send extra headers
 
@@ -157,8 +173,8 @@ class AsyncDepositsResource(AsyncAPIResource):
             "/deposits",
             body=await async_maybe_transform(
                 {
-                    "amount": amount,
                     "destination": destination,
+                    "amount": amount,
                     "metadata": metadata,
                     "network": network,
                 },
