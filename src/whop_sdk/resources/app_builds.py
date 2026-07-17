@@ -59,6 +59,7 @@ class AppBuildsResource(SyncAPIResource):
         platform: AppBuildPlatforms,
         ai_prompt_id: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
+        source_attachment: Optional[app_build_create_params.SourceAttachment] | Omit = omit,
         supported_app_view_types: Optional[List[AppViewType]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -91,6 +92,9 @@ class AppBuildsResource(SyncAPIResource):
           app_id: The unique identifier of the app to create the build for. Defaults to the app
               associated with the current API key.
 
+          source_attachment: An optional compressed archive (.zip or .gz) of the source code that produced
+              this build, stored alongside the build so it can be downloaded later.
+
           supported_app_view_types: The view types this build supports. A build can support multiple view types but
               should only list the ones its code implements.
 
@@ -111,6 +115,7 @@ class AppBuildsResource(SyncAPIResource):
                     "platform": platform,
                     "ai_prompt_id": ai_prompt_id,
                     "app_id": app_id,
+                    "source_attachment": source_attachment,
                     "supported_app_view_types": supported_app_view_types,
                 },
                 app_build_create_params.AppBuildCreateParams,
@@ -307,6 +312,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         platform: AppBuildPlatforms,
         ai_prompt_id: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
+        source_attachment: Optional[app_build_create_params.SourceAttachment] | Omit = omit,
         supported_app_view_types: Optional[List[AppViewType]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -339,6 +345,9 @@ class AsyncAppBuildsResource(AsyncAPIResource):
           app_id: The unique identifier of the app to create the build for. Defaults to the app
               associated with the current API key.
 
+          source_attachment: An optional compressed archive (.zip or .gz) of the source code that produced
+              this build, stored alongside the build so it can be downloaded later.
+
           supported_app_view_types: The view types this build supports. A build can support multiple view types but
               should only list the ones its code implements.
 
@@ -359,6 +368,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
                     "platform": platform,
                     "ai_prompt_id": ai_prompt_id,
                     "app_id": app_id,
+                    "source_attachment": source_attachment,
                     "supported_app_view_types": supported_app_view_types,
                 },
                 app_build_create_params.AppBuildCreateParams,
