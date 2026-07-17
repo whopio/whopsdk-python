@@ -22,6 +22,9 @@ class MethodsBankCurrency(BaseModel):
     currency: str
     """Currency supported by these bank instructions."""
 
+    deposit_bank_address: Optional[str] = None
+    """Receiving bank address."""
+
     deposit_bank_name: Optional[str] = None
     """Receiving bank name."""
 
@@ -36,6 +39,9 @@ class MethodsBankCurrency(BaseModel):
 
     routing_number: Optional[str] = None
     """Bank routing number for deposits in this currency."""
+
+    swift_bic: Optional[str] = None
+    """SWIFT/BIC code for international wires, when available."""
 
 
 class MethodsBank(BaseModel):
