@@ -97,7 +97,7 @@ class StatRetrieveParams(TypedDict, total=False):
     list fee_type.
     """
 
-    interval: Literal["hour", "day", "week", "month", "year"]
+    interval: Literal["five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"]
     """How wide each point is. Defaults to day. Snapshot metrics are day-only."""
 
     most_recent_action: str
