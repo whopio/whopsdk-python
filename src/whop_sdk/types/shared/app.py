@@ -90,6 +90,12 @@ class ProductionWebBuild(BaseModel):
     file_url: str
     """A URL to download the app build as a .zip archive."""
 
+    source_url: Optional[str] = None
+    """A URL to download the compressed source code archive that produced this build.
+
+    Null if the build was uploaded without a source archive.
+    """
+
     status: AppBuildStatuses
     """The current review status of this build."""
 
