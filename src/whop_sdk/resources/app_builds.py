@@ -30,8 +30,6 @@ __all__ = ["AppBuildsResource", "AsyncAppBuildsResource"]
 
 
 class AppBuildsResource(SyncAPIResource):
-    """App builds"""
-
     @cached_property
     def with_raw_response(self) -> AppBuildsResourceWithRawResponse:
         """
@@ -79,7 +77,7 @@ class AppBuildsResource(SyncAPIResource):
         Args:
           attachment: The build file to upload. For iOS and Android, this should be a .zip archive
               containing a main_js_bundle.hbc file and an optional assets folder. For web,
-              this should be a JavaScript file.
+              this should be a JavaScript file or a .zip archive of the hosted site.
 
           checksum: A client-generated checksum of the build file, used to verify file integrity
               when unpacked on a device.
@@ -278,8 +276,6 @@ class AppBuildsResource(SyncAPIResource):
 
 
 class AsyncAppBuildsResource(AsyncAPIResource):
-    """App builds"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAppBuildsResourceWithRawResponse:
         """
@@ -327,7 +323,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         Args:
           attachment: The build file to upload. For iOS and Android, this should be a .zip archive
               containing a main_js_bundle.hbc file and an optional assets folder. For web,
-              this should be a JavaScript file.
+              this should be a JavaScript file or a .zip archive of the hosted site.
 
           checksum: A client-generated checksum of the build file, used to verify file integrity
               when unpacked on a device.
