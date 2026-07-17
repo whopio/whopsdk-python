@@ -62,10 +62,19 @@ class BountiesResource(SyncAPIResource):
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         business_goal_type: Optional[
-            Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+            Literal[
+                "clipping",
+                "post_engagement",
+                "owned_account_growth",
+                "ugc_content",
+                "local_activation",
+                "data_capture",
+                "other",
+            ]
         ]
         | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
+        minimum_total_verified_clip_duration_seconds: Optional[int] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
         post_title: Optional[str] | Omit = omit,
@@ -109,6 +118,9 @@ class BountiesResource(SyncAPIResource):
 
           experience_id: An optional experience to scope the bounty to.
 
+          minimum_total_verified_clip_duration_seconds: Data capture bounties only: the minimum total server-verified clip duration in
+              seconds. Defaults to 3600 and must be a whole number of hours between 1 and 12.
+
           origin_account_id: The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
               Defaults to the requester's personal balance when omitted. The requester must be
               the user themself or an owner/admin of the company.
@@ -147,6 +159,7 @@ class BountiesResource(SyncAPIResource):
                     "allowed_country_codes": allowed_country_codes,
                     "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
+                    "minimum_total_verified_clip_duration_seconds": minimum_total_verified_clip_duration_seconds,
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
                     "post_title": post_title,
@@ -299,10 +312,19 @@ class AsyncBountiesResource(AsyncAPIResource):
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         business_goal_type: Optional[
-            Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+            Literal[
+                "clipping",
+                "post_engagement",
+                "owned_account_growth",
+                "ugc_content",
+                "local_activation",
+                "data_capture",
+                "other",
+            ]
         ]
         | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
+        minimum_total_verified_clip_duration_seconds: Optional[int] | Omit = omit,
         origin_account_id: Optional[str] | Omit = omit,
         post_markdown_content: Optional[str] | Omit = omit,
         post_title: Optional[str] | Omit = omit,
@@ -346,6 +368,9 @@ class AsyncBountiesResource(AsyncAPIResource):
 
           experience_id: An optional experience to scope the bounty to.
 
+          minimum_total_verified_clip_duration_seconds: Data capture bounties only: the minimum total server-verified clip duration in
+              seconds. Defaults to 3600 and must be a whole number of hours between 1 and 12.
+
           origin_account_id: The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
               Defaults to the requester's personal balance when omitted. The requester must be
               the user themself or an owner/admin of the company.
@@ -384,6 +409,7 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "allowed_country_codes": allowed_country_codes,
                     "business_goal_type": business_goal_type,
                     "experience_id": experience_id,
+                    "minimum_total_verified_clip_duration_seconds": minimum_total_verified_clip_duration_seconds,
                     "origin_account_id": origin_account_id,
                     "post_markdown_content": post_markdown_content,
                     "post_title": post_title,

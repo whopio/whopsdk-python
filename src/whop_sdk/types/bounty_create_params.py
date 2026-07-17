@@ -44,7 +44,15 @@ class BountyCreateParams(TypedDict, total=False):
     """
 
     business_goal_type: Optional[
-        Literal["clipping", "post_engagement", "owned_account_growth", "ugc_content", "local_activation", "other"]
+        Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
     ]
     """What the poster is trying to accomplish with a workforce bounty.
 
@@ -54,6 +62,12 @@ class BountyCreateParams(TypedDict, total=False):
 
     experience_id: Optional[str]
     """An optional experience to scope the bounty to."""
+
+    minimum_total_verified_clip_duration_seconds: Optional[int]
+    """
+    Data capture bounties only: the minimum total server-verified clip duration in
+    seconds. Defaults to 3600 and must be a whole number of hours between 1 and 12.
+    """
 
     origin_account_id: Optional[str]
     """The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
