@@ -26,7 +26,7 @@ class Issue(BaseModel):
 
 class AdCampaign(BaseModel):
     id: str
-    """Unique identifier for the ad campaign."""
+    """Unique identifier for the ad campaign, prefixed `adcamp_`."""
 
     added_to_cart_value: float
     """USD value attributed to add-to-cart events.
@@ -39,19 +39,29 @@ class AdCampaign(BaseModel):
     """Whop pixel-attributed add-to-cart events, last-click."""
 
     bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
-    """The bidding strategy the campaign uses."""
+    """
+    How delivery bids in the ad auction: `minimum_cost` gets the most results for
+    the budget, `average_target` holds an average cost per result, and
+    `maximum_target` never bids above a cap.
+    """
 
     budget_amount: Optional[float] = None
-    """The campaign budget in USD.
+    """The campaign's budget, in the ad account's currency.
 
-    Null when budget is set at the ad group level (ABO).
+    `null` when each ad group sets its own budget instead.
     """
 
     budget_optimization: Optional[Literal["ad_campaign", "ad_group"]] = None
-    """Which level owns the budget — the campaign (CBO) or each ad group (ABO)."""
+    """
+    Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group
+    individually (`ad_group`).
+    """
 
     budget_type: Optional[Literal["daily", "lifetime"]] = None
-    """Whether the budget is spent per day or over the campaign's lifetime."""
+    """
+    Whether `budget_amount` is spent per day (`daily`) or over the campaign's full
+    run (`lifetime`).
+    """
 
     click_through_rate: float
     """Clicks divided by impressions, between 0 and 1."""
@@ -150,19 +160,17 @@ class AdCampaign(BaseModel):
 
     custom_event_counts: object
     """
-    Whop pixel-attributed custom conversions broken out by merchant-defined event
-    name, last-click, as a { event_name => count } map over the stats window. Empty
-    when no named custom events are attributed. Custom events fired without a name
-    are counted in custom_conversions but omitted here, so these values sum to at
-    most custom_conversions.
+    Whop pixel-attributed custom conversions, keyed by your event name with its
+    last-click count as the value. Empty when no named custom events are attributed.
+    Custom events fired without a name are counted in custom_conversions but omitted
+    here, so these values sum to at most custom_conversions.
     """
 
     custom_event_values: object
     """
-    The conversion value attributed to each merchant-defined custom event name, as a
-    { event_name => value } map paralleling custom_event_counts. Sums the value
-    passed to whop.track, normalized to USD; events fired without a value
-    contribute 0.
+    Conversion value attributed to each custom event, keyed by event name like
+    custom_event_counts. Sums the value passed to whop.track, normalized to USD;
+    events fired without a value contribute 0.
     """
 
     delivery_status: Literal[
@@ -179,7 +187,7 @@ class AdCampaign(BaseModel):
         "ad_groups_off",
         "active",
     ]
-    """The current delivery state, mirroring the Delivery column in the ads dashboard.
+    """Whether the campaign's ads are delivering right now, and if not, why.
 
     When several states apply at once, the highest-precedence one is returned.
     """
@@ -206,10 +214,9 @@ class AdCampaign(BaseModel):
     """The goal the campaign optimizes toward."""
 
     optimization_goal: Optional[str] = None
-    """The specific event the campaign optimizes for.
+    """The event the campaign optimizes for when a single goal is set campaign-wide.
 
-    If the campaign is CBO, then all ad groups will have the same optimization goal,
-    which will be returned here.
+    `null` when each ad group sets its own optimization_goal.
     """
 
     platform: Literal["meta"]
@@ -307,7 +314,7 @@ class AdCampaign(BaseModel):
     """Whop pixel-attributed submit-application events, last-click."""
 
     title: str
-    """The title of the ad campaign."""
+    """Display name of the ad campaign."""
 
     unique_click_through_rate: Optional[float] = None
     """Unique clicks divided by impressions, between 0 and 1."""

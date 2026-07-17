@@ -5,21 +5,143 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AdGroup", "AdCampaign", "Issue"]
+__all__ = [
+    "AdGroup",
+    "AdCampaign",
+    "Audiences",
+    "Demographics",
+    "DetailedTargeting",
+    "DetailedTargetingBehavior",
+    "DetailedTargetingDemographic",
+    "DetailedTargetingInterest",
+    "Devices",
+    "DevicesOperatingSystem",
+    "FrequencyCap",
+    "Issue",
+    "Placement",
+    "Regions",
+    "RegionsExclude",
+    "RegionsExcludeCity",
+    "RegionsExcludeCustomLocation",
+    "RegionsInclude",
+    "RegionsIncludeCity",
+    "RegionsIncludeCustomLocation",
+]
 
 
 class AdCampaign(BaseModel):
-    """The ad campaign this ad group belongs to, an object with an id."""
+    """The ad campaign this ad group belongs to."""
 
     id: str
     """The referenced entity's id."""
 
 
-class Issue(BaseModel):
-    """Open issues affecting this ad group and its descendant ads.
+class Audiences(BaseModel):
+    """Saved audiences this ad group delivers to or excludes."""
 
-    Empty when there are none.
+    exclude: List[str]
+
+    include: List[str]
+
+
+class Demographics(BaseModel):
+    """Age, gender, and automatic-audience targeting."""
+
+    automatic: bool
+    """Whether automatic audience targeting is on (Advantage+ on Meta).
+
+    When `true`, the platform can deliver beyond the ages, genders, and detailed
+    targeting you set, treating them as suggestions.
     """
+
+    gender: Literal["all", "male", "female"]
+    """Gender targeted."""
+
+    maximum_age: Optional[float] = None
+    """Oldest age targeted. `null` when no maximum is set."""
+
+    minimum_age: Optional[float] = None
+    """Youngest age targeted. `null` when no minimum is set."""
+
+
+class DetailedTargetingBehavior(BaseModel):
+    """Behavior categories targeted, such as frequent travelers."""
+
+    id: str
+    """The ad platform's ID for the category in its targeting taxonomy."""
+
+    name: Optional[str] = None
+    """Category name, such as `Movies`."""
+
+
+class DetailedTargetingDemographic(BaseModel):
+    """Demographic categories targeted, such as life events or industries."""
+
+    id: str
+    """The ad platform's ID for the category in its targeting taxonomy."""
+
+    type: Literal["life_events", "industries", "income", "family_statuses"]
+    """Kind of demographic the category belongs to."""
+
+    name: Optional[str] = None
+    """Category name, such as `Recently moved`."""
+
+
+class DetailedTargetingInterest(BaseModel):
+    """Interest categories targeted, such as an interest in movies."""
+
+    id: str
+    """The ad platform's ID for the category in its targeting taxonomy."""
+
+    name: Optional[str] = None
+    """Category name, such as `Movies`."""
+
+
+class DetailedTargeting(BaseModel):
+    """
+    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Can't be combined with automatic audience targeting, and unavailable to campaigns with special_ad_categories.
+    """
+
+    behaviors: List[DetailedTargetingBehavior]
+
+    demographics: List[DetailedTargetingDemographic]
+
+    interests: List[DetailedTargetingInterest]
+
+
+class DevicesOperatingSystem(BaseModel):
+    """Operating systems targeted. Empty targets all operating systems."""
+
+    os: Literal["ios", "android"]
+    """Operating system targeted."""
+
+    minimum_version: Optional[str] = None
+    """Lowest OS version targeted, such as `18.0`. Absent when any version qualifies."""
+
+
+class Devices(BaseModel):
+    """Device platforms and operating systems targeted."""
+
+    operating_systems: List[DevicesOperatingSystem]
+
+    platforms: List[Literal["mobile", "desktop"]]
+
+
+class FrequencyCap(BaseModel):
+    """Cap on how often one person sees ads from this ad group.
+
+    Only available with `reach` optimization; `null` when uncapped.
+    """
+
+    maximum_impressions: float
+    """Most times one person can be shown ads from this ad group within the window."""
+
+    per_days: Optional[float] = None
+    """Length of the rolling window, in days."""
+
+
+class Issue(BaseModel):
+    """Open issues affecting this ad group and its ads. Empty when there are none."""
 
     id: str
     """Unique identifier for the issue."""
@@ -34,12 +156,133 @@ class Issue(BaseModel):
     """The type of resource the issue is attached to."""
 
 
+class Placement(BaseModel):
+    """Where ads can appear, per platform.
+
+    Empty when placements are chosen automatically.
+    """
+
+    platform: str
+    """
+    Platform the ads run on: `facebook`, `instagram`, `messenger`,
+    `audience_network`, `threads`, or `whatsapp`.
+    """
+
+    positions: List[str]
+
+
+class RegionsExcludeCity(BaseModel):
+    """Cities, keyed by the ad platform's location taxonomy."""
+
+    key: str
+    """The ad platform's key for the city in its location taxonomy."""
+
+    name: Optional[str] = None
+    """City name, such as `Austin`. Absent when the platform doesn't return one."""
+
+
+class RegionsExcludeCustomLocation(BaseModel):
+    """Circular areas, each a coordinate plus a radius."""
+
+    distance_unit: Literal["mile", "kilometer"]
+    """Unit for `radius`."""
+
+    latitude: float
+    """Latitude of the center point."""
+
+    longitude: float
+    """Longitude of the center point."""
+
+    radius: float
+    """Radius around the center point, in `distance_unit`."""
+
+    name: Optional[str] = None
+    """Label for the location, such as a city or address.
+
+    Absent when the location has no label.
+    """
+
+
+class RegionsExclude(BaseModel):
+    """Locations excluded from targeting. Country groups can't be excluded."""
+
+    cities: List[RegionsExcludeCity]
+
+    countries: List[str]
+
+    country_groups: List[str]
+
+    custom_locations: List[RegionsExcludeCustomLocation]
+
+    regions: List[str]
+
+    zips: List[str]
+
+
+class RegionsIncludeCity(BaseModel):
+    """Cities, keyed by the ad platform's location taxonomy."""
+
+    key: str
+    """The ad platform's key for the city in its location taxonomy."""
+
+    name: Optional[str] = None
+    """City name, such as `Austin`. Absent when the platform doesn't return one."""
+
+
+class RegionsIncludeCustomLocation(BaseModel):
+    """Circular areas, each a coordinate plus a radius."""
+
+    distance_unit: Literal["mile", "kilometer"]
+    """Unit for `radius`."""
+
+    latitude: float
+    """Latitude of the center point."""
+
+    longitude: float
+    """Longitude of the center point."""
+
+    radius: float
+    """Radius around the center point, in `distance_unit`."""
+
+    name: Optional[str] = None
+    """Label for the location, such as a city or address.
+
+    Absent when the location has no label.
+    """
+
+
+class RegionsInclude(BaseModel):
+    """Locations the ad group targets."""
+
+    cities: List[RegionsIncludeCity]
+
+    countries: List[str]
+
+    country_groups: List[str]
+
+    custom_locations: List[RegionsIncludeCustomLocation]
+
+    regions: List[str]
+
+    zips: List[str]
+
+
+class Regions(BaseModel):
+    """Locations targeted and excluded."""
+
+    exclude: RegionsExclude
+    """Locations excluded from targeting. Country groups can't be excluded."""
+
+    include: RegionsInclude
+    """Locations the ad group targets."""
+
+
 class AdGroup(BaseModel):
     id: str
-    """Unique identifier for the ad group."""
+    """Unique identifier for the ad group, prefixed `adgrp_`."""
 
     ad_campaign: AdCampaign
-    """The ad campaign this ad group belongs to, an object with an id."""
+    """The ad campaign this ad group belongs to."""
 
     added_to_cart_value: float
     """USD value attributed to add-to-cart events.
@@ -51,17 +294,27 @@ class AdGroup(BaseModel):
     added_to_carts: float
     """Whop pixel-attributed add-to-cart events, last-click."""
 
-    audiences: object
-    """Saved-audience targeting: { include, exclude } arrays of audience IDs."""
+    audiences: Audiences
+    """Saved audiences this ad group delivers to or excludes."""
 
     bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
-    """Bid strategy."""
+    """
+    How delivery bids in the ad auction: `minimum_cost` gets the most results for
+    the budget, `average_target` keeps the average cost per result near
+    `desired_cost_per_result`, and `maximum_target` never bids above it.
+    """
 
     budget_amount: Optional[float] = None
-    """Ad-set budget; null when the campaign owns budget (CBO)."""
+    """This ad group's budget, in the ad account's currency.
+
+    `null` when the budget is set on the campaign instead.
+    """
 
     budget_type: Optional[Literal["daily", "lifetime"]] = None
-    """Whether the budget is daily or lifetime."""
+    """
+    Whether `budget_amount` is spent per day (`daily`) or over the ad group's full
+    run (`lifetime`).
+    """
 
     click_through_rate: float
     """Clicks divided by impressions, between 0 and 1."""
@@ -128,9 +381,10 @@ class AdGroup(BaseModel):
         ]
     ] = None
     """
-    Where results happen: website, profile (IG/FB), messaging (DM), on_ad
-    (engagement), or the lead destinations (instant_forms,
-    instant_forms_and_messenger, website_and_instant_forms).
+    Where the result you're optimizing for happens: `website` (your site), `profile`
+    (your social media profile), `messaging` (a direct-message conversation),
+    `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
+    `instant_forms_and_messenger`, `website_and_instant_forms`).
     """
 
     cost_per_added_to_cart: Optional[float] = None
@@ -194,7 +448,7 @@ class AdGroup(BaseModel):
     """
 
     created_at: str
-    """When the ad group was created, ISO 8601."""
+    """When the ad group was created, as an ISO 8601 timestamp."""
 
     custom_conversions: float
     """
@@ -204,19 +458,17 @@ class AdGroup(BaseModel):
 
     custom_event_counts: object
     """
-    Whop pixel-attributed custom conversions broken out by merchant-defined event
-    name, last-click, as a { event_name => count } map over the stats window. Empty
-    when no named custom events are attributed. Custom events fired without a name
-    are counted in custom_conversions but omitted here, so these values sum to at
-    most custom_conversions.
+    Whop pixel-attributed custom conversions, keyed by your event name with its
+    last-click count as the value. Empty when no named custom events are attributed.
+    Custom events fired without a name are counted in custom_conversions but omitted
+    here, so these values sum to at most custom_conversions.
     """
 
     custom_event_values: object
     """
-    The conversion value attributed to each merchant-defined custom event name, as a
-    { event_name => value } map paralleling custom_event_counts. Sums the value
-    passed to whop.track, normalized to USD; events fired without a value
-    contribute 0.
+    Conversion value attributed to each custom event, keyed by event name like
+    custom_event_counts. Sums the value passed to whop.track, normalized to USD;
+    events fired without a value contribute 0.
     """
 
     delivery_status: Literal[
@@ -235,42 +487,51 @@ class AdGroup(BaseModel):
         "learning",
         "active",
     ]
-    """The current delivery state, mirroring the Delivery column in the ads dashboard.
+    """Whether ads in this ad group are delivering right now, and if not, why.
 
     When several states apply at once, the highest-precedence one is returned.
     """
 
-    demographics: object
-    """Demographic targeting: automatic (Advantage+), age range, gender."""
+    demographics: Demographics
+    """Age, gender, and automatic-audience targeting."""
 
     desired_cost_per_result: Optional[float] = None
-    """Target/cap cost for average_target / maximum_target."""
+    """Cost per result to aim for (`average_target`) or never exceed
+    (`maximum_target`).
 
-    detailed_targeting: object
-    """
-    Detailed targeting: { interests: [{id, name}], behaviors: [{id, name}],
-    demographics: [{id, name, type}] } where demographics type is one of
-    life_events, industries, income, family_statuses. Incompatible with
-    demographics.automatic (Advantage+) and Special Ad Category campaigns.
+    `null` for `minimum_cost` bidding.
     """
 
-    devices: object
-    """Device targeting: platforms and operating systems."""
+    detailed_targeting: DetailedTargeting
+    """
+    Interest, behavior, and demographic targeting, using categories from the ad
+    platform's targeting taxonomy. Can't be combined with automatic audience
+    targeting, and unavailable to campaigns with special_ad_categories.
+    """
+
+    devices: Devices
+    """Device platforms and operating systems targeted."""
 
     dynamic_creative: bool
     """
-    Whether ads within this ad group have their creatives and copy dynamically AB
-    tested.
+    Whether the ad platform automatically mixes and matches this ad group's
+    creatives and copy to find the best-performing combinations.
     """
 
     ends_at: Optional[str] = None
-    """Schedule end, ISO 8601."""
+    """When the ad group stops delivering, as an ISO 8601 timestamp.
+
+    `null` when it runs until paused.
+    """
 
     frequency: Optional[float] = None
     """Platform-reported impressions divided by reach."""
 
-    frequency_cap: Optional[object] = None
-    """Impression cap; only valid for reach optimization."""
+    frequency_cap: Optional[FrequencyCap] = None
+    """Cap on how often one person sees ads from this ad group.
+
+    Only available with `reach` optimization; `null` when uncapped.
+    """
 
     impressions: float
     """The number of impressions."""
@@ -289,15 +550,36 @@ class AdGroup(BaseModel):
     leads: float
     """Whop pixel-attributed leads, last-click."""
 
-    message_apps: List[str]
+    message_apps: List[Literal["messenger", "instagram", "whatsapp"]]
 
     minimum_daily_spend: Optional[float] = None
-    """Daily spend floor within the budget."""
+    """Minimum the ad group tries to spend each day. `null` when no floor is set."""
 
-    optimization_goal: Optional[str] = None
-    """What the ad group optimizes for."""
+    optimization_goal: Optional[
+        Literal[
+            "conversions",
+            "link_clicks",
+            "landing_page_views",
+            "reach",
+            "impressions",
+            "engagement",
+            "conversations",
+            "video_views",
+            "two_second_views",
+            "page_likes",
+            "social_profile",
+            "ad_recall_lift",
+            "event_responses",
+            "reminders_set",
+            "lead_generation",
+            "quality_lead",
+            "value",
+            "profile_and_page_engagement",
+        ]
+    ] = None
+    """The result the ad group's delivery is optimized to get the most of."""
 
-    placements: List[object]
+    placements: List[Placement]
 
     purchase_value: float
     """USD value of pixel-attributed purchases."""
@@ -308,13 +590,8 @@ class AdGroup(BaseModel):
     reach: float
     """The number of unique people who saw this."""
 
-    regions: object
-    """
-    Geo targeting: include/exclude countries, country_groups (include-only Meta
-    groups like worldwide — global reach), regions (ISO 3166-2 states, e.g. US-CA),
-    cities, zips, and custom_locations (pin + radius: { latitude, longitude, radius,
-    distance_unit, name }).
-    """
+    regions: Regions
+    """Locations targeted and excluded."""
 
     result_event: Optional[
         Literal[
@@ -372,10 +649,16 @@ class AdGroup(BaseModel):
     """The ISO 4217 currency code of all monetary metrics."""
 
     starts_at: Optional[str] = None
-    """Schedule start, ISO 8601."""
+    """When the ad group starts delivering, as an ISO 8601 timestamp.
+
+    `null` when it starts as soon as it's active.
+    """
 
     status: Literal["active", "paused", "rejected"]
-    """Delivery status of the ad group."""
+    """Whether the ad group is enabled.
+
+    `active` and `paused` are set by you; `rejected` means it failed ad review.
+    """
 
     submitted_application_value: float
     """USD value attributed to submit-application events.
@@ -388,7 +671,7 @@ class AdGroup(BaseModel):
     """Whop pixel-attributed submit-application events, last-click."""
 
     title: Optional[str] = None
-    """The display title of the ad group."""
+    """Display name of the ad group."""
 
     unique_click_through_rate: Optional[float] = None
     """Unique clicks divided by impressions, between 0 and 1."""
@@ -397,7 +680,7 @@ class AdGroup(BaseModel):
     """The number of unique clicks."""
 
     updated_at: str
-    """When the ad group was last updated, ISO 8601."""
+    """When the ad group was last updated, as an ISO 8601 timestamp."""
 
     viewed_content_value: float
     """USD value attributed to view-content events.

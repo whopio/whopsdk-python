@@ -5,18 +5,36 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Ad", "AdCampaign", "AdGroup", "Creative", "CreativeCrop", "Issue"]
+__all__ = [
+    "Ad",
+    "AdCampaign",
+    "AdGroup",
+    "Creative",
+    "CreativeCrop",
+    "Issue",
+    "LeadForm",
+    "LeadFormCompletion",
+    "LeadFormDisclaimer",
+    "LeadFormDisclaimerCheckbox",
+    "LeadFormIntro",
+    "LeadFormPrivacyPolicy",
+    "LeadFormQuestion",
+    "LeadFormQuestionOption",
+    "LeadFormQuestionOptionLogic",
+    "MessagingConfig",
+    "SocialAccount",
+]
 
 
 class AdCampaign(BaseModel):
-    """The ad campaign this ad belongs to, an object with an id."""
+    """The ad campaign this ad belongs to."""
 
     id: str
     """The referenced entity's id."""
 
 
 class AdGroup(BaseModel):
-    """The ad group this ad belongs to, an object with an id."""
+    """The ad group this ad belongs to."""
 
     id: str
     """The referenced entity's id."""
@@ -82,15 +100,202 @@ class Issue(BaseModel):
     """The type of resource the issue is attached to."""
 
 
+class LeadFormCompletion(BaseModel):
+    """Screen shown after the form is submitted.
+
+    `null` when the form uses the default.
+    """
+
+    button_text: Optional[str] = None
+    """Text of the follow-up button."""
+
+    description: Optional[str] = None
+    """Body text under the headline."""
+
+    headline: Optional[str] = None
+    """Headline of the completion screen."""
+
+    url: Optional[str] = None
+    """Website the follow-up button opens. `null` when the screen has no button."""
+
+
+class LeadFormDisclaimerCheckbox(BaseModel):
+    """Consent checkboxes the person can tick. Empty when the disclaimer is text-only."""
+
+    checked_by_default: Optional[bool] = None
+    """Whether the checkbox starts ticked."""
+
+    key: Optional[str] = None
+    """Stable identifier consent responses are stored under."""
+
+    required: Optional[bool] = None
+    """Whether the checkbox must be ticked to submit the form."""
+
+    text: str
+    """Consent text next to the checkbox."""
+
+
+class LeadFormDisclaimer(BaseModel):
+    """Custom consent disclaimer shown before submission.
+
+    `null` when the form has none.
+    """
+
+    body: Optional[str] = None
+    """Disclaimer text."""
+
+    checkboxes: List[LeadFormDisclaimerCheckbox]
+
+    title: Optional[str] = None
+    """Disclaimer title."""
+
+
+class LeadFormIntro(BaseModel):
+    """Intro screen shown before the questions. `null` when the form has none."""
+
+    description: Optional[str] = None
+    """Body text under the headline."""
+
+    headline: Optional[str] = None
+    """Headline of the intro screen."""
+
+
+class LeadFormPrivacyPolicy(BaseModel):
+    """Your privacy policy, linked from the form. `null` when unset."""
+
+    link_text: Optional[str] = None
+    """Link text shown for the policy. `null` uses the platform default."""
+
+    url: str
+    """URL of your privacy policy."""
+
+
+class LeadFormQuestionOptionLogic(BaseModel):
+    """Where the form goes when this choice is selected.
+
+    Absent when the form just continues to the next question.
+    """
+
+    action: Literal["go_to_question", "submit_form", "close_form"]
+    """What happens when the choice is selected."""
+
+    target_end_page_index: Optional[float] = None
+    """Zero-based index of the ending screen to jump to."""
+
+    target_question_index: Optional[float] = None
+    """Zero-based index of the question to jump to, for `go_to_question`."""
+
+
+class LeadFormQuestionOption(BaseModel):
+    """Choices for `multiple_choice` questions. Absent for other formats."""
+
+    value: str
+    """Choice text shown to the person."""
+
+    key: Optional[str] = None
+    """Stable identifier the choice's answers are stored under.
+
+    Absent for simple choices.
+    """
+
+    logic: Optional[LeadFormQuestionOptionLogic] = None
+    """Where the form goes when this choice is selected.
+
+    Absent when the form just continues to the next question.
+    """
+
+
+class LeadFormQuestion(BaseModel):
+    """Questions on the form, in order."""
+
+    type: str
+    """
+    Question type: a standard prefill type such as `email`, `phone`, or `full_name`,
+    or `custom` for your own question.
+    """
+
+    format: Optional[str] = None
+    """
+    Answer format for `custom` questions: `short_answer`, `multiple_choice`, or
+    `appointment`. Absent otherwise.
+    """
+
+    label: Optional[str] = None
+    """Question text for `custom` questions. Absent for standard prefill questions."""
+
+    options: Optional[List[LeadFormQuestionOption]] = None
+
+
+class LeadForm(BaseModel):
+    """The instant lead form shown when someone taps this ad.
+
+    `null` when the ad group's conversion_location is not an instant-form destination.
+    """
+
+    completion: Optional[LeadFormCompletion] = None
+    """Screen shown after the form is submitted.
+
+    `null` when the form uses the default.
+    """
+
+    disclaimer: Optional[LeadFormDisclaimer] = None
+    """Custom consent disclaimer shown before submission.
+
+    `null` when the form has none.
+    """
+
+    form_type: Literal["more_volume", "higher_intent"]
+    """
+    `more_volume` is quickest to submit; `higher_intent` adds a confirmation step
+    before submission.
+    """
+
+    intro: Optional[LeadFormIntro] = None
+    """Intro screen shown before the questions. `null` when the form has none."""
+
+    name: Optional[str] = None
+    """Internal name of the form."""
+
+    phone_verification: bool
+    """Whether the phone number must be verified by SMS before submitting."""
+
+    privacy_policy: Optional[LeadFormPrivacyPolicy] = None
+    """Your privacy policy, linked from the form. `null` when unset."""
+
+    questions: List[LeadFormQuestion]
+
+
+class MessagingConfig(BaseModel):
+    """Welcome message for click-to-message ads, shown when the conversation opens.
+
+    `null` when the ad has none.
+    """
+
+    keyword: Optional[str] = None
+    """Suggested reply the person can tap to start the conversation."""
+
+    message: Optional[str] = None
+    """Greeting shown when the conversation opens."""
+
+
+class SocialAccount(BaseModel):
+    """
+    The social accounts the ad runs under — its Facebook page and Instagram profile — each referenced by ID, prefixed `sacc_`.
+    """
+
+    id: str
+    """The referenced entity's id."""
+
+
 class Ad(BaseModel):
     id: str
-    """Unique identifier for the ad."""
+    """Unique identifier for the ad, prefixed `ad_`."""
 
     ad_campaign: AdCampaign
-    """The ad campaign this ad belongs to, an object with an id."""
+    """The ad campaign this ad belongs to."""
 
     ad_group: AdGroup
-    """The ad group this ad belongs to, an object with an id."""
+    """The ad group this ad belongs to."""
 
     added_to_cart_value: float
     """USD value attributed to add-to-cart events.
@@ -238,19 +443,17 @@ class Ad(BaseModel):
 
     custom_event_counts: object
     """
-    Whop pixel-attributed custom conversions broken out by merchant-defined event
-    name, last-click, as a { event_name => count } map over the stats window. Empty
-    when no named custom events are attributed. Custom events fired without a name
-    are counted in custom_conversions but omitted here, so these values sum to at
-    most custom_conversions.
+    Whop pixel-attributed custom conversions, keyed by your event name with its
+    last-click count as the value. Empty when no named custom events are attributed.
+    Custom events fired without a name are counted in custom_conversions but omitted
+    here, so these values sum to at most custom_conversions.
     """
 
     custom_event_values: object
     """
-    The conversion value attributed to each merchant-defined custom event name, as a
-    { event_name => value } map paralleling custom_event_counts. Sums the value
-    passed to whop.track, normalized to USD; events fired without a value
-    contribute 0.
+    Conversion value attributed to each custom event, keyed by event name like
+    custom_event_counts. Sums the value passed to whop.track, normalized to USD;
+    events fired without a value contribute 0.
     """
 
     delivery_status: Literal[
@@ -266,7 +469,7 @@ class Ad(BaseModel):
         "learning",
         "active",
     ]
-    """The current delivery state, mirroring the Delivery column in the ads dashboard.
+    """Whether the ad is delivering right now, and if not, why.
 
     When several states apply at once, the highest-precedence one is returned.
     """
@@ -283,19 +486,18 @@ class Ad(BaseModel):
 
     issues: List[Issue]
 
-    lead_form: Optional[object] = None
-    """
-    The instant lead form on the ad (Meta lead ads), or null when the ad group's
-    conversion_location is not an instant-form destination. An object with name,
-    form_type (more_volume or higher_intent), an optional intro, questions, a
-    privacy_policy, an optional completion screen, and phone_verification.
+    lead_form: Optional[LeadForm] = None
+    """The instant lead form shown when someone taps this ad.
+
+    `null` when the ad group's conversion_location is not an instant-form
+    destination.
     """
 
     lead_form_id: Optional[str] = None
-    """The Meta lead form the ad uses.
+    """The ad platform's ID for the instant form the ad uses.
 
-    Set when the ad references an existing form via lead_form_id, or once a form
-    built from lead_form has been created on Meta at launch.
+    Set when the ad references an existing form via `lead_form_id`, or once a form
+    built from `lead_form` has been created on the platform.
     """
 
     lead_value: float
@@ -308,10 +510,10 @@ class Ad(BaseModel):
     leads: float
     """Whop pixel-attributed leads, last-click."""
 
-    messaging_config: Optional[object] = None
-    """
-    The click-to-message welcome copy, an object with message and keyword, or null
-    when the ad has none.
+    messaging_config: Optional[MessagingConfig] = None
+    """Welcome message for click-to-message ads, shown when the conversation opens.
+
+    `null` when the ad has none.
     """
 
     multi_advertiser_ads: bool
@@ -321,21 +523,21 @@ class Ad(BaseModel):
     """
 
     post_id: Optional[str] = None
-    """
-    The existing post this ad promotes (a Facebook post or Instagram media), or null
-    when it uses uploaded creatives.
+    """The existing post this ad promotes — a Facebook post or Instagram media ID.
+
+    `null` when the ad uses uploaded creatives.
     """
 
     post_source: Optional[Literal["facebook", "instagram"]] = None
     """
-    Which network post_id refers to — facebook (a page post) or instagram (a media
-    id) — or null when the ad uses uploaded creatives.
+    Which network `post_id` refers to: `facebook` (a page post) or `instagram` (a
+    media ID). `null` when the ad uses uploaded creatives.
     """
 
     post_thumbnail_url: Optional[str] = None
     """Preview image of the existing post this ad promotes.
 
-    Null for ads that use uploaded creatives, or until the post's media has been
+    `null` for ads that use uploaded creatives, or until the post's media has been
     fetched from the network.
     """
 
@@ -399,7 +601,7 @@ class Ad(BaseModel):
     schedules: float
     """Whop pixel-attributed schedule events, last-click."""
 
-    social_accounts: List[object]
+    social_accounts: List[SocialAccount]
 
     spend: float
     """The amount charged, in spend_currency."""
@@ -408,7 +610,11 @@ class Ad(BaseModel):
     """The ISO 4217 currency code of all monetary metrics."""
 
     status: Literal["active", "paused", "in_review", "rejected"]
-    """The delivery status of the ad."""
+    """Whether the ad is enabled.
+
+    `active` and `paused` are set by you; `in_review` and `rejected` come from ad
+    review.
+    """
 
     submitted_application_value: float
     """USD value attributed to submit-application events.
@@ -421,7 +627,7 @@ class Ad(BaseModel):
     """Whop pixel-attributed submit-application events, last-click."""
 
     title: Optional[str] = None
-    """The display title of the ad. Falls back to the creative set caption when unset."""
+    """Display title of the ad."""
 
     unique_click_through_rate: Optional[float] = None
     """Unique clicks divided by impressions, between 0 and 1."""
@@ -436,7 +642,7 @@ class Ad(BaseModel):
     """The URL the ad links to."""
 
     url_parameters: object
-    """Query parameters appended to the URL, as a string-to-string map."""
+    """Query parameters appended to the URL, keyed by parameter name."""
 
     viewed_content_value: float
     """USD value attributed to view-content events.

@@ -26,36 +26,42 @@ class AdCampaignCreateParams(TypedDict, total=False):
 
     bid_type: Literal["minimum_cost", "average_target", "maximum_target"]
     """
-    CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
-    maximum_target (bid cap). CBO only.
+    How delivery bids in the ad auction: `minimum_cost` gets the most results for
+    the budget, `average_target` holds an average cost per result, `maximum_target`
+    never bids above a cap. Only for campaigns that own the budget.
     """
 
     budget_amount: float
-    """The campaign budget, in USD.
+    """The campaign's budget, in the ad account's currency.
 
-    Required for CBO (budget_optimization: ad_campaign); omit for ABO.
+    Required when budget_optimization is `ad_campaign`; omit when each ad group sets
+    its own budget.
     """
 
     budget_optimization: Literal["ad_campaign", "ad_group"]
-    """Which level owns the budget — the campaign (CBO) or each ad group (ABO).
-
-    Defaults to ad_group.
+    """
+    Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group
+    individually (`ad_group`). Defaults to `ad_group`.
     """
 
     budget_type: Literal["daily", "lifetime"]
-    """Whether the budget is spent per day or over the campaign's lifetime.
-
-    Defaults to daily.
+    """
+    Whether the budget is spent per day (`daily`) or over the campaign's full run
+    (`lifetime`). Defaults to `daily`.
     """
 
     desired_cost_per_result: float
-    """Target/cap cost per result in USD for average_target / maximum_target bidding.
+    """Cost per result to aim for (`average_target`) or never exceed
+    (`maximum_target`).
 
-    CBO only.
+    Only for campaigns that own the budget.
     """
 
     ends_at: str
-    """Campaign schedule end (ISO 8601). CBO only."""
+    """When the campaign stops delivering, as an ISO 8601 timestamp.
+
+    Only for campaigns that own the budget.
+    """
 
     special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]]
     """Regulated categories the campaign falls under.
@@ -64,4 +70,7 @@ class AdCampaignCreateParams(TypedDict, total=False):
     """
 
     starts_at: str
-    """Campaign schedule start (ISO 8601). CBO only."""
+    """When the campaign starts delivering, as an ISO 8601 timestamp.
+
+    Only for campaigns that own the budget.
+    """

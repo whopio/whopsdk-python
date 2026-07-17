@@ -10,9 +10,10 @@ __all__ = ["AdCampaignUpdateParams"]
 class AdCampaignUpdateParams(TypedDict, total=False):
     bid_type: Literal["minimum_cost", "average_target", "maximum_target"]
     """
-    CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
-    maximum_target (bid cap). Switching to minimum_cost clears the cap amounts
-    stored on the campaign's ad groups. CBO only.
+    How delivery bids in the ad auction: `minimum_cost` gets the most results for
+    the budget, `average_target` holds an average cost per result, `maximum_target`
+    never bids above a cap. Switching to `minimum_cost` clears the cap amounts
+    stored on the campaign's ad groups. Only for campaigns that own the budget.
     """
 
     budget_amount: float
@@ -22,18 +23,24 @@ class AdCampaignUpdateParams(TypedDict, total=False):
     """
 
     budget_optimization: Literal["ad_campaign", "ad_group"]
-    """Which level owns the budget — the campaign (CBO) or each ad group (ABO).
-
-    Only changeable before the campaign is live on Meta; switching to ad_campaign
-    requires budget_amount in the same request, and switching to ad_group clears the
-    campaign budget.
+    """
+    Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group
+    individually (`ad_group`). Only changeable before the campaign is live on the ad
+    network; switching to `ad_campaign` requires budget_amount in the same request,
+    and switching to `ad_group` clears the campaign budget.
     """
 
     ends_at: str
-    """Campaign schedule end (ISO 8601). CBO only."""
+    """When the campaign stops delivering, as an ISO 8601 timestamp.
+
+    Only for campaigns that own the budget.
+    """
 
     starts_at: str
-    """Campaign schedule start (ISO 8601). CBO only."""
+    """When the campaign starts delivering, as an ISO 8601 timestamp.
+
+    Only for campaigns that own the budget.
+    """
 
     status: Literal["active"]
     """Set to active to launch a draft campaign (moderates and pushes it live).

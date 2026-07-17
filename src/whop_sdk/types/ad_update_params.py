@@ -75,7 +75,7 @@ class AdUpdateParams(TypedDict, total=False):
 
     lead_form_id: str
     """
-    Use an existing Meta instant form instead of creating one — the form's Meta id,
+    Use an existing instant form instead of creating one — the form's platform ID,
     from a form already on the ad's Facebook page. Only allowed when the ad group's
     conversion_location is an instant-form destination. Mutually exclusive with
     lead_form. Replaces a stored lead_form.
@@ -109,7 +109,10 @@ class AdUpdateParams(TypedDict, total=False):
     """The primary text variants shown in the ad body."""
 
     social_accounts: Iterable[SocialAccount]
-    """The social accounts the ad runs under."""
+    """
+    The social accounts the ad runs under — a connected Facebook page and,
+    optionally, an Instagram profile.
+    """
 
     title: str
     """The display name of the ad."""
@@ -118,7 +121,7 @@ class AdUpdateParams(TypedDict, total=False):
     """The URL the ad links to."""
 
     url_parameters: object
-    """Query parameters appended to the destination URL, as a string-to-string map."""
+    """Query parameters appended to the destination URL, keyed by parameter name."""
 
 
 class CreativeCrop(TypedDict, total=False):
@@ -138,6 +141,7 @@ class CreativeCrop(TypedDict, total=False):
 
 class Creative(TypedDict, total=False):
     id: str
+    """Uploaded file ID, prefixed `file_`."""
 
     crop: CreativeCrop
     """The saved crop window for this creative, in source image pixels.
@@ -191,7 +195,7 @@ class LeadFormIntro(TypedDict, total=False):
 
 
 class LeadFormPrivacyPolicy(TypedDict, total=False):
-    """Your privacy policy. url is required by Meta."""
+    """Your privacy policy. url is required by the ad platform."""
 
     link_text: str
 
@@ -277,7 +281,7 @@ class LeadForm(TypedDict, total=False):
     """Require SMS verification of the phone number (higher_intent forms)."""
 
     privacy_policy: LeadFormPrivacyPolicy
-    """Your privacy policy. url is required by Meta."""
+    """Your privacy policy. url is required by the ad platform."""
 
     questions: Iterable[LeadFormQuestion]
     """The questions on the form.
@@ -300,3 +304,4 @@ class MessagingConfig(TypedDict, total=False):
 
 class SocialAccount(TypedDict, total=False):
     id: str
+    """Social account ID, prefixed `sacc_`."""

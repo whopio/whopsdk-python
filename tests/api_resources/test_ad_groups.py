@@ -34,25 +34,107 @@ class TestAdGroups:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.create(
             ad_campaign_id="ad_campaign_id",
-            audiences={},
+            audiences={
+                "exclude": ["string"],
+                "include": ["string"],
+            },
             bid_type="minimum_cost",
             budget_amount=0,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
-            demographics={},
+            demographics={
+                "automatic": True,
+                "gender": "all",
+                "maximum_age": 0,
+                "minimum_age": 0,
+            },
             desired_cost_per_result=0,
-            detailed_targeting={},
-            devices={},
+            detailed_targeting={
+                "behaviors": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+                "demographics": [
+                    {
+                        "id": "id",
+                        "type": "life_events",
+                        "name": "name",
+                    }
+                ],
+                "interests": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+            },
+            devices={
+                "operating_systems": [
+                    {
+                        "os": "ios",
+                        "minimum_version": "minimum_version",
+                    }
+                ],
+                "platforms": ["mobile"],
+            },
             dynamic_creative=True,
             ends_at="ends_at",
-            frequency_cap={},
+            frequency_cap={
+                "maximum_impressions": 0,
+                "per_days": 0,
+            },
             languages=["string"],
             message_apps=["messenger"],
             minimum_daily_spend=0,
-            optimization_goal="optimization_goal",
-            placements={},
-            regions={},
+            optimization_goal="conversions",
+            placements="automatic",
+            regions={
+                "exclude": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+                "include": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+            },
             starts_at="starts_at",
             status="active",
             title="title",
@@ -151,24 +233,106 @@ class TestAdGroups:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.update(
             id="id",
-            audiences={},
+            audiences={
+                "exclude": ["string"],
+                "include": ["string"],
+            },
             bid_type="minimum_cost",
             budget_amount=0,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
-            demographics={},
+            demographics={
+                "automatic": True,
+                "gender": "all",
+                "maximum_age": 0,
+                "minimum_age": 0,
+            },
             desired_cost_per_result=0,
-            detailed_targeting={},
-            devices={},
+            detailed_targeting={
+                "behaviors": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+                "demographics": [
+                    {
+                        "id": "id",
+                        "type": "life_events",
+                        "name": "name",
+                    }
+                ],
+                "interests": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+            },
+            devices={
+                "operating_systems": [
+                    {
+                        "os": "ios",
+                        "minimum_version": "minimum_version",
+                    }
+                ],
+                "platforms": ["mobile"],
+            },
             ends_at="ends_at",
-            frequency_cap={},
+            frequency_cap={
+                "maximum_impressions": 0,
+                "per_days": 0,
+            },
             languages=["string"],
             message_apps=["messenger"],
             minimum_daily_spend=0,
-            optimization_goal="optimization_goal",
-            placements={},
-            regions={},
+            optimization_goal="conversions",
+            placements="automatic",
+            regions={
+                "exclude": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+                "include": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+            },
             starts_at="starts_at",
             status="active",
             title="title",
@@ -232,7 +396,7 @@ class TestAdGroups:
             query="query",
             stats_from="stats_from",
             stats_to="stats_to",
-            status="status",
+            status="active",
             time_zone="time_zone",
         )
         assert_matches_type(SyncCursorPage[AdGroup], ad_group, path=["response"])
@@ -404,25 +568,107 @@ class TestAsyncAdGroups:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.create(
             ad_campaign_id="ad_campaign_id",
-            audiences={},
+            audiences={
+                "exclude": ["string"],
+                "include": ["string"],
+            },
             bid_type="minimum_cost",
             budget_amount=0,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
-            demographics={},
+            demographics={
+                "automatic": True,
+                "gender": "all",
+                "maximum_age": 0,
+                "minimum_age": 0,
+            },
             desired_cost_per_result=0,
-            detailed_targeting={},
-            devices={},
+            detailed_targeting={
+                "behaviors": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+                "demographics": [
+                    {
+                        "id": "id",
+                        "type": "life_events",
+                        "name": "name",
+                    }
+                ],
+                "interests": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+            },
+            devices={
+                "operating_systems": [
+                    {
+                        "os": "ios",
+                        "minimum_version": "minimum_version",
+                    }
+                ],
+                "platforms": ["mobile"],
+            },
             dynamic_creative=True,
             ends_at="ends_at",
-            frequency_cap={},
+            frequency_cap={
+                "maximum_impressions": 0,
+                "per_days": 0,
+            },
             languages=["string"],
             message_apps=["messenger"],
             minimum_daily_spend=0,
-            optimization_goal="optimization_goal",
-            placements={},
-            regions={},
+            optimization_goal="conversions",
+            placements="automatic",
+            regions={
+                "exclude": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+                "include": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+            },
             starts_at="starts_at",
             status="active",
             title="title",
@@ -521,24 +767,106 @@ class TestAsyncAdGroups:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.update(
             id="id",
-            audiences={},
+            audiences={
+                "exclude": ["string"],
+                "include": ["string"],
+            },
             bid_type="minimum_cost",
             budget_amount=0,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
-            demographics={},
+            demographics={
+                "automatic": True,
+                "gender": "all",
+                "maximum_age": 0,
+                "minimum_age": 0,
+            },
             desired_cost_per_result=0,
-            detailed_targeting={},
-            devices={},
+            detailed_targeting={
+                "behaviors": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+                "demographics": [
+                    {
+                        "id": "id",
+                        "type": "life_events",
+                        "name": "name",
+                    }
+                ],
+                "interests": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+            },
+            devices={
+                "operating_systems": [
+                    {
+                        "os": "ios",
+                        "minimum_version": "minimum_version",
+                    }
+                ],
+                "platforms": ["mobile"],
+            },
             ends_at="ends_at",
-            frequency_cap={},
+            frequency_cap={
+                "maximum_impressions": 0,
+                "per_days": 0,
+            },
             languages=["string"],
             message_apps=["messenger"],
             minimum_daily_spend=0,
-            optimization_goal="optimization_goal",
-            placements={},
-            regions={},
+            optimization_goal="conversions",
+            placements="automatic",
+            regions={
+                "exclude": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+                "include": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+            },
             starts_at="starts_at",
             status="active",
             title="title",
@@ -602,7 +930,7 @@ class TestAsyncAdGroups:
             query="query",
             stats_from="stats_from",
             stats_to="stats_to",
-            status="status",
+            status="active",
             time_zone="time_zone",
         )
         assert_matches_type(AsyncCursorPage[AdGroup], ad_group, path=["response"])

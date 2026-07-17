@@ -127,7 +127,7 @@ class AdsResource(SyncAPIResource):
               instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
               lead_form_id.
 
-          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+          lead_form_id: Use an existing instant form instead of creating one — the form's platform ID,
               from a form already on the ad's Facebook page. Only allowed when the ad group's
               conversion_location is an instant-form destination. Mutually exclusive with
               lead_form.
@@ -146,13 +146,14 @@ class AdsResource(SyncAPIResource):
 
           primary_texts: The primary text variants shown in the ad body.
 
-          social_accounts: The social accounts (Facebook page, Instagram profile) the ad runs under.
+          social_accounts: The social accounts the ad runs under — a connected Facebook page and,
+              optionally, an Instagram profile.
 
           title: The display name of the ad.
 
           url: The URL the ad links to.
 
-          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+          url_parameters: Query parameters appended to the destination URL, keyed by parameter name.
 
           extra_headers: Send extra headers
 
@@ -314,7 +315,7 @@ class AdsResource(SyncAPIResource):
               instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
               lead_form_id.
 
-          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+          lead_form_id: Use an existing instant form instead of creating one — the form's platform ID,
               from a form already on the ad's Facebook page. Only allowed when the ad group's
               conversion_location is an instant-form destination. Mutually exclusive with
               lead_form. Replaces a stored lead_form.
@@ -333,13 +334,14 @@ class AdsResource(SyncAPIResource):
 
           primary_texts: The primary text variants shown in the ad body.
 
-          social_accounts: The social accounts the ad runs under.
+          social_accounts: The social accounts the ad runs under — a connected Facebook page and,
+              optionally, an Instagram profile.
 
           title: The display name of the ad.
 
           url: The URL the ad links to.
 
-          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+          url_parameters: Query parameters appended to the destination URL, keyed by parameter name.
 
           extra_headers: Send extra headers
 
@@ -705,7 +707,7 @@ class AsyncAdsResource(AsyncAPIResource):
               instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
               lead_form_id.
 
-          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+          lead_form_id: Use an existing instant form instead of creating one — the form's platform ID,
               from a form already on the ad's Facebook page. Only allowed when the ad group's
               conversion_location is an instant-form destination. Mutually exclusive with
               lead_form.
@@ -724,13 +726,14 @@ class AsyncAdsResource(AsyncAPIResource):
 
           primary_texts: The primary text variants shown in the ad body.
 
-          social_accounts: The social accounts (Facebook page, Instagram profile) the ad runs under.
+          social_accounts: The social accounts the ad runs under — a connected Facebook page and,
+              optionally, an Instagram profile.
 
           title: The display name of the ad.
 
           url: The URL the ad links to.
 
-          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+          url_parameters: Query parameters appended to the destination URL, keyed by parameter name.
 
           extra_headers: Send extra headers
 
@@ -892,7 +895,7 @@ class AsyncAdsResource(AsyncAPIResource):
               instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with
               lead_form_id.
 
-          lead_form_id: Use an existing Meta instant form instead of creating one — the form's Meta id,
+          lead_form_id: Use an existing instant form instead of creating one — the form's platform ID,
               from a form already on the ad's Facebook page. Only allowed when the ad group's
               conversion_location is an instant-form destination. Mutually exclusive with
               lead_form. Replaces a stored lead_form.
@@ -911,13 +914,14 @@ class AsyncAdsResource(AsyncAPIResource):
 
           primary_texts: The primary text variants shown in the ad body.
 
-          social_accounts: The social accounts the ad runs under.
+          social_accounts: The social accounts the ad runs under — a connected Facebook page and,
+              optionally, an Instagram profile.
 
           title: The display name of the ad.
 
           url: The URL the ad links to.
 
-          url_parameters: Query parameters appended to the destination URL, as a string-to-string map.
+          url_parameters: Query parameters appended to the destination URL, keyed by parameter name.
 
           extra_headers: Send extra headers
 

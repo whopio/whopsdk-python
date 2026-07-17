@@ -93,28 +93,31 @@ class AdCampaignsResource(SyncAPIResource):
           account_id: The account to create the campaign under. Defaults to the account-scoped key's
               own account.
 
-          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
-              maximum_target (bid cap). CBO only.
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` holds an average cost per result, `maximum_target`
+              never bids above a cap. Only for campaigns that own the budget.
 
-          budget_amount:
-              The campaign budget, in USD. Required for CBO (budget_optimization:
-              ad_campaign); omit for ABO.
+          budget_amount: The campaign's budget, in the ad account's currency. Required when
+              budget_optimization is `ad_campaign`; omit when each ad group sets its own
+              budget.
 
-          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO).
-              Defaults to ad_group.
+          budget_optimization: Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group
+              individually (`ad_group`). Defaults to `ad_group`.
 
-          budget_type: Whether the budget is spent per day or over the campaign's lifetime. Defaults to
-              daily.
+          budget_type: Whether the budget is spent per day (`daily`) or over the campaign's full run
+              (`lifetime`). Defaults to `daily`.
 
-          desired_cost_per_result: Target/cap cost per result in USD for average_target / maximum_target bidding.
-              CBO only.
+          desired_cost_per_result: Cost per result to aim for (`average_target`) or never exceed
+              (`maximum_target`). Only for campaigns that own the budget.
 
-          ends_at: Campaign schedule end (ISO 8601). CBO only.
+          ends_at: When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns
+              that own the budget.
 
           special_ad_categories: Regulated categories the campaign falls under. Ads in these categories are
               subject to extra targeting restrictions.
 
-          starts_at: Campaign schedule start (ISO 8601). CBO only.
+          starts_at: When the campaign starts delivering, as an ISO 8601 timestamp. Only for
+              campaigns that own the budget.
 
           extra_headers: Send extra headers
 
@@ -227,21 +230,24 @@ class AdCampaignsResource(SyncAPIResource):
         desired cost per result are fixed at creation and cannot be changed.
 
         Args:
-          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
-              maximum_target (bid cap). Switching to minimum_cost clears the cap amounts
-              stored on the campaign's ad groups. CBO only.
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` holds an average cost per result, `maximum_target`
+              never bids above a cap. Switching to `minimum_cost` clears the cap amounts
+              stored on the campaign's ad groups. Only for campaigns that own the budget.
 
           budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
               per the campaign's existing budget type.
 
-          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO). Only
-              changeable before the campaign is live on Meta; switching to ad_campaign
-              requires budget_amount in the same request, and switching to ad_group clears the
-              campaign budget.
+          budget_optimization: Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group
+              individually (`ad_group`). Only changeable before the campaign is live on the ad
+              network; switching to `ad_campaign` requires budget_amount in the same request,
+              and switching to `ad_group` clears the campaign budget.
 
-          ends_at: Campaign schedule end (ISO 8601). CBO only.
+          ends_at: When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns
+              that own the budget.
 
-          starts_at: Campaign schedule start (ISO 8601). CBO only.
+          starts_at: When the campaign starts delivering, as an ISO 8601 timestamp. Only for
+              campaigns that own the budget.
 
           status: Set to active to launch a draft campaign (moderates and pushes it live).
               Live-campaign pause and resume use the pause and unpause actions.
@@ -558,28 +564,31 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
           account_id: The account to create the campaign under. Defaults to the account-scoped key's
               own account.
 
-          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
-              maximum_target (bid cap). CBO only.
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` holds an average cost per result, `maximum_target`
+              never bids above a cap. Only for campaigns that own the budget.
 
-          budget_amount:
-              The campaign budget, in USD. Required for CBO (budget_optimization:
-              ad_campaign); omit for ABO.
+          budget_amount: The campaign's budget, in the ad account's currency. Required when
+              budget_optimization is `ad_campaign`; omit when each ad group sets its own
+              budget.
 
-          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO).
-              Defaults to ad_group.
+          budget_optimization: Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group
+              individually (`ad_group`). Defaults to `ad_group`.
 
-          budget_type: Whether the budget is spent per day or over the campaign's lifetime. Defaults to
-              daily.
+          budget_type: Whether the budget is spent per day (`daily`) or over the campaign's full run
+              (`lifetime`). Defaults to `daily`.
 
-          desired_cost_per_result: Target/cap cost per result in USD for average_target / maximum_target bidding.
-              CBO only.
+          desired_cost_per_result: Cost per result to aim for (`average_target`) or never exceed
+              (`maximum_target`). Only for campaigns that own the budget.
 
-          ends_at: Campaign schedule end (ISO 8601). CBO only.
+          ends_at: When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns
+              that own the budget.
 
           special_ad_categories: Regulated categories the campaign falls under. Ads in these categories are
               subject to extra targeting restrictions.
 
-          starts_at: Campaign schedule start (ISO 8601). CBO only.
+          starts_at: When the campaign starts delivering, as an ISO 8601 timestamp. Only for
+              campaigns that own the budget.
 
           extra_headers: Send extra headers
 
@@ -692,21 +701,24 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         desired cost per result are fixed at creation and cannot be changed.
 
         Args:
-          bid_type: CBO bid strategy: minimum_cost (lowest cost), average_target (cost cap), or
-              maximum_target (bid cap). Switching to minimum_cost clears the cap amounts
-              stored on the campaign's ad groups. CBO only.
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` holds an average cost per result, `maximum_target`
+              never bids above a cap. Switching to `minimum_cost` clears the cap amounts
+              stored on the campaign's ad groups. Only for campaigns that own the budget.
 
           budget_amount: The campaign budget, in the account's currency. Interpreted as daily or lifetime
               per the campaign's existing budget type.
 
-          budget_optimization: Which level owns the budget — the campaign (CBO) or each ad group (ABO). Only
-              changeable before the campaign is live on Meta; switching to ad_campaign
-              requires budget_amount in the same request, and switching to ad_group clears the
-              campaign budget.
+          budget_optimization: Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group
+              individually (`ad_group`). Only changeable before the campaign is live on the ad
+              network; switching to `ad_campaign` requires budget_amount in the same request,
+              and switching to `ad_group` clears the campaign budget.
 
-          ends_at: Campaign schedule end (ISO 8601). CBO only.
+          ends_at: When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns
+              that own the budget.
 
-          starts_at: Campaign schedule start (ISO 8601). CBO only.
+          starts_at: When the campaign starts delivering, as an ISO 8601 timestamp. Only for
+              campaigns that own the budget.
 
           status: Set to active to launch a draft campaign (moderates and pushes it live).
               Live-campaign pause and resume use the pause and unpause actions.

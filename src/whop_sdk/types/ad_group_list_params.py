@@ -68,8 +68,8 @@ class AdGroupListParams(TypedDict, total=False):
     stats_to: str
     """End of the stats window. Defaults to now."""
 
-    status: str
-    """Filter to a status (active, paused, in_review, rejected)."""
+    status: Literal["active", "paused", "rejected"]
+    """Filter to ad groups with this status."""
 
     time_zone: str
     """IANA timezone (e.g.
