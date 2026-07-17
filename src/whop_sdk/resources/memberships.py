@@ -37,8 +37,6 @@ __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
 
 class MembershipsResource(SyncAPIResource):
-    """Memberships"""
-
     @cached_property
     def with_raw_response(self) -> MembershipsResourceWithRawResponse:
         """
@@ -342,6 +340,7 @@ class MembershipsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        resumes_at: Union[str, datetime, None] | Omit = omit,
         void_payments: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -362,6 +361,9 @@ class MembershipsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
+          resumes_at: When the membership should automatically resume payment collection. If not
+              provided, the membership stays paused until manually resumed.
+
           void_payments: Whether to void any outstanding past-due payments on this membership, preventing
               future collection attempts.
 
@@ -377,7 +379,13 @@ class MembershipsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/memberships/{id}/pause", id=id),
-            body=maybe_transform({"void_payments": void_payments}, membership_pause_params.MembershipPauseParams),
+            body=maybe_transform(
+                {
+                    "resumes_at": resumes_at,
+                    "void_payments": void_payments,
+                },
+                membership_pause_params.MembershipPauseParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -467,8 +475,6 @@ class MembershipsResource(SyncAPIResource):
 
 
 class AsyncMembershipsResource(AsyncAPIResource):
-    """Memberships"""
-
     @cached_property
     def with_raw_response(self) -> AsyncMembershipsResourceWithRawResponse:
         """
@@ -774,6 +780,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        resumes_at: Union[str, datetime, None] | Omit = omit,
         void_payments: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -794,6 +801,9 @@ class AsyncMembershipsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
+          resumes_at: When the membership should automatically resume payment collection. If not
+              provided, the membership stays paused until manually resumed.
+
           void_payments: Whether to void any outstanding past-due payments on this membership, preventing
               future collection attempts.
 
@@ -810,7 +820,11 @@ class AsyncMembershipsResource(AsyncAPIResource):
         return await self._post(
             path_template("/memberships/{id}/pause", id=id),
             body=await async_maybe_transform(
-                {"void_payments": void_payments}, membership_pause_params.MembershipPauseParams
+                {
+                    "resumes_at": resumes_at,
+                    "void_payments": void_payments,
+                },
+                membership_pause_params.MembershipPauseParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
