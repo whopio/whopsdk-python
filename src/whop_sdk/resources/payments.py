@@ -34,8 +34,6 @@ __all__ = ["PaymentsResource", "AsyncPaymentsResource"]
 
 
 class PaymentsResource(SyncAPIResource):
-    """Payments"""
-
     @cached_property
     def with_raw_response(self) -> PaymentsResourceWithRawResponse:
         """
@@ -64,6 +62,7 @@ class PaymentsResource(SyncAPIResource):
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -105,6 +104,10 @@ class PaymentsResource(SyncAPIResource):
 
           metadata: Custom metadata to attach to the payment.
 
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -124,6 +127,7 @@ class PaymentsResource(SyncAPIResource):
         payment_method_id: str,
         plan_id: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -165,6 +169,10 @@ class PaymentsResource(SyncAPIResource):
 
           metadata: Custom metadata to attach to the payment.
 
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -187,6 +195,7 @@ class PaymentsResource(SyncAPIResource):
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -204,6 +213,7 @@ class PaymentsResource(SyncAPIResource):
                     "payment_method_id": payment_method_id,
                     "plan": plan,
                     "metadata": metadata,
+                    "promo_code_id": promo_code_id,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,
@@ -603,8 +613,6 @@ class PaymentsResource(SyncAPIResource):
 
 
 class AsyncPaymentsResource(AsyncAPIResource):
-    """Payments"""
-
     @cached_property
     def with_raw_response(self) -> AsyncPaymentsResourceWithRawResponse:
         """
@@ -633,6 +641,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -674,6 +683,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           metadata: Custom metadata to attach to the payment.
 
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -693,6 +706,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         payment_method_id: str,
         plan_id: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -734,6 +748,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           metadata: Custom metadata to attach to the payment.
 
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -756,6 +774,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         payment_method_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -773,6 +792,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                     "payment_method_id": payment_method_id,
                     "plan": plan,
                     "metadata": metadata,
+                    "promo_code_id": promo_code_id,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,
