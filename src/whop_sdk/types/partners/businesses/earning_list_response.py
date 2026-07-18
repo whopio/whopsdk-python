@@ -1,8 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from ...._models import BaseModel
 
@@ -12,7 +12,10 @@ __all__ = [
     "FinancialActivity",
     "Product",
     "Resource",
-    "ResourceAlternativePaymentMethod",
+    "ResourceUnionMember0",
+    "ResourceUnionMember0AlternativePaymentMethod",
+    "ResourceUnionMember1",
+    "ResourceUnionMember2",
 ]
 
 
@@ -59,18 +62,16 @@ class Product(BaseModel):
     title: str
 
 
-class ResourceAlternativePaymentMethod(BaseModel):
+class ResourceUnionMember0AlternativePaymentMethod(BaseModel):
     image_url: Optional[str] = None
 
     name: str
 
 
-class Resource(BaseModel):
-    """The resource that generated the affiliate earning."""
-
+class ResourceUnionMember0(BaseModel):
     id: str
 
-    alternative_payment_method: Optional[ResourceAlternativePaymentMethod] = None
+    alternative_payment_method: Optional[ResourceUnionMember0AlternativePaymentMethod] = None
 
     brand: Optional[str] = None
 
@@ -85,6 +86,31 @@ class Resource(BaseModel):
     payment_method_type: Optional[str] = None
 
     processor: Optional[str] = None
+
+
+class ResourceUnionMember1(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    currency: str
+
+    object: Literal["transfer"]
+
+
+class ResourceUnionMember2(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    currency: Optional[str] = None
+
+    merchant_name: Optional[str] = None
+
+    object: Literal["card_transaction"]
+
+
+Resource: TypeAlias = Union[Optional[ResourceUnionMember0], ResourceUnionMember1, ResourceUnionMember2, None]
 
 
 class EarningListResponse(BaseModel):
@@ -107,10 +133,11 @@ class EarningListResponse(BaseModel):
     Null for earnings settled before this data was recorded.
     """
 
-    income_source: Literal["sales", "ad_spend"]
+    income_source: Literal["sales", "ad_spend", "transfer", "card_interchange"]
     """
-    Which income source the commission is on: product-sales gross profit or Whop Ads
-    spend billed to the business.
+    Which income source the commission is on: product-sales gross profit, Whop Ads
+    spend billed to the business, platform balance transfer fees, or Whop Card
+    interchange.
     """
 
     object: Literal["partner_business_earning"]
@@ -126,7 +153,11 @@ class EarningListResponse(BaseModel):
     product: Optional[Product] = None
 
     resource: Optional[Resource] = None
-    """The resource that generated the affiliate earning."""
+    """
+    The resource that generated the earning: the customer payment receipt for sales
+    and ad spend earnings, the balance transfer for transfer earnings, or the card
+    transaction for card interchange earnings.
+    """
 
     second_tier: bool
     """Whether this earning is a second-tier (grandparent) commission."""
@@ -135,4 +166,4 @@ class EarningListResponse(BaseModel):
     """Current status of the earning."""
 
     transaction_amount_usd: str
-    """The sale amount the commission is calculated from, in USD."""
+    """The underlying transaction amount the commission's income comes from, in USD."""
