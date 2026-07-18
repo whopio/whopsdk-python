@@ -698,7 +698,7 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def verifications(self) -> VerificationsResource:
-        """A Verification represents an identity review for a person or business.
+        """A Verification represents a legal identity for a person or business.
 
         Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 
@@ -1468,7 +1468,7 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def verifications(self) -> AsyncVerificationsResource:
-        """A Verification represents an identity review for a person or business.
+        """A Verification represents a legal identity for a person or business.
 
         Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 
@@ -2158,7 +2158,7 @@ class WhopWithRawResponse:
 
     @cached_property
     def verifications(self) -> verifications.VerificationsResourceWithRawResponse:
-        """A Verification represents an identity review for a person or business.
+        """A Verification represents a legal identity for a person or business.
 
         Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 
@@ -2730,7 +2730,7 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def verifications(self) -> verifications.AsyncVerificationsResourceWithRawResponse:
-        """A Verification represents an identity review for a person or business.
+        """A Verification represents a legal identity for a person or business.
 
         Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 
@@ -3304,7 +3304,7 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def verifications(self) -> verifications.VerificationsResourceWithStreamingResponse:
-        """A Verification represents an identity review for a person or business.
+        """A Verification represents a legal identity for a person or business.
 
         Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 
@@ -3880,7 +3880,7 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def verifications(self) -> verifications.AsyncVerificationsResourceWithStreamingResponse:
-        """A Verification represents an identity review for a person or business.
+        """A Verification represents a legal identity for a person or business.
 
         Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 

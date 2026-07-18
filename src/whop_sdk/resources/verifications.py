@@ -28,7 +28,7 @@ __all__ = ["VerificationsResource", "AsyncVerificationsResource"]
 
 
 class VerificationsResource(SyncAPIResource):
-    """A Verification represents an identity review for a person or business.
+    """A Verification represents a legal identity for a person or business.
 
     Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 
@@ -526,7 +526,7 @@ class VerificationsResource(SyncAPIResource):
 
 
 class AsyncVerificationsResource(AsyncAPIResource):
-    """A Verification represents an identity review for a person or business.
+    """A Verification represents a legal identity for a person or business.
 
     Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
 
