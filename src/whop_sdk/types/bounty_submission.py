@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -51,6 +51,15 @@ class BountySubmission(BaseModel):
 
     created_at: str
     """When the submission was created, as an ISO 8601 timestamp."""
+
+    deliverable_type: Optional[Literal["content_url", "media"]] = None
+    """Deliverable shape the worker submitted.
+
+    `content_url` is links to posted content; `media` is uploaded files. `null` on
+    submissions authored before deliverable types existed.
+    """
+
+    deliverable_urls: Optional[List[str]] = None
 
     denial_reason: Optional[str] = None
     """Why the submission was denied, when a presentable reason exists.

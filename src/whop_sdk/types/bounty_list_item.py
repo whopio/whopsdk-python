@@ -57,6 +57,8 @@ class BountyListItem(BaseModel):
     id: str
     """Bounty ID, prefixed `bnty_`."""
 
+    accepted_deliverable_types: List[Literal["content_url", "media"]]
+
     accepted_submissions_count: int
     """Submissions accepted so far."""
 
@@ -69,6 +71,23 @@ class BountyListItem(BaseModel):
     """
     Total gross budget committed to the bounty: `gross_reward_amount` times
     `accepted_submissions_limit`.
+    """
+
+    business_goal_type: Optional[
+        Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
+    ] = None
+    """What the poster wants the work to achieve.
+
+    Determines which deliverable types the bounty accepts through the submissions
+    API. `null` for bounties created before the taxonomy rolled out.
     """
 
     created_at: str

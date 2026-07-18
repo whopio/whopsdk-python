@@ -1278,6 +1278,7 @@ from whop_sdk.types import BountySubmission
 
 Methods:
 
+- <code title="post /bounty_submissions">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_submission_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_submission.py">BountySubmission</a></code>
 - <code title="get /bounty_submissions">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_submission_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_submission.py">SyncCursorPage[BountySubmission]</a></code>
 
 # AdCampaigns
