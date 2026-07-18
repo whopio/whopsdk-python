@@ -87,6 +87,8 @@ class PreferencesResource(SyncAPIResource):
         account_id: str,
         *,
         ads_payment_methods: preference_update_params.AdsPaymentMethods | Omit = omit,
+        ads_reporting_currency: str | Omit = omit,
+        ads_scheduling_timezone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -109,6 +111,13 @@ class PreferencesResource(SyncAPIResource):
           ads_payment_methods: How the account pays for Whop Ads spend. `primary` is charged first; `backup`
               covers the charge when the primary fails.
 
+          ads_reporting_currency: Lowercase ISO currency code, such as `usd` or `eur`, used to display ad spend
+              and stats. Defaults to `usd`.
+
+          ads_scheduling_timezone: IANA timezone (e.g. `America/New_York`) used to interpret campaign start/end
+              times and to bucket reports. Cannot be cleared once set — pass a new value to
+              change it.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -122,7 +131,12 @@ class PreferencesResource(SyncAPIResource):
         return self._patch(
             path_template("/accounts/{account_id}/preferences", account_id=account_id),
             body=maybe_transform(
-                {"ads_payment_methods": ads_payment_methods}, preference_update_params.PreferenceUpdateParams
+                {
+                    "ads_payment_methods": ads_payment_methods,
+                    "ads_reporting_currency": ads_reporting_currency,
+                    "ads_scheduling_timezone": ads_scheduling_timezone,
+                },
+                preference_update_params.PreferenceUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -196,6 +210,8 @@ class AsyncPreferencesResource(AsyncAPIResource):
         account_id: str,
         *,
         ads_payment_methods: preference_update_params.AdsPaymentMethods | Omit = omit,
+        ads_reporting_currency: str | Omit = omit,
+        ads_scheduling_timezone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,6 +234,13 @@ class AsyncPreferencesResource(AsyncAPIResource):
           ads_payment_methods: How the account pays for Whop Ads spend. `primary` is charged first; `backup`
               covers the charge when the primary fails.
 
+          ads_reporting_currency: Lowercase ISO currency code, such as `usd` or `eur`, used to display ad spend
+              and stats. Defaults to `usd`.
+
+          ads_scheduling_timezone: IANA timezone (e.g. `America/New_York`) used to interpret campaign start/end
+              times and to bucket reports. Cannot be cleared once set — pass a new value to
+              change it.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -231,7 +254,12 @@ class AsyncPreferencesResource(AsyncAPIResource):
         return await self._patch(
             path_template("/accounts/{account_id}/preferences", account_id=account_id),
             body=await async_maybe_transform(
-                {"ads_payment_methods": ads_payment_methods}, preference_update_params.PreferenceUpdateParams
+                {
+                    "ads_payment_methods": ads_payment_methods,
+                    "ads_reporting_currency": ads_reporting_currency,
+                    "ads_scheduling_timezone": ads_scheduling_timezone,
+                },
+                preference_update_params.PreferenceUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

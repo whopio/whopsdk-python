@@ -90,3 +90,16 @@ class PreferenceRetrieveResponse(BaseModel):
     `primary` is charged first; `backup` covers the charge when the primary fails.
     `null` until ads billing has been configured.
     """
+
+    ads_reporting_currency: str
+    """
+    Lowercase ISO currency code, such as `usd` or `eur`, used to display ad spend
+    and stats. Defaults to `usd`.
+    """
+
+    ads_scheduling_timezone: str
+    """IANA timezone (e.g.
+
+    `America/New_York`) used to interpret campaign start/end times and to bucket
+    reports. Defaults to `America/New_York` until explicitly overridden.
+    """

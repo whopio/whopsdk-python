@@ -82,6 +82,8 @@ class TestPreferences:
                     "id": "id",
                 },
             },
+            ads_reporting_currency="ads_reporting_currency",
+            ads_scheduling_timezone="ads_scheduling_timezone",
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
 
@@ -190,6 +192,8 @@ class TestAsyncPreferences:
                     "id": "id",
                 },
             },
+            ads_reporting_currency="ads_reporting_currency",
+            ads_scheduling_timezone="ads_scheduling_timezone",
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
 

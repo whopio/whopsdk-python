@@ -14,6 +14,19 @@ class PreferenceUpdateParams(TypedDict, total=False):
     `primary` is charged first; `backup` covers the charge when the primary fails.
     """
 
+    ads_reporting_currency: str
+    """
+    Lowercase ISO currency code, such as `usd` or `eur`, used to display ad spend
+    and stats. Defaults to `usd`.
+    """
+
+    ads_scheduling_timezone: str
+    """IANA timezone (e.g.
+
+    `America/New_York`) used to interpret campaign start/end times and to bucket
+    reports. Cannot be cleared once set — pass a new value to change it.
+    """
+
 
 class AdsPaymentMethodsPrimary(TypedDict, total=False):
     type: Required[Literal["platform_balance", "card"]]
