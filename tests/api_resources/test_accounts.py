@@ -11,6 +11,7 @@ from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
     Account,
+    AccountRegisterLlcResponse,
     AccountRecommendActionsResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -309,6 +310,192 @@ class TestAccounts:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_register_llc(self, client: Whop) -> None:
+        account = client.accounts.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                }
+            ],
+        )
+        assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_register_llc_with_all_params(self, client: Whop) -> None:
+        account = client.accounts.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+                "address": {
+                    "city": "city",
+                    "country": "country",
+                    "line1": "line1",
+                    "postal_code": "postal_code",
+                    "state": "state",
+                    "line2": "line2",
+                },
+                "entity_suffix": "LLC",
+                "expedite_ein": True,
+                "phone": "phone",
+                "use_registered_agent": True,
+                "website": "website",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                        "line2": "line2",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                    "date_of_birth": "date_of_birth",
+                    "ssn": "ssn",
+                }
+            ],
+        )
+        assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_register_llc(self, client: Whop) -> None:
+        response = client.accounts.with_raw_response.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        account = response.parse()
+        assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_register_llc(self, client: Whop) -> None:
+        with client.accounts.with_streaming_response.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            account = response.parse()
+            assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_register_llc(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+            client.accounts.with_raw_response.register_llc(
+                account_id="",
+                business_info={
+                    "business_type": "business_type",
+                    "formation_state": "AL",
+                    "industry_group": "industry_group",
+                    "industry_type": "industry_type",
+                    "legal_name": "legal_name",
+                },
+                founders=[
+                    {
+                        "address": {
+                            "city": "city",
+                            "country": "country",
+                            "line1": "line1",
+                            "postal_code": "postal_code",
+                            "state": "state",
+                        },
+                        "email": "email",
+                        "first_name": "first_name",
+                        "is_primary": True,
+                        "last_name": "last_name",
+                        "ownership_percentage": 0,
+                        "phone": "phone",
+                    }
+                ],
+            )
+
 
 class TestAsyncAccounts:
     parametrize = pytest.mark.parametrize(
@@ -601,4 +788,190 @@ class TestAsyncAccounts:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             await async_client.accounts.with_raw_response.recommend_actions(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_register_llc(self, async_client: AsyncWhop) -> None:
+        account = await async_client.accounts.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                }
+            ],
+        )
+        assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_register_llc_with_all_params(self, async_client: AsyncWhop) -> None:
+        account = await async_client.accounts.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+                "address": {
+                    "city": "city",
+                    "country": "country",
+                    "line1": "line1",
+                    "postal_code": "postal_code",
+                    "state": "state",
+                    "line2": "line2",
+                },
+                "entity_suffix": "LLC",
+                "expedite_ein": True,
+                "phone": "phone",
+                "use_registered_agent": True,
+                "website": "website",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                        "line2": "line2",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                    "date_of_birth": "date_of_birth",
+                    "ssn": "ssn",
+                }
+            ],
+        )
+        assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_register_llc(self, async_client: AsyncWhop) -> None:
+        response = await async_client.accounts.with_raw_response.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        account = await response.parse()
+        assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_register_llc(self, async_client: AsyncWhop) -> None:
+        async with async_client.accounts.with_streaming_response.register_llc(
+            account_id="account_id",
+            business_info={
+                "business_type": "business_type",
+                "formation_state": "AL",
+                "industry_group": "industry_group",
+                "industry_type": "industry_type",
+                "legal_name": "legal_name",
+            },
+            founders=[
+                {
+                    "address": {
+                        "city": "city",
+                        "country": "country",
+                        "line1": "line1",
+                        "postal_code": "postal_code",
+                        "state": "state",
+                    },
+                    "email": "email",
+                    "first_name": "first_name",
+                    "is_primary": True,
+                    "last_name": "last_name",
+                    "ownership_percentage": 0,
+                    "phone": "phone",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            account = await response.parse()
+            assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_register_llc(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+            await async_client.accounts.with_raw_response.register_llc(
+                account_id="",
+                business_info={
+                    "business_type": "business_type",
+                    "formation_state": "AL",
+                    "industry_group": "industry_group",
+                    "industry_type": "industry_type",
+                    "legal_name": "legal_name",
+                },
+                founders=[
+                    {
+                        "address": {
+                            "city": "city",
+                            "country": "country",
+                            "line1": "line1",
+                            "postal_code": "postal_code",
+                            "state": "state",
+                        },
+                        "email": "email",
+                        "first_name": "first_name",
+                        "is_primary": True,
+                        "last_name": "last_name",
+                        "ownership_percentage": 0,
+                        "phone": "phone",
+                    }
+                ],
             )

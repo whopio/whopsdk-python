@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import account_list_params, account_create_params, account_update_params
+from ...types import account_list_params, account_create_params, account_update_params, account_register_llc_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -29,6 +29,7 @@ from .preferences import (
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.account import Account
+from ...types.account_register_llc_response import AccountRegisterLlcResponse
 from ...types.account_recommend_actions_response import AccountRecommendActionsResponse
 
 __all__ = ["AccountsResource", "AsyncAccountsResource"]
@@ -526,6 +527,58 @@ class AccountsResource(SyncAPIResource):
             cast_to=AccountRecommendActionsResponse,
         )
 
+    def register_llc(
+        self,
+        account_id: str,
+        *,
+        business_info: account_register_llc_params.BusinessInfo,
+        founders: Iterable[account_register_llc_params.Founder],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccountRegisterLlcResponse:
+        """Starts an LLC formation for a business account.
+
+        On submission, the application
+        is validated and the response returns a hosted checkout URL. Once paid, the
+        filing is submitted. Track progress through the account's
+        [`llc_formation`](/api-reference/beta/accounts/retrieve-account) field on
+        Retrieve Account.
+
+        Args:
+          business_info: The company to form.
+
+          founders: The company's founders. Exactly one must be marked `is_primary` — the
+              responsible party for the filing.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        return self._post(
+            path_template("/accounts/{account_id}/llc", account_id=account_id),
+            body=maybe_transform(
+                {
+                    "business_info": business_info,
+                    "founders": founders,
+                },
+                account_register_llc_params.AccountRegisterLlcParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AccountRegisterLlcResponse,
+        )
+
 
 class AsyncAccountsResource(AsyncAPIResource):
     """
@@ -1019,6 +1072,58 @@ class AsyncAccountsResource(AsyncAPIResource):
             cast_to=AccountRecommendActionsResponse,
         )
 
+    async def register_llc(
+        self,
+        account_id: str,
+        *,
+        business_info: account_register_llc_params.BusinessInfo,
+        founders: Iterable[account_register_llc_params.Founder],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccountRegisterLlcResponse:
+        """Starts an LLC formation for a business account.
+
+        On submission, the application
+        is validated and the response returns a hosted checkout URL. Once paid, the
+        filing is submitted. Track progress through the account's
+        [`llc_formation`](/api-reference/beta/accounts/retrieve-account) field on
+        Retrieve Account.
+
+        Args:
+          business_info: The company to form.
+
+          founders: The company's founders. Exactly one must be marked `is_primary` — the
+              responsible party for the filing.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        return await self._post(
+            path_template("/accounts/{account_id}/llc", account_id=account_id),
+            body=await async_maybe_transform(
+                {
+                    "business_info": business_info,
+                    "founders": founders,
+                },
+                account_register_llc_params.AccountRegisterLlcParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AccountRegisterLlcResponse,
+        )
+
 
 class AccountsResourceWithRawResponse:
     def __init__(self, accounts: AccountsResource) -> None:
@@ -1041,6 +1146,9 @@ class AccountsResourceWithRawResponse:
         )
         self.recommend_actions = to_raw_response_wrapper(
             accounts.recommend_actions,
+        )
+        self.register_llc = to_raw_response_wrapper(
+            accounts.register_llc,
         )
 
     @cached_property
@@ -1075,6 +1183,9 @@ class AsyncAccountsResourceWithRawResponse:
         self.recommend_actions = async_to_raw_response_wrapper(
             accounts.recommend_actions,
         )
+        self.register_llc = async_to_raw_response_wrapper(
+            accounts.register_llc,
+        )
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResourceWithRawResponse:
@@ -1108,6 +1219,9 @@ class AccountsResourceWithStreamingResponse:
         self.recommend_actions = to_streamed_response_wrapper(
             accounts.recommend_actions,
         )
+        self.register_llc = to_streamed_response_wrapper(
+            accounts.register_llc,
+        )
 
     @cached_property
     def preferences(self) -> PreferencesResourceWithStreamingResponse:
@@ -1140,6 +1254,9 @@ class AsyncAccountsResourceWithStreamingResponse:
         )
         self.recommend_actions = async_to_streamed_response_wrapper(
             accounts.recommend_actions,
+        )
+        self.register_llc = async_to_streamed_response_wrapper(
+            accounts.register_llc,
         )
 
     @cached_property

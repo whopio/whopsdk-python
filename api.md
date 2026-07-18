@@ -803,7 +803,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Account, AccountSocialLink, AccountRecommendActionsResponse
+from whop_sdk.types import (
+    Account,
+    AccountSocialLink,
+    AccountRecommendActionsResponse,
+    AccountRegisterLlcResponse,
+)
 ```
 
 Methods:
@@ -814,6 +819,7 @@ Methods:
 - <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">SyncCursorPage[Account]</a></code>
 - <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
 - <code title="get /accounts/{account_id}/recommend_actions">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">recommend_actions</a>(account_id) -> <a href="./src/whop_sdk/types/account_recommend_actions_response.py">AccountRecommendActionsResponse</a></code>
+- <code title="post /accounts/{account_id}/llc">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">register_llc</a>(account_id, \*\*<a href="src/whop_sdk/types/account_register_llc_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_register_llc_response.py">AccountRegisterLlcResponse</a></code>
 
 ## Preferences
 
