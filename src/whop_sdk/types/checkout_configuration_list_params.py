@@ -8,7 +8,7 @@ __all__ = ["CheckoutConfigurationListParams"]
 
 
 class CheckoutConfigurationListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """Account ID, prefixed `biz_`."""
 
     after: str

@@ -10,8 +10,8 @@ __all__ = ["ProductListParams"]
 
 
 class ProductListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list products for."""
+    account_id: Required[str]
+    """The unique identifier of the account to list products for."""
 
     access_pass_types: SequenceNotStr[str]
     """Filter to only products matching these types."""

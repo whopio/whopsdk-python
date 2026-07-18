@@ -12,11 +12,11 @@ class ProductCreateParams(TypedDict, total=False):
     title: Required[str]
     """The display name of the product. Maximum 80 characters."""
 
+    account_id: str
+    """The unique identifier of the account to create this product for."""
+
     collect_shipping_address: Optional[bool]
     """Whether to collect a shipping address at checkout."""
-
-    company_id: str
-    """The unique identifier of the company to create this product for."""
 
     custom_cta: Optional[str]
     """The call-to-action button label."""

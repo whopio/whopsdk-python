@@ -11,11 +11,11 @@ __all__ = ["CheckoutConfigurationCreateParams", "PaymentMethodConfiguration", "P
 
 
 class CheckoutConfigurationCreateParams(TypedDict, total=False):
+    account_id: str
+    """Account ID, prefixed `biz_`."""
+
     affiliate_code: Optional[str]
     """Affiliate code to apply to the checkout."""
-
-    company_id: str
-    """Account ID, prefixed `biz_`."""
 
     currency: Optional[str]
     """Currency used for setup-mode payment method availability."""
@@ -86,14 +86,14 @@ class Plan(TypedDict, total=False):
     Mutually exclusive with `plan_id`.
     """
 
-    billing_period: Optional[int]
-    """Recurring billing interval in days, such as 30 for monthly or 365 for annual."""
-
-    company_id: Optional[str]
+    account_id: Optional[str]
     """Account ID for the inline plan, prefixed `biz_`.
 
     Defaults to the account resolved from the request.
     """
+
+    billing_period: Optional[int]
+    """Recurring billing interval in days, such as 30 for monthly or 365 for annual."""
 
     currency: Optional[str]
     """Three-letter ISO currency code for the plan's prices."""

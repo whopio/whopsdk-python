@@ -32,8 +32,8 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
             metadata={},
             mode="payment",
@@ -43,8 +43,8 @@ class TestCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             plan={
+                "account_id": "account_id",
                 "billing_period": 0,
-                "company_id": "company_id",
                 "currency": "currency",
                 "description": "description",
                 "expiration_days": 0,
@@ -141,7 +141,7 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.list(
-            company_id="company_id",
+            account_id="account_id",
         )
         assert_matches_type(
             SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
@@ -151,7 +151,7 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.list(
-            company_id="company_id",
+            account_id="account_id",
             after="after",
             created_after=0,
             created_before=0,
@@ -168,7 +168,7 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.checkout_configurations.with_raw_response.list(
-            company_id="company_id",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -182,7 +182,7 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.checkout_configurations.with_streaming_response.list(
-            company_id="company_id",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -252,8 +252,8 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             affiliate_code="affiliate_code",
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="currency",
             metadata={},
             mode="payment",
@@ -263,8 +263,8 @@ class TestAsyncCheckoutConfigurations:
                 "include_platform_defaults": True,
             },
             plan={
+                "account_id": "account_id",
                 "billing_period": 0,
-                "company_id": "company_id",
                 "currency": "currency",
                 "description": "description",
                 "expiration_days": 0,
@@ -361,7 +361,7 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.list(
-            company_id="company_id",
+            account_id="account_id",
         )
         assert_matches_type(
             AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
@@ -371,7 +371,7 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.list(
-            company_id="company_id",
+            account_id="account_id",
             after="after",
             created_after=0,
             created_before=0,
@@ -388,7 +388,7 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.checkout_configurations.with_raw_response.list(
-            company_id="company_id",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -402,7 +402,7 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.checkout_configurations.with_streaming_response.list(
-            company_id="company_id",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

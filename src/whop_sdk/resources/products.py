@@ -58,8 +58,8 @@ class ProductsResource(SyncAPIResource):
         self,
         *,
         title: str,
+        account_id: str | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
-        company_id: str | Omit = omit,
         custom_cta: Optional[str] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
@@ -88,9 +88,9 @@ class ProductsResource(SyncAPIResource):
         Args:
           title: The display name of the product. Maximum 80 characters.
 
-          collect_shipping_address: Whether to collect a shipping address at checkout.
+          account_id: The unique identifier of the account to create this product for.
 
-          company_id: The unique identifier of the company to create this product for.
+          collect_shipping_address: Whether to collect a shipping address at checkout.
 
           custom_cta: The call-to-action button label.
 
@@ -137,8 +137,8 @@ class ProductsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "title": title,
+                    "account_id": account_id,
                     "collect_shipping_address": collect_shipping_address,
-                    "company_id": company_id,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
@@ -269,7 +269,7 @@ class ProductsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         access_pass_types: SequenceNotStr[str] | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
@@ -289,7 +289,7 @@ class ProductsResource(SyncAPIResource):
         Returns a paginated list of products belonging to a company.
 
         Args:
-          company_id: The unique identifier of the company to list products for.
+          account_id: The unique identifier of the account to list products for.
 
           access_pass_types: Filter to only products matching these types.
 
@@ -325,7 +325,7 @@ class ProductsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "access_pass_types": access_pass_types,
                         "after": after,
                         "before": before,
@@ -408,8 +408,8 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         *,
         title: str,
+        account_id: str | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
-        company_id: str | Omit = omit,
         custom_cta: Optional[str] | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
@@ -438,9 +438,9 @@ class AsyncProductsResource(AsyncAPIResource):
         Args:
           title: The display name of the product. Maximum 80 characters.
 
-          collect_shipping_address: Whether to collect a shipping address at checkout.
+          account_id: The unique identifier of the account to create this product for.
 
-          company_id: The unique identifier of the company to create this product for.
+          collect_shipping_address: Whether to collect a shipping address at checkout.
 
           custom_cta: The call-to-action button label.
 
@@ -487,8 +487,8 @@ class AsyncProductsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "title": title,
+                    "account_id": account_id,
                     "collect_shipping_address": collect_shipping_address,
-                    "company_id": company_id,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
@@ -619,7 +619,7 @@ class AsyncProductsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         access_pass_types: SequenceNotStr[str] | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
@@ -639,7 +639,7 @@ class AsyncProductsResource(AsyncAPIResource):
         Returns a paginated list of products belonging to a company.
 
         Args:
-          company_id: The unique identifier of the company to list products for.
+          account_id: The unique identifier of the account to list products for.
 
           access_pass_types: Filter to only products matching these types.
 
@@ -675,7 +675,7 @@ class AsyncProductsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "access_pass_types": access_pass_types,
                         "after": after,
                         "before": before,

@@ -57,8 +57,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
-        company_id: str | Omit = omit,
         currency: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         mode: Literal["payment", "setup"] | Omit = omit,
@@ -79,9 +79,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         Creates a reusable checkout configuration for an existing or inline plan.
 
         Args:
-          affiliate_code: Affiliate code to apply to the checkout.
+          account_id: Account ID, prefixed `biz_`.
 
-          company_id: Account ID, prefixed `biz_`.
+          affiliate_code: Affiliate code to apply to the checkout.
 
           currency: Currency used for setup-mode payment method availability.
 
@@ -114,8 +114,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
             "/checkout_configurations",
             body=maybe_transform(
                 {
+                    "account_id": account_id,
                     "affiliate_code": affiliate_code,
-                    "company_id": company_id,
                     "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
@@ -171,7 +171,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         created_after: int | Omit = omit,
         created_before: int | Omit = omit,
@@ -190,7 +190,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         Lists checkout configurations for an account.
 
         Args:
-          company_id: Account ID, prefixed `biz_`.
+          account_id: Account ID, prefixed `biz_`.
 
           after: Cursor for the next page of results.
 
@@ -224,7 +224,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "created_after": created_after,
                         "created_before": created_before,
@@ -304,8 +304,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str | Omit = omit,
         affiliate_code: Optional[str] | Omit = omit,
-        company_id: str | Omit = omit,
         currency: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         mode: Literal["payment", "setup"] | Omit = omit,
@@ -326,9 +326,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         Creates a reusable checkout configuration for an existing or inline plan.
 
         Args:
-          affiliate_code: Affiliate code to apply to the checkout.
+          account_id: Account ID, prefixed `biz_`.
 
-          company_id: Account ID, prefixed `biz_`.
+          affiliate_code: Affiliate code to apply to the checkout.
 
           currency: Currency used for setup-mode payment method availability.
 
@@ -361,8 +361,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
             "/checkout_configurations",
             body=await async_maybe_transform(
                 {
+                    "account_id": account_id,
                     "affiliate_code": affiliate_code,
-                    "company_id": company_id,
                     "currency": currency,
                     "metadata": metadata,
                     "mode": mode,
@@ -418,7 +418,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         created_after: int | Omit = omit,
         created_before: int | Omit = omit,
@@ -437,7 +437,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         Lists checkout configurations for an account.
 
         Args:
-          company_id: Account ID, prefixed `biz_`.
+          account_id: Account ID, prefixed `biz_`.
 
           after: Cursor for the next page of results.
 
@@ -471,7 +471,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "created_after": created_after,
                         "created_before": created_before,

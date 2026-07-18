@@ -74,7 +74,7 @@ class CheckoutConfigurationListResponse(BaseModel):
     id: str
     """Checkout configuration ID, prefixed `ch_`."""
 
-    company_id: str
+    account_id: str
     """Account ID, prefixed `biz_`."""
 
     created_at: str
