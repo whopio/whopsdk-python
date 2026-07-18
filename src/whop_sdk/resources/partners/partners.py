@@ -104,8 +104,9 @@ class PartnersResource(SyncAPIResource):
     ) -> PartnerLeaderboardResponse:
         """
         Ranks referrers by partner business earnings — all-time by default, or over the
-        current day, month, year, or trailing 30 days — and includes the caller's own
-        standing.
+        current day, month, year, or trailing 30 days. Authentication is optional:
+        authenticated callers also get their own standing, anonymous callers get the
+        rankings alone.
 
         Args:
           period: Time window for the rankings. `day`, `month`, and `year` count earnings since
@@ -268,8 +269,9 @@ class AsyncPartnersResource(AsyncAPIResource):
     ) -> PartnerLeaderboardResponse:
         """
         Ranks referrers by partner business earnings — all-time by default, or over the
-        current day, month, year, or trailing 30 days — and includes the caller's own
-        standing.
+        current day, month, year, or trailing 30 days. Authentication is optional:
+        authenticated callers also get their own standing, anonymous callers get the
+        rankings alone.
 
         Args:
           period: Time window for the rankings. `day`, `month`, and `year` count earnings since
