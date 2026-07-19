@@ -1297,6 +1297,7 @@ Methods:
 - <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">SyncCursorPage[AdCampaign]</a></code>
 - <code title="delete /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_delete_response.py">AdCampaignDeleteResponse</a></code>
 - <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+- <code title="post /ad_campaigns/{id}/retry_payment">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retry_payment</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 
 # AdGroups

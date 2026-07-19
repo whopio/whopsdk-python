@@ -468,6 +468,39 @@ class AdCampaignsResource(SyncAPIResource):
             cast_to=AdCampaign,
         )
 
+    def retry_payment(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaign:
+        """
+        Retries billing for an ad campaign whose payment previously failed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/ad_campaigns/{id}/retry_payment", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaign,
+        )
+
     def unpause(
         self,
         id: str,
@@ -939,6 +972,39 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             cast_to=AdCampaign,
         )
 
+    async def retry_payment(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaign:
+        """
+        Retries billing for an ad campaign whose payment previously failed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/ad_campaigns/{id}/retry_payment", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaign,
+        )
+
     async def unpause(
         self,
         id: str,
@@ -995,6 +1061,9 @@ class AdCampaignsResourceWithRawResponse:
         self.pause = to_raw_response_wrapper(
             ad_campaigns.pause,
         )
+        self.retry_payment = to_raw_response_wrapper(
+            ad_campaigns.retry_payment,
+        )
         self.unpause = to_raw_response_wrapper(
             ad_campaigns.unpause,
         )
@@ -1021,6 +1090,9 @@ class AsyncAdCampaignsResourceWithRawResponse:
         )
         self.pause = async_to_raw_response_wrapper(
             ad_campaigns.pause,
+        )
+        self.retry_payment = async_to_raw_response_wrapper(
+            ad_campaigns.retry_payment,
         )
         self.unpause = async_to_raw_response_wrapper(
             ad_campaigns.unpause,
@@ -1049,6 +1121,9 @@ class AdCampaignsResourceWithStreamingResponse:
         self.pause = to_streamed_response_wrapper(
             ad_campaigns.pause,
         )
+        self.retry_payment = to_streamed_response_wrapper(
+            ad_campaigns.retry_payment,
+        )
         self.unpause = to_streamed_response_wrapper(
             ad_campaigns.unpause,
         )
@@ -1075,6 +1150,9 @@ class AsyncAdCampaignsResourceWithStreamingResponse:
         )
         self.pause = async_to_streamed_response_wrapper(
             ad_campaigns.pause,
+        )
+        self.retry_payment = async_to_streamed_response_wrapper(
+            ad_campaigns.retry_payment,
         )
         self.unpause = async_to_streamed_response_wrapper(
             ad_campaigns.unpause,

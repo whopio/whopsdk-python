@@ -325,6 +325,48 @@ class TestAdCampaigns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_retry_payment(self, client: Whop) -> None:
+        ad_campaign = client.ad_campaigns.retry_payment(
+            "id",
+        )
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_retry_payment(self, client: Whop) -> None:
+        response = client.ad_campaigns.with_raw_response.retry_payment(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_campaign = response.parse()
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_retry_payment(self, client: Whop) -> None:
+        with client.ad_campaigns.with_streaming_response.retry_payment(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_campaign = response.parse()
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_retry_payment(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.ad_campaigns.with_raw_response.retry_payment(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_unpause(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.unpause(
             "id",
@@ -670,6 +712,48 @@ class TestAsyncAdCampaigns:
     async def test_path_params_pause(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.ad_campaigns.with_raw_response.pause(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retry_payment(self, async_client: AsyncWhop) -> None:
+        ad_campaign = await async_client.ad_campaigns.retry_payment(
+            "id",
+        )
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_retry_payment(self, async_client: AsyncWhop) -> None:
+        response = await async_client.ad_campaigns.with_raw_response.retry_payment(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_campaign = await response.parse()
+        assert_matches_type(AdCampaign, ad_campaign, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_retry_payment(self, async_client: AsyncWhop) -> None:
+        async with async_client.ad_campaigns.with_streaming_response.retry_payment(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_campaign = await response.parse()
+            assert_matches_type(AdCampaign, ad_campaign, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_retry_payment(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.ad_campaigns.with_raw_response.retry_payment(
                 "",
             )
 
