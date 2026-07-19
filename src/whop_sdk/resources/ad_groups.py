@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
+from typing import List, Union, Iterable
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import AdBudgetType, AdGroupStatus, ad_group_list_params, ad_group_update_params, ad_group_retrieve_params
+from ..types import ad_group_list_params, ad_group_create_params, ad_group_update_params, ad_group_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,16 +21,17 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_group import AdGroup
-from ..types.ad_budget_type import AdBudgetType
-from ..types.ad_group_status import AdGroupStatus
-from ..types.ad_group_list_response import AdGroupListResponse
 from ..types.ad_group_delete_response import AdGroupDeleteResponse
 
 __all__ = ["AdGroupsResource", "AsyncAdGroupsResource"]
 
 
 class AdGroupsResource(SyncAPIResource):
-    """Ad groups"""
+    """
+    An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery.
+    """
 
     @cached_property
     def with_raw_response(self) -> AdGroupsResourceWithRawResponse:
@@ -51,12 +52,84 @@ class AdGroupsResource(SyncAPIResource):
         """
         return AdGroupsResourceWithStreamingResponse(self)
 
-    def retrieve(
+    def create(
         self,
-        id: str,
         *,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
+        ad_campaign_id: str,
+        audiences: ad_group_create_params.Audiences | Omit = omit,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
+        budget_amount: float | Omit = omit,
+        budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        conversion_event: Union[
+            Literal[
+                "purchase",
+                "add_to_cart",
+                "initiated_checkout",
+                "add_payment_info",
+                "complete_registration",
+                "lead",
+                "content_view",
+                "search",
+                "contact",
+                "customize_product",
+                "donate",
+                "find_location",
+                "schedule",
+                "start_trial",
+                "submit_application",
+                "subscribe",
+            ],
+            str,
+            None,
+        ]
+        | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: ad_group_create_params.Demographics | Omit = omit,
+        desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: ad_group_create_params.DetailedTargeting | Omit = omit,
+        devices: ad_group_create_params.Devices | Omit = omit,
+        dynamic_creative: bool | Omit = omit,
+        ends_at: str | Omit = omit,
+        frequency_cap: ad_group_create_params.FrequencyCap | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
+        minimum_daily_spend: float | Omit = omit,
+        optimization_goal: Literal[
+            "conversions",
+            "link_clicks",
+            "landing_page_views",
+            "reach",
+            "impressions",
+            "engagement",
+            "conversations",
+            "video_views",
+            "thruplay",
+            "two_second_views",
+            "page_likes",
+            "social_profile",
+            "ad_recall_lift",
+            "event_responses",
+            "reminders_set",
+            "lead_generation",
+            "quality_lead",
+            "value",
+            "profile_and_page_engagement",
+        ]
+        | Omit = omit,
+        placements: Union[Literal["automatic"], Iterable[ad_group_create_params.PlacementsUnionMember1]] | Omit = omit,
+        regions: ad_group_create_params.Regions | Omit = omit,
+        starts_at: str | Omit = omit,
+        status: Literal["active", "paused"] | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,18 +138,156 @@ class AdGroupsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
         """
-        Retrieves a single ad group by its unique identifier.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Creates an ad group (ad set) in a campaign.
 
         Args:
-          stats_from: Inclusive start of the window for the ad group's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          ad_campaign_id: The ad campaign to create the ad group in, prefixed `adcamp_`.
 
-          stats_to: Inclusive end of the window for the ad group's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          audiences: Saved audiences to deliver to or exclude. Can't be combined with
+              demographics.automatic.
+
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` keeps the average cost per result near
+              desired_cost_per_result, and `maximum_target` never bids above it.
+
+          budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
+              set on the campaign instead.
+
+          budget_type: Whether budget_amount is spent per day (`daily`) or over the ad group's full run
+              (`lifetime`).
+
+          conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
+
+          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
+              (your social media profile), `messaging` (a direct-message conversation),
+              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
+              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
+              itself is set on the ad.
+
+          demographics: Age, gender, and automatic-audience targeting.
+
+          desired_cost_per_result: Cost per result to aim for (`average_target`) or never exceed
+              (`maximum_target`).
+
+          detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
+              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              combined with demographics.automatic, and unavailable to campaigns with
+              special_ad_categories. Send the complete intended state — a section you omit is
+              cleared.
+
+          devices: Device platforms and operating systems to target.
+
+          dynamic_creative: Let the ad platform automatically mix and match this ad group's creatives and
+              copy to find the best-performing combinations. Set at creation; can't be changed
+              afterward.
+
+          ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
+              paused.
+
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
+              `reach` optimization.
+
+          languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
+              targets all languages.
+
+          message_apps: Apps the conversation opens in. Required when conversion_location is
+              `messaging`.
+
+          minimum_daily_spend: Minimum the ad group tries to spend each day.
+
+          optimization_goal: The result the ad group's delivery is optimized to get the most of.
+
+          placements: `automatic` to let the ad platform choose placements, or the list of platforms
+              and positions to target. Omit a platform's positions to target all of them.
+
+              Valid positions per platform:
+
+              - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`,
+                `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`,
+                `facebook_reels_overlay`, `biz_disco_feed`
+              - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`,
+                `profile_feed`, `profile_reels`, `ig_search`
+              - `messenger`: `story`
+              - `audience_network`: `classic`, `rewarded_video`
+              - `threads`: `threads_stream`
+              - `whatsapp`: `status`
+
+          regions: Locations to target and exclude.
+
+          starts_at: When the ad group starts delivering, as an ISO 8601 timestamp. Omit to start as
+              soon as it's active.
+
+          status: Initial status (default: `active`).
+
+          title: The display name of the ad group.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/ad_groups",
+            body=maybe_transform(
+                {
+                    "ad_campaign_id": ad_campaign_id,
+                    "audiences": audiences,
+                    "bid_type": bid_type,
+                    "budget_amount": budget_amount,
+                    "budget_type": budget_type,
+                    "conversion_event": conversion_event,
+                    "conversion_location": conversion_location,
+                    "demographics": demographics,
+                    "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
+                    "devices": devices,
+                    "dynamic_creative": dynamic_creative,
+                    "ends_at": ends_at,
+                    "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
+                    "minimum_daily_spend": minimum_daily_spend,
+                    "optimization_goal": optimization_goal,
+                    "placements": placements,
+                    "regions": regions,
+                    "starts_at": starts_at,
+                    "status": status,
+                    "title": title,
+                },
+                ad_group_create_params.AdGroupCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdGroup,
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        time_zone: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroup:
+        """
+        Retrieves a single ad group.
+
+        Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
+
+          time_zone: IANA timezone the stats window is interpreted in. Defaults to UTC.
 
           extra_headers: Send extra headers
 
@@ -99,6 +310,7 @@ class AdGroupsResource(SyncAPIResource):
                     {
                         "stats_from": stats_from,
                         "stats_to": stats_to,
+                        "time_zone": time_zone,
                     },
                     ad_group_retrieve_params.AdGroupRetrieveParams,
                 ),
@@ -110,14 +322,79 @@ class AdGroupsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        budget: Optional[float] | Omit = omit,
-        budget_type: Optional[AdBudgetType] | Omit = omit,
-        config: Optional[ad_group_update_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
-        status: Optional[AdGroupStatus] | Omit = omit,
-        title: Optional[str] | Omit = omit,
+        audiences: ad_group_update_params.Audiences | Omit = omit,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
+        budget_amount: float | Omit = omit,
+        budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        conversion_event: Union[
+            Literal[
+                "purchase",
+                "add_to_cart",
+                "initiated_checkout",
+                "add_payment_info",
+                "complete_registration",
+                "lead",
+                "content_view",
+                "search",
+                "contact",
+                "customize_product",
+                "donate",
+                "find_location",
+                "schedule",
+                "start_trial",
+                "submit_application",
+                "subscribe",
+            ],
+            str,
+            None,
+        ]
+        | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: ad_group_update_params.Demographics | Omit = omit,
+        desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: ad_group_update_params.DetailedTargeting | Omit = omit,
+        devices: ad_group_update_params.Devices | Omit = omit,
+        ends_at: str | Omit = omit,
+        frequency_cap: ad_group_update_params.FrequencyCap | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
+        minimum_daily_spend: float | Omit = omit,
+        optimization_goal: Literal[
+            "conversions",
+            "link_clicks",
+            "landing_page_views",
+            "reach",
+            "impressions",
+            "engagement",
+            "conversations",
+            "video_views",
+            "thruplay",
+            "two_second_views",
+            "page_likes",
+            "social_profile",
+            "ad_recall_lift",
+            "event_responses",
+            "reminders_set",
+            "lead_generation",
+            "quality_lead",
+            "value",
+            "profile_and_page_engagement",
+        ]
+        | Omit = omit,
+        placements: Union[Literal["automatic"], Iterable[ad_group_update_params.PlacementsUnionMember1]] | Omit = omit,
+        regions: ad_group_update_params.Regions | Omit = omit,
+        starts_at: str | Omit = omit,
+        status: Literal["active", "paused"] | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -125,30 +402,84 @@ class AdGroupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
-        """
-        Updates an existing ad group.
+        """Updates an ad group's editable fields.
 
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Only the keys you send are changed.
 
         Args:
-          budget: Budget amount in dollars.
+          audiences: Saved audiences to deliver to or exclude. Can't be combined with
+              demographics.automatic.
 
-          budget_type: The budget type for an ad campaign or ad group.
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` keeps the average cost per result near
+              desired_cost_per_result, and `maximum_target` never bids above it.
 
-          config: Unified ad group configuration (bidding, optimization, targeting).
+          budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
+              set on the campaign instead.
 
-          daily_budget: Daily budget in dollars.
+          budget_type: Whether budget_amount is spent per day (`daily`) or over the ad group's full run
+              (`lifetime`).
 
-          name: Human-readable ad group name.
+          conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          platform_config: Platform-specific ad group configuration.
+          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
+              (your social media profile), `messaging` (a direct-message conversation),
+              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
+              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
+              itself is set on the ad.
 
-          status: The status of an external ad group.
+          demographics: Age, gender, and automatic-audience targeting.
 
-          title: Human-readable ad group title.
+          desired_cost_per_result: Cost per result to aim for (`average_target`) or never exceed
+              (`maximum_target`).
+
+          detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
+              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              combined with demographics.automatic, and unavailable to campaigns with
+              special_ad_categories. Send the complete intended state — a section you omit is
+              cleared.
+
+          devices: Device platforms and operating systems to target.
+
+          ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
+              paused.
+
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
+              `reach` optimization.
+
+          languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
+              targets all languages.
+
+          message_apps: Apps the conversation opens in. Required when conversion_location is
+              `messaging`.
+
+          minimum_daily_spend: Minimum the ad group tries to spend each day.
+
+          optimization_goal: The result the ad group's delivery is optimized to get the most of.
+
+          placements: `automatic` to let the ad platform choose placements, or the list of platforms
+              and positions to target. Omit a platform's positions to target all of them.
+
+              Valid positions per platform:
+
+              - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`,
+                `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`,
+                `facebook_reels_overlay`, `biz_disco_feed`
+              - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`,
+                `profile_feed`, `profile_reels`, `ig_search`
+              - `messenger`: `story`
+              - `audience_network`: `classic`, `rewarded_video`
+              - `threads`: `threads_stream`
+              - `whatsapp`: `status`
+
+          regions: Locations to target and exclude.
+
+          starts_at: When the ad group starts delivering, as an ISO 8601 timestamp. Omit to start as
+              soon as it's active.
+
+          status: Initial status (default: `active`).
+
+          title: The display name of the ad group.
 
           extra_headers: Send extra headers
 
@@ -164,12 +495,25 @@ class AdGroupsResource(SyncAPIResource):
             path_template("/ad_groups/{id}", id=id),
             body=maybe_transform(
                 {
-                    "budget": budget,
+                    "audiences": audiences,
+                    "bid_type": bid_type,
+                    "budget_amount": budget_amount,
                     "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "name": name,
-                    "platform_config": platform_config,
+                    "conversion_event": conversion_event,
+                    "conversion_location": conversion_location,
+                    "demographics": demographics,
+                    "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
+                    "devices": devices,
+                    "ends_at": ends_at,
+                    "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
+                    "minimum_daily_spend": minimum_daily_spend,
+                    "optimization_goal": optimization_goal,
+                    "placements": placements,
+                    "regions": regions,
+                    "starts_at": starts_at,
                     "status": status,
                     "title": title,
                 },
@@ -184,66 +528,82 @@ class AdGroupsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ad_campaign_id: Optional[str] | Omit = omit,
-        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        campaign_id: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
-        status: Optional[AdGroupStatus] | Omit = omit,
+        account_id: str | Omit = omit,
+        ad_campaign_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal[
+            "created_at",
+            "updated_at",
+            "spend",
+            "impressions",
+            "reach",
+            "clicks",
+            "unique_clicks",
+            "frequency",
+            "click_through_rate",
+            "results",
+            "cost_per_mille",
+            "cost_per_click",
+            "cost_per_result",
+            "return_on_ad_spend",
+        ]
+        | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        status: Literal["active", "paused", "rejected"] | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[AdGroupListResponse]:
+    ) -> SyncCursorPage[AdGroup]:
         """
-        Returns a paginated list of ad groups scoped by campaign or company, with
-        optional filtering by status and creation date.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Lists ad groups for the account, newest first.
 
         Args:
-          ad_campaign_id: Filter by ad campaign. Provide exactly one of ad_campaign_id or company_id.
+          account_id: Account whose ad groups to list. Defaults to the authenticated account.
 
-          ad_campaign_ids: Only return ad groups belonging to these ad campaigns (max 100). Can be combined
-              with companyId or used on its own.
+          ad_campaign_id: Filter to ad groups in this campaign.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor to fetch the page after (from page_info.end_cursor).
 
-          before: Returns the elements in the list that come before the specified cursor.
-
-          campaign_id: Filter by campaign.
-
-          company_id: Filter by company. Provide companyId or adCampaignIds.
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
           created_after: Only return ad groups created after this timestamp.
 
           created_before: Only return ad groups created before this timestamp.
 
-          first: Returns the first _n_ elements from the list.
+          direction: The sort direction. Defaults to desc.
 
-          last: Returns the last _n_ elements from the list.
+          first: The number of ad groups to return.
 
-          query: Case-insensitive substring match against the ad group name or ID.
+          last: The number of ad groups to return from the end of the range.
 
-          stats_from: Inclusive start of the window for each ad group's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
+              …) rank over the stats_from/stats_to window across the whole list, not just the
+              current page. results, cost_per_result and return_on_ad_spend rank by the same
+              Whop pixel-attributed values the response reports.
 
-          stats_to: Inclusive end of the window for each ad group's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          query: Filter ad groups by a title or ID substring.
 
-          status: The status of an external ad group.
+          stats_from: Start of the stats window. Defaults to all-time.
+
+          stats_to: End of the stats window. Defaults to now.
+
+          status: Filter to ad groups with this status.
+
+          time_zone: IANA timezone (e.g. America/New_York) the stats window is interpreted in. Bare
+              stats_from/stats_to dates resolve to day boundaries on this clock. Defaults to
+              UTC.
 
           extra_headers: Send extra headers
 
@@ -255,7 +615,7 @@ class AdGroupsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/ad_groups",
-            page=SyncCursorPage[AdGroupListResponse],
+            page=SyncCursorPage[AdGroup],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -263,25 +623,26 @@ class AdGroupsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
-                        "ad_campaign_ids": ad_campaign_ids,
                         "after": after,
                         "before": before,
-                        "campaign_id": campaign_id,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
+                        "time_zone": time_zone,
                     },
                     ad_group_list_params.AdGroupListParams,
                 ),
             ),
-            model=AdGroupListResponse,
+            model=AdGroup,
         )
 
     def delete(
@@ -295,12 +656,9 @@ class AdGroupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroupDeleteResponse:
-        """
-        Soft-deletes an ad group.
+        """Deletes an ad group.
 
-        Required permissions:
-
-        - `ad_campaign:update`
+        Returns true on success.
 
         Args:
           extra_headers: Send extra headers
@@ -333,12 +691,7 @@ class AdGroupsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
         """
-        Pauses an ad group.
-
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Pauses delivery of an ad group.
 
         Args:
           extra_headers: Send extra headers
@@ -371,12 +724,7 @@ class AdGroupsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
         """
-        Resumes a paused ad group.
-
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Resumes delivery of a paused ad group.
 
         Args:
           extra_headers: Send extra headers
@@ -399,7 +747,11 @@ class AdGroupsResource(SyncAPIResource):
 
 
 class AsyncAdGroupsResource(AsyncAPIResource):
-    """Ad groups"""
+    """
+    An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncAdGroupsResourceWithRawResponse:
@@ -420,12 +772,84 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         """
         return AsyncAdGroupsResourceWithStreamingResponse(self)
 
-    async def retrieve(
+    async def create(
         self,
-        id: str,
         *,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
+        ad_campaign_id: str,
+        audiences: ad_group_create_params.Audiences | Omit = omit,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
+        budget_amount: float | Omit = omit,
+        budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        conversion_event: Union[
+            Literal[
+                "purchase",
+                "add_to_cart",
+                "initiated_checkout",
+                "add_payment_info",
+                "complete_registration",
+                "lead",
+                "content_view",
+                "search",
+                "contact",
+                "customize_product",
+                "donate",
+                "find_location",
+                "schedule",
+                "start_trial",
+                "submit_application",
+                "subscribe",
+            ],
+            str,
+            None,
+        ]
+        | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: ad_group_create_params.Demographics | Omit = omit,
+        desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: ad_group_create_params.DetailedTargeting | Omit = omit,
+        devices: ad_group_create_params.Devices | Omit = omit,
+        dynamic_creative: bool | Omit = omit,
+        ends_at: str | Omit = omit,
+        frequency_cap: ad_group_create_params.FrequencyCap | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
+        minimum_daily_spend: float | Omit = omit,
+        optimization_goal: Literal[
+            "conversions",
+            "link_clicks",
+            "landing_page_views",
+            "reach",
+            "impressions",
+            "engagement",
+            "conversations",
+            "video_views",
+            "thruplay",
+            "two_second_views",
+            "page_likes",
+            "social_profile",
+            "ad_recall_lift",
+            "event_responses",
+            "reminders_set",
+            "lead_generation",
+            "quality_lead",
+            "value",
+            "profile_and_page_engagement",
+        ]
+        | Omit = omit,
+        placements: Union[Literal["automatic"], Iterable[ad_group_create_params.PlacementsUnionMember1]] | Omit = omit,
+        regions: ad_group_create_params.Regions | Omit = omit,
+        starts_at: str | Omit = omit,
+        status: Literal["active", "paused"] | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -434,18 +858,156 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
         """
-        Retrieves a single ad group by its unique identifier.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Creates an ad group (ad set) in a campaign.
 
         Args:
-          stats_from: Inclusive start of the window for the ad group's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          ad_campaign_id: The ad campaign to create the ad group in, prefixed `adcamp_`.
 
-          stats_to: Inclusive end of the window for the ad group's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          audiences: Saved audiences to deliver to or exclude. Can't be combined with
+              demographics.automatic.
+
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` keeps the average cost per result near
+              desired_cost_per_result, and `maximum_target` never bids above it.
+
+          budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
+              set on the campaign instead.
+
+          budget_type: Whether budget_amount is spent per day (`daily`) or over the ad group's full run
+              (`lifetime`).
+
+          conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
+
+          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
+              (your social media profile), `messaging` (a direct-message conversation),
+              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
+              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
+              itself is set on the ad.
+
+          demographics: Age, gender, and automatic-audience targeting.
+
+          desired_cost_per_result: Cost per result to aim for (`average_target`) or never exceed
+              (`maximum_target`).
+
+          detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
+              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              combined with demographics.automatic, and unavailable to campaigns with
+              special_ad_categories. Send the complete intended state — a section you omit is
+              cleared.
+
+          devices: Device platforms and operating systems to target.
+
+          dynamic_creative: Let the ad platform automatically mix and match this ad group's creatives and
+              copy to find the best-performing combinations. Set at creation; can't be changed
+              afterward.
+
+          ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
+              paused.
+
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
+              `reach` optimization.
+
+          languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
+              targets all languages.
+
+          message_apps: Apps the conversation opens in. Required when conversion_location is
+              `messaging`.
+
+          minimum_daily_spend: Minimum the ad group tries to spend each day.
+
+          optimization_goal: The result the ad group's delivery is optimized to get the most of.
+
+          placements: `automatic` to let the ad platform choose placements, or the list of platforms
+              and positions to target. Omit a platform's positions to target all of them.
+
+              Valid positions per platform:
+
+              - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`,
+                `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`,
+                `facebook_reels_overlay`, `biz_disco_feed`
+              - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`,
+                `profile_feed`, `profile_reels`, `ig_search`
+              - `messenger`: `story`
+              - `audience_network`: `classic`, `rewarded_video`
+              - `threads`: `threads_stream`
+              - `whatsapp`: `status`
+
+          regions: Locations to target and exclude.
+
+          starts_at: When the ad group starts delivering, as an ISO 8601 timestamp. Omit to start as
+              soon as it's active.
+
+          status: Initial status (default: `active`).
+
+          title: The display name of the ad group.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/ad_groups",
+            body=await async_maybe_transform(
+                {
+                    "ad_campaign_id": ad_campaign_id,
+                    "audiences": audiences,
+                    "bid_type": bid_type,
+                    "budget_amount": budget_amount,
+                    "budget_type": budget_type,
+                    "conversion_event": conversion_event,
+                    "conversion_location": conversion_location,
+                    "demographics": demographics,
+                    "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
+                    "devices": devices,
+                    "dynamic_creative": dynamic_creative,
+                    "ends_at": ends_at,
+                    "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
+                    "minimum_daily_spend": minimum_daily_spend,
+                    "optimization_goal": optimization_goal,
+                    "placements": placements,
+                    "regions": regions,
+                    "starts_at": starts_at,
+                    "status": status,
+                    "title": title,
+                },
+                ad_group_create_params.AdGroupCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdGroup,
+        )
+
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        time_zone: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroup:
+        """
+        Retrieves a single ad group.
+
+        Args:
+          stats_from: Start of the stats window.
+
+          stats_to: End of the stats window.
+
+          time_zone: IANA timezone the stats window is interpreted in. Defaults to UTC.
 
           extra_headers: Send extra headers
 
@@ -468,6 +1030,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                     {
                         "stats_from": stats_from,
                         "stats_to": stats_to,
+                        "time_zone": time_zone,
                     },
                     ad_group_retrieve_params.AdGroupRetrieveParams,
                 ),
@@ -479,14 +1042,79 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        budget: Optional[float] | Omit = omit,
-        budget_type: Optional[AdBudgetType] | Omit = omit,
-        config: Optional[ad_group_update_params.Config] | Omit = omit,
-        daily_budget: Optional[float] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        platform_config: Optional[ad_group_update_params.PlatformConfig] | Omit = omit,
-        status: Optional[AdGroupStatus] | Omit = omit,
-        title: Optional[str] | Omit = omit,
+        audiences: ad_group_update_params.Audiences | Omit = omit,
+        bid_type: Literal["minimum_cost", "average_target", "maximum_target"] | Omit = omit,
+        budget_amount: float | Omit = omit,
+        budget_type: Literal["daily", "lifetime"] | Omit = omit,
+        conversion_event: Union[
+            Literal[
+                "purchase",
+                "add_to_cart",
+                "initiated_checkout",
+                "add_payment_info",
+                "complete_registration",
+                "lead",
+                "content_view",
+                "search",
+                "contact",
+                "customize_product",
+                "donate",
+                "find_location",
+                "schedule",
+                "start_trial",
+                "submit_application",
+                "subscribe",
+            ],
+            str,
+            None,
+        ]
+        | Omit = omit,
+        conversion_location: Literal[
+            "website",
+            "profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+        | Omit = omit,
+        demographics: ad_group_update_params.Demographics | Omit = omit,
+        desired_cost_per_result: float | Omit = omit,
+        detailed_targeting: ad_group_update_params.DetailedTargeting | Omit = omit,
+        devices: ad_group_update_params.Devices | Omit = omit,
+        ends_at: str | Omit = omit,
+        frequency_cap: ad_group_update_params.FrequencyCap | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        message_apps: List[Literal["messenger", "instagram", "whatsapp"]] | Omit = omit,
+        minimum_daily_spend: float | Omit = omit,
+        optimization_goal: Literal[
+            "conversions",
+            "link_clicks",
+            "landing_page_views",
+            "reach",
+            "impressions",
+            "engagement",
+            "conversations",
+            "video_views",
+            "thruplay",
+            "two_second_views",
+            "page_likes",
+            "social_profile",
+            "ad_recall_lift",
+            "event_responses",
+            "reminders_set",
+            "lead_generation",
+            "quality_lead",
+            "value",
+            "profile_and_page_engagement",
+        ]
+        | Omit = omit,
+        placements: Union[Literal["automatic"], Iterable[ad_group_update_params.PlacementsUnionMember1]] | Omit = omit,
+        regions: ad_group_update_params.Regions | Omit = omit,
+        starts_at: str | Omit = omit,
+        status: Literal["active", "paused"] | Omit = omit,
+        title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -494,30 +1122,84 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
-        """
-        Updates an existing ad group.
+        """Updates an ad group's editable fields.
 
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Only the keys you send are changed.
 
         Args:
-          budget: Budget amount in dollars.
+          audiences: Saved audiences to deliver to or exclude. Can't be combined with
+              demographics.automatic.
 
-          budget_type: The budget type for an ad campaign or ad group.
+          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
+              the budget, `average_target` keeps the average cost per result near
+              desired_cost_per_result, and `maximum_target` never bids above it.
 
-          config: Unified ad group configuration (bidding, optimization, targeting).
+          budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
+              set on the campaign instead.
 
-          daily_budget: Daily budget in dollars.
+          budget_type: Whether budget_amount is spent per day (`daily`) or over the ad group's full run
+              (`lifetime`).
 
-          name: Human-readable ad group name.
+          conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          platform_config: Platform-specific ad group configuration.
+          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
+              (your social media profile), `messaging` (a direct-message conversation),
+              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
+              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
+              itself is set on the ad.
 
-          status: The status of an external ad group.
+          demographics: Age, gender, and automatic-audience targeting.
 
-          title: Human-readable ad group title.
+          desired_cost_per_result: Cost per result to aim for (`average_target`) or never exceed
+              (`maximum_target`).
+
+          detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
+              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              combined with demographics.automatic, and unavailable to campaigns with
+              special_ad_categories. Send the complete intended state — a section you omit is
+              cleared.
+
+          devices: Device platforms and operating systems to target.
+
+          ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
+              paused.
+
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
+              `reach` optimization.
+
+          languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
+              targets all languages.
+
+          message_apps: Apps the conversation opens in. Required when conversion_location is
+              `messaging`.
+
+          minimum_daily_spend: Minimum the ad group tries to spend each day.
+
+          optimization_goal: The result the ad group's delivery is optimized to get the most of.
+
+          placements: `automatic` to let the ad platform choose placements, or the list of platforms
+              and positions to target. Omit a platform's positions to target all of them.
+
+              Valid positions per platform:
+
+              - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`,
+                `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`,
+                `facebook_reels_overlay`, `biz_disco_feed`
+              - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`,
+                `profile_feed`, `profile_reels`, `ig_search`
+              - `messenger`: `story`
+              - `audience_network`: `classic`, `rewarded_video`
+              - `threads`: `threads_stream`
+              - `whatsapp`: `status`
+
+          regions: Locations to target and exclude.
+
+          starts_at: When the ad group starts delivering, as an ISO 8601 timestamp. Omit to start as
+              soon as it's active.
+
+          status: Initial status (default: `active`).
+
+          title: The display name of the ad group.
 
           extra_headers: Send extra headers
 
@@ -533,12 +1215,25 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             path_template("/ad_groups/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "budget": budget,
+                    "audiences": audiences,
+                    "bid_type": bid_type,
+                    "budget_amount": budget_amount,
                     "budget_type": budget_type,
-                    "config": config,
-                    "daily_budget": daily_budget,
-                    "name": name,
-                    "platform_config": platform_config,
+                    "conversion_event": conversion_event,
+                    "conversion_location": conversion_location,
+                    "demographics": demographics,
+                    "desired_cost_per_result": desired_cost_per_result,
+                    "detailed_targeting": detailed_targeting,
+                    "devices": devices,
+                    "ends_at": ends_at,
+                    "frequency_cap": frequency_cap,
+                    "languages": languages,
+                    "message_apps": message_apps,
+                    "minimum_daily_spend": minimum_daily_spend,
+                    "optimization_goal": optimization_goal,
+                    "placements": placements,
+                    "regions": regions,
+                    "starts_at": starts_at,
                     "status": status,
                     "title": title,
                 },
@@ -553,66 +1248,82 @@ class AsyncAdGroupsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ad_campaign_id: Optional[str] | Omit = omit,
-        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        campaign_id: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        stats_from: Union[str, datetime, None] | Omit = omit,
-        stats_to: Union[str, datetime, None] | Omit = omit,
-        status: Optional[AdGroupStatus] | Omit = omit,
+        account_id: str | Omit = omit,
+        ad_campaign_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal[
+            "created_at",
+            "updated_at",
+            "spend",
+            "impressions",
+            "reach",
+            "clicks",
+            "unique_clicks",
+            "frequency",
+            "click_through_rate",
+            "results",
+            "cost_per_mille",
+            "cost_per_click",
+            "cost_per_result",
+            "return_on_ad_spend",
+        ]
+        | Omit = omit,
+        query: str | Omit = omit,
+        stats_from: str | Omit = omit,
+        stats_to: str | Omit = omit,
+        status: Literal["active", "paused", "rejected"] | Omit = omit,
+        time_zone: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AdGroupListResponse, AsyncCursorPage[AdGroupListResponse]]:
+    ) -> AsyncPaginator[AdGroup, AsyncCursorPage[AdGroup]]:
         """
-        Returns a paginated list of ad groups scoped by campaign or company, with
-        optional filtering by status and creation date.
-
-        Required permissions:
-
-        - `ad_campaign:basic:read`
+        Lists ad groups for the account, newest first.
 
         Args:
-          ad_campaign_id: Filter by ad campaign. Provide exactly one of ad_campaign_id or company_id.
+          account_id: Account whose ad groups to list. Defaults to the authenticated account.
 
-          ad_campaign_ids: Only return ad groups belonging to these ad campaigns (max 100). Can be combined
-              with companyId or used on its own.
+          ad_campaign_id: Filter to ad groups in this campaign.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor to fetch the page after (from page_info.end_cursor).
 
-          before: Returns the elements in the list that come before the specified cursor.
-
-          campaign_id: Filter by campaign.
-
-          company_id: Filter by company. Provide companyId or adCampaignIds.
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
           created_after: Only return ad groups created after this timestamp.
 
           created_before: Only return ad groups created before this timestamp.
 
-          first: Returns the first _n_ elements from the list.
+          direction: The sort direction. Defaults to desc.
 
-          last: Returns the last _n_ elements from the list.
+          first: The number of ad groups to return.
 
-          query: Case-insensitive substring match against the ad group name or ID.
+          last: The number of ad groups to return from the end of the range.
 
-          stats_from: Inclusive start of the window for each ad group's metric fields (spend,
-              impressions, …). Omit both statsFrom and statsTo for all-time stats.
+          order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
+              …) rank over the stats_from/stats_to window across the whole list, not just the
+              current page. results, cost_per_result and return_on_ad_spend rank by the same
+              Whop pixel-attributed values the response reports.
 
-          stats_to: Inclusive end of the window for each ad group's metric fields. Omit both
-              statsFrom and statsTo for all-time stats.
+          query: Filter ad groups by a title or ID substring.
 
-          status: The status of an external ad group.
+          stats_from: Start of the stats window. Defaults to all-time.
+
+          stats_to: End of the stats window. Defaults to now.
+
+          status: Filter to ad groups with this status.
+
+          time_zone: IANA timezone (e.g. America/New_York) the stats window is interpreted in. Bare
+              stats_from/stats_to dates resolve to day boundaries on this clock. Defaults to
+              UTC.
 
           extra_headers: Send extra headers
 
@@ -624,7 +1335,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/ad_groups",
-            page=AsyncCursorPage[AdGroupListResponse],
+            page=AsyncCursorPage[AdGroup],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -632,25 +1343,26 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
-                        "ad_campaign_ids": ad_campaign_ids,
                         "after": after,
                         "before": before,
-                        "campaign_id": campaign_id,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "query": query,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "status": status,
+                        "time_zone": time_zone,
                     },
                     ad_group_list_params.AdGroupListParams,
                 ),
             ),
-            model=AdGroupListResponse,
+            model=AdGroup,
         )
 
     async def delete(
@@ -664,12 +1376,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroupDeleteResponse:
-        """
-        Soft-deletes an ad group.
+        """Deletes an ad group.
 
-        Required permissions:
-
-        - `ad_campaign:update`
+        Returns true on success.
 
         Args:
           extra_headers: Send extra headers
@@ -702,12 +1411,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
         """
-        Pauses an ad group.
-
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Pauses delivery of an ad group.
 
         Args:
           extra_headers: Send extra headers
@@ -740,12 +1444,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroup:
         """
-        Resumes a paused ad group.
-
-        Required permissions:
-
-        - `ad_campaign:update`
-        - `ad_campaign:basic:read`
+        Resumes delivery of a paused ad group.
 
         Args:
           extra_headers: Send extra headers
@@ -771,6 +1470,9 @@ class AdGroupsResourceWithRawResponse:
     def __init__(self, ad_groups: AdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
+        self.create = to_raw_response_wrapper(
+            ad_groups.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             ad_groups.retrieve,
         )
@@ -795,6 +1497,9 @@ class AsyncAdGroupsResourceWithRawResponse:
     def __init__(self, ad_groups: AsyncAdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
+        self.create = async_to_raw_response_wrapper(
+            ad_groups.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             ad_groups.retrieve,
         )
@@ -819,6 +1524,9 @@ class AdGroupsResourceWithStreamingResponse:
     def __init__(self, ad_groups: AdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
+        self.create = to_streamed_response_wrapper(
+            ad_groups.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             ad_groups.retrieve,
         )
@@ -843,6 +1551,9 @@ class AsyncAdGroupsResourceWithStreamingResponse:
     def __init__(self, ad_groups: AsyncAdGroupsResource) -> None:
         self._ad_groups = ad_groups
 
+        self.create = async_to_streamed_response_wrapper(
+            ad_groups.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             ad_groups.retrieve,
         )
