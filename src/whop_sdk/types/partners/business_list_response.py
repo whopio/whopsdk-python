@@ -14,6 +14,8 @@ __all__ = [
     "FirstTierPartnerProfilePicture",
     "Owner",
     "OwnerProfilePicture",
+    "SecondTierPartner",
+    "SecondTierPartnerProfilePicture",
     "VolumeUsd",
 ]
 
@@ -94,6 +96,31 @@ class Owner(BaseModel):
     """The user's unique username."""
 
 
+class SecondTierPartnerProfilePicture(BaseModel):
+    """The user's profile picture."""
+
+    url: str
+    """The user's profile picture URL."""
+
+
+class SecondTierPartner(BaseModel):
+    """
+    The second-tier partner who earns on this business (referred the first-tier partner). Null if there is no active second-tier partner.
+    """
+
+    id: str
+    """User ID, prefixed `user_`."""
+
+    name: Optional[str] = None
+    """The user's display name."""
+
+    profile_picture: SecondTierPartnerProfilePicture
+    """The user's profile picture."""
+
+    username: str
+    """The user's unique username."""
+
+
 class VolumeUsd(BaseModel):
     attributed: str
     """
@@ -148,6 +175,12 @@ class BusinessListResponse(BaseModel):
 
     referral_started_at: Optional[datetime] = None
     """When the referral became active."""
+
+    second_tier_partner: Optional[SecondTierPartner] = None
+    """
+    The second-tier partner who earns on this business (referred the first-tier
+    partner). Null if there is no active second-tier partner.
+    """
 
     status: Literal["active", "removed"]
     """Current referral status."""
