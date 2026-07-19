@@ -26,8 +26,6 @@ __all__ = ["ShipmentsResource", "AsyncShipmentsResource"]
 
 
 class ShipmentsResource(SyncAPIResource):
-    """Shipments"""
-
     @cached_property
     def with_raw_response(self) -> ShipmentsResourceWithRawResponse:
         """
@@ -215,8 +213,6 @@ class ShipmentsResource(SyncAPIResource):
 
 
 class AsyncShipmentsResource(AsyncAPIResource):
-    """Shipments"""
-
     @cached_property
     def with_raw_response(self) -> AsyncShipmentsResourceWithRawResponse:
         """
