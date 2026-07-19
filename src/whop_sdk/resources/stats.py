@@ -66,11 +66,19 @@ class StatsResource(SyncAPIResource):
         card_network: str | Omit = omit,
         category: str | Omit = omit,
         convert_to: str | Omit = omit,
+        country_code: str | Omit = omit,
         currency: str | Omit = omit,
+        custom_name: str | Omit = omit,
+        device_type: str | Omit = omit,
         dispute_reason: str | Omit = omit,
+        event_name: str | Omit = omit,
+        event_type: Literal["page_view", "checkout_start", "other"] | Omit = omit,
         fee_type: str | Omit = omit,
-        interval: Literal["five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"] | Omit = omit,
+        hostname: str | Omit = omit,
+        interval: Literal["minute", "five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"]
+        | Omit = omit,
         most_recent_action: str | Omit = omit,
+        page: str | Omit = omit,
         payment_method: str | Omit = omit,
         product: str | Omit = omit,
         referred_user_id: str | Omit = omit,
@@ -127,21 +135,44 @@ class StatsResource(SyncAPIResource):
               match the ad entity endpoints. Ignored when you filter or break down by currency
               (those report the original transaction currency, unconverted).
 
+          country_code: Filter traffic metrics to one visitor country (uppercase ISO 3166-1 alpha-2, for
+              example US). Pair with breakdown_by=country_code to split by country.
+
           currency: Filter to transactions made in this original ISO currency, for example eur —
               reported in that currency, not converted. Pair with breakdown_by=currency to
               split a metric by currency. Available on metrics that list currency.
 
+          custom_name: Filter the events metric to one merchant-defined custom event name. Only valid
+              alongside event_name=pixel.custom. Pair with breakdown_by=custom_name to split
+              custom events by name.
+
+          device_type: Filter traffic metrics to one device type: desktop, mobile, tablet, or unknown.
+              Pair with breakdown_by=device_type to split by device.
+
           dispute_reason: Filter disputes to a normalized reason, for example product_not_received. Pair
               with breakdown_by=dispute_reason to split dispute counts by reason.
 
+          event_name: Filter the events metric to one tracked event name, for example pixel.page or
+              pixel.custom. Pair with breakdown_by=event_name to split by event.
+
+          event_type: Filter the events metric to a canonical group of events: page_view (pixel page
+              views plus whop.com store views), checkout_start (hosted and embedded checkout
+              views), or other. Pair with breakdown_by=event_type to split by group.
+
           fee_type: Filter to a single fee type. Pair with breakdown_by=fee_type to split fees by
               type. Available on metrics that list fee_type.
+
+          hostname: Filter traffic metrics to one website hostname, for example shop.example.com.
+              Pair with breakdown_by=hostname to split by website.
 
           interval: How wide each point is. Defaults to day. Snapshot metrics are day-only.
 
           most_recent_action: Filter to a single most-recent member action. Pair with
               breakdown_by=most_recent_action. Available on metrics that list
               most_recent_action.
+
+          page: Filter traffic metrics to one page — a hostname plus normalized path, for
+              example shop.example.com/pricing. Pair with breakdown_by=page to split by page.
 
           payment_method: Filter to a single payment method, for example card or crypto. Available on
               metrics that list payment_method.
@@ -162,7 +193,8 @@ class StatsResource(SyncAPIResource):
               sales-transaction pool; their attribution window is fixed in the metric name.
               Each metric lists its accepted values in the catalog.
 
-          source: Filter to a single GMV source, for example payments. Pair with
+          source: Filter to a single GMV source, for example payments — or, on the traffic
+              metrics, a visit source (whop_ads, direct, or a utm_source value). Pair with
               breakdown_by=source to split by source. Available on metrics that list source.
 
           status: Filter to a single membership status. Pair with breakdown_by=status. Available
@@ -201,11 +233,18 @@ class StatsResource(SyncAPIResource):
                         "card_network": card_network,
                         "category": category,
                         "convert_to": convert_to,
+                        "country_code": country_code,
                         "currency": currency,
+                        "custom_name": custom_name,
+                        "device_type": device_type,
                         "dispute_reason": dispute_reason,
+                        "event_name": event_name,
+                        "event_type": event_type,
                         "fee_type": fee_type,
+                        "hostname": hostname,
                         "interval": interval,
                         "most_recent_action": most_recent_action,
+                        "page": page,
                         "payment_method": payment_method,
                         "product": product,
                         "referred_user_id": referred_user_id,
@@ -286,11 +325,19 @@ class AsyncStatsResource(AsyncAPIResource):
         card_network: str | Omit = omit,
         category: str | Omit = omit,
         convert_to: str | Omit = omit,
+        country_code: str | Omit = omit,
         currency: str | Omit = omit,
+        custom_name: str | Omit = omit,
+        device_type: str | Omit = omit,
         dispute_reason: str | Omit = omit,
+        event_name: str | Omit = omit,
+        event_type: Literal["page_view", "checkout_start", "other"] | Omit = omit,
         fee_type: str | Omit = omit,
-        interval: Literal["five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"] | Omit = omit,
+        hostname: str | Omit = omit,
+        interval: Literal["minute", "five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"]
+        | Omit = omit,
         most_recent_action: str | Omit = omit,
+        page: str | Omit = omit,
         payment_method: str | Omit = omit,
         product: str | Omit = omit,
         referred_user_id: str | Omit = omit,
@@ -347,21 +394,44 @@ class AsyncStatsResource(AsyncAPIResource):
               match the ad entity endpoints. Ignored when you filter or break down by currency
               (those report the original transaction currency, unconverted).
 
+          country_code: Filter traffic metrics to one visitor country (uppercase ISO 3166-1 alpha-2, for
+              example US). Pair with breakdown_by=country_code to split by country.
+
           currency: Filter to transactions made in this original ISO currency, for example eur —
               reported in that currency, not converted. Pair with breakdown_by=currency to
               split a metric by currency. Available on metrics that list currency.
 
+          custom_name: Filter the events metric to one merchant-defined custom event name. Only valid
+              alongside event_name=pixel.custom. Pair with breakdown_by=custom_name to split
+              custom events by name.
+
+          device_type: Filter traffic metrics to one device type: desktop, mobile, tablet, or unknown.
+              Pair with breakdown_by=device_type to split by device.
+
           dispute_reason: Filter disputes to a normalized reason, for example product_not_received. Pair
               with breakdown_by=dispute_reason to split dispute counts by reason.
 
+          event_name: Filter the events metric to one tracked event name, for example pixel.page or
+              pixel.custom. Pair with breakdown_by=event_name to split by event.
+
+          event_type: Filter the events metric to a canonical group of events: page_view (pixel page
+              views plus whop.com store views), checkout_start (hosted and embedded checkout
+              views), or other. Pair with breakdown_by=event_type to split by group.
+
           fee_type: Filter to a single fee type. Pair with breakdown_by=fee_type to split fees by
               type. Available on metrics that list fee_type.
+
+          hostname: Filter traffic metrics to one website hostname, for example shop.example.com.
+              Pair with breakdown_by=hostname to split by website.
 
           interval: How wide each point is. Defaults to day. Snapshot metrics are day-only.
 
           most_recent_action: Filter to a single most-recent member action. Pair with
               breakdown_by=most_recent_action. Available on metrics that list
               most_recent_action.
+
+          page: Filter traffic metrics to one page — a hostname plus normalized path, for
+              example shop.example.com/pricing. Pair with breakdown_by=page to split by page.
 
           payment_method: Filter to a single payment method, for example card or crypto. Available on
               metrics that list payment_method.
@@ -382,7 +452,8 @@ class AsyncStatsResource(AsyncAPIResource):
               sales-transaction pool; their attribution window is fixed in the metric name.
               Each metric lists its accepted values in the catalog.
 
-          source: Filter to a single GMV source, for example payments. Pair with
+          source: Filter to a single GMV source, for example payments — or, on the traffic
+              metrics, a visit source (whop_ads, direct, or a utm_source value). Pair with
               breakdown_by=source to split by source. Available on metrics that list source.
 
           status: Filter to a single membership status. Pair with breakdown_by=status. Available
@@ -421,11 +492,18 @@ class AsyncStatsResource(AsyncAPIResource):
                         "card_network": card_network,
                         "category": category,
                         "convert_to": convert_to,
+                        "country_code": country_code,
                         "currency": currency,
+                        "custom_name": custom_name,
+                        "device_type": device_type,
                         "dispute_reason": dispute_reason,
+                        "event_name": event_name,
+                        "event_type": event_type,
                         "fee_type": fee_type,
+                        "hostname": hostname,
                         "interval": interval,
                         "most_recent_action": most_recent_action,
+                        "page": page,
                         "payment_method": payment_method,
                         "product": product,
                         "referred_user_id": referred_user_id,
