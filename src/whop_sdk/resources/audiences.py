@@ -95,7 +95,7 @@ class AudiencesResource(SyncAPIResource):
           count: Lookalikes only. Number of lookalike audiences to create (1–6).
 
           file_id: Custom audiences only. The uploaded customer CSV — a file id (`file_...`)
-              returned by `POST /files`, or a direct upload id.
+              returned by `POST /files`.
 
           name: Audience display name. Required for custom audiences; lookalike names are
               generated from the source audience.
@@ -304,7 +304,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
           count: Lookalikes only. Number of lookalike audiences to create (1–6).
 
           file_id: Custom audiences only. The uploaded customer CSV — a file id (`file_...`)
-              returned by `POST /files`, or a direct upload id.
+              returned by `POST /files`.
 
           name: Audience display name. Required for custom audiences; lookalike names are
               generated from the source audience.
