@@ -75,6 +75,7 @@ class TestPlans:
             trial_period_days=0,
             unlimited_stock=True,
             visibility="visibility",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -356,6 +357,7 @@ class TestPlans:
                     "value": "value",
                 }
             ],
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
 
@@ -451,6 +453,7 @@ class TestAsyncPlans:
             trial_period_days=0,
             unlimited_stock=True,
             visibility="visibility",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -732,6 +735,7 @@ class TestAsyncPlans:
                     "value": "value",
                 }
             ],
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PlanCalculateTaxResponse, plan, path=["response"])
 

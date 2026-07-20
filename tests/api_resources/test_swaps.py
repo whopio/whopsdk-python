@@ -44,6 +44,7 @@ class TestSwaps:
             from_chain="string",
             slippage_bps=0,
             to_chain="string",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
 
@@ -178,6 +179,7 @@ class TestSwaps:
             slippage_bps=0,
             to_address="to_address",
             to_chain="string",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SwapCreateQuoteResponse, swap, path=["response"])
 
@@ -239,6 +241,7 @@ class TestAsyncSwaps:
             from_chain="string",
             slippage_bps=0,
             to_chain="string",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
 
@@ -373,6 +376,7 @@ class TestAsyncSwaps:
             slippage_bps=0,
             to_address="to_address",
             to_chain="string",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SwapCreateQuoteResponse, swap, path=["response"])
 

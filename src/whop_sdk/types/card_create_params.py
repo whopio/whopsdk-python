@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["CardCreateParams"]
 
@@ -31,3 +33,5 @@ class CardCreateParams(TypedDict, total=False):
 
     user_id: str
     """The owning user ID (a user\\__ identifier). Provide this or account_id."""
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

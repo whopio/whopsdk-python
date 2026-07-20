@@ -9,7 +9,7 @@ import httpx
 
 from ..types import verification_list_params, verification_create_params, verification_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
+from .._utils import path_template, required_args, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -73,6 +73,7 @@ class VerificationsResource(SyncAPIResource):
         last_name: str | Omit = omit,
         phone: str | Omit = omit,
         tax_identification_number: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -158,6 +159,7 @@ class VerificationsResource(SyncAPIResource):
         kind: Literal["business"] | Omit = omit,
         place_of_incorporation: str | Omit = omit,
         tax_identification_number: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -231,6 +233,7 @@ class VerificationsResource(SyncAPIResource):
         last_name: str | Omit = omit,
         phone: str | Omit = omit,
         tax_identification_number: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         place_of_incorporation: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -239,6 +242,7 @@ class VerificationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationCreateResponse:
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/verifications",
             body=maybe_transform(
@@ -571,6 +575,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         last_name: str | Omit = omit,
         phone: str | Omit = omit,
         tax_identification_number: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -656,6 +661,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         kind: Literal["business"] | Omit = omit,
         place_of_incorporation: str | Omit = omit,
         tax_identification_number: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -729,6 +735,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         last_name: str | Omit = omit,
         phone: str | Omit = omit,
         tax_identification_number: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         place_of_incorporation: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -737,6 +744,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationCreateResponse:
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/verifications",
             body=await async_maybe_transform(

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["PayoutCreateParams"]
 
@@ -20,9 +22,11 @@ class PayoutCreateParams(TypedDict, total=False):
     currency: str
     """The payout currency. Defaults to usd."""
 
-    idempotency_key: str
+    body_idempotency_key: Annotated[str, PropertyInfo(alias="idempotency_key")]
     """A client-generated key that makes retries safe.
 
     Retrying with the same key returns the original payout instead of creating a
     second one.
     """
+
+    header_idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

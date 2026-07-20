@@ -42,6 +42,7 @@ class TestBounties:
             frequency="weekly",
             publish_at="publish_at",
             publish_at_timezone="publish_at_timezone",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -194,6 +195,7 @@ class TestAsyncBounties:
             frequency="weekly",
             publish_at="publish_at",
             publish_at_timezone="publish_at_timezone",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 

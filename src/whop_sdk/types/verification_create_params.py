@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = [
     "VerificationCreateParams",
@@ -92,6 +94,8 @@ class CreateIndividualVerification(TypedDict, total=False):
     as appropriate for their country. Examples are a Social Security Number (SSN) in
     the US, or a Social Insurance Number in Canada.
     """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class CreateIndividualVerificationAddress(TypedDict, total=False):
@@ -213,6 +217,8 @@ class CreateBusinessVerification(TypedDict, total=False):
     as appropriate for their country. Examples are a Social Security Number (SSN) in
     the US, or a Social Insurance Number in Canada.
     """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class CreateBusinessVerificationAddress(TypedDict, total=False):

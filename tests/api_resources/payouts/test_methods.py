@@ -39,6 +39,7 @@ class TestMethods:
             destination_currency="destination_currency",
             is_default=True,
             user_id="user_id",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
 
@@ -146,6 +147,7 @@ class TestAsyncMethods:
             destination_currency="destination_currency",
             is_default=True,
             user_id="user_id",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
 

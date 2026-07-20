@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
 __all__ = [
     "AdGroupCreateParams",
@@ -216,6 +217,8 @@ class AdGroupCreateParams(TypedDict, total=False):
 
     title: str
     """The display name of the ad group."""
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Audiences(TypedDict, total=False):

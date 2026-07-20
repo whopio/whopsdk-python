@@ -102,6 +102,7 @@ class TestEvents:
                 "username": "username",
             },
             value=6.9,
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
 
@@ -264,6 +265,7 @@ class TestAsyncEvents:
                 "username": "username",
             },
             value=6.9,
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
 

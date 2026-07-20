@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["SwapCreateParams"]
 
@@ -35,3 +37,5 @@ class SwapCreateParams(TypedDict, total=False):
 
     Defaults to the destination token's chain when omitted.
     """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

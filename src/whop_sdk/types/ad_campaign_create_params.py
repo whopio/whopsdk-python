@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import List
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["AdCampaignCreateParams"]
 
@@ -74,3 +76,5 @@ class AdCampaignCreateParams(TypedDict, total=False):
 
     Only for campaigns that own the budget.
     """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

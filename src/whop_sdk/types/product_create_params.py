@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["ProductCreateParams"]
 
@@ -69,3 +71,5 @@ class ProductCreateParams(TypedDict, total=False):
 
     visibility: str
     """Whether the product is visible to customers."""
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import List
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["SocialAccountConnectParams"]
 
@@ -29,3 +31,5 @@ class SocialAccountConnectParams(TypedDict, total=False):
 
     Use `advertise` when connecting a Meta Business or TikTok account for ads.
     """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

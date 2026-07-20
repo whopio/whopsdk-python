@@ -78,6 +78,7 @@ class TestMedia:
             duration_seconds=5,
             reference_media=["string"],
             resolution="480p",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(MediaAsset, media, path=["response"])
 
@@ -176,6 +177,7 @@ class TestAsyncMedia:
             duration_seconds=5,
             reference_media=["string"],
             resolution="480p",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(MediaAsset, media, path=["response"])
 

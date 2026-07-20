@@ -65,6 +65,7 @@ class TestVerifications:
             last_name="last_name",
             phone="phone",
             tax_identification_number="tax_identification_number",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
@@ -123,6 +124,7 @@ class TestVerifications:
             kind="business",
             place_of_incorporation="place_of_incorporation",
             tax_identification_number="tax_identification_number",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
@@ -460,6 +462,7 @@ class TestAsyncVerifications:
             last_name="last_name",
             phone="phone",
             tax_identification_number="tax_identification_number",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
@@ -518,6 +521,7 @@ class TestAsyncVerifications:
             kind="business",
             place_of_incorporation="place_of_incorporation",
             tax_identification_number="tax_identification_number",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 

@@ -36,6 +36,7 @@ class TestAccounts:
             email="email",
             metadata={"foo": "bar"},
             title="title",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -387,6 +388,7 @@ class TestAccounts:
                     "ssn": "ssn",
                 }
             ],
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
 
@@ -516,6 +518,7 @@ class TestAsyncAccounts:
             email="email",
             metadata={"foo": "bar"},
             title="title",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -867,6 +870,7 @@ class TestAsyncAccounts:
                     "ssn": "ssn",
                 }
             ],
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AccountRegisterLlcResponse, account, path=["response"])
 

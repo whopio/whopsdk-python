@@ -9,7 +9,7 @@ import httpx
 
 from ..types import bounty_submission_list_params, bounty_submission_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -58,6 +58,7 @@ class BountySubmissionsResource(SyncAPIResource):
         bounty_id: str,
         affiliate_code: Optional[str] | Omit = omit,
         deliverable: Optional[bounty_submission_create_params.Deliverable] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -87,6 +88,7 @@ class BountySubmissionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/bounty_submissions",
             body=maybe_transform(
@@ -223,6 +225,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         bounty_id: str,
         affiliate_code: Optional[str] | Omit = omit,
         deliverable: Optional[bounty_submission_create_params.Deliverable] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -252,6 +255,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/bounty_submissions",
             body=await async_maybe_transform(

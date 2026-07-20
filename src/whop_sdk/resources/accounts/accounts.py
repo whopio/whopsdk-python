@@ -9,7 +9,7 @@ import httpx
 
 from ...types import account_list_params, account_create_params, account_update_params, account_register_llc_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -77,6 +77,7 @@ class AccountsResource(SyncAPIResource):
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         title: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -111,6 +112,7 @@ class AccountsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/accounts",
             body=maybe_transform(
@@ -533,6 +535,7 @@ class AccountsResource(SyncAPIResource):
         *,
         business_info: account_register_llc_params.BusinessInfo,
         founders: Iterable[account_register_llc_params.Founder],
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -564,6 +567,7 @@ class AccountsResource(SyncAPIResource):
         """
         if not account_id:
             raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/accounts/{account_id}/llc", account_id=account_id),
             body=maybe_transform(
@@ -622,6 +626,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         title: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -656,6 +661,7 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/accounts",
             body=await async_maybe_transform(
@@ -1078,6 +1084,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         *,
         business_info: account_register_llc_params.BusinessInfo,
         founders: Iterable[account_register_llc_params.Founder],
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1109,6 +1116,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         """
         if not account_id:
             raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/accounts/{account_id}/llc", account_id=account_id),
             body=await async_maybe_transform(

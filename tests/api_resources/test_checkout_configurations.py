@@ -70,6 +70,7 @@ class TestCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
             redirect_url="redirect_url",
             three_ds_level="three_ds_level",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
@@ -290,6 +291,7 @@ class TestAsyncCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
             redirect_url="redirect_url",
             three_ds_level="three_ds_level",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 

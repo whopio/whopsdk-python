@@ -8,7 +8,7 @@ import httpx
 
 from ..types import swap_list_params, swap_create_params, swap_create_quote_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -62,6 +62,7 @@ class SwapsResource(SyncAPIResource):
         from_chain: Union[str, int, None] | Omit = omit,
         slippage_bps: Optional[int] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -99,6 +100,7 @@ class SwapsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/swaps",
             body=maybe_transform(
@@ -203,6 +205,7 @@ class SwapsResource(SyncAPIResource):
         slippage_bps: Optional[int] | Omit = omit,
         to_address: Optional[str] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -243,6 +246,7 @@ class SwapsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/swaps/quote",
             body=maybe_transform(
@@ -302,6 +306,7 @@ class AsyncSwapsResource(AsyncAPIResource):
         from_chain: Union[str, int, None] | Omit = omit,
         slippage_bps: Optional[int] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -339,6 +344,7 @@ class AsyncSwapsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/swaps",
             body=await async_maybe_transform(
@@ -443,6 +449,7 @@ class AsyncSwapsResource(AsyncAPIResource):
         slippage_bps: Optional[int] | Omit = omit,
         to_address: Optional[str] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -483,6 +490,7 @@ class AsyncSwapsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/swaps/quote",
             body=await async_maybe_transform(

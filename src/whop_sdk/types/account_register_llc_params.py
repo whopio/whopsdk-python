@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["AccountRegisterLlcParams", "BusinessInfo", "BusinessInfoAddress", "Founder", "FounderAddress"]
 
@@ -17,6 +19,8 @@ class AccountRegisterLlcParams(TypedDict, total=False):
 
     Exactly one must be marked `is_primary` — the responsible party for the filing.
     """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class BusinessInfoAddress(TypedDict, total=False):

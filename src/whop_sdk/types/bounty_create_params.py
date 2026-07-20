@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
 __all__ = ["BountyCreateParams"]
 
@@ -67,3 +68,5 @@ class BountyCreateParams(TypedDict, total=False):
 
     publish_at_timezone: Optional[str]
     """IANA timezone for recurring occurrences. Required when publish_at is set."""
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
 __all__ = ["BountySubmissionCreateParams", "Deliverable"]
 
@@ -19,6 +20,8 @@ class BountySubmissionCreateParams(TypedDict, total=False):
 
     deliverable: Optional[Deliverable]
     """The submitted work, matching one of the bounty's accepted deliverable types."""
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Deliverable(TypedDict, total=False):

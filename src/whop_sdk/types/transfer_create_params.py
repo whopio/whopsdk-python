@@ -55,3 +55,5 @@ class TransferCreateParams(TypedDict, total=False):
 
     type: Literal["ledger", "wallet_send", "claim_link"]
     """The kind of money movement. Defaults to ledger."""
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

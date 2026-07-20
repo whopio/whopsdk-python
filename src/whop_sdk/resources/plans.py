@@ -9,7 +9,7 @@ import httpx
 
 from ..types import plan_list_params, plan_create_params, plan_update_params, plan_calculate_tax_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -84,6 +84,7 @@ class PlansResource(SyncAPIResource):
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
         visibility: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -164,6 +165,7 @@ class PlansResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/plans",
             body=maybe_transform(
@@ -511,6 +513,7 @@ class PlansResource(SyncAPIResource):
         address: Optional[plan_calculate_tax_params.Address] | Omit = omit,
         ip_address: str | Omit = omit,
         tax_ids: Optional[Iterable[plan_calculate_tax_params.TaxID]] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -540,6 +543,7 @@ class PlansResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/plans/{id}/calculate_tax", id=id),
             body=maybe_transform(
@@ -613,6 +617,7 @@ class AsyncPlansResource(AsyncAPIResource):
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
         visibility: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -693,6 +698,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/plans",
             body=await async_maybe_transform(
@@ -1040,6 +1046,7 @@ class AsyncPlansResource(AsyncAPIResource):
         address: Optional[plan_calculate_tax_params.Address] | Omit = omit,
         ip_address: str | Omit = omit,
         tax_ids: Optional[Iterable[plan_calculate_tax_params.TaxID]] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1069,6 +1076,7 @@ class AsyncPlansResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/plans/{id}/calculate_tax", id=id),
             body=await async_maybe_transform(

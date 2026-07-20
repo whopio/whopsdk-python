@@ -8,7 +8,7 @@ import httpx
 
 from ..types import media_generate_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -92,6 +92,7 @@ class MediaResource(SyncAPIResource):
         duration_seconds: Literal[5, 10, 15] | Omit = omit,
         reference_media: SequenceNotStr[str] | Omit = omit,
         resolution: Literal["480p", "720p", "1080p", "4k"] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,6 +130,7 @@ class MediaResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/media/generate",
             body=maybe_transform(
@@ -218,6 +220,7 @@ class AsyncMediaResource(AsyncAPIResource):
         duration_seconds: Literal[5, 10, 15] | Omit = omit,
         reference_media: SequenceNotStr[str] | Omit = omit,
         resolution: Literal["480p", "720p", "1080p", "4k"] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -255,6 +258,7 @@ class AsyncMediaResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/media/generate",
             body=await async_maybe_transform(

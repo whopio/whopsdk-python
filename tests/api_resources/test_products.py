@@ -49,6 +49,7 @@ class TestProducts:
             route="route",
             send_welcome_message=True,
             visibility="visibility",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -305,6 +306,7 @@ class TestAsyncProducts:
             route="route",
             send_welcome_message=True,
             visibility="visibility",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Product, product, path=["response"])
 
