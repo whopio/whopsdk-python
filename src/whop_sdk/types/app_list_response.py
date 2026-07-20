@@ -104,6 +104,12 @@ class AppListResponse(BaseModel):
     not configured.
     """
 
+    hosted_url: Optional[str] = None
+    """The full canonical URL where this app's hosted web build is served.
+
+    Null if the app has not claimed a route.
+    """
+
     icon: Optional[Icon] = None
     """
     The icon image for this app, displayed on the app store, product pages,
@@ -128,6 +134,12 @@ class AppListResponse(BaseModel):
     """
     The full origin URL for this app's proxied domain (e.g.,
     'https://myapp.apps.whop.com'). Null if no proxy domain is configured.
+    """
+
+    route: Optional[str] = None
+    """
+    The unique subdomain route where this app's hosted web builds are served, such
+    as 'myapp' for myapp.whop.app. Null if the app has not claimed a route.
     """
 
     skills_path: Optional[str] = None
