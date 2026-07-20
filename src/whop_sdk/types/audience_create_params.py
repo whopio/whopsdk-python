@@ -29,7 +29,8 @@ class AudienceCreateParams(TypedDict, total=False):
     file_id: str
     """Custom audiences only.
 
-    Direct upload ID from the standard media upload endpoint.
+    The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`, or
+    a direct upload id.
     """
 
     name: str
