@@ -7,6 +7,7 @@ from typing_extensions import Literal
 from .._models import BaseModel
 from .verification_status import VerificationStatus
 from .verification_error_code import VerificationErrorCode
+from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses
 
 __all__ = [
     "IdentityProfileUpdatedWebhookEvent",
@@ -168,6 +169,22 @@ class Data(BaseModel):
     Only populated for direct Whop user sessions; always empty when authenticated
     via API key, app, or OAuth scope (a single identity can be linked to companies
     the calling platform is not entitled to see).
+    """
+
+    payout_status: PayoutAccountCalculatedStatuses
+    """Progress of payout-account setup for this profile, independent of holds.
+
+    `connected` means onboarding is complete; a `connected` status paired with
+    `payouts_enabled: false` indicates an active account restriction rather than
+    incomplete setup.
+    """
+
+    payouts_enabled: bool
+    """Whether this profile can receive payouts right now.
+
+    True only when payout onboarding is complete and no payout holds are active on
+    the linked account. Treat this as the single source of truth for payout
+    readiness.
     """
 
     personal_address: Optional[DataPersonalAddress] = None
