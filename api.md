@@ -777,6 +777,7 @@ from whop_sdk.types import (
     WithdrawalSpeeds,
     WithdrawalStatus,
     WithdrawalListResponse,
+    WithdrawalGeneratePdfResponse,
 )
 ```
 
@@ -785,6 +786,7 @@ Methods:
 - <code title="post /withdrawals">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">create</a>(\*\*<a href="src/whop_sdk/types/withdrawal_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/withdrawal.py">Withdrawal</a></code>
 - <code title="get /withdrawals/{id}">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/withdrawal.py">Withdrawal</a></code>
 - <code title="get /withdrawals">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">list</a>(\*\*<a href="src/whop_sdk/types/withdrawal_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/withdrawal_list_response.py">SyncCursorPage[WithdrawalListResponse]</a></code>
+- <code title="post /withdrawals/{id}/generate_pdf">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">generate_pdf</a>(id) -> <a href="./src/whop_sdk/types/withdrawal_generate_pdf_response.py">WithdrawalGeneratePdfResponse</a></code>
 
 # AccountLinks
 
