@@ -24,13 +24,12 @@ from ..types.withdrawal import Withdrawal
 from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.withdrawal_list_response import WithdrawalListResponse
+from ..types.withdrawal_generate_pdf_response import WithdrawalGeneratePdfResponse
 
 __all__ = ["WithdrawalsResource", "AsyncWithdrawalsResource"]
 
 
 class WithdrawalsResource(SyncAPIResource):
-    """Withdrawals"""
-
     @cached_property
     def with_raw_response(self) -> WithdrawalsResourceWithRawResponse:
         """
@@ -83,7 +82,7 @@ class WithdrawalsResource(SyncAPIResource):
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
-          platform_covers_fees: Whether the platform covers the payout fees instead of the connected account.
+          platform_covers_fees: Whether the platform covers the payout fees.
 
           statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
               characters and contain only alphanumeric characters.
@@ -229,10 +228,45 @@ class WithdrawalsResource(SyncAPIResource):
             model=WithdrawalListResponse,
         )
 
+    def generate_pdf(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WithdrawalGeneratePdfResponse:
+        """
+        Generates a withdrawal PDF invoice and returns a temporary download URL.
+
+        Required permissions:
+
+        - `payout:withdrawal:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/withdrawals/{id}/generate_pdf", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WithdrawalGeneratePdfResponse,
+        )
+
 
 class AsyncWithdrawalsResource(AsyncAPIResource):
-    """Withdrawals"""
-
     @cached_property
     def with_raw_response(self) -> AsyncWithdrawalsResourceWithRawResponse:
         """
@@ -285,7 +319,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
-          platform_covers_fees: Whether the platform covers the payout fees instead of the connected account.
+          platform_covers_fees: Whether the platform covers the payout fees.
 
           statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
               characters and contain only alphanumeric characters.
@@ -431,6 +465,43 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
             model=WithdrawalListResponse,
         )
 
+    async def generate_pdf(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WithdrawalGeneratePdfResponse:
+        """
+        Generates a withdrawal PDF invoice and returns a temporary download URL.
+
+        Required permissions:
+
+        - `payout:withdrawal:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/withdrawals/{id}/generate_pdf", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WithdrawalGeneratePdfResponse,
+        )
+
 
 class WithdrawalsResourceWithRawResponse:
     def __init__(self, withdrawals: WithdrawalsResource) -> None:
@@ -444,6 +515,9 @@ class WithdrawalsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             withdrawals.list,
+        )
+        self.generate_pdf = to_raw_response_wrapper(
+            withdrawals.generate_pdf,
         )
 
 
@@ -460,6 +534,9 @@ class AsyncWithdrawalsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             withdrawals.list,
         )
+        self.generate_pdf = async_to_raw_response_wrapper(
+            withdrawals.generate_pdf,
+        )
 
 
 class WithdrawalsResourceWithStreamingResponse:
@@ -475,6 +552,9 @@ class WithdrawalsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             withdrawals.list,
         )
+        self.generate_pdf = to_streamed_response_wrapper(
+            withdrawals.generate_pdf,
+        )
 
 
 class AsyncWithdrawalsResourceWithStreamingResponse:
@@ -489,4 +569,7 @@ class AsyncWithdrawalsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             withdrawals.list,
+        )
+        self.generate_pdf = async_to_streamed_response_wrapper(
+            withdrawals.generate_pdf,
         )
