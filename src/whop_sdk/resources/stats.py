@@ -77,6 +77,7 @@ class StatsResource(SyncAPIResource):
         hostname: str | Omit = omit,
         interval: Literal["minute", "five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"]
         | Omit = omit,
+        merchant: str | Omit = omit,
         most_recent_action: str | Omit = omit,
         page: str | Omit = omit,
         payment_method: str | Omit = omit,
@@ -167,6 +168,10 @@ class StatsResource(SyncAPIResource):
 
           interval: How wide each point is. Defaults to day. Snapshot metrics are day-only.
 
+          merchant: Filter to a single cashback merchant bucket, for example whop-ads. Pair with
+              breakdown_by=merchant to split cashback by merchant. Available on metrics that
+              list merchant.
+
           most_recent_action: Filter to a single most-recent member action. Pair with
               breakdown_by=most_recent_action. Available on metrics that list
               most_recent_action.
@@ -243,6 +248,7 @@ class StatsResource(SyncAPIResource):
                         "fee_type": fee_type,
                         "hostname": hostname,
                         "interval": interval,
+                        "merchant": merchant,
                         "most_recent_action": most_recent_action,
                         "page": page,
                         "payment_method": payment_method,
@@ -336,6 +342,7 @@ class AsyncStatsResource(AsyncAPIResource):
         hostname: str | Omit = omit,
         interval: Literal["minute", "five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"]
         | Omit = omit,
+        merchant: str | Omit = omit,
         most_recent_action: str | Omit = omit,
         page: str | Omit = omit,
         payment_method: str | Omit = omit,
@@ -426,6 +433,10 @@ class AsyncStatsResource(AsyncAPIResource):
 
           interval: How wide each point is. Defaults to day. Snapshot metrics are day-only.
 
+          merchant: Filter to a single cashback merchant bucket, for example whop-ads. Pair with
+              breakdown_by=merchant to split cashback by merchant. Available on metrics that
+              list merchant.
+
           most_recent_action: Filter to a single most-recent member action. Pair with
               breakdown_by=most_recent_action. Available on metrics that list
               most_recent_action.
@@ -502,6 +513,7 @@ class AsyncStatsResource(AsyncAPIResource):
                         "fee_type": fee_type,
                         "hostname": hostname,
                         "interval": interval,
+                        "merchant": merchant,
                         "most_recent_action": most_recent_action,
                         "page": page,
                         "payment_method": payment_method,

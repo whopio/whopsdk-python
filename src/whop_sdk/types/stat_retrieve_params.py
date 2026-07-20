@@ -142,6 +142,13 @@ class StatRetrieveParams(TypedDict, total=False):
     interval: Literal["minute", "five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"]
     """How wide each point is. Defaults to day. Snapshot metrics are day-only."""
 
+    merchant: str
+    """Filter to a single cashback merchant bucket, for example whop-ads.
+
+    Pair with breakdown_by=merchant to split cashback by merchant. Available on
+    metrics that list merchant.
+    """
+
     most_recent_action: str
     """Filter to a single most-recent member action.
 
