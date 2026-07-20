@@ -89,6 +89,7 @@ class PreferencesResource(SyncAPIResource):
         ads_payment_methods: preference_update_params.AdsPaymentMethods | Omit = omit,
         ads_reporting_currency: str | Omit = omit,
         ads_scheduling_timezone: str | Omit = omit,
+        cards_auto_top_up: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -118,6 +119,9 @@ class PreferencesResource(SyncAPIResource):
               times and to bucket reports. Cannot be cleared once set — pass a new value to
               change it.
 
+          cards_auto_top_up: Whether incoming funds are automatically moved to the account's cards balance.
+              Requires a cards balance on the account.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -135,6 +139,7 @@ class PreferencesResource(SyncAPIResource):
                     "ads_payment_methods": ads_payment_methods,
                     "ads_reporting_currency": ads_reporting_currency,
                     "ads_scheduling_timezone": ads_scheduling_timezone,
+                    "cards_auto_top_up": cards_auto_top_up,
                 },
                 preference_update_params.PreferenceUpdateParams,
             ),
@@ -212,6 +217,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
         ads_payment_methods: preference_update_params.AdsPaymentMethods | Omit = omit,
         ads_reporting_currency: str | Omit = omit,
         ads_scheduling_timezone: str | Omit = omit,
+        cards_auto_top_up: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -241,6 +247,9 @@ class AsyncPreferencesResource(AsyncAPIResource):
               times and to bucket reports. Cannot be cleared once set — pass a new value to
               change it.
 
+          cards_auto_top_up: Whether incoming funds are automatically moved to the account's cards balance.
+              Requires a cards balance on the account.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -258,6 +267,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
                     "ads_payment_methods": ads_payment_methods,
                     "ads_reporting_currency": ads_reporting_currency,
                     "ads_scheduling_timezone": ads_scheduling_timezone,
+                    "cards_auto_top_up": cards_auto_top_up,
                 },
                 preference_update_params.PreferenceUpdateParams,
             ),

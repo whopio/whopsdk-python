@@ -27,6 +27,12 @@ class PreferenceUpdateParams(TypedDict, total=False):
     reports. Cannot be cleared once set — pass a new value to change it.
     """
 
+    cards_auto_top_up: bool
+    """Whether incoming funds are automatically moved to the account's cards balance.
+
+    Requires a cards balance on the account.
+    """
+
 
 class AdsPaymentMethodsPrimary(TypedDict, total=False):
     type: Required[Literal["platform_balance", "card"]]

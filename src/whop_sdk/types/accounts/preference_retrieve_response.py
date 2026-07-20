@@ -103,3 +103,9 @@ class PreferenceRetrieveResponse(BaseModel):
     `America/New_York`) used to interpret campaign start/end times and to bucket
     reports. Defaults to `America/New_York` until explicitly overridden.
     """
+
+    cards_auto_top_up: bool
+    """Whether incoming funds are automatically moved to the account's cards balance.
+
+    `false` when the account has no cards balance.
+    """
