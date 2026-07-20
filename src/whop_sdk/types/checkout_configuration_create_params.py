@@ -2,539 +2,149 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing import Optional
+from typing_extensions import Literal, TypedDict
 
-from .checkout_font import CheckoutFont
-from .checkout_shape import CheckoutShape
-from .shared.currency import Currency
-from .shared.tax_type import TaxType
-from .shared.plan_type import PlanType
-from .shared.visibility import Visibility
-from .payment_method_types import PaymentMethodTypes
-from .shared.release_method import ReleaseMethod
-from .shared.global_affiliate_status import GlobalAffiliateStatus
+from .._types import SequenceNotStr
 
-__all__ = [
-    "CheckoutConfigurationCreateParams",
-    "CreateCheckoutSessionInputModePaymentWithPlan",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlan",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanImage",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration",
-    "CreateCheckoutSessionInputModePaymentWithPlanPlanProduct",
-    "CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling",
-    "CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration",
-    "CreateCheckoutSessionInputModePaymentWithPlanID",
-    "CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling",
-    "CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration",
-    "CreateCheckoutSessionInputModeSetup",
-    "CreateCheckoutSessionInputModeSetupCheckoutStyling",
-    "CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration",
-]
+__all__ = ["CheckoutConfigurationCreateParams", "PaymentMethodConfiguration", "Plan", "PlanPaymentMethodConfiguration"]
 
 
-class CreateCheckoutSessionInputModePaymentWithPlan(TypedDict, total=False):
-    plan: Required[CreateCheckoutSessionInputModePaymentWithPlanPlan]
-    """
-    The plan attributes to create a new plan inline for this checkout configuration.
-    """
+class CheckoutConfigurationCreateParams(TypedDict, total=False):
+    account_id: str
+    """Account ID, prefixed `biz_`."""
 
     affiliate_code: Optional[str]
-    """An affiliate tracking code to attribute the checkout to a specific affiliate."""
+    """Affiliate code to apply to the checkout."""
 
-    allow_promo_codes: Optional[bool]
+    currency: Optional[str]
+    """Currency used for setup-mode payment method availability."""
+
+    metadata: Optional[object]
+    """Custom key-value metadata copied to payments and memberships."""
+
+    mode: Literal["payment", "setup"]
     """
-    Whether the checkout should show the promo code input field and accept promo
-    codes. Defaults to true.
+    Checkout mode: `payment` collects payment for a plan now; `setup` saves payment
+    details without charging. Defaults to `payment`.
     """
 
-    checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling]
-    """Checkout styling overrides for this session.
+    payment_method_configuration: Optional[PaymentMethodConfiguration]
+    """Payment method overrides for this checkout.
 
-    Overrides plan and company defaults.
+    `null` uses the plan or platform defaults.
     """
 
-    currency: Optional[Currency]
-    """The available currencies on the platform"""
+    plan: Optional[Plan]
+    """Plan attributes used to create or find a plan for this checkout configuration.
 
-    metadata: Optional[Dict[str, object]]
-    """Custom key-value metadata to attach to the checkout configuration."""
-
-    mode: Literal["payment"]
-
-    payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration]
-    """The explicit payment method configuration for the checkout session.
-
-    Only applies to setup mode. If not provided, the platform or company defaults
-    will apply.
+    Mutually exclusive with `plan_id`.
     """
+
+    plan_id: Optional[str]
+    """Existing plan ID, prefixed `plan_`. Mutually exclusive with `plan`."""
 
     redirect_url: Optional[str]
-    """The URL to redirect the user to after checkout is completed."""
+    """URL customers are sent to after checkout."""
 
-    source_url: Optional[str]
-    """The URL of the page where the checkout is being initiated from."""
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField(TypedDict, total=False):
-    field_type: Required[Literal["text"]]
-    """The type of the custom field."""
-
-    name: Required[str]
-    """The name of the custom field."""
-
-    id: Optional[str]
-    """The ID of the custom field (if being updated)"""
-
-    order: Optional[int]
-    """The order of the field."""
-
-    placeholder: Optional[str]
-    """The placeholder value of the field."""
-
-    required: Optional[bool]
-    """Whether or not the field is required."""
+    three_ds_level: Optional[str]
+    """3D Secure behavior for this checkout."""
 
 
-class CreateCheckoutSessionInputModePaymentWithPlanPlanImage(TypedDict, total=False):
-    """An image for the plan. This will be visible on the product page to customers."""
+class PaymentMethodConfiguration(TypedDict, total=False):
+    """Payment method overrides for this checkout.
 
-    id: Required[str]
-    """The ID of an existing file object."""
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
+    `null` uses the plan or platform defaults.
     """
 
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
+    disabled: SequenceNotStr[str]
+    """Payment methods explicitly disabled for checkout."""
 
-    Only applies if the include_platform_defaults is true.
+    enabled: SequenceNotStr[str]
+    """Payment methods explicitly enabled for checkout."""
+
+    include_platform_defaults: bool
+    """Whether platform default payment methods are included."""
+
+
+class PlanPaymentMethodConfiguration(TypedDict, total=False):
+    """Payment method overrides for the inline plan. `null` uses platform defaults."""
+
+    disabled: SequenceNotStr[str]
+    """Payment methods explicitly disabled for this plan."""
+
+    enabled: SequenceNotStr[str]
+    """Payment methods explicitly enabled for this plan."""
+
+    include_platform_defaults: bool
+    """Whether platform default payment methods are included."""
+
+
+class Plan(TypedDict, total=False):
+    """Plan attributes used to create or find a plan for this checkout configuration.
+
+    Mutually exclusive with `plan_id`.
     """
 
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
+    account_id: Optional[str]
+    """Account ID for the inline plan, prefixed `biz_`.
 
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Optional[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanPlanProduct(TypedDict, total=False):
-    """Pass this object to create a new product for this plan.
-
-    We will use the product external identifier to find or create an existing product.
-    """
-
-    external_identifier: Required[str]
-    """A unique ID used to find or create a product.
-
-    When provided during creation, we will look for an existing product with this
-    external identifier — if found, it will be updated; otherwise, a new product
-    will be created.
-    """
-
-    title: Required[str]
-    """The title of the product."""
-
-    collect_shipping_address: Optional[bool]
-    """Whether or not to collect shipping information at checkout from the customer."""
-
-    custom_statement_descriptor: Optional[str]
-    """The custom statement descriptor for the product i.e.
-
-    WHOP\\**SPORTS, must be between 5 and 22 characters, contain at least one letter,
-    and not contain any of the following characters: <, >, \\,, ', "
-    """
-
-    description: Optional[str]
-    """A written description of the product."""
-
-    global_affiliate_percentage: Optional[float]
-    """The percentage of the revenue that goes to the global affiliate program."""
-
-    global_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for a product."""
-
-    headline: Optional[str]
-    """The headline of the product."""
-
-    product_tax_code_id: Optional[str]
-    """The ID of the product tax code to apply to this product."""
-
-    redirect_purchase_url: Optional[str]
-    """The URL to redirect the customer to after a purchase."""
-
-    route: Optional[str]
-    """The route of the product."""
-
-    visibility: Optional[Visibility]
-    """Visibility of a resource"""
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanPlan(TypedDict, total=False):
-    """
-    The plan attributes to create a new plan inline for this checkout configuration.
-    """
-
-    company_id: Required[str]
-    """The company the plan should be created for."""
-
-    currency: Required[Currency]
-    """The respective currency identifier for the plan."""
-
-    adaptive_pricing_enabled: Optional[bool]
-    """Whether this plan accepts local currency payments via adaptive pricing."""
-
-    application_fee_amount: Optional[float]
-    """The application fee amount collected by the platform from this connected
-    account.
-
-    Provided as a number in dollars (e.g., 5.00 for $5.00). Must be less than the
-    total payment amount. Only valid for connected accounts with a parent company.
+    Defaults to the account resolved from the request.
     """
 
     billing_period: Optional[int]
-    """The interval in days at which the plan charges (renewal plans).
+    """Recurring billing interval in days, such as 30 for monthly or 365 for annual."""
 
-    For example, 30 for monthly billing.
-    """
-
-    custom_fields: Optional[Iterable[CreateCheckoutSessionInputModePaymentWithPlanPlanCustomField]]
-    """An array of custom field objects."""
+    currency: Optional[str]
+    """Three-letter ISO currency code for the plan's prices."""
 
     description: Optional[str]
-    """The description of the plan."""
+    """Customer-visible plan description."""
 
     expiration_days: Optional[int]
-    """The number of days until the membership expires (for expiration-based plans).
-
-    For example, 365 for a one-year access pass.
-    """
+    """Access duration in days for expiration-based plans."""
 
     force_create_new_plan: Optional[bool]
-    """
-    Whether to force the creation of a new plan even if one with the same attributes
-    already exists.
-    """
-
-    image: Optional[CreateCheckoutSessionInputModePaymentWithPlanPlanImage]
-    """An image for the plan. This will be visible on the product page to customers."""
+    """Whether to create a new plan instead of reusing a matching one."""
 
     initial_price: Optional[float]
-    """An additional amount charged upon first purchase.
+    """Initial purchase price in the plan currency."""
 
-    Provided as a number in dollars (e.g., 10.00 for $10.00).
+    metadata: Optional[object]
+    """Custom key-value metadata stored on the plan."""
+
+    override_tax_type: Optional[str]
+    """Tax classification override for this plan."""
+
+    payment_method_configuration: Optional[PlanPaymentMethodConfiguration]
+    """Payment method overrides for the inline plan. `null` uses platform defaults."""
+
+    plan_type: Optional[str]
     """
-
-    internal_notes: Optional[str]
-    """A personal description or notes section for the business."""
-
-    override_tax_type: Optional[TaxType]
-    """
-    Whether or not the tax is included in a plan's price (or if it hasn't been set
-    up)
-    """
-
-    payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanPlanPaymentMethodConfiguration]
-    """The explicit payment method configuration for the plan.
-
-    If not provided, the platform or company's defaults will apply.
-    """
-
-    plan_type: Optional[PlanType]
-    """The type of plan that can be attached to a product"""
-
-    product: Optional[CreateCheckoutSessionInputModePaymentWithPlanPlanProduct]
-    """Pass this object to create a new product for this plan.
-
-    We will use the product external identifier to find or create an existing
-    product.
+    Billing model for the plan: `renewal` (recurring) or `one_time` (single
+    payment).
     """
 
     product_id: Optional[str]
-    """The product the plan is related to. Either this or product is required."""
+    """Product ID the inline plan should belong to, prefixed `prod_`."""
 
-    release_method: Optional[ReleaseMethod]
-    """The methods of how a plan can be released."""
+    release_method: Optional[str]
+    """Sales method for the plan, such as `buy_now` or `waitlist`."""
 
     renewal_price: Optional[float]
-    """The amount the customer is charged every billing period.
-
-    Provided as a number in dollars (e.g., 9.99 for $9.99/period).
-    """
-
-    split_pay_required_payments: Optional[int]
-    """The number of payments required before pausing the subscription."""
+    """Recurring price charged each billing period."""
 
     stock: Optional[int]
-    """The number of units available for purchase.
-
-    If not provided, stock is unlimited.
-    """
+    """Units available for purchase."""
 
     title: Optional[str]
-    """The title of the plan. This will be visible on the product page to customers."""
+    """Plan display name shown to customers."""
 
     trial_period_days: Optional[int]
-    """The number of free trial days added before a renewal plan."""
+    """Free trial days before the first renewal charge."""
 
-    visibility: Optional[Visibility]
-    """Visibility of a resource"""
+    unlimited_stock: Optional[bool]
+    """Whether the plan has unlimited stock."""
 
-
-class CreateCheckoutSessionInputModePaymentWithPlanCheckoutStyling(TypedDict, total=False):
-    """Checkout styling overrides for this session.
-
-    Overrides plan and company defaults.
-    """
-
-    background_color: Optional[str]
-    """
-    A hex color code for the checkout page background, applied to the order summary
-    panel (e.g. #F4F4F5).
-    """
-
-    border_style: Optional[CheckoutShape]
-    """The different border-radius styles available for checkout pages."""
-
-    button_color: Optional[str]
-    """A hex color code for the button color (e.g. #FF5733)."""
-
-    font_family: Optional[CheckoutFont]
-    """The different font families available for checkout pages."""
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the checkout session.
-
-    Only applies to setup mode. If not provided, the platform or company defaults will apply.
-    """
-
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Optional[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanID(TypedDict, total=False):
-    plan_id: Required[str]
-    """
-    The unique identifier of an existing plan to use for this checkout
-    configuration.
-    """
-
-    affiliate_code: Optional[str]
-    """An affiliate tracking code to attribute the checkout to a specific affiliate."""
-
-    allow_promo_codes: Optional[bool]
-    """
-    Whether the checkout should show the promo code input field and accept promo
-    codes. Defaults to true.
-    """
-
-    checkout_styling: Optional[CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling]
-    """Checkout styling overrides for this session.
-
-    Overrides plan and company defaults.
-    """
-
-    currency: Optional[Currency]
-    """The available currencies on the platform"""
-
-    metadata: Optional[Dict[str, object]]
-    """Custom key-value metadata to attach to the checkout configuration."""
-
-    mode: Literal["payment"]
-
-    payment_method_configuration: Optional[CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration]
-    """The explicit payment method configuration for the checkout session.
-
-    Only applies to setup mode. If not provided, the platform or company defaults
-    will apply.
-    """
-
-    redirect_url: Optional[str]
-    """The URL to redirect the user to after checkout is completed."""
-
-    source_url: Optional[str]
-    """The URL of the page where the checkout is being initiated from."""
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanIDCheckoutStyling(TypedDict, total=False):
-    """Checkout styling overrides for this session.
-
-    Overrides plan and company defaults.
-    """
-
-    background_color: Optional[str]
-    """
-    A hex color code for the checkout page background, applied to the order summary
-    panel (e.g. #F4F4F5).
-    """
-
-    border_style: Optional[CheckoutShape]
-    """The different border-radius styles available for checkout pages."""
-
-    button_color: Optional[str]
-    """A hex color code for the button color (e.g. #FF5733)."""
-
-    font_family: Optional[CheckoutFont]
-    """The different font families available for checkout pages."""
-
-
-class CreateCheckoutSessionInputModePaymentWithPlanIDPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the checkout session.
-
-    Only applies to setup mode. If not provided, the platform or company defaults will apply.
-    """
-
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Optional[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
-class CreateCheckoutSessionInputModeSetup(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to create the checkout configuration for.
-
-    Only required in setup mode.
-    """
-
-    mode: Required[Literal["setup"]]
-
-    allow_promo_codes: Optional[bool]
-    """
-    Whether the checkout should show the promo code input field and accept promo
-    codes. Defaults to true.
-    """
-
-    checkout_styling: Optional[CreateCheckoutSessionInputModeSetupCheckoutStyling]
-    """Checkout styling overrides for this session.
-
-    Overrides plan and company defaults.
-    """
-
-    currency: Optional[Currency]
-    """The available currencies on the platform"""
-
-    metadata: Optional[Dict[str, object]]
-    """Custom key-value metadata to attach to the checkout configuration."""
-
-    payment_method_configuration: Optional[CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration]
-    """The explicit payment method configuration for the checkout session.
-
-    Only applies to setup mode. If not provided, the platform or company defaults
-    will apply.
-    """
-
-    redirect_url: Optional[str]
-    """The URL to redirect the user to after checkout is completed."""
-
-    source_url: Optional[str]
-    """The URL of the page where the checkout is being initiated from."""
-
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
-    """The 3D Secure behavior for a plan."""
-
-
-class CreateCheckoutSessionInputModeSetupCheckoutStyling(TypedDict, total=False):
-    """Checkout styling overrides for this session.
-
-    Overrides plan and company defaults.
-    """
-
-    background_color: Optional[str]
-    """
-    A hex color code for the checkout page background, applied to the order summary
-    panel (e.g. #F4F4F5).
-    """
-
-    border_style: Optional[CheckoutShape]
-    """The different border-radius styles available for checkout pages."""
-
-    button_color: Optional[str]
-    """A hex color code for the button color (e.g. #FF5733)."""
-
-    font_family: Optional[CheckoutFont]
-    """The different font families available for checkout pages."""
-
-
-class CreateCheckoutSessionInputModeSetupPaymentMethodConfiguration(TypedDict, total=False):
-    """The explicit payment method configuration for the checkout session.
-
-    Only applies to setup mode. If not provided, the platform or company defaults will apply.
-    """
-
-    disabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: Required[List[PaymentMethodTypes]]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: Optional[bool]
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
-CheckoutConfigurationCreateParams: TypeAlias = Union[
-    CreateCheckoutSessionInputModePaymentWithPlan,
-    CreateCheckoutSessionInputModePaymentWithPlanID,
-    CreateCheckoutSessionInputModeSetup,
-]
+    visibility: Optional[str]
+    """Whether the plan is visible to customers or hidden from public view."""
