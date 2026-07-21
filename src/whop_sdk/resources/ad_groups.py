@@ -745,7 +745,7 @@ class AdGroupsResource(SyncAPIResource):
         """
         extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
-            "/ad_groups/reach_estimate",
+            "/ad_groups/estimate_reach",
             body=maybe_transform(
                 {
                     "platform": platform,
@@ -1631,7 +1631,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         """
         extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
-            "/ad_groups/reach_estimate",
+            "/ad_groups/estimate_reach",
             body=await async_maybe_transform(
                 {
                     "platform": platform,
