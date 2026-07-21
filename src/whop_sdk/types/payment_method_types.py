@@ -18,6 +18,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "bacs_debit",
     "bancolombia",
     "bancontact",
+    "bank_wire",
     "billie",
     "bizum",
     "blik",
