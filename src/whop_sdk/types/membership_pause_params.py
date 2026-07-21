@@ -2,13 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import TypedDict
+from typing import Union, Optional
+from datetime import datetime
+from typing_extensions import Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["MembershipPauseParams"]
 
 
 class MembershipPauseParams(TypedDict, total=False):
+    resumes_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """When the membership should automatically resume payment collection.
+
+    If not provided, the membership stays paused until manually resumed.
+    """
+
     void_payments: Optional[bool]
     """
     Whether to void any outstanding past-due payments on this membership, preventing
