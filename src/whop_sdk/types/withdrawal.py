@@ -161,6 +161,12 @@ class Withdrawal(BaseModel):
     withdrawal amount. Only applies to platform accounts using Whop Rails.
     """
 
+    payout_request_id: Optional[str] = None
+    """
+    The id of the payout request (returned by POST /payouts) that this withdrawal
+    settles. Null unless the withdrawal originated from a stablecoin payout.
+    """
+
     payout_token: Optional[PayoutToken] = None
     """
     The saved payout destination used for this withdrawal (e.g., a bank account or
