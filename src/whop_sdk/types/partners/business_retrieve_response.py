@@ -17,6 +17,7 @@ __all__ = [
     "FirstTierPartnerProfilePicture",
     "Owner",
     "OwnerProfilePicture",
+    "PayoutPercentages",
     "SecondTierPartner",
     "SecondTierPartnerProfilePicture",
     "VolumeUsd",
@@ -226,6 +227,24 @@ class Owner(BaseModel):
     """The user's unique username."""
 
 
+class PayoutPercentages(BaseModel):
+    """
+    The referrer's commission rate for each income source, expressed as a fraction (0.3 = 30%).
+    """
+
+    ad_spend: Optional[float] = None
+    """Share of the referred business's Whop Ads spend."""
+
+    card_interchange: Optional[float] = None
+    """Share of Whop's profit from card interchange."""
+
+    sales: float
+    """Share of Whop's profit from product sales."""
+
+    transfer: Optional[float] = None
+    """Share of Whop's profit from platform balance transfers."""
+
+
 class SecondTierPartnerProfilePicture(BaseModel):
     """The user's profile picture."""
 
@@ -294,10 +313,10 @@ class BusinessRetrieveResponse(BaseModel):
     owner: Optional[Owner] = None
     """The owner of the referred business."""
 
-    payout_percentage: float
-    """Referrer's share of Whop gross profit, as a fraction (0.3 = 30%).
-
-    Second-tier referrals earn a flat 0.1.
+    payout_percentages: PayoutPercentages
+    """
+    The referrer's commission rate for each income source, expressed as a fraction
+    (0.3 = 30%).
     """
 
     referral_expires_at: Optional[datetime] = None
