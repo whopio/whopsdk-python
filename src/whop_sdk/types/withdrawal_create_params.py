@@ -20,6 +20,13 @@ class WithdrawalCreateParams(TypedDict, total=False):
     currency: Required[Currency]
     """The currency that is being withdrawn."""
 
+    idempotency_key: Optional[str]
+    """A client-generated key that makes retries safe.
+
+    Retrying with the same key returns the original withdrawal instead of creating a
+    second one.
+    """
+
     payout_method_id: Optional[str]
     """The ID of the payout method to use for the withdrawal."""
 
