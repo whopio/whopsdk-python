@@ -73,8 +73,7 @@ class PayoutsResource(SyncAPIResource):
         amount: float,
         payout_method_id: str,
         currency: str | Omit = omit,
-        body_idempotency_key: str | Omit = omit,
-        header_idempotency_key: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -100,9 +99,6 @@ class PayoutsResource(SyncAPIResource):
 
           currency: The payout currency. Defaults to usd.
 
-          body_idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
-              returns the original payout instead of creating a second one.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -111,7 +107,7 @@ class PayoutsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": header_idempotency_key}), **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/payouts",
             body=maybe_transform(
@@ -120,7 +116,6 @@ class PayoutsResource(SyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "currency": currency,
-                    "body_idempotency_key": body_idempotency_key,
                 },
                 payout_create_params.PayoutCreateParams,
             ),
@@ -243,8 +238,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         amount: float,
         payout_method_id: str,
         currency: str | Omit = omit,
-        body_idempotency_key: str | Omit = omit,
-        header_idempotency_key: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -270,9 +264,6 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
           currency: The payout currency. Defaults to usd.
 
-          body_idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
-              returns the original payout instead of creating a second one.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -281,7 +272,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": header_idempotency_key}), **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/payouts",
             body=await async_maybe_transform(
@@ -290,7 +281,6 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "currency": currency,
-                    "body_idempotency_key": body_idempotency_key,
                 },
                 payout_create_params.PayoutCreateParams,
             ),
