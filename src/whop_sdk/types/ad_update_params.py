@@ -56,7 +56,9 @@ class AdUpdateParams(TypedDict, total=False):
     """The ad's creative assets.
 
     Each entry is an uploaded file id with an optional format; omit format for the
-    original asset. Replaces a live ad's creative on the platform.
+    original asset. Replaces a live ad's creative on the platform. Two or more
+    entries with no format replace it with a carousel (2-10 attachments), in order,
+    sharing the ad's copy.
     """
 
     descriptions: SequenceNotStr[str]

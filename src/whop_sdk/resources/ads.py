@@ -117,7 +117,8 @@ class AdsResource(SyncAPIResource):
           call_to_action: The call-to-action button shown on the ad.
 
           creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
-              format; omit format for the original asset.
+              format; omit format for the original asset. Two or more entries with no format
+              become a carousel (2-10 attachments), in order, sharing the ad's copy.
 
           descriptions: The description variants shown on the ad.
 
@@ -306,7 +307,8 @@ class AdsResource(SyncAPIResource):
 
           creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
               format; omit format for the original asset. Replaces a live ad's creative on the
-              platform.
+              platform. Two or more entries with no format replace it with a carousel (2-10
+              attachments), in order, sharing the ad's copy.
 
           descriptions: The description variants shown on the ad.
 
@@ -703,7 +705,8 @@ class AsyncAdsResource(AsyncAPIResource):
           call_to_action: The call-to-action button shown on the ad.
 
           creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
-              format; omit format for the original asset.
+              format; omit format for the original asset. Two or more entries with no format
+              become a carousel (2-10 attachments), in order, sharing the ad's copy.
 
           descriptions: The description variants shown on the ad.
 
@@ -892,7 +895,8 @@ class AsyncAdsResource(AsyncAPIResource):
 
           creatives: The ad's creative assets. Each entry is an uploaded file id with an optional
               format; omit format for the original asset. Replaces a live ad's creative on the
-              platform.
+              platform. Two or more entries with no format replace it with a carousel (2-10
+              attachments), in order, sharing the ad's copy.
 
           descriptions: The description variants shown on the ad.
 

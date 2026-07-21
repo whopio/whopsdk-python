@@ -62,7 +62,7 @@ class CreativeCrop(BaseModel):
 class Creative(BaseModel):
     """The creative assets used by this ad.
 
-    The original asset has a null format; square, vertical, and horizontal entries are placement-specific variants.
+    The original asset has a null format; square, vertical, and horizontal entries are placement-specific variants. A carousel ad returns one format-null entry per attachment, in order.
     """
 
     id: str

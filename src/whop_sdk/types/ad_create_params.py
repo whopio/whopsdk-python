@@ -67,7 +67,8 @@ class AdCreateParams(TypedDict, total=False):
     """The ad's creative assets.
 
     Each entry is an uploaded file id with an optional format; omit format for the
-    original asset.
+    original asset. Two or more entries with no format become a carousel (2-10
+    attachments), in order, sharing the ad's copy.
     """
 
     descriptions: SequenceNotStr[str]
