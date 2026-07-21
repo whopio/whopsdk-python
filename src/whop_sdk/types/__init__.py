@@ -101,6 +101,7 @@ from .checkout_modes import CheckoutModes as CheckoutModes
 from .checkout_shape import CheckoutShape as CheckoutShape
 from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
+from .reach_estimate import ReachEstimate as ReachEstimate
 from .social_account import SocialAccount as SocialAccount
 from .app_list_params import AppListParams as AppListParams
 from .app_logs_params import AppLogsParams as AppLogsParams
@@ -117,6 +118,7 @@ from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
 from .plan_list_params import PlanListParams as PlanListParams
 from .swap_list_params import SwapListParams as SwapListParams
+from .targeting_option import TargetingOption as TargetingOption
 from .user_list_params import UserListParams as UserListParams
 from .app_create_params import AppCreateParams as AppCreateParams
 from .app_list_response import AppListResponse as AppListResponse
@@ -407,6 +409,7 @@ from .social_account_connect_params import SocialAccountConnectParams as SocialA
 from .social_account_posts_response import SocialAccountPostsResponse as SocialAccountPostsResponse
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
+from .ad_group_estimate_reach_params import AdGroupEstimateReachParams as AdGroupEstimateReachParams
 from .company_token_transaction_type import CompanyTokenTransactionType as CompanyTokenTransactionType
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
 from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
@@ -429,6 +432,7 @@ from .financial_activity_list_response import FinancialActivityListResponse as F
 from .ledger_account_retrieve_response import LedgerAccountRetrieveResponse as LedgerAccountRetrieveResponse
 from .payment_method_retrieve_response import PaymentMethodRetrieveResponse as PaymentMethodRetrieveResponse
 from .payout_account_retrieve_response import PayoutAccountRetrieveResponse as PayoutAccountRetrieveResponse
+from .social_account_lead_forms_params import SocialAccountLeadFormsParams as SocialAccountLeadFormsParams
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent as WithdrawalCreatedWebhookEvent
 from .withdrawal_generate_pdf_response import WithdrawalGeneratePdfResponse as WithdrawalGeneratePdfResponse
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent as WithdrawalUpdatedWebhookEvent
@@ -439,6 +443,7 @@ from .checkout_configuration_list_params import CheckoutConfigurationListParams 
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent as MembershipActivatedWebhookEvent
 from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses as PayoutAccountCalculatedStatuses
 from .resolution_center_case_list_params import ResolutionCenterCaseListParams as ResolutionCenterCaseListParams
+from .social_account_lead_forms_response import SocialAccountLeadFormsResponse as SocialAccountLeadFormsResponse
 from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent as ChatReactionCreatedWebhookEvent
 from .dispute_alert_created_webhook_event import DisputeAlertCreatedWebhookEvent as DisputeAlertCreatedWebhookEvent
 from .invoice_mark_uncollectible_response import InvoiceMarkUncollectibleResponse as InvoiceMarkUncollectibleResponse
@@ -480,6 +485,9 @@ from .identity_profile_approved_webhook_event import (
 from .identity_profile_rejected_webhook_event import (
     IdentityProfileRejectedWebhookEvent as IdentityProfileRejectedWebhookEvent,
 )
+from .ad_group_search_targeting_options_params import (
+    AdGroupSearchTargetingOptionsParams as AdGroupSearchTargetingOptionsParams,
+)
 from .checkout_configuration_retrieve_response import (
     CheckoutConfigurationRetrieveResponse as CheckoutConfigurationRetrieveResponse,
 )
@@ -500,6 +508,9 @@ from .resolution_center_case_platform_response import (
 )
 from .resolution_center_case_retrieve_response import (
     ResolutionCenterCaseRetrieveResponse as ResolutionCenterCaseRetrieveResponse,
+)
+from .ad_group_search_targeting_options_response import (
+    AdGroupSearchTargetingOptionsResponse as AdGroupSearchTargetingOptionsResponse,
 )
 from .invoice_marked_uncollectible_webhook_event import (
     InvoiceMarkedUncollectibleWebhookEvent as InvoiceMarkedUncollectibleWebhookEvent,

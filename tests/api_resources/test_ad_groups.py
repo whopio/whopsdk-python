@@ -11,7 +11,9 @@ from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
     AdGroup,
+    ReachEstimate,
     AdGroupDeleteResponse,
+    AdGroupSearchTargetingOptionsResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -468,6 +470,135 @@ class TestAdGroups:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_estimate_reach(self, client: Whop) -> None:
+        ad_group = client.ad_groups.estimate_reach(
+            platform="meta",
+        )
+        assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_estimate_reach_with_all_params(self, client: Whop) -> None:
+        ad_group = client.ad_groups.estimate_reach(
+            platform="meta",
+            account_id="account_id",
+            audiences={
+                "exclude": ["string"],
+                "include": ["string"],
+            },
+            demographics={
+                "automatic": True,
+                "gender": "all",
+                "maximum_age": 0,
+                "minimum_age": 0,
+            },
+            detailed_targeting={
+                "behaviors": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+                "demographics": [
+                    {
+                        "id": "id",
+                        "type": "life_events",
+                        "name": "name",
+                    }
+                ],
+                "interests": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+            },
+            devices={
+                "operating_systems": [
+                    {
+                        "os": "ios",
+                        "minimum_version": "minimum_version",
+                    }
+                ],
+                "platforms": ["mobile"],
+            },
+            languages=["string"],
+            regions={
+                "exclude": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+                "include": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+            },
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_estimate_reach(self, client: Whop) -> None:
+        response = client.ad_groups.with_raw_response.estimate_reach(
+            platform="meta",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = response.parse()
+        assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_estimate_reach(self, client: Whop) -> None:
+        with client.ad_groups.with_streaming_response.estimate_reach(
+            platform="meta",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = response.parse()
+            assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_pause(self, client: Whop) -> None:
         ad_group = client.ad_groups.pause(
             id="id",
@@ -516,6 +647,54 @@ class TestAdGroups:
             client.ad_groups.with_raw_response.pause(
                 id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search_targeting_options(self, client: Whop) -> None:
+        ad_group = client.ad_groups.search_targeting_options(
+            platform="meta",
+        )
+        assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search_targeting_options_with_all_params(self, client: Whop) -> None:
+        ad_group = client.ad_groups.search_targeting_options(
+            platform="meta",
+            account_id="account_id",
+            country="country",
+            limit=500,
+            location_types=["country"],
+            query="query",
+            types=["interests"],
+        )
+        assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_search_targeting_options(self, client: Whop) -> None:
+        response = client.ad_groups.with_raw_response.search_targeting_options(
+            platform="meta",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = response.parse()
+        assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_search_targeting_options(self, client: Whop) -> None:
+        with client.ad_groups.with_streaming_response.search_targeting_options(
+            platform="meta",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = response.parse()
+            assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1021,6 +1200,135 @@ class TestAsyncAdGroups:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_estimate_reach(self, async_client: AsyncWhop) -> None:
+        ad_group = await async_client.ad_groups.estimate_reach(
+            platform="meta",
+        )
+        assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_estimate_reach_with_all_params(self, async_client: AsyncWhop) -> None:
+        ad_group = await async_client.ad_groups.estimate_reach(
+            platform="meta",
+            account_id="account_id",
+            audiences={
+                "exclude": ["string"],
+                "include": ["string"],
+            },
+            demographics={
+                "automatic": True,
+                "gender": "all",
+                "maximum_age": 0,
+                "minimum_age": 0,
+            },
+            detailed_targeting={
+                "behaviors": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+                "demographics": [
+                    {
+                        "id": "id",
+                        "type": "life_events",
+                        "name": "name",
+                    }
+                ],
+                "interests": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                    }
+                ],
+            },
+            devices={
+                "operating_systems": [
+                    {
+                        "os": "ios",
+                        "minimum_version": "minimum_version",
+                    }
+                ],
+                "platforms": ["mobile"],
+            },
+            languages=["string"],
+            regions={
+                "exclude": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+                "include": {
+                    "cities": [
+                        {
+                            "key": "key",
+                            "name": "name",
+                        }
+                    ],
+                    "countries": ["string"],
+                    "country_groups": ["string"],
+                    "custom_locations": [
+                        {
+                            "latitude": 0,
+                            "longitude": 0,
+                            "radius": 0,
+                            "distance_unit": "mile",
+                            "name": "name",
+                        }
+                    ],
+                    "regions": ["string"],
+                    "zips": ["string"],
+                },
+            },
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_estimate_reach(self, async_client: AsyncWhop) -> None:
+        response = await async_client.ad_groups.with_raw_response.estimate_reach(
+            platform="meta",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = await response.parse()
+        assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_estimate_reach(self, async_client: AsyncWhop) -> None:
+        async with async_client.ad_groups.with_streaming_response.estimate_reach(
+            platform="meta",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = await response.parse()
+            assert_matches_type(ReachEstimate, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_pause(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.pause(
             id="id",
@@ -1069,6 +1377,54 @@ class TestAsyncAdGroups:
             await async_client.ad_groups.with_raw_response.pause(
                 id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search_targeting_options(self, async_client: AsyncWhop) -> None:
+        ad_group = await async_client.ad_groups.search_targeting_options(
+            platform="meta",
+        )
+        assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search_targeting_options_with_all_params(self, async_client: AsyncWhop) -> None:
+        ad_group = await async_client.ad_groups.search_targeting_options(
+            platform="meta",
+            account_id="account_id",
+            country="country",
+            limit=500,
+            location_types=["country"],
+            query="query",
+            types=["interests"],
+        )
+        assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_search_targeting_options(self, async_client: AsyncWhop) -> None:
+        response = await async_client.ad_groups.with_raw_response.search_targeting_options(
+            platform="meta",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        ad_group = await response.parse()
+        assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_search_targeting_options(self, async_client: AsyncWhop) -> None:
+        async with async_client.ad_groups.with_streaming_response.search_targeting_options(
+            platform="meta",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            ad_group = await response.parse()
+            assert_matches_type(AdGroupSearchTargetingOptionsResponse, ad_group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

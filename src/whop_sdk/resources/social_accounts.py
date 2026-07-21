@@ -13,6 +13,7 @@ from ..types import (
     social_account_create_params,
     social_account_delete_params,
     social_account_connect_params,
+    social_account_lead_forms_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
@@ -30,6 +31,7 @@ from ..types.social_account import SocialAccount
 from ..types.social_account_posts_response import SocialAccountPostsResponse
 from ..types.social_account_delete_response import SocialAccountDeleteResponse
 from ..types.social_account_connect_response import SocialAccountConnectResponse
+from ..types.social_account_lead_forms_response import SocialAccountLeadFormsResponse
 
 __all__ = ["SocialAccountsResource", "AsyncSocialAccountsResource"]
 
@@ -38,7 +40,7 @@ class SocialAccountsResource(SyncAPIResource):
     """
     A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
 
-    Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+    Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
     """
 
     @cached_property
@@ -300,6 +302,51 @@ class SocialAccountsResource(SyncAPIResource):
             cast_to=SocialAccountConnectResponse,
         )
 
+    def lead_forms(
+        self,
+        id: str,
+        *,
+        account_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountLeadFormsResponse:
+        """
+        Lists the active lead (instant) forms that already exist on a connected Facebook
+        page, so an ad can reuse one as its `lead_gen_form_id` instead of authoring a
+        new form. Every active form comes back in a single response — the list is not
+        paginated.
+
+        Args:
+          account_id: The Account (a biz\\__ identifier) the social account is connected to.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/social_accounts/{id}/lead_forms", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"account_id": account_id}, social_account_lead_forms_params.SocialAccountLeadFormsParams
+                ),
+            ),
+            cast_to=SocialAccountLeadFormsResponse,
+        )
+
     def posts(
         self,
         id: str,
@@ -362,7 +409,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
     """
     A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
 
-    Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts.
+    Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
     """
 
     @cached_property
@@ -624,6 +671,51 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
             cast_to=SocialAccountConnectResponse,
         )
 
+    async def lead_forms(
+        self,
+        id: str,
+        *,
+        account_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SocialAccountLeadFormsResponse:
+        """
+        Lists the active lead (instant) forms that already exist on a connected Facebook
+        page, so an ad can reuse one as its `lead_gen_form_id` instead of authoring a
+        new form. Every active form comes back in a single response — the list is not
+        paginated.
+
+        Args:
+          account_id: The Account (a biz\\__ identifier) the social account is connected to.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/social_accounts/{id}/lead_forms", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id}, social_account_lead_forms_params.SocialAccountLeadFormsParams
+                ),
+            ),
+            cast_to=SocialAccountLeadFormsResponse,
+        )
+
     async def posts(
         self,
         id: str,
@@ -698,6 +790,9 @@ class SocialAccountsResourceWithRawResponse:
         self.connect = to_raw_response_wrapper(
             social_accounts.connect,
         )
+        self.lead_forms = to_raw_response_wrapper(
+            social_accounts.lead_forms,
+        )
         self.posts = to_raw_response_wrapper(
             social_accounts.posts,
         )
@@ -718,6 +813,9 @@ class AsyncSocialAccountsResourceWithRawResponse:
         )
         self.connect = async_to_raw_response_wrapper(
             social_accounts.connect,
+        )
+        self.lead_forms = async_to_raw_response_wrapper(
+            social_accounts.lead_forms,
         )
         self.posts = async_to_raw_response_wrapper(
             social_accounts.posts,
@@ -740,6 +838,9 @@ class SocialAccountsResourceWithStreamingResponse:
         self.connect = to_streamed_response_wrapper(
             social_accounts.connect,
         )
+        self.lead_forms = to_streamed_response_wrapper(
+            social_accounts.lead_forms,
+        )
         self.posts = to_streamed_response_wrapper(
             social_accounts.posts,
         )
@@ -760,6 +861,9 @@ class AsyncSocialAccountsResourceWithStreamingResponse:
         )
         self.connect = async_to_streamed_response_wrapper(
             social_accounts.connect,
+        )
+        self.lead_forms = async_to_streamed_response_wrapper(
+            social_accounts.lead_forms,
         )
         self.posts = async_to_streamed_response_wrapper(
             social_accounts.posts,

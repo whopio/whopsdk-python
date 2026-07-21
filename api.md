@@ -136,6 +136,7 @@ from whop_sdk.types import (
     SocialAccountPost,
     SocialAccountDeleteResponse,
     SocialAccountConnectResponse,
+    SocialAccountLeadFormsResponse,
     SocialAccountPostsResponse,
 )
 ```
@@ -146,6 +147,7 @@ Methods:
 - <code title="get /social_accounts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/social_account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account.py">SyncCursorPage[SocialAccount]</a></code>
 - <code title="delete /social_accounts/{id}">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/social_account_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_delete_response.py">SocialAccountDeleteResponse</a></code>
 - <code title="post /social_accounts/connect">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">connect</a>(\*\*<a href="src/whop_sdk/types/social_account_connect_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_connect_response.py">SocialAccountConnectResponse</a></code>
+- <code title="get /social_accounts/{id}/lead_forms">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">lead_forms</a>(id, \*\*<a href="src/whop_sdk/types/social_account_lead_forms_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_lead_forms_response.py">SocialAccountLeadFormsResponse</a></code>
 - <code title="get /social_accounts/{id}/posts">client.social_accounts.<a href="./src/whop_sdk/resources/social_accounts.py">posts</a>(id, \*\*<a href="src/whop_sdk/types/social_account_posts_params.py">params</a>) -> <a href="./src/whop_sdk/types/social_account_posts_response.py">SocialAccountPostsResponse</a></code>
 
 # Audiences
@@ -1307,7 +1309,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AdGroup, AdGroupDeleteResponse
+from whop_sdk.types import (
+    AdGroup,
+    ReachEstimate,
+    TargetingOption,
+    AdGroupDeleteResponse,
+    AdGroupSearchTargetingOptionsResponse,
+)
 ```
 
 Methods:
@@ -1317,7 +1325,9 @@ Methods:
 - <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">SyncCursorPage[AdGroup]</a></code>
 - <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
+- <code title="post /ad_groups/reach_estimate">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">estimate_reach</a>(\*\*<a href="src/whop_sdk/types/ad_group_estimate_reach_params.py">params</a>) -> <a href="./src/whop_sdk/types/reach_estimate.py">ReachEstimate</a></code>
 - <code title="post /ad_groups/{id}/pause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="get /ad_groups/targeting_options">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">search_targeting_options</a>(\*\*<a href="src/whop_sdk/types/ad_group_search_targeting_options_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_search_targeting_options_response.py">AdGroupSearchTargetingOptionsResponse</a></code>
 - <code title="post /ad_groups/{id}/unpause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 
 # Ads

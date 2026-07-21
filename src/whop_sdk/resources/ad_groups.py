@@ -7,7 +7,14 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import ad_group_list_params, ad_group_create_params, ad_group_update_params, ad_group_retrieve_params
+from ..types import (
+    ad_group_list_params,
+    ad_group_create_params,
+    ad_group_update_params,
+    ad_group_retrieve_params,
+    ad_group_estimate_reach_params,
+    ad_group_search_targeting_options_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -21,7 +28,9 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_group import AdGroup
+from ..types.reach_estimate import ReachEstimate
 from ..types.ad_group_delete_response import AdGroupDeleteResponse
+from ..types.ad_group_search_targeting_options_response import AdGroupSearchTargetingOptionsResponse
 
 __all__ = ["AdGroupsResource", "AsyncAdGroupsResource"]
 
@@ -30,7 +39,7 @@ class AdGroupsResource(SyncAPIResource):
     """
     An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
 
-    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery.
+    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
     """
 
     @cached_property
@@ -681,6 +690,81 @@ class AdGroupsResource(SyncAPIResource):
             cast_to=AdGroupDeleteResponse,
         )
 
+    def estimate_reach(
+        self,
+        *,
+        platform: Literal["meta"],
+        account_id: str | Omit = omit,
+        audiences: ad_group_estimate_reach_params.Audiences | Omit = omit,
+        demographics: ad_group_estimate_reach_params.Demographics | Omit = omit,
+        detailed_targeting: ad_group_estimate_reach_params.DetailedTargeting | Omit = omit,
+        devices: ad_group_estimate_reach_params.Devices | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        regions: ad_group_estimate_reach_params.Regions | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ReachEstimate:
+        """
+        Estimates how many people a draft targeting spec can reach, before an ad group
+        is created. The body takes the same targeting fields as creating an ad group —
+        `regions`, `demographics`, `detailed_targeting`, `audiences`, `languages`, and
+        `devices` — and nothing is persisted.
+
+        Args:
+          platform: The ad network the estimate runs on.
+
+          account_id: Account to estimate on behalf of. Defaults to the authenticated account.
+
+          audiences: Saved audiences to deliver to or exclude. Can't be combined with
+              demographics.automatic.
+
+          demographics: Age, gender, and automatic-audience targeting.
+
+          detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
+              platform's targeting taxonomy. At most 100 entries per section.
+
+          devices: Device platforms and operating systems to target.
+
+          languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
+              targets all languages.
+
+          regions: Locations to target and exclude.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            "/ad_groups/reach_estimate",
+            body=maybe_transform(
+                {
+                    "platform": platform,
+                    "account_id": account_id,
+                    "audiences": audiences,
+                    "demographics": demographics,
+                    "detailed_targeting": detailed_targeting,
+                    "devices": devices,
+                    "languages": languages,
+                    "regions": regions,
+                },
+                ad_group_estimate_reach_params.AdGroupEstimateReachParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ReachEstimate,
+        )
+
     def pause(
         self,
         id: str,
@@ -714,6 +798,91 @@ class AdGroupsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AdGroup,
+        )
+
+    def search_targeting_options(
+        self,
+        *,
+        platform: Literal["meta"],
+        account_id: str | Omit = omit,
+        country: str | Omit = omit,
+        limit: int | Omit = omit,
+        location_types: List[Literal["country", "region", "city", "zip"]] | Omit = omit,
+        query: str | Omit = omit,
+        types: List[
+            Literal[
+                "interests",
+                "behaviors",
+                "life_events",
+                "industries",
+                "income",
+                "family_statuses",
+                "languages",
+                "locations",
+            ]
+        ]
+        | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroupSearchTargetingOptionsResponse:
+        """
+        Searches the ad platform's targeting taxonomy for options to target an ad group
+        with. Each result comes back in the exact shape the ad-group body accepts for
+        its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages`
+        as-is. A blank `query` browses the small fixed lists (behaviors, demographic
+        categories, languages); interests and locations need a search term.
+
+        Args:
+          platform: The ad network whose targeting taxonomy to search.
+
+          account_id: Account to search on behalf of. Defaults to the authenticated account.
+
+          country: Narrow location results to one country, as an ISO 3166-1 code such as `US`. Only
+              applies when `types` includes `locations`.
+
+          limit: Maximum number of results per requested type.
+
+          location_types: Narrow location results to these kinds of places. Only applies when `types`
+              includes `locations`.
+
+          query: The search term. Blank browses the fixed lists; interests and locations return
+              nothing without one.
+
+          types: Kinds of targeting options to search. Defaults to all of them.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/ad_groups/targeting_options",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "platform": platform,
+                        "account_id": account_id,
+                        "country": country,
+                        "limit": limit,
+                        "location_types": location_types,
+                        "query": query,
+                        "types": types,
+                    },
+                    ad_group_search_targeting_options_params.AdGroupSearchTargetingOptionsParams,
+                ),
+            ),
+            cast_to=AdGroupSearchTargetingOptionsResponse,
         )
 
     def unpause(
@@ -756,7 +925,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
     """
     An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
 
-    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery.
+    Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
     """
 
     @cached_property
@@ -1407,6 +1576,81 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             cast_to=AdGroupDeleteResponse,
         )
 
+    async def estimate_reach(
+        self,
+        *,
+        platform: Literal["meta"],
+        account_id: str | Omit = omit,
+        audiences: ad_group_estimate_reach_params.Audiences | Omit = omit,
+        demographics: ad_group_estimate_reach_params.Demographics | Omit = omit,
+        detailed_targeting: ad_group_estimate_reach_params.DetailedTargeting | Omit = omit,
+        devices: ad_group_estimate_reach_params.Devices | Omit = omit,
+        languages: SequenceNotStr[str] | Omit = omit,
+        regions: ad_group_estimate_reach_params.Regions | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ReachEstimate:
+        """
+        Estimates how many people a draft targeting spec can reach, before an ad group
+        is created. The body takes the same targeting fields as creating an ad group —
+        `regions`, `demographics`, `detailed_targeting`, `audiences`, `languages`, and
+        `devices` — and nothing is persisted.
+
+        Args:
+          platform: The ad network the estimate runs on.
+
+          account_id: Account to estimate on behalf of. Defaults to the authenticated account.
+
+          audiences: Saved audiences to deliver to or exclude. Can't be combined with
+              demographics.automatic.
+
+          demographics: Age, gender, and automatic-audience targeting.
+
+          detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
+              platform's targeting taxonomy. At most 100 entries per section.
+
+          devices: Device platforms and operating systems to target.
+
+          languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
+              targets all languages.
+
+          regions: Locations to target and exclude.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            "/ad_groups/reach_estimate",
+            body=await async_maybe_transform(
+                {
+                    "platform": platform,
+                    "account_id": account_id,
+                    "audiences": audiences,
+                    "demographics": demographics,
+                    "detailed_targeting": detailed_targeting,
+                    "devices": devices,
+                    "languages": languages,
+                    "regions": regions,
+                },
+                ad_group_estimate_reach_params.AdGroupEstimateReachParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ReachEstimate,
+        )
+
     async def pause(
         self,
         id: str,
@@ -1440,6 +1684,91 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AdGroup,
+        )
+
+    async def search_targeting_options(
+        self,
+        *,
+        platform: Literal["meta"],
+        account_id: str | Omit = omit,
+        country: str | Omit = omit,
+        limit: int | Omit = omit,
+        location_types: List[Literal["country", "region", "city", "zip"]] | Omit = omit,
+        query: str | Omit = omit,
+        types: List[
+            Literal[
+                "interests",
+                "behaviors",
+                "life_events",
+                "industries",
+                "income",
+                "family_statuses",
+                "languages",
+                "locations",
+            ]
+        ]
+        | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdGroupSearchTargetingOptionsResponse:
+        """
+        Searches the ad platform's targeting taxonomy for options to target an ad group
+        with. Each result comes back in the exact shape the ad-group body accepts for
+        its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages`
+        as-is. A blank `query` browses the small fixed lists (behaviors, demographic
+        categories, languages); interests and locations need a search term.
+
+        Args:
+          platform: The ad network whose targeting taxonomy to search.
+
+          account_id: Account to search on behalf of. Defaults to the authenticated account.
+
+          country: Narrow location results to one country, as an ISO 3166-1 code such as `US`. Only
+              applies when `types` includes `locations`.
+
+          limit: Maximum number of results per requested type.
+
+          location_types: Narrow location results to these kinds of places. Only applies when `types`
+              includes `locations`.
+
+          query: The search term. Blank browses the fixed lists; interests and locations return
+              nothing without one.
+
+          types: Kinds of targeting options to search. Defaults to all of them.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/ad_groups/targeting_options",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "platform": platform,
+                        "account_id": account_id,
+                        "country": country,
+                        "limit": limit,
+                        "location_types": location_types,
+                        "query": query,
+                        "types": types,
+                    },
+                    ad_group_search_targeting_options_params.AdGroupSearchTargetingOptionsParams,
+                ),
+            ),
+            cast_to=AdGroupSearchTargetingOptionsResponse,
         )
 
     async def unpause(
@@ -1497,8 +1826,14 @@ class AdGroupsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             ad_groups.delete,
         )
+        self.estimate_reach = to_raw_response_wrapper(
+            ad_groups.estimate_reach,
+        )
         self.pause = to_raw_response_wrapper(
             ad_groups.pause,
+        )
+        self.search_targeting_options = to_raw_response_wrapper(
+            ad_groups.search_targeting_options,
         )
         self.unpause = to_raw_response_wrapper(
             ad_groups.unpause,
@@ -1524,8 +1859,14 @@ class AsyncAdGroupsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             ad_groups.delete,
         )
+        self.estimate_reach = async_to_raw_response_wrapper(
+            ad_groups.estimate_reach,
+        )
         self.pause = async_to_raw_response_wrapper(
             ad_groups.pause,
+        )
+        self.search_targeting_options = async_to_raw_response_wrapper(
+            ad_groups.search_targeting_options,
         )
         self.unpause = async_to_raw_response_wrapper(
             ad_groups.unpause,
@@ -1551,8 +1892,14 @@ class AdGroupsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             ad_groups.delete,
         )
+        self.estimate_reach = to_streamed_response_wrapper(
+            ad_groups.estimate_reach,
+        )
         self.pause = to_streamed_response_wrapper(
             ad_groups.pause,
+        )
+        self.search_targeting_options = to_streamed_response_wrapper(
+            ad_groups.search_targeting_options,
         )
         self.unpause = to_streamed_response_wrapper(
             ad_groups.unpause,
@@ -1578,8 +1925,14 @@ class AsyncAdGroupsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             ad_groups.delete,
         )
+        self.estimate_reach = async_to_streamed_response_wrapper(
+            ad_groups.estimate_reach,
+        )
         self.pause = async_to_streamed_response_wrapper(
             ad_groups.pause,
+        )
+        self.search_targeting_options = async_to_streamed_response_wrapper(
+            ad_groups.search_targeting_options,
         )
         self.unpause = async_to_streamed_response_wrapper(
             ad_groups.unpause,
