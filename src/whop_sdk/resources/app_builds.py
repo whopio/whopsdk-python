@@ -30,8 +30,6 @@ __all__ = ["AppBuildsResource", "AsyncAppBuildsResource"]
 
 
 class AppBuildsResource(SyncAPIResource):
-    """App builds"""
-
     @cached_property
     def with_raw_response(self) -> AppBuildsResourceWithRawResponse:
         """
@@ -59,6 +57,7 @@ class AppBuildsResource(SyncAPIResource):
         platform: AppBuildPlatforms,
         ai_prompt_id: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
+        source_attachment: Optional[app_build_create_params.SourceAttachment] | Omit = omit,
         supported_app_view_types: Optional[List[AppViewType]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -79,7 +78,7 @@ class AppBuildsResource(SyncAPIResource):
         Args:
           attachment: The build file to upload. For iOS and Android, this should be a .zip archive
               containing a main_js_bundle.hbc file and an optional assets folder. For web,
-              this should be a JavaScript file.
+              this should be a JavaScript file or a .zip archive of the hosted site.
 
           checksum: A client-generated checksum of the build file, used to verify file integrity
               when unpacked on a device.
@@ -90,6 +89,9 @@ class AppBuildsResource(SyncAPIResource):
 
           app_id: The unique identifier of the app to create the build for. Defaults to the app
               associated with the current API key.
+
+          source_attachment: An optional compressed archive (.zip or .gz) of the source code that produced
+              this build, stored alongside the build so it can be downloaded later.
 
           supported_app_view_types: The view types this build supports. A build can support multiple view types but
               should only list the ones its code implements.
@@ -111,6 +113,7 @@ class AppBuildsResource(SyncAPIResource):
                     "platform": platform,
                     "ai_prompt_id": ai_prompt_id,
                     "app_id": app_id,
+                    "source_attachment": source_attachment,
                     "supported_app_view_types": supported_app_view_types,
                 },
                 app_build_create_params.AppBuildCreateParams,
@@ -278,8 +281,6 @@ class AppBuildsResource(SyncAPIResource):
 
 
 class AsyncAppBuildsResource(AsyncAPIResource):
-    """App builds"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAppBuildsResourceWithRawResponse:
         """
@@ -307,6 +308,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         platform: AppBuildPlatforms,
         ai_prompt_id: Optional[str] | Omit = omit,
         app_id: Optional[str] | Omit = omit,
+        source_attachment: Optional[app_build_create_params.SourceAttachment] | Omit = omit,
         supported_app_view_types: Optional[List[AppViewType]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -327,7 +329,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         Args:
           attachment: The build file to upload. For iOS and Android, this should be a .zip archive
               containing a main_js_bundle.hbc file and an optional assets folder. For web,
-              this should be a JavaScript file.
+              this should be a JavaScript file or a .zip archive of the hosted site.
 
           checksum: A client-generated checksum of the build file, used to verify file integrity
               when unpacked on a device.
@@ -338,6 +340,9 @@ class AsyncAppBuildsResource(AsyncAPIResource):
 
           app_id: The unique identifier of the app to create the build for. Defaults to the app
               associated with the current API key.
+
+          source_attachment: An optional compressed archive (.zip or .gz) of the source code that produced
+              this build, stored alongside the build so it can be downloaded later.
 
           supported_app_view_types: The view types this build supports. A build can support multiple view types but
               should only list the ones its code implements.
@@ -359,6 +364,7 @@ class AsyncAppBuildsResource(AsyncAPIResource):
                     "platform": platform,
                     "ai_prompt_id": ai_prompt_id,
                     "app_id": app_id,
+                    "source_attachment": source_attachment,
                     "supported_app_view_types": supported_app_view_types,
                 },
                 app_build_create_params.AppBuildCreateParams,
