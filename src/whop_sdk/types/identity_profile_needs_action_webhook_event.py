@@ -7,6 +7,7 @@ from typing_extensions import Literal
 from .._models import BaseModel
 from .verification_status import VerificationStatus
 from .verification_error_code import VerificationErrorCode
+from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses
 
 __all__ = [
     "IdentityProfileNeedsActionWebhookEvent",
@@ -135,11 +136,10 @@ class Data(BaseModel):
     """
 
     country: Optional[str] = None
-    """ISO 3166-1 alpha-3 country code (e.g.
-
-    `USA`, `GBR`). For individuals this is the country of citizenship or residence
-    reported by the identity provider; for businesses this is the country of
-    incorporation.
+    """
+    ISO 3166-1 alpha-2 country code reported by the identity provider, such as `US`
+    or `GB`. For individuals this is the country of citizenship or residence; for
+    businesses, the country of incorporation.
     """
 
     created_at: datetime
@@ -171,6 +171,22 @@ class Data(BaseModel):
     the calling platform is not entitled to see).
     """
 
+    payout_status: PayoutAccountCalculatedStatuses
+    """Progress of payout-account setup for this profile, independent of holds.
+
+    `connected` means onboarding is complete; a `connected` status paired with
+    `payouts_enabled: false` indicates an active account restriction rather than
+    incomplete setup.
+    """
+
+    payouts_enabled: bool
+    """Whether this profile can receive payouts right now.
+
+    True only when payout onboarding is complete and no payout holds are active on
+    the linked account. Treat this as the single source of truth for payout
+    readiness.
+    """
+
     personal_address: Optional[DataPersonalAddress] = None
     """Residential address reported by the identity provider.
 
@@ -186,8 +202,13 @@ class Data(BaseModel):
     profile_type: str
     """Whether this is an 'individual' or 'business' profile."""
 
-    status: Literal["not_started", "pending", "approved", "rejected"]
-    """Derived verification status across all linked verifications."""
+    status: Literal["not_started", "pending", "approved", "rejected", "action_required"]
+    """Derived verification status across all linked verifications.
+
+    Returns `action_required` whenever the profile has an open request for
+    information (whether a verification, payout, or audit RFI) — i.e. the merchant
+    must submit something before it is in good standing.
+    """
 
     updated_at: datetime
     """When the identity profile was last synced from a verification."""
