@@ -1,0 +1,243 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Union
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from .._utils import PropertyInfo
+
+__all__ = [
+    "VerificationCreateParams",
+    "CreateIndividualVerification",
+    "CreateIndividualVerificationAddress",
+    "CreateIndividualVerificationDocuments",
+    "CreateBusinessVerification",
+    "CreateBusinessVerificationAddress",
+]
+
+
+class CreateIndividualVerification(TypedDict, total=False):
+    account_id: Required[str]
+    """Account or user ID whose identity you want to verify.
+
+    Use a `biz_` account ID for account verifications, or the caller's `user_` ID
+    for personal verification.
+    """
+
+    address: CreateIndividualVerificationAddress
+
+    business_name: str
+    """Legal business name for a sole proprietor or single-member LLC."""
+
+    business_structure: str
+    """Entity type for sole proprietors, such as `single_member_llc`.
+
+    Supported values vary by country of incorporation — see
+    [Business structures](/developer/verification/business-structures).
+    """
+
+    business_tax_identification_number: str
+    """The business ID number of the company, as appropriate for the company's country.
+
+    Examples are an Employer Identification Number (EIN) in the US, a Business
+    Number in Canada, or a Company Number in the UK.
+    """
+
+    business_website: str
+    """Business website URL. Whop store pages are not accepted."""
+
+    country: str
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
+
+    date_of_birth: str
+    """Formatted as `YYYY-MM-DD`."""
+
+    document_type: Literal["ID_CARD", "DRIVERS", "RESIDENCE_PERMIT", "PASSPORT"]
+    """Identity document being sent, when verifying with `documents`.
+
+    Decides exactly which file slots to send: `ID_CARD` → `id_card_front` +
+    `id_card_back` + `selfie`; `DRIVERS` → `drivers_front` + `drivers_back` +
+    `selfie`; `RESIDENCE_PERMIT` → `residence_permit_front` +
+    `residence_permit_back` + `selfie`; `PASSPORT` → `passport_front` + `selfie`.
+    See [Identity documents](/developer/verification/identity-documents).
+    """
+
+    documents: CreateIndividualVerificationDocuments
+    """
+    Identity document files, each value the file's raw bytes base64-encoded (JPEG,
+    PNG, or PDF, up to 5MB per file before encoding). Sending this object verifies
+    the person from the files in this request instead of a hosted session —
+    individual verifications only, and the request must also carry `document_type`,
+    `first_name`, `last_name`, `date_of_birth`, `country`, `phone`,
+    `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and
+    `postal_code`. Send every slot for your `document_type` — a missing or rejected
+    file fails the whole request and nothing is submitted; review starts
+    automatically once every document is accepted. See
+    [Identity documents](/developer/verification/identity-documents) for a full
+    walkthrough.
+    """
+
+    first_name: str
+
+    kind: Literal["individual"]
+    """Verification type. Defaults to `individual`."""
+
+    last_name: str
+
+    phone: str
+
+    tax_identification_number: str
+    """
+    The government-issued ID number of the person being verified — the individual
+    for a KYC verification, or the business representative for a KYB verification —
+    as appropriate for their country. Examples are a Social Security Number (SSN) in
+    the US, or a Social Insurance Number in Canada.
+    """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+
+class CreateIndividualVerificationAddress(TypedDict, total=False):
+    city: str
+
+    country: str
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
+
+    line1: str
+    """First line of the street address."""
+
+    line2: str
+    """Second line of the street address."""
+
+    postal_code: str
+    """Postal or ZIP code."""
+
+    state: str
+    """State, province, or region code, for example `CA`."""
+
+
+class CreateIndividualVerificationDocuments(TypedDict, total=False):
+    """
+    Identity document files, each value the file's raw bytes base64-encoded (JPEG, PNG, or PDF, up to 5MB per file before encoding). Sending this object verifies the person from the files in this request instead of a hosted session — individual verifications only, and the request must also carry `document_type`, `first_name`, `last_name`, `date_of_birth`, `country`, `phone`, `tax_identification_number`, and an `address` with `line1`, `city`, `state`, and `postal_code`. Send every slot for your `document_type` — a missing or rejected file fails the whole request and nothing is submitted; review starts automatically once every document is accepted. See [Identity documents](/developer/verification/identity-documents) for a full walkthrough.
+    """
+
+    drivers_back: str
+    """Back of the driver's license, base64-encoded.
+
+    Required when `document_type` is `DRIVERS`.
+    """
+
+    drivers_front: str
+    """Front of the driver's license, base64-encoded.
+
+    Required when `document_type` is `DRIVERS`.
+    """
+
+    id_card_back: str
+    """Back of the ID card, base64-encoded.
+
+    Required when `document_type` is `ID_CARD`.
+    """
+
+    id_card_front: str
+    """Front of the ID card, base64-encoded.
+
+    Required when `document_type` is `ID_CARD`.
+    """
+
+    passport_front: str
+    """Photo page of the passport, base64-encoded.
+
+    Required when `document_type` is `PASSPORT`.
+    """
+
+    residence_permit_back: str
+    """Back of the residence permit, base64-encoded.
+
+    Required when `document_type` is `RESIDENCE_PERMIT`.
+    """
+
+    residence_permit_front: str
+    """Front of the residence permit, base64-encoded.
+
+    Required when `document_type` is `RESIDENCE_PERMIT`.
+    """
+
+    selfie: str
+    """Photo of the person's face, base64-encoded.
+
+    Always required, with every document type. Must be JPEG or PNG.
+    """
+
+
+class CreateBusinessVerification(TypedDict, total=False):
+    account_id: Required[str]
+    """Account or user ID whose identity you want to verify.
+
+    Use a `biz_` account ID for account verifications, or the caller's `user_` ID
+    for personal verification.
+    """
+
+    address: CreateBusinessVerificationAddress
+
+    business_name: str
+    """Legal business name."""
+
+    business_structure: str
+    """
+    Legal entity structure of the business, such as `private_corporation` or
+    `sole_proprietorship`. Supported values vary by country of incorporation — see
+    [Business structures](/developer/verification/business-structures).
+    """
+
+    business_tax_identification_number: str
+    """The business ID number of the company, as appropriate for the company's country.
+
+    Examples are an Employer Identification Number (EIN) in the US, a Business
+    Number in Canada, or a Company Number in the UK.
+    """
+
+    business_website: str
+    """Business website URL. Whop store pages are not accepted."""
+
+    country: str
+    """Country of incorporation as a two-letter ISO 3166-1 country code."""
+
+    kind: Literal["business"]
+    """Must be `business` to start a KYB verification."""
+
+    place_of_incorporation: str
+    """State or region where the business is incorporated."""
+
+    tax_identification_number: str
+    """
+    The government-issued ID number of the person being verified — the individual
+    for a KYC verification, or the business representative for a KYB verification —
+    as appropriate for their country. Examples are a Social Security Number (SSN) in
+    the US, or a Social Insurance Number in Canada.
+    """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+
+class CreateBusinessVerificationAddress(TypedDict, total=False):
+    city: str
+
+    country: str
+    """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
+
+    line1: str
+    """First line of the street address."""
+
+    line2: str
+    """Second line of the street address."""
+
+    postal_code: str
+    """Postal or ZIP code."""
+
+    state: str
+    """State, province, or region code, for example `CA`."""
+
+
+VerificationCreateParams: TypeAlias = Union[CreateIndividualVerification, CreateBusinessVerification]
