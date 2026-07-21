@@ -37,8 +37,6 @@ __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
 
 class MembershipsResource(SyncAPIResource):
-    """Memberships"""
-
     @cached_property
     def with_raw_response(self) -> MembershipsResourceWithRawResponse:
         """
@@ -342,6 +340,7 @@ class MembershipsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        resumes_at: Union[str, datetime, None] | Omit = omit,
         void_payments: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -362,6 +361,9 @@ class MembershipsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
+          resumes_at: When the membership should automatically resume payment collection. If not
+              provided, the membership stays paused until manually resumed.
+
           void_payments: Whether to void any outstanding past-due payments on this membership, preventing
               future collection attempts.
 
@@ -377,7 +379,13 @@ class MembershipsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/memberships/{id}/pause", id=id),
-            body=maybe_transform({"void_payments": void_payments}, membership_pause_params.MembershipPauseParams),
+            body=maybe_transform(
+                {
+                    "resumes_at": resumes_at,
+                    "void_payments": void_payments,
+                },
+                membership_pause_params.MembershipPauseParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -419,6 +427,50 @@ class MembershipsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/memberships/{id}/resume", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
+    def resync_access(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """Re-run access fulfillment for a membership.
+
+        Recomputes the member's content
+        access on Whop, re-validates their Discord link (re-adding them to the server
+        and re-assigning roles if needed), and re-fulfills TradingView indicator access.
+        Telegram access is invite-based and cannot be resynced here. The outcome is
+        written to the membership's logs.
+
+        Required permissions:
+
+        - `membership:resync_access`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/memberships/{id}/resync_access", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -467,8 +519,6 @@ class MembershipsResource(SyncAPIResource):
 
 
 class AsyncMembershipsResource(AsyncAPIResource):
-    """Memberships"""
-
     @cached_property
     def with_raw_response(self) -> AsyncMembershipsResourceWithRawResponse:
         """
@@ -774,6 +824,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        resumes_at: Union[str, datetime, None] | Omit = omit,
         void_payments: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -794,6 +845,9 @@ class AsyncMembershipsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
+          resumes_at: When the membership should automatically resume payment collection. If not
+              provided, the membership stays paused until manually resumed.
+
           void_payments: Whether to void any outstanding past-due payments on this membership, preventing
               future collection attempts.
 
@@ -810,7 +864,11 @@ class AsyncMembershipsResource(AsyncAPIResource):
         return await self._post(
             path_template("/memberships/{id}/pause", id=id),
             body=await async_maybe_transform(
-                {"void_payments": void_payments}, membership_pause_params.MembershipPauseParams
+                {
+                    "resumes_at": resumes_at,
+                    "void_payments": void_payments,
+                },
+                membership_pause_params.MembershipPauseParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -853,6 +911,50 @@ class AsyncMembershipsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/memberships/{id}/resume", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Membership,
+        )
+
+    async def resync_access(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Membership:
+        """Re-run access fulfillment for a membership.
+
+        Recomputes the member's content
+        access on Whop, re-validates their Discord link (re-adding them to the server
+        and re-assigning roles if needed), and re-fulfills TradingView indicator access.
+        Telegram access is invite-based and cannot be resynced here. The outcome is
+        written to the membership's logs.
+
+        Required permissions:
+
+        - `membership:resync_access`
+        - `member:email:read`
+        - `member:basic:read`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/memberships/{id}/resync_access", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -925,6 +1027,9 @@ class MembershipsResourceWithRawResponse:
         self.resume = to_raw_response_wrapper(
             memberships.resume,
         )
+        self.resync_access = to_raw_response_wrapper(
+            memberships.resync_access,
+        )
         self.uncancel = to_raw_response_wrapper(
             memberships.uncancel,
         )
@@ -954,6 +1059,9 @@ class AsyncMembershipsResourceWithRawResponse:
         )
         self.resume = async_to_raw_response_wrapper(
             memberships.resume,
+        )
+        self.resync_access = async_to_raw_response_wrapper(
+            memberships.resync_access,
         )
         self.uncancel = async_to_raw_response_wrapper(
             memberships.uncancel,
@@ -985,6 +1093,9 @@ class MembershipsResourceWithStreamingResponse:
         self.resume = to_streamed_response_wrapper(
             memberships.resume,
         )
+        self.resync_access = to_streamed_response_wrapper(
+            memberships.resync_access,
+        )
         self.uncancel = to_streamed_response_wrapper(
             memberships.uncancel,
         )
@@ -1014,6 +1125,9 @@ class AsyncMembershipsResourceWithStreamingResponse:
         )
         self.resume = async_to_streamed_response_wrapper(
             memberships.resume,
+        )
+        self.resync_access = async_to_streamed_response_wrapper(
+            memberships.resync_access,
         )
         self.uncancel = async_to_streamed_response_wrapper(
             memberships.uncancel,
