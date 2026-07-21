@@ -43,6 +43,12 @@ class AppBuildListResponse(BaseModel):
     Null if the build has not been reviewed or was approved.
     """
 
+    source_url: Optional[str] = None
+    """A URL to download the compressed source code archive that produced this build.
+
+    Null if the build was uploaded without a source archive.
+    """
+
     status: AppBuildStatuses
     """The current review status of this build."""
 
