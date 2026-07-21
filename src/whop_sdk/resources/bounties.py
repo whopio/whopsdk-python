@@ -9,7 +9,7 @@ import httpx
 
 from ..types import bounty_list_params, bounty_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,17 +20,19 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.currency import Currency
-from ..types.shared.direction import Direction
-from ..types.bounty_list_response import BountyListResponse
-from ..types.bounty_create_response import BountyCreateResponse
-from ..types.bounty_retrieve_response import BountyRetrieveResponse
+from ..types.bounty import Bounty
+from ..types.bounty_list_item import BountyListItem
 
 __all__ = ["BountiesResource", "AsyncBountiesResource"]
 
 
 class BountiesResource(SyncAPIResource):
-    """Bounties"""
+    """A Bounty is a paid task posted by an account or user.
+
+    The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+    Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+    """
 
     @cached_property
     def with_raw_response(self) -> BountiesResourceWithRawResponse:
@@ -54,57 +56,58 @@ class BountiesResource(SyncAPIResource):
     def create(
         self,
         *,
-        base_unit_amount: float,
-        currency: Currency,
         description: str,
+        gross_reward_amount: float,
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
+        account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
-        origin_account_id: Optional[str] | Omit = omit,
-        post_markdown_content: Optional[str] | Omit = omit,
-        post_title: Optional[str] | Omit = omit,
+        frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
+        publish_at: Optional[str] | Omit = omit,
+        publish_at_timezone: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BountyCreateResponse:
-        """
-        Create a new workforce bounty by funding a dedicated bounty pool.
+    ) -> Bounty:
+        """Creates a bounty and escrows its reward pool.
 
-        Required permissions:
-
-        - `bounty:create`
+        Publishes immediately, or as a
+        scheduled draft when you set `publish_at`.
 
         Args:
-          base_unit_amount: The amount paid to each approved submission. The total bounty pool funded is
-              this amount times accepted_submissions_limit.
+          description: Full task instructions shown to workers.
 
-          currency: The currency for the bounty pool funding amount.
+          gross_reward_amount: Gross bounty-pool amount (USD) escrowed per accepted submission, in whole
+              dollars. Platform fees and affiliate shares are paid from this amount.
 
-          description: The description of the bounty.
+          title: Short name of the task shown to workers.
 
-          title: The title of the bounty.
+          accepted_submissions_limit: Number of submissions that can be accepted (winner slots). Defaults to 1. The
+              escrowed total is `gross_reward_amount` times this limit and must be at least
+              $5.
 
-          accepted_submissions_limit: The number of submissions that can be approved before the bounty closes.
-              Defaults to 1.
+          account_id: Account whose balance funds the bounty pool (`biz_` tag). Defaults to the
+              caller's personal balance. Requires permission to move the account's funds.
 
-          allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
-              globally visible.
+          allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
+              means worldwide.
 
-          experience_id: An optional experience to scope the bounty to.
+          experience_id: Experience to host the bounty in (`exp_` tag). Any visibility — public for an
+              open bounty, private for an invited one. Required unless account_id is set, in
+              which case the bounty anchors in that account's public forum.
 
-          origin_account_id: The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
-              Defaults to the requester's personal balance when omitted. The requester must be
-              the user themself or an owner/admin of the company.
+          frequency: How often the schedule creates a new bounty. Each occurrence is a separate
+              bounty. Defaults to `once`; only applies with `publish_at`.
 
-          post_markdown_content: Optional markdown body for the anchor forum post. Falls back to the bounty
-              description when omitted.
+          publish_at: ISO 8601 time to publish the bounty. When set, the bounty is created as a hidden
+              draft and funded + published at this time instead of immediately.
 
-          post_title: Optional title for the anchor forum post. Falls back to the bounty title when
-              omitted.
+          publish_at_timezone: IANA timezone for recurring occurrences. Required when publish_at is set.
 
           extra_headers: Send extra headers
 
@@ -114,27 +117,28 @@ class BountiesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/bounties",
             body=maybe_transform(
                 {
-                    "base_unit_amount": base_unit_amount,
-                    "currency": currency,
                     "description": description,
+                    "gross_reward_amount": gross_reward_amount,
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
+                    "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
                     "experience_id": experience_id,
-                    "origin_account_id": origin_account_id,
-                    "post_markdown_content": post_markdown_content,
-                    "post_title": post_title,
+                    "frequency": frequency,
+                    "publish_at": publish_at,
+                    "publish_at_timezone": publish_at_timezone,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BountyCreateResponse,
+            cast_to=Bounty,
         )
 
     def retrieve(
@@ -147,9 +151,10 @@ class BountiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BountyRetrieveResponse:
-        """
-        Retrieves a workforce bounty for the current authenticated user.
+    ) -> Bounty:
+        """Retrieves a bounty by ID.
+
+        Bounties outside the caller's scope return `404`.
 
         Args:
           extra_headers: Send extra headers
@@ -167,47 +172,62 @@ class BountiesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BountyRetrieveResponse,
+            cast_to=Bounty,
         )
 
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived"]] | Omit = omit,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "gross_paid_out_amount"] | Omit = omit,
+        query: str | Omit = omit,
+        status: Literal["scheduled", "open", "closed", "completed", "canceled"] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[BountyListResponse]:
-        """Returns a paginated list of workforce bounties.
-
-        When experienceId is provided,
-        returns bounties scoped to that experience. When omitted, returns bounties with
-        no experience.
+    ) -> SyncCursorPage[BountyListItem]:
+        """
+        Lists bounties visible to the credential — for an account API key, the account's
+        bounties including scheduled drafts; for a user token, the bounties the user can
+        see and work.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Scope the list to this account (`biz_` tag). Requires read access to the
+              account; account API keys may pass their own account or a connected account.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          direction: The direction of the sort.
+          before: Cursor to paginate backwards from.
 
-          experience_id: The experience to list bounties for. When omitted, returns bounties with no
-              experience.
+          created_after: Only bounties created after this ISO 8601 timestamp.
 
-          first: Returns the first _n_ elements from the list.
+          created_before: Only bounties created before this ISO 8601 timestamp.
 
-          last: Returns the last _n_ elements from the list.
+          direction: Sort direction.
 
-          status: The available bounty statuses to choose from.
+          first: Number of bounties to return from the start of the window.
+
+          last: Number of bounties to return from the end of the window.
+
+          order: Sort field.
+
+          query: Substring match on the bounty title or ID.
+
+          status: Filter by lifecycle state.
+
+          user_id: List the bounties this user participated in (`user_` tag). Must be the
+              authenticated user.
 
           extra_headers: Send extra headers
 
@@ -219,7 +239,7 @@ class BountiesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/bounties",
-            page=SyncCursorPage[BountyListResponse],
+            page=SyncCursorPage[BountyListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -227,23 +247,33 @@ class BountiesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
-                        "experience_id": experience_id,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "query": query,
                         "status": status,
+                        "user_id": user_id,
                     },
                     bounty_list_params.BountyListParams,
                 ),
             ),
-            model=BountyListResponse,
+            model=BountyListItem,
         )
 
 
 class AsyncBountiesResource(AsyncAPIResource):
-    """Bounties"""
+    """A Bounty is a paid task posted by an account or user.
+
+    The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+    Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncBountiesResourceWithRawResponse:
@@ -267,57 +297,58 @@ class AsyncBountiesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        base_unit_amount: float,
-        currency: Currency,
         description: str,
+        gross_reward_amount: float,
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
+        account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
-        origin_account_id: Optional[str] | Omit = omit,
-        post_markdown_content: Optional[str] | Omit = omit,
-        post_title: Optional[str] | Omit = omit,
+        frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
+        publish_at: Optional[str] | Omit = omit,
+        publish_at_timezone: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BountyCreateResponse:
-        """
-        Create a new workforce bounty by funding a dedicated bounty pool.
+    ) -> Bounty:
+        """Creates a bounty and escrows its reward pool.
 
-        Required permissions:
-
-        - `bounty:create`
+        Publishes immediately, or as a
+        scheduled draft when you set `publish_at`.
 
         Args:
-          base_unit_amount: The amount paid to each approved submission. The total bounty pool funded is
-              this amount times accepted_submissions_limit.
+          description: Full task instructions shown to workers.
 
-          currency: The currency for the bounty pool funding amount.
+          gross_reward_amount: Gross bounty-pool amount (USD) escrowed per accepted submission, in whole
+              dollars. Platform fees and affiliate shares are paid from this amount.
 
-          description: The description of the bounty.
+          title: Short name of the task shown to workers.
 
-          title: The title of the bounty.
+          accepted_submissions_limit: Number of submissions that can be accepted (winner slots). Defaults to 1. The
+              escrowed total is `gross_reward_amount` times this limit and must be at least
+              $5.
 
-          accepted_submissions_limit: The number of submissions that can be approved before the bounty closes.
-              Defaults to 1.
+          account_id: Account whose balance funds the bounty pool (`biz_` tag). Defaults to the
+              caller's personal balance. Requires permission to move the account's funds.
 
-          allowed_country_codes: The ISO3166 country codes where this bounty should be visible. Empty means
-              globally visible.
+          allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
+              means worldwide.
 
-          experience_id: An optional experience to scope the bounty to.
+          experience_id: Experience to host the bounty in (`exp_` tag). Any visibility — public for an
+              open bounty, private for an invited one. Required unless account_id is set, in
+              which case the bounty anchors in that account's public forum.
 
-          origin_account_id: The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
-              Defaults to the requester's personal balance when omitted. The requester must be
-              the user themself or an owner/admin of the company.
+          frequency: How often the schedule creates a new bounty. Each occurrence is a separate
+              bounty. Defaults to `once`; only applies with `publish_at`.
 
-          post_markdown_content: Optional markdown body for the anchor forum post. Falls back to the bounty
-              description when omitted.
+          publish_at: ISO 8601 time to publish the bounty. When set, the bounty is created as a hidden
+              draft and funded + published at this time instead of immediately.
 
-          post_title: Optional title for the anchor forum post. Falls back to the bounty title when
-              omitted.
+          publish_at_timezone: IANA timezone for recurring occurrences. Required when publish_at is set.
 
           extra_headers: Send extra headers
 
@@ -327,27 +358,28 @@ class AsyncBountiesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/bounties",
             body=await async_maybe_transform(
                 {
-                    "base_unit_amount": base_unit_amount,
-                    "currency": currency,
                     "description": description,
+                    "gross_reward_amount": gross_reward_amount,
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
+                    "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
                     "experience_id": experience_id,
-                    "origin_account_id": origin_account_id,
-                    "post_markdown_content": post_markdown_content,
-                    "post_title": post_title,
+                    "frequency": frequency,
+                    "publish_at": publish_at,
+                    "publish_at_timezone": publish_at_timezone,
                 },
                 bounty_create_params.BountyCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BountyCreateResponse,
+            cast_to=Bounty,
         )
 
     async def retrieve(
@@ -360,9 +392,10 @@ class AsyncBountiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BountyRetrieveResponse:
-        """
-        Retrieves a workforce bounty for the current authenticated user.
+    ) -> Bounty:
+        """Retrieves a bounty by ID.
+
+        Bounties outside the caller's scope return `404`.
 
         Args:
           extra_headers: Send extra headers
@@ -380,47 +413,62 @@ class AsyncBountiesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BountyRetrieveResponse,
+            cast_to=Bounty,
         )
 
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived"]] | Omit = omit,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "gross_paid_out_amount"] | Omit = omit,
+        query: str | Omit = omit,
+        status: Literal["scheduled", "open", "closed", "completed", "canceled"] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[BountyListResponse, AsyncCursorPage[BountyListResponse]]:
-        """Returns a paginated list of workforce bounties.
-
-        When experienceId is provided,
-        returns bounties scoped to that experience. When omitted, returns bounties with
-        no experience.
+    ) -> AsyncPaginator[BountyListItem, AsyncCursorPage[BountyListItem]]:
+        """
+        Lists bounties visible to the credential — for an account API key, the account's
+        bounties including scheduled drafts; for a user token, the bounties the user can
+        see and work.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Scope the list to this account (`biz_` tag). Requires read access to the
+              account; account API keys may pass their own account or a connected account.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          direction: The direction of the sort.
+          before: Cursor to paginate backwards from.
 
-          experience_id: The experience to list bounties for. When omitted, returns bounties with no
-              experience.
+          created_after: Only bounties created after this ISO 8601 timestamp.
 
-          first: Returns the first _n_ elements from the list.
+          created_before: Only bounties created before this ISO 8601 timestamp.
 
-          last: Returns the last _n_ elements from the list.
+          direction: Sort direction.
 
-          status: The available bounty statuses to choose from.
+          first: Number of bounties to return from the start of the window.
+
+          last: Number of bounties to return from the end of the window.
+
+          order: Sort field.
+
+          query: Substring match on the bounty title or ID.
+
+          status: Filter by lifecycle state.
+
+          user_id: List the bounties this user participated in (`user_` tag). Must be the
+              authenticated user.
 
           extra_headers: Send extra headers
 
@@ -432,7 +480,7 @@ class AsyncBountiesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/bounties",
-            page=AsyncCursorPage[BountyListResponse],
+            page=AsyncCursorPage[BountyListItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -440,18 +488,23 @@ class AsyncBountiesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
-                        "experience_id": experience_id,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "query": query,
                         "status": status,
+                        "user_id": user_id,
                     },
                     bounty_list_params.BountyListParams,
                 ),
             ),
-            model=BountyListResponse,
+            model=BountyListItem,
         )
 
 
