@@ -31,7 +31,12 @@ class AccountUpdateParams(TypedDict, total=False):
     """
 
     business_type: Optional[str]
-    """High-level business category for the account."""
+    """High-level business category for the account.
+
+    See the
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+    for valid values.
+    """
 
     country: Optional[str]
     """Country where the account is located."""
@@ -46,10 +51,20 @@ class AccountUpdateParams(TypedDict, total=False):
     """Public account home page preferences."""
 
     industry_group: Optional[str]
-    """Account industry group."""
+    """Account industry group.
+
+    See the
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+    for valid values.
+    """
 
     industry_type: Optional[str]
-    """Specific industry vertical for the account."""
+    """Specific industry vertical for the account.
+
+    See the
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+    for valid values.
+    """
 
     invoice_prefix: Optional[str]
     """Prefix used for account invoices."""

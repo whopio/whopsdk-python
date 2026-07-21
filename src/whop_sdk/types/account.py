@@ -457,7 +457,12 @@ class Account(BaseModel):
     """
 
     business_type: Optional[str] = None
-    """High-level business category for the account."""
+    """High-level business category for the account.
+
+    See the
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+    for valid values.
+    """
 
     capabilities: Optional[Capabilities] = None
     """
@@ -481,10 +486,20 @@ class Account(BaseModel):
     home_preferences: List[str]
 
     industry_group: Optional[str] = None
-    """Account industry group."""
+    """Account industry group.
+
+    See the
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+    for valid values.
+    """
 
     industry_type: Optional[str] = None
-    """Specific industry vertical for the account."""
+    """Specific industry vertical for the account.
+
+    See the
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+    for valid values.
+    """
 
     invoice_prefix: Optional[str] = None
     """Prefix used for account invoices."""

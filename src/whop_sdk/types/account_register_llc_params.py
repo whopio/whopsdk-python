@@ -51,7 +51,7 @@ class BusinessInfo(TypedDict, total=False):
     """High-level business category, from the Whop business taxonomy.
 
     Valid values are listed on
-    [Business Types & Industries](/api-reference/beta/business-types).
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
     """
 
     formation_state: Required[
@@ -115,14 +115,14 @@ class BusinessInfo(TypedDict, total=False):
     """Industry group, from the Whop business taxonomy.
 
     Valid values are listed on
-    [Business Types & Industries](/api-reference/beta/business-types).
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
     """
 
     industry_type: Required[str]
     """Specific industry vertical, from the Whop business taxonomy.
 
     Valid values are listed on
-    [Business Types & Industries](/api-reference/beta/business-types).
+    [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
     """
 
     legal_name: Required[str]

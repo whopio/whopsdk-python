@@ -280,7 +280,9 @@ class AccountsResource(SyncAPIResource):
           business_address: Account business address used to calculate tax. A complete address in a
               supported country is required when `tax_remitted_by` is `self`.
 
-          business_type: High-level business category for the account.
+          business_type: High-level business category for the account. See the
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+              for valid values.
 
           country: Country where the account is located.
 
@@ -290,9 +292,13 @@ class AccountsResource(SyncAPIResource):
 
           home_preferences: Public account home page preferences.
 
-          industry_group: Account industry group.
+          industry_group: Account industry group. See the
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+              for valid values.
 
-          industry_type: Specific industry vertical for the account.
+          industry_type: Specific industry vertical for the account. See the
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+              for valid values.
 
           invoice_prefix: Prefix used for account invoices.
 
@@ -829,7 +835,9 @@ class AsyncAccountsResource(AsyncAPIResource):
           business_address: Account business address used to calculate tax. A complete address in a
               supported country is required when `tax_remitted_by` is `self`.
 
-          business_type: High-level business category for the account.
+          business_type: High-level business category for the account. See the
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+              for valid values.
 
           country: Country where the account is located.
 
@@ -839,9 +847,13 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           home_preferences: Public account home page preferences.
 
-          industry_group: Account industry group.
+          industry_group: Account industry group. See the
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+              for valid values.
 
-          industry_type: Specific industry vertical for the account.
+          industry_type: Specific industry vertical for the account. See the
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
+              for valid values.
 
           invoice_prefix: Prefix used for account invoices.
 
