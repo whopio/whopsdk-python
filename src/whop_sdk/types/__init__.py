@@ -181,6 +181,7 @@ from .webhook_list_params import WebhookListParams as WebhookListParams
 from .ad_group_list_params import AdGroupListParams as AdGroupListParams
 from .audience_list_params import AudienceListParams as AudienceListParams
 from .bounty_create_params import BountyCreateParams as BountyCreateParams
+from .bounty_update_params import BountyUpdateParams as BountyUpdateParams
 from .card_create_response import CardCreateResponse as CardCreateResponse
 from .card_retrieve_params import CardRetrieveParams as CardRetrieveParams
 from .card_update_response import CardUpdateResponse as CardUpdateResponse

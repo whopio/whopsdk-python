@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import bounty_list_params, bounty_create_params
+from ..types import bounty_list_params, bounty_create_params, bounty_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -169,6 +169,85 @@ class BountiesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
             path_template("/bounties/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Bounty,
+        )
+
+    def update(
+        self,
+        id: str,
+        *,
+        accepted_submissions_limit: Optional[int] | Omit = omit,
+        allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: str | Omit = omit,
+        frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
+        gross_reward_amount: Optional[float] | Omit = omit,
+        publish_at: Optional[str] | Omit = omit,
+        publish_at_timezone: Optional[str] | Omit = omit,
+        title: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Bounty:
+        """Updates a bounty.
+
+        A published bounty accepts title, description, and country
+        targeting while it is still open with nothing under review. A scheduled
+        (not-yet-published) draft additionally accepts the reward, winner slots, and
+        schedule.
+
+        Args:
+          accepted_submissions_limit: Scheduled drafts only. Number of submissions that can be accepted (winner
+              slots).
+
+          allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
+              codes. Empty means worldwide.
+
+          description: New full task instructions.
+
+          frequency: Scheduled drafts only. How often the schedule creates a new bounty.
+
+          gross_reward_amount: Scheduled drafts only. Gross bounty-pool amount (USD) escrowed per accepted
+              submission. The escrowed total (this times accepted_submissions_limit) must stay
+              at least $5.
+
+          publish_at: Scheduled drafts only. New ISO 8601 time to publish the draft. Must be in the
+              future.
+
+          publish_at_timezone: Scheduled drafts only. IANA timezone for recurring occurrences.
+
+          title: New short name of the task.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            path_template("/bounties/{id}", id=id),
+            body=maybe_transform(
+                {
+                    "accepted_submissions_limit": accepted_submissions_limit,
+                    "allowed_country_codes": allowed_country_codes,
+                    "description": description,
+                    "frequency": frequency,
+                    "gross_reward_amount": gross_reward_amount,
+                    "publish_at": publish_at,
+                    "publish_at_timezone": publish_at_timezone,
+                    "title": title,
+                },
+                bounty_update_params.BountyUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -416,6 +495,85 @@ class AsyncBountiesResource(AsyncAPIResource):
             cast_to=Bounty,
         )
 
+    async def update(
+        self,
+        id: str,
+        *,
+        accepted_submissions_limit: Optional[int] | Omit = omit,
+        allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: str | Omit = omit,
+        frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
+        gross_reward_amount: Optional[float] | Omit = omit,
+        publish_at: Optional[str] | Omit = omit,
+        publish_at_timezone: Optional[str] | Omit = omit,
+        title: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Bounty:
+        """Updates a bounty.
+
+        A published bounty accepts title, description, and country
+        targeting while it is still open with nothing under review. A scheduled
+        (not-yet-published) draft additionally accepts the reward, winner slots, and
+        schedule.
+
+        Args:
+          accepted_submissions_limit: Scheduled drafts only. Number of submissions that can be accepted (winner
+              slots).
+
+          allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
+              codes. Empty means worldwide.
+
+          description: New full task instructions.
+
+          frequency: Scheduled drafts only. How often the schedule creates a new bounty.
+
+          gross_reward_amount: Scheduled drafts only. Gross bounty-pool amount (USD) escrowed per accepted
+              submission. The escrowed total (this times accepted_submissions_limit) must stay
+              at least $5.
+
+          publish_at: Scheduled drafts only. New ISO 8601 time to publish the draft. Must be in the
+              future.
+
+          publish_at_timezone: Scheduled drafts only. IANA timezone for recurring occurrences.
+
+          title: New short name of the task.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            path_template("/bounties/{id}", id=id),
+            body=await async_maybe_transform(
+                {
+                    "accepted_submissions_limit": accepted_submissions_limit,
+                    "allowed_country_codes": allowed_country_codes,
+                    "description": description,
+                    "frequency": frequency,
+                    "gross_reward_amount": gross_reward_amount,
+                    "publish_at": publish_at,
+                    "publish_at_timezone": publish_at_timezone,
+                    "title": title,
+                },
+                bounty_update_params.BountyUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Bounty,
+        )
+
     def list(
         self,
         *,
@@ -518,6 +676,9 @@ class BountiesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             bounties.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            bounties.update,
+        )
         self.list = to_raw_response_wrapper(
             bounties.list,
         )
@@ -532,6 +693,9 @@ class AsyncBountiesResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             bounties.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            bounties.update,
         )
         self.list = async_to_raw_response_wrapper(
             bounties.list,
@@ -548,6 +712,9 @@ class BountiesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             bounties.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            bounties.update,
+        )
         self.list = to_streamed_response_wrapper(
             bounties.list,
         )
@@ -562,6 +729,9 @@ class AsyncBountiesResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             bounties.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            bounties.update,
         )
         self.list = async_to_streamed_response_wrapper(
             bounties.list,
