@@ -56,6 +56,7 @@ class WithdrawalsResource(SyncAPIResource):
         amount: float,
         company_id: str,
         currency: Currency,
+        idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
         statement_descriptor: Optional[str] | Omit = omit,
@@ -81,6 +82,9 @@ class WithdrawalsResource(SyncAPIResource):
 
           currency: The currency that is being withdrawn.
 
+          idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
+              returns the original withdrawal instead of creating a second one.
+
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
           platform_covers_fees: Whether the platform covers the payout fees.
@@ -103,6 +107,7 @@ class WithdrawalsResource(SyncAPIResource):
                     "amount": amount,
                     "company_id": company_id,
                     "currency": currency,
+                    "idempotency_key": idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,
                     "statement_descriptor": statement_descriptor,
@@ -258,6 +263,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         amount: float,
         company_id: str,
         currency: Currency,
+        idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
         statement_descriptor: Optional[str] | Omit = omit,
@@ -283,6 +289,9 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
 
           currency: The currency that is being withdrawn.
 
+          idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
+              returns the original withdrawal instead of creating a second one.
+
           payout_method_id: The ID of the payout method to use for the withdrawal.
 
           platform_covers_fees: Whether the platform covers the payout fees.
@@ -305,6 +314,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
                     "amount": amount,
                     "company_id": company_id,
                     "currency": currency,
+                    "idempotency_key": idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,
                     "statement_descriptor": statement_descriptor,
