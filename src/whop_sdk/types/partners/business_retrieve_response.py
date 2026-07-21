@@ -116,7 +116,13 @@ class AccountRecommendedAction(BaseModel):
 
 
 class AccountRequiredAction(BaseModel):
-    action: Literal["deposit_funds", "submit_information_request", "verify_identity", "connect_fulfillment_tracker"]
+    action: Literal[
+        "deposit_funds",
+        "submit_information_request",
+        "verify_identity",
+        "connect_fulfillment_tracker",
+        "setup_apple_pay_domains",
+    ]
     """
     What the holder must do; new values may be added, so handle unknown actions
     gracefully
