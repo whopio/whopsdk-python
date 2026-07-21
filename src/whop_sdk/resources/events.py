@@ -282,7 +282,7 @@ class EventsResource(SyncAPIResource):
         before: str | Omit = omit,
         first: int | Omit = omit,
         from_: Union[str, datetime] | Omit = omit,
-        person_id: str | Omit = omit,
+        identifier: str | Omit = omit,
         to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -291,12 +291,12 @@ class EventsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[EventListResponse]:
-        """Lists pixel events, most recent first.
+        """Lists identity-linked events, most recent first.
 
-        Pass person_id for one person's journey,
-        or omit it to list identity-linked events for an account within an explicit time
-        range. Events are shaped like the POST /events intake: attribution in context,
-        identity in user.
+        Pass identifier for one
+        person's journey, or omit it to list events for an account within an explicit
+        time range. Events are shaped like the POST /events intake: attribution in
+        context, identity in user.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
@@ -308,13 +308,14 @@ class EventsResource(SyncAPIResource):
 
           first: The number of events to return.
 
-          from_: Start of the time range as an ISO 8601 timestamp. Required when person_id is
+          from_: Start of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted.
 
-          person_id: The ID of the person. Omit to list recent identity-linked events for the
-              account.
+          identifier: Any hard identifier of the person: a person ID (prsn\\__\\**), user ID, email, phone
+              number, or a tracking cookie value (wuid, anonymous ID, fbp/fbc/ttp/ga). Omit to
+              list recent events for the account.
 
-          to: End of the time range as an ISO 8601 timestamp. Required when person_id is
+          to: End of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted; otherwise defaults to now.
 
           extra_headers: Send extra headers
@@ -340,7 +341,7 @@ class EventsResource(SyncAPIResource):
                         "before": before,
                         "first": first,
                         "from_": from_,
-                        "person_id": person_id,
+                        "identifier": identifier,
                         "to": to,
                     },
                     event_list_params.EventListParams,
@@ -605,7 +606,7 @@ class AsyncEventsResource(AsyncAPIResource):
         before: str | Omit = omit,
         first: int | Omit = omit,
         from_: Union[str, datetime] | Omit = omit,
-        person_id: str | Omit = omit,
+        identifier: str | Omit = omit,
         to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -614,12 +615,12 @@ class AsyncEventsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[EventListResponse, AsyncCursorPage[EventListResponse]]:
-        """Lists pixel events, most recent first.
+        """Lists identity-linked events, most recent first.
 
-        Pass person_id for one person's journey,
-        or omit it to list identity-linked events for an account within an explicit time
-        range. Events are shaped like the POST /events intake: attribution in context,
-        identity in user.
+        Pass identifier for one
+        person's journey, or omit it to list events for an account within an explicit
+        time range. Events are shaped like the POST /events intake: attribution in
+        context, identity in user.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
@@ -631,13 +632,14 @@ class AsyncEventsResource(AsyncAPIResource):
 
           first: The number of events to return.
 
-          from_: Start of the time range as an ISO 8601 timestamp. Required when person_id is
+          from_: Start of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted.
 
-          person_id: The ID of the person. Omit to list recent identity-linked events for the
-              account.
+          identifier: Any hard identifier of the person: a person ID (prsn\\__\\**), user ID, email, phone
+              number, or a tracking cookie value (wuid, anonymous ID, fbp/fbc/ttp/ga). Omit to
+              list recent events for the account.
 
-          to: End of the time range as an ISO 8601 timestamp. Required when person_id is
+          to: End of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted; otherwise defaults to now.
 
           extra_headers: Send extra headers
@@ -663,7 +665,7 @@ class AsyncEventsResource(AsyncAPIResource):
                         "before": before,
                         "first": first,
                         "from_": from_,
-                        "person_id": person_id,
+                        "identifier": identifier,
                         "to": to,
                     },
                     event_list_params.EventListParams,

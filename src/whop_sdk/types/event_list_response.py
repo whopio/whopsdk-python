@@ -5,7 +5,19 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["EventListResponse", "Context", "Question", "User"]
+__all__ = [
+    "EventListResponse",
+    "Context",
+    "Question",
+    "Related",
+    "RelatedAccount",
+    "RelatedApp",
+    "RelatedPayment",
+    "RelatedPlan",
+    "RelatedProduct",
+    "RelatedUser",
+    "User",
+]
 
 
 class Context(BaseModel):
@@ -40,6 +52,87 @@ class Question(BaseModel):
     type: Optional[str] = None
 
 
+class RelatedAccount(BaseModel):
+    id: Optional[str] = None
+
+    logo_url: Optional[str] = None
+
+    route: Optional[str] = None
+
+    title: Optional[str] = None
+
+
+class RelatedApp(BaseModel):
+    id: Optional[str] = None
+
+    domain_id: Optional[str] = None
+
+    icon_url: Optional[str] = None
+
+    title: Optional[str] = None
+
+
+class RelatedPayment(BaseModel):
+    id: Optional[str] = None
+
+    card_brand: Optional[str] = None
+
+    card_last4: Optional[str] = None
+
+    provider: Optional[str] = None
+
+
+class RelatedPlan(BaseModel):
+    id: Optional[str] = None
+
+    billing_period: Optional[int] = None
+
+    currency: Optional[str] = None
+
+    initial_price: Optional[float] = None
+
+    renewal_price: Optional[float] = None
+
+    title: Optional[str] = None
+
+
+class RelatedProduct(BaseModel):
+    id: Optional[str] = None
+
+    route: Optional[str] = None
+
+    title: Optional[str] = None
+
+
+class RelatedUser(BaseModel):
+    id: Optional[str] = None
+
+    avatar_url: Optional[str] = None
+
+    name: Optional[str] = None
+
+    username: Optional[str] = None
+
+
+class Related(BaseModel):
+    """Hydrated details for the records this event references.
+
+    Only present keys resolved.
+    """
+
+    account: Optional[RelatedAccount] = None
+
+    app: Optional[RelatedApp] = None
+
+    payment: Optional[RelatedPayment] = None
+
+    plan: Optional[RelatedPlan] = None
+
+    product: Optional[RelatedProduct] = None
+
+    user: Optional[RelatedUser] = None
+
+
 class User(BaseModel):
     city: Optional[str] = None
 
@@ -54,8 +147,6 @@ class User(BaseModel):
     name: Optional[str] = None
 
     phone: Optional[str] = None
-
-    state: Optional[str] = None
 
 
 class EventListResponse(BaseModel):
@@ -80,6 +171,12 @@ class EventListResponse(BaseModel):
     questions: Optional[List[Question]] = None
 
     referrer_url: Optional[str] = None
+
+    related: Optional[Related] = None
+    """Hydrated details for the records this event references.
+
+    Only present keys resolved.
+    """
 
     total_usd_amount: Optional[float] = None
 

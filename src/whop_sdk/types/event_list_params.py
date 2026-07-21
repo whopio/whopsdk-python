@@ -31,17 +31,18 @@ class EventListParams(TypedDict, total=False):
     from_: Annotated[Union[str, datetime], PropertyInfo(alias="from", format="iso8601")]
     """Start of the time range as an ISO 8601 timestamp.
 
-    Required when person_id is omitted.
+    Required when identifier is omitted.
     """
 
-    person_id: str
-    """The ID of the person.
-
-    Omit to list recent identity-linked events for the account.
+    identifier: str
+    """
+    Any hard identifier of the person: a person ID (prsn\\__\\**), user ID, email, phone
+    number, or a tracking cookie value (wuid, anonymous ID, fbp/fbc/ttp/ga). Omit to
+    list recent events for the account.
     """
 
     to: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """End of the time range as an ISO 8601 timestamp.
 
-    Required when person_id is omitted; otherwise defaults to now.
+    Required when identifier is omitted; otherwise defaults to now.
     """

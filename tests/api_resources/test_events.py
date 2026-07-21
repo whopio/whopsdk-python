@@ -149,7 +149,7 @@ class TestEvents:
             before="before",
             first=0,
             from_=parse_datetime("2019-12-27T18:11:19.117Z"),
-            person_id="person_id",
+            identifier="identifier",
             to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(SyncCursorPage[EventListResponse], event, path=["response"])
@@ -312,7 +312,7 @@ class TestAsyncEvents:
             before="before",
             first=0,
             from_=parse_datetime("2019-12-27T18:11:19.117Z"),
-            person_id="person_id",
+            identifier="identifier",
             to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(AsyncCursorPage[EventListResponse], event, path=["response"])
