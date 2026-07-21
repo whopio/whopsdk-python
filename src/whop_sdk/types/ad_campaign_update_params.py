@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["AdCampaignUpdateParams"]
@@ -34,6 +35,12 @@ class AdCampaignUpdateParams(TypedDict, total=False):
     """When the campaign stops delivering, as an ISO 8601 timestamp.
 
     Only for campaigns that own the budget.
+    """
+
+    special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]]
+    """Regulated categories the campaign falls under.
+
+    Editable on any campaign, draft or launched; pass an empty array to clear.
     """
 
     starts_at: str

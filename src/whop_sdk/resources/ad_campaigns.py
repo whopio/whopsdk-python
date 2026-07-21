@@ -215,6 +215,7 @@ class AdCampaignsResource(SyncAPIResource):
         budget_amount: float | Omit = omit,
         budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
         ends_at: str | Omit = omit,
+        special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]] | Omit = omit,
         starts_at: str | Omit = omit,
         status: Literal["active"] | Omit = omit,
         title: str | Omit = omit,
@@ -227,9 +228,9 @@ class AdCampaignsResource(SyncAPIResource):
     ) -> AdCampaign:
         """
         Updates an ad campaign's editable fields (title, budget, schedule, bid strategy,
-        and — before launch — budget optimization), and launches a draft campaign by
-        setting status to active. Objective, budget type, special ad categories and
-        desired cost per result are fixed at creation and cannot be changed.
+        special ad categories, and, before launch, budget optimization), and launches a
+        draft campaign by setting status to active. Objective, budget type and desired
+        cost per result are fixed at creation and cannot be changed.
 
         Args:
           bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
@@ -247,6 +248,9 @@ class AdCampaignsResource(SyncAPIResource):
 
           ends_at: When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns
               that own the budget.
+
+          special_ad_categories: Regulated categories the campaign falls under. Editable on any campaign, draft
+              or launched; pass an empty array to clear.
 
           starts_at: When the campaign starts delivering, as an ISO 8601 timestamp. Only for
               campaigns that own the budget.
@@ -274,6 +278,7 @@ class AdCampaignsResource(SyncAPIResource):
                     "budget_amount": budget_amount,
                     "budget_optimization": budget_optimization,
                     "ends_at": ends_at,
+                    "special_ad_categories": special_ad_categories,
                     "starts_at": starts_at,
                     "status": status,
                     "title": title,
@@ -727,6 +732,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         budget_amount: float | Omit = omit,
         budget_optimization: Literal["ad_campaign", "ad_group"] | Omit = omit,
         ends_at: str | Omit = omit,
+        special_ad_categories: List[Literal["housing", "employment", "financial_products", "politics"]] | Omit = omit,
         starts_at: str | Omit = omit,
         status: Literal["active"] | Omit = omit,
         title: str | Omit = omit,
@@ -739,9 +745,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
     ) -> AdCampaign:
         """
         Updates an ad campaign's editable fields (title, budget, schedule, bid strategy,
-        and — before launch — budget optimization), and launches a draft campaign by
-        setting status to active. Objective, budget type, special ad categories and
-        desired cost per result are fixed at creation and cannot be changed.
+        special ad categories, and, before launch, budget optimization), and launches a
+        draft campaign by setting status to active. Objective, budget type and desired
+        cost per result are fixed at creation and cannot be changed.
 
         Args:
           bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
@@ -759,6 +765,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
 
           ends_at: When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns
               that own the budget.
+
+          special_ad_categories: Regulated categories the campaign falls under. Editable on any campaign, draft
+              or launched; pass an empty array to clear.
 
           starts_at: When the campaign starts delivering, as an ISO 8601 timestamp. Only for
               campaigns that own the budget.
@@ -786,6 +795,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
                     "budget_amount": budget_amount,
                     "budget_optimization": budget_optimization,
                     "ends_at": ends_at,
+                    "special_ad_categories": special_ad_categories,
                     "starts_at": starts_at,
                     "status": status,
                     "title": title,
