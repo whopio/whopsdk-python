@@ -424,6 +424,9 @@ class Ad(BaseModel):
     the goal and none are attributed.
     """
 
+    cost_per_unique_click: Optional[float] = None
+    """Spend divided by unique clicks; null when there are no unique clicks."""
+
     cost_per_viewed_content: Optional[float] = None
     """
     Spend divided by attributed view-content events; null when they are not the goal
@@ -633,7 +636,7 @@ class Ad(BaseModel):
     """Unique clicks divided by impressions, between 0 and 1."""
 
     unique_clicks: float
-    """The number of unique clicks."""
+    """People who clicked, reported by the Whop pixel, counted once per person."""
 
     updated_at: str
     """When the ad was last updated, as an ISO 8601 timestamp."""
