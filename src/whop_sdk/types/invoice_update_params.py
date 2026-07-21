@@ -179,6 +179,9 @@ class PlanPaymentMethodConfiguration(TypedDict, total=False):
 class Plan(TypedDict, total=False):
     """Updated plan attributes."""
 
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
+
     billing_period: Optional[int]
     """The interval in days at which the plan charges (renewal plans)."""
 
