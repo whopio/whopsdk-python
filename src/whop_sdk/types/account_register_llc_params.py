@@ -144,7 +144,10 @@ class BusinessInfo(TypedDict, total=False):
     """
 
     phone: str
-    """Business phone number in E.164 format, for example `+12125550100`."""
+    """Business phone number in E.164 format, for example `+12125550100`.
+
+    Required unless `use_registered_agent` is `true`.
+    """
 
     use_registered_agent: bool
     """Use the registered agent's address as the company address instead of `address`."""

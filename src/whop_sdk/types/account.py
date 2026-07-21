@@ -1,7 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 from .account_social_link import AccountSocialLink
@@ -10,6 +12,11 @@ __all__ = [
     "Account",
     "Balance",
     "Capabilities",
+    "LlcFormation",
+    "LlcFormationDocument",
+    "LlcFormationSignatures",
+    "LlcFormationSignaturesForm8821",
+    "LlcFormationSignaturesSs4",
     "PaymentControls",
     "PaymentControlsDisputeAlertAutoRefund",
     "PaymentControlsReserve",
@@ -86,6 +93,155 @@ class Capabilities(BaseModel):
 
     transfer: Literal["active", "inactive", "pending"]
     """Transfers to other accounts"""
+
+
+class LlcFormationDocument(BaseModel):
+    """
+    Formation documents available for download, such as the Articles of Organization and the EIN confirmation letter. Present once `status` leaves `draft`.
+    """
+
+    id: str
+    """Document ID, prefixed `file_`."""
+
+    name: str
+    """Human-readable document name, such as `Articles of Organization`."""
+
+    type: str
+    """
+    Document category: `articles_of_organization`, `operating_agreement`,
+    `ein_letter`, `signed_ss4`, `signed_form8821`, or `mail` for postal
+    correspondence received on the company's behalf.
+    """
+
+    url: str
+    """CDN URL for downloading the document."""
+
+
+class LlcFormationSignaturesForm8821(BaseModel):
+    """Signature state for IRS Form 8821, the tax information authorization.
+
+    Present only while the form still needs the founder's action.
+    """
+
+    status: Literal["pending", "unknown"]
+    """
+    `pending` when a signing session is ready for the founder; `unknown` when the
+    signature state could not be determined.
+    """
+
+    expires_at: Optional[str] = None
+    """When the signing URL expires, as an ISO 8601 timestamp.
+
+    Present while `status` is `pending`.
+    """
+
+    url: Optional[str] = None
+    """Hosted signing URL where the founder completes the form.
+
+    Present while `status` is `pending`.
+    """
+
+
+class LlcFormationSignaturesSs4(BaseModel):
+    """Signature state for IRS Form SS-4, the EIN application.
+
+    Present only while the form still needs the founder's action.
+    """
+
+    status: Literal["pending", "unknown"]
+    """
+    `pending` when a signing session is ready for the founder; `unknown` when the
+    signature state could not be determined.
+    """
+
+    expires_at: Optional[str] = None
+    """When the signing URL expires, as an ISO 8601 timestamp.
+
+    Present while `status` is `pending`.
+    """
+
+    url: Optional[str] = None
+    """Hosted signing URL where the founder completes the form.
+
+    Present while `status` is `pending`.
+    """
+
+
+class LlcFormationSignatures(BaseModel):
+    """IRS forms still awaiting a founder's signature, each with a hosted signing URL.
+
+    Present once `status` leaves `draft`; empty when nothing needs signing.
+    """
+
+    form8821: Optional[LlcFormationSignaturesForm8821] = None
+    """Signature state for IRS Form 8821, the tax information authorization.
+
+    Present only while the form still needs the founder's action.
+    """
+
+    ss4: Optional[LlcFormationSignaturesSs4] = None
+    """Signature state for IRS Form SS-4, the EIN application.
+
+    Present only while the form still needs the founder's action.
+    """
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
+class LlcFormation(BaseModel):
+    """
+    LLC formation state for the account, managed through [Register LLC](/api-reference/beta/accounts/register-llc). A `draft` `status` until the formation checkout is paid, then filing progress with downloadable documents and signatures awaiting action. Empty when the formation state is temporarily unavailable.
+    """
+
+    documents: Optional[List[LlcFormationDocument]] = None
+
+    ein_registered: Optional[bool] = None
+    """Whether the company's EIN has been issued by the IRS.
+
+    Present once `status` leaves `draft`.
+    """
+
+    legal_name: Optional[str] = None
+    """Registered company name including the entity ending, for example `Acme, LLC`.
+
+    Present once `status` leaves `draft`.
+    """
+
+    signatures: Optional[LlcFormationSignatures] = None
+    """IRS forms still awaiting a founder's signature, each with a hosted signing URL.
+
+    Present once `status` leaves `draft`; empty when nothing needs signing.
+    """
+
+    state_registered: Optional[bool] = None
+    """Whether the state formation filing is complete.
+
+    Present once `status` leaves `draft`.
+    """
+
+    status: Optional[Literal["draft", "processing", "filed", "rejected", "completed"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
 
 
 class PaymentControlsDisputeAlertAutoRefund(BaseModel):
@@ -333,11 +489,13 @@ class Account(BaseModel):
     invoice_prefix: Optional[str] = None
     """Prefix used for account invoices."""
 
-    llc_formation: object
+    llc_formation: LlcFormation
     """
-    LLC formation state for the account: a draft state with `payment_pending`, or
-    the live filing state with registration progress, documents, and pending
-    signatures.
+    LLC formation state for the account, managed through
+    [Register LLC](/api-reference/beta/accounts/register-llc). A `draft` `status`
+    until the formation checkout is paid, then filing progress with downloadable
+    documents and signatures awaiting action. Empty when the formation state is
+    temporarily unavailable.
     """
 
     logo_url: Optional[str] = None
