@@ -9,7 +9,11 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import AppListResponse
+from whop_sdk.types import (
+    AppListResponse,
+    AppLogsResponse,
+)
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import App
 
@@ -37,6 +41,7 @@ class TestApps:
             base_url="base_url",
             icon={"id": "id"},
             redirect_uris=["string"],
+            route="route",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -136,6 +141,8 @@ class TestApps:
             openapi_path="openapi_path",
             redirect_uris=["string"],
             required_scopes=["read_user"],
+            route="route",
+            secrets={"foo": "bar"},
             skills_path="skills_path",
             status="live",
         )
@@ -221,6 +228,64 @@ class TestApps:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_logs(self, client: Whop) -> None:
+        app = client.apps.logs(
+            id="id",
+        )
+        assert_matches_type(AppLogsResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_logs_with_all_params(self, client: Whop) -> None:
+        app = client.apps.logs(
+            id="id",
+            after="after",
+            app_build_id="app_build_id",
+            before="before",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            first=0,
+            level="log",
+            query="query",
+        )
+        assert_matches_type(AppLogsResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_logs(self, client: Whop) -> None:
+        response = client.apps.with_raw_response.logs(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        app = response.parse()
+        assert_matches_type(AppLogsResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_logs(self, client: Whop) -> None:
+        with client.apps.with_streaming_response.logs(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            app = response.parse()
+            assert_matches_type(AppLogsResponse, app, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_logs(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.apps.with_raw_response.logs(
+                id="",
+            )
+
 
 class TestAsyncApps:
     parametrize = pytest.mark.parametrize(
@@ -245,6 +310,7 @@ class TestAsyncApps:
             base_url="base_url",
             icon={"id": "id"},
             redirect_uris=["string"],
+            route="route",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -344,6 +410,8 @@ class TestAsyncApps:
             openapi_path="openapi_path",
             redirect_uris=["string"],
             required_scopes=["read_user"],
+            route="route",
+            secrets={"foo": "bar"},
             skills_path="skills_path",
             status="live",
         )
@@ -428,3 +496,61 @@ class TestAsyncApps:
             assert_matches_type(AsyncCursorPage[AppListResponse], app, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_logs(self, async_client: AsyncWhop) -> None:
+        app = await async_client.apps.logs(
+            id="id",
+        )
+        assert_matches_type(AppLogsResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_logs_with_all_params(self, async_client: AsyncWhop) -> None:
+        app = await async_client.apps.logs(
+            id="id",
+            after="after",
+            app_build_id="app_build_id",
+            before="before",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            first=0,
+            level="log",
+            query="query",
+        )
+        assert_matches_type(AppLogsResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_logs(self, async_client: AsyncWhop) -> None:
+        response = await async_client.apps.with_raw_response.logs(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        app = await response.parse()
+        assert_matches_type(AppLogsResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_logs(self, async_client: AsyncWhop) -> None:
+        async with async_client.apps.with_streaming_response.logs(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            app = await response.parse()
+            assert_matches_type(AppLogsResponse, app, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_logs(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.apps.with_raw_response.logs(
+                id="",
+            )
