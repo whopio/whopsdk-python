@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..app_type import AppType
@@ -13,6 +14,7 @@ __all__ = [
     "APIKey",
     "Company",
     "Creator",
+    "DefaultAPIKey",
     "Icon",
     "ProductionWebBuild",
     "RequestedPermission",
@@ -58,6 +60,33 @@ class Creator(BaseModel):
 
     username: str
     """The user's unique username shown on their public profile."""
+
+
+class DefaultAPIKey(BaseModel):
+    """The app's default API key, used to authenticate requests on behalf of this app.
+
+    Null if the app has no default key. Requires the 'developer:manage_api_key' permission.
+    """
+
+    id: str
+    """The unique identifier for the authorized api key."""
+
+    name: Optional[str] = None
+    """A user set name to identify an API key"""
+
+    obfuscated_secret_key: str
+    """A masked version of the secret key used to authenticate requests.
+
+    This is so that the owner can easily identify which key it is without being
+    shown the full secret.
+    """
+
+    secret_key: Optional[str] = None
+    """The secret key used to authenticate requests.
+
+    This is only available if the current actor would have been able to create this
+    api key.
+    """
 
 
 class Icon(BaseModel):
@@ -196,6 +225,13 @@ class App(BaseModel):
     not configured.
     """
 
+    default_api_key: Optional[DefaultAPIKey] = None
+    """The app's default API key, used to authenticate requests on behalf of this app.
+
+    Null if the app has no default key. Requires the 'developer:manage_api_key'
+    permission.
+    """
+
     description: Optional[str] = None
     """
     A written description of what this app does, displayed on the app store listing
@@ -234,11 +270,20 @@ class App(BaseModel):
     checkout, and as the default icon for experiences using this app.
     """
 
+    marketplace_status: Optional[Literal["not_available", "pending_review", "live_marketplace"]] = None
+    """The available marketplace statuses to choose from."""
+
     name: str
     """The display name of this app shown on the app store and in experience
     navigation.
 
     Maximum 30 characters.
+    """
+
+    oauth_client_type: Literal["public", "confidential"]
+    """
+    How this app authenticates when exchanging OAuth authorization and refresh
+    grants.
     """
 
     openapi_path: Optional[str] = None
@@ -252,6 +297,16 @@ class App(BaseModel):
     """
     The full origin URL for this app's proxied domain (e.g.,
     'https://myapp.apps.whop.com'). Null if no proxy domain is configured.
+    """
+
+    product_id: Optional[str] = None
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
     """
 
     production_web_build: Optional[ProductionWebBuild] = None

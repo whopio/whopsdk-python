@@ -15,6 +15,12 @@ class WebhookListParams(TypedDict, total=False):
     after: Optional[str]
     """Returns the elements in the list that come after the specified cursor."""
 
+    app_id: Optional[str]
+    """Only return webhooks attached to this app.
+
+    Omit to list the company's own webhooks.
+    """
+
     before: Optional[str]
     """Returns the elements in the list that come before the specified cursor."""
 

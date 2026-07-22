@@ -224,6 +224,7 @@ class WebhooksResource(SyncAPIResource):
         *,
         company_id: str,
         after: Optional[str] | Omit = omit,
+        app_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -246,6 +247,9 @@ class WebhooksResource(SyncAPIResource):
           company_id: The unique identifier of the company to list webhooks for.
 
           after: Returns the elements in the list that come after the specified cursor.
+
+          app_id: Only return webhooks attached to this app. Omit to list the company's own
+              webhooks.
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -273,6 +277,7 @@ class WebhooksResource(SyncAPIResource):
                     {
                         "company_id": company_id,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
                         "first": first,
                         "last": last,
@@ -538,6 +543,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         *,
         company_id: str,
         after: Optional[str] | Omit = omit,
+        app_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         first: Optional[int] | Omit = omit,
         last: Optional[int] | Omit = omit,
@@ -560,6 +566,9 @@ class AsyncWebhooksResource(AsyncAPIResource):
           company_id: The unique identifier of the company to list webhooks for.
 
           after: Returns the elements in the list that come after the specified cursor.
+
+          app_id: Only return webhooks attached to this app. Omit to list the company's own
+              webhooks.
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -587,6 +596,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
                     {
                         "company_id": company_id,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
                         "first": first,
                         "last": last,

@@ -183,6 +183,7 @@ class TestWebhooks:
         webhook = client.webhooks.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
+            app_id="app_xxxxxxxxxxxxxx",
             before="before",
             first=42,
             last=42,
@@ -460,6 +461,7 @@ class TestAsyncWebhooks:
         webhook = await async_client.webhooks.list(
             company_id="biz_xxxxxxxxxxxxxx",
             after="after",
+            app_id="app_xxxxxxxxxxxxxx",
             before="before",
             first=42,
             last=42,
