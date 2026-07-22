@@ -1,98 +1,60 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from typing import List, Optional
 
 from ..._models import BaseModel
-from .visibility import Visibility
 
 __all__ = ["ProductListItem", "GalleryImage"]
 
 
 class GalleryImage(BaseModel):
-    """Represents an image attachment"""
+    """Gallery images for this product."""
 
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """Attachment ID for this gallery entry."""
 
     content_type: Optional[str] = None
-    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
+    """MIME type of the file, such as `image/png` or `video/mp4`."""
 
     url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
+    """CDN URL for the image or video, or `null` while the upload is still processing."""
 
 
 class ProductListItem(BaseModel):
-    """A product is a digital good or service sold on Whop.
-
-    Products contain plans for pricing and experiences for content delivery.
-    """
-
     id: str
-    """The unique identifier for the product."""
+    """Product ID, prefixed `prod_`."""
 
-    created_at: datetime
-    """The datetime the product was created."""
+    created_at: str
+    """When the product was created, as an ISO 8601 timestamp."""
 
     external_identifier: Optional[str] = None
-    """External identifier for the product.
-
-    Providing it on a product creation endpoint updates the existing product with
-    this identifier instead of creating a new one.
-    """
+    """External identifier stored on the product for your own reference."""
 
     gallery_images: List[GalleryImage]
-    """The gallery images for this product, ordered by position."""
 
     headline: Optional[str] = None
-    """A short marketing headline displayed prominently on the product's product page."""
+    """Short marketing headline displayed on product page."""
 
-    member_count: int
-    """Active memberships for this product.
+    member_count: float
+    """Active memberships for this product; 0 if public member counts are disabled."""
 
-    Returns `0` if the account has disabled public member counts.
-    """
+    metadata: Optional[object] = None
+    """Custom key-value pairs stored on the product."""
 
-    metadata: Optional[Dict[str, object]] = None
-    """
-    Custom key-value pairs stored on the product and included in payment and
-    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
-    per string value.
-    """
-
-    published_reviews_count: int
-    """The total number of published customer reviews for this product's company."""
+    published_reviews_count: float
+    """Published customer reviews for this product."""
 
     route: str
-    """URL slug in the product's public link, e.g.
-
-    `pickaxe-analytics` in whop.com/company/pickaxe-analytics.
-    """
+    """URL slug for the product's public link."""
 
     title: str
-    """
-    The display name of the product shown to customers on the product page and in
-    search results.
-    """
+    """Product display name shown to customers."""
 
-    updated_at: datetime
-    """The datetime the product was last updated."""
+    updated_at: str
+    """When the product was last updated, as an ISO 8601 timestamp."""
 
     verified: bool
-    """Whether this company has been verified by Whop's trust and safety team."""
+    """Whether the product has been verified by Whop."""
 
-    visibility: Visibility
-    """Controls whether the product is visible to customers.
-
-    When set to 'hidden', the product is only accessible via direct link.
-    """
+    visibility: Optional[str] = None
+    """Whether the product is publicly visible, hidden, or archived."""
