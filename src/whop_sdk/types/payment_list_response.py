@@ -321,6 +321,13 @@ class PaymentListResponse(BaseModel):
     currency: Currency
     """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
+    customer_phone: Optional[str] = None
+    """
+    Phone number the customer provided at checkout, or their verified phone number
+    when your checkout requires phone verification. `null` when no phone number was
+    collected.
+    """
+
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
 
