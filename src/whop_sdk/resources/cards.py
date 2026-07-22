@@ -140,7 +140,9 @@ class CardsResource(SyncAPIResource):
     ) -> CardRetrieveResponse:
         """
         Retrieves a single card by its icrd\\__ identifier, including its secrets (full
-        card number, CVC, and cardholder name) for active cards.
+        card number, CVC, and cardholder name) for active cards. The card PIN is
+        included only when the request is authenticated as the user the card is assigned
+        to.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -435,7 +437,9 @@ class AsyncCardsResource(AsyncAPIResource):
     ) -> CardRetrieveResponse:
         """
         Retrieves a single card by its icrd\\__ identifier, including its secrets (full
-        card number, CVC, and cardholder name) for active cards.
+        card number, CVC, and cardholder name) for active cards. The card PIN is
+        included only when the request is authenticated as the user the card is assigned
+        to.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.

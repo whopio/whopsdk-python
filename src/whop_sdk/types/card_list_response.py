@@ -56,6 +56,13 @@ class DataSecrets(BaseModel):
     name_on_card: Optional[str] = None
     """Cardholder name printed on the card."""
 
+    pin: Optional[str] = None
+    """The card PIN.
+
+    Only returned when the request is authenticated as the user the card is assigned
+    to; `null` for all other callers, including account API keys.
+    """
+
 
 class Data(BaseModel):
     id: str
