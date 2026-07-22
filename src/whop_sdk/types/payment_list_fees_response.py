@@ -52,5 +52,6 @@ class PaymentListFeesResponse(BaseModel):
         "billing_percentage_fee",
         "revshare_percentage_fee",
         "application_fee",
+        "high_risk_merchant_fee",
     ]
     """The specific origin of the fee, if applicable."""
