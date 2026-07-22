@@ -45,3 +45,11 @@ class Webhook(BaseModel):
 
     url: str
     """The destination URL where webhook payloads are delivered via HTTP POST."""
+
+    webhook_secret: str
+    """The secret key used to sign webhook payloads for verification.
+
+    Include this in your HMAC validation logic. Returned on the create response and
+    to interactive dashboard sessions; empty for API-key and OAuth callers on later
+    reads.
+    """
