@@ -32,8 +32,6 @@ __all__ = ["MembersResource", "AsyncMembersResource"]
 
 
 class MembersResource(SyncAPIResource):
-    """Members"""
-
     @cached_property
     def with_raw_response(self) -> MembersResourceWithRawResponse:
         """
@@ -210,8 +208,6 @@ class MembersResource(SyncAPIResource):
 
 
 class AsyncMembersResource(AsyncAPIResource):
-    """Members"""
-
     @cached_property
     def with_raw_response(self) -> AsyncMembersResourceWithRawResponse:
         """
