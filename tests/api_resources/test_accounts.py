@@ -129,6 +129,7 @@ class TestAccounts:
                 "state": "state",
             },
             business_type="business_type",
+            collect_vat_id=True,
             country="country",
             description="description",
             featured_affiliate_product_id="featured_affiliate_product_id",
@@ -161,6 +162,7 @@ class TestAccounts:
                 }
             ],
             tax_remitted_by="whop",
+            tax_type="inclusive",
             title="title",
             use_logo_as_opengraph_image_fallback=True,
         )
@@ -611,6 +613,7 @@ class TestAsyncAccounts:
                 "state": "state",
             },
             business_type="business_type",
+            collect_vat_id=True,
             country="country",
             description="description",
             featured_affiliate_product_id="featured_affiliate_product_id",
@@ -643,6 +646,7 @@ class TestAsyncAccounts:
                 }
             ],
             tax_remitted_by="whop",
+            tax_type="inclusive",
             title="title",
             use_logo_as_opengraph_image_fallback=True,
         )

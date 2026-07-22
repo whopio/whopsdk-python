@@ -88,7 +88,7 @@ class AccountsResource(SyncAPIResource):
         """Creates an account.
 
         User tokens create business accounts; business account API
-        keys create connected accounts. Tax fields (`tax_remitted_by`,
+        keys create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`,
         `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured
         with Update Account, not at creation.
 
@@ -173,6 +173,7 @@ class AccountsResource(SyncAPIResource):
         banner_image: Optional[Dict[str, object]] | Omit = omit,
         business_address: account_update_params.BusinessAddress | Omit = omit,
         business_type: Optional[str] | Omit = omit,
+        collect_vat_id: bool | Omit = omit,
         country: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         featured_affiliate_product_id: Optional[str] | Omit = omit,
@@ -255,6 +256,7 @@ class AccountsResource(SyncAPIResource):
         | Omit = omit,
         tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
         tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
+        tax_type: Literal["inclusive", "exclusive"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -283,6 +285,9 @@ class AccountsResource(SyncAPIResource):
           business_type: High-level business category for the account. See the
               [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
               for valid values.
+
+          collect_vat_id: Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does
+              not require a VAT ID to purchase.
 
           country: Country where the account is located.
 
@@ -351,6 +356,9 @@ class AccountsResource(SyncAPIResource):
               (neither; the account is responsible). `self` requires a `business_address` in a
               supported country.
 
+          tax_type: How tax is applied to the account's prices: `inclusive` (tax included in the
+              listed price) or `exclusive` (tax added on top).
+
           title: The display name of the account.
 
           use_logo_as_opengraph_image_fallback: Whether the account uses its logo as the fallback Open Graph image.
@@ -374,6 +382,7 @@ class AccountsResource(SyncAPIResource):
                     "banner_image": banner_image,
                     "business_address": business_address,
                     "business_type": business_type,
+                    "collect_vat_id": collect_vat_id,
                     "country": country,
                     "description": description,
                     "featured_affiliate_product_id": featured_affiliate_product_id,
@@ -401,6 +410,7 @@ class AccountsResource(SyncAPIResource):
                     "tax_collection_enabled_states": tax_collection_enabled_states,
                     "tax_identifiers": tax_identifiers,
                     "tax_remitted_by": tax_remitted_by,
+                    "tax_type": tax_type,
                     "title": title,
                     "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },
@@ -643,7 +653,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         """Creates an account.
 
         User tokens create business accounts; business account API
-        keys create connected accounts. Tax fields (`tax_remitted_by`,
+        keys create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`,
         `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured
         with Update Account, not at creation.
 
@@ -728,6 +738,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         banner_image: Optional[Dict[str, object]] | Omit = omit,
         business_address: account_update_params.BusinessAddress | Omit = omit,
         business_type: Optional[str] | Omit = omit,
+        collect_vat_id: bool | Omit = omit,
         country: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         featured_affiliate_product_id: Optional[str] | Omit = omit,
@@ -810,6 +821,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         | Omit = omit,
         tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
         tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
+        tax_type: Literal["inclusive", "exclusive"] | Omit = omit,
         title: Optional[str] | Omit = omit,
         use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -838,6 +850,9 @@ class AsyncAccountsResource(AsyncAPIResource):
           business_type: High-level business category for the account. See the
               [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
               for valid values.
+
+          collect_vat_id: Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does
+              not require a VAT ID to purchase.
 
           country: Country where the account is located.
 
@@ -906,6 +921,9 @@ class AsyncAccountsResource(AsyncAPIResource):
               (neither; the account is responsible). `self` requires a `business_address` in a
               supported country.
 
+          tax_type: How tax is applied to the account's prices: `inclusive` (tax included in the
+              listed price) or `exclusive` (tax added on top).
+
           title: The display name of the account.
 
           use_logo_as_opengraph_image_fallback: Whether the account uses its logo as the fallback Open Graph image.
@@ -929,6 +947,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "banner_image": banner_image,
                     "business_address": business_address,
                     "business_type": business_type,
+                    "collect_vat_id": collect_vat_id,
                     "country": country,
                     "description": description,
                     "featured_affiliate_product_id": featured_affiliate_product_id,
@@ -956,6 +975,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "tax_collection_enabled_states": tax_collection_enabled_states,
                     "tax_identifiers": tax_identifiers,
                     "tax_remitted_by": tax_remitted_by,
+                    "tax_type": tax_type,
                     "title": title,
                     "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },

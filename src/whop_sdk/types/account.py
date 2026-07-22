@@ -471,6 +471,12 @@ class Account(BaseModel):
     callers with `company:balance:read` scope; `null` otherwise.
     """
 
+    collect_vat_id: bool
+    """Whether checkout shows a VAT/tax ID field for buyers to optionally enter.
+
+    Does not require a VAT ID to purchase.
+    """
+
     country: Optional[str] = None
     """Country where the account is located."""
 
@@ -605,6 +611,13 @@ class Account(BaseModel):
     remits), `self` (Whop calculates; the account collects and remits), or `none`
     (neither; the account is responsible). `null` until the account enrolls in the
     Whop tax service.
+    """
+
+    tax_type: Optional[str] = None
+    """
+    How tax is applied to the account's prices: `inclusive` (tax included in the
+    listed price) or `exclusive` (tax added on top). Defaults to `exclusive` when
+    unset; `null` only when the account has no payment connection.
     """
 
     title: str

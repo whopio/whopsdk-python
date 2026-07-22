@@ -38,6 +38,12 @@ class AccountUpdateParams(TypedDict, total=False):
     for valid values.
     """
 
+    collect_vat_id: bool
+    """Whether checkout shows a VAT/tax ID field for buyers to optionally enter.
+
+    Does not require a VAT ID to purchase.
+    """
+
     country: Optional[str]
     """Country where the account is located."""
 
@@ -200,6 +206,12 @@ class AccountUpdateParams(TypedDict, total=False):
     remits), `self` (Whop calculates; the account collects and remits), or `none`
     (neither; the account is responsible). `self` requires a `business_address` in a
     supported country.
+    """
+
+    tax_type: Literal["inclusive", "exclusive"]
+    """
+    How tax is applied to the account's prices: `inclusive` (tax included in the
+    listed price) or `exclusive` (tax added on top).
     """
 
     title: Optional[str]
