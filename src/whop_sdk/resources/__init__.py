@@ -392,6 +392,14 @@ from .ad_campaigns import (
     AdCampaignsResourceWithStreamingResponse,
     AsyncAdCampaignsResourceWithStreamingResponse,
 )
+from .team_members import (
+    TeamMembersResource,
+    AsyncTeamMembersResource,
+    TeamMembersResourceWithRawResponse,
+    AsyncTeamMembersResourceWithRawResponse,
+    TeamMembersResourceWithStreamingResponse,
+    AsyncTeamMembersResourceWithStreamingResponse,
+)
 from .access_tokens import (
     AccessTokensResource,
     AsyncAccessTokensResource,
@@ -678,6 +686,12 @@ __all__ = [
     "AsyncAuthorizedUsersResourceWithRawResponse",
     "AuthorizedUsersResourceWithStreamingResponse",
     "AsyncAuthorizedUsersResourceWithStreamingResponse",
+    "TeamMembersResource",
+    "AsyncTeamMembersResource",
+    "TeamMembersResourceWithRawResponse",
+    "AsyncTeamMembersResourceWithRawResponse",
+    "TeamMembersResourceWithStreamingResponse",
+    "AsyncTeamMembersResourceWithStreamingResponse",
     "AppBuildsResource",
     "AsyncAppBuildsResource",
     "AppBuildsResourceWithRawResponse",

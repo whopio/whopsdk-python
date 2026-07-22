@@ -86,6 +86,7 @@ from .ad_campaign import AdCampaign as AdCampaign
 from .api_version import APIVersion as APIVersion
 from .card_brands import CardBrands as CardBrands
 from .media_asset import MediaAsset as MediaAsset
+from .team_member import TeamMember as TeamMember
 from .lesson_types import LessonTypes as LessonTypes
 from .setup_intent import SetupIntent as SetupIntent
 from .user_balance import UserBalance as UserBalance
@@ -281,6 +282,7 @@ from .message_delete_response import MessageDeleteResponse as MessageDeleteRespo
 from .partner_create_response import PartnerCreateResponse as PartnerCreateResponse
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .refund_reference_status import RefundReferenceStatus as RefundReferenceStatus
+from .team_member_list_params import TeamMemberListParams as TeamMemberListParams
 from .verification_error_code import VerificationErrorCode as VerificationErrorCode
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
@@ -329,6 +331,8 @@ from .course_lesson_list_params import CourseLessonListParams as CourseLessonLis
 from .dispute_alert_list_params import DisputeAlertListParams as DisputeAlertListParams
 from .dm_member_delete_response import DmMemberDeleteResponse as DmMemberDeleteResponse
 from .plan_calculate_tax_params import PlanCalculateTaxParams as PlanCalculateTaxParams
+from .team_member_create_params import TeamMemberCreateParams as TeamMemberCreateParams
+from .team_member_update_params import TeamMemberUpdateParams as TeamMemberUpdateParams
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams
 from .affiliate_archive_response import AffiliateArchiveResponse as AffiliateArchiveResponse
@@ -372,6 +376,7 @@ from .experience_duplicate_params import ExperienceDuplicateParams as Experience
 from .plan_calculate_tax_response import PlanCalculateTaxResponse as PlanCalculateTaxResponse
 from .social_account_posts_params import SocialAccountPostsParams as SocialAccountPostsParams
 from .support_channel_list_params import SupportChannelListParams as SupportChannelListParams
+from .team_member_delete_response import TeamMemberDeleteResponse as TeamMemberDeleteResponse
 from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .account_link_create_response import AccountLinkCreateResponse as AccountLinkCreateResponse
 from .affiliate_unarchive_response import AffiliateUnarchiveResponse as AffiliateUnarchiveResponse

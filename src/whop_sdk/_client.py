@@ -85,6 +85,7 @@ if TYPE_CHECKING:
         promo_codes,
         withdrawals,
         ad_campaigns,
+        team_members,
         access_tokens,
         account_links,
         chat_channels,
@@ -153,6 +154,7 @@ if TYPE_CHECKING:
     from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
     from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
     from .resources.ad_campaigns import AdCampaignsResource, AsyncAdCampaignsResource
+    from .resources.team_members import TeamMembersResource, AsyncTeamMembersResource
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.account_links import AccountLinksResource, AsyncAccountLinksResource
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
@@ -432,6 +434,17 @@ class Whop(SyncAPIClient):
         from .resources.authorized_users import AuthorizedUsersResource
 
         return AuthorizedUsersResource(self)
+
+    @cached_property
+    def team_members(self) -> TeamMembersResource:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import TeamMembersResource
+
+        return TeamMembersResource(self)
 
     @cached_property
     def app_builds(self) -> AppBuildsResource:
@@ -1204,6 +1217,17 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAuthorizedUsersResource(self)
 
     @cached_property
+    def team_members(self) -> AsyncTeamMembersResource:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import AsyncTeamMembersResource
+
+        return AsyncTeamMembersResource(self)
+
+    @cached_property
     def app_builds(self) -> AsyncAppBuildsResource:
         from .resources.app_builds import AsyncAppBuildsResource
 
@@ -1894,6 +1918,17 @@ class WhopWithRawResponse:
         return AuthorizedUsersResourceWithRawResponse(self._client.authorized_users)
 
     @cached_property
+    def team_members(self) -> team_members.TeamMembersResourceWithRawResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import TeamMembersResourceWithRawResponse
+
+        return TeamMembersResourceWithRawResponse(self._client.team_members)
+
+    @cached_property
     def app_builds(self) -> app_builds.AppBuildsResourceWithRawResponse:
         from .resources.app_builds import AppBuildsResourceWithRawResponse
 
@@ -2464,6 +2499,17 @@ class AsyncWhopWithRawResponse:
         from .resources.authorized_users import AsyncAuthorizedUsersResourceWithRawResponse
 
         return AsyncAuthorizedUsersResourceWithRawResponse(self._client.authorized_users)
+
+    @cached_property
+    def team_members(self) -> team_members.AsyncTeamMembersResourceWithRawResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import AsyncTeamMembersResourceWithRawResponse
+
+        return AsyncTeamMembersResourceWithRawResponse(self._client.team_members)
 
     @cached_property
     def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithRawResponse:
@@ -3040,6 +3086,17 @@ class WhopWithStreamedResponse:
         return AuthorizedUsersResourceWithStreamingResponse(self._client.authorized_users)
 
     @cached_property
+    def team_members(self) -> team_members.TeamMembersResourceWithStreamingResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import TeamMembersResourceWithStreamingResponse
+
+        return TeamMembersResourceWithStreamingResponse(self._client.team_members)
+
+    @cached_property
     def app_builds(self) -> app_builds.AppBuildsResourceWithStreamingResponse:
         from .resources.app_builds import AppBuildsResourceWithStreamingResponse
 
@@ -3612,6 +3669,17 @@ class AsyncWhopWithStreamedResponse:
         from .resources.authorized_users import AsyncAuthorizedUsersResourceWithStreamingResponse
 
         return AsyncAuthorizedUsersResourceWithStreamingResponse(self._client.authorized_users)
+
+    @cached_property
+    def team_members(self) -> team_members.AsyncTeamMembersResourceWithStreamingResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import AsyncTeamMembersResourceWithStreamingResponse
+
+        return AsyncTeamMembersResourceWithStreamingResponse(self._client.team_members)
 
     @cached_property
     def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithStreamingResponse:

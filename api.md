@@ -398,6 +398,22 @@ Methods:
 - <code title="get /authorized_users">client.authorized_users.<a href="./src/whop_sdk/resources/authorized_users.py">list</a>(\*\*<a href="src/whop_sdk/types/authorized_user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/authorized_user_list_response.py">SyncCursorPage[AuthorizedUserListResponse]</a></code>
 - <code title="delete /authorized_users/{id}">client.authorized_users.<a href="./src/whop_sdk/resources/authorized_users.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/authorized_user_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/authorized_user_delete_response.py">AuthorizedUserDeleteResponse</a></code>
 
+# TeamMembers
+
+Types:
+
+```python
+from whop_sdk.types import TeamMember, TeamMemberDeleteResponse
+```
+
+Methods:
+
+- <code title="post /team_members">client.team_members.<a href="./src/whop_sdk/resources/team_members.py">create</a>(\*\*<a href="src/whop_sdk/types/team_member_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/team_member.py">TeamMember</a></code>
+- <code title="get /team_members/{id}">client.team_members.<a href="./src/whop_sdk/resources/team_members.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/team_member.py">TeamMember</a></code>
+- <code title="patch /team_members/{id}">client.team_members.<a href="./src/whop_sdk/resources/team_members.py">update</a>(id, \*\*<a href="src/whop_sdk/types/team_member_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/team_member.py">TeamMember</a></code>
+- <code title="get /team_members">client.team_members.<a href="./src/whop_sdk/resources/team_members.py">list</a>(\*\*<a href="src/whop_sdk/types/team_member_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/team_member.py">SyncCursorPage[TeamMember]</a></code>
+- <code title="delete /team_members/{id}">client.team_members.<a href="./src/whop_sdk/resources/team_members.py">delete</a>(id) -> <a href="./src/whop_sdk/types/team_member_delete_response.py">TeamMemberDeleteResponse</a></code>
+
 # AppBuilds
 
 Types:
