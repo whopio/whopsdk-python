@@ -5,7 +5,35 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["APIKey"]
+__all__ = ["APIKey", "Grant", "GrantAction"]
+
+
+class GrantAction(BaseModel):
+    """The actions the grant covers on the resource, each marked granted or not."""
+
+    action: str
+    """The permission action's identifier, for example `company:basic:read`."""
+
+    granted: bool
+    """Whether the key holds the action on the grant's resource."""
+
+
+class Grant(BaseModel):
+    """The key's effective permissions, grouped by resource.
+
+    Present on retrieve, create, update, and rotate responses; omitted on list.
+    """
+
+    actions: List[GrantAction]
+
+    resource_id: str
+    """ID of the resource the actions apply to."""
+
+    resource_type: str
+    """
+    The type of resource the actions apply to, such as `account`, `product`, or
+    `app`.
+    """
 
 
 class APIKey(BaseModel):
@@ -47,7 +75,7 @@ class APIKey(BaseModel):
     updated_at: str
     """When the API key was last updated, as an ISO 8601 timestamp."""
 
-    grants: Optional[List[object]] = None
+    grants: Optional[List[Grant]] = None
 
     secret_key: Optional[str] = None
     """The full secret used to authenticate requests.
