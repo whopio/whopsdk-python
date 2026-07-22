@@ -373,6 +373,8 @@ class AdGroup(BaseModel):
         Literal[
             "website",
             "profile",
+            "instagram_and_facebook",
+            "instagram_profile",
             "messaging",
             "on_ad",
             "instant_forms",
@@ -382,7 +384,8 @@ class AdGroup(BaseModel):
     ] = None
     """
     Where the result you're optimizing for happens: `website` (your site), `profile`
-    (your social media profile), `messaging` (a direct-message conversation),
+    (your social media profile), `instagram_and_facebook` or `instagram_profile`
+    (visits to your Instagram profile), `messaging` (a direct-message conversation),
     `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
     `instant_forms_and_messenger`, `website_and_instant_forms`).
     """

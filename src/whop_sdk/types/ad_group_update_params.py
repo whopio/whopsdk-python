@@ -89,6 +89,8 @@ class AdGroupUpdateParams(TypedDict, total=False):
     conversion_location: Literal[
         "website",
         "profile",
+        "instagram_and_facebook",
+        "instagram_profile",
         "messaging",
         "on_ad",
         "instant_forms",

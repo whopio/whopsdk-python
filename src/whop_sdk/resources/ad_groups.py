@@ -95,6 +95,8 @@ class AdGroupsResource(SyncAPIResource):
         conversion_location: Literal[
             "website",
             "profile",
+            "instagram_and_facebook",
+            "instagram_profile",
             "messaging",
             "on_ad",
             "instant_forms",
@@ -363,6 +365,8 @@ class AdGroupsResource(SyncAPIResource):
         conversion_location: Literal[
             "website",
             "profile",
+            "instagram_and_facebook",
+            "instagram_profile",
             "messaging",
             "on_ad",
             "instant_forms",
@@ -981,6 +985,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         conversion_location: Literal[
             "website",
             "profile",
+            "instagram_and_facebook",
+            "instagram_profile",
             "messaging",
             "on_ad",
             "instant_forms",
@@ -1249,6 +1255,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         conversion_location: Literal[
             "website",
             "profile",
+            "instagram_and_facebook",
+            "instagram_profile",
             "messaging",
             "on_ad",
             "instant_forms",
