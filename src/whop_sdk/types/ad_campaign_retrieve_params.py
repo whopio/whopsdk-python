@@ -2,24 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["AdCampaignRetrieveParams"]
 
 
 class AdCampaignRetrieveParams(TypedDict, total=False):
-    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """
-    Inclusive start of the window for the campaign's metric fields (spend,
-    impressions, …). Omit both statsFrom and statsTo for all-time stats.
-    """
+    stats_from: str
+    """Start of the stats window."""
 
-    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Inclusive end of the window for the campaign's metric fields.
+    stats_to: str
+    """End of the stats window."""
 
-    Omit both statsFrom and statsTo for all-time stats.
-    """
+    time_zone: str
+    """IANA timezone the stats window is interpreted in. Defaults to UTC."""
