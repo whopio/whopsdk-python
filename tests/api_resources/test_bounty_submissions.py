@@ -38,6 +38,15 @@ class TestBountySubmissions:
                 "file_ids": ["string"],
                 "urls": ["string"],
             },
+            metadata={
+                "city": "city",
+                "country": "country",
+                "device": "device",
+                "fov": 0,
+                "operator": "operator",
+                "site": "site",
+                "station": "station",
+            },
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])
@@ -67,6 +76,48 @@ class TestBountySubmissions:
             assert_matches_type(BountySubmission, bounty_submission, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve(self, client: Whop) -> None:
+        bounty_submission = client.bounty_submissions.retrieve(
+            "bounty_submission_id",
+        )
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve(self, client: Whop) -> None:
+        response = client.bounty_submissions.with_raw_response.retrieve(
+            "bounty_submission_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        bounty_submission = response.parse()
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve(self, client: Whop) -> None:
+        with client.bounty_submissions.with_streaming_response.retrieve(
+            "bounty_submission_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            bounty_submission = response.parse()
+            assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_retrieve(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `bounty_submission_id` but received ''"):
+            client.bounty_submissions.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -114,6 +165,99 @@ class TestBountySubmissions:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Whop) -> None:
+        bounty_submission = client.bounty_submissions.delete(
+            "bounty_submission_id",
+        )
+        assert bounty_submission is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Whop) -> None:
+        response = client.bounty_submissions.with_raw_response.delete(
+            "bounty_submission_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        bounty_submission = response.parse()
+        assert bounty_submission is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Whop) -> None:
+        with client.bounty_submissions.with_streaming_response.delete(
+            "bounty_submission_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            bounty_submission = response.parse()
+            assert bounty_submission is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `bounty_submission_id` but received ''"):
+            client.bounty_submissions.with_raw_response.delete(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_submit(self, client: Whop) -> None:
+        bounty_submission = client.bounty_submissions.submit(
+            bounty_submission_id="bounty_submission_id",
+        )
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_submit_with_all_params(self, client: Whop) -> None:
+        bounty_submission = client.bounty_submissions.submit(
+            bounty_submission_id="bounty_submission_id",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_submit(self, client: Whop) -> None:
+        response = client.bounty_submissions.with_raw_response.submit(
+            bounty_submission_id="bounty_submission_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        bounty_submission = response.parse()
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_submit(self, client: Whop) -> None:
+        with client.bounty_submissions.with_streaming_response.submit(
+            bounty_submission_id="bounty_submission_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            bounty_submission = response.parse()
+            assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_submit(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `bounty_submission_id` but received ''"):
+            client.bounty_submissions.with_raw_response.submit(
+                bounty_submission_id="",
+            )
+
 
 class TestAsyncBountySubmissions:
     parametrize = pytest.mark.parametrize(
@@ -139,6 +283,15 @@ class TestAsyncBountySubmissions:
                 "caption": "caption",
                 "file_ids": ["string"],
                 "urls": ["string"],
+            },
+            metadata={
+                "city": "city",
+                "country": "country",
+                "device": "device",
+                "fov": 0,
+                "operator": "operator",
+                "site": "site",
+                "station": "station",
             },
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -169,6 +322,48 @@ class TestAsyncBountySubmissions:
             assert_matches_type(BountySubmission, bounty_submission, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
+        bounty_submission = await async_client.bounty_submissions.retrieve(
+            "bounty_submission_id",
+        )
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
+        response = await async_client.bounty_submissions.with_raw_response.retrieve(
+            "bounty_submission_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        bounty_submission = await response.parse()
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
+        async with async_client.bounty_submissions.with_streaming_response.retrieve(
+            "bounty_submission_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            bounty_submission = await response.parse()
+            assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `bounty_submission_id` but received ''"):
+            await async_client.bounty_submissions.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -215,3 +410,96 @@ class TestAsyncBountySubmissions:
             assert_matches_type(AsyncCursorPage[BountySubmission], bounty_submission, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
+        bounty_submission = await async_client.bounty_submissions.delete(
+            "bounty_submission_id",
+        )
+        assert bounty_submission is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
+        response = await async_client.bounty_submissions.with_raw_response.delete(
+            "bounty_submission_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        bounty_submission = await response.parse()
+        assert bounty_submission is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
+        async with async_client.bounty_submissions.with_streaming_response.delete(
+            "bounty_submission_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            bounty_submission = await response.parse()
+            assert bounty_submission is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `bounty_submission_id` but received ''"):
+            await async_client.bounty_submissions.with_raw_response.delete(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_submit(self, async_client: AsyncWhop) -> None:
+        bounty_submission = await async_client.bounty_submissions.submit(
+            bounty_submission_id="bounty_submission_id",
+        )
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_submit_with_all_params(self, async_client: AsyncWhop) -> None:
+        bounty_submission = await async_client.bounty_submissions.submit(
+            bounty_submission_id="bounty_submission_id",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_submit(self, async_client: AsyncWhop) -> None:
+        response = await async_client.bounty_submissions.with_raw_response.submit(
+            bounty_submission_id="bounty_submission_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        bounty_submission = await response.parse()
+        assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_submit(self, async_client: AsyncWhop) -> None:
+        async with async_client.bounty_submissions.with_streaming_response.submit(
+            bounty_submission_id="bounty_submission_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            bounty_submission = await response.parse()
+            assert_matches_type(BountySubmission, bounty_submission, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_submit(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `bounty_submission_id` but received ''"):
+            await async_client.bounty_submissions.with_raw_response.submit(
+                bounty_submission_id="",
+            )

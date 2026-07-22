@@ -5,7 +5,126 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Bounty", "FundingAccount", "Poster", "PosterProfilePicture"]
+__all__ = [
+    "Bounty",
+    "CaptureSpec",
+    "CaptureSpecImu",
+    "CaptureSpecVideo",
+    "FundingAccount",
+    "Poster",
+    "PosterProfilePicture",
+]
+
+
+class CaptureSpecImu(BaseModel):
+    """Inertial measurement unit (IMU) recording requirements."""
+
+    device_motion_units: str
+    """Units for the device-motion channels, as a compact key=unit string."""
+
+    magnetometer_units: str
+    """Units for the magnetometer channel."""
+
+    min_rate_hz: float
+    """Minimum sustained IMU sample rate in hertz for a clip to pass validation."""
+
+    target_rate_hz: int
+    """Target IMU sample rate in hertz."""
+
+    warmup_min_rate_hz: float
+    """Minimum IMU sample rate in hertz tolerated during the warmup window."""
+
+    warmup_ns: int
+    """Startup window, in nanoseconds, during which the relaxed warmup rate applies."""
+
+
+class CaptureSpecVideo(BaseModel):
+    """Video recording requirements."""
+
+    bitrate_ceiling_mbps: int
+    """Maximum acceptable average bitrate, in megabits per second."""
+
+    bitrate_floor_mbps: int
+    """Minimum acceptable average bitrate, in megabits per second."""
+
+    bitrate_target_mbps: int
+    """Recommended average bitrate to encode at, in megabits per second."""
+
+    camera_lens: str
+    """Which physical lens to record with."""
+
+    codecs: List[str]
+
+    embed_camera_metadata: bool
+    """
+    Whether the client must also write the camera make and model into the video
+    container's metadata. When `false`, the capture manifest and export CSV are the
+    metadata carrier.
+    """
+
+    fps: int
+    """Target capture frame rate."""
+
+    height: int
+    """Required frame height in pixels — recorded footage must match exactly."""
+
+    min_fov_degrees: int
+    """Minimum acceptable horizontal field of view, in degrees."""
+
+    orientation: str
+    """Device orientation to record in."""
+
+    preferred_fov_degrees: int
+    """Preferred horizontal field of view, in degrees."""
+
+    stabilization_mode: Literal["off", "on", "any"]
+    """
+    How the client must configure video stabilization: `off` disables EIS so raw
+    motion is preserved for pose extraction, `on` requires it, `any` leaves the
+    device default.
+    """
+
+    stabilization_required: bool
+    """Whether hardware/software stabilization must be enabled.
+
+    True exactly when stabilization_mode is `on`.
+    """
+
+    width: int
+    """Required frame width in pixels — recorded footage must match exactly."""
+
+
+class CaptureSpec(BaseModel):
+    """The technical contract footage must be recorded against.
+
+    Present only on `data_capture` bounties; `null` for every other goal type.
+    """
+
+    filename_pattern: str
+    """
+    The naming convention for uploaded files, built from the required metadata
+    fields.
+    """
+
+    imu: CaptureSpecImu
+    """Inertial measurement unit (IMU) recording requirements."""
+
+    manifest_schema_version: int
+    """Schema version the client must stamp on the capture manifest it uploads."""
+
+    min_clip_duration_seconds: int
+    """Minimum length of a single clip, in seconds."""
+
+    required_metadata_fields: List[str]
+
+    single_continuous_take: bool
+    """
+    Whether each clip must be one uninterrupted recording rather than stitched
+    segments.
+    """
+
+    video: CaptureSpecVideo
+    """Video recording requirements."""
 
 
 class FundingAccount(BaseModel):
@@ -57,7 +176,7 @@ class Bounty(BaseModel):
     id: str
     """Bounty ID, prefixed `bnty_`."""
 
-    accepted_deliverable_types: List[Literal["content_url", "media"]]
+    accepted_deliverable_types: List[Literal["content_url", "media", "data_capture"]]
 
     accepted_submissions_count: int
     """Submissions accepted so far."""
@@ -84,10 +203,17 @@ class Bounty(BaseModel):
             "other",
         ]
     ] = None
-    """What the poster wants the work to achieve.
+    """What the poster wants the work to achieve, declared once at create.
 
-    Determines which deliverable types the bounty accepts through the submissions
-    API. `null` for bounties created before the taxonomy rolled out.
+    The server derives `accepted_deliverable_types` from it; posters never set
+    deliverable types directly. `null` for bounties created before the taxonomy
+    rolled out.
+    """
+
+    capture_spec: Optional[CaptureSpec] = None
+    """The technical contract footage must be recorded against.
+
+    Present only on `data_capture` bounties; `null` for every other goal type.
     """
 
     created_at: str

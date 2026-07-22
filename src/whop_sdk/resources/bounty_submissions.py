@@ -8,8 +8,8 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import bounty_submission_list_params, bounty_submission_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, strip_not_given, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -58,6 +58,7 @@ class BountySubmissionsResource(SyncAPIResource):
         bounty_id: str,
         affiliate_code: Optional[str] | Omit = omit,
         deliverable: Optional[bounty_submission_create_params.Deliverable] | Omit = omit,
+        metadata: Optional[bounty_submission_create_params.Metadata] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -66,11 +67,13 @@ class BountySubmissionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BountySubmission:
-        """Submits work to a workforce bounty.
+        """Creates a submission on a workforce bounty.
 
-        Include a `deliverable` payload matching the
-        bounty's accepted deliverable type: `content_url` for link-based bounties,
-        `media` for upload-based bounties. The submission lands directly in review.
+        For `content_url` and `media`
+        bounties, include the matching `deliverable` payload and the submission goes
+        straight to review — create is the only step. For `data_capture` bounties, omit
+        the deliverable: this starts a claimed attempt whose proof accumulates
+        server-side, and the separate submit endpoint sends it to review once complete.
         Requires a user credential — account API keys cannot author submissions.
 
         Args:
@@ -79,6 +82,10 @@ class BountySubmissionsResource(SyncAPIResource):
           affiliate_code: Affiliate code crediting the referrer, when the worker arrived through one.
 
           deliverable: The submitted work, matching one of the bounty's accepted deliverable types.
+
+          metadata: Optional capture metadata describing where and how the footage was recorded.
+              Persisted on the submission. On a `data_capture` bounty every field except `fov`
+              is required whenever metadata is provided.
 
           extra_headers: Send extra headers
 
@@ -96,9 +103,46 @@ class BountySubmissionsResource(SyncAPIResource):
                     "bounty_id": bounty_id,
                     "affiliate_code": affiliate_code,
                     "deliverable": deliverable,
+                    "metadata": metadata,
                 },
                 bounty_submission_create_params.BountySubmissionCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BountySubmission,
+        )
+
+    def retrieve(
+        self,
+        bounty_submission_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BountySubmission:
+        """
+        Retrieves one bounty submission the credential can see — one the caller
+        authored, or one on a bounty they posted or their account owns.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_submission_id:
+            raise ValueError(
+                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
+            )
+        return self._get(
+            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -191,6 +235,86 @@ class BountySubmissionsResource(SyncAPIResource):
             model=BountySubmission,
         )
 
+    def delete(
+        self,
+        bounty_submission_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Cancels the caller's own active attempt on a bounty and discards any accumulated
+        capture clips. Only the worker who started the attempt can cancel it — account
+        API keys cannot.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_submission_id:
+            raise ValueError(
+                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
+            )
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def submit(
+        self,
+        bounty_submission_id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BountySubmission:
+        """
+        Submits a claimed attempt for review once its server-accumulated proof is ready.
+        A data capture attempt needs enough validated clip time to meet the bounty's
+        required capture duration. Only the worker who started the attempt can submit it
+        — account API keys cannot.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_submission_id:
+            raise ValueError(
+                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
+            )
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template(
+                "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BountySubmission,
+        )
+
 
 class AsyncBountySubmissionsResource(AsyncAPIResource):
     """A Bounty Submission is one worker's attempt on a bounty.
@@ -225,6 +349,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         bounty_id: str,
         affiliate_code: Optional[str] | Omit = omit,
         deliverable: Optional[bounty_submission_create_params.Deliverable] | Omit = omit,
+        metadata: Optional[bounty_submission_create_params.Metadata] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -233,11 +358,13 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BountySubmission:
-        """Submits work to a workforce bounty.
+        """Creates a submission on a workforce bounty.
 
-        Include a `deliverable` payload matching the
-        bounty's accepted deliverable type: `content_url` for link-based bounties,
-        `media` for upload-based bounties. The submission lands directly in review.
+        For `content_url` and `media`
+        bounties, include the matching `deliverable` payload and the submission goes
+        straight to review — create is the only step. For `data_capture` bounties, omit
+        the deliverable: this starts a claimed attempt whose proof accumulates
+        server-side, and the separate submit endpoint sends it to review once complete.
         Requires a user credential — account API keys cannot author submissions.
 
         Args:
@@ -246,6 +373,10 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
           affiliate_code: Affiliate code crediting the referrer, when the worker arrived through one.
 
           deliverable: The submitted work, matching one of the bounty's accepted deliverable types.
+
+          metadata: Optional capture metadata describing where and how the footage was recorded.
+              Persisted on the submission. On a `data_capture` bounty every field except `fov`
+              is required whenever metadata is provided.
 
           extra_headers: Send extra headers
 
@@ -263,9 +394,46 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
                     "bounty_id": bounty_id,
                     "affiliate_code": affiliate_code,
                     "deliverable": deliverable,
+                    "metadata": metadata,
                 },
                 bounty_submission_create_params.BountySubmissionCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BountySubmission,
+        )
+
+    async def retrieve(
+        self,
+        bounty_submission_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BountySubmission:
+        """
+        Retrieves one bounty submission the credential can see — one the caller
+        authored, or one on a bounty they posted or their account owns.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_submission_id:
+            raise ValueError(
+                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
+            )
+        return await self._get(
+            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -358,6 +526,86 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
             model=BountySubmission,
         )
 
+    async def delete(
+        self,
+        bounty_submission_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Cancels the caller's own active attempt on a bounty and discards any accumulated
+        capture clips. Only the worker who started the attempt can cancel it — account
+        API keys cannot.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_submission_id:
+            raise ValueError(
+                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
+            )
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def submit(
+        self,
+        bounty_submission_id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BountySubmission:
+        """
+        Submits a claimed attempt for review once its server-accumulated proof is ready.
+        A data capture attempt needs enough validated clip time to meet the bounty's
+        required capture duration. Only the worker who started the attempt can submit it
+        — account API keys cannot.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_submission_id:
+            raise ValueError(
+                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
+            )
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template(
+                "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BountySubmission,
+        )
+
 
 class BountySubmissionsResourceWithRawResponse:
     def __init__(self, bounty_submissions: BountySubmissionsResource) -> None:
@@ -366,8 +614,17 @@ class BountySubmissionsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             bounty_submissions.create,
         )
+        self.retrieve = to_raw_response_wrapper(
+            bounty_submissions.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             bounty_submissions.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            bounty_submissions.delete,
+        )
+        self.submit = to_raw_response_wrapper(
+            bounty_submissions.submit,
         )
 
 
@@ -378,8 +635,17 @@ class AsyncBountySubmissionsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             bounty_submissions.create,
         )
+        self.retrieve = async_to_raw_response_wrapper(
+            bounty_submissions.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             bounty_submissions.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            bounty_submissions.delete,
+        )
+        self.submit = async_to_raw_response_wrapper(
+            bounty_submissions.submit,
         )
 
 
@@ -390,8 +656,17 @@ class BountySubmissionsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             bounty_submissions.create,
         )
+        self.retrieve = to_streamed_response_wrapper(
+            bounty_submissions.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             bounty_submissions.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            bounty_submissions.delete,
+        )
+        self.submit = to_streamed_response_wrapper(
+            bounty_submissions.submit,
         )
 
 
@@ -402,6 +677,15 @@ class AsyncBountySubmissionsResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             bounty_submissions.create,
         )
+        self.retrieve = async_to_streamed_response_wrapper(
+            bounty_submissions.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             bounty_submissions.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            bounty_submissions.delete,
+        )
+        self.submit = async_to_streamed_response_wrapper(
+            bounty_submissions.submit,
         )

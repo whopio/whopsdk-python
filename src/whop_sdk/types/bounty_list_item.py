@@ -57,7 +57,7 @@ class BountyListItem(BaseModel):
     id: str
     """Bounty ID, prefixed `bnty_`."""
 
-    accepted_deliverable_types: List[Literal["content_url", "media"]]
+    accepted_deliverable_types: List[Literal["content_url", "media", "data_capture"]]
 
     accepted_submissions_count: int
     """Submissions accepted so far."""
@@ -84,10 +84,11 @@ class BountyListItem(BaseModel):
             "other",
         ]
     ] = None
-    """What the poster wants the work to achieve.
+    """What the poster wants the work to achieve, declared once at create.
 
-    Determines which deliverable types the bounty accepts through the submissions
-    API. `null` for bounties created before the taxonomy rolled out.
+    The server derives `accepted_deliverable_types` from it; posters never set
+    deliverable types directly. `null` for bounties created before the taxonomy
+    rolled out.
     """
 
     created_at: str

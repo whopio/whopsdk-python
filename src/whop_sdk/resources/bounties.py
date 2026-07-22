@@ -62,6 +62,17 @@ class BountiesResource(SyncAPIResource):
         accepted_submissions_limit: Optional[int] | Omit = omit,
         account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
+        | Omit = omit,
+        capture_spec: bounty_create_params.CaptureSpec | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
         publish_at: Optional[str] | Omit = omit,
@@ -97,6 +108,15 @@ class BountiesResource(SyncAPIResource):
           allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
               means worldwide.
 
+          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
+              server derives `accepted_deliverable_types` from it, and each submission reports
+              which shape it used as `deliverable_type`.
+
+          capture_spec: Per-bounty overrides of the served capture contract. Only accepted when
+              `business_goal_type` is `data_capture`; omitted fields keep the platform
+              defaults, and the resulting contract is echoed back as `capture_spec` on the
+              bounty.
+
           experience_id: Experience to host the bounty in (`exp_` tag). Any visibility — public for an
               open bounty, private for an invited one. Required unless account_id is set, in
               which case the bounty anchors in that account's public forum.
@@ -128,6 +148,8 @@ class BountiesResource(SyncAPIResource):
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
+                    "capture_spec": capture_spec,
                     "experience_id": experience_id,
                     "frequency": frequency,
                     "publish_at": publish_at,
@@ -181,6 +203,16 @@ class BountiesResource(SyncAPIResource):
         *,
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
+        | Omit = omit,
         description: str | Omit = omit,
         frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
         gross_reward_amount: Optional[float] | Omit = omit,
@@ -207,6 +239,10 @@ class BountiesResource(SyncAPIResource):
 
           allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
               codes. Empty means worldwide.
+
+          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
+              server derives `accepted_deliverable_types` from it, and each submission reports
+              which shape it used as `deliverable_type`.
 
           description: New full task instructions.
 
@@ -239,6 +275,7 @@ class BountiesResource(SyncAPIResource):
                 {
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
                     "description": description,
                     "frequency": frequency,
                     "gross_reward_amount": gross_reward_amount,
@@ -382,6 +419,17 @@ class AsyncBountiesResource(AsyncAPIResource):
         accepted_submissions_limit: Optional[int] | Omit = omit,
         account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
+        | Omit = omit,
+        capture_spec: bounty_create_params.CaptureSpec | Omit = omit,
         experience_id: Optional[str] | Omit = omit,
         frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
         publish_at: Optional[str] | Omit = omit,
@@ -417,6 +465,15 @@ class AsyncBountiesResource(AsyncAPIResource):
           allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
               means worldwide.
 
+          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
+              server derives `accepted_deliverable_types` from it, and each submission reports
+              which shape it used as `deliverable_type`.
+
+          capture_spec: Per-bounty overrides of the served capture contract. Only accepted when
+              `business_goal_type` is `data_capture`; omitted fields keep the platform
+              defaults, and the resulting contract is echoed back as `capture_spec` on the
+              bounty.
+
           experience_id: Experience to host the bounty in (`exp_` tag). Any visibility — public for an
               open bounty, private for an invited one. Required unless account_id is set, in
               which case the bounty anchors in that account's public forum.
@@ -448,6 +505,8 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
+                    "capture_spec": capture_spec,
                     "experience_id": experience_id,
                     "frequency": frequency,
                     "publish_at": publish_at,
@@ -501,6 +560,16 @@ class AsyncBountiesResource(AsyncAPIResource):
         *,
         accepted_submissions_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
+        business_goal_type: Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
+        | Omit = omit,
         description: str | Omit = omit,
         frequency: Literal["once", "hourly", "daily", "weekly", "monthly"] | Omit = omit,
         gross_reward_amount: Optional[float] | Omit = omit,
@@ -527,6 +596,10 @@ class AsyncBountiesResource(AsyncAPIResource):
 
           allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
               codes. Empty means worldwide.
+
+          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
+              server derives `accepted_deliverable_types` from it, and each submission reports
+              which shape it used as `deliverable_type`.
 
           description: New full task instructions.
 
@@ -559,6 +632,7 @@ class AsyncBountiesResource(AsyncAPIResource):
                 {
                     "accepted_submissions_limit": accepted_submissions_limit,
                     "allowed_country_codes": allowed_country_codes,
+                    "business_goal_type": business_goal_type,
                     "description": description,
                     "frequency": frequency,
                     "gross_reward_amount": gross_reward_amount,

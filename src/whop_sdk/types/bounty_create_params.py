@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
-__all__ = ["BountyCreateParams"]
+__all__ = ["BountyCreateParams", "CaptureSpec"]
 
 
 class BountyCreateParams(TypedDict, total=False):
@@ -44,6 +44,29 @@ class BountyCreateParams(TypedDict, total=False):
     Empty means worldwide.
     """
 
+    business_goal_type: Literal[
+        "clipping",
+        "post_engagement",
+        "owned_account_growth",
+        "ugc_content",
+        "local_activation",
+        "data_capture",
+        "other",
+    ]
+    """What the poster wants the work to achieve.
+
+    Declare the goal once here; the server derives `accepted_deliverable_types` from
+    it, and each submission reports which shape it used as `deliverable_type`.
+    """
+
+    capture_spec: CaptureSpec
+    """Per-bounty overrides of the served capture contract.
+
+    Only accepted when `business_goal_type` is `data_capture`; omitted fields keep
+    the platform defaults, and the resulting contract is echoed back as
+    `capture_spec` on the bounty.
+    """
+
     experience_id: Optional[str]
     """Experience to host the bounty in (`exp_` tag).
 
@@ -70,3 +93,31 @@ class BountyCreateParams(TypedDict, total=False):
     """IANA timezone for recurring occurrences. Required when publish_at is set."""
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+
+class CaptureSpec(TypedDict, total=False):
+    """Per-bounty overrides of the served capture contract.
+
+    Only accepted when `business_goal_type` is `data_capture`; omitted fields keep the platform defaults, and the resulting contract is echoed back as `capture_spec` on the bounty.
+    """
+
+    bitrate_target_mbps: int
+    """Average bitrate the recorder encodes at, in megabits per second.
+
+    Must sit within the served floor and ceiling.
+    """
+
+    embed_camera_metadata: bool
+    """
+    Whether the recorder also writes camera make and model into the video
+    container's metadata.
+    """
+
+    min_clip_duration_seconds: int
+    """Minimum length of a single clip, in seconds."""
+
+    stabilization_mode: Literal["off", "on", "any"]
+    """How the recorder configures video stabilization.
+
+    `off` preserves raw motion for pose extraction.
+    """
