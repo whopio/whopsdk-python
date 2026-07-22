@@ -17,7 +17,6 @@ __all__ = [
     "ProductionWebBuild",
     "RequestedPermission",
     "RequestedPermissionPermissionAction",
-    "UsageStats",
 ]
 
 
@@ -189,22 +188,6 @@ class RequestedPermission(BaseModel):
     """The permission action the app requests."""
 
 
-class UsageStats(BaseModel):
-    """Aggregate usage statistics for the app."""
-
-    dau: Optional[int] = None
-    """Daily active users."""
-
-    mau: Optional[int] = None
-    """Monthly active users."""
-
-    time_spent_last24_hours: Optional[int] = None
-    """Total time users spent in the app over the last 24 hours, in seconds."""
-
-    wau: Optional[int] = None
-    """Weekly active users."""
-
-
 class App(BaseModel):
     id: str
     """App ID, prefixed `app_`."""
@@ -335,9 +318,6 @@ class App(BaseModel):
     Visibility on the Whop app store: `live` is publicly discoverable, `unlisted` is
     accessible only via direct link, `hidden` is not visible anywhere.
     """
-
-    usage_stats: Optional[UsageStats] = None
-    """Aggregate usage statistics for the app."""
 
     verified: bool
     """
