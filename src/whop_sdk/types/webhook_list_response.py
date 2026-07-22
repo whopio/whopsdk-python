@@ -37,5 +37,16 @@ class WebhookListResponse(BaseModel):
     events: List[WebhookEvent]
     """The list of event types this webhook is subscribed to."""
 
+    resource_id: str
+    """The ID of the resource (company or product) this webhook is attached to."""
+
     url: str
     """The destination URL where webhook payloads are delivered via HTTP POST."""
+
+    webhook_secret: str
+    """The secret key used to sign webhook payloads for verification.
+
+    Include this in your HMAC validation logic. Returned on the create response and
+    to interactive dashboard sessions; empty for API-key and OAuth callers on later
+    reads.
+    """

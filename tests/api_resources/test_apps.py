@@ -27,7 +27,6 @@ class TestApps:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         app = client.apps.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
         )
         assert_matches_type(App, app, path=["response"])
@@ -36,12 +35,16 @@ class TestApps:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         app = client.apps.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
+            account_id="account_id",
             base_url="base_url",
-            icon={"id": "id"},
+            icon={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             redirect_uris=["string"],
             route="route",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -49,7 +52,6 @@ class TestApps:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.apps.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
         )
 
@@ -62,7 +64,6 @@ class TestApps:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.apps.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -77,7 +78,7 @@ class TestApps:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         app = client.apps.retrieve(
-            "app_xxxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -85,7 +86,7 @@ class TestApps:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.apps.with_raw_response.retrieve(
-            "app_xxxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -97,7 +98,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.apps.with_streaming_response.retrieve(
-            "app_xxxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -119,7 +120,7 @@ class TestApps:
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         app = client.apps.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -127,22 +128,28 @@ class TestApps:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         app = client.apps.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
             app_store_description="app_store_description",
             app_type="b2b_app",
-            base_url="https://example.com/path",
+            base_url="base_url",
             dashboard_path="dashboard_path",
             description="description",
             discover_path="discover_path",
             experience_path="experience_path",
-            icon={"id": "id"},
+            icon={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             name="name",
             oauth_client_type="public",
             openapi_path="openapi_path",
+            production_android_build_id="production_android_build_id",
+            production_ios_build_id="production_ios_build_id",
+            production_web_build_id="production_web_build_id",
             redirect_uris=["string"],
-            required_scopes=["read_user"],
+            required_scopes=["string"],
             route="route",
-            secrets={"foo": "bar"},
+            secrets={},
             skills_path="skills_path",
             status="live",
         )
@@ -152,7 +159,7 @@ class TestApps:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.apps.with_raw_response.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -164,7 +171,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.apps.with_streaming_response.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -192,13 +199,13 @@ class TestApps:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         app = client.apps.list(
+            account_id="account_id",
             after="after",
             app_type="b2b_app",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
-            first=42,
-            last=42,
+            first=0,
+            last=0,
             order="created_at",
             query="query",
             verified_apps_only=True,
@@ -286,6 +293,76 @@ class TestApps:
                 id="",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_permissions(self, client: Whop) -> None:
+        app = client.apps.update_permissions(
+            id="id",
+            requested_permissions=[
+                {
+                    "action": "action",
+                    "is_required": True,
+                    "justification": "justification",
+                }
+            ],
+        )
+        assert_matches_type(App, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update_permissions(self, client: Whop) -> None:
+        response = client.apps.with_raw_response.update_permissions(
+            id="id",
+            requested_permissions=[
+                {
+                    "action": "action",
+                    "is_required": True,
+                    "justification": "justification",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        app = response.parse()
+        assert_matches_type(App, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update_permissions(self, client: Whop) -> None:
+        with client.apps.with_streaming_response.update_permissions(
+            id="id",
+            requested_permissions=[
+                {
+                    "action": "action",
+                    "is_required": True,
+                    "justification": "justification",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            app = response.parse()
+            assert_matches_type(App, app, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update_permissions(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.apps.with_raw_response.update_permissions(
+                id="",
+                requested_permissions=[
+                    {
+                        "action": "action",
+                        "is_required": True,
+                        "justification": "justification",
+                    }
+                ],
+            )
+
 
 class TestAsyncApps:
     parametrize = pytest.mark.parametrize(
@@ -296,7 +373,6 @@ class TestAsyncApps:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
         )
         assert_matches_type(App, app, path=["response"])
@@ -305,12 +381,16 @@ class TestAsyncApps:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
+            account_id="account_id",
             base_url="base_url",
-            icon={"id": "id"},
+            icon={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             redirect_uris=["string"],
             route="route",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -318,7 +398,6 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.apps.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
         )
 
@@ -331,7 +410,6 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.apps.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -346,7 +424,7 @@ class TestAsyncApps:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.retrieve(
-            "app_xxxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -354,7 +432,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.apps.with_raw_response.retrieve(
-            "app_xxxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -366,7 +444,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.apps.with_streaming_response.retrieve(
-            "app_xxxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -388,7 +466,7 @@ class TestAsyncApps:
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -396,22 +474,28 @@ class TestAsyncApps:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
             app_store_description="app_store_description",
             app_type="b2b_app",
-            base_url="https://example.com/path",
+            base_url="base_url",
             dashboard_path="dashboard_path",
             description="description",
             discover_path="discover_path",
             experience_path="experience_path",
-            icon={"id": "id"},
+            icon={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             name="name",
             oauth_client_type="public",
             openapi_path="openapi_path",
+            production_android_build_id="production_android_build_id",
+            production_ios_build_id="production_ios_build_id",
+            production_web_build_id="production_web_build_id",
             redirect_uris=["string"],
-            required_scopes=["read_user"],
+            required_scopes=["string"],
             route="route",
-            secrets={"foo": "bar"},
+            secrets={},
             skills_path="skills_path",
             status="live",
         )
@@ -421,7 +505,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.apps.with_raw_response.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -433,7 +517,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.apps.with_streaming_response.update(
-            id="app_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -461,13 +545,13 @@ class TestAsyncApps:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.list(
+            account_id="account_id",
             after="after",
             app_type="b2b_app",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
-            first=42,
-            last=42,
+            first=0,
+            last=0,
             order="created_at",
             query="query",
             verified_apps_only=True,
@@ -553,4 +637,74 @@ class TestAsyncApps:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.apps.with_raw_response.logs(
                 id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_permissions(self, async_client: AsyncWhop) -> None:
+        app = await async_client.apps.update_permissions(
+            id="id",
+            requested_permissions=[
+                {
+                    "action": "action",
+                    "is_required": True,
+                    "justification": "justification",
+                }
+            ],
+        )
+        assert_matches_type(App, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update_permissions(self, async_client: AsyncWhop) -> None:
+        response = await async_client.apps.with_raw_response.update_permissions(
+            id="id",
+            requested_permissions=[
+                {
+                    "action": "action",
+                    "is_required": True,
+                    "justification": "justification",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        app = await response.parse()
+        assert_matches_type(App, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update_permissions(self, async_client: AsyncWhop) -> None:
+        async with async_client.apps.with_streaming_response.update_permissions(
+            id="id",
+            requested_permissions=[
+                {
+                    "action": "action",
+                    "is_required": True,
+                    "justification": "justification",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            app = await response.parse()
+            assert_matches_type(App, app, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update_permissions(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.apps.with_raw_response.update_permissions(
+                id="",
+                requested_permissions=[
+                    {
+                        "action": "action",
+                        "is_required": True,
+                        "justification": "justification",
+                    }
+                ],
             )

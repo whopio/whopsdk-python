@@ -77,6 +77,25 @@ Methods:
 - <code title="patch /apps/{id}">client.apps.<a href="./src/whop_sdk/resources/apps.py">update</a>(id, \*\*<a href="src/whop_sdk/types/app_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app.py">App</a></code>
 - <code title="get /apps">client.apps.<a href="./src/whop_sdk/resources/apps.py">list</a>(\*\*<a href="src/whop_sdk/types/app_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/app_list_response.py">SyncCursorPage[AppListResponse]</a></code>
 - <code title="get /apps/{id}/logs">client.apps.<a href="./src/whop_sdk/resources/apps.py">logs</a>(id, \*\*<a href="src/whop_sdk/types/app_logs_params.py">params</a>) -> <a href="./src/whop_sdk/types/app_logs_response.py">AppLogsResponse</a></code>
+- <code title="patch /apps/{id}/permissions">client.apps.<a href="./src/whop_sdk/resources/apps.py">update_permissions</a>(id, \*\*<a href="src/whop_sdk/types/app_update_permissions_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app.py">App</a></code>
+
+# APIKeys
+
+Types:
+
+```python
+from whop_sdk.types import APIKey, Permission, APIKeyDeleteResponse, APIKeyListPermissionsResponse
+```
+
+Methods:
+
+- <code title="post /api_keys">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">create</a>(\*\*<a href="src/whop_sdk/types/api_key_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/api_key.py">APIKey</a></code>
+- <code title="get /api_keys/{id}">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/api_key.py">APIKey</a></code>
+- <code title="patch /api_keys/{id}">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">update</a>(id, \*\*<a href="src/whop_sdk/types/api_key_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/api_key.py">APIKey</a></code>
+- <code title="get /api_keys">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">list</a>(\*\*<a href="src/whop_sdk/types/api_key_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/api_key.py">SyncCursorPage[APIKey]</a></code>
+- <code title="delete /api_keys/{id}">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">delete</a>(id) -> <a href="./src/whop_sdk/types/api_key_delete_response.py">APIKeyDeleteResponse</a></code>
+- <code title="get /api_keys/permissions">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">list_permissions</a>() -> <a href="./src/whop_sdk/types/api_key_list_permissions_response.py">APIKeyListPermissionsResponse</a></code>
+- <code title="post /api_keys/{id}/rotate">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">rotate</a>(id) -> <a href="./src/whop_sdk/types/api_key.py">APIKey</a></code>
 
 # Invoices
 
@@ -228,9 +247,10 @@ from whop_sdk.types import (
     APIVersion,
     Webhook,
     WebhookEvent,
-    WebhookCreateResponse,
     WebhookListResponse,
     WebhookDeleteResponse,
+    WebhookListDeliveriesResponse,
+    WebhookTestResponse,
     ChatMessageCreatedWebhookEvent,
     ChatReactionCreatedWebhookEvent,
     CourseLessonInteractionCompletedWebhookEvent,
@@ -278,11 +298,13 @@ from whop_sdk.types import (
 
 Methods:
 
-- <code title="post /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">create</a>(\*\*<a href="src/whop_sdk/types/webhook_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_create_response.py">WebhookCreateResponse</a></code>
+- <code title="post /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">create</a>(\*\*<a href="src/whop_sdk/types/webhook_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook.py">Webhook</a></code>
 - <code title="get /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/webhook.py">Webhook</a></code>
 - <code title="patch /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">update</a>(id, \*\*<a href="src/whop_sdk/types/webhook_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook.py">Webhook</a></code>
 - <code title="get /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">list</a>(\*\*<a href="src/whop_sdk/types/webhook_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_list_response.py">SyncCursorPage[WebhookListResponse]</a></code>
 - <code title="delete /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">delete</a>(id) -> <a href="./src/whop_sdk/types/webhook_delete_response.py">WebhookDeleteResponse</a></code>
+- <code title="get /webhooks/{id}/deliveries">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">list_deliveries</a>(id, \*\*<a href="src/whop_sdk/types/webhook_list_deliveries_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_list_deliveries_response.py">SyncCursorPage[WebhookListDeliveriesResponse]</a></code>
+- <code title="post /webhooks/{id}/test">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">test</a>(id, \*\*<a href="src/whop_sdk/types/webhook_test_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_test_response.py">WebhookTestResponse</a></code>
 
 # Plans
 
@@ -416,17 +438,11 @@ Methods:
 
 # AppBuilds
 
-Types:
-
-```python
-from whop_sdk.types import AppBuildListResponse
-```
-
 Methods:
 
 - <code title="post /app_builds">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">create</a>(\*\*<a href="src/whop_sdk/types/app_build_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app_build.py">AppBuild</a></code>
 - <code title="get /app_builds/{id}">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/app_build.py">AppBuild</a></code>
-- <code title="get /app_builds">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">list</a>(\*\*<a href="src/whop_sdk/types/app_build_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/app_build_list_response.py">SyncCursorPage[AppBuildListResponse]</a></code>
+- <code title="get /app_builds">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">list</a>(\*\*<a href="src/whop_sdk/types/app_build_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app_build.py">SyncCursorPage[AppBuild]</a></code>
 - <code title="post /app_builds/{id}/promote">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">promote</a>(id) -> <a href="./src/whop_sdk/types/shared/app_build.py">AppBuild</a></code>
 
 # Shipments

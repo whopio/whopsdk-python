@@ -58,6 +58,7 @@ if TYPE_CHECKING:
         reviews,
         accounts,
         ai_chats,
+        api_keys,
         bounties,
         deposits,
         disputes,
@@ -129,6 +130,7 @@ if TYPE_CHECKING:
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
+    from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
     from .resources.bounties import BountiesResource, AsyncBountiesResource
     from .resources.deposits import DepositsResource, AsyncDepositsResource
     from .resources.disputes import DisputesResource, AsyncDisputesResource
@@ -290,6 +292,18 @@ class Whop(SyncAPIClient):
         return AppsResource(self)
 
     @cached_property
+    def api_keys(self) -> APIKeysResource:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import APIKeysResource
+
+        return APIKeysResource(self)
+
+    @cached_property
     def invoices(self) -> InvoicesResource:
         from .resources.invoices import InvoicesResource
 
@@ -448,6 +462,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def app_builds(self) -> AppBuildsResource:
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AppBuildsResource
 
         return AppBuildsResource(self)
@@ -1071,6 +1090,18 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAppsResource(self)
 
     @cached_property
+    def api_keys(self) -> AsyncAPIKeysResource:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import AsyncAPIKeysResource
+
+        return AsyncAPIKeysResource(self)
+
+    @cached_property
     def invoices(self) -> AsyncInvoicesResource:
         from .resources.invoices import AsyncInvoicesResource
 
@@ -1229,6 +1260,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def app_builds(self) -> AsyncAppBuildsResource:
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AsyncAppBuildsResource
 
         return AsyncAppBuildsResource(self)
@@ -1772,6 +1808,18 @@ class WhopWithRawResponse:
         return AppsResourceWithRawResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import APIKeysResourceWithRawResponse
+
+        return APIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithRawResponse:
         from .resources.invoices import InvoicesResourceWithRawResponse
 
@@ -1930,6 +1978,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def app_builds(self) -> app_builds.AppBuildsResourceWithRawResponse:
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AppBuildsResourceWithRawResponse
 
         return AppBuildsResourceWithRawResponse(self._client.app_builds)
@@ -2353,6 +2406,18 @@ class AsyncWhopWithRawResponse:
         return AsyncAppsResourceWithRawResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import AsyncAPIKeysResourceWithRawResponse
+
+        return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithRawResponse:
         from .resources.invoices import AsyncInvoicesResourceWithRawResponse
 
@@ -2513,6 +2578,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithRawResponse:
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AsyncAppBuildsResourceWithRawResponse
 
         return AsyncAppBuildsResourceWithRawResponse(self._client.app_builds)
@@ -2938,6 +3008,18 @@ class WhopWithStreamedResponse:
         return AppsResourceWithStreamingResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import APIKeysResourceWithStreamingResponse
+
+        return APIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithStreamingResponse:
         from .resources.invoices import InvoicesResourceWithStreamingResponse
 
@@ -3098,6 +3180,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def app_builds(self) -> app_builds.AppBuildsResourceWithStreamingResponse:
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AppBuildsResourceWithStreamingResponse
 
         return AppBuildsResourceWithStreamingResponse(self._client.app_builds)
@@ -3523,6 +3610,18 @@ class AsyncWhopWithStreamedResponse:
         return AsyncAppsResourceWithStreamingResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import AsyncAPIKeysResourceWithStreamingResponse
+
+        return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithStreamingResponse:
         from .resources.invoices import AsyncInvoicesResourceWithStreamingResponse
 
@@ -3683,6 +3782,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithStreamingResponse:
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AsyncAppBuildsResourceWithStreamingResponse
 
         return AsyncAppBuildsResourceWithStreamingResponse(self._client.app_builds)

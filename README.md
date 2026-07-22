@@ -202,9 +202,8 @@ from whop_sdk import Whop
 client = Whop()
 
 app = client.apps.create(
-    company_id="biz_xxxxxxxxxxxxxx",
     name="name",
-    icon={"id": "id"},
+    icon={},
 )
 print(app.icon)
 ```
