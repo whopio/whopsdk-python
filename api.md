@@ -1326,7 +1326,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import AdCampaign, AdCampaignDeleteResponse
+from whop_sdk.types import AdCampaign, AdCampaignDeleteResponse, AdCampaignDuplicateResponse
 ```
 
 Methods:
@@ -1336,6 +1336,7 @@ Methods:
 - <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">SyncCursorPage[AdCampaign]</a></code>
 - <code title="delete /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign_delete_response.py">AdCampaignDeleteResponse</a></code>
+- <code title="post /ad_campaigns/{id}/duplicate">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">duplicate</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_duplicate_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign_duplicate_response.py">AdCampaignDuplicateResponse</a></code>
 - <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="post /ad_campaigns/{id}/retry_payment">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retry_payment</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
 - <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
@@ -1350,6 +1351,7 @@ from whop_sdk.types import (
     ReachEstimate,
     TargetingOption,
     AdGroupDeleteResponse,
+    AdGroupDuplicateResponse,
     AdGroupSearchTargetingOptionsResponse,
 )
 ```
@@ -1361,6 +1363,7 @@ Methods:
 - <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">SyncCursorPage[AdGroup]</a></code>
 - <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
+- <code title="post /ad_groups/{id}/duplicate">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">duplicate</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_duplicate_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_duplicate_response.py">AdGroupDuplicateResponse</a></code>
 - <code title="post /ad_groups/estimate_reach">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">estimate_reach</a>(\*\*<a href="src/whop_sdk/types/ad_group_estimate_reach_params.py">params</a>) -> <a href="./src/whop_sdk/types/reach_estimate.py">ReachEstimate</a></code>
 - <code title="post /ad_groups/{id}/pause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
 - <code title="get /ad_groups/targeting_options">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">search_targeting_options</a>(\*\*<a href="src/whop_sdk/types/ad_group_search_targeting_options_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group_search_targeting_options_response.py">AdGroupSearchTargetingOptionsResponse</a></code>
@@ -1371,7 +1374,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Ad, AdDeleteResponse
+from whop_sdk.types import Ad, AdDeleteResponse, AdDuplicateResponse
 ```
 
 Methods:
@@ -1381,6 +1384,7 @@ Methods:
 - <code title="patch /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">SyncCursorPage[Ad]</a></code>
 - <code title="delete /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_delete_response.py">AdDeleteResponse</a></code>
+- <code title="post /ads/{id}/duplicate">client.ads.<a href="./src/whop_sdk/resources/ads.py">duplicate</a>(id, \*\*<a href="src/whop_sdk/types/ad_duplicate_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_duplicate_response.py">AdDuplicateResponse</a></code>
 - <code title="post /ads/{id}/pause">client.ads.<a href="./src/whop_sdk/resources/ads.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="post /ads/{id}/unpause">client.ads.<a href="./src/whop_sdk/resources/ads.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 

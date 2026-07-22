@@ -303,6 +303,7 @@ class AdCampaign(BaseModel):
         "flagged",
         "importing",
         "imported",
+        "duplicating",
     ]
     """The lifecycle status of the ad campaign."""
 

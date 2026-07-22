@@ -12,6 +12,7 @@ from ..types import (
     ad_campaign_create_params,
     ad_campaign_update_params,
     ad_campaign_retrieve_params,
+    ad_campaign_duplicate_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
@@ -27,6 +28,7 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.ad_campaign import AdCampaign
 from ..types.ad_campaign_delete_response import AdCampaignDeleteResponse
+from ..types.ad_campaign_duplicate_response import AdCampaignDuplicateResponse
 
 __all__ = ["AdCampaignsResource", "AsyncAdCampaignsResource"]
 
@@ -440,6 +442,58 @@ class AdCampaignsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AdCampaignDeleteResponse,
+        )
+
+    def duplicate(
+        self,
+        id: str,
+        *,
+        count: int | Omit = omit,
+        preserve_engagement: bool | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaignDuplicateResponse:
+        """
+        Creates copies of the campaign in `duplicating` status and returns them; each
+        copy transitions to `draft` once duplication completes. Poll each returned
+        campaign until it leaves `duplicating` — a copy that could not be completed is
+        deleted and returns 404.
+
+        Args:
+          count: Number of copies to create (1-10). Defaults to 1.
+
+          preserve_engagement: Whether the copied ads keep the original posts' engagement (likes, comments,
+              shares). Defaults to false.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/ad_campaigns/{id}/duplicate", id=id),
+            body=maybe_transform(
+                {
+                    "count": count,
+                    "preserve_engagement": preserve_engagement,
+                },
+                ad_campaign_duplicate_params.AdCampaignDuplicateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaignDuplicateResponse,
         )
 
     def pause(
@@ -959,6 +1013,58 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
             cast_to=AdCampaignDeleteResponse,
         )
 
+    async def duplicate(
+        self,
+        id: str,
+        *,
+        count: int | Omit = omit,
+        preserve_engagement: bool | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdCampaignDuplicateResponse:
+        """
+        Creates copies of the campaign in `duplicating` status and returns them; each
+        copy transitions to `draft` once duplication completes. Poll each returned
+        campaign until it leaves `duplicating` — a copy that could not be completed is
+        deleted and returns 404.
+
+        Args:
+          count: Number of copies to create (1-10). Defaults to 1.
+
+          preserve_engagement: Whether the copied ads keep the original posts' engagement (likes, comments,
+              shares). Defaults to false.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/ad_campaigns/{id}/duplicate", id=id),
+            body=await async_maybe_transform(
+                {
+                    "count": count,
+                    "preserve_engagement": preserve_engagement,
+                },
+                ad_campaign_duplicate_params.AdCampaignDuplicateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdCampaignDuplicateResponse,
+        )
+
     async def pause(
         self,
         id: str,
@@ -1084,6 +1190,9 @@ class AdCampaignsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             ad_campaigns.delete,
         )
+        self.duplicate = to_raw_response_wrapper(
+            ad_campaigns.duplicate,
+        )
         self.pause = to_raw_response_wrapper(
             ad_campaigns.pause,
         )
@@ -1113,6 +1222,9 @@ class AsyncAdCampaignsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             ad_campaigns.delete,
+        )
+        self.duplicate = async_to_raw_response_wrapper(
+            ad_campaigns.duplicate,
         )
         self.pause = async_to_raw_response_wrapper(
             ad_campaigns.pause,
@@ -1144,6 +1256,9 @@ class AdCampaignsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             ad_campaigns.delete,
         )
+        self.duplicate = to_streamed_response_wrapper(
+            ad_campaigns.duplicate,
+        )
         self.pause = to_streamed_response_wrapper(
             ad_campaigns.pause,
         )
@@ -1173,6 +1288,9 @@ class AsyncAdCampaignsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             ad_campaigns.delete,
+        )
+        self.duplicate = async_to_streamed_response_wrapper(
+            ad_campaigns.duplicate,
         )
         self.pause = async_to_streamed_response_wrapper(
             ad_campaigns.pause,

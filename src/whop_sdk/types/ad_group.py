@@ -660,10 +660,11 @@ class AdGroup(BaseModel):
     `null` when it starts as soon as it's active.
     """
 
-    status: Literal["active", "paused", "rejected"]
+    status: Literal["active", "paused", "rejected", "duplicating"]
     """Whether the ad group is enabled.
 
-    `active` and `paused` are set by you; `rejected` means it failed ad review.
+    `active` and `paused` are set by you; `rejected` means it failed ad review;
+    `duplicating` is a copy still being filled in.
     """
 
     submitted_application_value: float

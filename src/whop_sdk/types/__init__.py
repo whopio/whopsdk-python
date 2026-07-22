@@ -161,6 +161,7 @@ from .swap_list_response import SwapListResponse as SwapListResponse
 from .user_update_params import UserUpdateParams as UserUpdateParams
 from .account_list_params import AccountListParams as AccountListParams
 from .account_social_link import AccountSocialLink as AccountSocialLink
+from .ad_duplicate_params import AdDuplicateParams as AdDuplicateParams
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
 from .api_key_list_params import APIKeyListParams as APIKeyListParams
 from .bounty_capture_clip import BountyCaptureClip as BountyCaptureClip
@@ -215,6 +216,7 @@ from .user_retrieve_params import UserRetrieveParams as UserRetrieveParams
 from .withdrawal_fee_types import WithdrawalFeeTypes as WithdrawalFeeTypes
 from .account_create_params import AccountCreateParams as AccountCreateParams
 from .account_update_params import AccountUpdateParams as AccountUpdateParams
+from .ad_duplicate_response import AdDuplicateResponse as AdDuplicateResponse
 from .affiliate_list_params import AffiliateListParams as AffiliateListParams
 from .ai_chat_create_params import AIChatCreateParams as AIChatCreateParams
 from .ai_chat_list_response import AIChatListResponse as AIChatListResponse
@@ -331,6 +333,7 @@ from .withdrawal_create_params import WithdrawalCreateParams as WithdrawalCreate
 from .withdrawal_list_response import WithdrawalListResponse as WithdrawalListResponse
 from .ad_campaign_create_params import AdCampaignCreateParams as AdCampaignCreateParams
 from .ad_campaign_update_params import AdCampaignUpdateParams as AdCampaignUpdateParams
+from .ad_group_duplicate_params import AdGroupDuplicateParams as AdGroupDuplicateParams
 from .ad_report_retrieve_params import AdReportRetrieveParams as AdReportRetrieveParams
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
 from .company_token_transaction import CompanyTokenTransaction as CompanyTokenTransaction
@@ -371,6 +374,7 @@ from .verification_update_params import VerificationUpdateParams as Verification
 from .account_register_llc_params import AccountRegisterLlcParams as AccountRegisterLlcParams
 from .ad_campaign_delete_response import AdCampaignDeleteResponse as AdCampaignDeleteResponse
 from .ad_campaign_retrieve_params import AdCampaignRetrieveParams as AdCampaignRetrieveParams
+from .ad_group_duplicate_response import AdGroupDuplicateResponse as AdGroupDuplicateResponse
 from .ad_report_retrieve_response import AdReportRetrieveResponse as AdReportRetrieveResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
@@ -386,6 +390,7 @@ from .support_channel_list_params import SupportChannelListParams as SupportChan
 from .team_member_delete_response import TeamMemberDeleteResponse as TeamMemberDeleteResponse
 from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .account_link_create_response import AccountLinkCreateResponse as AccountLinkCreateResponse
+from .ad_campaign_duplicate_params import AdCampaignDuplicateParams as AdCampaignDuplicateParams
 from .affiliate_unarchive_response import AffiliateUnarchiveResponse as AffiliateUnarchiveResponse
 from .course_chapter_create_params import CourseChapterCreateParams as CourseChapterCreateParams
 from .course_chapter_list_response import CourseChapterListResponse as CourseChapterListResponse
@@ -423,6 +428,7 @@ from .social_account_connect_params import SocialAccountConnectParams as SocialA
 from .social_account_posts_response import SocialAccountPostsResponse as SocialAccountPostsResponse
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
 from .support_channel_list_response import SupportChannelListResponse as SupportChannelListResponse
+from .ad_campaign_duplicate_response import AdCampaignDuplicateResponse as AdCampaignDuplicateResponse
 from .ad_group_estimate_reach_params import AdGroupEstimateReachParams as AdGroupEstimateReachParams
 from .company_token_transaction_type import CompanyTokenTransactionType as CompanyTokenTransactionType
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
