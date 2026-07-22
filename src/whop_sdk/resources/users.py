@@ -71,7 +71,10 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieves a user's public profile by user\\__ tag, username, or 'me'.
+        Retrieves a user's public profile by user\\__ tag, username, or 'me', including
+        linked social accounts. Reading your own profile returns every linked account
+        (Discord, X/Twitter, Telegram); other profiles only include what is public on
+        Whop (the primary Discord and the X account).
 
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this
@@ -413,7 +416,10 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieves a user's public profile by user\\__ tag, username, or 'me'.
+        Retrieves a user's public profile by user\\__ tag, username, or 'me', including
+        linked social accounts. Reading your own profile returns every linked account
+        (Discord, X/Twitter, Telegram); other profiles only include what is public on
+        Whop (the primary Discord and the X account).
 
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .user_balance import UserBalance
@@ -13,6 +14,7 @@ __all__ = [
     "EarningsUsdOwnedAccounts",
     "EarningsUsdPersonal",
     "EarningsUsdTotal",
+    "SocialAccount",
 ]
 
 
@@ -115,6 +117,28 @@ class EarningsUsd(BaseModel):
     """
 
 
+class SocialAccount(BaseModel):
+    """Social accounts linked to the user (Discord, X/Twitter, Telegram), oldest first.
+
+    Reading your own profile returns every linked account; other profiles only include what is public on Whop (the primary Discord and the X account). Empty when none are linked.
+    """
+
+    account_id: str
+    """The provider's account ID (Discord snowflake, Telegram user id, or X user id)."""
+
+    default: bool
+    """Whether this is the user's default account for the provider."""
+
+    image_url: Optional[str] = None
+    """Avatar URL from the provider, when available."""
+
+    service: Literal["discord", "twitter", "telegram"]
+    """The social account provider."""
+
+    username: Optional[str] = None
+    """The username on the provider. `null` when the provider has no username."""
+
+
 class User(BaseModel):
     id: str
     """User ID, prefixed `user_`."""
@@ -152,6 +176,8 @@ class User(BaseModel):
 
     profile_picture: Optional[object] = None
     """The user's profile picture, an object with a url"""
+
+    social_accounts: List[SocialAccount]
 
     username: str
     """The user's unique username"""
