@@ -24,7 +24,7 @@ class SocialAccount(BaseModel):
     name: Optional[str] = None
     """The display name of the social account on the platform."""
 
-    platform: Literal["x", "instagram", "youtube", "tiktok", "facebook"]
+    platform: Literal["x", "instagram", "youtube", "tiktok", "facebook", "discord", "telegram"]
     """The platform the social account exists on."""
 
     profile_picture_url: Optional[str] = None

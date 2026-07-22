@@ -33,7 +33,7 @@ class SocialAccountListParams(TypedDict, total=False):
     order: Literal["display_order", "created_at"]
     """The field to sort social accounts by."""
 
-    platform: Literal["x", "instagram", "youtube", "tiktok", "facebook"]
+    platform: Literal["x", "instagram", "youtube", "tiktok", "facebook", "discord", "telegram"]
     """Only return social accounts for the platform that is specified."""
 
     scopes: List[Literal["advertise"]]
