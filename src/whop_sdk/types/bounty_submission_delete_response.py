@@ -2,12 +2,12 @@
 
 from .._models import BaseModel
 
-__all__ = ["ProductDeleteResponse"]
+__all__ = ["BountySubmissionDeleteResponse"]
 
 
-class ProductDeleteResponse(BaseModel):
+class BountySubmissionDeleteResponse(BaseModel):
     id: str
-    """ID of the deleted product."""
+    """ID of the cancelled submission."""
 
     deleted: bool
     """Always true."""

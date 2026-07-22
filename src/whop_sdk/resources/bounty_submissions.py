@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import bounty_submission_list_params, bounty_submission_create_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -21,6 +21,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.bounty_submission import BountySubmission
+from ..types.bounty_submission_delete_response import BountySubmissionDeleteResponse
 
 __all__ = ["BountySubmissionsResource", "AsyncBountySubmissionsResource"]
 
@@ -245,7 +246,7 @@ class BountySubmissionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> BountySubmissionDeleteResponse:
         """
         Cancels the caller's own active attempt on a bounty and discards any accumulated
         capture clips. Only the worker who started the attempt can cancel it — account
@@ -264,13 +265,12 @@ class BountySubmissionsResource(SyncAPIResource):
             raise ValueError(
                 f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
             )
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=BountySubmissionDeleteResponse,
         )
 
     def submit(
@@ -536,7 +536,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> BountySubmissionDeleteResponse:
         """
         Cancels the caller's own active attempt on a bounty and discards any accumulated
         capture clips. Only the worker who started the attempt can cancel it — account
@@ -555,13 +555,12 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
             raise ValueError(
                 f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
             )
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=BountySubmissionDeleteResponse,
         )
 
     async def submit(

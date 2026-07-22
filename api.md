@@ -469,6 +469,7 @@ from whop_sdk.types import (
     CheckoutConfigurationCreateResponse,
     CheckoutConfigurationRetrieveResponse,
     CheckoutConfigurationListResponse,
+    CheckoutConfigurationDeleteResponse,
 )
 ```
 
@@ -477,7 +478,7 @@ Methods:
 - <code title="post /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">create</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/checkout_configuration_create_response.py">CheckoutConfigurationCreateResponse</a></code>
 - <code title="get /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/checkout_configuration_retrieve_response.py">CheckoutConfigurationRetrieveResponse</a></code>
 - <code title="get /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">list</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/checkout_configuration_list_response.py">SyncCursorPage[CheckoutConfigurationListResponse]</a></code>
-- <code title="delete /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">delete</a>(id) -> None</code>
+- <code title="delete /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">delete</a>(id) -> <a href="./src/whop_sdk/types/checkout_configuration_delete_response.py">CheckoutConfigurationDeleteResponse</a></code>
 
 # Messages
 
@@ -1310,7 +1311,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import BountyCaptureClip, BountySubmission
+from whop_sdk.types import BountyCaptureClip, BountySubmission, BountySubmissionDeleteResponse
 ```
 
 Methods:
@@ -1318,7 +1319,7 @@ Methods:
 - <code title="post /bounty_submissions">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_submission_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_submission.py">BountySubmission</a></code>
 - <code title="get /bounty_submissions/{bounty_submission_id}">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">retrieve</a>(bounty_submission_id) -> <a href="./src/whop_sdk/types/bounty_submission.py">BountySubmission</a></code>
 - <code title="get /bounty_submissions">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_submission_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_submission.py">SyncCursorPage[BountySubmission]</a></code>
-- <code title="delete /bounty_submissions/{bounty_submission_id}">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">delete</a>(bounty_submission_id) -> None</code>
+- <code title="delete /bounty_submissions/{bounty_submission_id}">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">delete</a>(bounty_submission_id) -> <a href="./src/whop_sdk/types/bounty_submission_delete_response.py">BountySubmissionDeleteResponse</a></code>
 - <code title="post /bounty_submissions/{bounty_submission_id}/submit">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">submit</a>(bounty_submission_id) -> <a href="./src/whop_sdk/types/bounty_submission.py">BountySubmission</a></code>
 
 # AdCampaigns

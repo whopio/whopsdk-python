@@ -8,23 +8,23 @@ __all__ = ["Product", "GalleryImage"]
 
 
 class GalleryImage(BaseModel):
-    """Gallery images for this product."""
+    """Gallery images for this product, ordered by position."""
 
     id: str
-    """Attachment ID for this gallery entry."""
+    """Gallery image ID."""
 
     content_type: Optional[str] = None
-    """MIME type of the file, such as `image/png` or `video/mp4`."""
+    """Uploaded file MIME type, such as image/jpeg."""
 
     url: Optional[str] = None
-    """CDN URL for the image or video, or `null` while the upload is still processing."""
+    """Pre-optimized URL for rendering this image on the client."""
 
 
 class Product(BaseModel):
     id: str
     """Product ID, prefixed `prod_`."""
 
-    company: Optional[object] = None
+    account: Optional[object] = None
     """Account that sells this product."""
 
     created_at: str

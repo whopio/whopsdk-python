@@ -423,7 +423,7 @@ class AdCampaignsResource(SyncAPIResource):
     ) -> AdCampaignDeleteResponse:
         """
         Deletes an ad campaign and archives it on the ad platform (cascades to ad groups
-        and ads). Returns true on success.
+        and ads).
 
         Args:
           extra_headers: Send extra headers
@@ -992,7 +992,7 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
     ) -> AdCampaignDeleteResponse:
         """
         Deletes an ad campaign and archives it on the ad platform (cascades to ad groups
-        and ads). Returns true on success.
+        and ads).
 
         Args:
           extra_headers: Send extra headers

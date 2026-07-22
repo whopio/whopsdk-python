@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import checkout_configuration_list_params, checkout_configuration_create_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -22,6 +22,7 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.checkout_configuration_list_response import CheckoutConfigurationListResponse
 from ..types.checkout_configuration_create_response import CheckoutConfigurationCreateResponse
+from ..types.checkout_configuration_delete_response import CheckoutConfigurationDeleteResponse
 from ..types.checkout_configuration_retrieve_response import CheckoutConfigurationRetrieveResponse
 
 __all__ = ["CheckoutConfigurationsResource", "AsyncCheckoutConfigurationsResource"]
@@ -175,8 +176,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         *,
         account_id: str,
         after: str | Omit = omit,
-        created_after: int | Omit = omit,
-        created_before: int | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
@@ -196,9 +197,9 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           after: Cursor for the next page of results.
 
-          created_after: Only return checkout configurations created after this Unix timestamp.
+          created_after: Only return checkout configurations created after this ISO 8601 timestamp.
 
-          created_before: Only return checkout configurations created before this Unix timestamp.
+          created_before: Only return checkout configurations created before this ISO 8601 timestamp.
 
           direction: Sort direction. Defaults to `desc`.
 
@@ -251,7 +252,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> CheckoutConfigurationDeleteResponse:
         """
         Deletes a checkout configuration so its checkout URL can no longer be used.
 
@@ -266,13 +267,12 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/checkout_configurations/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=CheckoutConfigurationDeleteResponse,
         )
 
 
@@ -424,8 +424,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         *,
         account_id: str,
         after: str | Omit = omit,
-        created_after: int | Omit = omit,
-        created_before: int | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
@@ -445,9 +445,9 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           after: Cursor for the next page of results.
 
-          created_after: Only return checkout configurations created after this Unix timestamp.
+          created_after: Only return checkout configurations created after this ISO 8601 timestamp.
 
-          created_before: Only return checkout configurations created before this Unix timestamp.
+          created_before: Only return checkout configurations created before this ISO 8601 timestamp.
 
           direction: Sort direction. Defaults to `desc`.
 
@@ -500,7 +500,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> CheckoutConfigurationDeleteResponse:
         """
         Deletes a checkout configuration so its checkout URL can no longer be used.
 
@@ -515,13 +515,12 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/checkout_configurations/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=CheckoutConfigurationDeleteResponse,
         )
 
 

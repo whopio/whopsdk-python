@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     CheckoutConfigurationListResponse,
     CheckoutConfigurationCreateResponse,
+    CheckoutConfigurationDeleteResponse,
     CheckoutConfigurationRetrieveResponse,
 )
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -154,8 +155,8 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.list(
             account_id="account_id",
             after="after",
-            created_after=0,
-            created_before=0,
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
             first=0,
             order="created_at",
@@ -201,7 +202,7 @@ class TestCheckoutConfigurations:
         checkout_configuration = client.checkout_configurations.delete(
             "id",
         )
-        assert checkout_configuration is None
+        assert_matches_type(CheckoutConfigurationDeleteResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -213,7 +214,7 @@ class TestCheckoutConfigurations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = response.parse()
-        assert checkout_configuration is None
+        assert_matches_type(CheckoutConfigurationDeleteResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -225,7 +226,7 @@ class TestCheckoutConfigurations:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             checkout_configuration = response.parse()
-            assert checkout_configuration is None
+            assert_matches_type(CheckoutConfigurationDeleteResponse, checkout_configuration, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -375,8 +376,8 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.list(
             account_id="account_id",
             after="after",
-            created_after=0,
-            created_before=0,
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
             first=0,
             order="created_at",
@@ -422,7 +423,7 @@ class TestAsyncCheckoutConfigurations:
         checkout_configuration = await async_client.checkout_configurations.delete(
             "id",
         )
-        assert checkout_configuration is None
+        assert_matches_type(CheckoutConfigurationDeleteResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -434,7 +435,7 @@ class TestAsyncCheckoutConfigurations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = await response.parse()
-        assert checkout_configuration is None
+        assert_matches_type(CheckoutConfigurationDeleteResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -446,7 +447,7 @@ class TestAsyncCheckoutConfigurations:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             checkout_configuration = await response.parse()
-            assert checkout_configuration is None
+            assert_matches_type(CheckoutConfigurationDeleteResponse, checkout_configuration, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

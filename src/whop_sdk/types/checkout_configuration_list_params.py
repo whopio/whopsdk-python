@@ -14,11 +14,11 @@ class CheckoutConfigurationListParams(TypedDict, total=False):
     after: str
     """Cursor for the next page of results."""
 
-    created_after: int
-    """Only return checkout configurations created after this Unix timestamp."""
+    created_after: str
+    """Only return checkout configurations created after this ISO 8601 timestamp."""
 
-    created_before: int
-    """Only return checkout configurations created before this Unix timestamp."""
+    created_before: str
+    """Only return checkout configurations created before this ISO 8601 timestamp."""
 
     direction: Literal["asc", "desc"]
     """Sort direction. Defaults to `desc`."""

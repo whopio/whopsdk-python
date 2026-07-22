@@ -521,9 +521,8 @@ class AdsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdDeleteResponse:
-        """Deletes an ad.
-
-        Returns true on success.
+        """
+        Deletes an ad.
 
         Args:
           extra_headers: Send extra headers
@@ -1164,9 +1163,8 @@ class AsyncAdsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdDeleteResponse:
-        """Deletes an ad.
-
-        Returns true on success.
+        """
+        Deletes an ad.
 
         Args:
           extra_headers: Send extra headers

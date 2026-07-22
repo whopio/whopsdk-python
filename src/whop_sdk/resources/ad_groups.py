@@ -673,9 +673,8 @@ class AdGroupsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroupDeleteResponse:
-        """Deletes an ad group.
-
-        Returns true on success.
+        """
+        Deletes an ad group.
 
         Args:
           extra_headers: Send extra headers
@@ -1621,9 +1620,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdGroupDeleteResponse:
-        """Deletes an ad group.
-
-        Returns true on success.
+        """
+        Deletes an ad group.
 
         Args:
           extra_headers: Send extra headers
