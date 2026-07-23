@@ -133,15 +133,17 @@ class StatsResource(SyncAPIResource):
           convert_to: Display currency for money metrics — every amount is converted into this ISO
               currency using the exchange rate on each period's date. Defaults to usd. For the
               ads metrics (ad_spend, ad_report), pass the account's ads reporting currency to
-              match the ad entity endpoints. Ignored when you filter or break down by currency
-              (those report the original transaction currency, unconverted).
+              match the ad entity endpoints. On transaction metrics, it is ignored when you
+              filter or break down by currency (those report the original transaction
+              currency, unconverted).
 
           country_code: Filter traffic metrics to one visitor country (uppercase ISO 3166-1 alpha-2, for
               example US). Pair with breakdown_by=country_code to split by country.
 
-          currency: Filter to transactions made in this original ISO currency, for example eur —
-              reported in that currency, not converted. Pair with breakdown_by=currency to
-              split a metric by currency. Available on metrics that list currency.
+          currency: Select the source currency or asset on metrics that list currency. For
+              transaction metrics, for example currency=eur, values are reported without
+              conversion. For asset_price, use btc or xaut and convert_to=usd. Pair with
+              breakdown_by=currency to split a metric by currency.
 
           custom_name: Filter the events metric to one merchant-defined custom event name. Only valid
               alongside event_name=pixel.custom. Pair with breakdown_by=custom_name to split
@@ -398,15 +400,17 @@ class AsyncStatsResource(AsyncAPIResource):
           convert_to: Display currency for money metrics — every amount is converted into this ISO
               currency using the exchange rate on each period's date. Defaults to usd. For the
               ads metrics (ad_spend, ad_report), pass the account's ads reporting currency to
-              match the ad entity endpoints. Ignored when you filter or break down by currency
-              (those report the original transaction currency, unconverted).
+              match the ad entity endpoints. On transaction metrics, it is ignored when you
+              filter or break down by currency (those report the original transaction
+              currency, unconverted).
 
           country_code: Filter traffic metrics to one visitor country (uppercase ISO 3166-1 alpha-2, for
               example US). Pair with breakdown_by=country_code to split by country.
 
-          currency: Filter to transactions made in this original ISO currency, for example eur —
-              reported in that currency, not converted. Pair with breakdown_by=currency to
-              split a metric by currency. Available on metrics that list currency.
+          currency: Select the source currency or asset on metrics that list currency. For
+              transaction metrics, for example currency=eur, values are reported without
+              conversion. For asset_price, use btc or xaut and convert_to=usd. Pair with
+              breakdown_by=currency to split a metric by currency.
 
           custom_name: Filter the events metric to one merchant-defined custom event name. Only valid
               alongside event_name=pixel.custom. Pair with breakdown_by=custom_name to split
