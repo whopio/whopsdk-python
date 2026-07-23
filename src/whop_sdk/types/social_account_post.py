@@ -52,23 +52,32 @@ class SocialAccountPost(BaseModel):
     ] = None
     """
     The post's call-to-action button, for example shop_now (Facebook only; null for
-    Instagram).
+    Instagram and TikTok).
     """
 
     destination_url: Optional[str] = None
     """
-    The URL the post's call-to-action drives to (Facebook only; null for Instagram).
+    The URL the post's call-to-action drives to (Facebook only; null for Instagram
+    and TikTok).
+    """
+
+    embed_url: Optional[str] = None
+    """
+    An iframe-embeddable URL for previewing the post inline (the platform's player
+    or post embed). For TikTok this is the only preview, since media_url is null;
+    for Facebook and Instagram it supplements media_url. Null when no public embed
+    is available.
     """
 
     media_url: Optional[str] = None
     """
     The URL of the post's media — the image for image posts, the playable video file
-    for video posts. Meta signs these and they expire after roughly 24 hours, so
-    don't store them.
+    for video posts. Null for TikTok, which exposes no raw file (use embed_url).
+    Meta URLs are signed and expire after roughly 24 hours, so don't store them.
     """
 
     thumbnail_url: Optional[str] = None
     """
-    Poster image for video posts; null for image posts, where media_url is already
-    the image. Signed and short-lived like media_url.
+    Poster image for video posts (always set for TikTok, which is video-only); null
+    for image posts, where media_url is already the image.
     """

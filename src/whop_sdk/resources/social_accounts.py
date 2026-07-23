@@ -363,7 +363,8 @@ class SocialAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountPostsResponse:
         """
-        Lists the existing posts of a connected Facebook page or Instagram account.
+        Lists the existing posts of a connected Facebook page, Instagram account, or
+        TikTok account.
 
         Args:
           account_id: The Account (a biz\\__ identifier) the social account is connected to.
@@ -732,7 +733,8 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SocialAccountPostsResponse:
         """
-        Lists the existing posts of a connected Facebook page or Instagram account.
+        Lists the existing posts of a connected Facebook page, Instagram account, or
+        TikTok account.
 
         Args:
           account_id: The Account (a biz\\__ identifier) the social account is connected to.
