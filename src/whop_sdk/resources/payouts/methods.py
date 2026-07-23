@@ -174,8 +174,7 @@ class MethodsResource(SyncAPIResource):
               previous listing) and includes its required_fields — the values to collect to
               add it as a payout method. Implies include_available.
 
-          first: Number of payout methods to return from the start of the window. Capped at 25
-              when an amount is provided.
+          first: Number of payout methods to return from the start of the window.
 
           include_available: When true, the response also carries available_destinations — payout rails the
               account could add as a new payout method, with per-currency quotes when an
@@ -375,8 +374,7 @@ class AsyncMethodsResource(AsyncAPIResource):
               previous listing) and includes its required_fields — the values to collect to
               add it as a payout method. Implies include_available.
 
-          first: Number of payout methods to return from the start of the window. Capped at 25
-              when an amount is provided.
+          first: Number of payout methods to return from the start of the window.
 
           include_available: When true, the response also carries available_destinations — payout rails the
               account could add as a new payout method, with per-currency quotes when an

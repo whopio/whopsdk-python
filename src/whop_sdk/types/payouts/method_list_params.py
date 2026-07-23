@@ -42,10 +42,7 @@ class MethodListParams(TypedDict, total=False):
     """
 
     first: int
-    """Number of payout methods to return from the start of the window.
-
-    Capped at 25 when an amount is provided.
-    """
+    """Number of payout methods to return from the start of the window."""
 
     include_available: bool
     """
