@@ -14,6 +14,12 @@ _T = TypeVar("_T")
 class CursorPagePageInfo(BaseModel):
     end_cursor: Optional[str] = None
 
+    has_next_page: Optional[bool] = None
+
+    has_previous_page: Optional[bool] = None
+
+    start_cursor: Optional[str] = None
+
 
 class SyncCursorPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
     data: List[_T]
