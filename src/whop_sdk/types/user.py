@@ -14,6 +14,7 @@ __all__ = [
     "EarningsUsdOwnedAccounts",
     "EarningsUsdPersonal",
     "EarningsUsdTotal",
+    "Staff",
 ]
 
 
@@ -116,6 +117,28 @@ class EarningsUsd(BaseModel):
     """
 
 
+class Staff(BaseModel):
+    """Whop staff access flags.
+
+    Populated only on `GET /users/me` self-view for callers with staff-read scope; `null` there for every user who is not Whop staff, and always `null` elsewhere.
+    """
+
+    admin: bool
+    """Whether the user holds the admin staff role with a valid second factor."""
+
+    investigation_access: bool
+    """
+    Whether the user can open Whop-internal investigation tooling right now: a
+    qualifying staff role plus their investigation toggle switched on.
+    """
+
+    manager: bool
+    """Whether the user holds the manager staff role with a valid second factor."""
+
+    support: bool
+    """Whether the user holds the support staff role with a valid second factor."""
+
+
 class User(BaseModel):
     id: str
     """User ID, prefixed `user_`."""
@@ -148,6 +171,13 @@ class User(BaseModel):
     `null` otherwise.
     """
 
+    email: Optional[str] = None
+    """The user's email address.
+
+    Populated only on `GET /users/me` self-view for callers with email-read scope;
+    `null` otherwise, or while the account has no confirmed email yet.
+    """
+
     name: Optional[str] = None
     """The user's display name"""
 
@@ -155,6 +185,13 @@ class User(BaseModel):
     """The user's profile picture, an object with a url"""
 
     social_accounts: List[SocialAccount]
+
+    staff: Optional[Staff] = None
+    """Whop staff access flags.
+
+    Populated only on `GET /users/me` self-view for callers with staff-read scope;
+    `null` there for every user who is not Whop staff, and always `null` elsewhere.
+    """
 
     username: str
     """The user's unique username"""

@@ -106,6 +106,7 @@ from .course_chapter import CourseChapter as CourseChapter
 from .promo_duration import PromoDuration as PromoDuration
 from .reach_estimate import ReachEstimate as ReachEstimate
 from .social_account import SocialAccount as SocialAccount
+from .user_me_params import UserMeParams as UserMeParams
 from .app_list_params import AppListParams as AppListParams
 from .app_logs_params import AppLogsParams as AppLogsParams
 from .authorized_user import AuthorizedUser as AuthorizedUser

@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import user_list_params, user_update_params, user_retrieve_params, user_update_me_params
+from ..types import user_me_params, user_list_params, user_update_params, user_retrieve_params, user_update_me_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -58,11 +58,6 @@ class UsersResource(SyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
-        from_: str | Omit = omit,
-        include_balance_history: bool | Omit = omit,
-        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
-        time_zone: str | Omit = omit,
-        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -71,30 +66,15 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieves a user's public profile by user\\__ tag, username, or 'me', including
-        linked social accounts. Reading your own profile returns every linked account
-        (Discord, X/Twitter, Telegram); other profiles only include what is public on
-        Whop (the primary Discord and the X account).
+        Retrieves a user's public profile by user\\__ tag or username, including linked
+        social accounts — reading your own profile returns every linked account, other
+        profiles only what is public on Whop (the primary Discord and the X account).
+        Self-only fields (`email`, `staff`, `balance`) are always `null` here; use
+        `GET /users/me` to read them.
 
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this
               account.
-
-          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
-              ago. Only used with `include_balance_history`.
-
-          include_balance_history: On `GET /users/me`, also compute the caller's balance history (opt-in; runs a
-              heavier query). Ignored for other users and for callers without balance-read
-              scope.
-
-          interval: Balance-history point granularity. Defaults to `day`. Only used with
-              `include_balance_history`.
-
-          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
-              Only used with `include_balance_history`.
-
-          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
-              used with `include_balance_history`.
 
           extra_headers: Send extra headers
 
@@ -113,17 +93,7 @@ class UsersResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "account_id": account_id,
-                        "from_": from_,
-                        "include_balance_history": include_balance_history,
-                        "interval": interval,
-                        "time_zone": time_zone,
-                        "to": to,
-                    },
-                    user_retrieve_params.UserRetrieveParams,
-                ),
+                query=maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
             ),
             cast_to=User,
         )
@@ -281,6 +251,78 @@ class UsersResource(SyncAPIResource):
             cast_to=UserCheckAccessResponse,
         )
 
+    def me(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """Retrieves the authenticated user — the self view of the user object.
+
+        Same shape
+        as `GET /users/{id}`, with the self-only fields populated: `email` (email-read
+        scope), `staff` (Whop staff only, staff-read scope), `balance` and
+        `earnings_usd` (balance-read scope), the opt-in `balance_history`, and every
+        linked social account.
+
+        Args:
+          account_id: When set, returns your account-specific profile overrides for this account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: Also compute your balance history (opt-in; runs a heavier query). Ignored for
+              callers without balance-read scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/users/me",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_me_params.UserMeParams,
+                ),
+            ),
+            cast_to=User,
+        )
+
     def recommend_actions(
         self,
         id: str,
@@ -403,11 +445,6 @@ class AsyncUsersResource(AsyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
-        from_: str | Omit = omit,
-        include_balance_history: bool | Omit = omit,
-        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
-        time_zone: str | Omit = omit,
-        to: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -416,30 +453,15 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
-        Retrieves a user's public profile by user\\__ tag, username, or 'me', including
-        linked social accounts. Reading your own profile returns every linked account
-        (Discord, X/Twitter, Telegram); other profiles only include what is public on
-        Whop (the primary Discord and the X account).
+        Retrieves a user's public profile by user\\__ tag or username, including linked
+        social accounts — reading your own profile returns every linked account, other
+        profiles only what is public on Whop (the primary Discord and the X account).
+        Self-only fields (`email`, `staff`, `balance`) are always `null` here; use
+        `GET /users/me` to read them.
 
         Args:
           account_id: When set, returns the user's account-specific profile overrides for this
               account.
-
-          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
-              ago. Only used with `include_balance_history`.
-
-          include_balance_history: On `GET /users/me`, also compute the caller's balance history (opt-in; runs a
-              heavier query). Ignored for other users and for callers without balance-read
-              scope.
-
-          interval: Balance-history point granularity. Defaults to `day`. Only used with
-              `include_balance_history`.
-
-          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
-              Only used with `include_balance_history`.
-
-          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
-              used with `include_balance_history`.
 
           extra_headers: Send extra headers
 
@@ -458,17 +480,7 @@ class AsyncUsersResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "account_id": account_id,
-                        "from_": from_,
-                        "include_balance_history": include_balance_history,
-                        "interval": interval,
-                        "time_zone": time_zone,
-                        "to": to,
-                    },
-                    user_retrieve_params.UserRetrieveParams,
-                ),
+                query=await async_maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
             ),
             cast_to=User,
         )
@@ -626,6 +638,78 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=UserCheckAccessResponse,
         )
 
+    async def me(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """Retrieves the authenticated user — the self view of the user object.
+
+        Same shape
+        as `GET /users/{id}`, with the self-only fields populated: `email` (email-read
+        scope), `staff` (Whop staff only, staff-read scope), `balance` and
+        `earnings_usd` (balance-read scope), the opt-in `balance_history`, and every
+        linked social account.
+
+        Args:
+          account_id: When set, returns your account-specific profile overrides for this account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: Also compute your balance history (opt-in; runs a heavier query). Ignored for
+              callers without balance-read scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/users/me",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_me_params.UserMeParams,
+                ),
+            ),
+            cast_to=User,
+        )
+
     async def recommend_actions(
         self,
         id: str,
@@ -732,6 +816,9 @@ class UsersResourceWithRawResponse:
         self.check_access = to_raw_response_wrapper(
             users.check_access,
         )
+        self.me = to_raw_response_wrapper(
+            users.me,
+        )
         self.recommend_actions = to_raw_response_wrapper(
             users.recommend_actions,
         )
@@ -755,6 +842,9 @@ class AsyncUsersResourceWithRawResponse:
         )
         self.check_access = async_to_raw_response_wrapper(
             users.check_access,
+        )
+        self.me = async_to_raw_response_wrapper(
+            users.me,
         )
         self.recommend_actions = async_to_raw_response_wrapper(
             users.recommend_actions,
@@ -780,6 +870,9 @@ class UsersResourceWithStreamingResponse:
         self.check_access = to_streamed_response_wrapper(
             users.check_access,
         )
+        self.me = to_streamed_response_wrapper(
+            users.me,
+        )
         self.recommend_actions = to_streamed_response_wrapper(
             users.recommend_actions,
         )
@@ -803,6 +896,9 @@ class AsyncUsersResourceWithStreamingResponse:
         )
         self.check_access = async_to_streamed_response_wrapper(
             users.check_access,
+        )
+        self.me = async_to_streamed_response_wrapper(
+            users.me,
         )
         self.recommend_actions = async_to_streamed_response_wrapper(
             users.recommend_actions,
