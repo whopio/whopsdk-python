@@ -275,6 +275,7 @@ class TestMemberships:
     def test_method_pause_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.pause(
             id="mem_xxxxxxxxxxxxxx",
+            resumes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             void_payments=True,
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -352,6 +353,48 @@ class TestMemberships:
     def test_path_params_resume(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.memberships.with_raw_response.resume(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_resync_access(self, client: Whop) -> None:
+        membership = client.memberships.resync_access(
+            "mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_resync_access(self, client: Whop) -> None:
+        response = client.memberships.with_raw_response.resync_access(
+            "mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_resync_access(self, client: Whop) -> None:
+        with client.memberships.with_streaming_response.resync_access(
+            "mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_resync_access(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.memberships.with_raw_response.resync_access(
                 "",
             )
 
@@ -656,6 +699,7 @@ class TestAsyncMemberships:
     async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.pause(
             id="mem_xxxxxxxxxxxxxx",
+            resumes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             void_payments=True,
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -733,6 +777,48 @@ class TestAsyncMemberships:
     async def test_path_params_resume(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.memberships.with_raw_response.resume(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_resync_access(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.resync_access(
+            "mem_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_resync_access(self, async_client: AsyncWhop) -> None:
+        response = await async_client.memberships.with_raw_response.resync_access(
+            "mem_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = await response.parse()
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_resync_access(self, async_client: AsyncWhop) -> None:
+        async with async_client.memberships.with_streaming_response.resync_access(
+            "mem_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = await response.parse()
+            assert_matches_type(Membership, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_resync_access(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.memberships.with_raw_response.resync_access(
                 "",
             )
 

@@ -21,7 +21,6 @@ class TestDeposits:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         deposit = client.deposits.create(
-            amount=0,
             destination="string",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])
@@ -30,10 +29,11 @@ class TestDeposits:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         deposit = client.deposits.create(
-            amount=0,
             destination="string",
+            amount=0,
             metadata={"foo": "bar"},
             network="network",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])
 
@@ -41,7 +41,6 @@ class TestDeposits:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.deposits.with_raw_response.create(
-            amount=0,
             destination="string",
         )
 
@@ -54,7 +53,6 @@ class TestDeposits:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.deposits.with_streaming_response.create(
-            amount=0,
             destination="string",
         ) as response:
             assert not response.is_closed
@@ -75,7 +73,6 @@ class TestAsyncDeposits:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         deposit = await async_client.deposits.create(
-            amount=0,
             destination="string",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])
@@ -84,10 +81,11 @@ class TestAsyncDeposits:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         deposit = await async_client.deposits.create(
-            amount=0,
             destination="string",
+            amount=0,
             metadata={"foo": "bar"},
             network="network",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])
 
@@ -95,7 +93,6 @@ class TestAsyncDeposits:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.deposits.with_raw_response.create(
-            amount=0,
             destination="string",
         )
 
@@ -108,7 +105,6 @@ class TestAsyncDeposits:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.deposits.with_streaming_response.create(
-            amount=0,
             destination="string",
         ) as response:
             assert not response.is_closed
