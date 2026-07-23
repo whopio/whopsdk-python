@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import transfer_list_params, transfer_create_params
+from ..types import transfer_list_params, transfer_create_params, transfer_list_recipients_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -24,6 +24,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.transfer_list_response import TransferListResponse
 from ..types.transfer_create_response import TransferCreateResponse
 from ..types.transfer_retrieve_response import TransferRetrieveResponse
+from ..types.transfer_list_recipients_response import TransferListRecipientsResponse
 
 __all__ = ["TransfersResource", "AsyncTransfersResource"]
 
@@ -260,6 +261,69 @@ class TransfersResource(SyncAPIResource):
             model=TransferListResponse,
         )
 
+    def list_recipients(
+        self,
+        *,
+        origin_id: str,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[TransferListRecipientsResponse]:
+        """Lists users and accounts that can be selected as transfer recipients.
+
+        Requires
+        `payout:withdraw_funds` and `company:authorized_user:read`. Without a query,
+        returns the origin account's human team members followed by the authenticated
+        user's other accounts. With a query, returns matching users and accounts in
+        creator-dashboard relevance order and additionally requires `member:basic:read`.
+        Email addresses are not searchable.
+
+        Args:
+          origin_id: The originating account ID, prefixed `biz_`.
+
+          first: Number of recipients per page. Search queries preserve the dashboard's 20-result
+              maximum.
+
+          query: Search users and accounts by name, username, or ID. Complete email addresses
+              return no matches.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/transfers/recipients",
+            page=SyncCursorPage[TransferListRecipientsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "origin_id": origin_id,
+                        "after": after,
+                        "first": first,
+                        "query": query,
+                    },
+                    transfer_list_recipients_params.TransferListRecipientsParams,
+                ),
+            ),
+            model=cast(
+                Any, TransferListRecipientsResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+        )
+
 
 class AsyncTransfersResource(AsyncAPIResource):
     """Transfers move value between identities on Whop.
@@ -493,6 +557,69 @@ class AsyncTransfersResource(AsyncAPIResource):
             model=TransferListResponse,
         )
 
+    def list_recipients(
+        self,
+        *,
+        origin_id: str,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[TransferListRecipientsResponse, AsyncCursorPage[TransferListRecipientsResponse]]:
+        """Lists users and accounts that can be selected as transfer recipients.
+
+        Requires
+        `payout:withdraw_funds` and `company:authorized_user:read`. Without a query,
+        returns the origin account's human team members followed by the authenticated
+        user's other accounts. With a query, returns matching users and accounts in
+        creator-dashboard relevance order and additionally requires `member:basic:read`.
+        Email addresses are not searchable.
+
+        Args:
+          origin_id: The originating account ID, prefixed `biz_`.
+
+          first: Number of recipients per page. Search queries preserve the dashboard's 20-result
+              maximum.
+
+          query: Search users and accounts by name, username, or ID. Complete email addresses
+              return no matches.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/transfers/recipients",
+            page=AsyncCursorPage[TransferListRecipientsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "origin_id": origin_id,
+                        "after": after,
+                        "first": first,
+                        "query": query,
+                    },
+                    transfer_list_recipients_params.TransferListRecipientsParams,
+                ),
+            ),
+            model=cast(
+                Any, TransferListRecipientsResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+        )
+
 
 class TransfersResourceWithRawResponse:
     def __init__(self, transfers: TransfersResource) -> None:
@@ -506,6 +633,9 @@ class TransfersResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             transfers.list,
+        )
+        self.list_recipients = to_raw_response_wrapper(
+            transfers.list_recipients,
         )
 
 
@@ -522,6 +652,9 @@ class AsyncTransfersResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             transfers.list,
         )
+        self.list_recipients = async_to_raw_response_wrapper(
+            transfers.list_recipients,
+        )
 
 
 class TransfersResourceWithStreamingResponse:
@@ -537,6 +670,9 @@ class TransfersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             transfers.list,
         )
+        self.list_recipients = to_streamed_response_wrapper(
+            transfers.list_recipients,
+        )
 
 
 class AsyncTransfersResourceWithStreamingResponse:
@@ -551,4 +687,7 @@ class AsyncTransfersResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             transfers.list,
+        )
+        self.list_recipients = async_to_streamed_response_wrapper(
+            transfers.list_recipients,
         )
