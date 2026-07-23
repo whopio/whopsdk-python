@@ -38,13 +38,6 @@ class AdCampaign(BaseModel):
     added_to_carts: float
     """Whop pixel-attributed add-to-cart events, last-click."""
 
-    bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
-    """
-    How delivery bids in the ad auction: `minimum_cost` gets the most results for
-    the budget, `average_target` holds an average cost per result, and
-    `maximum_target` never bids above a cap.
-    """
-
     budget_amount: Optional[float] = None
     """The campaign's budget, in the ad account's currency.
 
@@ -222,7 +215,7 @@ class AdCampaign(BaseModel):
     `null` when each ad group sets its own optimization_goal.
     """
 
-    platform: Literal["meta"]
+    platform: Literal["meta", "tiktok"]
     """The ad network the campaign runs on."""
 
     purchase_value: float
@@ -338,3 +331,10 @@ class AdCampaign(BaseModel):
 
     viewed_contents: float
     """Whop pixel-attributed view-content events, last-click."""
+
+    bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
+    """
+    How delivery bids in the ad auction: `minimum_cost` gets the most results for
+    the budget, `average_target` holds an average cost per result, and
+    `maximum_target` never bids above a cap.
+    """

@@ -12,6 +12,7 @@ __all__ = [
     "Creative",
     "CreativeCrop",
     "Issue",
+    "SocialAccount",
     "LeadForm",
     "LeadFormCompletion",
     "LeadFormDisclaimer",
@@ -22,7 +23,6 @@ __all__ = [
     "LeadFormQuestionOption",
     "LeadFormQuestionOptionLogic",
     "MessagingConfig",
-    "SocialAccount",
 ]
 
 
@@ -98,6 +98,15 @@ class Issue(BaseModel):
 
     resource_type: Literal["ad_campaign", "ad_group", "ad"]
     """The type of resource the issue is attached to."""
+
+
+class SocialAccount(BaseModel):
+    """
+    The social accounts the ad runs under — its Facebook page and Instagram profile — each referenced by ID, prefixed `sacc_`.
+    """
+
+    id: str
+    """The referenced entity's id."""
 
 
 class LeadFormCompletion(BaseModel):
@@ -276,15 +285,6 @@ class MessagingConfig(BaseModel):
 
     message: Optional[str] = None
     """Greeting shown when the conversation opens."""
-
-
-class SocialAccount(BaseModel):
-    """
-    The social accounts the ad runs under — its Facebook page and Instagram profile — each referenced by ID, prefixed `sacc_`.
-    """
-
-    id: str
-    """The referenced entity's id."""
 
 
 class Ad(BaseModel):
@@ -489,20 +489,6 @@ class Ad(BaseModel):
 
     issues: List[Issue]
 
-    lead_form: Optional[LeadForm] = None
-    """The instant lead form shown when someone taps this ad.
-
-    `null` when the ad group's conversion_location is not an instant-form
-    destination.
-    """
-
-    lead_form_id: Optional[str] = None
-    """The ad platform's ID for the instant form the ad uses.
-
-    Set when the ad references an existing form via `lead_form_id`, or once a form
-    built from `lead_form` has been created on the platform.
-    """
-
     lead_value: float
     """USD value attributed to lead events.
 
@@ -512,18 +498,6 @@ class Ad(BaseModel):
 
     leads: float
     """Whop pixel-attributed leads, last-click."""
-
-    messaging_config: Optional[MessagingConfig] = None
-    """Welcome message for click-to-message ads, shown when the conversation opens.
-
-    `null` when the ad has none.
-    """
-
-    multi_advertiser_ads: bool
-    """Whether the ad can appear alongside other advertisers' ads in the same unit.
-
-    Defaults to true.
-    """
 
     post_id: Optional[str] = None
     """The existing post this ad promotes — a Facebook post or Instagram media ID.
@@ -656,3 +630,29 @@ class Ad(BaseModel):
 
     viewed_contents: float
     """Whop pixel-attributed view-content events, last-click."""
+
+    lead_form: Optional[LeadForm] = None
+    """The instant lead form shown when someone taps this ad.
+
+    `null` when the ad group's conversion_location is not an instant-form
+    destination.
+    """
+
+    lead_form_id: Optional[str] = None
+    """The ad platform's ID for the instant form the ad uses.
+
+    Set when the ad references an existing form via `lead_form_id`, or once a form
+    built from `lead_form` has been created on the platform.
+    """
+
+    messaging_config: Optional[MessagingConfig] = None
+    """Welcome message for click-to-message ads, shown when the conversation opens.
+
+    `null` when the ad has none.
+    """
+
+    multi_advertiser_ads: Optional[bool] = None
+    """Whether the ad can appear alongside other advertisers' ads in the same unit.
+
+    Defaults to true.
+    """

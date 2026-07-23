@@ -10,6 +10,7 @@ __all__ = [
     "AdCampaign",
     "Audiences",
     "Demographics",
+    "Issue",
     "DetailedTargeting",
     "DetailedTargetingBehavior",
     "DetailedTargetingDemographic",
@@ -17,7 +18,6 @@ __all__ = [
     "Devices",
     "DevicesOperatingSystem",
     "FrequencyCap",
-    "Issue",
     "Placement",
     "Regions",
     "RegionsExclude",
@@ -62,6 +62,22 @@ class Demographics(BaseModel):
 
     minimum_age: Optional[float] = None
     """Youngest age targeted. `null` when no minimum is set."""
+
+
+class Issue(BaseModel):
+    """Open issues affecting this ad group and its ads. Empty when there are none."""
+
+    id: str
+    """Unique identifier for the issue."""
+
+    message: str
+    """A description of what the issue is and how it can be resolved."""
+
+    resource_id: Optional[str] = None
+    """The ID of the campaign, ad group, or ad the issue is attached to."""
+
+    resource_type: Literal["ad_campaign", "ad_group", "ad"]
+    """The type of resource the issue is attached to."""
 
 
 class DetailedTargetingBehavior(BaseModel):
@@ -138,22 +154,6 @@ class FrequencyCap(BaseModel):
 
     per_days: Optional[float] = None
     """Length of the rolling window, in days."""
-
-
-class Issue(BaseModel):
-    """Open issues affecting this ad group and its ads. Empty when there are none."""
-
-    id: str
-    """Unique identifier for the issue."""
-
-    message: str
-    """A description of what the issue is and how it can be resolved."""
-
-    resource_id: Optional[str] = None
-    """The ID of the campaign, ad group, or ad the issue is attached to."""
-
-    resource_type: Literal["ad_campaign", "ad_group", "ad"]
-    """The type of resource the issue is attached to."""
 
 
 class Placement(BaseModel):
@@ -342,54 +342,6 @@ class AdGroup(BaseModel):
     contacts: float
     """Whop pixel-attributed contact events, last-click."""
 
-    conversion_event: Union[
-        Literal[
-            "purchase",
-            "add_to_cart",
-            "initiated_checkout",
-            "add_payment_info",
-            "complete_registration",
-            "lead",
-            "content_view",
-            "search",
-            "contact",
-            "customize_product",
-            "donate",
-            "find_location",
-            "schedule",
-            "start_trial",
-            "submit_application",
-            "subscribe",
-        ],
-        str,
-        None,
-    ] = None
-    """The pixel event optimized for.
-
-    A standard event, or any custom pixel event name.
-    """
-
-    conversion_location: Optional[
-        Literal[
-            "website",
-            "profile",
-            "instagram_and_facebook",
-            "instagram_profile",
-            "messaging",
-            "on_ad",
-            "instant_forms",
-            "instant_forms_and_messenger",
-            "website_and_instant_forms",
-        ]
-    ] = None
-    """
-    Where the result you're optimizing for happens: `website` (your site), `profile`
-    (your social media profile), `instagram_and_facebook` or `instagram_profile`
-    (visits to your Instagram profile), `messaging` (a direct-message conversation),
-    `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
-    `instant_forms_and_messenger`, `website_and_instant_forms`).
-    """
-
     cost_per_added_to_cart: Optional[float] = None
     """
     Spend divided by attributed add-to-cart events; null when they are not the goal
@@ -508,22 +460,6 @@ class AdGroup(BaseModel):
     `null` for `minimum_cost` bidding.
     """
 
-    detailed_targeting: DetailedTargeting
-    """
-    Interest, behavior, and demographic targeting, using categories from the ad
-    platform's targeting taxonomy. Can't be combined with automatic audience
-    targeting, and unavailable to campaigns with special_ad_categories.
-    """
-
-    devices: Devices
-    """Device platforms and operating systems targeted."""
-
-    dynamic_creative: bool
-    """
-    Whether the ad platform automatically mixes and matches this ad group's
-    creatives and copy to find the best-performing combinations.
-    """
-
     ends_at: Optional[str] = None
     """When the ad group stops delivering, as an ISO 8601 timestamp.
 
@@ -533,18 +469,10 @@ class AdGroup(BaseModel):
     frequency: Optional[float] = None
     """Platform-reported impressions divided by reach."""
 
-    frequency_cap: Optional[FrequencyCap] = None
-    """Cap on how often one person sees ads from this ad group.
-
-    Only available with `reach` optimization; `null` when uncapped.
-    """
-
     impressions: float
     """The number of impressions."""
 
     issues: List[Issue]
-
-    languages: List[str]
 
     lead_value: float
     """USD value attributed to lead events.
@@ -555,11 +483,6 @@ class AdGroup(BaseModel):
 
     leads: float
     """Whop pixel-attributed leads, last-click."""
-
-    message_apps: List[Literal["messenger", "instagram", "whatsapp"]]
-
-    minimum_daily_spend: Optional[float] = None
-    """Minimum the ad group tries to spend each day. `null` when no floor is set."""
 
     optimization_goal: Optional[
         Literal[
@@ -585,8 +508,6 @@ class AdGroup(BaseModel):
     ] = None
     """The result the ad group's delivery is optimized to get the most of."""
 
-    placements: List[Placement]
-
     purchase_value: float
     """USD value of pixel-attributed purchases."""
 
@@ -595,9 +516,6 @@ class AdGroup(BaseModel):
 
     reach: float
     """The number of unique people who saw this."""
-
-    regions: Regions
-    """Locations targeted and excluded."""
 
     result_event: Optional[
         Literal[
@@ -698,3 +616,85 @@ class AdGroup(BaseModel):
 
     viewed_contents: float
     """Whop pixel-attributed view-content events, last-click."""
+
+    conversion_event: Union[
+        Literal[
+            "purchase",
+            "add_to_cart",
+            "initiated_checkout",
+            "add_payment_info",
+            "complete_registration",
+            "lead",
+            "content_view",
+            "search",
+            "contact",
+            "customize_product",
+            "donate",
+            "find_location",
+            "schedule",
+            "start_trial",
+            "submit_application",
+            "subscribe",
+        ],
+        str,
+        None,
+    ] = None
+    """The pixel event optimized for.
+
+    A standard event, or any custom pixel event name.
+    """
+
+    conversion_location: Optional[
+        Literal[
+            "website",
+            "profile",
+            "instagram_and_facebook",
+            "instagram_profile",
+            "messaging",
+            "on_ad",
+            "instant_forms",
+            "instant_forms_and_messenger",
+            "website_and_instant_forms",
+        ]
+    ] = None
+    """
+    Where the result you're optimizing for happens: `website` (your site), `profile`
+    (your social media profile), `instagram_and_facebook` or `instagram_profile`
+    (visits to your Instagram profile), `messaging` (a direct-message conversation),
+    `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
+    `instant_forms_and_messenger`, `website_and_instant_forms`).
+    """
+
+    detailed_targeting: Optional[DetailedTargeting] = None
+    """
+    Interest, behavior, and demographic targeting, using categories from the ad
+    platform's targeting taxonomy. Can't be combined with automatic audience
+    targeting, and unavailable to campaigns with special_ad_categories.
+    """
+
+    devices: Optional[Devices] = None
+    """Device platforms and operating systems targeted."""
+
+    dynamic_creative: Optional[bool] = None
+    """
+    Whether the ad platform automatically mixes and matches this ad group's
+    creatives and copy to find the best-performing combinations.
+    """
+
+    frequency_cap: Optional[FrequencyCap] = None
+    """Cap on how often one person sees ads from this ad group.
+
+    Only available with `reach` optimization; `null` when uncapped.
+    """
+
+    languages: Optional[List[str]] = None
+
+    message_apps: Optional[List[Literal["messenger", "instagram", "whatsapp"]]] = None
+
+    minimum_daily_spend: Optional[float] = None
+    """Minimum the ad group tries to spend each day. `null` when no floor is set."""
+
+    placements: Optional[List[Placement]] = None
+
+    regions: Optional[Regions] = None
+    """Locations targeted and excluded."""
