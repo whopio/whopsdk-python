@@ -210,6 +210,15 @@ class Bounty(BaseModel):
     rolled out.
     """
 
+    cancel_requested_at: Optional[str] = None
+    """When cancellation was requested, as an ISO 8601 timestamp.
+
+    On a `closed` bounty this means the cancel is pending: submissions are stopped
+    and the bounty cancels once in-flight submissions resolve. On a `canceled`
+    bounty it records when the cancellation was requested. `null` when no
+    cancellation was ever requested.
+    """
+
     capture_spec: Optional[CaptureSpec] = None
     """The technical contract footage must be recorded against.
 
@@ -373,10 +382,12 @@ class Bounty(BaseModel):
     """
 
     submissions_closed_at: Optional[str] = None
-    """When new submissions were explicitly stopped, as an ISO 8601 timestamp.
+    """When new submissions stopped being accepted, as an ISO 8601 timestamp.
 
-    `null` when submissions were never explicitly stopped — including closed or
-    completed bounties that simply filled every winner slot.
+    Set when a cancellation is requested on a bounty with work in flight, so
+    in-flight submissions can resolve before the bounty cancels. `null` when
+    submissions were never stopped — including completed bounties that simply filled
+    every winner slot.
     """
 
     title: str

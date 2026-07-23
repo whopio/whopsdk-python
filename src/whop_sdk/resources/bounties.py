@@ -382,6 +382,45 @@ class BountiesResource(SyncAPIResource):
             model=BountyListItem,
         )
 
+    def cancel(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Bounty:
+        """Cancels a bounty.
+
+        With no in-flight work, it cancels immediately and refunds the
+        funder. Otherwise it stops new submissions and cancels once the in-flight work
+        resolves and pays out. Repeating the request is a no-op. A bounty that already
+        paid out every slot returns `400`.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/bounties/{id}/cancel", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Bounty,
+        )
+
 
 class AsyncBountiesResource(AsyncAPIResource):
     """A Bounty is a paid task posted by an account or user.
@@ -739,6 +778,45 @@ class AsyncBountiesResource(AsyncAPIResource):
             model=BountyListItem,
         )
 
+    async def cancel(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Bounty:
+        """Cancels a bounty.
+
+        With no in-flight work, it cancels immediately and refunds the
+        funder. Otherwise it stops new submissions and cancels once the in-flight work
+        resolves and pays out. Repeating the request is a no-op. A bounty that already
+        paid out every slot returns `400`.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/bounties/{id}/cancel", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Bounty,
+        )
+
 
 class BountiesResourceWithRawResponse:
     def __init__(self, bounties: BountiesResource) -> None:
@@ -755,6 +833,9 @@ class BountiesResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             bounties.list,
+        )
+        self.cancel = to_raw_response_wrapper(
+            bounties.cancel,
         )
 
 
@@ -774,6 +855,9 @@ class AsyncBountiesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             bounties.list,
         )
+        self.cancel = async_to_raw_response_wrapper(
+            bounties.cancel,
+        )
 
 
 class BountiesResourceWithStreamingResponse:
@@ -792,6 +876,9 @@ class BountiesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             bounties.list,
         )
+        self.cancel = to_streamed_response_wrapper(
+            bounties.cancel,
+        )
 
 
 class AsyncBountiesResourceWithStreamingResponse:
@@ -809,4 +896,7 @@ class AsyncBountiesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             bounties.list,
+        )
+        self.cancel = async_to_streamed_response_wrapper(
+            bounties.cancel,
         )

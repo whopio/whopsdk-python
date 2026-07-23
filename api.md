@@ -1305,6 +1305,7 @@ Methods:
 - <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
 - <code title="patch /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">update</a>(id, \*\*<a href="src/whop_sdk/types/bounty_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
 - <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_item.py">SyncCursorPage[BountyListItem]</a></code>
+- <code title="post /bounties/{id}/cancel">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">cancel</a>(id) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
 
 # BountySubmissions
 

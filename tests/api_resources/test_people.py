@@ -33,8 +33,6 @@ class TestPeople:
         person = client.people.retrieve(
             person_id="person_id",
             account_id="account_id",
-            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
-            to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(PersonRetrieveResponse, person, path=["response"])
 
@@ -84,13 +82,24 @@ class TestPeople:
         person = client.people.list(
             account_id="account_id",
             after="after",
+            audience_id="audience_id",
             before="before",
+            country="country",
+            custom_event="custom_event",
             direction="asc",
-            filters="filters",
+            email="email",
+            event_name=["string"],
             first=0,
-            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
-            sort="sort",
-            to=parse_datetime("2019-12-27T18:11:19.117Z"),
+            first_seen_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            first_seen_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            has_purchased=True,
+            last_seen_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            last_seen_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            order="first_seen_at",
+            phone="phone",
+            query="query",
+            source=["string"],
+            user_id="user_id",
         )
         assert_matches_type(SyncCursorPage[PersonListResponse], person, path=["response"])
 
@@ -136,8 +145,6 @@ class TestAsyncPeople:
         person = await async_client.people.retrieve(
             person_id="person_id",
             account_id="account_id",
-            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
-            to=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(PersonRetrieveResponse, person, path=["response"])
 
@@ -187,13 +194,24 @@ class TestAsyncPeople:
         person = await async_client.people.list(
             account_id="account_id",
             after="after",
+            audience_id="audience_id",
             before="before",
+            country="country",
+            custom_event="custom_event",
             direction="asc",
-            filters="filters",
+            email="email",
+            event_name=["string"],
             first=0,
-            from_=parse_datetime("2019-12-27T18:11:19.117Z"),
-            sort="sort",
-            to=parse_datetime("2019-12-27T18:11:19.117Z"),
+            first_seen_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            first_seen_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            has_purchased=True,
+            last_seen_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            last_seen_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            order="first_seen_at",
+            phone="phone",
+            query="query",
+            source=["string"],
+            user_id="user_id",
         )
         assert_matches_type(AsyncCursorPage[PersonListResponse], person, path=["response"])
 

@@ -1,14 +1,37 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PersonListResponse", "AdSet", "Ad", "Campaign"]
+__all__ = [
+    "PersonListResponse",
+    "Device",
+    "FirstSource",
+    "FirstSourceAd",
+    "FirstSourceAdGroup",
+    "FirstSourceCampaign",
+    "LastSource",
+    "LastSourceAd",
+    "LastSourceAdGroup",
+    "LastSourceCampaign",
+    "Location",
+    "Member",
+    "User",
+]
 
 
-class AdSet(BaseModel):
+class Device(BaseModel):
+    browser: Optional[str] = None
+
+    device: Optional[str] = None
+
+    os: Optional[str] = None
+
+
+class FirstSourceAd(BaseModel):
     id: str
 
     name: Optional[str] = None
@@ -16,7 +39,7 @@ class AdSet(BaseModel):
     thumbnail_url: Optional[str] = None
 
 
-class Ad(BaseModel):
+class FirstSourceAdGroup(BaseModel):
     id: str
 
     name: Optional[str] = None
@@ -24,12 +47,112 @@ class Ad(BaseModel):
     thumbnail_url: Optional[str] = None
 
 
-class Campaign(BaseModel):
+class FirstSourceCampaign(BaseModel):
     id: str
 
     name: Optional[str] = None
 
     thumbnail_url: Optional[str] = None
+
+
+class FirstSource(BaseModel):
+    """
+    Where a visit came from: a whop ad click, a lead form, an external ad, or a referring site.
+    """
+
+    type: Literal["ad_click", "lead_form", "external_ad_click", "referrer", "utm"]
+
+    ad: Optional[FirstSourceAd] = None
+
+    ad_group: Optional[FirstSourceAdGroup] = None
+
+    campaign: Optional[FirstSourceCampaign] = None
+
+    domain: Optional[str] = None
+
+    occurred_at: Optional[datetime] = None
+
+    platform: Optional[str] = None
+
+    utm_source: Optional[str] = None
+
+
+class LastSourceAd(BaseModel):
+    id: str
+
+    name: Optional[str] = None
+
+    thumbnail_url: Optional[str] = None
+
+
+class LastSourceAdGroup(BaseModel):
+    id: str
+
+    name: Optional[str] = None
+
+    thumbnail_url: Optional[str] = None
+
+
+class LastSourceCampaign(BaseModel):
+    id: str
+
+    name: Optional[str] = None
+
+    thumbnail_url: Optional[str] = None
+
+
+class LastSource(BaseModel):
+    """
+    Where a visit came from: a whop ad click, a lead form, an external ad, or a referring site.
+    """
+
+    type: Literal["ad_click", "lead_form", "external_ad_click", "referrer", "utm"]
+
+    ad: Optional[LastSourceAd] = None
+
+    ad_group: Optional[LastSourceAdGroup] = None
+
+    campaign: Optional[LastSourceCampaign] = None
+
+    domain: Optional[str] = None
+
+    occurred_at: Optional[datetime] = None
+
+    platform: Optional[str] = None
+
+    utm_source: Optional[str] = None
+
+
+class Location(BaseModel):
+    city: Optional[str] = None
+
+    continent: Optional[str] = None
+
+    country: Optional[str] = None
+
+
+class Member(BaseModel):
+    """The user's member record at this account, when they are a member of it."""
+
+    id: str
+
+    joined_at: Optional[datetime] = None
+
+    status: Optional[str] = None
+
+    usd_total_spend: Optional[float] = None
+
+
+class User(BaseModel):
+    """The person's primary whop user, when one of their identities is a whop account."""
+
+    id: str
+
+    username: str
+
+    name: Optional[str] = None
+
+    profile_pic_url: Optional[str] = None
 
 
 class PersonListResponse(BaseModel):
@@ -37,28 +160,53 @@ class PersonListResponse(BaseModel):
 
     account_id: str
 
+    event_count: int
+
     first_seen_at: datetime
 
     last_seen_at: datetime
 
-    person_id: str
-
     purchase_count: int
-
-    ad_sets: Optional[List[AdSet]] = None
-
-    ads: Optional[List[Ad]] = None
 
     aov: Optional[float] = None
 
-    campaigns: Optional[List[Campaign]] = None
+    device: Optional[Device] = None
 
     email: Optional[str] = None
+    """The email from the person's most recent event that carried one."""
 
-    has_failed_payment: Optional[bool] = None
+    first_purchase_at: Optional[datetime] = None
+
+    first_source: Optional[FirstSource] = None
+    """
+    Where a visit came from: a whop ad click, a lead form, an external ad, or a
+    referring site.
+    """
+
+    last_ip: Optional[str] = None
+
+    last_purchase_at: Optional[datetime] = None
+
+    last_source: Optional[LastSource] = None
+    """
+    Where a visit came from: a whop ad click, a lead form, an external ad, or a
+    referring site.
+    """
+
+    location: Optional[Location] = None
 
     ltv: Optional[float] = None
 
+    member: Optional[Member] = None
+    """The user's member record at this account, when they are a member of it."""
+
     name: Optional[str] = None
+    """The name from the person's most recent event that carried one."""
 
     phone: Optional[str] = None
+    """The phone from the person's most recent event that carried one."""
+
+    timezone: Optional[str] = None
+
+    user: Optional[User] = None
+    """The person's primary whop user, when one of their identities is a whop account."""

@@ -2,11 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["PersonRetrieveParams"]
 
@@ -18,9 +14,3 @@ class PersonRetrieveParams(TypedDict, total=False):
     Optional for account API keys; required for credentials that can access multiple
     accounts.
     """
-
-    from_: Annotated[Union[str, datetime], PropertyInfo(alias="from", format="iso8601")]
-    """Start of the time range as an ISO 8601 timestamp."""
-
-    to: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """End of the time range as an ISO 8601 timestamp. Defaults to now."""

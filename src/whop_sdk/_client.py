@@ -364,9 +364,9 @@ class Whop(SyncAPIClient):
     @cached_property
     def people(self) -> PeopleResource:
         """
-        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-        Use the People API to list the people of an account and retrieve a single person.
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
         """
         from .resources.people import PeopleResource
 
@@ -1162,9 +1162,9 @@ class AsyncWhop(AsyncAPIClient):
     @cached_property
     def people(self) -> AsyncPeopleResource:
         """
-        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-        Use the People API to list the people of an account and retrieve a single person.
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
         """
         from .resources.people import AsyncPeopleResource
 
@@ -1880,9 +1880,9 @@ class WhopWithRawResponse:
     @cached_property
     def people(self) -> people.PeopleResourceWithRawResponse:
         """
-        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-        Use the People API to list the people of an account and retrieve a single person.
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
         """
         from .resources.people import PeopleResourceWithRawResponse
 
@@ -2480,9 +2480,9 @@ class AsyncWhopWithRawResponse:
     @cached_property
     def people(self) -> people.AsyncPeopleResourceWithRawResponse:
         """
-        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-        Use the People API to list the people of an account and retrieve a single person.
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
         """
         from .resources.people import AsyncPeopleResourceWithRawResponse
 
@@ -3082,9 +3082,9 @@ class WhopWithStreamedResponse:
     @cached_property
     def people(self) -> people.PeopleResourceWithStreamingResponse:
         """
-        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-        Use the People API to list the people of an account and retrieve a single person.
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
         """
         from .resources.people import PeopleResourceWithStreamingResponse
 
@@ -3684,9 +3684,9 @@ class AsyncWhopWithStreamedResponse:
     @cached_property
     def people(self) -> people.AsyncPeopleResourceWithStreamingResponse:
         """
-        A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-        Use the People API to list the people of an account and retrieve a single person.
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
         """
         from .resources.people import AsyncPeopleResourceWithStreamingResponse
 

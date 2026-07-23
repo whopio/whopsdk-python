@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import person_list_params, person_retrieve_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -29,9 +29,9 @@ __all__ = ["PeopleResource", "AsyncPeopleResource"]
 
 class PeopleResource(SyncAPIResource):
     """
-    A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+    A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-    Use the People API to list the people of an account and retrieve a single person.
+    Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
     """
 
     @cached_property
@@ -58,8 +58,6 @@ class PeopleResource(SyncAPIResource):
         person_id: str,
         *,
         account_id: str | Omit = omit,
-        from_: Union[str, datetime] | Omit = omit,
-        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -67,16 +65,15 @@ class PeopleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonRetrieveResponse:
-        """
-        Retrieves one person for an account, aggregated from pixel events.
+        """Retrieves one person for an account.
+
+        The identifier can be a person ID
+        (prsn*******\\********), a user ID (user*******\\********), an email address, or a
+        phone number — merged people resolve to the surviving profile.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
-
-          from_: Start of the time range as an ISO 8601 timestamp.
-
-          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
 
           extra_headers: Send extra headers
 
@@ -95,14 +92,7 @@ class PeopleResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "account_id": account_id,
-                        "from_": from_,
-                        "to": to,
-                    },
-                    person_retrieve_params.PersonRetrieveParams,
-                ),
+                query=maybe_transform({"account_id": account_id}, person_retrieve_params.PersonRetrieveParams),
             ),
             cast_to=PersonRetrieveResponse,
         )
@@ -112,13 +102,36 @@ class PeopleResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
+        audience_id: str | Omit = omit,
         before: str | Omit = omit,
+        country: str | Omit = omit,
+        custom_event: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filters: str | Omit = omit,
+        email: str | Omit = omit,
+        event_name: SequenceNotStr[str] | Omit = omit,
         first: int | Omit = omit,
-        from_: Union[str, datetime] | Omit = omit,
-        sort: str | Omit = omit,
-        to: Union[str, datetime] | Omit = omit,
+        first_seen_after: Union[str, datetime] | Omit = omit,
+        first_seen_before: Union[str, datetime] | Omit = omit,
+        has_purchased: bool | Omit = omit,
+        last_seen_after: Union[str, datetime] | Omit = omit,
+        last_seen_before: Union[str, datetime] | Omit = omit,
+        order: Literal[
+            "first_seen_at",
+            "last_seen_at",
+            "first_purchase_at",
+            "last_purchase_at",
+            "purchase_count",
+            "event_count",
+            "ltv",
+            "aov",
+            "name",
+            "email",
+        ]
+        | Omit = omit,
+        phone: str | Omit = omit,
+        query: str | Omit = omit,
+        source: SequenceNotStr[str] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -127,9 +140,10 @@ class PeopleResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PersonListResponse]:
         """
-        Lists the people (visitors and customers) of an account, aggregated from pixel
-        events. The account is inferred from an account API key; other credentials must
-        pass account_id.
+        Lists the people (visitors and customers) of an account: the identity-linked
+        person profiles aggregated from every pixel, payment, and platform event —
+        identities, purchases and LTV, geo/device profile, traffic sources, and
+        first/last marketing touches.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
@@ -137,21 +151,46 @@ class PeopleResource(SyncAPIResource):
 
           after: A cursor for fetching people after a previous page.
 
+          audience_id: Only include people in this audience.
+
           before: A cursor for fetching people before a later page.
+
+          country: Only include people whose most recent visit came from this ISO 3166-1 alpha-2
+              country code.
+
+          custom_event: Only include people who fired this custom pixel event.
 
           direction: Sort direction. Defaults to desc.
 
-          filters: A JSON-encoded array of filters, each with field, operator, and value keys.
+          email: Only include the person linked to this email address.
+
+          event_name: Only include people who fired any of these events, e.g. payment.completed or
+              page.checkout.view.
 
           first: The number of people to return (default 100, max 100).
 
-          from_: Start of the time range as an ISO 8601 timestamp. Defaults to 366 days before
-              `to`.
+          first_seen_after: Only include people first seen at or after this ISO 8601 timestamp.
 
-          sort: Column to sort by (e.g. last_seen_at, ltv, purchase_count). Defaults to
-              last_seen_at.
+          first_seen_before: Only include people first seen before this ISO 8601 timestamp.
 
-          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
+          has_purchased: true for customers only, false for people who have never purchased.
+
+          last_seen_after: Only include people last seen at or after this ISO 8601 timestamp.
+
+          last_seen_before: Only include people last seen before this ISO 8601 timestamp.
+
+          order: Column to sort by. Defaults to last_seen_at.
+
+          phone: Only include the person linked to this phone number.
+
+          query: Search people by name, email, phone, or whop user ID (case-insensitive substring
+              match).
+
+          source: Only include people acquired from any of these sources. A source is a platform
+              (google, meta, whop, direct), custom:<utm source>, an ad entity tag
+              (adcamp*/adgrp*/ad\\__), or a referrer domain like example.com.
+
+          user_id: Only include the person linked to this whop user ID.
 
           extra_headers: Send extra headers
 
@@ -173,13 +212,24 @@ class PeopleResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "audience_id": audience_id,
                         "before": before,
+                        "country": country,
+                        "custom_event": custom_event,
                         "direction": direction,
-                        "filters": filters,
+                        "email": email,
+                        "event_name": event_name,
                         "first": first,
-                        "from_": from_,
-                        "sort": sort,
-                        "to": to,
+                        "first_seen_after": first_seen_after,
+                        "first_seen_before": first_seen_before,
+                        "has_purchased": has_purchased,
+                        "last_seen_after": last_seen_after,
+                        "last_seen_before": last_seen_before,
+                        "order": order,
+                        "phone": phone,
+                        "query": query,
+                        "source": source,
+                        "user_id": user_id,
                     },
                     person_list_params.PersonListParams,
                 ),
@@ -190,9 +240,9 @@ class PeopleResource(SyncAPIResource):
 
 class AsyncPeopleResource(AsyncAPIResource):
     """
-    A Person represents a visitor or customer of an account, assembled from [pixel events](/api-reference/beta/events/event) and purchase activity — ad clicks, storefront visits, and checkouts.
+    A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
 
-    Use the People API to list the people of an account and retrieve a single person.
+    Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
     """
 
     @cached_property
@@ -219,8 +269,6 @@ class AsyncPeopleResource(AsyncAPIResource):
         person_id: str,
         *,
         account_id: str | Omit = omit,
-        from_: Union[str, datetime] | Omit = omit,
-        to: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -228,16 +276,15 @@ class AsyncPeopleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PersonRetrieveResponse:
-        """
-        Retrieves one person for an account, aggregated from pixel events.
+        """Retrieves one person for an account.
+
+        The identifier can be a person ID
+        (prsn*******\\********), a user ID (user*******\\********), an email address, or a
+        phone number — merged people resolve to the surviving profile.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
               account API keys; required for credentials that can access multiple accounts.
-
-          from_: Start of the time range as an ISO 8601 timestamp.
-
-          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
 
           extra_headers: Send extra headers
 
@@ -257,12 +304,7 @@ class AsyncPeopleResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {
-                        "account_id": account_id,
-                        "from_": from_,
-                        "to": to,
-                    },
-                    person_retrieve_params.PersonRetrieveParams,
+                    {"account_id": account_id}, person_retrieve_params.PersonRetrieveParams
                 ),
             ),
             cast_to=PersonRetrieveResponse,
@@ -273,13 +315,36 @@ class AsyncPeopleResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
+        audience_id: str | Omit = omit,
         before: str | Omit = omit,
+        country: str | Omit = omit,
+        custom_event: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filters: str | Omit = omit,
+        email: str | Omit = omit,
+        event_name: SequenceNotStr[str] | Omit = omit,
         first: int | Omit = omit,
-        from_: Union[str, datetime] | Omit = omit,
-        sort: str | Omit = omit,
-        to: Union[str, datetime] | Omit = omit,
+        first_seen_after: Union[str, datetime] | Omit = omit,
+        first_seen_before: Union[str, datetime] | Omit = omit,
+        has_purchased: bool | Omit = omit,
+        last_seen_after: Union[str, datetime] | Omit = omit,
+        last_seen_before: Union[str, datetime] | Omit = omit,
+        order: Literal[
+            "first_seen_at",
+            "last_seen_at",
+            "first_purchase_at",
+            "last_purchase_at",
+            "purchase_count",
+            "event_count",
+            "ltv",
+            "aov",
+            "name",
+            "email",
+        ]
+        | Omit = omit,
+        phone: str | Omit = omit,
+        query: str | Omit = omit,
+        source: SequenceNotStr[str] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -288,9 +353,10 @@ class AsyncPeopleResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PersonListResponse, AsyncCursorPage[PersonListResponse]]:
         """
-        Lists the people (visitors and customers) of an account, aggregated from pixel
-        events. The account is inferred from an account API key; other credentials must
-        pass account_id.
+        Lists the people (visitors and customers) of an account: the identity-linked
+        person profiles aggregated from every pixel, payment, and platform event —
+        identities, purchases and LTV, geo/device profile, traffic sources, and
+        first/last marketing touches.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
@@ -298,21 +364,46 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           after: A cursor for fetching people after a previous page.
 
+          audience_id: Only include people in this audience.
+
           before: A cursor for fetching people before a later page.
+
+          country: Only include people whose most recent visit came from this ISO 3166-1 alpha-2
+              country code.
+
+          custom_event: Only include people who fired this custom pixel event.
 
           direction: Sort direction. Defaults to desc.
 
-          filters: A JSON-encoded array of filters, each with field, operator, and value keys.
+          email: Only include the person linked to this email address.
+
+          event_name: Only include people who fired any of these events, e.g. payment.completed or
+              page.checkout.view.
 
           first: The number of people to return (default 100, max 100).
 
-          from_: Start of the time range as an ISO 8601 timestamp. Defaults to 366 days before
-              `to`.
+          first_seen_after: Only include people first seen at or after this ISO 8601 timestamp.
 
-          sort: Column to sort by (e.g. last_seen_at, ltv, purchase_count). Defaults to
-              last_seen_at.
+          first_seen_before: Only include people first seen before this ISO 8601 timestamp.
 
-          to: End of the time range as an ISO 8601 timestamp. Defaults to now.
+          has_purchased: true for customers only, false for people who have never purchased.
+
+          last_seen_after: Only include people last seen at or after this ISO 8601 timestamp.
+
+          last_seen_before: Only include people last seen before this ISO 8601 timestamp.
+
+          order: Column to sort by. Defaults to last_seen_at.
+
+          phone: Only include the person linked to this phone number.
+
+          query: Search people by name, email, phone, or whop user ID (case-insensitive substring
+              match).
+
+          source: Only include people acquired from any of these sources. A source is a platform
+              (google, meta, whop, direct), custom:<utm source>, an ad entity tag
+              (adcamp*/adgrp*/ad\\__), or a referrer domain like example.com.
+
+          user_id: Only include the person linked to this whop user ID.
 
           extra_headers: Send extra headers
 
@@ -334,13 +425,24 @@ class AsyncPeopleResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "audience_id": audience_id,
                         "before": before,
+                        "country": country,
+                        "custom_event": custom_event,
                         "direction": direction,
-                        "filters": filters,
+                        "email": email,
+                        "event_name": event_name,
                         "first": first,
-                        "from_": from_,
-                        "sort": sort,
-                        "to": to,
+                        "first_seen_after": first_seen_after,
+                        "first_seen_before": first_seen_before,
+                        "has_purchased": has_purchased,
+                        "last_seen_after": last_seen_after,
+                        "last_seen_before": last_seen_before,
+                        "order": order,
+                        "phone": phone,
+                        "query": query,
+                        "source": source,
+                        "user_id": user_id,
                     },
                     person_list_params.PersonListParams,
                 ),
