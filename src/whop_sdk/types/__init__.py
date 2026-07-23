@@ -8,6 +8,7 @@ from .user import User as User
 from .bounty import Bounty as Bounty
 from .course import Course as Course
 from .lesson import Lesson as Lesson
+from .member import Member as Member
 from .shared import (
     App as App,
     Plan as Plan,
@@ -197,7 +198,6 @@ from .course_create_params import CourseCreateParams as CourseCreateParams
 from .course_list_response import CourseListResponse as CourseListResponse
 from .course_update_params import CourseUpdateParams as CourseUpdateParams
 from .file_create_response import FileCreateResponse as FileCreateResponse
-from .member_list_response import MemberListResponse as MemberListResponse
 from .payment_method_types import PaymentMethodTypes as PaymentMethodTypes
 from .payout_create_params import PayoutCreateParams as PayoutCreateParams
 from .payout_list_response import PayoutListResponse as PayoutListResponse
@@ -314,9 +314,8 @@ from .fee_markup_list_response import FeeMarkupListResponse as FeeMarkupListResp
 from .forum_post_create_params import ForumPostCreateParams as ForumPostCreateParams
 from .forum_post_list_response import ForumPostListResponse as ForumPostListResponse
 from .forum_post_update_params import ForumPostUpdateParams as ForumPostUpdateParams
-from .member_retrieve_response import MemberRetrieveResponse as MemberRetrieveResponse
 from .membership_cancel_params import MembershipCancelParams as MembershipCancelParams
-from .membership_list_response import MembershipListResponse as MembershipListResponse
+from .membership_extend_params import MembershipExtendParams as MembershipExtendParams
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams
 from .notification_preferences import NotificationPreferences as NotificationPreferences
 from .payment_list_fees_params import PaymentListFeesParams as PaymentListFeesParams
@@ -444,7 +443,6 @@ from .authorized_user_delete_response import AuthorizedUserDeleteResponse as Aut
 from .bounty_submission_create_params import BountySubmissionCreateParams as BountySubmissionCreateParams
 from .company_create_api_key_response import CompanyCreateAPIKeyResponse as CompanyCreateAPIKeyResponse
 from .dispute_alert_retrieve_response import DisputeAlertRetrieveResponse as DisputeAlertRetrieveResponse
-from .membership_add_free_days_params import MembershipAddFreeDaysParams as MembershipAddFreeDaysParams
 from .partner_referred_users_response import PartnerReferredUsersResponse as PartnerReferredUsersResponse
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent as PaymentSucceededWebhookEvent
 from .social_account_connect_response import SocialAccountConnectResponse as SocialAccountConnectResponse

@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["MembershipCancelParams"]
+__all__ = ["MembershipExtendParams"]
 
 
-class MembershipCancelParams(TypedDict, total=False):
-    reason: str
-    """Free-form note recording why the membership was canceled."""
+class MembershipExtendParams(TypedDict, total=False):
+    days: Required[int]
+    """Number of free days to add (1-1095)."""
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

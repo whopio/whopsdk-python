@@ -439,6 +439,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def memberships(self) -> MembershipsResource:
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a pending cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import MembershipsResource
 
         return MembershipsResource(self)
@@ -539,6 +544,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def members(self) -> MembersResource:
+        """
+        A Member is one buyer's relationship with an account — a single row per customer regardless of how many memberships they hold. It carries the relationship-level state: whether they have joined or left, what they can reach (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import MembersResource
 
         return MembersResource(self)
@@ -1237,6 +1247,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def memberships(self) -> AsyncMembershipsResource:
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a pending cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import AsyncMembershipsResource
 
         return AsyncMembershipsResource(self)
@@ -1337,6 +1352,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def members(self) -> AsyncMembersResource:
+        """
+        A Member is one buyer's relationship with an account — a single row per customer regardless of how many memberships they hold. It carries the relationship-level state: whether they have joined or left, what they can reach (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import AsyncMembersResource
 
         return AsyncMembersResource(self)
@@ -1955,6 +1975,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def memberships(self) -> memberships.MembershipsResourceWithRawResponse:
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a pending cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import MembershipsResourceWithRawResponse
 
         return MembershipsResourceWithRawResponse(self._client.memberships)
@@ -2055,6 +2080,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def members(self) -> members.MembersResourceWithRawResponse:
+        """
+        A Member is one buyer's relationship with an account — a single row per customer regardless of how many memberships they hold. It carries the relationship-level state: whether they have joined or left, what they can reach (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import MembersResourceWithRawResponse
 
         return MembersResourceWithRawResponse(self._client.members)
@@ -2555,6 +2585,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def memberships(self) -> memberships.AsyncMembershipsResourceWithRawResponse:
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a pending cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import AsyncMembershipsResourceWithRawResponse
 
         return AsyncMembershipsResourceWithRawResponse(self._client.memberships)
@@ -2655,6 +2690,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def members(self) -> members.AsyncMembersResourceWithRawResponse:
+        """
+        A Member is one buyer's relationship with an account — a single row per customer regardless of how many memberships they hold. It carries the relationship-level state: whether they have joined or left, what they can reach (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import AsyncMembersResourceWithRawResponse
 
         return AsyncMembersResourceWithRawResponse(self._client.members)
@@ -3157,6 +3197,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def memberships(self) -> memberships.MembershipsResourceWithStreamingResponse:
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a pending cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import MembershipsResourceWithStreamingResponse
 
         return MembershipsResourceWithStreamingResponse(self._client.memberships)
@@ -3257,6 +3302,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def members(self) -> members.MembersResourceWithStreamingResponse:
+        """
+        A Member is one buyer's relationship with an account — a single row per customer regardless of how many memberships they hold. It carries the relationship-level state: whether they have joined or left, what they can reach (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import MembersResourceWithStreamingResponse
 
         return MembersResourceWithStreamingResponse(self._client.members)
@@ -3759,6 +3809,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def memberships(self) -> memberships.AsyncMembershipsResourceWithStreamingResponse:
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a pending cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import AsyncMembershipsResourceWithStreamingResponse
 
         return AsyncMembershipsResourceWithStreamingResponse(self._client.memberships)
@@ -3861,6 +3916,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def members(self) -> members.AsyncMembersResourceWithStreamingResponse:
+        """
+        A Member is one buyer's relationship with an account — a single row per customer regardless of how many memberships they hold. It carries the relationship-level state: whether they have joined or left, what they can reach (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import AsyncMembersResourceWithStreamingResponse
 
         return AsyncMembersResourceWithStreamingResponse(self._client.members)

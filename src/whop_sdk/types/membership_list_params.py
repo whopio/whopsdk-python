@@ -2,64 +2,63 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
-
-from .._types import SequenceNotStr
-from .._utils import PropertyInfo
-from .cancel_options import CancelOptions
-from .shared.direction import Direction
-from .shared.membership_status import MembershipStatus
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["MembershipListParams"]
 
 
 class MembershipListParams(TypedDict, total=False):
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    account_id: str
+    """The account to list memberships for (`biz_` tag).
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
-
-    cancel_options: Optional[List[CancelOptions]]
-    """Filter to only memberships matching these cancellation reasons."""
-
-    company_id: Optional[str]
-    """The unique identifier of the company to list memberships for.
-
-    Required when using an API key.
+    Requires read access to the account.
     """
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return memberships created after this timestamp."""
+    after: str
+    """Cursor to paginate forwards from."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return memberships created before this timestamp."""
+    before: str
+    """Cursor to paginate backwards from."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    created_after: str
+    """Only memberships created after this ISO 8601 timestamp."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    created_before: str
+    """Only memberships created before this ISO 8601 timestamp."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
 
-    order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
-    """Which columns can be used to sort."""
+    first: int
+    """Number of memberships to return from the start of the window."""
 
-    plan_ids: Optional[SequenceNotStr[str]]
-    """Filter to only memberships belonging to these plan identifiers."""
+    last: int
+    """Number of memberships to return from the end of the window."""
 
-    product_ids: Optional[SequenceNotStr[str]]
-    """Filter to only memberships belonging to these product identifiers."""
+    order: Literal["created_at"]
+    """Sort field."""
 
-    promo_code_ids: Optional[SequenceNotStr[str]]
-    """Filter to only memberships that used these promo code identifiers."""
+    plan_id: str
+    """Filter to memberships of this plan (`plan_` tag).
 
-    statuses: Optional[List[MembershipStatus]]
-    """Filter to only memberships matching these statuses."""
+    Repeat as plan_ids[] for several.
+    """
 
-    user_ids: Optional[SequenceNotStr[str]]
-    """Filter to only memberships belonging to these user identifiers."""
+    product_id: str
+    """Filter to memberships of this product (`prod_` tag).
+
+    Repeat as product_ids[] for several.
+    """
+
+    status: Literal["active", "trialing", "past_due", "completed", "canceled", "expired", "canceling", "paused"]
+    """Filter by billing state.
+
+    `canceling` matches active memberships set to cancel at period end; `paused`
+    matches memberships with payment collection paused.
+    """
+
+    user_id: str
+    """List the caller's own memberships.
+
+    Must be `me` or the authenticated user's `user_` tag.
+    """

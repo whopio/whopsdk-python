@@ -396,20 +396,18 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CancelOptions, MembershipListResponse
+from whop_sdk.types import CancelOptions
 ```
 
 Methods:
 
 - <code title="get /memberships/{id}">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="patch /memberships/{id}">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">update</a>(id, \*\*<a href="src/whop_sdk/types/membership_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
-- <code title="get /memberships">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">list</a>(\*\*<a href="src/whop_sdk/types/membership_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/membership_list_response.py">SyncCursorPage[MembershipListResponse]</a></code>
-- <code title="post /memberships/{id}/add_free_days">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">add_free_days</a>(id, \*\*<a href="src/whop_sdk/types/membership_add_free_days_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
+- <code title="get /memberships">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">list</a>(\*\*<a href="src/whop_sdk/types/membership_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">SyncCursorPage[Membership]</a></code>
 - <code title="post /memberships/{id}/cancel">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">cancel</a>(id, \*\*<a href="src/whop_sdk/types/membership_cancel_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
+- <code title="post /memberships/{id}/extend">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">extend</a>(id, \*\*<a href="src/whop_sdk/types/membership_extend_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/pause">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">pause</a>(id, \*\*<a href="src/whop_sdk/types/membership_pause_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/resume">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">resume</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
-- <code title="post /memberships/{id}/resync_access">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">resync_access</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
-- <code title="post /memberships/{id}/uncancel">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">uncancel</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 
 # AuthorizedUsers
 
@@ -612,13 +610,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import MemberRetrieveResponse, MemberListResponse
+from whop_sdk.types import Member
 ```
 
 Methods:
 
-- <code title="get /members/{id}">client.members.<a href="./src/whop_sdk/resources/members.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/member_retrieve_response.py">MemberRetrieveResponse</a></code>
-- <code title="get /members">client.members.<a href="./src/whop_sdk/resources/members.py">list</a>(\*\*<a href="src/whop_sdk/types/member_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/member_list_response.py">SyncCursorPage[MemberListResponse]</a></code>
+- <code title="get /members/{id}">client.members.<a href="./src/whop_sdk/resources/members.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/member.py">Member</a></code>
+- <code title="get /members">client.members.<a href="./src/whop_sdk/resources/members.py">list</a>(\*\*<a href="src/whop_sdk/types/member_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/member.py">SyncCursorPage[Member]</a></code>
 
 # Forums
 

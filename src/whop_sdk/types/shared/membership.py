@@ -1,237 +1,112 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from typing import Optional
+from typing_extensions import Literal
 
-from .currency import Currency
 from ..._models import BaseModel
-from ..cancel_options import CancelOptions
-from .membership_status import MembershipStatus
 
-__all__ = ["Membership", "Company", "CustomFieldResponse", "Member", "Plan", "Product", "PromoCode", "User"]
+__all__ = ["Membership", "Account", "Member"]
 
 
-class Company(BaseModel):
-    """The company this membership belongs to."""
+class Account(BaseModel):
+    """The account (seller) this membership belongs to."""
 
     id: str
-    """The unique identifier for the company."""
+    """Account ID, prefixed `biz_`."""
+
+    logo_url: Optional[str] = None
+    """Account logo image URL."""
+
+    route: str
+    """Account public route identifier — the `whop.com/{route}` storefront path."""
 
     title: str
-    """The display name of the company shown to customers."""
-
-
-class CustomFieldResponse(BaseModel):
-    """The response from a custom field on checkout"""
-
-    id: str
-    """The unique identifier for the custom field response."""
-
-    answer: str
-    """The response a user gave to the specific question or field."""
-
-    question: str
-    """The question asked by the custom field"""
+    """Account display name."""
 
 
 class Member(BaseModel):
-    """The member record linking the user to the company for this membership.
+    """The caller's member row on the account.
 
-    Null if the member record has not been created yet.
+    Present only when the membership belongs to the caller; `null` on seller-side reads.
     """
 
-    id: str
-    """The unique identifier for the member."""
-
-
-class Plan(BaseModel):
-    """The plan the customer purchased to create this membership."""
-
-    id: str
-    """The unique identifier for the plan."""
-
-    metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs stored on the plan.
-
-    Included in webhook payloads for payment and membership events. Max 50 keys, 100
-    chars per key, 500 chars per string value.
+    access_level: Literal["no_access", "admin", "customer"]
+    """
+    What the member can reach on the account: `customer` for paying members, `admin`
+    for team members, `no_access` once every grant has lapsed.
     """
 
+    last_accessed_at: Optional[str] = None
+    """When the member last opened the account's content, as an ISO 8601 timestamp.
 
-class Product(BaseModel):
-    """The product this membership grants access to."""
-
-    id: str
-    """The unique identifier for the product."""
-
-    metadata: Optional[Dict[str, object]] = None
-    """
-    Custom key-value pairs stored on the product and included in payment and
-    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
-    per string value.
+    `null` if they never have.
     """
 
-    title: str
+    position: Optional[float] = None
+    """The member's sort position in the buyer's own account list.
+
+    `null` until they arrange it.
     """
-    The display name of the product shown to customers on the product page and in
-    search results.
-    """
-
-
-class PromoCode(BaseModel):
-    """The promotional code currently applied to this membership's billing.
-
-    Null if no promo code is active.
-    """
-
-    id: str
-    """The unique identifier for the promo code."""
-
-
-class User(BaseModel):
-    """The user who owns this membership. Null if the user account has been deleted."""
-
-    id: str
-    """The unique identifier for the user."""
-
-    email: Optional[str] = None
-    """The user's email address.
-
-    Requires the member:email:read permission to access. Null if not authorized.
-    """
-
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
-
-    username: str
-    """The user's unique username shown on their public profile."""
 
 
 class Membership(BaseModel):
-    """A membership represents an active relationship between a user and a product.
-
-    It tracks the user's access, billing status, and renewal schedule.
-    """
-
     id: str
-    """The unique identifier for the membership."""
+    """Membership ID, prefixed `mem_`."""
+
+    account: Account
+    """The account (seller) this membership belongs to."""
 
     cancel_at_period_end: bool
-    """Whether this membership is set to cancel at the end of the current billing
-    cycle.
+    """Whether the membership is set to cancel when the current billing period ends.
 
-    Only applies to memberships with a recurring plan.
+    Only meaningful for recurring plans.
     """
 
-    cancel_option: Optional[CancelOptions] = None
+    created_at: str
+    """When the membership was created, as an ISO 8601 timestamp."""
+
+    current_period_end: Optional[str] = None
     """
-    The different reasons a user can choose for why they are canceling their
-    membership.
-    """
-
-    canceled_at: Optional[datetime] = None
-    """The time the customer initiated cancellation of this membership.
-
-    As a Unix timestamp. Null if the membership has not been canceled.
-    """
-
-    cancellation_reason: Optional[str] = None
-    """Free-text explanation provided by the customer when canceling.
-
-    Null if the customer did not provide a reason.
-    """
-
-    checkout_configuration_id: Optional[str] = None
-    """
-    The ID of the checkout session/configuration that produced this membership, if
-    any. Use this to map memberships back to the checkout configuration that created
-    them.
-    """
-
-    company: Company
-    """The company this membership belongs to."""
-
-    created_at: datetime
-    """The datetime the membership was created."""
-
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
-
-    custom_field_responses: List[CustomFieldResponse]
-    """
-    The customer's responses to custom checkout questions configured on the product
-    at the time of purchase.
-    """
-
-    joined_at: Optional[datetime] = None
-    """The time the user first joined the company associated with this membership.
-
-    As a Unix timestamp. Null if the member record does not exist.
+    When the current billing period renews, or when a non-renewing membership
+    expires, as an ISO 8601 timestamp. `null` for one-time purchases with no
+    expiration.
     """
 
     license_key: Optional[str] = None
-    """The software license key associated with this membership.
+    """The software license key for this membership.
 
-    Only present if the product includes a Whop Software Licensing experience. Null
-    otherwise.
-    """
-
-    manage_url: Optional[str] = None
-    """
-    The URL where the customer can view and manage this membership, including
-    cancellation and plan changes. Null if no member record exists.
+    Only present when the product includes a software licensing experience.
     """
 
     member: Optional[Member] = None
-    """The member record linking the user to the company for this membership.
+    """The caller's member row on the account.
 
-    Null if the member record has not been created yet.
+    Present only when the membership belongs to the caller; `null` on seller-side
+    reads.
     """
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: object
     """
-    Custom key-value pairs for the membership (commonly used for software licensing,
-    e.g., HWID). Max 50 keys, 100 chars per key, 500 chars per string value.
-    """
-
-    payment_collection_paused: bool
-    """
-    Whether recurring payment collection for this membership is temporarily paused
-    by the company.
+    Custom key-value pairs stored on the membership, commonly used for software
+    licensing.
     """
 
-    plan: Plan
-    """The plan the customer purchased to create this membership."""
+    plan_id: str
+    """The plan the buyer purchased, prefixed `plan_`."""
 
-    product: Product
-    """The product this membership grants access to."""
+    product_id: str
+    """The product this membership grants access to, prefixed `prod_`."""
 
-    promo_code: Optional[PromoCode] = None
-    """The promotional code currently applied to this membership's billing.
+    status: Literal["trialing", "active", "past_due", "completed", "canceled", "expired", "unresolved"]
+    """Billing state of the membership.
 
-    Null if no promo code is active.
+    `active`/`trialing` memberships grant access; `past_due` is the grace period
+    after a failed payment; `completed` one-time purchases keep access;
+    `canceled`/`expired` do not.
     """
 
-    renewal_period_end: Optional[datetime] = None
-    """The end of the current billing period for this recurring membership.
+    user_id: Optional[str] = None
+    """The buyer, prefixed `user_`.
 
-    As a Unix timestamp. Null if the membership is not recurring.
+    `null` when the buyer is another business or the membership is unclaimed.
     """
-
-    renewal_period_start: Optional[datetime] = None
-    """The start of the current billing period for this recurring membership.
-
-    As a Unix timestamp. Null if the membership is not recurring.
-    """
-
-    status: MembershipStatus
-    """
-    The current lifecycle status of the membership (e.g., active, trialing,
-    past_due, canceled, expired, completed).
-    """
-
-    updated_at: datetime
-    """The datetime the membership was last updated."""
-
-    user: Optional[User] = None
-    """The user who owns this membership. Null if the user account has been deleted."""
