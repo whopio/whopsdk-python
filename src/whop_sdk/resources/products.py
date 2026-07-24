@@ -378,6 +378,80 @@ class ProductsResource(SyncAPIResource):
             cast_to=ProductDeleteResponse,
         )
 
+    def publish(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Product:
+        """Submits a product to the whop.com marketplace for review.
+
+        The product moves to
+        `pending_review`; a Whop reviewer approves it before it goes live.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/products/{id}/publish", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
+
+    def unpublish(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Product:
+        """Removes a product from the whop.com marketplace.
+
+        The product moves to
+        `not_available`.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/products/{id}/unpublish", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
+
 
 class AsyncProductsResource(AsyncAPIResource):
     """A Product is a digital good or service sold on Whop.
@@ -730,6 +804,80 @@ class AsyncProductsResource(AsyncAPIResource):
             cast_to=ProductDeleteResponse,
         )
 
+    async def publish(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Product:
+        """Submits a product to the whop.com marketplace for review.
+
+        The product moves to
+        `pending_review`; a Whop reviewer approves it before it goes live.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/products/{id}/publish", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
+
+    async def unpublish(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Product:
+        """Removes a product from the whop.com marketplace.
+
+        The product moves to
+        `not_available`.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/products/{id}/unpublish", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Product,
+        )
+
 
 class ProductsResourceWithRawResponse:
     def __init__(self, products: ProductsResource) -> None:
@@ -749,6 +897,12 @@ class ProductsResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             products.delete,
+        )
+        self.publish = to_raw_response_wrapper(
+            products.publish,
+        )
+        self.unpublish = to_raw_response_wrapper(
+            products.unpublish,
         )
 
 
@@ -771,6 +925,12 @@ class AsyncProductsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             products.delete,
         )
+        self.publish = async_to_raw_response_wrapper(
+            products.publish,
+        )
+        self.unpublish = async_to_raw_response_wrapper(
+            products.unpublish,
+        )
 
 
 class ProductsResourceWithStreamingResponse:
@@ -792,6 +952,12 @@ class ProductsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             products.delete,
         )
+        self.publish = to_streamed_response_wrapper(
+            products.publish,
+        )
+        self.unpublish = to_streamed_response_wrapper(
+            products.unpublish,
+        )
 
 
 class AsyncProductsResourceWithStreamingResponse:
@@ -812,4 +978,10 @@ class AsyncProductsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             products.delete,
+        )
+        self.publish = async_to_streamed_response_wrapper(
+            products.publish,
+        )
+        self.unpublish = async_to_streamed_response_wrapper(
+            products.unpublish,
         )

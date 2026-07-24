@@ -144,6 +144,8 @@ Methods:
 - <code title="patch /products/{id}">client.products.<a href="./src/whop_sdk/resources/products.py">update</a>(id, \*\*<a href="src/whop_sdk/types/product_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/product.py">Product</a></code>
 - <code title="get /products">client.products.<a href="./src/whop_sdk/resources/products.py">list</a>(\*\*<a href="src/whop_sdk/types/product_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/product_list_item.py">SyncCursorPage[ProductListItem]</a></code>
 - <code title="delete /products/{id}">client.products.<a href="./src/whop_sdk/resources/products.py">delete</a>(id) -> <a href="./src/whop_sdk/types/product_delete_response.py">ProductDeleteResponse</a></code>
+- <code title="post /products/{id}/publish">client.products.<a href="./src/whop_sdk/resources/products.py">publish</a>(id) -> <a href="./src/whop_sdk/types/shared/product.py">Product</a></code>
+- <code title="post /products/{id}/unpublish">client.products.<a href="./src/whop_sdk/resources/products.py">unpublish</a>(id) -> <a href="./src/whop_sdk/types/shared/product.py">Product</a></code>
 
 # SocialAccounts
 

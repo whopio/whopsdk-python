@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 
@@ -55,6 +56,13 @@ class Product(BaseModel):
 
     headline: Optional[str] = None
     """Short marketing headline displayed on product page."""
+
+    marketplace_status: Literal["not_available", "pending_review", "live_marketplace"]
+    """Listing state on the whop.com marketplace.
+
+    `pending_review` means submitted and awaiting review; `live_marketplace` means
+    approved and discoverable.
+    """
 
     member_affiliate_percentage: Optional[float] = None
     """Commission rate members earn through the member affiliate program."""
