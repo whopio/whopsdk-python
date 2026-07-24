@@ -12,6 +12,7 @@ __all__ = [
     "Account",
     "Balance",
     "Capabilities",
+    "Cards",
     "LlcFormation",
     "LlcFormationDocument",
     "LlcFormationSignatures",
@@ -100,6 +101,20 @@ class Capabilities(BaseModel):
 
     transfer: Literal["active", "inactive", "pending"]
     """Transfers to other accounts"""
+
+
+class Cards(BaseModel):
+    """Whop Cards application details for the account.
+
+    Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise, or when the account has no card application.
+    """
+
+    kind: Optional[Literal["individual", "business"]] = None
+    """
+    Whether the card application verifies a business (`business`, KYB) or a person
+    (`individual`, consumer identity). `null` when the application is not yet linked
+    to a verification.
+    """
 
 
 class LlcFormationDocument(BaseModel):
@@ -327,6 +342,12 @@ class PaymentControls(BaseModel):
     Currently `0` for all accounts.
     """
 
+    pending_auto_topup_fee_percentage: float
+    """
+    Percentage fee charged when pending, not-yet-settled balance is advanced to fund
+    the account's cards balance, where `2` means 2%. `0` when the account is exempt.
+    """
+
     pending_balance_delay_days: int
     """Additional days payments remain pending before becoming available."""
 
@@ -476,6 +497,13 @@ class Account(BaseModel):
     Payment rails enabled for this account, each `active`, `inactive`, or `pending`
     (onboarding or review in progress). Computed only on `retrieve` and `me` for
     callers with `company:balance:read` scope; `null` otherwise.
+    """
+
+    cards: Optional[Cards] = None
+    """Whop Cards application details for the account.
+
+    Computed only on `retrieve` and `me` for callers with `company:balance:read`
+    scope; `null` otherwise, or when the account has no card application.
     """
 
     collect_vat_id: bool
