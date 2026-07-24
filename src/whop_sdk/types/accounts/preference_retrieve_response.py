@@ -5,7 +5,35 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["PreferenceRetrieveResponse", "AdsPaymentMethods", "AdsPaymentMethodsBackup", "AdsPaymentMethodsPrimary"]
+__all__ = [
+    "PreferenceRetrieveResponse",
+    "AdsAgreement",
+    "AdsPaymentMethods",
+    "AdsPaymentMethodsBackup",
+    "AdsPaymentMethodsPrimary",
+]
+
+
+class AdsAgreement(BaseModel):
+    """The account's Whop Ads services and payment authorization agreement.
+
+    While `pending_signature`, campaign launch is blocked; sign by answering `requested_information` via `PATCH /verifications/{account_id}`.
+    """
+
+    accepted_at: Optional[str] = None
+    """When the agreement was signed, as an ISO 8601 timestamp. `null` until signed."""
+
+    agreement_version: Optional[str] = None
+    """The agreement version signed or awaiting signature, as an ISO date.
+
+    `null` when no signature is required.
+    """
+
+    printed_name: Optional[str] = None
+    """The signer's printed full name. `null` until signed."""
+
+    status: Literal["not_required", "pending_signature", "signed"]
+    """Where the account's ads services agreement stands."""
 
 
 class AdsPaymentMethodsBackup(BaseModel):
@@ -84,6 +112,13 @@ class AdsPaymentMethods(BaseModel):
 
 
 class PreferenceRetrieveResponse(BaseModel):
+    ads_agreement: AdsAgreement
+    """The account's Whop Ads services and payment authorization agreement.
+
+    While `pending_signature`, campaign launch is blocked; sign by answering
+    `requested_information` via `PATCH /verifications/{account_id}`.
+    """
+
     ads_payment_methods: Optional[AdsPaymentMethods] = None
     """How the account pays for Whop Ads spend.
 

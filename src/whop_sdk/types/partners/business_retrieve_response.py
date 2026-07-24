@@ -52,6 +52,13 @@ class AccountCapabilities(BaseModel):
     instant_payout: Literal["active", "inactive", "pending"]
     """Instant payouts to an eligible payout destination"""
 
+    run_ads: Literal["active", "inactive", "pending"]
+    """Launching ad campaigns through Whop Ads.
+
+    `inactive` while a requested ads services agreement is awaiting the account's
+    signature.
+    """
+
     standard_payout: Literal["active", "inactive", "pending"]
     """Standard payouts to an external payout destination"""
 
