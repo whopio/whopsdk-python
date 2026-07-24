@@ -102,13 +102,16 @@ class PeopleResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         audience_id: str | Omit = omit,
         before: str | Omit = omit,
         country: str | Omit = omit,
         custom_event: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         email: str | Omit = omit,
+        event_from: Union[str, datetime] | Omit = omit,
         event_name: SequenceNotStr[str] | Omit = omit,
+        event_to: Union[str, datetime] | Omit = omit,
         first: int | Omit = omit,
         first_seen_after: Union[str, datetime] | Omit = omit,
         first_seen_before: Union[str, datetime] | Omit = omit,
@@ -151,6 +154,8 @@ class PeopleResource(SyncAPIResource):
 
           after: A cursor for fetching people after a previous page.
 
+          attribution_model: Attribution model the source filter matches against (defaults to last_touch).
+
           audience_id: Only include people in this audience.
 
           before: A cursor for fetching people before a later page.
@@ -164,8 +169,15 @@ class PeopleResource(SyncAPIResource):
 
           email: Only include the person linked to this email address.
 
+          event_from:
+              With event_to plus an event or source filter, switches to exact-population mode:
+              person ids are resolved and paginated on the events side within this window (the
+              same query the people metric counts), then hydrated per page.
+
           event_name: Only include people who fired any of these events, e.g. payment.completed or
               page.checkout.view.
+
+          event_to: The inclusive end of the event window for exact-population mode.
 
           first: The number of people to return (default 100, max 100).
 
@@ -186,9 +198,10 @@ class PeopleResource(SyncAPIResource):
           query: Search people by name, email, phone, or whop user ID (case-insensitive substring
               match).
 
-          source: Only include people acquired from any of these sources. A source is a platform
-              (google, meta, whop, direct), custom:<utm source>, an ad entity tag
-              (adcamp*/adgrp*/ad\\__), or a referrer domain like example.com.
+          source: Only include people acquired from any of these sources — canonical paths
+              (whop:<campaign>:<group>:<ad>, ext:<platform>:..., referrer:<domain>, direct,
+              other), exact or with a trailing :\\** prefix. The same vocabulary the events /
+              people metrics use.
 
           user_id: Only include the person linked to this whop user ID.
 
@@ -212,13 +225,16 @@ class PeopleResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "attribution_model": attribution_model,
                         "audience_id": audience_id,
                         "before": before,
                         "country": country,
                         "custom_event": custom_event,
                         "direction": direction,
                         "email": email,
+                        "event_from": event_from,
                         "event_name": event_name,
+                        "event_to": event_to,
                         "first": first,
                         "first_seen_after": first_seen_after,
                         "first_seen_before": first_seen_before,
@@ -315,13 +331,16 @@ class AsyncPeopleResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         audience_id: str | Omit = omit,
         before: str | Omit = omit,
         country: str | Omit = omit,
         custom_event: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         email: str | Omit = omit,
+        event_from: Union[str, datetime] | Omit = omit,
         event_name: SequenceNotStr[str] | Omit = omit,
+        event_to: Union[str, datetime] | Omit = omit,
         first: int | Omit = omit,
         first_seen_after: Union[str, datetime] | Omit = omit,
         first_seen_before: Union[str, datetime] | Omit = omit,
@@ -364,6 +383,8 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           after: A cursor for fetching people after a previous page.
 
+          attribution_model: Attribution model the source filter matches against (defaults to last_touch).
+
           audience_id: Only include people in this audience.
 
           before: A cursor for fetching people before a later page.
@@ -377,8 +398,15 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           email: Only include the person linked to this email address.
 
+          event_from:
+              With event_to plus an event or source filter, switches to exact-population mode:
+              person ids are resolved and paginated on the events side within this window (the
+              same query the people metric counts), then hydrated per page.
+
           event_name: Only include people who fired any of these events, e.g. payment.completed or
               page.checkout.view.
+
+          event_to: The inclusive end of the event window for exact-population mode.
 
           first: The number of people to return (default 100, max 100).
 
@@ -399,9 +427,10 @@ class AsyncPeopleResource(AsyncAPIResource):
           query: Search people by name, email, phone, or whop user ID (case-insensitive substring
               match).
 
-          source: Only include people acquired from any of these sources. A source is a platform
-              (google, meta, whop, direct), custom:<utm source>, an ad entity tag
-              (adcamp*/adgrp*/ad\\__), or a referrer domain like example.com.
+          source: Only include people acquired from any of these sources — canonical paths
+              (whop:<campaign>:<group>:<ad>, ext:<platform>:..., referrer:<domain>, direct,
+              other), exact or with a trailing :\\** prefix. The same vocabulary the events /
+              people metrics use.
 
           user_id: Only include the person linked to this whop user ID.
 
@@ -425,13 +454,16 @@ class AsyncPeopleResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "attribution_model": attribution_model,
                         "audience_id": audience_id,
                         "before": before,
                         "country": country,
                         "custom_event": custom_event,
                         "direction": direction,
                         "email": email,
+                        "event_from": event_from,
                         "event_name": event_name,
+                        "event_to": event_to,
                         "first": first,
                         "first_seen_after": first_seen_after,
                         "first_seen_before": first_seen_before,

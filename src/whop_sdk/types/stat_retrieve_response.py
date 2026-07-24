@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["StatRetrieveResponse", "Data", "DataPoint", "DataPointBreakdown"]
+__all__ = ["StatRetrieveResponse", "Data", "DataPoint", "DataPointBreakdown", "DataTotal"]
 
 
 class DataPointBreakdown(BaseModel):
@@ -26,6 +26,14 @@ class DataPoint(BaseModel):
     """Present only when broken down: one entry per property value in this period."""
 
 
+class DataTotal(BaseModel):
+    name: str
+    """The property value the total is for."""
+
+    value: Optional[float] = None
+    """The metric's whole-window value for this entry."""
+
+
 class Data(BaseModel):
     points: List[DataPoint]
     """One entry per period, oldest first."""
@@ -34,6 +42,13 @@ class Data(BaseModel):
     """ISO currency the values are denominated in.
 
     Present for currency-unit metrics: the convert_to currency, or usd.
+    """
+
+    totals: Optional[List[DataTotal]] = None
+    """Whole-window aggregates, present when the metric computes them (e.g.
+
+    conversions returns window count / unique-people / value per entry — uniques
+    only exist at window level and cannot be summed from points).
     """
 
 

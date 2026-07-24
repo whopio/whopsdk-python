@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -22,8 +22,30 @@ class EventListParams(TypedDict, total=False):
     after: str
     """A cursor for fetching events after a previous page."""
 
+    attribution_model: Literal["last_touch", "first_touch"]
+    """Attribution model for the source filter (defaults to last_touch)."""
+
     before: str
     """A cursor for fetching events before a later page."""
+
+    browser: str
+    """Browser families to filter by, comma-separated (e.g. Chrome, Mobile Safari)."""
+
+    city: str
+    """Cities to filter by, comma-separated."""
+
+    country: str
+    """Country codes to filter by, comma-separated."""
+
+    device: str
+    """Device families to filter by, comma-separated (e.g. iPhone, Mac)."""
+
+    event: str
+    """
+    Full event names to filter by, comma-separated (payment.completed, pixel.lead,
+    pixel.page, pixel.custom:<name>) — the same vocabulary the events / people
+    metrics use.
+    """
 
     first: int
     """The number of events to return."""
@@ -34,6 +56,9 @@ class EventListParams(TypedDict, total=False):
     Required when identifier is omitted.
     """
 
+    hostname: str
+    """Page hostnames to filter by, comma-separated."""
+
     identifier: str
     """
     Any hard identifier of the person: a person ID (prsn\\__\\**), user ID, email, phone
@@ -41,8 +66,25 @@ class EventListParams(TypedDict, total=False):
     list recent events for the account.
     """
 
+    os: str
+    """Operating system families to filter by, comma-separated (e.g. iOS, Windows)."""
+
+    page: str
+    """Page paths to filter by, comma-separated."""
+
+    source: str
+    """
+    Canonical source path, exact or with a trailing :_ prefix (whop:<campaign>:_,
+    ext:meta:\\**, referrer:<domain>, direct). Restricts the list to conversion
+    targets attributed to that source — the debuggability twin of a metric cell's
+    source parameter.
+    """
+
     to: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """End of the time range as an ISO 8601 timestamp.
 
     Required when identifier is omitted; otherwise defaults to now.
     """
+
+    utm_source: str
+    """utm_source values to filter by, comma-separated."""

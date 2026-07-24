@@ -17,6 +17,14 @@ class AdGroupListParams(TypedDict, total=False):
     after: str
     """Cursor to fetch the page after (from page_info.end_cursor)."""
 
+    attribution_model: Literal["last_touch", "first_touch"]
+    """Attribution model the conversion stats count under (defaults to last_touch).
+
+    Under both models a journey with any whop ad touch attributes to whop; the model
+    picks which whop touch credits the entity and which non-whop source wins
+    otherwise.
+    """
+
     before: str
     """Cursor to fetch the page before (from page_info.start_cursor)."""
 

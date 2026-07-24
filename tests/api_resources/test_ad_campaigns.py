@@ -95,6 +95,7 @@ class TestAdCampaigns:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.retrieve(
             id="id",
+            attribution_model="last_touch",
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
@@ -205,6 +206,7 @@ class TestAdCampaigns:
         ad_campaign = client.ad_campaigns.list(
             account_id="account_id",
             after="after",
+            attribution_model="last_touch",
             before="before",
             created_after="created_after",
             created_before="created_before",
@@ -569,6 +571,7 @@ class TestAsyncAdCampaigns:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.retrieve(
             id="id",
+            attribution_model="last_touch",
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
@@ -679,6 +682,7 @@ class TestAsyncAdCampaigns:
         ad_campaign = await async_client.ad_campaigns.list(
             account_id="account_id",
             after="after",
+            attribution_model="last_touch",
             before="before",
             created_after="created_after",
             created_before="created_before",

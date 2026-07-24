@@ -284,6 +284,7 @@ class AdGroupsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
         time_zone: str | Omit = omit,
@@ -298,6 +299,11 @@ class AdGroupsResource(SyncAPIResource):
         Retrieves a single ad group.
 
         Args:
+          attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
+              Under both models a journey with any whop ad touch attributes to whop; the model
+              picks which whop touch credits the entity and which non-whop source wins
+              otherwise.
+
           stats_from: Start of the stats window.
 
           stats_to: End of the stats window.
@@ -323,6 +329,7 @@ class AdGroupsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "attribution_model": attribution_model,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "time_zone": time_zone,
@@ -548,6 +555,7 @@ class AdGroupsResource(SyncAPIResource):
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
         after: str | Omit = omit,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
         created_after: str | Omit = omit,
         created_before: str | Omit = omit,
@@ -592,6 +600,11 @@ class AdGroupsResource(SyncAPIResource):
           ad_campaign_id: Filter to ad groups in this campaign.
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
+              Under both models a journey with any whop ad touch attributes to whop; the model
+              picks which whop touch credits the entity and which non-whop source wins
+              otherwise.
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
@@ -643,6 +656,7 @@ class AdGroupsResource(SyncAPIResource):
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
                         "after": after,
+                        "attribution_model": attribution_model,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
@@ -1231,6 +1245,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         stats_from: str | Omit = omit,
         stats_to: str | Omit = omit,
         time_zone: str | Omit = omit,
@@ -1245,6 +1260,11 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         Retrieves a single ad group.
 
         Args:
+          attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
+              Under both models a journey with any whop ad touch attributes to whop; the model
+              picks which whop touch credits the entity and which non-whop source wins
+              otherwise.
+
           stats_from: Start of the stats window.
 
           stats_to: End of the stats window.
@@ -1270,6 +1290,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "attribution_model": attribution_model,
                         "stats_from": stats_from,
                         "stats_to": stats_to,
                         "time_zone": time_zone,
@@ -1495,6 +1516,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
         after: str | Omit = omit,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
         created_after: str | Omit = omit,
         created_before: str | Omit = omit,
@@ -1539,6 +1561,11 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           ad_campaign_id: Filter to ad groups in this campaign.
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
+              Under both models a journey with any whop ad touch attributes to whop; the model
+              picks which whop touch credits the entity and which non-whop source wins
+              otherwise.
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
@@ -1590,6 +1617,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
                         "after": after,
+                        "attribution_model": attribution_model,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,

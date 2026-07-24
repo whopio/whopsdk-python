@@ -279,11 +279,22 @@ class EventsResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
+        browser: str | Omit = omit,
+        city: str | Omit = omit,
+        country: str | Omit = omit,
+        device: str | Omit = omit,
+        event: str | Omit = omit,
         first: int | Omit = omit,
         from_: Union[str, datetime] | Omit = omit,
+        hostname: str | Omit = omit,
         identifier: str | Omit = omit,
+        os: str | Omit = omit,
+        page: str | Omit = omit,
+        source: str | Omit = omit,
         to: Union[str, datetime] | Omit = omit,
+        utm_source: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -304,19 +315,46 @@ class EventsResource(SyncAPIResource):
 
           after: A cursor for fetching events after a previous page.
 
+          attribution_model: Attribution model for the source filter (defaults to last_touch).
+
           before: A cursor for fetching events before a later page.
+
+          browser: Browser families to filter by, comma-separated (e.g. Chrome, Mobile Safari).
+
+          city: Cities to filter by, comma-separated.
+
+          country: Country codes to filter by, comma-separated.
+
+          device: Device families to filter by, comma-separated (e.g. iPhone, Mac).
+
+          event: Full event names to filter by, comma-separated (payment.completed, pixel.lead,
+              pixel.page, pixel.custom:<name>) — the same vocabulary the events / people
+              metrics use.
 
           first: The number of events to return.
 
           from_: Start of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted.
 
+          hostname: Page hostnames to filter by, comma-separated.
+
           identifier: Any hard identifier of the person: a person ID (prsn\\__\\**), user ID, email, phone
               number, or a tracking cookie value (wuid, anonymous ID, fbp/fbc/ttp/ga). Omit to
               list recent events for the account.
 
+          os: Operating system families to filter by, comma-separated (e.g. iOS, Windows).
+
+          page: Page paths to filter by, comma-separated.
+
+          source: Canonical source path, exact or with a trailing :_ prefix (whop:<campaign>:_,
+              ext:meta:\\**, referrer:<domain>, direct). Restricts the list to conversion
+              targets attributed to that source — the debuggability twin of a metric cell's
+              source parameter.
+
           to: End of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted; otherwise defaults to now.
+
+          utm_source: utm_source values to filter by, comma-separated.
 
           extra_headers: Send extra headers
 
@@ -338,11 +376,22 @@ class EventsResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "attribution_model": attribution_model,
                         "before": before,
+                        "browser": browser,
+                        "city": city,
+                        "country": country,
+                        "device": device,
+                        "event": event,
                         "first": first,
                         "from_": from_,
+                        "hostname": hostname,
                         "identifier": identifier,
+                        "os": os,
+                        "page": page,
+                        "source": source,
                         "to": to,
+                        "utm_source": utm_source,
                     },
                     event_list_params.EventListParams,
                 ),
@@ -603,11 +652,22 @@ class AsyncEventsResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
+        attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
+        browser: str | Omit = omit,
+        city: str | Omit = omit,
+        country: str | Omit = omit,
+        device: str | Omit = omit,
+        event: str | Omit = omit,
         first: int | Omit = omit,
         from_: Union[str, datetime] | Omit = omit,
+        hostname: str | Omit = omit,
         identifier: str | Omit = omit,
+        os: str | Omit = omit,
+        page: str | Omit = omit,
+        source: str | Omit = omit,
         to: Union[str, datetime] | Omit = omit,
+        utm_source: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -628,19 +688,46 @@ class AsyncEventsResource(AsyncAPIResource):
 
           after: A cursor for fetching events after a previous page.
 
+          attribution_model: Attribution model for the source filter (defaults to last_touch).
+
           before: A cursor for fetching events before a later page.
+
+          browser: Browser families to filter by, comma-separated (e.g. Chrome, Mobile Safari).
+
+          city: Cities to filter by, comma-separated.
+
+          country: Country codes to filter by, comma-separated.
+
+          device: Device families to filter by, comma-separated (e.g. iPhone, Mac).
+
+          event: Full event names to filter by, comma-separated (payment.completed, pixel.lead,
+              pixel.page, pixel.custom:<name>) — the same vocabulary the events / people
+              metrics use.
 
           first: The number of events to return.
 
           from_: Start of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted.
 
+          hostname: Page hostnames to filter by, comma-separated.
+
           identifier: Any hard identifier of the person: a person ID (prsn\\__\\**), user ID, email, phone
               number, or a tracking cookie value (wuid, anonymous ID, fbp/fbc/ttp/ga). Omit to
               list recent events for the account.
 
+          os: Operating system families to filter by, comma-separated (e.g. iOS, Windows).
+
+          page: Page paths to filter by, comma-separated.
+
+          source: Canonical source path, exact or with a trailing :_ prefix (whop:<campaign>:_,
+              ext:meta:\\**, referrer:<domain>, direct). Restricts the list to conversion
+              targets attributed to that source — the debuggability twin of a metric cell's
+              source parameter.
+
           to: End of the time range as an ISO 8601 timestamp. Required when identifier is
               omitted; otherwise defaults to now.
+
+          utm_source: utm_source values to filter by, comma-separated.
 
           extra_headers: Send extra headers
 
@@ -662,11 +749,22 @@ class AsyncEventsResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "attribution_model": attribution_model,
                         "before": before,
+                        "browser": browser,
+                        "city": city,
+                        "country": country,
+                        "device": device,
+                        "event": event,
                         "first": first,
                         "from_": from_,
+                        "hostname": hostname,
                         "identifier": identifier,
+                        "os": os,
+                        "page": page,
+                        "source": source,
                         "to": to,
+                        "utm_source": utm_source,
                     },
                     event_list_params.EventListParams,
                 ),

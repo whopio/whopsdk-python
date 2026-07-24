@@ -184,6 +184,7 @@ class TestAdGroups:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.retrieve(
             id="id",
+            attribution_model="last_touch",
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
@@ -390,6 +391,7 @@ class TestAdGroups:
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
             after="after",
+            attribution_model="last_touch",
             before="before",
             created_after="created_after",
             created_before="created_before",
@@ -968,6 +970,7 @@ class TestAsyncAdGroups:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.retrieve(
             id="id",
+            attribution_model="last_touch",
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
@@ -1174,6 +1177,7 @@ class TestAsyncAdGroups:
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
             after="after",
+            attribution_model="last_touch",
             before="before",
             created_after="created_after",
             created_before="created_before",

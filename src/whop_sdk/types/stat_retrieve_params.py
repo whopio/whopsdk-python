@@ -76,8 +76,8 @@ class StatRetrieveParams(TypedDict, total=False):
     """
     Display currency for money metrics — every amount is converted into this ISO
     currency using the exchange rate on each period's date. Defaults to usd. For the
-    ads metrics (ad_spend, ad_report), pass the account's ads reporting currency to
-    match the ad entity endpoints. On transaction metrics, it is ignored when you
+    ads metrics (ad_spend, ad_delivery), pass the account's ads reporting currency
+    to match the ad entity endpoints. On transaction metrics, it is ignored when you
     filter or break down by currency (those report the original transaction
     currency, unconverted).
     """

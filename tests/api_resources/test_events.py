@@ -146,11 +146,22 @@ class TestEvents:
         event = client.events.list(
             account_id="account_id",
             after="after",
+            attribution_model="last_touch",
             before="before",
+            browser="browser",
+            city="city",
+            country="country",
+            device="device",
+            event="event",
             first=0,
             from_=parse_datetime("2019-12-27T18:11:19.117Z"),
+            hostname="hostname",
             identifier="identifier",
+            os="os",
+            page="page",
+            source="source",
             to=parse_datetime("2019-12-27T18:11:19.117Z"),
+            utm_source="utm_source",
         )
         assert_matches_type(SyncCursorPage[EventListResponse], event, path=["response"])
 
@@ -309,11 +320,22 @@ class TestAsyncEvents:
         event = await async_client.events.list(
             account_id="account_id",
             after="after",
+            attribution_model="last_touch",
             before="before",
+            browser="browser",
+            city="city",
+            country="country",
+            device="device",
+            event="event",
             first=0,
             from_=parse_datetime("2019-12-27T18:11:19.117Z"),
+            hostname="hostname",
             identifier="identifier",
+            os="os",
+            page="page",
+            source="source",
             to=parse_datetime("2019-12-27T18:11:19.117Z"),
+            utm_source="utm_source",
         )
         assert_matches_type(AsyncCursorPage[EventListResponse], event, path=["response"])
 

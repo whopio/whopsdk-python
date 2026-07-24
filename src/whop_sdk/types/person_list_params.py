@@ -23,6 +23,9 @@ class PersonListParams(TypedDict, total=False):
     after: str
     """A cursor for fetching people after a previous page."""
 
+    attribution_model: Literal["last_touch", "first_touch"]
+    """Attribution model the source filter matches against (defaults to last_touch)."""
+
     audience_id: str
     """Only include people in this audience."""
 
@@ -44,11 +47,21 @@ class PersonListParams(TypedDict, total=False):
     email: str
     """Only include the person linked to this email address."""
 
+    event_from: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """
+    With event_to plus an event or source filter, switches to exact-population mode:
+    person ids are resolved and paginated on the events side within this window (the
+    same query the people metric counts), then hydrated per page.
+    """
+
     event_name: SequenceNotStr[str]
     """Only include people who fired any of these events, e.g.
 
     payment.completed or page.checkout.view.
     """
+
+    event_to: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The inclusive end of the event window for exact-population mode."""
 
     first: int
     """The number of people to return (default 100, max 100)."""
@@ -92,10 +105,11 @@ class PersonListParams(TypedDict, total=False):
     """
 
     source: SequenceNotStr[str]
-    """Only include people acquired from any of these sources.
-
-    A source is a platform (google, meta, whop, direct), custom:<utm source>, an ad
-    entity tag (adcamp*/adgrp*/ad\\__), or a referrer domain like example.com.
+    """
+    Only include people acquired from any of these sources — canonical paths
+    (whop:<campaign>:<group>:<ad>, ext:<platform>:..., referrer:<domain>, direct,
+    other), exact or with a trailing :\\** prefix. The same vocabulary the events /
+    people metrics use.
     """
 
     user_id: str
