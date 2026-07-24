@@ -16,6 +16,13 @@ class AudienceCreateParams(TypedDict, total=False):
     audience_type: Literal["custom", "lookalike"]
     """What to create. Defaults to `custom` (CSV upload)."""
 
+    auto_refresh: bool
+    """Filter audiences only, and set only at creation.
+
+    `true` (the default) rebuilds membership from the filters twice a day. `false`
+    keeps whoever matched at creation and never rebuilds.
+    """
+
     column_mapping: ColumnMapping
     """Custom audiences only.
 
@@ -30,6 +37,18 @@ class AudienceCreateParams(TypedDict, total=False):
     """Custom audiences only.
 
     The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
+    """
+
+    filters: object
+    """Filter audiences only.
+
+    The People filters that define membership, keyed exactly as `GET /people`
+    accepts them — for example `{"os": "iOS", "country": "US"}`. Date filters must
+    be rolling windows — `first_seen_within_days` or `last_seen_within_days` — so
+    the audience re-anchors on every refresh; fixed dates such as `first_seen_after`
+    are rejected. Source values are canonical source paths
+    (`whop:<campaign>:<group>:<ad>`, `ext:<platform>:...`, `referrer:<domain>`,
+    `direct`), exact or with a trailing `:*` wildcard.
     """
 
     name: str

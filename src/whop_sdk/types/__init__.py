@@ -254,6 +254,7 @@ from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
 from .ad_group_create_params import AdGroupCreateParams as AdGroupCreateParams
 from .ad_group_update_params import AdGroupUpdateParams as AdGroupUpdateParams
 from .audience_create_params import AudienceCreateParams as AudienceCreateParams
+from .audience_update_params import AudienceUpdateParams as AudienceUpdateParams
 from .card_retrieve_response import CardRetrieveResponse as CardRetrieveResponse
 from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
 from .dm_channel_list_params import DmChannelListParams as DmChannelListParams

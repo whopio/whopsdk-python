@@ -105,6 +105,7 @@ class PeopleResource(SyncAPIResource):
         attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         audience_id: str | Omit = omit,
         before: str | Omit = omit,
+        contactable: bool | Omit = omit,
         country: str | Omit = omit,
         custom_event: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
@@ -115,9 +116,11 @@ class PeopleResource(SyncAPIResource):
         first: int | Omit = omit,
         first_seen_after: Union[str, datetime] | Omit = omit,
         first_seen_before: Union[str, datetime] | Omit = omit,
+        first_seen_within_days: int | Omit = omit,
         has_purchased: bool | Omit = omit,
         last_seen_after: Union[str, datetime] | Omit = omit,
         last_seen_before: Union[str, datetime] | Omit = omit,
+        last_seen_within_days: int | Omit = omit,
         order: Literal[
             "first_seen_at",
             "last_seen_at",
@@ -156,9 +159,15 @@ class PeopleResource(SyncAPIResource):
 
           attribution_model: Attribution model the source filter matches against (defaults to last_touch).
 
-          audience_id: Only include people in this audience.
+          audience_id: Only include people in this audience. An audience that keeps itself up to date
+              resolves to the People filters that define it, so this always reflects who
+              matches now; uploaded lists and point-in-time snapshots match their recorded
+              members.
 
           before: A cursor for fetching people before a later page.
+
+          contactable: true for people who have an email address or phone number — the ones an ad
+              platform can match.
 
           country: Only include people whose most recent visit came from this ISO 3166-1 alpha-2
               country code.
@@ -185,11 +194,15 @@ class PeopleResource(SyncAPIResource):
 
           first_seen_before: Only include people first seen before this ISO 8601 timestamp.
 
+          first_seen_within_days: Only include people first seen within this many days, as a rolling window.
+
           has_purchased: true for customers only, false for people who have never purchased.
 
           last_seen_after: Only include people last seen at or after this ISO 8601 timestamp.
 
           last_seen_before: Only include people last seen before this ISO 8601 timestamp.
+
+          last_seen_within_days: Only include people last seen within this many days, as a rolling window.
 
           order: Column to sort by. Defaults to last_seen_at.
 
@@ -228,6 +241,7 @@ class PeopleResource(SyncAPIResource):
                         "attribution_model": attribution_model,
                         "audience_id": audience_id,
                         "before": before,
+                        "contactable": contactable,
                         "country": country,
                         "custom_event": custom_event,
                         "direction": direction,
@@ -238,9 +252,11 @@ class PeopleResource(SyncAPIResource):
                         "first": first,
                         "first_seen_after": first_seen_after,
                         "first_seen_before": first_seen_before,
+                        "first_seen_within_days": first_seen_within_days,
                         "has_purchased": has_purchased,
                         "last_seen_after": last_seen_after,
                         "last_seen_before": last_seen_before,
+                        "last_seen_within_days": last_seen_within_days,
                         "order": order,
                         "phone": phone,
                         "query": query,
@@ -334,6 +350,7 @@ class AsyncPeopleResource(AsyncAPIResource):
         attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         audience_id: str | Omit = omit,
         before: str | Omit = omit,
+        contactable: bool | Omit = omit,
         country: str | Omit = omit,
         custom_event: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
@@ -344,9 +361,11 @@ class AsyncPeopleResource(AsyncAPIResource):
         first: int | Omit = omit,
         first_seen_after: Union[str, datetime] | Omit = omit,
         first_seen_before: Union[str, datetime] | Omit = omit,
+        first_seen_within_days: int | Omit = omit,
         has_purchased: bool | Omit = omit,
         last_seen_after: Union[str, datetime] | Omit = omit,
         last_seen_before: Union[str, datetime] | Omit = omit,
+        last_seen_within_days: int | Omit = omit,
         order: Literal[
             "first_seen_at",
             "last_seen_at",
@@ -385,9 +404,15 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           attribution_model: Attribution model the source filter matches against (defaults to last_touch).
 
-          audience_id: Only include people in this audience.
+          audience_id: Only include people in this audience. An audience that keeps itself up to date
+              resolves to the People filters that define it, so this always reflects who
+              matches now; uploaded lists and point-in-time snapshots match their recorded
+              members.
 
           before: A cursor for fetching people before a later page.
+
+          contactable: true for people who have an email address or phone number — the ones an ad
+              platform can match.
 
           country: Only include people whose most recent visit came from this ISO 3166-1 alpha-2
               country code.
@@ -414,11 +439,15 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           first_seen_before: Only include people first seen before this ISO 8601 timestamp.
 
+          first_seen_within_days: Only include people first seen within this many days, as a rolling window.
+
           has_purchased: true for customers only, false for people who have never purchased.
 
           last_seen_after: Only include people last seen at or after this ISO 8601 timestamp.
 
           last_seen_before: Only include people last seen before this ISO 8601 timestamp.
+
+          last_seen_within_days: Only include people last seen within this many days, as a rolling window.
 
           order: Column to sort by. Defaults to last_seen_at.
 
@@ -457,6 +486,7 @@ class AsyncPeopleResource(AsyncAPIResource):
                         "attribution_model": attribution_model,
                         "audience_id": audience_id,
                         "before": before,
+                        "contactable": contactable,
                         "country": country,
                         "custom_event": custom_event,
                         "direction": direction,
@@ -467,9 +497,11 @@ class AsyncPeopleResource(AsyncAPIResource):
                         "first": first,
                         "first_seen_after": first_seen_after,
                         "first_seen_before": first_seen_before,
+                        "first_seen_within_days": first_seen_within_days,
                         "has_purchased": has_purchased,
                         "last_seen_after": last_seen_after,
                         "last_seen_before": last_seen_before,
+                        "last_seen_within_days": last_seen_within_days,
                         "order": order,
                         "phone": phone,
                         "query": query,

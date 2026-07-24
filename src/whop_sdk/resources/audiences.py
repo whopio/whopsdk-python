@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import audience_list_params, audience_create_params
+from ..types import audience_list_params, audience_create_params, audience_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -59,9 +59,11 @@ class AudiencesResource(SyncAPIResource):
         *,
         account_id: str,
         audience_type: Literal["custom", "lookalike"] | Omit = omit,
+        auto_refresh: bool | Omit = omit,
         column_mapping: audience_create_params.ColumnMapping | Omit = omit,
         count: int | Omit = omit,
         file_id: str | Omit = omit,
+        filters: object | Omit = omit,
         name: str | Omit = omit,
         percentage: int | Omit = omit,
         source_audience_id: str | Omit = omit,
@@ -78,16 +80,23 @@ class AudiencesResource(SyncAPIResource):
         Default (`audience_type` omitted or `custom`): creates one
         audience from an uploaded customer identity CSV file (`name`, `column_mapping`,
         and `file_id` required) and starts processing it; responds with the audience
-        object. With `audience_type: lookalike`: creates a ladder of Meta lookalike
-        audiences from an existing ready custom audience (`source_audience_id`, `count`,
-        and `percentage` required) — `count` equal similarity bands slicing the top
-        `percentage`% (3 audiences at 6% = 0–2%, 2–4%, 4–6%), each returned as its own
-        audience in a `{ data: [...] }` envelope.
+        object. With `filters`: creates an audience from saved People filters (`name`
+        required) — membership is built from the account's People data, and
+        `auto_refresh` decides whether it keeps tracking the filters or keeps whoever
+        matched at creation. With `audience_type: lookalike`: creates a ladder of Meta
+        lookalike audiences from an existing ready custom audience
+        (`source_audience_id`, `count`, and `percentage` required) — `count` equal
+        similarity bands slicing the top `percentage`% (3 audiences at 6% = 0–2%, 2–4%,
+        4–6%), each returned as its own audience in a `{ data: [...] }` envelope.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
 
           audience_type: What to create. Defaults to `custom` (CSV upload).
+
+          auto_refresh: Filter audiences only, and set only at creation. `true` (the default) rebuilds
+              membership from the filters twice a day. `false` keeps whoever matched at
+              creation and never rebuilds.
 
           column_mapping: Custom audiences only. Maps supported identity fields to CSV column headers. Map
               at least one of `email` or `phone`.
@@ -96,6 +105,14 @@ class AudiencesResource(SyncAPIResource):
 
           file_id: Custom audiences only. The uploaded customer CSV — a file id (`file_...`)
               returned by `POST /files`.
+
+          filters: Filter audiences only. The People filters that define membership, keyed exactly
+              as `GET /people` accepts them — for example `{"os": "iOS", "country": "US"}`.
+              Date filters must be rolling windows — `first_seen_within_days` or
+              `last_seen_within_days` — so the audience re-anchors on every refresh; fixed
+              dates such as `first_seen_after` are rejected. Source values are canonical
+              source paths (`whop:<campaign>:<group>:<ad>`, `ext:<platform>:...`,
+              `referrer:<domain>`, `direct`), exact or with a trailing `:*` wildcard.
 
           name: Audience display name. Required for custom audiences; lookalike names are
               generated from the source audience.
@@ -123,9 +140,11 @@ class AudiencesResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "audience_type": audience_type,
+                        "auto_refresh": auto_refresh,
                         "column_mapping": column_mapping,
                         "count": count,
                         "file_id": file_id,
+                        "filters": filters,
                         "name": name,
                         "percentage": percentage,
                         "source_audience_id": source_audience_id,
@@ -141,6 +160,58 @@ class AudiencesResource(SyncAPIResource):
             ),
         )
 
+    def update(
+        self,
+        audience_id: str,
+        *,
+        filters: object | Omit = omit,
+        name: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Audience:
+        """Renames an audience.
+
+        For an audience built from People filters that keeps itself
+        up to date, pass `filters` to replace them, which rebuilds membership
+        immediately. Whether an audience auto refreshes is set when it is created.
+
+        Args:
+          filters: Only for an audience that keeps itself up to date. Replaces the People filters
+              that define membership, keyed as `GET /people` accepts them. With auto refresh
+              off the audience keeps the people it matched when it was built, so its filters
+              can't be replaced — create a new audience instead.
+
+          name: New audience display name.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not audience_id:
+            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        return self._patch(
+            path_template("/audiences/{audience_id}", audience_id=audience_id),
+            body=maybe_transform(
+                {
+                    "filters": filters,
+                    "name": name,
+                },
+                audience_update_params.AudienceUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Audience,
+        )
+
     def list(
         self,
         *,
@@ -149,6 +220,7 @@ class AudiencesResource(SyncAPIResource):
         audience_id: str | Omit = omit,
         audience_type: Literal["custom", "lookalike"] | Omit = omit,
         first: int | Omit = omit,
+        source_type: Literal["csv_upload", "people_filter"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,6 +243,9 @@ class AudiencesResource(SyncAPIResource):
           audience_type: Filter by audience type: `custom` (uploaded lists) or `lookalike`.
 
           first: Number of audiences to return. Defaults to 20; maximum 100.
+
+          source_type: Filter by member source: `csv_upload` (uploaded lists) or `people_filter`
+              (automatic audiences built from saved People filters).
 
           extra_headers: Send extra headers
 
@@ -195,6 +270,7 @@ class AudiencesResource(SyncAPIResource):
                         "audience_id": audience_id,
                         "audience_type": audience_type,
                         "first": first,
+                        "source_type": source_type,
                     },
                     audience_list_params.AudienceListParams,
                 ),
@@ -268,9 +344,11 @@ class AsyncAudiencesResource(AsyncAPIResource):
         *,
         account_id: str,
         audience_type: Literal["custom", "lookalike"] | Omit = omit,
+        auto_refresh: bool | Omit = omit,
         column_mapping: audience_create_params.ColumnMapping | Omit = omit,
         count: int | Omit = omit,
         file_id: str | Omit = omit,
+        filters: object | Omit = omit,
         name: str | Omit = omit,
         percentage: int | Omit = omit,
         source_audience_id: str | Omit = omit,
@@ -287,16 +365,23 @@ class AsyncAudiencesResource(AsyncAPIResource):
         Default (`audience_type` omitted or `custom`): creates one
         audience from an uploaded customer identity CSV file (`name`, `column_mapping`,
         and `file_id` required) and starts processing it; responds with the audience
-        object. With `audience_type: lookalike`: creates a ladder of Meta lookalike
-        audiences from an existing ready custom audience (`source_audience_id`, `count`,
-        and `percentage` required) — `count` equal similarity bands slicing the top
-        `percentage`% (3 audiences at 6% = 0–2%, 2–4%, 4–6%), each returned as its own
-        audience in a `{ data: [...] }` envelope.
+        object. With `filters`: creates an audience from saved People filters (`name`
+        required) — membership is built from the account's People data, and
+        `auto_refresh` decides whether it keeps tracking the filters or keeps whoever
+        matched at creation. With `audience_type: lookalike`: creates a ladder of Meta
+        lookalike audiences from an existing ready custom audience
+        (`source_audience_id`, `count`, and `percentage` required) — `count` equal
+        similarity bands slicing the top `percentage`% (3 audiences at 6% = 0–2%, 2–4%,
+        4–6%), each returned as its own audience in a `{ data: [...] }` envelope.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
 
           audience_type: What to create. Defaults to `custom` (CSV upload).
+
+          auto_refresh: Filter audiences only, and set only at creation. `true` (the default) rebuilds
+              membership from the filters twice a day. `false` keeps whoever matched at
+              creation and never rebuilds.
 
           column_mapping: Custom audiences only. Maps supported identity fields to CSV column headers. Map
               at least one of `email` or `phone`.
@@ -305,6 +390,14 @@ class AsyncAudiencesResource(AsyncAPIResource):
 
           file_id: Custom audiences only. The uploaded customer CSV — a file id (`file_...`)
               returned by `POST /files`.
+
+          filters: Filter audiences only. The People filters that define membership, keyed exactly
+              as `GET /people` accepts them — for example `{"os": "iOS", "country": "US"}`.
+              Date filters must be rolling windows — `first_seen_within_days` or
+              `last_seen_within_days` — so the audience re-anchors on every refresh; fixed
+              dates such as `first_seen_after` are rejected. Source values are canonical
+              source paths (`whop:<campaign>:<group>:<ad>`, `ext:<platform>:...`,
+              `referrer:<domain>`, `direct`), exact or with a trailing `:*` wildcard.
 
           name: Audience display name. Required for custom audiences; lookalike names are
               generated from the source audience.
@@ -332,9 +425,11 @@ class AsyncAudiencesResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "audience_type": audience_type,
+                        "auto_refresh": auto_refresh,
                         "column_mapping": column_mapping,
                         "count": count,
                         "file_id": file_id,
+                        "filters": filters,
                         "name": name,
                         "percentage": percentage,
                         "source_audience_id": source_audience_id,
@@ -350,6 +445,58 @@ class AsyncAudiencesResource(AsyncAPIResource):
             ),
         )
 
+    async def update(
+        self,
+        audience_id: str,
+        *,
+        filters: object | Omit = omit,
+        name: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Audience:
+        """Renames an audience.
+
+        For an audience built from People filters that keeps itself
+        up to date, pass `filters` to replace them, which rebuilds membership
+        immediately. Whether an audience auto refreshes is set when it is created.
+
+        Args:
+          filters: Only for an audience that keeps itself up to date. Replaces the People filters
+              that define membership, keyed as `GET /people` accepts them. With auto refresh
+              off the audience keeps the people it matched when it was built, so its filters
+              can't be replaced — create a new audience instead.
+
+          name: New audience display name.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not audience_id:
+            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        return await self._patch(
+            path_template("/audiences/{audience_id}", audience_id=audience_id),
+            body=await async_maybe_transform(
+                {
+                    "filters": filters,
+                    "name": name,
+                },
+                audience_update_params.AudienceUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Audience,
+        )
+
     def list(
         self,
         *,
@@ -358,6 +505,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
         audience_id: str | Omit = omit,
         audience_type: Literal["custom", "lookalike"] | Omit = omit,
         first: int | Omit = omit,
+        source_type: Literal["csv_upload", "people_filter"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -380,6 +528,9 @@ class AsyncAudiencesResource(AsyncAPIResource):
           audience_type: Filter by audience type: `custom` (uploaded lists) or `lookalike`.
 
           first: Number of audiences to return. Defaults to 20; maximum 100.
+
+          source_type: Filter by member source: `csv_upload` (uploaded lists) or `people_filter`
+              (automatic audiences built from saved People filters).
 
           extra_headers: Send extra headers
 
@@ -404,6 +555,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
                         "audience_id": audience_id,
                         "audience_type": audience_type,
                         "first": first,
+                        "source_type": source_type,
                     },
                     audience_list_params.AudienceListParams,
                 ),
@@ -452,6 +604,9 @@ class AudiencesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             audiences.create,
         )
+        self.update = to_raw_response_wrapper(
+            audiences.update,
+        )
         self.list = to_raw_response_wrapper(
             audiences.list,
         )
@@ -466,6 +621,9 @@ class AsyncAudiencesResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             audiences.create,
+        )
+        self.update = async_to_raw_response_wrapper(
+            audiences.update,
         )
         self.list = async_to_raw_response_wrapper(
             audiences.list,
@@ -482,6 +640,9 @@ class AudiencesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             audiences.create,
         )
+        self.update = to_streamed_response_wrapper(
+            audiences.update,
+        )
         self.list = to_streamed_response_wrapper(
             audiences.list,
         )
@@ -496,6 +657,9 @@ class AsyncAudiencesResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             audiences.create,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            audiences.update,
         )
         self.list = async_to_streamed_response_wrapper(
             audiences.list,

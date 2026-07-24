@@ -22,3 +22,9 @@ class AudienceListParams(TypedDict, total=False):
 
     first: int
     """Number of audiences to return. Defaults to 20; maximum 100."""
+
+    source_type: Literal["csv_upload", "people_filter"]
+    """
+    Filter by member source: `csv_upload` (uploaded lists) or `people_filter`
+    (automatic audiences built from saved People filters).
+    """

@@ -33,8 +33,16 @@ class Audience(BaseModel):
 
     audience_type: Literal["custom", "lookalike"]
     """
-    `custom` = uploaded customer list; `lookalike` = Meta lookalike built from a
-    custom audience.
+    `custom` = a customer list (uploaded, or built from saved People filters);
+    `lookalike` = Meta lookalike built from a custom audience.
+    """
+
+    auto_refresh: bool
+    """Whether membership keeps updating.
+
+    `true` rebuilds it from the saved filters twice a day, so people join and leave
+    as they start and stop matching. `false` keeps whoever matched when it was built
+    and never rebuilds. Always `false` for uploaded lists and lookalikes.
     """
 
     created_at: str
@@ -42,6 +50,19 @@ class Audience(BaseModel):
 
     error_message: Optional[str] = None
     """Processing error message. `null` unless processing is partial or failed."""
+
+    filters: Optional[object] = None
+    """
+    For audiences built from People filters: the filters that define membership,
+    keyed exactly as `GET /people` accepts them — for example
+    `{"os": "iOS", "country": "US"}`. `null` for uploaded lists and lookalikes.
+    """
+
+    last_refreshed_at: Optional[str] = None
+    """When the audience membership was last rebuilt, as an ISO 8601 timestamp.
+
+    `null` until the first build completes.
+    """
 
     lookalike_ratio: Optional[float] = None
     """
@@ -58,7 +79,10 @@ class Audience(BaseModel):
     match_rates: List[MatchRate]
 
     matched_rows: float
-    """Rows successfully uploaded to connected ad accounts. Always 0 for lookalikes."""
+    """Members successfully uploaded to connected ad accounts.
+
+    Always 0 for lookalikes.
+    """
 
     name: str
     """Audience display name."""
@@ -66,7 +90,7 @@ class Audience(BaseModel):
     platform_audience_ids: List[str]
 
     processed_rows: float
-    """Rows processed from the uploaded CSV. Always 0 for lookalikes."""
+    """Members processed from the source so far. Always 0 for lookalikes."""
 
     progress_percent: float
     """Processing progress from 0 to 100."""
@@ -77,6 +101,14 @@ class Audience(BaseModel):
     `null` for custom audiences.
     """
 
+    source_type: Literal["csv_upload", "people_filter"]
+    """Where members come from.
+
+    `csv_upload` = an uploaded customer list; `people_filter` = built from saved
+    People filters. See `auto_refresh` for whether a `people_filter` audience keeps
+    updating.
+    """
+
     status: Literal["pending", "processing", "syncing", "ready", "partial", "failed"]
     """Current state of the audience import.
 
@@ -85,7 +117,10 @@ class Audience(BaseModel):
     """
 
     total_rows: float
-    """Total rows detected in the uploaded CSV. Always 0 for lookalikes."""
+    """
+    Total members detected in the source — CSV rows for uploaded lists, matching
+    people for automatic audiences. Always 0 for lookalikes.
+    """
 
     updated_at: str
     """When the audience was last updated, as an ISO 8601 timestamp."""

@@ -27,10 +27,21 @@ class PersonListParams(TypedDict, total=False):
     """Attribution model the source filter matches against (defaults to last_touch)."""
 
     audience_id: str
-    """Only include people in this audience."""
+    """Only include people in this audience.
+
+    An audience that keeps itself up to date resolves to the People filters that
+    define it, so this always reflects who matches now; uploaded lists and
+    point-in-time snapshots match their recorded members.
+    """
 
     before: str
     """A cursor for fetching people before a later page."""
+
+    contactable: bool
+    """
+    true for people who have an email address or phone number — the ones an ad
+    platform can match.
+    """
 
     country: str
     """
@@ -72,6 +83,9 @@ class PersonListParams(TypedDict, total=False):
     first_seen_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only include people first seen before this ISO 8601 timestamp."""
 
+    first_seen_within_days: int
+    """Only include people first seen within this many days, as a rolling window."""
+
     has_purchased: bool
     """true for customers only, false for people who have never purchased."""
 
@@ -80,6 +94,9 @@ class PersonListParams(TypedDict, total=False):
 
     last_seen_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only include people last seen before this ISO 8601 timestamp."""
+
+    last_seen_within_days: int
+    """Only include people last seen within this many days, as a rolling window."""
 
     order: Literal[
         "first_seen_at",

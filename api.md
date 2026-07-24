@@ -182,6 +182,7 @@ from whop_sdk.types import Audience, AudienceCreateResponse, AudienceDeleteRespo
 Methods:
 
 - <code title="post /audiences">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">create</a>(\*\*<a href="src/whop_sdk/types/audience_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience_create_response.py">AudienceCreateResponse</a></code>
+- <code title="patch /audiences/{audience_id}">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">update</a>(audience_id, \*\*<a href="src/whop_sdk/types/audience_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">Audience</a></code>
 - <code title="get /audiences">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">list</a>(\*\*<a href="src/whop_sdk/types/audience_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">SyncCursorPage[Audience]</a></code>
 - <code title="delete /audiences/{audience_id}">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">delete</a>(audience_id) -> <a href="./src/whop_sdk/types/audience_delete_response.py">AudienceDeleteResponse</a></code>
 
