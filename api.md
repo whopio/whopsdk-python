@@ -48,7 +48,6 @@ from whop_sdk.types import (
     ReceiptStatus,
     ReleaseMethod,
     Shipment,
-    ShipmentCarrier,
     ShipmentStatus,
     ShipmentSubstatus,
     SupportChannel,
