@@ -165,16 +165,15 @@ class MembershipsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[Membership]:
-        """Lists memberships.
-
-        `account_id` lists an account's memberships (seller side);
-        `user_id` lists the caller's own memberships across every account (buyer side).
-        With neither, an account API key lists its account's memberships and a user
-        credential lists their own.
+        """
+        Lists every membership the caller can read: an account API key its account's; a
+        user credential their own plus those of every account they manage. `account_id`
+        and `user_id` only narrow that list — values outside the caller's reach return
+        fewer results, not an error.
 
         Args:
-          account_id: The account to list memberships for (`biz_` tag). Requires read access to the
-              account.
+          account_id: Narrow to one account (`biz_` tag). With read access to the account this lists
+              all of its memberships; without, only the caller's own memberships in it.
 
           after: Cursor to paginate forwards from.
 
@@ -201,8 +200,8 @@ class MembershipsResource(SyncAPIResource):
           status: Filter by billing state. `canceling` matches active memberships set to cancel at
               period end; `paused` matches memberships with payment collection paused.
 
-          user_id: List the caller's own memberships. Must be `me` or the authenticated user's
-              `user_` tag.
+          user_id: Narrow to one user's memberships (`user_` tag, or `me` for the caller). A user
+              outside the caller's visible set returns an empty list.
 
           extra_headers: Send extra headers
 
@@ -539,16 +538,15 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Membership, AsyncCursorPage[Membership]]:
-        """Lists memberships.
-
-        `account_id` lists an account's memberships (seller side);
-        `user_id` lists the caller's own memberships across every account (buyer side).
-        With neither, an account API key lists its account's memberships and a user
-        credential lists their own.
+        """
+        Lists every membership the caller can read: an account API key its account's; a
+        user credential their own plus those of every account they manage. `account_id`
+        and `user_id` only narrow that list — values outside the caller's reach return
+        fewer results, not an error.
 
         Args:
-          account_id: The account to list memberships for (`biz_` tag). Requires read access to the
-              account.
+          account_id: Narrow to one account (`biz_` tag). With read access to the account this lists
+              all of its memberships; without, only the caller's own memberships in it.
 
           after: Cursor to paginate forwards from.
 
@@ -575,8 +573,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
           status: Filter by billing state. `canceling` matches active memberships set to cancel at
               period end; `paused` matches memberships with payment collection paused.
 
-          user_id: List the caller's own memberships. Must be `me` or the authenticated user's
-              `user_` tag.
+          user_id: Narrow to one user's memberships (`user_` tag, or `me` for the caller). A user
+              outside the caller's visible set returns an empty list.
 
           extra_headers: Send extra headers
 

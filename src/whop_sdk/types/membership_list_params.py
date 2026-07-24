@@ -9,9 +9,10 @@ __all__ = ["MembershipListParams"]
 
 class MembershipListParams(TypedDict, total=False):
     account_id: str
-    """The account to list memberships for (`biz_` tag).
+    """Narrow to one account (`biz_` tag).
 
-    Requires read access to the account.
+    With read access to the account this lists all of its memberships; without, only
+    the caller's own memberships in it.
     """
 
     after: str
@@ -58,7 +59,7 @@ class MembershipListParams(TypedDict, total=False):
     """
 
     user_id: str
-    """List the caller's own memberships.
+    """Narrow to one user's memberships (`user_` tag, or `me` for the caller).
 
-    Must be `me` or the authenticated user's `user_` tag.
+    A user outside the caller's visible set returns an empty list.
     """
