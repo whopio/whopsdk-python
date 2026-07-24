@@ -209,13 +209,19 @@ class CardsResource(SyncAPIResource):
         identifier) or user*id (a user* identifier). Assigned cardholders without the
         payout:account:update scope can update the PIN and freeze state of their own
         card. The PIN can only be changed on a card assigned to the acting user. Returns
-        the updated card resource.
+        the updated card resource. For a card in the invited status, the invited user
+        completes card onboarding by passing only a billing address: their verified
+        identity is registered with the card issuer and card provisioning starts (the
+        card is returned and can be polled until issued). The invited user must have an
+        approved identity verification on their Whop account. No other fields can be
+        updated until the card is issued.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
           billing: New billing address. Requires line1, city, region, postal_code, and
-              country_code.
+              country_code. On an invited card, passing billing alone (as the invited user)
+              completes onboarding and starts card provisioning.
 
           canceled: Pass `true` to permanently cancel the card. A canceled card cannot be
               uncanceled. Cannot be combined with other fields.
@@ -506,13 +512,19 @@ class AsyncCardsResource(AsyncAPIResource):
         identifier) or user*id (a user* identifier). Assigned cardholders without the
         payout:account:update scope can update the PIN and freeze state of their own
         card. The PIN can only be changed on a card assigned to the acting user. Returns
-        the updated card resource.
+        the updated card resource. For a card in the invited status, the invited user
+        completes card onboarding by passing only a billing address: their verified
+        identity is registered with the card issuer and card provisioning starts (the
+        card is returned and can be polled until issued). The invited user must have an
+        approved identity verification on their Whop account. No other fields can be
+        updated until the card is issued.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
           billing: New billing address. Requires line1, city, region, postal_code, and
-              country_code.
+              country_code. On an invited card, passing billing alone (as the invited user)
+              completes onboarding and starts card provisioning.
 
           canceled: Pass `true` to permanently cancel the card. A canceled card cannot be
               uncanceled. Cannot be combined with other fields.

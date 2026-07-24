@@ -14,7 +14,9 @@ class CardUpdateParams(TypedDict, total=False):
     billing: Billing
     """New billing address.
 
-    Requires line1, city, region, postal_code, and country_code.
+    Requires line1, city, region, postal_code, and country_code. On an invited card,
+    passing billing alone (as the invited user) completes onboarding and starts card
+    provisioning.
     """
 
     canceled: bool
@@ -51,7 +53,7 @@ class CardUpdateParams(TypedDict, total=False):
 class Billing(TypedDict, total=False):
     """New billing address.
 
-    Requires line1, city, region, postal_code, and country_code.
+    Requires line1, city, region, postal_code, and country_code. On an invited card, passing billing alone (as the invited user) completes onboarding and starts card provisioning.
     """
 
     city: Required[str]
