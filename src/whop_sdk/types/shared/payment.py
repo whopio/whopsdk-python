@@ -8,6 +8,7 @@ from .currency import Currency
 from ..._models import BaseModel
 from .promo_type import PromoType
 from ..card_brands import CardBrands
+from ..refund_status import RefundStatus
 from .receipt_status import ReceiptStatus
 from ..billing_reasons import BillingReasons
 from ..dispute_statuses import DisputeStatuses
@@ -35,7 +36,9 @@ __all__ = [
     "Plan",
     "Product",
     "PromoCode",
+    "Refund",
     "Resolution",
+    "ShippingAddress",
     "User",
 ]
 
@@ -260,7 +263,8 @@ class Plan(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
 
@@ -271,15 +275,16 @@ class Product(BaseModel):
     """The unique identifier for the product."""
 
     metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs stored on the product.
-
-    Included in webhook payloads for payment and membership events.
+    """
+    Custom key-value pairs stored on the product and included in payment and
+    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
+    per string value.
     """
 
     route: str
-    """
-    The URL slug used in the product's public link (e.g., 'my-product' in
-    whop.com/company/my-product).
+    """URL slug in the product's public link, e.g.
+
+    `pickaxe-analytics` in whop.com/company/pickaxe-analytics.
     """
 
     title: str
@@ -314,6 +319,33 @@ class PromoCode(BaseModel):
 
     promo_type: PromoType
     """The type (% or flat amount) of the promo."""
+
+
+class Refund(BaseModel):
+    """
+    A refund represents a full or partial reversal of a payment, including the amount, status, and payment provider.
+    """
+
+    id: str
+    """The unique identifier for the refund."""
+
+    amount: float
+    """
+    The refunded amount as a decimal in the specified currency, such as 10.43 for
+    $10.43 USD.
+    """
+
+    created_at: datetime
+    """The datetime the refund was created."""
+
+    currency: Currency
+    """The three-letter ISO currency code for the refunded amount."""
+
+    status: RefundStatus
+    """
+    The current processing status of the refund, such as pending, succeeded, or
+    failed.
+    """
 
 
 class Resolution(BaseModel):
@@ -356,6 +388,34 @@ class Resolution(BaseModel):
     The current status of the resolution case, indicating which party needs to
     respond or if the case is closed.
     """
+
+
+class ShippingAddress(BaseModel):
+    """The shipping address provided by the customer for physical goods.
+
+    Null if no shipping address was collected.
+    """
+
+    city: Optional[str] = None
+    """The city of the address."""
+
+    country: Optional[str] = None
+    """The country of the address."""
+
+    line1: Optional[str] = None
+    """The line 1 of the address."""
+
+    line2: Optional[str] = None
+    """The line 2 of the address."""
+
+    name: Optional[str] = None
+    """The name of the customer."""
+
+    postal_code: Optional[str] = None
+    """The postal code of the address."""
+
+    state: Optional[str] = None
+    """The state of the address."""
 
 
 class User(BaseModel):
@@ -424,6 +484,13 @@ class Payment(BaseModel):
 
     currency: Currency
     """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
+
+    customer_phone: Optional[str] = None
+    """
+    Phone number the customer provided at checkout, or their verified phone number
+    when your checkout requires phone verification. `null` when no phone number was
+    collected.
+    """
 
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
@@ -507,6 +574,12 @@ class Payment(BaseModel):
     refunded_at: Optional[datetime] = None
     """When the payment was refunded (if applicable)."""
 
+    refunds: List[Refund]
+    """
+    The refunds issued against this payment, newest first, including failed and
+    canceled refund attempts. Limited to the 100 most recent.
+    """
+
     resolutions: Optional[List[Resolution]] = None
     """The resolution center cases opened by the customer on this payment.
 
@@ -517,8 +590,24 @@ class Payment(BaseModel):
     retryable: bool
     """
     True when the payment status is `open` and its membership is in one of the
-    retry-eligible states (`active`, `trialing`, `completed`, or `past_due`);
-    otherwise false. Used to decide if Whop can attempt the charge again.
+    retry-eligible states (`active`, `trialing`, `completed`, or `past_due`), or
+    when it is a failed initial billing-engine payment on a `drafted` membership
+    with an unlimited-stock plan; otherwise false. Used to decide if Whop can
+    attempt the charge again.
+    """
+
+    risk_score: Optional[int] = None
+    """
+    Whop's in-house fraud risk score for this payment, from 0 (lowest risk) to 100
+    (highest risk). Null when the payment has not been scored or scoring has not yet
+    completed.
+    """
+
+    risk_signals: Optional[Dict[str, object]] = None
+    """
+    A curated set of factors behind the risk score, grouped by category (business
+    transaction history, buyer, device). Each entry has a key, human-readable label,
+    category, and value. Null when there is no risk assessment for this payment.
     """
 
     settlement_amount: float
@@ -532,6 +621,12 @@ class Payment(BaseModel):
 
     settlement_exchange_rate: Optional[float] = None
     """Deprecated. Always returns null."""
+
+    shipping_address: Optional[ShippingAddress] = None
+    """The shipping address provided by the customer for physical goods.
+
+    Null if no shipping address was collected.
+    """
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
@@ -553,6 +648,9 @@ class Payment(BaseModel):
 
     tax_refunded_amount: Optional[float] = None
     """The amount of tax that has been refunded (if applicable)."""
+
+    three_ds_verified: bool
+    """Whether 3D Secure authentication was completed for this payment."""
 
     total: Optional[float] = None
     """The total to show to the creator (excluding buyer fees)."""
