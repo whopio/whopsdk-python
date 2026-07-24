@@ -5,7 +5,6 @@ from datetime import datetime
 
 from ..._models import BaseModel
 from .shipment_status import ShipmentStatus
-from .shipment_carrier import ShipmentCarrier
 from .shipment_substatus import ShipmentSubstatus
 
 __all__ = ["Shipment", "Payment"]
@@ -28,9 +27,6 @@ class Shipment(BaseModel):
 
     id: str
     """The unique identifier for the shipment."""
-
-    carrier: ShipmentCarrier
-    """The shipping carrier responsible for delivering this shipment."""
 
     created_at: datetime
     """The datetime the shipment was created."""
