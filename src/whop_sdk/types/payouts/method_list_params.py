@@ -25,7 +25,10 @@ class MethodListParams(TypedDict, total=False):
     """Cursor to fetch the page before (from page_info.start_cursor)."""
 
     currency: str
-    """Currency code of the amount, for example `usd`. Only meaningful with amount."""
+    """Currency code of the amount, for example `usd`.
+
+    Only meaningful with amount or include_limits.
+    """
 
     destination_currency: str
     """Currency the destination would deliver payouts in.
@@ -49,6 +52,13 @@ class MethodListParams(TypedDict, total=False):
     When true, the response also carries available_destinations — payout rails the
     account could add as a new payout method, with per-currency quotes when an
     amount is provided.
+    """
+
+    include_limits: bool
+    """
+    When true, the response also carries limits — the live per-speed payout caps the
+    account's payout requests are validated against, in the requested currency.
+    Requires the payout:withdrawal:read scope.
     """
 
     last: int

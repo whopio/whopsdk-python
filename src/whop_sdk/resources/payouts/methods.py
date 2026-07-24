@@ -17,7 +17,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...pagination import SyncCursorPageWithLimits, AsyncCursorPageWithLimits
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.payouts import method_list_params, method_create_params
 from ...types.payouts.method_list_response import MethodListResponse
@@ -137,6 +137,7 @@ class MethodsResource(SyncAPIResource):
         destination_id: str | Omit = omit,
         first: int | Omit = omit,
         include_available: bool | Omit = omit,
+        include_limits: bool | Omit = omit,
         last: int | Omit = omit,
         status: Literal["created", "active", "broken"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -146,7 +147,7 @@ class MethodsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[MethodListResponse]:
+    ) -> SyncCursorPageWithLimits[MethodListResponse]:
         """
         Lists the saved payout methods (bank accounts, digital wallets, crypto
         addresses) that an account or user can withdraw to, most recently added first.
@@ -165,7 +166,8 @@ class MethodsResource(SyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          currency: Currency code of the amount, for example `usd`. Only meaningful with amount.
+          currency: Currency code of the amount, for example `usd`. Only meaningful with amount or
+              include_limits.
 
           destination_currency: Currency the destination would deliver payouts in. Only meaningful with
               destination_id; required fields vary by destination currency.
@@ -179,6 +181,10 @@ class MethodsResource(SyncAPIResource):
           include_available: When true, the response also carries available_destinations — payout rails the
               account could add as a new payout method, with per-currency quotes when an
               amount is provided.
+
+          include_limits: When true, the response also carries limits — the live per-speed payout caps the
+              account's payout requests are validated against, in the requested currency.
+              Requires the payout:withdrawal:read scope.
 
           last: Number of payout methods to return from the end of the window.
 
@@ -198,7 +204,7 @@ class MethodsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/payouts/methods",
-            page=SyncCursorPage[MethodListResponse],
+            page=SyncCursorPageWithLimits[MethodListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -215,6 +221,7 @@ class MethodsResource(SyncAPIResource):
                         "destination_id": destination_id,
                         "first": first,
                         "include_available": include_available,
+                        "include_limits": include_limits,
                         "last": last,
                         "status": status,
                         "user_id": user_id,
@@ -337,6 +344,7 @@ class AsyncMethodsResource(AsyncAPIResource):
         destination_id: str | Omit = omit,
         first: int | Omit = omit,
         include_available: bool | Omit = omit,
+        include_limits: bool | Omit = omit,
         last: int | Omit = omit,
         status: Literal["created", "active", "broken"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -346,7 +354,7 @@ class AsyncMethodsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[MethodListResponse, AsyncCursorPage[MethodListResponse]]:
+    ) -> AsyncPaginator[MethodListResponse, AsyncCursorPageWithLimits[MethodListResponse]]:
         """
         Lists the saved payout methods (bank accounts, digital wallets, crypto
         addresses) that an account or user can withdraw to, most recently added first.
@@ -365,7 +373,8 @@ class AsyncMethodsResource(AsyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          currency: Currency code of the amount, for example `usd`. Only meaningful with amount.
+          currency: Currency code of the amount, for example `usd`. Only meaningful with amount or
+              include_limits.
 
           destination_currency: Currency the destination would deliver payouts in. Only meaningful with
               destination_id; required fields vary by destination currency.
@@ -379,6 +388,10 @@ class AsyncMethodsResource(AsyncAPIResource):
           include_available: When true, the response also carries available_destinations — payout rails the
               account could add as a new payout method, with per-currency quotes when an
               amount is provided.
+
+          include_limits: When true, the response also carries limits — the live per-speed payout caps the
+              account's payout requests are validated against, in the requested currency.
+              Requires the payout:withdrawal:read scope.
 
           last: Number of payout methods to return from the end of the window.
 
@@ -398,7 +411,7 @@ class AsyncMethodsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/payouts/methods",
-            page=AsyncCursorPage[MethodListResponse],
+            page=AsyncCursorPageWithLimits[MethodListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -415,6 +428,7 @@ class AsyncMethodsResource(AsyncAPIResource):
                         "destination_id": destination_id,
                         "first": first,
                         "include_available": include_available,
+                        "include_limits": include_limits,
                         "last": last,
                         "status": status,
                         "user_id": user_id,

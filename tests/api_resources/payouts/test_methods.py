@@ -9,7 +9,7 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
+from whop_sdk.pagination import SyncCursorPageWithLimits, AsyncCursorPageWithLimits
 from whop_sdk.types.payouts import MethodListResponse, MethodCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -77,7 +77,7 @@ class TestMethods:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         method = client.payouts.methods.list()
-        assert_matches_type(SyncCursorPage[MethodListResponse], method, path=["response"])
+        assert_matches_type(SyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -92,11 +92,12 @@ class TestMethods:
             destination_id="destination_id",
             first=100,
             include_available=True,
+            include_limits=True,
             last=100,
             status="created",
             user_id="user_id",
         )
-        assert_matches_type(SyncCursorPage[MethodListResponse], method, path=["response"])
+        assert_matches_type(SyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -106,7 +107,7 @@ class TestMethods:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         method = response.parse()
-        assert_matches_type(SyncCursorPage[MethodListResponse], method, path=["response"])
+        assert_matches_type(SyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -116,7 +117,7 @@ class TestMethods:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             method = response.parse()
-            assert_matches_type(SyncCursorPage[MethodListResponse], method, path=["response"])
+            assert_matches_type(SyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -185,7 +186,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.list()
-        assert_matches_type(AsyncCursorPage[MethodListResponse], method, path=["response"])
+        assert_matches_type(AsyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -200,11 +201,12 @@ class TestAsyncMethods:
             destination_id="destination_id",
             first=100,
             include_available=True,
+            include_limits=True,
             last=100,
             status="created",
             user_id="user_id",
         )
-        assert_matches_type(AsyncCursorPage[MethodListResponse], method, path=["response"])
+        assert_matches_type(AsyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -214,7 +216,7 @@ class TestAsyncMethods:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         method = await response.parse()
-        assert_matches_type(AsyncCursorPage[MethodListResponse], method, path=["response"])
+        assert_matches_type(AsyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -224,6 +226,6 @@ class TestAsyncMethods:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             method = await response.parse()
-            assert_matches_type(AsyncCursorPage[MethodListResponse], method, path=["response"])
+            assert_matches_type(AsyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
         assert cast(Any, response.is_closed) is True
