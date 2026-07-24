@@ -27,7 +27,6 @@ class TestSwaps:
     def test_method_create(self, client: Whop) -> None:
         swap = client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -38,9 +37,9 @@ class TestSwaps:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         swap = client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
+            amount="amount",
             from_chain="string",
             slippage_bps=0,
             to_chain="string",
@@ -53,7 +52,6 @@ class TestSwaps:
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.swaps.with_raw_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -68,7 +66,6 @@ class TestSwaps:
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.swaps.with_streaming_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         ) as response:
@@ -224,7 +221,6 @@ class TestAsyncSwaps:
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -235,9 +231,9 @@ class TestAsyncSwaps:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
+            amount="amount",
             from_chain="string",
             slippage_bps=0,
             to_chain="string",
@@ -250,7 +246,6 @@ class TestAsyncSwaps:
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.swaps.with_raw_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -265,7 +260,6 @@ class TestAsyncSwaps:
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.swaps.with_streaming_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         ) as response:

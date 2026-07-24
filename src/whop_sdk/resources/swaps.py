@@ -56,9 +56,9 @@ class SwapsResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        amount: str,
         from_token: str,
         to_token: str,
+        amount: Optional[str] | Omit = omit,
         from_chain: Union[str, int, None] | Omit = omit,
         slippage_bps: Optional[int] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
@@ -72,17 +72,26 @@ class SwapsResource(SyncAPIResource):
     ) -> SwapCreateResponse:
         """Executes a swap from the account's wallet.
 
-        Runs asynchronously; poll GET
-        /swaps/{id} for status.
+        Crypto swaps run asynchronously; poll
+        GET /swaps/{id} for status. A pair of fiat currency codes instead converts
+        ledger balances to repay a negative to_token balance: by default the conversion
+        brings that balance exactly to zero, or pass amount to repay part of the debt.
+        Fiat conversions complete synchronously, except when funding from USD on a
+        stablecoin-rails account, which starts an asynchronous repayment (status
+        "processing"). The id on a pending repayment is a reference to the repayment
+        workflow; GET /swaps/{id} reports status for crypto swaps only, so watch the
+        account balance for settlement instead of polling.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
 
-          amount: Source token amount.
-
           from_token: Source token contract address or ticker symbol, such as "USDT".
 
           to_token: Destination token contract address or ticker symbol, such as "XAUT".
+
+          amount: Source token amount. Required for crypto swaps. Optional for fiat pairs: the
+              portion of the negative to_token balance to repay, which must not exceed the
+              debt; omit to repay the full debt.
 
           from_chain: Source chain name or chain ID. Defaults to the source token's chain when
               omitted.
@@ -106,9 +115,9 @@ class SwapsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "account_id": account_id,
-                    "amount": amount,
                     "from_token": from_token,
                     "to_token": to_token,
+                    "amount": amount,
                     "from_chain": from_chain,
                     "slippage_bps": slippage_bps,
                     "to_chain": to_chain,
@@ -300,9 +309,9 @@ class AsyncSwapsResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        amount: str,
         from_token: str,
         to_token: str,
+        amount: Optional[str] | Omit = omit,
         from_chain: Union[str, int, None] | Omit = omit,
         slippage_bps: Optional[int] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
@@ -316,17 +325,26 @@ class AsyncSwapsResource(AsyncAPIResource):
     ) -> SwapCreateResponse:
         """Executes a swap from the account's wallet.
 
-        Runs asynchronously; poll GET
-        /swaps/{id} for status.
+        Crypto swaps run asynchronously; poll
+        GET /swaps/{id} for status. A pair of fiat currency codes instead converts
+        ledger balances to repay a negative to_token balance: by default the conversion
+        brings that balance exactly to zero, or pass amount to repay part of the debt.
+        Fiat conversions complete synchronously, except when funding from USD on a
+        stablecoin-rails account, which starts an asynchronous repayment (status
+        "processing"). The id on a pending repayment is a reference to the repayment
+        workflow; GET /swaps/{id} reports status for crypto swaps only, so watch the
+        account balance for settlement instead of polling.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
 
-          amount: Source token amount.
-
           from_token: Source token contract address or ticker symbol, such as "USDT".
 
           to_token: Destination token contract address or ticker symbol, such as "XAUT".
+
+          amount: Source token amount. Required for crypto swaps. Optional for fiat pairs: the
+              portion of the negative to_token balance to repay, which must not exceed the
+              debt; omit to repay the full debt.
 
           from_chain: Source chain name or chain ID. Defaults to the source token's chain when
               omitted.
@@ -350,9 +368,9 @@ class AsyncSwapsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "account_id": account_id,
-                    "amount": amount,
                     "from_token": from_token,
                     "to_token": to_token,
+                    "amount": amount,
                     "from_chain": from_chain,
                     "slippage_bps": slippage_bps,
                     "to_chain": to_chain,

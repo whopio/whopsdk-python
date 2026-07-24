@@ -14,14 +14,19 @@ class SwapCreateParams(TypedDict, total=False):
     account_id: Required[str]
     """Business or user account ID (biz*\\** / user*\\**)."""
 
-    amount: Required[str]
-    """Source token amount."""
-
     from_token: Required[str]
     """Source token contract address or ticker symbol, such as "USDT"."""
 
     to_token: Required[str]
     """Destination token contract address or ticker symbol, such as "XAUT"."""
+
+    amount: Optional[str]
+    """Source token amount.
+
+    Required for crypto swaps. Optional for fiat pairs: the portion of the negative
+    to_token balance to repay, which must not exceed the debt; omit to repay the
+    full debt.
+    """
 
     from_chain: Union[str, int, None]
     """Source chain name or chain ID.
