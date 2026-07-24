@@ -2,15 +2,18 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["MembershipPauseParams"]
 
 
 class MembershipPauseParams(TypedDict, total=False):
-    void_payments: Optional[bool]
+    until: str
+    """ISO 8601 time to automatically resume payment collection.
+
+    Must be in the future; only supported for memberships billed by Whop.
     """
-    Whether to void any outstanding past-due payments on this membership, preventing
-    future collection attempts.
-    """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
