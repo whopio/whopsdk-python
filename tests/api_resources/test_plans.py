@@ -56,7 +56,6 @@ class TestPlans:
             },
             initial_price=0,
             internal_notes="internal_notes",
-            legacy_payment_method_controls=True,
             metadata={},
             override_tax_type="override_tax_type",
             payment_method_configuration={
@@ -178,7 +177,6 @@ class TestPlans:
             },
             initial_price=0,
             internal_notes="internal_notes",
-            legacy_payment_method_controls=True,
             metadata={},
             offer_cancel_discount=True,
             override_tax_type="override_tax_type",
@@ -434,7 +432,6 @@ class TestAsyncPlans:
             },
             initial_price=0,
             internal_notes="internal_notes",
-            legacy_payment_method_controls=True,
             metadata={},
             override_tax_type="override_tax_type",
             payment_method_configuration={
@@ -556,7 +553,6 @@ class TestAsyncPlans:
             },
             initial_price=0,
             internal_notes="internal_notes",
-            legacy_payment_method_controls=True,
             metadata={},
             offer_cancel_discount=True,
             override_tax_type="override_tax_type",

@@ -51,9 +51,6 @@ class PlanCreateParams(TypedDict, total=False):
     internal_notes: Optional[str]
     """Private notes visible only to the account owner. Not shown to customers."""
 
-    legacy_payment_method_controls: Optional[bool]
-    """Whether this plan uses legacy payment method controls."""
-
     metadata: Optional[object]
     """Custom key-value pairs to store on the plan.
 

@@ -69,7 +69,6 @@ class PlansResource(SyncAPIResource):
         image: Optional[plan_create_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
-        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
@@ -121,8 +120,6 @@ class PlansResource(SyncAPIResource):
           initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
-
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
@@ -181,7 +178,6 @@ class PlansResource(SyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
-                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "metadata": metadata,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
@@ -252,7 +248,6 @@ class PlansResource(SyncAPIResource):
         image: Optional[plan_update_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
-        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: str | Omit = omit,
@@ -298,8 +293,6 @@ class PlansResource(SyncAPIResource):
           initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
-
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
@@ -356,7 +349,6 @@ class PlansResource(SyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
-                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "metadata": metadata,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
@@ -602,7 +594,6 @@ class AsyncPlansResource(AsyncAPIResource):
         image: Optional[plan_create_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
-        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_create_params.PaymentMethodConfiguration] | Omit = omit,
@@ -654,8 +645,6 @@ class AsyncPlansResource(AsyncAPIResource):
           initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
-
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
@@ -714,7 +703,6 @@ class AsyncPlansResource(AsyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
-                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "metadata": metadata,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
@@ -785,7 +773,6 @@ class AsyncPlansResource(AsyncAPIResource):
         image: Optional[plan_update_params.Image] | Omit = omit,
         initial_price: Optional[float] | Omit = omit,
         internal_notes: Optional[str] | Omit = omit,
-        legacy_payment_method_controls: Optional[bool] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: str | Omit = omit,
@@ -831,8 +818,6 @@ class AsyncPlansResource(AsyncAPIResource):
           initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
-
-          legacy_payment_method_controls: Whether this plan uses legacy payment method controls.
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
@@ -889,7 +874,6 @@ class AsyncPlansResource(AsyncAPIResource):
                     "image": image,
                     "initial_price": initial_price,
                     "internal_notes": internal_notes,
-                    "legacy_payment_method_controls": legacy_payment_method_controls,
                     "metadata": metadata,
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
