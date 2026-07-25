@@ -251,7 +251,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-23"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-25"
         self.version = version
 
         if base_url is None:
@@ -609,6 +609,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def disputes(self) -> DisputesResource:
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import DisputesResource
 
         return DisputesResource(self)
@@ -1059,7 +1064,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-23"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-25"
         self.version = version
 
         if base_url is None:
@@ -1417,6 +1422,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def disputes(self) -> AsyncDisputesResource:
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import AsyncDisputesResource
 
         return AsyncDisputesResource(self)
@@ -2145,6 +2155,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def disputes(self) -> disputes.DisputesResourceWithRawResponse:
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import DisputesResourceWithRawResponse
 
         return DisputesResourceWithRawResponse(self._client.disputes)
@@ -2755,6 +2770,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def disputes(self) -> disputes.AsyncDisputesResourceWithRawResponse:
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import AsyncDisputesResourceWithRawResponse
 
         return AsyncDisputesResourceWithRawResponse(self._client.disputes)
@@ -3367,6 +3387,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def disputes(self) -> disputes.DisputesResourceWithStreamingResponse:
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import DisputesResourceWithStreamingResponse
 
         return DisputesResourceWithStreamingResponse(self._client.disputes)
@@ -3981,6 +4006,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def disputes(self) -> disputes.AsyncDisputesResourceWithStreamingResponse:
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import AsyncDisputesResourceWithStreamingResponse
 
         return AsyncDisputesResourceWithStreamingResponse(self._client.disputes)

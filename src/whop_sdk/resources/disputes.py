@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
+from typing import List
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import dispute_list_params, dispute_update_evidence_params
+from ..types import dispute_list_params, dispute_update_params, dispute_summary_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,13 +21,18 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.dispute import Dispute
-from ..types.shared.direction import Direction
-from ..types.dispute_list_response import DisputeListResponse
+from ..types.dispute_summary_response import DisputeSummaryResponse
 
 __all__ = ["DisputesResource", "AsyncDisputesResource"]
 
 
 class DisputesResource(SyncAPIResource):
+    """
+    A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+    Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+    """
+
     @cached_property
     def with_raw_response(self) -> DisputesResourceWithRawResponse:
         """
@@ -59,18 +64,7 @@ class DisputesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
         """
-        Retrieves the details of an existing dispute.
-
-        Required permissions:
-
-        - `payment:dispute:read`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        Retrieves a single dispute.
 
         Args:
           extra_headers: Send extra headers
@@ -91,53 +85,96 @@ class DisputesResource(SyncAPIResource):
             cast_to=Dispute,
         )
 
-    def list(
+    def update(
         self,
+        id: str,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        evidence: dispute_update_params.Evidence | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[DisputeListResponse]:
-        """
-        Returns a paginated list of disputes for a company, with optional filtering by
-        creation date. A dispute represents a chargeback or inquiry filed by a customer
-        against a payment.
+    ) -> Dispute:
+        """Edits the dispute's evidence packet.
 
-        Required permissions:
-
-        - `payment:dispute:read`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
+        Only works while `evidence_editable` is
+        true; submitting it is a separate call.
 
         Args:
-          company_id: The unique identifier of the company to list disputes for.
+          evidence: The evidence packet to send to the processor. Only the fields you provide are
+              changed.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          extra_headers: Send extra headers
 
-          before: Returns the elements in the list that come before the specified cursor.
+          extra_query: Add additional query parameters to the request
 
-          created_after: Only return disputes created after this timestamp.
+          extra_body: Add additional JSON properties to the request
 
-          created_before: Only return disputes created before this timestamp.
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            path_template("/disputes/{id}", id=id),
+            body=maybe_transform({"evidence": evidence}, dispute_update_params.DisputeUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Dispute,
+        )
 
-          direction: The direction of the sort.
+    def list(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        currency: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "amount", "evidence_due_at"] | Omit = omit,
+        status: List[Literal["needs_response", "under_review", "won", "lost", "closed"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[Dispute]:
+        """Lists disputes.
 
-          first: Returns the first _n_ elements from the list.
+        Without `account_id` you get the disputes of every account you
+        can read; the filters narrow that list.
 
-          last: Returns the last _n_ elements from the list.
+        Args:
+          account_id: Only disputes filed against this account (`biz_` tag).
+
+          after: A cursor; returns disputes after this position.
+
+          before: A cursor; returns disputes before this position.
+
+          created_after: Only disputes opened after this ISO 8601 timestamp.
+
+          created_before: Only disputes opened before this ISO 8601 timestamp.
+
+          currency: Only disputes in this three-letter ISO currency.
+
+          direction: Sort direction.
+
+          first: The number of disputes to return (default 20, max 100).
+
+          last: The number of disputes to return from the end of the range.
+
+          order: The field to sort disputes by.
+
+          status: Only disputes in these statuses. Repeat the parameter to pass several — one
+              paginated list covers all of them. Covers both chargebacks and inquiries at each
+              stage.
 
           extra_headers: Send extra headers
 
@@ -149,7 +186,7 @@ class DisputesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/disputes",
-            page=SyncCursorPage[DisputeListResponse],
+            page=SyncCursorPage[Dispute],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -157,25 +194,29 @@ class DisputesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "currency": currency,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "status": status,
                     },
                     dispute_list_params.DisputeListParams,
                 ),
             ),
-            model=DisputeListResponse,
+            model=Dispute,
         )
 
-    def submit_evidence(
+    def submit(
         self,
         id: str,
         *,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -183,21 +224,10 @@ class DisputesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
-        """Submit a payment dispute to the payment processor for review.
-
-        Once submitted, no
-        further edits can be made.
-
-        Required permissions:
-
-        - `payment:dispute`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        """
+        Sends the dispute's evidence packet to the payment processor and moves the
+        dispute to `under_review`. This is final — the packet cannot be edited or resent
+        afterwards.
 
         Args:
           extra_headers: Send extra headers
@@ -210,84 +240,49 @@ class DisputesResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
-            path_template("/disputes/{id}/submit_evidence", id=id),
+            path_template("/disputes/{id}/submit", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Dispute,
         )
 
-    def update_evidence(
+    def summary(
         self,
-        id: str,
         *,
-        access_activity_log: Optional[str] | Omit = omit,
-        billing_address: Optional[str] | Omit = omit,
-        cancellation_policy_attachment: Optional[dispute_update_evidence_params.CancellationPolicyAttachment]
-        | Omit = omit,
-        cancellation_policy_disclosure: Optional[str] | Omit = omit,
-        customer_communication_attachment: Optional[dispute_update_evidence_params.CustomerCommunicationAttachment]
-        | Omit = omit,
-        customer_email_address: Optional[str] | Omit = omit,
-        customer_name: Optional[str] | Omit = omit,
-        notes: Optional[str] | Omit = omit,
-        product_description: Optional[str] | Omit = omit,
-        refund_policy_attachment: Optional[dispute_update_evidence_params.RefundPolicyAttachment] | Omit = omit,
-        refund_policy_disclosure: Optional[str] | Omit = omit,
-        refund_refusal_explanation: Optional[str] | Omit = omit,
-        service_date: Optional[str] | Omit = omit,
-        uncategorized_attachment: Optional[dispute_update_evidence_params.UncategorizedAttachment] | Omit = omit,
+        account_id: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        currency: str | Omit = omit,
+        groups: List[Literal["status", "currency"]] | Omit = omit,
+        status: List[Literal["needs_response", "under_review", "won", "lost", "closed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Dispute:
-        """
-        Update a dispute with evidence data to attempt to win the dispute.
+    ) -> DisputeSummaryResponse:
+        """Aggregates the same disputes `GET /disputes` lists, using the same filters.
 
-        Required permissions:
-
-        - `payment:dispute`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        Use
+        it to build status tabs and currency filters without paging the whole list.
 
         Args:
-          access_activity_log: An IP access activity log showing the customer used the service.
+          account_id: Only disputes filed against this account (`biz_` tag).
 
-          billing_address: The billing address associated with the customer's payment method.
+          created_after: Only disputes opened after this ISO 8601 timestamp.
 
-          cancellation_policy_attachment: A file upload containing the company's cancellation policy document.
+          created_before: Only disputes opened before this ISO 8601 timestamp.
 
-          cancellation_policy_disclosure: The company's cancellation policy text to submit as evidence.
+          currency: Only disputes in this three-letter ISO currency.
 
-          customer_communication_attachment: A file upload containing evidence of customer communication. Must be a JPEG,
-              PNG, GIF, or PDF.
+          groups: Which breakdowns to return, keyed by these names under `groups`. Repeat the
+              parameter to ask for several; omit it for all of them.
 
-          customer_email_address: The email address of the customer associated with the disputed payment.
-
-          customer_name: The full name of the customer associated with the disputed payment.
-
-          notes: Additional notes or context to submit as part of the dispute evidence.
-
-          product_description: A description of the product or service that was provided to the customer.
-
-          refund_policy_attachment: A file upload containing the company's refund policy document.
-
-          refund_policy_disclosure: The company's refund policy text to submit as evidence.
-
-          refund_refusal_explanation: An explanation of why the refund request was refused.
-
-          service_date: The date when the product or service was delivered to the customer.
-
-          uncategorized_attachment: A file upload for evidence that does not fit into the other categories.
+          status: Only disputes in these statuses. Repeat the parameter to pass several.
 
           extra_headers: Send extra headers
 
@@ -297,37 +292,36 @@ class DisputesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            path_template("/disputes/{id}/update_evidence", id=id),
-            body=maybe_transform(
-                {
-                    "access_activity_log": access_activity_log,
-                    "billing_address": billing_address,
-                    "cancellation_policy_attachment": cancellation_policy_attachment,
-                    "cancellation_policy_disclosure": cancellation_policy_disclosure,
-                    "customer_communication_attachment": customer_communication_attachment,
-                    "customer_email_address": customer_email_address,
-                    "customer_name": customer_name,
-                    "notes": notes,
-                    "product_description": product_description,
-                    "refund_policy_attachment": refund_policy_attachment,
-                    "refund_policy_disclosure": refund_policy_disclosure,
-                    "refund_refusal_explanation": refund_refusal_explanation,
-                    "service_date": service_date,
-                    "uncategorized_attachment": uncategorized_attachment,
-                },
-                dispute_update_evidence_params.DisputeUpdateEvidenceParams,
-            ),
+        return self._get(
+            "/disputes/summary",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "currency": currency,
+                        "groups": groups,
+                        "status": status,
+                    },
+                    dispute_summary_params.DisputeSummaryParams,
+                ),
             ),
-            cast_to=Dispute,
+            cast_to=DisputeSummaryResponse,
         )
 
 
 class AsyncDisputesResource(AsyncAPIResource):
+    """
+    A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+    Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncDisputesResourceWithRawResponse:
         """
@@ -359,18 +353,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
         """
-        Retrieves the details of an existing dispute.
-
-        Required permissions:
-
-        - `payment:dispute:read`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        Retrieves a single dispute.
 
         Args:
           extra_headers: Send extra headers
@@ -391,53 +374,96 @@ class AsyncDisputesResource(AsyncAPIResource):
             cast_to=Dispute,
         )
 
-    def list(
+    async def update(
         self,
+        id: str,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        evidence: dispute_update_params.Evidence | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[DisputeListResponse, AsyncCursorPage[DisputeListResponse]]:
-        """
-        Returns a paginated list of disputes for a company, with optional filtering by
-        creation date. A dispute represents a chargeback or inquiry filed by a customer
-        against a payment.
+    ) -> Dispute:
+        """Edits the dispute's evidence packet.
 
-        Required permissions:
-
-        - `payment:dispute:read`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
+        Only works while `evidence_editable` is
+        true; submitting it is a separate call.
 
         Args:
-          company_id: The unique identifier of the company to list disputes for.
+          evidence: The evidence packet to send to the processor. Only the fields you provide are
+              changed.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          extra_headers: Send extra headers
 
-          before: Returns the elements in the list that come before the specified cursor.
+          extra_query: Add additional query parameters to the request
 
-          created_after: Only return disputes created after this timestamp.
+          extra_body: Add additional JSON properties to the request
 
-          created_before: Only return disputes created before this timestamp.
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            path_template("/disputes/{id}", id=id),
+            body=await async_maybe_transform({"evidence": evidence}, dispute_update_params.DisputeUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Dispute,
+        )
 
-          direction: The direction of the sort.
+    def list(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        currency: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "amount", "evidence_due_at"] | Omit = omit,
+        status: List[Literal["needs_response", "under_review", "won", "lost", "closed"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[Dispute, AsyncCursorPage[Dispute]]:
+        """Lists disputes.
 
-          first: Returns the first _n_ elements from the list.
+        Without `account_id` you get the disputes of every account you
+        can read; the filters narrow that list.
 
-          last: Returns the last _n_ elements from the list.
+        Args:
+          account_id: Only disputes filed against this account (`biz_` tag).
+
+          after: A cursor; returns disputes after this position.
+
+          before: A cursor; returns disputes before this position.
+
+          created_after: Only disputes opened after this ISO 8601 timestamp.
+
+          created_before: Only disputes opened before this ISO 8601 timestamp.
+
+          currency: Only disputes in this three-letter ISO currency.
+
+          direction: Sort direction.
+
+          first: The number of disputes to return (default 20, max 100).
+
+          last: The number of disputes to return from the end of the range.
+
+          order: The field to sort disputes by.
+
+          status: Only disputes in these statuses. Repeat the parameter to pass several — one
+              paginated list covers all of them. Covers both chargebacks and inquiries at each
+              stage.
 
           extra_headers: Send extra headers
 
@@ -449,7 +475,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/disputes",
-            page=AsyncCursorPage[DisputeListResponse],
+            page=AsyncCursorPage[Dispute],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -457,25 +483,29 @@ class AsyncDisputesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "currency": currency,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "status": status,
                     },
                     dispute_list_params.DisputeListParams,
                 ),
             ),
-            model=DisputeListResponse,
+            model=Dispute,
         )
 
-    async def submit_evidence(
+    async def submit(
         self,
         id: str,
         *,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -483,21 +513,10 @@ class AsyncDisputesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
-        """Submit a payment dispute to the payment processor for review.
-
-        Once submitted, no
-        further edits can be made.
-
-        Required permissions:
-
-        - `payment:dispute`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        """
+        Sends the dispute's evidence packet to the payment processor and moves the
+        dispute to `under_review`. This is final — the packet cannot be edited or resent
+        afterwards.
 
         Args:
           extra_headers: Send extra headers
@@ -510,84 +529,49 @@ class AsyncDisputesResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
-            path_template("/disputes/{id}/submit_evidence", id=id),
+            path_template("/disputes/{id}/submit", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Dispute,
         )
 
-    async def update_evidence(
+    async def summary(
         self,
-        id: str,
         *,
-        access_activity_log: Optional[str] | Omit = omit,
-        billing_address: Optional[str] | Omit = omit,
-        cancellation_policy_attachment: Optional[dispute_update_evidence_params.CancellationPolicyAttachment]
-        | Omit = omit,
-        cancellation_policy_disclosure: Optional[str] | Omit = omit,
-        customer_communication_attachment: Optional[dispute_update_evidence_params.CustomerCommunicationAttachment]
-        | Omit = omit,
-        customer_email_address: Optional[str] | Omit = omit,
-        customer_name: Optional[str] | Omit = omit,
-        notes: Optional[str] | Omit = omit,
-        product_description: Optional[str] | Omit = omit,
-        refund_policy_attachment: Optional[dispute_update_evidence_params.RefundPolicyAttachment] | Omit = omit,
-        refund_policy_disclosure: Optional[str] | Omit = omit,
-        refund_refusal_explanation: Optional[str] | Omit = omit,
-        service_date: Optional[str] | Omit = omit,
-        uncategorized_attachment: Optional[dispute_update_evidence_params.UncategorizedAttachment] | Omit = omit,
+        account_id: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        currency: str | Omit = omit,
+        groups: List[Literal["status", "currency"]] | Omit = omit,
+        status: List[Literal["needs_response", "under_review", "won", "lost", "closed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Dispute:
-        """
-        Update a dispute with evidence data to attempt to win the dispute.
+    ) -> DisputeSummaryResponse:
+        """Aggregates the same disputes `GET /disputes` lists, using the same filters.
 
-        Required permissions:
-
-        - `payment:dispute`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `company:basic:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        Use
+        it to build status tabs and currency filters without paging the whole list.
 
         Args:
-          access_activity_log: An IP access activity log showing the customer used the service.
+          account_id: Only disputes filed against this account (`biz_` tag).
 
-          billing_address: The billing address associated with the customer's payment method.
+          created_after: Only disputes opened after this ISO 8601 timestamp.
 
-          cancellation_policy_attachment: A file upload containing the company's cancellation policy document.
+          created_before: Only disputes opened before this ISO 8601 timestamp.
 
-          cancellation_policy_disclosure: The company's cancellation policy text to submit as evidence.
+          currency: Only disputes in this three-letter ISO currency.
 
-          customer_communication_attachment: A file upload containing evidence of customer communication. Must be a JPEG,
-              PNG, GIF, or PDF.
+          groups: Which breakdowns to return, keyed by these names under `groups`. Repeat the
+              parameter to ask for several; omit it for all of them.
 
-          customer_email_address: The email address of the customer associated with the disputed payment.
-
-          customer_name: The full name of the customer associated with the disputed payment.
-
-          notes: Additional notes or context to submit as part of the dispute evidence.
-
-          product_description: A description of the product or service that was provided to the customer.
-
-          refund_policy_attachment: A file upload containing the company's refund policy document.
-
-          refund_policy_disclosure: The company's refund policy text to submit as evidence.
-
-          refund_refusal_explanation: An explanation of why the refund request was refused.
-
-          service_date: The date when the product or service was delivered to the customer.
-
-          uncategorized_attachment: A file upload for evidence that does not fit into the other categories.
+          status: Only disputes in these statuses. Repeat the parameter to pass several.
 
           extra_headers: Send extra headers
 
@@ -597,33 +581,26 @@ class AsyncDisputesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
-            path_template("/disputes/{id}/update_evidence", id=id),
-            body=await async_maybe_transform(
-                {
-                    "access_activity_log": access_activity_log,
-                    "billing_address": billing_address,
-                    "cancellation_policy_attachment": cancellation_policy_attachment,
-                    "cancellation_policy_disclosure": cancellation_policy_disclosure,
-                    "customer_communication_attachment": customer_communication_attachment,
-                    "customer_email_address": customer_email_address,
-                    "customer_name": customer_name,
-                    "notes": notes,
-                    "product_description": product_description,
-                    "refund_policy_attachment": refund_policy_attachment,
-                    "refund_policy_disclosure": refund_policy_disclosure,
-                    "refund_refusal_explanation": refund_refusal_explanation,
-                    "service_date": service_date,
-                    "uncategorized_attachment": uncategorized_attachment,
-                },
-                dispute_update_evidence_params.DisputeUpdateEvidenceParams,
-            ),
+        return await self._get(
+            "/disputes/summary",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "currency": currency,
+                        "groups": groups,
+                        "status": status,
+                    },
+                    dispute_summary_params.DisputeSummaryParams,
+                ),
             ),
-            cast_to=Dispute,
+            cast_to=DisputeSummaryResponse,
         )
 
 
@@ -634,14 +611,17 @@ class DisputesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             disputes.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            disputes.update,
+        )
         self.list = to_raw_response_wrapper(
             disputes.list,
         )
-        self.submit_evidence = to_raw_response_wrapper(
-            disputes.submit_evidence,
+        self.submit = to_raw_response_wrapper(
+            disputes.submit,
         )
-        self.update_evidence = to_raw_response_wrapper(
-            disputes.update_evidence,
+        self.summary = to_raw_response_wrapper(
+            disputes.summary,
         )
 
 
@@ -652,14 +632,17 @@ class AsyncDisputesResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             disputes.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            disputes.update,
+        )
         self.list = async_to_raw_response_wrapper(
             disputes.list,
         )
-        self.submit_evidence = async_to_raw_response_wrapper(
-            disputes.submit_evidence,
+        self.submit = async_to_raw_response_wrapper(
+            disputes.submit,
         )
-        self.update_evidence = async_to_raw_response_wrapper(
-            disputes.update_evidence,
+        self.summary = async_to_raw_response_wrapper(
+            disputes.summary,
         )
 
 
@@ -670,14 +653,17 @@ class DisputesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             disputes.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            disputes.update,
+        )
         self.list = to_streamed_response_wrapper(
             disputes.list,
         )
-        self.submit_evidence = to_streamed_response_wrapper(
-            disputes.submit_evidence,
+        self.submit = to_streamed_response_wrapper(
+            disputes.submit,
         )
-        self.update_evidence = to_streamed_response_wrapper(
-            disputes.update_evidence,
+        self.summary = to_streamed_response_wrapper(
+            disputes.summary,
         )
 
 
@@ -688,12 +674,15 @@ class AsyncDisputesResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             disputes.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            disputes.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             disputes.list,
         )
-        self.submit_evidence = async_to_streamed_response_wrapper(
-            disputes.submit_evidence,
+        self.submit = async_to_streamed_response_wrapper(
+            disputes.submit,
         )
-        self.update_evidence = async_to_streamed_response_wrapper(
-            disputes.update_evidence,
+        self.summary = async_to_streamed_response_wrapper(
+            disputes.summary,
         )

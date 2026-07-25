@@ -778,15 +778,16 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Dispute, DisputeStatuses, DisputeListResponse
+from whop_sdk.types import Dispute, DisputeStatuses, DisputeSummaryResponse
 ```
 
 Methods:
 
 - <code title="get /disputes/{id}">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
-- <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_list_response.py">SyncCursorPage[DisputeListResponse]</a></code>
-- <code title="post /disputes/{id}/submit_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">submit_evidence</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
-- <code title="post /disputes/{id}/update_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">update_evidence</a>(id, \*\*<a href="src/whop_sdk/types/dispute_update_evidence_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
+- <code title="patch /disputes/{id}">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">update</a>(id, \*\*<a href="src/whop_sdk/types/dispute_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
+- <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">SyncCursorPage[Dispute]</a></code>
+- <code title="post /disputes/{id}/submit">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">submit</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
+- <code title="get /disputes/summary">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">summary</a>(\*\*<a href="src/whop_sdk/types/dispute_summary_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_summary_response.py">DisputeSummaryResponse</a></code>
 
 # Refunds
 

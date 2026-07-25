@@ -228,7 +228,7 @@ from .company_create_params import CompanyCreateParams as CompanyCreateParams
 from .company_list_response import CompanyListResponse as CompanyListResponse
 from .company_update_params import CompanyUpdateParams as CompanyUpdateParams
 from .deposit_create_params import DepositCreateParams as DepositCreateParams
-from .dispute_list_response import DisputeListResponse as DisputeListResponse
+from .dispute_update_params import DisputeUpdateParams as DisputeUpdateParams
 from .dm_member_list_params import DmMemberListParams as DmMemberListParams
 from .event_create_response import EventCreateResponse as EventCreateResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
@@ -256,6 +256,7 @@ from .audience_create_params import AudienceCreateParams as AudienceCreateParams
 from .audience_update_params import AudienceUpdateParams as AudienceUpdateParams
 from .card_retrieve_response import CardRetrieveResponse as CardRetrieveResponse
 from .course_delete_response import CourseDeleteResponse as CourseDeleteResponse
+from .dispute_summary_params import DisputeSummaryParams as DisputeSummaryParams
 from .dm_channel_list_params import DmChannelListParams as DmChannelListParams
 from .entry_approve_response import EntryApproveResponse as EntryApproveResponse
 from .experience_list_params import ExperienceListParams as ExperienceListParams
@@ -301,6 +302,7 @@ from .ad_group_retrieve_params import AdGroupRetrieveParams as AdGroupRetrievePa
 from .audience_create_response import AudienceCreateResponse as AudienceCreateResponse
 from .audience_delete_response import AudienceDeleteResponse as AudienceDeleteResponse
 from .chat_channel_list_params import ChatChannelListParams as ChatChannelListParams
+from .dispute_summary_response import DisputeSummaryResponse as DisputeSummaryResponse
 from .dm_channel_create_params import DmChannelCreateParams as DmChannelCreateParams
 from .dm_channel_list_response import DmChannelListResponse as DmChannelListResponse
 from .dm_channel_update_params import DmChannelUpdateParams as DmChannelUpdateParams
@@ -432,7 +434,6 @@ from .ad_campaign_duplicate_response import AdCampaignDuplicateResponse as AdCam
 from .ad_group_estimate_reach_params import AdGroupEstimateReachParams as AdGroupEstimateReachParams
 from .company_token_transaction_type import CompanyTokenTransactionType as CompanyTokenTransactionType
 from .course_chapter_delete_response import CourseChapterDeleteResponse as CourseChapterDeleteResponse
-from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
 from .financial_activity_list_params import FinancialActivityListParams as FinancialActivityListParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_method_retrieve_params import PaymentMethodRetrieveParams as PaymentMethodRetrieveParams
