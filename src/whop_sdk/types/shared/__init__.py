@@ -37,7 +37,6 @@ from .member_statuses import MemberStatuses as MemberStatuses
 from .shipment_status import ShipmentStatus as ShipmentStatus
 from .support_channel import SupportChannel as SupportChannel
 from .access_pass_type import AccessPassType as AccessPassType
-from .shipment_carrier import ShipmentCarrier as ShipmentCarrier
 from .collection_method import CollectionMethod as CollectionMethod
 from .invoice_list_item import InvoiceListItem as InvoiceListItem
 from .membership_status import MembershipStatus as MembershipStatus

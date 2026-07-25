@@ -45,7 +45,6 @@ from .shared import (
     SupportChannel as SupportChannel,
     InvoiceListItem as InvoiceListItem,
     ProductListItem as ProductListItem,
-    ShipmentCarrier as ShipmentCarrier,
     WhoCanPostTypes as WhoCanPostTypes,
     AppBuildStatuses as AppBuildStatuses,
     CollectionMethod as CollectionMethod,
