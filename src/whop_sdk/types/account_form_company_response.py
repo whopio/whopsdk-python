@@ -2,10 +2,10 @@
 
 from .._models import BaseModel
 
-__all__ = ["AccountRegisterLlcResponse"]
+__all__ = ["AccountFormCompanyResponse"]
 
 
-class AccountRegisterLlcResponse(BaseModel):
+class AccountFormCompanyResponse(BaseModel):
     checkout_session_id: str
     """Checkout session ID, prefixed `ch_`."""
 

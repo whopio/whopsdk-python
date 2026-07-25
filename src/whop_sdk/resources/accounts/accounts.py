@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import account_list_params, account_create_params, account_update_params, account_register_llc_params
+from ...types import account_list_params, account_create_params, account_update_params, account_form_company_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
@@ -29,7 +29,7 @@ from .preferences import (
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.account import Account
-from ...types.account_register_llc_response import AccountRegisterLlcResponse
+from ...types.account_form_company_response import AccountFormCompanyResponse
 from ...types.account_recommend_actions_response import AccountRecommendActionsResponse
 
 __all__ = ["AccountsResource", "AsyncAccountsResource"]
@@ -488,6 +488,190 @@ class AccountsResource(SyncAPIResource):
             model=Account,
         )
 
+    def form_company(
+        self,
+        account_id: str,
+        *,
+        business_name: str,
+        business_type: str,
+        formation_state: Literal[
+            "AL",
+            "AK",
+            "AZ",
+            "AR",
+            "CA",
+            "CO",
+            "CT",
+            "DE",
+            "DC",
+            "FL",
+            "GA",
+            "HI",
+            "ID",
+            "IL",
+            "IN",
+            "IA",
+            "KS",
+            "KY",
+            "LA",
+            "ME",
+            "MD",
+            "MA",
+            "MI",
+            "MN",
+            "MS",
+            "MO",
+            "MT",
+            "NE",
+            "NV",
+            "NH",
+            "NJ",
+            "NM",
+            "NY",
+            "NC",
+            "ND",
+            "OH",
+            "OK",
+            "OR",
+            "PA",
+            "RI",
+            "SC",
+            "SD",
+            "TN",
+            "TX",
+            "UT",
+            "VT",
+            "VA",
+            "WA",
+            "WV",
+            "WI",
+            "WY",
+        ],
+        founders: Iterable[account_form_company_params.Founder],
+        industry_group: str,
+        industry_type: str,
+        business_address: account_form_company_params.BusinessAddress | Omit = omit,
+        business_phone: str | Omit = omit,
+        business_website: str | Omit = omit,
+        entity_suffix: Literal[
+            "LLC",
+            "L.L.C",
+            "L.L.C.",
+            "Limited Liability Company",
+            "Inc",
+            "Inc.",
+            "Incorporated",
+            "Corp.",
+            "Corporation",
+            "C Corp",
+            "C Corporation",
+            "CCorp",
+            "Company",
+        ]
+        | Omit = omit,
+        entity_type: Literal["llc", "c_corp"] | Omit = omit,
+        expedite_ein: bool | Omit = omit,
+        share_structure: account_form_company_params.ShareStructure | Omit = omit,
+        use_registered_agent: bool | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccountFormCompanyResponse:
+        """Starts an LLC or C-Corp formation for a business account.
+
+        Defaults to an LLC;
+        set `entity_type` to `c_corp` to form a C-Corp, which additionally requires
+        `share_structure` and officer `roles` on every founder. On submission, the
+        application is validated and the response returns a hosted checkout URL. Once
+        paid, the filing is submitted. Track progress through the account's
+        [`company_formation`](/api-reference/beta/accounts/retrieve-account) field on
+        Retrieve Account.
+
+        Args:
+          business_name: Legal name for the new company.
+
+          business_type: High-level business category, from the Whop business taxonomy. Valid values are
+              listed on
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
+
+          formation_state: Two-letter code of the US state (or `DC`) to form the company in.
+
+          founders: The company's founders. Exactly one must be marked `is_primary` — the
+              responsible party for the filing.
+
+          industry_group: Industry group, from the Whop business taxonomy. Valid values are listed on
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
+
+          industry_type: Specific industry vertical, from the Whop business taxonomy. Valid values are
+              listed on
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
+
+          business_address: Company mailing address. Required unless `use_registered_agent` is `true`.
+
+          business_phone: Business phone number in E.164 format, for example `+12125550100`. Required
+              unless `use_registered_agent` is `true`.
+
+          business_website: Company website URL.
+
+          entity_suffix: Legal entity ending appended to `business_name`. LLC formations accept `LLC`,
+              `L.L.C`, `L.L.C.` or `Limited Liability Company` and default to `LLC`; C-Corp
+              formations accept `Inc`, `Inc.`, `Incorporated`, `Corp.`, `Corporation`,
+              `C Corp`, `C Corporation`, `CCorp` or `Company` and default to `Inc.`.
+              Unrecognized values fall back to the default for the entity type.
+
+          entity_type: Legal entity type to form. Defaults to `llc`.
+
+          expedite_ein: Request expedited EIN processing for an additional fee. Available only when no
+              founder supplies an SSN.
+
+          share_structure: Authorized share structure. Required when `entity_type` is `c_corp`; ignored for
+              LLCs.
+
+          use_registered_agent: Use the registered agent's address as the company address instead of
+              `business_address`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/accounts/{account_id}/form_company", account_id=account_id),
+            body=maybe_transform(
+                {
+                    "business_name": business_name,
+                    "business_type": business_type,
+                    "formation_state": formation_state,
+                    "founders": founders,
+                    "industry_group": industry_group,
+                    "industry_type": industry_type,
+                    "business_address": business_address,
+                    "business_phone": business_phone,
+                    "business_website": business_website,
+                    "entity_suffix": entity_suffix,
+                    "entity_type": entity_type,
+                    "expedite_ein": expedite_ein,
+                    "share_structure": share_structure,
+                    "use_registered_agent": use_registered_agent,
+                },
+                account_form_company_params.AccountFormCompanyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AccountFormCompanyResponse,
+        )
+
     def me(
         self,
         *,
@@ -543,60 +727,6 @@ class AccountsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AccountRecommendActionsResponse,
-        )
-
-    def register_llc(
-        self,
-        account_id: str,
-        *,
-        business_info: account_register_llc_params.BusinessInfo,
-        founders: Iterable[account_register_llc_params.Founder],
-        idempotency_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccountRegisterLlcResponse:
-        """Starts an LLC formation for a business account.
-
-        On submission, the application
-        is validated and the response returns a hosted checkout URL. Once paid, the
-        filing is submitted. Track progress through the account's
-        [`llc_formation`](/api-reference/beta/accounts/retrieve-account) field on
-        Retrieve Account.
-
-        Args:
-          business_info: The company to form.
-
-          founders: The company's founders. Exactly one must be marked `is_primary` — the
-              responsible party for the filing.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
-        return self._post(
-            path_template("/accounts/{account_id}/llc", account_id=account_id),
-            body=maybe_transform(
-                {
-                    "business_info": business_info,
-                    "founders": founders,
-                },
-                account_register_llc_params.AccountRegisterLlcParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AccountRegisterLlcResponse,
         )
 
 
@@ -1053,6 +1183,190 @@ class AsyncAccountsResource(AsyncAPIResource):
             model=Account,
         )
 
+    async def form_company(
+        self,
+        account_id: str,
+        *,
+        business_name: str,
+        business_type: str,
+        formation_state: Literal[
+            "AL",
+            "AK",
+            "AZ",
+            "AR",
+            "CA",
+            "CO",
+            "CT",
+            "DE",
+            "DC",
+            "FL",
+            "GA",
+            "HI",
+            "ID",
+            "IL",
+            "IN",
+            "IA",
+            "KS",
+            "KY",
+            "LA",
+            "ME",
+            "MD",
+            "MA",
+            "MI",
+            "MN",
+            "MS",
+            "MO",
+            "MT",
+            "NE",
+            "NV",
+            "NH",
+            "NJ",
+            "NM",
+            "NY",
+            "NC",
+            "ND",
+            "OH",
+            "OK",
+            "OR",
+            "PA",
+            "RI",
+            "SC",
+            "SD",
+            "TN",
+            "TX",
+            "UT",
+            "VT",
+            "VA",
+            "WA",
+            "WV",
+            "WI",
+            "WY",
+        ],
+        founders: Iterable[account_form_company_params.Founder],
+        industry_group: str,
+        industry_type: str,
+        business_address: account_form_company_params.BusinessAddress | Omit = omit,
+        business_phone: str | Omit = omit,
+        business_website: str | Omit = omit,
+        entity_suffix: Literal[
+            "LLC",
+            "L.L.C",
+            "L.L.C.",
+            "Limited Liability Company",
+            "Inc",
+            "Inc.",
+            "Incorporated",
+            "Corp.",
+            "Corporation",
+            "C Corp",
+            "C Corporation",
+            "CCorp",
+            "Company",
+        ]
+        | Omit = omit,
+        entity_type: Literal["llc", "c_corp"] | Omit = omit,
+        expedite_ein: bool | Omit = omit,
+        share_structure: account_form_company_params.ShareStructure | Omit = omit,
+        use_registered_agent: bool | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccountFormCompanyResponse:
+        """Starts an LLC or C-Corp formation for a business account.
+
+        Defaults to an LLC;
+        set `entity_type` to `c_corp` to form a C-Corp, which additionally requires
+        `share_structure` and officer `roles` on every founder. On submission, the
+        application is validated and the response returns a hosted checkout URL. Once
+        paid, the filing is submitted. Track progress through the account's
+        [`company_formation`](/api-reference/beta/accounts/retrieve-account) field on
+        Retrieve Account.
+
+        Args:
+          business_name: Legal name for the new company.
+
+          business_type: High-level business category, from the Whop business taxonomy. Valid values are
+              listed on
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
+
+          formation_state: Two-letter code of the US state (or `DC`) to form the company in.
+
+          founders: The company's founders. Exactly one must be marked `is_primary` — the
+              responsible party for the filing.
+
+          industry_group: Industry group, from the Whop business taxonomy. Valid values are listed on
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
+
+          industry_type: Specific industry vertical, from the Whop business taxonomy. Valid values are
+              listed on
+              [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
+
+          business_address: Company mailing address. Required unless `use_registered_agent` is `true`.
+
+          business_phone: Business phone number in E.164 format, for example `+12125550100`. Required
+              unless `use_registered_agent` is `true`.
+
+          business_website: Company website URL.
+
+          entity_suffix: Legal entity ending appended to `business_name`. LLC formations accept `LLC`,
+              `L.L.C`, `L.L.C.` or `Limited Liability Company` and default to `LLC`; C-Corp
+              formations accept `Inc`, `Inc.`, `Incorporated`, `Corp.`, `Corporation`,
+              `C Corp`, `C Corporation`, `CCorp` or `Company` and default to `Inc.`.
+              Unrecognized values fall back to the default for the entity type.
+
+          entity_type: Legal entity type to form. Defaults to `llc`.
+
+          expedite_ein: Request expedited EIN processing for an additional fee. Available only when no
+              founder supplies an SSN.
+
+          share_structure: Authorized share structure. Required when `entity_type` is `c_corp`; ignored for
+              LLCs.
+
+          use_registered_agent: Use the registered agent's address as the company address instead of
+              `business_address`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/accounts/{account_id}/form_company", account_id=account_id),
+            body=await async_maybe_transform(
+                {
+                    "business_name": business_name,
+                    "business_type": business_type,
+                    "formation_state": formation_state,
+                    "founders": founders,
+                    "industry_group": industry_group,
+                    "industry_type": industry_type,
+                    "business_address": business_address,
+                    "business_phone": business_phone,
+                    "business_website": business_website,
+                    "entity_suffix": entity_suffix,
+                    "entity_type": entity_type,
+                    "expedite_ein": expedite_ein,
+                    "share_structure": share_structure,
+                    "use_registered_agent": use_registered_agent,
+                },
+                account_form_company_params.AccountFormCompanyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AccountFormCompanyResponse,
+        )
+
     async def me(
         self,
         *,
@@ -1110,60 +1424,6 @@ class AsyncAccountsResource(AsyncAPIResource):
             cast_to=AccountRecommendActionsResponse,
         )
 
-    async def register_llc(
-        self,
-        account_id: str,
-        *,
-        business_info: account_register_llc_params.BusinessInfo,
-        founders: Iterable[account_register_llc_params.Founder],
-        idempotency_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccountRegisterLlcResponse:
-        """Starts an LLC formation for a business account.
-
-        On submission, the application
-        is validated and the response returns a hosted checkout URL. Once paid, the
-        filing is submitted. Track progress through the account's
-        [`llc_formation`](/api-reference/beta/accounts/retrieve-account) field on
-        Retrieve Account.
-
-        Args:
-          business_info: The company to form.
-
-          founders: The company's founders. Exactly one must be marked `is_primary` — the
-              responsible party for the filing.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
-        return await self._post(
-            path_template("/accounts/{account_id}/llc", account_id=account_id),
-            body=await async_maybe_transform(
-                {
-                    "business_info": business_info,
-                    "founders": founders,
-                },
-                account_register_llc_params.AccountRegisterLlcParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AccountRegisterLlcResponse,
-        )
-
 
 class AccountsResourceWithRawResponse:
     def __init__(self, accounts: AccountsResource) -> None:
@@ -1181,14 +1441,14 @@ class AccountsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             accounts.list,
         )
+        self.form_company = to_raw_response_wrapper(
+            accounts.form_company,
+        )
         self.me = to_raw_response_wrapper(
             accounts.me,
         )
         self.recommend_actions = to_raw_response_wrapper(
             accounts.recommend_actions,
-        )
-        self.register_llc = to_raw_response_wrapper(
-            accounts.register_llc,
         )
 
     @cached_property
@@ -1217,14 +1477,14 @@ class AsyncAccountsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             accounts.list,
         )
+        self.form_company = async_to_raw_response_wrapper(
+            accounts.form_company,
+        )
         self.me = async_to_raw_response_wrapper(
             accounts.me,
         )
         self.recommend_actions = async_to_raw_response_wrapper(
             accounts.recommend_actions,
-        )
-        self.register_llc = async_to_raw_response_wrapper(
-            accounts.register_llc,
         )
 
     @cached_property
@@ -1253,14 +1513,14 @@ class AccountsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             accounts.list,
         )
+        self.form_company = to_streamed_response_wrapper(
+            accounts.form_company,
+        )
         self.me = to_streamed_response_wrapper(
             accounts.me,
         )
         self.recommend_actions = to_streamed_response_wrapper(
             accounts.recommend_actions,
-        )
-        self.register_llc = to_streamed_response_wrapper(
-            accounts.register_llc,
         )
 
     @cached_property
@@ -1289,14 +1549,14 @@ class AsyncAccountsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             accounts.list,
         )
+        self.form_company = async_to_streamed_response_wrapper(
+            accounts.form_company,
+        )
         self.me = async_to_streamed_response_wrapper(
             accounts.me,
         )
         self.recommend_actions = async_to_streamed_response_wrapper(
             accounts.recommend_actions,
-        )
-        self.register_llc = async_to_streamed_response_wrapper(
-            accounts.register_llc,
         )
 
     @cached_property

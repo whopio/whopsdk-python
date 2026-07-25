@@ -13,11 +13,11 @@ __all__ = [
     "Balance",
     "Capabilities",
     "Cards",
-    "LlcFormation",
-    "LlcFormationDocument",
-    "LlcFormationSignatures",
-    "LlcFormationSignaturesForm8821",
-    "LlcFormationSignaturesSs4",
+    "CompanyFormation",
+    "CompanyFormationDocument",
+    "CompanyFormationSignatures",
+    "CompanyFormationSignaturesForm8821",
+    "CompanyFormationSignaturesSs4",
     "PaymentControls",
     "PaymentControlsDisputeAlertAutoRefund",
     "PaymentControlsReserve",
@@ -117,7 +117,7 @@ class Cards(BaseModel):
     """
 
 
-class LlcFormationDocument(BaseModel):
+class CompanyFormationDocument(BaseModel):
     """
     Formation documents available for download, such as the Articles of Organization and the EIN confirmation letter. Present once `status` leaves `draft`.
     """
@@ -139,7 +139,7 @@ class LlcFormationDocument(BaseModel):
     """CDN URL for downloading the document."""
 
 
-class LlcFormationSignaturesForm8821(BaseModel):
+class CompanyFormationSignaturesForm8821(BaseModel):
     """Signature state for IRS Form 8821, the tax information authorization.
 
     Present only while the form still needs the founder's action.
@@ -164,7 +164,7 @@ class LlcFormationSignaturesForm8821(BaseModel):
     """
 
 
-class LlcFormationSignaturesSs4(BaseModel):
+class CompanyFormationSignaturesSs4(BaseModel):
     """Signature state for IRS Form SS-4, the EIN application.
 
     Present only while the form still needs the founder's action.
@@ -189,19 +189,19 @@ class LlcFormationSignaturesSs4(BaseModel):
     """
 
 
-class LlcFormationSignatures(BaseModel):
+class CompanyFormationSignatures(BaseModel):
     """IRS forms still awaiting a founder's signature, each with a hosted signing URL.
 
     Present once `status` leaves `draft`; empty when nothing needs signing.
     """
 
-    form8821: Optional[LlcFormationSignaturesForm8821] = None
+    form8821: Optional[CompanyFormationSignaturesForm8821] = None
     """Signature state for IRS Form 8821, the tax information authorization.
 
     Present only while the form still needs the founder's action.
     """
 
-    ss4: Optional[LlcFormationSignaturesSs4] = None
+    ss4: Optional[CompanyFormationSignaturesSs4] = None
     """Signature state for IRS Form SS-4, the EIN application.
 
     Present only while the form still needs the founder's action.
@@ -220,12 +220,12 @@ class LlcFormationSignatures(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class LlcFormation(BaseModel):
+class CompanyFormation(BaseModel):
     """
-    LLC formation state for the account, managed through [Register LLC](/api-reference/beta/accounts/register-llc). A `draft` `status` until the formation checkout is paid, then filing progress with downloadable documents and signatures awaiting action. Empty when the formation state is temporarily unavailable.
+    Company formation state for the account, managed through [Form Company](/api-reference/beta/accounts/form-company). A `draft` `status` until the formation checkout is paid, then filing progress with downloadable documents and signatures awaiting action. Empty when the formation state is temporarily unavailable.
     """
 
-    documents: Optional[List[LlcFormationDocument]] = None
+    documents: Optional[List[CompanyFormationDocument]] = None
 
     ein_registered: Optional[bool] = None
     """Whether the company's EIN has been issued by the IRS.
@@ -239,7 +239,7 @@ class LlcFormation(BaseModel):
     Present once `status` leaves `draft`.
     """
 
-    signatures: Optional[LlcFormationSignatures] = None
+    signatures: Optional[CompanyFormationSignatures] = None
     """IRS forms still awaiting a founder's signature, each with a hosted signing URL.
 
     Present once `status` leaves `draft`; empty when nothing needs signing.
@@ -512,6 +512,15 @@ class Account(BaseModel):
     Does not require a VAT ID to purchase.
     """
 
+    company_formation: CompanyFormation
+    """
+    Company formation state for the account, managed through
+    [Form Company](/api-reference/beta/accounts/form-company). A `draft` `status`
+    until the formation checkout is paid, then filing progress with downloadable
+    documents and signatures awaiting action. Empty when the formation state is
+    temporarily unavailable.
+    """
+
     country: Optional[str] = None
     """Country where the account is located."""
 
@@ -544,15 +553,6 @@ class Account(BaseModel):
 
     invoice_prefix: Optional[str] = None
     """Prefix used for account invoices."""
-
-    llc_formation: LlcFormation
-    """
-    LLC formation state for the account, managed through
-    [Register LLC](/api-reference/beta/accounts/register-llc). A `draft` `status`
-    until the formation checkout is paid, then filing progress with downloadable
-    documents and signatures awaiting action. Empty when the formation state is
-    temporarily unavailable.
-    """
 
     logo_url: Optional[str] = None
     """Account logo image URL."""
