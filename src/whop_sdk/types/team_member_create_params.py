@@ -16,7 +16,15 @@ class TeamMemberCreateParams(TypedDict, total=False):
     role: Required[Literal["owner", "admin", "sales_manager", "moderator", "advertiser"]]
     """The system role to grant."""
 
-    user_id: Required[str]
-    """The user to add to the team, prefixed `user_`."""
+    email: str
+    """Email address to invite.
+
+    Mutually exclusive with `user_id`. If the email already belongs to a Whop
+    account it is treated the same as passing that account's `user_id`; otherwise a
+    pending invite is created for the email.
+    """
+
+    user_id: str
+    """The user to add to the team, prefixed `user_`. Mutually exclusive with `email`."""
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

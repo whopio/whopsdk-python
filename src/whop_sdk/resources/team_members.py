@@ -56,7 +56,8 @@ class TeamMembersResource(SyncAPIResource):
         *,
         account_id: str,
         role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
-        user_id: str,
+        email: str | Omit = omit,
+        user_id: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -65,20 +66,26 @@ class TeamMembersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TeamMember:
-        """Adds a user to an account's team with a system role.
+        """Adds a member to an account's team with a system role.
 
-        If the user has not yet
-        accepted, an invitation is sent instead and the response is `202` with
-        `{ "object": "team_member_invite", "invitation_sent": true }`. If the user
-        already has a pending invite, the request fails with a `400`. Custom roles
-        cannot be granted via the API.
+        Identify them by exactly
+        one of `user_id` or `email`. If the person has not yet accepted — or the email
+        does not belong to a Whop account yet — an invitation is sent instead and the
+        response is `202` with
+        `{ "object": "team_member_invite", "invitation_sent": true }`. If they already
+        have a pending invite, the request fails with a `400`. Custom roles cannot be
+        granted via the API.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
 
           role: The system role to grant.
 
-          user_id: The user to add to the team, prefixed `user_`.
+          email: Email address to invite. Mutually exclusive with `user_id`. If the email already
+              belongs to a Whop account it is treated the same as passing that account's
+              `user_id`; otherwise a pending invite is created for the email.
+
+          user_id: The user to add to the team, prefixed `user_`. Mutually exclusive with `email`.
 
           extra_headers: Send extra headers
 
@@ -95,6 +102,7 @@ class TeamMembersResource(SyncAPIResource):
                 {
                     "account_id": account_id,
                     "role": role,
+                    "email": email,
                     "user_id": user_id,
                 },
                 team_member_create_params.TeamMemberCreateParams,
@@ -334,7 +342,8 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         *,
         account_id: str,
         role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
-        user_id: str,
+        email: str | Omit = omit,
+        user_id: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -343,20 +352,26 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TeamMember:
-        """Adds a user to an account's team with a system role.
+        """Adds a member to an account's team with a system role.
 
-        If the user has not yet
-        accepted, an invitation is sent instead and the response is `202` with
-        `{ "object": "team_member_invite", "invitation_sent": true }`. If the user
-        already has a pending invite, the request fails with a `400`. Custom roles
-        cannot be granted via the API.
+        Identify them by exactly
+        one of `user_id` or `email`. If the person has not yet accepted — or the email
+        does not belong to a Whop account yet — an invitation is sent instead and the
+        response is `202` with
+        `{ "object": "team_member_invite", "invitation_sent": true }`. If they already
+        have a pending invite, the request fails with a `400`. Custom roles cannot be
+        granted via the API.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
 
           role: The system role to grant.
 
-          user_id: The user to add to the team, prefixed `user_`.
+          email: Email address to invite. Mutually exclusive with `user_id`. If the email already
+              belongs to a Whop account it is treated the same as passing that account's
+              `user_id`; otherwise a pending invite is created for the email.
+
+          user_id: The user to add to the team, prefixed `user_`. Mutually exclusive with `email`.
 
           extra_headers: Send extra headers
 
@@ -373,6 +388,7 @@ class AsyncTeamMembersResource(AsyncAPIResource):
                 {
                     "account_id": account_id,
                     "role": role,
+                    "email": email,
                     "user_id": user_id,
                 },
                 team_member_create_params.TeamMemberCreateParams,

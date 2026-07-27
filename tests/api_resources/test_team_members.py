@@ -27,7 +27,6 @@ class TestTeamMembers:
         team_member = client.team_members.create(
             account_id="account_id",
             role="owner",
-            user_id="user_id",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -37,6 +36,7 @@ class TestTeamMembers:
         team_member = client.team_members.create(
             account_id="account_id",
             role="owner",
+            email="email",
             user_id="user_id",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -48,7 +48,6 @@ class TestTeamMembers:
         response = client.team_members.with_raw_response.create(
             account_id="account_id",
             role="owner",
-            user_id="user_id",
         )
 
         assert response.is_closed is True
@@ -62,7 +61,6 @@ class TestTeamMembers:
         with client.team_members.with_streaming_response.create(
             account_id="account_id",
             role="owner",
-            user_id="user_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -265,7 +263,6 @@ class TestAsyncTeamMembers:
         team_member = await async_client.team_members.create(
             account_id="account_id",
             role="owner",
-            user_id="user_id",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -275,6 +272,7 @@ class TestAsyncTeamMembers:
         team_member = await async_client.team_members.create(
             account_id="account_id",
             role="owner",
+            email="email",
             user_id="user_id",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -286,7 +284,6 @@ class TestAsyncTeamMembers:
         response = await async_client.team_members.with_raw_response.create(
             account_id="account_id",
             role="owner",
-            user_id="user_id",
         )
 
         assert response.is_closed is True
@@ -300,7 +297,6 @@ class TestAsyncTeamMembers:
         async with async_client.team_members.with_streaming_response.create(
             account_id="account_id",
             role="owner",
-            user_id="user_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
