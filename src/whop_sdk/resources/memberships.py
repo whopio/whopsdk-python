@@ -146,11 +146,14 @@ class MembershipsResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         cancel_options: Optional[List[CancelOptions]] | Omit = omit,
+        cancelation_status: Optional[Literal["won_back", "left", "canceling"]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        has_cancelation_reason: Optional[bool] | Omit = omit,
+        include_text_only_cancelation_reasons: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
         | Omit = omit,
@@ -182,6 +185,8 @@ class MembershipsResource(SyncAPIResource):
 
           cancel_options: Filter to only memberships matching these cancellation reasons.
 
+          cancelation_status: The state of a membership after a customer provides a cancelation reason.
+
           company_id: The unique identifier of the company to list memberships for. Required when
               using an API key.
 
@@ -192,6 +197,12 @@ class MembershipsResource(SyncAPIResource):
           direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
+
+          has_cancelation_reason: Filter memberships by whether they have a structured or free-text cancellation
+              reason.
+
+          include_text_only_cancelation_reasons: When filtering by the other cancellation option, also include memberships that
+              only have a free-text cancellation reason.
 
           last: Returns the last _n_ elements from the list.
 
@@ -228,11 +239,14 @@ class MembershipsResource(SyncAPIResource):
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
+                        "cancelation_status": cancelation_status,
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "has_cancelation_reason": has_cancelation_reason,
+                        "include_text_only_cancelation_reasons": include_text_only_cancelation_reasons,
                         "last": last,
                         "order": order,
                         "plan_ids": plan_ids,
@@ -586,11 +600,14 @@ class AsyncMembershipsResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         cancel_options: Optional[List[CancelOptions]] | Omit = omit,
+        cancelation_status: Optional[Literal["won_back", "left", "canceling"]] | Omit = omit,
         company_id: Optional[str] | Omit = omit,
         created_after: Union[str, datetime, None] | Omit = omit,
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        has_cancelation_reason: Optional[bool] | Omit = omit,
+        include_text_only_cancelation_reasons: Optional[bool] | Omit = omit,
         last: Optional[int] | Omit = omit,
         order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
         | Omit = omit,
@@ -622,6 +639,8 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           cancel_options: Filter to only memberships matching these cancellation reasons.
 
+          cancelation_status: The state of a membership after a customer provides a cancelation reason.
+
           company_id: The unique identifier of the company to list memberships for. Required when
               using an API key.
 
@@ -632,6 +651,12 @@ class AsyncMembershipsResource(AsyncAPIResource):
           direction: The direction of the sort.
 
           first: Returns the first _n_ elements from the list.
+
+          has_cancelation_reason: Filter memberships by whether they have a structured or free-text cancellation
+              reason.
+
+          include_text_only_cancelation_reasons: When filtering by the other cancellation option, also include memberships that
+              only have a free-text cancellation reason.
 
           last: Returns the last _n_ elements from the list.
 
@@ -668,11 +693,14 @@ class AsyncMembershipsResource(AsyncAPIResource):
                         "after": after,
                         "before": before,
                         "cancel_options": cancel_options,
+                        "cancelation_status": cancelation_status,
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "has_cancelation_reason": has_cancelation_reason,
+                        "include_text_only_cancelation_reasons": include_text_only_cancelation_reasons,
                         "last": last,
                         "order": order,
                         "plan_ids": plan_ids,

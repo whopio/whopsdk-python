@@ -2,6 +2,7 @@
 
 from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .cancel_options import CancelOptions
@@ -90,6 +91,12 @@ class User(BaseModel):
     name: Optional[str] = None
     """The user's display name shown on their public profile."""
 
+    profile_pic: str
+    """The URL of the user's profile picture.
+
+    Use profilePicture for the full attachment object.
+    """
+
     username: str
     """The user's unique username shown on their public profile."""
 
@@ -115,6 +122,9 @@ class MembershipListResponse(BaseModel):
     The different reasons a user can choose for why they are canceling their
     membership.
     """
+
+    cancelation_status: Optional[Literal["won_back", "left", "canceling"]] = None
+    """The state of a membership after a customer provides a cancelation reason."""
 
     canceled_at: Optional[datetime] = None
     """The time the customer initiated cancellation of this membership.
@@ -143,6 +153,18 @@ class MembershipListResponse(BaseModel):
 
     currency: Optional[Currency] = None
     """The available currencies on the platform"""
+
+    formatted_renewal_price: Optional[str] = None
+    """
+    The recurring renewal price for this membership, formatted with currency symbol
+    and billing interval. Null if the membership is not recurring.
+    """
+
+    initial_price_paid: str
+    """
+    The amount the customer paid when first purchasing this membership, formatted
+    with currency symbol.
+    """
 
     joined_at: Optional[datetime] = None
     """The time the user first joined the company associated with this membership.

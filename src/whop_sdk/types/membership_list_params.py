@@ -25,6 +25,9 @@ class MembershipListParams(TypedDict, total=False):
     cancel_options: Optional[List[CancelOptions]]
     """Filter to only memberships matching these cancellation reasons."""
 
+    cancelation_status: Optional[Literal["won_back", "left", "canceling"]]
+    """The state of a membership after a customer provides a cancelation reason."""
+
     company_id: Optional[str]
     """The unique identifier of the company to list memberships for.
 
@@ -42,6 +45,18 @@ class MembershipListParams(TypedDict, total=False):
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
+
+    has_cancelation_reason: Optional[bool]
+    """
+    Filter memberships by whether they have a structured or free-text cancellation
+    reason.
+    """
+
+    include_text_only_cancelation_reasons: Optional[bool]
+    """
+    When filtering by the other cancellation option, also include memberships that
+    only have a free-text cancellation reason.
+    """
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
