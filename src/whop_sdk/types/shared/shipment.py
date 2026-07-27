@@ -1,62 +1,57 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
-from .shipment_status import ShipmentStatus
-from .shipment_substatus import ShipmentSubstatus
 
-__all__ = ["Shipment", "Payment"]
-
-
-class Payment(BaseModel):
-    """The payment associated with this shipment.
-
-    Null if the payment has been deleted or is inaccessible.
-    """
-
-    id: str
-    """The unique identifier for the payment."""
+__all__ = ["Shipment"]
 
 
 class Shipment(BaseModel):
-    """
-    A physical shipment associated with a payment, including carrier details and tracking information.
-    """
-
     id: str
-    """The unique identifier for the shipment."""
+    """Shipment ID, prefixed `ship_`."""
 
-    created_at: datetime
-    """The datetime the shipment was created."""
+    account_id: str
+    """The account that owns this shipment, prefixed `biz_`."""
 
-    delivery_estimate: Optional[datetime] = None
-    """The estimated delivery date for this shipment.
+    carrier: Optional[str] = None
+    """The shipping carrier detected for this shipment.
 
-    Null if the carrier has not provided an estimate.
+    Null until a tracking update identifies it.
     """
 
-    payment: Optional[Payment] = None
-    """The payment associated with this shipment.
+    created_at: str
+    """The datetime the shipment was created (ISO 8601)."""
 
-    Null if the payment has been deleted or is inaccessible.
+    order_id: Optional[str] = None
+    """The ecommerce order this shipment fulfills.
+
+    Null for shipments not tied to an order.
     """
 
-    service: Optional[str] = None
-    """The shipping service level used for this shipment.
+    payment_id: str
+    """The payment this shipment fulfills, prefixed `pay_`."""
 
-    Null if the carrier does not specify a service tier.
-    """
-
-    status: ShipmentStatus
+    status: Literal[
+        "unknown",
+        "pre_transit",
+        "in_transit",
+        "out_for_delivery",
+        "delivered",
+        "available_for_pickup",
+        "return_to_sender",
+        "failure",
+        "cancelled",
+        "error",
+    ]
     """The current delivery status of this shipment."""
 
-    substatus: Optional[ShipmentSubstatus] = None
-    """The substatus of a shipment"""
-
-    tracking_code: str
+    tracking_number: str
     """The carrier-assigned tracking number used to look up shipment progress."""
 
-    updated_at: datetime
-    """The datetime the shipment was last updated."""
+    tracking_url: str
+    """A customer-facing URL to track this shipment's progress."""
+
+    updated_at: str
+    """The datetime the shipment was last updated (ISO 8601)."""

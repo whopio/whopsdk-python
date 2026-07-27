@@ -275,7 +275,7 @@ from .reaction_create_params import ReactionCreateParams as ReactionCreateParams
 from .reaction_delete_params import ReactionDeleteParams as ReactionDeleteParams
 from .reaction_list_response import ReactionListResponse as ReactionListResponse
 from .shipment_create_params import ShipmentCreateParams as ShipmentCreateParams
-from .shipment_list_response import ShipmentListResponse as ShipmentListResponse
+from .shipment_update_params import ShipmentUpdateParams as ShipmentUpdateParams
 from .stat_retrieve_response import StatRetrieveResponse as StatRetrieveResponse
 from .swap_retrieve_response import SwapRetrieveResponse as SwapRetrieveResponse
 from .transfer_create_params import TransferCreateParams as TransferCreateParams

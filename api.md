@@ -466,17 +466,12 @@ Methods:
 
 # Shipments
 
-Types:
-
-```python
-from whop_sdk.types import ShipmentListResponse
-```
-
 Methods:
 
 - <code title="post /shipments">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">create</a>(\*\*<a href="src/whop_sdk/types/shipment_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/shipment.py">Shipment</a></code>
 - <code title="get /shipments/{id}">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/shipment.py">Shipment</a></code>
-- <code title="get /shipments">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">list</a>(\*\*<a href="src/whop_sdk/types/shipment_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shipment_list_response.py">SyncCursorPage[ShipmentListResponse]</a></code>
+- <code title="patch /shipments/{id}">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">update</a>(id, \*\*<a href="src/whop_sdk/types/shipment_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/shipment.py">Shipment</a></code>
+- <code title="get /shipments">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">list</a>(\*\*<a href="src/whop_sdk/types/shipment_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/shipment.py">SyncCursorPage[Shipment]</a></code>
 
 # CheckoutConfigurations
 

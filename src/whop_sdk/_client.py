@@ -253,7 +253,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-25"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-26"
         self.version = version
 
         if base_url is None:
@@ -491,6 +491,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def shipments(self) -> ShipmentsResource:
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import ShipmentsResource
 
         return ShipmentsResource(self)
@@ -1077,7 +1082,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-25"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-26"
         self.version = version
 
         if base_url is None:
@@ -1315,6 +1320,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def shipments(self) -> AsyncShipmentsResource:
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import AsyncShipmentsResource
 
         return AsyncShipmentsResource(self)
@@ -2059,6 +2069,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def shipments(self) -> shipments.ShipmentsResourceWithRawResponse:
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import ShipmentsResourceWithRawResponse
 
         return ShipmentsResourceWithRawResponse(self._client.shipments)
@@ -2685,6 +2700,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def shipments(self) -> shipments.AsyncShipmentsResourceWithRawResponse:
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import AsyncShipmentsResourceWithRawResponse
 
         return AsyncShipmentsResourceWithRawResponse(self._client.shipments)
@@ -3313,6 +3333,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def shipments(self) -> shipments.ShipmentsResourceWithStreamingResponse:
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import ShipmentsResourceWithStreamingResponse
 
         return ShipmentsResourceWithStreamingResponse(self._client.shipments)
@@ -3941,6 +3966,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def shipments(self) -> shipments.AsyncShipmentsResourceWithStreamingResponse:
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import AsyncShipmentsResourceWithStreamingResponse
 
         return AsyncShipmentsResourceWithStreamingResponse(self._client.shipments)
