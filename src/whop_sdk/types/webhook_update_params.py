@@ -2,27 +2,28 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
-from .api_version import APIVersion
-from .webhook_event import WebhookEvent
+from .._types import SequenceNotStr
 
 __all__ = ["WebhookUpdateParams"]
 
 
 class WebhookUpdateParams(TypedDict, total=False):
-    api_version: Optional[APIVersion]
-    """The different API versions"""
+    api_version: Literal["v1", "v2", "v5"]
+    """The API version for this webhook."""
 
-    child_resource_events: Optional[bool]
+    child_resource_events: bool
     """Whether or not to send events for child resources."""
 
-    enabled: Optional[bool]
+    enabled: bool
     """Whether or not the webhook is enabled."""
 
-    events: Optional[List[WebhookEvent]]
-    """The events to send the webhook for."""
+    events: SequenceNotStr[str]
+    """
+    The events to send the webhook for, in dot form (for example
+    `payment.succeeded`).
+    """
 
-    url: Optional[str]
+    url: str
     """The URL to send the webhook to."""
