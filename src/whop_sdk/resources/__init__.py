@@ -376,6 +376,14 @@ from .memberships import (
     MembershipsResourceWithStreamingResponse,
     AsyncMembershipsResourceWithStreamingResponse,
 )
+from .permissions import (
+    PermissionsResource,
+    AsyncPermissionsResource,
+    PermissionsResourceWithRawResponse,
+    AsyncPermissionsResourceWithRawResponse,
+    PermissionsResourceWithStreamingResponse,
+    AsyncPermissionsResourceWithStreamingResponse,
+)
 from .promo_codes import (
     PromoCodesResource,
     AsyncPromoCodesResource,
@@ -598,6 +606,12 @@ __all__ = [
     "AsyncAPIKeysResourceWithRawResponse",
     "APIKeysResourceWithStreamingResponse",
     "AsyncAPIKeysResourceWithStreamingResponse",
+    "PermissionsResource",
+    "AsyncPermissionsResource",
+    "PermissionsResourceWithRawResponse",
+    "AsyncPermissionsResourceWithRawResponse",
+    "PermissionsResourceWithStreamingResponse",
+    "AsyncPermissionsResourceWithStreamingResponse",
     "InvoicesResource",
     "AsyncInvoicesResource",
     "InvoicesResourceWithRawResponse",

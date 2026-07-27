@@ -83,6 +83,7 @@ if TYPE_CHECKING:
         fee_markups,
         forum_posts,
         memberships,
+        permissions,
         promo_codes,
         withdrawals,
         ad_campaigns,
@@ -153,6 +154,7 @@ if TYPE_CHECKING:
     from .resources.fee_markups import FeeMarkupsResource, AsyncFeeMarkupsResource
     from .resources.forum_posts import ForumPostsResource, AsyncForumPostsResource
     from .resources.memberships import MembershipsResource, AsyncMembershipsResource
+    from .resources.permissions import PermissionsResource, AsyncPermissionsResource
     from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
     from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
     from .resources.ad_campaigns import AdCampaignsResource, AsyncAdCampaignsResource
@@ -302,6 +304,17 @@ class Whop(SyncAPIClient):
         from .resources.api_keys import APIKeysResource
 
         return APIKeysResource(self)
+
+    @cached_property
+    def permissions(self) -> PermissionsResource:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import PermissionsResource
+
+        return PermissionsResource(self)
 
     @cached_property
     def invoices(self) -> InvoicesResource:
@@ -1117,6 +1130,17 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAPIKeysResource(self)
 
     @cached_property
+    def permissions(self) -> AsyncPermissionsResource:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import AsyncPermissionsResource
+
+        return AsyncPermissionsResource(self)
+
+    @cached_property
     def invoices(self) -> AsyncInvoicesResource:
         from .resources.invoices import AsyncInvoicesResource
 
@@ -1850,6 +1874,17 @@ class WhopWithRawResponse:
         return APIKeysResourceWithRawResponse(self._client.api_keys)
 
     @cached_property
+    def permissions(self) -> permissions.PermissionsResourceWithRawResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import PermissionsResourceWithRawResponse
+
+        return PermissionsResourceWithRawResponse(self._client.permissions)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithRawResponse:
         from .resources.invoices import InvoicesResourceWithRawResponse
 
@@ -2461,6 +2496,17 @@ class AsyncWhopWithRawResponse:
         from .resources.api_keys import AsyncAPIKeysResourceWithRawResponse
 
         return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
+    def permissions(self) -> permissions.AsyncPermissionsResourceWithRawResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import AsyncPermissionsResourceWithRawResponse
+
+        return AsyncPermissionsResourceWithRawResponse(self._client.permissions)
 
     @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithRawResponse:
@@ -3080,6 +3126,17 @@ class WhopWithStreamedResponse:
         return APIKeysResourceWithStreamingResponse(self._client.api_keys)
 
     @cached_property
+    def permissions(self) -> permissions.PermissionsResourceWithStreamingResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import PermissionsResourceWithStreamingResponse
+
+        return PermissionsResourceWithStreamingResponse(self._client.permissions)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithStreamingResponse:
         from .resources.invoices import InvoicesResourceWithStreamingResponse
 
@@ -3695,6 +3752,17 @@ class AsyncWhopWithStreamedResponse:
         from .resources.api_keys import AsyncAPIKeysResourceWithStreamingResponse
 
         return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
+    def permissions(self) -> permissions.AsyncPermissionsResourceWithStreamingResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import AsyncPermissionsResourceWithStreamingResponse
+
+        return AsyncPermissionsResourceWithStreamingResponse(self._client.permissions)
 
     @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithStreamingResponse:

@@ -96,6 +96,18 @@ Methods:
 - <code title="get /api_keys/permissions">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">list_permissions</a>() -> <a href="./src/whop_sdk/types/api_key_list_permissions_response.py">APIKeyListPermissionsResponse</a></code>
 - <code title="post /api_keys/{id}/rotate">client.api_keys.<a href="./src/whop_sdk/resources/api_keys.py">rotate</a>(id) -> <a href="./src/whop_sdk/types/api_key.py">APIKey</a></code>
 
+# Permissions
+
+Types:
+
+```python
+from whop_sdk.types import PermissionListResponse
+```
+
+Methods:
+
+- <code title="get /permissions">client.permissions.<a href="./src/whop_sdk/resources/permissions.py">list</a>(\*\*<a href="src/whop_sdk/types/permission_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/permission_list_response.py">PermissionListResponse</a></code>
+
 # Invoices
 
 Types:

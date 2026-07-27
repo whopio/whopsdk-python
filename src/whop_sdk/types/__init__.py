@@ -267,6 +267,7 @@ from .file_retrieve_response import FileRetrieveResponse as FileRetrieveResponse
 from .forum_post_list_params import ForumPostListParams as ForumPostListParams
 from .membership_list_params import MembershipListParams as MembershipListParams
 from .payout_create_response import PayoutCreateResponse as PayoutCreateResponse
+from .permission_list_params import PermissionListParams as PermissionListParams
 from .person_retrieve_params import PersonRetrieveParams as PersonRetrieveParams
 from .promo_code_list_params import PromoCodeListParams as PromoCodeListParams
 from .reaction_create_params import ReactionCreateParams as ReactionCreateParams
@@ -323,6 +324,7 @@ from .membership_extend_params import MembershipExtendParams as MembershipExtend
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams
 from .notification_preferences import NotificationPreferences as NotificationPreferences
 from .payment_list_fees_params import PaymentListFeesParams as PaymentListFeesParams
+from .permission_list_response import PermissionListResponse as PermissionListResponse
 from .person_retrieve_response import PersonRetrieveResponse as PersonRetrieveResponse
 from .promo_code_create_params import PromoCodeCreateParams as PromoCodeCreateParams
 from .promo_code_list_response import PromoCodeListResponse as PromoCodeListResponse
