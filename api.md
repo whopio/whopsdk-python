@@ -101,7 +101,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import PermissionListResponse
+from whop_sdk.types import PermissionAction, PermissionListResponse
 ```
 
 Methods:

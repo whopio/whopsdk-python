@@ -132,6 +132,7 @@ from .bounty_submission import BountySubmission as BountySubmission
 from .entry_list_params import EntryListParams as EntryListParams
 from .event_list_params import EventListParams as EventListParams
 from .forum_list_params import ForumListParams as ForumListParams
+from .permission_action import PermissionAction as PermissionAction
 from .promo_code_status import PromoCodeStatus as PromoCodeStatus
 from .result_label_keys import ResultLabelKeys as ResultLabelKeys
 from .withdrawal_speeds import WithdrawalSpeeds as WithdrawalSpeeds
