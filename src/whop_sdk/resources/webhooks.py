@@ -3,13 +3,20 @@
 from __future__ import annotations
 
 import json
-from typing import List, Mapping, Optional, cast
+from typing import Mapping, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import APIVersion, webhook_list_params, webhook_create_params, webhook_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from ..types import (
+    webhook_list_params,
+    webhook_test_params,
+    webhook_create_params,
+    webhook_update_params,
+    webhook_list_deliveries_params,
+)
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._models import construct_type
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -23,19 +30,16 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._exceptions import WhopError
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.webhook import Webhook
-from ..types.api_version import APIVersion
-from ..types.webhook_event import WebhookEvent
 from ..types.unwrap_webhook_event import UnwrapWebhookEvent
 from ..types.webhook_list_response import WebhookListResponse
-from ..types.webhook_create_response import WebhookCreateResponse
+from ..types.webhook_test_response import WebhookTestResponse
 from ..types.webhook_delete_response import WebhookDeleteResponse
+from ..types.webhook_list_deliveries_response import WebhookListDeliveriesResponse
 
 __all__ = ["WebhooksResource", "AsyncWebhooksResource"]
 
 
 class WebhooksResource(SyncAPIResource):
-    """Webhooks"""
-
     @cached_property
     def with_raw_response(self) -> WebhooksResourceWithRawResponse:
         """
@@ -59,39 +63,37 @@ class WebhooksResource(SyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
+        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: SequenceNotStr[str] | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookCreateResponse:
+    ) -> Webhook:
         """
-        Creates a new webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Creates a webhook endpoint that receives event notifications via HTTP POST.
 
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The different API versions
+          api_version: The API version for this webhook. Defaults to `v2`.
 
           child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a Company, enabling this will only send events from the Company's
+              is created for a company, enabling this will only send events from the company's
               sub-merchants (child companies).
 
-          enabled: Whether or not the webhook is enabled.
+          enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
-          resource_id: The resource to create the webhook for. By default this will use current company
+          resource_id: The company or app to create the webhook for. Defaults to the current company.
 
           extra_headers: Send extra headers
 
@@ -101,6 +103,7 @@ class WebhooksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/webhooks",
             body=maybe_transform(
@@ -117,7 +120,7 @@ class WebhooksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookCreateResponse,
+            cast_to=Webhook,
         )
 
     def retrieve(
@@ -133,10 +136,6 @@ class WebhooksResource(SyncAPIResource):
     ) -> Webhook:
         """
         Retrieves the details of an existing webhook.
-
-        Required permissions:
-
-        - `developer:manage_webhook`
 
         Args:
           extra_headers: Send extra headers
@@ -161,11 +160,11 @@ class WebhooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
-        url: Optional[str] | Omit = omit,
+        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: SequenceNotStr[str] | Omit = omit,
+        url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -174,20 +173,18 @@ class WebhooksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Webhook:
         """
-        Updates a webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Updates a webhook endpoint's URL, subscribed events, API version, or enabled
+        state.
 
         Args:
-          api_version: The different API versions
+          api_version: The API version for this webhook.
 
           child_resource_events: Whether or not to send events for child resources.
 
           enabled: Whether or not the webhook is enabled.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
           url: The URL to send the webhook to.
 
@@ -222,11 +219,12 @@ class WebhooksResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        app_id: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -238,20 +236,19 @@ class WebhooksResource(SyncAPIResource):
         Returns a paginated list of webhook endpoints configured for a company, ordered
         by most recently created.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
-
         Args:
-          company_id: The unique identifier of the company to list webhooks for.
+          account_id: The unique identifier of the account to list webhooks for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns webhooks after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          app_id: Only return webhooks attached to this app. Omit to list the company's own
+              webhooks.
 
-          first: Returns the first _n_ elements from the list.
+          before: A cursor; returns webhooks before this position.
 
-          last: Returns the last _n_ elements from the list.
+          first: The number of webhooks to return (default 20, max 100).
+
+          last: The number of webhooks to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -271,8 +268,9 @@ class WebhooksResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
                         "first": first,
                         "last": last,
@@ -294,12 +292,10 @@ class WebhooksResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WebhookDeleteResponse:
-        """
-        Deletes a webhook
+        """Permanently deletes a webhook endpoint.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Returns `true` on success, matching the
+        legacy proxy response.
 
         Args:
           extra_headers: Send extra headers
@@ -318,6 +314,99 @@ class WebhooksResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WebhookDeleteResponse,
+        )
+
+    def list_deliveries(
+        self,
+        id: str,
+        *,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[WebhookListDeliveriesResponse]:
+        """
+        Returns a paginated list of delivery attempts for a webhook, ordered by most
+        recent first. Includes the request payload, response body, response code, and
+        timing for each attempt.
+
+        Args:
+          after: A cursor; returns deliveries after this position.
+
+          first: The number of deliveries to return (default 50, max 100).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get_api_list(
+            path_template("/webhooks/{id}/deliveries", id=id),
+            page=SyncCursorPage[WebhookListDeliveriesResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "first": first,
+                    },
+                    webhook_list_deliveries_params.WebhookListDeliveriesParams,
+                ),
+            ),
+            model=WebhookListDeliveriesResponse,
+        )
+
+    def test(
+        self,
+        id: str,
+        *,
+        event: str,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WebhookTestResponse:
+        """
+        Sends a sample payload for the given event to the webhook's URL and returns the
+        delivery result.
+
+        Args:
+          event: The event to test the webhook for, in dot form (for example
+              `payment.succeeded`).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/webhooks/{id}/test", id=id),
+            body=maybe_transform({"event": event}, webhook_test_params.WebhookTestParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WebhookTestResponse,
         )
 
     def unwrap(self, payload: str, *, headers: Mapping[str, str], key: str | bytes | None = None) -> UnwrapWebhookEvent:
@@ -348,8 +437,6 @@ class WebhooksResource(SyncAPIResource):
 
 
 class AsyncWebhooksResource(AsyncAPIResource):
-    """Webhooks"""
-
     @cached_property
     def with_raw_response(self) -> AsyncWebhooksResourceWithRawResponse:
         """
@@ -373,39 +460,37 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
+        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: SequenceNotStr[str] | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookCreateResponse:
+    ) -> Webhook:
         """
-        Creates a new webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Creates a webhook endpoint that receives event notifications via HTTP POST.
 
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The different API versions
+          api_version: The API version for this webhook. Defaults to `v2`.
 
           child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a Company, enabling this will only send events from the Company's
+              is created for a company, enabling this will only send events from the company's
               sub-merchants (child companies).
 
-          enabled: Whether or not the webhook is enabled.
+          enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
-          resource_id: The resource to create the webhook for. By default this will use current company
+          resource_id: The company or app to create the webhook for. Defaults to the current company.
 
           extra_headers: Send extra headers
 
@@ -415,6 +500,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/webhooks",
             body=await async_maybe_transform(
@@ -431,7 +517,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookCreateResponse,
+            cast_to=Webhook,
         )
 
     async def retrieve(
@@ -447,10 +533,6 @@ class AsyncWebhooksResource(AsyncAPIResource):
     ) -> Webhook:
         """
         Retrieves the details of an existing webhook.
-
-        Required permissions:
-
-        - `developer:manage_webhook`
 
         Args:
           extra_headers: Send extra headers
@@ -475,11 +557,11 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
-        url: Optional[str] | Omit = omit,
+        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: SequenceNotStr[str] | Omit = omit,
+        url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -488,20 +570,18 @@ class AsyncWebhooksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Webhook:
         """
-        Updates a webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Updates a webhook endpoint's URL, subscribed events, API version, or enabled
+        state.
 
         Args:
-          api_version: The different API versions
+          api_version: The API version for this webhook.
 
           child_resource_events: Whether or not to send events for child resources.
 
           enabled: Whether or not the webhook is enabled.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
           url: The URL to send the webhook to.
 
@@ -536,11 +616,12 @@ class AsyncWebhooksResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        app_id: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -552,20 +633,19 @@ class AsyncWebhooksResource(AsyncAPIResource):
         Returns a paginated list of webhook endpoints configured for a company, ordered
         by most recently created.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
-
         Args:
-          company_id: The unique identifier of the company to list webhooks for.
+          account_id: The unique identifier of the account to list webhooks for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns webhooks after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          app_id: Only return webhooks attached to this app. Omit to list the company's own
+              webhooks.
 
-          first: Returns the first _n_ elements from the list.
+          before: A cursor; returns webhooks before this position.
 
-          last: Returns the last _n_ elements from the list.
+          first: The number of webhooks to return (default 20, max 100).
+
+          last: The number of webhooks to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -585,8 +665,9 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
                         "first": first,
                         "last": last,
@@ -608,12 +689,10 @@ class AsyncWebhooksResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WebhookDeleteResponse:
-        """
-        Deletes a webhook
+        """Permanently deletes a webhook endpoint.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Returns `true` on success, matching the
+        legacy proxy response.
 
         Args:
           extra_headers: Send extra headers
@@ -632,6 +711,99 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WebhookDeleteResponse,
+        )
+
+    def list_deliveries(
+        self,
+        id: str,
+        *,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[WebhookListDeliveriesResponse, AsyncCursorPage[WebhookListDeliveriesResponse]]:
+        """
+        Returns a paginated list of delivery attempts for a webhook, ordered by most
+        recent first. Includes the request payload, response body, response code, and
+        timing for each attempt.
+
+        Args:
+          after: A cursor; returns deliveries after this position.
+
+          first: The number of deliveries to return (default 50, max 100).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get_api_list(
+            path_template("/webhooks/{id}/deliveries", id=id),
+            page=AsyncCursorPage[WebhookListDeliveriesResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "first": first,
+                    },
+                    webhook_list_deliveries_params.WebhookListDeliveriesParams,
+                ),
+            ),
+            model=WebhookListDeliveriesResponse,
+        )
+
+    async def test(
+        self,
+        id: str,
+        *,
+        event: str,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WebhookTestResponse:
+        """
+        Sends a sample payload for the given event to the webhook's URL and returns the
+        delivery result.
+
+        Args:
+          event: The event to test the webhook for, in dot form (for example
+              `payment.succeeded`).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/webhooks/{id}/test", id=id),
+            body=await async_maybe_transform({"event": event}, webhook_test_params.WebhookTestParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WebhookTestResponse,
         )
 
     def unwrap(self, payload: str, *, headers: Mapping[str, str], key: str | bytes | None = None) -> UnwrapWebhookEvent:
@@ -680,6 +852,12 @@ class WebhooksResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             webhooks.delete,
         )
+        self.list_deliveries = to_raw_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.test = to_raw_response_wrapper(
+            webhooks.test,
+        )
 
 
 class AsyncWebhooksResourceWithRawResponse:
@@ -700,6 +878,12 @@ class AsyncWebhooksResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             webhooks.delete,
+        )
+        self.list_deliveries = async_to_raw_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.test = async_to_raw_response_wrapper(
+            webhooks.test,
         )
 
 
@@ -722,6 +906,12 @@ class WebhooksResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             webhooks.delete,
         )
+        self.list_deliveries = to_streamed_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.test = to_streamed_response_wrapper(
+            webhooks.test,
+        )
 
 
 class AsyncWebhooksResourceWithStreamingResponse:
@@ -742,4 +932,10 @@ class AsyncWebhooksResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             webhooks.delete,
+        )
+        self.list_deliveries = async_to_streamed_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.test = async_to_streamed_response_wrapper(
+            webhooks.test,
         )
