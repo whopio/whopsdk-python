@@ -150,6 +150,13 @@ class VerificationCreateResponse(BaseModel):
 
     last_name: Optional[str] = None
 
+    manual_review: Optional[bool] = None
+    """True while the verification is held for a manual compliance review by Whop.
+
+    `status` stays `processing`; there is nothing to submit, and reviews typically
+    finish within 3 business days.
+    """
+
     requested_information: Optional[List[RequestedInformation]] = None
     """Fields or documents Whop still needs before review can continue.
 
