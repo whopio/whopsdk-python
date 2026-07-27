@@ -1245,20 +1245,33 @@ Types:
 
 ```python
 from whop_sdk.types import (
-    ResolutionCenterCaseCustomerResponse,
-    ResolutionCenterCaseIssueType,
-    ResolutionCenterCaseMerchantResponse,
-    ResolutionCenterCasePlatformResponse,
-    ResolutionCenterCaseStatus,
+    ResolutionCenterCaseCreateResponse,
     ResolutionCenterCaseRetrieveResponse,
     ResolutionCenterCaseListResponse,
+    ResolutionCenterCaseAcceptResponse,
+    ResolutionCenterCaseAppealResponse,
+    ResolutionCenterCaseDenyResponse,
+    ResolutionCenterCaseEventsResponse,
+    ResolutionCenterCaseReplyResponse,
+    ResolutionCenterCaseRequestInfoResponse,
+    ResolutionCenterCaseSummaryResponse,
+    ResolutionCenterCaseWithdrawResponse,
 )
 ```
 
 Methods:
 
+- <code title="post /resolution_center_cases">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">create</a>(\*\*<a href="src/whop_sdk/types/resolution_center_case_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_create_response.py">ResolutionCenterCaseCreateResponse</a></code>
 - <code title="get /resolution_center_cases/{id}">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/resolution_center_case_retrieve_response.py">ResolutionCenterCaseRetrieveResponse</a></code>
 - <code title="get /resolution_center_cases">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">list</a>(\*\*<a href="src/whop_sdk/types/resolution_center_case_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_list_response.py">SyncCursorPage[ResolutionCenterCaseListResponse]</a></code>
+- <code title="post /resolution_center_cases/{id}/accept">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">accept</a>(id, \*\*<a href="src/whop_sdk/types/resolution_center_case_accept_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_accept_response.py">ResolutionCenterCaseAcceptResponse</a></code>
+- <code title="post /resolution_center_cases/{id}/appeal">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">appeal</a>(id, \*\*<a href="src/whop_sdk/types/resolution_center_case_appeal_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_appeal_response.py">ResolutionCenterCaseAppealResponse</a></code>
+- <code title="post /resolution_center_cases/{id}/deny">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">deny</a>(id, \*\*<a href="src/whop_sdk/types/resolution_center_case_deny_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_deny_response.py">ResolutionCenterCaseDenyResponse</a></code>
+- <code title="get /resolution_center_cases/{id}/events">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">events</a>(id, \*\*<a href="src/whop_sdk/types/resolution_center_case_events_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_events_response.py">ResolutionCenterCaseEventsResponse</a></code>
+- <code title="post /resolution_center_cases/{id}/reply">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">reply</a>(id, \*\*<a href="src/whop_sdk/types/resolution_center_case_reply_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_reply_response.py">ResolutionCenterCaseReplyResponse</a></code>
+- <code title="post /resolution_center_cases/{id}/request_info">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">request_info</a>(id, \*\*<a href="src/whop_sdk/types/resolution_center_case_request_info_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_request_info_response.py">ResolutionCenterCaseRequestInfoResponse</a></code>
+- <code title="get /resolution_center_cases/summary">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">summary</a>(\*\*<a href="src/whop_sdk/types/resolution_center_case_summary_params.py">params</a>) -> <a href="./src/whop_sdk/types/resolution_center_case_summary_response.py">ResolutionCenterCaseSummaryResponse</a></code>
+- <code title="post /resolution_center_cases/{id}/withdraw">client.resolution_center_cases.<a href="./src/whop_sdk/resources/resolution_center_cases.py">withdraw</a>(id) -> <a href="./src/whop_sdk/types/resolution_center_case_withdraw_response.py">ResolutionCenterCaseWithdrawResponse</a></code>
 
 # PayoutAccounts
 

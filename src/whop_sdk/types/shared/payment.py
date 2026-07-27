@@ -16,11 +16,6 @@ from .membership_status import MembershipStatus
 from ..payment_method_types import PaymentMethodTypes
 from ..receipt_tax_behavior import ReceiptTaxBehavior
 from .friendly_receipt_status import FriendlyReceiptStatus
-from ..resolution_center_case_status import ResolutionCenterCaseStatus
-from ..resolution_center_case_issue_type import ResolutionCenterCaseIssueType
-from ..resolution_center_case_customer_response import ResolutionCenterCaseCustomerResponse
-from ..resolution_center_case_merchant_response import ResolutionCenterCaseMerchantResponse
-from ..resolution_center_case_platform_response import ResolutionCenterCasePlatformResponse
 
 __all__ = [
     "Payment",
@@ -359,7 +354,7 @@ class Resolution(BaseModel):
     customer_appealed: bool
     """Whether the customer has filed an appeal after the initial resolution decision."""
 
-    customer_response_actions: List[ResolutionCenterCaseCustomerResponse]
+    customer_response_actions: List[Literal["respond", "appeal", "withdraw"]]
     """The list of actions currently available to the customer."""
 
     due_date: Optional[datetime] = None
@@ -368,22 +363,39 @@ class Resolution(BaseModel):
     Null if no deadline is currently active. As a Unix timestamp.
     """
 
-    issue: ResolutionCenterCaseIssueType
+    issue: Literal[
+        "forgot_to_cancel",
+        "item_not_received",
+        "significantly_not_as_described",
+        "unauthorized_transaction",
+        "product_unacceptable",
+    ]
     """The category of the dispute."""
 
     merchant_appealed: bool
     """Whether the merchant has filed an appeal after the initial resolution decision."""
 
-    merchant_response_actions: List[ResolutionCenterCaseMerchantResponse]
+    merchant_response_actions: List[Literal["accept", "deny", "request_more_info", "appeal", "respond"]]
     """The list of actions currently available to the merchant."""
 
-    platform_response_actions: List[ResolutionCenterCasePlatformResponse]
+    platform_response_actions: List[
+        Literal["request_buyer_info", "request_merchant_info", "merchant_wins", "merchant_refund"]
+    ]
     """
     The list of actions currently available to the Whop platform for moderating this
     resolution.
     """
 
-    status: ResolutionCenterCaseStatus
+    status: Literal[
+        "merchant_response_needed",
+        "customer_response_needed",
+        "merchant_info_needed",
+        "customer_info_needed",
+        "under_platform_review",
+        "customer_won",
+        "merchant_won",
+        "customer_withdrew",
+    ]
     """
     The current status of the resolution case, indicating which party needs to
     respond or if the case is closed.

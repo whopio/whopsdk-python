@@ -434,7 +434,6 @@ from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent as Invoice
 from .partner_referred_users_params import PartnerReferredUsersParams as PartnerReferredUsersParams
 from .payment_created_webhook_event import PaymentCreatedWebhookEvent as PaymentCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent as PaymentPendingWebhookEvent
-from .resolution_center_case_status import ResolutionCenterCaseStatus as ResolutionCenterCaseStatus
 from .social_account_connect_params import SocialAccountConnectParams as SocialAccountConnectParams
 from .social_account_posts_response import SocialAccountPostsResponse as SocialAccountPostsResponse
 from .support_channel_create_params import SupportChannelCreateParams as SupportChannelCreateParams
@@ -470,23 +469,29 @@ from .withdrawal_generate_pdf_response import WithdrawalGeneratePdfResponse as W
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent as WithdrawalUpdatedWebhookEvent
 from .api_key_list_permissions_response import APIKeyListPermissionsResponse as APIKeyListPermissionsResponse
 from .bounty_submission_delete_response import BountySubmissionDeleteResponse as BountySubmissionDeleteResponse
-from .resolution_center_case_issue_type import ResolutionCenterCaseIssueType as ResolutionCenterCaseIssueType
 from .transfer_list_recipients_response import TransferListRecipientsResponse as TransferListRecipientsResponse
 from .account_recommend_actions_response import AccountRecommendActionsResponse as AccountRecommendActionsResponse
 from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent as ChatMessageCreatedWebhookEvent
 from .checkout_configuration_list_params import CheckoutConfigurationListParams as CheckoutConfigurationListParams
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent as MembershipActivatedWebhookEvent
 from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses as PayoutAccountCalculatedStatuses
+from .resolution_center_case_deny_params import ResolutionCenterCaseDenyParams as ResolutionCenterCaseDenyParams
 from .resolution_center_case_list_params import ResolutionCenterCaseListParams as ResolutionCenterCaseListParams
 from .social_account_lead_forms_response import SocialAccountLeadFormsResponse as SocialAccountLeadFormsResponse
 from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent as ChatReactionCreatedWebhookEvent
 from .dispute_alert_created_webhook_event import DisputeAlertCreatedWebhookEvent as DisputeAlertCreatedWebhookEvent
 from .invoice_mark_uncollectible_response import InvoiceMarkUncollectibleResponse as InvoiceMarkUncollectibleResponse
 from .payout_method_created_webhook_event import PayoutMethodCreatedWebhookEvent as PayoutMethodCreatedWebhookEvent
+from .resolution_center_case_reply_params import ResolutionCenterCaseReplyParams as ResolutionCenterCaseReplyParams
 from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent as SetupIntentCanceledWebhookEvent
 from .checkout_configuration_create_params import CheckoutConfigurationCreateParams as CheckoutConfigurationCreateParams
 from .checkout_configuration_list_response import CheckoutConfigurationListResponse as CheckoutConfigurationListResponse
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent as MembershipDeactivatedWebhookEvent
+from .resolution_center_case_accept_params import ResolutionCenterCaseAcceptParams as ResolutionCenterCaseAcceptParams
+from .resolution_center_case_appeal_params import ResolutionCenterCaseAppealParams as ResolutionCenterCaseAppealParams
+from .resolution_center_case_create_params import ResolutionCenterCaseCreateParams as ResolutionCenterCaseCreateParams
+from .resolution_center_case_deny_response import ResolutionCenterCaseDenyResponse as ResolutionCenterCaseDenyResponse
+from .resolution_center_case_events_params import ResolutionCenterCaseEventsParams as ResolutionCenterCaseEventsParams
 from .resolution_center_case_list_response import ResolutionCenterCaseListResponse as ResolutionCenterCaseListResponse
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent as SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent as VerificationSucceededWebhookEvent
@@ -495,6 +500,12 @@ from .company_token_transaction_list_params import (
 )
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
+)
+from .resolution_center_case_reply_response import (
+    ResolutionCenterCaseReplyResponse as ResolutionCenterCaseReplyResponse,
+)
+from .resolution_center_case_summary_params import (
+    ResolutionCenterCaseSummaryParams as ResolutionCenterCaseSummaryParams,
 )
 from .checkout_configuration_create_response import (
     CheckoutConfigurationCreateResponse as CheckoutConfigurationCreateResponse,
@@ -507,6 +518,18 @@ from .course_lesson_submit_assessment_params import (
 )
 from .identity_profile_updated_webhook_event import (
     IdentityProfileUpdatedWebhookEvent as IdentityProfileUpdatedWebhookEvent,
+)
+from .resolution_center_case_accept_response import (
+    ResolutionCenterCaseAcceptResponse as ResolutionCenterCaseAcceptResponse,
+)
+from .resolution_center_case_appeal_response import (
+    ResolutionCenterCaseAppealResponse as ResolutionCenterCaseAppealResponse,
+)
+from .resolution_center_case_create_response import (
+    ResolutionCenterCaseCreateResponse as ResolutionCenterCaseCreateResponse,
+)
+from .resolution_center_case_events_response import (
+    ResolutionCenterCaseEventsResponse as ResolutionCenterCaseEventsResponse,
 )
 from .company_token_transaction_create_params import (
     CompanyTokenTransactionCreateParams as CompanyTokenTransactionCreateParams,
@@ -523,6 +546,9 @@ from .identity_profile_approved_webhook_event import (
 from .identity_profile_rejected_webhook_event import (
     IdentityProfileRejectedWebhookEvent as IdentityProfileRejectedWebhookEvent,
 )
+from .resolution_center_case_summary_response import (
+    ResolutionCenterCaseSummaryResponse as ResolutionCenterCaseSummaryResponse,
+)
 from .ad_group_search_targeting_options_params import (
     AdGroupSearchTargetingOptionsParams as AdGroupSearchTargetingOptionsParams,
 )
@@ -535,17 +561,11 @@ from .course_lesson_mark_as_completed_response import (
 from .course_lesson_submit_assessment_response import (
     CourseLessonSubmitAssessmentResponse as CourseLessonSubmitAssessmentResponse,
 )
-from .resolution_center_case_customer_response import (
-    ResolutionCenterCaseCustomerResponse as ResolutionCenterCaseCustomerResponse,
-)
-from .resolution_center_case_merchant_response import (
-    ResolutionCenterCaseMerchantResponse as ResolutionCenterCaseMerchantResponse,
-)
-from .resolution_center_case_platform_response import (
-    ResolutionCenterCasePlatformResponse as ResolutionCenterCasePlatformResponse,
-)
 from .resolution_center_case_retrieve_response import (
     ResolutionCenterCaseRetrieveResponse as ResolutionCenterCaseRetrieveResponse,
+)
+from .resolution_center_case_withdraw_response import (
+    ResolutionCenterCaseWithdrawResponse as ResolutionCenterCaseWithdrawResponse,
 )
 from .ad_group_search_targeting_options_response import (
     AdGroupSearchTargetingOptionsResponse as AdGroupSearchTargetingOptionsResponse,
@@ -555,6 +575,9 @@ from .invoice_marked_uncollectible_webhook_event import (
 )
 from .membership_trial_ending_soon_webhook_event import (
     MembershipTrialEndingSoonWebhookEvent as MembershipTrialEndingSoonWebhookEvent,
+)
+from .resolution_center_case_request_info_params import (
+    ResolutionCenterCaseRequestInfoParams as ResolutionCenterCaseRequestInfoParams,
 )
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
@@ -573,6 +596,9 @@ from .resolution_center_case_created_webhook_event import (
 )
 from .resolution_center_case_decided_webhook_event import (
     ResolutionCenterCaseDecidedWebhookEvent as ResolutionCenterCaseDecidedWebhookEvent,
+)
+from .resolution_center_case_request_info_response import (
+    ResolutionCenterCaseRequestInfoResponse as ResolutionCenterCaseRequestInfoResponse,
 )
 from .resolution_center_case_updated_webhook_event import (
     ResolutionCenterCaseUpdatedWebhookEvent as ResolutionCenterCaseUpdatedWebhookEvent,

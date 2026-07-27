@@ -1,15 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ResolutionCenterCaseCreatedWebhookEvent", "Data", "DataAccount", "DataBuyer", "DataPayment"]
+__all__ = ["ResolutionCenterCaseRequestInfoResponse", "Account", "Buyer", "Payment"]
 
 
-class DataAccount(BaseModel):
+class Account(BaseModel):
     """The account the case was filed against."""
 
     id: str
@@ -19,7 +18,7 @@ class DataAccount(BaseModel):
     """Account display name."""
 
 
-class DataBuyer(BaseModel):
+class Buyer(BaseModel):
     """The customer who opened the case."""
 
     email: Optional[str] = None
@@ -41,7 +40,7 @@ class DataBuyer(BaseModel):
     """The customer's Whop username."""
 
 
-class DataPayment(BaseModel):
+class Payment(BaseModel):
     """The payment the case was opened against."""
 
     id: str
@@ -60,11 +59,11 @@ class DataPayment(BaseModel):
     """How the customer paid, such as `card` or `paypal`."""
 
 
-class Data(BaseModel):
+class ResolutionCenterCaseRequestInfoResponse(BaseModel):
     id: str
     """Resolution center case ID, prefixed `reso_`."""
 
-    account: Optional[DataAccount] = None
+    account: Optional[Account] = None
     """The account the case was filed against."""
 
     amount: float
@@ -72,7 +71,7 @@ class Data(BaseModel):
 
     available_actions: List[Literal["accept", "deny", "request_info", "reply", "appeal", "withdraw"]]
 
-    buyer: DataBuyer
+    buyer: Buyer
     """The customer who opened the case."""
 
     created_at: str
@@ -97,7 +96,7 @@ class Data(BaseModel):
     moved.
     """
 
-    payment: DataPayment
+    payment: Payment
     """The payment the case was opened against."""
 
     plan_id: Optional[str] = None
@@ -137,22 +136,3 @@ class Data(BaseModel):
 
     updated_at: str
     """When the case was last changed, as an ISO 8601 timestamp."""
-
-
-class ResolutionCenterCaseCreatedWebhookEvent(BaseModel):
-    id: str
-    """A unique ID for every single webhook request"""
-
-    api_version: Literal["v1"]
-    """The API version for this webhook"""
-
-    data: Data
-
-    timestamp: datetime
-    """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
-
-    type: Literal["resolution_center_case.created"]
-    """The webhook event type"""
-
-    company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""

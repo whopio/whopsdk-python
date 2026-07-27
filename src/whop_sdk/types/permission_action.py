@@ -143,6 +143,7 @@ PermissionAction: TypeAlias = Literal[
     "payment:resolution_center",
     "payment:resolution_center_case:export",
     "payment:resolution_center_case:read",
+    "payment:resolution_center_case:manage",
     "payout:create_destination",
     "payout:delete_destination",
     "payout:destination:read",

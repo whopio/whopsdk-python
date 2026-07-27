@@ -255,7 +255,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-26"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-27"
         self.version = version
 
         if base_url is None:
@@ -836,6 +836,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def resolution_center_cases(self) -> ResolutionCenterCasesResource:
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import ResolutionCenterCasesResource
 
         return ResolutionCenterCasesResource(self)
@@ -1095,7 +1100,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-26"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-07-27"
         self.version = version
 
         if base_url is None:
@@ -1676,6 +1681,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def resolution_center_cases(self) -> AsyncResolutionCenterCasesResource:
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import AsyncResolutionCenterCasesResource
 
         return AsyncResolutionCenterCasesResource(self)
@@ -2436,6 +2446,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def resolution_center_cases(self) -> resolution_center_cases.ResolutionCenterCasesResourceWithRawResponse:
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import ResolutionCenterCasesResourceWithRawResponse
 
         return ResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
@@ -3080,6 +3095,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def resolution_center_cases(self) -> resolution_center_cases.AsyncResolutionCenterCasesResourceWithRawResponse:
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import AsyncResolutionCenterCasesResourceWithRawResponse
 
         return AsyncResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
@@ -3724,6 +3744,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def resolution_center_cases(self) -> resolution_center_cases.ResolutionCenterCasesResourceWithStreamingResponse:
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import ResolutionCenterCasesResourceWithStreamingResponse
 
         return ResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
@@ -4372,6 +4397,11 @@ class AsyncWhopWithStreamedResponse:
     def resolution_center_cases(
         self,
     ) -> resolution_center_cases.AsyncResolutionCenterCasesResourceWithStreamingResponse:
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import AsyncResolutionCenterCasesResourceWithStreamingResponse
 
         return AsyncResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
