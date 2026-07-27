@@ -344,6 +344,20 @@ Methods:
 - <code title="delete /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">delete</a>(id) -> <a href="./src/whop_sdk/types/plan_delete_response.py">PlanDeleteResponse</a></code>
 - <code title="post /plans/{id}/calculate_tax">client.plans.<a href="./src/whop_sdk/resources/plans.py">calculate_tax</a>(id, \*\*<a href="src/whop_sdk/types/plan_calculate_tax_params.py">params</a>) -> <a href="./src/whop_sdk/types/plan_calculate_tax_response.py">PlanCalculateTaxResponse</a></code>
 
+# Exports
+
+Types:
+
+```python
+from whop_sdk.types import Export, ExportListResponse
+```
+
+Methods:
+
+- <code title="post /exports">client.exports.<a href="./src/whop_sdk/resources/exports.py">create</a>(\*\*<a href="src/whop_sdk/types/export_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/export.py">Export</a></code>
+- <code title="get /exports/{id}">client.exports.<a href="./src/whop_sdk/resources/exports.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/export.py">Export</a></code>
+- <code title="get /exports">client.exports.<a href="./src/whop_sdk/resources/exports.py">list</a>(\*\*<a href="src/whop_sdk/types/export_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/export_list_response.py">ExportListResponse</a></code>
+
 # Entries
 
 Types:

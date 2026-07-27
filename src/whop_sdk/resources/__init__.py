@@ -128,6 +128,14 @@ from .entries import (
     EntriesResourceWithStreamingResponse,
     AsyncEntriesResourceWithStreamingResponse,
 )
+from .exports import (
+    ExportsResource,
+    AsyncExportsResource,
+    ExportsResourceWithRawResponse,
+    AsyncExportsResourceWithRawResponse,
+    ExportsResourceWithStreamingResponse,
+    AsyncExportsResourceWithStreamingResponse,
+)
 from .members import (
     MembersResource,
     AsyncMembersResource,
@@ -678,6 +686,12 @@ __all__ = [
     "AsyncPlansResourceWithRawResponse",
     "PlansResourceWithStreamingResponse",
     "AsyncPlansResourceWithStreamingResponse",
+    "ExportsResource",
+    "AsyncExportsResource",
+    "ExportsResourceWithRawResponse",
+    "AsyncExportsResourceWithRawResponse",
+    "ExportsResourceWithStreamingResponse",
+    "AsyncExportsResourceWithStreamingResponse",
     "EntriesResource",
     "AsyncEntriesResource",
     "EntriesResourceWithRawResponse",

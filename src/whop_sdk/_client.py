@@ -52,6 +52,7 @@ if TYPE_CHECKING:
         topups,
         courses,
         entries,
+        exports,
         members,
         payouts,
         refunds,
@@ -127,6 +128,7 @@ if TYPE_CHECKING:
     from .resources.topups import TopupsResource, AsyncTopupsResource
     from .resources.courses import CoursesResource, AsyncCoursesResource
     from .resources.entries import EntriesResource, AsyncEntriesResource
+    from .resources.exports import ExportsResource, AsyncExportsResource
     from .resources.members import MembersResource, AsyncMembersResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
@@ -419,6 +421,17 @@ class Whop(SyncAPIClient):
         from .resources.plans import PlansResource
 
         return PlansResource(self)
+
+    @cached_property
+    def exports(self) -> ExportsResource:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import ExportsResource
+
+        return ExportsResource(self)
 
     @cached_property
     def entries(self) -> EntriesResource:
@@ -1250,6 +1263,17 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPlansResource(self)
 
     @cached_property
+    def exports(self) -> AsyncExportsResource:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import AsyncExportsResource
+
+        return AsyncExportsResource(self)
+
+    @cached_property
     def entries(self) -> AsyncEntriesResource:
         from .resources.entries import AsyncEntriesResource
 
@@ -1999,6 +2023,17 @@ class WhopWithRawResponse:
         return PlansResourceWithRawResponse(self._client.plans)
 
     @cached_property
+    def exports(self) -> exports.ExportsResourceWithRawResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import ExportsResourceWithRawResponse
+
+        return ExportsResourceWithRawResponse(self._client.exports)
+
+    @cached_property
     def entries(self) -> entries.EntriesResourceWithRawResponse:
         from .resources.entries import EntriesResourceWithRawResponse
 
@@ -2628,6 +2663,17 @@ class AsyncWhopWithRawResponse:
         from .resources.plans import AsyncPlansResourceWithRawResponse
 
         return AsyncPlansResourceWithRawResponse(self._client.plans)
+
+    @cached_property
+    def exports(self) -> exports.AsyncExportsResourceWithRawResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import AsyncExportsResourceWithRawResponse
+
+        return AsyncExportsResourceWithRawResponse(self._client.exports)
 
     @cached_property
     def entries(self) -> entries.AsyncEntriesResourceWithRawResponse:
@@ -3263,6 +3309,17 @@ class WhopWithStreamedResponse:
         return PlansResourceWithStreamingResponse(self._client.plans)
 
     @cached_property
+    def exports(self) -> exports.ExportsResourceWithStreamingResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import ExportsResourceWithStreamingResponse
+
+        return ExportsResourceWithStreamingResponse(self._client.exports)
+
+    @cached_property
     def entries(self) -> entries.EntriesResourceWithStreamingResponse:
         from .resources.entries import EntriesResourceWithStreamingResponse
 
@@ -3894,6 +3951,17 @@ class AsyncWhopWithStreamedResponse:
         from .resources.plans import AsyncPlansResourceWithStreamingResponse
 
         return AsyncPlansResourceWithStreamingResponse(self._client.plans)
+
+    @cached_property
+    def exports(self) -> exports.AsyncExportsResourceWithStreamingResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import AsyncExportsResourceWithStreamingResponse
+
+        return AsyncExportsResourceWithStreamingResponse(self._client.exports)
 
     @cached_property
     def entries(self) -> entries.AsyncEntriesResourceWithStreamingResponse:
