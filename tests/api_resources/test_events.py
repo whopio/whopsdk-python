@@ -9,7 +9,11 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import EventListResponse, EventCreateResponse
+from whop_sdk.types import (
+    EventListResponse,
+    EventPulseResponse,
+    EventCreateResponse,
+)
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -187,6 +191,44 @@ class TestEvents:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_pulse(self, client: Whop) -> None:
+        event = client.events.pulse()
+        assert_matches_type(EventPulseResponse, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_pulse_with_all_params(self, client: Whop) -> None:
+        event = client.events.pulse(
+            after="after",
+            before="before",
+            first=0,
+        )
+        assert_matches_type(EventPulseResponse, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_pulse(self, client: Whop) -> None:
+        response = client.events.with_raw_response.pulse()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        event = response.parse()
+        assert_matches_type(EventPulseResponse, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_pulse(self, client: Whop) -> None:
+        with client.events.with_streaming_response.pulse() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            event = response.parse()
+            assert_matches_type(EventPulseResponse, event, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncEvents:
     parametrize = pytest.mark.parametrize(
@@ -358,5 +400,43 @@ class TestAsyncEvents:
 
             event = await response.parse()
             assert_matches_type(AsyncCursorPage[EventListResponse], event, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_pulse(self, async_client: AsyncWhop) -> None:
+        event = await async_client.events.pulse()
+        assert_matches_type(EventPulseResponse, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_pulse_with_all_params(self, async_client: AsyncWhop) -> None:
+        event = await async_client.events.pulse(
+            after="after",
+            before="before",
+            first=0,
+        )
+        assert_matches_type(EventPulseResponse, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_pulse(self, async_client: AsyncWhop) -> None:
+        response = await async_client.events.with_raw_response.pulse()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        event = await response.parse()
+        assert_matches_type(EventPulseResponse, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_pulse(self, async_client: AsyncWhop) -> None:
+        async with async_client.events.with_streaming_response.pulse() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            event = await response.parse()
+            assert_matches_type(EventPulseResponse, event, path=["response"])
 
         assert cast(Any, response.is_closed) is True

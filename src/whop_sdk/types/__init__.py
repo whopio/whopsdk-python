@@ -144,6 +144,7 @@ from .card_list_response import CardListResponse as CardListResponse
 from .card_update_params import CardUpdateParams as CardUpdateParams
 from .course_list_params import CourseListParams as CourseListParams
 from .dispute_alert_type import DisputeAlertType as DisputeAlertType
+from .event_pulse_params import EventPulseParams as EventPulseParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .lead_create_params import LeadCreateParams as LeadCreateParams
 from .lead_list_response import LeadListResponse as LeadListResponse
@@ -196,6 +197,7 @@ from .card_update_response import CardUpdateResponse as CardUpdateResponse
 from .course_create_params import CourseCreateParams as CourseCreateParams
 from .course_list_response import CourseListResponse as CourseListResponse
 from .course_update_params import CourseUpdateParams as CourseUpdateParams
+from .event_pulse_response import EventPulseResponse as EventPulseResponse
 from .file_create_response import FileCreateResponse as FileCreateResponse
 from .payment_method_types import PaymentMethodTypes as PaymentMethodTypes
 from .payout_create_params import PayoutCreateParams as PayoutCreateParams

@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import event_list_params, event_create_params
+from ..types import event_list_params, event_pulse_params, event_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -22,6 +22,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.event_list_response import EventListResponse
+from ..types.event_pulse_response import EventPulseResponse
 from ..types.event_create_response import EventCreateResponse
 
 __all__ = ["EventsResource", "AsyncEventsResource"]
@@ -31,7 +32,7 @@ class EventsResource(SyncAPIResource):
     """
     An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
 
-    Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person.
+    Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
     """
 
     @cached_property
@@ -399,12 +400,67 @@ class EventsResource(SyncAPIResource):
             model=EventListResponse,
         )
 
+    def pulse(
+        self,
+        *,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> EventPulseResponse:
+        """
+        Returns a fully anonymized feed of recent platform-wide purchases, most recent
+        first. This is the events resource's anonymized read mode: items mirror the
+        event shape but carry only an event name, a USD amount, a coarse location under
+        `user`, and a timestamp coarsened to the start of the minute; missing fields are
+        omitted, not nulled. The payload is identical for every caller; no auth is
+        required.
+
+        Args:
+          after: A cursor for fetching events after a previous page.
+
+          before: A cursor for fetching events before a later page.
+
+          first: The number of events to return.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/events/pulse",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                    },
+                    event_pulse_params.EventPulseParams,
+                ),
+            ),
+            cast_to=EventPulseResponse,
+        )
+
 
 class AsyncEventsResource(AsyncAPIResource):
     """
     An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
 
-    Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person.
+    Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
     """
 
     @cached_property
@@ -772,6 +828,61 @@ class AsyncEventsResource(AsyncAPIResource):
             model=EventListResponse,
         )
 
+    async def pulse(
+        self,
+        *,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> EventPulseResponse:
+        """
+        Returns a fully anonymized feed of recent platform-wide purchases, most recent
+        first. This is the events resource's anonymized read mode: items mirror the
+        event shape but carry only an event name, a USD amount, a coarse location under
+        `user`, and a timestamp coarsened to the start of the minute; missing fields are
+        omitted, not nulled. The payload is identical for every caller; no auth is
+        required.
+
+        Args:
+          after: A cursor for fetching events after a previous page.
+
+          before: A cursor for fetching events before a later page.
+
+          first: The number of events to return.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/events/pulse",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                    },
+                    event_pulse_params.EventPulseParams,
+                ),
+            ),
+            cast_to=EventPulseResponse,
+        )
+
 
 class EventsResourceWithRawResponse:
     def __init__(self, events: EventsResource) -> None:
@@ -782,6 +893,9 @@ class EventsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             events.list,
+        )
+        self.pulse = to_raw_response_wrapper(
+            events.pulse,
         )
 
 
@@ -795,6 +909,9 @@ class AsyncEventsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             events.list,
         )
+        self.pulse = async_to_raw_response_wrapper(
+            events.pulse,
+        )
 
 
 class EventsResourceWithStreamingResponse:
@@ -807,6 +924,9 @@ class EventsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             events.list,
         )
+        self.pulse = to_streamed_response_wrapper(
+            events.pulse,
+        )
 
 
 class AsyncEventsResourceWithStreamingResponse:
@@ -818,4 +938,7 @@ class AsyncEventsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             events.list,
+        )
+        self.pulse = async_to_streamed_response_wrapper(
+            events.pulse,
         )
