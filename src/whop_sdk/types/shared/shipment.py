@@ -24,12 +24,6 @@ class Shipment(BaseModel):
     created_at: str
     """The datetime the shipment was created (ISO 8601)."""
 
-    order_id: Optional[str] = None
-    """The ecommerce order this shipment fulfills.
-
-    Null for shipments not tied to an order.
-    """
-
     payment_id: str
     """The payment this shipment fulfills, prefixed `pay_`."""
 
