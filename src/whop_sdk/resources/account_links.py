@@ -24,8 +24,6 @@ __all__ = ["AccountLinksResource", "AsyncAccountLinksResource"]
 
 
 class AccountLinksResource(SyncAPIResource):
-    """Account links"""
-
     @cached_property
     def with_raw_response(self) -> AccountLinksResourceWithRawResponse:
         """
@@ -103,8 +101,6 @@ class AccountLinksResource(SyncAPIResource):
 
 
 class AsyncAccountLinksResource(AsyncAPIResource):
-    """Account links"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAccountLinksResourceWithRawResponse:
         """

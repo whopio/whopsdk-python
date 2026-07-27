@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["UserUpdateParams"]
+__all__ = ["UserUpdateParams", "ProfilePicture"]
 
 
 class UserUpdateParams(TypedDict, total=False):
@@ -14,3 +14,13 @@ class UserUpdateParams(TypedDict, total=False):
     bio: str
 
     name: str
+
+    profile_picture: ProfilePicture
+
+    username: str
+
+
+class ProfilePicture(TypedDict, total=False):
+    id: str
+
+    direct_upload_id: str
