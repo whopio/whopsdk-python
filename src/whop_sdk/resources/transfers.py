@@ -83,7 +83,10 @@ class TransfersResource(SyncAPIResource):
         `ledger`): `ledger` transfers credit between two ledger accounts and returns a
         Transfer; `wallet_send` sends USDT from the origin account's Ethereum wallet to
         a recipient; `claim_link` funds a shareable claim link anyone with the URL can
-        redeem.
+        redeem. The response is one of three objects — switch on `object` (`transfer`,
+        `send`, `claim_link`) to tell them apart. A `ledger` transfer from an account
+        whose funds live on stablecoin rails runs as a wallet send, so it returns a
+        `send`.
 
         Args:
           amount: The amount to move, in the transfer currency. For example 25.00.
@@ -379,7 +382,10 @@ class AsyncTransfersResource(AsyncAPIResource):
         `ledger`): `ledger` transfers credit between two ledger accounts and returns a
         Transfer; `wallet_send` sends USDT from the origin account's Ethereum wallet to
         a recipient; `claim_link` funds a shareable claim link anyone with the URL can
-        redeem.
+        redeem. The response is one of three objects — switch on `object` (`transfer`,
+        `send`, `claim_link`) to tell them apart. A `ledger` transfer from an account
+        whose funds live on stablecoin rails runs as a wallet send, so it returns a
+        `send`.
 
         Args:
           amount: The amount to move, in the transfer currency. For example 25.00.

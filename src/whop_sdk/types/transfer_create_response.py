@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import builtins
 from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
@@ -107,6 +108,9 @@ class Transfer(BaseModel):
     destination_ledger_account_id: str
     """Destination ledger account ID."""
 
+    object: Literal["transfer"]
+    """The object type. Discriminates the create response from a send or a claim link."""
+
     origin: TransferOrigin
     """Account or user sending funds."""
 
@@ -116,7 +120,7 @@ class Transfer(BaseModel):
     fee_amount: Optional[float] = None
     """Fee charged for the transfer."""
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, builtins.object]] = None
     """Custom metadata attached to the transfer."""
 
     notes: Optional[str] = None
