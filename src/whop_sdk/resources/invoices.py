@@ -271,7 +271,9 @@ class InvoicesResource(SyncAPIResource):
         customer_name: Optional[str] | Omit = omit,
         due_date: Union[str, datetime, None] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
-        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]]
+        | Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -936,7 +938,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         customer_name: Optional[str] | Omit = omit,
         due_date: Union[str, datetime, None] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
-        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]]
+        | Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
