@@ -190,6 +190,9 @@ class CreateInvoiceInputWithProductPlan(TypedDict, total=False):
     The plan attributes defining the price, currency, and billing interval for this invoice.
     """
 
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
+
     billing_period: Optional[int]
     """The interval in days at which the plan charges (renewal plans)."""
 
@@ -478,6 +481,9 @@ class CreateInvoiceInputWithProductIDPlan(TypedDict, total=False):
     """
     The plan attributes defining the price, currency, and billing interval for this invoice.
     """
+
+    adaptive_pricing_enabled: Optional[bool]
+    """Whether this plan accepts local currency payments via adaptive pricing."""
 
     billing_period: Optional[int]
     """The interval in days at which the plan charges (renewal plans)."""
