@@ -202,7 +202,7 @@ class Data(BaseModel):
     profile_type: str
     """Whether this is an 'individual' or 'business' profile."""
 
-    status: Literal["not_started", "pending", "approved", "rejected", "action_required"]
+    status: Literal["not_started", "pending", "manual_review", "approved", "rejected", "action_required"]
     """Derived verification status across all linked verifications.
 
     Returns `action_required` whenever the profile has an open request for
