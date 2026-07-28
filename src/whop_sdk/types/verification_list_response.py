@@ -151,13 +151,6 @@ class Data(BaseModel):
 
     last_name: Optional[str] = None
 
-    manual_review: Optional[bool] = None
-    """True while the verification is held for a manual compliance review by Whop.
-
-    `status` stays `processing`; there is nothing to submit, and reviews typically
-    finish within 3 business days.
-    """
-
     requested_information: Optional[List[DataRequestedInformation]] = None
     """Fields or documents Whop still needs before review can continue.
 
@@ -178,15 +171,17 @@ class Data(BaseModel):
     Expires 7 days after creation.
     """
 
-    status: Optional[Literal["not_started", "pending", "processing", "approved", "rejected", "action_required"]] = None
+    status: Optional[
+        Literal["not_started", "pending", "processing", "manual_review", "approved", "rejected", "action_required"]
+    ] = None
     """Current verification state.
 
-    `not_started` before any session has been created; `pending` while a session is
-    in progress and needs the user's input; `processing` while the provider reviews
-    submitted documents — nothing to do but wait; `action_required` when items in
-    `requested_information` need answers before review can continue; `approved` once
-    verification succeeds; `rejected` if it fails. Call the Create Verification
-    endpoint again to start a new session.
+    `not_started` before any session exists; `pending` while a session needs the
+    user's input; `processing` while the provider reviews documents;
+    `action_required` when `requested_information` needs answers; `manual_review`
+    during a manual compliance review — nothing to submit, usually done within 3
+    business days; `approved` on success; `rejected` on failure. Call Create
+    Verification again to start a new session.
     """
 
     updated_at: Optional[str] = None
