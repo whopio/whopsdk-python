@@ -73,18 +73,28 @@ class CardsResource(SyncAPIResource):
         """Issues a virtual card.
 
         For an individual (consumer) card issuing account, the
-        card is issued to the account's own cardholder. For a company (business) card
-        issuing account, pass assigned*user_id to issue the card to a company member; if
+        card is issued to the account's own cardholder. For a business card issuing
+        account, pass assigned*user_id to issue the card to a member of the account; if
         that member is not yet an approved card-issuing user, the card is provisioned
-        asynchronously or an onboarding invitation is sent (HTTP 202). Pass exactly one
-        of account_id (a biz* identifier) or user*id (a user* identifier). Returns the
-        newly created card resource.
+        asynchronously or an onboarding invitation is sent (HTTP 202). If the account
+        has never applied for card issuing, a card application is submitted first and
+        returned instead of a card (HTTP 202). Track it with capabilities.card_issuing
+        on GET /accounts/{account_id}, answer any requested_information on GET
+        /verifications/{account_id}, and call this endpoint again once the application
+        is approved; calling it earlier returns HTTP 409. An account with an approved
+        KYB applies as the business entity; otherwise the application uses the approved
+        identity verification of assigned_user_id, falling back to the user the
+        credential belongs to. A user credential may only pass its own user id as
+        assigned_user_id; an account API key may pass any member of that account, and
+        must pass one to submit an application. Pass exactly one of account_id (a biz*
+        identifier) or user*id (a user* identifier). Returns the newly created card
+        resource.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
-          assigned_user_id: The company member (a user\\__ identifier) to assign the card to. Required for
-              company (business) card issuing accounts.
+          assigned_user_id: The account member (a user\\__ identifier) to assign the card to. Required for
+              business card issuing accounts.
 
           name: A display name for the card.
 
@@ -376,18 +386,28 @@ class AsyncCardsResource(AsyncAPIResource):
         """Issues a virtual card.
 
         For an individual (consumer) card issuing account, the
-        card is issued to the account's own cardholder. For a company (business) card
-        issuing account, pass assigned*user_id to issue the card to a company member; if
+        card is issued to the account's own cardholder. For a business card issuing
+        account, pass assigned*user_id to issue the card to a member of the account; if
         that member is not yet an approved card-issuing user, the card is provisioned
-        asynchronously or an onboarding invitation is sent (HTTP 202). Pass exactly one
-        of account_id (a biz* identifier) or user*id (a user* identifier). Returns the
-        newly created card resource.
+        asynchronously or an onboarding invitation is sent (HTTP 202). If the account
+        has never applied for card issuing, a card application is submitted first and
+        returned instead of a card (HTTP 202). Track it with capabilities.card_issuing
+        on GET /accounts/{account_id}, answer any requested_information on GET
+        /verifications/{account_id}, and call this endpoint again once the application
+        is approved; calling it earlier returns HTTP 409. An account with an approved
+        KYB applies as the business entity; otherwise the application uses the approved
+        identity verification of assigned_user_id, falling back to the user the
+        credential belongs to. A user credential may only pass its own user id as
+        assigned_user_id; an account API key may pass any member of that account, and
+        must pass one to submit an application. Pass exactly one of account_id (a biz*
+        identifier) or user*id (a user* identifier). Returns the newly created card
+        resource.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
 
-          assigned_user_id: The company member (a user\\__ identifier) to assign the card to. Required for
-              company (business) card issuing accounts.
+          assigned_user_id: The account member (a user\\__ identifier) to assign the card to. Required for
+              business card issuing accounts.
 
           name: A display name for the card.
 

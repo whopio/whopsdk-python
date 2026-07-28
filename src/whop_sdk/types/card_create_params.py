@@ -14,9 +14,9 @@ class CardCreateParams(TypedDict, total=False):
     """The owning account ID (a biz\\__ identifier). Provide this or user_id."""
 
     assigned_user_id: str
-    """The company member (a user\\__ identifier) to assign the card to.
+    """The account member (a user\\__ identifier) to assign the card to.
 
-    Required for company (business) card issuing accounts.
+    Required for business card issuing accounts.
     """
 
     name: str
