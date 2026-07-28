@@ -843,12 +843,34 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import NotificationCreateResponse
+from whop_sdk.types import (
+    Notification,
+    NotificationBadge,
+    NotificationCreateResponse,
+    NotificationBadgesResponse,
+    NotificationMarkReadResponse,
+)
 ```
 
 Methods:
 
-- <code title="post /notifications">client.notifications.<a href="./src/whop_sdk/resources/notifications.py">create</a>(\*\*<a href="src/whop_sdk/types/notification_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/notification_create_response.py">NotificationCreateResponse</a></code>
+- <code title="post /notifications">client.notifications.<a href="./src/whop_sdk/resources/notifications/notifications.py">create</a>(\*\*<a href="src/whop_sdk/types/notification_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/notification_create_response.py">NotificationCreateResponse</a></code>
+- <code title="get /notifications/{notification_id}">client.notifications.<a href="./src/whop_sdk/resources/notifications/notifications.py">retrieve</a>(notification_id) -> <a href="./src/whop_sdk/types/notification.py">Notification</a></code>
+- <code title="get /notifications">client.notifications.<a href="./src/whop_sdk/resources/notifications/notifications.py">list</a>(\*\*<a href="src/whop_sdk/types/notification_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/notification.py">SyncCursorPage[Notification]</a></code>
+- <code title="get /notifications/badges">client.notifications.<a href="./src/whop_sdk/resources/notifications/notifications.py">badges</a>(\*\*<a href="src/whop_sdk/types/notification_badges_params.py">params</a>) -> <a href="./src/whop_sdk/types/notification_badges_response.py">NotificationBadgesResponse</a></code>
+- <code title="post /notifications/mark_read">client.notifications.<a href="./src/whop_sdk/resources/notifications/notifications.py">mark_read</a>(\*\*<a href="src/whop_sdk/types/notification_mark_read_params.py">params</a>) -> <a href="./src/whop_sdk/types/notification_mark_read_response.py">NotificationMarkReadResponse</a></code>
+
+## Topics
+
+Types:
+
+```python
+from whop_sdk.types.notifications import NotificationTopic
+```
+
+Methods:
+
+- <code title="get /notifications/topics">client.notifications.topics.<a href="./src/whop_sdk/resources/notifications/topics.py">list</a>(\*\*<a href="src/whop_sdk/types/notifications/topic_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/notifications/notification_topic.py">SyncCursorPage[NotificationTopic]</a></code>
 
 # Disputes
 

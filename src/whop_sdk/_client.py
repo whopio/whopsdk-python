@@ -164,7 +164,6 @@ if TYPE_CHECKING:
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.account_links import AccountLinksResource, AsyncAccountLinksResource
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
-    from .resources.notifications import NotificationsResource, AsyncNotificationsResource
     from .resources.setup_intents import SetupIntentsResource, AsyncSetupIntentsResource
     from .resources.verifications import VerificationsResource, AsyncVerificationsResource
     from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
@@ -193,6 +192,7 @@ if TYPE_CHECKING:
         CourseLessonInteractionsResource,
         AsyncCourseLessonInteractionsResource,
     )
+    from .resources.notifications.notifications import NotificationsResource, AsyncNotificationsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Whop", "AsyncWhop", "Client", "AsyncClient"]
 
@@ -636,6 +636,13 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def notifications(self) -> NotificationsResource:
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import NotificationsResource
 
         return NotificationsResource(self)
@@ -1483,6 +1490,13 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def notifications(self) -> AsyncNotificationsResource:
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import AsyncNotificationsResource
 
         return AsyncNotificationsResource(self)
@@ -2250,6 +2264,13 @@ class WhopWithRawResponse:
 
     @cached_property
     def notifications(self) -> notifications.NotificationsResourceWithRawResponse:
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import NotificationsResourceWithRawResponse
 
         return NotificationsResourceWithRawResponse(self._client.notifications)
@@ -2899,6 +2920,13 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def notifications(self) -> notifications.AsyncNotificationsResourceWithRawResponse:
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import AsyncNotificationsResourceWithRawResponse
 
         return AsyncNotificationsResourceWithRawResponse(self._client.notifications)
@@ -3550,6 +3578,13 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def notifications(self) -> notifications.NotificationsResourceWithStreamingResponse:
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import NotificationsResourceWithStreamingResponse
 
         return NotificationsResourceWithStreamingResponse(self._client.notifications)
@@ -4203,6 +4238,13 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def notifications(self) -> notifications.AsyncNotificationsResourceWithStreamingResponse:
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import AsyncNotificationsResourceWithStreamingResponse
 
         return AsyncNotificationsResourceWithStreamingResponse(self._client.notifications)
