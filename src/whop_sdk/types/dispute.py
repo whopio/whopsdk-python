@@ -372,6 +372,12 @@ class Dispute(BaseModel):
     reason: Optional[str] = None
     """A human-readable reason for the dispute."""
 
+    reason_code: Optional[str] = None
+    """The card network reason code for the dispute.
+
+    Null when the payment processor did not provide one.
+    """
+
     refund_policy_attachment: Optional[RefundPolicyAttachment] = None
     """The refund policy document uploaded as dispute evidence.
 

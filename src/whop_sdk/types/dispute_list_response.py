@@ -100,6 +100,12 @@ class DisputeListResponse(BaseModel):
     reason: Optional[str] = None
     """A human-readable reason for the dispute."""
 
+    reason_code: Optional[str] = None
+    """The card network reason code for the dispute.
+
+    Null when the payment processor did not provide one.
+    """
+
     status: DisputeStatuses
     """
     The current status of the dispute lifecycle, such as needs_response,
