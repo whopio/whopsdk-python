@@ -63,6 +63,9 @@ class PlanUpdateParams(TypedDict, total=False):
     When not provided, the account's defaults apply.
     """
 
+    release_method: str
+    """Sales method for this plan, such as `buy_now` or `waitlist`."""
+
     renewal_price: Optional[float]
     """
     The amount charged each billing period for recurring plans, in the plan's

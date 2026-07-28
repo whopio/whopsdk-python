@@ -252,6 +252,7 @@ class PlansResource(SyncAPIResource):
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
+        release_method: str | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
@@ -305,6 +306,8 @@ class PlansResource(SyncAPIResource):
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
               account's defaults apply.
 
+          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
+
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
 
@@ -353,6 +356,7 @@ class PlansResource(SyncAPIResource):
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
+                    "release_method": release_method,
                     "renewal_price": renewal_price,
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
@@ -777,6 +781,7 @@ class AsyncPlansResource(AsyncAPIResource):
         offer_cancel_discount: Optional[bool] | Omit = omit,
         override_tax_type: str | Omit = omit,
         payment_method_configuration: Optional[plan_update_params.PaymentMethodConfiguration] | Omit = omit,
+        release_method: str | Omit = omit,
         renewal_price: Optional[float] | Omit = omit,
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
@@ -830,6 +835,8 @@ class AsyncPlansResource(AsyncAPIResource):
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
               account's defaults apply.
 
+          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
+
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
 
@@ -878,6 +885,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     "offer_cancel_discount": offer_cancel_discount,
                     "override_tax_type": override_tax_type,
                     "payment_method_configuration": payment_method_configuration,
+                    "release_method": release_method,
                     "renewal_price": renewal_price,
                     "stock": stock,
                     "strike_through_initial_price": strike_through_initial_price,
