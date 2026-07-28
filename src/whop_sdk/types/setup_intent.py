@@ -188,3 +188,9 @@ class SetupIntent(BaseModel):
 
     status: SetupIntentStatus
     """The current status of the setup intent."""
+
+    three_ds_verified: bool
+    """
+    Whether 3D Secure authentication was completed when this payment method was set
+    up.
+    """
