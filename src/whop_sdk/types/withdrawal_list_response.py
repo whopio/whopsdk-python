@@ -47,6 +47,12 @@ class WithdrawalListResponse(BaseModel):
     withdrawal amount. Only applies to platform accounts using Whop Rails.
     """
 
+    payout_request_id: Optional[str] = None
+    """
+    The id of the payout request (returned by POST /payouts) that this withdrawal
+    settles. Null unless the withdrawal originated from a stablecoin payout.
+    """
+
     speed: WithdrawalSpeeds
     """The processing speed selected for this withdrawal ('standard' or 'instant')."""
 
