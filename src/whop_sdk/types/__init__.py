@@ -121,6 +121,7 @@ from .card_list_params import CardListParams as CardListParams
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
+from .pixel_validation import PixelValidation as PixelValidation
 from .plan_list_params import PlanListParams as PlanListParams
 from .swap_list_params import SwapListParams as SwapListParams
 from .targeting_option import TargetingOption as TargetingOption
@@ -394,6 +395,7 @@ from .course_lesson_update_params import CourseLessonUpdateParams as CourseLesso
 from .dispute_alert_list_response import DisputeAlertListResponse as DisputeAlertListResponse
 from .entry_created_webhook_event import EntryCreatedWebhookEvent as EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent as EntryDeletedWebhookEvent
+from .event_validate_pixel_params import EventValidatePixelParams as EventValidatePixelParams
 from .experience_duplicate_params import ExperienceDuplicateParams as ExperienceDuplicateParams
 from .plan_calculate_tax_response import PlanCalculateTaxResponse as PlanCalculateTaxResponse
 from .social_account_posts_params import SocialAccountPostsParams as SocialAccountPostsParams

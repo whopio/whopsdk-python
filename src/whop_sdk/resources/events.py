@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import event_list_params, event_pulse_params, event_create_params
+from ..types import event_list_params, event_pulse_params, event_create_params, event_validate_pixel_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +21,7 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.pixel_validation import PixelValidation
 from ..types.event_list_response import EventListResponse
 from ..types.event_pulse_response import EventPulseResponse
 from ..types.event_create_response import EventCreateResponse
@@ -33,6 +34,8 @@ class EventsResource(SyncAPIResource):
     An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
 
     Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+    Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
     """
 
     @cached_property
@@ -455,12 +458,66 @@ class EventsResource(SyncAPIResource):
             cast_to=EventPulseResponse,
         )
 
+    def validate_pixel(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        url: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PixelValidation:
+        """Checks whether the Whop pixel is installed for an account.
+
+        Recent pixel events
+        count as proof on their own, so an account that has sent data lately comes back
+        installed without a `url`. Pass a `url` and events from that page settle it; if
+        it hasn't sent any lately the page is fetched and read for the pixel and the
+        conversion events wired on it. `installed` is only true when the pixel was
+        actually seen — in the account's events or in the page.
+
+        Args:
+          account_id: Account to check. Defaults to the authenticated account.
+
+          url: A page to read for the pixel, e.g. an ad destination. Omit it to check the
+              account from its events alone.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            "/events/validate_pixel",
+            body=maybe_transform(
+                {
+                    "account_id": account_id,
+                    "url": url,
+                },
+                event_validate_pixel_params.EventValidatePixelParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PixelValidation,
+        )
+
 
 class AsyncEventsResource(AsyncAPIResource):
     """
     An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
 
     Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+    Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
     """
 
     @cached_property
@@ -883,6 +940,58 @@ class AsyncEventsResource(AsyncAPIResource):
             cast_to=EventPulseResponse,
         )
 
+    async def validate_pixel(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        url: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PixelValidation:
+        """Checks whether the Whop pixel is installed for an account.
+
+        Recent pixel events
+        count as proof on their own, so an account that has sent data lately comes back
+        installed without a `url`. Pass a `url` and events from that page settle it; if
+        it hasn't sent any lately the page is fetched and read for the pixel and the
+        conversion events wired on it. `installed` is only true when the pixel was
+        actually seen — in the account's events or in the page.
+
+        Args:
+          account_id: Account to check. Defaults to the authenticated account.
+
+          url: A page to read for the pixel, e.g. an ad destination. Omit it to check the
+              account from its events alone.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            "/events/validate_pixel",
+            body=await async_maybe_transform(
+                {
+                    "account_id": account_id,
+                    "url": url,
+                },
+                event_validate_pixel_params.EventValidatePixelParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PixelValidation,
+        )
+
 
 class EventsResourceWithRawResponse:
     def __init__(self, events: EventsResource) -> None:
@@ -896,6 +1005,9 @@ class EventsResourceWithRawResponse:
         )
         self.pulse = to_raw_response_wrapper(
             events.pulse,
+        )
+        self.validate_pixel = to_raw_response_wrapper(
+            events.validate_pixel,
         )
 
 
@@ -912,6 +1024,9 @@ class AsyncEventsResourceWithRawResponse:
         self.pulse = async_to_raw_response_wrapper(
             events.pulse,
         )
+        self.validate_pixel = async_to_raw_response_wrapper(
+            events.validate_pixel,
+        )
 
 
 class EventsResourceWithStreamingResponse:
@@ -927,6 +1042,9 @@ class EventsResourceWithStreamingResponse:
         self.pulse = to_streamed_response_wrapper(
             events.pulse,
         )
+        self.validate_pixel = to_streamed_response_wrapper(
+            events.validate_pixel,
+        )
 
 
 class AsyncEventsResourceWithStreamingResponse:
@@ -941,4 +1059,7 @@ class AsyncEventsResourceWithStreamingResponse:
         )
         self.pulse = async_to_streamed_response_wrapper(
             events.pulse,
+        )
+        self.validate_pixel = async_to_streamed_response_wrapper(
+            events.validate_pixel,
         )

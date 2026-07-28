@@ -10,6 +10,7 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
+    PixelValidation,
     EventListResponse,
     EventPulseResponse,
     EventCreateResponse,
@@ -229,6 +230,44 @@ class TestEvents:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_validate_pixel(self, client: Whop) -> None:
+        event = client.events.validate_pixel()
+        assert_matches_type(PixelValidation, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_validate_pixel_with_all_params(self, client: Whop) -> None:
+        event = client.events.validate_pixel(
+            account_id="account_id",
+            url="url",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(PixelValidation, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_validate_pixel(self, client: Whop) -> None:
+        response = client.events.with_raw_response.validate_pixel()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        event = response.parse()
+        assert_matches_type(PixelValidation, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_validate_pixel(self, client: Whop) -> None:
+        with client.events.with_streaming_response.validate_pixel() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            event = response.parse()
+            assert_matches_type(PixelValidation, event, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncEvents:
     parametrize = pytest.mark.parametrize(
@@ -438,5 +477,43 @@ class TestAsyncEvents:
 
             event = await response.parse()
             assert_matches_type(EventPulseResponse, event, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_validate_pixel(self, async_client: AsyncWhop) -> None:
+        event = await async_client.events.validate_pixel()
+        assert_matches_type(PixelValidation, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_validate_pixel_with_all_params(self, async_client: AsyncWhop) -> None:
+        event = await async_client.events.validate_pixel(
+            account_id="account_id",
+            url="url",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(PixelValidation, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_validate_pixel(self, async_client: AsyncWhop) -> None:
+        response = await async_client.events.with_raw_response.validate_pixel()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        event = await response.parse()
+        assert_matches_type(PixelValidation, event, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_validate_pixel(self, async_client: AsyncWhop) -> None:
+        async with async_client.events.with_streaming_response.validate_pixel() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            event = await response.parse()
+            assert_matches_type(PixelValidation, event, path=["response"])
 
         assert cast(Any, response.is_closed) is True

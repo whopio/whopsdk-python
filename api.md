@@ -228,7 +228,12 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import EventCreateResponse, EventListResponse, EventPulseResponse
+from whop_sdk.types import (
+    PixelValidation,
+    EventCreateResponse,
+    EventListResponse,
+    EventPulseResponse,
+)
 ```
 
 Methods:
@@ -236,6 +241,7 @@ Methods:
 - <code title="post /events">client.events.<a href="./src/whop_sdk/resources/events.py">create</a>(\*\*<a href="src/whop_sdk/types/event_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/event_create_response.py">EventCreateResponse</a></code>
 - <code title="get /events">client.events.<a href="./src/whop_sdk/resources/events.py">list</a>(\*\*<a href="src/whop_sdk/types/event_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/event_list_response.py">SyncCursorPage[EventListResponse]</a></code>
 - <code title="get /events/pulse">client.events.<a href="./src/whop_sdk/resources/events.py">pulse</a>(\*\*<a href="src/whop_sdk/types/event_pulse_params.py">params</a>) -> <a href="./src/whop_sdk/types/event_pulse_response.py">EventPulseResponse</a></code>
+- <code title="post /events/validate_pixel">client.events.<a href="./src/whop_sdk/resources/events.py">validate_pixel</a>(\*\*<a href="src/whop_sdk/types/event_validate_pixel_params.py">params</a>) -> <a href="./src/whop_sdk/types/pixel_validation.py">PixelValidation</a></code>
 
 # Companies
 
