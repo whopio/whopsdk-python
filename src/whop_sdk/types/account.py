@@ -392,10 +392,7 @@ class PaymentControls(BaseModel):
     """
 
     high_risk_processing_fee_percentage: float
-    """Additional processing fee percentage for high-risk processing.
-
-    Currently `0` for all accounts.
-    """
+    """Additional processing fee percentage for high-risk processing."""
 
     pending_auto_topup_fee_percentage: float
     """
