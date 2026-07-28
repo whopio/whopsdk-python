@@ -77,16 +77,9 @@ class TransfersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransferCreateResponse:
-        """Moves funds out of an account.
-
-        `type` selects the kind of movement (default
-        `ledger`): `ledger` transfers credit between two ledger accounts and returns a
-        Transfer; `wallet_send` sends USDT from the origin account's Ethereum wallet to
-        a recipient; `claim_link` funds a shareable claim link anyone with the URL can
-        redeem. The response is one of three objects — switch on `object` (`transfer`,
-        `send`, `claim_link`) to tell them apart. A `ledger` transfer from an account
-        whose funds live on stablecoin rails runs as a wallet send, so it returns a
-        `send`.
+        """
+        Moves money between accounts, or into a claim link anyone with the URL can
+        redeem.
 
         Args:
           amount: The amount to move, in the transfer currency. For example 25.00.
@@ -111,7 +104,12 @@ class TransfersResource(SyncAPIResource):
 
           redeemable_count: claim_link only. How many different users can claim the link. Defaults to 1.
 
-          type: The kind of money movement. Defaults to ledger.
+          type: The kind of money movement, which decides what comes back. Defaults to ledger.
+              `ledger` moves credit between two Whop balances and returns a `transfer`;
+              `wallet_send` sends USDT from the origin account's Ethereum wallet and returns a
+              `send`; `claim_link` funds a shareable link anyone with the URL can redeem and
+              returns a `claim_link`. A `ledger` transfer from an account whose funds live on
+              stablecoin rails runs as a wallet send, so it returns a `send`.
 
           extra_headers: Send extra headers
 
@@ -162,7 +160,7 @@ class TransfersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransferRetrieveResponse:
         """
-        Retrieves a ledger transfer by ID.
+        Retrieves a single transfer.
 
         Args:
           extra_headers: Send extra headers
@@ -203,10 +201,8 @@ class TransfersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[TransferListResponse]:
-        """Lists ledger transfers for an account.
-
-        You must specify an origin_id or a
-        destination_id.
+        """
+        Lists an account's transfers.
 
         Args:
           after: Cursor to fetch the page after (from page_info.end_cursor).
@@ -217,7 +213,7 @@ class TransfersResource(SyncAPIResource):
 
           created_before: Only transfers created strictly before this ISO 8601 timestamp.
 
-          destination_id: Filter to transfers received by this account.
+          destination_id: Filter to transfers received by this account. Provide this or origin_id.
 
           direction: Sort direction. Defaults to desc.
 
@@ -227,7 +223,7 @@ class TransfersResource(SyncAPIResource):
 
           order: Sort column. Defaults to created_at.
 
-          origin_id: Filter to transfers sent from this account.
+          origin_id: Filter to transfers sent from this account. Provide this or destination_id.
 
           extra_headers: Send extra headers
 
@@ -278,23 +274,21 @@ class TransfersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[TransferListRecipientsResponse]:
-        """Lists users and accounts that can be selected as transfer recipients.
-
-        Requires
-        `payout:withdraw_funds` and `company:authorized_user:read`. Without a query,
-        returns the origin account's human team members followed by the authenticated
-        user's other accounts. With a query, returns matching users and accounts in
-        creator-dashboard relevance order and additionally requires `member:basic:read`.
-        Email addresses are not searchable.
+        """
+        Lists the people and accounts you can send money to.
 
         Args:
           origin_id: The originating account ID, prefixed `biz_`.
 
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
           first: Number of recipients per page. Search queries preserve the dashboard's 20-result
               maximum.
 
-          query: Search users and accounts by name, username, or ID. Complete email addresses
-              return no matches.
+          query: Search users and accounts by name, username, or ID, in the dashboard's relevance
+              order — this additionally requires the member:basic:read scope. Omit it to get
+              the origin account's team members followed by your own other accounts. Complete
+              email addresses return no matches.
 
           extra_headers: Send extra headers
 
@@ -376,16 +370,9 @@ class AsyncTransfersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransferCreateResponse:
-        """Moves funds out of an account.
-
-        `type` selects the kind of movement (default
-        `ledger`): `ledger` transfers credit between two ledger accounts and returns a
-        Transfer; `wallet_send` sends USDT from the origin account's Ethereum wallet to
-        a recipient; `claim_link` funds a shareable claim link anyone with the URL can
-        redeem. The response is one of three objects — switch on `object` (`transfer`,
-        `send`, `claim_link`) to tell them apart. A `ledger` transfer from an account
-        whose funds live on stablecoin rails runs as a wallet send, so it returns a
-        `send`.
+        """
+        Moves money between accounts, or into a claim link anyone with the URL can
+        redeem.
 
         Args:
           amount: The amount to move, in the transfer currency. For example 25.00.
@@ -410,7 +397,12 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           redeemable_count: claim_link only. How many different users can claim the link. Defaults to 1.
 
-          type: The kind of money movement. Defaults to ledger.
+          type: The kind of money movement, which decides what comes back. Defaults to ledger.
+              `ledger` moves credit between two Whop balances and returns a `transfer`;
+              `wallet_send` sends USDT from the origin account's Ethereum wallet and returns a
+              `send`; `claim_link` funds a shareable link anyone with the URL can redeem and
+              returns a `claim_link`. A `ledger` transfer from an account whose funds live on
+              stablecoin rails runs as a wallet send, so it returns a `send`.
 
           extra_headers: Send extra headers
 
@@ -461,7 +453,7 @@ class AsyncTransfersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransferRetrieveResponse:
         """
-        Retrieves a ledger transfer by ID.
+        Retrieves a single transfer.
 
         Args:
           extra_headers: Send extra headers
@@ -502,10 +494,8 @@ class AsyncTransfersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[TransferListResponse, AsyncCursorPage[TransferListResponse]]:
-        """Lists ledger transfers for an account.
-
-        You must specify an origin_id or a
-        destination_id.
+        """
+        Lists an account's transfers.
 
         Args:
           after: Cursor to fetch the page after (from page_info.end_cursor).
@@ -516,7 +506,7 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           created_before: Only transfers created strictly before this ISO 8601 timestamp.
 
-          destination_id: Filter to transfers received by this account.
+          destination_id: Filter to transfers received by this account. Provide this or origin_id.
 
           direction: Sort direction. Defaults to desc.
 
@@ -526,7 +516,7 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           order: Sort column. Defaults to created_at.
 
-          origin_id: Filter to transfers sent from this account.
+          origin_id: Filter to transfers sent from this account. Provide this or destination_id.
 
           extra_headers: Send extra headers
 
@@ -577,23 +567,21 @@ class AsyncTransfersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[TransferListRecipientsResponse, AsyncCursorPage[TransferListRecipientsResponse]]:
-        """Lists users and accounts that can be selected as transfer recipients.
-
-        Requires
-        `payout:withdraw_funds` and `company:authorized_user:read`. Without a query,
-        returns the origin account's human team members followed by the authenticated
-        user's other accounts. With a query, returns matching users and accounts in
-        creator-dashboard relevance order and additionally requires `member:basic:read`.
-        Email addresses are not searchable.
+        """
+        Lists the people and accounts you can send money to.
 
         Args:
           origin_id: The originating account ID, prefixed `biz_`.
 
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
           first: Number of recipients per page. Search queries preserve the dashboard's 20-result
               maximum.
 
-          query: Search users and accounts by name, username, or ID. Complete email addresses
-              return no matches.
+          query: Search users and accounts by name, username, or ID, in the dashboard's relevance
+              order — this additionally requires the member:basic:read scope. Omit it to get
+              the origin account's team members followed by your own other accounts. Complete
+              email addresses return no matches.
 
           extra_headers: Send extra headers
 

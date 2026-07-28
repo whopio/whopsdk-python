@@ -10,7 +10,10 @@ __all__ = ["DisputeSummaryParams"]
 
 class DisputeSummaryParams(TypedDict, total=False):
     account_id: str
-    """Only disputes filed against this account (`biz_` tag)."""
+    """Only disputes filed against this account (`biz_` tag).
+
+    Omit it to cover every account you can read.
+    """
 
     created_after: str
     """Only disputes opened after this ISO 8601 timestamp."""

@@ -70,25 +70,8 @@ class CardsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardCreateResponse:
-        """Issues a virtual card.
-
-        For an individual (consumer) card issuing account, the
-        card is issued to the account's own cardholder. For a business card issuing
-        account, pass assigned*user_id to issue the card to a member of the account; if
-        that member is not yet an approved card-issuing user, the card is provisioned
-        asynchronously or an onboarding invitation is sent (HTTP 202). If the account
-        has never applied for card issuing, a card application is submitted first and
-        returned instead of a card (HTTP 202). Track it with capabilities.card_issuing
-        on GET /accounts/{account_id}, answer any requested_information on GET
-        /verifications/{account_id}, and call this endpoint again once the application
-        is approved; calling it earlier returns HTTP 409. An account with an approved
-        KYB applies as the business entity; otherwise the application uses the approved
-        identity verification of assigned_user_id, falling back to the user the
-        credential belongs to. A user credential may only pass its own user id as
-        assigned_user_id; an account API key may pass any member of that account, and
-        must pass one to submit an application. Pass exactly one of account_id (a biz*
-        identifier) or user*id (a user* identifier). Returns the newly created card
-        resource.
+        """
+        Issue a virtual card, or apply for card issuing.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -149,10 +132,7 @@ class CardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardRetrieveResponse:
         """
-        Retrieves a single card by its icrd\\__ identifier, including its secrets (full
-        card number, CVC, and cardholder name) for active cards. The card PIN is
-        included only when the request is authenticated as the user the card is assigned
-        to.
+        Retrieve a single card.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -209,22 +189,8 @@ class CardsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardUpdateResponse:
-        """Updates an issued card.
-
-        All fields are optional; only the fields you pass are
-        changed. Updates the card name, billing address, and spending limits in one
-        call, sets a new PIN, freezes or unfreezes the card, or cancels it. Pass
-        canceled: true alone to cancel the card — cancellation is permanent and a
-        canceled card cannot be uncanceled. Pass exactly one of account*id (a biz*
-        identifier) or user*id (a user* identifier). Assigned cardholders without the
-        payout:account:update scope can update the PIN and freeze state of their own
-        card. The PIN can only be changed on a card assigned to the acting user. Returns
-        the updated card resource. For a card in the invited status, the invited user
-        completes card onboarding by passing only a billing address: their verified
-        identity is registered with the card issuer and card provisioning starts (the
-        card is returned and can be polled until issued). The invited user must have an
-        approved identity verification on their Whop account. No other fields can be
-        updated until the card is issued.
+        """
+        Update, freeze, or cancel a card.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -236,11 +202,13 @@ class CardsResource(SyncAPIResource):
           canceled: Pass `true` to permanently cancel the card. A canceled card cannot be
               uncanceled. Cannot be combined with other fields.
 
-          frozen: Pass `true` to freeze the card, `false` to unfreeze it.
+          frozen: Pass `true` to freeze the card, `false` to unfreeze it. The assigned cardholder
+              may freeze their own card without the payout:account:update scope.
 
           name: A display name for the card.
 
-          pin: New 4-digit PIN. Can only be set on a card assigned to the acting user.
+          pin: New 4-digit PIN. Can only be set on a card assigned to the acting user, who may
+              set it without the payout:account:update scope.
 
           remove_limit: Pass `true` to remove the spending limit (make the card unlimited).
 
@@ -299,13 +267,8 @@ class CardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardListResponse:
         """
-        Lists issued Whop virtual cards for an account or user, including pending
-        invitation cards that have not been issued by the card provider yet. Pass
-        exactly one of account*id (a biz* identifier) or user*id (a user* identifier).
-        Non-owner team members only see cards assigned to them. Users without the
-        payout:account:read scope can still list cards assigned to them (for example
-        moderators or external cardholders). Use GET /cards/:card_id to retrieve a
-        single card with its secrets.
+        Lists the Whop cards of an account or user, including ones still being set up.
+        Team members only see the cards assigned to them.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -383,25 +346,8 @@ class AsyncCardsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardCreateResponse:
-        """Issues a virtual card.
-
-        For an individual (consumer) card issuing account, the
-        card is issued to the account's own cardholder. For a business card issuing
-        account, pass assigned*user_id to issue the card to a member of the account; if
-        that member is not yet an approved card-issuing user, the card is provisioned
-        asynchronously or an onboarding invitation is sent (HTTP 202). If the account
-        has never applied for card issuing, a card application is submitted first and
-        returned instead of a card (HTTP 202). Track it with capabilities.card_issuing
-        on GET /accounts/{account_id}, answer any requested_information on GET
-        /verifications/{account_id}, and call this endpoint again once the application
-        is approved; calling it earlier returns HTTP 409. An account with an approved
-        KYB applies as the business entity; otherwise the application uses the approved
-        identity verification of assigned_user_id, falling back to the user the
-        credential belongs to. A user credential may only pass its own user id as
-        assigned_user_id; an account API key may pass any member of that account, and
-        must pass one to submit an application. Pass exactly one of account_id (a biz*
-        identifier) or user*id (a user* identifier). Returns the newly created card
-        resource.
+        """
+        Issue a virtual card, or apply for card issuing.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -462,10 +408,7 @@ class AsyncCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardRetrieveResponse:
         """
-        Retrieves a single card by its icrd\\__ identifier, including its secrets (full
-        card number, CVC, and cardholder name) for active cards. The card PIN is
-        included only when the request is authenticated as the user the card is assigned
-        to.
+        Retrieve a single card.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -522,22 +465,8 @@ class AsyncCardsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardUpdateResponse:
-        """Updates an issued card.
-
-        All fields are optional; only the fields you pass are
-        changed. Updates the card name, billing address, and spending limits in one
-        call, sets a new PIN, freezes or unfreezes the card, or cancels it. Pass
-        canceled: true alone to cancel the card — cancellation is permanent and a
-        canceled card cannot be uncanceled. Pass exactly one of account*id (a biz*
-        identifier) or user*id (a user* identifier). Assigned cardholders without the
-        payout:account:update scope can update the PIN and freeze state of their own
-        card. The PIN can only be changed on a card assigned to the acting user. Returns
-        the updated card resource. For a card in the invited status, the invited user
-        completes card onboarding by passing only a billing address: their verified
-        identity is registered with the card issuer and card provisioning starts (the
-        card is returned and can be polled until issued). The invited user must have an
-        approved identity verification on their Whop account. No other fields can be
-        updated until the card is issued.
+        """
+        Update, freeze, or cancel a card.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -549,11 +478,13 @@ class AsyncCardsResource(AsyncAPIResource):
           canceled: Pass `true` to permanently cancel the card. A canceled card cannot be
               uncanceled. Cannot be combined with other fields.
 
-          frozen: Pass `true` to freeze the card, `false` to unfreeze it.
+          frozen: Pass `true` to freeze the card, `false` to unfreeze it. The assigned cardholder
+              may freeze their own card without the payout:account:update scope.
 
           name: A display name for the card.
 
-          pin: New 4-digit PIN. Can only be set on a card assigned to the acting user.
+          pin: New 4-digit PIN. Can only be set on a card assigned to the acting user, who may
+              set it without the payout:account:update scope.
 
           remove_limit: Pass `true` to remove the spending limit (make the card unlimited).
 
@@ -612,13 +543,8 @@ class AsyncCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardListResponse:
         """
-        Lists issued Whop virtual cards for an account or user, including pending
-        invitation cards that have not been issued by the card provider yet. Pass
-        exactly one of account*id (a biz* identifier) or user*id (a user* identifier).
-        Non-owner team members only see cards assigned to them. Users without the
-        payout:account:read scope can still list cards assigned to them (for example
-        moderators or external cardholders). Use GET /cards/:card_id to retrieve a
-        single card with its secrets.
+        Lists the Whop cards of an account or user, including ones still being set up.
+        Team members only see the cards assigned to them.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.

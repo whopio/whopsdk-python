@@ -21,7 +21,7 @@ class TransferListParams(TypedDict, total=False):
     """Only transfers created strictly before this ISO 8601 timestamp."""
 
     destination_id: str
-    """Filter to transfers received by this account."""
+    """Filter to transfers received by this account. Provide this or origin_id."""
 
     direction: Literal["asc", "desc"]
     """Sort direction. Defaults to desc."""
@@ -36,4 +36,4 @@ class TransferListParams(TypedDict, total=False):
     """Sort column. Defaults to created_at."""
 
     origin_id: str
-    """Filter to transfers sent from this account."""
+    """Filter to transfers sent from this account. Provide this or destination_id."""

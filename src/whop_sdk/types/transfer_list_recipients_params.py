@@ -12,6 +12,7 @@ class TransferListRecipientsParams(TypedDict, total=False):
     """The originating account ID, prefixed `biz_`."""
 
     after: str
+    """Cursor to fetch the page after (from page_info.end_cursor)."""
 
     first: int
     """Number of recipients per page.
@@ -20,7 +21,9 @@ class TransferListRecipientsParams(TypedDict, total=False):
     """
 
     query: str
-    """Search users and accounts by name, username, or ID.
-
-    Complete email addresses return no matches.
+    """
+    Search users and accounts by name, username, or ID, in the dashboard's relevance
+    order — this additionally requires the member:basic:read scope. Omit it to get
+    the origin account's team members followed by your own other accounts. Complete
+    email addresses return no matches.
     """

@@ -70,19 +70,18 @@ class MethodsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MethodCreateResponse:
-        """
-        Saves a new payout method for an account or user by submitting the destination's
-        required fields, keyed by field id (list them with GET
-        /payouts/methods?destination_id=...). Sensitive values are vaulted in transit
-        and never stored raw; a Basis Theory token id may be passed in place of a raw
-        value. The created method is immediately usable as payout_method_id on POST
-        /payouts. A field validation failure returns the destination's full
-        required_fields schema alongside the error.
+        """Saves a new place an account or user can withdraw to.
+
+        Sensitive details are
+        vaulted in transit and never stored raw.
 
         Args:
           destination_id: The payout destination to add (a pd\\__ identifier from a previous listing).
 
-          fields: The destination's required field values, keyed by field id.
+          fields: The destination's required field values, keyed by field id — list them with
+              `GET /payouts/methods?destination_id=...`. A Basis Theory token id may be passed
+              in place of a raw value. A validation failure returns the destination's full
+              required_fields schema alongside the error.
 
           nickname: A label for the payout method, unique per destination.
 
@@ -149,11 +148,8 @@ class MethodsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPageWithLimits[MethodListResponse]:
         """
-        Lists the saved payout methods (bank accounts, digital wallets, crypto
-        addresses) that an account or user can withdraw to, most recently added first.
-        Pass exactly one of account*id (a biz* identifier) or user*id (a user*
-        identifier). Pass an amount to additionally get a fee and delivery quote per
-        method for withdrawing that amount.
+        Lists the bank accounts, wallets, and crypto addresses an account or user can
+        withdraw to, newest first.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -277,19 +273,18 @@ class AsyncMethodsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MethodCreateResponse:
-        """
-        Saves a new payout method for an account or user by submitting the destination's
-        required fields, keyed by field id (list them with GET
-        /payouts/methods?destination_id=...). Sensitive values are vaulted in transit
-        and never stored raw; a Basis Theory token id may be passed in place of a raw
-        value. The created method is immediately usable as payout_method_id on POST
-        /payouts. A field validation failure returns the destination's full
-        required_fields schema alongside the error.
+        """Saves a new place an account or user can withdraw to.
+
+        Sensitive details are
+        vaulted in transit and never stored raw.
 
         Args:
           destination_id: The payout destination to add (a pd\\__ identifier from a previous listing).
 
-          fields: The destination's required field values, keyed by field id.
+          fields: The destination's required field values, keyed by field id — list them with
+              `GET /payouts/methods?destination_id=...`. A Basis Theory token id may be passed
+              in place of a raw value. A validation failure returns the destination's full
+              required_fields schema alongside the error.
 
           nickname: A label for the payout method, unique per destination.
 
@@ -356,11 +351,8 @@ class AsyncMethodsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[MethodListResponse, AsyncCursorPageWithLimits[MethodListResponse]]:
         """
-        Lists the saved payout methods (bank accounts, digital wallets, crypto
-        addresses) that an account or user can withdraw to, most recently added first.
-        Pass exactly one of account*id (a biz* identifier) or user*id (a user*
-        identifier). Pass an amount to additionally get a fee and delivery quote per
-        method for withdrawing that amount.
+        Lists the bank accounts, wallets, and crypto addresses an account or user can
+        withdraw to, newest first.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.

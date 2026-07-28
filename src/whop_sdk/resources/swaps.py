@@ -70,17 +70,10 @@ class SwapsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapCreateResponse:
-        """Executes a swap from the account's wallet.
-
-        Crypto swaps run asynchronously; poll
-        GET /swaps/{id} for status. A pair of fiat currency codes instead converts
-        ledger balances to repay a negative to_token balance: by default the conversion
-        brings that balance exactly to zero, or pass amount to repay part of the debt.
-        Fiat conversions complete synchronously, except when funding from USD on a
-        stablecoin-rails account, which starts an asynchronous repayment (status
-        "processing"). The id on a pending repayment is a reference to the repayment
-        workflow; GET /swaps/{id} reports status for crypto swaps only, so watch the
-        account balance for settlement instead of polling.
+        """
+        Swaps one token for another from the account's wallet, or converts between
+        currencies to pay off a negative balance. Crypto swaps finish in the background
+        — check the swap for its status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -142,7 +135,7 @@ class SwapsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapRetrieveResponse:
         """
-        Returns the status of a specific swap, by the id returned from POST /swaps.
+        Retrieves a single swap and its status.
 
         Args:
           extra_headers: Send extra headers
@@ -174,10 +167,9 @@ class SwapsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapListResponse:
-        """Lists the account's swaps.
-
-        Currently returns the in-flight or most recent swap,
-        so zero or one rows.
+        """
+        Retrieve the account's completed or pending swaps — currently just the latest
+        one.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -222,9 +214,9 @@ class SwapsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapCreateQuoteResponse:
-        """Returns a stateless swap price preview.
+        """Previews the price of a swap.
 
-        No funds move and nothing is persisted.
+        No funds move and nothing is saved.
 
         Args:
           amount: Source token amount.
@@ -323,17 +315,10 @@ class AsyncSwapsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapCreateResponse:
-        """Executes a swap from the account's wallet.
-
-        Crypto swaps run asynchronously; poll
-        GET /swaps/{id} for status. A pair of fiat currency codes instead converts
-        ledger balances to repay a negative to_token balance: by default the conversion
-        brings that balance exactly to zero, or pass amount to repay part of the debt.
-        Fiat conversions complete synchronously, except when funding from USD on a
-        stablecoin-rails account, which starts an asynchronous repayment (status
-        "processing"). The id on a pending repayment is a reference to the repayment
-        workflow; GET /swaps/{id} reports status for crypto swaps only, so watch the
-        account balance for settlement instead of polling.
+        """
+        Swaps one token for another from the account's wallet, or converts between
+        currencies to pay off a negative balance. Crypto swaps finish in the background
+        — check the swap for its status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -395,7 +380,7 @@ class AsyncSwapsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapRetrieveResponse:
         """
-        Returns the status of a specific swap, by the id returned from POST /swaps.
+        Retrieves a single swap and its status.
 
         Args:
           extra_headers: Send extra headers
@@ -427,10 +412,9 @@ class AsyncSwapsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapListResponse:
-        """Lists the account's swaps.
-
-        Currently returns the in-flight or most recent swap,
-        so zero or one rows.
+        """
+        Retrieve the account's completed or pending swaps — currently just the latest
+        one.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -475,9 +459,9 @@ class AsyncSwapsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapCreateQuoteResponse:
-        """Returns a stateless swap price preview.
+        """Previews the price of a swap.
 
-        No funds move and nothing is persisted.
+        No funds move and nothing is saved.
 
         Args:
           amount: Source token amount.

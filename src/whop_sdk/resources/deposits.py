@@ -65,14 +65,12 @@ class DepositsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DepositCreateResponse:
         """
-        Resolves a deposit destination and returns the on-chain addresses that can fund
-        it. No authentication is required; any business can be resolved by its account
-        ID. A caller authenticated as a user can additionally resolve their own user
-        account.
+        Retrieve the deposit methods for an account, including crypto and bank transfer.
 
         Args:
           destination: Destination account ID or wallet address. Object form is supported for
-              compatibility.
+              compatibility. Any business resolves by its account ID without authentication; a
+              user account resolves only for that same authenticated user.
 
           amount: Amount to prefill on hosted deposit page.
 
@@ -149,14 +147,12 @@ class AsyncDepositsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DepositCreateResponse:
         """
-        Resolves a deposit destination and returns the on-chain addresses that can fund
-        it. No authentication is required; any business can be resolved by its account
-        ID. A caller authenticated as a user can additionally resolve their own user
-        account.
+        Retrieve the deposit methods for an account, including crypto and bank transfer.
 
         Args:
           destination: Destination account ID or wallet address. Object form is supported for
-              compatibility.
+              compatibility. Any business resolves by its account ID without authentication; a
+              user account resolves only for that same authenticated user.
 
           amount: Amount to prefill on hosted deposit page.
 

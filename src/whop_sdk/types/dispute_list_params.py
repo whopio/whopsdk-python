@@ -10,7 +10,10 @@ __all__ = ["DisputeListParams"]
 
 class DisputeListParams(TypedDict, total=False):
     account_id: str
-    """Only disputes filed against this account (`biz_` tag)."""
+    """Only disputes filed against this account (`biz_` tag).
+
+    Omit it to cover every account you can read.
+    """
 
     after: str
     """A cursor; returns disputes after this position."""

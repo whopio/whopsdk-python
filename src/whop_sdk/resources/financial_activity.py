@@ -72,13 +72,7 @@ class FinancialActivityResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FinancialActivityListResponse:
         """
-        Returns a paginated activity feed for one account or user, derived from ledger
-        lines with typed resource and source objects for presentation. Pass exactly one
-        of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
-        Filter by line type, currency, posted timestamp, or settlement date to reconcile
-        a specific window. Pass `include_owned_accounts=true` with your own `user_id` to
-        aggregate your personal ledger and the businesses you own into one feed; each
-        row then carries the owning `account`.
+        Returns an account's or user's activity feed: every movement of money in or out.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -195,13 +189,7 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FinancialActivityListResponse:
         """
-        Returns a paginated activity feed for one account or user, derived from ledger
-        lines with typed resource and source objects for presentation. Pass exactly one
-        of `account_id` (a `biz_` identifier) or `user_id` (a `user_` identifier).
-        Filter by line type, currency, posted timestamp, or settlement date to reconcile
-        a specific window. Pass `include_owned_accounts=true` with your own `user_id` to
-        aggregate your personal ledger and the businesses you own into one feed; each
-        row then carries the owning `account`.
+        Returns an account's or user's activity feed: every movement of money in or out.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.

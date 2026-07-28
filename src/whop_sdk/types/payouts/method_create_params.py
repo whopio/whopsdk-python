@@ -15,7 +15,12 @@ class MethodCreateParams(TypedDict, total=False):
     """The payout destination to add (a pd\\__ identifier from a previous listing)."""
 
     fields: Required[Dict[str, str]]
-    """The destination's required field values, keyed by field id."""
+    """
+    The destination's required field values, keyed by field id — list them with
+    `GET /payouts/methods?destination_id=...`. A Basis Theory token id may be passed
+    in place of a raw value. A validation failure returns the destination's full
+    required_fields schema alongside the error.
+    """
 
     nickname: Required[str]
     """A label for the payout method, unique per destination."""

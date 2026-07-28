@@ -54,6 +54,13 @@ class TransferCreateParams(TypedDict, total=False):
     """claim_link only. How many different users can claim the link. Defaults to 1."""
 
     type: Literal["ledger", "wallet_send", "claim_link"]
-    """The kind of money movement. Defaults to ledger."""
+    """The kind of money movement, which decides what comes back.
+
+    Defaults to ledger. `ledger` moves credit between two Whop balances and returns
+    a `transfer`; `wallet_send` sends USDT from the origin account's Ethereum wallet
+    and returns a `send`; `claim_link` funds a shareable link anyone with the URL
+    can redeem and returns a `claim_link`. A `ledger` transfer from an account whose
+    funds live on stablecoin rails runs as a wallet send, so it returns a `send`.
+    """
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

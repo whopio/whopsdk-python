@@ -81,14 +81,8 @@ class PayoutsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutCreateResponse:
-        """Creates a payout from a stablecoin account to a saved payout method.
-
-        The
-        account's funds move from its stablecoin balance to an external bank account,
-        wallet, or crypto address. Accounts that pay out from a fiat balance use POST
-        /withdrawals. Requires the payouts API to be enabled for the account; contact
-        support to enable it. The payout settles asynchronously; poll GET /payouts for
-        the entry whose payout_request_id matches this payout's id.
+        """
+        Sends money from an account's balance to one of its saved payout methods.
 
         Args:
           account_id: The account to pay out from (a biz\\__ identifier).
@@ -143,10 +137,7 @@ class PayoutsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PayoutListResponse]:
         """
-        Lists payouts (withdrawal requests) for an account or user, most recent first.
-        Pass exactly one of account*id (a biz* identifier) or user*id (a user*
-        identifier). The saved payout method on each payout additionally requires the
-        payout:destination:read scope and is null without it.
+        Lists an account's or user's payouts, newest first.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -246,14 +237,8 @@ class AsyncPayoutsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutCreateResponse:
-        """Creates a payout from a stablecoin account to a saved payout method.
-
-        The
-        account's funds move from its stablecoin balance to an external bank account,
-        wallet, or crypto address. Accounts that pay out from a fiat balance use POST
-        /withdrawals. Requires the payouts API to be enabled for the account; contact
-        support to enable it. The payout settles asynchronously; poll GET /payouts for
-        the entry whose payout_request_id matches this payout's id.
+        """
+        Sends money from an account's balance to one of its saved payout methods.
 
         Args:
           account_id: The account to pay out from (a biz\\__ identifier).
@@ -308,10 +293,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PayoutListResponse, AsyncCursorPage[PayoutListResponse]]:
         """
-        Lists payouts (withdrawal requests) for an account or user, most recent first.
-        Pass exactly one of account*id (a biz* identifier) or user*id (a user*
-        identifier). The saved payout method on each payout additionally requires the
-        payout:destination:read scope and is null without it.
+        Lists an account's or user's payouts, newest first.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.

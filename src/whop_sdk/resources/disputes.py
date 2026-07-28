@@ -97,10 +97,10 @@ class DisputesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
-        """Edits the dispute's evidence packet.
+        """Edits a dispute's evidence, while it is still editable.
 
-        Only works while `evidence_editable` is
-        true; submitting it is a separate call.
+        Sending it is a separate
+        call.
 
         Args:
           evidence: The evidence packet to send to the processor. Only the fields you provide are
@@ -146,13 +146,12 @@ class DisputesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[Dispute]:
-        """Lists disputes.
-
-        Without `account_id` you get the disputes of every account you
-        can read; the filters narrow that list.
+        """
+        Lists the disputes across the accounts you can read.
 
         Args:
-          account_id: Only disputes filed against this account (`biz_` tag).
+          account_id: Only disputes filed against this account (`biz_` tag). Omit it to cover every
+              account you can read.
 
           after: A cursor; returns disputes after this position.
 
@@ -224,10 +223,10 @@ class DisputesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
-        """
-        Sends the dispute's evidence packet to the payment processor and moves the
-        dispute to `under_review`. This is final — the packet cannot be edited or resent
-        afterwards.
+        """Sends a dispute's evidence to the payment processor.
+
+        This is final — it cannot
+        be edited or sent again.
 
         Args:
           extra_headers: Send extra headers
@@ -265,13 +264,13 @@ class DisputesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DisputeSummaryResponse:
-        """Aggregates the same disputes `GET /disputes` lists, using the same filters.
-
-        Use
-        it to build status tabs and currency filters without paging the whole list.
+        """
+        Totals up the same disputes the list returns, so you can build status tabs and
+        totals without paging through them.
 
         Args:
-          account_id: Only disputes filed against this account (`biz_` tag).
+          account_id: Only disputes filed against this account (`biz_` tag). Omit it to cover every
+              account you can read.
 
           created_after: Only disputes opened after this ISO 8601 timestamp.
 
@@ -386,10 +385,10 @@ class AsyncDisputesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
-        """Edits the dispute's evidence packet.
+        """Edits a dispute's evidence, while it is still editable.
 
-        Only works while `evidence_editable` is
-        true; submitting it is a separate call.
+        Sending it is a separate
+        call.
 
         Args:
           evidence: The evidence packet to send to the processor. Only the fields you provide are
@@ -435,13 +434,12 @@ class AsyncDisputesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Dispute, AsyncCursorPage[Dispute]]:
-        """Lists disputes.
-
-        Without `account_id` you get the disputes of every account you
-        can read; the filters narrow that list.
+        """
+        Lists the disputes across the accounts you can read.
 
         Args:
-          account_id: Only disputes filed against this account (`biz_` tag).
+          account_id: Only disputes filed against this account (`biz_` tag). Omit it to cover every
+              account you can read.
 
           after: A cursor; returns disputes after this position.
 
@@ -513,10 +511,10 @@ class AsyncDisputesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dispute:
-        """
-        Sends the dispute's evidence packet to the payment processor and moves the
-        dispute to `under_review`. This is final — the packet cannot be edited or resent
-        afterwards.
+        """Sends a dispute's evidence to the payment processor.
+
+        This is final — it cannot
+        be edited or sent again.
 
         Args:
           extra_headers: Send extra headers
@@ -554,13 +552,13 @@ class AsyncDisputesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DisputeSummaryResponse:
-        """Aggregates the same disputes `GET /disputes` lists, using the same filters.
-
-        Use
-        it to build status tabs and currency filters without paging the whole list.
+        """
+        Totals up the same disputes the list returns, so you can build status tabs and
+        totals without paging through them.
 
         Args:
-          account_id: Only disputes filed against this account (`biz_` tag).
+          account_id: Only disputes filed against this account (`biz_` tag). Omit it to cover every
+              account you can read.
 
           created_after: Only disputes opened after this ISO 8601 timestamp.
 

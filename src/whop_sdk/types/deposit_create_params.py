@@ -14,7 +14,9 @@ class DepositCreateParams(TypedDict, total=False):
     destination: Required[Destination]
     """Destination account ID or wallet address.
 
-    Object form is supported for compatibility.
+    Object form is supported for compatibility. Any business resolves by its account
+    ID without authentication; a user account resolves only for that same
+    authenticated user.
     """
 
     amount: float

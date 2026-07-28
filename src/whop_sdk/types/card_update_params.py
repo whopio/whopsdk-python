@@ -26,13 +26,21 @@ class CardUpdateParams(TypedDict, total=False):
     """
 
     frozen: bool
-    """Pass `true` to freeze the card, `false` to unfreeze it."""
+    """Pass `true` to freeze the card, `false` to unfreeze it.
+
+    The assigned cardholder may freeze their own card without the
+    payout:account:update scope.
+    """
 
     name: str
     """A display name for the card."""
 
     pin: str
-    """New 4-digit PIN. Can only be set on a card assigned to the acting user."""
+    """New 4-digit PIN.
+
+    Can only be set on a card assigned to the acting user, who may set it without
+    the payout:account:update scope.
+    """
 
     remove_limit: bool
     """Pass `true` to remove the spending limit (make the card unlimited)."""
