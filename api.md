@@ -554,13 +554,62 @@ from whop_sdk.types import User, UserBalance, UserCheckAccessResponse, UserRecom
 
 Methods:
 
-- <code title="get /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/user_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
-- <code title="patch /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">update</a>(id, \*\*<a href="src/whop_sdk/types/user_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
-- <code title="get /users">client.users.<a href="./src/whop_sdk/resources/users.py">list</a>(\*\*<a href="src/whop_sdk/types/user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">SyncCursorPage[User]</a></code>
-- <code title="get /users/{id}/access/{resource_id}">client.users.<a href="./src/whop_sdk/resources/users.py">check_access</a>(resource_id, \*, id) -> <a href="./src/whop_sdk/types/user_check_access_response.py">UserCheckAccessResponse</a></code>
-- <code title="get /users/me">client.users.<a href="./src/whop_sdk/resources/users.py">me</a>(\*\*<a href="src/whop_sdk/types/user_me_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
-- <code title="get /users/{id}/recommend_actions">client.users.<a href="./src/whop_sdk/resources/users.py">recommend_actions</a>(id) -> <a href="./src/whop_sdk/types/user_recommend_actions_response.py">UserRecommendActionsResponse</a></code>
-- <code title="patch /users/me">client.users.<a href="./src/whop_sdk/resources/users.py">update_me</a>(\*\*<a href="src/whop_sdk/types/user_update_me_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
+- <code title="get /users/{id}">client.users.<a href="./src/whop_sdk/resources/users/users.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/user_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
+- <code title="patch /users/{id}">client.users.<a href="./src/whop_sdk/resources/users/users.py">update</a>(id, \*\*<a href="src/whop_sdk/types/user_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
+- <code title="get /users">client.users.<a href="./src/whop_sdk/resources/users/users.py">list</a>(\*\*<a href="src/whop_sdk/types/user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">SyncCursorPage[User]</a></code>
+- <code title="get /users/{id}/access/{resource_id}">client.users.<a href="./src/whop_sdk/resources/users/users.py">check_access</a>(resource_id, \*, id) -> <a href="./src/whop_sdk/types/user_check_access_response.py">UserCheckAccessResponse</a></code>
+- <code title="get /users/me">client.users.<a href="./src/whop_sdk/resources/users/users.py">me</a>(\*\*<a href="src/whop_sdk/types/user_me_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
+- <code title="get /users/{id}/recommend_actions">client.users.<a href="./src/whop_sdk/resources/users/users.py">recommend_actions</a>(id) -> <a href="./src/whop_sdk/types/user_recommend_actions_response.py">UserRecommendActionsResponse</a></code>
+- <code title="patch /users/me">client.users.<a href="./src/whop_sdk/resources/users/users.py">update_me</a>(\*\*<a href="src/whop_sdk/types/user_update_me_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
+
+## Preferences
+
+Types:
+
+```python
+from whop_sdk.types.users import PreferenceRetrieveResponse, PreferenceUpdateResponse
+```
+
+Methods:
+
+- <code title="get /users/me/preferences">client.users.preferences.<a href="./src/whop_sdk/resources/users/preferences/preferences.py">retrieve</a>() -> <a href="./src/whop_sdk/types/users/preference_retrieve_response.py">PreferenceRetrieveResponse</a></code>
+- <code title="patch /users/me/preferences">client.users.preferences.<a href="./src/whop_sdk/resources/users/preferences/preferences.py">update</a>(\*\*<a href="src/whop_sdk/types/users/preference_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/preference_update_response.py">PreferenceUpdateResponse</a></code>
+
+### Notifications
+
+Types:
+
+```python
+from whop_sdk.types.users.preferences import NotificationSetResponse
+```
+
+Methods:
+
+- <code title="patch /users/me/preferences/notifications">client.users.preferences.notifications.<a href="./src/whop_sdk/resources/users/preferences/notifications/notifications.py">set</a>(\*\*<a href="src/whop_sdk/types/users/preferences/notification_set_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/preferences/notification_set_response.py">NotificationSetResponse</a></code>
+
+#### Topics
+
+Types:
+
+```python
+from whop_sdk.types.users.preferences.notifications import TopicListResponse
+```
+
+Methods:
+
+- <code title="get /users/me/preferences/notifications/topics">client.users.preferences.notifications.topics.<a href="./src/whop_sdk/resources/users/preferences/notifications/topics.py">list</a>(\*\*<a href="src/whop_sdk/types/users/preferences/notifications/topic_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/preferences/notifications/topic_list_response.py">SyncCursorPage[TopicListResponse]</a></code>
+
+#### Experiences
+
+Types:
+
+```python
+from whop_sdk.types.users.preferences.notifications import ExperienceListResponse
+```
+
+Methods:
+
+- <code title="get /users/me/preferences/notifications/experiences">client.users.preferences.notifications.experiences.<a href="./src/whop_sdk/resources/users/preferences/notifications/experiences.py">list</a>(\*\*<a href="src/whop_sdk/types/users/preferences/notifications/experience_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/preferences/notifications/experience_list_response.py">SyncCursorPage[ExperienceListResponse]</a></code>
 
 # Payments
 

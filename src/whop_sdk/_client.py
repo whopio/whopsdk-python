@@ -121,7 +121,6 @@ if TYPE_CHECKING:
     from .resources.plans import PlansResource, AsyncPlansResource
     from .resources.stats import StatsResource, AsyncStatsResource
     from .resources.swaps import SwapsResource, AsyncSwapsResource
-    from .resources.users import UsersResource, AsyncUsersResource
     from .resources.events import EventsResource, AsyncEventsResource
     from .resources.forums import ForumsResource, AsyncForumsResource
     from .resources.people import PeopleResource, AsyncPeopleResource
@@ -158,6 +157,7 @@ if TYPE_CHECKING:
     from .resources.memberships import MembershipsResource, AsyncMembershipsResource
     from .resources.permissions import PermissionsResource, AsyncPermissionsResource
     from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
+    from .resources.users.users import UsersResource, AsyncUsersResource
     from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
     from .resources.ad_campaigns import AdCampaignsResource, AsyncAdCampaignsResource
     from .resources.team_members import TeamMembersResource, AsyncTeamMembersResource

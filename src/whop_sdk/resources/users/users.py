@@ -6,22 +6,30 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import user_me_params, user_list_params, user_update_params, user_retrieve_params, user_update_me_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import user_me_params, user_list_params, user_update_params, user_retrieve_params, user_update_me_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from ..types.user import User
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.user_check_access_response import UserCheckAccessResponse
-from ..types.user_recommend_actions_response import UserRecommendActionsResponse
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...types.user import User
+from ..._base_client import AsyncPaginator, make_request_options
+from .preferences.preferences import (
+    PreferencesResource,
+    AsyncPreferencesResource,
+    PreferencesResourceWithRawResponse,
+    AsyncPreferencesResourceWithRawResponse,
+    PreferencesResourceWithStreamingResponse,
+    AsyncPreferencesResourceWithStreamingResponse,
+)
+from ...types.user_check_access_response import UserCheckAccessResponse
+from ...types.user_recommend_actions_response import UserRecommendActionsResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
 
@@ -33,6 +41,16 @@ class UsersResource(SyncAPIResource):
 
     Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
     """
+
+    @cached_property
+    def preferences(self) -> PreferencesResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PreferencesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
@@ -420,6 +438,16 @@ class AsyncUsersResource(AsyncAPIResource):
 
     Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
     """
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPreferencesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
@@ -826,6 +854,16 @@ class UsersResourceWithRawResponse:
             users.update_me,
         )
 
+    @cached_property
+    def preferences(self) -> PreferencesResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PreferencesResourceWithRawResponse(self._users.preferences)
+
 
 class AsyncUsersResourceWithRawResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
@@ -852,6 +890,16 @@ class AsyncUsersResourceWithRawResponse:
         self.update_me = async_to_raw_response_wrapper(
             users.update_me,
         )
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPreferencesResourceWithRawResponse(self._users.preferences)
 
 
 class UsersResourceWithStreamingResponse:
@@ -880,6 +928,16 @@ class UsersResourceWithStreamingResponse:
             users.update_me,
         )
 
+    @cached_property
+    def preferences(self) -> PreferencesResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PreferencesResourceWithStreamingResponse(self._users.preferences)
+
 
 class AsyncUsersResourceWithStreamingResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
@@ -906,3 +964,13 @@ class AsyncUsersResourceWithStreamingResponse:
         self.update_me = async_to_streamed_response_wrapper(
             users.update_me,
         )
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPreferencesResourceWithStreamingResponse(self._users.preferences)

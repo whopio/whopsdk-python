@@ -238,5 +238,7 @@ PermissionAction: TypeAlias = Literal[
     "ai_chat:create",
     "ai_chat:delete",
     "ai_chat:update",
+    "user:notifications:read",
+    "user:notifications:update",
     "user:profile:update",
 ]
