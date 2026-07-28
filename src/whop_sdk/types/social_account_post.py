@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -75,6 +75,8 @@ class SocialAccountPost(BaseModel):
     for video posts. Null for TikTok, which exposes no raw file (use embed_url).
     Meta URLs are signed and expire after roughly 24 hours, so don't store them.
     """
+
+    restrictions: List[Literal["lead_form_ineligible"]]
 
     thumbnail_url: Optional[str] = None
     """
