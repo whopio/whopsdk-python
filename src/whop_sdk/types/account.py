@@ -18,6 +18,8 @@ __all__ = [
     "CompanyFormationSignatures",
     "CompanyFormationSignaturesForm8821",
     "CompanyFormationSignaturesSs4",
+    "Owner",
+    "OwnerProfilePicture",
     "PaymentControls",
     "PaymentControlsDisputeAlertAutoRefund",
     "PaymentControlsReserve",
@@ -264,6 +266,40 @@ class CompanyFormation(BaseModel):
         def __getattr__(self, attr: str) -> object: ...
     else:
         __pydantic_extra__: Dict[str, object]
+
+
+class OwnerProfilePicture(BaseModel):
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    """
+
+    url: str
+    """Avatar image URL.
+
+    Always present — a generated placeholder when the user set no picture.
+    """
+
+
+class Owner(BaseModel):
+    """The single user who owns the account, whose email is the `email` above.
+
+    Distinct from the `owner` role on team members, which any number of them can hold.
+    """
+
+    id: str
+    """User ID, prefixed `user_`."""
+
+    name: Optional[str] = None
+    """Display name."""
+
+    profile_picture: OwnerProfilePicture
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when
+    the user set no picture.
+    """
+
+    username: str
+    """Public username."""
 
 
 class PaymentControlsDisputeAlertAutoRefund(BaseModel):
@@ -574,6 +610,13 @@ class Account(BaseModel):
 
     other_industry_description: Optional[str] = None
     """Industry details when industry_type is `other`."""
+
+    owner: Owner
+    """The single user who owns the account, whose email is the `email` above.
+
+    Distinct from the `owner` role on team members, which any number of them can
+    hold.
+    """
 
     parent_account_id: Optional[str] = None
     """Parent account ID for connected accounts."""
