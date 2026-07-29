@@ -38,6 +38,14 @@ class CreatePaymentInputWithPlan(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """Custom metadata to attach to the payment."""
 
+    promo_code_id: Optional[str]
+    """The ID of an active promo code to apply to this payment.
+
+    The promo code must belong to the company and be valid for the plan being
+    purchased. The plan must be attached to a product — promo codes are not eligible
+    for one-off purchases.
+    """
+
 
 class CreatePaymentInputWithPlanPlanProduct(TypedDict, total=False):
     """Pass this object to create a new product for this plan.
@@ -182,6 +190,14 @@ class CreatePaymentInputWithPlanID(TypedDict, total=False):
 
     metadata: Optional[Dict[str, object]]
     """Custom metadata to attach to the payment."""
+
+    promo_code_id: Optional[str]
+    """The ID of an active promo code to apply to this payment.
+
+    The promo code must belong to the company and be valid for the plan being
+    purchased. The plan must be attached to a product — promo codes are not eligible
+    for one-off purchases.
+    """
 
 
 PaymentCreateParams: TypeAlias = Union[CreatePaymentInputWithPlan, CreatePaymentInputWithPlanID]
