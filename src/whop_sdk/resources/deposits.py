@@ -8,7 +8,7 @@ import httpx
 
 from ..types import deposit_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -24,6 +24,12 @@ __all__ = ["DepositsResource", "AsyncDepositsResource"]
 
 
 class DepositsResource(SyncAPIResource):
+    """
+    Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+    Use the Deposits API to create deposit instructions for an account.
+    """
+
     @cached_property
     def with_raw_response(self) -> DepositsResourceWithRawResponse:
         """
@@ -46,10 +52,11 @@ class DepositsResource(SyncAPIResource):
     def create(
         self,
         *,
-        amount: float,
         destination: deposit_create_params.Destination,
+        amount: float | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         network: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -58,18 +65,18 @@ class DepositsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DepositCreateResponse:
         """
-        Resolves a deposit destination and returns the on-chain addresses that can fund
-        it.
+        Retrieve the deposit methods for an account, including crypto and bank transfer.
 
         Args:
-          amount: Amount to deposit.
-
           destination: Destination account ID or wallet address. Object form is supported for
-              compatibility.
+              compatibility. Any business resolves by its account ID without authentication; a
+              user account resolves only for that same authenticated user.
 
-          metadata: Arbitrary metadata echoed in the response.
+          amount: Amount to prefill on hosted deposit page.
 
-          network: Optional destination network override.
+          metadata: Metadata to include with the deposit response.
+
+          network: Destination network override.
 
           extra_headers: Send extra headers
 
@@ -79,12 +86,13 @@ class DepositsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/deposits",
             body=maybe_transform(
                 {
-                    "amount": amount,
                     "destination": destination,
+                    "amount": amount,
                     "metadata": metadata,
                     "network": network,
                 },
@@ -98,6 +106,12 @@ class DepositsResource(SyncAPIResource):
 
 
 class AsyncDepositsResource(AsyncAPIResource):
+    """
+    Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+    Use the Deposits API to create deposit instructions for an account.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncDepositsResourceWithRawResponse:
         """
@@ -120,10 +134,11 @@ class AsyncDepositsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        amount: float,
         destination: deposit_create_params.Destination,
+        amount: float | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         network: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -132,18 +147,18 @@ class AsyncDepositsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DepositCreateResponse:
         """
-        Resolves a deposit destination and returns the on-chain addresses that can fund
-        it.
+        Retrieve the deposit methods for an account, including crypto and bank transfer.
 
         Args:
-          amount: Amount to deposit.
-
           destination: Destination account ID or wallet address. Object form is supported for
-              compatibility.
+              compatibility. Any business resolves by its account ID without authentication; a
+              user account resolves only for that same authenticated user.
 
-          metadata: Arbitrary metadata echoed in the response.
+          amount: Amount to prefill on hosted deposit page.
 
-          network: Optional destination network override.
+          metadata: Metadata to include with the deposit response.
+
+          network: Destination network override.
 
           extra_headers: Send extra headers
 
@@ -153,12 +168,13 @@ class AsyncDepositsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/deposits",
             body=await async_maybe_transform(
                 {
-                    "amount": amount,
                     "destination": destination,
+                    "amount": amount,
                     "metadata": metadata,
                     "network": network,
                 },
