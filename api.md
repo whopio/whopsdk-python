@@ -118,6 +118,7 @@ from whop_sdk.types import (
     InvoiceDeleteResponse,
     InvoiceMarkPaidResponse,
     InvoiceMarkUncollectibleResponse,
+    InvoiceResendResponse,
     InvoiceVoidResponse,
 )
 ```
@@ -131,6 +132,7 @@ Methods:
 - <code title="delete /invoices/{id}">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">delete</a>(id) -> <a href="./src/whop_sdk/types/invoice_delete_response.py">InvoiceDeleteResponse</a></code>
 - <code title="post /invoices/{id}/mark_paid">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">mark_paid</a>(id) -> <a href="./src/whop_sdk/types/invoice_mark_paid_response.py">InvoiceMarkPaidResponse</a></code>
 - <code title="post /invoices/{id}/mark_uncollectible">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">mark_uncollectible</a>(id) -> <a href="./src/whop_sdk/types/invoice_mark_uncollectible_response.py">InvoiceMarkUncollectibleResponse</a></code>
+- <code title="post /invoices/{id}/resend">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">resend</a>(id) -> <a href="./src/whop_sdk/types/invoice_resend_response.py">InvoiceResendResponse</a></code>
 - <code title="post /invoices/{id}/void">client.invoices.<a href="./src/whop_sdk/resources/invoices.py">void</a>(id) -> <a href="./src/whop_sdk/types/invoice_void_response.py">InvoiceVoidResponse</a></code>
 
 # CourseLessonInteractions

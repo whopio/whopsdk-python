@@ -300,6 +300,7 @@ from .dm_member_create_params import DmMemberCreateParams as DmMemberCreateParam
 from .dm_member_list_response import DmMemberListResponse as DmMemberListResponse
 from .dm_member_update_params import DmMemberUpdateParams as DmMemberUpdateParams
 from .invoice_delete_response import InvoiceDeleteResponse as InvoiceDeleteResponse
+from .invoice_resend_response import InvoiceResendResponse as InvoiceResendResponse
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
 from .partner_create_response import PartnerCreateResponse as PartnerCreateResponse
