@@ -40,6 +40,13 @@ class EventListParams(TypedDict, total=False):
     device: str
     """Device families to filter by, comma-separated (e.g. iPhone, Mac)."""
 
+    direction: Literal["asc", "desc"]
+    """The order events are returned in by time.
+
+    Defaults to desc (most recent first); asc reads a journey forwards from where it
+    starts. after and before always page forwards and backwards through that order.
+    """
+
     event: str
     """
     Full event names to filter by, comma-separated (payment.completed, pixel.lead,

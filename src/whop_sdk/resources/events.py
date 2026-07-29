@@ -289,6 +289,7 @@ class EventsResource(SyncAPIResource):
         city: str | Omit = omit,
         country: str | Omit = omit,
         device: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         event: str | Omit = omit,
         first: int | Omit = omit,
         from_: Union[str, datetime] | Omit = omit,
@@ -306,12 +307,13 @@ class EventsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[EventListResponse]:
-        """Lists identity-linked events, most recent first.
+        """Lists identity-linked events, most recent first by default.
 
-        Pass identifier for one
-        person's journey, or omit it to list events for an account within an explicit
-        time range. Events are shaped like the POST /events intake: attribution in
-        context, identity in user.
+        Pass identifier for
+        one person's journey, or omit it to list events for an account within an
+        explicit time range. Pass direction=asc to read a journey forwards from where it
+        starts. Events are shaped like the POST /events intake: attribution in context,
+        identity in user.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
@@ -330,6 +332,10 @@ class EventsResource(SyncAPIResource):
           country: Country codes to filter by, comma-separated.
 
           device: Device families to filter by, comma-separated (e.g. iPhone, Mac).
+
+          direction: The order events are returned in by time. Defaults to desc (most recent first);
+              asc reads a journey forwards from where it starts. after and before always page
+              forwards and backwards through that order.
 
           event: Full event names to filter by, comma-separated (payment.completed, pixel.lead,
               pixel.page, pixel.custom:<name>) — the same vocabulary the events / people
@@ -386,6 +392,7 @@ class EventsResource(SyncAPIResource):
                         "city": city,
                         "country": country,
                         "device": device,
+                        "direction": direction,
                         "event": event,
                         "first": first,
                         "from_": from_,
@@ -773,6 +780,7 @@ class AsyncEventsResource(AsyncAPIResource):
         city: str | Omit = omit,
         country: str | Omit = omit,
         device: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         event: str | Omit = omit,
         first: int | Omit = omit,
         from_: Union[str, datetime] | Omit = omit,
@@ -790,12 +798,13 @@ class AsyncEventsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[EventListResponse, AsyncCursorPage[EventListResponse]]:
-        """Lists identity-linked events, most recent first.
+        """Lists identity-linked events, most recent first by default.
 
-        Pass identifier for one
-        person's journey, or omit it to list events for an account within an explicit
-        time range. Events are shaped like the POST /events intake: attribution in
-        context, identity in user.
+        Pass identifier for
+        one person's journey, or omit it to list events for an account within an
+        explicit time range. Pass direction=asc to read a journey forwards from where it
+        starts. Events are shaped like the POST /events intake: attribution in context,
+        identity in user.
 
         Args:
           account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
@@ -814,6 +823,10 @@ class AsyncEventsResource(AsyncAPIResource):
           country: Country codes to filter by, comma-separated.
 
           device: Device families to filter by, comma-separated (e.g. iPhone, Mac).
+
+          direction: The order events are returned in by time. Defaults to desc (most recent first);
+              asc reads a journey forwards from where it starts. after and before always page
+              forwards and backwards through that order.
 
           event: Full event names to filter by, comma-separated (payment.completed, pixel.lead,
               pixel.page, pixel.custom:<name>) — the same vocabulary the events / people
@@ -870,6 +883,7 @@ class AsyncEventsResource(AsyncAPIResource):
                         "city": city,
                         "country": country,
                         "device": device,
+                        "direction": direction,
                         "event": event,
                         "first": first,
                         "from_": from_,
