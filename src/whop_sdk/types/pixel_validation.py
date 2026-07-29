@@ -18,9 +18,8 @@ class PixelValidation(BaseModel):
 
     installed: bool
     """
-    True when the pixel was found — either the account has sent events recently, or
-    the pixel is present in the page at `url`. False otherwise, including when the
-    page couldn't be loaded.
+    True when the account has sent events recently, the pixel is present in the page
+    at `url`, or `url` is hosted on Whop.
     """
 
     last_fired_days: object
@@ -38,10 +37,7 @@ class PixelValidation(BaseModel):
     """
 
     native_tracking: bool
-    """
-    True when the URL is a Whop-hosted store page for this account, which Whop
-    tracks natively — no pixel snippet is required there.
-    """
+    """True when `url` is hosted on Whop, so no pixel snippet is required."""
 
     page_events: List[str]
 
