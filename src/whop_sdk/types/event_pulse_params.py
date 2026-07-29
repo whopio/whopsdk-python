@@ -14,5 +14,12 @@ class EventPulseParams(TypedDict, total=False):
     before: str
     """A cursor for fetching events before a later page."""
 
+    event: str
+    """
+    Filter to one or more event names, comma separated — for example
+    `bounty.payout.completed,affiliate.payout.completed`. Omit for every event in
+    the feed. Names outside the feed's own set are rejected.
+    """
+
     first: int
     """The number of events to return."""

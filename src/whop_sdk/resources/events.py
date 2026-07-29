@@ -415,6 +415,7 @@ class EventsResource(SyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        event: str | Omit = omit,
         first: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -435,6 +436,10 @@ class EventsResource(SyncAPIResource):
           after: A cursor for fetching events after a previous page.
 
           before: A cursor for fetching events before a later page.
+
+          event: Filter to one or more event names, comma separated — for example
+              `bounty.payout.completed,affiliate.payout.completed`. Omit for every event in
+              the feed. Names outside the feed's own set are rejected.
 
           first: The number of events to return.
 
@@ -457,6 +462,7 @@ class EventsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "event": event,
                         "first": first,
                     },
                     event_pulse_params.EventPulseParams,
@@ -906,6 +912,7 @@ class AsyncEventsResource(AsyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        event: str | Omit = omit,
         first: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -926,6 +933,10 @@ class AsyncEventsResource(AsyncAPIResource):
           after: A cursor for fetching events after a previous page.
 
           before: A cursor for fetching events before a later page.
+
+          event: Filter to one or more event names, comma separated — for example
+              `bounty.payout.completed,affiliate.payout.completed`. Omit for every event in
+              the feed. Names outside the feed's own set are rejected.
 
           first: The number of events to return.
 
@@ -948,6 +959,7 @@ class AsyncEventsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "event": event,
                         "first": first,
                     },
                     event_pulse_params.EventPulseParams,

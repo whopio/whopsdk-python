@@ -205,6 +205,7 @@ class TestEvents:
         event = client.events.pulse(
             after="after",
             before="before",
+            event="event",
             first=0,
         )
         assert_matches_type(EventPulseResponse, event, path=["response"])
@@ -456,6 +457,7 @@ class TestAsyncEvents:
         event = await async_client.events.pulse(
             after="after",
             before="before",
+            event="event",
             first=0,
         )
         assert_matches_type(EventPulseResponse, event, path=["response"])

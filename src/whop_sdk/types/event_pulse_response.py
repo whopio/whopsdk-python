@@ -10,9 +10,9 @@ __all__ = ["EventPulseResponse", "Data", "DataUser", "PageInfo"]
 
 
 class DataUser(BaseModel):
-    """Coarse location of the buyer, shaped like the event `user` block.
+    """Coarse location, shaped like the event `user` block.
 
-    Omitted entirely when nothing is known.
+    The buyer on a purchase; on a payout it is the paying side — the poster for a bounty, the paying company for an affiliate commission, which resolves to a country with no city. Omitted entirely when nothing is known.
     """
 
     city: Optional[str] = None
@@ -23,10 +23,10 @@ class DataUser(BaseModel):
 
 
 class Data(BaseModel):
-    event_name: Literal["payment.completed"]
+    event_name: Literal["payment.completed", "bounty.payout.completed", "affiliate.payout.completed"]
     """
-    The event recorded — currently always `payment.completed`, matching the
-    [event](/api-reference/beta/events/event) of the same name.
+    The event recorded, matching the [event](/api-reference/beta/events/event) of
+    the same name: a purchase, a bounty payout, or an affiliate commission payout.
     """
 
     event_time: datetime
@@ -36,9 +36,11 @@ class Data(BaseModel):
     """The USD amount of the event."""
 
     user: Optional[DataUser] = None
-    """Coarse location of the buyer, shaped like the event `user` block.
+    """Coarse location, shaped like the event `user` block.
 
-    Omitted entirely when nothing is known.
+    The buyer on a purchase; on a payout it is the paying side — the poster for a
+    bounty, the paying company for an affiliate commission, which resolves to a
+    country with no city. Omitted entirely when nothing is known.
     """
 
 
