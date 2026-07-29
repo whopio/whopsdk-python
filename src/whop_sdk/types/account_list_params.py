@@ -25,3 +25,9 @@ class AccountListParams(TypedDict, total=False):
 
     order: Literal["created_at"]
     """The field to sort accounts by."""
+
+    parent_account_id: str
+    """The parent account ID whose direct connected accounts to return.
+
+    Requires `payout:account:read` on the parent account.
+    """

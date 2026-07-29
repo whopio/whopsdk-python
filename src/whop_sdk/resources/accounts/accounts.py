@@ -431,6 +431,7 @@ class AccountsResource(SyncAPIResource):
         first: int | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
+        parent_account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -442,7 +443,8 @@ class AccountsResource(SyncAPIResource):
 
         User tokens return the user's business
         accounts; business account API keys return the requesting business account and
-        its connected accounts.
+        its connected accounts. Pass `parent_account_id` to return only that parent
+        account's connected accounts.
 
         Args:
           after: A cursor; returns accounts after this position.
@@ -456,6 +458,9 @@ class AccountsResource(SyncAPIResource):
           last: The number of accounts to return from the end of the range.
 
           order: The field to sort accounts by.
+
+          parent_account_id: The parent account ID whose direct connected accounts to return. Requires
+              `payout:account:read` on the parent account.
 
           extra_headers: Send extra headers
 
@@ -481,6 +486,7 @@ class AccountsResource(SyncAPIResource):
                         "first": first,
                         "last": last,
                         "order": order,
+                        "parent_account_id": parent_account_id,
                     },
                     account_list_params.AccountListParams,
                 ),
@@ -1126,6 +1132,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         first: int | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
+        parent_account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1137,7 +1144,8 @@ class AsyncAccountsResource(AsyncAPIResource):
 
         User tokens return the user's business
         accounts; business account API keys return the requesting business account and
-        its connected accounts.
+        its connected accounts. Pass `parent_account_id` to return only that parent
+        account's connected accounts.
 
         Args:
           after: A cursor; returns accounts after this position.
@@ -1151,6 +1159,9 @@ class AsyncAccountsResource(AsyncAPIResource):
           last: The number of accounts to return from the end of the range.
 
           order: The field to sort accounts by.
+
+          parent_account_id: The parent account ID whose direct connected accounts to return. Requires
+              `payout:account:read` on the parent account.
 
           extra_headers: Send extra headers
 
@@ -1176,6 +1187,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                         "first": first,
                         "last": last,
                         "order": order,
+                        "parent_account_id": parent_account_id,
                     },
                     account_list_params.AccountListParams,
                 ),

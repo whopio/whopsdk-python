@@ -218,6 +218,7 @@ class TestAccounts:
             first=0,
             last=0,
             order="created_at",
+            parent_account_id="parent_account_id",
         )
         assert_matches_type(SyncCursorPage[Account], account, path=["response"])
 
@@ -694,6 +695,7 @@ class TestAsyncAccounts:
             first=0,
             last=0,
             order="created_at",
+            parent_account_id="parent_account_id",
         )
         assert_matches_type(AsyncCursorPage[Account], account, path=["response"])
 
