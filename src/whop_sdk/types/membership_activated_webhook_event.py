@@ -18,10 +18,6 @@ class MembershipActivatedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Membership
-    """A membership represents an active relationship between a user and a product.
-
-    It tracks the user's access, billing status, and renewal schedule.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
