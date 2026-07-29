@@ -2,9 +2,16 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["PreferenceUpdateParams", "AdsPaymentMethods", "AdsPaymentMethodsPrimary", "AdsPaymentMethodsBackup"]
+__all__ = [
+    "PreferenceUpdateParams",
+    "AdsPaymentMethods",
+    "AdsPaymentMethodsPrimary",
+    "AdsPaymentMethodsBackup",
+    "AdsTripleWhaleIntegration",
+]
 
 
 class PreferenceUpdateParams(TypedDict, total=False):
@@ -25,6 +32,13 @@ class PreferenceUpdateParams(TypedDict, total=False):
 
     `America/New_York`) used to interpret campaign start/end times and to bucket
     reports. Cannot be cleared once set — pass a new value to change it.
+    """
+
+    ads_triple_whale_integration: AdsTripleWhaleIntegration
+    """Connects or disconnects the Triple Whale integration.
+
+    Requires a connected Shopify store, since Triple Whale keys spend records by
+    Shopify shop.
     """
 
     cards_auto_top_up: bool
@@ -76,4 +90,18 @@ class AdsPaymentMethods(TypedDict, total=False):
 
     Any pairing is allowed (two cards, card+balance, balance+card); omit it to run
     on a single method. Must differ from the primary.
+    """
+
+
+class AdsTripleWhaleIntegration(TypedDict, total=False):
+    """Connects or disconnects the Triple Whale integration.
+
+    Requires a connected Shopify store, since Triple Whale keys spend records by Shopify shop.
+    """
+
+    api_key: Required[Optional[str]]
+    """
+    A Triple Whale Data-In API key with the `Data-In Write: Ads` scope, validated
+    against Triple Whale before it is stored. Pass `null` to disconnect. Connecting
+    for the first time backfills the account's existing ad spend.
     """

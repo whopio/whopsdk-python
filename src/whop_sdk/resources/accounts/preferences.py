@@ -89,6 +89,7 @@ class PreferencesResource(SyncAPIResource):
         ads_payment_methods: preference_update_params.AdsPaymentMethods | Omit = omit,
         ads_reporting_currency: str | Omit = omit,
         ads_scheduling_timezone: str | Omit = omit,
+        ads_triple_whale_integration: preference_update_params.AdsTripleWhaleIntegration | Omit = omit,
         cards_auto_top_up: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -100,13 +101,15 @@ class PreferencesResource(SyncAPIResource):
         """Updates the account's preferences.
 
         Each top-level key present in the body is
-        replaced as a whole; omitted keys are left untouched. `ads_payment_methods`
-        always requires a `primary` entry. `backup` is optional and any pairing is
-        allowed — two cards, `card`+`platform_balance`, or a single method — so a
-        card-only advertiser can fund ads without a platform balance. The `primary` and
-        `backup` must be different sources. A `platform_balance` entry may omit `id` to
-        use the account's default Whop balance. Configuring a `card` requires a user
-        token; account API keys can set up platform-balance billing only.
+        replaced as a whole; omitted keys are left untouched.
+        `ads_triple_whale_integration` takes the Data-In API key to connect with, or
+        `null` to disconnect. `ads_payment_methods` always requires a `primary` entry.
+        `backup` is optional and any pairing is allowed — two cards,
+        `card`+`platform_balance`, or a single method — so a card-only advertiser can
+        fund ads without a platform balance. The `primary` and `backup` must be
+        different sources. A `platform_balance` entry may omit `id` to use the account's
+        default Whop balance. Configuring a `card` requires a user token; account API
+        keys can set up platform-balance billing only.
 
         Args:
           ads_payment_methods: How the account pays for Whop Ads spend. `primary` is charged first; `backup`
@@ -118,6 +121,9 @@ class PreferencesResource(SyncAPIResource):
           ads_scheduling_timezone: IANA timezone (e.g. `America/New_York`) used to interpret campaign start/end
               times and to bucket reports. Cannot be cleared once set — pass a new value to
               change it.
+
+          ads_triple_whale_integration: Connects or disconnects the Triple Whale integration. Requires a connected
+              Shopify store, since Triple Whale keys spend records by Shopify shop.
 
           cards_auto_top_up: Whether incoming funds are automatically moved to the account's cards balance.
               Requires a cards balance on the account.
@@ -139,6 +145,7 @@ class PreferencesResource(SyncAPIResource):
                     "ads_payment_methods": ads_payment_methods,
                     "ads_reporting_currency": ads_reporting_currency,
                     "ads_scheduling_timezone": ads_scheduling_timezone,
+                    "ads_triple_whale_integration": ads_triple_whale_integration,
                     "cards_auto_top_up": cards_auto_top_up,
                 },
                 preference_update_params.PreferenceUpdateParams,
@@ -217,6 +224,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
         ads_payment_methods: preference_update_params.AdsPaymentMethods | Omit = omit,
         ads_reporting_currency: str | Omit = omit,
         ads_scheduling_timezone: str | Omit = omit,
+        ads_triple_whale_integration: preference_update_params.AdsTripleWhaleIntegration | Omit = omit,
         cards_auto_top_up: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -228,13 +236,15 @@ class AsyncPreferencesResource(AsyncAPIResource):
         """Updates the account's preferences.
 
         Each top-level key present in the body is
-        replaced as a whole; omitted keys are left untouched. `ads_payment_methods`
-        always requires a `primary` entry. `backup` is optional and any pairing is
-        allowed — two cards, `card`+`platform_balance`, or a single method — so a
-        card-only advertiser can fund ads without a platform balance. The `primary` and
-        `backup` must be different sources. A `platform_balance` entry may omit `id` to
-        use the account's default Whop balance. Configuring a `card` requires a user
-        token; account API keys can set up platform-balance billing only.
+        replaced as a whole; omitted keys are left untouched.
+        `ads_triple_whale_integration` takes the Data-In API key to connect with, or
+        `null` to disconnect. `ads_payment_methods` always requires a `primary` entry.
+        `backup` is optional and any pairing is allowed — two cards,
+        `card`+`platform_balance`, or a single method — so a card-only advertiser can
+        fund ads without a platform balance. The `primary` and `backup` must be
+        different sources. A `platform_balance` entry may omit `id` to use the account's
+        default Whop balance. Configuring a `card` requires a user token; account API
+        keys can set up platform-balance billing only.
 
         Args:
           ads_payment_methods: How the account pays for Whop Ads spend. `primary` is charged first; `backup`
@@ -246,6 +256,9 @@ class AsyncPreferencesResource(AsyncAPIResource):
           ads_scheduling_timezone: IANA timezone (e.g. `America/New_York`) used to interpret campaign start/end
               times and to bucket reports. Cannot be cleared once set — pass a new value to
               change it.
+
+          ads_triple_whale_integration: Connects or disconnects the Triple Whale integration. Requires a connected
+              Shopify store, since Triple Whale keys spend records by Shopify shop.
 
           cards_auto_top_up: Whether incoming funds are automatically moved to the account's cards balance.
               Requires a cards balance on the account.
@@ -267,6 +280,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
                     "ads_payment_methods": ads_payment_methods,
                     "ads_reporting_currency": ads_reporting_currency,
                     "ads_scheduling_timezone": ads_scheduling_timezone,
+                    "ads_triple_whale_integration": ads_triple_whale_integration,
                     "cards_auto_top_up": cards_auto_top_up,
                 },
                 preference_update_params.PreferenceUpdateParams,

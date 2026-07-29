@@ -84,6 +84,7 @@ class TestPreferences:
             },
             ads_reporting_currency="ads_reporting_currency",
             ads_scheduling_timezone="ads_scheduling_timezone",
+            ads_triple_whale_integration={"api_key": "api_key"},
             cards_auto_top_up=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
@@ -195,6 +196,7 @@ class TestAsyncPreferences:
             },
             ads_reporting_currency="ads_reporting_currency",
             ads_scheduling_timezone="ads_scheduling_timezone",
+            ads_triple_whale_integration={"api_key": "api_key"},
             cards_auto_top_up=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])

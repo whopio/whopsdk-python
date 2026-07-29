@@ -11,6 +11,7 @@ __all__ = [
     "AdsPaymentMethods",
     "AdsPaymentMethodsBackup",
     "AdsPaymentMethodsPrimary",
+    "AdsTripleWhaleIntegration",
 ]
 
 
@@ -111,6 +112,31 @@ class AdsPaymentMethods(BaseModel):
     primary: Optional[AdsPaymentMethodsPrimary] = None
 
 
+class AdsTripleWhaleIntegration(BaseModel):
+    """
+    The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel.
+    """
+
+    masked_api_key: Optional[str] = None
+    """The leading characters of the stored Data-In API key, followed by asterisks.
+
+    The full key is never returned. `null` when no key is stored.
+    """
+
+    shop_domain: Optional[str] = None
+    """
+    The connected Shopify store domain spend is reported for, such as
+    `acme.myshopify.com`. `null` when no store is connected.
+    """
+
+    status: Literal["connected", "not_connected", "requires_shopify_store"]
+    """Where the integration stands.
+
+    `requires_shopify_store` means no Shopify store is connected — Triple Whale keys
+    records by Shopify shop, so no spend is reported until one is.
+    """
+
+
 class PreferenceRetrieveResponse(BaseModel):
     ads_agreement: AdsAgreement
     """The account's Whop Ads services and payment authorization agreement.
@@ -137,6 +163,12 @@ class PreferenceRetrieveResponse(BaseModel):
 
     `America/New_York`) used to interpret campaign start/end times and to bucket
     reports. Defaults to `America/New_York` until explicitly overridden.
+    """
+
+    ads_triple_whale_integration: AdsTripleWhaleIntegration
+    """
+    The account's Triple Whale integration, which pushes Whop ad spend to Triple
+    Whale's Data-In API so it reports as a `whop` channel.
     """
 
     cards_auto_top_up: bool
