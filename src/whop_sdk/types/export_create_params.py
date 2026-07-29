@@ -16,14 +16,29 @@ class ExportCreateParams(TypedDict, total=False):
             "ad_campaigns",
             "ad_groups",
             "ads",
+            "audiences",
+            "bounties",
+            "bounty_submissions",
+            "disputes",
+            "events",
+            "financial-activity",
             "members",
+            "memberships",
+            "payouts",
+            "people",
+            "plans",
+            "products",
+            "resolution_center_cases",
+            "shipments",
+            "social_accounts",
+            "team_members",
+            "transfers",
+            "webhooks",
             "receipts",
             "unclaimed_memberships",
-            "memberships",
             "tracking_links",
             "promo_codes",
             "resolutions",
-            "disputes",
             "entries",
             "leads",
             "content_rewards_submissions",
@@ -32,7 +47,7 @@ class ExportCreateParams(TypedDict, total=False):
             "child_companies",
         ]
     ]
-    """The resource to export, e.g. `receipts`, `members`, or `ads`."""
+    """The resource to export, e.g. `payouts`, `receipts`, or `members`."""
 
     account_id: str
     """The account to export from, prefixed `biz_`.
@@ -44,7 +59,12 @@ class ExportCreateParams(TypedDict, total=False):
     """Column keys to include. Empty means all columns for the resource."""
 
     filters: object
-    """Resource-specific filters, mirroring the dashboard table filters."""
+    """Resource-specific filters.
+
+    For native REST resources (`payouts`, `transfers`, `memberships`) these are the
+    resource's own list query params; for dashboard tables they mirror the dashboard
+    table filters.
+    """
 
     timezone: str
     """IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`."""

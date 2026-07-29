@@ -31,14 +31,29 @@ class Export(BaseModel):
         "ad_campaigns",
         "ad_groups",
         "ads",
+        "audiences",
+        "bounties",
+        "bounty_submissions",
+        "disputes",
+        "events",
+        "financial-activity",
         "members",
+        "memberships",
+        "payouts",
+        "people",
+        "plans",
+        "products",
+        "resolution_center_cases",
+        "shipments",
+        "social_accounts",
+        "team_members",
+        "transfers",
+        "webhooks",
         "receipts",
         "unclaimed_memberships",
-        "memberships",
         "tracking_links",
         "promo_codes",
         "resolutions",
-        "disputes",
         "entries",
         "leads",
         "content_rewards_submissions",
@@ -48,7 +63,7 @@ class Export(BaseModel):
         "ledger_lines",
         "withdrawal_lines",
     ]
-    """The resource that was exported, e.g. `receipts`, `members`, or `ads`."""
+    """The resource that was exported, e.g. `receipts`, `members`, or `payouts`."""
 
     status: Literal["pending", "processing", "completed", "failed", "expired"]
     """

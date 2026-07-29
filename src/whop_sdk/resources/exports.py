@@ -57,14 +57,29 @@ class ExportsResource(SyncAPIResource):
             "ad_campaigns",
             "ad_groups",
             "ads",
+            "audiences",
+            "bounties",
+            "bounty_submissions",
+            "disputes",
+            "events",
+            "financial-activity",
             "members",
+            "memberships",
+            "payouts",
+            "people",
+            "plans",
+            "products",
+            "resolution_center_cases",
+            "shipments",
+            "social_accounts",
+            "team_members",
+            "transfers",
+            "webhooks",
             "receipts",
             "unclaimed_memberships",
-            "memberships",
             "tracking_links",
             "promo_codes",
             "resolutions",
-            "disputes",
             "entries",
             "leads",
             "content_rewards_submissions",
@@ -90,14 +105,16 @@ class ExportsResource(SyncAPIResource):
         export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
 
         Args:
-          resource: The resource to export, e.g. `receipts`, `members`, or `ads`.
+          resource: The resource to export, e.g. `payouts`, `receipts`, or `members`.
 
           account_id: The account to export from, prefixed `biz_`. Defaults to the credential's
               account.
 
           columns: Column keys to include. Empty means all columns for the resource.
 
-          filters: Resource-specific filters, mirroring the dashboard table filters.
+          filters: Resource-specific filters. For native REST resources (`payouts`, `transfers`,
+              `memberships`) these are the resource's own list query params; for dashboard
+              tables they mirror the dashboard table filters.
 
           timezone: IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`.
 
@@ -173,14 +190,29 @@ class ExportsResource(SyncAPIResource):
             "ad_campaigns",
             "ad_groups",
             "ads",
+            "audiences",
+            "bounties",
+            "bounty_submissions",
+            "disputes",
+            "events",
+            "financial-activity",
             "members",
+            "memberships",
+            "payouts",
+            "people",
+            "plans",
+            "products",
+            "resolution_center_cases",
+            "shipments",
+            "social_accounts",
+            "team_members",
+            "transfers",
+            "webhooks",
             "receipts",
             "unclaimed_memberships",
-            "memberships",
             "tracking_links",
             "promo_codes",
             "resolutions",
-            "disputes",
             "entries",
             "leads",
             "content_rewards_submissions",
@@ -285,14 +317,29 @@ class AsyncExportsResource(AsyncAPIResource):
             "ad_campaigns",
             "ad_groups",
             "ads",
+            "audiences",
+            "bounties",
+            "bounty_submissions",
+            "disputes",
+            "events",
+            "financial-activity",
             "members",
+            "memberships",
+            "payouts",
+            "people",
+            "plans",
+            "products",
+            "resolution_center_cases",
+            "shipments",
+            "social_accounts",
+            "team_members",
+            "transfers",
+            "webhooks",
             "receipts",
             "unclaimed_memberships",
-            "memberships",
             "tracking_links",
             "promo_codes",
             "resolutions",
-            "disputes",
             "entries",
             "leads",
             "content_rewards_submissions",
@@ -318,14 +365,16 @@ class AsyncExportsResource(AsyncAPIResource):
         export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
 
         Args:
-          resource: The resource to export, e.g. `receipts`, `members`, or `ads`.
+          resource: The resource to export, e.g. `payouts`, `receipts`, or `members`.
 
           account_id: The account to export from, prefixed `biz_`. Defaults to the credential's
               account.
 
           columns: Column keys to include. Empty means all columns for the resource.
 
-          filters: Resource-specific filters, mirroring the dashboard table filters.
+          filters: Resource-specific filters. For native REST resources (`payouts`, `transfers`,
+              `memberships`) these are the resource's own list query params; for dashboard
+              tables they mirror the dashboard table filters.
 
           timezone: IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`.
 
@@ -401,14 +450,29 @@ class AsyncExportsResource(AsyncAPIResource):
             "ad_campaigns",
             "ad_groups",
             "ads",
+            "audiences",
+            "bounties",
+            "bounty_submissions",
+            "disputes",
+            "events",
+            "financial-activity",
             "members",
+            "memberships",
+            "payouts",
+            "people",
+            "plans",
+            "products",
+            "resolution_center_cases",
+            "shipments",
+            "social_accounts",
+            "team_members",
+            "transfers",
+            "webhooks",
             "receipts",
             "unclaimed_memberships",
-            "memberships",
             "tracking_links",
             "promo_codes",
             "resolutions",
-            "disputes",
             "entries",
             "leads",
             "content_rewards_submissions",
