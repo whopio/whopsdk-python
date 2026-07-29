@@ -92,6 +92,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -190,6 +191,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -336,6 +338,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
+        - `member:email:read`
 
         Args:
           extra_headers: Send extra headers
@@ -387,6 +390,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:update`
+        - `member:email:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
@@ -759,6 +763,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -857,6 +862,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -1003,6 +1009,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
+        - `member:email:read`
 
         Args:
           extra_headers: Send extra headers
@@ -1054,6 +1061,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:update`
+        - `member:email:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
