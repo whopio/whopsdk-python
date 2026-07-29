@@ -105,6 +105,7 @@ if TYPE_CHECKING:
         social_accounts,
         authorized_users,
         support_channels,
+        card_transactions,
         bounty_submissions,
         financial_activity,
         checkout_configurations,
@@ -178,6 +179,7 @@ if TYPE_CHECKING:
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.accounts.accounts import AccountsResource, AsyncAccountsResource
+    from .resources.card_transactions import CardTransactionsResource, AsyncCardTransactionsResource
     from .resources.partners.partners import PartnersResource, AsyncPartnersResource
     from .resources.bounty_submissions import BountySubmissionsResource, AsyncBountySubmissionsResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
@@ -742,6 +744,17 @@ class Whop(SyncAPIClient):
         from .resources.cards import CardsResource
 
         return CardsResource(self)
+
+    @cached_property
+    def card_transactions(self) -> CardTransactionsResource:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import CardTransactionsResource
+
+        return CardTransactionsResource(self)
 
     @cached_property
     def swaps(self) -> SwapsResource:
@@ -1598,6 +1611,17 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncCardsResource(self)
 
     @cached_property
+    def card_transactions(self) -> AsyncCardTransactionsResource:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import AsyncCardTransactionsResource
+
+        return AsyncCardTransactionsResource(self)
+
+    @cached_property
     def swaps(self) -> AsyncSwapsResource:
         """
         Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
@@ -2372,6 +2396,17 @@ class WhopWithRawResponse:
         return CardsResourceWithRawResponse(self._client.cards)
 
     @cached_property
+    def card_transactions(self) -> card_transactions.CardTransactionsResourceWithRawResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import CardTransactionsResourceWithRawResponse
+
+        return CardTransactionsResourceWithRawResponse(self._client.card_transactions)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithRawResponse:
         """
         Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
@@ -3026,6 +3061,17 @@ class AsyncWhopWithRawResponse:
         from .resources.cards import AsyncCardsResourceWithRawResponse
 
         return AsyncCardsResourceWithRawResponse(self._client.cards)
+
+    @cached_property
+    def card_transactions(self) -> card_transactions.AsyncCardTransactionsResourceWithRawResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import AsyncCardTransactionsResourceWithRawResponse
+
+        return AsyncCardTransactionsResourceWithRawResponse(self._client.card_transactions)
 
     @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithRawResponse:
@@ -3686,6 +3732,17 @@ class WhopWithStreamedResponse:
         return CardsResourceWithStreamingResponse(self._client.cards)
 
     @cached_property
+    def card_transactions(self) -> card_transactions.CardTransactionsResourceWithStreamingResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import CardTransactionsResourceWithStreamingResponse
+
+        return CardTransactionsResourceWithStreamingResponse(self._client.card_transactions)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithStreamingResponse:
         """
         Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
@@ -4344,6 +4401,17 @@ class AsyncWhopWithStreamedResponse:
         from .resources.cards import AsyncCardsResourceWithStreamingResponse
 
         return AsyncCardsResourceWithStreamingResponse(self._client.cards)
+
+    @cached_property
+    def card_transactions(self) -> card_transactions.AsyncCardTransactionsResourceWithStreamingResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import AsyncCardTransactionsResourceWithStreamingResponse
+
+        return AsyncCardTransactionsResourceWithStreamingResponse(self._client.card_transactions)
 
     @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithStreamingResponse:

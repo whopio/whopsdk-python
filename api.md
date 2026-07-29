@@ -1094,6 +1094,19 @@ Methods:
 - <code title="patch /cards/{card_id}">client.cards.<a href="./src/whop_sdk/resources/cards.py">update</a>(card_id, \*\*<a href="src/whop_sdk/types/card_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_update_response.py">CardUpdateResponse</a></code>
 - <code title="get /cards">client.cards.<a href="./src/whop_sdk/resources/cards.py">list</a>(\*\*<a href="src/whop_sdk/types/card_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_list_response.py">CardListResponse</a></code>
 
+# CardTransactions
+
+Types:
+
+```python
+from whop_sdk.types import CardTransaction
+```
+
+Methods:
+
+- <code title="get /card_transactions/{id}">client.card_transactions.<a href="./src/whop_sdk/resources/card_transactions.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/card_transaction_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_transaction.py">CardTransaction</a></code>
+- <code title="get /card_transactions">client.card_transactions.<a href="./src/whop_sdk/resources/card_transactions.py">list</a>(\*\*<a href="src/whop_sdk/types/card_transaction_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/card_transaction.py">SyncCursorPage[CardTransaction]</a></code>
+
 # Swaps
 
 Types:

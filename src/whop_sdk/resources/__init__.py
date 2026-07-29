@@ -552,6 +552,14 @@ from .support_channels import (
     SupportChannelsResourceWithStreamingResponse,
     AsyncSupportChannelsResourceWithStreamingResponse,
 )
+from .card_transactions import (
+    CardTransactionsResource,
+    AsyncCardTransactionsResource,
+    CardTransactionsResourceWithRawResponse,
+    AsyncCardTransactionsResourceWithRawResponse,
+    CardTransactionsResourceWithStreamingResponse,
+    AsyncCardTransactionsResourceWithStreamingResponse,
+)
 from .bounty_submissions import (
     BountySubmissionsResource,
     AsyncBountySubmissionsResource,
@@ -914,6 +922,12 @@ __all__ = [
     "AsyncCardsResourceWithRawResponse",
     "CardsResourceWithStreamingResponse",
     "AsyncCardsResourceWithStreamingResponse",
+    "CardTransactionsResource",
+    "AsyncCardTransactionsResource",
+    "CardTransactionsResourceWithRawResponse",
+    "AsyncCardTransactionsResourceWithRawResponse",
+    "CardTransactionsResourceWithStreamingResponse",
+    "AsyncCardTransactionsResourceWithStreamingResponse",
     "SwapsResource",
     "AsyncSwapsResource",
     "SwapsResourceWithRawResponse",

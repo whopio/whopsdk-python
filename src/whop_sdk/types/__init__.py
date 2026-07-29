@@ -119,6 +119,7 @@ from .ad_create_params import AdCreateParams as AdCreateParams
 from .ad_update_params import AdUpdateParams as AdUpdateParams
 from .bounty_list_item import BountyListItem as BountyListItem
 from .card_list_params import CardListParams as CardListParams
+from .card_transaction import CardTransaction as CardTransaction
 from .dispute_statuses import DisputeStatuses as DisputeStatuses
 from .lead_list_params import LeadListParams as LeadListParams
 from .payment_provider import PaymentProvider as PaymentProvider
@@ -410,6 +411,7 @@ from .access_token_create_response import AccessTokenCreateResponse as AccessTok
 from .account_link_create_response import AccountLinkCreateResponse as AccountLinkCreateResponse
 from .ad_campaign_duplicate_params import AdCampaignDuplicateParams as AdCampaignDuplicateParams
 from .affiliate_unarchive_response import AffiliateUnarchiveResponse as AffiliateUnarchiveResponse
+from .card_transaction_list_params import CardTransactionListParams as CardTransactionListParams
 from .course_chapter_create_params import CourseChapterCreateParams as CourseChapterCreateParams
 from .course_chapter_list_response import CourseChapterListResponse as CourseChapterListResponse
 from .course_chapter_update_params import CourseChapterUpdateParams as CourseChapterUpdateParams
@@ -467,6 +469,7 @@ from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent as Pay
 from .social_account_connect_response import SocialAccountConnectResponse as SocialAccountConnectResponse
 from .transfer_list_recipients_params import TransferListRecipientsParams as TransferListRecipientsParams
 from .user_recommend_actions_response import UserRecommendActionsResponse as UserRecommendActionsResponse
+from .card_transaction_retrieve_params import CardTransactionRetrieveParams as CardTransactionRetrieveParams
 from .course_student_retrieve_response import CourseStudentRetrieveResponse as CourseStudentRetrieveResponse
 from .financial_activity_list_response import FinancialActivityListResponse as FinancialActivityListResponse
 from .ledger_account_retrieve_response import LedgerAccountRetrieveResponse as LedgerAccountRetrieveResponse
