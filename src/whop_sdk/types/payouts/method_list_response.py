@@ -49,8 +49,18 @@ class FeeStructure(BaseModel):
 class PayoutDestination(BaseModel):
     """The payout rail this method delivers through."""
 
-    delivery_type: str
-    """How funds are delivered, for example `bank_deposit`."""
+    delivery_type: Literal[
+        "cash_pickup",
+        "bank_deposit",
+        "home_delivery",
+        "mobile_wallet",
+        "masspay_card",
+        "paper_check",
+        "bill",
+        "cryptocurrency",
+        "unknown",
+    ]
+    """How funds are delivered."""
 
     icon_url: Optional[str] = None
     """Payout destination icon URL."""

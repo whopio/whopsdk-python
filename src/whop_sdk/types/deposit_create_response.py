@@ -34,8 +34,8 @@ class MethodsBankCurrency(BaseModel):
     deposit_reference: Optional[str] = None
     """Reference to include with bank transfer."""
 
-    rails: List[str]
-    """Active deposit rails for this currency, such as `ach`, `wire`, or `sepa`."""
+    rails: List[Literal["ach", "wire", "sepa", "fps", "chaps"]]
+    """Active deposit rails for this currency."""
 
     routing_number: Optional[str] = None
     """Bank routing number for deposits in this currency."""
@@ -58,8 +58,28 @@ class MethodsCryptoSupportedCurrency(BaseModel):
     icon_url: Optional[str] = None
     """Token icon URL. Null when no icon is available."""
 
-    name: str
-    """Token symbol, such as `USDC`."""
+    name: Literal[
+        "ARB",
+        "BNB",
+        "ETH",
+        "EURC",
+        "HYPE",
+        "PYUSD",
+        "SOL",
+        "USD1",
+        "USDC",
+        "USDC.e",
+        "USDG",
+        "USDT",
+        "USDT0",
+        "USDe",
+        "USDm",
+        "XO",
+        "XPL",
+        "pUSD",
+        "wETH",
+    ]
+    """Token symbol."""
 
 
 class MethodsCrypto(BaseModel):
@@ -72,8 +92,19 @@ class MethodsCrypto(BaseModel):
     icon_url: Optional[str] = None
     """Network icon URL."""
 
-    name: str
-    """Network display name, such as `Ethereum` or `Solana`."""
+    name: Literal[
+        "Ethereum",
+        "Solana",
+        "Base",
+        "BNB Smart Chain",
+        "Hyperliquid",
+        "Hypercore",
+        "MegaETH",
+        "Polygon",
+        "Plasma",
+        "Arbitrum",
+    ]
+    """Network display name."""
 
     supported_currencies: List[MethodsCryptoSupportedCurrency]
     """Tokens accepted for deposit on this network."""

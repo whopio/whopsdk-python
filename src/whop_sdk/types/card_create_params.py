@@ -26,7 +26,7 @@ class CardCreateParams(TypedDict, total=False):
     """Spending limit amount, in dollars."""
 
     spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"]
-    """The spending limit window."""
+    """The window the spend limit applies to."""
 
     transaction_limit: float
     """Per-transaction limit amount, in dollars."""

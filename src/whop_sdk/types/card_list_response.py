@@ -37,8 +37,12 @@ class DataLimit(BaseModel):
     amount: float
     """The limit amount in dollars."""
 
-    frequency: str
-    """Limit window, for example `per24HourPeriod` or `perAuthorization`."""
+    frequency: Literal["daily", "weekly", "monthly", "one_time", "per_transaction"]
+    """The window the limit amount applies to.
+
+    `per_transaction` caps each individual authorization and is what a limit set
+    with `transaction_limit` reports.
+    """
 
 
 class DataSecrets(BaseModel):

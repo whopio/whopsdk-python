@@ -178,7 +178,11 @@ class ClaimLink(BaseModel):
 
     source: ClaimLinkSource
 
-    status: str
+    status: Literal["pending"]
+    """
+    A newly funded claim link is always `pending` — it stays claimable until it is
+    fully claimed, canceled, or expires.
+    """
 
 
 TransferCreateResponse: TypeAlias = Union[Transfer, Send, ClaimLink]

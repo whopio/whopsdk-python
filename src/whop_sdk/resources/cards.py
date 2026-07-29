@@ -83,7 +83,7 @@ class CardsResource(SyncAPIResource):
 
           spend_limit: Spending limit amount, in dollars.
 
-          spend_limit_frequency: The spending limit window.
+          spend_limit_frequency: The window the spend limit applies to.
 
           transaction_limit: Per-transaction limit amount, in dollars.
 
@@ -214,7 +214,7 @@ class CardsResource(SyncAPIResource):
 
           spend_limit: Spending limit amount, in dollars.
 
-          spend_limit_frequency: The spending limit window.
+          spend_limit_frequency: The window the spend limit applies to.
 
           transaction_limit: Per-transaction limit amount, in dollars.
 
@@ -359,7 +359,7 @@ class AsyncCardsResource(AsyncAPIResource):
 
           spend_limit: Spending limit amount, in dollars.
 
-          spend_limit_frequency: The spending limit window.
+          spend_limit_frequency: The window the spend limit applies to.
 
           transaction_limit: Per-transaction limit amount, in dollars.
 
@@ -490,7 +490,7 @@ class AsyncCardsResource(AsyncAPIResource):
 
           spend_limit: Spending limit amount, in dollars.
 
-          spend_limit_frequency: The spending limit window.
+          spend_limit_frequency: The window the spend limit applies to.
 
           transaction_limit: Per-transaction limit amount, in dollars.
 

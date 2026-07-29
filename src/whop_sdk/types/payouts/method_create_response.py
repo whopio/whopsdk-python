@@ -11,7 +11,18 @@ __all__ = ["MethodCreateResponse", "PayoutDestination"]
 
 
 class PayoutDestination(BaseModel):
-    delivery_type: str
+    delivery_type: Literal[
+        "cash_pickup",
+        "bank_deposit",
+        "home_delivery",
+        "mobile_wallet",
+        "masspay_card",
+        "paper_check",
+        "bill",
+        "cryptocurrency",
+        "unknown",
+    ]
+    """How funds are delivered."""
 
     icon_url: Optional[str] = None
 

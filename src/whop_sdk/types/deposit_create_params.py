@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Optional
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -25,8 +25,8 @@ class DepositCreateParams(TypedDict, total=False):
     metadata: Dict[str, object]
     """Metadata to include with the deposit response."""
 
-    network: Optional[str]
-    """Destination network override."""
+    network: Optional[Literal["ethereum", "polygon", "base", "solana"]]
+    """Destination network override. Defaults to the destination wallet's own network."""
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
@@ -38,7 +38,7 @@ class DestinationUnionMember1(TypedDict, total=False):
     address: str
     """Destination wallet address."""
 
-    network: str
+    network: Literal["ethereum", "polygon", "base", "solana"]
     """Destination wallet network."""
 
 

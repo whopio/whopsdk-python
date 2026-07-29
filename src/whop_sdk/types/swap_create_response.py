@@ -26,8 +26,12 @@ class SwapCreateResponse(BaseModel):
 
     object: Literal["swap"]
 
-    status: str
-    """Initial swap status."""
+    status: Literal["queued", "working", "complete", "failed"]
+    """Swap status.
+
+    Crypto swaps start `queued`; fiat conversions return `complete`, or `working`
+    while a stablecoin repayment settles.
+    """
 
     id: Optional[str] = None
     """Swap ID. Poll `GET /swaps/:id` for status."""

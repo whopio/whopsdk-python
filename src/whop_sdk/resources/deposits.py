@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -55,7 +56,7 @@ class DepositsResource(SyncAPIResource):
         destination: deposit_create_params.Destination,
         amount: float | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
-        network: Optional[str] | Omit = omit,
+        network: Optional[Literal["ethereum", "polygon", "base", "solana"]] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -76,7 +77,7 @@ class DepositsResource(SyncAPIResource):
 
           metadata: Metadata to include with the deposit response.
 
-          network: Destination network override.
+          network: Destination network override. Defaults to the destination wallet's own network.
 
           extra_headers: Send extra headers
 
@@ -137,7 +138,7 @@ class AsyncDepositsResource(AsyncAPIResource):
         destination: deposit_create_params.Destination,
         amount: float | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
-        network: Optional[str] | Omit = omit,
+        network: Optional[Literal["ethereum", "polygon", "base", "solana"]] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -158,7 +159,7 @@ class AsyncDepositsResource(AsyncAPIResource):
 
           metadata: Metadata to include with the deposit response.
 
-          network: Destination network override.
+          network: Destination network override. Defaults to the destination wallet's own network.
 
           extra_headers: Send extra headers
 

@@ -17,8 +17,8 @@ class SwapRetrieveResponse(BaseModel):
 
     object: Literal["swap"]
 
-    status: str
-    """Current swap status."""
+    status: Literal["queued", "working", "complete", "failed"]
+    """Current swap status. `complete` and `failed` are terminal."""
 
     tx_hashes: List[str]
     """On-chain transaction hashes produced by the swap."""

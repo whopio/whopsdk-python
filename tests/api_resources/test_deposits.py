@@ -32,7 +32,7 @@ class TestDeposits:
             destination="string",
             amount=0,
             metadata={"foo": "bar"},
-            network="network",
+            network="ethereum",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])
@@ -84,7 +84,7 @@ class TestAsyncDeposits:
             destination="string",
             amount=0,
             metadata={"foo": "bar"},
-            network="network",
+            network="ethereum",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])
