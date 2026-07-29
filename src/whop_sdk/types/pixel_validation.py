@@ -10,9 +10,11 @@ __all__ = ["PixelValidation"]
 class PixelValidation(BaseModel):
     firing_data_ok: bool
     """
-    False when the event lookup failed, meaning `installed_events` and
-    `last_seen_days` are incomplete.
+    False when the event lookup failed, meaning `host_events` and `last_seen_days`
+    are incomplete.
     """
+
+    host_events: List[str]
 
     installed: bool
     """
@@ -20,8 +22,6 @@ class PixelValidation(BaseModel):
     the pixel is present in the page at `url`. False otherwise, including when the
     page couldn't be loaded.
     """
-
-    installed_events: List[str]
 
     last_fired_days: object
     """Event name to whole days since that event last fired, e.g.
@@ -42,6 +42,8 @@ class PixelValidation(BaseModel):
     True when the URL is a Whop-hosted store page for this account, which Whop
     tracks natively — no pixel snippet is required there.
     """
+
+    page_events: List[str]
 
     reachable: Optional[bool] = None
     """Whether the page could be loaded.

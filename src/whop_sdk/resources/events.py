@@ -475,10 +475,12 @@ class EventsResource(SyncAPIResource):
 
         Recent pixel events
         count as proof on their own, so an account that has sent data lately comes back
-        installed without a `url`. Pass a `url` and events from that page settle it; if
-        it hasn't sent any lately the page is fetched and read for the pixel and the
-        conversion events wired on it. `installed` is only true when the pixel was
-        actually seen — in the account's events or in the page.
+        installed without a `url`. Pass a `url` and events from that page settle it;
+        conversion events are also read across the hostname because they commonly fire
+        on a later confirmation page. If the requested page hasn't sent any events
+        lately, it is fetched and read for the pixel and conversion events wired on it.
+        `installed` is only true when the pixel was actually seen — in the account's
+        events or in the page.
 
         Args:
           account_id: Account to check. Defaults to the authenticated account.
@@ -957,10 +959,12 @@ class AsyncEventsResource(AsyncAPIResource):
 
         Recent pixel events
         count as proof on their own, so an account that has sent data lately comes back
-        installed without a `url`. Pass a `url` and events from that page settle it; if
-        it hasn't sent any lately the page is fetched and read for the pixel and the
-        conversion events wired on it. `installed` is only true when the pixel was
-        actually seen — in the account's events or in the page.
+        installed without a `url`. Pass a `url` and events from that page settle it;
+        conversion events are also read across the hostname because they commonly fire
+        on a later confirmation page. If the requested page hasn't sent any events
+        lately, it is fetched and read for the pixel and conversion events wired on it.
+        `installed` is only true when the pixel was actually seen — in the account's
+        events or in the page.
 
         Args:
           account_id: Account to check. Defaults to the authenticated account.
