@@ -33,6 +33,12 @@ class MethodCreateResponse(BaseModel):
 
     destination_currency: str
 
+    estimated_arrival: Optional[object] = None
+    """Null on create. List payout methods to retrieve arrival estimates."""
+
+    fee_structure: Optional[object] = None
+    """Null on create. List payout methods to retrieve the configured fee terms."""
+
     institution_name: Optional[str] = None
 
     is_default: bool

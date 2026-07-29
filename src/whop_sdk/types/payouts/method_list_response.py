@@ -6,7 +6,44 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["MethodListResponse", "PayoutDestination", "Quote", "QuoteInstant", "QuoteStandard"]
+__all__ = [
+    "MethodListResponse",
+    "EstimatedArrival",
+    "FeeStructure",
+    "PayoutDestination",
+    "Quote",
+    "QuoteInstant",
+    "QuoteStandard",
+]
+
+
+class EstimatedArrival(BaseModel):
+    """Estimated arrival times before an amount-specific quote is requested.
+
+    Null when the method is not currently eligible.
+    """
+
+    instant: Optional[datetime] = None
+    """Estimated instant-delivery arrival, or null when unavailable."""
+
+    standard: Optional[datetime] = None
+    """Estimated standard-delivery arrival, or null when unavailable."""
+
+
+class FeeStructure(BaseModel):
+    """Configured fee terms for this payout method.
+
+    Null when the method is not currently eligible. An amount-specific quote remains authoritative.
+    """
+
+    currency: str
+    """Currency code of fixed_amount."""
+
+    fixed_amount: float
+    """Fixed fee charged, denominated in `currency`."""
+
+    percentage: float
+    """Percentage of the withdrawal amount charged as a fee."""
 
 
 class PayoutDestination(BaseModel):
@@ -32,9 +69,6 @@ class QuoteInstant(BaseModel):
     Null if the method does not support instant delivery, instant delivery is unavailable for the account, or the amount does not cover the fee.
     """
 
-    estimated_arrival: datetime
-    """Estimated time the funds become available."""
-
     fee: float
     """Total fee charged, in the withdrawal currency."""
 
@@ -47,9 +81,6 @@ class QuoteStandard(BaseModel):
 
     Null if the method does not support standard delivery, or the amount does not cover the fee.
     """
-
-    estimated_arrival: datetime
-    """Estimated time the funds become available."""
 
     fee: float
     """Total fee charged, in the withdrawal currency."""
@@ -108,6 +139,19 @@ class MethodListResponse(BaseModel):
 
     destination_currency: str
     """Currency payouts are delivered in for this method."""
+
+    estimated_arrival: Optional[EstimatedArrival] = None
+    """Estimated arrival times before an amount-specific quote is requested.
+
+    Null when the method is not currently eligible.
+    """
+
+    fee_structure: Optional[FeeStructure] = None
+    """Configured fee terms for this payout method.
+
+    Null when the method is not currently eligible. An amount-specific quote remains
+    authoritative.
+    """
 
     institution_name: Optional[str] = None
     """Name of the bank or institution receiving payouts."""
