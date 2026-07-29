@@ -390,6 +390,7 @@ class TestAdGroups:
         ad_group = client.ad_groups.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
+            ad_campaign_ids=["string"],
             after="after",
             attribution_model="last_touch",
             before="before",
@@ -1176,6 +1177,7 @@ class TestAsyncAdGroups:
         ad_group = await async_client.ad_groups.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
+            ad_campaign_ids=["string"],
             after="after",
             attribution_model="last_touch",
             before="before",

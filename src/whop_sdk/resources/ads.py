@@ -398,7 +398,9 @@ class AdsResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
         ad_group_id: str | Omit = omit,
+        ad_group_ids: SequenceNotStr[str] | Omit = omit,
         after: str | Omit = omit,
         attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
@@ -444,7 +446,13 @@ class AdsResource(SyncAPIResource):
 
           ad_campaign_id: Only return ads in this ad campaign.
 
+          ad_campaign_ids: Only return ads in these ad campaigns (max 100). Repeat the parameter for each
+              id (ad_campaign_ids=a&ad_campaign_ids=b).
+
           ad_group_id: Only return ads in this ad group.
+
+          ad_group_ids: Only return ads in these ad groups (max 100). Repeat the parameter for each id
+              (ad_group_ids=a&ad_group_ids=b).
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
@@ -502,7 +510,9 @@ class AdsResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
+                        "ad_campaign_ids": ad_campaign_ids,
                         "ad_group_id": ad_group_id,
+                        "ad_group_ids": ad_group_ids,
                         "after": after,
                         "attribution_model": attribution_model,
                         "before": before,
@@ -1054,7 +1064,9 @@ class AsyncAdsResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
         ad_group_id: str | Omit = omit,
+        ad_group_ids: SequenceNotStr[str] | Omit = omit,
         after: str | Omit = omit,
         attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
@@ -1100,7 +1112,13 @@ class AsyncAdsResource(AsyncAPIResource):
 
           ad_campaign_id: Only return ads in this ad campaign.
 
+          ad_campaign_ids: Only return ads in these ad campaigns (max 100). Repeat the parameter for each
+              id (ad_campaign_ids=a&ad_campaign_ids=b).
+
           ad_group_id: Only return ads in this ad group.
+
+          ad_group_ids: Only return ads in these ad groups (max 100). Repeat the parameter for each id
+              (ad_group_ids=a&ad_group_ids=b).
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
@@ -1158,7 +1176,9 @@ class AsyncAdsResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
+                        "ad_campaign_ids": ad_campaign_ids,
                         "ad_group_id": ad_group_id,
+                        "ad_group_ids": ad_group_ids,
                         "after": after,
                         "attribution_model": attribution_model,
                         "before": before,

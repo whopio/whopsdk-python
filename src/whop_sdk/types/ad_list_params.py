@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Literal, TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["AdListParams"]
 
 
@@ -17,8 +19,20 @@ class AdListParams(TypedDict, total=False):
     ad_campaign_id: str
     """Only return ads in this ad campaign."""
 
+    ad_campaign_ids: SequenceNotStr[str]
+    """Only return ads in these ad campaigns (max 100).
+
+    Repeat the parameter for each id (ad_campaign_ids=a&ad_campaign_ids=b).
+    """
+
     ad_group_id: str
     """Only return ads in this ad group."""
+
+    ad_group_ids: SequenceNotStr[str]
+    """Only return ads in these ad groups (max 100).
+
+    Repeat the parameter for each id (ad_group_ids=a&ad_group_ids=b).
+    """
 
     after: str
     """Cursor to fetch the page after (from page_info.end_cursor)."""

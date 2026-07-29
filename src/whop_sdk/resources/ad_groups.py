@@ -554,6 +554,7 @@ class AdGroupsResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
         after: str | Omit = omit,
         attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
@@ -598,6 +599,9 @@ class AdGroupsResource(SyncAPIResource):
           account_id: Account whose ad groups to list. Defaults to the authenticated account.
 
           ad_campaign_id: Filter to ad groups in this campaign.
+
+          ad_campaign_ids: Filter to ad groups in these campaigns (max 100). Repeat the parameter for each
+              id (ad_campaign_ids=a&ad_campaign_ids=b).
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
@@ -655,6 +659,7 @@ class AdGroupsResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
+                        "ad_campaign_ids": ad_campaign_ids,
                         "after": after,
                         "attribution_model": attribution_model,
                         "before": before,
@@ -1515,6 +1520,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         ad_campaign_id: str | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
         after: str | Omit = omit,
         attribution_model: Literal["last_touch", "first_touch"] | Omit = omit,
         before: str | Omit = omit,
@@ -1559,6 +1565,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           account_id: Account whose ad groups to list. Defaults to the authenticated account.
 
           ad_campaign_id: Filter to ad groups in this campaign.
+
+          ad_campaign_ids: Filter to ad groups in these campaigns (max 100). Repeat the parameter for each
+              id (ad_campaign_ids=a&ad_campaign_ids=b).
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
@@ -1616,6 +1625,7 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "ad_campaign_id": ad_campaign_id,
+                        "ad_campaign_ids": ad_campaign_ids,
                         "after": after,
                         "attribution_model": attribution_model,
                         "before": before,

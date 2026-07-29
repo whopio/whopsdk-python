@@ -330,7 +330,9 @@ class TestAds:
         ad = client.ads.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
+            ad_campaign_ids=["string"],
             ad_group_id="ad_group_id",
+            ad_group_ids=["string"],
             after="after",
             attribution_model="last_touch",
             before="before",
@@ -882,7 +884,9 @@ class TestAsyncAds:
         ad = await async_client.ads.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
+            ad_campaign_ids=["string"],
             ad_group_id="ad_group_id",
+            ad_group_ids=["string"],
             after="after",
             attribution_model="last_touch",
             before="before",

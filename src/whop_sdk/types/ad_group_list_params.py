@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Literal, TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["AdGroupListParams"]
 
 
@@ -13,6 +15,12 @@ class AdGroupListParams(TypedDict, total=False):
 
     ad_campaign_id: str
     """Filter to ad groups in this campaign."""
+
+    ad_campaign_ids: SequenceNotStr[str]
+    """Filter to ad groups in these campaigns (max 100).
+
+    Repeat the parameter for each id (ad_campaign_ids=a&ad_campaign_ids=b).
+    """
 
     after: str
     """Cursor to fetch the page after (from page_info.end_cursor)."""
