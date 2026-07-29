@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     InvoiceVoidResponse,
     InvoiceDeleteResponse,
+    InvoiceResendResponse,
     InvoiceMarkPaidResponse,
     InvoiceMarkUncollectibleResponse,
 )
@@ -43,6 +44,7 @@ class TestInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
                 "currency": "usd",
                 "custom_fields": [
@@ -160,6 +162,7 @@ class TestInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
                 "currency": "usd",
                 "custom_fields": [
@@ -340,6 +343,7 @@ class TestInvoices:
             member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
                 "currency": "usd",
                 "custom_fields": [
@@ -584,6 +588,48 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_resend(self, client: Whop) -> None:
+        invoice = client.invoices.resend(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceResendResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_resend(self, client: Whop) -> None:
+        response = client.invoices.with_raw_response.resend(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceResendResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_resend(self, client: Whop) -> None:
+        with client.invoices.with_streaming_response.resend(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceResendResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_resend(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.invoices.with_raw_response.resend(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_void(self, client: Whop) -> None:
         invoice = client.invoices.void(
             "inv_xxxxxxxxxxxxxx",
@@ -648,6 +694,7 @@ class TestAsyncInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
                 "currency": "usd",
                 "custom_fields": [
@@ -765,6 +812,7 @@ class TestAsyncInvoices:
             collection_method="send_invoice",
             company_id="biz_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
                 "currency": "usd",
                 "custom_fields": [
@@ -945,6 +993,7 @@ class TestAsyncInvoices:
             member_id="mber_xxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
             plan={
+                "adaptive_pricing_enabled": True,
                 "billing_period": 42,
                 "currency": "usd",
                 "custom_fields": [
@@ -1184,6 +1233,48 @@ class TestAsyncInvoices:
     async def test_path_params_mark_uncollectible(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.invoices.with_raw_response.mark_uncollectible(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_resend(self, async_client: AsyncWhop) -> None:
+        invoice = await async_client.invoices.resend(
+            "inv_xxxxxxxxxxxxxx",
+        )
+        assert_matches_type(InvoiceResendResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_resend(self, async_client: AsyncWhop) -> None:
+        response = await async_client.invoices.with_raw_response.resend(
+            "inv_xxxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceResendResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_resend(self, async_client: AsyncWhop) -> None:
+        async with async_client.invoices.with_streaming_response.resend(
+            "inv_xxxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceResendResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_resend(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.invoices.with_raw_response.resend(
                 "",
             )
 
