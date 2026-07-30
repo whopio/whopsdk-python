@@ -332,7 +332,13 @@ class DataSource(BaseModel):
     """Saved payout destination nickname (withdrawal sources only)."""
 
     reason: Optional[str] = None
-    """Transfer reason on transfer sources, for example pool_top_up or bounty_return."""
+    """Why the activity happened.
+
+    On transfer sources this is the transfer reason, for example pool_top_up or
+    bounty_return. On withdrawal sources it explains why the withdrawal was
+    canceled, denied, or failed (requires payout:withdrawal:read); null while the
+    withdrawal is progressing normally.
+    """
 
     sender_address: Optional[str] = None
     """
