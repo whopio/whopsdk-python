@@ -6,3 +6,5 @@ from .method_list_params import MethodListParams as MethodListParams
 from .method_create_params import MethodCreateParams as MethodCreateParams
 from .method_list_response import MethodListResponse as MethodListResponse
 from .method_create_response import MethodCreateResponse as MethodCreateResponse
+from .supported_method_list_params import SupportedMethodListParams as SupportedMethodListParams
+from .supported_method_list_response import SupportedMethodListResponse as SupportedMethodListResponse

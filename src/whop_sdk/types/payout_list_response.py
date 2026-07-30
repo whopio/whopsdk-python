@@ -6,20 +6,20 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PayoutListResponse", "PayoutToken", "PayoutTokenPayoutDestination"]
+__all__ = ["PayoutListResponse", "PayoutMethod", "PayoutMethodSupportedPayoutMethod"]
 
 
-class PayoutTokenPayoutDestination(BaseModel):
-    """Payout destination display details."""
+class PayoutMethodSupportedPayoutMethod(BaseModel):
+    """Supported payout method display details."""
 
     icon_url: Optional[str] = None
-    """Payout destination icon URL."""
+    """Supported payout method icon URL."""
 
     payer_name: Optional[str] = None
-    """Payout destination display name."""
+    """Supported payout method display name."""
 
 
-class PayoutToken(BaseModel):
+class PayoutMethod(BaseModel):
     """The saved payout method used.
 
     Requires payout:destination:read; null without it.
@@ -28,8 +28,8 @@ class PayoutToken(BaseModel):
     nickname: Optional[str] = None
     """Saved payout method nickname."""
 
-    payout_destination: Optional[PayoutTokenPayoutDestination] = None
-    """Payout destination display details."""
+    supported_payout_method: Optional[PayoutMethodSupportedPayoutMethod] = None
+    """Supported payout method display details."""
 
 
 class PayoutListResponse(BaseModel):
@@ -56,17 +56,17 @@ class PayoutListResponse(BaseModel):
     payer_name: Optional[str] = None
     """Name of the entity processing the payout."""
 
+    payout_method: Optional[PayoutMethod] = None
+    """The saved payout method used.
+
+    Requires payout:destination:read; null without it.
+    """
+
     payout_request_id: Optional[str] = None
     """The ID returned by POST /payouts when this payout was requested.
 
     Match it to the settled payout in GET /payouts. Null for payouts not created by
     POST /payouts.
-    """
-
-    payout_token: Optional[PayoutToken] = None
-    """The saved payout method used.
-
-    Requires payout:destination:read; null without it.
     """
 
     speed: Literal["standard", "instant"]

@@ -11,19 +11,22 @@ __all__ = ["MethodCreateParams"]
 
 
 class MethodCreateParams(TypedDict, total=False):
-    destination_id: Required[str]
-    """The payout destination to add (a pd\\__ identifier from a previous listing)."""
-
     fields: Required[Dict[str, str]]
     """
-    The destination's required field values, keyed by field id — list them with
-    `GET /payouts/methods?destination_id=...`. A Basis Theory token id may be passed
-    in place of a raw value. A validation failure returns the destination's full
-    required_fields schema alongside the error.
+    The supported payout method's required field values, keyed by field id — list
+    them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
+    Basis Theory token id may be passed in place of a raw value. A validation
+    failure returns the method's full required_fields schema alongside the error.
     """
 
     nickname: Required[str]
     """A label for the payout method, unique per destination."""
+
+    supported_payout_method_id: Required[str]
+    """
+    The supported payout method to save (a podst\\__ identifier from a previous
+    listing).
+    """
 
     account_id: str
     """The account to add the payout method for (a biz\\__ identifier).
@@ -32,7 +35,7 @@ class MethodCreateParams(TypedDict, total=False):
     """
 
     destination_currency: str
-    """Currency the destination delivers payouts in."""
+    """Currency the supported payout method delivers payouts in."""
 
     is_default: bool
     """Whether to make this the account's default payout method."""

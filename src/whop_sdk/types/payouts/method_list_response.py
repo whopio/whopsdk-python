@@ -10,10 +10,10 @@ __all__ = [
     "MethodListResponse",
     "EstimatedArrival",
     "FeeStructure",
-    "PayoutDestination",
     "Quote",
     "QuoteInstant",
     "QuoteStandard",
+    "SupportedPayoutMethod",
 ]
 
 
@@ -44,33 +44,6 @@ class FeeStructure(BaseModel):
 
     percentage: float
     """Percentage of the withdrawal amount charged as a fee."""
-
-
-class PayoutDestination(BaseModel):
-    """The payout rail this method delivers through."""
-
-    delivery_type: Literal[
-        "cash_pickup",
-        "bank_deposit",
-        "home_delivery",
-        "mobile_wallet",
-        "masspay_card",
-        "paper_check",
-        "bill",
-        "cryptocurrency",
-        "unknown",
-    ]
-    """How funds are delivered."""
-
-    icon_url: Optional[str] = None
-    """Payout destination icon URL."""
-
-    name: Optional[str] = None
-    """Payout destination display name."""
-
-    supports_instant_delivery: bool
-
-    supports_standard_delivery: bool
 
 
 class QuoteInstant(BaseModel):
@@ -134,6 +107,33 @@ class Quote(BaseModel):
     """
 
 
+class SupportedPayoutMethod(BaseModel):
+    """The supported payout method this saved method was created from."""
+
+    delivery_type: Literal[
+        "cash_pickup",
+        "bank_deposit",
+        "home_delivery",
+        "mobile_wallet",
+        "masspay_card",
+        "paper_check",
+        "bill",
+        "cryptocurrency",
+        "unknown",
+    ]
+    """How funds are delivered."""
+
+    icon_url: Optional[str] = None
+    """Supported payout method icon URL."""
+
+    name: Optional[str] = None
+    """Supported payout method display name."""
+
+    supports_instant_delivery: bool
+
+    supports_standard_delivery: bool
+
+
 class MethodListResponse(BaseModel):
     id: str
     """Payout method ID."""
@@ -177,9 +177,6 @@ class MethodListResponse(BaseModel):
     payer_name: Optional[str] = None
     """Display name of the payout rail, such as `ACH Bank Deposit`."""
 
-    payout_destination: Optional[PayoutDestination] = None
-    """The payout rail this method delivers through."""
-
     quote: Optional[Quote] = None
     """
     Fee and delivery estimate for withdrawing the requested amount through this
@@ -191,3 +188,6 @@ class MethodListResponse(BaseModel):
     Lifecycle status: `created` means saved but unused, `active` means a payout
     succeeded through it, `broken` means the last payout failed.
     """
+
+    supported_payout_method: Optional[SupportedPayoutMethod] = None
+    """The supported payout method this saved method was created from."""

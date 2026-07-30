@@ -7,10 +7,10 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["MethodCreateResponse", "PayoutDestination"]
+__all__ = ["MethodCreateResponse", "SupportedPayoutMethod"]
 
 
-class PayoutDestination(BaseModel):
+class SupportedPayoutMethod(BaseModel):
     delivery_type: Literal[
         "cash_pickup",
         "bank_deposit",
@@ -60,9 +60,9 @@ class MethodCreateResponse(BaseModel):
 
     payer_name: Optional[str] = None
 
-    payout_destination: Optional[PayoutDestination] = None
-
     quote: Optional[builtins.object] = None
     """Always null on create."""
 
     status: Literal["created", "active", "broken"]
+
+    supported_payout_method: Optional[SupportedPayoutMethod] = None

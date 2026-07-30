@@ -55,9 +55,9 @@ class MethodsResource(SyncAPIResource):
     def create(
         self,
         *,
-        destination_id: str,
         fields: Dict[str, str],
         nickname: str,
+        supported_payout_method_id: str,
         account_id: str | Omit = omit,
         destination_currency: str | Omit = omit,
         is_default: bool | Omit = omit,
@@ -76,19 +76,20 @@ class MethodsResource(SyncAPIResource):
         vaulted in transit and never stored raw.
 
         Args:
-          destination_id: The payout destination to add (a pd\\__ identifier from a previous listing).
-
-          fields: The destination's required field values, keyed by field id — list them with
-              `GET /payouts/methods?destination_id=...`. A Basis Theory token id may be passed
-              in place of a raw value. A validation failure returns the destination's full
-              required_fields schema alongside the error.
+          fields: The supported payout method's required field values, keyed by field id — list
+              them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
+              Basis Theory token id may be passed in place of a raw value. A validation
+              failure returns the method's full required_fields schema alongside the error.
 
           nickname: A label for the payout method, unique per destination.
+
+          supported_payout_method_id: The supported payout method to save (a podst\\__ identifier from a previous
+              listing).
 
           account_id: The account to add the payout method for (a biz\\__ identifier). Provide this or
               user_id.
 
-          destination_currency: Currency the destination delivers payouts in.
+          destination_currency: Currency the supported payout method delivers payouts in.
 
           is_default: Whether to make this the account's default payout method.
 
@@ -108,9 +109,9 @@ class MethodsResource(SyncAPIResource):
             "/payouts/methods",
             body=maybe_transform(
                 {
-                    "destination_id": destination_id,
                     "fields": fields,
                     "nickname": nickname,
+                    "supported_payout_method_id": supported_payout_method_id,
                     "account_id": account_id,
                     "destination_currency": destination_currency,
                     "is_default": is_default,
@@ -132,10 +133,7 @@ class MethodsResource(SyncAPIResource):
         amount: float | Omit = omit,
         before: str | Omit = omit,
         currency: str | Omit = omit,
-        destination_currency: str | Omit = omit,
-        destination_id: str | Omit = omit,
         first: int | Omit = omit,
-        include_available: bool | Omit = omit,
         include_limits: bool | Omit = omit,
         last: int | Omit = omit,
         status: Literal["created", "active", "broken"] | Omit = omit,
@@ -165,18 +163,7 @@ class MethodsResource(SyncAPIResource):
           currency: Currency code of the amount, for example `usd`. Only meaningful with amount or
               include_limits.
 
-          destination_currency: Currency the destination would deliver payouts in. Only meaningful with
-              destination_id; required fields vary by destination currency.
-
-          destination_id: Narrows available*destinations to this one destination (a pd* identifier from a
-              previous listing) and includes its required_fields — the values to collect to
-              add it as a payout method. Implies include_available.
-
           first: Number of payout methods to return from the start of the window.
-
-          include_available: When true, the response also carries available_destinations — payout rails the
-              account could add as a new payout method, with per-currency quotes when an
-              amount is provided.
 
           include_limits: When true, the response also carries limits — the live per-speed payout caps the
               account's payout requests are validated against, in the requested currency.
@@ -213,10 +200,7 @@ class MethodsResource(SyncAPIResource):
                         "amount": amount,
                         "before": before,
                         "currency": currency,
-                        "destination_currency": destination_currency,
-                        "destination_id": destination_id,
                         "first": first,
-                        "include_available": include_available,
                         "include_limits": include_limits,
                         "last": last,
                         "status": status,
@@ -258,9 +242,9 @@ class AsyncMethodsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        destination_id: str,
         fields: Dict[str, str],
         nickname: str,
+        supported_payout_method_id: str,
         account_id: str | Omit = omit,
         destination_currency: str | Omit = omit,
         is_default: bool | Omit = omit,
@@ -279,19 +263,20 @@ class AsyncMethodsResource(AsyncAPIResource):
         vaulted in transit and never stored raw.
 
         Args:
-          destination_id: The payout destination to add (a pd\\__ identifier from a previous listing).
-
-          fields: The destination's required field values, keyed by field id — list them with
-              `GET /payouts/methods?destination_id=...`. A Basis Theory token id may be passed
-              in place of a raw value. A validation failure returns the destination's full
-              required_fields schema alongside the error.
+          fields: The supported payout method's required field values, keyed by field id — list
+              them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
+              Basis Theory token id may be passed in place of a raw value. A validation
+              failure returns the method's full required_fields schema alongside the error.
 
           nickname: A label for the payout method, unique per destination.
+
+          supported_payout_method_id: The supported payout method to save (a podst\\__ identifier from a previous
+              listing).
 
           account_id: The account to add the payout method for (a biz\\__ identifier). Provide this or
               user_id.
 
-          destination_currency: Currency the destination delivers payouts in.
+          destination_currency: Currency the supported payout method delivers payouts in.
 
           is_default: Whether to make this the account's default payout method.
 
@@ -311,9 +296,9 @@ class AsyncMethodsResource(AsyncAPIResource):
             "/payouts/methods",
             body=await async_maybe_transform(
                 {
-                    "destination_id": destination_id,
                     "fields": fields,
                     "nickname": nickname,
+                    "supported_payout_method_id": supported_payout_method_id,
                     "account_id": account_id,
                     "destination_currency": destination_currency,
                     "is_default": is_default,
@@ -335,10 +320,7 @@ class AsyncMethodsResource(AsyncAPIResource):
         amount: float | Omit = omit,
         before: str | Omit = omit,
         currency: str | Omit = omit,
-        destination_currency: str | Omit = omit,
-        destination_id: str | Omit = omit,
         first: int | Omit = omit,
-        include_available: bool | Omit = omit,
         include_limits: bool | Omit = omit,
         last: int | Omit = omit,
         status: Literal["created", "active", "broken"] | Omit = omit,
@@ -368,18 +350,7 @@ class AsyncMethodsResource(AsyncAPIResource):
           currency: Currency code of the amount, for example `usd`. Only meaningful with amount or
               include_limits.
 
-          destination_currency: Currency the destination would deliver payouts in. Only meaningful with
-              destination_id; required fields vary by destination currency.
-
-          destination_id: Narrows available*destinations to this one destination (a pd* identifier from a
-              previous listing) and includes its required_fields — the values to collect to
-              add it as a payout method. Implies include_available.
-
           first: Number of payout methods to return from the start of the window.
-
-          include_available: When true, the response also carries available_destinations — payout rails the
-              account could add as a new payout method, with per-currency quotes when an
-              amount is provided.
 
           include_limits: When true, the response also carries limits — the live per-speed payout caps the
               account's payout requests are validated against, in the requested currency.
@@ -416,10 +387,7 @@ class AsyncMethodsResource(AsyncAPIResource):
                         "amount": amount,
                         "before": before,
                         "currency": currency,
-                        "destination_currency": destination_currency,
-                        "destination_id": destination_id,
                         "first": first,
-                        "include_available": include_available,
                         "include_limits": include_limits,
                         "last": last,
                         "status": status,

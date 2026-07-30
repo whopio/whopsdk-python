@@ -1031,6 +1031,18 @@ Methods:
 - <code title="post /payouts/methods">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">create</a>(\*\*<a href="src/whop_sdk/types/payouts/method_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/method_create_response.py">MethodCreateResponse</a></code>
 - <code title="get /payouts/methods">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payouts/method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/method_list_response.py">SyncCursorPageWithLimits[MethodListResponse]</a></code>
 
+## SupportedMethods
+
+Types:
+
+```python
+from whop_sdk.types.payouts import SupportedMethodListResponse
+```
+
+Methods:
+
+- <code title="get /payouts/supported_methods">client.payouts.supported_methods.<a href="./src/whop_sdk/resources/payouts/supported_methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payouts/supported_method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/supported_method_list_response.py">SyncCursorPage[SupportedMethodListResponse]</a></code>
+
 # Partners
 
 Types:

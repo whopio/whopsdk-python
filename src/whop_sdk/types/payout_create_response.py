@@ -6,20 +6,20 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PayoutCreateResponse", "PayoutToken", "PayoutTokenPayoutDestination"]
+__all__ = ["PayoutCreateResponse", "PayoutMethod", "PayoutMethodSupportedPayoutMethod"]
 
 
-class PayoutTokenPayoutDestination(BaseModel):
-    """Payout destination display details."""
+class PayoutMethodSupportedPayoutMethod(BaseModel):
+    """Supported payout method display details."""
 
     icon_url: Optional[str] = None
-    """Payout destination icon URL."""
+    """Supported payout method icon URL."""
 
     payer_name: Optional[str] = None
-    """Payout destination display name."""
+    """Supported payout method display name."""
 
 
-class PayoutToken(BaseModel):
+class PayoutMethod(BaseModel):
     """The saved payout method used.
 
     Requires payout:destination:read; null without it.
@@ -28,8 +28,8 @@ class PayoutToken(BaseModel):
     nickname: Optional[str] = None
     """Saved payout method nickname."""
 
-    payout_destination: Optional[PayoutTokenPayoutDestination] = None
-    """Payout destination display details."""
+    supported_payout_method: Optional[PayoutMethodSupportedPayoutMethod] = None
+    """Supported payout method display details."""
 
 
 class PayoutCreateResponse(BaseModel):
@@ -59,7 +59,7 @@ class PayoutCreateResponse(BaseModel):
     payer_name: Optional[str] = None
     """Name of the entity processing the payout. Null until the payout settles."""
 
-    payout_token: Optional[PayoutToken] = None
+    payout_method: Optional[PayoutMethod] = None
     """The saved payout method used.
 
     Requires payout:destination:read; null without it.

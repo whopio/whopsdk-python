@@ -16,6 +16,14 @@ from .payouts import (
     PayoutsResourceWithStreamingResponse,
     AsyncPayoutsResourceWithStreamingResponse,
 )
+from .supported_methods import (
+    SupportedMethodsResource,
+    AsyncSupportedMethodsResource,
+    SupportedMethodsResourceWithRawResponse,
+    AsyncSupportedMethodsResourceWithRawResponse,
+    SupportedMethodsResourceWithStreamingResponse,
+    AsyncSupportedMethodsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "MethodsResource",
@@ -24,6 +32,12 @@ __all__ = [
     "AsyncMethodsResourceWithRawResponse",
     "MethodsResourceWithStreamingResponse",
     "AsyncMethodsResourceWithStreamingResponse",
+    "SupportedMethodsResource",
+    "AsyncSupportedMethodsResource",
+    "SupportedMethodsResourceWithRawResponse",
+    "AsyncSupportedMethodsResourceWithRawResponse",
+    "SupportedMethodsResourceWithStreamingResponse",
+    "AsyncSupportedMethodsResourceWithStreamingResponse",
     "PayoutsResource",
     "AsyncPayoutsResource",
     "PayoutsResourceWithRawResponse",

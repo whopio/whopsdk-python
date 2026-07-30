@@ -30,29 +30,8 @@ class MethodListParams(TypedDict, total=False):
     Only meaningful with amount or include_limits.
     """
 
-    destination_currency: str
-    """Currency the destination would deliver payouts in.
-
-    Only meaningful with destination_id; required fields vary by destination
-    currency.
-    """
-
-    destination_id: str
-    """
-    Narrows available*destinations to this one destination (a pd* identifier from a
-    previous listing) and includes its required_fields — the values to collect to
-    add it as a payout method. Implies include_available.
-    """
-
     first: int
     """Number of payout methods to return from the start of the window."""
-
-    include_available: bool
-    """
-    When true, the response also carries available_destinations — payout rails the
-    account could add as a new payout method, with per-currency quotes when an
-    amount is provided.
-    """
 
     include_limits: bool
     """
