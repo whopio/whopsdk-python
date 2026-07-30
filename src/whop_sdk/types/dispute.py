@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -13,6 +13,7 @@ __all__ = [
     "EvidenceCustomerCommunicationAttachment",
     "EvidenceRefundPolicyAttachment",
     "EvidenceUncategorizedAttachment",
+    "IssuerComment",
     "Payment",
 ]
 
@@ -200,6 +201,19 @@ class Evidence(BaseModel):
     """Supporting evidence that does not fit the other categories."""
 
 
+class IssuerComment(BaseModel):
+    """What the card issuer said when filing the dispute.
+
+    Only populated when the issuer provides them, and listed in the order they were received.
+    """
+
+    received_at: Optional[str] = None
+    """When the comment was received, as an ISO 8601 timestamp."""
+
+    text: str
+    """What the issuer wrote, as received."""
+
+
 class Payment(BaseModel):
     """The payment being disputed."""
 
@@ -275,6 +289,8 @@ class Dispute(BaseModel):
 
     Inquiries follow the same lifecycle but move no funds unless one escalates.
     """
+
+    issuer_comments: List[IssuerComment]
 
     payment: Optional[Payment] = None
     """The payment being disputed."""
