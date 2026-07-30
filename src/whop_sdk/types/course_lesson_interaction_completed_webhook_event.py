@@ -17,6 +17,9 @@ class CourseLessonInteractionCompletedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: CourseLessonInteraction
     """
     A record of a user's progress on a specific lesson, tracking whether they have

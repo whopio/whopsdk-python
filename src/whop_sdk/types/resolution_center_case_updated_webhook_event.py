@@ -205,6 +205,9 @@ class ResolutionCenterCaseUpdatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """
     A resolution center case is a dispute or support case between a user and a

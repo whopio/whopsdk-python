@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -20,6 +20,14 @@ class WebhookListResponse(BaseModel):
 
     api_version: APIVersion
     """The API version used to format payloads sent to this webhook endpoint."""
+
+    api_version_date: Optional[str] = None
+    """
+    The dated API version (Api-Version-Date) that v1 payloads for this endpoint are
+    pinned to: events serialize exactly like a REST read at this version (the native
+    serializer where the resource has one). Null when unpinned — legacy (v2/v5)
+    webhooks, and v1 webhooks on the legacy payload shape.
+    """
 
     child_resource_events: bool
     """Whether events are sent for child resources.

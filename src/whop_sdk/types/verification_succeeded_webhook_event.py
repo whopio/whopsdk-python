@@ -39,6 +39,9 @@ class VerificationSucceededWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """
     An identity verification session used to confirm a person or entity's identity

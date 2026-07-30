@@ -18,6 +18,14 @@ class WebhookCreateParams(TypedDict, total=False):
     api_version: Optional[APIVersion]
     """The different API versions"""
 
+    api_version_date: Optional[str]
+    """
+    The dated API version (Api-Version-Date) the webhook's payloads are pinned to:
+    events serialize exactly like a REST read at this version (the native serializer
+    where the resource has one). Only applies to v1 webhooks. Omit to leave the
+    webhook unpinned on the legacy payload shape.
+    """
+
     child_resource_events: Optional[bool]
     """Whether or not to send events for child resources.
 
