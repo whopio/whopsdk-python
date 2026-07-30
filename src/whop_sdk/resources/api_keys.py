@@ -32,7 +32,7 @@ class APIKeysResource(SyncAPIResource):
 
     Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
 
-    Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+    Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
     """
 
     @cached_property
@@ -71,20 +71,21 @@ class APIKeysResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
-        """Creates an API key for a company or app.
+        """Creates an API key for an account or app.
 
-        The response is the only place the full
-        `secret_key` is returned — store it immediately. Requires a user session; API
-        keys cannot manage API keys.
+        The response is the only place the
+        full `secret_key` is returned — store it immediately. Requires a user session;
+        API keys cannot manage API keys.
 
         Args:
           name: A human-readable name for the API key, such as 'Production API Key'.
 
           permissions: The permissions policy for the API key: explicit permission statements, or a
               system role to inherit from. Statements without a `resources` array default to
-              the owning company (company keys) or every key-addressable resource (app keys).
+              the owning account (Account API keys) or every key-addressable resource (App API
+              keys).
 
-          resource_id: The company (`biz_`) or app (`app_`) tag to create the API key for.
+          resource_id: The account (`biz_`) or app (`app_`) tag to create the API key for.
 
           resource_type: The type of resource that will own this API key.
 
@@ -188,7 +189,8 @@ class APIKeysResource(SyncAPIResource):
 
           permissions: The permissions policy for the API key: explicit permission statements, or a
               system role to inherit from. Statements without a `resources` array default to
-              the owning company (company keys) or every key-addressable resource (app keys).
+              the owning account (Account API keys) or every key-addressable resource (App API
+              keys).
 
           extra_headers: Send extra headers
 
@@ -237,13 +239,13 @@ class APIKeysResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[APIKey]:
-        """Lists the API keys of a company or app, newest first.
+        """Lists the API keys of an account or app, newest first.
 
         Responses never include
         the full secret — only its obfuscated form.
 
         Args:
-          resource_id: The company (`biz_`) or app (`app_`) tag to list API keys for.
+          resource_id: The account (`biz_`) or app (`app_`) tag to list API keys for.
 
           resource_type: The type of resource that owns the API keys.
 
@@ -398,7 +400,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
 
     Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
 
-    Use the API Keys API to list a company or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+    Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
     """
 
     @cached_property
@@ -437,20 +439,21 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
-        """Creates an API key for a company or app.
+        """Creates an API key for an account or app.
 
-        The response is the only place the full
-        `secret_key` is returned — store it immediately. Requires a user session; API
-        keys cannot manage API keys.
+        The response is the only place the
+        full `secret_key` is returned — store it immediately. Requires a user session;
+        API keys cannot manage API keys.
 
         Args:
           name: A human-readable name for the API key, such as 'Production API Key'.
 
           permissions: The permissions policy for the API key: explicit permission statements, or a
               system role to inherit from. Statements without a `resources` array default to
-              the owning company (company keys) or every key-addressable resource (app keys).
+              the owning account (Account API keys) or every key-addressable resource (App API
+              keys).
 
-          resource_id: The company (`biz_`) or app (`app_`) tag to create the API key for.
+          resource_id: The account (`biz_`) or app (`app_`) tag to create the API key for.
 
           resource_type: The type of resource that will own this API key.
 
@@ -554,7 +557,8 @@ class AsyncAPIKeysResource(AsyncAPIResource):
 
           permissions: The permissions policy for the API key: explicit permission statements, or a
               system role to inherit from. Statements without a `resources` array default to
-              the owning company (company keys) or every key-addressable resource (app keys).
+              the owning account (Account API keys) or every key-addressable resource (App API
+              keys).
 
           extra_headers: Send extra headers
 
@@ -603,13 +607,13 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[APIKey, AsyncCursorPage[APIKey]]:
-        """Lists the API keys of a company or app, newest first.
+        """Lists the API keys of an account or app, newest first.
 
         Responses never include
         the full secret — only its obfuscated form.
 
         Args:
-          resource_id: The company (`biz_`) or app (`app_`) tag to list API keys for.
+          resource_id: The account (`biz_`) or app (`app_`) tag to list API keys for.
 
           resource_type: The type of resource that owns the API keys.
 

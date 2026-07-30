@@ -10,7 +10,7 @@ __all__ = ["APIKeyListParams"]
 
 class APIKeyListParams(TypedDict, total=False):
     resource_id: Required[str]
-    """The company (`biz_`) or app (`app_`) tag to list API keys for."""
+    """The account (`biz_`) or app (`app_`) tag to list API keys for."""
 
     resource_type: Required[Literal["account", "app"]]
     """The type of resource that owns the API keys."""

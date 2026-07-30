@@ -84,16 +84,16 @@ class WebhooksResource(SyncAPIResource):
 
           api_version: The API version for this webhook. Defaults to `v2`.
 
-          child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a company, enabling this will only send events from the company's
-              sub-merchants (child companies).
+          child_resource_events: Whether to send events for child resources. For example, if the webhook is
+              created for an account, enabling this sends events only from its connected
+              accounts.
 
           enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
           events: The events to send the webhook for, in dot form (for example
               `payment.succeeded`).
 
-          resource_id: The company or app to create the webhook for. Defaults to the current company.
+          resource_id: The account or app to create the webhook for. Defaults to the current account.
 
           extra_headers: Send extra headers
 
@@ -233,7 +233,7 @@ class WebhooksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[WebhookListResponse]:
         """
-        Returns a paginated list of webhook endpoints configured for a company, ordered
+        Returns a paginated list of webhook endpoints configured for an account, ordered
         by most recently created.
 
         Args:
@@ -241,7 +241,7 @@ class WebhooksResource(SyncAPIResource):
 
           after: A cursor; returns webhooks after this position.
 
-          app_id: Only return webhooks attached to this app. Omit to list the company's own
+          app_id: Only return webhooks attached to this app. Omit to list the account's own
               webhooks.
 
           before: A cursor; returns webhooks before this position.
@@ -481,16 +481,16 @@ class AsyncWebhooksResource(AsyncAPIResource):
 
           api_version: The API version for this webhook. Defaults to `v2`.
 
-          child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a company, enabling this will only send events from the company's
-              sub-merchants (child companies).
+          child_resource_events: Whether to send events for child resources. For example, if the webhook is
+              created for an account, enabling this sends events only from its connected
+              accounts.
 
           enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
           events: The events to send the webhook for, in dot form (for example
               `payment.succeeded`).
 
-          resource_id: The company or app to create the webhook for. Defaults to the current company.
+          resource_id: The account or app to create the webhook for. Defaults to the current account.
 
           extra_headers: Send extra headers
 
@@ -630,7 +630,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[WebhookListResponse, AsyncCursorPage[WebhookListResponse]]:
         """
-        Returns a paginated list of webhook endpoints configured for a company, ordered
+        Returns a paginated list of webhook endpoints configured for an account, ordered
         by most recently created.
 
         Args:
@@ -638,7 +638,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
 
           after: A cursor; returns webhooks after this position.
 
-          app_id: Only return webhooks attached to this app. Omit to list the company's own
+          app_id: Only return webhooks attached to this app. Omit to list the account's own
               webhooks.
 
           before: A cursor; returns webhooks before this position.

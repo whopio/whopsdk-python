@@ -206,7 +206,7 @@ class ShipmentsResource(SyncAPIResource):
         Returns a paginated list of shipments for an account.
 
         Args:
-          account_id: The account to list shipments for. Defaults to the acting company.
+          account_id: The account to list shipments for. Defaults to the acting account.
 
           after: A cursor; returns shipments after this position.
 
@@ -451,7 +451,7 @@ class AsyncShipmentsResource(AsyncAPIResource):
         Returns a paginated list of shipments for an account.
 
         Args:
-          account_id: The account to list shipments for. Defaults to the acting company.
+          account_id: The account to list shipments for. Defaults to the acting account.
 
           after: A cursor; returns shipments after this position.
 

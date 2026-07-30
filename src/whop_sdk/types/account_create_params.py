@@ -19,10 +19,7 @@ class AccountCreateParams(TypedDict, total=False):
     """
 
     email: str
-    """The email address of the account owner.
-
-    Required for business account API key requests.
-    """
+    """The email address of the account owner. Required for Account API key requests."""
 
     metadata: Dict[str, object]
     """Arbitrary key/value metadata to store on the account."""

@@ -17,7 +17,7 @@ class WebhookListParams(TypedDict, total=False):
     app_id: str
     """Only return webhooks attached to this app.
 
-    Omit to list the company's own webhooks.
+    Omit to list the account's own webhooks.
     """
 
     before: str

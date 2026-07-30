@@ -19,10 +19,10 @@ class WebhookCreateParams(TypedDict, total=False):
     """The API version for this webhook. Defaults to `v2`."""
 
     child_resource_events: bool
-    """Whether or not to send events for child resources.
+    """Whether to send events for child resources.
 
-    For example, if the webhook is created for a company, enabling this will only
-    send events from the company's sub-merchants (child companies).
+    For example, if the webhook is created for an account, enabling this sends
+    events only from its connected accounts.
     """
 
     enabled: bool
@@ -35,6 +35,6 @@ class WebhookCreateParams(TypedDict, total=False):
     """
 
     resource_id: Optional[str]
-    """The company or app to create the webhook for. Defaults to the current company."""
+    """The account or app to create the webhook for. Defaults to the current account."""
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

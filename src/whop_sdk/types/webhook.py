@@ -18,8 +18,8 @@ class Webhook(BaseModel):
     child_resource_events: bool
     """Whether events are sent for child resources.
 
-    For example, if the webhook is on a company, enabling this sends events only
-    from the company's sub-merchants (child companies).
+    For example, if the webhook is on an account, enabling this sends events only
+    from its connected accounts.
     """
 
     created_at: str
@@ -31,7 +31,7 @@ class Webhook(BaseModel):
     events: List[str]
 
     resource_id: str
-    """ID of the resource (company or app) this webhook is attached to."""
+    """ID of the resource (account or app) this webhook is attached to."""
 
     testable_events: List[str]
 

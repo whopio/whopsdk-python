@@ -21,7 +21,7 @@ class AppUpdateParams(TypedDict, total=False):
     """The base production URL where the app is hosted."""
 
     dashboard_path: Optional[str]
-    """The URL path for the company dashboard view."""
+    """The URL path for the account dashboard view."""
 
     description: str
     """A short description of the app shown in listings and search results."""

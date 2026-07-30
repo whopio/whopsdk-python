@@ -19,11 +19,12 @@ class APIKeyCreateParams(TypedDict, total=False):
     """
     The permissions policy for the API key: explicit permission statements, or a
     system role to inherit from. Statements without a `resources` array default to
-    the owning company (company keys) or every key-addressable resource (app keys).
+    the owning account (Account API keys) or every key-addressable resource (App API
+    keys).
     """
 
     resource_id: Required[str]
-    """The company (`biz_`) or app (`app_`) tag to create the API key for."""
+    """The account (`biz_`) or app (`app_`) tag to create the API key for."""
 
     resource_type: Required[Literal["account", "app"]]
     """The type of resource that will own this API key."""
@@ -59,7 +60,7 @@ class PermissionsStatement(TypedDict, total=False):
 
 class Permissions(TypedDict, total=False):
     """
-    The permissions policy for the API key: explicit permission statements, or a system role to inherit from. Statements without a `resources` array default to the owning company (company keys) or every key-addressable resource (app keys).
+    The permissions policy for the API key: explicit permission statements, or a system role to inherit from. Statements without a `resources` array default to the owning account (Account API keys) or every key-addressable resource (App API keys).
     """
 
     statements: Iterable[PermissionsStatement]
@@ -68,5 +69,5 @@ class Permissions(TypedDict, total=False):
     system_role: Optional[Literal["owner", "admin", "moderator", "sales_manager", "advertiser"]]
     """A system role to inherit permissions from.
 
-    Only company API keys can use a system role.
+    Only Account API keys can use a system role.
     """

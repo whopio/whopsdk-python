@@ -11,7 +11,7 @@ __all__ = ["ShipmentListParams"]
 
 class ShipmentListParams(TypedDict, total=False):
     account_id: str
-    """The account to list shipments for. Defaults to the acting company."""
+    """The account to list shipments for. Defaults to the acting account."""
 
     after: str
     """A cursor; returns shipments after this position."""

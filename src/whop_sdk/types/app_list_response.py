@@ -19,7 +19,7 @@ class Account(BaseModel):
 
 
 class Creator(BaseModel):
-    """The user who owns the publishing company."""
+    """The user who owns the publishing account."""
 
     id: str
     """User ID, prefixed `user_`."""
@@ -52,10 +52,10 @@ class AppListResponse(BaseModel):
     """Production base URL where the app is hosted, or `null` if none is configured."""
 
     creator: Creator
-    """The user who owns the publishing company."""
+    """The user who owns the publishing account."""
 
     dashboard_path: Optional[str] = None
-    """URL path for the company dashboard view, or `null` when not configured."""
+    """URL path for the account dashboard view, or `null` when not configured."""
 
     description: Optional[str] = None
     """

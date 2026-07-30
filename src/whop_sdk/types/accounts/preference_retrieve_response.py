@@ -64,7 +64,7 @@ class AdsPaymentMethodsBackup(BaseModel):
 
     title: Optional[str] = None
     """
-    Balance name, present for company `platform_balance` entries (null for a
+    Balance name, present for account `platform_balance` entries (null for a
     personal balance).
     """
 
@@ -96,7 +96,7 @@ class AdsPaymentMethodsPrimary(BaseModel):
 
     title: Optional[str] = None
     """
-    Balance name, present for company `platform_balance` entries (null for a
+    Balance name, present for account `platform_balance` entries (null for a
     personal balance).
     """
 

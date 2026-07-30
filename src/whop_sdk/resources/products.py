@@ -84,7 +84,7 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Creates a new product for a company.
+        Creates a new product for an account.
 
         Args:
           title: The display name of the product. Maximum 80 characters.
@@ -288,7 +288,7 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ProductListItem]:
         """
-        Returns a paginated list of products belonging to a company.
+        Returns a paginated list of products belonging to an account.
 
         Args:
           account_id: The unique identifier of the account to list products for.
@@ -510,7 +510,7 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Creates a new product for a company.
+        Creates a new product for an account.
 
         Args:
           title: The display name of the product. Maximum 80 characters.
@@ -714,7 +714,7 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ProductListItem, AsyncCursorPage[ProductListItem]]:
         """
-        Returns a paginated list of products belonging to a company.
+        Returns a paginated list of products belonging to an account.
 
         Args:
           account_id: The unique identifier of the account to list products for.

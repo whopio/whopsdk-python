@@ -87,8 +87,8 @@ class AccountsResource(SyncAPIResource):
     ) -> Account:
         """Creates an account.
 
-        User tokens create business accounts; business account API
-        keys create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`,
+        User tokens create business accounts; Account API keys
+        create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`,
         `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured
         with Update Account, not at creation.
 
@@ -96,8 +96,7 @@ class AccountsResource(SyncAPIResource):
           country: The ISO 3166-1 alpha-2 country code where the account's business is located
               (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
-          email: The email address of the account owner. Required for business account API key
-              requests.
+          email: The email address of the account owner. Required for Account API key requests.
 
           metadata: Arbitrary key/value metadata to store on the account.
 
@@ -268,8 +267,8 @@ class AccountsResource(SyncAPIResource):
     ) -> Account:
         """Updates an account.
 
-        User tokens can update business accounts; business account
-        API keys can update connected accounts.
+        User tokens can update business accounts; Account API keys
+        can update connected accounts.
 
         Args:
           affiliate_application_required: Whether prospective affiliates must submit an application before promoting this
@@ -442,9 +441,9 @@ class AccountsResource(SyncAPIResource):
         """Lists accounts visible to the credential.
 
         User tokens return the user's business
-        accounts; business account API keys return the requesting business account and
-        its connected accounts. Pass `parent_account_id` to return only that parent
-        account's connected accounts.
+        accounts; Account API keys return the requesting account and its connected
+        accounts. Pass `parent_account_id` to return only that parent account's
+        connected accounts.
 
         Args:
           after: A cursor; returns accounts after this position.
@@ -688,10 +687,7 @@ class AccountsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Account:
-        """
-        Retrieves the business account associated with the current business account API
-        key.
-        """
+        """Retrieves the account associated with the current Account API key."""
         return self._get(
             "/accounts/me",
             options=make_request_options(
@@ -788,8 +784,8 @@ class AsyncAccountsResource(AsyncAPIResource):
     ) -> Account:
         """Creates an account.
 
-        User tokens create business accounts; business account API
-        keys create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`,
+        User tokens create business accounts; Account API keys
+        create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`,
         `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured
         with Update Account, not at creation.
 
@@ -797,8 +793,7 @@ class AsyncAccountsResource(AsyncAPIResource):
           country: The ISO 3166-1 alpha-2 country code where the account's business is located
               (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
-          email: The email address of the account owner. Required for business account API key
-              requests.
+          email: The email address of the account owner. Required for Account API key requests.
 
           metadata: Arbitrary key/value metadata to store on the account.
 
@@ -969,8 +964,8 @@ class AsyncAccountsResource(AsyncAPIResource):
     ) -> Account:
         """Updates an account.
 
-        User tokens can update business accounts; business account
-        API keys can update connected accounts.
+        User tokens can update business accounts; Account API keys
+        can update connected accounts.
 
         Args:
           affiliate_application_required: Whether prospective affiliates must submit an application before promoting this
@@ -1143,9 +1138,9 @@ class AsyncAccountsResource(AsyncAPIResource):
         """Lists accounts visible to the credential.
 
         User tokens return the user's business
-        accounts; business account API keys return the requesting business account and
-        its connected accounts. Pass `parent_account_id` to return only that parent
-        account's connected accounts.
+        accounts; Account API keys return the requesting account and its connected
+        accounts. Pass `parent_account_id` to return only that parent account's
+        connected accounts.
 
         Args:
           after: A cursor; returns accounts after this position.
@@ -1389,10 +1384,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Account:
-        """
-        Retrieves the business account associated with the current business account API
-        key.
-        """
+        """Retrieves the account associated with the current Account API key."""
         return await self._get(
             "/accounts/me",
             options=make_request_options(
