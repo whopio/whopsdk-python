@@ -142,8 +142,8 @@ class AccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Account:
         """
-        Retrieves a single account visible to the credential, including its crypto
-        wallet.
+        Retrieves a single account by ID or public route when it is visible to the
+        credential, including its crypto wallet.
 
         Args:
           extra_headers: Send extra headers
@@ -867,8 +867,8 @@ class AsyncAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Account:
         """
-        Retrieves a single account visible to the credential, including its crypto
-        wallet.
+        Retrieves a single account by ID or public route when it is visible to the
+        credential, including its crypto wallet.
 
         Args:
           extra_headers: Send extra headers
