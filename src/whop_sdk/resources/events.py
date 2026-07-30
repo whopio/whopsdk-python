@@ -316,8 +316,8 @@ class EventsResource(SyncAPIResource):
         identity in user.
 
         Args:
-          account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
-              account API keys; required for credentials that can access multiple accounts.
+          account_id: Account ID, prefixed `biz_`. Optional for account API keys; required for
+              credentials that can access multiple accounts.
 
           after: A cursor for fetching events after a previous page.
 
@@ -813,8 +813,8 @@ class AsyncEventsResource(AsyncAPIResource):
         identity in user.
 
         Args:
-          account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
-              account API keys; required for credentials that can access multiple accounts.
+          account_id: Account ID, prefixed `biz_`. Optional for account API keys; required for
+              credentials that can access multiple accounts.
 
           after: A cursor for fetching events after a previous page.
 

@@ -67,13 +67,13 @@ class PeopleResource(SyncAPIResource):
     ) -> PersonRetrieveResponse:
         """Retrieves one person for an account.
 
-        The identifier can be a person ID
-        (prsn*******\\********), a user ID (user*******\\********), an email address, or a
-        phone number — merged people resolve to the surviving profile.
+        The identifier can be a person ID (prefixed
+        `prsn_`), a user ID (prefixed `user_`), an email address, or a phone number —
+        merged people resolve to the surviving profile.
 
         Args:
-          account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
-              account API keys; required for credentials that can access multiple accounts.
+          account_id: Account ID, prefixed `biz_`. Optional for account API keys; required for
+              credentials that can access multiple accounts.
 
           extra_headers: Send extra headers
 
@@ -152,8 +152,8 @@ class PeopleResource(SyncAPIResource):
         first/last marketing touches.
 
         Args:
-          account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
-              account API keys; required for credentials that can access multiple accounts.
+          account_id: Account ID, prefixed `biz_`. Optional for account API keys; required for
+              credentials that can access multiple accounts.
 
           after: A cursor for fetching people after a previous page.
 
@@ -310,13 +310,13 @@ class AsyncPeopleResource(AsyncAPIResource):
     ) -> PersonRetrieveResponse:
         """Retrieves one person for an account.
 
-        The identifier can be a person ID
-        (prsn*******\\********), a user ID (user*******\\********), an email address, or a
-        phone number — merged people resolve to the surviving profile.
+        The identifier can be a person ID (prefixed
+        `prsn_`), a user ID (prefixed `user_`), an email address, or a phone number —
+        merged people resolve to the surviving profile.
 
         Args:
-          account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
-              account API keys; required for credentials that can access multiple accounts.
+          account_id: Account ID, prefixed `biz_`. Optional for account API keys; required for
+              credentials that can access multiple accounts.
 
           extra_headers: Send extra headers
 
@@ -397,8 +397,8 @@ class AsyncPeopleResource(AsyncAPIResource):
         first/last marketing touches.
 
         Args:
-          account_id: The ID of the account, which will look like biz\\__******\\********. Optional for
-              account API keys; required for credentials that can access multiple accounts.
+          account_id: Account ID, prefixed `biz_`. Optional for account API keys; required for
+              credentials that can access multiple accounts.
 
           after: A cursor for fetching people after a previous page.
 

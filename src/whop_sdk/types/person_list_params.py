@@ -14,7 +14,7 @@ __all__ = ["PersonListParams"]
 
 class PersonListParams(TypedDict, total=False):
     account_id: str
-    """The ID of the account, which will look like biz\\__******\\********.
+    """Account ID, prefixed `biz_`.
 
     Optional for account API keys; required for credentials that can access multiple
     accounts.
