@@ -682,7 +682,7 @@ class Account(BaseModel):
     status: Optional[str] = None
     """Whether the account can operate on Whop: `active` or `suspended`.
 
-    Computed only on `retrieve` and `me`; `null` otherwise.
+    Computed on `list`, `retrieve`, and `me`; `null` otherwise.
     """
 
     store_page_config: object
@@ -741,6 +741,13 @@ class Account(BaseModel):
     Account identity verification status for the `individual` (KYC) and `business`
     (KYB) profiles. Each is `null` until created, otherwise a `status` of
     `not_started`, `pending`, `approved`, or `rejected`.
+    """
+
+    volume_usd: Optional[float] = None
+    """
+    Lifetime volume through the account — sales plus transfers received — normalized
+    to USD. Computed only on `list` for callers with `stats:read` on the account;
+    `null` otherwise.
     """
 
     wallet: Optional[Wallet] = None

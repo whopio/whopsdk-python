@@ -14,6 +14,7 @@ from whop_sdk.types import (
     AccountFormCompanyResponse,
     AccountRecommendActionsResponse,
 )
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -214,11 +215,17 @@ class TestAccounts:
         account = client.accounts.list(
             after="after",
             before="before",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             direction="asc",
             first=0,
             last=0,
             order="created_at",
             parent_account_id="parent_account_id",
+            query="query",
+            status="active",
+            volume_max=0,
+            volume_min=0,
         )
         assert_matches_type(SyncCursorPage[Account], account, path=["response"])
 
@@ -691,11 +698,17 @@ class TestAsyncAccounts:
         account = await async_client.accounts.list(
             after="after",
             before="before",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             direction="asc",
             first=0,
             last=0,
             order="created_at",
             parent_account_id="parent_account_id",
+            query="query",
+            status="active",
+            volume_max=0,
+            volume_min=0,
         )
         assert_matches_type(AsyncCursorPage[Account], account, path=["response"])
 

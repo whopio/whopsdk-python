@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -426,11 +427,17 @@ class AccountsResource(SyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at"] | Omit = omit,
+        order: Literal["created_at", "volume"] | Omit = omit,
         parent_account_id: str | Omit = omit,
+        query: str | Omit = omit,
+        status: Literal["active", "suspended"] | Omit = omit,
+        volume_max: float | Omit = omit,
+        volume_min: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -450,16 +457,32 @@ class AccountsResource(SyncAPIResource):
 
           before: A cursor; returns accounts before this position.
 
+          created_after: Return only accounts created after this ISO 8601 timestamp.
+
+          created_before: Return only accounts created before this ISO 8601 timestamp.
+
           direction: Sort direction.
 
           first: The number of accounts to return (default 10, max 50).
 
           last: The number of accounts to return from the end of the range.
 
-          order: The field to sort accounts by.
+          order: The field to sort accounts by. `volume` requires `stats:read` on the parent
+              account.
 
-          parent_account_id: The parent account ID whose direct connected accounts to return. Requires
-              `payout:account:read` on the parent account.
+          parent_account_id: For platforms: the parent account ID whose direct connected accounts to return.
+              Requires `payout:account:read` on the parent account.
+
+          query: Free-text filter on account title or ID. `%` and `_` match literally.
+
+          status: Return only accounts with this status: `active` (includes accounts that have not
+              entered payments review) or `suspended`.
+
+          volume_max: Return only accounts whose lifetime USD volume is at most this value. Requires
+              `stats:read` on the parent account.
+
+          volume_min: Return only accounts whose lifetime USD volume is at least this value. Requires
+              `stats:read` on the parent account.
 
           extra_headers: Send extra headers
 
@@ -481,11 +504,17 @@ class AccountsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
                         "parent_account_id": parent_account_id,
+                        "query": query,
+                        "status": status,
+                        "volume_max": volume_max,
+                        "volume_min": volume_min,
                     },
                     account_list_params.AccountListParams,
                 ),
@@ -1123,11 +1152,17 @@ class AsyncAccountsResource(AsyncAPIResource):
         *,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at"] | Omit = omit,
+        order: Literal["created_at", "volume"] | Omit = omit,
         parent_account_id: str | Omit = omit,
+        query: str | Omit = omit,
+        status: Literal["active", "suspended"] | Omit = omit,
+        volume_max: float | Omit = omit,
+        volume_min: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1147,16 +1182,32 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           before: A cursor; returns accounts before this position.
 
+          created_after: Return only accounts created after this ISO 8601 timestamp.
+
+          created_before: Return only accounts created before this ISO 8601 timestamp.
+
           direction: Sort direction.
 
           first: The number of accounts to return (default 10, max 50).
 
           last: The number of accounts to return from the end of the range.
 
-          order: The field to sort accounts by.
+          order: The field to sort accounts by. `volume` requires `stats:read` on the parent
+              account.
 
-          parent_account_id: The parent account ID whose direct connected accounts to return. Requires
-              `payout:account:read` on the parent account.
+          parent_account_id: For platforms: the parent account ID whose direct connected accounts to return.
+              Requires `payout:account:read` on the parent account.
+
+          query: Free-text filter on account title or ID. `%` and `_` match literally.
+
+          status: Return only accounts with this status: `active` (includes accounts that have not
+              entered payments review) or `suspended`.
+
+          volume_max: Return only accounts whose lifetime USD volume is at most this value. Requires
+              `stats:read` on the parent account.
+
+          volume_min: Return only accounts whose lifetime USD volume is at least this value. Requires
+              `stats:read` on the parent account.
 
           extra_headers: Send extra headers
 
@@ -1178,11 +1229,17 @@ class AsyncAccountsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
                         "parent_account_id": parent_account_id,
+                        "query": query,
+                        "status": status,
+                        "volume_max": volume_max,
+                        "volume_min": volume_min,
                     },
                     account_list_params.AccountListParams,
                 ),
