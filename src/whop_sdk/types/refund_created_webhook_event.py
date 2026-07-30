@@ -57,7 +57,8 @@ class DataPaymentPlan(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
 
@@ -68,9 +69,10 @@ class DataPaymentProduct(BaseModel):
     """The unique identifier for the product."""
 
     metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs stored on the product.
-
-    Included in webhook payloads for payment and membership events.
+    """
+    Custom key-value pairs stored on the product and included in payment and
+    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
+    per string value.
     """
 
 
@@ -237,6 +239,9 @@ class RefundCreatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """
     A refund represents a full or partial reversal of a payment, including the
@@ -250,4 +255,4 @@ class RefundCreatedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""
