@@ -2,9 +2,9 @@
 
 from typing_extensions import Literal, TypeAlias
 
-__all__ = ["PaymentMethodTypes"]
+__all__ = ["PaymentMethodType"]
 
-PaymentMethodTypes: TypeAlias = Literal[
+PaymentMethodType: TypeAlias = Literal[
     "acss_debit",
     "affirm",
     "afterpay_clearpay",

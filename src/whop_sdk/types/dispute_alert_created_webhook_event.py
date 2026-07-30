@@ -10,7 +10,7 @@ from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .dispute_statuses import DisputeStatuses
 from .dispute_alert_type import DisputeAlertType
-from .payment_method_types import PaymentMethodTypes
+from .payment_method_type import PaymentMethodType
 from .shared.membership_status import MembershipStatus
 
 __all__ = [
@@ -127,7 +127,7 @@ class DataPayment(BaseModel):
     Null if the payment has not yet succeeded. As a Unix timestamp.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
+    payment_method_type: Optional[PaymentMethodType] = None
     """The different types of payment methods that can be used."""
 
     subtotal: Optional[float] = None

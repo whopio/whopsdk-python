@@ -10,8 +10,8 @@ from .._utils import PropertyInfo
 from .shared.currency import Currency
 from .shared.plan_type import PlanType
 from .shared.visibility import Visibility
+from .payment_method_type import PaymentMethodType
 from .tax_identifier_type import TaxIdentifierType
-from .payment_method_types import PaymentMethodTypes
 from .shared.release_method import ReleaseMethod
 from .shared.collection_method import CollectionMethod
 
@@ -163,13 +163,13 @@ class CreateInvoiceInputWithProductPlanPaymentMethodConfiguration(TypedDict, tot
     If not provided, the platform or company's defaults will apply.
     """
 
-    disabled: Required[List[PaymentMethodTypes]]
+    disabled: Required[List[PaymentMethodType]]
     """An array of payment method identifiers that are explicitly disabled.
 
     Only applies if the include_platform_defaults is true.
     """
 
-    enabled: Required[List[PaymentMethodTypes]]
+    enabled: Required[List[PaymentMethodType]]
     """An array of payment method identifiers that are explicitly enabled.
 
     This means these payment methods will be shown on checkout. Example use case is
@@ -455,13 +455,13 @@ class CreateInvoiceInputWithProductIDPlanPaymentMethodConfiguration(TypedDict, t
     If not provided, the platform or company's defaults will apply.
     """
 
-    disabled: Required[List[PaymentMethodTypes]]
+    disabled: Required[List[PaymentMethodType]]
     """An array of payment method identifiers that are explicitly disabled.
 
     Only applies if the include_platform_defaults is true.
     """
 
-    enabled: Required[List[PaymentMethodTypes]]
+    enabled: Required[List[PaymentMethodType]]
     """An array of payment method identifiers that are explicitly enabled.
 
     This means these payment methods will be shown on checkout. Example use case is

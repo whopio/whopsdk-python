@@ -9,7 +9,7 @@ from .refund_status import RefundStatus
 from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .payment_provider import PaymentProvider
-from .payment_method_types import PaymentMethodTypes
+from .payment_method_type import PaymentMethodType
 from .receipt_tax_behavior import ReceiptTaxBehavior
 from .refund_reference_type import RefundReferenceType
 from .refund_reference_status import RefundReferenceStatus
@@ -142,7 +142,7 @@ class Payment(BaseModel):
     Null if the payment has not yet succeeded. As a Unix timestamp.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
+    payment_method_type: Optional[PaymentMethodType] = None
     """The different types of payment methods that can be used."""
 
     plan: Optional[PaymentPlan] = None

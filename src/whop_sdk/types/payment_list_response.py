@@ -8,7 +8,7 @@ from .card_brands import CardBrands
 from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.promo_type import PromoType
-from .payment_method_types import PaymentMethodTypes
+from .payment_method_type import PaymentMethodType
 from .receipt_tax_behavior import ReceiptTaxBehavior
 from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
@@ -152,7 +152,7 @@ class PaymentMethod(BaseModel):
     created_at: datetime
     """The datetime the payment token was created."""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """The payment method type of the payment method"""
 
 
@@ -365,7 +365,7 @@ class PaymentListResponse(BaseModel):
     Null if no token was used.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
+    payment_method_type: Optional[PaymentMethodType] = None
     """The different types of payment methods that can be used."""
 
     payments_failed: Optional[int] = None

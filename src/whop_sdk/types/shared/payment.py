@@ -13,7 +13,7 @@ from .receipt_status import ReceiptStatus
 from ..billing_reasons import BillingReasons
 from ..dispute_statuses import DisputeStatuses
 from .membership_status import MembershipStatus
-from ..payment_method_types import PaymentMethodTypes
+from ..payment_method_type import PaymentMethodType
 from ..receipt_tax_behavior import ReceiptTaxBehavior
 from .friendly_receipt_status import FriendlyReceiptStatus
 
@@ -242,7 +242,7 @@ class PaymentMethod(BaseModel):
     created_at: datetime
     """The datetime the payment token was created."""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """The payment method type of the payment method"""
 
 
@@ -559,7 +559,7 @@ class Payment(BaseModel):
     Null if no token was used.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
+    payment_method_type: Optional[PaymentMethodType] = None
     """The different types of payment methods that can be used."""
 
     payments_failed: Optional[int] = None

@@ -621,7 +621,7 @@ Types:
 from whop_sdk.types import (
     BillingReasons,
     CardBrands,
-    PaymentMethodTypes,
+    PaymentMethodType,
     ReceiptTaxBehavior,
     PaymentListResponse,
     PaymentListFeesResponse,

@@ -186,6 +186,7 @@ from .invoice_list_params import InvoiceListParams as InvoiceListParams
 from .lesson_visibilities import LessonVisibilities as LessonVisibilities
 from .message_list_params import MessageListParams as MessageListParams
 from .payment_list_params import PaymentListParams as PaymentListParams
+from .payment_method_type import PaymentMethodType as PaymentMethodType
 from .product_list_params import ProductListParams as ProductListParams
 from .setup_intent_status import SetupIntentStatus as SetupIntentStatus
 from .social_account_post import SocialAccountPost as SocialAccountPost
@@ -208,7 +209,6 @@ from .event_pulse_response import EventPulseResponse as EventPulseResponse
 from .export_create_params import ExportCreateParams as ExportCreateParams
 from .export_list_response import ExportListResponse as ExportListResponse
 from .file_create_response import FileCreateResponse as FileCreateResponse
-from .payment_method_types import PaymentMethodTypes as PaymentMethodTypes
 from .payout_create_params import PayoutCreateParams as PayoutCreateParams
 from .payout_list_response import PayoutListResponse as PayoutListResponse
 from .person_list_response import PersonListResponse as PersonListResponse
