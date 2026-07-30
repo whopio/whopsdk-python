@@ -183,6 +183,9 @@ class DisputeAlertCreatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """
     A dispute alert represents an early warning notification from a payment

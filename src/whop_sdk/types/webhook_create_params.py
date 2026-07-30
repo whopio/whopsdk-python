@@ -18,6 +18,13 @@ class WebhookCreateParams(TypedDict, total=False):
     api_version: Literal["v1", "v2", "v5"]
     """The API version for this webhook. Defaults to `v2`."""
 
+    api_version_date: Optional[str]
+    """The dated API version (Api-Version-Date) to pin this webhook's payloads to.
+
+    Only valid for `v1` webhooks. Omit to leave the webhook unpinned, tracking the
+    current payload shape.
+    """
+
     child_resource_events: bool
     """Whether to send events for child resources.
 

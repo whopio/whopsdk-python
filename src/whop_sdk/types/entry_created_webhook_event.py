@@ -17,6 +17,9 @@ class EntryCreatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Entry
     """An entry represents a user's signup for a waitlisted plan."""
 

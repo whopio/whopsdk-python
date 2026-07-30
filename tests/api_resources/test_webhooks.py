@@ -40,6 +40,7 @@ class TestWebhooks:
         webhook = client.webhooks.create(
             url="url",
             api_version="v1",
+            api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
             events=["string"],
@@ -130,6 +131,7 @@ class TestWebhooks:
         webhook = client.webhooks.update(
             id="id",
             api_version="v1",
+            api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
             events=["string"],
@@ -383,7 +385,7 @@ class TestWebhooks:
 
         client = client.with_options(webhook_key=client_opt)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","data":{"audience":{"type":"channel","user_ids":["user_xxxxxxxxxxxxxx"]},"channel":{"id":"feed_xxxxxxxxxxxxxx","type":"chat","experience_id":"exp_xxxxxxxxxxxxxx"},"message":{"id":"id","content":"Hey, are you available for a **quick call**?","created_at":"2023-12-01T05:00:00.401Z","is_edited":true,"is_pinned":true,"mentions":["string"],"mentions_everyone":true,"message_type":"regular","poll":{"options":[{"id":"id","text":"text"}]},"poll_votes":[{"count":42,"option_id":"option_id"}],"reaction_counts":[{"count":42,"emoji":"emoji"}],"replying_to_message_id":"replying_to_message_id","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","name":"John Doe","username":"johndoe42"},"view_count":42},"reason":"channel_message"},"timestamp":"2025-01-01T00:00:00.000Z","type":"chat.message.created","company_id":"biz_xxxxxxxxxxxxxx"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"audience":{"type":"channel","user_ids":["user_xxxxxxxxxxxxxx"]},"channel":{"id":"feed_xxxxxxxxxxxxxx","type":"chat","experience_id":"exp_xxxxxxxxxxxxxx"},"message":{"id":"id","content":"Hey, are you available for a **quick call**?","created_at":"2023-12-01T05:00:00.401Z","is_edited":true,"is_pinned":true,"mentions":["string"],"mentions_everyone":true,"message_type":"regular","poll":{"options":[{"id":"id","text":"text"}]},"poll_votes":[{"count":42,"option_id":"option_id"}],"reaction_counts":[{"count":42,"emoji":"emoji"}],"replying_to_message_id":"replying_to_message_id","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","name":"John Doe","username":"johndoe42"},"view_count":42},"reason":"channel_message"},"timestamp":"2025-01-01T00:00:00.000Z","type":"chat.message.created","company_id":"biz_xxxxxxxxxxxxxx"}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)
@@ -427,6 +429,7 @@ class TestAsyncWebhooks:
         webhook = await async_client.webhooks.create(
             url="url",
             api_version="v1",
+            api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
             events=["string"],
@@ -517,6 +520,7 @@ class TestAsyncWebhooks:
         webhook = await async_client.webhooks.update(
             id="id",
             api_version="v1",
+            api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
             events=["string"],
@@ -770,7 +774,7 @@ class TestAsyncWebhooks:
 
         async_client = async_client.with_options(webhook_key=client_opt)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","data":{"audience":{"type":"channel","user_ids":["user_xxxxxxxxxxxxxx"]},"channel":{"id":"feed_xxxxxxxxxxxxxx","type":"chat","experience_id":"exp_xxxxxxxxxxxxxx"},"message":{"id":"id","content":"Hey, are you available for a **quick call**?","created_at":"2023-12-01T05:00:00.401Z","is_edited":true,"is_pinned":true,"mentions":["string"],"mentions_everyone":true,"message_type":"regular","poll":{"options":[{"id":"id","text":"text"}]},"poll_votes":[{"count":42,"option_id":"option_id"}],"reaction_counts":[{"count":42,"emoji":"emoji"}],"replying_to_message_id":"replying_to_message_id","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","name":"John Doe","username":"johndoe42"},"view_count":42},"reason":"channel_message"},"timestamp":"2025-01-01T00:00:00.000Z","type":"chat.message.created","company_id":"biz_xxxxxxxxxxxxxx"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"audience":{"type":"channel","user_ids":["user_xxxxxxxxxxxxxx"]},"channel":{"id":"feed_xxxxxxxxxxxxxx","type":"chat","experience_id":"exp_xxxxxxxxxxxxxx"},"message":{"id":"id","content":"Hey, are you available for a **quick call**?","created_at":"2023-12-01T05:00:00.401Z","is_edited":true,"is_pinned":true,"mentions":["string"],"mentions_everyone":true,"message_type":"regular","poll":{"options":[{"id":"id","text":"text"}]},"poll_votes":[{"count":42,"option_id":"option_id"}],"reaction_counts":[{"count":42,"emoji":"emoji"}],"replying_to_message_id":"replying_to_message_id","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","name":"John Doe","username":"johndoe42"},"view_count":42},"reason":"channel_message"},"timestamp":"2025-01-01T00:00:00.000Z","type":"chat.message.created","company_id":"biz_xxxxxxxxxxxxxx"}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)
