@@ -1,47 +1,47 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
-from datetime import datetime
+from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .api_version import APIVersion
-from .webhook_event import WebhookEvent
 
 __all__ = ["Webhook"]
 
 
 class Webhook(BaseModel):
-    """
-    A webhook endpoint that receives event notifications for a company via HTTP POST.
-    """
-
     id: str
-    """The unique identifier for the webhook."""
+    """Webhook ID, prefixed `hook_`."""
 
-    api_version: APIVersion
+    api_version: Literal["v1", "v2", "v5"]
     """The API version used to format payloads sent to this webhook endpoint."""
 
     child_resource_events: bool
     """Whether events are sent for child resources.
 
-    For example, if the webhook is on a company, enabling this sends events only
-    from the company's sub-merchants (child companies).
+    For example, if the webhook is on an account, enabling this sends events only
+    from its connected accounts.
     """
 
-    created_at: datetime
-    """The datetime the webhook was created."""
+    created_at: str
+    """When the webhook was created, as an ISO 8601 timestamp."""
 
     enabled: bool
     """Whether this webhook endpoint is currently active and receiving events."""
 
-    events: List[WebhookEvent]
-    """The list of event types this webhook is subscribed to."""
+    events: List[str]
 
     resource_id: str
-    """The ID of the resource (company or product) this webhook is attached to."""
+    """ID of the resource (account or app) this webhook is attached to."""
 
-    testable_events: List[WebhookEvent]
-    """The subset of subscribed event types that support sending test payloads."""
+    testable_events: List[str]
 
     url: str
-    """The destination URL where webhook payloads are delivered via HTTP POST."""
+    """Destination URL where webhook payloads are delivered via HTTP POST."""
+
+    webhook_secret: Optional[str] = None
+    """Secret key used to sign webhook payloads for verification.
+
+    Include this in your HMAC validation logic. Returned on the create response and
+    to interactive dashboard sessions; `null` for API-key and OAuth callers on later
+    reads.
+    """

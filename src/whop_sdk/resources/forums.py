@@ -29,8 +29,6 @@ __all__ = ["ForumsResource", "AsyncForumsResource"]
 
 
 class ForumsResource(SyncAPIResource):
-    """Forums"""
-
     @cached_property
     def with_raw_response(self) -> ForumsResourceWithRawResponse:
         """
@@ -223,8 +221,6 @@ class ForumsResource(SyncAPIResource):
 
 
 class AsyncForumsResource(AsyncAPIResource):
-    """Forums"""
-
     @cached_property
     def with_raw_response(self) -> AsyncForumsResourceWithRawResponse:
         """

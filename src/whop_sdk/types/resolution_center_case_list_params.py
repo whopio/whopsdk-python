@@ -2,41 +2,52 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from datetime import datetime
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
-from .shared.direction import Direction
-from .resolution_center_case_status import ResolutionCenterCaseStatus
+from typing import List
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ResolutionCenterCaseListParams"]
 
 
 class ResolutionCenterCaseListParams(TypedDict, total=False):
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    account_id: str
+    """Only cases filed against this account (`biz_` tag)."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    after: str
+    """A cursor; returns cases after this position."""
 
-    company_id: Optional[str]
-    """The unique identifier of the company to list resolution center cases for."""
+    before: str
+    """A cursor; returns cases before this position."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return cases created after this timestamp."""
+    created_after: str
+    """Only cases created after this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return cases created before this timestamp."""
+    created_before: str
+    """Only cases created before this ISO 8601 timestamp."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    first: int
+    """The number of cases to return (default 20, max 100)."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    last: int
+    """The number of cases to return from the end of the range."""
 
-    statuses: Optional[List[ResolutionCenterCaseStatus]]
-    """Filter by resolution center case status."""
+    order: Literal["created_at", "response_due_at"]
+    """The field to sort cases by."""
+
+    outcome: List[Literal["customer_won", "merchant_won", "withdrawn"]]
+    """Only closed cases that ended these ways. Repeat the parameter to pass several."""
+
+    reason: List[
+        Literal[
+            "fraudulent", "product_not_received", "not_as_described", "product_unacceptable", "subscription_canceled"
+        ]
+    ]
+    """Only cases opened for these reasons. Repeat the parameter to pass several."""
+
+    status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]]
+    """Only cases in these statuses.
+
+    Repeat the parameter to pass several — one paginated list covers all of them.
+    """

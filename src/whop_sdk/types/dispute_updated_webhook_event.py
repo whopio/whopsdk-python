@@ -18,10 +18,6 @@ class DisputeUpdatedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Dispute
-    """
-    A dispute is a chargeback or payment challenge filed against a company,
-    including evidence and response status.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
@@ -30,4 +26,4 @@ class DisputeUpdatedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""
