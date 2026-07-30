@@ -18,10 +18,6 @@ class MembershipCancelAtPeriodEndChangedWebhookEvent(BaseModel):
     """The API version for this webhook"""
 
     data: Membership
-    """A membership represents an active relationship between a user and a product.
-
-    It tracks the user's access, billing status, and renewal schedule.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
@@ -30,4 +26,4 @@ class MembershipCancelAtPeriodEndChangedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""

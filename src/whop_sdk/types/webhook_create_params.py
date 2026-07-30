@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
-from .api_version import APIVersion
-from .webhook_event import WebhookEvent
+from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
 __all__ = ["WebhookCreateParams"]
 
@@ -15,24 +15,26 @@ class WebhookCreateParams(TypedDict, total=False):
     url: Required[str]
     """The URL to send the webhook to."""
 
-    api_version: Optional[APIVersion]
-    """The different API versions"""
+    api_version: Literal["v1", "v2", "v5"]
+    """The API version for this webhook. Defaults to `v2`."""
 
-    child_resource_events: Optional[bool]
-    """Whether or not to send events for child resources.
+    child_resource_events: bool
+    """Whether to send events for child resources.
 
-    For example, if the webhook is created for a Company, enabling this will only
-    send events from the Company's sub-merchants (child companies).
+    For example, if the webhook is created for an account, enabling this sends
+    events only from its connected accounts.
     """
 
-    enabled: Optional[bool]
-    """Whether or not the webhook is enabled."""
+    enabled: bool
+    """Whether or not the webhook is enabled. Defaults to `true`."""
 
-    events: Optional[List[WebhookEvent]]
-    """The events to send the webhook for."""
+    events: SequenceNotStr[str]
+    """
+    The events to send the webhook for, in dot form (for example
+    `payment.succeeded`).
+    """
 
     resource_id: Optional[str]
-    """The resource to create the webhook for.
+    """The account or app to create the webhook for. Defaults to the current account."""
 
-    By default this will use current company
-    """
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
