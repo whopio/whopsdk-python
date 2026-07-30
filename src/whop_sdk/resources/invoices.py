@@ -26,6 +26,7 @@ from ..types.shared.direction import Direction
 from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.shared.invoice_status import InvoiceStatus
 from ..types.invoice_delete_response import InvoiceDeleteResponse
+from ..types.invoice_resend_response import InvoiceResendResponse
 from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
 from ..types.invoice_mark_paid_response import InvoiceMarkPaidResponse
@@ -35,8 +36,6 @@ __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
 
 class InvoicesResource(SyncAPIResource):
-    """Invoices"""
-
     @cached_property
     def with_raw_response(self) -> InvoicesResourceWithRawResponse:
         """
@@ -92,6 +91,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -190,6 +190,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -271,7 +272,9 @@ class InvoicesResource(SyncAPIResource):
         customer_name: Optional[str] | Omit = omit,
         due_date: Union[str, datetime, None] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
-        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]]
+        | Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -334,6 +337,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
+        - `member:email:read`
 
         Args:
           extra_headers: Send extra headers
@@ -385,6 +389,7 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:update`
+        - `member:email:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
@@ -659,6 +664,43 @@ class InvoicesResource(SyncAPIResource):
             cast_to=InvoiceMarkUncollectibleResponse,
         )
 
+    def resend(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceResendResponse:
+        """
+        Resend the notification email for an existing invoice to the customer.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/invoices/{id}/resend", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceResendResponse,
+        )
+
     def void(
         self,
         id: str,
@@ -700,8 +742,6 @@ class InvoicesResource(SyncAPIResource):
 
 
 class AsyncInvoicesResource(AsyncAPIResource):
-    """Invoices"""
-
     @cached_property
     def with_raw_response(self) -> AsyncInvoicesResourceWithRawResponse:
         """
@@ -757,6 +797,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -855,6 +896,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -936,7 +978,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         customer_name: Optional[str] | Omit = omit,
         due_date: Union[str, datetime, None] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
-        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]]
+        | Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -999,6 +1043,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
+        - `member:email:read`
 
         Args:
           extra_headers: Send extra headers
@@ -1050,6 +1095,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:update`
+        - `member:email:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
@@ -1324,6 +1370,43 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=InvoiceMarkUncollectibleResponse,
         )
 
+    async def resend(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceResendResponse:
+        """
+        Resend the notification email for an existing invoice to the customer.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/invoices/{id}/resend", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceResendResponse,
+        )
+
     async def void(
         self,
         id: str,
@@ -1389,6 +1472,9 @@ class InvoicesResourceWithRawResponse:
         self.mark_uncollectible = to_raw_response_wrapper(
             invoices.mark_uncollectible,
         )
+        self.resend = to_raw_response_wrapper(
+            invoices.resend,
+        )
         self.void = to_raw_response_wrapper(
             invoices.void,
         )
@@ -1418,6 +1504,9 @@ class AsyncInvoicesResourceWithRawResponse:
         )
         self.mark_uncollectible = async_to_raw_response_wrapper(
             invoices.mark_uncollectible,
+        )
+        self.resend = async_to_raw_response_wrapper(
+            invoices.resend,
         )
         self.void = async_to_raw_response_wrapper(
             invoices.void,
@@ -1449,6 +1538,9 @@ class InvoicesResourceWithStreamingResponse:
         self.mark_uncollectible = to_streamed_response_wrapper(
             invoices.mark_uncollectible,
         )
+        self.resend = to_streamed_response_wrapper(
+            invoices.resend,
+        )
         self.void = to_streamed_response_wrapper(
             invoices.void,
         )
@@ -1478,6 +1570,9 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.mark_uncollectible = async_to_streamed_response_wrapper(
             invoices.mark_uncollectible,
+        )
+        self.resend = async_to_streamed_response_wrapper(
+            invoices.resend,
         )
         self.void = async_to_streamed_response_wrapper(
             invoices.void,
