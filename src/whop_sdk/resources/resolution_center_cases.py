@@ -197,7 +197,9 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         of; the filters narrow that list.
 
         Args:
-          account_id: Only cases filed against this account (`biz_` tag).
+          account_id: Only cases filed against this account (`biz_` tag). With read access to the
+              account this lists its whole queue; without, only the cases you opened against
+              it.
 
           after: A cursor; returns cases after this position.
 
@@ -841,7 +843,9 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         of; the filters narrow that list.
 
         Args:
-          account_id: Only cases filed against this account (`biz_` tag).
+          account_id: Only cases filed against this account (`biz_` tag). With read access to the
+              account this lists its whole queue; without, only the cases you opened against
+              it.
 
           after: A cursor; returns cases after this position.
 

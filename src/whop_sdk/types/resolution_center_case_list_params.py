@@ -10,7 +10,11 @@ __all__ = ["ResolutionCenterCaseListParams"]
 
 class ResolutionCenterCaseListParams(TypedDict, total=False):
     account_id: str
-    """Only cases filed against this account (`biz_` tag)."""
+    """Only cases filed against this account (`biz_` tag).
+
+    With read access to the account this lists its whole queue; without, only the
+    cases you opened against it.
+    """
 
     after: str
     """A cursor; returns cases after this position."""
