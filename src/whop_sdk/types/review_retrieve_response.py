@@ -23,7 +23,7 @@ class Attachment(BaseModel):
     """
 
     content_type: Optional[str] = None
-    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
+    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
 
     filename: Optional[str] = None
     """The original filename of the uploaded attachment, including its file extension."""
@@ -42,9 +42,7 @@ class Company(BaseModel):
     """The unique identifier for the company."""
 
     route: str
-    """
-    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
-    """
+    """URL slug for the account's store page, e.g. `pickaxe` in whop.com/pickaxe."""
 
     title: str
     """The display name of the company shown to customers."""
