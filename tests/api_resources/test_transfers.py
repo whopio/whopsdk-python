@@ -9,10 +9,14 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import TransferListResponse
+from whop_sdk.types import (
+    TransferListResponse,
+    TransferCreateResponse,
+    TransferRetrieveResponse,
+    TransferListRecipientsResponse,
+)
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
-from whop_sdk.types.shared import Transfer
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,56 +28,54 @@ class TestTransfers:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         transfer = client.transfers.create(
-            amount=6.9,
-            currency="usd",
-            destination_id="destination_id",
+            amount=0,
             origin_id="origin_id",
         )
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         transfer = client.transfers.create(
-            amount=6.9,
+            amount=0,
+            origin_id="origin_id",
             currency="usd",
             destination_id="destination_id",
-            origin_id="origin_id",
+            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             idempotence_key="idempotence_key",
             metadata={"foo": "bar"},
             notes="notes",
+            redeemable_count=0,
+            type="ledger",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.transfers.with_raw_response.create(
-            amount=6.9,
-            currency="usd",
-            destination_id="destination_id",
+            amount=0,
             origin_id="origin_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         transfer = response.parse()
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.transfers.with_streaming_response.create(
-            amount=6.9,
-            currency="usd",
-            destination_id="destination_id",
+            amount=0,
             origin_id="origin_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             transfer = response.parse()
-            assert_matches_type(Transfer, transfer, path=["response"])
+            assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -81,33 +83,33 @@ class TestTransfers:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         transfer = client.transfers.retrieve(
-            "ctt_xxxxxxxxxxxxxx",
+            "id",
         )
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.transfers.with_raw_response.retrieve(
-            "ctt_xxxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         transfer = response.parse()
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.transfers.with_streaming_response.retrieve(
-            "ctt_xxxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             transfer = response.parse()
-            assert_matches_type(Transfer, transfer, path=["response"])
+            assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -131,13 +133,13 @@ class TestTransfers:
         transfer = client.transfers.list(
             after="after",
             before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             destination_id="destination_id",
             direction="asc",
-            first=42,
-            last=42,
-            order="amount",
+            first=50,
+            last=50,
+            order="created_at",
             origin_id="origin_id",
         )
         assert_matches_type(SyncCursorPage[TransferListResponse], transfer, path=["response"])
@@ -164,6 +166,51 @@ class TestTransfers:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_recipients(self, client: Whop) -> None:
+        transfer = client.transfers.list_recipients(
+            origin_id="origin_id",
+        )
+        assert_matches_type(SyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_recipients_with_all_params(self, client: Whop) -> None:
+        transfer = client.transfers.list_recipients(
+            origin_id="origin_id",
+            after="after",
+            first=100,
+            query="query",
+        )
+        assert_matches_type(SyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_recipients(self, client: Whop) -> None:
+        response = client.transfers.with_raw_response.list_recipients(
+            origin_id="origin_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transfer = response.parse()
+        assert_matches_type(SyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_recipients(self, client: Whop) -> None:
+        with client.transfers.with_streaming_response.list_recipients(
+            origin_id="origin_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transfer = response.parse()
+            assert_matches_type(SyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncTransfers:
     parametrize = pytest.mark.parametrize(
@@ -174,56 +221,54 @@ class TestAsyncTransfers:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         transfer = await async_client.transfers.create(
-            amount=6.9,
-            currency="usd",
-            destination_id="destination_id",
+            amount=0,
             origin_id="origin_id",
         )
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         transfer = await async_client.transfers.create(
-            amount=6.9,
+            amount=0,
+            origin_id="origin_id",
             currency="usd",
             destination_id="destination_id",
-            origin_id="origin_id",
+            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             idempotence_key="idempotence_key",
             metadata={"foo": "bar"},
             notes="notes",
+            redeemable_count=0,
+            type="ledger",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.transfers.with_raw_response.create(
-            amount=6.9,
-            currency="usd",
-            destination_id="destination_id",
+            amount=0,
             origin_id="origin_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         transfer = await response.parse()
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.transfers.with_streaming_response.create(
-            amount=6.9,
-            currency="usd",
-            destination_id="destination_id",
+            amount=0,
             origin_id="origin_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             transfer = await response.parse()
-            assert_matches_type(Transfer, transfer, path=["response"])
+            assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -231,33 +276,33 @@ class TestAsyncTransfers:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         transfer = await async_client.transfers.retrieve(
-            "ctt_xxxxxxxxxxxxxx",
+            "id",
         )
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.transfers.with_raw_response.retrieve(
-            "ctt_xxxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         transfer = await response.parse()
-        assert_matches_type(Transfer, transfer, path=["response"])
+        assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.transfers.with_streaming_response.retrieve(
-            "ctt_xxxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             transfer = await response.parse()
-            assert_matches_type(Transfer, transfer, path=["response"])
+            assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -281,13 +326,13 @@ class TestAsyncTransfers:
         transfer = await async_client.transfers.list(
             after="after",
             before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             destination_id="destination_id",
             direction="asc",
-            first=42,
-            last=42,
-            order="amount",
+            first=50,
+            last=50,
+            order="created_at",
             origin_id="origin_id",
         )
         assert_matches_type(AsyncCursorPage[TransferListResponse], transfer, path=["response"])
@@ -311,5 +356,50 @@ class TestAsyncTransfers:
 
             transfer = await response.parse()
             assert_matches_type(AsyncCursorPage[TransferListResponse], transfer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_recipients(self, async_client: AsyncWhop) -> None:
+        transfer = await async_client.transfers.list_recipients(
+            origin_id="origin_id",
+        )
+        assert_matches_type(AsyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_recipients_with_all_params(self, async_client: AsyncWhop) -> None:
+        transfer = await async_client.transfers.list_recipients(
+            origin_id="origin_id",
+            after="after",
+            first=100,
+            query="query",
+        )
+        assert_matches_type(AsyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_recipients(self, async_client: AsyncWhop) -> None:
+        response = await async_client.transfers.with_raw_response.list_recipients(
+            origin_id="origin_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transfer = await response.parse()
+        assert_matches_type(AsyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_recipients(self, async_client: AsyncWhop) -> None:
+        async with async_client.transfers.with_streaming_response.list_recipients(
+            origin_id="origin_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transfer = await response.parse()
+            assert_matches_type(AsyncCursorPage[TransferListRecipientsResponse], transfer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
