@@ -740,7 +740,7 @@ class Account(BaseModel):
     """
     Account identity verification status for the `individual` (KYC) and `business`
     (KYB) profiles. Each is `null` until created, otherwise a `status` of
-    `not_started`, `pending`, `approved`, or `rejected`.
+    `not_started`, `pending`, `manual_review`, `approved`, or `rejected`.
     """
 
     volume_usd: Optional[float] = None
