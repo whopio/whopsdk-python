@@ -162,11 +162,8 @@ class Placement(BaseModel):
     Empty when placements are chosen automatically.
     """
 
-    platform: str
-    """
-    Platform the ads run on: `facebook`, `instagram`, `messenger`,
-    `audience_network`, `threads`, or `whatsapp`.
-    """
+    platform: Literal["facebook", "instagram", "messenger", "audience_network", "threads", "whatsapp"]
+    """Publisher platform where the ad is eligible to appear."""
 
     positions: List[str]
 
@@ -298,10 +295,9 @@ class AdGroup(BaseModel):
     """Saved audiences this ad group delivers to or excludes."""
 
     bid_type: Optional[Literal["minimum_cost", "average_target", "maximum_target"]] = None
-    """
-    How delivery bids in the ad auction: `minimum_cost` gets the most results for
-    the budget, `average_target` keeps the average cost per result near
-    `desired_cost_per_result`, and `maximum_target` never bids above it.
+    """How delivery bids are set in the ad auction.
+
+    Target-based strategies use `desired_cost_per_result`.
     """
 
     budget_amount: Optional[float] = None
@@ -658,11 +654,9 @@ class AdGroup(BaseModel):
         ]
     ] = None
     """
-    Where the result you're optimizing for happens: `website` (your site), `profile`
-    (your social media profile), `instagram_and_facebook` or `instagram_profile`
-    (visits to your Instagram profile), `messaging` (a direct-message conversation),
-    `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
-    `instant_forms_and_messenger`, `website_and_instant_forms`).
+    Where the outcome being optimized for occurs, such as a website visit,
+    social-profile visit, messaging conversation, ad interaction, or lead-form
+    submission.
     """
 
     detailed_targeting: Optional[DetailedTargeting] = None

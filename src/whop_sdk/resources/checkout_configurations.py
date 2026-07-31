@@ -68,7 +68,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
         plan_id: Optional[str] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
-        three_ds_level: Optional[str] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -89,8 +89,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           metadata: Custom key-value metadata copied to payments and memberships.
 
-          mode: Checkout mode: `payment` collects payment for a plan now; `setup` saves payment
-              details without charging. Defaults to `payment`.
+          mode: Controls whether checkout charges the buyer immediately or saves payment details
+              for later. Defaults to `payment`.
 
           payment_method_configuration: Payment method overrides for this checkout. `null` uses the plan or platform
               defaults.
@@ -316,7 +316,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
         plan_id: Optional[str] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
-        three_ds_level: Optional[str] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -337,8 +337,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           metadata: Custom key-value metadata copied to payments and memberships.
 
-          mode: Checkout mode: `payment` collects payment for a plan now; `setup` saves payment
-              details without charging. Defaults to `payment`.
+          mode: Controls whether checkout charges the buyer immediately or saves payment details
+              for later. Defaults to `payment`.
 
           payment_method_configuration: Payment method overrides for this checkout. `null` uses the plan or platform
               defaults.

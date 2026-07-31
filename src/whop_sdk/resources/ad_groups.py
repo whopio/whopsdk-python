@@ -160,9 +160,8 @@ class AdGroupsResource(SyncAPIResource):
           audiences: Saved audiences to deliver to or exclude. Can't be combined with
               demographics.automatic.
 
-          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
-              the budget, `average_target` keeps the average cost per result near
-              desired_cost_per_result, and `maximum_target` never bids above it.
+          bid_type: How delivery bids are set in the ad auction. Target-based strategies use
+              `desired_cost_per_result`.
 
           budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
               set on the campaign instead.
@@ -172,11 +171,9 @@ class AdGroupsResource(SyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
-              (your social media profile), `messaging` (a direct-message conversation),
-              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
-              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
-              itself is set on the ad.
+          conversion_location: Where the outcome being optimized for occurs, such as a website visit,
+              social-profile visit, messaging conversation, ad interaction, or lead-form
+              submission. The lead form itself is set on the ad.
 
           demographics: Age, gender, and automatic-audience targeting.
 
@@ -434,9 +431,8 @@ class AdGroupsResource(SyncAPIResource):
           audiences: Saved audiences to deliver to or exclude. Can't be combined with
               demographics.automatic.
 
-          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
-              the budget, `average_target` keeps the average cost per result near
-              desired_cost_per_result, and `maximum_target` never bids above it.
+          bid_type: How delivery bids are set in the ad auction. Target-based strategies use
+              `desired_cost_per_result`.
 
           budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
               set on the campaign instead.
@@ -446,11 +442,9 @@ class AdGroupsResource(SyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
-              (your social media profile), `messaging` (a direct-message conversation),
-              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
-              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
-              itself is set on the ad.
+          conversion_location: Where the outcome being optimized for occurs, such as a website visit,
+              social-profile visit, messaging conversation, ad interaction, or lead-form
+              submission. The lead form itself is set on the ad.
 
           demographics: Age, gender, and automatic-audience targeting.
 
@@ -1126,9 +1120,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           audiences: Saved audiences to deliver to or exclude. Can't be combined with
               demographics.automatic.
 
-          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
-              the budget, `average_target` keeps the average cost per result near
-              desired_cost_per_result, and `maximum_target` never bids above it.
+          bid_type: How delivery bids are set in the ad auction. Target-based strategies use
+              `desired_cost_per_result`.
 
           budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
               set on the campaign instead.
@@ -1138,11 +1131,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
-              (your social media profile), `messaging` (a direct-message conversation),
-              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
-              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
-              itself is set on the ad.
+          conversion_location: Where the outcome being optimized for occurs, such as a website visit,
+              social-profile visit, messaging conversation, ad interaction, or lead-form
+              submission. The lead form itself is set on the ad.
 
           demographics: Age, gender, and automatic-audience targeting.
 
@@ -1400,9 +1391,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           audiences: Saved audiences to deliver to or exclude. Can't be combined with
               demographics.automatic.
 
-          bid_type: How delivery bids in the ad auction: `minimum_cost` gets the most results for
-              the budget, `average_target` keeps the average cost per result near
-              desired_cost_per_result, and `maximum_target` never bids above it.
+          bid_type: How delivery bids are set in the ad auction. Target-based strategies use
+              `desired_cost_per_result`.
 
           budget_amount: This ad group's budget, in the ad account's currency. Omit when the budget is
               set on the campaign instead.
@@ -1412,11 +1402,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           conversion_event: The pixel event optimized for. A standard event, or any custom pixel event name.
 
-          conversion_location: Where the result you're optimizing for happens: `website` (your site), `profile`
-              (your social media profile), `messaging` (a direct-message conversation),
-              `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
-              `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
-              itself is set on the ad.
+          conversion_location: Where the outcome being optimized for occurs, such as a website visit,
+              social-profile visit, messaging conversation, ad interaction, or lead-form
+              submission. The lead form itself is set on the ad.
 
           demographics: Age, gender, and automatic-audience targeting.
 

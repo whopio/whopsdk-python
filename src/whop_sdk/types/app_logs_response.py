@@ -16,7 +16,7 @@ class Data(BaseModel):
 
     created_at: datetime
 
-    level: str
+    level: Literal["log", "debug", "info", "warn", "error"]
 
     message: str
 

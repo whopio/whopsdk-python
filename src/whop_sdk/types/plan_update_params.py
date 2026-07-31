@@ -64,7 +64,7 @@ class PlanUpdateParams(TypedDict, total=False):
     """
 
     release_method: str
-    """Sales method for this plan, such as `buy_now` or `waitlist`."""
+    """Sales method for this plan."""
 
     renewal_price: Optional[float]
     """

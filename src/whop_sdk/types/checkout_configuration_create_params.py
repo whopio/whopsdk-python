@@ -26,8 +26,8 @@ class CheckoutConfigurationCreateParams(TypedDict, total=False):
 
     mode: Literal["payment", "setup"]
     """
-    Checkout mode: `payment` collects payment for a plan now; `setup` saves payment
-    details without charging. Defaults to `payment`.
+    Controls whether checkout charges the buyer immediately or saves payment details
+    for later. Defaults to `payment`.
     """
 
     payment_method_configuration: Optional[PaymentMethodConfiguration]
@@ -48,7 +48,7 @@ class CheckoutConfigurationCreateParams(TypedDict, total=False):
     redirect_url: Optional[str]
     """URL customers are sent to after checkout."""
 
-    three_ds_level: Optional[str]
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
     """3D Secure behavior for this checkout."""
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
@@ -122,23 +122,23 @@ class Plan(TypedDict, total=False):
     payment_method_configuration: Optional[PlanPaymentMethodConfiguration]
     """Payment method overrides for the inline plan. `null` uses platform defaults."""
 
-    plan_type: Optional[str]
-    """
-    Billing model for the plan: `renewal` (recurring) or `one_time` (single
-    payment).
-    """
+    plan_type: Optional[Literal["renewal", "one_time"]]
+    """Billing model for the plan."""
 
     product_id: Optional[str]
     """Product ID the inline plan should belong to, prefixed `prod_`."""
 
-    release_method: Optional[str]
-    """Sales method for the plan, such as `buy_now` or `waitlist`."""
+    release_method: Optional[Literal["buy_now", "waitlist"]]
+    """Sales method for the plan."""
 
     renewal_price: Optional[float]
     """Recurring price charged each billing period."""
 
     stock: Optional[int]
     """Units available for purchase."""
+
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
+    """3D Secure behavior for the inline plan, or `null` to use the account default."""
 
     title: Optional[str]
     """Plan display name shown to customers."""
@@ -149,5 +149,5 @@ class Plan(TypedDict, total=False):
     unlimited_stock: Optional[bool]
     """Whether the plan has unlimited stock."""
 
-    visibility: Optional[str]
+    visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]]
     """Whether the plan is visible to customers or hidden from public view."""

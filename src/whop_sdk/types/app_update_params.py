@@ -97,10 +97,9 @@ class AppUpdateParams(TypedDict, total=False):
     """The URL path to the app's skills directory (requires the ai_chat capability)."""
 
     status: Literal["live", "unlisted", "hidden"]
-    """Controls the app's visibility.
-
-    `live` publishes on Whop discovery (requires name, icon, and description);
-    `unlisted` hides it from discovery while keeping direct-link access.
+    """
+    Controls whether the app is published on Whop discovery or accessible only
+    through its direct link. Publishing requires a name, icon, and description.
     """
 
 

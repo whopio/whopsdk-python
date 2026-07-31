@@ -102,9 +102,9 @@ class AdUpdateParams(TypedDict, total=False):
     """
 
     post_source: Literal["facebook", "instagram"]
-    """
-    Which network post_id refers to — facebook (a page post) or instagram (a media
-    id). Authoritative; when omitted the source is inferred from the id shape.
+    """Identifies the network that owns `post_id`.
+
+    The source is inferred from the ID shape when omitted.
     """
 
     primary_texts: SequenceNotStr[str]

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -20,7 +20,23 @@ class ProductCreateParams(TypedDict, total=False):
     collect_shipping_address: Optional[bool]
     """Whether to collect a shipping address at checkout."""
 
-    custom_cta: Optional[str]
+    custom_cta: Optional[
+        Literal[
+            "get_access",
+            "join",
+            "order_now",
+            "shop_now",
+            "call_now",
+            "donate_now",
+            "contact_us",
+            "sign_up",
+            "subscribe",
+            "purchase",
+            "get_offer",
+            "apply_now",
+            "complete_order",
+        ]
+    ]
     """The call-to-action button label."""
 
     custom_cta_url: Optional[str]
@@ -35,7 +51,7 @@ class ProductCreateParams(TypedDict, total=False):
     global_affiliate_percentage: Optional[float]
     """The commission rate affiliates earn."""
 
-    global_affiliate_status: str
+    global_affiliate_status: Literal["enabled", "disabled"]
     """The enrollment status in the global affiliate program."""
 
     headline: Optional[str]
@@ -44,7 +60,7 @@ class ProductCreateParams(TypedDict, total=False):
     member_affiliate_percentage: Optional[float]
     """The commission rate members earn."""
 
-    member_affiliate_status: str
+    member_affiliate_status: Literal["enabled", "disabled"]
     """The enrollment status in the member affiliate program."""
 
     metadata: Optional[object]

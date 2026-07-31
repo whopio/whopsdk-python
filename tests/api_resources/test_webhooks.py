@@ -43,7 +43,7 @@ class TestWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["string"],
+            events=["invoice.created"],
             resource_id="resource_id",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -134,7 +134,7 @@ class TestWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["string"],
+            events=["invoice.created"],
             url="url",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
@@ -432,7 +432,7 @@ class TestAsyncWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["string"],
+            events=["invoice.created"],
             resource_id="resource_id",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -523,7 +523,7 @@ class TestAsyncWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["string"],
+            events=["invoice.created"],
             url="url",
         )
         assert_matches_type(Webhook, webhook, path=["response"])

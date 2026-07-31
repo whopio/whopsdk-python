@@ -45,10 +45,9 @@ class AdGroupCreateParams(TypedDict, total=False):
     """
 
     bid_type: Literal["minimum_cost", "average_target", "maximum_target"]
-    """
-    How delivery bids in the ad auction: `minimum_cost` gets the most results for
-    the budget, `average_target` keeps the average cost per result near
-    desired_cost_per_result, and `maximum_target` never bids above it.
+    """How delivery bids are set in the ad auction.
+
+    Target-based strategies use `desired_cost_per_result`.
     """
 
     budget_amount: float
@@ -102,11 +101,9 @@ class AdGroupCreateParams(TypedDict, total=False):
         "website_and_instant_forms",
     ]
     """
-    Where the result you're optimizing for happens: `website` (your site), `profile`
-    (your social media profile), `messaging` (a direct-message conversation),
-    `on_ad` (engagement with the ad itself), or a lead form (`instant_forms`,
-    `instant_forms_and_messenger`, `website_and_instant_forms`). The lead form
-    itself is set on the ad.
+    Where the outcome being optimized for occurs, such as a website visit,
+    social-profile visit, messaging conversation, ad interaction, or lead-form
+    submission. The lead form itself is set on the ad.
     """
 
     demographics: Demographics

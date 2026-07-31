@@ -135,10 +135,7 @@ class PlanListResponse(BaseModel):
     """
 
     plan_type: Literal["renewal", "one_time"]
-    """
-    Billing model for this plan: `renewal` for recurring subscriptions or `one_time`
-    for single payments.
-    """
+    """Billing model for this plan."""
 
     product: Optional[object] = None
     """Product this plan belongs to; `null` for standalone plans."""
@@ -147,10 +144,7 @@ class PlanListResponse(BaseModel):
     """URL where customers can purchase this plan directly."""
 
     release_method: Literal["buy_now", "waitlist"]
-    """
-    Sales method for this plan: `buy_now` for immediate purchase or `waitlist` for
-    waitlist-based access.
-    """
+    """Sales method for this plan."""
 
     renewal_price: float
     """Recurring price charged every billing period."""

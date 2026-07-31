@@ -31,7 +31,23 @@ class Product(BaseModel):
     created_at: str
     """When the product was created, as an ISO 8601 timestamp."""
 
-    custom_cta: Optional[str] = None
+    custom_cta: Optional[
+        Literal[
+            "get_access",
+            "join",
+            "order_now",
+            "shop_now",
+            "call_now",
+            "donate_now",
+            "contact_us",
+            "sign_up",
+            "subscribe",
+            "purchase",
+            "get_offer",
+            "apply_now",
+            "complete_order",
+        ]
+    ] = None
     """Call-to-action button label shown on the product purchase page."""
 
     custom_cta_url: Optional[str] = None
@@ -51,7 +67,7 @@ class Product(BaseModel):
     global_affiliate_percentage: Optional[float] = None
     """Commission rate affiliates earn through the global affiliate program."""
 
-    global_affiliate_status: Optional[str] = None
+    global_affiliate_status: Optional[Literal["enabled", "disabled"]] = None
     """Enrollment status in the global affiliate program."""
 
     headline: Optional[str] = None
@@ -67,7 +83,7 @@ class Product(BaseModel):
     member_affiliate_percentage: Optional[float] = None
     """Commission rate members earn through the member affiliate program."""
 
-    member_affiliate_status: Optional[str] = None
+    member_affiliate_status: Optional[Literal["enabled", "disabled"]] = None
     """Enrollment status in the member affiliate program."""
 
     member_count: float

@@ -42,4 +42,4 @@ class AppBuild(BaseModel):
     status: Literal["draft", "pending", "approved", "rejected"]
     """The build's review status."""
 
-    supported_app_view_types: List[str]
+    supported_app_view_types: List[Literal["hub", "discover", "dash", "dashboard", "analytics", "skills", "openapi"]]

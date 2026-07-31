@@ -48,25 +48,22 @@ class Plan(BaseModel):
     initial_price: float
     """Initial purchase price in the plan currency."""
 
-    plan_type: str
-    """
-    Billing model for the plan: `renewal` (recurring) or `one_time` (single
-    payment).
-    """
+    plan_type: Literal["renewal", "one_time"]
+    """Billing model for the plan."""
 
-    release_method: str
-    """Sales method for the plan, such as `buy_now` or `waitlist`."""
+    release_method: Literal["buy_now", "waitlist"]
+    """Sales method for the plan."""
 
     renewal_price: float
     """Recurring price charged each billing period."""
 
-    three_ds_level: Optional[str] = None
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
     """3D Secure behavior for this plan, or `null` to use the account default."""
 
     trial_period_days: Optional[int] = None
     """Free trial days before the first renewal charge."""
 
-    visibility: str
+    visibility: Literal["visible", "hidden", "archived", "quick_link"]
     """Whether the plan is visible to customers or hidden from public view."""
 
 
@@ -82,8 +79,8 @@ class CheckoutConfigurationListResponse(BaseModel):
 
     mode: Literal["payment", "setup"]
     """
-    Checkout mode: `payment` collects payment now; `setup` saves payment details for
-    later.
+    Controls whether checkout charges the buyer immediately or saves payment details
+    for later.
     """
 
     updated_at: str
@@ -122,5 +119,5 @@ class CheckoutConfigurationListResponse(BaseModel):
     configured.
     """
 
-    three_ds_level: Optional[str] = None
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
     """3D Secure behavior for this checkout, or `null` to use the account default."""

@@ -74,7 +74,7 @@ class PlanCreateParams(TypedDict, total=False):
     """The unique identifier of the product to attach this plan to."""
 
     release_method: str
-    """Sales method for this plan, such as `buy_now` or `waitlist`."""
+    """Sales method for this plan."""
 
     renewal_price: Optional[float]
     """

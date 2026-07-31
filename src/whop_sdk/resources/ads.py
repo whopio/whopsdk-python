@@ -144,8 +144,8 @@ class AdsResource(SyncAPIResource):
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
               Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
-              id). Authoritative; when omitted the source is inferred from the id shape.
+          post_source: Identifies the network that owns `post_id`. The source is inferred from the ID
+              shape when omitted.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -341,8 +341,8 @@ class AdsResource(SyncAPIResource):
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
               Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
-              id). Authoritative; when omitted the source is inferred from the id shape.
+          post_source: Identifies the network that owns `post_id`. The source is inferred from the ID
+              shape when omitted.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -810,8 +810,8 @@ class AsyncAdsResource(AsyncAPIResource):
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
               Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
-              id). Authoritative; when omitted the source is inferred from the id shape.
+          post_source: Identifies the network that owns `post_id`. The source is inferred from the ID
+              shape when omitted.
 
           primary_texts: The primary text variants shown in the ad body.
 
@@ -1007,8 +1007,8 @@ class AsyncAdsResource(AsyncAPIResource):
           post_id: Promote an existing post instead of uploading creatives — a Facebook post or
               Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-          post_source: Which network post_id refers to — facebook (a page post) or instagram (a media
-              id). Authoritative; when omitted the source is inferred from the id shape.
+          post_source: Identifies the network that owns `post_id`. The source is inferred from the ID
+              shape when omitted.
 
           primary_texts: The primary text variants shown in the ad body.
 

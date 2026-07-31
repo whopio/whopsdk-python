@@ -134,7 +134,7 @@ class PlansResource(SyncAPIResource):
 
           product_id: The unique identifier of the product to attach this plan to.
 
-          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
+          release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
@@ -306,7 +306,7 @@ class PlansResource(SyncAPIResource):
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
               account's defaults apply.
 
-          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
+          release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
@@ -663,7 +663,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           product_id: The unique identifier of the product to attach this plan to.
 
-          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
+          release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.
@@ -835,7 +835,7 @@ class AsyncPlansResource(AsyncAPIResource):
           payment_method_configuration: Explicit payment method configuration for the plan. When not provided, the
               account's defaults apply.
 
-          release_method: Sales method for this plan, such as `buy_now` or `waitlist`.
+          release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
               currency.

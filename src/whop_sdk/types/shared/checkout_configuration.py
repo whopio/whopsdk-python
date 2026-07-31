@@ -1,10 +1,51 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["CheckoutConfiguration"]
+__all__ = ["CheckoutConfiguration", "Plan"]
+
+
+class Plan(BaseModel):
+    """Plan used for payment checkout. `null` in setup mode."""
+
+    id: str
+    """Plan ID, prefixed `plan_`."""
+
+    adaptive_pricing_enabled: bool
+    """Whether this plan accepts local currency payments via adaptive pricing."""
+
+    billing_period: Optional[int] = None
+    """Recurring billing interval in days."""
+
+    currency: str
+    """Three-letter ISO currency code for the plan's prices."""
+
+    expiration_days: Optional[int] = None
+    """Access duration in days for expiration-based plans."""
+
+    initial_price: float
+    """Initial purchase price in the plan currency."""
+
+    plan_type: Literal["renewal", "one_time"]
+    """Billing model for the plan."""
+
+    release_method: Literal["buy_now", "waitlist"]
+    """Sales method for the plan."""
+
+    renewal_price: float
+    """Recurring price charged each billing period."""
+
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
+    """3D Secure behavior for this plan, or `null` to use the account default."""
+
+    trial_period_days: Optional[int] = None
+    """Free trial days before the first renewal charge."""
+
+    visibility: Literal["visible", "hidden", "archived", "quick_link"]
+    """Whether the plan is visible to customers or hidden from public view."""
 
 
 class CheckoutConfiguration(BaseModel):
@@ -31,10 +72,10 @@ class CheckoutConfiguration(BaseModel):
     `null` without the `checkout_configuration:basic:read` scope.
     """
 
-    mode: str
+    mode: Literal["payment", "setup"]
     """
-    Checkout mode: `payment` collects payment now; `setup` saves payment details for
-    later.
+    Controls whether checkout charges the buyer immediately or saves payment details
+    for later.
     """
 
     payment_method_configuration: Optional[object] = None
@@ -43,7 +84,7 @@ class CheckoutConfiguration(BaseModel):
     `null` when it uses the plan or platform defaults.
     """
 
-    plan: Optional[object] = None
+    plan: Optional[Plan] = None
     """Plan used for payment checkout. `null` in setup mode."""
 
     purchase_url: Optional[str] = None
@@ -55,7 +96,7 @@ class CheckoutConfiguration(BaseModel):
     configured.
     """
 
-    three_ds_level: Optional[str] = None
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
     """3D Secure behavior for this checkout, or `null` to use the account default."""
 
     updated_at: str

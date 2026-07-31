@@ -238,10 +238,7 @@ class Plan(BaseModel):
     """
 
     plan_type: Literal["renewal", "one_time"]
-    """
-    Billing model for this plan: `renewal` for recurring subscriptions or `one_time`
-    for single payments.
-    """
+    """Billing model for this plan."""
 
     product: Optional[object] = None
     """Product this plan belongs to; `null` for standalone plans."""
@@ -250,10 +247,7 @@ class Plan(BaseModel):
     """URL where customers can purchase this plan directly."""
 
     release_method: Literal["buy_now", "waitlist"]
-    """
-    Sales method for this plan: `buy_now` for immediate purchase or `waitlist` for
-    waitlist-based access.
-    """
+    """Sales method for this plan."""
 
     renewal_price: float
     """Recurring price charged every billing period."""
@@ -284,8 +278,8 @@ class Plan(BaseModel):
 
     tax_type: Literal["inclusive", "exclusive", "unspecified"]
     """
-    How tax is handled for this plan: `inclusive` (tax included in the price),
-    `exclusive` (tax added at checkout), or `unspecified` (tax not configured).
+    How tax is handled for this plan, including whether tax is included in the
+    price, added at checkout, or not configured.
     """
 
     three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None

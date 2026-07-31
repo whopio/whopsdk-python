@@ -103,7 +103,17 @@ class SupportedMethodListResponse(BaseModel):
     id: str
     """Supported payout method ID."""
 
-    delivery_type: str
+    delivery_type: Literal[
+        "cash_pickup",
+        "bank_deposit",
+        "home_delivery",
+        "mobile_wallet",
+        "masspay_card",
+        "paper_check",
+        "bill",
+        "cryptocurrency",
+        "unknown",
+    ]
     """How funds are delivered, for example `bank_deposit`."""
 
     icon_url: Optional[str] = None

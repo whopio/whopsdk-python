@@ -507,8 +507,8 @@ class Ad(BaseModel):
 
     post_source: Optional[Literal["facebook", "instagram"]] = None
     """
-    Which network `post_id` refers to: `facebook` (a page post) or `instagram` (a
-    media ID). `null` when the ad uses uploaded creatives.
+    Identifies the network that owns `post_id`; `null` when the ad uses uploaded
+    creatives.
     """
 
     post_thumbnail_url: Optional[str] = None
