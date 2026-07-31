@@ -55,3 +55,11 @@ class ResolutionCenterCaseListParams(TypedDict, total=False):
 
     Repeat the parameter to pass several — one paginated list covers all of them.
     """
+
+    user_id: str
+    """Only cases opened by this customer — a `user_` tag, or `me` for the calling
+    user.
+
+    It narrows what you can already read, so `me` lists the cases you opened without
+    the ones on accounts you are a team member of.
+    """

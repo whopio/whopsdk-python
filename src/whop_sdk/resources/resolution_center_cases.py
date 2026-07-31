@@ -183,6 +183,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         ]
         | Omit = omit,
         status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -224,6 +225,10 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           status: Only cases in these statuses. Repeat the parameter to pass several — one
               paginated list covers all of them.
 
+          user_id: Only cases opened by this customer — a `user_` tag, or `me` for the calling
+              user. It narrows what you can already read, so `me` lists the cases you opened
+              without the ones on accounts you are a team member of.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -254,6 +259,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                         "outcome": outcome,
                         "reason": reason,
                         "status": status,
+                        "user_id": user_id,
                     },
                     resolution_center_case_list_params.ResolutionCenterCaseListParams,
                 ),
@@ -594,6 +600,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         ]
         | Omit = omit,
         status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -622,6 +629,9 @@ class ResolutionCenterCasesResource(SyncAPIResource):
 
           status: Only cases in these statuses.
 
+          user_id: Only cases opened by this customer — a `user_` tag, or `me` for the calling
+              user.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -646,6 +656,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                         "outcome": outcome,
                         "reason": reason,
                         "status": status,
+                        "user_id": user_id,
                     },
                     resolution_center_case_summary_params.ResolutionCenterCaseSummaryParams,
                 ),
@@ -829,6 +840,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         ]
         | Omit = omit,
         status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -870,6 +882,10 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           status: Only cases in these statuses. Repeat the parameter to pass several — one
               paginated list covers all of them.
 
+          user_id: Only cases opened by this customer — a `user_` tag, or `me` for the calling
+              user. It narrows what you can already read, so `me` lists the cases you opened
+              without the ones on accounts you are a team member of.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -900,6 +916,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                         "outcome": outcome,
                         "reason": reason,
                         "status": status,
+                        "user_id": user_id,
                     },
                     resolution_center_case_list_params.ResolutionCenterCaseListParams,
                 ),
@@ -1240,6 +1257,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         ]
         | Omit = omit,
         status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1268,6 +1286,9 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
 
           status: Only cases in these statuses.
 
+          user_id: Only cases opened by this customer — a `user_` tag, or `me` for the calling
+              user.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1292,6 +1313,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                         "outcome": outcome,
                         "reason": reason,
                         "status": status,
+                        "user_id": user_id,
                     },
                     resolution_center_case_summary_params.ResolutionCenterCaseSummaryParams,
                 ),

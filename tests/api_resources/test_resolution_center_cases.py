@@ -151,6 +151,7 @@ class TestResolutionCenterCases:
             outcome=["customer_won"],
             reason=["fraudulent"],
             status=["awaiting_merchant"],
+            user_id="user_id",
         )
         assert_matches_type(SyncCursorPage[ResolutionCenterCaseListResponse], resolution_center_case, path=["response"])
 
@@ -552,6 +553,7 @@ class TestResolutionCenterCases:
             outcome=["customer_won"],
             reason=["fraudulent"],
             status=["awaiting_merchant"],
+            user_id="user_id",
         )
         assert_matches_type(ResolutionCenterCaseSummaryResponse, resolution_center_case, path=["response"])
 
@@ -757,6 +759,7 @@ class TestAsyncResolutionCenterCases:
             outcome=["customer_won"],
             reason=["fraudulent"],
             status=["awaiting_merchant"],
+            user_id="user_id",
         )
         assert_matches_type(
             AsyncCursorPage[ResolutionCenterCaseListResponse], resolution_center_case, path=["response"]
@@ -1162,6 +1165,7 @@ class TestAsyncResolutionCenterCases:
             outcome=["customer_won"],
             reason=["fraudulent"],
             status=["awaiting_merchant"],
+            user_id="user_id",
         )
         assert_matches_type(ResolutionCenterCaseSummaryResponse, resolution_center_case, path=["response"])
 

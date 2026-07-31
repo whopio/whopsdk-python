@@ -36,3 +36,9 @@ class ResolutionCenterCaseSummaryParams(TypedDict, total=False):
 
     status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]]
     """Only cases in these statuses."""
+
+    user_id: str
+    """
+    Only cases opened by this customer — a `user_` tag, or `me` for the calling
+    user.
+    """
