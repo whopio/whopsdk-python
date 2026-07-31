@@ -16,8 +16,22 @@ from .preferences import (
     PreferencesResourceWithStreamingResponse,
     AsyncPreferencesResourceWithStreamingResponse,
 )
+from .oauth_grants import (
+    OAuthGrantsResource,
+    AsyncOAuthGrantsResource,
+    OAuthGrantsResourceWithRawResponse,
+    AsyncOAuthGrantsResourceWithRawResponse,
+    OAuthGrantsResourceWithStreamingResponse,
+    AsyncOAuthGrantsResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "OAuthGrantsResource",
+    "AsyncOAuthGrantsResource",
+    "OAuthGrantsResourceWithRawResponse",
+    "AsyncOAuthGrantsResourceWithRawResponse",
+    "OAuthGrantsResourceWithStreamingResponse",
+    "AsyncOAuthGrantsResourceWithStreamingResponse",
     "PreferencesResource",
     "AsyncPreferencesResource",
     "PreferencesResourceWithRawResponse",

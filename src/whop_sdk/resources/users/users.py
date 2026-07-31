@@ -19,6 +19,14 @@ from ..._response import (
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ...types.user import User
+from .oauth_grants import (
+    OAuthGrantsResource,
+    AsyncOAuthGrantsResource,
+    OAuthGrantsResourceWithRawResponse,
+    AsyncOAuthGrantsResourceWithRawResponse,
+    OAuthGrantsResourceWithStreamingResponse,
+    AsyncOAuthGrantsResourceWithStreamingResponse,
+)
 from ..._base_client import AsyncPaginator, make_request_options
 from .preferences.preferences import (
     PreferencesResource,
@@ -41,6 +49,16 @@ class UsersResource(SyncAPIResource):
 
     Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
     """
+
+    @cached_property
+    def oauth_grants(self) -> OAuthGrantsResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return OAuthGrantsResource(self._client)
 
     @cached_property
     def preferences(self) -> PreferencesResource:
@@ -438,6 +456,16 @@ class AsyncUsersResource(AsyncAPIResource):
 
     Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
     """
+
+    @cached_property
+    def oauth_grants(self) -> AsyncOAuthGrantsResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncOAuthGrantsResource(self._client)
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResource:
@@ -855,6 +883,16 @@ class UsersResourceWithRawResponse:
         )
 
     @cached_property
+    def oauth_grants(self) -> OAuthGrantsResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return OAuthGrantsResourceWithRawResponse(self._users.oauth_grants)
+
+    @cached_property
     def preferences(self) -> PreferencesResourceWithRawResponse:
         """A User represents a person on Whop.
 
@@ -890,6 +928,16 @@ class AsyncUsersResourceWithRawResponse:
         self.update_me = async_to_raw_response_wrapper(
             users.update_me,
         )
+
+    @cached_property
+    def oauth_grants(self) -> AsyncOAuthGrantsResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncOAuthGrantsResourceWithRawResponse(self._users.oauth_grants)
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResourceWithRawResponse:
@@ -929,6 +977,16 @@ class UsersResourceWithStreamingResponse:
         )
 
     @cached_property
+    def oauth_grants(self) -> OAuthGrantsResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return OAuthGrantsResourceWithStreamingResponse(self._users.oauth_grants)
+
+    @cached_property
     def preferences(self) -> PreferencesResourceWithStreamingResponse:
         """A User represents a person on Whop.
 
@@ -964,6 +1022,16 @@ class AsyncUsersResourceWithStreamingResponse:
         self.update_me = async_to_streamed_response_wrapper(
             users.update_me,
         )
+
+    @cached_property
+    def oauth_grants(self) -> AsyncOAuthGrantsResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncOAuthGrantsResourceWithStreamingResponse(self._users.oauth_grants)
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResourceWithStreamingResponse:

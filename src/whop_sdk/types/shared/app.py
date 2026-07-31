@@ -297,6 +297,8 @@ class App(BaseModel):
 
     requested_permissions: List[RequestedPermission]
 
+    required_scopes: List[Literal["read_user"]]
+
     route: Optional[str] = None
     """
     Claimed subdomain route where hosted web builds are served (`myapp` for

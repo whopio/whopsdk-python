@@ -564,6 +564,18 @@ Methods:
 - <code title="get /users/{id}/recommend_actions">client.users.<a href="./src/whop_sdk/resources/users/users.py">recommend_actions</a>(id) -> <a href="./src/whop_sdk/types/user_recommend_actions_response.py">UserRecommendActionsResponse</a></code>
 - <code title="patch /users/me">client.users.<a href="./src/whop_sdk/resources/users/users.py">update_me</a>(\*\*<a href="src/whop_sdk/types/user_update_me_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
 
+## OAuthGrants
+
+Types:
+
+```python
+from whop_sdk.types.users import OAuthGrant
+```
+
+Methods:
+
+- <code title="get /users/me/oauth_grants">client.users.oauth_grants.<a href="./src/whop_sdk/resources/users/oauth_grants.py">list</a>(\*\*<a href="src/whop_sdk/types/users/oauth_grant_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/oauth_grant.py">SyncCursorPage[OAuthGrant]</a></code>
+
 ## Preferences
 
 Types:
