@@ -9,6 +9,14 @@ import httpx
 from ...types import user_me_params, user_list_params, user_update_params, user_retrieve_params, user_update_me_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
+from .passkeys import (
+    PasskeysResource,
+    AsyncPasskeysResource,
+    PasskeysResourceWithRawResponse,
+    AsyncPasskeysResourceWithRawResponse,
+    PasskeysResourceWithStreamingResponse,
+    AsyncPasskeysResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -59,6 +67,16 @@ class UsersResource(SyncAPIResource):
         Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
         """
         return OAuthGrantsResource(self._client)
+
+    @cached_property
+    def passkeys(self) -> PasskeysResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PasskeysResource(self._client)
 
     @cached_property
     def preferences(self) -> PreferencesResource:
@@ -466,6 +484,16 @@ class AsyncUsersResource(AsyncAPIResource):
         Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
         """
         return AsyncOAuthGrantsResource(self._client)
+
+    @cached_property
+    def passkeys(self) -> AsyncPasskeysResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPasskeysResource(self._client)
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResource:
@@ -893,6 +921,16 @@ class UsersResourceWithRawResponse:
         return OAuthGrantsResourceWithRawResponse(self._users.oauth_grants)
 
     @cached_property
+    def passkeys(self) -> PasskeysResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PasskeysResourceWithRawResponse(self._users.passkeys)
+
+    @cached_property
     def preferences(self) -> PreferencesResourceWithRawResponse:
         """A User represents a person on Whop.
 
@@ -938,6 +976,16 @@ class AsyncUsersResourceWithRawResponse:
         Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
         """
         return AsyncOAuthGrantsResourceWithRawResponse(self._users.oauth_grants)
+
+    @cached_property
+    def passkeys(self) -> AsyncPasskeysResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPasskeysResourceWithRawResponse(self._users.passkeys)
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResourceWithRawResponse:
@@ -987,6 +1035,16 @@ class UsersResourceWithStreamingResponse:
         return OAuthGrantsResourceWithStreamingResponse(self._users.oauth_grants)
 
     @cached_property
+    def passkeys(self) -> PasskeysResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PasskeysResourceWithStreamingResponse(self._users.passkeys)
+
+    @cached_property
     def preferences(self) -> PreferencesResourceWithStreamingResponse:
         """A User represents a person on Whop.
 
@@ -1032,6 +1090,16 @@ class AsyncUsersResourceWithStreamingResponse:
         Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
         """
         return AsyncOAuthGrantsResourceWithStreamingResponse(self._users.oauth_grants)
+
+    @cached_property
+    def passkeys(self) -> AsyncPasskeysResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPasskeysResourceWithStreamingResponse(self._users.passkeys)
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResourceWithStreamingResponse:

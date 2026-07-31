@@ -8,6 +8,14 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
+from .passkeys import (
+    PasskeysResource,
+    AsyncPasskeysResource,
+    PasskeysResourceWithRawResponse,
+    AsyncPasskeysResourceWithRawResponse,
+    PasskeysResourceWithStreamingResponse,
+    AsyncPasskeysResourceWithStreamingResponse,
+)
 from .preferences import (
     PreferencesResource,
     AsyncPreferencesResource,
@@ -32,6 +40,12 @@ __all__ = [
     "AsyncOAuthGrantsResourceWithRawResponse",
     "OAuthGrantsResourceWithStreamingResponse",
     "AsyncOAuthGrantsResourceWithStreamingResponse",
+    "PasskeysResource",
+    "AsyncPasskeysResource",
+    "PasskeysResourceWithRawResponse",
+    "AsyncPasskeysResourceWithRawResponse",
+    "PasskeysResourceWithStreamingResponse",
+    "AsyncPasskeysResourceWithStreamingResponse",
     "PreferencesResource",
     "AsyncPreferencesResource",
     "PreferencesResourceWithRawResponse",

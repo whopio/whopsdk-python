@@ -576,6 +576,21 @@ Methods:
 
 - <code title="get /users/me/oauth_grants">client.users.oauth_grants.<a href="./src/whop_sdk/resources/users/oauth_grants.py">list</a>(\*\*<a href="src/whop_sdk/types/users/oauth_grant_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/oauth_grant.py">SyncCursorPage[OAuthGrant]</a></code>
 
+## Passkeys
+
+Types:
+
+```python
+from whop_sdk.types.users import Passkey, PasskeyDeleteResponse, PasskeyChallengeResponse
+```
+
+Methods:
+
+- <code title="post /users/me/passkeys">client.users.passkeys.<a href="./src/whop_sdk/resources/users/passkeys.py">create</a>(\*\*<a href="src/whop_sdk/types/users/passkey_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/passkey.py">Passkey</a></code>
+- <code title="get /users/me/passkeys">client.users.passkeys.<a href="./src/whop_sdk/resources/users/passkeys.py">list</a>(\*\*<a href="src/whop_sdk/types/users/passkey_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/passkey.py">SyncCursorPage[Passkey]</a></code>
+- <code title="delete /users/me/passkeys/{id}">client.users.passkeys.<a href="./src/whop_sdk/resources/users/passkeys.py">delete</a>(id, \*\*<a href="src/whop_sdk/types/users/passkey_delete_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/passkey_delete_response.py">PasskeyDeleteResponse</a></code>
+- <code title="post /users/me/passkeys/challenge">client.users.passkeys.<a href="./src/whop_sdk/resources/users/passkeys.py">challenge</a>(\*\*<a href="src/whop_sdk/types/users/passkey_challenge_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/passkey_challenge_response.py">PasskeyChallengeResponse</a></code>
+
 ## Preferences
 
 Types:
