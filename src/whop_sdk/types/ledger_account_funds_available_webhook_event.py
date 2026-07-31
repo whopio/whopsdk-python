@@ -221,6 +221,13 @@ class Data(BaseModel):
     payout_account_details: Optional[DataPayoutAccountDetails] = None
     """The payout account associated with the LedgerAccount, if any."""
 
+    settlement_time_at: Optional[datetime] = None
+    """
+    The settlement batch most recently posted to this account's available balance,
+    at midnight UTC. Every payment settling in that batch carries the same
+    `settlement_time_at`.
+    """
+
     transfer_fee: Optional[float] = None
     """The fee for transfers, if applicable."""
 
