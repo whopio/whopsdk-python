@@ -108,8 +108,8 @@ class TransfersResource(SyncAPIResource):
               `ledger` moves credit between two Whop balances and returns a `transfer`;
               `wallet_send` sends USDT from the origin account's Ethereum wallet and returns a
               `send`; `claim_link` funds a shareable link anyone with the URL can redeem and
-              returns a `claim_link`. A `ledger` transfer from an account whose funds live on
-              stablecoin rails runs as a wallet send, so it returns a `send`.
+              returns a `claim_link`. A `ledger` transfer from a stablecoin-rails account
+              settles on-chain when covered, and still returns a `transfer`.
 
           extra_headers: Send extra headers
 
@@ -401,8 +401,8 @@ class AsyncTransfersResource(AsyncAPIResource):
               `ledger` moves credit between two Whop balances and returns a `transfer`;
               `wallet_send` sends USDT from the origin account's Ethereum wallet and returns a
               `send`; `claim_link` funds a shareable link anyone with the URL can redeem and
-              returns a `claim_link`. A `ledger` transfer from an account whose funds live on
-              stablecoin rails runs as a wallet send, so it returns a `send`.
+              returns a `claim_link`. A `ledger` transfer from a stablecoin-rails account
+              settles on-chain when covered, and still returns a `transfer`.
 
           extra_headers: Send extra headers
 
