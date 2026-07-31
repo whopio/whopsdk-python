@@ -386,6 +386,12 @@ class PaymentControls(BaseModel):
     dispute_alert_fee_usd: Optional[float] = None
     """Fee charged for each dispute alert in USD. `null` when unavailable."""
 
+    enforce_3ds: bool
+    """Whether 3-D Secure is forced on every card payment at checkout.
+
+    The account cannot bypass it while set.
+    """
+
     financing_disabled: bool
     """Whether payment health controls explicitly disable financing.
 
@@ -410,6 +416,10 @@ class PaymentControls(BaseModel):
 
     resolution_center_auto_refund: PaymentControlsResolutionCenterAutoRefund
     """Automatic refund settings for resolution center cases."""
+
+    restricted_payment_methods: List[
+        Literal["card_visa", "card_mastercard", "card_american_express", "card_discover_global_network"]
+    ]
 
 
 class RecommendedAction(BaseModel):
@@ -2989,6 +2999,13 @@ class Account(BaseModel):
     """Whether the account can operate on Whop: `active` or `suspended`.
 
     Computed on `list`, `retrieve`, and `me`; `null` otherwise.
+    """
+
+    status_reason: Optional[str] = None
+    """Why the account was suspended, in language safe to show the account owner.
+
+    Computed only on `retrieve` and `me`; `null` otherwise, when `status` is not
+    `suspended`, and when the suspension was recorded without a reason.
     """
 
     store_page_config: StorePageConfig
