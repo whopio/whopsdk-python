@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
@@ -216,6 +217,13 @@ class LedgerAccountRetrieveResponse(BaseModel):
 
     payout_account_details: Optional[PayoutAccountDetails] = None
     """The payout account associated with the LedgerAccount, if any."""
+
+    settlement_time_at: Optional[datetime] = None
+    """
+    The settlement batch most recently posted to this account's available balance,
+    at midnight UTC. Every payment settling in that batch carries the same
+    `settlement_time_at`.
+    """
 
     transfer_fee: Optional[float] = None
     """The fee for transfers, if applicable."""

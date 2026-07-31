@@ -622,6 +622,14 @@ class Payment(BaseModel):
     settlement_exchange_rate: Optional[float] = None
     """Deprecated. Always returns null."""
 
+    settlement_time_at: Optional[datetime] = None
+    """
+    When this payment's funds post to the company's available balance, at midnight
+    UTC. Known at payment time and never changes. The
+    `ledger_account.funds_available` webhook carries the same `settlement_time_at`
+    when that batch posts — match them to know these funds are now withdrawable.
+    """
+
     shipping_address: Optional[ShippingAddress] = None
     """The shipping address provided by the customer for physical goods.
 
