@@ -1,0 +1,1044 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing_extensions import Literal
+
+import httpx
+
+from ...types import user_me_params, user_list_params, user_update_params, user_retrieve_params, user_update_me_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...types.user import User
+from .oauth_grants import (
+    OAuthGrantsResource,
+    AsyncOAuthGrantsResource,
+    OAuthGrantsResourceWithRawResponse,
+    AsyncOAuthGrantsResourceWithRawResponse,
+    OAuthGrantsResourceWithStreamingResponse,
+    AsyncOAuthGrantsResourceWithStreamingResponse,
+)
+from ..._base_client import AsyncPaginator, make_request_options
+from .preferences.preferences import (
+    PreferencesResource,
+    AsyncPreferencesResource,
+    PreferencesResourceWithRawResponse,
+    AsyncPreferencesResourceWithRawResponse,
+    PreferencesResourceWithStreamingResponse,
+    AsyncPreferencesResourceWithStreamingResponse,
+)
+from ...types.user_check_access_response import UserCheckAccessResponse
+from ...types.user_recommend_actions_response import UserRecommendActionsResponse
+
+__all__ = ["UsersResource", "AsyncUsersResource"]
+
+
+class UsersResource(SyncAPIResource):
+    """A User represents a person on Whop.
+
+    Users have a public profile and can buy products, join accounts, and access experiences.
+
+    Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+    """
+
+    @cached_property
+    def oauth_grants(self) -> OAuthGrantsResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return OAuthGrantsResource(self._client)
+
+    @cached_property
+    def preferences(self) -> PreferencesResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PreferencesResource(self._client)
+
+    @cached_property
+    def with_raw_response(self) -> UsersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
+        """
+        return UsersResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> UsersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
+        """
+        return UsersResourceWithStreamingResponse(self)
+
+    def retrieve(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """
+        Retrieves a user's public profile by user\\__ tag or username, including linked
+        social accounts — reading your own profile returns every linked account, other
+        profiles only what is public on Whop (the primary Discord and the X account).
+        Self-only fields (`email`, `staff`, `balance`) are always `null` here; use
+        `GET /users/me` to read them.
+
+        Args:
+          account_id: When set, returns the user's account-specific profile overrides for this
+              account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/users/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
+            ),
+            cast_to=User,
+        )
+
+    def update(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        bio: str | Omit = omit,
+        name: str | Omit = omit,
+        profile_picture: user_update_params.ProfilePicture | Omit = omit,
+        username: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """Updates a user.
+
+        A user token updates their own global profile; an API key
+        updates the user's account-specific profile override (account_id required).
+
+        Args:
+          account_id: The account whose profile override to update. Required for API key callers.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            path_template("/users/{id}", id=id),
+            body=maybe_transform(
+                {
+                    "bio": bio,
+                    "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
+                },
+                user_update_params.UserUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, user_update_params.UserUpdateParams),
+            ),
+            cast_to=User,
+        )
+
+    def list(
+        self,
+        *,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[User]:
+        """
+        Search for users by name or username, ranked by social proximity to the
+        authenticated user. Returns the user's most recently followed users when no
+        query is given.
+
+        Args:
+          after: A cursor; returns users after this position.
+
+          before: A cursor; returns users before this position.
+
+          first: The number of users to return (max 50).
+
+          last: The number of users to return from the end of the range.
+
+          query: A search term to filter users by name or username.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/users",
+            page=SyncCursorPage[User],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
+                        "query": query,
+                    },
+                    user_list_params.UserListParams,
+                ),
+            ),
+            model=User,
+        )
+
+    def check_access(
+        self,
+        resource_id: str,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserCheckAccessResponse:
+        """
+        Checks whether a user has access to an account, product, or experience the
+        caller can reach.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not resource_id:
+            raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
+        return self._get(
+            path_template("/users/{id}/access/{resource_id}", id=id, resource_id=resource_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserCheckAccessResponse,
+        )
+
+    def me(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """Retrieves the authenticated user — the self view of the user object.
+
+        Same shape
+        as `GET /users/{id}`, with the self-only fields populated: `email` (email-read
+        scope), `staff` (Whop staff only, staff-read scope), `balance` and
+        `earnings_usd` (balance-read scope), the opt-in `balance_history`, and every
+        linked social account.
+
+        Args:
+          account_id: When set, returns your account-specific profile overrides for this account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: Also compute your balance history (opt-in; runs a heavier query). Ignored for
+              callers without balance-read scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/users/me",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_me_params.UserMeParams,
+                ),
+            ),
+            cast_to=User,
+        )
+
+    def recommend_actions(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserRecommendActionsResponse:
+        """
+        Lists the recommended actions computed for the user: personal suggestions (e.g.
+        start a business or become an affiliate) pooled with the highest-impact actions
+        across the accounts the user owns. Business actions are tagged with their
+        `account_id`/`account_name`; personal actions leave those `null`. Self-only:
+        `id` must be `me` or the authenticated user's own tag/username.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/users/{id}/recommend_actions", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserRecommendActionsResponse,
+        )
+
+    def update_me(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        bio: str | Omit = omit,
+        name: str | Omit = omit,
+        profile_picture: user_update_me_params.ProfilePicture | Omit = omit,
+        username: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """
+        Updates the authenticated user's global profile, or their profile override for
+        an account when account_id is given. Not available to API keys.
+
+        Args:
+          account_id: When set, updates the authenticated user's profile override for this account
+              instead of their global profile.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._patch(
+            "/users/me",
+            body=maybe_transform(
+                {
+                    "bio": bio,
+                    "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
+                },
+                user_update_me_params.UserUpdateMeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"account_id": account_id}, user_update_me_params.UserUpdateMeParams),
+            ),
+            cast_to=User,
+        )
+
+
+class AsyncUsersResource(AsyncAPIResource):
+    """A User represents a person on Whop.
+
+    Users have a public profile and can buy products, join accounts, and access experiences.
+
+    Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+    """
+
+    @cached_property
+    def oauth_grants(self) -> AsyncOAuthGrantsResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncOAuthGrantsResource(self._client)
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPreferencesResource(self._client)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncUsersResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncUsersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
+        """
+        return AsyncUsersResourceWithStreamingResponse(self)
+
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """
+        Retrieves a user's public profile by user\\__ tag or username, including linked
+        social accounts — reading your own profile returns every linked account, other
+        profiles only what is public on Whop (the primary Discord and the X account).
+        Self-only fields (`email`, `staff`, `balance`) are always `null` here; use
+        `GET /users/me` to read them.
+
+        Args:
+          account_id: When set, returns the user's account-specific profile overrides for this
+              account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/users/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, user_retrieve_params.UserRetrieveParams),
+            ),
+            cast_to=User,
+        )
+
+    async def update(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        bio: str | Omit = omit,
+        name: str | Omit = omit,
+        profile_picture: user_update_params.ProfilePicture | Omit = omit,
+        username: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """Updates a user.
+
+        A user token updates their own global profile; an API key
+        updates the user's account-specific profile override (account_id required).
+
+        Args:
+          account_id: The account whose profile override to update. Required for API key callers.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            path_template("/users/{id}", id=id),
+            body=await async_maybe_transform(
+                {
+                    "bio": bio,
+                    "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
+                },
+                user_update_params.UserUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, user_update_params.UserUpdateParams),
+            ),
+            cast_to=User,
+        )
+
+    def list(
+        self,
+        *,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[User, AsyncCursorPage[User]]:
+        """
+        Search for users by name or username, ranked by social proximity to the
+        authenticated user. Returns the user's most recently followed users when no
+        query is given.
+
+        Args:
+          after: A cursor; returns users after this position.
+
+          before: A cursor; returns users before this position.
+
+          first: The number of users to return (max 50).
+
+          last: The number of users to return from the end of the range.
+
+          query: A search term to filter users by name or username.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/users",
+            page=AsyncCursorPage[User],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "first": first,
+                        "last": last,
+                        "query": query,
+                    },
+                    user_list_params.UserListParams,
+                ),
+            ),
+            model=User,
+        )
+
+    async def check_access(
+        self,
+        resource_id: str,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserCheckAccessResponse:
+        """
+        Checks whether a user has access to an account, product, or experience the
+        caller can reach.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not resource_id:
+            raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
+        return await self._get(
+            path_template("/users/{id}/access/{resource_id}", id=id, resource_id=resource_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserCheckAccessResponse,
+        )
+
+    async def me(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        from_: str | Omit = omit,
+        include_balance_history: bool | Omit = omit,
+        interval: Literal["hour", "day", "week", "month"] | Omit = omit,
+        time_zone: str | Omit = omit,
+        to: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """Retrieves the authenticated user — the self view of the user object.
+
+        Same shape
+        as `GET /users/{id}`, with the self-only fields populated: `email` (email-read
+        scope), `staff` (Whop staff only, staff-read scope), `balance` and
+        `earnings_usd` (balance-read scope), the opt-in `balance_history`, and every
+        linked social account.
+
+        Args:
+          account_id: When set, returns your account-specific profile overrides for this account.
+
+          from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
+              ago. Only used with `include_balance_history`.
+
+          include_balance_history: Also compute your balance history (opt-in; runs a heavier query). Ignored for
+              callers without balance-read scope.
+
+          interval: Balance-history point granularity. Defaults to `day`. Only used with
+              `include_balance_history`.
+
+          time_zone: IANA time zone the balance-history points are bucketed in. Defaults to `UTC`.
+              Only used with `include_balance_history`.
+
+          to: Balance-history window end, ISO 8601 date or datetime. Defaults to now. Only
+              used with `include_balance_history`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/users/me",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "from_": from_,
+                        "include_balance_history": include_balance_history,
+                        "interval": interval,
+                        "time_zone": time_zone,
+                        "to": to,
+                    },
+                    user_me_params.UserMeParams,
+                ),
+            ),
+            cast_to=User,
+        )
+
+    async def recommend_actions(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserRecommendActionsResponse:
+        """
+        Lists the recommended actions computed for the user: personal suggestions (e.g.
+        start a business or become an affiliate) pooled with the highest-impact actions
+        across the accounts the user owns. Business actions are tagged with their
+        `account_id`/`account_name`; personal actions leave those `null`. Self-only:
+        `id` must be `me` or the authenticated user's own tag/username.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/users/{id}/recommend_actions", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserRecommendActionsResponse,
+        )
+
+    async def update_me(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        bio: str | Omit = omit,
+        name: str | Omit = omit,
+        profile_picture: user_update_me_params.ProfilePicture | Omit = omit,
+        username: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> User:
+        """
+        Updates the authenticated user's global profile, or their profile override for
+        an account when account_id is given. Not available to API keys.
+
+        Args:
+          account_id: When set, updates the authenticated user's profile override for this account
+              instead of their global profile.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._patch(
+            "/users/me",
+            body=await async_maybe_transform(
+                {
+                    "bio": bio,
+                    "name": name,
+                    "profile_picture": profile_picture,
+                    "username": username,
+                },
+                user_update_me_params.UserUpdateMeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"account_id": account_id}, user_update_me_params.UserUpdateMeParams),
+            ),
+            cast_to=User,
+        )
+
+
+class UsersResourceWithRawResponse:
+    def __init__(self, users: UsersResource) -> None:
+        self._users = users
+
+        self.retrieve = to_raw_response_wrapper(
+            users.retrieve,
+        )
+        self.update = to_raw_response_wrapper(
+            users.update,
+        )
+        self.list = to_raw_response_wrapper(
+            users.list,
+        )
+        self.check_access = to_raw_response_wrapper(
+            users.check_access,
+        )
+        self.me = to_raw_response_wrapper(
+            users.me,
+        )
+        self.recommend_actions = to_raw_response_wrapper(
+            users.recommend_actions,
+        )
+        self.update_me = to_raw_response_wrapper(
+            users.update_me,
+        )
+
+    @cached_property
+    def oauth_grants(self) -> OAuthGrantsResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return OAuthGrantsResourceWithRawResponse(self._users.oauth_grants)
+
+    @cached_property
+    def preferences(self) -> PreferencesResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PreferencesResourceWithRawResponse(self._users.preferences)
+
+
+class AsyncUsersResourceWithRawResponse:
+    def __init__(self, users: AsyncUsersResource) -> None:
+        self._users = users
+
+        self.retrieve = async_to_raw_response_wrapper(
+            users.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            users.update,
+        )
+        self.list = async_to_raw_response_wrapper(
+            users.list,
+        )
+        self.check_access = async_to_raw_response_wrapper(
+            users.check_access,
+        )
+        self.me = async_to_raw_response_wrapper(
+            users.me,
+        )
+        self.recommend_actions = async_to_raw_response_wrapper(
+            users.recommend_actions,
+        )
+        self.update_me = async_to_raw_response_wrapper(
+            users.update_me,
+        )
+
+    @cached_property
+    def oauth_grants(self) -> AsyncOAuthGrantsResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncOAuthGrantsResourceWithRawResponse(self._users.oauth_grants)
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPreferencesResourceWithRawResponse(self._users.preferences)
+
+
+class UsersResourceWithStreamingResponse:
+    def __init__(self, users: UsersResource) -> None:
+        self._users = users
+
+        self.retrieve = to_streamed_response_wrapper(
+            users.retrieve,
+        )
+        self.update = to_streamed_response_wrapper(
+            users.update,
+        )
+        self.list = to_streamed_response_wrapper(
+            users.list,
+        )
+        self.check_access = to_streamed_response_wrapper(
+            users.check_access,
+        )
+        self.me = to_streamed_response_wrapper(
+            users.me,
+        )
+        self.recommend_actions = to_streamed_response_wrapper(
+            users.recommend_actions,
+        )
+        self.update_me = to_streamed_response_wrapper(
+            users.update_me,
+        )
+
+    @cached_property
+    def oauth_grants(self) -> OAuthGrantsResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return OAuthGrantsResourceWithStreamingResponse(self._users.oauth_grants)
+
+    @cached_property
+    def preferences(self) -> PreferencesResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return PreferencesResourceWithStreamingResponse(self._users.preferences)
+
+
+class AsyncUsersResourceWithStreamingResponse:
+    def __init__(self, users: AsyncUsersResource) -> None:
+        self._users = users
+
+        self.retrieve = async_to_streamed_response_wrapper(
+            users.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            users.update,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            users.list,
+        )
+        self.check_access = async_to_streamed_response_wrapper(
+            users.check_access,
+        )
+        self.me = async_to_streamed_response_wrapper(
+            users.me,
+        )
+        self.recommend_actions = async_to_streamed_response_wrapper(
+            users.recommend_actions,
+        )
+        self.update_me = async_to_streamed_response_wrapper(
+            users.update_me,
+        )
+
+    @cached_property
+    def oauth_grants(self) -> AsyncOAuthGrantsResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncOAuthGrantsResourceWithStreamingResponse(self._users.oauth_grants)
+
+    @cached_property
+    def preferences(self) -> AsyncPreferencesResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
+        return AsyncPreferencesResourceWithStreamingResponse(self._users.preferences)
