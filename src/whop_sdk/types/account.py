@@ -494,6 +494,7 @@ class RequiredAction(BaseModel):
         "connect_fulfillment_tracker",
         "setup_apple_pay_domains",
         "configure_tax_remitter",
+        "add_vat_registration",
     ]
     """
     What the holder must do; new values may be added, so handle unknown actions
