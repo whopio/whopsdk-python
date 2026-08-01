@@ -20,6 +20,7 @@ __all__ = [
     "CompanyFormationSignaturesSs4",
     "Owner",
     "OwnerProfilePicture",
+    "ParentAccount",
     "PaymentControls",
     "PaymentControlsDisputeAlertAutoRefund",
     "PaymentControlsReserve",
@@ -321,6 +322,22 @@ class Owner(BaseModel):
 
     username: str
     """Public username."""
+
+
+class ParentAccount(BaseModel):
+    """Parent account for connected accounts, or `null` for standalone accounts."""
+
+    id: str
+    """Account ID, prefixed `biz_`."""
+
+    logo_url: Optional[str] = None
+    """Account logo image URL."""
+
+    route: str
+    """Account public route identifier."""
+
+    title: str
+    """Account display name."""
 
 
 class PaymentControlsDisputeAlertAutoRefund(BaseModel):
@@ -2952,8 +2969,8 @@ class Account(BaseModel):
     hold.
     """
 
-    parent_account_id: Optional[str] = None
-    """Parent account ID for connected accounts."""
+    parent_account: Optional[ParentAccount] = None
+    """Parent account for connected accounts, or `null` for standalone accounts."""
 
     payment_controls: Optional[PaymentControls] = None
     """Payment health controls currently applied to the account.
