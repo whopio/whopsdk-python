@@ -9,7 +9,10 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import Withdrawal, WithdrawalListResponse
+from whop_sdk.types import (
+    Withdrawal,
+    WithdrawalListResponse,
+)
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -39,6 +42,7 @@ class TestWithdrawals:
             idempotency_key="idempotency_key",
             payout_method_id="payout_method_id",
             platform_covers_fees=True,
+            speed="standard",
             statement_descriptor="statement_descriptor",
         )
         assert_matches_type(Withdrawal, withdrawal, path=["response"])
@@ -190,6 +194,7 @@ class TestAsyncWithdrawals:
             idempotency_key="idempotency_key",
             payout_method_id="payout_method_id",
             platform_covers_fees=True,
+            speed="standard",
             statement_descriptor="statement_descriptor",
         )
         assert_matches_type(Withdrawal, withdrawal, path=["response"])
