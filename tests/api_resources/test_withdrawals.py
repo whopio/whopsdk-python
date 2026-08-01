@@ -43,6 +43,7 @@ class TestWithdrawals:
             idempotency_key="idempotency_key",
             payout_method_id="payout_method_id",
             platform_covers_fees=True,
+            speed="standard",
             statement_descriptor="statement_descriptor",
         )
         assert_matches_type(Withdrawal, withdrawal, path=["response"])
@@ -236,6 +237,7 @@ class TestAsyncWithdrawals:
             idempotency_key="idempotency_key",
             payout_method_id="payout_method_id",
             platform_covers_fees=True,
+            speed="standard",
             statement_descriptor="statement_descriptor",
         )
         assert_matches_type(Withdrawal, withdrawal, path=["response"])

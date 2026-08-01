@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ..types import withdrawal_list_params, withdrawal_create_params
+from ..types import WithdrawalSpeeds, withdrawal_list_params, withdrawal_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,6 +23,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.withdrawal import Withdrawal
 from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
+from ..types.withdrawal_speeds import WithdrawalSpeeds
 from ..types.withdrawal_list_response import WithdrawalListResponse
 from ..types.withdrawal_generate_pdf_response import WithdrawalGeneratePdfResponse
 
@@ -58,6 +59,7 @@ class WithdrawalsResource(SyncAPIResource):
         idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
+        speed: Optional[WithdrawalSpeeds] | Omit = omit,
         statement_descriptor: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -88,6 +90,8 @@ class WithdrawalsResource(SyncAPIResource):
 
           platform_covers_fees: Whether the platform covers the payout fees.
 
+          speed: The different speeds of withdrawals
+
           statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
               characters and contain only alphanumeric characters.
 
@@ -109,6 +113,7 @@ class WithdrawalsResource(SyncAPIResource):
                     "idempotency_key": idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,
+                    "speed": speed,
                     "statement_descriptor": statement_descriptor,
                 },
                 withdrawal_create_params.WithdrawalCreateParams,
@@ -300,6 +305,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
+        speed: Optional[WithdrawalSpeeds] | Omit = omit,
         statement_descriptor: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -330,6 +336,8 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
 
           platform_covers_fees: Whether the platform covers the payout fees.
 
+          speed: The different speeds of withdrawals
+
           statement_descriptor: Custom statement descriptor for the withdrawal. Must be between 5 and 22
               characters and contain only alphanumeric characters.
 
@@ -351,6 +359,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
                     "idempotency_key": idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,
+                    "speed": speed,
                     "statement_descriptor": statement_descriptor,
                 },
                 withdrawal_create_params.WithdrawalCreateParams,

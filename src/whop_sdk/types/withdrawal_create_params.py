@@ -6,6 +6,7 @@ from typing import Optional
 from typing_extensions import Required, TypedDict
 
 from .shared.currency import Currency
+from .withdrawal_speeds import WithdrawalSpeeds
 
 __all__ = ["WithdrawalCreateParams"]
 
@@ -32,6 +33,9 @@ class WithdrawalCreateParams(TypedDict, total=False):
 
     platform_covers_fees: Optional[bool]
     """Whether the platform covers the payout fees."""
+
+    speed: Optional[WithdrawalSpeeds]
+    """The different speeds of withdrawals"""
 
     statement_descriptor: Optional[str]
     """Custom statement descriptor for the withdrawal.
