@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Any, Dict, Union, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import transfer_list_params, transfer_create_params
+from ..types import transfer_list_params, transfer_create_params, transfer_list_recipients_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,16 +21,21 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.currency import Currency
-from ..types.shared.transfer import Transfer
-from ..types.shared.direction import Direction
 from ..types.transfer_list_response import TransferListResponse
+from ..types.transfer_create_response import TransferCreateResponse
+from ..types.transfer_retrieve_response import TransferRetrieveResponse
+from ..types.transfer_list_recipients_response import TransferListRecipientsResponse
 
 __all__ = ["TransfersResource", "AsyncTransfersResource"]
 
 
 class TransfersResource(SyncAPIResource):
-    """Transfers"""
+    """Transfers move value between identities on Whop.
+
+    They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+    Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+    """
 
     @cached_property
     def with_raw_response(self) -> TransfersResourceWithRawResponse:
@@ -55,48 +60,56 @@ class TransfersResource(SyncAPIResource):
         self,
         *,
         amount: float,
-        currency: Currency,
-        destination_id: str,
         origin_id: str,
+        currency: str | Omit = omit,
+        destination_id: str | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         idempotence_key: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         notes: Optional[str] | Omit = omit,
+        redeemable_count: int | Omit = omit,
+        type: Literal["ledger", "wallet_send", "claim_link"] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Transfer:
+    ) -> TransferCreateResponse:
         """
-        Transfer funds between two ledger accounts, such as from a company balance to a
-        user balance.
-
-        Required permissions:
-
-        - `payout:transfer_funds`
+        Moves money between accounts, or into a claim link anyone with the URL can
+        redeem.
 
         Args:
-          amount: The amount to transfer in the specified currency. For example, 25.00 for $25.00
-              USD.
+          amount: The amount to move, in the transfer currency. For example 25.00.
 
-          currency: The currency of the transfer amount, such as 'usd'.
+          origin_id: The account sending the funds. A user ID (user_xxx), account ID (biz_xxx), or
+              ledger account ID (ldgr_xxx).
 
-          destination_id: The identifier of the account receiving the funds. Accepts a user ID
-              ('user_xxx'), company ID ('biz_xxx'), ledger account ID ('ldgr_xxx'), or an
-              email address — emails without an existing Whop user trigger a placeholder-user
-              signup.
+          currency: Currency, such as `usd`. Required for ledger transfers.
 
-          origin_id: The identifier of the account sending the funds. Accepts a user ID ('user_xxx'),
-              company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
+          destination_id: The recipient. Required for ledger and wallet*send (a user*/biz*/ldgr* ID, or —
+              for sends — an email). Omit for claim_link.
 
-          idempotence_key: A unique key to prevent duplicate transfers. Use a UUID or similar unique
-              string.
+          expires_at: claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from
+              creation.
 
-          metadata: A JSON object of custom metadata to attach to the transfer for tracking
-              purposes.
+          idempotence_key: Ledger transfers only. A unique key to prevent duplicate transfers.
 
-          notes: A short note describing the transfer, up to 50 characters.
+          metadata: Ledger transfers only. Custom key-value pairs attached to the transfer. Max 50
+              keys, 100 chars per key, 500 chars per string value.
+
+          notes: Ledger transfers only. A short note describing the transfer.
+
+          redeemable_count: claim_link only. How many different users can claim the link. Defaults to 1.
+
+          type: The kind of money movement, which decides what comes back. Defaults to ledger.
+              `ledger` moves credit between two Whop balances and returns a `transfer`;
+              `wallet_send` sends USDT from the origin account's Ethereum wallet and returns a
+              `send`; `claim_link` funds a shareable link anyone with the URL can redeem and
+              returns a `claim_link`. A `ledger` transfer from a stablecoin-rails account
+              settles on-chain when covered, and still returns a `transfer`.
 
           extra_headers: Send extra headers
 
@@ -106,24 +119,33 @@ class TransfersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/transfers",
-            body=maybe_transform(
-                {
-                    "amount": amount,
-                    "currency": currency,
-                    "destination_id": destination_id,
-                    "origin_id": origin_id,
-                    "idempotence_key": idempotence_key,
-                    "metadata": metadata,
-                    "notes": notes,
-                },
-                transfer_create_params.TransferCreateParams,
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return cast(
+            TransferCreateResponse,
+            self._post(
+                "/transfers",
+                body=maybe_transform(
+                    {
+                        "amount": amount,
+                        "origin_id": origin_id,
+                        "currency": currency,
+                        "destination_id": destination_id,
+                        "expires_at": expires_at,
+                        "idempotence_key": idempotence_key,
+                        "metadata": metadata,
+                        "notes": notes,
+                        "redeemable_count": redeemable_count,
+                        "type": type,
+                    },
+                    transfer_create_params.TransferCreateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, TransferCreateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Transfer,
         )
 
     def retrieve(
@@ -136,13 +158,9 @@ class TransfersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Transfer:
+    ) -> TransferRetrieveResponse:
         """
-        Retrieves the details of an existing transfer.
-
-        Required permissions:
-
-        - `payout:transfer:read`
+        Retrieves a single transfer.
 
         Args:
           extra_headers: Send extra headers
@@ -160,22 +178,22 @@ class TransfersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Transfer,
+            cast_to=TransferRetrieveResponse,
         )
 
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        destination_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["amount", "created_at"]] | Omit = omit,
-        origin_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        destination_id: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "amount"] | Omit = omit,
+        origin_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -184,35 +202,28 @@ class TransfersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[TransferListResponse]:
         """
-        Returns a paginated list of fund transfers, filtered by origin or destination
-        account, with optional sorting and date filtering.
-
-        Required permissions:
-
-        - `payout:transfer:read`
+        Lists an account's transfers.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor to fetch the page after (from page_info.end_cursor).
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          created_after: Only return transfers created after this timestamp.
+          created_after: Only transfers created strictly after this ISO 8601 timestamp.
 
-          created_before: Only return transfers created before this timestamp.
+          created_before: Only transfers created strictly before this ISO 8601 timestamp.
 
-          destination_id: Filter to transfers received by this account. Accepts a user, company, or ledger
-              account ID.
+          destination_id: Filter to transfers received by this account. Provide this or origin_id.
 
-          direction: The direction of the sort.
+          direction: Sort direction. Defaults to desc.
 
-          first: Returns the first _n_ elements from the list.
+          first: Number of transfers to return from the start of the window.
 
-          last: Returns the last _n_ elements from the list.
+          last: Number of transfers to return from the end of the window.
 
-          order: Which columns can be used to sort.
+          order: Sort column. Defaults to created_at.
 
-          origin_id: Filter to transfers sent from this account. Accepts a user, company, or ledger
-              account ID.
+          origin_id: Filter to transfers sent from this account. Provide this or destination_id.
 
           extra_headers: Send extra headers
 
@@ -249,9 +260,75 @@ class TransfersResource(SyncAPIResource):
             model=TransferListResponse,
         )
 
+    def list_recipients(
+        self,
+        *,
+        origin_id: str,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[TransferListRecipientsResponse]:
+        """
+        Lists the people and accounts you can send money to.
+
+        Args:
+          origin_id: The originating account ID, prefixed `biz_`.
+
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          first: Number of recipients per page. Search queries preserve the dashboard's 20-result
+              maximum.
+
+          query: Search users and accounts by name, username, or ID, in the dashboard's relevance
+              order — this additionally requires the member:basic:read scope. Omit it to get
+              the origin account's team members followed by your own other accounts. Complete
+              email addresses return no matches.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/transfers/recipients",
+            page=SyncCursorPage[TransferListRecipientsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "origin_id": origin_id,
+                        "after": after,
+                        "first": first,
+                        "query": query,
+                    },
+                    transfer_list_recipients_params.TransferListRecipientsParams,
+                ),
+            ),
+            model=cast(
+                Any, TransferListRecipientsResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+        )
+
 
 class AsyncTransfersResource(AsyncAPIResource):
-    """Transfers"""
+    """Transfers move value between identities on Whop.
+
+    They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+    Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncTransfersResourceWithRawResponse:
@@ -276,48 +353,56 @@ class AsyncTransfersResource(AsyncAPIResource):
         self,
         *,
         amount: float,
-        currency: Currency,
-        destination_id: str,
         origin_id: str,
+        currency: str | Omit = omit,
+        destination_id: str | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         idempotence_key: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         notes: Optional[str] | Omit = omit,
+        redeemable_count: int | Omit = omit,
+        type: Literal["ledger", "wallet_send", "claim_link"] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Transfer:
+    ) -> TransferCreateResponse:
         """
-        Transfer funds between two ledger accounts, such as from a company balance to a
-        user balance.
-
-        Required permissions:
-
-        - `payout:transfer_funds`
+        Moves money between accounts, or into a claim link anyone with the URL can
+        redeem.
 
         Args:
-          amount: The amount to transfer in the specified currency. For example, 25.00 for $25.00
-              USD.
+          amount: The amount to move, in the transfer currency. For example 25.00.
 
-          currency: The currency of the transfer amount, such as 'usd'.
+          origin_id: The account sending the funds. A user ID (user_xxx), account ID (biz_xxx), or
+              ledger account ID (ldgr_xxx).
 
-          destination_id: The identifier of the account receiving the funds. Accepts a user ID
-              ('user_xxx'), company ID ('biz_xxx'), ledger account ID ('ldgr_xxx'), or an
-              email address — emails without an existing Whop user trigger a placeholder-user
-              signup.
+          currency: Currency, such as `usd`. Required for ledger transfers.
 
-          origin_id: The identifier of the account sending the funds. Accepts a user ID ('user_xxx'),
-              company ID ('biz_xxx'), or ledger account ID ('ldgr_xxx').
+          destination_id: The recipient. Required for ledger and wallet*send (a user*/biz*/ldgr* ID, or —
+              for sends — an email). Omit for claim_link.
 
-          idempotence_key: A unique key to prevent duplicate transfers. Use a UUID or similar unique
-              string.
+          expires_at: claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from
+              creation.
 
-          metadata: A JSON object of custom metadata to attach to the transfer for tracking
-              purposes.
+          idempotence_key: Ledger transfers only. A unique key to prevent duplicate transfers.
 
-          notes: A short note describing the transfer, up to 50 characters.
+          metadata: Ledger transfers only. Custom key-value pairs attached to the transfer. Max 50
+              keys, 100 chars per key, 500 chars per string value.
+
+          notes: Ledger transfers only. A short note describing the transfer.
+
+          redeemable_count: claim_link only. How many different users can claim the link. Defaults to 1.
+
+          type: The kind of money movement, which decides what comes back. Defaults to ledger.
+              `ledger` moves credit between two Whop balances and returns a `transfer`;
+              `wallet_send` sends USDT from the origin account's Ethereum wallet and returns a
+              `send`; `claim_link` funds a shareable link anyone with the URL can redeem and
+              returns a `claim_link`. A `ledger` transfer from a stablecoin-rails account
+              settles on-chain when covered, and still returns a `transfer`.
 
           extra_headers: Send extra headers
 
@@ -327,24 +412,33 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/transfers",
-            body=await async_maybe_transform(
-                {
-                    "amount": amount,
-                    "currency": currency,
-                    "destination_id": destination_id,
-                    "origin_id": origin_id,
-                    "idempotence_key": idempotence_key,
-                    "metadata": metadata,
-                    "notes": notes,
-                },
-                transfer_create_params.TransferCreateParams,
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return cast(
+            TransferCreateResponse,
+            await self._post(
+                "/transfers",
+                body=await async_maybe_transform(
+                    {
+                        "amount": amount,
+                        "origin_id": origin_id,
+                        "currency": currency,
+                        "destination_id": destination_id,
+                        "expires_at": expires_at,
+                        "idempotence_key": idempotence_key,
+                        "metadata": metadata,
+                        "notes": notes,
+                        "redeemable_count": redeemable_count,
+                        "type": type,
+                    },
+                    transfer_create_params.TransferCreateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, TransferCreateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Transfer,
         )
 
     async def retrieve(
@@ -357,13 +451,9 @@ class AsyncTransfersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Transfer:
+    ) -> TransferRetrieveResponse:
         """
-        Retrieves the details of an existing transfer.
-
-        Required permissions:
-
-        - `payout:transfer:read`
+        Retrieves a single transfer.
 
         Args:
           extra_headers: Send extra headers
@@ -381,22 +471,22 @@ class AsyncTransfersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Transfer,
+            cast_to=TransferRetrieveResponse,
         )
 
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        destination_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["amount", "created_at"]] | Omit = omit,
-        origin_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        destination_id: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "amount"] | Omit = omit,
+        origin_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -405,35 +495,28 @@ class AsyncTransfersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[TransferListResponse, AsyncCursorPage[TransferListResponse]]:
         """
-        Returns a paginated list of fund transfers, filtered by origin or destination
-        account, with optional sorting and date filtering.
-
-        Required permissions:
-
-        - `payout:transfer:read`
+        Lists an account's transfers.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor to fetch the page after (from page_info.end_cursor).
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: Cursor to fetch the page before (from page_info.start_cursor).
 
-          created_after: Only return transfers created after this timestamp.
+          created_after: Only transfers created strictly after this ISO 8601 timestamp.
 
-          created_before: Only return transfers created before this timestamp.
+          created_before: Only transfers created strictly before this ISO 8601 timestamp.
 
-          destination_id: Filter to transfers received by this account. Accepts a user, company, or ledger
-              account ID.
+          destination_id: Filter to transfers received by this account. Provide this or origin_id.
 
-          direction: The direction of the sort.
+          direction: Sort direction. Defaults to desc.
 
-          first: Returns the first _n_ elements from the list.
+          first: Number of transfers to return from the start of the window.
 
-          last: Returns the last _n_ elements from the list.
+          last: Number of transfers to return from the end of the window.
 
-          order: Which columns can be used to sort.
+          order: Sort column. Defaults to created_at.
 
-          origin_id: Filter to transfers sent from this account. Accepts a user, company, or ledger
-              account ID.
+          origin_id: Filter to transfers sent from this account. Provide this or destination_id.
 
           extra_headers: Send extra headers
 
@@ -470,6 +553,67 @@ class AsyncTransfersResource(AsyncAPIResource):
             model=TransferListResponse,
         )
 
+    def list_recipients(
+        self,
+        *,
+        origin_id: str,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        query: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[TransferListRecipientsResponse, AsyncCursorPage[TransferListRecipientsResponse]]:
+        """
+        Lists the people and accounts you can send money to.
+
+        Args:
+          origin_id: The originating account ID, prefixed `biz_`.
+
+          after: Cursor to fetch the page after (from page_info.end_cursor).
+
+          first: Number of recipients per page. Search queries preserve the dashboard's 20-result
+              maximum.
+
+          query: Search users and accounts by name, username, or ID, in the dashboard's relevance
+              order — this additionally requires the member:basic:read scope. Omit it to get
+              the origin account's team members followed by your own other accounts. Complete
+              email addresses return no matches.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/transfers/recipients",
+            page=AsyncCursorPage[TransferListRecipientsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "origin_id": origin_id,
+                        "after": after,
+                        "first": first,
+                        "query": query,
+                    },
+                    transfer_list_recipients_params.TransferListRecipientsParams,
+                ),
+            ),
+            model=cast(
+                Any, TransferListRecipientsResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+        )
+
 
 class TransfersResourceWithRawResponse:
     def __init__(self, transfers: TransfersResource) -> None:
@@ -483,6 +627,9 @@ class TransfersResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             transfers.list,
+        )
+        self.list_recipients = to_raw_response_wrapper(
+            transfers.list_recipients,
         )
 
 
@@ -499,6 +646,9 @@ class AsyncTransfersResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             transfers.list,
         )
+        self.list_recipients = async_to_raw_response_wrapper(
+            transfers.list_recipients,
+        )
 
 
 class TransfersResourceWithStreamingResponse:
@@ -514,6 +664,9 @@ class TransfersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             transfers.list,
         )
+        self.list_recipients = to_streamed_response_wrapper(
+            transfers.list_recipients,
+        )
 
 
 class AsyncTransfersResourceWithStreamingResponse:
@@ -528,4 +681,7 @@ class AsyncTransfersResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             transfers.list,
+        )
+        self.list_recipients = async_to_streamed_response_wrapper(
+            transfers.list_recipients,
         )
