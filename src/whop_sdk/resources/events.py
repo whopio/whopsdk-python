@@ -425,21 +425,22 @@ class EventsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventPulseResponse:
         """
-        Returns a fully anonymized feed of recent platform-wide purchases, most recent
-        first. This is the events resource's anonymized read mode: items mirror the
-        event shape but carry only an event name, a USD amount, a coarse location under
-        `user`, and a timestamp coarsened to the start of the minute; missing fields are
-        omitted, not nulled. The payload is identical for every caller; no auth is
-        required.
+        Returns a fully anonymized feed of recent platform-wide money movement, most
+        recent first: purchases, payouts, withdrawals, card and ad spend, app revenue,
+        and off-platform sales. Items carry only a `type`, the underlying event name, a
+        USD amount, a coarse location under `user`, and a timestamp coarsened to the
+        start of the minute; missing fields are omitted, not nulled. The payload is
+        identical for every caller; no auth is required.
 
         Args:
           after: A cursor for fetching events after a previous page.
 
           before: A cursor for fetching events before a later page.
 
-          event: Filter to one or more event names, comma separated — for example
-              `bounty.payout.completed,affiliate.payout.completed`. Omit for every event in
-              the feed. Names outside the feed's own set are rejected.
+          event: Filter to one or more types, comma separated — for example
+              `withdrawal,card_spend`. These are the item's `type`, not its `event_name`:
+              several types share the `ledger_line.created` event name. Omit for every type in
+              the feed. Values outside the feed's own set are rejected.
 
           first: The number of events to return.
 
@@ -922,21 +923,22 @@ class AsyncEventsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventPulseResponse:
         """
-        Returns a fully anonymized feed of recent platform-wide purchases, most recent
-        first. This is the events resource's anonymized read mode: items mirror the
-        event shape but carry only an event name, a USD amount, a coarse location under
-        `user`, and a timestamp coarsened to the start of the minute; missing fields are
-        omitted, not nulled. The payload is identical for every caller; no auth is
-        required.
+        Returns a fully anonymized feed of recent platform-wide money movement, most
+        recent first: purchases, payouts, withdrawals, card and ad spend, app revenue,
+        and off-platform sales. Items carry only a `type`, the underlying event name, a
+        USD amount, a coarse location under `user`, and a timestamp coarsened to the
+        start of the minute; missing fields are omitted, not nulled. The payload is
+        identical for every caller; no auth is required.
 
         Args:
           after: A cursor for fetching events after a previous page.
 
           before: A cursor for fetching events before a later page.
 
-          event: Filter to one or more event names, comma separated — for example
-              `bounty.payout.completed,affiliate.payout.completed`. Omit for every event in
-              the feed. Names outside the feed's own set are rejected.
+          event: Filter to one or more types, comma separated — for example
+              `withdrawal,card_spend`. These are the item's `type`, not its `event_name`:
+              several types share the `ledger_line.created` event name. Omit for every type in
+              the feed. Values outside the feed's own set are rejected.
 
           first: The number of events to return.
 

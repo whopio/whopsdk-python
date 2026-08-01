@@ -16,9 +16,10 @@ class EventPulseParams(TypedDict, total=False):
 
     event: str
     """
-    Filter to one or more event names, comma separated — for example
-    `bounty.payout.completed,affiliate.payout.completed`. Omit for every event in
-    the feed. Names outside the feed's own set are rejected.
+    Filter to one or more types, comma separated — for example
+    `withdrawal,card_spend`. These are the item's `type`, not its `event_name`:
+    several types share the `ledger_line.created` event name. Omit for every type in
+    the feed. Values outside the feed's own set are rejected.
     """
 
     first: int
