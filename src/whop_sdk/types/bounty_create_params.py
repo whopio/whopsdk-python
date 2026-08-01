@@ -53,11 +53,7 @@ class BountyCreateParams(TypedDict, total=False):
         "data_capture",
         "other",
     ]
-    """What the poster wants the work to achieve.
-
-    Declare the goal once here; the server derives `accepted_deliverable_types` from
-    it, and each submission reports which shape it used as `deliverable_type`.
-    """
+    """What the poster wants the work to achieve, declared once here."""
 
     capture_spec: CaptureSpec
     """Per-bounty overrides of the served capture contract.

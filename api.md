@@ -1495,7 +1495,7 @@ Methods:
 - <code title="get /bounty_submissions/{bounty_submission_id}">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">retrieve</a>(bounty_submission_id) -> <a href="./src/whop_sdk/types/bounty_submission.py">BountySubmission</a></code>
 - <code title="get /bounty_submissions">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_submission_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_submission.py">SyncCursorPage[BountySubmission]</a></code>
 - <code title="delete /bounty_submissions/{bounty_submission_id}">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">delete</a>(bounty_submission_id) -> <a href="./src/whop_sdk/types/bounty_submission_delete_response.py">BountySubmissionDeleteResponse</a></code>
-- <code title="post /bounty_submissions/{bounty_submission_id}/submit">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">submit</a>(bounty_submission_id) -> <a href="./src/whop_sdk/types/bounty_submission.py">BountySubmission</a></code>
+- <code title="post /bounty_submissions/{bounty_submission_id}/submit">client.bounty_submissions.<a href="./src/whop_sdk/resources/bounty_submissions.py">submit</a>(bounty_submission_id, \*\*<a href="src/whop_sdk/types/bounty_submission_submit_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_submission.py">BountySubmission</a></code>
 
 # AdCampaigns
 

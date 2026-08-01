@@ -36,9 +36,9 @@ class TestBountySubmissions:
             bounty_id="bounty_id",
             affiliate_code="affiliate_code",
             deliverable={
-                "type": "content_url",
                 "caption": "caption",
                 "file_ids": ["string"],
+                "type": "content_url",
                 "urls": ["string"],
             },
             metadata={
@@ -223,6 +223,11 @@ class TestBountySubmissions:
     def test_method_submit_with_all_params(self, client: Whop) -> None:
         bounty_submission = client.bounty_submissions.submit(
             bounty_submission_id="bounty_submission_id",
+            deliverable={
+                "caption": "caption",
+                "file_ids": ["string"],
+                "urls": ["string"],
+            },
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])
@@ -282,9 +287,9 @@ class TestAsyncBountySubmissions:
             bounty_id="bounty_id",
             affiliate_code="affiliate_code",
             deliverable={
-                "type": "content_url",
                 "caption": "caption",
                 "file_ids": ["string"],
+                "type": "content_url",
                 "urls": ["string"],
             },
             metadata={
@@ -469,6 +474,11 @@ class TestAsyncBountySubmissions:
     async def test_method_submit_with_all_params(self, async_client: AsyncWhop) -> None:
         bounty_submission = await async_client.bounty_submissions.submit(
             bounty_submission_id="bounty_submission_id",
+            deliverable={
+                "caption": "caption",
+                "file_ids": ["string"],
+                "urls": ["string"],
+            },
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])

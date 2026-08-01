@@ -108,9 +108,7 @@ class BountiesResource(SyncAPIResource):
           allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
               means worldwide.
 
-          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
-              server derives `accepted_deliverable_types` from it, and each submission reports
-              which shape it used as `deliverable_type`.
+          business_goal_type: What the poster wants the work to achieve, declared once here.
 
           capture_spec: Per-bounty overrides of the served capture contract. Only accepted when
               `business_goal_type` is `data_capture`; omitted fields keep the platform
@@ -240,9 +238,7 @@ class BountiesResource(SyncAPIResource):
           allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
               codes. Empty means worldwide.
 
-          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
-              server derives `accepted_deliverable_types` from it, and each submission reports
-              which shape it used as `deliverable_type`.
+          business_goal_type: What the poster wants the work to achieve, declared once here.
 
           description: New full task instructions.
 
@@ -504,9 +500,7 @@ class AsyncBountiesResource(AsyncAPIResource):
           allowed_country_codes: Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes. Empty
               means worldwide.
 
-          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
-              server derives `accepted_deliverable_types` from it, and each submission reports
-              which shape it used as `deliverable_type`.
+          business_goal_type: What the poster wants the work to achieve, declared once here.
 
           capture_spec: Per-bounty overrides of the served capture contract. Only accepted when
               `business_goal_type` is `data_capture`; omitted fields keep the platform
@@ -636,9 +630,7 @@ class AsyncBountiesResource(AsyncAPIResource):
           allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
               codes. Empty means worldwide.
 
-          business_goal_type: What the poster wants the work to achieve. Declare the goal once here; the
-              server derives `accepted_deliverable_types` from it, and each submission reports
-              which shape it used as `deliverable_type`.
+          business_goal_type: What the poster wants the work to achieve, declared once here.
 
           description: New full task instructions.
 

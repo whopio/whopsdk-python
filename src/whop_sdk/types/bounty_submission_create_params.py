@@ -19,7 +19,11 @@ class BountySubmissionCreateParams(TypedDict, total=False):
     """Affiliate code crediting the referrer, when the worker arrived through one."""
 
     deliverable: Optional[Deliverable]
-    """The submitted work, matching one of the bounty's accepted deliverable types."""
+    """The submitted work.
+
+    Combine `urls`, `file_ids`, and `caption` freely; at least one link or file is
+    required.
+    """
 
     metadata: Optional[Metadata]
     """Optional capture metadata describing where and how the footage was recorded.
@@ -32,19 +36,28 @@ class BountySubmissionCreateParams(TypedDict, total=False):
 
 
 class Deliverable(TypedDict, total=False):
-    """The submitted work, matching one of the bounty's accepted deliverable types."""
+    """The submitted work.
 
-    type: Required[Literal["content_url", "media", "data_capture"]]
-    """Deliverable shape. Must be accepted by the bounty's goal type."""
+    Combine `urls`, `file_ids`, and `caption` freely; at least one link or file is required.
+    """
 
     caption: Optional[str]
-    """Optional written context shown to reviewers."""
+    """Written context shown to reviewers alongside the work."""
 
     file_ids: SequenceNotStr[str]
-    """Uploaded file IDs. Required when `type` is `media`."""
+    """IDs of uploaded files attached as work, up to 10, each prefixed `file_`.
+
+    Combinable with `urls` and `caption`.
+    """
+
+    type: Optional[Literal["content_url", "media"]]
+    """Legacy shape selector; no longer selects anything.
+
+    When present it must name an inline shape (`content_url` or `media`).
+    """
 
     urls: SequenceNotStr[str]
-    """The posted content links, up to 10. Required when `type` is `content_url`."""
+    """Links to the posted work, up to 10. Combinable with `file_ids` and `caption`."""
 
 
 class Metadata(TypedDict, total=False):

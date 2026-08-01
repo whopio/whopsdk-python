@@ -86,9 +86,7 @@ class BountyListItem(BaseModel):
     ] = None
     """What the poster wants the work to achieve, declared once at create.
 
-    The server derives `accepted_deliverable_types` from it; posters never set
-    deliverable types directly. `null` for bounties created before the taxonomy
-    rolled out.
+    `null` for bounties created before the taxonomy rolled out.
     """
 
     cancel_requested_at: Optional[str] = None

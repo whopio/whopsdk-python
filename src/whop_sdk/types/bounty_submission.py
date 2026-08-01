@@ -6,7 +6,29 @@ from typing_extensions import Literal
 from .._models import BaseModel
 from .bounty_capture_clip import BountyCaptureClip
 
-__all__ = ["BountySubmission", "Worker", "WorkerProfilePicture"]
+__all__ = ["BountySubmission", "File", "Worker", "WorkerProfilePicture"]
+
+
+class File(BaseModel):
+    """Files uploaded as part of the work, in upload order.
+
+    Empty when the submission has none.
+    """
+
+    id: str
+    """File ID, prefixed `file_`."""
+
+    attachment_type: Optional[Literal["image", "video", "audio", "other"]] = None
+    """Broad kind of file."""
+
+    content_type: Optional[str] = None
+    """MIME type of the file."""
+
+    filename: Optional[str] = None
+    """Name the file was uploaded with."""
+
+    url: Optional[str] = None
+    """Temporary download URL for the file."""
 
 
 class WorkerProfilePicture(BaseModel):
@@ -86,11 +108,11 @@ class BountySubmission(BaseModel):
     """When the submission was created, as an ISO 8601 timestamp."""
 
     deliverable_type: Optional[Literal["content_url", "media", "data_capture"]] = None
-    """Which of the bounty's `accepted_deliverable_types` this submission used.
-
-    Branch on it to read the work: `content_url` and `media` carry
-    `deliverable_urls`; `data_capture` carries `capture_clips`. `null` on
-    submissions authored before deliverable types existed.
+    """
+    How the work arrived when it came in through the API in one shot, informational
+    only — read the work from `deliverable_urls`, `files`, and `capture_clips`
+    directly. `null` for submissions whose proof is a livestream recording,
+    including ones that attached links or files on submit.
     """
 
     deliverable_urls: Optional[List[str]] = None
@@ -106,6 +128,8 @@ class BountySubmission(BaseModel):
 
     `null` unless capture metadata was provided.
     """
+
+    files: List[File]
 
     fov: Optional[int] = None
     """Capture metadata: horizontal field of view in degrees.

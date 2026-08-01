@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import bounty_submission_list_params, bounty_submission_create_params
+from ..types import bounty_submission_list_params, bounty_submission_create_params, bounty_submission_submit_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -70,19 +70,21 @@ class BountySubmissionsResource(SyncAPIResource):
     ) -> BountySubmission:
         """Creates a submission on a workforce bounty.
 
-        For `content_url` and `media`
-        bounties, include the matching `deliverable` payload and the submission goes
-        straight to review — create is the only step. For `data_capture` bounties, omit
-        the deliverable: this starts a claimed attempt whose proof accumulates
-        server-side, and the separate submit endpoint sends it to review once complete.
-        Requires a user credential — account API keys cannot author submissions.
+        Include a `deliverable` payload —
+        any combination of links and uploaded files, with at least one of the two — and
+        the submission goes straight to review; create is the only step. For
+        `data_capture` bounties, omit the deliverable: this starts a claimed attempt
+        whose proof accumulates server-side, and the separate submit endpoint sends it
+        to review once complete. Requires a user credential — account API keys cannot
+        author submissions.
 
         Args:
           bounty_id: The bounty to submit to (`bnty_` tag).
 
           affiliate_code: Affiliate code crediting the referrer, when the worker arrived through one.
 
-          deliverable: The submitted work, matching one of the bounty's accepted deliverable types.
+          deliverable: The submitted work. Combine `urls`, `file_ids`, and `caption` freely; at least
+              one link or file is required.
 
           metadata: Optional capture metadata describing where and how the footage was recorded.
               Persisted on the submission. On a `data_capture` bounty every field except `fov`
@@ -277,6 +279,7 @@ class BountySubmissionsResource(SyncAPIResource):
         self,
         bounty_submission_id: str,
         *,
+        deliverable: Optional[bounty_submission_submit_params.Deliverable] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -285,13 +288,19 @@ class BountySubmissionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BountySubmission:
-        """
-        Submits a claimed attempt for review once its server-accumulated proof is ready.
-        A data capture attempt needs enough validated clip time to meet the bounty's
-        required capture duration. Only the worker who started the attempt can submit it
-        — account API keys cannot.
+        """Submits a claimed attempt for review.
+
+        A livestream attempt needs an ended proof
+        stream and can attach an optional `deliverable` — links, files, and a caption in
+        any combination; if the attempt already went to review when its stream ended,
+        the payload attaches to it once, until reviewers start voting. A data capture
+        attempt instead needs enough validated clip time and takes no payload. Only the
+        worker who started the attempt can submit it — account API keys cannot.
 
         Args:
+          deliverable: Work to attach to the submission. Combine `urls`, `file_ids`, and `caption`
+              freely; all are optional.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -308,6 +317,9 @@ class BountySubmissionsResource(SyncAPIResource):
         return self._post(
             path_template(
                 "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
+            ),
+            body=maybe_transform(
+                {"deliverable": deliverable}, bounty_submission_submit_params.BountySubmissionSubmitParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -360,19 +372,21 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
     ) -> BountySubmission:
         """Creates a submission on a workforce bounty.
 
-        For `content_url` and `media`
-        bounties, include the matching `deliverable` payload and the submission goes
-        straight to review — create is the only step. For `data_capture` bounties, omit
-        the deliverable: this starts a claimed attempt whose proof accumulates
-        server-side, and the separate submit endpoint sends it to review once complete.
-        Requires a user credential — account API keys cannot author submissions.
+        Include a `deliverable` payload —
+        any combination of links and uploaded files, with at least one of the two — and
+        the submission goes straight to review; create is the only step. For
+        `data_capture` bounties, omit the deliverable: this starts a claimed attempt
+        whose proof accumulates server-side, and the separate submit endpoint sends it
+        to review once complete. Requires a user credential — account API keys cannot
+        author submissions.
 
         Args:
           bounty_id: The bounty to submit to (`bnty_` tag).
 
           affiliate_code: Affiliate code crediting the referrer, when the worker arrived through one.
 
-          deliverable: The submitted work, matching one of the bounty's accepted deliverable types.
+          deliverable: The submitted work. Combine `urls`, `file_ids`, and `caption` freely; at least
+              one link or file is required.
 
           metadata: Optional capture metadata describing where and how the footage was recorded.
               Persisted on the submission. On a `data_capture` bounty every field except `fov`
@@ -567,6 +581,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         self,
         bounty_submission_id: str,
         *,
+        deliverable: Optional[bounty_submission_submit_params.Deliverable] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -575,13 +590,19 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BountySubmission:
-        """
-        Submits a claimed attempt for review once its server-accumulated proof is ready.
-        A data capture attempt needs enough validated clip time to meet the bounty's
-        required capture duration. Only the worker who started the attempt can submit it
-        — account API keys cannot.
+        """Submits a claimed attempt for review.
+
+        A livestream attempt needs an ended proof
+        stream and can attach an optional `deliverable` — links, files, and a caption in
+        any combination; if the attempt already went to review when its stream ended,
+        the payload attaches to it once, until reviewers start voting. A data capture
+        attempt instead needs enough validated clip time and takes no payload. Only the
+        worker who started the attempt can submit it — account API keys cannot.
 
         Args:
+          deliverable: Work to attach to the submission. Combine `urls`, `file_ids`, and `caption`
+              freely; all are optional.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -598,6 +619,9 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         return await self._post(
             path_template(
                 "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
+            ),
+            body=await async_maybe_transform(
+                {"deliverable": deliverable}, bounty_submission_submit_params.BountySubmissionSubmitParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
