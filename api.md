@@ -1007,6 +1007,18 @@ Methods:
 - <code title="get /accounts/{account_id}/preferences">client.accounts.preferences.<a href="./src/whop_sdk/resources/accounts/preferences.py">retrieve</a>(account_id) -> <a href="./src/whop_sdk/types/accounts/preference_retrieve_response.py">PreferenceRetrieveResponse</a></code>
 - <code title="patch /accounts/{account_id}/preferences">client.accounts.preferences.<a href="./src/whop_sdk/resources/accounts/preferences.py">update</a>(account_id, \*\*<a href="src/whop_sdk/types/accounts/preference_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/accounts/preference_update_response.py">PreferenceUpdateResponse</a></code>
 
+## Reserves
+
+Types:
+
+```python
+from whop_sdk.types.accounts import AccountReserve, ReserveListResponse
+```
+
+Methods:
+
+- <code title="get /accounts/{account_id}/reserves">client.accounts.reserves.<a href="./src/whop_sdk/resources/accounts/reserves.py">list</a>(account_id) -> <a href="./src/whop_sdk/types/accounts/reserve_list_response.py">ReserveListResponse</a></code>
+
 # FinancialActivity
 
 Types:

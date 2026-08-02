@@ -11,6 +11,8 @@ from .account_social_link import AccountSocialLink
 __all__ = [
     "Account",
     "Balance",
+    "BalanceBreakdown",
+    "BalanceBreakdownPendingSettlement",
     "Capabilities",
     "Cards",
     "CompanyFormation",
@@ -33,17 +35,57 @@ __all__ = [
 ]
 
 
+class BalanceBreakdownPendingSettlement(BaseModel):
+    """When the pending amount is expected to settle, one entry per day, earliest first.
+
+    Money with no scheduled settlement day, such as a transfer in flight, is left out — so these can sum to less than `pending`, never more.
+    """
+
+    amount: str
+    """Amount expected that day, in native units, as a decimal string."""
+
+    date: str
+    """The day this money is expected to finish settling, as an ISO 8601 date."""
+
+
+class BalanceBreakdown(BaseModel):
+    """
+    Balance split into available, pending, and reserve amounts, as native-unit decimal strings, with the days the pending amount is expected to settle. On-chain crypto is entirely available; good_funds and fiat cash can have pending or reserve portions.
+    """
+
+    available: str
+    """
+    Amount you can spend, send, or withdraw now, in native units, as a decimal
+    string.
+    """
+
+    pending: str
+    """
+    Amount from recent payments still settling, in native units, as a decimal
+    string.
+    """
+
+    pending_settlements: List[BalanceBreakdownPendingSettlement]
+
+    reserve: str
+    """Amount held back, in native units, as a decimal string.
+
+    Retrieve the account's reserves for why it is held and when it unlocks.
+    """
+
+
 class Balance(BaseModel):
     """Account holdings, each with USD value. Empty when `total_usd` is `null`."""
 
     balance: str
     """Total amount held in native units, as a decimal string."""
 
-    breakdown: object
+    breakdown: BalanceBreakdown
     """
     Balance split into available, pending, and reserve amounts, as native-unit
-    decimal strings. On-chain crypto is entirely available; good_funds and fiat cash
-    can have pending or reserve portions.
+    decimal strings, with the days the pending amount is expected to settle.
+    On-chain crypto is entirely available; good_funds and fiat cash can have pending
+    or reserve portions.
     """
 
     icon_url: Optional[str] = None
