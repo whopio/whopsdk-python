@@ -38,7 +38,12 @@ class TransferCreateParams(TypedDict, total=False):
     """
 
     idempotence_key: Optional[str]
-    """Ledger transfers only. A unique key to prevent duplicate transfers."""
+    """Ledger transfers and wallet sends.
+
+    A unique key that makes retries safe. Retrying with the same key returns the
+    original transfer, or attaches to the original wallet send, instead of moving
+    money twice.
+    """
 
     metadata: Optional[Dict[str, object]]
     """Ledger transfers only.

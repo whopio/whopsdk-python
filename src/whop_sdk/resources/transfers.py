@@ -95,7 +95,9 @@ class TransfersResource(SyncAPIResource):
           expires_at: claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from
               creation.
 
-          idempotence_key: Ledger transfers only. A unique key to prevent duplicate transfers.
+          idempotence_key: Ledger transfers and wallet sends. A unique key that makes retries safe.
+              Retrying with the same key returns the original transfer, or attaches to the
+              original wallet send, instead of moving money twice.
 
           metadata: Ledger transfers only. Custom key-value pairs attached to the transfer. Max 50
               keys, 100 chars per key, 500 chars per string value.
@@ -388,7 +390,9 @@ class AsyncTransfersResource(AsyncAPIResource):
           expires_at: claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from
               creation.
 
-          idempotence_key: Ledger transfers only. A unique key to prevent duplicate transfers.
+          idempotence_key: Ledger transfers and wallet sends. A unique key that makes retries safe.
+              Retrying with the same key returns the original transfer, or attaches to the
+              original wallet send, instead of moving money twice.
 
           metadata: Ledger transfers only. Custom key-value pairs attached to the transfer. Max 50
               keys, 100 chars per key, 500 chars per string value.
