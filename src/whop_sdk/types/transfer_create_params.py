@@ -2,50 +2,71 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Required, TypedDict
+from typing import Dict, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
-from .shared.currency import Currency
+from .._utils import PropertyInfo
 
 __all__ = ["TransferCreateParams"]
 
 
 class TransferCreateParams(TypedDict, total=False):
     amount: Required[float]
-    """The amount to transfer in the specified currency.
-
-    For example, 25.00 for $25.00 USD.
-    """
-
-    currency: Required[Currency]
-    """The currency of the transfer amount, such as 'usd'."""
-
-    destination_id: Required[str]
-    """The identifier of the account receiving the funds.
-
-    Accepts a user ID ('user_xxx'), company ID ('biz_xxx'), ledger account ID
-    ('ldgr_xxx'), or an email address — emails without an existing Whop user trigger
-    a placeholder-user signup.
-    """
+    """The amount to move, in the transfer currency. For example 25.00."""
 
     origin_id: Required[str]
-    """The identifier of the account sending the funds.
+    """The account sending the funds.
 
-    Accepts a user ID ('user_xxx'), company ID ('biz_xxx'), or ledger account ID
-    ('ldgr_xxx').
+    A user ID (user_xxx), account ID (biz_xxx), or ledger account ID (ldgr_xxx).
+    """
+
+    currency: str
+    """Currency, such as `usd`. Required for ledger transfers."""
+
+    destination_id: str
+    """The recipient.
+
+    Required for ledger and wallet*send (a user*/biz*/ldgr* ID, or — for sends — an
+    email). Omit for claim_link.
+    """
+
+    expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """claim_link only.
+
+    Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from creation.
     """
 
     idempotence_key: Optional[str]
-    """A unique key to prevent duplicate transfers.
+    """Ledger transfers and wallet sends.
 
-    Use a UUID or similar unique string.
+    A unique key that makes retries safe. Retrying with the same key returns the
+    original transfer, or attaches to the original wallet send, instead of moving
+    money twice.
     """
 
     metadata: Optional[Dict[str, object]]
-    """
-    A JSON object of custom metadata to attach to the transfer for tracking
-    purposes.
+    """Ledger transfers only.
+
+    Custom key-value pairs attached to the transfer. Max 50 keys, 100 chars per key,
+    500 chars per string value.
     """
 
     notes: Optional[str]
-    """A short note describing the transfer, up to 50 characters."""
+    """Ledger transfers only. A short note describing the transfer."""
+
+    redeemable_count: int
+    """claim_link only. How many different users can claim the link. Defaults to 1."""
+
+    type: Literal["ledger", "wallet_send", "claim_link"]
+    """The kind of money movement, which decides what comes back.
+
+    Defaults to ledger. `ledger` moves credit between two Whop balances and returns
+    a `transfer`; `wallet_send` sends USDT from the origin account's Ethereum wallet
+    and returns a `send`; `claim_link` funds a shareable link anyone with the URL
+    can redeem and returns a `claim_link`. A `ledger` transfer from a
+    stablecoin-rails account settles on-chain when covered, and still returns a
+    `transfer`.
+    """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
