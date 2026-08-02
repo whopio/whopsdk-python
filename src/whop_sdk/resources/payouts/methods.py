@@ -30,7 +30,7 @@ class MethodsResource(SyncAPIResource):
     """
     Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+    Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
@@ -217,7 +217,7 @@ class AsyncMethodsResource(AsyncAPIResource):
     """
     Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to create payouts from stablecoin accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+    Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
