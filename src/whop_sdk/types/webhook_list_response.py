@@ -33,6 +33,20 @@ class WebhookListResponse(BaseModel):
     created_at: str
     """When the webhook was created, as an ISO 8601 timestamp."""
 
+    disabled_at: Optional[str] = None
+    """When Whop automatically disabled this webhook, as an ISO 8601 timestamp.
+
+    `null` unless the webhook was disabled by Whop; a webhook you disabled yourself
+    has `enabled: false` and a `null` `disabled_at`.
+    """
+
+    disabled_reason: Optional[Literal["delivery_failures"]] = None
+    """Why Whop disabled this webhook.
+
+    `delivery_failures` means every delivery failed for 3 days straight. `null` when
+    `disabled_at` is `null`.
+    """
+
     enabled: bool
     """Whether this webhook endpoint is currently active and receiving events."""
 
@@ -115,6 +129,12 @@ class WebhookListResponse(BaseModel):
             "app_membership.cancel_at_period_end_changed",
         ]
     ]
+
+    last_failure_at: Optional[str] = None
+    """
+    When a delivery to this endpoint most recently failed after exhausting retries,
+    as an ISO 8601 timestamp. `null` if no delivery has ever failed.
+    """
 
     resource_id: str
     """ID of the resource (account or app) this webhook is attached to."""

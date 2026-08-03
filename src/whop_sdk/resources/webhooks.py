@@ -444,6 +444,8 @@ class WebhooksResource(SyncAPIResource):
         app_id: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
+        has_failures: bool | Omit = omit,
+        include_app_webhooks: bool | Omit = omit,
         last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -467,6 +469,13 @@ class WebhooksResource(SyncAPIResource):
           before: A cursor; returns webhooks before this position.
 
           first: The number of webhooks to return (default 20, max 100).
+
+          has_failures: Only return webhooks whose endpoint is currently failing — every delivery since
+              the current failure streak began has been rejected. Clears as soon as a delivery
+              succeeds.
+
+          include_app_webhooks: Also return webhooks attached to the account's apps, not just the account's own.
+              Cannot be combined with `app_id`.
 
           last: The number of webhooks to return from the end of the range.
 
@@ -493,6 +502,8 @@ class WebhooksResource(SyncAPIResource):
                         "app_id": app_id,
                         "before": before,
                         "first": first,
+                        "has_failures": has_failures,
+                        "include_app_webhooks": include_app_webhooks,
                         "last": last,
                     },
                     webhook_list_params.WebhookListParams,
@@ -1061,6 +1072,8 @@ class AsyncWebhooksResource(AsyncAPIResource):
         app_id: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
+        has_failures: bool | Omit = omit,
+        include_app_webhooks: bool | Omit = omit,
         last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1084,6 +1097,13 @@ class AsyncWebhooksResource(AsyncAPIResource):
           before: A cursor; returns webhooks before this position.
 
           first: The number of webhooks to return (default 20, max 100).
+
+          has_failures: Only return webhooks whose endpoint is currently failing — every delivery since
+              the current failure streak began has been rejected. Clears as soon as a delivery
+              succeeds.
+
+          include_app_webhooks: Also return webhooks attached to the account's apps, not just the account's own.
+              Cannot be combined with `app_id`.
 
           last: The number of webhooks to return from the end of the range.
 
@@ -1110,6 +1130,8 @@ class AsyncWebhooksResource(AsyncAPIResource):
                         "app_id": app_id,
                         "before": before,
                         "first": first,
+                        "has_failures": has_failures,
+                        "include_app_webhooks": include_app_webhooks,
                         "last": last,
                     },
                     webhook_list_params.WebhookListParams,

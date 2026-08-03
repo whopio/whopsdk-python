@@ -26,5 +26,18 @@ class WebhookListParams(TypedDict, total=False):
     first: int
     """The number of webhooks to return (default 20, max 100)."""
 
+    has_failures: bool
+    """
+    Only return webhooks whose endpoint is currently failing — every delivery since
+    the current failure streak began has been rejected. Clears as soon as a delivery
+    succeeds.
+    """
+
+    include_app_webhooks: bool
+    """Also return webhooks attached to the account's apps, not just the account's own.
+
+    Cannot be combined with `app_id`.
+    """
+
     last: int
     """The number of webhooks to return from the end of the range."""
