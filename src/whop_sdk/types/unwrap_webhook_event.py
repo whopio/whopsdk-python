@@ -36,9 +36,14 @@ from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
+from .card_transaction_created_webhook_event import CardTransactionCreatedWebhookEvent
+from .card_transaction_updated_webhook_event import CardTransactionUpdatedWebhookEvent
 from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhookEvent
+from .card_transaction_declined_webhook_event import CardTransactionDeclinedWebhookEvent
+from .card_transaction_reversed_webhook_event import CardTransactionReversedWebhookEvent
 from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
 from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
+from .card_transaction_completed_webhook_event import CardTransactionCompletedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
 from .membership_trial_ending_soon_webhook_event import MembershipTrialEndingSoonWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
@@ -55,6 +60,11 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        CardTransactionCompletedWebhookEvent,
+        CardTransactionCreatedWebhookEvent,
+        CardTransactionDeclinedWebhookEvent,
+        CardTransactionReversedWebhookEvent,
+        CardTransactionUpdatedWebhookEvent,
         ChatMessageCreatedWebhookEvent,
         ChatReactionCreatedWebhookEvent,
         CourseLessonInteractionCompletedWebhookEvent,

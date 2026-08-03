@@ -526,6 +526,12 @@ from .resolution_center_case_reply_response import (
 from .resolution_center_case_summary_params import (
     ResolutionCenterCaseSummaryParams as ResolutionCenterCaseSummaryParams,
 )
+from .card_transaction_created_webhook_event import (
+    CardTransactionCreatedWebhookEvent as CardTransactionCreatedWebhookEvent,
+)
+from .card_transaction_updated_webhook_event import (
+    CardTransactionUpdatedWebhookEvent as CardTransactionUpdatedWebhookEvent,
+)
 from .checkout_configuration_create_response import (
     CheckoutConfigurationCreateResponse as CheckoutConfigurationCreateResponse,
 )
@@ -550,6 +556,12 @@ from .resolution_center_case_create_response import (
 from .resolution_center_case_events_response import (
     ResolutionCenterCaseEventsResponse as ResolutionCenterCaseEventsResponse,
 )
+from .card_transaction_declined_webhook_event import (
+    CardTransactionDeclinedWebhookEvent as CardTransactionDeclinedWebhookEvent,
+)
+from .card_transaction_reversed_webhook_event import (
+    CardTransactionReversedWebhookEvent as CardTransactionReversedWebhookEvent,
+)
 from .company_token_transaction_create_params import (
     CompanyTokenTransactionCreateParams as CompanyTokenTransactionCreateParams,
 )
@@ -570,6 +582,9 @@ from .resolution_center_case_summary_response import (
 )
 from .ad_group_search_targeting_options_params import (
     AdGroupSearchTargetingOptionsParams as AdGroupSearchTargetingOptionsParams,
+)
+from .card_transaction_completed_webhook_event import (
+    CardTransactionCompletedWebhookEvent as CardTransactionCompletedWebhookEvent,
 )
 from .checkout_configuration_retrieve_response import (
     CheckoutConfigurationRetrieveResponse as CheckoutConfigurationRetrieveResponse,
