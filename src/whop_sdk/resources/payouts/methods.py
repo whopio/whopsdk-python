@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -19,9 +19,11 @@ from ..._response import (
 )
 from ...pagination import SyncCursorPageWithLimits, AsyncCursorPageWithLimits
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.payouts import method_list_params, method_create_params
+from ...types.payouts import method_list_params, method_create_params, method_update_params
 from ...types.payouts.method_list_response import MethodListResponse
 from ...types.payouts.method_create_response import MethodCreateResponse
+from ...types.payouts.method_delete_response import MethodDeleteResponse
+from ...types.payouts.method_update_response import MethodUpdateResponse
 
 __all__ = ["MethodsResource", "AsyncMethodsResource"]
 
@@ -125,6 +127,43 @@ class MethodsResource(SyncAPIResource):
             cast_to=MethodCreateResponse,
         )
 
+    def update(
+        self,
+        payout_method_id: str,
+        *,
+        nickname: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MethodUpdateResponse:
+        """
+        Changes the label used to identify a saved payout method.
+
+        Args:
+          nickname: New label for the payout method.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payout_method_id:
+            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        return self._patch(
+            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            body=maybe_transform({"nickname": nickname}, method_update_params.MethodUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MethodUpdateResponse,
+        )
+
     def list(
         self,
         *,
@@ -210,6 +249,39 @@ class MethodsResource(SyncAPIResource):
                 ),
             ),
             model=MethodListResponse,
+        )
+
+    def delete(
+        self,
+        payout_method_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MethodDeleteResponse:
+        """
+        Deletes a saved payout method so it can no longer receive payouts.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payout_method_id:
+            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        return self._delete(
+            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MethodDeleteResponse,
         )
 
 
@@ -312,6 +384,43 @@ class AsyncMethodsResource(AsyncAPIResource):
             cast_to=MethodCreateResponse,
         )
 
+    async def update(
+        self,
+        payout_method_id: str,
+        *,
+        nickname: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MethodUpdateResponse:
+        """
+        Changes the label used to identify a saved payout method.
+
+        Args:
+          nickname: New label for the payout method.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payout_method_id:
+            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        return await self._patch(
+            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            body=await async_maybe_transform({"nickname": nickname}, method_update_params.MethodUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MethodUpdateResponse,
+        )
+
     def list(
         self,
         *,
@@ -399,6 +508,39 @@ class AsyncMethodsResource(AsyncAPIResource):
             model=MethodListResponse,
         )
 
+    async def delete(
+        self,
+        payout_method_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MethodDeleteResponse:
+        """
+        Deletes a saved payout method so it can no longer receive payouts.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payout_method_id:
+            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        return await self._delete(
+            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MethodDeleteResponse,
+        )
+
 
 class MethodsResourceWithRawResponse:
     def __init__(self, methods: MethodsResource) -> None:
@@ -407,8 +549,14 @@ class MethodsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             methods.create,
         )
+        self.update = to_raw_response_wrapper(
+            methods.update,
+        )
         self.list = to_raw_response_wrapper(
             methods.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            methods.delete,
         )
 
 
@@ -419,8 +567,14 @@ class AsyncMethodsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             methods.create,
         )
+        self.update = async_to_raw_response_wrapper(
+            methods.update,
+        )
         self.list = async_to_raw_response_wrapper(
             methods.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            methods.delete,
         )
 
 
@@ -431,8 +585,14 @@ class MethodsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             methods.create,
         )
+        self.update = to_streamed_response_wrapper(
+            methods.update,
+        )
         self.list = to_streamed_response_wrapper(
             methods.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            methods.delete,
         )
 
 
@@ -443,6 +603,12 @@ class AsyncMethodsResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             methods.create,
         )
+        self.update = async_to_streamed_response_wrapper(
+            methods.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             methods.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            methods.delete,
         )

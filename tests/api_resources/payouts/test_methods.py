@@ -10,7 +10,12 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.pagination import SyncCursorPageWithLimits, AsyncCursorPageWithLimits
-from whop_sdk.types.payouts import MethodListResponse, MethodCreateResponse
+from whop_sdk.types.payouts import (
+    MethodListResponse,
+    MethodCreateResponse,
+    MethodDeleteResponse,
+    MethodUpdateResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -75,6 +80,52 @@ class TestMethods:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_update(self, client: Whop) -> None:
+        method = client.payouts.methods.update(
+            payout_method_id="payout_method_id",
+            nickname="nickname",
+        )
+        assert_matches_type(MethodUpdateResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Whop) -> None:
+        response = client.payouts.methods.with_raw_response.update(
+            payout_method_id="payout_method_id",
+            nickname="nickname",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        method = response.parse()
+        assert_matches_type(MethodUpdateResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Whop) -> None:
+        with client.payouts.methods.with_streaming_response.update(
+            payout_method_id="payout_method_id",
+            nickname="nickname",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            method = response.parse()
+            assert_matches_type(MethodUpdateResponse, method, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+            client.payouts.methods.with_raw_response.update(
+                payout_method_id="",
+                nickname="nickname",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_list(self, client: Whop) -> None:
         method = client.payouts.methods.list()
         assert_matches_type(SyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
@@ -117,6 +168,48 @@ class TestMethods:
             assert_matches_type(SyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Whop) -> None:
+        method = client.payouts.methods.delete(
+            "payout_method_id",
+        )
+        assert_matches_type(MethodDeleteResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Whop) -> None:
+        response = client.payouts.methods.with_raw_response.delete(
+            "payout_method_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        method = response.parse()
+        assert_matches_type(MethodDeleteResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Whop) -> None:
+        with client.payouts.methods.with_streaming_response.delete(
+            "payout_method_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            method = response.parse()
+            assert_matches_type(MethodDeleteResponse, method, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+            client.payouts.methods.with_raw_response.delete(
+                "",
+            )
 
 
 class TestAsyncMethods:
@@ -181,6 +274,52 @@ class TestAsyncMethods:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_update(self, async_client: AsyncWhop) -> None:
+        method = await async_client.payouts.methods.update(
+            payout_method_id="payout_method_id",
+            nickname="nickname",
+        )
+        assert_matches_type(MethodUpdateResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
+        response = await async_client.payouts.methods.with_raw_response.update(
+            payout_method_id="payout_method_id",
+            nickname="nickname",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        method = await response.parse()
+        assert_matches_type(MethodUpdateResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
+        async with async_client.payouts.methods.with_streaming_response.update(
+            payout_method_id="payout_method_id",
+            nickname="nickname",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            method = await response.parse()
+            assert_matches_type(MethodUpdateResponse, method, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+            await async_client.payouts.methods.with_raw_response.update(
+                payout_method_id="",
+                nickname="nickname",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.list()
         assert_matches_type(AsyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
@@ -223,3 +362,45 @@ class TestAsyncMethods:
             assert_matches_type(AsyncCursorPageWithLimits[MethodListResponse], method, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
+        method = await async_client.payouts.methods.delete(
+            "payout_method_id",
+        )
+        assert_matches_type(MethodDeleteResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
+        response = await async_client.payouts.methods.with_raw_response.delete(
+            "payout_method_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        method = await response.parse()
+        assert_matches_type(MethodDeleteResponse, method, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
+        async with async_client.payouts.methods.with_streaming_response.delete(
+            "payout_method_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            method = await response.parse()
+            assert_matches_type(MethodDeleteResponse, method, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+            await async_client.payouts.methods.with_raw_response.delete(
+                "",
+            )

@@ -1062,13 +1062,20 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types.payouts import MethodCreateResponse, MethodListResponse
+from whop_sdk.types.payouts import (
+    MethodCreateResponse,
+    MethodUpdateResponse,
+    MethodListResponse,
+    MethodDeleteResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /payouts/methods">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">create</a>(\*\*<a href="src/whop_sdk/types/payouts/method_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/method_create_response.py">MethodCreateResponse</a></code>
+- <code title="patch /payouts/methods/{payout_method_id}">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">update</a>(payout_method_id, \*\*<a href="src/whop_sdk/types/payouts/method_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/method_update_response.py">MethodUpdateResponse</a></code>
 - <code title="get /payouts/methods">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payouts/method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payouts/method_list_response.py">SyncCursorPageWithLimits[MethodListResponse]</a></code>
+- <code title="delete /payouts/methods/{payout_method_id}">client.payouts.methods.<a href="./src/whop_sdk/resources/payouts/methods.py">delete</a>(payout_method_id) -> <a href="./src/whop_sdk/types/payouts/method_delete_response.py">MethodDeleteResponse</a></code>
 
 ## SupportedMethods
 
