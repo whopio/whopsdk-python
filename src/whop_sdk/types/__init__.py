@@ -288,6 +288,7 @@ from .course_lesson_start_response import CourseLessonStartResponse as CourseLes
 from .course_student_list_response import CourseStudentListResponse as CourseStudentListResponse
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent as EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
+from .member_created_webhook_event import MemberCreatedWebhookEvent as MemberCreatedWebhookEvent
 from .notification_create_response import NotificationCreateResponse as NotificationCreateResponse
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFailedWebhookEvent
 from .payment_method_list_response import PaymentMethodListResponse as PaymentMethodListResponse
@@ -314,6 +315,8 @@ from .course_chapter_delete_response import CourseChapterDeleteResponse as Cours
 from .dispute_update_evidence_params import DisputeUpdateEvidenceParams as DisputeUpdateEvidenceParams
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent as InvoicePastDueWebhookEvent
 from .payment_method_retrieve_params import PaymentMethodRetrieveParams as PaymentMethodRetrieveParams
+from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent as ShipmentCreatedWebhookEvent
+from .shipment_updated_webhook_event import ShipmentUpdatedWebhookEvent as ShipmentUpdatedWebhookEvent
 from .verification_retrieve_response import VerificationRetrieveResponse as VerificationRetrieveResponse
 from .authorized_user_delete_response import AuthorizedUserDeleteResponse as AuthorizedUserDeleteResponse
 from .company_create_api_key_response import CompanyCreateAPIKeyResponse as CompanyCreateAPIKeyResponse
@@ -352,11 +355,23 @@ from .company_token_transaction_list_params import (
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
 )
+from .card_transaction_created_webhook_event import (
+    CardTransactionCreatedWebhookEvent as CardTransactionCreatedWebhookEvent,
+)
+from .card_transaction_updated_webhook_event import (
+    CardTransactionUpdatedWebhookEvent as CardTransactionUpdatedWebhookEvent,
+)
 from .course_lesson_submit_assessment_params import (
     CourseLessonSubmitAssessmentParams as CourseLessonSubmitAssessmentParams,
 )
 from .identity_profile_updated_webhook_event import (
     IdentityProfileUpdatedWebhookEvent as IdentityProfileUpdatedWebhookEvent,
+)
+from .card_transaction_declined_webhook_event import (
+    CardTransactionDeclinedWebhookEvent as CardTransactionDeclinedWebhookEvent,
+)
+from .card_transaction_reversed_webhook_event import (
+    CardTransactionReversedWebhookEvent as CardTransactionReversedWebhookEvent,
 )
 from .company_token_transaction_create_params import (
     CompanyTokenTransactionCreateParams as CompanyTokenTransactionCreateParams,
@@ -372,6 +387,9 @@ from .identity_profile_approved_webhook_event import (
 )
 from .identity_profile_rejected_webhook_event import (
     IdentityProfileRejectedWebhookEvent as IdentityProfileRejectedWebhookEvent,
+)
+from .card_transaction_completed_webhook_event import (
+    CardTransactionCompletedWebhookEvent as CardTransactionCompletedWebhookEvent,
 )
 from .course_lesson_mark_as_completed_response import (
     CourseLessonMarkAsCompletedResponse as CourseLessonMarkAsCompletedResponse,

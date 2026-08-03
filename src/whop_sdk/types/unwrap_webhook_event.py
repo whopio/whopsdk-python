@@ -10,6 +10,7 @@ from .entry_created_webhook_event import EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent
+from .member_created_webhook_event import MemberCreatedWebhookEvent
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent
 from .refund_created_webhook_event import RefundCreatedWebhookEvent
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent
@@ -22,6 +23,8 @@ from .product_created_webhook_event import ProductCreatedWebhookEvent
 from .product_deleted_webhook_event import ProductDeletedWebhookEvent
 from .product_updated_webhook_event import ProductUpdatedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
+from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent
+from .shipment_updated_webhook_event import ShipmentUpdatedWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .product_published_webhook_event import ProductPublishedWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
@@ -36,9 +39,14 @@ from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
+from .card_transaction_created_webhook_event import CardTransactionCreatedWebhookEvent
+from .card_transaction_updated_webhook_event import CardTransactionUpdatedWebhookEvent
 from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhookEvent
+from .card_transaction_declined_webhook_event import CardTransactionDeclinedWebhookEvent
+from .card_transaction_reversed_webhook_event import CardTransactionReversedWebhookEvent
 from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
 from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
+from .card_transaction_completed_webhook_event import CardTransactionCompletedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
 from .membership_trial_ending_soon_webhook_event import MembershipTrialEndingSoonWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
@@ -73,6 +81,11 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         LedgerAccountFundsAvailableWebhookEvent,
         WithdrawalCreatedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
+        CardTransactionCreatedWebhookEvent,
+        CardTransactionUpdatedWebhookEvent,
+        CardTransactionCompletedWebhookEvent,
+        CardTransactionDeclinedWebhookEvent,
+        CardTransactionReversedWebhookEvent,
         CourseLessonInteractionCompletedWebhookEvent,
         PayoutMethodCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,
@@ -89,6 +102,9 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         ProductDeletedWebhookEvent,
         ProductPublishedWebhookEvent,
         ProductUnpublishedWebhookEvent,
+        ShipmentCreatedWebhookEvent,
+        ShipmentUpdatedWebhookEvent,
+        MemberCreatedWebhookEvent,
         ChatMessageCreatedWebhookEvent,
         ChatReactionCreatedWebhookEvent,
         PaymentCreatedWebhookEvent,
