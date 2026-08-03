@@ -10,6 +10,7 @@ from .entry_created_webhook_event import EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent
+from .member_created_webhook_event import MemberCreatedWebhookEvent
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent
 from .refund_created_webhook_event import RefundCreatedWebhookEvent
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent
@@ -22,6 +23,8 @@ from .product_created_webhook_event import ProductCreatedWebhookEvent
 from .product_deleted_webhook_event import ProductDeletedWebhookEvent
 from .product_updated_webhook_event import ProductUpdatedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
+from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent
+from .shipment_updated_webhook_event import ShipmentUpdatedWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .product_published_webhook_event import ProductPublishedWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
@@ -85,6 +88,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         InvoicePastDueWebhookEvent,
         InvoiceVoidedWebhookEvent,
         LedgerAccountFundsAvailableWebhookEvent,
+        MemberCreatedWebhookEvent,
         MembershipActivatedWebhookEvent,
         MembershipCancelAtPeriodEndChangedWebhookEvent,
         MembershipDeactivatedWebhookEvent,
@@ -108,6 +112,8 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         SetupIntentCanceledWebhookEvent,
         SetupIntentRequiresActionWebhookEvent,
         SetupIntentSucceededWebhookEvent,
+        ShipmentCreatedWebhookEvent,
+        ShipmentUpdatedWebhookEvent,
         VerificationSucceededWebhookEvent,
         WithdrawalCreatedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
