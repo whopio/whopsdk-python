@@ -11,6 +11,7 @@ from .._models import BaseModel
 __all__ = [
     "TransferCreateResponse",
     "Transfer",
+    "TransferCreatedByUser",
     "TransferDestination",
     "TransferDestinationCompany",
     "TransferDestinationUser",
@@ -23,6 +24,21 @@ __all__ = [
     "ClaimLink",
     "ClaimLinkSource",
 ]
+
+
+class TransferCreatedByUser(BaseModel):
+    """
+    The user who initiated the transfer, such as the team member who sent a manual payout. Null if the creator is unavailable.
+    """
+
+    id: str
+    """User ID."""
+
+    username: str
+    """User's username."""
+
+    name: Optional[str] = None
+    """User display name."""
 
 
 class TransferDestinationCompany(BaseModel):
@@ -98,6 +114,12 @@ class Transfer(BaseModel):
 
     created_at: datetime
     """When the transfer was created."""
+
+    created_by_user: Optional[TransferCreatedByUser] = None
+    """
+    The user who initiated the transfer, such as the team member who sent a manual
+    payout. Null if the creator is unavailable.
+    """
 
     currency: str
     """Transfer currency."""
