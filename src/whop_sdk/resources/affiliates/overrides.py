@@ -42,8 +42,6 @@ __all__ = ["OverridesResource", "AsyncOverridesResource"]
 
 
 class OverridesResource(SyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def with_raw_response(self) -> OverridesResourceWithRawResponse:
         """
@@ -409,8 +407,6 @@ class OverridesResource(SyncAPIResource):
 
 
 class AsyncOverridesResource(AsyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def with_raw_response(self) -> AsyncOverridesResourceWithRawResponse:
         """
