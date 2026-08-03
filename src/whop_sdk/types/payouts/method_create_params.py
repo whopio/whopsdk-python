@@ -1,0 +1,49 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Dict
+from typing_extensions import Required, Annotated, TypedDict
+
+from ..._utils import PropertyInfo
+
+__all__ = ["MethodCreateParams"]
+
+
+class MethodCreateParams(TypedDict, total=False):
+    fields: Required[Dict[str, str]]
+    """
+    The supported payout method's required field values, keyed by field id — list
+    them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
+    Basis Theory token id may be passed in place of a raw value. A validation
+    failure returns the method's full required_fields schema alongside the error.
+    """
+
+    nickname: Required[str]
+    """A label for the payout method, unique per destination."""
+
+    supported_payout_method_id: Required[str]
+    """
+    The supported payout method to save (a podst\\__ identifier from a previous
+    listing).
+    """
+
+    account_id: str
+    """The account to add the payout method for (a biz\\__ identifier).
+
+    Provide this or user_id.
+    """
+
+    destination_currency: str
+    """Currency the supported payout method delivers payouts in."""
+
+    is_default: bool
+    """Whether to make this the account's default payout method."""
+
+    user_id: str
+    """The user to add the payout method for (a user\\__ identifier).
+
+    Provide this or account_id.
+    """
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
