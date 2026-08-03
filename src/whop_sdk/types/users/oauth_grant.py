@@ -35,3 +35,13 @@ class OAuthGrant(BaseModel):
     """
 
     scopes: List[str]
+
+    redirect_url: Optional[str] = None
+    """
+    Where to send the user to finish the flow: the `redirect_uri` you supplied with
+    the authorization `code` appended, and `state` when you supplied one. Its
+    scheme, host, port, and path come back exactly as sent — never re-cased or
+    re-encoded — because the client matches them against its registered URI.
+    Returned only once, on create: the code is single-use and expires 10 minutes
+    after it is issued, so redirect immediately.
+    """

@@ -11,6 +11,7 @@ from .oauth_grant_list_params import OAuthGrantListParams as OAuthGrantListParam
 from .passkey_delete_response import PasskeyDeleteResponse as PasskeyDeleteResponse
 from .passkey_challenge_params import PasskeyChallengeParams as PasskeyChallengeParams
 from .preference_update_params import PreferenceUpdateParams as PreferenceUpdateParams
+from .oauth_grant_create_params import OAuthGrantCreateParams as OAuthGrantCreateParams
 from .passkey_challenge_response import PasskeyChallengeResponse as PasskeyChallengeResponse
 from .preference_update_response import PreferenceUpdateResponse as PreferenceUpdateResponse
 from .preference_retrieve_response import PreferenceRetrieveResponse as PreferenceRetrieveResponse

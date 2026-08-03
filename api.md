@@ -588,6 +588,7 @@ from whop_sdk.types.users import OAuthGrant
 
 Methods:
 
+- <code title="post /users/me/oauth_grants">client.users.oauth_grants.<a href="./src/whop_sdk/resources/users/oauth_grants.py">create</a>(\*\*<a href="src/whop_sdk/types/users/oauth_grant_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/oauth_grant.py">OAuthGrant</a></code>
 - <code title="get /users/me/oauth_grants">client.users.oauth_grants.<a href="./src/whop_sdk/resources/users/oauth_grants.py">list</a>(\*\*<a href="src/whop_sdk/types/users/oauth_grant_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/users/oauth_grant.py">SyncCursorPage[OAuthGrant]</a></code>
 
 ## Passkeys
