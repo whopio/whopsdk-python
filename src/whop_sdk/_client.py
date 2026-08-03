@@ -129,7 +129,6 @@ if TYPE_CHECKING:
     from .resources.courses import CoursesResource, AsyncCoursesResource
     from .resources.entries import EntriesResource, AsyncEntriesResource
     from .resources.exports import ExportsResource, AsyncExportsResource
-    from .resources.members import MembersResource, AsyncMembersResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
@@ -172,6 +171,7 @@ if TYPE_CHECKING:
     from .resources.course_chapters import CourseChaptersResource, AsyncCourseChaptersResource
     from .resources.course_students import CourseStudentsResource, AsyncCourseStudentsResource
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
+    from .resources.members.members import MembersResource, AsyncMembersResource
     from .resources.payment_methods import PaymentMethodsResource, AsyncPaymentMethodsResource
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
     from .resources.payouts.payouts import PayoutsResource, AsyncPayoutsResource
@@ -257,7 +257,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-31"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-08-03"
         self.version = version
 
         if base_url is None:
@@ -1122,7 +1122,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-07-31"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-08-03"
         self.version = version
 
         if base_url is None:

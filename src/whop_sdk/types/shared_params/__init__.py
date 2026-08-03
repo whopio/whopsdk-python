@@ -3,7 +3,6 @@
 from .currency import Currency as Currency
 from .direction import Direction as Direction
 from .plan_type import PlanType as PlanType
-from .promo_type import PromoType as PromoType
 from .visibility import Visibility as Visibility
 from .entry_status import EntryStatus as EntryStatus
 from .who_can_post import WhoCanPost as WhoCanPost

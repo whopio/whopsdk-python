@@ -728,8 +728,20 @@ from whop_sdk.types import Member
 
 Methods:
 
-- <code title="get /members/{id}">client.members.<a href="./src/whop_sdk/resources/members.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/member.py">Member</a></code>
-- <code title="get /members">client.members.<a href="./src/whop_sdk/resources/members.py">list</a>(\*\*<a href="src/whop_sdk/types/member_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/member.py">SyncCursorPage[Member]</a></code>
+- <code title="get /members/{id}">client.members.<a href="./src/whop_sdk/resources/members/members.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/member.py">Member</a></code>
+- <code title="get /members">client.members.<a href="./src/whop_sdk/resources/members/members.py">list</a>(\*\*<a href="src/whop_sdk/types/member_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/member.py">SyncCursorPage[Member]</a></code>
+
+## Logs
+
+Types:
+
+```python
+from whop_sdk.types.members import LogListResponse
+```
+
+Methods:
+
+- <code title="get /members/{id}/logs">client.members.logs.<a href="./src/whop_sdk/resources/members/logs.py">list</a>(id, \*\*<a href="src/whop_sdk/types/members/log_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/members/log_list_response.py">SyncCursorPage[LogListResponse]</a></code>
 
 # Forums
 
@@ -765,6 +777,8 @@ Methods:
 - <code title="get /promo_codes/{id}">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/promo_code.py">PromoCode</a></code>
 - <code title="get /promo_codes">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">list</a>(\*\*<a href="src/whop_sdk/types/promo_code_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/promo_code_list_response.py">SyncCursorPage[PromoCodeListResponse]</a></code>
 - <code title="delete /promo_codes/{id}">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">delete</a>(id) -> <a href="./src/whop_sdk/types/promo_code_delete_response.py">PromoCodeDeleteResponse</a></code>
+- <code title="post /promo_codes/{id}/activate">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">activate</a>(id) -> <a href="./src/whop_sdk/types/promo_code.py">PromoCode</a></code>
+- <code title="post /promo_codes/{id}/deactivate">client.promo_codes.<a href="./src/whop_sdk/resources/promo_codes.py">deactivate</a>(id) -> <a href="./src/whop_sdk/types/promo_code.py">PromoCode</a></code>
 
 # Courses
 

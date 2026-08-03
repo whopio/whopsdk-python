@@ -6,20 +6,28 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import member_list_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from .logs import (
+    LogsResource,
+    AsyncLogsResource,
+    LogsResourceWithRawResponse,
+    AsyncLogsResourceWithRawResponse,
+    LogsResourceWithStreamingResponse,
+    AsyncLogsResourceWithStreamingResponse,
+)
+from ...types import member_list_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.member import Member
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.member import Member
 
 __all__ = ["MembersResource", "AsyncMembersResource"]
 
@@ -30,6 +38,15 @@ class MembersResource(SyncAPIResource):
 
     Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
     """
+
+    @cached_property
+    def logs(self) -> LogsResource:
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
+        return LogsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> MembersResourceWithRawResponse:
@@ -183,6 +200,15 @@ class AsyncMembersResource(AsyncAPIResource):
 
     Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
     """
+
+    @cached_property
+    def logs(self) -> AsyncLogsResource:
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
+        return AsyncLogsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncMembersResourceWithRawResponse:
@@ -341,6 +367,15 @@ class MembersResourceWithRawResponse:
             members.list,
         )
 
+    @cached_property
+    def logs(self) -> LogsResourceWithRawResponse:
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
+        return LogsResourceWithRawResponse(self._members.logs)
+
 
 class AsyncMembersResourceWithRawResponse:
     def __init__(self, members: AsyncMembersResource) -> None:
@@ -352,6 +387,15 @@ class AsyncMembersResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             members.list,
         )
+
+    @cached_property
+    def logs(self) -> AsyncLogsResourceWithRawResponse:
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
+        return AsyncLogsResourceWithRawResponse(self._members.logs)
 
 
 class MembersResourceWithStreamingResponse:
@@ -365,6 +409,15 @@ class MembersResourceWithStreamingResponse:
             members.list,
         )
 
+    @cached_property
+    def logs(self) -> LogsResourceWithStreamingResponse:
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
+        return LogsResourceWithStreamingResponse(self._members.logs)
+
 
 class AsyncMembersResourceWithStreamingResponse:
     def __init__(self, members: AsyncMembersResource) -> None:
@@ -376,3 +429,12 @@ class AsyncMembersResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             members.list,
         )
+
+    @cached_property
+    def logs(self) -> AsyncLogsResourceWithStreamingResponse:
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
+        return AsyncLogsResourceWithStreamingResponse(self._members.logs)
