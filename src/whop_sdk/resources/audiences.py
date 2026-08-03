@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import audience_list_params, audience_create_params, audience_update_params
+from ..types import audience_list_params, audience_create_params, audience_update_params, audience_add_people_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
@@ -180,12 +180,21 @@ class AudiencesResource(SyncAPIResource):
         immediately. Whether an audience auto refreshes is set when it is created.
 
         Args:
-          filters: Only for an audience that keeps itself up to date. Replaces the People filters
-              that define membership, keyed as `GET /people` accepts them. With auto refresh
-              off the audience keeps the people it matched when it was built, so its filters
-              can't be replaced — create a new audience instead.
+          filters: Replaces the People filters that define membership. The whole definition is
+              replaced rather than merged, so send every filter you want to keep — a filter
+              you leave out stops applying. Keys and values are the ones `GET /people`
+              accepts, such as an `os` of `iOS` or a `country` of `US`, and at least one
+              filter is required. Date filters must be rolling windows —
+              `first_seen_within_days` or `last_seen_within_days` — so the audience re-anchors
+              every time it rebuilds; fixed dates such as `first_seen_after` are rejected, as
+              is `audience_id`. An array value holds at most 500 items, and each value at most
+              10 KB. Only an audience with a `source_type` of `people_filter` and
+              `auto_refresh` of `true` accepts filters: an uploaded list has no filters to
+              replace, and with auto refresh off the audience keeps the people it matched when
+              it was built, so create a new audience instead.
 
-          name: New audience display name.
+          name: New audience display name. A blank value is ignored rather than clearing the
+              name.
 
           extra_headers: Send extra headers
 
@@ -309,6 +318,49 @@ class AudiencesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AudienceDeleteResponse,
+        )
+
+    def add_people(
+        self,
+        audience_id: str,
+        *,
+        file_id: str,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Audience:
+        """Adds users from a new CSV file to an existing uploaded custom audience.
+
+        The file
+        uses the audience's saved column mapping, processing happens in the background,
+        and existing audience members remain unchanged.
+
+        Args:
+          file_id: The new customer CSV — a file id (`file_...`) returned by `POST /files`. Its
+              headers must match the audience's saved column mapping.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not audience_id:
+            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/audiences/{audience_id}/add_people", audience_id=audience_id),
+            body=maybe_transform({"file_id": file_id}, audience_add_people_params.AudienceAddPeopleParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Audience,
         )
 
 
@@ -465,12 +517,21 @@ class AsyncAudiencesResource(AsyncAPIResource):
         immediately. Whether an audience auto refreshes is set when it is created.
 
         Args:
-          filters: Only for an audience that keeps itself up to date. Replaces the People filters
-              that define membership, keyed as `GET /people` accepts them. With auto refresh
-              off the audience keeps the people it matched when it was built, so its filters
-              can't be replaced — create a new audience instead.
+          filters: Replaces the People filters that define membership. The whole definition is
+              replaced rather than merged, so send every filter you want to keep — a filter
+              you leave out stops applying. Keys and values are the ones `GET /people`
+              accepts, such as an `os` of `iOS` or a `country` of `US`, and at least one
+              filter is required. Date filters must be rolling windows —
+              `first_seen_within_days` or `last_seen_within_days` — so the audience re-anchors
+              every time it rebuilds; fixed dates such as `first_seen_after` are rejected, as
+              is `audience_id`. An array value holds at most 500 items, and each value at most
+              10 KB. Only an audience with a `source_type` of `people_filter` and
+              `auto_refresh` of `true` accepts filters: an uploaded list has no filters to
+              replace, and with auto refresh off the audience keeps the people it matched when
+              it was built, so create a new audience instead.
 
-          name: New audience display name.
+          name: New audience display name. A blank value is ignored rather than clearing the
+              name.
 
           extra_headers: Send extra headers
 
@@ -596,6 +657,49 @@ class AsyncAudiencesResource(AsyncAPIResource):
             cast_to=AudienceDeleteResponse,
         )
 
+    async def add_people(
+        self,
+        audience_id: str,
+        *,
+        file_id: str,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Audience:
+        """Adds users from a new CSV file to an existing uploaded custom audience.
+
+        The file
+        uses the audience's saved column mapping, processing happens in the background,
+        and existing audience members remain unchanged.
+
+        Args:
+          file_id: The new customer CSV — a file id (`file_...`) returned by `POST /files`. Its
+              headers must match the audience's saved column mapping.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not audience_id:
+            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/audiences/{audience_id}/add_people", audience_id=audience_id),
+            body=await async_maybe_transform({"file_id": file_id}, audience_add_people_params.AudienceAddPeopleParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Audience,
+        )
+
 
 class AudiencesResourceWithRawResponse:
     def __init__(self, audiences: AudiencesResource) -> None:
@@ -612,6 +716,9 @@ class AudiencesResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             audiences.delete,
+        )
+        self.add_people = to_raw_response_wrapper(
+            audiences.add_people,
         )
 
 
@@ -631,6 +738,9 @@ class AsyncAudiencesResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             audiences.delete,
         )
+        self.add_people = async_to_raw_response_wrapper(
+            audiences.add_people,
+        )
 
 
 class AudiencesResourceWithStreamingResponse:
@@ -649,6 +759,9 @@ class AudiencesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             audiences.delete,
         )
+        self.add_people = to_streamed_response_wrapper(
+            audiences.add_people,
+        )
 
 
 class AsyncAudiencesResourceWithStreamingResponse:
@@ -666,4 +779,7 @@ class AsyncAudiencesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             audiences.delete,
+        )
+        self.add_people = async_to_streamed_response_wrapper(
+            audiences.add_people,
         )

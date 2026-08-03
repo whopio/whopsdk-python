@@ -363,6 +363,7 @@ from .team_member_update_params import TeamMemberUpdateParams as TeamMemberUpdat
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams
 from .affiliate_archive_response import AffiliateArchiveResponse as AffiliateArchiveResponse
+from .audience_add_people_params import AudienceAddPeopleParams as AudienceAddPeopleParams
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
 from .course_chapter_list_params import CourseChapterListParams as CourseChapterListParams

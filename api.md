@@ -198,6 +198,7 @@ Methods:
 - <code title="patch /audiences/{audience_id}">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">update</a>(audience_id, \*\*<a href="src/whop_sdk/types/audience_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">Audience</a></code>
 - <code title="get /audiences">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">list</a>(\*\*<a href="src/whop_sdk/types/audience_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">SyncCursorPage[Audience]</a></code>
 - <code title="delete /audiences/{audience_id}">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">delete</a>(audience_id) -> <a href="./src/whop_sdk/types/audience_delete_response.py">AudienceDeleteResponse</a></code>
+- <code title="post /audiences/{audience_id}/add_people">client.audiences.<a href="./src/whop_sdk/resources/audiences.py">add_people</a>(audience_id, \*\*<a href="src/whop_sdk/types/audience_add_people_params.py">params</a>) -> <a href="./src/whop_sdk/types/audience.py">Audience</a></code>
 
 # Media
 
