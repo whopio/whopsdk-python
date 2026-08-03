@@ -18,11 +18,18 @@ from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent
 from .payment_created_webhook_event import PaymentCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent
+from .product_created_webhook_event import ProductCreatedWebhookEvent
+from .product_deleted_webhook_event import ProductDeletedWebhookEvent
+from .product_updated_webhook_event import ProductUpdatedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
+from .product_published_webhook_event import ProductPublishedWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent
+from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent
+from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
+from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent
 from .dispute_alert_created_webhook_event import DisputeAlertCreatedWebhookEvent
 from .payout_method_created_webhook_event import PayoutMethodCreatedWebhookEvent
 from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
@@ -33,9 +40,11 @@ from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhoo
 from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
 from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
+from .membership_trial_ending_soon_webhook_event import MembershipTrialEndingSoonWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
 from .identity_profile_needs_action_webhook_event import IdentityProfileNeedsActionWebhookEvent
 from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
+from .ledger_account_funds_available_webhook_event import LedgerAccountFundsAvailableWebhookEvent
 from .resolution_center_case_created_webhook_event import ResolutionCenterCaseCreatedWebhookEvent
 from .resolution_center_case_decided_webhook_event import ResolutionCenterCaseDecidedWebhookEvent
 from .resolution_center_case_updated_webhook_event import ResolutionCenterCaseUpdatedWebhookEvent
@@ -46,6 +55,8 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        ChatMessageCreatedWebhookEvent,
+        ChatReactionCreatedWebhookEvent,
         CourseLessonInteractionCompletedWebhookEvent,
         DisputeCreatedWebhookEvent,
         DisputeUpdatedWebhookEvent,
@@ -63,15 +74,22 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         InvoicePaidWebhookEvent,
         InvoicePastDueWebhookEvent,
         InvoiceVoidedWebhookEvent,
+        LedgerAccountFundsAvailableWebhookEvent,
         MembershipActivatedWebhookEvent,
         MembershipCancelAtPeriodEndChangedWebhookEvent,
         MembershipDeactivatedWebhookEvent,
+        MembershipTrialEndingSoonWebhookEvent,
         PaymentCreatedWebhookEvent,
         PaymentFailedWebhookEvent,
         PaymentPendingWebhookEvent,
         PaymentSucceededWebhookEvent,
         PayoutAccountStatusUpdatedWebhookEvent,
         PayoutMethodCreatedWebhookEvent,
+        ProductCreatedWebhookEvent,
+        ProductDeletedWebhookEvent,
+        ProductPublishedWebhookEvent,
+        ProductUnpublishedWebhookEvent,
+        ProductUpdatedWebhookEvent,
         RefundCreatedWebhookEvent,
         RefundUpdatedWebhookEvent,
         ResolutionCenterCaseCreatedWebhookEvent,
