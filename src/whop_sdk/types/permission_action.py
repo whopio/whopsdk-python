@@ -212,6 +212,7 @@ PermissionAction: TypeAlias = Literal[
     "webhook_receive:plans",
     "webhook_receive:shipments",
     "webhook_receive:members",
+    "webhook_receive:exports",
     "webhook_receive:courses",
     "webhook_receive:memberships",
     "webhook_receive:payments",

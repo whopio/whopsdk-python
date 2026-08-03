@@ -50,6 +50,8 @@ class WebhookListResponse(BaseModel):
             "entry.approved",
             "entry.denied",
             "entry.deleted",
+            "export.completed",
+            "export.failed",
             "setup_intent.requires_action",
             "setup_intent.succeeded",
             "setup_intent.canceled",
