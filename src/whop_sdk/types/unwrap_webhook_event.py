@@ -18,10 +18,15 @@ from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent
 from .payment_created_webhook_event import PaymentCreatedWebhookEvent
 from .payment_pending_webhook_event import PaymentPendingWebhookEvent
+from .product_created_webhook_event import ProductCreatedWebhookEvent
+from .product_deleted_webhook_event import ProductDeletedWebhookEvent
+from .product_updated_webhook_event import ProductUpdatedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
+from .product_published_webhook_event import ProductPublishedWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent
+from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent
 from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
 from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent
@@ -79,6 +84,11 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         ResolutionCenterCaseCreatedWebhookEvent,
         ResolutionCenterCaseUpdatedWebhookEvent,
         ResolutionCenterCaseDecidedWebhookEvent,
+        ProductCreatedWebhookEvent,
+        ProductUpdatedWebhookEvent,
+        ProductDeletedWebhookEvent,
+        ProductPublishedWebhookEvent,
+        ProductUnpublishedWebhookEvent,
         ChatMessageCreatedWebhookEvent,
         ChatReactionCreatedWebhookEvent,
         PaymentCreatedWebhookEvent,
