@@ -28,8 +28,6 @@ __all__ = ["SupportChannelsResource", "AsyncSupportChannelsResource"]
 
 
 class SupportChannelsResource(SyncAPIResource):
-    """Support channels"""
-
     @cached_property
     def with_raw_response(self) -> SupportChannelsResourceWithRawResponse:
         """
@@ -225,8 +223,6 @@ class SupportChannelsResource(SyncAPIResource):
 
 
 class AsyncSupportChannelsResource(AsyncAPIResource):
-    """Support channels"""
-
     @cached_property
     def with_raw_response(self) -> AsyncSupportChannelsResourceWithRawResponse:
         """
