@@ -200,6 +200,7 @@ PermissionAction: TypeAlias = Literal[
     "webhook_receive:setup_intents",
     "webhook_receive:withdrawals",
     "webhook_receive:ledger_accounts",
+    "webhook_receive:deposits",
     "webhook_receive:payout_methods",
     "webhook_receive:verifications",
     "webhook_receive:identity_profiles",

@@ -97,6 +97,7 @@ class StatsResource(SyncAPIResource):
     ) -> StatRetrieveResponse:
         """
         Retrieves a metric as a time series of points for an account over a time range.
+        The `market_prices` metric is public and requires no authentication.
 
         Args:
           from_: Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or
@@ -364,6 +365,7 @@ class AsyncStatsResource(AsyncAPIResource):
     ) -> StatRetrieveResponse:
         """
         Retrieves a metric as a time series of points for an account over a time range.
+        The `market_prices` metric is public and requires no authentication.
 
         Args:
           from_: Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or

@@ -189,8 +189,12 @@ class CardsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardUpdateResponse:
-        """
-        Update, freeze, or cancel a card.
+        """Update, freeze, or cancel a card.
+
+        Updating the card's name, billing address, or
+        limits requires both `payout:account:update` and `company:balance:read`; a
+        card's assigned holder may update their own card's pin and frozen state with any
+        user token.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
@@ -465,8 +469,12 @@ class AsyncCardsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CardUpdateResponse:
-        """
-        Update, freeze, or cancel a card.
+        """Update, freeze, or cancel a card.
+
+        Updating the card's name, billing address, or
+        limits requires both `payout:account:update` and `company:balance:read`; a
+        card's assigned holder may update their own card's pin and frozen state with any
+        user token.
 
         Args:
           account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.

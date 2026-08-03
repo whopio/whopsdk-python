@@ -54,6 +54,7 @@ class WebhookListResponse(BaseModel):
             "setup_intent.succeeded",
             "setup_intent.canceled",
             "ledger_account.funds_available",
+            "deposit.succeeded",
             "withdrawal.created",
             "withdrawal.updated",
             "course_lesson_interaction.completed",
