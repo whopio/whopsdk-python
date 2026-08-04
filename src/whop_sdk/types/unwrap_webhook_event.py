@@ -44,13 +44,10 @@ from .card_transaction_updated_webhook_event import CardTransactionUpdatedWebhoo
 from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhookEvent
 from .card_transaction_declined_webhook_event import CardTransactionDeclinedWebhookEvent
 from .card_transaction_reversed_webhook_event import CardTransactionReversedWebhookEvent
-from .identity_profile_approved_webhook_event import IdentityProfileApprovedWebhookEvent
-from .identity_profile_rejected_webhook_event import IdentityProfileRejectedWebhookEvent
 from .card_transaction_completed_webhook_event import CardTransactionCompletedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
 from .membership_trial_ending_soon_webhook_event import MembershipTrialEndingSoonWebhookEvent
 from .setup_intent_requires_action_webhook_event import SetupIntentRequiresActionWebhookEvent
-from .identity_profile_needs_action_webhook_event import IdentityProfileNeedsActionWebhookEvent
 from .payout_account_status_updated_webhook_event import PayoutAccountStatusUpdatedWebhookEvent
 from .ledger_account_funds_available_webhook_event import LedgerAccountFundsAvailableWebhookEvent
 from .resolution_center_case_created_webhook_event import ResolutionCenterCaseCreatedWebhookEvent
@@ -89,9 +86,6 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         CourseLessonInteractionCompletedWebhookEvent,
         PayoutMethodCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,
-        IdentityProfileApprovedWebhookEvent,
-        IdentityProfileRejectedWebhookEvent,
-        IdentityProfileNeedsActionWebhookEvent,
         IdentityProfileUpdatedWebhookEvent,
         PayoutAccountStatusUpdatedWebhookEvent,
         ResolutionCenterCaseCreatedWebhookEvent,

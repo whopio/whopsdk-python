@@ -382,12 +382,6 @@ from .company_token_transaction_list_response import (
 from .dm_feed_member_notification_preferences import (
     DmFeedMemberNotificationPreferences as DmFeedMemberNotificationPreferences,
 )
-from .identity_profile_approved_webhook_event import (
-    IdentityProfileApprovedWebhookEvent as IdentityProfileApprovedWebhookEvent,
-)
-from .identity_profile_rejected_webhook_event import (
-    IdentityProfileRejectedWebhookEvent as IdentityProfileRejectedWebhookEvent,
-)
 from .card_transaction_completed_webhook_event import (
     CardTransactionCompletedWebhookEvent as CardTransactionCompletedWebhookEvent,
 )
@@ -417,9 +411,6 @@ from .membership_trial_ending_soon_webhook_event import (
 )
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
-)
-from .identity_profile_needs_action_webhook_event import (
-    IdentityProfileNeedsActionWebhookEvent as IdentityProfileNeedsActionWebhookEvent,
 )
 from .payout_account_status_updated_webhook_event import (
     PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
