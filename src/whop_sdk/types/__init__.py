@@ -575,12 +575,6 @@ from .company_token_transaction_list_response import (
 from .dm_feed_member_notification_preferences import (
     DmFeedMemberNotificationPreferences as DmFeedMemberNotificationPreferences,
 )
-from .identity_profile_approved_webhook_event import (
-    IdentityProfileApprovedWebhookEvent as IdentityProfileApprovedWebhookEvent,
-)
-from .identity_profile_rejected_webhook_event import (
-    IdentityProfileRejectedWebhookEvent as IdentityProfileRejectedWebhookEvent,
-)
 from .resolution_center_case_summary_response import (
     ResolutionCenterCaseSummaryResponse as ResolutionCenterCaseSummaryResponse,
 )
@@ -619,9 +613,6 @@ from .resolution_center_case_request_info_params import (
 )
 from .setup_intent_requires_action_webhook_event import (
     SetupIntentRequiresActionWebhookEvent as SetupIntentRequiresActionWebhookEvent,
-)
-from .identity_profile_needs_action_webhook_event import (
-    IdentityProfileNeedsActionWebhookEvent as IdentityProfileNeedsActionWebhookEvent,
 )
 from .payout_account_status_updated_webhook_event import (
     PayoutAccountStatusUpdatedWebhookEvent as PayoutAccountStatusUpdatedWebhookEvent,
