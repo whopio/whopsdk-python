@@ -10,6 +10,7 @@ from .promo_type import PromoType
 from ..card_brands import CardBrands
 from ..refund_status import RefundStatus
 from .receipt_status import ReceiptStatus
+from .shipment_status import ShipmentStatus
 from ..billing_reasons import BillingReasons
 from ..dispute_statuses import DisputeStatuses
 from .membership_status import MembershipStatus
@@ -38,6 +39,7 @@ __all__ = [
     "PromoCode",
     "Refund",
     "Resolution",
+    "Shipment",
     "ShippingAddress",
     "User",
 ]
@@ -390,6 +392,28 @@ class Resolution(BaseModel):
     """
 
 
+class Shipment(BaseModel):
+    """The shipment attached to this payment."""
+
+    id: str
+    """The unique identifier for the shipment."""
+
+    carrier: Optional[str] = None
+    """The shipping carrier detected for this shipment.
+
+    Null until a tracking update identifies it.
+    """
+
+    status: ShipmentStatus
+    """The current delivery status of this shipment."""
+
+    tracking_number: str
+    """The carrier-assigned tracking number used to look up shipment progress."""
+
+    tracking_url: str
+    """A customer-facing URL to track this shipment's progress."""
+
+
 class ShippingAddress(BaseModel):
     """The shipping address provided by the customer for physical goods.
 
@@ -532,6 +556,12 @@ class Payment(BaseModel):
     was made
     """
 
+    needs_tracking: Optional[bool] = None
+    """
+    Whether this payment is holding funds until the order ships and has no tracking
+    number yet.
+    """
+
     next_payment_attempt: Optional[datetime] = None
     """The time of the next schedule payment retry."""
 
@@ -629,6 +659,9 @@ class Payment(BaseModel):
     `ledger_account.funds_available` webhook carries the same `settlement_time_at`
     when that batch posts — match them to know these funds are now withdrawable.
     """
+
+    shipment: Optional[Shipment] = None
+    """The shipment attached to this payment."""
 
     shipping_address: Optional[ShippingAddress] = None
     """The shipping address provided by the customer for physical goods.

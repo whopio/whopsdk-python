@@ -11,6 +11,7 @@ from .shared.promo_type import PromoType
 from .payment_method_types import PaymentMethodTypes
 from .receipt_tax_behavior import ReceiptTaxBehavior
 from .shared.receipt_status import ReceiptStatus
+from .shared.shipment_status import ShipmentStatus
 from .shared.membership_status import MembershipStatus
 from .shared.friendly_receipt_status import FriendlyReceiptStatus
 
@@ -26,6 +27,7 @@ __all__ = [
     "Plan",
     "Product",
     "PromoCode",
+    "Shipment",
     "ShippingAddress",
     "User",
 ]
@@ -226,6 +228,28 @@ class PromoCode(BaseModel):
     """The type (% or flat amount) of the promo."""
 
 
+class Shipment(BaseModel):
+    """The shipment attached to this payment."""
+
+    id: str
+    """The unique identifier for the shipment."""
+
+    carrier: Optional[str] = None
+    """The shipping carrier detected for this shipment.
+
+    Null until a tracking update identifies it.
+    """
+
+    status: ShipmentStatus
+    """The current delivery status of this shipment."""
+
+    tracking_number: str
+    """The carrier-assigned tracking number used to look up shipment progress."""
+
+    tracking_url: str
+    """A customer-facing URL to track this shipment's progress."""
+
+
 class ShippingAddress(BaseModel):
     """The shipping address provided by the customer for physical goods.
 
@@ -350,6 +374,12 @@ class PaymentListResponse(BaseModel):
     was made
     """
 
+    needs_tracking: Optional[bool] = None
+    """
+    Whether this payment is holding funds until the order ships and has no tracking
+    number yet.
+    """
+
     next_payment_attempt: Optional[datetime] = None
     """The time of the next schedule payment retry."""
 
@@ -403,6 +433,9 @@ class PaymentListResponse(BaseModel):
 
     settlement_currency: Currency
     """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
+
+    shipment: Optional[Shipment] = None
+    """The shipment attached to this payment."""
 
     shipping_address: Optional[ShippingAddress] = None
     """The shipping address provided by the customer for physical goods.

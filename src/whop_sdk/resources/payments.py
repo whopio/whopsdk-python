@@ -93,6 +93,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -175,6 +176,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -253,6 +255,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -335,6 +338,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -449,6 +453,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -514,6 +519,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -692,6 +698,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -744,6 +751,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -791,6 +799,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -874,6 +883,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -956,6 +966,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1034,6 +1045,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1116,6 +1128,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1230,6 +1243,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1295,6 +1309,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -1473,6 +1488,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1527,6 +1543,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1574,6 +1591,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
