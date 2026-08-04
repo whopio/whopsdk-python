@@ -6,8 +6,12 @@ from typing_extensions import Annotated, TypeAlias
 from .._utils import PropertyInfo
 from .entry_denied_webhook_event import EntryDeniedWebhookEvent
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent
+from .plan_created_webhook_event import PlanCreatedWebhookEvent
+from .plan_deleted_webhook_event import PlanDeletedWebhookEvent
+from .plan_updated_webhook_event import PlanUpdatedWebhookEvent
 from .entry_created_webhook_event import EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent
+from .export_failed_webhook_event import ExportFailedWebhookEvent
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent
 from .member_created_webhook_event import MemberCreatedWebhookEvent
@@ -22,9 +26,11 @@ from .payment_pending_webhook_event import PaymentPendingWebhookEvent
 from .product_created_webhook_event import ProductCreatedWebhookEvent
 from .product_deleted_webhook_event import ProductDeletedWebhookEvent
 from .product_updated_webhook_event import ProductUpdatedWebhookEvent
+from .export_completed_webhook_event import ExportCompletedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent
 from .shipment_updated_webhook_event import ShipmentUpdatedWebhookEvent
+from .deposit_succeeded_webhook_event import DepositSucceededWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .product_published_webhook_event import ProductPublishedWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
@@ -68,6 +74,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         ChatMessageCreatedWebhookEvent,
         ChatReactionCreatedWebhookEvent,
         CourseLessonInteractionCompletedWebhookEvent,
+        DepositSucceededWebhookEvent,
         DisputeCreatedWebhookEvent,
         DisputeUpdatedWebhookEvent,
         DisputeAlertCreatedWebhookEvent,
@@ -75,6 +82,8 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         EntryCreatedWebhookEvent,
         EntryDeletedWebhookEvent,
         EntryDeniedWebhookEvent,
+        ExportCompletedWebhookEvent,
+        ExportFailedWebhookEvent,
         IdentityProfileUpdatedWebhookEvent,
         InvoiceCreatedWebhookEvent,
         InvoiceMarkedUncollectibleWebhookEvent,
@@ -93,6 +102,9 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         PaymentSucceededWebhookEvent,
         PayoutAccountStatusUpdatedWebhookEvent,
         PayoutMethodCreatedWebhookEvent,
+        PlanCreatedWebhookEvent,
+        PlanDeletedWebhookEvent,
+        PlanUpdatedWebhookEvent,
         ProductCreatedWebhookEvent,
         ProductDeletedWebhookEvent,
         ProductPublishedWebhookEvent,
