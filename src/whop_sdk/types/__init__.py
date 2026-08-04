@@ -382,6 +382,7 @@ from .partner_leaderboard_params import PartnerLeaderboardParams as PartnerLeade
 from .payment_list_fees_response import PaymentListFeesResponse as PaymentListFeesResponse
 from .payment_method_list_params import PaymentMethodListParams as PaymentMethodListParams
 from .promo_code_delete_response import PromoCodeDeleteResponse as PromoCodeDeleteResponse
+from .setup_intent_create_params import SetupIntentCreateParams as SetupIntentCreateParams
 from .setup_intent_list_response import SetupIntentListResponse as SetupIntentListResponse
 from .social_account_list_params import SocialAccountListParams as SocialAccountListParams
 from .swap_create_quote_response import SwapCreateQuoteResponse as SwapCreateQuoteResponse
@@ -532,6 +533,9 @@ from .resolution_center_case_reply_response import (
 )
 from .resolution_center_case_summary_params import (
     ResolutionCenterCaseSummaryParams as ResolutionCenterCaseSummaryParams,
+)
+from .setup_intent_retrieve_status_response import (
+    SetupIntentRetrieveStatusResponse as SetupIntentRetrieveStatusResponse,
 )
 from .card_transaction_created_webhook_event import (
     CardTransactionCreatedWebhookEvent as CardTransactionCreatedWebhookEvent,

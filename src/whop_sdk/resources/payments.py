@@ -42,6 +42,13 @@ __all__ = ["PaymentsResource", "AsyncPaymentsResource"]
 
 
 class PaymentsResource(SyncAPIResource):
+    """A Payment is one charge against a buyer.
+
+    Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+    Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+    """
+
     @cached_property
     def with_raw_response(self) -> PaymentsResourceWithRawResponse:
         """
@@ -900,6 +907,13 @@ class PaymentsResource(SyncAPIResource):
 
 
 class AsyncPaymentsResource(AsyncAPIResource):
+    """A Payment is one charge against a buyer.
+
+    Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+    Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncPaymentsResourceWithRawResponse:
         """

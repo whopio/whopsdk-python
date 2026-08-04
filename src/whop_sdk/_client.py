@@ -555,6 +555,12 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def payments(self) -> PaymentsResource:
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import PaymentsResource
 
         return PaymentsResource(self)
@@ -1420,6 +1426,12 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def payments(self) -> AsyncPaymentsResource:
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import AsyncPaymentsResource
 
         return AsyncPaymentsResource(self)
@@ -2205,6 +2217,12 @@ class WhopWithRawResponse:
 
     @cached_property
     def payments(self) -> payments.PaymentsResourceWithRawResponse:
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import PaymentsResourceWithRawResponse
 
         return PaymentsResourceWithRawResponse(self._client.payments)
@@ -2872,6 +2890,12 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def payments(self) -> payments.AsyncPaymentsResourceWithRawResponse:
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import AsyncPaymentsResourceWithRawResponse
 
         return AsyncPaymentsResourceWithRawResponse(self._client.payments)
@@ -3541,6 +3565,12 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def payments(self) -> payments.PaymentsResourceWithStreamingResponse:
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import PaymentsResourceWithStreamingResponse
 
         return PaymentsResourceWithStreamingResponse(self._client.payments)
@@ -4212,6 +4242,12 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def payments(self) -> payments.AsyncPaymentsResourceWithStreamingResponse:
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import AsyncPaymentsResourceWithStreamingResponse
 
         return AsyncPaymentsResourceWithStreamingResponse(self._client.payments)
