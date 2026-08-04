@@ -184,6 +184,15 @@ class Bounty(BaseModel):
     accepted_submissions_limit: int
     """Number of submissions that can be accepted (winner slots)."""
 
+    affiliate_share_amount: float
+    """
+    What a referrer earns per accepted submission when the worker arrived through
+    their affiliate link, in whole currency units, at the standard platform fee
+    rate. Taken out of the worker's post-fee reward rather than added on top. `0`
+    when the bounty pays no affiliate share, including bounties tied to no account,
+    which cannot record a referral.
+    """
+
     allowed_country_codes: List[str]
 
     budget_amount: float
@@ -341,6 +350,14 @@ class Bounty(BaseModel):
     """
     Gross bounty-pool amount allocated per accepted submission, in whole currency
     units.
+    """
+
+    net_reward_amount: float
+    """
+    What a worker is quoted per accepted submission after the platform fee, in whole
+    currency units. The exact post-fee figure, at the standard platform fee rate — a
+    worker who locked a different rate, or who arrived through an affiliate link, is
+    paid a different amount.
     """
 
     poster: Poster
