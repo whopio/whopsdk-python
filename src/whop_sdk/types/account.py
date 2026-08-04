@@ -3055,6 +3055,12 @@ class Account(BaseModel):
 
     social_links: List[AccountSocialLink]
 
+    stablecoin_rails: bool
+    """
+    Whether the account settles on stablecoin rails — its balance is held on-chain
+    as USDT and paid out over crypto, rather than as fiat cash.
+    """
+
     status: Optional[str] = None
     """Whether the account can operate on Whop: `active` or `suspended`.
 
