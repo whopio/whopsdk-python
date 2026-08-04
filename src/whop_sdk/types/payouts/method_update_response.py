@@ -40,6 +40,13 @@ class MethodUpdateResponse(BaseModel):
     account_reference: Optional[str] = None
     """Masked identifier for the destination."""
 
+    account_validation_status: Optional[Literal["MATCH", "CLOSE_MATCH", "NO_MATCH", "UNSUPPORTED", "PROCESSING"]] = None
+    """
+    The bank's answer to whether this account belongs to the payout account holder,
+    checked once when the account is linked. `null` if the account has not been
+    checked.
+    """
+
     created_at: datetime
 
     destination_currency: str
