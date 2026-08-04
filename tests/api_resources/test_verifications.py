@@ -64,6 +64,7 @@ class TestVerifications:
             kind="individual",
             last_name="last_name",
             phone="phone",
+            share_token="share_token",
             tax_identification_number="tax_identification_number",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -123,6 +124,7 @@ class TestVerifications:
             country="country",
             kind="business",
             place_of_incorporation="place_of_incorporation",
+            share_token="share_token",
             tax_identification_number="tax_identification_number",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -461,6 +463,7 @@ class TestAsyncVerifications:
             kind="individual",
             last_name="last_name",
             phone="phone",
+            share_token="share_token",
             tax_identification_number="tax_identification_number",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -520,6 +523,7 @@ class TestAsyncVerifications:
             country="country",
             kind="business",
             place_of_incorporation="place_of_incorporation",
+            share_token="share_token",
             tax_identification_number="tax_identification_number",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
