@@ -664,6 +664,8 @@ from whop_sdk.types import (
     ReceiptTaxBehavior,
     PaymentListResponse,
     PaymentListFeesResponse,
+    PaymentRetrieveStatusResponse,
+    PaymentUpdateReturnURLResponse,
 )
 ```
 
@@ -674,7 +676,9 @@ Methods:
 - <code title="get /payments">client.payments.<a href="./src/whop_sdk/resources/payments.py">list</a>(\*\*<a href="src/whop_sdk/types/payment_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_list_response.py">SyncCursorPage[PaymentListResponse]</a></code>
 - <code title="get /payments/{id}/fees">client.payments.<a href="./src/whop_sdk/resources/payments.py">list_fees</a>(id, \*\*<a href="src/whop_sdk/types/payment_list_fees_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_list_fees_response.py">SyncCursorPage[PaymentListFeesResponse]</a></code>
 - <code title="post /payments/{id}/refund">client.payments.<a href="./src/whop_sdk/resources/payments.py">refund</a>(id, \*\*<a href="src/whop_sdk/types/payment_refund_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/payment.py">Payment</a></code>
+- <code title="get /payments/{payment_id}/status">client.payments.<a href="./src/whop_sdk/resources/payments.py">retrieve_status</a>(payment_id) -> <a href="./src/whop_sdk/types/payment_retrieve_status_response.py">PaymentRetrieveStatusResponse</a></code>
 - <code title="post /payments/{id}/retry">client.payments.<a href="./src/whop_sdk/resources/payments.py">retry</a>(id) -> <a href="./src/whop_sdk/types/shared/payment.py">Payment</a></code>
+- <code title="patch /payments/{payment_id}/return_url">client.payments.<a href="./src/whop_sdk/resources/payments.py">update_return_url</a>(payment_id, \*\*<a href="src/whop_sdk/types/payment_update_return_url_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_update_return_url_response.py">PaymentUpdateReturnURLResponse</a></code>
 - <code title="post /payments/{id}/void">client.payments.<a href="./src/whop_sdk/resources/payments.py">void</a>(id) -> <a href="./src/whop_sdk/types/shared/payment.py">Payment</a></code>
 
 # SupportChannels
