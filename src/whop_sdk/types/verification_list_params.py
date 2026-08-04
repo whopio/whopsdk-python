@@ -2,24 +2,20 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["VerificationListParams"]
 
 
 class VerificationListParams(TypedDict, total=False):
-    payout_account_id: Required[str]
-    """The unique identifier of the payout account to list verifications for."""
+    account_id: Required[str]
+    """Account or user ID whose verifications you want to list.
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+    """
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    direction: Literal["asc", "desc"]
+    """Sort direction for returned verifications."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
-
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    order: Literal["updated_at", "created_at"]
+    """Field used to sort returned verifications."""
