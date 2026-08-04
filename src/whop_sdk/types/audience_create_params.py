@@ -93,5 +93,12 @@ class ColumnMapping(TypedDict, total=False):
     last_name: str
     """CSV header for last names."""
 
+    ltv: str
+    """
+    CSV header for each customer's lifetime value — a non-negative number, currency
+    symbols allowed. When mapped, Meta creates the audience as value-based, so
+    lookalikes built from it favor people similar to the highest-value customers.
+    """
+
     phone: str
     """CSV header for phone numbers."""
