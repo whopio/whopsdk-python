@@ -29,8 +29,6 @@ __all__ = ["AuthorizedUsersResource", "AsyncAuthorizedUsersResource"]
 
 
 class AuthorizedUsersResource(SyncAPIResource):
-    """Authorized users"""
-
     @cached_property
     def with_raw_response(self) -> AuthorizedUsersResourceWithRawResponse:
         """
@@ -56,6 +54,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         company_id: str,
         role: AuthorizedUserRoles,
         user_id: str,
+        elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
         send_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,6 +80,8 @@ class AuthorizedUsersResource(SyncAPIResource):
 
           user_id: The ID of the user to add as an authorized user.
 
+          elevation: Re-authentication proof required to perform this sensitive action.
+
           send_emails: Whether to send notification emails to the user on creation.
 
           extra_headers: Send extra headers
@@ -98,6 +99,7 @@ class AuthorizedUsersResource(SyncAPIResource):
                     "company_id": company_id,
                     "role": role,
                     "user_id": user_id,
+                    "elevation": elevation,
                     "send_emails": send_emails,
                 },
                 authorized_user_create_params.AuthorizedUserCreateParams,
@@ -277,8 +279,6 @@ class AuthorizedUsersResource(SyncAPIResource):
 
 
 class AsyncAuthorizedUsersResource(AsyncAPIResource):
-    """Authorized users"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAuthorizedUsersResourceWithRawResponse:
         """
@@ -304,6 +304,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         company_id: str,
         role: AuthorizedUserRoles,
         user_id: str,
+        elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
         send_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -329,6 +330,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
 
           user_id: The ID of the user to add as an authorized user.
 
+          elevation: Re-authentication proof required to perform this sensitive action.
+
           send_emails: Whether to send notification emails to the user on creation.
 
           extra_headers: Send extra headers
@@ -346,6 +349,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                     "company_id": company_id,
                     "role": role,
                     "user_id": user_id,
+                    "elevation": elevation,
                     "send_emails": send_emails,
                 },
                 authorized_user_create_params.AuthorizedUserCreateParams,
