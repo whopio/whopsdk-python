@@ -28,8 +28,7 @@ class TestPayments:
     def test_method_create_overload_1(self, client: Whop) -> None:
         payment = client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -39,8 +38,7 @@ class TestPayments:
     def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
         payment = client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={
                 "currency": "usd",
                 "application_fee_amount": 6.9,
@@ -71,8 +69,11 @@ class TestPayments:
                 "trial_period_days": 42,
                 "visibility": "visible",
             },
+            email="buyer@example.com",
             metadata={"foo": "bar"},
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -81,8 +82,7 @@ class TestPayments:
     def test_raw_response_create_overload_1(self, client: Whop) -> None:
         response = client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         )
 
@@ -96,8 +96,7 @@ class TestPayments:
     def test_streaming_response_create_overload_1(self, client: Whop) -> None:
         with client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         ) as response:
             assert not response.is_closed
@@ -114,8 +113,7 @@ class TestPayments:
         payment = client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
+            plan={"currency": "usd"},
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -125,10 +123,41 @@ class TestPayments:
         payment = client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
+            plan={
+                "currency": "usd",
+                "application_fee_amount": 6.9,
+                "billing_period": 42,
+                "description": "description",
+                "expiration_days": 42,
+                "force_create_new_plan": True,
+                "initial_price": 6.9,
+                "internal_notes": "internal_notes",
+                "plan_type": "renewal",
+                "product": {
+                    "external_identifier": "external_identifier",
+                    "title": "title",
+                    "collect_shipping_address": True,
+                    "custom_statement_descriptor": "custom_statement_descriptor",
+                    "description": "description",
+                    "global_affiliate_percentage": 6.9,
+                    "global_affiliate_status": "enabled",
+                    "headline": "headline",
+                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
+                    "redirect_purchase_url": "redirect_purchase_url",
+                    "route": "route",
+                    "visibility": "visible",
+                },
+                "product_id": "prod_xxxxxxxxxxxxx",
+                "renewal_price": 6.9,
+                "title": "title",
+                "trial_period_days": 42,
+                "visibility": "visible",
+            },
+            email="buyer@example.com",
             metadata={"foo": "bar"},
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -138,8 +167,7 @@ class TestPayments:
         response = client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
+            plan={"currency": "usd"},
         )
 
         assert response.is_closed is True
@@ -153,7 +181,116 @@ class TestPayments:
         with client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
+            plan={"currency": "usd"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            payment = response.parse()
+            assert_matches_type(Payment, payment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_overload_3(self, client: Whop) -> None:
+        payment = client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params_overload_3(self, client: Whop) -> None:
+        payment = client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+            email="buyer@example.com",
+            metadata={"foo": "bar"},
             payment_method_id="pmt_xxxxxxxxxxxxxx",
+            promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_overload_3(self, client: Whop) -> None:
+        response = client.payments.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        payment = response.parse()
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_overload_3(self, client: Whop) -> None:
+        with client.payments.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            payment = response.parse()
+            assert_matches_type(Payment, payment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_overload_4(self, client: Whop) -> None:
+        payment = client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params_overload_4(self, client: Whop) -> None:
+        payment = client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+            email="buyer@example.com",
+            metadata={"foo": "bar"},
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_overload_4(self, client: Whop) -> None:
+        response = client.payments.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        payment = response.parse()
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_overload_4(self, client: Whop) -> None:
+        with client.payments.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
@@ -461,8 +598,7 @@ class TestAsyncPayments:
     async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -472,8 +608,7 @@ class TestAsyncPayments:
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={
                 "currency": "usd",
                 "application_fee_amount": 6.9,
@@ -504,8 +639,11 @@ class TestAsyncPayments:
                 "trial_period_days": 42,
                 "visibility": "visible",
             },
+            email="buyer@example.com",
             metadata={"foo": "bar"},
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -514,8 +652,7 @@ class TestAsyncPayments:
     async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         )
 
@@ -529,8 +666,7 @@ class TestAsyncPayments:
     async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         ) as response:
             assert not response.is_closed
@@ -547,8 +683,7 @@ class TestAsyncPayments:
         payment = await async_client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
+            plan={"currency": "usd"},
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -558,10 +693,41 @@ class TestAsyncPayments:
         payment = await async_client.payments.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
+            plan={
+                "currency": "usd",
+                "application_fee_amount": 6.9,
+                "billing_period": 42,
+                "description": "description",
+                "expiration_days": 42,
+                "force_create_new_plan": True,
+                "initial_price": 6.9,
+                "internal_notes": "internal_notes",
+                "plan_type": "renewal",
+                "product": {
+                    "external_identifier": "external_identifier",
+                    "title": "title",
+                    "collect_shipping_address": True,
+                    "custom_statement_descriptor": "custom_statement_descriptor",
+                    "description": "description",
+                    "global_affiliate_percentage": 6.9,
+                    "global_affiliate_status": "enabled",
+                    "headline": "headline",
+                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
+                    "redirect_purchase_url": "redirect_purchase_url",
+                    "route": "route",
+                    "visibility": "visible",
+                },
+                "product_id": "prod_xxxxxxxxxxxxx",
+                "renewal_price": 6.9,
+                "title": "title",
+                "trial_period_days": 42,
+                "visibility": "visible",
+            },
+            email="buyer@example.com",
             metadata={"foo": "bar"},
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
             promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -571,8 +737,7 @@ class TestAsyncPayments:
         response = await async_client.payments.with_raw_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
+            plan={"currency": "usd"},
         )
 
         assert response.is_closed is True
@@ -586,7 +751,116 @@ class TestAsyncPayments:
         async with async_client.payments.with_streaming_response.create(
             company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
+            plan={"currency": "usd"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            payment = await response.parse()
+            assert_matches_type(Payment, payment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_overload_3(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params_overload_3(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+            email="buyer@example.com",
+            metadata={"foo": "bar"},
             payment_method_id="pmt_xxxxxxxxxxxxxx",
+            promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_overload_3(self, async_client: AsyncWhop) -> None:
+        response = await async_client.payments.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        payment = await response.parse()
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_overload_3(self, async_client: AsyncWhop) -> None:
+        async with async_client.payments.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            confirmation_token="confirmation_token",
+            plan_id="plan_xxxxxxxxxxxxx",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            payment = await response.parse()
+            assert_matches_type(Payment, payment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_overload_4(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params_overload_4(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+            email="buyer@example.com",
+            metadata={"foo": "bar"},
+            payment_method_id="pmt_xxxxxxxxxxxxxx",
+            promo_code_id="promo_xxxxxxxxxxxx",
+            return_url="https://example.com/path",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_overload_4(self, async_client: AsyncWhop) -> None:
+        response = await async_client.payments.with_raw_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxx",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        payment = await response.parse()
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_overload_4(self, async_client: AsyncWhop) -> None:
+        async with async_client.payments.with_streaming_response.create(
+            company_id="biz_xxxxxxxxxxxxxx",
+            member_id="mber_xxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed

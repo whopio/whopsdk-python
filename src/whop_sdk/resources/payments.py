@@ -60,11 +60,13 @@ class PaymentsResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        confirmation_token: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -97,18 +99,33 @@ class PaymentsResource(SyncAPIResource):
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
-
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
 
           plan: Pass this object to create a new plan for this payment
 
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
 
           promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
               belong to the company and be valid for the plan being purchased. The plan must
               be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
 
           extra_headers: Send extra headers
 
@@ -126,10 +143,12 @@ class PaymentsResource(SyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_method_id: str,
-        plan_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -162,18 +181,189 @@ class PaymentsResource(SyncAPIResource):
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
 
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          plan: Pass this object to create a new plan for this payment
 
-          plan_id: An ID of an existing plan to use for the payment.
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
 
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
 
           promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
               belong to the company and be valid for the plan being purchased. The plan must
               be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        company_id: str,
+        confirmation_token: str,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
 
           extra_headers: Send extra headers
 
@@ -186,18 +376,25 @@ class PaymentsResource(SyncAPIResource):
         ...
 
     @required_args(
-        ["company_id", "member_id", "payment_method_id", "plan"],
-        ["company_id", "member_id", "payment_method_id", "plan_id"],
+        ["company_id", "confirmation_token", "plan"],
+        ["company_id", "member_id", "plan"],
+        ["company_id", "confirmation_token", "plan_id"],
+        ["company_id", "member_id", "plan_id"],
     )
     def create(
         self,
         *,
         company_id: str,
-        member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        confirmation_token: str | Omit = omit,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan
+        | payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan
+        | Omit = omit,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        member_id: str | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -211,11 +408,14 @@ class PaymentsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "company_id": company_id,
-                    "member_id": member_id,
-                    "payment_method_id": payment_method_id,
+                    "confirmation_token": confirmation_token,
                     "plan": plan,
+                    "email": email,
                     "metadata": metadata,
+                    "payment_method_id": payment_method_id,
                     "promo_code_id": promo_code_id,
+                    "return_url": return_url,
+                    "member_id": member_id,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,
@@ -641,11 +841,13 @@ class AsyncPaymentsResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        confirmation_token: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -678,18 +880,33 @@ class AsyncPaymentsResource(AsyncAPIResource):
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
-
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
 
           plan: Pass this object to create a new plan for this payment
 
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
 
           promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
               belong to the company and be valid for the plan being purchased. The plan must
               be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
 
           extra_headers: Send extra headers
 
@@ -707,10 +924,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_method_id: str,
-        plan_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -743,18 +962,189 @@ class AsyncPaymentsResource(AsyncAPIResource):
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
 
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          plan: Pass this object to create a new plan for this payment
 
-          plan_id: An ID of an existing plan to use for the payment.
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
 
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
 
           promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
               belong to the company and be valid for the plan being purchased. The plan must
               be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        company_id: str,
+        confirmation_token: str,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def create(
+        self,
+        *,
+        company_id: str,
+        member_id: str,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Payment:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials, at most 2,048 characters. Editable until they
+              return — see the payment's update endpoint. Ignored unless confirmation_token is
+              provided.
 
           extra_headers: Send extra headers
 
@@ -767,18 +1157,25 @@ class AsyncPaymentsResource(AsyncAPIResource):
         ...
 
     @required_args(
-        ["company_id", "member_id", "payment_method_id", "plan"],
-        ["company_id", "member_id", "payment_method_id", "plan_id"],
+        ["company_id", "confirmation_token", "plan"],
+        ["company_id", "member_id", "plan"],
+        ["company_id", "confirmation_token", "plan_id"],
+        ["company_id", "member_id", "plan_id"],
     )
     async def create(
         self,
         *,
         company_id: str,
-        member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        confirmation_token: str | Omit = omit,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan
+        | payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan
+        | Omit = omit,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        member_id: str | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -792,11 +1189,14 @@ class AsyncPaymentsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "company_id": company_id,
-                    "member_id": member_id,
-                    "payment_method_id": payment_method_id,
+                    "confirmation_token": confirmation_token,
                     "plan": plan,
+                    "email": email,
                     "metadata": metadata,
+                    "payment_method_id": payment_method_id,
                     "promo_code_id": promo_code_id,
+                    "return_url": return_url,
+                    "member_id": member_id,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,
