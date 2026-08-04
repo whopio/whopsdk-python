@@ -8,7 +8,7 @@ from .card_brands import CardBrands
 from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .shared.promo_type import PromoType
-from .payment_method_types import PaymentMethodTypes
+from .payment_method_type import PaymentMethodType
 from .receipt_tax_behavior import ReceiptTaxBehavior
 from .shared.receipt_status import ReceiptStatus
 from .shared.membership_status import MembershipStatus
@@ -26,6 +26,7 @@ __all__ = [
     "Plan",
     "Product",
     "PromoCode",
+    "ShippingAddress",
     "User",
 ]
 
@@ -151,7 +152,7 @@ class PaymentMethod(BaseModel):
     created_at: datetime
     """The datetime the payment token was created."""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """The payment method type of the payment method"""
 
 
@@ -167,7 +168,8 @@ class Plan(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value.
     """
 
 
@@ -178,15 +180,16 @@ class Product(BaseModel):
     """The unique identifier for the product."""
 
     metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs stored on the product.
-
-    Included in webhook payloads for payment and membership events.
+    """
+    Custom key-value pairs stored on the product and included in payment and
+    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
+    per string value.
     """
 
     route: str
-    """
-    The URL slug used in the product's public link (e.g., 'my-product' in
-    whop.com/company/my-product).
+    """URL slug in the product's public link, e.g.
+
+    `pickaxe-analytics` in whop.com/company/pickaxe-analytics.
     """
 
     title: str
@@ -221,6 +224,34 @@ class PromoCode(BaseModel):
 
     promo_type: PromoType
     """The type (% or flat amount) of the promo."""
+
+
+class ShippingAddress(BaseModel):
+    """The shipping address provided by the customer for physical goods.
+
+    Null if no shipping address was collected.
+    """
+
+    city: Optional[str] = None
+    """The city of the address."""
+
+    country: Optional[str] = None
+    """The country of the address."""
+
+    line1: Optional[str] = None
+    """The line 1 of the address."""
+
+    line2: Optional[str] = None
+    """The line 2 of the address."""
+
+    name: Optional[str] = None
+    """The name of the customer."""
+
+    postal_code: Optional[str] = None
+    """The postal code of the address."""
+
+    state: Optional[str] = None
+    """The state of the address."""
 
 
 class User(BaseModel):
@@ -290,6 +321,13 @@ class PaymentListResponse(BaseModel):
     currency: Currency
     """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
 
+    customer_phone: Optional[str] = None
+    """
+    Phone number the customer provided at checkout, or their verified phone number
+    when your checkout requires phone verification. `null` when no phone number was
+    collected.
+    """
+
     dispute_alerted_at: Optional[datetime] = None
     """When an alert came in that this transaction will be disputed"""
 
@@ -327,7 +365,7 @@ class PaymentListResponse(BaseModel):
     Null if no token was used.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
+    payment_method_type: Optional[PaymentMethodType] = None
     """The different types of payment methods that can be used."""
 
     payments_failed: Optional[int] = None
@@ -357,12 +395,20 @@ class PaymentListResponse(BaseModel):
     retryable: bool
     """
     True when the payment status is `open` and its membership is in one of the
-    retry-eligible states (`active`, `trialing`, `completed`, or `past_due`);
-    otherwise false. Used to decide if Whop can attempt the charge again.
+    retry-eligible states (`active`, `trialing`, `completed`, or `past_due`), or
+    when it is a failed initial billing-engine payment on a `drafted` membership
+    with an unlimited-stock plan; otherwise false. Used to decide if Whop can
+    attempt the charge again.
     """
 
     settlement_currency: Currency
     """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
+
+    shipping_address: Optional[ShippingAddress] = None
+    """The shipping address provided by the customer for physical goods.
+
+    Null if no shipping address was collected.
+    """
 
     status: Optional[ReceiptStatus] = None
     """The status of a receipt"""
