@@ -9,12 +9,19 @@ __all__ = ["SwapRetrieveResponse"]
 
 
 class SwapRetrieveResponse(BaseModel):
+    id: str
+    """Swap ID."""
+
     account_id: str
+    """Account ID that owns the wallet used for the swap."""
 
     object: Literal["swap"]
 
-    status: str
+    status: Literal["queued", "working", "complete", "failed"]
+    """Current swap status. `complete` and `failed` are terminal."""
 
     tx_hashes: List[str]
+    """On-chain transaction hashes produced by the swap."""
 
     error: Optional[str] = None
+    """Latest error returned for a failed swap."""
