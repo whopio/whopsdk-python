@@ -217,7 +217,11 @@ class RegionsExclude(TypedDict, total=False):
     """
 
     regions: SequenceNotStr[str]
-    """States and provinces, as ISO 3166-2 codes such as `US-CA`."""
+    """US states and DC, as ISO 3166-2 codes such as `US-CA`.
+
+    US territories (`PR`, `GU`, `VI`, `AS`, `MP`) and everywhere outside the US are
+    targeted through `countries`.
+    """
 
     zips: SequenceNotStr[RegionsExcludeZip]
     """ZIP and postal codes, as bare strings or objects with a key."""
@@ -278,7 +282,11 @@ class RegionsInclude(TypedDict, total=False):
     """
 
     regions: SequenceNotStr[str]
-    """States and provinces, as ISO 3166-2 codes such as `US-CA`."""
+    """US states and DC, as ISO 3166-2 codes such as `US-CA`.
+
+    US territories (`PR`, `GU`, `VI`, `AS`, `MP`) and everywhere outside the US are
+    targeted through `countries`.
+    """
 
     zips: SequenceNotStr[RegionsIncludeZip]
     """ZIP and postal codes, as bare strings or objects with a key."""

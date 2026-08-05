@@ -55,9 +55,9 @@ class LanguageTargetingOption(BaseModel):
 class LocationTargetingOption(BaseModel):
     code: Optional[str] = None
     """
-    The standardized code the ad-group `regions` field takes: an ISO 3166-1 code for
-    countries (`US`) or an ISO 3166-2 code for states and provinces (`US-CA`). Null
-    for locations without one, such as cities — target those by `key` instead.
+    The standardized code the ad-group targeting fields take: an ISO 3166-1 code for
+    countries (`US`) or an ISO 3166-2 code for US states and DC (`US-CA`). Null for
+    locations without one, such as cities — target those by `key` instead.
     """
 
     country_code: Optional[str] = None
