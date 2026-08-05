@@ -5,8 +5,8 @@ from datetime import datetime
 
 from .._models import BaseModel
 from .card_brands import CardBrands
+from .payment_method_type import PaymentMethodType
 from .setup_intent_status import SetupIntentStatus
-from .payment_method_types import PaymentMethodTypes
 
 __all__ = [
     "SetupIntentListResponse",
@@ -135,7 +135,7 @@ class PaymentMethod(BaseModel):
     mailing_address: Optional[PaymentMethodMailingAddress] = None
     """The mailing address associated with the payment method's user"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """The payment method type of the payment method"""
 
 
