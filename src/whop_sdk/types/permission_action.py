@@ -70,6 +70,7 @@ PermissionAction: TypeAlias = Literal[
     "company:manage_legal",
     "company:basic:read",
     "company:update",
+    "company:transfer_ownership",
     "company:create",
     "company:create_child",
     "company:delete",

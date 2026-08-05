@@ -13,6 +13,7 @@ from whop_sdk.types import (
     Account,
     AccountFormCompanyResponse,
     AccountRecommendActionsResponse,
+    AccountTransferOwnershipResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -505,6 +506,62 @@ class TestAccounts:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_transfer_ownership(self, client: Whop) -> None:
+        account = client.accounts.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+        )
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_transfer_ownership_with_all_params(self, client: Whop) -> None:
+        account = client.accounts.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_transfer_ownership(self, client: Whop) -> None:
+        response = client.accounts.with_raw_response.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        account = response.parse()
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_transfer_ownership(self, client: Whop) -> None:
+        with client.accounts.with_streaming_response.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            account = response.parse()
+            assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_transfer_ownership(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+            client.accounts.with_raw_response.transfer_ownership(
+                account_id="",
+                identifier="identifier",
+            )
+
 
 class TestAsyncAccounts:
     parametrize = pytest.mark.parametrize(
@@ -991,4 +1048,60 @@ class TestAsyncAccounts:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             await async_client.accounts.with_raw_response.recommend_actions(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_transfer_ownership(self, async_client: AsyncWhop) -> None:
+        account = await async_client.accounts.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+        )
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_transfer_ownership_with_all_params(self, async_client: AsyncWhop) -> None:
+        account = await async_client.accounts.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+        )
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_transfer_ownership(self, async_client: AsyncWhop) -> None:
+        response = await async_client.accounts.with_raw_response.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        account = await response.parse()
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_transfer_ownership(self, async_client: AsyncWhop) -> None:
+        async with async_client.accounts.with_streaming_response.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            account = await response.parse()
+            assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_transfer_ownership(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+            await async_client.accounts.with_raw_response.transfer_ownership(
+                account_id="",
+                identifier="identifier",
             )

@@ -1017,6 +1017,7 @@ from whop_sdk.types import (
     AccountSocialLink,
     AccountFormCompanyResponse,
     AccountRecommendActionsResponse,
+    AccountTransferOwnershipResponse,
 )
 ```
 
@@ -1029,6 +1030,7 @@ Methods:
 - <code title="post /accounts/{account_id}/form_company">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">form_company</a>(account_id, \*\*<a href="src/whop_sdk/types/account_form_company_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_form_company_response.py">AccountFormCompanyResponse</a></code>
 - <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
 - <code title="get /accounts/{account_id}/recommend_actions">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">recommend_actions</a>(account_id) -> <a href="./src/whop_sdk/types/account_recommend_actions_response.py">AccountRecommendActionsResponse</a></code>
+- <code title="post /accounts/{account_id}/transfer_ownership">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">transfer_ownership</a>(account_id, \*\*<a href="src/whop_sdk/types/account_transfer_ownership_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_transfer_ownership_response.py">AccountTransferOwnershipResponse</a></code>
 
 ## Preferences
 

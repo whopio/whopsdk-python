@@ -8,7 +8,13 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import account_list_params, account_create_params, account_update_params, account_form_company_params
+from ...types import (
+    account_list_params,
+    account_create_params,
+    account_update_params,
+    account_form_company_params,
+    account_transfer_ownership_params,
+)
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .reserves import (
@@ -40,6 +46,7 @@ from ..._base_client import AsyncPaginator, make_request_options
 from ...types.account import Account
 from ...types.account_form_company_response import AccountFormCompanyResponse
 from ...types.account_recommend_actions_response import AccountRecommendActionsResponse
+from ...types.account_transfer_ownership_response import AccountTransferOwnershipResponse
 
 __all__ = ["AccountsResource", "AsyncAccountsResource"]
 
@@ -2907,6 +2914,59 @@ class AccountsResource(SyncAPIResource):
             cast_to=AccountRecommendActionsResponse,
         )
 
+    def transfer_ownership(
+        self,
+        account_id: str,
+        *,
+        identifier: str,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccountTransferOwnershipResponse:
+        """
+        Transfers ownership of the account to another user, identified by user ID or
+        email address. When the recipient already holds the owner role on the account,
+        ownership transfers immediately and the response is `{ "success": true }`.
+        Otherwise they are sent an ownership transfer invite and the request returns
+        `202` with `{ "object": "team_member_invite", "invitation_sent": true }` —
+        ownership moves when they accept it, and nothing changes if they never do. A
+        recipient who is already a team member without the owner role is rejected; grant
+        them the owner role first. The previous owner keeps their team membership and
+        can remove it by deleting their own team member record. User tokens require the
+        caller to be the original account owner and a step-up verified session. Business
+        account API keys require the `company:transfer_ownership` scope, must belong to
+        that exact account, and must have been created by its current owner.
+
+        Args:
+          identifier: The user to transfer ownership to: a user ID (`user_*`) or an email address. An
+              email address with no Whop account yet is sent an invite to create one.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/accounts/{account_id}/transfer_ownership", account_id=account_id),
+            body=maybe_transform(
+                {"identifier": identifier}, account_transfer_ownership_params.AccountTransferOwnershipParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AccountTransferOwnershipResponse,
+        )
+
 
 class AsyncAccountsResource(AsyncAPIResource):
     """
@@ -5771,6 +5831,59 @@ class AsyncAccountsResource(AsyncAPIResource):
             cast_to=AccountRecommendActionsResponse,
         )
 
+    async def transfer_ownership(
+        self,
+        account_id: str,
+        *,
+        identifier: str,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccountTransferOwnershipResponse:
+        """
+        Transfers ownership of the account to another user, identified by user ID or
+        email address. When the recipient already holds the owner role on the account,
+        ownership transfers immediately and the response is `{ "success": true }`.
+        Otherwise they are sent an ownership transfer invite and the request returns
+        `202` with `{ "object": "team_member_invite", "invitation_sent": true }` —
+        ownership moves when they accept it, and nothing changes if they never do. A
+        recipient who is already a team member without the owner role is rejected; grant
+        them the owner role first. The previous owner keeps their team membership and
+        can remove it by deleting their own team member record. User tokens require the
+        caller to be the original account owner and a step-up verified session. Business
+        account API keys require the `company:transfer_ownership` scope, must belong to
+        that exact account, and must have been created by its current owner.
+
+        Args:
+          identifier: The user to transfer ownership to: a user ID (`user_*`) or an email address. An
+              email address with no Whop account yet is sent an invite to create one.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/accounts/{account_id}/transfer_ownership", account_id=account_id),
+            body=await async_maybe_transform(
+                {"identifier": identifier}, account_transfer_ownership_params.AccountTransferOwnershipParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AccountTransferOwnershipResponse,
+        )
+
 
 class AccountsResourceWithRawResponse:
     def __init__(self, accounts: AccountsResource) -> None:
@@ -5796,6 +5909,9 @@ class AccountsResourceWithRawResponse:
         )
         self.recommend_actions = to_raw_response_wrapper(
             accounts.recommend_actions,
+        )
+        self.transfer_ownership = to_raw_response_wrapper(
+            accounts.transfer_ownership,
         )
 
     @cached_property
@@ -5842,6 +5958,9 @@ class AsyncAccountsResourceWithRawResponse:
         self.recommend_actions = async_to_raw_response_wrapper(
             accounts.recommend_actions,
         )
+        self.transfer_ownership = async_to_raw_response_wrapper(
+            accounts.transfer_ownership,
+        )
 
     @cached_property
     def preferences(self) -> AsyncPreferencesResourceWithRawResponse:
@@ -5887,6 +6006,9 @@ class AccountsResourceWithStreamingResponse:
         self.recommend_actions = to_streamed_response_wrapper(
             accounts.recommend_actions,
         )
+        self.transfer_ownership = to_streamed_response_wrapper(
+            accounts.transfer_ownership,
+        )
 
     @cached_property
     def preferences(self) -> PreferencesResourceWithStreamingResponse:
@@ -5931,6 +6053,9 @@ class AsyncAccountsResourceWithStreamingResponse:
         )
         self.recommend_actions = async_to_streamed_response_wrapper(
             accounts.recommend_actions,
+        )
+        self.transfer_ownership = async_to_streamed_response_wrapper(
+            accounts.transfer_ownership,
         )
 
     @cached_property
