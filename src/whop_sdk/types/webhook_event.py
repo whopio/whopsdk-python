@@ -24,6 +24,8 @@ WebhookEvent: TypeAlias = Literal[
     "setup_intent.canceled",
     "ledger_account.funds_available",
     "deposit.succeeded",
+    "transfer.created",
+    "transfer.completed",
     "withdrawal.created",
     "withdrawal.updated",
     "card_transaction.created",
