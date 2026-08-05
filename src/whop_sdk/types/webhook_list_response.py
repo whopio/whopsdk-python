@@ -30,6 +30,13 @@ class WebhookListResponse(BaseModel):
     from its connected accounts.
     """
 
+    consecutive_failures: int
+    """
+    Number of consecutive deliveries whose first attempt to this endpoint failed
+    since it last accepted one. Later retries of the same delivery do not increment
+    it. Resets to `0` when a delivery succeeds or the webhook is re-enabled.
+    """
+
     created_at: str
     """When the webhook was created, as an ISO 8601 timestamp."""
 
@@ -131,6 +138,14 @@ class WebhookListResponse(BaseModel):
             "app_membership.cancel_at_period_end_changed",
         ]
     ]
+
+    failing_since: Optional[str] = None
+    """When the current failure streak began, as an ISO 8601 timestamp.
+
+    Unlike `last_failure_at`, this is set on the streak's first failed attempt, so
+    it shows an endpoint that is failing right now. `null` when the endpoint is
+    healthy.
+    """
 
     last_failure_at: Optional[str] = None
     """
