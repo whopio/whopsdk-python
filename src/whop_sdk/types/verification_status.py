@@ -19,4 +19,5 @@ VerificationStatus: TypeAlias = Literal[
     "abandoned",
     "review",
     "action_required",
+    "manual_review",
 ]
