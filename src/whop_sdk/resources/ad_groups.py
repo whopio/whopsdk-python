@@ -125,7 +125,6 @@ class AdGroupsResource(SyncAPIResource):
             "engagement",
             "conversations",
             "video_views",
-            "thruplay",
             "two_second_views",
             "page_likes",
             "social_profile",
@@ -195,8 +194,8 @@ class AdGroupsResource(SyncAPIResource):
           ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
               paused.
 
-          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
-              `reach` optimization.
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available on
+              campaigns with the `awareness` objective.
 
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.
@@ -398,7 +397,6 @@ class AdGroupsResource(SyncAPIResource):
             "engagement",
             "conversations",
             "video_views",
-            "thruplay",
             "two_second_views",
             "page_likes",
             "social_profile",
@@ -462,8 +460,8 @@ class AdGroupsResource(SyncAPIResource):
           ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
               paused.
 
-          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
-              `reach` optimization.
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available on
+              campaigns with the `awareness` objective.
 
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.
@@ -1085,7 +1083,6 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             "engagement",
             "conversations",
             "video_views",
-            "thruplay",
             "two_second_views",
             "page_likes",
             "social_profile",
@@ -1155,8 +1152,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
               paused.
 
-          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
-              `reach` optimization.
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available on
+              campaigns with the `awareness` objective.
 
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.
@@ -1358,7 +1355,6 @@ class AsyncAdGroupsResource(AsyncAPIResource):
             "engagement",
             "conversations",
             "video_views",
-            "thruplay",
             "two_second_views",
             "page_likes",
             "social_profile",
@@ -1422,8 +1418,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           ends_at: When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until
               paused.
 
-          frequency_cap: Cap on how often one person sees ads from this ad group. Only available with
-              `reach` optimization.
+          frequency_cap: Cap on how often one person sees ads from this ad group. Only available on
+              campaigns with the `awareness` objective.
 
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.

@@ -143,7 +143,7 @@ class AdGroupCreateParams(TypedDict, total=False):
     frequency_cap: FrequencyCap
     """Cap on how often one person sees ads from this ad group.
 
-    Only available with `reach` optimization.
+    Only available on campaigns with the `awareness` objective.
     """
 
     languages: SequenceNotStr[str]
@@ -170,7 +170,6 @@ class AdGroupCreateParams(TypedDict, total=False):
         "engagement",
         "conversations",
         "video_views",
-        "thruplay",
         "two_second_views",
         "page_likes",
         "social_profile",
@@ -316,7 +315,7 @@ class Devices(TypedDict, total=False):
 class FrequencyCap(TypedDict, total=False):
     """Cap on how often one person sees ads from this ad group.
 
-    Only available with `reach` optimization.
+    Only available on campaigns with the `awareness` objective.
     """
 
     maximum_impressions: int

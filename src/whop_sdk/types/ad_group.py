@@ -146,7 +146,7 @@ class Devices(BaseModel):
 class FrequencyCap(BaseModel):
     """Cap on how often one person sees ads from this ad group.
 
-    Only available with `reach` optimization; `null` when uncapped.
+    Only available on campaigns with the `awareness` objective; `null` when uncapped.
     """
 
     maximum_impressions: float
@@ -678,7 +678,8 @@ class AdGroup(BaseModel):
     frequency_cap: Optional[FrequencyCap] = None
     """Cap on how often one person sees ads from this ad group.
 
-    Only available with `reach` optimization; `null` when uncapped.
+    Only available on campaigns with the `awareness` objective; `null` when
+    uncapped.
     """
 
     languages: Optional[List[str]] = None
