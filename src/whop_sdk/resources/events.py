@@ -426,11 +426,11 @@ class EventsResource(SyncAPIResource):
     ) -> EventPulseResponse:
         """
         Returns a fully anonymized feed of recent platform-wide money movement, most
-        recent first: purchases, payouts, withdrawals, card and ad spend, app revenue,
-        and off-platform sales. Items carry only a `type`, the underlying event name, a
-        USD amount, a coarse location under `user`, and a timestamp coarsened to the
-        start of the minute; missing fields are omitted, not nulled. The payload is
-        identical for every caller; no auth is required.
+        recent first: purchases, affiliate commissions, withdrawals, card and ad spend,
+        app revenue, and off-platform sales. Items carry only a `type`, the underlying
+        event name, a USD amount, a coarse location under `user`, and a timestamp
+        coarsened to the start of the minute; missing fields are omitted, not nulled.
+        The payload is identical for every caller; no auth is required.
 
         Args:
           after: A cursor for fetching events after a previous page.
@@ -924,11 +924,11 @@ class AsyncEventsResource(AsyncAPIResource):
     ) -> EventPulseResponse:
         """
         Returns a fully anonymized feed of recent platform-wide money movement, most
-        recent first: purchases, payouts, withdrawals, card and ad spend, app revenue,
-        and off-platform sales. Items carry only a `type`, the underlying event name, a
-        USD amount, a coarse location under `user`, and a timestamp coarsened to the
-        start of the minute; missing fields are omitted, not nulled. The payload is
-        identical for every caller; no auth is required.
+        recent first: purchases, affiliate commissions, withdrawals, card and ad spend,
+        app revenue, and off-platform sales. Items carry only a `type`, the underlying
+        event name, a USD amount, a coarse location under `user`, and a timestamp
+        coarsened to the start of the minute; missing fields are omitted, not nulled.
+        The payload is identical for every caller; no auth is required.
 
         Args:
           after: A cursor for fetching events after a previous page.

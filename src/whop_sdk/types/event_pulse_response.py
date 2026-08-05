@@ -12,23 +12,21 @@ __all__ = ["EventPulseResponse", "Data", "DataUser", "PageInfo"]
 class DataUser(BaseModel):
     """Coarse location, shaped like the event `user` block.
 
-    Country only, except on a purchase, which also carries the buyer's city — every other type resolves to the person who received the money, a small enough population that an amount plus a city can name them. Omitted entirely when nothing is known.
+    It belongs to the owner of the wallet the money moved into or out of — the party the event is about, never their counterparty. Omitted entirely when nothing is known.
     """
 
     city: Optional[str] = None
-    """City name. Present on purchases only, and omitted when unknown."""
+    """City name. Omitted when unknown."""
 
     country: Optional[str] = None
     """ISO 3166-1 alpha-2 country code. Omitted when unknown."""
 
 
 class Data(BaseModel):
-    event_name: Literal[
-        "payment.completed", "bounty.payout.completed", "affiliate.payout.completed", "ledger_line.created"
-    ]
+    event_name: Literal["ledger_line.created"]
     """The underlying event recorded.
 
-    Several movements share `ledger_line.created`, so switch on `type` rather than
+    Every movement on this feed is a ledger line, so switch on `type` rather than
     this.
     """
 
@@ -36,18 +34,11 @@ class Data(BaseModel):
     """When the event happened, coarsened to the start of the minute."""
 
     type: Literal[
-        "purchase",
-        "bounty",
-        "affiliate_commission",
-        "withdrawal",
-        "card_spend",
-        "ad_spend",
-        "app_revenue",
-        "off_platform_sale",
+        "purchase", "affiliate_commission", "withdrawal", "card_spend", "ad_spend", "app_revenue", "off_platform_sale"
     ]
     """
-    What moved: a purchase, a bounty or affiliate payout, a creator withdrawal, Whop
-    card spend, ad spend, app revenue, or an off-platform sale.
+    What moved: a purchase, an affiliate commission, a creator withdrawal, Whop card
+    spend, ad spend, app revenue, or an off-platform sale.
     """
 
     total_usd_amount: Optional[float] = None
@@ -56,10 +47,9 @@ class Data(BaseModel):
     user: Optional[DataUser] = None
     """Coarse location, shaped like the event `user` block.
 
-    Country only, except on a purchase, which also carries the buyer's city — every
-    other type resolves to the person who received the money, a small enough
-    population that an amount plus a city can name them. Omitted entirely when
-    nothing is known.
+    It belongs to the owner of the wallet the money moved into or out of — the party
+    the event is about, never their counterparty. Omitted entirely when nothing is
+    known.
     """
 
 
