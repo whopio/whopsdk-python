@@ -488,6 +488,20 @@ class Payment(BaseModel):
     card_brand: Optional[CardBrands] = None
     """Possible card brands that a payment token can have"""
 
+    card_exp_month: Optional[int] = None
+    """The expiration month (1-12) of the card used for this payment.
+
+    Falls back to the declined card on failed payments with no saved card. Null when
+    the payment was not made with a card or the expiry is unavailable.
+    """
+
+    card_exp_year: Optional[int] = None
+    """The four-digit expiration year of the card used for this payment.
+
+    Falls back to the declined card on failed payments with no saved card. Null when
+    the payment was not made with a card or the expiry is unavailable.
+    """
+
     card_last4: Optional[str] = None
     """The last four digits of the card used to make this payment.
 
