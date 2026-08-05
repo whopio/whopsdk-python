@@ -139,6 +139,13 @@ class Transfer(BaseModel):
     origin_ledger_account_id: str
     """Source ledger account ID."""
 
+    status: Literal["processing", "succeeded", "failed"]
+    """Transfer status.
+
+    `processing` means the on-chain leg is still executing — poll the transfer until
+    it resolves to `succeeded` or `failed`.
+    """
+
     fee_amount: Optional[float] = None
     """Fee charged for the transfer."""
 
