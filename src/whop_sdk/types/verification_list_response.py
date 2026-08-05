@@ -44,12 +44,31 @@ class DataRequestedInformationRequestedFile(BaseModel):
     """
 
     is_optional: Optional[bool] = None
-    """Whether this slot can be left empty."""
+    """Whether this slot can be left empty — for example the back of a two-sided ID."""
 
-    kind: Optional[str] = None
-    """Specific document type requested, such as `Bank Statement`.
-
-    `null` for standard identity and business document uploads.
+    kind: Optional[
+        List[
+            Literal[
+                "bank_statement",
+                "paper_check",
+                "wallet_screenshot",
+                "government_id",
+                "proof_of_address",
+                "utility_bill",
+                "insurance_card",
+                "company_documents",
+                "rfi",
+                "other",
+            ]
+        ]
+    ] = None
+    """
+    The accepted document types for this slot — upload one file and echo one of
+    these values back as its `kind`. Empty (`[]`) for standard identity and business
+    documents. For payout compliance documents the value is one of a fixed set of
+    tokens: `bank_statement`, `paper_check`, `wallet_screenshot`, `government_id`,
+    `proof_of_address`, `utility_bill`, `insurance_card`, `company_documents`,
+    `rfi`, or `other`. `other` covers any document type not in this set.
     """
 
     label: Optional[str] = None
@@ -89,10 +108,12 @@ class DataRequestedInformation(BaseModel):
     """
 
     requested_files: Optional[List[DataRequestedInformationRequestedFile]] = None
-    """Document upload slots for this item.
+    """Document upload slots for a `files` item.
 
-    Present when `type` is `files`; upload one file for each required slot and
-    include the slot's `category` when submitting the answer.
+    Each slot lists its accepted document types in `kind`; upload one file per slot
+    and echo back the slot's `category` and the chosen `kind`. A verification can
+    include several separate `files` items at once when multiple distinct documents
+    are requested; answer each by its `id`.
     """
 
     type: Optional[str] = None

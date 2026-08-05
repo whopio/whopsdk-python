@@ -40,11 +40,12 @@ class MethodUpdateResponse(BaseModel):
     account_reference: Optional[str] = None
     """Masked identifier for the destination."""
 
-    account_validation_status: Optional[Literal["MATCH", "CLOSE_MATCH", "NO_MATCH", "UNSUPPORTED", "PROCESSING"]] = None
+    bank_verification_state: Optional[Literal["checking", "verified", "no_data", "warning", "broken"]] = None
     """
-    The bank's answer to whether this account belongs to the payout account holder,
-    checked once when the account is linked. `null` if the account has not been
-    checked.
+    Lifecycle trust state: `checking` (verification still running), `verified` (bank
+    confirmed ownership or a payout already completed to it), `no_data` (bank had
+    nothing on file), `warning` (bank could not confirm ownership), `broken`
+    (payouts failed with a permanent account error), `null` (never checked).
     """
 
     created_at: datetime

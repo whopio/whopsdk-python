@@ -110,8 +110,22 @@ class UpdateIndividualVerificationRequestedInformationFile(TypedDict, total=Fals
     direct_upload_id: str
     """Direct upload ID for the uploaded document."""
 
-    kind: str
-    """Requested document kind copied from `requested_files.kind`."""
+    kind: Literal[
+        "bank_statement",
+        "paper_check",
+        "wallet_screenshot",
+        "government_id",
+        "proof_of_address",
+        "utility_bill",
+        "insurance_card",
+        "company_documents",
+        "rfi",
+        "other",
+    ]
+    """
+    Requested document kind — echo one of the `kind` values from the slot in
+    `requested_files`.
+    """
 
 
 class UpdateIndividualVerificationRequestedInformation(TypedDict, total=False):
@@ -228,8 +242,22 @@ class UpdateBusinessVerificationRequestedInformationFile(TypedDict, total=False)
     direct_upload_id: str
     """Direct upload ID for the uploaded document."""
 
-    kind: str
-    """Requested document kind copied from `requested_files.kind`."""
+    kind: Literal[
+        "bank_statement",
+        "paper_check",
+        "wallet_screenshot",
+        "government_id",
+        "proof_of_address",
+        "utility_bill",
+        "insurance_card",
+        "company_documents",
+        "rfi",
+        "other",
+    ]
+    """
+    Requested document kind — echo one of the `kind` values from the slot in
+    `requested_files`.
+    """
 
 
 class UpdateBusinessVerificationRequestedInformation(TypedDict, total=False):

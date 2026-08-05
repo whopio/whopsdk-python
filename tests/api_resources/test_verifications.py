@@ -240,7 +240,7 @@ class TestVerifications:
                             "attachment_id": "attachment_id",
                             "category": "category",
                             "direct_upload_id": "direct_upload_id",
-                            "kind": "kind",
+                            "kind": "bank_statement",
                         }
                     ],
                     "value": "value",
@@ -326,7 +326,7 @@ class TestVerifications:
                             "attachment_id": "attachment_id",
                             "category": "category",
                             "direct_upload_id": "direct_upload_id",
-                            "kind": "kind",
+                            "kind": "bank_statement",
                         }
                     ],
                     "value": "value",
@@ -639,7 +639,7 @@ class TestAsyncVerifications:
                             "attachment_id": "attachment_id",
                             "category": "category",
                             "direct_upload_id": "direct_upload_id",
-                            "kind": "kind",
+                            "kind": "bank_statement",
                         }
                     ],
                     "value": "value",
@@ -725,7 +725,7 @@ class TestAsyncVerifications:
                             "attachment_id": "attachment_id",
                             "category": "category",
                             "direct_upload_id": "direct_upload_id",
-                            "kind": "kind",
+                            "kind": "bank_statement",
                         }
                     ],
                     "value": "value",
