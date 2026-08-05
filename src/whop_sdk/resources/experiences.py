@@ -36,8 +36,6 @@ __all__ = ["ExperiencesResource", "AsyncExperiencesResource"]
 
 
 class ExperiencesResource(SyncAPIResource):
-    """Experiences"""
-
     @cached_property
     def with_raw_response(self) -> ExperiencesResourceWithRawResponse:
         """
@@ -65,6 +63,7 @@ class ExperiencesResource(SyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -89,6 +88,9 @@ class ExperiencesResource(SyncAPIResource):
 
           name: The display name of the experience. Defaults to the app's name if not provided.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           section_id: The unique identifier of the section to place the experience in.
 
           extra_headers: Send extra headers
@@ -108,6 +110,7 @@ class ExperiencesResource(SyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "section_id": section_id,
                 },
                 experience_create_params.ExperienceCreateParams,
@@ -159,6 +162,7 @@ class ExperiencesResource(SyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_update_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         order: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -182,6 +186,9 @@ class ExperiencesResource(SyncAPIResource):
 
           name: The display name of the experience.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           order: The position of the experience within its section for display ordering.
 
           section_id: The unique identifier of the section to move the experience into.
@@ -204,6 +211,7 @@ class ExperiencesResource(SyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "order": order,
                     "section_id": section_id,
                 },
@@ -460,8 +468,6 @@ class ExperiencesResource(SyncAPIResource):
 
 
 class AsyncExperiencesResource(AsyncAPIResource):
-    """Experiences"""
-
     @cached_property
     def with_raw_response(self) -> AsyncExperiencesResourceWithRawResponse:
         """
@@ -489,6 +495,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -513,6 +520,9 @@ class AsyncExperiencesResource(AsyncAPIResource):
 
           name: The display name of the experience. Defaults to the app's name if not provided.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           section_id: The unique identifier of the section to place the experience in.
 
           extra_headers: Send extra headers
@@ -532,6 +542,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "section_id": section_id,
                 },
                 experience_create_params.ExperienceCreateParams,
@@ -583,6 +594,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_update_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         order: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -606,6 +618,9 @@ class AsyncExperiencesResource(AsyncAPIResource):
 
           name: The display name of the experience.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           order: The position of the experience within its section for display ordering.
 
           section_id: The unique identifier of the section to move the experience into.
@@ -628,6 +643,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "order": order,
                     "section_id": section_id,
                 },
