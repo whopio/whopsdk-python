@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ...types import payout_list_params, payout_create_params
@@ -90,6 +92,7 @@ class PayoutsResource(SyncAPIResource):
         amount: float,
         payout_method_id: str,
         currency: str | Omit = omit,
+        speed: Literal["standard", "instant"] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -110,6 +113,9 @@ class PayoutsResource(SyncAPIResource):
 
           currency: The payout currency. Defaults to usd.
 
+          speed: How fast the funds should arrive. `instant` is only accepted when the account
+              and payout method are eligible; otherwise the payout is rejected.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -127,6 +133,7 @@ class PayoutsResource(SyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "currency": currency,
+                    "speed": speed,
                 },
                 payout_create_params.PayoutCreateParams,
             ),
@@ -255,6 +262,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         amount: float,
         payout_method_id: str,
         currency: str | Omit = omit,
+        speed: Literal["standard", "instant"] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -275,6 +283,9 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
           currency: The payout currency. Defaults to usd.
 
+          speed: How fast the funds should arrive. `instant` is only accepted when the account
+              and payout method are eligible; otherwise the payout is rejected.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -292,6 +303,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "currency": currency,
+                    "speed": speed,
                 },
                 payout_create_params.PayoutCreateParams,
             ),

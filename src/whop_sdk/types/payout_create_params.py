@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -21,5 +21,12 @@ class PayoutCreateParams(TypedDict, total=False):
 
     currency: str
     """The payout currency. Defaults to usd."""
+
+    speed: Literal["standard", "instant"]
+    """How fast the funds should arrive.
+
+    `instant` is only accepted when the account and payout method are eligible;
+    otherwise the payout is rejected.
+    """
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
