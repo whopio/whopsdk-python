@@ -1,52 +1,72 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import builtins
 from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .shared.currency import Currency
 
-__all__ = ["TransferListResponse"]
+__all__ = ["TransferListResponse", "CreatedByUser"]
+
+
+class CreatedByUser(BaseModel):
+    """
+    The user who initiated the transfer, such as the team member who sent a manual payout. Null if the creator is unavailable.
+    """
+
+    id: str
+    """User ID."""
+
+    username: str
+    """User's username."""
+
+    name: Optional[str] = None
+    """User display name."""
 
 
 class TransferListResponse(BaseModel):
     """A transfer of credit between two ledger accounts."""
 
     id: str
-    """The unique identifier for the credit transaction transfer."""
+    """Transfer ID."""
 
     amount: float
-    """The transfer amount in the currency specified by the currency field.
-
-    For example, 10.43 represents $10.43 USD.
-    """
+    """Transfer amount."""
 
     created_at: datetime
-    """The datetime the credit transaction transfer was created."""
+    """When the transfer was created."""
 
-    currency: Currency
-    """The currency in which this transfer amount is denominated."""
+    created_by_user: Optional[CreatedByUser] = None
+    """
+    The user who initiated the transfer, such as the team member who sent a manual
+    payout. Null if the creator is unavailable.
+    """
+
+    currency: str
+    """Transfer currency."""
 
     destination_ledger_account_id: str
-    """The unique identifier of the ledger account receiving the funds."""
+    """Destination ledger account ID."""
 
-    fee_amount: Optional[float] = None
-    """The flat fee amount deducted from this transfer, in the transfer's currency.
-
-    Null if no flat fee was applied.
-    """
-
-    metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs attached to this transfer.
-
-    Maximum 50 keys, 500 characters per key, 5000 characters per value.
-    """
-
-    notes: Optional[str] = None
-    """A free-text note attached to this transfer by the sender.
-
-    Null if no note was provided.
-    """
+    object: Literal["transfer"]
+    """The object type."""
 
     origin_ledger_account_id: str
-    """The unique identifier of the ledger account that sent the funds."""
+    """Source ledger account ID."""
+
+    status: Literal["processing", "succeeded", "failed"]
+    """Transfer status.
+
+    `processing` means the on-chain leg is still executing — poll the transfer until
+    it resolves to `succeeded` or `failed`.
+    """
+
+    fee_amount: Optional[float] = None
+    """Fee charged for the transfer."""
+
+    metadata: Optional[Dict[str, builtins.object]] = None
+    """Custom metadata attached to the transfer."""
+
+    notes: Optional[str] = None
+    """Transfer note."""
