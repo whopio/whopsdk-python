@@ -30,9 +30,11 @@ from .export_completed_webhook_event import ExportCompletedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent
 from .shipment_updated_webhook_event import ShipmentUpdatedWebhookEvent
+from .transfer_created_webhook_event import TransferCreatedWebhookEvent
 from .deposit_succeeded_webhook_event import DepositSucceededWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .product_published_webhook_event import ProductPublishedWebhookEvent
+from .transfer_completed_webhook_event import TransferCompletedWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent
 from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent
@@ -120,6 +122,8 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         SetupIntentSucceededWebhookEvent,
         ShipmentCreatedWebhookEvent,
         ShipmentUpdatedWebhookEvent,
+        TransferCompletedWebhookEvent,
+        TransferCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,
         WithdrawalCreatedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
