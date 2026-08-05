@@ -101,8 +101,12 @@ class Data(BaseModel):
     spent_last_month: Optional[int] = None
     """Total spend in the last 30 days, in cents."""
 
-    status: Optional[Literal["active", "frozen", "canceled", "invited"]] = None
-    """The card status."""
+    status: Optional[Literal["active", "frozen", "canceled", "invited", "denied"]] = None
+    """The card status.
+
+    `denied` means the issuer declined the cardholder, so the card will never be
+    issued.
+    """
 
     type: Optional[Literal["virtual", "physical"]] = None
     """The card type."""
