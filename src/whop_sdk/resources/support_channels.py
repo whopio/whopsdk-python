@@ -53,6 +53,7 @@ class SupportChannelsResource(SyncAPIResource):
         company_id: str,
         user_id: str,
         custom_name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,6 +78,9 @@ class SupportChannelsResource(SyncAPIResource):
 
           custom_name: Optional custom display name for the support channel.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this support channel. Webhooks
+              still fire.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -92,6 +96,7 @@ class SupportChannelsResource(SyncAPIResource):
                     "company_id": company_id,
                     "user_id": user_id,
                     "custom_name": custom_name,
+                    "notifications_enabled": notifications_enabled,
                 },
                 support_channel_create_params.SupportChannelCreateParams,
             ),
@@ -248,6 +253,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         company_id: str,
         user_id: str,
         custom_name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -272,6 +278,9 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
 
           custom_name: Optional custom display name for the support channel.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this support channel. Webhooks
+              still fire.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -287,6 +296,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
                     "company_id": company_id,
                     "user_id": user_id,
                     "custom_name": custom_name,
+                    "notifications_enabled": notifications_enabled,
                 },
                 support_channel_create_params.SupportChannelCreateParams,
             ),

@@ -52,6 +52,7 @@ class DmChannelsResource(SyncAPIResource):
         with_user_ids: SequenceNotStr[str],
         company_id: Optional[str] | Omit = omit,
         custom_name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -72,6 +73,9 @@ class DmChannelsResource(SyncAPIResource):
 
           custom_name: A custom display name for the DM channel. For example, 'Project Discussion'.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this direct message channel.
+              Webhooks still fire.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -87,6 +91,7 @@ class DmChannelsResource(SyncAPIResource):
                     "with_user_ids": with_user_ids,
                     "company_id": company_id,
                     "custom_name": custom_name,
+                    "notifications_enabled": notifications_enabled,
                 },
                 dm_channel_create_params.DmChannelCreateParams,
             ),
@@ -307,6 +312,7 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         with_user_ids: SequenceNotStr[str],
         company_id: Optional[str] | Omit = omit,
         custom_name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -327,6 +333,9 @@ class AsyncDmChannelsResource(AsyncAPIResource):
 
           custom_name: A custom display name for the DM channel. For example, 'Project Discussion'.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this direct message channel.
+              Webhooks still fire.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -342,6 +351,7 @@ class AsyncDmChannelsResource(AsyncAPIResource):
                     "with_user_ids": with_user_ids,
                     "company_id": company_id,
                     "custom_name": custom_name,
+                    "notifications_enabled": notifications_enabled,
                 },
                 dm_channel_create_params.DmChannelCreateParams,
             ),
