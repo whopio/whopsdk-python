@@ -1,107 +1,189 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .promo_duration import PromoDuration
-from .shared.currency import Currency
-from .promo_code_status import PromoCodeStatus
-from .shared.promo_type import PromoType
 
-__all__ = ["PromoCode", "Company", "Product"]
+__all__ = ["PromoCode", "Account", "Product"]
 
 
-class Company(BaseModel):
-    """The company for the promo code."""
+class Account(BaseModel):
+    """Account that owns the promo code."""
 
     id: str
-    """The unique identifier for the company."""
+    """Account ID, prefixed `biz_`."""
 
     title: str
-    """The written name of the company."""
+    """Account display name."""
 
 
 class Product(BaseModel):
-    """The product this promo code applies to"""
+    """
+    Product the promo code is restricted to, or `null` when it is not product-scoped.
+    """
 
     id: str
-    """The unique identifier for the product."""
+    """Product ID, prefixed `prod_`."""
 
     title: str
-    """
-    The display name of the product shown to customers on the product page and in
-    search results.
-    """
+    """Product display name."""
 
 
 class PromoCode(BaseModel):
-    """A promo code applies a discount to a plan during checkout.
-
-    Promo codes can be percentage-based or fixed-amount, and can have usage limits and expiration dates.
-    """
-
     id: str
-    """The unique identifier for the promo code."""
+    """Promo code ID, prefixed `promo_`."""
+
+    account: Account
+    """Account that owns the promo code."""
 
     amount_off: float
-    """The discount amount.
-
-    Interpretation depends on promo_type: if 'percentage', this is the percentage
-    (e.g., 20 means 20% off); if 'flat_amount', this is dollars off (e.g., 10.00
-    means $10.00 off).
-    """
+    """Discount amount. Percentage discounts are represented as a decimal fraction."""
 
     churned_users_only: bool
-    """Restricts promo use to only users who have churned from the company before."""
+    """Whether the promo code is restricted to churned customers."""
 
     code: Optional[str] = None
-    """The specific code used to apply the promo at checkout."""
+    """Code entered at checkout."""
 
-    company: Company
-    """The company for the promo code."""
+    created_at: str
+    """When the promo code was created, as an ISO 8601 timestamp."""
 
-    created_at: datetime
-    """The datetime the promo code was created."""
+    currency: Literal[
+        "usd",
+        "sgd",
+        "inr",
+        "aud",
+        "brl",
+        "cad",
+        "dkk",
+        "eur",
+        "nok",
+        "gbp",
+        "sek",
+        "chf",
+        "hkd",
+        "huf",
+        "jpy",
+        "mxn",
+        "myr",
+        "pln",
+        "czk",
+        "nzd",
+        "aed",
+        "eth",
+        "ape",
+        "cop",
+        "ron",
+        "thb",
+        "bgn",
+        "idr",
+        "dop",
+        "php",
+        "try",
+        "krw",
+        "twd",
+        "vnd",
+        "pkr",
+        "clp",
+        "uyu",
+        "ars",
+        "zar",
+        "dzd",
+        "tnd",
+        "mad",
+        "kes",
+        "kwd",
+        "jod",
+        "all",
+        "xcd",
+        "amd",
+        "bsd",
+        "bhd",
+        "bob",
+        "bam",
+        "khr",
+        "crc",
+        "xof",
+        "egp",
+        "etb",
+        "gmd",
+        "ghs",
+        "gtq",
+        "gyd",
+        "ils",
+        "jmd",
+        "mop",
+        "mga",
+        "mur",
+        "mdl",
+        "mnt",
+        "nad",
+        "ngn",
+        "mkd",
+        "omr",
+        "pyg",
+        "pen",
+        "qar",
+        "rwf",
+        "sar",
+        "rsd",
+        "lkr",
+        "tzs",
+        "ttd",
+        "uzs",
+        "rub",
+        "btc",
+        "cny",
+        "usdt",
+        "kzt",
+        "awg",
+        "whop_usd",
+        "xau",
+    ]
+    """Currency used for a fixed-amount discount."""
 
-    currency: Currency
-    """The monetary currency of the promo code."""
-
-    duration: Optional[PromoDuration] = None
-    """The duration setting for the promo code"""
+    duration: Literal["forever", "once", "repeating"]
+    """How long the discount applies."""
 
     existing_memberships_only: bool
-    """Restricts promo use to only be applied to already purchased memberships."""
+    """Whether the promo code applies only to existing memberships."""
 
-    expires_at: Optional[datetime] = None
-    """The date/time of when the promo expires."""
+    expires_at: Optional[str] = None
+    """When the promo code expires, as an ISO 8601 timestamp."""
+
+    metadata: object
+    """Custom key-value metadata stored on the promo code."""
 
     new_users_only: bool
-    """
-    Restricts promo use to only users who have never purchased from the company
-    before.
-    """
+    """Whether the promo code is restricted to new customers."""
 
     one_per_customer: bool
-    """Restricts promo use to only be applied once per customer."""
+    """Whether each customer may redeem the promo code only once."""
 
     product: Optional[Product] = None
-    """The product this promo code applies to"""
+    """
+    Product the promo code is restricted to, or `null` when it is not
+    product-scoped.
+    """
 
     promo_duration_months: Optional[int] = None
-    """The number of months the promo is applied for."""
+    """Billing intervals the discount applies to."""
 
-    promo_type: PromoType
-    """The type (% or flat amount) of the promo."""
+    promo_type: Literal["percentage", "flat_amount"]
+    """Whether the discount is percentage-based or a fixed amount."""
 
-    status: PromoCodeStatus
-    """Indicates if the promo code is live or disabled."""
+    status: Literal["active", "inactive", "archived"]
+    """Promo code lifecycle status."""
 
     stock: int
-    """The quantity limit on the number of uses."""
+    """Maximum uses when stock is limited."""
 
     unlimited_stock: bool
-    """Whether or not the promo code has unlimited stock."""
+    """Whether the promo code has no redemption limit."""
+
+    updated_at: str
+    """When the promo code was updated, as an ISO 8601 timestamp."""
 
     uses: int
-    """The amount of times the promo codes has been used."""
+    """Memberships that used the promo code."""
