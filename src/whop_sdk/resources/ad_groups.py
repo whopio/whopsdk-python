@@ -200,7 +200,8 @@ class AdGroupsResource(SyncAPIResource):
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.
 
-          message_apps: Apps the conversation opens in. Required when conversion_location is
+          message_apps: Apps the conversation opens in. Required when setting `conversion_location` to
+              `messaging`, and rejected unless the ad group's conversion location is
               `messaging`.
 
           minimum_daily_spend: Minimum the ad group tries to spend each day.
@@ -466,7 +467,8 @@ class AdGroupsResource(SyncAPIResource):
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.
 
-          message_apps: Apps the conversation opens in. Required when conversion_location is
+          message_apps: Apps the conversation opens in. Required when setting `conversion_location` to
+              `messaging`, and rejected unless the ad group's conversion location is
               `messaging`.
 
           minimum_daily_spend: Minimum the ad group tries to spend each day.
@@ -1158,7 +1160,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.
 
-          message_apps: Apps the conversation opens in. Required when conversion_location is
+          message_apps: Apps the conversation opens in. Required when setting `conversion_location` to
+              `messaging`, and rejected unless the ad group's conversion location is
               `messaging`.
 
           minimum_daily_spend: Minimum the ad group tries to spend each day.
@@ -1424,7 +1427,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           languages: Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted
               targets all languages.
 
-          message_apps: Apps the conversation opens in. Required when conversion_location is
+          message_apps: Apps the conversation opens in. Required when setting `conversion_location` to
+              `messaging`, and rejected unless the ad group's conversion location is
               `messaging`.
 
           minimum_daily_spend: Minimum the ad group tries to spend each day.

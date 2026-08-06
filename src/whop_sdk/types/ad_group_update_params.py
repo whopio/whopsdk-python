@@ -144,7 +144,8 @@ class AdGroupUpdateParams(TypedDict, total=False):
     message_apps: List[Literal["messenger", "instagram", "whatsapp"]]
     """Apps the conversation opens in.
 
-    Required when conversion_location is `messaging`.
+    Required when setting `conversion_location` to `messaging`, and rejected unless
+    the ad group's conversion location is `messaging`.
     """
 
     minimum_daily_spend: float
