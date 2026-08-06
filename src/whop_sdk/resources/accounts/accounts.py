@@ -2932,7 +2932,7 @@ class AccountsResource(SyncAPIResource):
         email address. When the recipient already holds the owner role on the account,
         ownership transfers immediately and the response is `{ "success": true }`.
         Otherwise they are sent an ownership transfer invite and the request returns
-        `202` with `{ "object": "team_member_invite", "invitation_sent": true }` —
+        `201` with `{ "object": "team_member_invite", "invitation_sent": true }` —
         ownership moves when they accept it, and nothing changes if they never do. A
         recipient who is already a team member without the owner role is rejected; grant
         them the owner role first. The previous owner keeps their team membership and
@@ -5849,7 +5849,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         email address. When the recipient already holds the owner role on the account,
         ownership transfers immediately and the response is `{ "success": true }`.
         Otherwise they are sent an ownership transfer invite and the request returns
-        `202` with `{ "object": "team_member_invite", "invitation_sent": true }` —
+        `201` with `{ "object": "team_member_invite", "invitation_sent": true }` —
         ownership moves when they accept it, and nothing changes if they never do. A
         recipient who is already a team member without the owner role is rejected; grant
         them the owner role first. The previous owner keeps their team membership and
