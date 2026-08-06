@@ -6,13 +6,27 @@ from typing_extensions import override
 from ._models import BaseModel
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
-__all__ = ["CursorPagePageInfo", "SyncCursorPage", "AsyncCursorPage"]
+__all__ = [
+    "CursorPagePageInfo",
+    "SyncCursorPage",
+    "AsyncCursorPage",
+    "CursorPageWithLimitsLimits",
+    "CursorPageWithLimitsPageInfo",
+    "SyncCursorPageWithLimits",
+    "AsyncCursorPageWithLimits",
+]
 
 _T = TypeVar("_T")
 
 
 class CursorPagePageInfo(BaseModel):
     end_cursor: Optional[str] = None
+
+    has_next_page: Optional[bool] = None
+
+    has_previous_page: Optional[bool] = None
+
+    start_cursor: Optional[str] = None
 
 
 class SyncCursorPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
@@ -41,6 +55,62 @@ class SyncCursorPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
 class AsyncCursorPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
     data: List[_T]
     page_info: Optional[CursorPagePageInfo] = None
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        data = self.data
+        if not data:
+            return []
+        return data
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        end_cursor = None
+        if self.page_info is not None:
+            if self.page_info.end_cursor is not None:
+                end_cursor = self.page_info.end_cursor
+        if not end_cursor:
+            return None
+
+        return PageInfo(params={"after": end_cursor})
+
+
+class CursorPageWithLimitsLimits(BaseModel):
+    object: Optional[str] = None
+
+
+class CursorPageWithLimitsPageInfo(BaseModel):
+    end_cursor: Optional[str] = None
+
+
+class SyncCursorPageWithLimits(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+    data: List[_T]
+    limits: Optional[CursorPageWithLimitsLimits] = None
+    page_info: Optional[CursorPageWithLimitsPageInfo] = None
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        data = self.data
+        if not data:
+            return []
+        return data
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        end_cursor = None
+        if self.page_info is not None:
+            if self.page_info.end_cursor is not None:
+                end_cursor = self.page_info.end_cursor
+        if not end_cursor:
+            return None
+
+        return PageInfo(params={"after": end_cursor})
+
+
+class AsyncCursorPageWithLimits(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+    data: List[_T]
+    limits: Optional[CursorPageWithLimitsLimits] = None
+    page_info: Optional[CursorPageWithLimitsPageInfo] = None
 
     @override
     def _get_page_items(self) -> List[_T]:
