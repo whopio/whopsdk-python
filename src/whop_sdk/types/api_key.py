@@ -40,6 +40,33 @@ class APIKey(BaseModel):
     id: str
     """API key ID, prefixed `apik_`."""
 
+    api_version_date: Literal[
+        "2025-01-01",
+        "2026-06-08",
+        "2026-06-09",
+        "2026-06-20",
+        "2026-07-01",
+        "2026-07-08",
+        "2026-07-08-1",
+        "2026-07-18",
+        "2026-07-20",
+        "2026-07-22",
+        "2026-07-23",
+        "2026-07-25",
+        "2026-07-26",
+        "2026-07-27",
+        "2026-07-29",
+        "2026-07-29-1",
+        "2026-07-31",
+        "2026-08-03",
+        "2026-08-05",
+        "2026-08-05-1",
+    ]
+    """
+    Dated API version used when requests authenticated with this key omit the
+    `Api-Version-Date` header.
+    """
+
     created_at: str
     """When the API key was created, as an ISO 8601 timestamp."""
 

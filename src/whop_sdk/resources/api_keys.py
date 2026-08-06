@@ -61,6 +61,29 @@ class APIKeysResource(SyncAPIResource):
         permissions: api_key_create_params.Permissions,
         resource_id: str,
         resource_type: Literal["account", "app"],
+        api_version_date: Literal[
+            "2025-01-01",
+            "2026-06-08",
+            "2026-06-09",
+            "2026-06-20",
+            "2026-07-01",
+            "2026-07-08",
+            "2026-07-08-1",
+            "2026-07-18",
+            "2026-07-20",
+            "2026-07-22",
+            "2026-07-23",
+            "2026-07-25",
+            "2026-07-26",
+            "2026-07-27",
+            "2026-07-29",
+            "2026-07-29-1",
+            "2026-07-31",
+            "2026-08-03",
+            "2026-08-05",
+            "2026-08-05-1",
+        ]
+        | Omit = omit,
         expires_at: Optional[str] | Omit = omit,
         ip_allowlist: Optional[SequenceNotStr[str]] | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -89,6 +112,9 @@ class APIKeysResource(SyncAPIResource):
 
           resource_type: The type of resource that will own this API key.
 
+          api_version_date: Dated API version used when requests authenticated with this key omit the
+              `Api-Version-Date` header. New keys default to the latest version.
+
           expires_at: When the API key should stop working, as an ISO 8601 timestamp. Omit (or pass
               `null` on update) for a key that never expires.
 
@@ -112,6 +138,7 @@ class APIKeysResource(SyncAPIResource):
                     "permissions": permissions,
                     "resource_id": resource_id,
                     "resource_type": resource_type,
+                    "api_version_date": api_version_date,
                     "expires_at": expires_at,
                     "ip_allowlist": ip_allowlist,
                 },
@@ -162,6 +189,29 @@ class APIKeysResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: Literal[
+            "2025-01-01",
+            "2026-06-08",
+            "2026-06-09",
+            "2026-06-20",
+            "2026-07-01",
+            "2026-07-08",
+            "2026-07-08-1",
+            "2026-07-18",
+            "2026-07-20",
+            "2026-07-22",
+            "2026-07-23",
+            "2026-07-25",
+            "2026-07-26",
+            "2026-07-27",
+            "2026-07-29",
+            "2026-07-29-1",
+            "2026-07-31",
+            "2026-08-03",
+            "2026-08-05",
+            "2026-08-05-1",
+        ]
+        | Omit = omit,
         expires_at: Optional[str] | Omit = omit,
         ip_allowlist: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -173,12 +223,16 @@ class APIKeysResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
-        """Updates an API key's name, permissions, expiration, or IP allowlist.
+        """Updates an API key's name, permissions, API version, expiration, or IP
+        allowlist.
 
-        Fields that
-        are omitted keep their current value; default keys cannot be modified.
+        Fields that are omitted keep their current value; default keys cannot
+        be modified.
 
         Args:
+          api_version_date: Dated API version used when requests authenticated with this key omit the
+              `Api-Version-Date` header. New keys default to the latest version.
+
           expires_at: When the API key should stop working, as an ISO 8601 timestamp. Omit (or pass
               `null` on update) for a key that never expires.
 
@@ -206,6 +260,7 @@ class APIKeysResource(SyncAPIResource):
             path_template("/api_keys/{id}", id=id),
             body=maybe_transform(
                 {
+                    "api_version_date": api_version_date,
                     "expires_at": expires_at,
                     "ip_allowlist": ip_allowlist,
                     "name": name,
@@ -429,6 +484,29 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         permissions: api_key_create_params.Permissions,
         resource_id: str,
         resource_type: Literal["account", "app"],
+        api_version_date: Literal[
+            "2025-01-01",
+            "2026-06-08",
+            "2026-06-09",
+            "2026-06-20",
+            "2026-07-01",
+            "2026-07-08",
+            "2026-07-08-1",
+            "2026-07-18",
+            "2026-07-20",
+            "2026-07-22",
+            "2026-07-23",
+            "2026-07-25",
+            "2026-07-26",
+            "2026-07-27",
+            "2026-07-29",
+            "2026-07-29-1",
+            "2026-07-31",
+            "2026-08-03",
+            "2026-08-05",
+            "2026-08-05-1",
+        ]
+        | Omit = omit,
         expires_at: Optional[str] | Omit = omit,
         ip_allowlist: Optional[SequenceNotStr[str]] | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -457,6 +535,9 @@ class AsyncAPIKeysResource(AsyncAPIResource):
 
           resource_type: The type of resource that will own this API key.
 
+          api_version_date: Dated API version used when requests authenticated with this key omit the
+              `Api-Version-Date` header. New keys default to the latest version.
+
           expires_at: When the API key should stop working, as an ISO 8601 timestamp. Omit (or pass
               `null` on update) for a key that never expires.
 
@@ -480,6 +561,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
                     "permissions": permissions,
                     "resource_id": resource_id,
                     "resource_type": resource_type,
+                    "api_version_date": api_version_date,
                     "expires_at": expires_at,
                     "ip_allowlist": ip_allowlist,
                 },
@@ -530,6 +612,29 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: Literal[
+            "2025-01-01",
+            "2026-06-08",
+            "2026-06-09",
+            "2026-06-20",
+            "2026-07-01",
+            "2026-07-08",
+            "2026-07-08-1",
+            "2026-07-18",
+            "2026-07-20",
+            "2026-07-22",
+            "2026-07-23",
+            "2026-07-25",
+            "2026-07-26",
+            "2026-07-27",
+            "2026-07-29",
+            "2026-07-29-1",
+            "2026-07-31",
+            "2026-08-03",
+            "2026-08-05",
+            "2026-08-05-1",
+        ]
+        | Omit = omit,
         expires_at: Optional[str] | Omit = omit,
         ip_allowlist: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -541,12 +646,16 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
-        """Updates an API key's name, permissions, expiration, or IP allowlist.
+        """Updates an API key's name, permissions, API version, expiration, or IP
+        allowlist.
 
-        Fields that
-        are omitted keep their current value; default keys cannot be modified.
+        Fields that are omitted keep their current value; default keys cannot
+        be modified.
 
         Args:
+          api_version_date: Dated API version used when requests authenticated with this key omit the
+              `Api-Version-Date` header. New keys default to the latest version.
+
           expires_at: When the API key should stop working, as an ISO 8601 timestamp. Omit (or pass
               `null` on update) for a key that never expires.
 
@@ -574,6 +683,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             path_template("/api_keys/{id}", id=id),
             body=await async_maybe_transform(
                 {
+                    "api_version_date": api_version_date,
                     "expires_at": expires_at,
                     "ip_allowlist": ip_allowlist,
                     "name": name,

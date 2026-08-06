@@ -50,6 +50,7 @@ class TestAPIKeys:
             },
             resource_id="resource_id",
             resource_type="account",
+            api_version_date="2026-08-05-1",
             expires_at="expires_at",
             ip_allowlist=["string"],
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
@@ -143,6 +144,7 @@ class TestAPIKeys:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         api_key = client.api_keys.update(
             id="id",
+            api_version_date="2026-08-05-1",
             expires_at="expires_at",
             ip_allowlist=["string"],
             name="name",
@@ -402,6 +404,7 @@ class TestAsyncAPIKeys:
             },
             resource_id="resource_id",
             resource_type="account",
+            api_version_date="2026-08-05-1",
             expires_at="expires_at",
             ip_allowlist=["string"],
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
@@ -495,6 +498,7 @@ class TestAsyncAPIKeys:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         api_key = await async_client.api_keys.update(
             id="id",
+            api_version_date="2026-08-05-1",
             expires_at="expires_at",
             ip_allowlist=["string"],
             name="name",
