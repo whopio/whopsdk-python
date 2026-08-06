@@ -12,11 +12,13 @@ class PaymentMethodRetrieveParams(TypedDict, total=False):
     company_id: Optional[str]
     """The unique identifier of the company.
 
-    Provide either this or member_id, not both.
+    Provide either this or member_id, not both. Omit both to address your own saved
+    payment methods.
     """
 
     member_id: Optional[str]
     """The unique identifier of the member.
 
-    Provide either this or company_id, not both.
+    Provide either this or company_id, not both. Omit both to address your own saved
+    payment methods.
     """

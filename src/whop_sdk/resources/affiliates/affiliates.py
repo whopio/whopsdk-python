@@ -39,11 +39,8 @@ __all__ = ["AffiliatesResource", "AsyncAffiliatesResource"]
 
 
 class AffiliatesResource(SyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def overrides(self) -> OverridesResource:
-        """Affiliates"""
         return OverridesResource(self._client)
 
     @cached_property
@@ -305,11 +302,8 @@ class AffiliatesResource(SyncAPIResource):
 
 
 class AsyncAffiliatesResource(AsyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def overrides(self) -> AsyncOverridesResource:
-        """Affiliates"""
         return AsyncOverridesResource(self._client)
 
     @cached_property
@@ -592,7 +586,6 @@ class AffiliatesResourceWithRawResponse:
 
     @cached_property
     def overrides(self) -> OverridesResourceWithRawResponse:
-        """Affiliates"""
         return OverridesResourceWithRawResponse(self._affiliates.overrides)
 
 
@@ -618,7 +611,6 @@ class AsyncAffiliatesResourceWithRawResponse:
 
     @cached_property
     def overrides(self) -> AsyncOverridesResourceWithRawResponse:
-        """Affiliates"""
         return AsyncOverridesResourceWithRawResponse(self._affiliates.overrides)
 
 
@@ -644,7 +636,6 @@ class AffiliatesResourceWithStreamingResponse:
 
     @cached_property
     def overrides(self) -> OverridesResourceWithStreamingResponse:
-        """Affiliates"""
         return OverridesResourceWithStreamingResponse(self._affiliates.overrides)
 
 
@@ -670,5 +661,4 @@ class AsyncAffiliatesResourceWithStreamingResponse:
 
     @cached_property
     def overrides(self) -> AsyncOverridesResourceWithStreamingResponse:
-        """Affiliates"""
         return AsyncOverridesResourceWithStreamingResponse(self._affiliates.overrides)
