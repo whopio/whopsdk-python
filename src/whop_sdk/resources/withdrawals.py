@@ -57,6 +57,7 @@ class WithdrawalsResource(SyncAPIResource):
         amount: float,
         company_id: str,
         currency: Currency,
+        acknowledge_bank_warning: Optional[bool] | Omit = omit,
         idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
@@ -83,6 +84,10 @@ class WithdrawalsResource(SyncAPIResource):
           company_id: The ID of the company to withdraw from.
 
           currency: The currency that is being withdrawn.
+
+          acknowledge_bank_warning: Set to true to continue when the bank could not confirm the account holder's
+              name. The withdrawal is refused without it so the creator can fix the account or
+              link their bank first.
 
           idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
               returns the original withdrawal instead of creating a second one.
@@ -111,6 +116,7 @@ class WithdrawalsResource(SyncAPIResource):
                     "amount": amount,
                     "company_id": company_id,
                     "currency": currency,
+                    "acknowledge_bank_warning": acknowledge_bank_warning,
                     "idempotency_key": idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,
@@ -268,6 +274,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         amount: float,
         company_id: str,
         currency: Currency,
+        acknowledge_bank_warning: Optional[bool] | Omit = omit,
         idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
@@ -294,6 +301,10 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
           company_id: The ID of the company to withdraw from.
 
           currency: The currency that is being withdrawn.
+
+          acknowledge_bank_warning: Set to true to continue when the bank could not confirm the account holder's
+              name. The withdrawal is refused without it so the creator can fix the account or
+              link their bank first.
 
           idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
               returns the original withdrawal instead of creating a second one.
@@ -322,6 +333,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
                     "amount": amount,
                     "company_id": company_id,
                     "currency": currency,
+                    "acknowledge_bank_warning": acknowledge_bank_warning,
                     "idempotency_key": idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,

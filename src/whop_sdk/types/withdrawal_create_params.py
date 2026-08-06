@@ -21,6 +21,13 @@ class WithdrawalCreateParams(TypedDict, total=False):
     currency: Required[Currency]
     """The currency that is being withdrawn."""
 
+    acknowledge_bank_warning: Optional[bool]
+    """
+    Set to true to continue when the bank could not confirm the account holder's
+    name. The withdrawal is refused without it so the creator can fix the account or
+    link their bank first.
+    """
+
     idempotency_key: Optional[str]
     """A client-generated key that makes retries safe.
 
