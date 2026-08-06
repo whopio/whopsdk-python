@@ -7,7 +7,7 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from .._utils import PropertyInfo
 from .._models import BaseModel
 from .card_brands import CardBrands
-from .payment_method_types import PaymentMethodTypes
+from .payment_method_type import PaymentMethodType
 
 __all__ = [
     "PaymentMethodListResponse",
@@ -41,7 +41,7 @@ class BasePaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -71,6 +71,12 @@ class CardPaymentMethodCard(BaseModel):
     last4: Optional[str] = None
     """The last four digits of the card number. Null if not available."""
 
+    three_ds_verified: bool
+    """
+    Whether this card was verified with 3D Secure, either when it was saved or on a
+    payment that used it.
+    """
+
 
 class CardPaymentMethod(BaseModel):
     """
@@ -96,7 +102,7 @@ class CardPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -139,7 +145,7 @@ class UsBankAccountPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -194,7 +200,7 @@ class CashappPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -243,7 +249,7 @@ class IdealPaymentMethod(BaseModel):
     The iDEAL-specific details for this payment method, including bank name and BIC.
     """
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -301,7 +307,7 @@ class SepaDebitPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
