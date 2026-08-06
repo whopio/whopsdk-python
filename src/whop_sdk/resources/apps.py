@@ -66,6 +66,7 @@ class AppsResource(SyncAPIResource):
         *,
         name: str,
         account_id: str | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         icon: app_create_params.Icon | Omit = omit,
         redirect_uris: SequenceNotStr[str] | Omit = omit,
@@ -88,6 +89,8 @@ class AppsResource(SyncAPIResource):
 
           account_id: The account to create the app for (`biz_` tag). Defaults to the account behind
               the presented credential.
+
+          app_type: The type of app to create. Defaults to `b2c_app`.
 
           base_url: The base production URL where the app is hosted, such as
               `https://myapp.example.com`.
@@ -117,6 +120,7 @@ class AppsResource(SyncAPIResource):
                 {
                     "name": name,
                     "account_id": account_id,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "icon": icon,
                     "redirect_uris": redirect_uris,
@@ -171,7 +175,7 @@ class AppsResource(SyncAPIResource):
         id: str,
         *,
         app_store_description: str | Omit = omit,
-        app_type: Literal["b2b_app", "b2c_app", "company_app", "component"] | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: str | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: str | Omit = omit,
@@ -205,7 +209,8 @@ class AppsResource(SyncAPIResource):
         Args:
           app_store_description: The detailed description shown on the app store's in-depth app view page.
 
-          app_type: The type of end-user the app is built for.
+          app_type: The type of end-user the app is built for. Cannot be changed on an app whose
+              type is already `website`.
 
           base_url: The base production URL where the app is hosted.
 
@@ -303,7 +308,7 @@ class AppsResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
-        app_type: Literal["b2b_app", "b2c_app", "company_app", "component"] | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
@@ -538,6 +543,7 @@ class AsyncAppsResource(AsyncAPIResource):
         *,
         name: str,
         account_id: str | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         icon: app_create_params.Icon | Omit = omit,
         redirect_uris: SequenceNotStr[str] | Omit = omit,
@@ -560,6 +566,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
           account_id: The account to create the app for (`biz_` tag). Defaults to the account behind
               the presented credential.
+
+          app_type: The type of app to create. Defaults to `b2c_app`.
 
           base_url: The base production URL where the app is hosted, such as
               `https://myapp.example.com`.
@@ -589,6 +597,7 @@ class AsyncAppsResource(AsyncAPIResource):
                 {
                     "name": name,
                     "account_id": account_id,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "icon": icon,
                     "redirect_uris": redirect_uris,
@@ -643,7 +652,7 @@ class AsyncAppsResource(AsyncAPIResource):
         id: str,
         *,
         app_store_description: str | Omit = omit,
-        app_type: Literal["b2b_app", "b2c_app", "company_app", "component"] | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: str | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: str | Omit = omit,
@@ -677,7 +686,8 @@ class AsyncAppsResource(AsyncAPIResource):
         Args:
           app_store_description: The detailed description shown on the app store's in-depth app view page.
 
-          app_type: The type of end-user the app is built for.
+          app_type: The type of end-user the app is built for. Cannot be changed on an app whose
+              type is already `website`.
 
           base_url: The base production URL where the app is hosted.
 
@@ -775,7 +785,7 @@ class AsyncAppsResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         after: str | Omit = omit,
-        app_type: Literal["b2b_app", "b2c_app", "company_app", "component"] | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,

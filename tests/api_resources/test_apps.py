@@ -37,6 +37,7 @@ class TestApps:
         app = client.apps.create(
             name="name",
             account_id="account_id",
+            app_type="b2b_app",
             base_url="base_url",
             icon={
                 "id": "id",
@@ -383,6 +384,7 @@ class TestAsyncApps:
         app = await async_client.apps.create(
             name="name",
             account_id="account_id",
+            app_type="b2b_app",
             base_url="base_url",
             icon={
                 "id": "id",

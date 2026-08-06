@@ -208,7 +208,7 @@ class App(BaseModel):
     none has been set.
     """
 
-    app_type: Literal["b2b_app", "b2c_app", "company_app", "component"]
+    app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
     """The type of end-user the app is built for."""
 
     base_url: Optional[str] = None

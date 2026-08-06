@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -22,6 +22,9 @@ class AppCreateParams(TypedDict, total=False):
 
     Defaults to the account behind the presented credential.
     """
+
+    app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
+    """The type of app to create. Defaults to `b2c_app`."""
 
     base_url: Optional[str]
     """

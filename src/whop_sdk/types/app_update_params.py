@@ -14,8 +14,11 @@ class AppUpdateParams(TypedDict, total=False):
     app_store_description: str
     """The detailed description shown on the app store's in-depth app view page."""
 
-    app_type: Literal["b2b_app", "b2c_app", "company_app", "component"]
-    """The type of end-user the app is built for."""
+    app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
+    """The type of end-user the app is built for.
+
+    Cannot be changed on an app whose type is already `website`.
+    """
 
     base_url: str
     """The base production URL where the app is hosted."""
