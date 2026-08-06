@@ -222,7 +222,9 @@ class SwapsResource(SyncAPIResource):
     ) -> SwapCreateQuoteResponse:
         """Previews the price of a swap.
 
-        No funds move and nothing is saved.
+        Fiat pairs quote the in-ledger mid-market
+        conversion — the same rate creating the swap fills at. No funds move and nothing
+        is saved.
 
         Args:
           amount: Source token amount.
@@ -473,7 +475,9 @@ class AsyncSwapsResource(AsyncAPIResource):
     ) -> SwapCreateQuoteResponse:
         """Previews the price of a swap.
 
-        No funds move and nothing is saved.
+        Fiat pairs quote the in-ledger mid-market
+        conversion — the same rate creating the swap fills at. No funds move and nothing
+        is saved.
 
         Args:
           amount: Source token amount.

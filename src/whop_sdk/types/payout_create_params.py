@@ -20,7 +20,12 @@ class PayoutCreateParams(TypedDict, total=False):
     """The saved payout method to deliver to (a potk\\__ identifier)."""
 
     currency: str
-    """The payout currency. Defaults to usd."""
+    """The currency to pay out.
+
+    Balances are held per currency and the payout draws only from the balance in
+    this currency, so match the currency the funds arrived in — for example `cad`
+    for an account funded by CAD transfers. Defaults to `usd`.
+    """
 
     speed: Literal["standard", "instant"]
     """How fast the funds should arrive.

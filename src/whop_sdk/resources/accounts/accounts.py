@@ -2891,9 +2891,9 @@ class AccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccountRecommendActionsResponse:
         """
-        Lists the recommended actions computed for the account — the same set embedded
-        on the account resource, served on their own so a caller can fetch just the
-        recommendations.
+        Lists the recommended action chains for the account — short sequences of actions
+        (create a product, price it, publish it) the account should run next, gated on
+        what it already has.
 
         Args:
           extra_headers: Send extra headers
@@ -5808,9 +5808,9 @@ class AsyncAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AccountRecommendActionsResponse:
         """
-        Lists the recommended actions computed for the account — the same set embedded
-        on the account resource, served on their own so a caller can fetch just the
-        recommendations.
+        Lists the recommended action chains for the account — short sequences of actions
+        (create a product, price it, publish it) the account should run next, gated on
+        what it already has.
 
         Args:
           extra_headers: Send extra headers

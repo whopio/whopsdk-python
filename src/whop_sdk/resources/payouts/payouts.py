@@ -111,7 +111,10 @@ class PayoutsResource(SyncAPIResource):
 
           payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
 
-          currency: The payout currency. Defaults to usd.
+          currency: The currency to pay out. Balances are held per currency and the payout draws
+              only from the balance in this currency, so match the currency the funds arrived
+              in — for example `cad` for an account funded by CAD transfers. Defaults to
+              `usd`.
 
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
@@ -281,7 +284,10 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
           payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
 
-          currency: The payout currency. Defaults to usd.
+          currency: The currency to pay out. Balances are held per currency and the payout draws
+              only from the balance in this currency, so match the currency the funds arrived
+              in — for example `cad` for an account funded by CAD transfers. Defaults to
+              `usd`.
 
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.

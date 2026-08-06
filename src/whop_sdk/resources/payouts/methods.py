@@ -57,12 +57,12 @@ class MethodsResource(SyncAPIResource):
     def create(
         self,
         *,
-        fields: Dict[str, str],
-        nickname: str,
         supported_payout_method_id: str,
         account_id: str | Omit = omit,
         destination_currency: str | Omit = omit,
+        fields: Dict[str, str] | Omit = omit,
         is_default: bool | Omit = omit,
+        nickname: str | Omit = omit,
         user_id: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -78,13 +78,6 @@ class MethodsResource(SyncAPIResource):
         vaulted in transit and never stored raw.
 
         Args:
-          fields: The supported payout method's required field values, keyed by field id — list
-              them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
-              Basis Theory token id may be passed in place of a raw value. A validation
-              failure returns the method's full required_fields schema alongside the error.
-
-          nickname: A label for the payout method, unique per destination.
-
           supported_payout_method_id: The supported payout method to save (a podst\\__ identifier from a previous
               listing).
 
@@ -93,7 +86,15 @@ class MethodsResource(SyncAPIResource):
 
           destination_currency: Currency the supported payout method delivers payouts in.
 
+          fields: The supported payout method's required field values, keyed by field id — list
+              them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
+              Basis Theory token id may be passed in place of a raw value. A validation
+              failure returns the method's full required_fields schema alongside the error.
+              Required whenever the account details are supplied directly.
+
           is_default: Whether to make this the account's default payout method.
+
+          nickname: A label for the payout method, unique per destination.
 
           user_id: The user to add the payout method for (a user\\__ identifier). Provide this or
               account_id.
@@ -111,12 +112,12 @@ class MethodsResource(SyncAPIResource):
             "/payouts/methods",
             body=maybe_transform(
                 {
-                    "fields": fields,
-                    "nickname": nickname,
                     "supported_payout_method_id": supported_payout_method_id,
                     "account_id": account_id,
                     "destination_currency": destination_currency,
+                    "fields": fields,
                     "is_default": is_default,
+                    "nickname": nickname,
                     "user_id": user_id,
                 },
                 method_create_params.MethodCreateParams,
@@ -314,12 +315,12 @@ class AsyncMethodsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        fields: Dict[str, str],
-        nickname: str,
         supported_payout_method_id: str,
         account_id: str | Omit = omit,
         destination_currency: str | Omit = omit,
+        fields: Dict[str, str] | Omit = omit,
         is_default: bool | Omit = omit,
+        nickname: str | Omit = omit,
         user_id: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -335,13 +336,6 @@ class AsyncMethodsResource(AsyncAPIResource):
         vaulted in transit and never stored raw.
 
         Args:
-          fields: The supported payout method's required field values, keyed by field id — list
-              them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
-              Basis Theory token id may be passed in place of a raw value. A validation
-              failure returns the method's full required_fields schema alongside the error.
-
-          nickname: A label for the payout method, unique per destination.
-
           supported_payout_method_id: The supported payout method to save (a podst\\__ identifier from a previous
               listing).
 
@@ -350,7 +344,15 @@ class AsyncMethodsResource(AsyncAPIResource):
 
           destination_currency: Currency the supported payout method delivers payouts in.
 
+          fields: The supported payout method's required field values, keyed by field id — list
+              them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
+              Basis Theory token id may be passed in place of a raw value. A validation
+              failure returns the method's full required_fields schema alongside the error.
+              Required whenever the account details are supplied directly.
+
           is_default: Whether to make this the account's default payout method.
+
+          nickname: A label for the payout method, unique per destination.
 
           user_id: The user to add the payout method for (a user\\__ identifier). Provide this or
               account_id.
@@ -368,12 +370,12 @@ class AsyncMethodsResource(AsyncAPIResource):
             "/payouts/methods",
             body=await async_maybe_transform(
                 {
-                    "fields": fields,
-                    "nickname": nickname,
                     "supported_payout_method_id": supported_payout_method_id,
                     "account_id": account_id,
                     "destination_currency": destination_currency,
+                    "fields": fields,
                     "is_default": is_default,
+                    "nickname": nickname,
                     "user_id": user_id,
                 },
                 method_create_params.MethodCreateParams,

@@ -27,8 +27,6 @@ class TestMethods:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         method = client.payouts.methods.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
@@ -37,12 +35,12 @@ class TestMethods:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         method = client.payouts.methods.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
             account_id="account_id",
             destination_currency="destination_currency",
+            fields={"foo": "string"},
             is_default=True,
+            nickname="nickname",
             user_id="user_id",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -52,8 +50,6 @@ class TestMethods:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.payouts.methods.with_raw_response.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
         )
 
@@ -66,8 +62,6 @@ class TestMethods:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.payouts.methods.with_streaming_response.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
         ) as response:
             assert not response.is_closed
@@ -221,8 +215,6 @@ class TestAsyncMethods:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
@@ -231,12 +223,12 @@ class TestAsyncMethods:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
             account_id="account_id",
             destination_currency="destination_currency",
+            fields={"foo": "string"},
             is_default=True,
+            nickname="nickname",
             user_id="user_id",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -246,8 +238,6 @@ class TestAsyncMethods:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.methods.with_raw_response.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
         )
 
@@ -260,8 +250,6 @@ class TestAsyncMethods:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.methods.with_streaming_response.create(
-            fields={"foo": "string"},
-            nickname="nickname",
             supported_payout_method_id="supported_payout_method_id",
         ) as response:
             assert not response.is_closed

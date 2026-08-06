@@ -55,6 +55,7 @@ class MethodCreateResponse(BaseModel):
     is_default: bool
 
     nickname: Optional[str] = None
+    """User-defined label for the payout method."""
 
     object: Literal["payout_method"]
 
@@ -66,3 +67,11 @@ class MethodCreateResponse(BaseModel):
     status: Literal["created", "active", "broken"]
 
     supported_payout_method: Optional[SupportedPayoutMethod] = None
+
+    bank_verification_state: Optional[Literal["checking", "verified", "no_data", "warning", "broken"]] = None
+    """
+    Lifecycle trust state: `checking` (verification still running), `verified` (bank
+    confirmed ownership or a payout already completed to it), `no_data` (bank had
+    nothing on file), `warning` (bank could not confirm ownership), `broken`
+    (payouts failed with a permanent account error), `null` (never checked).
+    """
