@@ -370,10 +370,8 @@ class VerificationsResource(SyncAPIResource):
 
           personal_address: Personal address for the individual.
 
-          requested_information: Answers to items returned in `requested_information`. Each entry must include
-              the requested item `id` and exactly one answer payload matching the item's
-              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
-              for `files`.
+          requested_information: Answers to items in `requested_information`. Each entry pairs the item `id` with
+              one answer payload matching its `type`.
 
           tax_identification_number: The government-issued ID number of the person being verified — the individual
               for a KYC verification, or the business representative for a KYB verification —
@@ -430,10 +428,8 @@ class VerificationsResource(SyncAPIResource):
 
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
-          requested_information: Answers to items returned in `requested_information`. Each entry must include
-              the requested item `id` and exactly one answer payload matching the item's
-              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
-              for `files`.
+          requested_information: Answers to items in `requested_information`. Each entry pairs the item `id` with
+              one answer payload matching its `type`.
 
           tax_identification_number: The government-issued ID number of the person being verified — the individual
               for a KYC verification, or the business representative for a KYB verification —
@@ -898,10 +894,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           personal_address: Personal address for the individual.
 
-          requested_information: Answers to items returned in `requested_information`. Each entry must include
-              the requested item `id` and exactly one answer payload matching the item's
-              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
-              for `files`.
+          requested_information: Answers to items in `requested_information`. Each entry pairs the item `id` with
+              one answer payload matching its `type`.
 
           tax_identification_number: The government-issued ID number of the person being verified — the individual
               for a KYC verification, or the business representative for a KYB verification —
@@ -958,10 +952,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           country: Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
 
-          requested_information: Answers to items returned in `requested_information`. Each entry must include
-              the requested item `id` and exactly one answer payload matching the item's
-              `type`: `value` for `text`, `date`, or `phone`; `address` for `address`; `files`
-              for `files`.
+          requested_information: Answers to items in `requested_information`. Each entry pairs the item `id` with
+              one answer payload matching its `type`.
 
           tax_identification_number: The government-issued ID number of the person being verified — the individual
               for a KYC verification, or the business representative for a KYB verification —

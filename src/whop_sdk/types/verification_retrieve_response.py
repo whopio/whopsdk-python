@@ -9,7 +9,7 @@ __all__ = [
     "VerificationRetrieveResponse",
     "Address",
     "RequestedInformation",
-    "RequestedInformationRequestedFile",
+    "RequestedInformationError",
     "RequiredDocument",
 ]
 
@@ -35,90 +35,52 @@ class Address(BaseModel):
     """State, province, or region code, for example `CA`."""
 
 
-class RequestedInformationRequestedFile(BaseModel):
-    category: Optional[str] = None
-    """
-    File category to include with the uploaded file so Whop can route the document
-    correctly. `null` for a generic upload.
-    """
+class RequestedInformationError(BaseModel):
+    code: Optional[str] = None
+    """Stable error code."""
 
-    is_optional: Optional[bool] = None
-    """Whether this slot can be left empty — for example the back of a two-sided ID."""
-
-    kind: Optional[
-        List[
-            Literal[
-                "bank_statement",
-                "paper_check",
-                "wallet_screenshot",
-                "government_id",
-                "proof_of_address",
-                "utility_bill",
-                "insurance_card",
-                "company_documents",
-                "rfi",
-                "other",
-            ]
-        ]
-    ] = None
-    """
-    The accepted document types for this slot — upload one file and echo one of
-    these values back as its `kind`. Empty (`[]`) for standard identity and business
-    documents. For payout compliance documents the value is one of a fixed set of
-    tokens: `bank_statement`, `paper_check`, `wallet_screenshot`, `government_id`,
-    `proof_of_address`, `utility_bill`, `insurance_card`, `company_documents`,
-    `rfi`, or `other`. `other` covers any document type not in this set.
-    """
-
-    label: Optional[str] = None
-    """Label for this upload slot, such as `Front of ID Document`."""
-
-    multiple: Optional[bool] = None
-    """Whether this slot accepts more than one file."""
+    reason: Optional[str] = None
+    """Why it was rejected."""
 
 
 class RequestedInformation(BaseModel):
-    id: Optional[str] = None
-    """Requested information item ID, prefixed `inrqi_`.
+    id: str
+    """Requested information item ID, prefixed `inrqi_`."""
 
-    Include this ID when submitting an answer.
+    label: str
+    """Instruction to show the user.
+
+    Carries the reviewer's note verbatim when there is one.
     """
 
-    description: Optional[str] = None
-    """Additional instructions for this requested item, or `null`."""
-
-    error_message: Optional[str] = None
-    """Reason a previously submitted value was rejected.
-
-    `null` if no submitted value has been rejected.
+    requirement: str
+    """
+    What is needed: a document name such as `bank_statement`, or a field key such as
+    `ssn` or `identity_document`. Handle unrecognized values by `type`.
     """
 
-    field: Optional[str] = None
-    """Stable field key, such as `ssn` or `business_description`."""
+    type: str
+    """
+    How to answer: `file` (send `file`, or `front` and `back` for a two-sided
+    document), `text`, `date`, `phone`, or `select` (send `value`), or `address`
+    (send `address`).
+    """
 
-    label: Optional[str] = None
-    """Human-readable label for the field, such as `Social Security Number`."""
+    errors: Optional[List[RequestedInformationError]] = None
+    """Present after a rejected submission."""
+
+    multiple: Optional[bool] = None
+    """`true` when the item accepts several files in one answer. Answer with `files`."""
+
+    optional: Optional[bool] = None
+    """`true` when the item can be skipped."""
 
     options: Optional[List[str]] = None
-    """Allowed values for a `select` field (e.g.
+    """The values `value` may take.
 
-    account_type, business_structure) — the submitted value must be one of these;
-    empty for other types.
-    """
-
-    requested_files: Optional[List[RequestedInformationRequestedFile]] = None
-    """Document upload slots for a `files` item.
-
-    Each slot lists its accepted document types in `kind`; upload one file per slot
-    and echo back the slot's `category` and the chosen `kind`. A verification can
-    include several separate `files` items at once when multiple distinct documents
-    are requested; answer each by its `id`.
-    """
-
-    type: Optional[str] = None
-    """
-    Input type expected for this item: `text`, `date`, `phone`, `address`, `files`,
-    or `select`.
+    On a `select` item these are the allowed answers; on an identity document they
+    are the ID types accepted, sent as `value` alongside the document. The chosen
+    type decides which sides to send. Absent when the item has no choice to make.
     """
 
 
@@ -172,9 +134,10 @@ class VerificationRetrieveResponse(BaseModel):
     last_name: Optional[str] = None
 
     requested_information: Optional[List[RequestedInformation]] = None
-    """Fields or documents Whop still needs before review can continue.
+    """What Whop still needs before review can continue — one requirement per entry.
 
-    Submit answers with the Update Verification endpoint.
+    Answer with Update Verification; nothing from the response is echoed back. Keys
+    that don't apply are omitted.
     """
 
     required_documents: Optional[List[RequiredDocument]] = None

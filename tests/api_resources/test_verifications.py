@@ -235,14 +235,10 @@ class TestVerifications:
                         "postal_code": "postal_code",
                         "state": "state",
                     },
-                    "files": [
-                        {
-                            "attachment_id": "attachment_id",
-                            "category": "category",
-                            "direct_upload_id": "direct_upload_id",
-                            "kind": "bank_statement",
-                        }
-                    ],
+                    "back": "back",
+                    "file": "file",
+                    "files": ["string"],
+                    "front": "front",
                     "value": "value",
                     "value_type": "raw",
                 }
@@ -321,14 +317,10 @@ class TestVerifications:
                         "postal_code": "postal_code",
                         "state": "state",
                     },
-                    "files": [
-                        {
-                            "attachment_id": "attachment_id",
-                            "category": "category",
-                            "direct_upload_id": "direct_upload_id",
-                            "kind": "bank_statement",
-                        }
-                    ],
+                    "back": "back",
+                    "file": "file",
+                    "files": ["string"],
+                    "front": "front",
                     "value": "value",
                     "value_type": "raw",
                 }
@@ -634,14 +626,10 @@ class TestAsyncVerifications:
                         "postal_code": "postal_code",
                         "state": "state",
                     },
-                    "files": [
-                        {
-                            "attachment_id": "attachment_id",
-                            "category": "category",
-                            "direct_upload_id": "direct_upload_id",
-                            "kind": "bank_statement",
-                        }
-                    ],
+                    "back": "back",
+                    "file": "file",
+                    "files": ["string"],
+                    "front": "front",
                     "value": "value",
                     "value_type": "raw",
                 }
@@ -720,14 +708,10 @@ class TestAsyncVerifications:
                         "postal_code": "postal_code",
                         "state": "state",
                     },
-                    "files": [
-                        {
-                            "attachment_id": "attachment_id",
-                            "category": "category",
-                            "direct_upload_id": "direct_upload_id",
-                            "kind": "bank_statement",
-                        }
-                    ],
+                    "back": "back",
+                    "file": "file",
+                    "files": ["string"],
+                    "front": "front",
                     "value": "value",
                     "value_type": "raw",
                 }

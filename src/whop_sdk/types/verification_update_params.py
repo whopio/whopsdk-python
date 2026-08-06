@@ -5,18 +5,18 @@ from __future__ import annotations
 from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = [
     "VerificationUpdateParams",
     "UpdateIndividualVerification",
     "UpdateIndividualVerificationPersonalAddress",
     "UpdateIndividualVerificationRequestedInformation",
     "UpdateIndividualVerificationRequestedInformationAddress",
-    "UpdateIndividualVerificationRequestedInformationFile",
     "UpdateBusinessVerification",
     "UpdateBusinessVerificationBusinessAddress",
     "UpdateBusinessVerificationRequestedInformation",
     "UpdateBusinessVerificationRequestedInformationAddress",
-    "UpdateBusinessVerificationRequestedInformationFile",
 ]
 
 
@@ -42,11 +42,9 @@ class UpdateIndividualVerification(TypedDict, total=False):
     """Personal address for the individual."""
 
     requested_information: Iterable[UpdateIndividualVerificationRequestedInformation]
-    """Answers to items returned in `requested_information`.
+    """Answers to items in `requested_information`.
 
-    Each entry must include the requested item `id` and exactly one answer payload
-    matching the item's `type`: `value` for `text`, `date`, or `phone`; `address`
-    for `address`; `files` for `files`.
+    Each entry pairs the item `id` with one answer payload matching its `type`.
     """
 
     tax_identification_number: str
@@ -80,7 +78,7 @@ class UpdateIndividualVerificationPersonalAddress(TypedDict, total=False):
 
 
 class UpdateIndividualVerificationRequestedInformationAddress(TypedDict, total=False):
-    """Address payload for `address` items."""
+    """Answer for `address` items."""
 
     city: str
 
@@ -100,50 +98,39 @@ class UpdateIndividualVerificationRequestedInformationAddress(TypedDict, total=F
     """State, province, or region code, for example `CA`."""
 
 
-class UpdateIndividualVerificationRequestedInformationFile(TypedDict, total=False):
-    attachment_id: str
-    """Existing attachment ID, when reusing an already attached document."""
-
-    category: str
-    """Requested file category copied from `requested_files.category`."""
-
-    direct_upload_id: str
-    """Direct upload ID for the uploaded document."""
-
-    kind: Literal[
-        "bank_statement",
-        "paper_check",
-        "wallet_screenshot",
-        "government_id",
-        "proof_of_address",
-        "utility_bill",
-        "insurance_card",
-        "company_documents",
-        "rfi",
-        "other",
-    ]
-    """
-    Requested document kind — echo one of the `kind` values from the slot in
-    `requested_files`.
-    """
-
-
 class UpdateIndividualVerificationRequestedInformation(TypedDict, total=False):
     id: Required[str]
-    """Requested information item ID, prefixed `inrqi_`."""
+    """Item ID from `requested_information`."""
 
     address: UpdateIndividualVerificationRequestedInformationAddress
-    """Address payload for `address` items."""
+    """Answer for `address` items."""
 
-    files: Iterable[UpdateIndividualVerificationRequestedInformationFile]
-    """Uploaded file payloads for `files` items.
+    back: str
+    """Back of a two-sided document, always sent alongside `front`.
 
-    Each file should include a `direct_upload_id` from the upload flow, plus the
-    requested file `category` and `kind` when provided.
+    Same values as `file`. Omit for a one-sided document such as a passport.
+    """
+
+    file: str
+    """
+    Answer for a one-file `file` item: a direct upload ID, or a `file_`-prefixed
+    attachment ID to reuse an uploaded document.
+    """
+
+    files: SequenceNotStr[str]
+    """Answer for `file` items marked `multiple`. Same values as `file`."""
+
+    front: str
+    """Front of a two-sided document, sent with the `value` naming the document type.
+
+    Same values as `file`.
     """
 
     value: str
-    """Answer value for `text`, `date`, or `phone` items."""
+    """
+    Answer for `text`, `date`, `phone`, and `select` items, and the chosen document
+    type for a `file` item that lists `options`.
+    """
 
     value_type: Literal["raw", "vault_token"]
     """Whether `value` is raw input or a vault token."""
@@ -174,11 +161,9 @@ class UpdateBusinessVerification(TypedDict, total=False):
     """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
     requested_information: Iterable[UpdateBusinessVerificationRequestedInformation]
-    """Answers to items returned in `requested_information`.
+    """Answers to items in `requested_information`.
 
-    Each entry must include the requested item `id` and exactly one answer payload
-    matching the item's `type`: `value` for `text`, `date`, or `phone`; `address`
-    for `address`; `files` for `files`.
+    Each entry pairs the item `id` with one answer payload matching its `type`.
     """
 
     tax_identification_number: str
@@ -212,7 +197,7 @@ class UpdateBusinessVerificationBusinessAddress(TypedDict, total=False):
 
 
 class UpdateBusinessVerificationRequestedInformationAddress(TypedDict, total=False):
-    """Address payload for `address` items."""
+    """Answer for `address` items."""
 
     city: str
 
@@ -232,50 +217,39 @@ class UpdateBusinessVerificationRequestedInformationAddress(TypedDict, total=Fal
     """State, province, or region code, for example `CA`."""
 
 
-class UpdateBusinessVerificationRequestedInformationFile(TypedDict, total=False):
-    attachment_id: str
-    """Existing attachment ID, when reusing an already attached document."""
-
-    category: str
-    """Requested file category copied from `requested_files.category`."""
-
-    direct_upload_id: str
-    """Direct upload ID for the uploaded document."""
-
-    kind: Literal[
-        "bank_statement",
-        "paper_check",
-        "wallet_screenshot",
-        "government_id",
-        "proof_of_address",
-        "utility_bill",
-        "insurance_card",
-        "company_documents",
-        "rfi",
-        "other",
-    ]
-    """
-    Requested document kind — echo one of the `kind` values from the slot in
-    `requested_files`.
-    """
-
-
 class UpdateBusinessVerificationRequestedInformation(TypedDict, total=False):
     id: Required[str]
-    """Requested information item ID, prefixed `inrqi_`."""
+    """Item ID from `requested_information`."""
 
     address: UpdateBusinessVerificationRequestedInformationAddress
-    """Address payload for `address` items."""
+    """Answer for `address` items."""
 
-    files: Iterable[UpdateBusinessVerificationRequestedInformationFile]
-    """Uploaded file payloads for `files` items.
+    back: str
+    """Back of a two-sided document, always sent alongside `front`.
 
-    Each file should include a `direct_upload_id` from the upload flow, plus the
-    requested file `category` and `kind` when provided.
+    Same values as `file`. Omit for a one-sided document such as a passport.
+    """
+
+    file: str
+    """
+    Answer for a one-file `file` item: a direct upload ID, or a `file_`-prefixed
+    attachment ID to reuse an uploaded document.
+    """
+
+    files: SequenceNotStr[str]
+    """Answer for `file` items marked `multiple`. Same values as `file`."""
+
+    front: str
+    """Front of a two-sided document, sent with the `value` naming the document type.
+
+    Same values as `file`.
     """
 
     value: str
-    """Answer value for `text`, `date`, or `phone` items."""
+    """
+    Answer for `text`, `date`, `phone`, and `select` items, and the chosen document
+    type for a `file` item that lists `options`.
+    """
 
     value_type: Literal["raw", "vault_token"]
     """Whether `value` is raw input or a vault token."""
