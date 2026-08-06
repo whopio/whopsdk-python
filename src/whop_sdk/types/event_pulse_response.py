@@ -34,11 +34,22 @@ class Data(BaseModel):
     """When the event happened, coarsened to the start of the minute."""
 
     type: Literal[
-        "purchase", "affiliate_commission", "withdrawal", "card_spend", "ad_spend", "app_revenue", "off_platform_sale"
+        "purchase",
+        "affiliate_commission",
+        "card_spend",
+        "ad_spend",
+        "app_revenue",
+        "off_platform_sale",
+        "deposit",
+        "card_load",
+        "airdrop_claim",
+        "transfer",
+        "referral_bonus",
     ]
     """
-    What moved: a purchase, an affiliate commission, a creator withdrawal, Whop card
-    spend, ad spend, app revenue, or an off-platform sale.
+    What moved: a purchase, an affiliate commission, Whop card spend, ad spend, app
+    revenue, an off-platform sale, a wallet deposit, a card load, a claimed drop, a
+    transfer between accounts, or a referral bonus.
     """
 
     total_usd_amount: Optional[float] = None

@@ -426,11 +426,12 @@ class EventsResource(SyncAPIResource):
     ) -> EventPulseResponse:
         """
         Returns a fully anonymized feed of recent platform-wide money movement, most
-        recent first: purchases, affiliate commissions, withdrawals, card and ad spend,
-        app revenue, and off-platform sales. Items carry only a `type`, the underlying
-        event name, a USD amount, a coarse location under `user`, and a timestamp
-        coarsened to the start of the minute; missing fields are omitted, not nulled.
-        The payload is identical for every caller; no auth is required.
+        recent first: purchases, affiliate commissions, card and ad spend, app revenue,
+        off-platform sales, wallet deposits, card loads, claimed drops, transfers
+        between accounts, and referral bonuses. Items carry only a `type`, the
+        underlying event name, a USD amount, a coarse location under `user`, and a
+        timestamp coarsened to the start of the minute; missing fields are omitted, not
+        nulled. The payload is identical for every caller; no auth is required.
 
         Args:
           after: A cursor for fetching events after a previous page.
@@ -438,7 +439,7 @@ class EventsResource(SyncAPIResource):
           before: A cursor for fetching events before a later page.
 
           event: Filter to one or more types, comma separated — for example
-              `withdrawal,card_spend`. These are the item's `type`, not its `event_name`:
+              `purchase,card_spend`. These are the item's `type`, not its `event_name`:
               several types share the `ledger_line.created` event name. Omit for every type in
               the feed. Values outside the feed's own set are rejected.
 
@@ -924,11 +925,12 @@ class AsyncEventsResource(AsyncAPIResource):
     ) -> EventPulseResponse:
         """
         Returns a fully anonymized feed of recent platform-wide money movement, most
-        recent first: purchases, affiliate commissions, withdrawals, card and ad spend,
-        app revenue, and off-platform sales. Items carry only a `type`, the underlying
-        event name, a USD amount, a coarse location under `user`, and a timestamp
-        coarsened to the start of the minute; missing fields are omitted, not nulled.
-        The payload is identical for every caller; no auth is required.
+        recent first: purchases, affiliate commissions, card and ad spend, app revenue,
+        off-platform sales, wallet deposits, card loads, claimed drops, transfers
+        between accounts, and referral bonuses. Items carry only a `type`, the
+        underlying event name, a USD amount, a coarse location under `user`, and a
+        timestamp coarsened to the start of the minute; missing fields are omitted, not
+        nulled. The payload is identical for every caller; no auth is required.
 
         Args:
           after: A cursor for fetching events after a previous page.
@@ -936,7 +938,7 @@ class AsyncEventsResource(AsyncAPIResource):
           before: A cursor for fetching events before a later page.
 
           event: Filter to one or more types, comma separated — for example
-              `withdrawal,card_spend`. These are the item's `type`, not its `event_name`:
+              `purchase,card_spend`. These are the item's `type`, not its `event_name`:
               several types share the `ledger_line.created` event name. Omit for every type in
               the feed. Values outside the feed's own set are rejected.
 

@@ -15,11 +15,12 @@ class EventPulseParams(TypedDict, total=False):
     """A cursor for fetching events before a later page."""
 
     event: str
-    """
-    Filter to one or more types, comma separated — for example
-    `withdrawal,card_spend`. These are the item's `type`, not its `event_name`:
-    several types share the `ledger_line.created` event name. Omit for every type in
-    the feed. Values outside the feed's own set are rejected.
+    """Filter to one or more types, comma separated — for example
+    `purchase,card_spend`.
+
+    These are the item's `type`, not its `event_name`: several types share the
+    `ledger_line.created` event name. Omit for every type in the feed. Values
+    outside the feed's own set are rejected.
     """
 
     first: int
