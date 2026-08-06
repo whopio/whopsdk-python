@@ -42,6 +42,7 @@ class TestSwaps:
             amount="amount",
             from_chain="string",
             slippage_bps=0,
+            to_amount="to_amount",
             to_chain="string",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
@@ -236,6 +237,7 @@ class TestAsyncSwaps:
             amount="amount",
             from_chain="string",
             slippage_bps=0,
+            to_amount="to_amount",
             to_chain="string",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )

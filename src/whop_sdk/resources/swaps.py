@@ -61,6 +61,7 @@ class SwapsResource(SyncAPIResource):
         amount: Optional[str] | Omit = omit,
         from_chain: Union[str, int, None] | Omit = omit,
         slippage_bps: Optional[int] | Omit = omit,
+        to_amount: Optional[str] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -71,9 +72,9 @@ class SwapsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapCreateResponse:
         """
-        Swaps one token for another from the account's wallet, or converts between
-        currencies to pay off a negative balance. Crypto swaps finish in the background
-        — check the swap for its status.
+        Swaps one token for another from the account's wallet, or converts between fiat
+        currencies in the account's ledger at the mid-market rate. Crypto swaps finish
+        in the background — check the swap for its status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -82,14 +83,18 @@ class SwapsResource(SyncAPIResource):
 
           to_token: Destination token contract address or ticker symbol, such as "XAUT".
 
-          amount: Source token amount. Required for crypto swaps. Optional for fiat pairs: the
-              portion of the negative to_token balance to repay, which must not exceed the
-              debt; omit to repay the full debt.
+          amount: Source token amount. Required for crypto swaps. For fiat pairs: the amount of
+              from_token to convert at the mid-market rate; omit (along with to_amount) to
+              repay the full negative to_token balance instead.
 
           from_chain: Source chain name or chain ID. Defaults to the source token's chain when
               omitted.
 
           slippage_bps: Maximum slippage tolerance in basis points.
+
+          to_amount: Fiat pairs only: sizes a partial repayment of the negative to_token balance,
+              denominated in to_token. Must not exceed the debt. Mutually exclusive with
+              amount.
 
           to_chain: Destination chain name or chain ID. Defaults to the destination token's chain
               when omitted.
@@ -113,6 +118,7 @@ class SwapsResource(SyncAPIResource):
                     "amount": amount,
                     "from_chain": from_chain,
                     "slippage_bps": slippage_bps,
+                    "to_amount": to_amount,
                     "to_chain": to_chain,
                 },
                 swap_create_params.SwapCreateParams,
@@ -306,6 +312,7 @@ class AsyncSwapsResource(AsyncAPIResource):
         amount: Optional[str] | Omit = omit,
         from_chain: Union[str, int, None] | Omit = omit,
         slippage_bps: Optional[int] | Omit = omit,
+        to_amount: Optional[str] | Omit = omit,
         to_chain: Union[str, int, None] | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -316,9 +323,9 @@ class AsyncSwapsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SwapCreateResponse:
         """
-        Swaps one token for another from the account's wallet, or converts between
-        currencies to pay off a negative balance. Crypto swaps finish in the background
-        — check the swap for its status.
+        Swaps one token for another from the account's wallet, or converts between fiat
+        currencies in the account's ledger at the mid-market rate. Crypto swaps finish
+        in the background — check the swap for its status.
 
         Args:
           account_id: Business or user account ID (biz*\\** / user*\\**).
@@ -327,14 +334,18 @@ class AsyncSwapsResource(AsyncAPIResource):
 
           to_token: Destination token contract address or ticker symbol, such as "XAUT".
 
-          amount: Source token amount. Required for crypto swaps. Optional for fiat pairs: the
-              portion of the negative to_token balance to repay, which must not exceed the
-              debt; omit to repay the full debt.
+          amount: Source token amount. Required for crypto swaps. For fiat pairs: the amount of
+              from_token to convert at the mid-market rate; omit (along with to_amount) to
+              repay the full negative to_token balance instead.
 
           from_chain: Source chain name or chain ID. Defaults to the source token's chain when
               omitted.
 
           slippage_bps: Maximum slippage tolerance in basis points.
+
+          to_amount: Fiat pairs only: sizes a partial repayment of the negative to_token balance,
+              denominated in to_token. Must not exceed the debt. Mutually exclusive with
+              amount.
 
           to_chain: Destination chain name or chain ID. Defaults to the destination token's chain
               when omitted.
@@ -358,6 +369,7 @@ class AsyncSwapsResource(AsyncAPIResource):
                     "amount": amount,
                     "from_chain": from_chain,
                     "slippage_bps": slippage_bps,
+                    "to_amount": to_amount,
                     "to_chain": to_chain,
                 },
                 swap_create_params.SwapCreateParams,

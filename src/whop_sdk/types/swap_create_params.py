@@ -23,9 +23,9 @@ class SwapCreateParams(TypedDict, total=False):
     amount: Optional[str]
     """Source token amount.
 
-    Required for crypto swaps. Optional for fiat pairs: the portion of the negative
-    to_token balance to repay, which must not exceed the debt; omit to repay the
-    full debt.
+    Required for crypto swaps. For fiat pairs: the amount of from_token to convert
+    at the mid-market rate; omit (along with to_amount) to repay the full negative
+    to_token balance instead.
     """
 
     from_chain: Union[str, int, None]
@@ -36,6 +36,13 @@ class SwapCreateParams(TypedDict, total=False):
 
     slippage_bps: Optional[int]
     """Maximum slippage tolerance in basis points."""
+
+    to_amount: Optional[str]
+    """
+    Fiat pairs only: sizes a partial repayment of the negative to_token balance,
+    denominated in to_token. Must not exceed the debt. Mutually exclusive with
+    amount.
+    """
 
     to_chain: Union[str, int, None]
     """Destination chain name or chain ID.

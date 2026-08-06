@@ -9,13 +9,13 @@ __all__ = ["SwapCreateResponse", "FromToken", "ToToken"]
 
 
 class FromToken(BaseModel):
-    """Fiat pairs only: the funding currency."""
+    """Fiat pairs only: the source currency."""
 
     symbol: Optional[str] = None
 
 
 class ToToken(BaseModel):
-    """Fiat pairs only: the repaid currency."""
+    """Fiat pairs only: the destination currency."""
 
     symbol: Optional[str] = None
 
@@ -37,13 +37,13 @@ class SwapCreateResponse(BaseModel):
     """Swap ID. Poll `GET /swaps/:id` for status."""
 
     amount_in: Optional[float] = None
-    """Fiat pairs only: amount of the funding currency converted.
+    """Fiat pairs only: amount of the source currency converted.
 
     Null while a stablecoin repayment is processing.
     """
 
     amount_out: Optional[float] = None
-    """Fiat pairs only: amount credited in the repaid currency.
+    """Fiat pairs only: amount credited in the destination currency.
 
     Null while a stablecoin repayment is processing.
     """
@@ -55,7 +55,7 @@ class SwapCreateResponse(BaseModel):
     """Minimum destination amount after slippage."""
 
     from_token: Optional[FromToken] = None
-    """Fiat pairs only: the funding currency."""
+    """Fiat pairs only: the source currency."""
 
     rate: Optional[str] = None
     """Quoted exchange rate used to create the swap."""
@@ -64,4 +64,4 @@ class SwapCreateResponse(BaseModel):
     """Destination chain for the swap."""
 
     to_token: Optional[ToToken] = None
-    """Fiat pairs only: the repaid currency."""
+    """Fiat pairs only: the destination currency."""
