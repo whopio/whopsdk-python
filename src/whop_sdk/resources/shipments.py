@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import shipment_list_params, shipment_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from ..types import shipment_list_params, shipment_create_params, shipment_update_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,13 +20,16 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.shipment import Shipment
-from ..types.shipment_list_response import ShipmentListResponse
 
 __all__ = ["ShipmentsResource", "AsyncShipmentsResource"]
 
 
 class ShipmentsResource(SyncAPIResource):
-    """Shipments"""
+    """
+    A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+    Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+    """
 
     @cached_property
     def with_raw_response(self) -> ShipmentsResourceWithRawResponse:
@@ -50,9 +53,10 @@ class ShipmentsResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
         payment_id: str,
-        tracking_code: str,
+        tracking_number: str,
+        account_id: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,22 +65,14 @@ class ShipmentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Create a new shipment with a tracking code for a specific payment within a
-        company.
-
-        Required permissions:
-
-        - `shipment:create`
-        - `payment:basic:read`
+        Attaches a carrier tracking number to a payment and begins tracking it.
 
         Args:
-          company_id: The unique identifier of the company to create the shipment for, starting with
-              'biz\\__'.
+          payment_id: The payment to attach the shipment to, prefixed `pay_`.
 
-          payment_id: The unique identifier of the payment to associate the shipment with.
+          tracking_number: The carrier-assigned tracking number.
 
-          tracking_code: The carrier tracking code for the shipment, such as a USPS, UPS, or FedEx
-              tracking number.
+          account_id: The unique identifier of the account, prefixed `biz_`.
 
           extra_headers: Send extra headers
 
@@ -86,13 +82,14 @@ class ShipmentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/shipments",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
                     "payment_id": payment_id,
-                    "tracking_code": tracking_code,
+                    "tracking_number": tracking_number,
+                    "account_id": account_id,
                 },
                 shipment_create_params.ShipmentCreateParams,
             ),
@@ -114,12 +111,7 @@ class ShipmentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Retrieves the details of an existing shipment.
-
-        Required permissions:
-
-        - `shipment:basic:read`
-        - `payment:basic:read`
+        Retrieves a shipment by its id, or by the payment id it fulfills.
 
         Args:
           extra_headers: Send extra headers
@@ -140,46 +132,103 @@ class ShipmentsResource(SyncAPIResource):
             cast_to=Shipment,
         )
 
-    def list(
+    def update(
         self,
+        id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        payment_id: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        tracking_number: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[ShipmentListResponse]:
+    ) -> Shipment:
         """
-        Returns a paginated list of shipments, with optional filtering by payment,
-        company, or user.
-
-        Required permissions:
-
-        - `shipment:basic:read`
-        - `payment:basic:read`
+        Updates a shipment's tracking number and re-tracks it with the carrier.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          tracking_number: The new carrier-assigned tracking number.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          extra_headers: Send extra headers
 
-          company_id: Filter shipments to only those belonging to this company.
+          extra_query: Add additional query parameters to the request
 
-          first: Returns the first _n_ elements from the list.
+          extra_body: Add additional JSON properties to the request
 
-          last: Returns the last _n_ elements from the list.
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._patch(
+            path_template("/shipments/{id}", id=id),
+            body=maybe_transform({"tracking_number": tracking_number}, shipment_update_params.ShipmentUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Shipment,
+        )
 
-          payment_id: Filter shipments to only those associated with this specific payment.
+    def list(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        payment_id: SequenceNotStr[str] | Omit = omit,
+        status: Literal[
+            "unknown",
+            "pre_transit",
+            "in_transit",
+            "out_for_delivery",
+            "delivered",
+            "available_for_pickup",
+            "return_to_sender",
+            "failure",
+            "cancelled",
+            "error",
+        ]
+        | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[Shipment]:
+        """
+        Returns a paginated list of shipments for an account.
 
-          user_id: Filter shipments to only those for this specific user.
+        Args:
+          account_id: The account to list shipments for. Defaults to the acting account.
+
+          after: A cursor; returns shipments after this position.
+
+          before: A cursor; returns shipments before this position.
+
+          created_after: Return shipments created after this ISO 8601 timestamp.
+
+          created_before: Return shipments created before this ISO 8601 timestamp.
+
+          direction: The sort direction.
+
+          first: The number of shipments to return.
+
+          last: The number of shipments to return from the end of the range.
+
+          order: The field to sort by.
+
+          payment_id: Only shipments fulfilling these payments, each prefixed `pay_`. Repeat the
+              parameter to pass several, up to 100 per request — one paginated list covers all
+              of them.
+
+          status: Filter to shipments with this delivery status.
 
           extra_headers: Send extra headers
 
@@ -191,7 +240,7 @@ class ShipmentsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/shipments",
-            page=SyncCursorPage[ShipmentListResponse],
+            page=SyncCursorPage[Shipment],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -199,23 +248,31 @@ class ShipmentsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "payment_id": payment_id,
-                        "user_id": user_id,
+                        "status": status,
                     },
                     shipment_list_params.ShipmentListParams,
                 ),
             ),
-            model=ShipmentListResponse,
+            model=Shipment,
         )
 
 
 class AsyncShipmentsResource(AsyncAPIResource):
-    """Shipments"""
+    """
+    A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+    Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncShipmentsResourceWithRawResponse:
@@ -239,9 +296,10 @@ class AsyncShipmentsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
         payment_id: str,
-        tracking_code: str,
+        tracking_number: str,
+        account_id: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -250,22 +308,14 @@ class AsyncShipmentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Create a new shipment with a tracking code for a specific payment within a
-        company.
-
-        Required permissions:
-
-        - `shipment:create`
-        - `payment:basic:read`
+        Attaches a carrier tracking number to a payment and begins tracking it.
 
         Args:
-          company_id: The unique identifier of the company to create the shipment for, starting with
-              'biz\\__'.
+          payment_id: The payment to attach the shipment to, prefixed `pay_`.
 
-          payment_id: The unique identifier of the payment to associate the shipment with.
+          tracking_number: The carrier-assigned tracking number.
 
-          tracking_code: The carrier tracking code for the shipment, such as a USPS, UPS, or FedEx
-              tracking number.
+          account_id: The unique identifier of the account, prefixed `biz_`.
 
           extra_headers: Send extra headers
 
@@ -275,13 +325,14 @@ class AsyncShipmentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/shipments",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
                     "payment_id": payment_id,
-                    "tracking_code": tracking_code,
+                    "tracking_number": tracking_number,
+                    "account_id": account_id,
                 },
                 shipment_create_params.ShipmentCreateParams,
             ),
@@ -303,12 +354,7 @@ class AsyncShipmentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shipment:
         """
-        Retrieves the details of an existing shipment.
-
-        Required permissions:
-
-        - `shipment:basic:read`
-        - `payment:basic:read`
+        Retrieves a shipment by its id, or by the payment id it fulfills.
 
         Args:
           extra_headers: Send extra headers
@@ -329,46 +375,105 @@ class AsyncShipmentsResource(AsyncAPIResource):
             cast_to=Shipment,
         )
 
-    def list(
+    async def update(
         self,
+        id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        payment_id: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        tracking_number: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[ShipmentListResponse, AsyncCursorPage[ShipmentListResponse]]:
+    ) -> Shipment:
         """
-        Returns a paginated list of shipments, with optional filtering by payment,
-        company, or user.
-
-        Required permissions:
-
-        - `shipment:basic:read`
-        - `payment:basic:read`
+        Updates a shipment's tracking number and re-tracks it with the carrier.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          tracking_number: The new carrier-assigned tracking number.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          extra_headers: Send extra headers
 
-          company_id: Filter shipments to only those belonging to this company.
+          extra_query: Add additional query parameters to the request
 
-          first: Returns the first _n_ elements from the list.
+          extra_body: Add additional JSON properties to the request
 
-          last: Returns the last _n_ elements from the list.
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._patch(
+            path_template("/shipments/{id}", id=id),
+            body=await async_maybe_transform(
+                {"tracking_number": tracking_number}, shipment_update_params.ShipmentUpdateParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Shipment,
+        )
 
-          payment_id: Filter shipments to only those associated with this specific payment.
+    def list(
+        self,
+        *,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        payment_id: SequenceNotStr[str] | Omit = omit,
+        status: Literal[
+            "unknown",
+            "pre_transit",
+            "in_transit",
+            "out_for_delivery",
+            "delivered",
+            "available_for_pickup",
+            "return_to_sender",
+            "failure",
+            "cancelled",
+            "error",
+        ]
+        | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[Shipment, AsyncCursorPage[Shipment]]:
+        """
+        Returns a paginated list of shipments for an account.
 
-          user_id: Filter shipments to only those for this specific user.
+        Args:
+          account_id: The account to list shipments for. Defaults to the acting account.
+
+          after: A cursor; returns shipments after this position.
+
+          before: A cursor; returns shipments before this position.
+
+          created_after: Return shipments created after this ISO 8601 timestamp.
+
+          created_before: Return shipments created before this ISO 8601 timestamp.
+
+          direction: The sort direction.
+
+          first: The number of shipments to return.
+
+          last: The number of shipments to return from the end of the range.
+
+          order: The field to sort by.
+
+          payment_id: Only shipments fulfilling these payments, each prefixed `pay_`. Repeat the
+              parameter to pass several, up to 100 per request — one paginated list covers all
+              of them.
+
+          status: Filter to shipments with this delivery status.
 
           extra_headers: Send extra headers
 
@@ -380,7 +485,7 @@ class AsyncShipmentsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/shipments",
-            page=AsyncCursorPage[ShipmentListResponse],
+            page=AsyncCursorPage[Shipment],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -388,18 +493,22 @@ class AsyncShipmentsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "payment_id": payment_id,
-                        "user_id": user_id,
+                        "status": status,
                     },
                     shipment_list_params.ShipmentListParams,
                 ),
             ),
-            model=ShipmentListResponse,
+            model=Shipment,
         )
 
 
@@ -412,6 +521,9 @@ class ShipmentsResourceWithRawResponse:
         )
         self.retrieve = to_raw_response_wrapper(
             shipments.retrieve,
+        )
+        self.update = to_raw_response_wrapper(
+            shipments.update,
         )
         self.list = to_raw_response_wrapper(
             shipments.list,
@@ -428,6 +540,9 @@ class AsyncShipmentsResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             shipments.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            shipments.update,
+        )
         self.list = async_to_raw_response_wrapper(
             shipments.list,
         )
@@ -443,6 +558,9 @@ class ShipmentsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             shipments.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            shipments.update,
+        )
         self.list = to_streamed_response_wrapper(
             shipments.list,
         )
@@ -457,6 +575,9 @@ class AsyncShipmentsResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             shipments.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            shipments.update,
         )
         self.list = async_to_streamed_response_wrapper(
             shipments.list,
