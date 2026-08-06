@@ -62,8 +62,10 @@ class PaymentMethodsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentMethodRetrieveResponse:
-        """
-        Retrieves the details of an existing payment method.
+        """Retrieves the details of an existing payment method.
+
+        Addresses a member's wallet
+        when member_id or company_id is given, otherwise your own.
 
         Required permissions:
 
@@ -71,10 +73,10 @@ class PaymentMethodsResource(SyncAPIResource):
 
         Args:
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           member_id: The unique identifier of the member. Provide either this or company_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           extra_headers: Send extra headers
 
@@ -129,10 +131,10 @@ class PaymentMethodsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PaymentMethodListResponse]:
         """
-        Returns a paginated list of payment methods for a member or company, with
-        optional filtering by creation date. A payment method is a stored representation
-        of how a customer intends to pay, such as a card, bank account, or digital
-        wallet.
+        Returns a paginated list of payment methods for a member or company, or for the
+        authenticated user when neither is given, with optional filtering by creation
+        date. A payment method is a stored representation of how a customer intends to
+        pay, such as a card, bank account, or digital wallet.
 
         Required permissions:
 
@@ -144,7 +146,7 @@ class PaymentMethodsResource(SyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           created_after: Only return payment methods created after this timestamp.
 
@@ -156,7 +158,8 @@ class PaymentMethodsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          member_id: The unique identifier of the member to list payment methods for.
+          member_id: The unique identifier of the member to list payment methods for. Omit this and
+              company_id to list your own saved payment methods.
 
           extra_headers: Send extra headers
 
@@ -230,8 +233,10 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentMethodRetrieveResponse:
-        """
-        Retrieves the details of an existing payment method.
+        """Retrieves the details of an existing payment method.
+
+        Addresses a member's wallet
+        when member_id or company_id is given, otherwise your own.
 
         Required permissions:
 
@@ -239,10 +244,10 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
 
         Args:
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           member_id: The unique identifier of the member. Provide either this or company_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           extra_headers: Send extra headers
 
@@ -297,10 +302,10 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PaymentMethodListResponse, AsyncCursorPage[PaymentMethodListResponse]]:
         """
-        Returns a paginated list of payment methods for a member or company, with
-        optional filtering by creation date. A payment method is a stored representation
-        of how a customer intends to pay, such as a card, bank account, or digital
-        wallet.
+        Returns a paginated list of payment methods for a member or company, or for the
+        authenticated user when neither is given, with optional filtering by creation
+        date. A payment method is a stored representation of how a customer intends to
+        pay, such as a card, bank account, or digital wallet.
 
         Required permissions:
 
@@ -312,7 +317,7 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
           before: Returns the elements in the list that come before the specified cursor.
 
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           created_after: Only return payment methods created after this timestamp.
 
@@ -324,7 +329,8 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          member_id: The unique identifier of the member to list payment methods for.
+          member_id: The unique identifier of the member to list payment methods for. Omit this and
+              company_id to list your own saved payment methods.
 
           extra_headers: Send extra headers
 
