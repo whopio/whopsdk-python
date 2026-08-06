@@ -99,6 +99,7 @@ class Withdrawal(BaseModel):
             "exceeded_account_limit",
             "expired_quote",
             "generic_payout_error",
+            "junk_failure_reason",
             "technical_problem",
             "identification_number_invalid",
             "invalid_account_number",
@@ -117,6 +118,7 @@ class Withdrawal(BaseModel):
             "missing_phone_number",
             "missing_remittance_info",
             "payee_name_invalid",
+            "beneficiary_name_mismatch",
             "receiving_account_locked",
             "rejected_by_compliance",
             "rtp_not_supported",
@@ -158,6 +160,12 @@ class Withdrawal(BaseModel):
     """
     An additional markup fee charged for the withdrawal, in the same currency as the
     withdrawal amount. Only applies to platform accounts using Whop Rails.
+    """
+
+    payout_request_id: Optional[str] = None
+    """
+    The id of the payout request (returned by POST /payouts) that this withdrawal
+    settles. Null unless the withdrawal originated from a stablecoin payout.
     """
 
     payout_token: Optional[PayoutToken] = None
