@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 from .shared.direction import Direction
@@ -37,6 +37,12 @@ class PaymentMethodListParams(TypedDict, total=False):
 
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
+
+    future_usage: Optional[Literal["off_session", "on_session"]]
+    """
+    How a payment method will be charged after the buyer leaves — the same
+    vocabulary as a confirmation token's setup_future_usage.
+    """
 
     last: Optional[int]
     """Returns the last _n_ elements from the list."""

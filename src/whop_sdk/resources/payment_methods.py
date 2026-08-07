@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Union, Optional, cast
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -119,6 +120,7 @@ class PaymentMethodsResource(SyncAPIResource):
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        future_usage: Optional[Literal["off_session", "on_session"]] | Omit = omit,
         last: Optional[int] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -154,6 +156,9 @@ class PaymentMethodsResource(SyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
+          future_usage: How a payment method will be charged after the buyer leaves — the same
+              vocabulary as a confirmation token's setup_future_usage.
+
           last: Returns the last _n_ elements from the list.
 
           member_id: The unique identifier of the member to list payment methods for. Omit this and
@@ -184,6 +189,7 @@ class PaymentMethodsResource(SyncAPIResource):
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "future_usage": future_usage,
                         "last": last,
                         "member_id": member_id,
                     },
@@ -288,6 +294,7 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         created_before: Union[str, datetime, None] | Omit = omit,
         direction: Optional[Direction] | Omit = omit,
         first: Optional[int] | Omit = omit,
+        future_usage: Optional[Literal["off_session", "on_session"]] | Omit = omit,
         last: Optional[int] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -323,6 +330,9 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
+          future_usage: How a payment method will be charged after the buyer leaves — the same
+              vocabulary as a confirmation token's setup_future_usage.
+
           last: Returns the last _n_ elements from the list.
 
           member_id: The unique identifier of the member to list payment methods for. Omit this and
@@ -353,6 +363,7 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "future_usage": future_usage,
                         "last": last,
                         "member_id": member_id,
                     },
