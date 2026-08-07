@@ -87,6 +87,10 @@ class TestUsers:
         user = client.users.update(
             id="id",
             account_id="account_id",
+            banner={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             bio="bio",
             name="name",
             profile_picture={
@@ -317,6 +321,10 @@ class TestUsers:
     def test_method_update_me_with_all_params(self, client: Whop) -> None:
         user = client.users.update_me(
             account_id="account_id",
+            banner={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             bio="bio",
             name="name",
             profile_picture={
@@ -420,6 +428,10 @@ class TestAsyncUsers:
         user = await async_client.users.update(
             id="id",
             account_id="account_id",
+            banner={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             bio="bio",
             name="name",
             profile_picture={
@@ -650,6 +662,10 @@ class TestAsyncUsers:
     async def test_method_update_me_with_all_params(self, async_client: AsyncWhop) -> None:
         user = await async_client.users.update_me(
             account_id="account_id",
+            banner={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             bio="bio",
             name="name",
             profile_picture={

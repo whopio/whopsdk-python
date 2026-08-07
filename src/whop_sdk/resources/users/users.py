@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -157,6 +158,7 @@ class UsersResource(SyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
+        banner: Optional[user_update_params.Banner] | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
         profile_picture: user_update_params.ProfilePicture | Omit = omit,
@@ -193,6 +195,7 @@ class UsersResource(SyncAPIResource):
             path_template("/users/{id}", id=id),
             body=maybe_transform(
                 {
+                    "banner": banner,
                     "bio": bio,
                     "name": name,
                     "profile_picture": profile_picture,
@@ -422,6 +425,7 @@ class UsersResource(SyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        banner: Optional[user_update_me_params.Banner] | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
         profile_picture: user_update_me_params.ProfilePicture | Omit = omit,
@@ -456,6 +460,7 @@ class UsersResource(SyncAPIResource):
             "/users/me",
             body=maybe_transform(
                 {
+                    "banner": banner,
                     "bio": bio,
                     "name": name,
                     "profile_picture": profile_picture,
@@ -582,6 +587,7 @@ class AsyncUsersResource(AsyncAPIResource):
         id: str,
         *,
         account_id: str | Omit = omit,
+        banner: Optional[user_update_params.Banner] | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
         profile_picture: user_update_params.ProfilePicture | Omit = omit,
@@ -618,6 +624,7 @@ class AsyncUsersResource(AsyncAPIResource):
             path_template("/users/{id}", id=id),
             body=await async_maybe_transform(
                 {
+                    "banner": banner,
                     "bio": bio,
                     "name": name,
                     "profile_picture": profile_picture,
@@ -847,6 +854,7 @@ class AsyncUsersResource(AsyncAPIResource):
         self,
         *,
         account_id: str | Omit = omit,
+        banner: Optional[user_update_me_params.Banner] | Omit = omit,
         bio: str | Omit = omit,
         name: str | Omit = omit,
         profile_picture: user_update_me_params.ProfilePicture | Omit = omit,
@@ -881,6 +889,7 @@ class AsyncUsersResource(AsyncAPIResource):
             "/users/me",
             body=await async_maybe_transform(
                 {
+                    "banner": banner,
                     "bio": bio,
                     "name": name,
                     "profile_picture": profile_picture,

@@ -10,6 +10,7 @@ __all__ = [
     "User",
     "BalanceHistory",
     "BalanceHistoryData",
+    "Banner",
     "EarningsUsd",
     "EarningsUsdOwnedAccounts",
     "EarningsUsdPersonal",
@@ -44,6 +45,13 @@ class BalanceHistory(BaseModel):
 
     min: float
     """Minimum value across the window, in USD."""
+
+
+class Banner(BaseModel):
+    """The user's profile banner wrapper. `null` when the user has no banner."""
+
+    url: str
+    """Profile banner image URL."""
 
 
 class EarningsUsdOwnedAccounts(BaseModel):
@@ -170,6 +178,9 @@ class User(BaseModel):
     on `GET /users/me`; populated only for callers with balance-read scope and
     `null` otherwise. A user with no wallet activity returns an empty series.
     """
+
+    banner: Optional[Banner] = None
+    """The user's profile banner wrapper. `null` when the user has no banner."""
 
     bio: Optional[str] = None
     """The user's biography"""

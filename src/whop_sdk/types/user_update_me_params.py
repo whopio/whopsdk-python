@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["UserUpdateMeParams", "ProfilePicture"]
+__all__ = ["UserUpdateMeParams", "Banner", "ProfilePicture"]
 
 
 class UserUpdateMeParams(TypedDict, total=False):
@@ -14,6 +15,8 @@ class UserUpdateMeParams(TypedDict, total=False):
     instead of their global profile.
     """
 
+    banner: Optional[Banner]
+
     bio: str
 
     name: str
@@ -21,6 +24,12 @@ class UserUpdateMeParams(TypedDict, total=False):
     profile_picture: ProfilePicture
 
     username: str
+
+
+class Banner(TypedDict, total=False):
+    id: str
+
+    direct_upload_id: str
 
 
 class ProfilePicture(TypedDict, total=False):
