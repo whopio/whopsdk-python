@@ -22,7 +22,8 @@ class PaymentMethodListParams(TypedDict, total=False):
     company_id: Optional[str]
     """The unique identifier of the company.
 
-    Provide either this or member_id, not both.
+    Provide either this or member_id, not both. Omit both to address your own saved
+    payment methods.
     """
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
@@ -41,4 +42,7 @@ class PaymentMethodListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     member_id: Optional[str]
-    """The unique identifier of the member to list payment methods for."""
+    """The unique identifier of the member to list payment methods for.
+
+    Omit this and company_id to list your own saved payment methods.
+    """
