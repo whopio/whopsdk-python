@@ -18,7 +18,10 @@ class AppListParams(TypedDict, total=False):
     """A cursor; returns apps after this position."""
 
     app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
-    """Filter apps by the type of end-user they are built for."""
+    """Filter apps by the type of end-user they are built for.
+
+    Apps of type `website` are left out unless you ask for them by name.
+    """
 
     before: str
     """A cursor; returns apps before this position."""

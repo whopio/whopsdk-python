@@ -347,7 +347,8 @@ class AppsResource(SyncAPIResource):
 
           after: A cursor; returns apps after this position.
 
-          app_type: Filter apps by the type of end-user they are built for.
+          app_type: Filter apps by the type of end-user they are built for. Apps of type `website`
+              are left out unless you ask for them by name.
 
           before: A cursor; returns apps before this position.
 
@@ -843,7 +844,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
           after: A cursor; returns apps after this position.
 
-          app_type: Filter apps by the type of end-user they are built for.
+          app_type: Filter apps by the type of end-user they are built for. Apps of type `website`
+              are left out unless you ask for them by name.
 
           before: A cursor; returns apps before this position.
 
