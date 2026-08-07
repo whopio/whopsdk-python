@@ -61,26 +61,24 @@ class RequestedInformation(BaseModel):
 
     type: str
     """
-    How to answer: `file` (send `file`, or `front` and `back` for a two-sided
-    document), `text`, `date`, `phone`, or `select` (send `value`), or `address`
-    (send `address`).
+    What to send as the answer, so you never have to infer it: `files` (a document,
+    as a list of its pages), `id_document` (send `documents` with the slot keys for
+    the ID you are uploading), `text`, `date`, `phone` or `select` (send `value`),
+    or `address` (send `address`).
     """
 
     errors: Optional[List[RequestedInformationError]] = None
     """Present after a rejected submission."""
 
-    multiple: Optional[bool] = None
-    """`true` when the item accepts several files in one answer. Answer with `files`."""
-
     optional: Optional[bool] = None
     """`true` when the item can be skipped."""
 
     options: Optional[List[str]] = None
-    """The values `value` may take.
+    """The values `value` may take on a `select` item.
 
-    On a `select` item these are the allowed answers; on an identity document they
-    are the ID types accepted, sent as `value` alongside the document. The chosen
-    type decides which sides to send. Absent when the item has no choice to make.
+    On an `id_document` item these are the ID types accepted, and the chosen one
+    decides which `documents` slots to send. Absent when the item has no choice to
+    make.
     """
 
 

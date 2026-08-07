@@ -13,10 +13,12 @@ __all__ = [
     "UpdateIndividualVerificationPersonalAddress",
     "UpdateIndividualVerificationRequestedInformation",
     "UpdateIndividualVerificationRequestedInformationAddress",
+    "UpdateIndividualVerificationRequestedInformationDocuments",
     "UpdateBusinessVerification",
     "UpdateBusinessVerificationBusinessAddress",
     "UpdateBusinessVerificationRequestedInformation",
     "UpdateBusinessVerificationRequestedInformationAddress",
+    "UpdateBusinessVerificationRequestedInformationDocuments",
 ]
 
 
@@ -98,6 +100,33 @@ class UpdateIndividualVerificationRequestedInformationAddress(TypedDict, total=F
     """State, province, or region code, for example `CA`."""
 
 
+class UpdateIndividualVerificationRequestedInformationDocuments(TypedDict, total=False):
+    """
+    Answer for an `id_document` item: the same slot keys Create Verification takes, so the key names both the document and the side. Send every slot for the ID you are uploading — `PASSPORT` is `passport_front`; `ID_CARD`, `DRIVERS` and `RESIDENCE_PERMIT` take a front and a back. Each value is a direct upload ID, or a `file_`-prefixed attachment ID to reuse an uploaded document.
+    """
+
+    drivers_back: str
+    """Back of the driver's license."""
+
+    drivers_front: str
+    """Front of the driver's license."""
+
+    id_card_back: str
+    """Back of the ID card."""
+
+    id_card_front: str
+    """Front of the ID card."""
+
+    passport_front: str
+    """Photo page of the passport."""
+
+    residence_permit_back: str
+    """Back of the residence permit."""
+
+    residence_permit_front: str
+    """Front of the residence permit."""
+
+
 class UpdateIndividualVerificationRequestedInformation(TypedDict, total=False):
     id: Required[str]
     """Item ID from `requested_information`."""
@@ -105,25 +134,20 @@ class UpdateIndividualVerificationRequestedInformation(TypedDict, total=False):
     address: UpdateIndividualVerificationRequestedInformationAddress
     """Answer for `address` items."""
 
-    back: str
-    """Back of a two-sided document, always sent alongside `front`.
-
-    Same values as `file`. Omit for a one-sided document such as a passport.
+    documents: UpdateIndividualVerificationRequestedInformationDocuments
     """
-
-    file: str
-    """
-    Answer for a one-file `file` item: a direct upload ID, or a `file_`-prefixed
-    attachment ID to reuse an uploaded document.
+    Answer for an `id_document` item: the same slot keys Create Verification takes,
+    so the key names both the document and the side. Send every slot for the ID you
+    are uploading — `PASSPORT` is `passport_front`; `ID_CARD`, `DRIVERS` and
+    `RESIDENCE_PERMIT` take a front and a back. Each value is a direct upload ID, or
+    a `file_`-prefixed attachment ID to reuse an uploaded document.
     """
 
     files: SequenceNotStr[str]
-    """Answer for `file` items marked `multiple`. Same values as `file`."""
-
-    front: str
-    """Front of a two-sided document, sent with the `value` naming the document type.
-
-    Same values as `file`.
+    """
+    Answer for a `files` item — one document, as a list of its pages, first page
+    first. Each entry is a direct upload ID, or a `file_`-prefixed attachment ID to
+    reuse an uploaded document.
     """
 
     value: str
@@ -217,6 +241,33 @@ class UpdateBusinessVerificationRequestedInformationAddress(TypedDict, total=Fal
     """State, province, or region code, for example `CA`."""
 
 
+class UpdateBusinessVerificationRequestedInformationDocuments(TypedDict, total=False):
+    """
+    Answer for an `id_document` item: the same slot keys Create Verification takes, so the key names both the document and the side. Send every slot for the ID you are uploading — `PASSPORT` is `passport_front`; `ID_CARD`, `DRIVERS` and `RESIDENCE_PERMIT` take a front and a back. Each value is a direct upload ID, or a `file_`-prefixed attachment ID to reuse an uploaded document.
+    """
+
+    drivers_back: str
+    """Back of the driver's license."""
+
+    drivers_front: str
+    """Front of the driver's license."""
+
+    id_card_back: str
+    """Back of the ID card."""
+
+    id_card_front: str
+    """Front of the ID card."""
+
+    passport_front: str
+    """Photo page of the passport."""
+
+    residence_permit_back: str
+    """Back of the residence permit."""
+
+    residence_permit_front: str
+    """Front of the residence permit."""
+
+
 class UpdateBusinessVerificationRequestedInformation(TypedDict, total=False):
     id: Required[str]
     """Item ID from `requested_information`."""
@@ -224,25 +275,20 @@ class UpdateBusinessVerificationRequestedInformation(TypedDict, total=False):
     address: UpdateBusinessVerificationRequestedInformationAddress
     """Answer for `address` items."""
 
-    back: str
-    """Back of a two-sided document, always sent alongside `front`.
-
-    Same values as `file`. Omit for a one-sided document such as a passport.
+    documents: UpdateBusinessVerificationRequestedInformationDocuments
     """
-
-    file: str
-    """
-    Answer for a one-file `file` item: a direct upload ID, or a `file_`-prefixed
-    attachment ID to reuse an uploaded document.
+    Answer for an `id_document` item: the same slot keys Create Verification takes,
+    so the key names both the document and the side. Send every slot for the ID you
+    are uploading — `PASSPORT` is `passport_front`; `ID_CARD`, `DRIVERS` and
+    `RESIDENCE_PERMIT` take a front and a back. Each value is a direct upload ID, or
+    a `file_`-prefixed attachment ID to reuse an uploaded document.
     """
 
     files: SequenceNotStr[str]
-    """Answer for `file` items marked `multiple`. Same values as `file`."""
-
-    front: str
-    """Front of a two-sided document, sent with the `value` naming the document type.
-
-    Same values as `file`.
+    """
+    Answer for a `files` item — one document, as a list of its pages, first page
+    first. Each entry is a direct upload ID, or a `file_`-prefixed attachment ID to
+    reuse an uploaded document.
     """
 
     value: str
