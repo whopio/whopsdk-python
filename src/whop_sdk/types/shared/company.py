@@ -113,9 +113,7 @@ class Company(BaseModel):
     """
 
     route: str
-    """
-    The URL slug for the company's store page (e.g., 'pickaxe' in whop.com/pickaxe).
-    """
+    """URL slug for the account's store page, e.g. `pickaxe` in whop.com/pickaxe."""
 
     send_customer_emails: bool
     """
