@@ -10,7 +10,7 @@ from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .dispute_statuses import DisputeStatuses
 from .dispute_alert_type import DisputeAlertType
-from .payment_method_types import PaymentMethodTypes
+from .payment_method_type import PaymentMethodType
 from .shared.membership_status import MembershipStatus
 
 __all__ = [
@@ -127,7 +127,7 @@ class DataPayment(BaseModel):
     Null if the payment has not yet succeeded. As a Unix timestamp.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
+    payment_method_type: Optional[PaymentMethodType] = None
     """The different types of payment methods that can be used."""
 
     subtotal: Optional[float] = None
@@ -183,6 +183,9 @@ class DisputeAlertCreatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """
     A dispute alert represents an early warning notification from a payment
@@ -196,4 +199,4 @@ class DisputeAlertCreatedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""
