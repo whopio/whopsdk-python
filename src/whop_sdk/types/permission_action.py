@@ -140,6 +140,7 @@ PermissionAction: TypeAlias = Literal[
     "payment:dispute:read",
     "payment:dispute_alert:read",
     "payment:setup_intent:read",
+    "payment:setup_intent:manage",
     "payment:manage",
     "payment:resolution_center",
     "payment:resolution_center_case:export",

@@ -13,6 +13,7 @@ from whop_sdk.types import (
     SetupIntent,
     SetupIntentListResponse,
     SetupIntentRetrieveStatusResponse,
+    SetupIntentUpdateReturnURLResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -256,6 +257,52 @@ class TestSetupIntents:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_return_url(self, client: Whop) -> None:
+        setup_intent = client.setup_intents.update_return_url(
+            setup_intent_id="setup_intent_id",
+            return_url="https://merchant.example/thanks",
+        )
+        assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update_return_url(self, client: Whop) -> None:
+        response = client.setup_intents.with_raw_response.update_return_url(
+            setup_intent_id="setup_intent_id",
+            return_url="https://merchant.example/thanks",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        setup_intent = response.parse()
+        assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update_return_url(self, client: Whop) -> None:
+        with client.setup_intents.with_streaming_response.update_return_url(
+            setup_intent_id="setup_intent_id",
+            return_url="https://merchant.example/thanks",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            setup_intent = response.parse()
+            assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update_return_url(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `setup_intent_id` but received ''"):
+            client.setup_intents.with_raw_response.update_return_url(
+                setup_intent_id="",
+                return_url="https://merchant.example/thanks",
+            )
+
 
 class TestAsyncSetupIntents:
     parametrize = pytest.mark.parametrize(
@@ -493,4 +540,50 @@ class TestAsyncSetupIntents:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `setup_intent_id` but received ''"):
             await async_client.setup_intents.with_raw_response.retrieve_status(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_return_url(self, async_client: AsyncWhop) -> None:
+        setup_intent = await async_client.setup_intents.update_return_url(
+            setup_intent_id="setup_intent_id",
+            return_url="https://merchant.example/thanks",
+        )
+        assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update_return_url(self, async_client: AsyncWhop) -> None:
+        response = await async_client.setup_intents.with_raw_response.update_return_url(
+            setup_intent_id="setup_intent_id",
+            return_url="https://merchant.example/thanks",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        setup_intent = await response.parse()
+        assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update_return_url(self, async_client: AsyncWhop) -> None:
+        async with async_client.setup_intents.with_streaming_response.update_return_url(
+            setup_intent_id="setup_intent_id",
+            return_url="https://merchant.example/thanks",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            setup_intent = await response.parse()
+            assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update_return_url(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `setup_intent_id` but received ''"):
+            await async_client.setup_intents.with_raw_response.update_return_url(
+                setup_intent_id="",
+                return_url="https://merchant.example/thanks",
             )

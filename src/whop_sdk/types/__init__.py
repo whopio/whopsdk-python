@@ -547,6 +547,7 @@ from .resolution_center_case_summary_params import (
 from .setup_intent_retrieve_status_response import (
     SetupIntentRetrieveStatusResponse as SetupIntentRetrieveStatusResponse,
 )
+from .setup_intent_update_return_url_params import SetupIntentUpdateReturnURLParams as SetupIntentUpdateReturnURLParams
 from .card_transaction_created_webhook_event import (
     CardTransactionCreatedWebhookEvent as CardTransactionCreatedWebhookEvent,
 )
@@ -594,6 +595,9 @@ from .dm_feed_member_notification_preferences import (
 )
 from .resolution_center_case_summary_response import (
     ResolutionCenterCaseSummaryResponse as ResolutionCenterCaseSummaryResponse,
+)
+from .setup_intent_update_return_url_response import (
+    SetupIntentUpdateReturnURLResponse as SetupIntentUpdateReturnURLResponse,
 )
 from .ad_group_search_targeting_options_params import (
     AdGroupSearchTargetingOptionsParams as AdGroupSearchTargetingOptionsParams,
