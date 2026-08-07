@@ -2,30 +2,58 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["ShipmentListParams"]
 
 
 class ShipmentListParams(TypedDict, total=False):
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    account_id: str
+    """The account to list shipments for. Defaults to the acting account."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    after: str
+    """A cursor; returns shipments after this position."""
 
-    company_id: Optional[str]
-    """Filter shipments to only those belonging to this company."""
+    before: str
+    """A cursor; returns shipments before this position."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    created_after: str
+    """Return shipments created after this ISO 8601 timestamp."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    created_before: str
+    """Return shipments created before this ISO 8601 timestamp."""
 
-    payment_id: Optional[str]
-    """Filter shipments to only those associated with this specific payment."""
+    direction: Literal["asc", "desc"]
+    """The sort direction."""
 
-    user_id: Optional[str]
-    """Filter shipments to only those for this specific user."""
+    first: int
+    """The number of shipments to return."""
+
+    last: int
+    """The number of shipments to return from the end of the range."""
+
+    order: Literal["created_at"]
+    """The field to sort by."""
+
+    payment_id: SequenceNotStr[str]
+    """Only shipments fulfilling these payments, each prefixed `pay_`.
+
+    Repeat the parameter to pass several, up to 100 per request — one paginated list
+    covers all of them.
+    """
+
+    status: Literal[
+        "unknown",
+        "pre_transit",
+        "in_transit",
+        "out_for_delivery",
+        "delivered",
+        "available_for_pickup",
+        "return_to_sender",
+        "failure",
+        "cancelled",
+        "error",
+    ]
+    """Filter to shipments with this delivery status."""
