@@ -92,9 +92,9 @@ class SetupIntentsResource(SyncAPIResource):
           currency: The available currencies on the platform
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
-              creating the Whop user the method belongs to. Ignored when the confirmation
-              token was created by a signed-in buyer, and unless confirmation_token is
-              provided.
+              creating the Whop user the method belongs to. Ignored when the caller IS the
+              buyer or the confirmation token was created by a signed-in buyer, and unless
+              confirmation_token is provided.
 
           metadata: Custom metadata to attach to the setup intent.
 
@@ -154,9 +154,9 @@ class SetupIntentsResource(SyncAPIResource):
           currency: The available currencies on the platform
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
-              creating the Whop user the method belongs to. Ignored when the confirmation
-              token was created by a signed-in buyer, and unless confirmation_token is
-              provided.
+              creating the Whop user the method belongs to. Ignored when the caller IS the
+              buyer or the confirmation token was created by a signed-in buyer, and unless
+              confirmation_token is provided.
 
           metadata: Custom metadata to attach to the setup intent.
 
@@ -483,9 +483,9 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
           currency: The available currencies on the platform
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
-              creating the Whop user the method belongs to. Ignored when the confirmation
-              token was created by a signed-in buyer, and unless confirmation_token is
-              provided.
+              creating the Whop user the method belongs to. Ignored when the caller IS the
+              buyer or the confirmation token was created by a signed-in buyer, and unless
+              confirmation_token is provided.
 
           metadata: Custom metadata to attach to the setup intent.
 
@@ -545,9 +545,9 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
           currency: The available currencies on the platform
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
-              creating the Whop user the method belongs to. Ignored when the confirmation
-              token was created by a signed-in buyer, and unless confirmation_token is
-              provided.
+              creating the Whop user the method belongs to. Ignored when the caller IS the
+              buyer or the confirmation token was created by a signed-in buyer, and unless
+              confirmation_token is provided.
 
           metadata: Custom metadata to attach to the setup intent.
 
