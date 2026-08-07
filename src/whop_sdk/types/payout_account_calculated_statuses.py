@@ -5,5 +5,13 @@ from typing_extensions import Literal, TypeAlias
 __all__ = ["PayoutAccountCalculatedStatuses"]
 
 PayoutAccountCalculatedStatuses: TypeAlias = Literal[
-    "connected", "disabled", "action_required", "pending_verification", "verification_failed", "not_started"
+    "connected",
+    "disabled",
+    "action_required",
+    "pending_verification",
+    "verification_failed",
+    "manual_review",
+    "denied",
+    "not_started",
+    "blocked_by_parent",
 ]
