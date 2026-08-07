@@ -452,7 +452,7 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CancelOptions
+from whop_sdk.types import CancelOptions, MembershipInviteResponse
 ```
 
 Methods:
@@ -462,6 +462,7 @@ Methods:
 - <code title="get /memberships">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">list</a>(\*\*<a href="src/whop_sdk/types/membership_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">SyncCursorPage[Membership]</a></code>
 - <code title="post /memberships/{id}/cancel">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">cancel</a>(id, \*\*<a href="src/whop_sdk/types/membership_cancel_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/extend">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">extend</a>(id, \*\*<a href="src/whop_sdk/types/membership_extend_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
+- <code title="post /memberships/invite">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">invite</a>(\*\*<a href="src/whop_sdk/types/membership_invite_params.py">params</a>) -> <a href="./src/whop_sdk/types/membership_invite_response.py">MembershipInviteResponse</a></code>
 - <code title="post /memberships/{id}/pause">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">pause</a>(id, \*\*<a href="src/whop_sdk/types/membership_pause_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/resume">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">resume</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 

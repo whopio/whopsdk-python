@@ -331,6 +331,7 @@ from .forum_post_list_response import ForumPostListResponse as ForumPostListResp
 from .forum_post_update_params import ForumPostUpdateParams as ForumPostUpdateParams
 from .membership_cancel_params import MembershipCancelParams as MembershipCancelParams
 from .membership_extend_params import MembershipExtendParams as MembershipExtendParams
+from .membership_invite_params import MembershipInviteParams as MembershipInviteParams
 from .membership_update_params import MembershipUpdateParams as MembershipUpdateParams
 from .notification_list_params import NotificationListParams as NotificationListParams
 from .notification_preferences import NotificationPreferences as NotificationPreferences
@@ -376,6 +377,7 @@ from .fee_markup_delete_response import FeeMarkupDeleteResponse as FeeMarkupDele
 from .forum_post_visibility_type import ForumPostVisibilityType as ForumPostVisibilityType
 from .invoice_mark_paid_response import InvoiceMarkPaidResponse as InvoiceMarkPaidResponse
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent as InvoicePaidWebhookEvent
+from .membership_invite_response import MembershipInviteResponse as MembershipInviteResponse
 from .notification_badges_params import NotificationBadgesParams as NotificationBadgesParams
 from .notification_create_params import NotificationCreateParams as NotificationCreateParams
 from .partner_leaderboard_params import PartnerLeaderboardParams as PartnerLeaderboardParams

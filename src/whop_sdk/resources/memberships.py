@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
@@ -11,10 +11,11 @@ from ..types import (
     membership_pause_params,
     membership_cancel_params,
     membership_extend_params,
+    membership_invite_params,
     membership_update_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -26,6 +27,7 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.membership import Membership
+from ..types.membership_invite_response import MembershipInviteResponse
 
 __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
@@ -34,7 +36,7 @@ class MembershipsResource(SyncAPIResource):
     """
     A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
 
-    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
     """
 
     @cached_property
@@ -340,6 +342,123 @@ class MembershipsResource(SyncAPIResource):
             cast_to=Membership,
         )
 
+    @overload
+    def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`.
+
+          email: Recipient email address. Mutually exclusive with `user_id`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @overload
+    def invite(
+        self,
+        *,
+        email: str,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          email: Recipient email address.
+
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`. Mutually exclusive with `email`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @required_args(["plan_id", "user_id"], ["email", "plan_id"])
+    def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        return self._post(
+            "/memberships/invite",
+            body=maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "user_id": user_id,
+                    "email": email,
+                },
+                membership_invite_params.MembershipInviteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=MembershipInviteResponse,
+        )
+
     def pause(
         self,
         id: str,
@@ -434,7 +553,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
     """
     A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
 
-    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
     """
 
     @cached_property
@@ -740,6 +859,123 @@ class AsyncMembershipsResource(AsyncAPIResource):
             cast_to=Membership,
         )
 
+    @overload
+    async def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`.
+
+          email: Recipient email address. Mutually exclusive with `user_id`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @overload
+    async def invite(
+        self,
+        *,
+        email: str,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          email: Recipient email address.
+
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`. Mutually exclusive with `email`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @required_args(["plan_id", "user_id"], ["email", "plan_id"])
+    async def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        return await self._post(
+            "/memberships/invite",
+            body=await async_maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "user_id": user_id,
+                    "email": email,
+                },
+                membership_invite_params.MembershipInviteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=MembershipInviteResponse,
+        )
+
     async def pause(
         self,
         id: str,
@@ -849,6 +1085,9 @@ class MembershipsResourceWithRawResponse:
         self.extend = to_raw_response_wrapper(
             memberships.extend,
         )
+        self.invite = to_raw_response_wrapper(
+            memberships.invite,
+        )
         self.pause = to_raw_response_wrapper(
             memberships.pause,
         )
@@ -875,6 +1114,9 @@ class AsyncMembershipsResourceWithRawResponse:
         )
         self.extend = async_to_raw_response_wrapper(
             memberships.extend,
+        )
+        self.invite = async_to_raw_response_wrapper(
+            memberships.invite,
         )
         self.pause = async_to_raw_response_wrapper(
             memberships.pause,
@@ -903,6 +1145,9 @@ class MembershipsResourceWithStreamingResponse:
         self.extend = to_streamed_response_wrapper(
             memberships.extend,
         )
+        self.invite = to_streamed_response_wrapper(
+            memberships.invite,
+        )
         self.pause = to_streamed_response_wrapper(
             memberships.pause,
         )
@@ -929,6 +1174,9 @@ class AsyncMembershipsResourceWithStreamingResponse:
         )
         self.extend = async_to_streamed_response_wrapper(
             memberships.extend,
+        )
+        self.invite = async_to_streamed_response_wrapper(
+            memberships.invite,
         )
         self.pause = async_to_streamed_response_wrapper(
             memberships.pause,

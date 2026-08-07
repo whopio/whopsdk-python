@@ -9,6 +9,9 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
+from whop_sdk.types import (
+    MembershipInviteResponse,
+)
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Membership
 
@@ -256,6 +259,100 @@ class TestMemberships:
                 id="",
                 days=1,
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_invite_overload_1(self, client: Whop) -> None:
+        membership = client.memberships.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_invite_with_all_params_overload_1(self, client: Whop) -> None:
+        membership = client.memberships.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+            email="dev@stainless.com",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_invite_overload_1(self, client: Whop) -> None:
+        response = client.memberships.with_raw_response.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = response.parse()
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_invite_overload_1(self, client: Whop) -> None:
+        with client.memberships.with_streaming_response.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = response.parse()
+            assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_invite_overload_2(self, client: Whop) -> None:
+        membership = client.memberships.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_invite_with_all_params_overload_2(self, client: Whop) -> None:
+        membership = client.memberships.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+            user_id="user_id",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_invite_overload_2(self, client: Whop) -> None:
+        response = client.memberships.with_raw_response.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = response.parse()
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_invite_overload_2(self, client: Whop) -> None:
+        with client.memberships.with_streaming_response.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = response.parse()
+            assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -594,6 +691,100 @@ class TestAsyncMemberships:
                 id="",
                 days=1,
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_invite_overload_1(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_invite_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+            email="dev@stainless.com",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_invite_overload_1(self, async_client: AsyncWhop) -> None:
+        response = await async_client.memberships.with_raw_response.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = await response.parse()
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_invite_overload_1(self, async_client: AsyncWhop) -> None:
+        async with async_client.memberships.with_streaming_response.invite(
+            plan_id="plan_id",
+            user_id="user_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = await response.parse()
+            assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_invite_overload_2(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_invite_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+            user_id="user_id",
+        )
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_invite_overload_2(self, async_client: AsyncWhop) -> None:
+        response = await async_client.memberships.with_raw_response.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        membership = await response.parse()
+        assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_invite_overload_2(self, async_client: AsyncWhop) -> None:
+        async with async_client.memberships.with_streaming_response.invite(
+            email="dev@stainless.com",
+            plan_id="plan_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            membership = await response.parse()
+            assert_matches_type(MembershipInviteResponse, membership, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
