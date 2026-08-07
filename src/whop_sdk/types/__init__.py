@@ -251,6 +251,7 @@ from .message_list_response import MessageListResponse as MessageListResponse
 from .message_update_params import MessageUpdateParams as MessageUpdateParams
 from .payment_create_params import PaymentCreateParams as PaymentCreateParams
 from .payment_list_response import PaymentListResponse as PaymentListResponse
+from .payment_method_domain import PaymentMethodDomain as PaymentMethodDomain
 from .payment_refund_params import PaymentRefundParams as PaymentRefundParams
 from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_update_params import ProductUpdateParams as ProductUpdateParams
@@ -515,6 +516,7 @@ from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent as W
 from .account_transfer_ownership_params import AccountTransferOwnershipParams as AccountTransferOwnershipParams
 from .api_key_list_permissions_response import APIKeyListPermissionsResponse as APIKeyListPermissionsResponse
 from .bounty_submission_delete_response import BountySubmissionDeleteResponse as BountySubmissionDeleteResponse
+from .payment_method_domain_list_params import PaymentMethodDomainListParams as PaymentMethodDomainListParams
 from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent as ProductUnpublishedWebhookEvent
 from .transfer_list_recipients_response import TransferListRecipientsResponse as TransferListRecipientsResponse
 from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent as ChatMessageCreatedWebhookEvent
@@ -529,6 +531,7 @@ from .account_transfer_ownership_response import AccountTransferOwnershipRespons
 from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent as ChatReactionCreatedWebhookEvent
 from .dispute_alert_created_webhook_event import DisputeAlertCreatedWebhookEvent as DisputeAlertCreatedWebhookEvent
 from .invoice_mark_uncollectible_response import InvoiceMarkUncollectibleResponse as InvoiceMarkUncollectibleResponse
+from .payment_method_domain_create_params import PaymentMethodDomainCreateParams as PaymentMethodDomainCreateParams
 from .payout_method_created_webhook_event import PayoutMethodCreatedWebhookEvent as PayoutMethodCreatedWebhookEvent
 from .resolution_center_case_reply_params import ResolutionCenterCaseReplyParams as ResolutionCenterCaseReplyParams
 from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent as SetupIntentCanceledWebhookEvent
@@ -551,6 +554,9 @@ from .company_token_transaction_list_params import (
 )
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
+)
+from .payment_method_domain_delete_response import (
+    PaymentMethodDomainDeleteResponse as PaymentMethodDomainDeleteResponse,
 )
 from .resolution_center_case_reply_response import (
     ResolutionCenterCaseReplyResponse as ResolutionCenterCaseReplyResponse,

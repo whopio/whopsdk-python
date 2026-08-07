@@ -584,6 +584,14 @@ from .recommended_actions import (
     RecommendedActionsResourceWithStreamingResponse,
     AsyncRecommendedActionsResourceWithStreamingResponse,
 )
+from .payment_method_domains import (
+    PaymentMethodDomainsResource,
+    AsyncPaymentMethodDomainsResource,
+    PaymentMethodDomainsResourceWithRawResponse,
+    AsyncPaymentMethodDomainsResourceWithRawResponse,
+    PaymentMethodDomainsResourceWithStreamingResponse,
+    AsyncPaymentMethodDomainsResourceWithStreamingResponse,
+)
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
     AsyncCheckoutConfigurationsResource,
@@ -966,6 +974,12 @@ __all__ = [
     "AsyncPaymentMethodsResourceWithRawResponse",
     "PaymentMethodsResourceWithStreamingResponse",
     "AsyncPaymentMethodsResourceWithStreamingResponse",
+    "PaymentMethodDomainsResource",
+    "AsyncPaymentMethodDomainsResource",
+    "PaymentMethodDomainsResourceWithRawResponse",
+    "AsyncPaymentMethodDomainsResourceWithRawResponse",
+    "PaymentMethodDomainsResourceWithStreamingResponse",
+    "AsyncPaymentMethodDomainsResourceWithStreamingResponse",
     "FeeMarkupsResource",
     "AsyncFeeMarkupsResource",
     "FeeMarkupsResourceWithRawResponse",

@@ -109,6 +109,7 @@ if TYPE_CHECKING:
         bounty_submissions,
         financial_activity,
         recommended_actions,
+        payment_method_domains,
         checkout_configurations,
         resolution_center_cases,
         company_token_transactions,
@@ -186,6 +187,7 @@ if TYPE_CHECKING:
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
     from .resources.recommended_actions import RecommendedActionsResource, AsyncRecommendedActionsResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
+    from .resources.payment_method_domains import PaymentMethodDomainsResource, AsyncPaymentMethodDomainsResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
     from .resources.company_token_transactions import (
@@ -810,6 +812,17 @@ class Whop(SyncAPIClient):
         from .resources.payment_methods import PaymentMethodsResource
 
         return PaymentMethodsResource(self)
+
+    @cached_property
+    def payment_method_domains(self) -> PaymentMethodDomainsResource:
+        """
+        A Payment Method Domain registers a hostname with a wallet provider so its payment methods can appear at a checkout served from that domain. The domain proves ownership by hosting the provider's association file — for Apple Pay, at `/.well-known/apple-developer-merchantid-domain-association` — and `status` reports whether verification has completed.
+
+        Use the Payment Method Domains API to register domains for your account or its connected accounts, retry verification once the association file is hosted, and remove domains that should no longer serve wallet payments. A domain a platform shares with its connected accounts at checkout is listed on the platform's account, not on each connected account.
+        """
+        from .resources.payment_method_domains import PaymentMethodDomainsResource
+
+        return PaymentMethodDomainsResource(self)
 
     @cached_property
     def fee_markups(self) -> FeeMarkupsResource:
@@ -1696,6 +1709,17 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPaymentMethodsResource(self)
 
     @cached_property
+    def payment_method_domains(self) -> AsyncPaymentMethodDomainsResource:
+        """
+        A Payment Method Domain registers a hostname with a wallet provider so its payment methods can appear at a checkout served from that domain. The domain proves ownership by hosting the provider's association file — for Apple Pay, at `/.well-known/apple-developer-merchantid-domain-association` — and `status` reports whether verification has completed.
+
+        Use the Payment Method Domains API to register domains for your account or its connected accounts, retry verification once the association file is hosted, and remove domains that should no longer serve wallet payments. A domain a platform shares with its connected accounts at checkout is listed on the platform's account, not on each connected account.
+        """
+        from .resources.payment_method_domains import AsyncPaymentMethodDomainsResource
+
+        return AsyncPaymentMethodDomainsResource(self)
+
+    @cached_property
     def fee_markups(self) -> AsyncFeeMarkupsResource:
         from .resources.fee_markups import AsyncFeeMarkupsResource
 
@@ -2498,6 +2522,17 @@ class WhopWithRawResponse:
         return PaymentMethodsResourceWithRawResponse(self._client.payment_methods)
 
     @cached_property
+    def payment_method_domains(self) -> payment_method_domains.PaymentMethodDomainsResourceWithRawResponse:
+        """
+        A Payment Method Domain registers a hostname with a wallet provider so its payment methods can appear at a checkout served from that domain. The domain proves ownership by hosting the provider's association file — for Apple Pay, at `/.well-known/apple-developer-merchantid-domain-association` — and `status` reports whether verification has completed.
+
+        Use the Payment Method Domains API to register domains for your account or its connected accounts, retry verification once the association file is hosted, and remove domains that should no longer serve wallet payments. A domain a platform shares with its connected accounts at checkout is listed on the platform's account, not on each connected account.
+        """
+        from .resources.payment_method_domains import PaymentMethodDomainsResourceWithRawResponse
+
+        return PaymentMethodDomainsResourceWithRawResponse(self._client.payment_method_domains)
+
+    @cached_property
     def fee_markups(self) -> fee_markups.FeeMarkupsResourceWithRawResponse:
         from .resources.fee_markups import FeeMarkupsResourceWithRawResponse
 
@@ -3180,6 +3215,17 @@ class AsyncWhopWithRawResponse:
         from .resources.payment_methods import AsyncPaymentMethodsResourceWithRawResponse
 
         return AsyncPaymentMethodsResourceWithRawResponse(self._client.payment_methods)
+
+    @cached_property
+    def payment_method_domains(self) -> payment_method_domains.AsyncPaymentMethodDomainsResourceWithRawResponse:
+        """
+        A Payment Method Domain registers a hostname with a wallet provider so its payment methods can appear at a checkout served from that domain. The domain proves ownership by hosting the provider's association file — for Apple Pay, at `/.well-known/apple-developer-merchantid-domain-association` — and `status` reports whether verification has completed.
+
+        Use the Payment Method Domains API to register domains for your account or its connected accounts, retry verification once the association file is hosted, and remove domains that should no longer serve wallet payments. A domain a platform shares with its connected accounts at checkout is listed on the platform's account, not on each connected account.
+        """
+        from .resources.payment_method_domains import AsyncPaymentMethodDomainsResourceWithRawResponse
+
+        return AsyncPaymentMethodDomainsResourceWithRawResponse(self._client.payment_method_domains)
 
     @cached_property
     def fee_markups(self) -> fee_markups.AsyncFeeMarkupsResourceWithRawResponse:
@@ -3868,6 +3914,17 @@ class WhopWithStreamedResponse:
         return PaymentMethodsResourceWithStreamingResponse(self._client.payment_methods)
 
     @cached_property
+    def payment_method_domains(self) -> payment_method_domains.PaymentMethodDomainsResourceWithStreamingResponse:
+        """
+        A Payment Method Domain registers a hostname with a wallet provider so its payment methods can appear at a checkout served from that domain. The domain proves ownership by hosting the provider's association file — for Apple Pay, at `/.well-known/apple-developer-merchantid-domain-association` — and `status` reports whether verification has completed.
+
+        Use the Payment Method Domains API to register domains for your account or its connected accounts, retry verification once the association file is hosted, and remove domains that should no longer serve wallet payments. A domain a platform shares with its connected accounts at checkout is listed on the platform's account, not on each connected account.
+        """
+        from .resources.payment_method_domains import PaymentMethodDomainsResourceWithStreamingResponse
+
+        return PaymentMethodDomainsResourceWithStreamingResponse(self._client.payment_method_domains)
+
+    @cached_property
     def fee_markups(self) -> fee_markups.FeeMarkupsResourceWithStreamingResponse:
         from .resources.fee_markups import FeeMarkupsResourceWithStreamingResponse
 
@@ -4554,6 +4611,17 @@ class AsyncWhopWithStreamedResponse:
         from .resources.payment_methods import AsyncPaymentMethodsResourceWithStreamingResponse
 
         return AsyncPaymentMethodsResourceWithStreamingResponse(self._client.payment_methods)
+
+    @cached_property
+    def payment_method_domains(self) -> payment_method_domains.AsyncPaymentMethodDomainsResourceWithStreamingResponse:
+        """
+        A Payment Method Domain registers a hostname with a wallet provider so its payment methods can appear at a checkout served from that domain. The domain proves ownership by hosting the provider's association file — for Apple Pay, at `/.well-known/apple-developer-merchantid-domain-association` — and `status` reports whether verification has completed.
+
+        Use the Payment Method Domains API to register domains for your account or its connected accounts, retry verification once the association file is hosted, and remove domains that should no longer serve wallet payments. A domain a platform shares with its connected accounts at checkout is listed on the platform's account, not on each connected account.
+        """
+        from .resources.payment_method_domains import AsyncPaymentMethodDomainsResourceWithStreamingResponse
+
+        return AsyncPaymentMethodDomainsResourceWithStreamingResponse(self._client.payment_method_domains)
 
     @cached_property
     def fee_markups(self) -> fee_markups.AsyncFeeMarkupsResourceWithStreamingResponse:

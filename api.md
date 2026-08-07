@@ -1294,6 +1294,22 @@ Methods:
 - <code title="get /payment_methods/{id}">client.payment_methods.<a href="./src/whop_sdk/resources/payment_methods.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/payment_method_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_retrieve_response.py">PaymentMethodRetrieveResponse</a></code>
 - <code title="get /payment_methods">client.payment_methods.<a href="./src/whop_sdk/resources/payment_methods.py">list</a>(\*\*<a href="src/whop_sdk/types/payment_method_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_list_response.py">SyncCursorPage[PaymentMethodListResponse]</a></code>
 
+# PaymentMethodDomains
+
+Types:
+
+```python
+from whop_sdk.types import PaymentMethodDomain, PaymentMethodDomainDeleteResponse
+```
+
+Methods:
+
+- <code title="post /payment_method_domains">client.payment_method_domains.<a href="./src/whop_sdk/resources/payment_method_domains.py">create</a>(\*\*<a href="src/whop_sdk/types/payment_method_domain_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_domain.py">PaymentMethodDomain</a></code>
+- <code title="get /payment_method_domains/{id}">client.payment_method_domains.<a href="./src/whop_sdk/resources/payment_method_domains.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/payment_method_domain.py">PaymentMethodDomain</a></code>
+- <code title="get /payment_method_domains">client.payment_method_domains.<a href="./src/whop_sdk/resources/payment_method_domains.py">list</a>(\*\*<a href="src/whop_sdk/types/payment_method_domain_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_method_domain.py">SyncCursorPage[PaymentMethodDomain]</a></code>
+- <code title="delete /payment_method_domains/{id}">client.payment_method_domains.<a href="./src/whop_sdk/resources/payment_method_domains.py">delete</a>(id) -> <a href="./src/whop_sdk/types/payment_method_domain_delete_response.py">PaymentMethodDomainDeleteResponse</a></code>
+- <code title="post /payment_method_domains/{id}/verify">client.payment_method_domains.<a href="./src/whop_sdk/resources/payment_method_domains.py">verify</a>(id) -> <a href="./src/whop_sdk/types/payment_method_domain.py">PaymentMethodDomain</a></code>
+
 # FeeMarkups
 
 Types:
