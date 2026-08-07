@@ -108,6 +108,7 @@ if TYPE_CHECKING:
         card_transactions,
         bounty_submissions,
         financial_activity,
+        recommended_actions,
         checkout_configurations,
         resolution_center_cases,
         company_token_transactions,
@@ -183,6 +184,7 @@ if TYPE_CHECKING:
     from .resources.partners.partners import PartnersResource, AsyncPartnersResource
     from .resources.bounty_submissions import BountySubmissionsResource, AsyncBountySubmissionsResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
+    from .resources.recommended_actions import RecommendedActionsResource, AsyncRecommendedActionsResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
     from .resources.resolution_center_cases import ResolutionCenterCasesResource, AsyncResolutionCenterCasesResource
@@ -785,6 +787,17 @@ class Whop(SyncAPIClient):
         from .resources.deposits import DepositsResource
 
         return DepositsResource(self)
+
+    @cached_property
+    def recommended_actions(self) -> RecommendedActionsResource:
+        """
+        A Recommended Action Chain is a short, ordered sequence of dashboard actions — create a product, price it, publish it — suggested for an account based on what it already has. Seeded chains come from hand-written presets; generated chains, produced per account, share the same shape.
+
+        Use the Recommended Actions API to list the chains recommended for an account and to record that a chain was run. Running a chain executes nothing server-side — the client follows each step's CTA itself; the run endpoint records the `recommended_action_chain.executed` analytics event.
+        """
+        from .resources.recommended_actions import RecommendedActionsResource
+
+        return RecommendedActionsResource(self)
 
     @cached_property
     def setup_intents(self) -> SetupIntentsResource:
@@ -1660,6 +1673,17 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncDepositsResource(self)
 
     @cached_property
+    def recommended_actions(self) -> AsyncRecommendedActionsResource:
+        """
+        A Recommended Action Chain is a short, ordered sequence of dashboard actions — create a product, price it, publish it — suggested for an account based on what it already has. Seeded chains come from hand-written presets; generated chains, produced per account, share the same shape.
+
+        Use the Recommended Actions API to list the chains recommended for an account and to record that a chain was run. Running a chain executes nothing server-side — the client follows each step's CTA itself; the run endpoint records the `recommended_action_chain.executed` analytics event.
+        """
+        from .resources.recommended_actions import AsyncRecommendedActionsResource
+
+        return AsyncRecommendedActionsResource(self)
+
+    @cached_property
     def setup_intents(self) -> AsyncSetupIntentsResource:
         from .resources.setup_intents import AsyncSetupIntentsResource
 
@@ -2451,6 +2475,17 @@ class WhopWithRawResponse:
         return DepositsResourceWithRawResponse(self._client.deposits)
 
     @cached_property
+    def recommended_actions(self) -> recommended_actions.RecommendedActionsResourceWithRawResponse:
+        """
+        A Recommended Action Chain is a short, ordered sequence of dashboard actions — create a product, price it, publish it — suggested for an account based on what it already has. Seeded chains come from hand-written presets; generated chains, produced per account, share the same shape.
+
+        Use the Recommended Actions API to list the chains recommended for an account and to record that a chain was run. Running a chain executes nothing server-side — the client follows each step's CTA itself; the run endpoint records the `recommended_action_chain.executed` analytics event.
+        """
+        from .resources.recommended_actions import RecommendedActionsResourceWithRawResponse
+
+        return RecommendedActionsResourceWithRawResponse(self._client.recommended_actions)
+
+    @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithRawResponse:
         from .resources.setup_intents import SetupIntentsResourceWithRawResponse
 
@@ -3122,6 +3157,17 @@ class AsyncWhopWithRawResponse:
         from .resources.deposits import AsyncDepositsResourceWithRawResponse
 
         return AsyncDepositsResourceWithRawResponse(self._client.deposits)
+
+    @cached_property
+    def recommended_actions(self) -> recommended_actions.AsyncRecommendedActionsResourceWithRawResponse:
+        """
+        A Recommended Action Chain is a short, ordered sequence of dashboard actions — create a product, price it, publish it — suggested for an account based on what it already has. Seeded chains come from hand-written presets; generated chains, produced per account, share the same shape.
+
+        Use the Recommended Actions API to list the chains recommended for an account and to record that a chain was run. Running a chain executes nothing server-side — the client follows each step's CTA itself; the run endpoint records the `recommended_action_chain.executed` analytics event.
+        """
+        from .resources.recommended_actions import AsyncRecommendedActionsResourceWithRawResponse
+
+        return AsyncRecommendedActionsResourceWithRawResponse(self._client.recommended_actions)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithRawResponse:
@@ -3799,6 +3845,17 @@ class WhopWithStreamedResponse:
         return DepositsResourceWithStreamingResponse(self._client.deposits)
 
     @cached_property
+    def recommended_actions(self) -> recommended_actions.RecommendedActionsResourceWithStreamingResponse:
+        """
+        A Recommended Action Chain is a short, ordered sequence of dashboard actions — create a product, price it, publish it — suggested for an account based on what it already has. Seeded chains come from hand-written presets; generated chains, produced per account, share the same shape.
+
+        Use the Recommended Actions API to list the chains recommended for an account and to record that a chain was run. Running a chain executes nothing server-side — the client follows each step's CTA itself; the run endpoint records the `recommended_action_chain.executed` analytics event.
+        """
+        from .resources.recommended_actions import RecommendedActionsResourceWithStreamingResponse
+
+        return RecommendedActionsResourceWithStreamingResponse(self._client.recommended_actions)
+
+    @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithStreamingResponse:
         from .resources.setup_intents import SetupIntentsResourceWithStreamingResponse
 
@@ -4474,6 +4531,17 @@ class AsyncWhopWithStreamedResponse:
         from .resources.deposits import AsyncDepositsResourceWithStreamingResponse
 
         return AsyncDepositsResourceWithStreamingResponse(self._client.deposits)
+
+    @cached_property
+    def recommended_actions(self) -> recommended_actions.AsyncRecommendedActionsResourceWithStreamingResponse:
+        """
+        A Recommended Action Chain is a short, ordered sequence of dashboard actions — create a product, price it, publish it — suggested for an account based on what it already has. Seeded chains come from hand-written presets; generated chains, produced per account, share the same shape.
+
+        Use the Recommended Actions API to list the chains recommended for an account and to record that a chain was run. Running a chain executes nothing server-side — the client follows each step's CTA itself; the run endpoint records the `recommended_action_chain.executed` analytics event.
+        """
+        from .resources.recommended_actions import AsyncRecommendedActionsResourceWithStreamingResponse
+
+        return AsyncRecommendedActionsResourceWithStreamingResponse(self._client.recommended_actions)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithStreamingResponse:

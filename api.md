@@ -1028,7 +1028,6 @@ from whop_sdk.types import (
     Account,
     AccountSocialLink,
     AccountFormCompanyResponse,
-    AccountRecommendActionsResponse,
     AccountTransferOwnershipResponse,
 )
 ```
@@ -1041,7 +1040,6 @@ Methods:
 - <code title="get /accounts">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">list</a>(\*\*<a href="src/whop_sdk/types/account_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/account.py">SyncCursorPage[Account]</a></code>
 - <code title="post /accounts/{account_id}/form_company">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">form_company</a>(account_id, \*\*<a href="src/whop_sdk/types/account_form_company_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_form_company_response.py">AccountFormCompanyResponse</a></code>
 - <code title="get /accounts/me">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">me</a>() -> <a href="./src/whop_sdk/types/account.py">Account</a></code>
-- <code title="get /accounts/{account_id}/recommend_actions">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">recommend_actions</a>(account_id) -> <a href="./src/whop_sdk/types/account_recommend_actions_response.py">AccountRecommendActionsResponse</a></code>
 - <code title="post /accounts/{account_id}/transfer_ownership">client.accounts.<a href="./src/whop_sdk/resources/accounts/accounts.py">transfer_ownership</a>(account_id, \*\*<a href="src/whop_sdk/types/account_transfer_ownership_params.py">params</a>) -> <a href="./src/whop_sdk/types/account_transfer_ownership_response.py">AccountTransferOwnershipResponse</a></code>
 
 ## Preferences
@@ -1246,6 +1244,19 @@ from whop_sdk.types import DepositCreateResponse
 Methods:
 
 - <code title="post /deposits">client.deposits.<a href="./src/whop_sdk/resources/deposits.py">create</a>(\*\*<a href="src/whop_sdk/types/deposit_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/deposit_create_response.py">DepositCreateResponse</a></code>
+
+# RecommendedActions
+
+Types:
+
+```python
+from whop_sdk.types import RecommendedActionListResponse, RecommendedActionRunResponse
+```
+
+Methods:
+
+- <code title="get /recommended_actions">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">list</a>(\*\*<a href="src/whop_sdk/types/recommended_action_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_list_response.py">RecommendedActionListResponse</a></code>
+- <code title="post /recommended_actions/{chain_id}">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">run</a>(chain_id, \*\*<a href="src/whop_sdk/types/recommended_action_run_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_run_response.py">RecommendedActionRunResponse</a></code>
 
 # SetupIntents
 

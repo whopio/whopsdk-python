@@ -1,11 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
-from typing_extensions import Literal
+from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["AccountRecommendActionsResponse", "Data", "DataAction"]
+__all__ = ["RecommendedActionListResponse", "Data", "DataAction"]
 
 
 class DataAction(BaseModel):
@@ -26,25 +25,37 @@ class DataAction(BaseModel):
     description: str
     """Supporting copy, or empty"""
 
+    input: Optional[object] = None
+    """The filled-in request body for the step's endpoint, or `null` for seeded chains"""
+
     position: int
     """Zero-based order of this step within the chain"""
+
+    reasoning: Optional[object] = None
+    """Why the generator filled the step this way, or `null` for seeded chains"""
 
     title: str
     """Headline for the step"""
 
 
 class Data(BaseModel):
-    id: Literal["launch_ads", "start_selling", "revive_stalled_ads", "cut_and_reallocate", "promote_with_affiliates"]
-    """The chain; new values may be added, so handle unknown chains gracefully"""
+    id: str
+    """
+    Chain ID — `rac_seed_<preset>_<nonce>` for seeded chains, `rac_chain_*` for
+    generated ones
+    """
 
     actions: List[DataAction]
 
     description: str
     """What running the chain accomplishes"""
 
+    reasoning: Optional[object] = None
+    """Why the generator proposed this chain, or `null` for seeded chains"""
+
     title: str
     """Headline for the chain"""
 
 
-class AccountRecommendActionsResponse(BaseModel):
+class RecommendedActionListResponse(BaseModel):
     data: List[Data]

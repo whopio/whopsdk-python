@@ -45,7 +45,6 @@ from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.account import Account
 from ...types.account_form_company_response import AccountFormCompanyResponse
-from ...types.account_recommend_actions_response import AccountRecommendActionsResponse
 from ...types.account_transfer_ownership_response import AccountTransferOwnershipResponse
 
 __all__ = ["AccountsResource", "AsyncAccountsResource"]
@@ -2894,41 +2893,6 @@ class AccountsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Account,
-        )
-
-    def recommend_actions(
-        self,
-        account_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccountRecommendActionsResponse:
-        """
-        Lists the recommended action chains for the account — short sequences of actions
-        (create a product, price it, publish it) the account should run next, gated on
-        what it already has.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
-        return self._get(
-            path_template("/accounts/{account_id}/recommend_actions", account_id=account_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AccountRecommendActionsResponse,
         )
 
     def transfer_ownership(
@@ -5835,41 +5799,6 @@ class AsyncAccountsResource(AsyncAPIResource):
             cast_to=Account,
         )
 
-    async def recommend_actions(
-        self,
-        account_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AccountRecommendActionsResponse:
-        """
-        Lists the recommended action chains for the account — short sequences of actions
-        (create a product, price it, publish it) the account should run next, gated on
-        what it already has.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
-        return await self._get(
-            path_template("/accounts/{account_id}/recommend_actions", account_id=account_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AccountRecommendActionsResponse,
-        )
-
     async def transfer_ownership(
         self,
         account_id: str,
@@ -5951,9 +5880,6 @@ class AccountsResourceWithRawResponse:
         self.me = to_raw_response_wrapper(
             accounts.me,
         )
-        self.recommend_actions = to_raw_response_wrapper(
-            accounts.recommend_actions,
-        )
         self.transfer_ownership = to_raw_response_wrapper(
             accounts.transfer_ownership,
         )
@@ -5998,9 +5924,6 @@ class AsyncAccountsResourceWithRawResponse:
         )
         self.me = async_to_raw_response_wrapper(
             accounts.me,
-        )
-        self.recommend_actions = async_to_raw_response_wrapper(
-            accounts.recommend_actions,
         )
         self.transfer_ownership = async_to_raw_response_wrapper(
             accounts.transfer_ownership,
@@ -6047,9 +5970,6 @@ class AccountsResourceWithStreamingResponse:
         self.me = to_streamed_response_wrapper(
             accounts.me,
         )
-        self.recommend_actions = to_streamed_response_wrapper(
-            accounts.recommend_actions,
-        )
         self.transfer_ownership = to_streamed_response_wrapper(
             accounts.transfer_ownership,
         )
@@ -6094,9 +6014,6 @@ class AsyncAccountsResourceWithStreamingResponse:
         )
         self.me = async_to_streamed_response_wrapper(
             accounts.me,
-        )
-        self.recommend_actions = async_to_streamed_response_wrapper(
-            accounts.recommend_actions,
         )
         self.transfer_ownership = async_to_streamed_response_wrapper(
             accounts.transfer_ownership,

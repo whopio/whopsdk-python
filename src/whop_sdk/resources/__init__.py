@@ -576,6 +576,14 @@ from .financial_activity import (
     FinancialActivityResourceWithStreamingResponse,
     AsyncFinancialActivityResourceWithStreamingResponse,
 )
+from .recommended_actions import (
+    RecommendedActionsResource,
+    AsyncRecommendedActionsResource,
+    RecommendedActionsResourceWithRawResponse,
+    AsyncRecommendedActionsResourceWithRawResponse,
+    RecommendedActionsResourceWithStreamingResponse,
+    AsyncRecommendedActionsResourceWithStreamingResponse,
+)
 from .checkout_configurations import (
     CheckoutConfigurationsResource,
     AsyncCheckoutConfigurationsResource,
@@ -940,6 +948,12 @@ __all__ = [
     "AsyncDepositsResourceWithRawResponse",
     "DepositsResourceWithStreamingResponse",
     "AsyncDepositsResourceWithStreamingResponse",
+    "RecommendedActionsResource",
+    "AsyncRecommendedActionsResource",
+    "RecommendedActionsResourceWithRawResponse",
+    "AsyncRecommendedActionsResourceWithRawResponse",
+    "RecommendedActionsResourceWithStreamingResponse",
+    "AsyncRecommendedActionsResourceWithStreamingResponse",
     "SetupIntentsResource",
     "AsyncSetupIntentsResource",
     "SetupIntentsResourceWithRawResponse",

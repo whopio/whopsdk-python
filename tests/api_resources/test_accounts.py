@@ -12,7 +12,6 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     Account,
     AccountFormCompanyResponse,
-    AccountRecommendActionsResponse,
     AccountTransferOwnershipResponse,
 )
 from whop_sdk._utils import parse_datetime
@@ -461,48 +460,6 @@ class TestAccounts:
             assert_matches_type(Account, account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_recommend_actions(self, client: Whop) -> None:
-        account = client.accounts.recommend_actions(
-            "account_id",
-        )
-        assert_matches_type(AccountRecommendActionsResponse, account, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_recommend_actions(self, client: Whop) -> None:
-        response = client.accounts.with_raw_response.recommend_actions(
-            "account_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        account = response.parse()
-        assert_matches_type(AccountRecommendActionsResponse, account, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_recommend_actions(self, client: Whop) -> None:
-        with client.accounts.with_streaming_response.recommend_actions(
-            "account_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            account = response.parse()
-            assert_matches_type(AccountRecommendActionsResponse, account, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_recommend_actions(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
-            client.accounts.with_raw_response.recommend_actions(
-                "",
-            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -993,48 +950,6 @@ class TestAsyncAccounts:
             assert_matches_type(Account, account, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_recommend_actions(self, async_client: AsyncWhop) -> None:
-        account = await async_client.accounts.recommend_actions(
-            "account_id",
-        )
-        assert_matches_type(AccountRecommendActionsResponse, account, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_recommend_actions(self, async_client: AsyncWhop) -> None:
-        response = await async_client.accounts.with_raw_response.recommend_actions(
-            "account_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        account = await response.parse()
-        assert_matches_type(AccountRecommendActionsResponse, account, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_recommend_actions(self, async_client: AsyncWhop) -> None:
-        async with async_client.accounts.with_streaming_response.recommend_actions(
-            "account_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            account = await response.parse()
-            assert_matches_type(AccountRecommendActionsResponse, account, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_recommend_actions(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
-            await async_client.accounts.with_raw_response.recommend_actions(
-                "",
-            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
