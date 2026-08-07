@@ -100,6 +100,7 @@ class PreferencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PreferenceUpdateResponse:
         """Updates the authenticated user's settings document.
 
@@ -117,6 +118,8 @@ class PreferencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._patch(
             "/users/me/preferences",
@@ -124,7 +127,11 @@ class PreferencesResource(SyncAPIResource):
                 {"investigation_enabled": investigation_enabled}, preference_update_params.PreferenceUpdateParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PreferenceUpdateResponse,
         )
@@ -200,6 +207,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PreferenceUpdateResponse:
         """Updates the authenticated user's settings document.
 
@@ -217,6 +225,8 @@ class AsyncPreferencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._patch(
             "/users/me/preferences",
@@ -224,7 +234,11 @@ class AsyncPreferencesResource(AsyncAPIResource):
                 {"investigation_enabled": investigation_enabled}, preference_update_params.PreferenceUpdateParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PreferenceUpdateResponse,
         )

@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -64,13 +64,13 @@ class MethodsResource(SyncAPIResource):
         is_default: bool | Omit = omit,
         nickname: str | Omit = omit,
         user_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MethodCreateResponse:
         """Saves a new place an account or user can withdraw to.
 
@@ -106,8 +106,9 @@ class MethodsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/payouts/methods",
             body=maybe_transform(
@@ -123,7 +124,11 @@ class MethodsResource(SyncAPIResource):
                 method_create_params.MethodCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MethodCreateResponse,
         )
@@ -139,6 +144,7 @@ class MethodsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MethodUpdateResponse:
         """
         Changes the label used to identify a saved payout method.
@@ -153,6 +159,8 @@ class MethodsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not payout_method_id:
             raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
@@ -160,7 +168,11 @@ class MethodsResource(SyncAPIResource):
             path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
             body=maybe_transform({"nickname": nickname}, method_update_params.MethodUpdateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MethodUpdateResponse,
         )
@@ -262,6 +274,7 @@ class MethodsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MethodDeleteResponse:
         """
         Deletes a saved payout method so it can no longer receive payouts.
@@ -274,13 +287,19 @@ class MethodsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not payout_method_id:
             raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
         return self._delete(
             path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MethodDeleteResponse,
         )
@@ -322,13 +341,13 @@ class AsyncMethodsResource(AsyncAPIResource):
         is_default: bool | Omit = omit,
         nickname: str | Omit = omit,
         user_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MethodCreateResponse:
         """Saves a new place an account or user can withdraw to.
 
@@ -364,8 +383,9 @@ class AsyncMethodsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/payouts/methods",
             body=await async_maybe_transform(
@@ -381,7 +401,11 @@ class AsyncMethodsResource(AsyncAPIResource):
                 method_create_params.MethodCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MethodCreateResponse,
         )
@@ -397,6 +421,7 @@ class AsyncMethodsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MethodUpdateResponse:
         """
         Changes the label used to identify a saved payout method.
@@ -411,6 +436,8 @@ class AsyncMethodsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not payout_method_id:
             raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
@@ -418,7 +445,11 @@ class AsyncMethodsResource(AsyncAPIResource):
             path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
             body=await async_maybe_transform({"nickname": nickname}, method_update_params.MethodUpdateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MethodUpdateResponse,
         )
@@ -520,6 +551,7 @@ class AsyncMethodsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MethodDeleteResponse:
         """
         Deletes a saved payout method so it can no longer receive payouts.
@@ -532,13 +564,19 @@ class AsyncMethodsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not payout_method_id:
             raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
         return await self._delete(
             path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MethodDeleteResponse,
         )

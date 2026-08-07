@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AccountFormCompanyParams", "Founder", "FounderAddress", "BusinessAddress", "ShareStructure"]
 
@@ -154,8 +152,6 @@ class AccountFormCompanyParams(TypedDict, total=False):
     Use the registered agent's address as the company address instead of
     `business_address`.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class FounderAddress(TypedDict, total=False):

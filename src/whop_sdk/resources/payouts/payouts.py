@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -16,7 +17,7 @@ from .methods import (
     AsyncMethodsResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -92,14 +93,15 @@ class PayoutsResource(SyncAPIResource):
         amount: float,
         payout_method_id: str,
         currency: str | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PayoutCreateResponse:
         """
         Sends money from an account's balance to one of its saved payout methods.
@@ -116,6 +118,10 @@ class PayoutsResource(SyncAPIResource):
               in — for example `cad` for an account funded by CAD transfers. Defaults to
               `usd`.
 
+          api_idempotency_key: A unique key that makes retries safe. Retrying with the same key returns the
+              original payout instead of paying out twice. Also accepted as the
+              `Idempotency-Key` header.
+
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
@@ -126,8 +132,9 @@ class PayoutsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/payouts",
             body=maybe_transform(
@@ -136,12 +143,17 @@ class PayoutsResource(SyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "currency": currency,
+                    "api_idempotency_key": api_idempotency_key,
                     "speed": speed,
                 },
                 payout_create_params.PayoutCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PayoutCreateResponse,
         )
@@ -265,14 +277,15 @@ class AsyncPayoutsResource(AsyncAPIResource):
         amount: float,
         payout_method_id: str,
         currency: str | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PayoutCreateResponse:
         """
         Sends money from an account's balance to one of its saved payout methods.
@@ -289,6 +302,10 @@ class AsyncPayoutsResource(AsyncAPIResource):
               in — for example `cad` for an account funded by CAD transfers. Defaults to
               `usd`.
 
+          api_idempotency_key: A unique key that makes retries safe. Retrying with the same key returns the
+              original payout instead of paying out twice. Also accepted as the
+              `Idempotency-Key` header.
+
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
@@ -299,8 +316,9 @@ class AsyncPayoutsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/payouts",
             body=await async_maybe_transform(
@@ -309,12 +327,17 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "currency": currency,
+                    "api_idempotency_key": api_idempotency_key,
                     "speed": speed,
                 },
                 payout_create_params.PayoutCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PayoutCreateResponse,
         )

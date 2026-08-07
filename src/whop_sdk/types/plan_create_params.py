@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["PlanCreateParams", "CustomField", "Image", "PaymentMethodConfiguration"]
 
@@ -105,8 +104,6 @@ class PlanCreateParams(TypedDict, total=False):
 
     visibility: str
     """Whether the plan is visible to customers or hidden from public view."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class CustomField(TypedDict, total=False):

@@ -66,6 +66,7 @@ class SetupIntentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SetupIntent:
         """Save a buyer's payment method for later without charging it.
 
@@ -106,6 +107,8 @@ class SetupIntentsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -125,6 +128,7 @@ class SetupIntentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SetupIntent:
         """Save a buyer's payment method for later without charging it.
 
@@ -165,6 +169,8 @@ class SetupIntentsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -185,6 +191,7 @@ class SetupIntentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SetupIntent:
         return self._post(
             "/setup_intents",
@@ -201,7 +208,11 @@ class SetupIntentsResource(SyncAPIResource):
                 setup_intent_create_params.SetupIntentCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=SetupIntent,
         )
@@ -397,6 +408,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SetupIntent:
         """Save a buyer's payment method for later without charging it.
 
@@ -437,6 +449,8 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -456,6 +470,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SetupIntent:
         """Save a buyer's payment method for later without charging it.
 
@@ -496,6 +511,8 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -516,6 +533,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SetupIntent:
         return await self._post(
             "/setup_intents",
@@ -532,7 +550,11 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
                 setup_intent_create_params.SetupIntentCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=SetupIntent,
         )

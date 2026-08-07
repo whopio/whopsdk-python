@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["AudienceAddPeopleParams"]
 
@@ -15,5 +13,3 @@ class AudienceAddPeopleParams(TypedDict, total=False):
 
     Its headers must match the audience's saved column mapping.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

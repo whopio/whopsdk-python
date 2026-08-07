@@ -62,6 +62,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUser:
         """
         Add a new authorized user to a company.
@@ -91,6 +92,8 @@ class AuthorizedUsersResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/authorized_users",
@@ -105,7 +108,11 @@ class AuthorizedUsersResource(SyncAPIResource):
                 authorized_user_create_params.AuthorizedUserCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AuthorizedUser,
         )
@@ -241,6 +248,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUserDeleteResponse:
         """
         Remove an authorized user from a company.
@@ -260,6 +268,8 @@ class AuthorizedUsersResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -270,6 +280,7 @@ class AuthorizedUsersResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=maybe_transform(
                     {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
                 ),
@@ -312,6 +323,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUser:
         """
         Add a new authorized user to a company.
@@ -341,6 +353,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/authorized_users",
@@ -355,7 +369,11 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                 authorized_user_create_params.AuthorizedUserCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AuthorizedUser,
         )
@@ -491,6 +509,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUserDeleteResponse:
         """
         Remove an authorized user from a company.
@@ -510,6 +529,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -520,6 +541,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=await async_maybe_transform(
                     {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
                 ),

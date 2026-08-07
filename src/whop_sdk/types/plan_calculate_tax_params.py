@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["PlanCalculateTaxParams", "Address", "TaxID"]
 
@@ -23,8 +21,6 @@ class PlanCalculateTaxParams(TypedDict, total=False):
 
     tax_ids: Optional[Iterable[TaxID]]
     """Optional buyer tax ID for B2B exemptions. At most one entry is supported."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Address(TypedDict, total=False):

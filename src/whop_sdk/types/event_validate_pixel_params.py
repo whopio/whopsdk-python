@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["EventValidatePixelParams"]
 
@@ -18,5 +16,3 @@ class EventValidatePixelParams(TypedDict, total=False):
 
     an ad destination. Omit it to check the account from its events alone.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

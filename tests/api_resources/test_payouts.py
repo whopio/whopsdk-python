@@ -36,8 +36,8 @@ class TestPayouts:
             amount=0,
             payout_method_id="payout_method_id",
             currency="currency",
+            api_idempotency_key="idempotency_key",
             speed="standard",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 
@@ -137,8 +137,8 @@ class TestAsyncPayouts:
             amount=0,
             payout_method_id="payout_method_id",
             currency="currency",
+            api_idempotency_key="idempotency_key",
             speed="standard",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 

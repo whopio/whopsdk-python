@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["AdGroupDuplicateParams"]
 
@@ -21,5 +19,3 @@ class AdGroupDuplicateParams(TypedDict, total=False):
 
     target_ad_campaign_id: str
     """Campaign to duplicate into. Defaults to the ad group's own campaign."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

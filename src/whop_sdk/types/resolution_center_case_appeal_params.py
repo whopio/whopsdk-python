@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["ResolutionCenterCaseAppealParams", "Attachment"]
 
@@ -16,8 +14,6 @@ class ResolutionCenterCaseAppealParams(TypedDict, total=False):
 
     attachments: Iterable[Attachment]
     """Up to 3 evidence files, by existing file `id` or `direct_upload_id`."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Attachment(TypedDict, total=False):

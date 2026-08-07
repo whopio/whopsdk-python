@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["MembershipExtendParams"]
 
@@ -12,5 +10,3 @@ __all__ = ["MembershipExtendParams"]
 class MembershipExtendParams(TypedDict, total=False):
     days: Required[int]
     """Number of free days to add (1-1095)."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

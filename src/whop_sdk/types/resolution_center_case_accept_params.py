@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["ResolutionCenterCaseAcceptParams", "Attachment"]
 
@@ -19,8 +17,6 @@ class ResolutionCenterCaseAcceptParams(TypedDict, total=False):
 
     terminate_membership: bool
     """Whether to also terminate the customer's membership."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Attachment(TypedDict, total=False):

@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["MembershipPauseParams"]
 
@@ -15,5 +13,3 @@ class MembershipPauseParams(TypedDict, total=False):
 
     Must be in the future; only supported for memberships billed by Whop.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

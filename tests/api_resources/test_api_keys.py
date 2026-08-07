@@ -53,7 +53,6 @@ class TestAPIKeys:
             api_version_date="2026-08-05-1",
             expires_at="expires_at",
             ip_allowlist=["string"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
@@ -323,16 +322,7 @@ class TestAPIKeys:
     @parametrize
     def test_method_rotate(self, client: Whop) -> None:
         api_key = client.api_keys.rotate(
-            id="id",
-        )
-        assert_matches_type(APIKey, api_key, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_rotate_with_all_params(self, client: Whop) -> None:
-        api_key = client.api_keys.rotate(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
@@ -340,7 +330,7 @@ class TestAPIKeys:
     @parametrize
     def test_raw_response_rotate(self, client: Whop) -> None:
         response = client.api_keys.with_raw_response.rotate(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -352,7 +342,7 @@ class TestAPIKeys:
     @parametrize
     def test_streaming_response_rotate(self, client: Whop) -> None:
         with client.api_keys.with_streaming_response.rotate(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -367,7 +357,7 @@ class TestAPIKeys:
     def test_path_params_rotate(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.api_keys.with_raw_response.rotate(
-                id="",
+                "",
             )
 
 
@@ -407,7 +397,6 @@ class TestAsyncAPIKeys:
             api_version_date="2026-08-05-1",
             expires_at="expires_at",
             ip_allowlist=["string"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
@@ -677,16 +666,7 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_method_rotate(self, async_client: AsyncWhop) -> None:
         api_key = await async_client.api_keys.rotate(
-            id="id",
-        )
-        assert_matches_type(APIKey, api_key, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_rotate_with_all_params(self, async_client: AsyncWhop) -> None:
-        api_key = await async_client.api_keys.rotate(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
@@ -694,7 +674,7 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_raw_response_rotate(self, async_client: AsyncWhop) -> None:
         response = await async_client.api_keys.with_raw_response.rotate(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -706,7 +686,7 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_streaming_response_rotate(self, async_client: AsyncWhop) -> None:
         async with async_client.api_keys.with_streaming_response.rotate(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -721,5 +701,5 @@ class TestAsyncAPIKeys:
     async def test_path_params_rotate(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.api_keys.with_raw_response.rotate(
-                id="",
+                "",
             )

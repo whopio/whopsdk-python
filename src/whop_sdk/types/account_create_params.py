@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["AccountCreateParams"]
 
@@ -29,5 +27,3 @@ class AccountCreateParams(TypedDict, total=False):
 
     Defaults to `metadata.external_id` or the owner's email when omitted.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

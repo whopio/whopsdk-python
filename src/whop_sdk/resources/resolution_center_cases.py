@@ -19,7 +19,7 @@ from ..types import (
     resolution_center_case_request_info_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -80,13 +80,13 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         ],
         receipt_id: str,
         attachments: Iterable[resolution_center_case_create_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseCreateResponse:
         """Opens a case, as the customer, against one of your own payments.
 
@@ -107,8 +107,9 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/resolution_center_cases",
             body=maybe_transform(
@@ -121,7 +122,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                 resolution_center_case_create_params.ResolutionCenterCaseCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseCreateResponse,
         )
@@ -274,13 +279,13 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         attachments: Iterable[resolution_center_case_accept_params.Attachment] | Omit = omit,
         message: str | Omit = omit,
         terminate_membership: bool | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseAcceptResponse:
         """
         Accepts the case in the customer's favor, as the merchant: refunds the payment
@@ -300,10 +305,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/resolution_center_cases/{id}/accept", id=id),
             body=maybe_transform(
@@ -315,7 +321,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                 resolution_center_case_accept_params.ResolutionCenterCaseAcceptParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseAcceptResponse,
         )
@@ -326,13 +336,13 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         *,
         message: str,
         attachments: Iterable[resolution_center_case_appeal_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseAppealResponse:
         """
         Appeals a decision, as the customer, on a case that closed in the merchant's
@@ -351,10 +361,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/resolution_center_cases/{id}/appeal", id=id),
             body=maybe_transform(
@@ -365,7 +376,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                 resolution_center_case_appeal_params.ResolutionCenterCaseAppealParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseAppealResponse,
         )
@@ -376,13 +391,13 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         *,
         message: str,
         attachments: Iterable[resolution_center_case_deny_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseDenyResponse:
         """
         Denies the case, as the merchant: rejects the claim and closes the case with no
@@ -400,10 +415,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/resolution_center_cases/{id}/deny", id=id),
             body=maybe_transform(
@@ -414,7 +430,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                 resolution_center_case_deny_params.ResolutionCenterCaseDenyParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseDenyResponse,
         )
@@ -485,13 +505,13 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         *,
         message: str,
         attachments: Iterable[resolution_center_case_reply_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseReplyResponse:
         """Replies to an open request for information on the case.
 
@@ -512,10 +532,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/resolution_center_cases/{id}/reply", id=id),
             body=maybe_transform(
@@ -526,7 +547,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                 resolution_center_case_reply_params.ResolutionCenterCaseReplyParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseReplyResponse,
         )
@@ -537,13 +562,13 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         *,
         attachments: Iterable[resolution_center_case_request_info_params.Attachment] | Omit = omit,
         message: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseRequestInfoResponse:
         """Asks the customer for more information, as the merchant.
 
@@ -562,10 +587,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/resolution_center_cases/{id}/request_info", id=id),
             body=maybe_transform(
@@ -576,7 +602,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                 resolution_center_case_request_info_params.ResolutionCenterCaseRequestInfoParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseRequestInfoResponse,
         )
@@ -668,13 +698,13 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         self,
         id: str,
         *,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseWithdrawResponse:
         """Withdraws (cancels) a case you opened, as the customer.
 
@@ -689,14 +719,19 @@ class ResolutionCenterCasesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/resolution_center_cases/{id}/withdraw", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseWithdrawResponse,
         )
@@ -737,13 +772,13 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         ],
         receipt_id: str,
         attachments: Iterable[resolution_center_case_create_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseCreateResponse:
         """Opens a case, as the customer, against one of your own payments.
 
@@ -764,8 +799,9 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/resolution_center_cases",
             body=await async_maybe_transform(
@@ -778,7 +814,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                 resolution_center_case_create_params.ResolutionCenterCaseCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseCreateResponse,
         )
@@ -931,13 +971,13 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         attachments: Iterable[resolution_center_case_accept_params.Attachment] | Omit = omit,
         message: str | Omit = omit,
         terminate_membership: bool | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseAcceptResponse:
         """
         Accepts the case in the customer's favor, as the merchant: refunds the payment
@@ -957,10 +997,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/resolution_center_cases/{id}/accept", id=id),
             body=await async_maybe_transform(
@@ -972,7 +1013,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                 resolution_center_case_accept_params.ResolutionCenterCaseAcceptParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseAcceptResponse,
         )
@@ -983,13 +1028,13 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         *,
         message: str,
         attachments: Iterable[resolution_center_case_appeal_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseAppealResponse:
         """
         Appeals a decision, as the customer, on a case that closed in the merchant's
@@ -1008,10 +1053,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/resolution_center_cases/{id}/appeal", id=id),
             body=await async_maybe_transform(
@@ -1022,7 +1068,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                 resolution_center_case_appeal_params.ResolutionCenterCaseAppealParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseAppealResponse,
         )
@@ -1033,13 +1083,13 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         *,
         message: str,
         attachments: Iterable[resolution_center_case_deny_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseDenyResponse:
         """
         Denies the case, as the merchant: rejects the claim and closes the case with no
@@ -1057,10 +1107,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/resolution_center_cases/{id}/deny", id=id),
             body=await async_maybe_transform(
@@ -1071,7 +1122,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                 resolution_center_case_deny_params.ResolutionCenterCaseDenyParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseDenyResponse,
         )
@@ -1142,13 +1197,13 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         *,
         message: str,
         attachments: Iterable[resolution_center_case_reply_params.Attachment] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseReplyResponse:
         """Replies to an open request for information on the case.
 
@@ -1169,10 +1224,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/resolution_center_cases/{id}/reply", id=id),
             body=await async_maybe_transform(
@@ -1183,7 +1239,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                 resolution_center_case_reply_params.ResolutionCenterCaseReplyParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseReplyResponse,
         )
@@ -1194,13 +1254,13 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         *,
         attachments: Iterable[resolution_center_case_request_info_params.Attachment] | Omit = omit,
         message: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseRequestInfoResponse:
         """Asks the customer for more information, as the merchant.
 
@@ -1219,10 +1279,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/resolution_center_cases/{id}/request_info", id=id),
             body=await async_maybe_transform(
@@ -1233,7 +1294,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                 resolution_center_case_request_info_params.ResolutionCenterCaseRequestInfoParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseRequestInfoResponse,
         )
@@ -1325,13 +1390,13 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ResolutionCenterCaseWithdrawResponse:
         """Withdraws (cancels) a case you opened, as the customer.
 
@@ -1346,14 +1411,19 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/resolution_center_cases/{id}/withdraw", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ResolutionCenterCaseWithdrawResponse,
         )

@@ -285,6 +285,8 @@ class Whop(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._idempotency_header = "Idempotency-Key"
+
     @cached_property
     def apps(self) -> AppsResource:
         """An App is software you build on Whop.
@@ -1155,6 +1157,8 @@ class AsyncWhop(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._idempotency_header = "Idempotency-Key"
 
     @cached_property
     def apps(self) -> AsyncAppsResource:

@@ -96,6 +96,7 @@ class NotificationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> NotificationSetResponse:
         """Sets the authenticated user's notification preferences.
 
@@ -127,12 +128,18 @@ class NotificationsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._patch(
             "/users/me/preferences/notifications",
             body=maybe_transform({"preferences": preferences}, notification_set_params.NotificationSetParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=NotificationSetResponse,
         )
@@ -195,6 +202,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> NotificationSetResponse:
         """Sets the authenticated user's notification preferences.
 
@@ -226,6 +234,8 @@ class AsyncNotificationsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._patch(
             "/users/me/preferences/notifications",
@@ -233,7 +243,11 @@ class AsyncNotificationsResource(AsyncAPIResource):
                 {"preferences": preferences}, notification_set_params.NotificationSetParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=NotificationSetResponse,
         )

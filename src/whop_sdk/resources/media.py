@@ -8,7 +8,7 @@ import httpx
 
 from ..types import media_generate_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -92,13 +92,13 @@ class MediaResource(SyncAPIResource):
         duration_seconds: Literal[5, 10, 15] | Omit = omit,
         reference_media: SequenceNotStr[str] | Omit = omit,
         resolution: Literal["480p", "720p", "1080p", "4k"] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MediaAsset:
         """Starts an AI media generation job billed from the account's balance.
 
@@ -129,8 +129,9 @@ class MediaResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/media/generate",
             body=maybe_transform(
@@ -145,7 +146,11 @@ class MediaResource(SyncAPIResource):
                 media_generate_params.MediaGenerateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MediaAsset,
         )
@@ -220,13 +225,13 @@ class AsyncMediaResource(AsyncAPIResource):
         duration_seconds: Literal[5, 10, 15] | Omit = omit,
         reference_media: SequenceNotStr[str] | Omit = omit,
         resolution: Literal["480p", "720p", "1080p", "4k"] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MediaAsset:
         """Starts an AI media generation job billed from the account's balance.
 
@@ -257,8 +262,9 @@ class AsyncMediaResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/media/generate",
             body=await async_maybe_transform(
@@ -273,7 +279,11 @@ class AsyncMediaResource(AsyncAPIResource):
                 media_generate_params.MediaGenerateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MediaAsset,
         )

@@ -45,7 +45,6 @@ class TestAppBuilds:
                 "direct_upload_id": "direct_upload_id",
             },
             supported_app_view_types=["hub"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -175,16 +174,7 @@ class TestAppBuilds:
     @parametrize
     def test_method_promote(self, client: Whop) -> None:
         app_build = client.app_builds.promote(
-            id="id",
-        )
-        assert_matches_type(AppBuild, app_build, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_promote_with_all_params(self, client: Whop) -> None:
-        app_build = client.app_builds.promote(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -192,7 +182,7 @@ class TestAppBuilds:
     @parametrize
     def test_raw_response_promote(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.promote(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -204,7 +194,7 @@ class TestAppBuilds:
     @parametrize
     def test_streaming_response_promote(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.promote(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -219,7 +209,7 @@ class TestAppBuilds:
     def test_path_params_promote(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.app_builds.with_raw_response.promote(
-                id="",
+                "",
             )
 
 
@@ -255,7 +245,6 @@ class TestAsyncAppBuilds:
                 "direct_upload_id": "direct_upload_id",
             },
             supported_app_view_types=["hub"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -385,16 +374,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_promote(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.promote(
-            id="id",
-        )
-        assert_matches_type(AppBuild, app_build, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_promote_with_all_params(self, async_client: AsyncWhop) -> None:
-        app_build = await async_client.app_builds.promote(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -402,7 +382,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_raw_response_promote(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.promote(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -414,7 +394,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_streaming_response_promote(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.promote(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -429,5 +409,5 @@ class TestAsyncAppBuilds:
     async def test_path_params_promote(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.app_builds.with_raw_response.promote(
-                id="",
+                "",
             )

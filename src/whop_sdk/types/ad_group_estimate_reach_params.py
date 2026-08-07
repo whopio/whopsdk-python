@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = [
     "AdGroupEstimateReachParams",
@@ -65,8 +64,6 @@ class AdGroupEstimateReachParams(TypedDict, total=False):
 
     regions: Regions
     """Locations to target and exclude."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Audiences(TypedDict, total=False):

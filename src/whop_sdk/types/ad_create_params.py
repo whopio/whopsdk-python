@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = [
     "AdCreateParams",
@@ -134,8 +133,6 @@ class AdCreateParams(TypedDict, total=False):
 
     url_parameters: object
     """Query parameters appended to the destination URL, keyed by parameter name."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class CreativeCrop(TypedDict, total=False):

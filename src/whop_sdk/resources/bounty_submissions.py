@@ -9,7 +9,7 @@ import httpx
 
 from ..types import bounty_submission_list_params, bounty_submission_create_params, bounty_submission_submit_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -60,13 +60,13 @@ class BountySubmissionsResource(SyncAPIResource):
         affiliate_code: Optional[str] | Omit = omit,
         deliverable: Optional[bounty_submission_create_params.Deliverable] | Omit = omit,
         metadata: Optional[bounty_submission_create_params.Metadata] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> BountySubmission:
         """Creates a submission on a workforce bounty.
 
@@ -97,8 +97,9 @@ class BountySubmissionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/bounty_submissions",
             body=maybe_transform(
@@ -111,7 +112,11 @@ class BountySubmissionsResource(SyncAPIResource):
                 bounty_submission_create_params.BountySubmissionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=BountySubmission,
         )
@@ -248,6 +253,7 @@ class BountySubmissionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> BountySubmissionDeleteResponse:
         """
         Cancels the caller's own active attempt on a bounty and discards any accumulated
@@ -262,6 +268,8 @@ class BountySubmissionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not bounty_submission_id:
             raise ValueError(
@@ -270,7 +278,11 @@ class BountySubmissionsResource(SyncAPIResource):
         return self._delete(
             path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=BountySubmissionDeleteResponse,
         )
@@ -280,13 +292,13 @@ class BountySubmissionsResource(SyncAPIResource):
         bounty_submission_id: str,
         *,
         deliverable: Optional[bounty_submission_submit_params.Deliverable] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> BountySubmission:
         """Submits a claimed attempt for review.
 
@@ -308,12 +320,13 @@ class BountySubmissionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not bounty_submission_id:
             raise ValueError(
                 f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
             )
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template(
                 "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
@@ -322,7 +335,11 @@ class BountySubmissionsResource(SyncAPIResource):
                 {"deliverable": deliverable}, bounty_submission_submit_params.BountySubmissionSubmitParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=BountySubmission,
         )
@@ -362,13 +379,13 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         affiliate_code: Optional[str] | Omit = omit,
         deliverable: Optional[bounty_submission_create_params.Deliverable] | Omit = omit,
         metadata: Optional[bounty_submission_create_params.Metadata] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> BountySubmission:
         """Creates a submission on a workforce bounty.
 
@@ -399,8 +416,9 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/bounty_submissions",
             body=await async_maybe_transform(
@@ -413,7 +431,11 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
                 bounty_submission_create_params.BountySubmissionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=BountySubmission,
         )
@@ -550,6 +572,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> BountySubmissionDeleteResponse:
         """
         Cancels the caller's own active attempt on a bounty and discards any accumulated
@@ -564,6 +587,8 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not bounty_submission_id:
             raise ValueError(
@@ -572,7 +597,11 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         return await self._delete(
             path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=BountySubmissionDeleteResponse,
         )
@@ -582,13 +611,13 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         bounty_submission_id: str,
         *,
         deliverable: Optional[bounty_submission_submit_params.Deliverable] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> BountySubmission:
         """Submits a claimed attempt for review.
 
@@ -610,12 +639,13 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not bounty_submission_id:
             raise ValueError(
                 f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
             )
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template(
                 "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
@@ -624,7 +654,11 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
                 {"deliverable": deliverable}, bounty_submission_submit_params.BountySubmissionSubmitParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=BountySubmission,
         )

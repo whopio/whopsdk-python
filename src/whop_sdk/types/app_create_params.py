@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["AppCreateParams", "Icon"]
 
@@ -50,8 +49,6 @@ class AppCreateParams(TypedDict, total=False):
     The subdomain route where the app's hosted web builds are served, such as
     `myapp` for myapp.whop.app.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Icon(TypedDict, total=False):

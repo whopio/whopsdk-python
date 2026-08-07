@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["WebhookTestParams"]
 
@@ -15,5 +13,3 @@ class WebhookTestParams(TypedDict, total=False):
     The event to test the webhook for, in dot form (for example
     `payment.succeeded`).
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

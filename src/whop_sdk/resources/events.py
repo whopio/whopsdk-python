@@ -10,7 +10,7 @@ import httpx
 
 from ..types import event_list_params, event_pulse_params, event_create_params, event_validate_pixel_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, strip_not_given, async_maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -185,13 +185,13 @@ class EventsResource(SyncAPIResource):
         url: Optional[str] | Omit = omit,
         user: Optional[event_create_params.User] | Omit = omit,
         value: Optional[float] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> EventCreateResponse:
         """
         Tracks a conversion or engagement event for an account.
@@ -245,8 +245,9 @@ class EventsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/events",
             body=maybe_transform(
@@ -273,7 +274,11 @@ class EventsResource(SyncAPIResource):
                 event_create_params.EventCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=EventCreateResponse,
         )
@@ -478,13 +483,13 @@ class EventsResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         url: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PixelValidation:
         """Checks whether the Whop pixel is installed for an account.
 
@@ -510,8 +515,9 @@ class EventsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/events/validate_pixel",
             body=maybe_transform(
@@ -522,7 +528,11 @@ class EventsResource(SyncAPIResource):
                 event_validate_pixel_params.EventValidatePixelParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PixelValidation,
         )
@@ -684,13 +694,13 @@ class AsyncEventsResource(AsyncAPIResource):
         url: Optional[str] | Omit = omit,
         user: Optional[event_create_params.User] | Omit = omit,
         value: Optional[float] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> EventCreateResponse:
         """
         Tracks a conversion or engagement event for an account.
@@ -744,8 +754,9 @@ class AsyncEventsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/events",
             body=await async_maybe_transform(
@@ -772,7 +783,11 @@ class AsyncEventsResource(AsyncAPIResource):
                 event_create_params.EventCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=EventCreateResponse,
         )
@@ -977,13 +992,13 @@ class AsyncEventsResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         url: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PixelValidation:
         """Checks whether the Whop pixel is installed for an account.
 
@@ -1009,8 +1024,9 @@ class AsyncEventsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/events/validate_pixel",
             body=await async_maybe_transform(
@@ -1021,7 +1037,11 @@ class AsyncEventsResource(AsyncAPIResource):
                 event_validate_pixel_params.EventValidatePixelParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PixelValidation,
         )

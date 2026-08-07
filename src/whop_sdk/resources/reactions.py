@@ -58,6 +58,7 @@ class ReactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Reaction:
         """Add an emoji reaction or poll vote to a message or forum post.
 
@@ -84,6 +85,8 @@ class ReactionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/reactions",
@@ -96,7 +99,11 @@ class ReactionsResource(SyncAPIResource):
                 reaction_create_params.ReactionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Reaction,
         )
@@ -213,6 +220,7 @@ class ReactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ReactionDeleteResponse:
         """Remove an emoji reaction from a message or forum post.
 
@@ -235,6 +243,8 @@ class ReactionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -245,6 +255,7 @@ class ReactionsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=maybe_transform({"emoji": emoji}, reaction_delete_params.ReactionDeleteParams),
             ),
             cast_to=ReactionDeleteResponse,
@@ -283,6 +294,7 @@ class AsyncReactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Reaction:
         """Add an emoji reaction or poll vote to a message or forum post.
 
@@ -309,6 +321,8 @@ class AsyncReactionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/reactions",
@@ -321,7 +335,11 @@ class AsyncReactionsResource(AsyncAPIResource):
                 reaction_create_params.ReactionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Reaction,
         )
@@ -438,6 +456,7 @@ class AsyncReactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ReactionDeleteResponse:
         """Remove an emoji reaction from a message or forum post.
 
@@ -460,6 +479,8 @@ class AsyncReactionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -470,6 +491,7 @@ class AsyncReactionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=await async_maybe_transform({"emoji": emoji}, reaction_delete_params.ReactionDeleteParams),
             ),
             cast_to=ReactionDeleteResponse,

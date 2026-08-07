@@ -179,8 +179,6 @@ class EventCreateParams(TypedDict, total=False):
     value: Optional[float]
     """Monetary value associated with the event."""
 
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
-
 
 class Context(TypedDict, total=False):
     """Tracking and attribution context."""

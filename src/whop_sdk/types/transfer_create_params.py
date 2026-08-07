@@ -68,5 +68,3 @@ class TransferCreateParams(TypedDict, total=False):
     stablecoin-rails account settles on-chain when covered, and still returns a
     `transfer`.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

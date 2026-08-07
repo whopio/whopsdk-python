@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from ..._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["PasskeyCreateParams"]
 
@@ -27,5 +25,3 @@ class PasskeyCreateParams(TypedDict, total=False):
 
     255 characters or fewer.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

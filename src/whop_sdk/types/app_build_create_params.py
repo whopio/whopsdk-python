@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import List
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AppBuildCreateParams", "Attachment", "SourceAttachment"]
 
@@ -44,8 +42,6 @@ class AppBuildCreateParams(TypedDict, total=False):
 
     supported_app_view_types: List[Literal["hub", "discover", "dash", "dashboard", "analytics", "skills", "openapi"]]
     """The view types this build supports. Only list the ones its code implements."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Attachment(TypedDict, total=False):

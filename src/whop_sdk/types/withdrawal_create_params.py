@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
+from .._utils import PropertyInfo
 from .shared.currency import Currency
 from .withdrawal_speeds import WithdrawalSpeeds
 
@@ -21,7 +22,14 @@ class WithdrawalCreateParams(TypedDict, total=False):
     currency: Required[Currency]
     """The currency that is being withdrawn."""
 
-    idempotency_key: Optional[str]
+    acknowledge_bank_warning: Optional[bool]
+    """
+    Set to true to continue when the bank could not confirm the account holder's
+    name. The withdrawal is refused without it so the creator can fix the account or
+    link their bank first.
+    """
+
+    api_idempotency_key: Annotated[Optional[str], PropertyInfo(alias="idempotency_key")]
     """A client-generated key that makes retries safe.
 
     Retrying with the same key returns the original withdrawal instead of creating a

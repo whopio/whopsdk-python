@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["MediaGenerateParams"]
 
@@ -36,5 +35,3 @@ class MediaGenerateParams(TypedDict, total=False):
     Video only; defaults to `1080p`. `1080p` is not supported by Seedance 2.0 Fast
     or Mini; `4k` is only supported by Seedance 2.0.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

@@ -49,7 +49,6 @@ class TestBounties:
             frequency="weekly",
             publish_at="publish_at",
             publish_at_timezone="publish_at_timezone",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -235,16 +234,7 @@ class TestBounties:
     @parametrize
     def test_method_cancel(self, client: Whop) -> None:
         bounty = client.bounties.cancel(
-            id="id",
-        )
-        assert_matches_type(Bounty, bounty, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_cancel_with_all_params(self, client: Whop) -> None:
-        bounty = client.bounties.cancel(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -252,7 +242,7 @@ class TestBounties:
     @parametrize
     def test_raw_response_cancel(self, client: Whop) -> None:
         response = client.bounties.with_raw_response.cancel(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -264,7 +254,7 @@ class TestBounties:
     @parametrize
     def test_streaming_response_cancel(self, client: Whop) -> None:
         with client.bounties.with_streaming_response.cancel(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -279,7 +269,7 @@ class TestBounties:
     def test_path_params_cancel(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.bounties.with_raw_response.cancel(
-                id="",
+                "",
             )
 
 
@@ -319,7 +309,6 @@ class TestAsyncBounties:
             frequency="weekly",
             publish_at="publish_at",
             publish_at_timezone="publish_at_timezone",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -505,16 +494,7 @@ class TestAsyncBounties:
     @parametrize
     async def test_method_cancel(self, async_client: AsyncWhop) -> None:
         bounty = await async_client.bounties.cancel(
-            id="id",
-        )
-        assert_matches_type(Bounty, bounty, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_cancel_with_all_params(self, async_client: AsyncWhop) -> None:
-        bounty = await async_client.bounties.cancel(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -522,7 +502,7 @@ class TestAsyncBounties:
     @parametrize
     async def test_raw_response_cancel(self, async_client: AsyncWhop) -> None:
         response = await async_client.bounties.with_raw_response.cancel(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -534,7 +514,7 @@ class TestAsyncBounties:
     @parametrize
     async def test_streaming_response_cancel(self, async_client: AsyncWhop) -> None:
         async with async_client.bounties.with_streaming_response.cancel(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -549,5 +529,5 @@ class TestAsyncBounties:
     async def test_path_params_cancel(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.bounties.with_raw_response.cancel(
-                id="",
+                "",
             )

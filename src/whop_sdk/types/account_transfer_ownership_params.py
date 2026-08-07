@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["AccountTransferOwnershipParams"]
 
@@ -15,5 +13,3 @@ class AccountTransferOwnershipParams(TypedDict, total=False):
 
     An email address with no Whop account yet is sent an invite to create one.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

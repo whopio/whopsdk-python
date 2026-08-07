@@ -8,7 +8,7 @@ import httpx
 
 from ..types import card_list_params, card_create_params, card_update_params, card_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -62,13 +62,13 @@ class CardsResource(SyncAPIResource):
         spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
         transaction_limit: float | Omit = omit,
         user_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CardCreateResponse:
         """
         Issue a virtual card, or apply for card issuing.
@@ -96,8 +96,9 @@ class CardsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/cards",
             body=maybe_transform(
@@ -113,7 +114,11 @@ class CardsResource(SyncAPIResource):
                 card_create_params.CardCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CardCreateResponse,
         )
@@ -188,6 +193,7 @@ class CardsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CardUpdateResponse:
         """Update, freeze, or cancel a card.
 
@@ -231,6 +237,8 @@ class CardsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not card_id:
             raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
@@ -253,7 +261,11 @@ class CardsResource(SyncAPIResource):
                 card_update_params.CardUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CardUpdateResponse,
         )
@@ -342,13 +354,13 @@ class AsyncCardsResource(AsyncAPIResource):
         spend_limit_frequency: Literal["daily", "weekly", "monthly", "one_time"] | Omit = omit,
         transaction_limit: float | Omit = omit,
         user_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CardCreateResponse:
         """
         Issue a virtual card, or apply for card issuing.
@@ -376,8 +388,9 @@ class AsyncCardsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/cards",
             body=await async_maybe_transform(
@@ -393,7 +406,11 @@ class AsyncCardsResource(AsyncAPIResource):
                 card_create_params.CardCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CardCreateResponse,
         )
@@ -468,6 +485,7 @@ class AsyncCardsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CardUpdateResponse:
         """Update, freeze, or cancel a card.
 
@@ -511,6 +529,8 @@ class AsyncCardsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not card_id:
             raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
@@ -533,7 +553,11 @@ class AsyncCardsResource(AsyncAPIResource):
                 card_update_params.CardUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CardUpdateResponse,
         )

@@ -191,16 +191,7 @@ class TestDisputes:
     @parametrize
     def test_method_submit(self, client: Whop) -> None:
         dispute = client.disputes.submit(
-            id="id",
-        )
-        assert_matches_type(Dispute, dispute, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_submit_with_all_params(self, client: Whop) -> None:
-        dispute = client.disputes.submit(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Dispute, dispute, path=["response"])
 
@@ -208,7 +199,7 @@ class TestDisputes:
     @parametrize
     def test_raw_response_submit(self, client: Whop) -> None:
         response = client.disputes.with_raw_response.submit(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -220,7 +211,7 @@ class TestDisputes:
     @parametrize
     def test_streaming_response_submit(self, client: Whop) -> None:
         with client.disputes.with_streaming_response.submit(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -235,7 +226,7 @@ class TestDisputes:
     def test_path_params_submit(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.disputes.with_raw_response.submit(
-                id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -455,16 +446,7 @@ class TestAsyncDisputes:
     @parametrize
     async def test_method_submit(self, async_client: AsyncWhop) -> None:
         dispute = await async_client.disputes.submit(
-            id="id",
-        )
-        assert_matches_type(Dispute, dispute, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_submit_with_all_params(self, async_client: AsyncWhop) -> None:
-        dispute = await async_client.disputes.submit(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Dispute, dispute, path=["response"])
 
@@ -472,7 +454,7 @@ class TestAsyncDisputes:
     @parametrize
     async def test_raw_response_submit(self, async_client: AsyncWhop) -> None:
         response = await async_client.disputes.with_raw_response.submit(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -484,7 +466,7 @@ class TestAsyncDisputes:
     @parametrize
     async def test_streaming_response_submit(self, async_client: AsyncWhop) -> None:
         async with async_client.disputes.with_streaming_response.submit(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -499,7 +481,7 @@ class TestAsyncDisputes:
     async def test_path_params_submit(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.disputes.with_raw_response.submit(
-                id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

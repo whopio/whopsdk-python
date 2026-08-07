@@ -34,7 +34,6 @@ class TestShipments:
             payment_id="payment_id",
             tracking_number="tracking_number",
             account_id="account_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -222,7 +221,6 @@ class TestAsyncShipments:
             payment_id="payment_id",
             tracking_number="tracking_number",
             account_id="account_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 

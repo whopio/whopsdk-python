@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["BountySubmissionCreateParams", "Deliverable", "Metadata"]
 
@@ -31,8 +30,6 @@ class BountySubmissionCreateParams(TypedDict, total=False):
     Persisted on the submission. On a `data_capture` bounty every field except `fov`
     is required whenever metadata is provided.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Deliverable(TypedDict, total=False):

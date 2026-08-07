@@ -29,14 +29,6 @@ class TestPartners:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whop) -> None:
-        partner = client.partners.create(
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
-        )
-        assert_matches_type(PartnerCreateResponse, partner, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.partners.with_raw_response.create()
 
@@ -144,14 +136,6 @@ class TestAsyncPartners:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         partner = await async_client.partners.create()
-        assert_matches_type(PartnerCreateResponse, partner, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
-        partner = await async_client.partners.create(
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
-        )
         assert_matches_type(PartnerCreateResponse, partner, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

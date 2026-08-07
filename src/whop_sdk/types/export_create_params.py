@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["ExportCreateParams"]
 
@@ -72,5 +71,3 @@ class ExportCreateParams(TypedDict, total=False):
 
     timezone: str
     """IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

@@ -35,18 +35,6 @@ class TestPasskeys:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Whop) -> None:
-        passkey = client.users.passkeys.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
-        )
-        assert_matches_type(Passkey, passkey, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.users.passkeys.with_raw_response.create(
             attestation_object="attestation_object",
@@ -186,7 +174,6 @@ class TestPasskeys:
         passkey = client.users.passkeys.challenge(
             challenge_type="registration",
             passkey_id="passkey_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PasskeyChallengeResponse, passkey, path=["response"])
 
@@ -230,18 +217,6 @@ class TestAsyncPasskeys:
             client_data_json="client_data_json",
             credential_id="credential_id",
             nickname="nickname",
-        )
-        assert_matches_type(Passkey, passkey, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
-        passkey = await async_client.users.passkeys.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Passkey, passkey, path=["response"])
 
@@ -386,7 +361,6 @@ class TestAsyncPasskeys:
         passkey = await async_client.users.passkeys.challenge(
             challenge_type="registration",
             passkey_id="passkey_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PasskeyChallengeResponse, passkey, path=["response"])
 

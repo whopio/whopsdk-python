@@ -39,7 +39,6 @@ class TestCards:
             spend_limit_frequency="daily",
             transaction_limit=0,
             user_id="user_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(CardCreateResponse, card, path=["response"])
 
@@ -245,7 +244,6 @@ class TestAsyncCards:
             spend_limit_frequency="daily",
             transaction_limit=0,
             user_id="user_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(CardCreateResponse, card, path=["response"])
 

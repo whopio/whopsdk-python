@@ -45,7 +45,6 @@ class TestWebhooks:
             enabled=True,
             events=["invoice.created"],
             resource_id="resource_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
 
@@ -327,16 +326,6 @@ class TestWebhooks:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_test_with_all_params(self, client: Whop) -> None:
-        webhook = client.webhooks.test(
-            id="id",
-            event="event",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
-        )
-        assert_matches_type(WebhookTestResponse, webhook, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_test(self, client: Whop) -> None:
         response = client.webhooks.with_raw_response.test(
             id="id",
@@ -436,7 +425,6 @@ class TestAsyncWebhooks:
             enabled=True,
             events=["invoice.created"],
             resource_id="resource_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
 
@@ -713,16 +701,6 @@ class TestAsyncWebhooks:
         webhook = await async_client.webhooks.test(
             id="id",
             event="event",
-        )
-        assert_matches_type(WebhookTestResponse, webhook, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_test_with_all_params(self, async_client: AsyncWhop) -> None:
-        webhook = await async_client.webhooks.test(
-            id="id",
-            event="event",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(WebhookTestResponse, webhook, path=["response"])
 

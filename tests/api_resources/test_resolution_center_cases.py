@@ -53,7 +53,6 @@ class TestResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseCreateResponse, resolution_center_case, path=["response"])
 
@@ -200,7 +199,6 @@ class TestResolutionCenterCases:
             ],
             message="message",
             terminate_membership=True,
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseAcceptResponse, resolution_center_case, path=["response"])
 
@@ -259,7 +257,6 @@ class TestResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseAppealResponse, resolution_center_case, path=["response"])
 
@@ -321,7 +318,6 @@ class TestResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseDenyResponse, resolution_center_case, path=["response"])
 
@@ -437,7 +433,6 @@ class TestResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseReplyResponse, resolution_center_case, path=["response"])
 
@@ -498,7 +493,6 @@ class TestResolutionCenterCases:
                 }
             ],
             message="message",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseRequestInfoResponse, resolution_center_case, path=["response"])
 
@@ -583,16 +577,7 @@ class TestResolutionCenterCases:
     @parametrize
     def test_method_withdraw(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.withdraw(
-            id="id",
-        )
-        assert_matches_type(ResolutionCenterCaseWithdrawResponse, resolution_center_case, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_withdraw_with_all_params(self, client: Whop) -> None:
-        resolution_center_case = client.resolution_center_cases.withdraw(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(ResolutionCenterCaseWithdrawResponse, resolution_center_case, path=["response"])
 
@@ -600,7 +585,7 @@ class TestResolutionCenterCases:
     @parametrize
     def test_raw_response_withdraw(self, client: Whop) -> None:
         response = client.resolution_center_cases.with_raw_response.withdraw(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -612,7 +597,7 @@ class TestResolutionCenterCases:
     @parametrize
     def test_streaming_response_withdraw(self, client: Whop) -> None:
         with client.resolution_center_cases.with_streaming_response.withdraw(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -627,7 +612,7 @@ class TestResolutionCenterCases:
     def test_path_params_withdraw(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.resolution_center_cases.with_raw_response.withdraw(
-                id="",
+                "",
             )
 
 
@@ -659,7 +644,6 @@ class TestAsyncResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseCreateResponse, resolution_center_case, path=["response"])
 
@@ -812,7 +796,6 @@ class TestAsyncResolutionCenterCases:
             ],
             message="message",
             terminate_membership=True,
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseAcceptResponse, resolution_center_case, path=["response"])
 
@@ -871,7 +854,6 @@ class TestAsyncResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseAppealResponse, resolution_center_case, path=["response"])
 
@@ -933,7 +915,6 @@ class TestAsyncResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseDenyResponse, resolution_center_case, path=["response"])
 
@@ -1049,7 +1030,6 @@ class TestAsyncResolutionCenterCases:
                     "direct_upload_id": "direct_upload_id",
                 }
             ],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseReplyResponse, resolution_center_case, path=["response"])
 
@@ -1110,7 +1090,6 @@ class TestAsyncResolutionCenterCases:
                 }
             ],
             message="message",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(ResolutionCenterCaseRequestInfoResponse, resolution_center_case, path=["response"])
 
@@ -1195,16 +1174,7 @@ class TestAsyncResolutionCenterCases:
     @parametrize
     async def test_method_withdraw(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.withdraw(
-            id="id",
-        )
-        assert_matches_type(ResolutionCenterCaseWithdrawResponse, resolution_center_case, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_withdraw_with_all_params(self, async_client: AsyncWhop) -> None:
-        resolution_center_case = await async_client.resolution_center_cases.withdraw(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(ResolutionCenterCaseWithdrawResponse, resolution_center_case, path=["response"])
 
@@ -1212,7 +1182,7 @@ class TestAsyncResolutionCenterCases:
     @parametrize
     async def test_raw_response_withdraw(self, async_client: AsyncWhop) -> None:
         response = await async_client.resolution_center_cases.with_raw_response.withdraw(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -1224,7 +1194,7 @@ class TestAsyncResolutionCenterCases:
     @parametrize
     async def test_streaming_response_withdraw(self, async_client: AsyncWhop) -> None:
         async with async_client.resolution_center_cases.with_streaming_response.withdraw(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1239,5 +1209,5 @@ class TestAsyncResolutionCenterCases:
     async def test_path_params_withdraw(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.resolution_center_cases.with_raw_response.withdraw(
-                id="",
+                "",
             )

@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["ResolutionCenterCaseCreateParams", "Attachment"]
 
@@ -25,8 +23,6 @@ class ResolutionCenterCaseCreateParams(TypedDict, total=False):
     """The payment to open the case against (`pay_` tag)."""
 
     attachments: Iterable[Attachment]
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Attachment(TypedDict, total=False):

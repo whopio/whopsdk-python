@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["BountySubmissionSubmitParams", "Deliverable"]
 
@@ -17,8 +16,6 @@ class BountySubmissionSubmitParams(TypedDict, total=False):
 
     Combine `urls`, `file_ids`, and `caption` freely; all are optional.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Deliverable(TypedDict, total=False):

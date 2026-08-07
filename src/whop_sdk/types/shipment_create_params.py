@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["ShipmentCreateParams"]
 
@@ -18,5 +16,3 @@ class ShipmentCreateParams(TypedDict, total=False):
 
     account_id: str
     """The unique identifier of the account, prefixed `biz_`."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

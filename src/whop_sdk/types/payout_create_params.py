@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -27,11 +28,16 @@ class PayoutCreateParams(TypedDict, total=False):
     for an account funded by CAD transfers. Defaults to `usd`.
     """
 
+    api_idempotency_key: Annotated[Optional[str], PropertyInfo(alias="idempotency_key")]
+    """A unique key that makes retries safe.
+
+    Retrying with the same key returns the original payout instead of paying out
+    twice. Also accepted as the `Idempotency-Key` header.
+    """
+
     speed: Literal["standard", "instant"]
     """How fast the funds should arrive.
 
     `instant` is only accepted when the account and payout method are eligible;
     otherwise the payout is rejected.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

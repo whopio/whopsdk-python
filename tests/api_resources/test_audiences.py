@@ -51,7 +51,6 @@ class TestAudiences:
             name="name",
             percentage=0,
             source_audience_id="source_audience_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AudienceCreateResponse, audience, path=["response"])
 
@@ -233,16 +232,6 @@ class TestAudiences:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_add_people_with_all_params(self, client: Whop) -> None:
-        audience = client.audiences.add_people(
-            audience_id="audience_id",
-            file_id="file_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
-        )
-        assert_matches_type(Audience, audience, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_add_people(self, client: Whop) -> None:
         response = client.audiences.with_raw_response.add_people(
             audience_id="audience_id",
@@ -313,7 +302,6 @@ class TestAsyncAudiences:
             name="name",
             percentage=0,
             source_audience_id="source_audience_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AudienceCreateResponse, audience, path=["response"])
 
@@ -490,16 +478,6 @@ class TestAsyncAudiences:
         audience = await async_client.audiences.add_people(
             audience_id="audience_id",
             file_id="file_id",
-        )
-        assert_matches_type(Audience, audience, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_add_people_with_all_params(self, async_client: AsyncWhop) -> None:
-        audience = await async_client.audiences.add_people(
-            audience_id="audience_id",
-            file_id="file_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Audience, audience, path=["response"])
 

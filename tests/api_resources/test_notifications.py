@@ -44,7 +44,6 @@ class TestNotifications:
             rest_path="rest_path",
             subtitle="subtitle",
             user_ids=["string"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(NotificationCreateResponse, notification, path=["response"])
 
@@ -208,7 +207,6 @@ class TestNotifications:
         notification = client.notifications.mark_read(
             all=True,
             experience_id="experience_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(NotificationMarkReadResponse, notification, path=["response"])
 
@@ -261,7 +259,6 @@ class TestAsyncNotifications:
             rest_path="rest_path",
             subtitle="subtitle",
             user_ids=["string"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(NotificationCreateResponse, notification, path=["response"])
 
@@ -425,7 +422,6 @@ class TestAsyncNotifications:
         notification = await async_client.notifications.mark_read(
             all=True,
             experience_id="experience_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(NotificationMarkReadResponse, notification, path=["response"])
 

@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["CheckoutConfigurationCreateParams", "PaymentMethodConfiguration", "Plan", "PlanPaymentMethodConfiguration"]
 
@@ -50,8 +49,6 @@ class CheckoutConfigurationCreateParams(TypedDict, total=False):
 
     three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
     """3D Secure behavior for this checkout."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class PaymentMethodConfiguration(TypedDict, total=False):

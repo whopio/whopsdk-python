@@ -38,7 +38,6 @@ class TestSocialAccounts:
         social_account = client.social_accounts.create(
             platform="facebook",
             account_id="account_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SocialAccount, social_account, path=["response"])
 
@@ -182,7 +181,6 @@ class TestSocialAccounts:
             account_id="account_id",
             redirect_url="redirect_url",
             scopes=["advertise"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
 
@@ -336,7 +334,6 @@ class TestAsyncSocialAccounts:
         social_account = await async_client.social_accounts.create(
             platform="facebook",
             account_id="account_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SocialAccount, social_account, path=["response"])
 
@@ -480,7 +477,6 @@ class TestAsyncSocialAccounts:
             account_id="account_id",
             redirect_url="redirect_url",
             scopes=["advertise"],
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
 

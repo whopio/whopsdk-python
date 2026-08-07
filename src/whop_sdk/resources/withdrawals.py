@@ -56,7 +56,8 @@ class WithdrawalsResource(SyncAPIResource):
         amount: float,
         company_id: str,
         currency: Currency,
-        idempotency_key: Optional[str] | Omit = omit,
+        acknowledge_bank_warning: Optional[bool] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
         speed: Optional[WithdrawalSpeeds] | Omit = omit,
@@ -67,6 +68,7 @@ class WithdrawalsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Withdrawal:
         """
         Creates a withdrawal request for a ledger account
@@ -83,7 +85,11 @@ class WithdrawalsResource(SyncAPIResource):
 
           currency: The currency that is being withdrawn.
 
-          idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
+          acknowledge_bank_warning: Set to true to continue when the bank could not confirm the account holder's
+              name. The withdrawal is refused without it so the creator can fix the account or
+              link their bank first.
+
+          api_idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
               returns the original withdrawal instead of creating a second one.
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
@@ -102,6 +108,8 @@ class WithdrawalsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/withdrawals",
@@ -110,7 +118,8 @@ class WithdrawalsResource(SyncAPIResource):
                     "amount": amount,
                     "company_id": company_id,
                     "currency": currency,
-                    "idempotency_key": idempotency_key,
+                    "acknowledge_bank_warning": acknowledge_bank_warning,
+                    "api_idempotency_key": api_idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
@@ -119,7 +128,11 @@ class WithdrawalsResource(SyncAPIResource):
                 withdrawal_create_params.WithdrawalCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Withdrawal,
         )
@@ -248,6 +261,7 @@ class WithdrawalsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> WithdrawalGeneratePdfResponse:
         """
         Generates a withdrawal PDF invoice and returns a temporary download URL.
@@ -264,13 +278,19 @@ class WithdrawalsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/withdrawals/{id}/generate_pdf", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=WithdrawalGeneratePdfResponse,
         )
@@ -302,7 +322,8 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         amount: float,
         company_id: str,
         currency: Currency,
-        idempotency_key: Optional[str] | Omit = omit,
+        acknowledge_bank_warning: Optional[bool] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         payout_method_id: Optional[str] | Omit = omit,
         platform_covers_fees: Optional[bool] | Omit = omit,
         speed: Optional[WithdrawalSpeeds] | Omit = omit,
@@ -313,6 +334,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Withdrawal:
         """
         Creates a withdrawal request for a ledger account
@@ -329,7 +351,11 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
 
           currency: The currency that is being withdrawn.
 
-          idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
+          acknowledge_bank_warning: Set to true to continue when the bank could not confirm the account holder's
+              name. The withdrawal is refused without it so the creator can fix the account or
+              link their bank first.
+
+          api_idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
               returns the original withdrawal instead of creating a second one.
 
           payout_method_id: The ID of the payout method to use for the withdrawal.
@@ -348,6 +374,8 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/withdrawals",
@@ -356,7 +384,8 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
                     "amount": amount,
                     "company_id": company_id,
                     "currency": currency,
-                    "idempotency_key": idempotency_key,
+                    "acknowledge_bank_warning": acknowledge_bank_warning,
+                    "api_idempotency_key": api_idempotency_key,
                     "payout_method_id": payout_method_id,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
@@ -365,7 +394,11 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
                 withdrawal_create_params.WithdrawalCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Withdrawal,
         )
@@ -494,6 +527,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> WithdrawalGeneratePdfResponse:
         """
         Generates a withdrawal PDF invoice and returns a temporary download URL.
@@ -510,13 +544,19 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/withdrawals/{id}/generate_pdf", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=WithdrawalGeneratePdfResponse,
         )

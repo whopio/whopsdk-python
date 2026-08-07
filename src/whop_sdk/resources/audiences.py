@@ -9,7 +9,7 @@ import httpx
 
 from ..types import audience_list_params, audience_create_params, audience_update_params, audience_add_people_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -67,13 +67,13 @@ class AudiencesResource(SyncAPIResource):
         name: str | Omit = omit,
         percentage: int | Omit = omit,
         source_audience_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AudienceCreateResponse:
         """Creates an audience.
 
@@ -130,8 +130,9 @@ class AudiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return cast(
             AudienceCreateResponse,
             self._post(
@@ -152,7 +153,11 @@ class AudiencesResource(SyncAPIResource):
                     audience_create_params.AudienceCreateParams,
                 ),
                 options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    idempotency_key=idempotency_key,
                 ),
                 cast_to=cast(
                     Any, AudienceCreateResponse
@@ -172,6 +177,7 @@ class AudiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Audience:
         """Renames an audience.
 
@@ -203,6 +209,8 @@ class AudiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not audience_id:
             raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
@@ -216,7 +224,11 @@ class AudiencesResource(SyncAPIResource):
                 audience_update_params.AudienceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Audience,
         )
@@ -297,6 +309,7 @@ class AudiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AudienceDeleteResponse:
         """
         Deletes an audience so it is no longer available for targeting.
@@ -309,13 +322,19 @@ class AudiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not audience_id:
             raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
         return self._delete(
             path_template("/audiences/{audience_id}", audience_id=audience_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AudienceDeleteResponse,
         )
@@ -325,13 +344,13 @@ class AudiencesResource(SyncAPIResource):
         audience_id: str,
         *,
         file_id: str,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Audience:
         """Adds users from a new CSV file to an existing uploaded custom audience.
 
@@ -350,15 +369,20 @@ class AudiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not audience_id:
             raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/audiences/{audience_id}/add_people", audience_id=audience_id),
             body=maybe_transform({"file_id": file_id}, audience_add_people_params.AudienceAddPeopleParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Audience,
         )
@@ -404,13 +428,13 @@ class AsyncAudiencesResource(AsyncAPIResource):
         name: str | Omit = omit,
         percentage: int | Omit = omit,
         source_audience_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AudienceCreateResponse:
         """Creates an audience.
 
@@ -467,8 +491,9 @@ class AsyncAudiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return cast(
             AudienceCreateResponse,
             await self._post(
@@ -489,7 +514,11 @@ class AsyncAudiencesResource(AsyncAPIResource):
                     audience_create_params.AudienceCreateParams,
                 ),
                 options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    idempotency_key=idempotency_key,
                 ),
                 cast_to=cast(
                     Any, AudienceCreateResponse
@@ -509,6 +538,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Audience:
         """Renames an audience.
 
@@ -540,6 +570,8 @@ class AsyncAudiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not audience_id:
             raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
@@ -553,7 +585,11 @@ class AsyncAudiencesResource(AsyncAPIResource):
                 audience_update_params.AudienceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Audience,
         )
@@ -634,6 +670,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AudienceDeleteResponse:
         """
         Deletes an audience so it is no longer available for targeting.
@@ -646,13 +683,19 @@ class AsyncAudiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not audience_id:
             raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
         return await self._delete(
             path_template("/audiences/{audience_id}", audience_id=audience_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AudienceDeleteResponse,
         )
@@ -662,13 +705,13 @@ class AsyncAudiencesResource(AsyncAPIResource):
         audience_id: str,
         *,
         file_id: str,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Audience:
         """Adds users from a new CSV file to an existing uploaded custom audience.
 
@@ -687,15 +730,20 @@ class AsyncAudiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not audience_id:
             raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/audiences/{audience_id}/add_people", audience_id=audience_id),
             body=await async_maybe_transform({"file_id": file_id}, audience_add_people_params.AudienceAddPeopleParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Audience,
         )

@@ -111,7 +111,6 @@ class TestAds:
             title="title",
             url="url",
             url_parameters={},
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -430,7 +429,6 @@ class TestAds:
             count=0,
             preserve_engagement=True,
             target_ad_group_id="target_ad_group_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdDuplicateResponse, ad, path=["response"])
 
@@ -472,16 +470,7 @@ class TestAds:
     @parametrize
     def test_method_pause(self, client: Whop) -> None:
         ad = client.ads.pause(
-            id="id",
-        )
-        assert_matches_type(Ad, ad, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_pause_with_all_params(self, client: Whop) -> None:
-        ad = client.ads.pause(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -489,7 +478,7 @@ class TestAds:
     @parametrize
     def test_raw_response_pause(self, client: Whop) -> None:
         response = client.ads.with_raw_response.pause(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -501,7 +490,7 @@ class TestAds:
     @parametrize
     def test_streaming_response_pause(self, client: Whop) -> None:
         with client.ads.with_streaming_response.pause(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -516,23 +505,14 @@ class TestAds:
     def test_path_params_pause(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.ads.with_raw_response.pause(
-                id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_unpause(self, client: Whop) -> None:
         ad = client.ads.unpause(
-            id="id",
-        )
-        assert_matches_type(Ad, ad, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_unpause_with_all_params(self, client: Whop) -> None:
-        ad = client.ads.unpause(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -540,7 +520,7 @@ class TestAds:
     @parametrize
     def test_raw_response_unpause(self, client: Whop) -> None:
         response = client.ads.with_raw_response.unpause(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -552,7 +532,7 @@ class TestAds:
     @parametrize
     def test_streaming_response_unpause(self, client: Whop) -> None:
         with client.ads.with_streaming_response.unpause(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -567,7 +547,7 @@ class TestAds:
     def test_path_params_unpause(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.ads.with_raw_response.unpause(
-                id="",
+                "",
             )
 
 
@@ -665,7 +645,6 @@ class TestAsyncAds:
             title="title",
             url="url",
             url_parameters={},
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -984,7 +963,6 @@ class TestAsyncAds:
             count=0,
             preserve_engagement=True,
             target_ad_group_id="target_ad_group_id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdDuplicateResponse, ad, path=["response"])
 
@@ -1026,16 +1004,7 @@ class TestAsyncAds:
     @parametrize
     async def test_method_pause(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.pause(
-            id="id",
-        )
-        assert_matches_type(Ad, ad, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
-        ad = await async_client.ads.pause(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -1043,7 +1012,7 @@ class TestAsyncAds:
     @parametrize
     async def test_raw_response_pause(self, async_client: AsyncWhop) -> None:
         response = await async_client.ads.with_raw_response.pause(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -1055,7 +1024,7 @@ class TestAsyncAds:
     @parametrize
     async def test_streaming_response_pause(self, async_client: AsyncWhop) -> None:
         async with async_client.ads.with_streaming_response.pause(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1070,23 +1039,14 @@ class TestAsyncAds:
     async def test_path_params_pause(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.ads.with_raw_response.pause(
-                id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_unpause(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.unpause(
-            id="id",
-        )
-        assert_matches_type(Ad, ad, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_unpause_with_all_params(self, async_client: AsyncWhop) -> None:
-        ad = await async_client.ads.unpause(
-            id="id",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
+            "id",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -1094,7 +1054,7 @@ class TestAsyncAds:
     @parametrize
     async def test_raw_response_unpause(self, async_client: AsyncWhop) -> None:
         response = await async_client.ads.with_raw_response.unpause(
-            id="id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -1106,7 +1066,7 @@ class TestAsyncAds:
     @parametrize
     async def test_streaming_response_unpause(self, async_client: AsyncWhop) -> None:
         async with async_client.ads.with_streaming_response.unpause(
-            id="id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1121,5 +1081,5 @@ class TestAsyncAds:
     async def test_path_params_unpause(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.ads.with_raw_response.unpause(
-                id="",
+                "",
             )

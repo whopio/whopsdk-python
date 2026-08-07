@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["NotificationMarkReadParams"]
 
@@ -21,5 +19,3 @@ class NotificationMarkReadParams(TypedDict, total=False):
 
     Exactly one of `experience_id` or `all` is required.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

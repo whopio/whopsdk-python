@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AudienceCreateParams", "ColumnMapping"]
 
@@ -71,8 +69,6 @@ class AudienceCreateParams(TypedDict, total=False):
     The ready custom audience (`adaud_`) to build from; it needs at least 100
     matched people.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class ColumnMapping(TypedDict, total=False):

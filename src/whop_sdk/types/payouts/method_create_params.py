@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Required, Annotated, TypedDict
-
-from ..._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["MethodCreateParams"]
 
@@ -46,5 +44,3 @@ class MethodCreateParams(TypedDict, total=False):
 
     Provide this or account_id.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

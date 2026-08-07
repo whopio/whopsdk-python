@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["TeamMemberCreateParams"]
 
@@ -26,5 +24,3 @@ class TeamMemberCreateParams(TypedDict, total=False):
 
     user_id: str
     """The user to add to the team, prefixed `user_`. Mutually exclusive with `email`."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

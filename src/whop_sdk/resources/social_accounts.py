@@ -16,7 +16,7 @@ from ..types import (
     social_account_lead_forms_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -67,13 +67,13 @@ class SocialAccountsResource(SyncAPIResource):
         *,
         platform: Literal["facebook"],
         account_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SocialAccount:
         """
         Creates or returns a Whop-managed Facebook page for an account.
@@ -91,8 +91,9 @@ class SocialAccountsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/social_accounts",
             body=maybe_transform(
@@ -103,7 +104,11 @@ class SocialAccountsResource(SyncAPIResource):
                 social_account_create_params.SocialAccountCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=SocialAccount,
         )
@@ -205,6 +210,7 @@ class SocialAccountsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SocialAccountDeleteResponse:
         """
         Disconnects a social account from an account or user without deleting the
@@ -224,6 +230,8 @@ class SocialAccountsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -234,6 +242,7 @@ class SocialAccountsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=maybe_transform(
                     {
                         "account_id": account_id,
@@ -252,13 +261,13 @@ class SocialAccountsResource(SyncAPIResource):
         account_id: str | Omit = omit,
         redirect_url: str | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SocialAccountConnectResponse:
         """
         Starts an OAuth connection flow and returns an authorize_url where the user can
@@ -283,8 +292,9 @@ class SocialAccountsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/social_accounts/connect",
             body=maybe_transform(
@@ -297,7 +307,11 @@ class SocialAccountsResource(SyncAPIResource):
                 social_account_connect_params.SocialAccountConnectParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=SocialAccountConnectResponse,
         )
@@ -437,13 +451,13 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         *,
         platform: Literal["facebook"],
         account_id: str | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SocialAccount:
         """
         Creates or returns a Whop-managed Facebook page for an account.
@@ -461,8 +475,9 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/social_accounts",
             body=await async_maybe_transform(
@@ -473,7 +488,11 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
                 social_account_create_params.SocialAccountCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=SocialAccount,
         )
@@ -575,6 +594,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SocialAccountDeleteResponse:
         """
         Disconnects a social account from an account or user without deleting the
@@ -594,6 +614,8 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -604,6 +626,7 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=await async_maybe_transform(
                     {
                         "account_id": account_id,
@@ -622,13 +645,13 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         redirect_url: str | Omit = omit,
         scopes: List[Literal["advertise"]] | Omit = omit,
-        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> SocialAccountConnectResponse:
         """
         Starts an OAuth connection flow and returns an authorize_url where the user can
@@ -653,8 +676,9 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
-        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/social_accounts/connect",
             body=await async_maybe_transform(
@@ -667,7 +691,11 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
                 social_account_connect_params.SocialAccountConnectParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=SocialAccountConnectResponse,
         )

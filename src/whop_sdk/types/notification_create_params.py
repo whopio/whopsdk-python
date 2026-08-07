@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["NotificationCreateParams"]
 
@@ -51,5 +50,3 @@ class NotificationCreateParams(TypedDict, total=False):
     When provided, only these users are notified (as a mention), provided they are
     in the targeted experience or account.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

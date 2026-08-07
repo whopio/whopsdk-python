@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["AdCampaignDuplicateParams"]
 
@@ -18,5 +16,3 @@ class AdCampaignDuplicateParams(TypedDict, total=False):
     Whether the copied ads keep the original posts' engagement (likes, comments,
     shares). Defaults to false.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

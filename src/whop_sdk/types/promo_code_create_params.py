@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["PromoCodeCreateParams"]
 
@@ -134,5 +133,3 @@ class PromoCodeCreateParams(TypedDict, total=False):
     stock: Optional[int]
 
     unlimited_stock: bool
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
-from ..._utils import PropertyInfo
 
 __all__ = ["OAuthGrantCreateParams"]
 
@@ -64,5 +63,3 @@ class OAuthGrantCreateParams(TypedDict, total=False):
     Opaque value appended to `redirect_url` unchanged, for the client to correlate
     the response with its request.
     """
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

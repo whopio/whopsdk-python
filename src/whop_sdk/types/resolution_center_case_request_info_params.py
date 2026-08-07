@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["ResolutionCenterCaseRequestInfoParams", "Attachment"]
 
@@ -16,8 +14,6 @@ class ResolutionCenterCaseRequestInfoParams(TypedDict, total=False):
 
     message: str
     """What you need from the customer."""
-
-    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
 class Attachment(TypedDict, total=False):

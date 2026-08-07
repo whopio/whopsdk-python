@@ -44,7 +44,6 @@ class TestOAuthGrants:
             nonce="nonce",
             response_type="code",
             state="state",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(OAuthGrant, oauth_grant, path=["response"])
 
@@ -156,7 +155,6 @@ class TestAsyncOAuthGrants:
             nonce="nonce",
             response_type="code",
             state="state",
-            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(OAuthGrant, oauth_grant, path=["response"])
 
