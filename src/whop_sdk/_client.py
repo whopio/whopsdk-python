@@ -38,30 +38,39 @@ if TYPE_CHECKING:
     from .resources import (
         ads,
         apps,
+        cards,
         files,
         leads,
+        media,
         plans,
+        stats,
         swaps,
         users,
+        events,
         forums,
+        people,
         topups,
         courses,
         entries,
+        exports,
         members,
+        payouts,
         refunds,
         reviews,
-        wallets,
         accounts,
         ai_chats,
+        api_keys,
         bounties,
         deposits,
         disputes,
         invoices,
         messages,
+        partners,
         payments,
         products,
         webhooks,
         ad_groups,
+        audiences,
         companies,
         reactions,
         shipments,
@@ -70,15 +79,16 @@ if TYPE_CHECKING:
         affiliates,
         app_builds,
         dm_members,
-        conversions,
         dm_channels,
         experiences,
         fee_markups,
         forum_posts,
         memberships,
+        permissions,
         promo_codes,
         withdrawals,
         ad_campaigns,
+        team_members,
         access_tokens,
         account_links,
         chat_channels,
@@ -87,14 +97,16 @@ if TYPE_CHECKING:
         verifications,
         course_lessons,
         dispute_alerts,
-        payout_methods,
         course_chapters,
         course_students,
         ledger_accounts,
         payment_methods,
         payout_accounts,
+        social_accounts,
         authorized_users,
         support_channels,
+        card_transactions,
+        bounty_submissions,
         financial_activity,
         checkout_configurations,
         resolution_center_cases,
@@ -103,21 +115,24 @@ if TYPE_CHECKING:
     )
     from .resources.ads import AdsResource, AsyncAdsResource
     from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.cards import CardsResource, AsyncCardsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.leads import LeadsResource, AsyncLeadsResource
+    from .resources.media import MediaResource, AsyncMediaResource
     from .resources.plans import PlansResource, AsyncPlansResource
+    from .resources.stats import StatsResource, AsyncStatsResource
     from .resources.swaps import SwapsResource, AsyncSwapsResource
-    from .resources.users import UsersResource, AsyncUsersResource
+    from .resources.events import EventsResource, AsyncEventsResource
     from .resources.forums import ForumsResource, AsyncForumsResource
+    from .resources.people import PeopleResource, AsyncPeopleResource
     from .resources.topups import TopupsResource, AsyncTopupsResource
     from .resources.courses import CoursesResource, AsyncCoursesResource
     from .resources.entries import EntriesResource, AsyncEntriesResource
-    from .resources.members import MembersResource, AsyncMembersResource
+    from .resources.exports import ExportsResource, AsyncExportsResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
-    from .resources.wallets import WalletsResource, AsyncWalletsResource
-    from .resources.accounts import AccountsResource, AsyncAccountsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
+    from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
     from .resources.bounties import BountiesResource, AsyncBountiesResource
     from .resources.deposits import DepositsResource, AsyncDepositsResource
     from .resources.disputes import DisputesResource, AsyncDisputesResource
@@ -127,6 +142,7 @@ if TYPE_CHECKING:
     from .resources.products import ProductsResource, AsyncProductsResource
     from .resources.webhooks import WebhooksResource, AsyncWebhooksResource
     from .resources.ad_groups import AdGroupsResource, AsyncAdGroupsResource
+    from .resources.audiences import AudiencesResource, AsyncAudiencesResource
     from .resources.companies import CompaniesResource, AsyncCompaniesResource
     from .resources.reactions import ReactionsResource, AsyncReactionsResource
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
@@ -134,31 +150,38 @@ if TYPE_CHECKING:
     from .resources.ad_reports import AdReportsResource, AsyncAdReportsResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
     from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
-    from .resources.conversions import ConversionsResource, AsyncConversionsResource
     from .resources.dm_channels import DmChannelsResource, AsyncDmChannelsResource
     from .resources.experiences import ExperiencesResource, AsyncExperiencesResource
     from .resources.fee_markups import FeeMarkupsResource, AsyncFeeMarkupsResource
     from .resources.forum_posts import ForumPostsResource, AsyncForumPostsResource
     from .resources.memberships import MembershipsResource, AsyncMembershipsResource
+    from .resources.permissions import PermissionsResource, AsyncPermissionsResource
     from .resources.promo_codes import PromoCodesResource, AsyncPromoCodesResource
+    from .resources.users.users import UsersResource, AsyncUsersResource
     from .resources.withdrawals import WithdrawalsResource, AsyncWithdrawalsResource
     from .resources.ad_campaigns import AdCampaignsResource, AsyncAdCampaignsResource
+    from .resources.team_members import TeamMembersResource, AsyncTeamMembersResource
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.account_links import AccountLinksResource, AsyncAccountLinksResource
     from .resources.chat_channels import ChatChannelsResource, AsyncChatChannelsResource
-    from .resources.notifications import NotificationsResource, AsyncNotificationsResource
     from .resources.setup_intents import SetupIntentsResource, AsyncSetupIntentsResource
     from .resources.verifications import VerificationsResource, AsyncVerificationsResource
     from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
     from .resources.dispute_alerts import DisputeAlertsResource, AsyncDisputeAlertsResource
-    from .resources.payout_methods import PayoutMethodsResource, AsyncPayoutMethodsResource
     from .resources.course_chapters import CourseChaptersResource, AsyncCourseChaptersResource
     from .resources.course_students import CourseStudentsResource, AsyncCourseStudentsResource
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
+    from .resources.members.members import MembersResource, AsyncMembersResource
     from .resources.payment_methods import PaymentMethodsResource, AsyncPaymentMethodsResource
     from .resources.payout_accounts import PayoutAccountsResource, AsyncPayoutAccountsResource
+    from .resources.payouts.payouts import PayoutsResource, AsyncPayoutsResource
+    from .resources.social_accounts import SocialAccountsResource, AsyncSocialAccountsResource
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
+    from .resources.accounts.accounts import AccountsResource, AsyncAccountsResource
+    from .resources.card_transactions import CardTransactionsResource, AsyncCardTransactionsResource
+    from .resources.partners.partners import PartnersResource, AsyncPartnersResource
+    from .resources.bounty_submissions import BountySubmissionsResource, AsyncBountySubmissionsResource
     from .resources.financial_activity import FinancialActivityResource, AsyncFinancialActivityResource
     from .resources.affiliates.affiliates import AffiliatesResource, AsyncAffiliatesResource
     from .resources.checkout_configurations import CheckoutConfigurationsResource, AsyncCheckoutConfigurationsResource
@@ -171,6 +194,7 @@ if TYPE_CHECKING:
         CourseLessonInteractionsResource,
         AsyncCourseLessonInteractionsResource,
     )
+    from .resources.notifications.notifications import NotificationsResource, AsyncNotificationsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Whop", "AsyncWhop", "Client", "AsyncClient"]
 
@@ -233,7 +257,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-06-08"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-08-05-1"
         self.version = version
 
         if base_url is None:
@@ -261,444 +285,668 @@ class Whop(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._idempotency_header = "Idempotency-Key"
+
     @cached_property
     def apps(self) -> AppsResource:
-        """Apps"""
+        """An App is software you build on Whop.
+
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        """
         from .resources.apps import AppsResource
 
         return AppsResource(self)
 
     @cached_property
+    def api_keys(self) -> APIKeysResource:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import APIKeysResource
+
+        return APIKeysResource(self)
+
+    @cached_property
+    def permissions(self) -> PermissionsResource:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import PermissionsResource
+
+        return PermissionsResource(self)
+
+    @cached_property
     def invoices(self) -> InvoicesResource:
-        """Invoices"""
         from .resources.invoices import InvoicesResource
 
         return InvoicesResource(self)
 
     @cached_property
     def course_lesson_interactions(self) -> CourseLessonInteractionsResource:
-        """Course lesson interactions"""
         from .resources.course_lesson_interactions import CourseLessonInteractionsResource
 
         return CourseLessonInteractionsResource(self)
 
     @cached_property
     def products(self) -> ProductsResource:
-        """Products"""
+        """A Product is a digital good or service sold on Whop.
+
+        Products may contain plans for pricing and/or experiences for content delivery.
+
+        Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+        """
         from .resources.products import ProductsResource
 
         return ProductsResource(self)
 
     @cached_property
+    def social_accounts(self) -> SocialAccountsResource:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
+        """
+        from .resources.social_accounts import SocialAccountsResource
+
+        return SocialAccountsResource(self)
+
+    @cached_property
+    def audiences(self) -> AudiencesResource:
+        """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+        Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+        Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+        """
+        from .resources.audiences import AudiencesResource
+
+        return AudiencesResource(self)
+
+    @cached_property
+    def media(self) -> MediaResource:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
+        from .resources.media import MediaResource
+
+        return MediaResource(self)
+
+    @cached_property
+    def people(self) -> PeopleResource:
+        """
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
+
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
+        """
+        from .resources.people import PeopleResource
+
+        return PeopleResource(self)
+
+    @cached_property
+    def events(self) -> EventsResource:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+        Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
+        """
+        from .resources.events import EventsResource
+
+        return EventsResource(self)
+
+    @cached_property
     def companies(self) -> CompaniesResource:
-        """Companies"""
         from .resources.companies import CompaniesResource
 
         return CompaniesResource(self)
 
     @cached_property
     def webhooks(self) -> WebhooksResource:
-        """Webhooks"""
         from .resources.webhooks import WebhooksResource
 
         return WebhooksResource(self)
 
     @cached_property
     def plans(self) -> PlansResource:
-        """Plans"""
+        """A Plan defines how customers buy a product.
+
+        It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+        Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+        """
         from .resources.plans import PlansResource
 
         return PlansResource(self)
 
     @cached_property
+    def exports(self) -> ExportsResource:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import ExportsResource
+
+        return ExportsResource(self)
+
+    @cached_property
     def entries(self) -> EntriesResource:
-        """Entries"""
         from .resources.entries import EntriesResource
 
         return EntriesResource(self)
 
     @cached_property
     def forum_posts(self) -> ForumPostsResource:
-        """Forum posts"""
         from .resources.forum_posts import ForumPostsResource
 
         return ForumPostsResource(self)
 
     @cached_property
     def transfers(self) -> TransfersResource:
-        """Transfers"""
+        """Transfers move value between identities on Whop.
+
+        They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+        Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+        """
         from .resources.transfers import TransfersResource
 
         return TransfersResource(self)
 
     @cached_property
     def ledger_accounts(self) -> LedgerAccountsResource:
-        """Ledger accounts"""
         from .resources.ledger_accounts import LedgerAccountsResource
 
         return LedgerAccountsResource(self)
 
     @cached_property
     def memberships(self) -> MembershipsResource:
-        """Memberships"""
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import MembershipsResource
 
         return MembershipsResource(self)
 
     @cached_property
     def authorized_users(self) -> AuthorizedUsersResource:
-        """Authorized users"""
         from .resources.authorized_users import AuthorizedUsersResource
 
         return AuthorizedUsersResource(self)
 
     @cached_property
+    def team_members(self) -> TeamMembersResource:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import TeamMembersResource
+
+        return TeamMembersResource(self)
+
+    @cached_property
     def app_builds(self) -> AppBuildsResource:
-        """App builds"""
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AppBuildsResource
 
         return AppBuildsResource(self)
 
     @cached_property
     def shipments(self) -> ShipmentsResource:
-        """Shipments"""
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import ShipmentsResource
 
         return ShipmentsResource(self)
 
     @cached_property
     def checkout_configurations(self) -> CheckoutConfigurationsResource:
-        """Checkout configurations"""
+        """A Checkout Configuration is a reusable checkout link owned by an account.
+
+        In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+        Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+        """
         from .resources.checkout_configurations import CheckoutConfigurationsResource
 
         return CheckoutConfigurationsResource(self)
 
     @cached_property
     def messages(self) -> MessagesResource:
-        """Messages"""
         from .resources.messages import MessagesResource
 
         return MessagesResource(self)
 
     @cached_property
     def chat_channels(self) -> ChatChannelsResource:
-        """Chat channels"""
         from .resources.chat_channels import ChatChannelsResource
 
         return ChatChannelsResource(self)
 
     @cached_property
     def users(self) -> UsersResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
         from .resources.users import UsersResource
 
         return UsersResource(self)
 
     @cached_property
     def payments(self) -> PaymentsResource:
-        """Payments"""
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import PaymentsResource
 
         return PaymentsResource(self)
 
     @cached_property
     def support_channels(self) -> SupportChannelsResource:
-        """Support channels"""
         from .resources.support_channels import SupportChannelsResource
 
         return SupportChannelsResource(self)
 
     @cached_property
     def experiences(self) -> ExperiencesResource:
-        """Experiences"""
         from .resources.experiences import ExperiencesResource
 
         return ExperiencesResource(self)
 
     @cached_property
     def reactions(self) -> ReactionsResource:
-        """Reactions"""
         from .resources.reactions import ReactionsResource
 
         return ReactionsResource(self)
 
     @cached_property
     def members(self) -> MembersResource:
-        """Members"""
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import MembersResource
 
         return MembersResource(self)
 
     @cached_property
     def forums(self) -> ForumsResource:
-        """Forums"""
         from .resources.forums import ForumsResource
 
         return ForumsResource(self)
 
     @cached_property
     def promo_codes(self) -> PromoCodesResource:
-        """Promo codes"""
         from .resources.promo_codes import PromoCodesResource
 
         return PromoCodesResource(self)
 
     @cached_property
     def courses(self) -> CoursesResource:
-        """Courses"""
         from .resources.courses import CoursesResource
 
         return CoursesResource(self)
 
     @cached_property
     def course_chapters(self) -> CourseChaptersResource:
-        """Course chapters"""
         from .resources.course_chapters import CourseChaptersResource
 
         return CourseChaptersResource(self)
 
     @cached_property
     def course_lessons(self) -> CourseLessonsResource:
-        """Course lessons"""
         from .resources.course_lessons import CourseLessonsResource
 
         return CourseLessonsResource(self)
 
     @cached_property
     def reviews(self) -> ReviewsResource:
-        """Reviews"""
         from .resources.reviews import ReviewsResource
 
         return ReviewsResource(self)
 
     @cached_property
     def course_students(self) -> CourseStudentsResource:
-        """Course students"""
         from .resources.course_students import CourseStudentsResource
 
         return CourseStudentsResource(self)
 
     @cached_property
     def access_tokens(self) -> AccessTokensResource:
-        """Access tokens"""
         from .resources.access_tokens import AccessTokensResource
 
         return AccessTokensResource(self)
 
     @cached_property
     def notifications(self) -> NotificationsResource:
-        """Notifications"""
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import NotificationsResource
 
         return NotificationsResource(self)
 
     @cached_property
     def disputes(self) -> DisputesResource:
-        """Disputes"""
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import DisputesResource
 
         return DisputesResource(self)
 
     @cached_property
     def refunds(self) -> RefundsResource:
-        """Refunds"""
         from .resources.refunds import RefundsResource
 
         return RefundsResource(self)
 
     @cached_property
     def withdrawals(self) -> WithdrawalsResource:
-        """Withdrawals"""
         from .resources.withdrawals import WithdrawalsResource
 
         return WithdrawalsResource(self)
 
     @cached_property
     def account_links(self) -> AccountLinksResource:
-        """Account links"""
         from .resources.account_links import AccountLinksResource
 
         return AccountLinksResource(self)
 
     @cached_property
     def accounts(self) -> AccountsResource:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
         from .resources.accounts import AccountsResource
 
         return AccountsResource(self)
 
     @cached_property
-    def wallets(self) -> WalletsResource:
-        from .resources.wallets import WalletsResource
-
-        return WalletsResource(self)
-
-    @cached_property
     def financial_activity(self) -> FinancialActivityResource:
+        """
+        A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+        Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+        """
         from .resources.financial_activity import FinancialActivityResource
 
         return FinancialActivityResource(self)
 
     @cached_property
+    def stats(self) -> StatsResource:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
+        from .resources.stats import StatsResource
+
+        return StatsResource(self)
+
+    @cached_property
+    def payouts(self) -> PayoutsResource:
+        """
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
+
+        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        """
+        from .resources.payouts import PayoutsResource
+
+        return PayoutsResource(self)
+
+    @cached_property
+    def partners(self) -> PartnersResource:
+        """
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
+        from .resources.partners import PartnersResource
+
+        return PartnersResource(self)
+
+    @cached_property
+    def cards(self) -> CardsResource:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.cards import CardsResource
+
+        return CardsResource(self)
+
+    @cached_property
+    def card_transactions(self) -> CardTransactionsResource:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import CardTransactionsResource
+
+        return CardTransactionsResource(self)
+
+    @cached_property
     def swaps(self) -> SwapsResource:
+        """
+        Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+        Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+        """
         from .resources.swaps import SwapsResource
 
         return SwapsResource(self)
 
     @cached_property
     def deposits(self) -> DepositsResource:
+        """
+        Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+        Use the Deposits API to create deposit instructions for an account.
+        """
         from .resources.deposits import DepositsResource
 
         return DepositsResource(self)
 
     @cached_property
     def setup_intents(self) -> SetupIntentsResource:
-        """Setup intents"""
         from .resources.setup_intents import SetupIntentsResource
 
         return SetupIntentsResource(self)
 
     @cached_property
     def payment_methods(self) -> PaymentMethodsResource:
-        """Payment methods"""
         from .resources.payment_methods import PaymentMethodsResource
 
         return PaymentMethodsResource(self)
 
     @cached_property
     def fee_markups(self) -> FeeMarkupsResource:
-        """Fee markups"""
         from .resources.fee_markups import FeeMarkupsResource
 
         return FeeMarkupsResource(self)
 
     @cached_property
-    def payout_methods(self) -> PayoutMethodsResource:
-        """Payout methods"""
-        from .resources.payout_methods import PayoutMethodsResource
-
-        return PayoutMethodsResource(self)
-
-    @cached_property
     def verifications(self) -> VerificationsResource:
-        """Verifications"""
+        """A Verification represents a legal identity for a person or business.
+
+        Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+        Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+        """
         from .resources.verifications import VerificationsResource
 
         return VerificationsResource(self)
 
     @cached_property
     def leads(self) -> LeadsResource:
-        """Leads"""
         from .resources.leads import LeadsResource
 
         return LeadsResource(self)
 
     @cached_property
     def topups(self) -> TopupsResource:
-        """Topups"""
         from .resources.topups import TopupsResource
 
         return TopupsResource(self)
 
     @cached_property
     def files(self) -> FilesResource:
-        """Files"""
         from .resources.files import FilesResource
 
         return FilesResource(self)
 
     @cached_property
     def company_token_transactions(self) -> CompanyTokenTransactionsResource:
-        """Company token transactions"""
         from .resources.company_token_transactions import CompanyTokenTransactionsResource
 
         return CompanyTokenTransactionsResource(self)
 
     @cached_property
     def dm_members(self) -> DmMembersResource:
-        """Dm members"""
         from .resources.dm_members import DmMembersResource
 
         return DmMembersResource(self)
 
     @cached_property
     def ai_chats(self) -> AIChatsResource:
-        """Ai chats"""
         from .resources.ai_chats import AIChatsResource
 
         return AIChatsResource(self)
 
     @cached_property
     def dm_channels(self) -> DmChannelsResource:
-        """Dm channels"""
         from .resources.dm_channels import DmChannelsResource
 
         return DmChannelsResource(self)
 
     @cached_property
     def dispute_alerts(self) -> DisputeAlertsResource:
-        """Dispute alerts"""
         from .resources.dispute_alerts import DisputeAlertsResource
 
         return DisputeAlertsResource(self)
 
     @cached_property
     def resolution_center_cases(self) -> ResolutionCenterCasesResource:
-        """Resolution center cases"""
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import ResolutionCenterCasesResource
 
         return ResolutionCenterCasesResource(self)
 
     @cached_property
     def payout_accounts(self) -> PayoutAccountsResource:
-        """Payout accounts"""
         from .resources.payout_accounts import PayoutAccountsResource
 
         return PayoutAccountsResource(self)
 
     @cached_property
     def affiliates(self) -> AffiliatesResource:
-        """Affiliates"""
         from .resources.affiliates import AffiliatesResource
 
         return AffiliatesResource(self)
 
     @cached_property
     def bounties(self) -> BountiesResource:
-        """Bounties"""
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import BountiesResource
 
         return BountiesResource(self)
 
     @cached_property
+    def bounty_submissions(self) -> BountySubmissionsResource:
+        """A Bounty Submission is one worker's attempt on a bounty.
+
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import BountySubmissionsResource
+
+        return BountySubmissionsResource(self)
+
+    @cached_property
     def ad_campaigns(self) -> AdCampaignsResource:
-        """Ad campaigns"""
+        """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+        It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+        Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+        """
         from .resources.ad_campaigns import AdCampaignsResource
 
         return AdCampaignsResource(self)
 
     @cached_property
     def ad_groups(self) -> AdGroupsResource:
-        """Ad groups"""
+        """
+        An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+        Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
+        """
         from .resources.ad_groups import AdGroupsResource
 
         return AdGroupsResource(self)
 
     @cached_property
     def ads(self) -> AdsResource:
-        """Ads"""
+        """
+        An Ad is the individual creative unit delivered by an [ad group](/api-reference/beta/ad-groups/ad-group). It holds the copy, creative assets, and destination URL for one ad.
+
+        Use the Ads API to list ads for an account, create ads inside ad groups, retrieve or update creative details, delete ads that should stop running, and pause or resume delivery.
+        """
         from .resources.ads import AdsResource
 
         return AdsResource(self)
 
     @cached_property
-    def conversions(self) -> ConversionsResource:
-        """Conversions"""
-        from .resources.conversions import ConversionsResource
-
-        return ConversionsResource(self)
-
-    @cached_property
     def ad_reports(self) -> AdReportsResource:
-        """Ad reports"""
         from .resources.ad_reports import AdReportsResource
 
         return AdReportsResource(self)
@@ -882,7 +1130,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-06-08"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-08-05-1"
         self.version = version
 
         if base_url is None:
@@ -910,444 +1158,668 @@ class AsyncWhop(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._idempotency_header = "Idempotency-Key"
+
     @cached_property
     def apps(self) -> AsyncAppsResource:
-        """Apps"""
+        """An App is software you build on Whop.
+
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        """
         from .resources.apps import AsyncAppsResource
 
         return AsyncAppsResource(self)
 
     @cached_property
+    def api_keys(self) -> AsyncAPIKeysResource:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import AsyncAPIKeysResource
+
+        return AsyncAPIKeysResource(self)
+
+    @cached_property
+    def permissions(self) -> AsyncPermissionsResource:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import AsyncPermissionsResource
+
+        return AsyncPermissionsResource(self)
+
+    @cached_property
     def invoices(self) -> AsyncInvoicesResource:
-        """Invoices"""
         from .resources.invoices import AsyncInvoicesResource
 
         return AsyncInvoicesResource(self)
 
     @cached_property
     def course_lesson_interactions(self) -> AsyncCourseLessonInteractionsResource:
-        """Course lesson interactions"""
         from .resources.course_lesson_interactions import AsyncCourseLessonInteractionsResource
 
         return AsyncCourseLessonInteractionsResource(self)
 
     @cached_property
     def products(self) -> AsyncProductsResource:
-        """Products"""
+        """A Product is a digital good or service sold on Whop.
+
+        Products may contain plans for pricing and/or experiences for content delivery.
+
+        Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+        """
         from .resources.products import AsyncProductsResource
 
         return AsyncProductsResource(self)
 
     @cached_property
+    def social_accounts(self) -> AsyncSocialAccountsResource:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
+        """
+        from .resources.social_accounts import AsyncSocialAccountsResource
+
+        return AsyncSocialAccountsResource(self)
+
+    @cached_property
+    def audiences(self) -> AsyncAudiencesResource:
+        """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+        Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+        Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+        """
+        from .resources.audiences import AsyncAudiencesResource
+
+        return AsyncAudiencesResource(self)
+
+    @cached_property
+    def media(self) -> AsyncMediaResource:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
+        from .resources.media import AsyncMediaResource
+
+        return AsyncMediaResource(self)
+
+    @cached_property
+    def people(self) -> AsyncPeopleResource:
+        """
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
+
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
+        """
+        from .resources.people import AsyncPeopleResource
+
+        return AsyncPeopleResource(self)
+
+    @cached_property
+    def events(self) -> AsyncEventsResource:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+        Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
+        """
+        from .resources.events import AsyncEventsResource
+
+        return AsyncEventsResource(self)
+
+    @cached_property
     def companies(self) -> AsyncCompaniesResource:
-        """Companies"""
         from .resources.companies import AsyncCompaniesResource
 
         return AsyncCompaniesResource(self)
 
     @cached_property
     def webhooks(self) -> AsyncWebhooksResource:
-        """Webhooks"""
         from .resources.webhooks import AsyncWebhooksResource
 
         return AsyncWebhooksResource(self)
 
     @cached_property
     def plans(self) -> AsyncPlansResource:
-        """Plans"""
+        """A Plan defines how customers buy a product.
+
+        It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+        Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+        """
         from .resources.plans import AsyncPlansResource
 
         return AsyncPlansResource(self)
 
     @cached_property
+    def exports(self) -> AsyncExportsResource:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import AsyncExportsResource
+
+        return AsyncExportsResource(self)
+
+    @cached_property
     def entries(self) -> AsyncEntriesResource:
-        """Entries"""
         from .resources.entries import AsyncEntriesResource
 
         return AsyncEntriesResource(self)
 
     @cached_property
     def forum_posts(self) -> AsyncForumPostsResource:
-        """Forum posts"""
         from .resources.forum_posts import AsyncForumPostsResource
 
         return AsyncForumPostsResource(self)
 
     @cached_property
     def transfers(self) -> AsyncTransfersResource:
-        """Transfers"""
+        """Transfers move value between identities on Whop.
+
+        They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+        Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+        """
         from .resources.transfers import AsyncTransfersResource
 
         return AsyncTransfersResource(self)
 
     @cached_property
     def ledger_accounts(self) -> AsyncLedgerAccountsResource:
-        """Ledger accounts"""
         from .resources.ledger_accounts import AsyncLedgerAccountsResource
 
         return AsyncLedgerAccountsResource(self)
 
     @cached_property
     def memberships(self) -> AsyncMembershipsResource:
-        """Memberships"""
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import AsyncMembershipsResource
 
         return AsyncMembershipsResource(self)
 
     @cached_property
     def authorized_users(self) -> AsyncAuthorizedUsersResource:
-        """Authorized users"""
         from .resources.authorized_users import AsyncAuthorizedUsersResource
 
         return AsyncAuthorizedUsersResource(self)
 
     @cached_property
+    def team_members(self) -> AsyncTeamMembersResource:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import AsyncTeamMembersResource
+
+        return AsyncTeamMembersResource(self)
+
+    @cached_property
     def app_builds(self) -> AsyncAppBuildsResource:
-        """App builds"""
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AsyncAppBuildsResource
 
         return AsyncAppBuildsResource(self)
 
     @cached_property
     def shipments(self) -> AsyncShipmentsResource:
-        """Shipments"""
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import AsyncShipmentsResource
 
         return AsyncShipmentsResource(self)
 
     @cached_property
     def checkout_configurations(self) -> AsyncCheckoutConfigurationsResource:
-        """Checkout configurations"""
+        """A Checkout Configuration is a reusable checkout link owned by an account.
+
+        In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+        Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+        """
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResource
 
         return AsyncCheckoutConfigurationsResource(self)
 
     @cached_property
     def messages(self) -> AsyncMessagesResource:
-        """Messages"""
         from .resources.messages import AsyncMessagesResource
 
         return AsyncMessagesResource(self)
 
     @cached_property
     def chat_channels(self) -> AsyncChatChannelsResource:
-        """Chat channels"""
         from .resources.chat_channels import AsyncChatChannelsResource
 
         return AsyncChatChannelsResource(self)
 
     @cached_property
     def users(self) -> AsyncUsersResource:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
         from .resources.users import AsyncUsersResource
 
         return AsyncUsersResource(self)
 
     @cached_property
     def payments(self) -> AsyncPaymentsResource:
-        """Payments"""
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import AsyncPaymentsResource
 
         return AsyncPaymentsResource(self)
 
     @cached_property
     def support_channels(self) -> AsyncSupportChannelsResource:
-        """Support channels"""
         from .resources.support_channels import AsyncSupportChannelsResource
 
         return AsyncSupportChannelsResource(self)
 
     @cached_property
     def experiences(self) -> AsyncExperiencesResource:
-        """Experiences"""
         from .resources.experiences import AsyncExperiencesResource
 
         return AsyncExperiencesResource(self)
 
     @cached_property
     def reactions(self) -> AsyncReactionsResource:
-        """Reactions"""
         from .resources.reactions import AsyncReactionsResource
 
         return AsyncReactionsResource(self)
 
     @cached_property
     def members(self) -> AsyncMembersResource:
-        """Members"""
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import AsyncMembersResource
 
         return AsyncMembersResource(self)
 
     @cached_property
     def forums(self) -> AsyncForumsResource:
-        """Forums"""
         from .resources.forums import AsyncForumsResource
 
         return AsyncForumsResource(self)
 
     @cached_property
     def promo_codes(self) -> AsyncPromoCodesResource:
-        """Promo codes"""
         from .resources.promo_codes import AsyncPromoCodesResource
 
         return AsyncPromoCodesResource(self)
 
     @cached_property
     def courses(self) -> AsyncCoursesResource:
-        """Courses"""
         from .resources.courses import AsyncCoursesResource
 
         return AsyncCoursesResource(self)
 
     @cached_property
     def course_chapters(self) -> AsyncCourseChaptersResource:
-        """Course chapters"""
         from .resources.course_chapters import AsyncCourseChaptersResource
 
         return AsyncCourseChaptersResource(self)
 
     @cached_property
     def course_lessons(self) -> AsyncCourseLessonsResource:
-        """Course lessons"""
         from .resources.course_lessons import AsyncCourseLessonsResource
 
         return AsyncCourseLessonsResource(self)
 
     @cached_property
     def reviews(self) -> AsyncReviewsResource:
-        """Reviews"""
         from .resources.reviews import AsyncReviewsResource
 
         return AsyncReviewsResource(self)
 
     @cached_property
     def course_students(self) -> AsyncCourseStudentsResource:
-        """Course students"""
         from .resources.course_students import AsyncCourseStudentsResource
 
         return AsyncCourseStudentsResource(self)
 
     @cached_property
     def access_tokens(self) -> AsyncAccessTokensResource:
-        """Access tokens"""
         from .resources.access_tokens import AsyncAccessTokensResource
 
         return AsyncAccessTokensResource(self)
 
     @cached_property
     def notifications(self) -> AsyncNotificationsResource:
-        """Notifications"""
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import AsyncNotificationsResource
 
         return AsyncNotificationsResource(self)
 
     @cached_property
     def disputes(self) -> AsyncDisputesResource:
-        """Disputes"""
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import AsyncDisputesResource
 
         return AsyncDisputesResource(self)
 
     @cached_property
     def refunds(self) -> AsyncRefundsResource:
-        """Refunds"""
         from .resources.refunds import AsyncRefundsResource
 
         return AsyncRefundsResource(self)
 
     @cached_property
     def withdrawals(self) -> AsyncWithdrawalsResource:
-        """Withdrawals"""
         from .resources.withdrawals import AsyncWithdrawalsResource
 
         return AsyncWithdrawalsResource(self)
 
     @cached_property
     def account_links(self) -> AsyncAccountLinksResource:
-        """Account links"""
         from .resources.account_links import AsyncAccountLinksResource
 
         return AsyncAccountLinksResource(self)
 
     @cached_property
     def accounts(self) -> AsyncAccountsResource:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
         from .resources.accounts import AsyncAccountsResource
 
         return AsyncAccountsResource(self)
 
     @cached_property
-    def wallets(self) -> AsyncWalletsResource:
-        from .resources.wallets import AsyncWalletsResource
-
-        return AsyncWalletsResource(self)
-
-    @cached_property
     def financial_activity(self) -> AsyncFinancialActivityResource:
+        """
+        A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+        Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+        """
         from .resources.financial_activity import AsyncFinancialActivityResource
 
         return AsyncFinancialActivityResource(self)
 
     @cached_property
+    def stats(self) -> AsyncStatsResource:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
+        from .resources.stats import AsyncStatsResource
+
+        return AsyncStatsResource(self)
+
+    @cached_property
+    def payouts(self) -> AsyncPayoutsResource:
+        """
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
+
+        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        """
+        from .resources.payouts import AsyncPayoutsResource
+
+        return AsyncPayoutsResource(self)
+
+    @cached_property
+    def partners(self) -> AsyncPartnersResource:
+        """
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
+        from .resources.partners import AsyncPartnersResource
+
+        return AsyncPartnersResource(self)
+
+    @cached_property
+    def cards(self) -> AsyncCardsResource:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.cards import AsyncCardsResource
+
+        return AsyncCardsResource(self)
+
+    @cached_property
+    def card_transactions(self) -> AsyncCardTransactionsResource:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import AsyncCardTransactionsResource
+
+        return AsyncCardTransactionsResource(self)
+
+    @cached_property
     def swaps(self) -> AsyncSwapsResource:
+        """
+        Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+        Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+        """
         from .resources.swaps import AsyncSwapsResource
 
         return AsyncSwapsResource(self)
 
     @cached_property
     def deposits(self) -> AsyncDepositsResource:
+        """
+        Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+        Use the Deposits API to create deposit instructions for an account.
+        """
         from .resources.deposits import AsyncDepositsResource
 
         return AsyncDepositsResource(self)
 
     @cached_property
     def setup_intents(self) -> AsyncSetupIntentsResource:
-        """Setup intents"""
         from .resources.setup_intents import AsyncSetupIntentsResource
 
         return AsyncSetupIntentsResource(self)
 
     @cached_property
     def payment_methods(self) -> AsyncPaymentMethodsResource:
-        """Payment methods"""
         from .resources.payment_methods import AsyncPaymentMethodsResource
 
         return AsyncPaymentMethodsResource(self)
 
     @cached_property
     def fee_markups(self) -> AsyncFeeMarkupsResource:
-        """Fee markups"""
         from .resources.fee_markups import AsyncFeeMarkupsResource
 
         return AsyncFeeMarkupsResource(self)
 
     @cached_property
-    def payout_methods(self) -> AsyncPayoutMethodsResource:
-        """Payout methods"""
-        from .resources.payout_methods import AsyncPayoutMethodsResource
-
-        return AsyncPayoutMethodsResource(self)
-
-    @cached_property
     def verifications(self) -> AsyncVerificationsResource:
-        """Verifications"""
+        """A Verification represents a legal identity for a person or business.
+
+        Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+        Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+        """
         from .resources.verifications import AsyncVerificationsResource
 
         return AsyncVerificationsResource(self)
 
     @cached_property
     def leads(self) -> AsyncLeadsResource:
-        """Leads"""
         from .resources.leads import AsyncLeadsResource
 
         return AsyncLeadsResource(self)
 
     @cached_property
     def topups(self) -> AsyncTopupsResource:
-        """Topups"""
         from .resources.topups import AsyncTopupsResource
 
         return AsyncTopupsResource(self)
 
     @cached_property
     def files(self) -> AsyncFilesResource:
-        """Files"""
         from .resources.files import AsyncFilesResource
 
         return AsyncFilesResource(self)
 
     @cached_property
     def company_token_transactions(self) -> AsyncCompanyTokenTransactionsResource:
-        """Company token transactions"""
         from .resources.company_token_transactions import AsyncCompanyTokenTransactionsResource
 
         return AsyncCompanyTokenTransactionsResource(self)
 
     @cached_property
     def dm_members(self) -> AsyncDmMembersResource:
-        """Dm members"""
         from .resources.dm_members import AsyncDmMembersResource
 
         return AsyncDmMembersResource(self)
 
     @cached_property
     def ai_chats(self) -> AsyncAIChatsResource:
-        """Ai chats"""
         from .resources.ai_chats import AsyncAIChatsResource
 
         return AsyncAIChatsResource(self)
 
     @cached_property
     def dm_channels(self) -> AsyncDmChannelsResource:
-        """Dm channels"""
         from .resources.dm_channels import AsyncDmChannelsResource
 
         return AsyncDmChannelsResource(self)
 
     @cached_property
     def dispute_alerts(self) -> AsyncDisputeAlertsResource:
-        """Dispute alerts"""
         from .resources.dispute_alerts import AsyncDisputeAlertsResource
 
         return AsyncDisputeAlertsResource(self)
 
     @cached_property
     def resolution_center_cases(self) -> AsyncResolutionCenterCasesResource:
-        """Resolution center cases"""
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import AsyncResolutionCenterCasesResource
 
         return AsyncResolutionCenterCasesResource(self)
 
     @cached_property
     def payout_accounts(self) -> AsyncPayoutAccountsResource:
-        """Payout accounts"""
         from .resources.payout_accounts import AsyncPayoutAccountsResource
 
         return AsyncPayoutAccountsResource(self)
 
     @cached_property
     def affiliates(self) -> AsyncAffiliatesResource:
-        """Affiliates"""
         from .resources.affiliates import AsyncAffiliatesResource
 
         return AsyncAffiliatesResource(self)
 
     @cached_property
     def bounties(self) -> AsyncBountiesResource:
-        """Bounties"""
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import AsyncBountiesResource
 
         return AsyncBountiesResource(self)
 
     @cached_property
+    def bounty_submissions(self) -> AsyncBountySubmissionsResource:
+        """A Bounty Submission is one worker's attempt on a bounty.
+
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import AsyncBountySubmissionsResource
+
+        return AsyncBountySubmissionsResource(self)
+
+    @cached_property
     def ad_campaigns(self) -> AsyncAdCampaignsResource:
-        """Ad campaigns"""
+        """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+        It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+        Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+        """
         from .resources.ad_campaigns import AsyncAdCampaignsResource
 
         return AsyncAdCampaignsResource(self)
 
     @cached_property
     def ad_groups(self) -> AsyncAdGroupsResource:
-        """Ad groups"""
+        """
+        An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+        Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
+        """
         from .resources.ad_groups import AsyncAdGroupsResource
 
         return AsyncAdGroupsResource(self)
 
     @cached_property
     def ads(self) -> AsyncAdsResource:
-        """Ads"""
+        """
+        An Ad is the individual creative unit delivered by an [ad group](/api-reference/beta/ad-groups/ad-group). It holds the copy, creative assets, and destination URL for one ad.
+
+        Use the Ads API to list ads for an account, create ads inside ad groups, retrieve or update creative details, delete ads that should stop running, and pause or resume delivery.
+        """
         from .resources.ads import AsyncAdsResource
 
         return AsyncAdsResource(self)
 
     @cached_property
-    def conversions(self) -> AsyncConversionsResource:
-        """Conversions"""
-        from .resources.conversions import AsyncConversionsResource
-
-        return AsyncConversionsResource(self)
-
-    @cached_property
     def ad_reports(self) -> AsyncAdReportsResource:
-        """Ad reports"""
         from .resources.ad_reports import AsyncAdReportsResource
 
         return AsyncAdReportsResource(self)
@@ -1481,442 +1953,664 @@ class WhopWithRawResponse:
 
     @cached_property
     def apps(self) -> apps.AppsResourceWithRawResponse:
-        """Apps"""
+        """An App is software you build on Whop.
+
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        """
         from .resources.apps import AppsResourceWithRawResponse
 
         return AppsResourceWithRawResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import APIKeysResourceWithRawResponse
+
+        return APIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
+    def permissions(self) -> permissions.PermissionsResourceWithRawResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import PermissionsResourceWithRawResponse
+
+        return PermissionsResourceWithRawResponse(self._client.permissions)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithRawResponse:
-        """Invoices"""
         from .resources.invoices import InvoicesResourceWithRawResponse
 
         return InvoicesResourceWithRawResponse(self._client.invoices)
 
     @cached_property
     def course_lesson_interactions(self) -> course_lesson_interactions.CourseLessonInteractionsResourceWithRawResponse:
-        """Course lesson interactions"""
         from .resources.course_lesson_interactions import CourseLessonInteractionsResourceWithRawResponse
 
         return CourseLessonInteractionsResourceWithRawResponse(self._client.course_lesson_interactions)
 
     @cached_property
     def products(self) -> products.ProductsResourceWithRawResponse:
-        """Products"""
+        """A Product is a digital good or service sold on Whop.
+
+        Products may contain plans for pricing and/or experiences for content delivery.
+
+        Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+        """
         from .resources.products import ProductsResourceWithRawResponse
 
         return ProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.SocialAccountsResourceWithRawResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
+        """
+        from .resources.social_accounts import SocialAccountsResourceWithRawResponse
+
+        return SocialAccountsResourceWithRawResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AudiencesResourceWithRawResponse:
+        """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+        Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+        Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+        """
+        from .resources.audiences import AudiencesResourceWithRawResponse
+
+        return AudiencesResourceWithRawResponse(self._client.audiences)
+
+    @cached_property
+    def media(self) -> media.MediaResourceWithRawResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
+        from .resources.media import MediaResourceWithRawResponse
+
+        return MediaResourceWithRawResponse(self._client.media)
+
+    @cached_property
+    def people(self) -> people.PeopleResourceWithRawResponse:
+        """
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
+
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
+        """
+        from .resources.people import PeopleResourceWithRawResponse
+
+        return PeopleResourceWithRawResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithRawResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+        Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
+        """
+        from .resources.events import EventsResourceWithRawResponse
+
+        return EventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithRawResponse:
-        """Companies"""
         from .resources.companies import CompaniesResourceWithRawResponse
 
         return CompaniesResourceWithRawResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.WebhooksResourceWithRawResponse:
-        """Webhooks"""
         from .resources.webhooks import WebhooksResourceWithRawResponse
 
         return WebhooksResourceWithRawResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithRawResponse:
-        """Plans"""
+        """A Plan defines how customers buy a product.
+
+        It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+        Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+        """
         from .resources.plans import PlansResourceWithRawResponse
 
         return PlansResourceWithRawResponse(self._client.plans)
 
     @cached_property
+    def exports(self) -> exports.ExportsResourceWithRawResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import ExportsResourceWithRawResponse
+
+        return ExportsResourceWithRawResponse(self._client.exports)
+
+    @cached_property
     def entries(self) -> entries.EntriesResourceWithRawResponse:
-        """Entries"""
         from .resources.entries import EntriesResourceWithRawResponse
 
         return EntriesResourceWithRawResponse(self._client.entries)
 
     @cached_property
     def forum_posts(self) -> forum_posts.ForumPostsResourceWithRawResponse:
-        """Forum posts"""
         from .resources.forum_posts import ForumPostsResourceWithRawResponse
 
         return ForumPostsResourceWithRawResponse(self._client.forum_posts)
 
     @cached_property
     def transfers(self) -> transfers.TransfersResourceWithRawResponse:
-        """Transfers"""
+        """Transfers move value between identities on Whop.
+
+        They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+        Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+        """
         from .resources.transfers import TransfersResourceWithRawResponse
 
         return TransfersResourceWithRawResponse(self._client.transfers)
 
     @cached_property
     def ledger_accounts(self) -> ledger_accounts.LedgerAccountsResourceWithRawResponse:
-        """Ledger accounts"""
         from .resources.ledger_accounts import LedgerAccountsResourceWithRawResponse
 
         return LedgerAccountsResourceWithRawResponse(self._client.ledger_accounts)
 
     @cached_property
     def memberships(self) -> memberships.MembershipsResourceWithRawResponse:
-        """Memberships"""
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import MembershipsResourceWithRawResponse
 
         return MembershipsResourceWithRawResponse(self._client.memberships)
 
     @cached_property
     def authorized_users(self) -> authorized_users.AuthorizedUsersResourceWithRawResponse:
-        """Authorized users"""
         from .resources.authorized_users import AuthorizedUsersResourceWithRawResponse
 
         return AuthorizedUsersResourceWithRawResponse(self._client.authorized_users)
 
     @cached_property
+    def team_members(self) -> team_members.TeamMembersResourceWithRawResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import TeamMembersResourceWithRawResponse
+
+        return TeamMembersResourceWithRawResponse(self._client.team_members)
+
+    @cached_property
     def app_builds(self) -> app_builds.AppBuildsResourceWithRawResponse:
-        """App builds"""
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AppBuildsResourceWithRawResponse
 
         return AppBuildsResourceWithRawResponse(self._client.app_builds)
 
     @cached_property
     def shipments(self) -> shipments.ShipmentsResourceWithRawResponse:
-        """Shipments"""
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import ShipmentsResourceWithRawResponse
 
         return ShipmentsResourceWithRawResponse(self._client.shipments)
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithRawResponse:
-        """Checkout configurations"""
+        """A Checkout Configuration is a reusable checkout link owned by an account.
+
+        In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+        Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+        """
         from .resources.checkout_configurations import CheckoutConfigurationsResourceWithRawResponse
 
         return CheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
 
     @cached_property
     def messages(self) -> messages.MessagesResourceWithRawResponse:
-        """Messages"""
         from .resources.messages import MessagesResourceWithRawResponse
 
         return MessagesResourceWithRawResponse(self._client.messages)
 
     @cached_property
     def chat_channels(self) -> chat_channels.ChatChannelsResourceWithRawResponse:
-        """Chat channels"""
         from .resources.chat_channels import ChatChannelsResourceWithRawResponse
 
         return ChatChannelsResourceWithRawResponse(self._client.chat_channels)
 
     @cached_property
     def users(self) -> users.UsersResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
         from .resources.users import UsersResourceWithRawResponse
 
         return UsersResourceWithRawResponse(self._client.users)
 
     @cached_property
     def payments(self) -> payments.PaymentsResourceWithRawResponse:
-        """Payments"""
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import PaymentsResourceWithRawResponse
 
         return PaymentsResourceWithRawResponse(self._client.payments)
 
     @cached_property
     def support_channels(self) -> support_channels.SupportChannelsResourceWithRawResponse:
-        """Support channels"""
         from .resources.support_channels import SupportChannelsResourceWithRawResponse
 
         return SupportChannelsResourceWithRawResponse(self._client.support_channels)
 
     @cached_property
     def experiences(self) -> experiences.ExperiencesResourceWithRawResponse:
-        """Experiences"""
         from .resources.experiences import ExperiencesResourceWithRawResponse
 
         return ExperiencesResourceWithRawResponse(self._client.experiences)
 
     @cached_property
     def reactions(self) -> reactions.ReactionsResourceWithRawResponse:
-        """Reactions"""
         from .resources.reactions import ReactionsResourceWithRawResponse
 
         return ReactionsResourceWithRawResponse(self._client.reactions)
 
     @cached_property
     def members(self) -> members.MembersResourceWithRawResponse:
-        """Members"""
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import MembersResourceWithRawResponse
 
         return MembersResourceWithRawResponse(self._client.members)
 
     @cached_property
     def forums(self) -> forums.ForumsResourceWithRawResponse:
-        """Forums"""
         from .resources.forums import ForumsResourceWithRawResponse
 
         return ForumsResourceWithRawResponse(self._client.forums)
 
     @cached_property
     def promo_codes(self) -> promo_codes.PromoCodesResourceWithRawResponse:
-        """Promo codes"""
         from .resources.promo_codes import PromoCodesResourceWithRawResponse
 
         return PromoCodesResourceWithRawResponse(self._client.promo_codes)
 
     @cached_property
     def courses(self) -> courses.CoursesResourceWithRawResponse:
-        """Courses"""
         from .resources.courses import CoursesResourceWithRawResponse
 
         return CoursesResourceWithRawResponse(self._client.courses)
 
     @cached_property
     def course_chapters(self) -> course_chapters.CourseChaptersResourceWithRawResponse:
-        """Course chapters"""
         from .resources.course_chapters import CourseChaptersResourceWithRawResponse
 
         return CourseChaptersResourceWithRawResponse(self._client.course_chapters)
 
     @cached_property
     def course_lessons(self) -> course_lessons.CourseLessonsResourceWithRawResponse:
-        """Course lessons"""
         from .resources.course_lessons import CourseLessonsResourceWithRawResponse
 
         return CourseLessonsResourceWithRawResponse(self._client.course_lessons)
 
     @cached_property
     def reviews(self) -> reviews.ReviewsResourceWithRawResponse:
-        """Reviews"""
         from .resources.reviews import ReviewsResourceWithRawResponse
 
         return ReviewsResourceWithRawResponse(self._client.reviews)
 
     @cached_property
     def course_students(self) -> course_students.CourseStudentsResourceWithRawResponse:
-        """Course students"""
         from .resources.course_students import CourseStudentsResourceWithRawResponse
 
         return CourseStudentsResourceWithRawResponse(self._client.course_students)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AccessTokensResourceWithRawResponse:
-        """Access tokens"""
         from .resources.access_tokens import AccessTokensResourceWithRawResponse
 
         return AccessTokensResourceWithRawResponse(self._client.access_tokens)
 
     @cached_property
     def notifications(self) -> notifications.NotificationsResourceWithRawResponse:
-        """Notifications"""
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import NotificationsResourceWithRawResponse
 
         return NotificationsResourceWithRawResponse(self._client.notifications)
 
     @cached_property
     def disputes(self) -> disputes.DisputesResourceWithRawResponse:
-        """Disputes"""
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import DisputesResourceWithRawResponse
 
         return DisputesResourceWithRawResponse(self._client.disputes)
 
     @cached_property
     def refunds(self) -> refunds.RefundsResourceWithRawResponse:
-        """Refunds"""
         from .resources.refunds import RefundsResourceWithRawResponse
 
         return RefundsResourceWithRawResponse(self._client.refunds)
 
     @cached_property
     def withdrawals(self) -> withdrawals.WithdrawalsResourceWithRawResponse:
-        """Withdrawals"""
         from .resources.withdrawals import WithdrawalsResourceWithRawResponse
 
         return WithdrawalsResourceWithRawResponse(self._client.withdrawals)
 
     @cached_property
     def account_links(self) -> account_links.AccountLinksResourceWithRawResponse:
-        """Account links"""
         from .resources.account_links import AccountLinksResourceWithRawResponse
 
         return AccountLinksResourceWithRawResponse(self._client.account_links)
 
     @cached_property
     def accounts(self) -> accounts.AccountsResourceWithRawResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
         from .resources.accounts import AccountsResourceWithRawResponse
 
         return AccountsResourceWithRawResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.WalletsResourceWithRawResponse:
-        from .resources.wallets import WalletsResourceWithRawResponse
-
-        return WalletsResourceWithRawResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.FinancialActivityResourceWithRawResponse:
+        """
+        A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+        Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+        """
         from .resources.financial_activity import FinancialActivityResourceWithRawResponse
 
         return FinancialActivityResourceWithRawResponse(self._client.financial_activity)
 
     @cached_property
+    def stats(self) -> stats.StatsResourceWithRawResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
+        from .resources.stats import StatsResourceWithRawResponse
+
+        return StatsResourceWithRawResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.PayoutsResourceWithRawResponse:
+        """
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
+
+        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        """
+        from .resources.payouts import PayoutsResourceWithRawResponse
+
+        return PayoutsResourceWithRawResponse(self._client.payouts)
+
+    @cached_property
+    def partners(self) -> partners.PartnersResourceWithRawResponse:
+        """
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
+        from .resources.partners import PartnersResourceWithRawResponse
+
+        return PartnersResourceWithRawResponse(self._client.partners)
+
+    @cached_property
+    def cards(self) -> cards.CardsResourceWithRawResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.cards import CardsResourceWithRawResponse
+
+        return CardsResourceWithRawResponse(self._client.cards)
+
+    @cached_property
+    def card_transactions(self) -> card_transactions.CardTransactionsResourceWithRawResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import CardTransactionsResourceWithRawResponse
+
+        return CardTransactionsResourceWithRawResponse(self._client.card_transactions)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithRawResponse:
+        """
+        Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+        Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+        """
         from .resources.swaps import SwapsResourceWithRawResponse
 
         return SwapsResourceWithRawResponse(self._client.swaps)
 
     @cached_property
     def deposits(self) -> deposits.DepositsResourceWithRawResponse:
+        """
+        Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+        Use the Deposits API to create deposit instructions for an account.
+        """
         from .resources.deposits import DepositsResourceWithRawResponse
 
         return DepositsResourceWithRawResponse(self._client.deposits)
 
     @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithRawResponse:
-        """Setup intents"""
         from .resources.setup_intents import SetupIntentsResourceWithRawResponse
 
         return SetupIntentsResourceWithRawResponse(self._client.setup_intents)
 
     @cached_property
     def payment_methods(self) -> payment_methods.PaymentMethodsResourceWithRawResponse:
-        """Payment methods"""
         from .resources.payment_methods import PaymentMethodsResourceWithRawResponse
 
         return PaymentMethodsResourceWithRawResponse(self._client.payment_methods)
 
     @cached_property
     def fee_markups(self) -> fee_markups.FeeMarkupsResourceWithRawResponse:
-        """Fee markups"""
         from .resources.fee_markups import FeeMarkupsResourceWithRawResponse
 
         return FeeMarkupsResourceWithRawResponse(self._client.fee_markups)
 
     @cached_property
-    def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithRawResponse:
-        """Payout methods"""
-        from .resources.payout_methods import PayoutMethodsResourceWithRawResponse
-
-        return PayoutMethodsResourceWithRawResponse(self._client.payout_methods)
-
-    @cached_property
     def verifications(self) -> verifications.VerificationsResourceWithRawResponse:
-        """Verifications"""
+        """A Verification represents a legal identity for a person or business.
+
+        Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+        Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+        """
         from .resources.verifications import VerificationsResourceWithRawResponse
 
         return VerificationsResourceWithRawResponse(self._client.verifications)
 
     @cached_property
     def leads(self) -> leads.LeadsResourceWithRawResponse:
-        """Leads"""
         from .resources.leads import LeadsResourceWithRawResponse
 
         return LeadsResourceWithRawResponse(self._client.leads)
 
     @cached_property
     def topups(self) -> topups.TopupsResourceWithRawResponse:
-        """Topups"""
         from .resources.topups import TopupsResourceWithRawResponse
 
         return TopupsResourceWithRawResponse(self._client.topups)
 
     @cached_property
     def files(self) -> files.FilesResourceWithRawResponse:
-        """Files"""
         from .resources.files import FilesResourceWithRawResponse
 
         return FilesResourceWithRawResponse(self._client.files)
 
     @cached_property
     def company_token_transactions(self) -> company_token_transactions.CompanyTokenTransactionsResourceWithRawResponse:
-        """Company token transactions"""
         from .resources.company_token_transactions import CompanyTokenTransactionsResourceWithRawResponse
 
         return CompanyTokenTransactionsResourceWithRawResponse(self._client.company_token_transactions)
 
     @cached_property
     def dm_members(self) -> dm_members.DmMembersResourceWithRawResponse:
-        """Dm members"""
         from .resources.dm_members import DmMembersResourceWithRawResponse
 
         return DmMembersResourceWithRawResponse(self._client.dm_members)
 
     @cached_property
     def ai_chats(self) -> ai_chats.AIChatsResourceWithRawResponse:
-        """Ai chats"""
         from .resources.ai_chats import AIChatsResourceWithRawResponse
 
         return AIChatsResourceWithRawResponse(self._client.ai_chats)
 
     @cached_property
     def dm_channels(self) -> dm_channels.DmChannelsResourceWithRawResponse:
-        """Dm channels"""
         from .resources.dm_channels import DmChannelsResourceWithRawResponse
 
         return DmChannelsResourceWithRawResponse(self._client.dm_channels)
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.DisputeAlertsResourceWithRawResponse:
-        """Dispute alerts"""
         from .resources.dispute_alerts import DisputeAlertsResourceWithRawResponse
 
         return DisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
 
     @cached_property
     def resolution_center_cases(self) -> resolution_center_cases.ResolutionCenterCasesResourceWithRawResponse:
-        """Resolution center cases"""
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import ResolutionCenterCasesResourceWithRawResponse
 
         return ResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
 
     @cached_property
     def payout_accounts(self) -> payout_accounts.PayoutAccountsResourceWithRawResponse:
-        """Payout accounts"""
         from .resources.payout_accounts import PayoutAccountsResourceWithRawResponse
 
         return PayoutAccountsResourceWithRawResponse(self._client.payout_accounts)
 
     @cached_property
     def affiliates(self) -> affiliates.AffiliatesResourceWithRawResponse:
-        """Affiliates"""
         from .resources.affiliates import AffiliatesResourceWithRawResponse
 
         return AffiliatesResourceWithRawResponse(self._client.affiliates)
 
     @cached_property
     def bounties(self) -> bounties.BountiesResourceWithRawResponse:
-        """Bounties"""
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import BountiesResourceWithRawResponse
 
         return BountiesResourceWithRawResponse(self._client.bounties)
 
     @cached_property
+    def bounty_submissions(self) -> bounty_submissions.BountySubmissionsResourceWithRawResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
+
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import BountySubmissionsResourceWithRawResponse
+
+        return BountySubmissionsResourceWithRawResponse(self._client.bounty_submissions)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithRawResponse:
-        """Ad campaigns"""
+        """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+        It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+        Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+        """
         from .resources.ad_campaigns import AdCampaignsResourceWithRawResponse
 
         return AdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AdGroupsResourceWithRawResponse:
-        """Ad groups"""
+        """
+        An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+        Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
+        """
         from .resources.ad_groups import AdGroupsResourceWithRawResponse
 
         return AdGroupsResourceWithRawResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AdsResourceWithRawResponse:
-        """Ads"""
+        """
+        An Ad is the individual creative unit delivered by an [ad group](/api-reference/beta/ad-groups/ad-group). It holds the copy, creative assets, and destination URL for one ad.
+
+        Use the Ads API to list ads for an account, create ads inside ad groups, retrieve or update creative details, delete ads that should stop running, and pause or resume delivery.
+        """
         from .resources.ads import AdsResourceWithRawResponse
 
         return AdsResourceWithRawResponse(self._client.ads)
 
     @cached_property
-    def conversions(self) -> conversions.ConversionsResourceWithRawResponse:
-        """Conversions"""
-        from .resources.conversions import ConversionsResourceWithRawResponse
-
-        return ConversionsResourceWithRawResponse(self._client.conversions)
-
-    @cached_property
     def ad_reports(self) -> ad_reports.AdReportsResourceWithRawResponse:
-        """Ad reports"""
         from .resources.ad_reports import AdReportsResourceWithRawResponse
 
         return AdReportsResourceWithRawResponse(self._client.ad_reports)
@@ -1930,14 +2624,41 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def apps(self) -> apps.AsyncAppsResourceWithRawResponse:
-        """Apps"""
+        """An App is software you build on Whop.
+
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        """
         from .resources.apps import AsyncAppsResourceWithRawResponse
 
         return AsyncAppsResourceWithRawResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import AsyncAPIKeysResourceWithRawResponse
+
+        return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
+
+    @cached_property
+    def permissions(self) -> permissions.AsyncPermissionsResourceWithRawResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import AsyncPermissionsResourceWithRawResponse
+
+        return AsyncPermissionsResourceWithRawResponse(self._client.permissions)
+
+    @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithRawResponse:
-        """Invoices"""
         from .resources.invoices import AsyncInvoicesResourceWithRawResponse
 
         return AsyncInvoicesResourceWithRawResponse(self._client.invoices)
@@ -1946,330 +2667,506 @@ class AsyncWhopWithRawResponse:
     def course_lesson_interactions(
         self,
     ) -> course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithRawResponse:
-        """Course lesson interactions"""
         from .resources.course_lesson_interactions import AsyncCourseLessonInteractionsResourceWithRawResponse
 
         return AsyncCourseLessonInteractionsResourceWithRawResponse(self._client.course_lesson_interactions)
 
     @cached_property
     def products(self) -> products.AsyncProductsResourceWithRawResponse:
-        """Products"""
+        """A Product is a digital good or service sold on Whop.
+
+        Products may contain plans for pricing and/or experiences for content delivery.
+
+        Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+        """
         from .resources.products import AsyncProductsResourceWithRawResponse
 
         return AsyncProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithRawResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
+        """
+        from .resources.social_accounts import AsyncSocialAccountsResourceWithRawResponse
+
+        return AsyncSocialAccountsResourceWithRawResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AsyncAudiencesResourceWithRawResponse:
+        """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+        Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+        Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+        """
+        from .resources.audiences import AsyncAudiencesResourceWithRawResponse
+
+        return AsyncAudiencesResourceWithRawResponse(self._client.audiences)
+
+    @cached_property
+    def media(self) -> media.AsyncMediaResourceWithRawResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
+        from .resources.media import AsyncMediaResourceWithRawResponse
+
+        return AsyncMediaResourceWithRawResponse(self._client.media)
+
+    @cached_property
+    def people(self) -> people.AsyncPeopleResourceWithRawResponse:
+        """
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
+
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
+        """
+        from .resources.people import AsyncPeopleResourceWithRawResponse
+
+        return AsyncPeopleResourceWithRawResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithRawResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+        Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
+        """
+        from .resources.events import AsyncEventsResourceWithRawResponse
+
+        return AsyncEventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithRawResponse:
-        """Companies"""
         from .resources.companies import AsyncCompaniesResourceWithRawResponse
 
         return AsyncCompaniesResourceWithRawResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.AsyncWebhooksResourceWithRawResponse:
-        """Webhooks"""
         from .resources.webhooks import AsyncWebhooksResourceWithRawResponse
 
         return AsyncWebhooksResourceWithRawResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithRawResponse:
-        """Plans"""
+        """A Plan defines how customers buy a product.
+
+        It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+        Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+        """
         from .resources.plans import AsyncPlansResourceWithRawResponse
 
         return AsyncPlansResourceWithRawResponse(self._client.plans)
 
     @cached_property
+    def exports(self) -> exports.AsyncExportsResourceWithRawResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import AsyncExportsResourceWithRawResponse
+
+        return AsyncExportsResourceWithRawResponse(self._client.exports)
+
+    @cached_property
     def entries(self) -> entries.AsyncEntriesResourceWithRawResponse:
-        """Entries"""
         from .resources.entries import AsyncEntriesResourceWithRawResponse
 
         return AsyncEntriesResourceWithRawResponse(self._client.entries)
 
     @cached_property
     def forum_posts(self) -> forum_posts.AsyncForumPostsResourceWithRawResponse:
-        """Forum posts"""
         from .resources.forum_posts import AsyncForumPostsResourceWithRawResponse
 
         return AsyncForumPostsResourceWithRawResponse(self._client.forum_posts)
 
     @cached_property
     def transfers(self) -> transfers.AsyncTransfersResourceWithRawResponse:
-        """Transfers"""
+        """Transfers move value between identities on Whop.
+
+        They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+        Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+        """
         from .resources.transfers import AsyncTransfersResourceWithRawResponse
 
         return AsyncTransfersResourceWithRawResponse(self._client.transfers)
 
     @cached_property
     def ledger_accounts(self) -> ledger_accounts.AsyncLedgerAccountsResourceWithRawResponse:
-        """Ledger accounts"""
         from .resources.ledger_accounts import AsyncLedgerAccountsResourceWithRawResponse
 
         return AsyncLedgerAccountsResourceWithRawResponse(self._client.ledger_accounts)
 
     @cached_property
     def memberships(self) -> memberships.AsyncMembershipsResourceWithRawResponse:
-        """Memberships"""
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import AsyncMembershipsResourceWithRawResponse
 
         return AsyncMembershipsResourceWithRawResponse(self._client.memberships)
 
     @cached_property
     def authorized_users(self) -> authorized_users.AsyncAuthorizedUsersResourceWithRawResponse:
-        """Authorized users"""
         from .resources.authorized_users import AsyncAuthorizedUsersResourceWithRawResponse
 
         return AsyncAuthorizedUsersResourceWithRawResponse(self._client.authorized_users)
 
     @cached_property
+    def team_members(self) -> team_members.AsyncTeamMembersResourceWithRawResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import AsyncTeamMembersResourceWithRawResponse
+
+        return AsyncTeamMembersResourceWithRawResponse(self._client.team_members)
+
+    @cached_property
     def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithRawResponse:
-        """App builds"""
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AsyncAppBuildsResourceWithRawResponse
 
         return AsyncAppBuildsResourceWithRawResponse(self._client.app_builds)
 
     @cached_property
     def shipments(self) -> shipments.AsyncShipmentsResourceWithRawResponse:
-        """Shipments"""
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import AsyncShipmentsResourceWithRawResponse
 
         return AsyncShipmentsResourceWithRawResponse(self._client.shipments)
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithRawResponse:
-        """Checkout configurations"""
+        """A Checkout Configuration is a reusable checkout link owned by an account.
+
+        In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+        Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+        """
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithRawResponse
 
         return AsyncCheckoutConfigurationsResourceWithRawResponse(self._client.checkout_configurations)
 
     @cached_property
     def messages(self) -> messages.AsyncMessagesResourceWithRawResponse:
-        """Messages"""
         from .resources.messages import AsyncMessagesResourceWithRawResponse
 
         return AsyncMessagesResourceWithRawResponse(self._client.messages)
 
     @cached_property
     def chat_channels(self) -> chat_channels.AsyncChatChannelsResourceWithRawResponse:
-        """Chat channels"""
         from .resources.chat_channels import AsyncChatChannelsResourceWithRawResponse
 
         return AsyncChatChannelsResourceWithRawResponse(self._client.chat_channels)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithRawResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
         from .resources.users import AsyncUsersResourceWithRawResponse
 
         return AsyncUsersResourceWithRawResponse(self._client.users)
 
     @cached_property
     def payments(self) -> payments.AsyncPaymentsResourceWithRawResponse:
-        """Payments"""
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import AsyncPaymentsResourceWithRawResponse
 
         return AsyncPaymentsResourceWithRawResponse(self._client.payments)
 
     @cached_property
     def support_channels(self) -> support_channels.AsyncSupportChannelsResourceWithRawResponse:
-        """Support channels"""
         from .resources.support_channels import AsyncSupportChannelsResourceWithRawResponse
 
         return AsyncSupportChannelsResourceWithRawResponse(self._client.support_channels)
 
     @cached_property
     def experiences(self) -> experiences.AsyncExperiencesResourceWithRawResponse:
-        """Experiences"""
         from .resources.experiences import AsyncExperiencesResourceWithRawResponse
 
         return AsyncExperiencesResourceWithRawResponse(self._client.experiences)
 
     @cached_property
     def reactions(self) -> reactions.AsyncReactionsResourceWithRawResponse:
-        """Reactions"""
         from .resources.reactions import AsyncReactionsResourceWithRawResponse
 
         return AsyncReactionsResourceWithRawResponse(self._client.reactions)
 
     @cached_property
     def members(self) -> members.AsyncMembersResourceWithRawResponse:
-        """Members"""
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import AsyncMembersResourceWithRawResponse
 
         return AsyncMembersResourceWithRawResponse(self._client.members)
 
     @cached_property
     def forums(self) -> forums.AsyncForumsResourceWithRawResponse:
-        """Forums"""
         from .resources.forums import AsyncForumsResourceWithRawResponse
 
         return AsyncForumsResourceWithRawResponse(self._client.forums)
 
     @cached_property
     def promo_codes(self) -> promo_codes.AsyncPromoCodesResourceWithRawResponse:
-        """Promo codes"""
         from .resources.promo_codes import AsyncPromoCodesResourceWithRawResponse
 
         return AsyncPromoCodesResourceWithRawResponse(self._client.promo_codes)
 
     @cached_property
     def courses(self) -> courses.AsyncCoursesResourceWithRawResponse:
-        """Courses"""
         from .resources.courses import AsyncCoursesResourceWithRawResponse
 
         return AsyncCoursesResourceWithRawResponse(self._client.courses)
 
     @cached_property
     def course_chapters(self) -> course_chapters.AsyncCourseChaptersResourceWithRawResponse:
-        """Course chapters"""
         from .resources.course_chapters import AsyncCourseChaptersResourceWithRawResponse
 
         return AsyncCourseChaptersResourceWithRawResponse(self._client.course_chapters)
 
     @cached_property
     def course_lessons(self) -> course_lessons.AsyncCourseLessonsResourceWithRawResponse:
-        """Course lessons"""
         from .resources.course_lessons import AsyncCourseLessonsResourceWithRawResponse
 
         return AsyncCourseLessonsResourceWithRawResponse(self._client.course_lessons)
 
     @cached_property
     def reviews(self) -> reviews.AsyncReviewsResourceWithRawResponse:
-        """Reviews"""
         from .resources.reviews import AsyncReviewsResourceWithRawResponse
 
         return AsyncReviewsResourceWithRawResponse(self._client.reviews)
 
     @cached_property
     def course_students(self) -> course_students.AsyncCourseStudentsResourceWithRawResponse:
-        """Course students"""
         from .resources.course_students import AsyncCourseStudentsResourceWithRawResponse
 
         return AsyncCourseStudentsResourceWithRawResponse(self._client.course_students)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithRawResponse:
-        """Access tokens"""
         from .resources.access_tokens import AsyncAccessTokensResourceWithRawResponse
 
         return AsyncAccessTokensResourceWithRawResponse(self._client.access_tokens)
 
     @cached_property
     def notifications(self) -> notifications.AsyncNotificationsResourceWithRawResponse:
-        """Notifications"""
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import AsyncNotificationsResourceWithRawResponse
 
         return AsyncNotificationsResourceWithRawResponse(self._client.notifications)
 
     @cached_property
     def disputes(self) -> disputes.AsyncDisputesResourceWithRawResponse:
-        """Disputes"""
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import AsyncDisputesResourceWithRawResponse
 
         return AsyncDisputesResourceWithRawResponse(self._client.disputes)
 
     @cached_property
     def refunds(self) -> refunds.AsyncRefundsResourceWithRawResponse:
-        """Refunds"""
         from .resources.refunds import AsyncRefundsResourceWithRawResponse
 
         return AsyncRefundsResourceWithRawResponse(self._client.refunds)
 
     @cached_property
     def withdrawals(self) -> withdrawals.AsyncWithdrawalsResourceWithRawResponse:
-        """Withdrawals"""
         from .resources.withdrawals import AsyncWithdrawalsResourceWithRawResponse
 
         return AsyncWithdrawalsResourceWithRawResponse(self._client.withdrawals)
 
     @cached_property
     def account_links(self) -> account_links.AsyncAccountLinksResourceWithRawResponse:
-        """Account links"""
         from .resources.account_links import AsyncAccountLinksResourceWithRawResponse
 
         return AsyncAccountLinksResourceWithRawResponse(self._client.account_links)
 
     @cached_property
     def accounts(self) -> accounts.AsyncAccountsResourceWithRawResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
         from .resources.accounts import AsyncAccountsResourceWithRawResponse
 
         return AsyncAccountsResourceWithRawResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.AsyncWalletsResourceWithRawResponse:
-        from .resources.wallets import AsyncWalletsResourceWithRawResponse
-
-        return AsyncWalletsResourceWithRawResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithRawResponse:
+        """
+        A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+        Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+        """
         from .resources.financial_activity import AsyncFinancialActivityResourceWithRawResponse
 
         return AsyncFinancialActivityResourceWithRawResponse(self._client.financial_activity)
 
     @cached_property
+    def stats(self) -> stats.AsyncStatsResourceWithRawResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
+        from .resources.stats import AsyncStatsResourceWithRawResponse
+
+        return AsyncStatsResourceWithRawResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.AsyncPayoutsResourceWithRawResponse:
+        """
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
+
+        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        """
+        from .resources.payouts import AsyncPayoutsResourceWithRawResponse
+
+        return AsyncPayoutsResourceWithRawResponse(self._client.payouts)
+
+    @cached_property
+    def partners(self) -> partners.AsyncPartnersResourceWithRawResponse:
+        """
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
+        from .resources.partners import AsyncPartnersResourceWithRawResponse
+
+        return AsyncPartnersResourceWithRawResponse(self._client.partners)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithRawResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.cards import AsyncCardsResourceWithRawResponse
+
+        return AsyncCardsResourceWithRawResponse(self._client.cards)
+
+    @cached_property
+    def card_transactions(self) -> card_transactions.AsyncCardTransactionsResourceWithRawResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import AsyncCardTransactionsResourceWithRawResponse
+
+        return AsyncCardTransactionsResourceWithRawResponse(self._client.card_transactions)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithRawResponse:
+        """
+        Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+        Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+        """
         from .resources.swaps import AsyncSwapsResourceWithRawResponse
 
         return AsyncSwapsResourceWithRawResponse(self._client.swaps)
 
     @cached_property
     def deposits(self) -> deposits.AsyncDepositsResourceWithRawResponse:
+        """
+        Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+        Use the Deposits API to create deposit instructions for an account.
+        """
         from .resources.deposits import AsyncDepositsResourceWithRawResponse
 
         return AsyncDepositsResourceWithRawResponse(self._client.deposits)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithRawResponse:
-        """Setup intents"""
         from .resources.setup_intents import AsyncSetupIntentsResourceWithRawResponse
 
         return AsyncSetupIntentsResourceWithRawResponse(self._client.setup_intents)
 
     @cached_property
     def payment_methods(self) -> payment_methods.AsyncPaymentMethodsResourceWithRawResponse:
-        """Payment methods"""
         from .resources.payment_methods import AsyncPaymentMethodsResourceWithRawResponse
 
         return AsyncPaymentMethodsResourceWithRawResponse(self._client.payment_methods)
 
     @cached_property
     def fee_markups(self) -> fee_markups.AsyncFeeMarkupsResourceWithRawResponse:
-        """Fee markups"""
         from .resources.fee_markups import AsyncFeeMarkupsResourceWithRawResponse
 
         return AsyncFeeMarkupsResourceWithRawResponse(self._client.fee_markups)
 
     @cached_property
-    def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithRawResponse:
-        """Payout methods"""
-        from .resources.payout_methods import AsyncPayoutMethodsResourceWithRawResponse
-
-        return AsyncPayoutMethodsResourceWithRawResponse(self._client.payout_methods)
-
-    @cached_property
     def verifications(self) -> verifications.AsyncVerificationsResourceWithRawResponse:
-        """Verifications"""
+        """A Verification represents a legal identity for a person or business.
+
+        Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+        Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+        """
         from .resources.verifications import AsyncVerificationsResourceWithRawResponse
 
         return AsyncVerificationsResourceWithRawResponse(self._client.verifications)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithRawResponse:
-        """Leads"""
         from .resources.leads import AsyncLeadsResourceWithRawResponse
 
         return AsyncLeadsResourceWithRawResponse(self._client.leads)
 
     @cached_property
     def topups(self) -> topups.AsyncTopupsResourceWithRawResponse:
-        """Topups"""
         from .resources.topups import AsyncTopupsResourceWithRawResponse
 
         return AsyncTopupsResourceWithRawResponse(self._client.topups)
 
     @cached_property
     def files(self) -> files.AsyncFilesResourceWithRawResponse:
-        """Files"""
         from .resources.files import AsyncFilesResourceWithRawResponse
 
         return AsyncFilesResourceWithRawResponse(self._client.files)
@@ -2278,98 +3175,117 @@ class AsyncWhopWithRawResponse:
     def company_token_transactions(
         self,
     ) -> company_token_transactions.AsyncCompanyTokenTransactionsResourceWithRawResponse:
-        """Company token transactions"""
         from .resources.company_token_transactions import AsyncCompanyTokenTransactionsResourceWithRawResponse
 
         return AsyncCompanyTokenTransactionsResourceWithRawResponse(self._client.company_token_transactions)
 
     @cached_property
     def dm_members(self) -> dm_members.AsyncDmMembersResourceWithRawResponse:
-        """Dm members"""
         from .resources.dm_members import AsyncDmMembersResourceWithRawResponse
 
         return AsyncDmMembersResourceWithRawResponse(self._client.dm_members)
 
     @cached_property
     def ai_chats(self) -> ai_chats.AsyncAIChatsResourceWithRawResponse:
-        """Ai chats"""
         from .resources.ai_chats import AsyncAIChatsResourceWithRawResponse
 
         return AsyncAIChatsResourceWithRawResponse(self._client.ai_chats)
 
     @cached_property
     def dm_channels(self) -> dm_channels.AsyncDmChannelsResourceWithRawResponse:
-        """Dm channels"""
         from .resources.dm_channels import AsyncDmChannelsResourceWithRawResponse
 
         return AsyncDmChannelsResourceWithRawResponse(self._client.dm_channels)
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.AsyncDisputeAlertsResourceWithRawResponse:
-        """Dispute alerts"""
         from .resources.dispute_alerts import AsyncDisputeAlertsResourceWithRawResponse
 
         return AsyncDisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
 
     @cached_property
     def resolution_center_cases(self) -> resolution_center_cases.AsyncResolutionCenterCasesResourceWithRawResponse:
-        """Resolution center cases"""
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import AsyncResolutionCenterCasesResourceWithRawResponse
 
         return AsyncResolutionCenterCasesResourceWithRawResponse(self._client.resolution_center_cases)
 
     @cached_property
     def payout_accounts(self) -> payout_accounts.AsyncPayoutAccountsResourceWithRawResponse:
-        """Payout accounts"""
         from .resources.payout_accounts import AsyncPayoutAccountsResourceWithRawResponse
 
         return AsyncPayoutAccountsResourceWithRawResponse(self._client.payout_accounts)
 
     @cached_property
     def affiliates(self) -> affiliates.AsyncAffiliatesResourceWithRawResponse:
-        """Affiliates"""
         from .resources.affiliates import AsyncAffiliatesResourceWithRawResponse
 
         return AsyncAffiliatesResourceWithRawResponse(self._client.affiliates)
 
     @cached_property
     def bounties(self) -> bounties.AsyncBountiesResourceWithRawResponse:
-        """Bounties"""
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import AsyncBountiesResourceWithRawResponse
 
         return AsyncBountiesResourceWithRawResponse(self._client.bounties)
 
     @cached_property
+    def bounty_submissions(self) -> bounty_submissions.AsyncBountySubmissionsResourceWithRawResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
+
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import AsyncBountySubmissionsResourceWithRawResponse
+
+        return AsyncBountySubmissionsResourceWithRawResponse(self._client.bounty_submissions)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithRawResponse:
-        """Ad campaigns"""
+        """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+        It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+        Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+        """
         from .resources.ad_campaigns import AsyncAdCampaignsResourceWithRawResponse
 
         return AsyncAdCampaignsResourceWithRawResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithRawResponse:
-        """Ad groups"""
+        """
+        An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+        Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
+        """
         from .resources.ad_groups import AsyncAdGroupsResourceWithRawResponse
 
         return AsyncAdGroupsResourceWithRawResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AsyncAdsResourceWithRawResponse:
-        """Ads"""
+        """
+        An Ad is the individual creative unit delivered by an [ad group](/api-reference/beta/ad-groups/ad-group). It holds the copy, creative assets, and destination URL for one ad.
+
+        Use the Ads API to list ads for an account, create ads inside ad groups, retrieve or update creative details, delete ads that should stop running, and pause or resume delivery.
+        """
         from .resources.ads import AsyncAdsResourceWithRawResponse
 
         return AsyncAdsResourceWithRawResponse(self._client.ads)
 
     @cached_property
-    def conversions(self) -> conversions.AsyncConversionsResourceWithRawResponse:
-        """Conversions"""
-        from .resources.conversions import AsyncConversionsResourceWithRawResponse
-
-        return AsyncConversionsResourceWithRawResponse(self._client.conversions)
-
-    @cached_property
     def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithRawResponse:
-        """Ad reports"""
         from .resources.ad_reports import AsyncAdReportsResourceWithRawResponse
 
         return AsyncAdReportsResourceWithRawResponse(self._client.ad_reports)
@@ -2383,14 +3299,41 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def apps(self) -> apps.AppsResourceWithStreamingResponse:
-        """Apps"""
+        """An App is software you build on Whop.
+
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        """
         from .resources.apps import AppsResourceWithStreamingResponse
 
         return AppsResourceWithStreamingResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import APIKeysResourceWithStreamingResponse
+
+        return APIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
+    def permissions(self) -> permissions.PermissionsResourceWithStreamingResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import PermissionsResourceWithStreamingResponse
+
+        return PermissionsResourceWithStreamingResponse(self._client.permissions)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithStreamingResponse:
-        """Invoices"""
         from .resources.invoices import InvoicesResourceWithStreamingResponse
 
         return InvoicesResourceWithStreamingResponse(self._client.invoices)
@@ -2399,330 +3342,506 @@ class WhopWithStreamedResponse:
     def course_lesson_interactions(
         self,
     ) -> course_lesson_interactions.CourseLessonInteractionsResourceWithStreamingResponse:
-        """Course lesson interactions"""
         from .resources.course_lesson_interactions import CourseLessonInteractionsResourceWithStreamingResponse
 
         return CourseLessonInteractionsResourceWithStreamingResponse(self._client.course_lesson_interactions)
 
     @cached_property
     def products(self) -> products.ProductsResourceWithStreamingResponse:
-        """Products"""
+        """A Product is a digital good or service sold on Whop.
+
+        Products may contain plans for pricing and/or experiences for content delivery.
+
+        Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+        """
         from .resources.products import ProductsResourceWithStreamingResponse
 
         return ProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.SocialAccountsResourceWithStreamingResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
+        """
+        from .resources.social_accounts import SocialAccountsResourceWithStreamingResponse
+
+        return SocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AudiencesResourceWithStreamingResponse:
+        """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+        Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+        Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+        """
+        from .resources.audiences import AudiencesResourceWithStreamingResponse
+
+        return AudiencesResourceWithStreamingResponse(self._client.audiences)
+
+    @cached_property
+    def media(self) -> media.MediaResourceWithStreamingResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
+        from .resources.media import MediaResourceWithStreamingResponse
+
+        return MediaResourceWithStreamingResponse(self._client.media)
+
+    @cached_property
+    def people(self) -> people.PeopleResourceWithStreamingResponse:
+        """
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
+
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
+        """
+        from .resources.people import PeopleResourceWithStreamingResponse
+
+        return PeopleResourceWithStreamingResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithStreamingResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+        Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
+        """
+        from .resources.events import EventsResourceWithStreamingResponse
+
+        return EventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
     def companies(self) -> companies.CompaniesResourceWithStreamingResponse:
-        """Companies"""
         from .resources.companies import CompaniesResourceWithStreamingResponse
 
         return CompaniesResourceWithStreamingResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.WebhooksResourceWithStreamingResponse:
-        """Webhooks"""
         from .resources.webhooks import WebhooksResourceWithStreamingResponse
 
         return WebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.PlansResourceWithStreamingResponse:
-        """Plans"""
+        """A Plan defines how customers buy a product.
+
+        It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+        Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+        """
         from .resources.plans import PlansResourceWithStreamingResponse
 
         return PlansResourceWithStreamingResponse(self._client.plans)
 
     @cached_property
+    def exports(self) -> exports.ExportsResourceWithStreamingResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import ExportsResourceWithStreamingResponse
+
+        return ExportsResourceWithStreamingResponse(self._client.exports)
+
+    @cached_property
     def entries(self) -> entries.EntriesResourceWithStreamingResponse:
-        """Entries"""
         from .resources.entries import EntriesResourceWithStreamingResponse
 
         return EntriesResourceWithStreamingResponse(self._client.entries)
 
     @cached_property
     def forum_posts(self) -> forum_posts.ForumPostsResourceWithStreamingResponse:
-        """Forum posts"""
         from .resources.forum_posts import ForumPostsResourceWithStreamingResponse
 
         return ForumPostsResourceWithStreamingResponse(self._client.forum_posts)
 
     @cached_property
     def transfers(self) -> transfers.TransfersResourceWithStreamingResponse:
-        """Transfers"""
+        """Transfers move value between identities on Whop.
+
+        They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+        Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+        """
         from .resources.transfers import TransfersResourceWithStreamingResponse
 
         return TransfersResourceWithStreamingResponse(self._client.transfers)
 
     @cached_property
     def ledger_accounts(self) -> ledger_accounts.LedgerAccountsResourceWithStreamingResponse:
-        """Ledger accounts"""
         from .resources.ledger_accounts import LedgerAccountsResourceWithStreamingResponse
 
         return LedgerAccountsResourceWithStreamingResponse(self._client.ledger_accounts)
 
     @cached_property
     def memberships(self) -> memberships.MembershipsResourceWithStreamingResponse:
-        """Memberships"""
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import MembershipsResourceWithStreamingResponse
 
         return MembershipsResourceWithStreamingResponse(self._client.memberships)
 
     @cached_property
     def authorized_users(self) -> authorized_users.AuthorizedUsersResourceWithStreamingResponse:
-        """Authorized users"""
         from .resources.authorized_users import AuthorizedUsersResourceWithStreamingResponse
 
         return AuthorizedUsersResourceWithStreamingResponse(self._client.authorized_users)
 
     @cached_property
+    def team_members(self) -> team_members.TeamMembersResourceWithStreamingResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import TeamMembersResourceWithStreamingResponse
+
+        return TeamMembersResourceWithStreamingResponse(self._client.team_members)
+
+    @cached_property
     def app_builds(self) -> app_builds.AppBuildsResourceWithStreamingResponse:
-        """App builds"""
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AppBuildsResourceWithStreamingResponse
 
         return AppBuildsResourceWithStreamingResponse(self._client.app_builds)
 
     @cached_property
     def shipments(self) -> shipments.ShipmentsResourceWithStreamingResponse:
-        """Shipments"""
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import ShipmentsResourceWithStreamingResponse
 
         return ShipmentsResourceWithStreamingResponse(self._client.shipments)
 
     @cached_property
     def checkout_configurations(self) -> checkout_configurations.CheckoutConfigurationsResourceWithStreamingResponse:
-        """Checkout configurations"""
+        """A Checkout Configuration is a reusable checkout link owned by an account.
+
+        In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+        Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+        """
         from .resources.checkout_configurations import CheckoutConfigurationsResourceWithStreamingResponse
 
         return CheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)
 
     @cached_property
     def messages(self) -> messages.MessagesResourceWithStreamingResponse:
-        """Messages"""
         from .resources.messages import MessagesResourceWithStreamingResponse
 
         return MessagesResourceWithStreamingResponse(self._client.messages)
 
     @cached_property
     def chat_channels(self) -> chat_channels.ChatChannelsResourceWithStreamingResponse:
-        """Chat channels"""
         from .resources.chat_channels import ChatChannelsResourceWithStreamingResponse
 
         return ChatChannelsResourceWithStreamingResponse(self._client.chat_channels)
 
     @cached_property
     def users(self) -> users.UsersResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
         from .resources.users import UsersResourceWithStreamingResponse
 
         return UsersResourceWithStreamingResponse(self._client.users)
 
     @cached_property
     def payments(self) -> payments.PaymentsResourceWithStreamingResponse:
-        """Payments"""
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import PaymentsResourceWithStreamingResponse
 
         return PaymentsResourceWithStreamingResponse(self._client.payments)
 
     @cached_property
     def support_channels(self) -> support_channels.SupportChannelsResourceWithStreamingResponse:
-        """Support channels"""
         from .resources.support_channels import SupportChannelsResourceWithStreamingResponse
 
         return SupportChannelsResourceWithStreamingResponse(self._client.support_channels)
 
     @cached_property
     def experiences(self) -> experiences.ExperiencesResourceWithStreamingResponse:
-        """Experiences"""
         from .resources.experiences import ExperiencesResourceWithStreamingResponse
 
         return ExperiencesResourceWithStreamingResponse(self._client.experiences)
 
     @cached_property
     def reactions(self) -> reactions.ReactionsResourceWithStreamingResponse:
-        """Reactions"""
         from .resources.reactions import ReactionsResourceWithStreamingResponse
 
         return ReactionsResourceWithStreamingResponse(self._client.reactions)
 
     @cached_property
     def members(self) -> members.MembersResourceWithStreamingResponse:
-        """Members"""
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import MembersResourceWithStreamingResponse
 
         return MembersResourceWithStreamingResponse(self._client.members)
 
     @cached_property
     def forums(self) -> forums.ForumsResourceWithStreamingResponse:
-        """Forums"""
         from .resources.forums import ForumsResourceWithStreamingResponse
 
         return ForumsResourceWithStreamingResponse(self._client.forums)
 
     @cached_property
     def promo_codes(self) -> promo_codes.PromoCodesResourceWithStreamingResponse:
-        """Promo codes"""
         from .resources.promo_codes import PromoCodesResourceWithStreamingResponse
 
         return PromoCodesResourceWithStreamingResponse(self._client.promo_codes)
 
     @cached_property
     def courses(self) -> courses.CoursesResourceWithStreamingResponse:
-        """Courses"""
         from .resources.courses import CoursesResourceWithStreamingResponse
 
         return CoursesResourceWithStreamingResponse(self._client.courses)
 
     @cached_property
     def course_chapters(self) -> course_chapters.CourseChaptersResourceWithStreamingResponse:
-        """Course chapters"""
         from .resources.course_chapters import CourseChaptersResourceWithStreamingResponse
 
         return CourseChaptersResourceWithStreamingResponse(self._client.course_chapters)
 
     @cached_property
     def course_lessons(self) -> course_lessons.CourseLessonsResourceWithStreamingResponse:
-        """Course lessons"""
         from .resources.course_lessons import CourseLessonsResourceWithStreamingResponse
 
         return CourseLessonsResourceWithStreamingResponse(self._client.course_lessons)
 
     @cached_property
     def reviews(self) -> reviews.ReviewsResourceWithStreamingResponse:
-        """Reviews"""
         from .resources.reviews import ReviewsResourceWithStreamingResponse
 
         return ReviewsResourceWithStreamingResponse(self._client.reviews)
 
     @cached_property
     def course_students(self) -> course_students.CourseStudentsResourceWithStreamingResponse:
-        """Course students"""
         from .resources.course_students import CourseStudentsResourceWithStreamingResponse
 
         return CourseStudentsResourceWithStreamingResponse(self._client.course_students)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AccessTokensResourceWithStreamingResponse:
-        """Access tokens"""
         from .resources.access_tokens import AccessTokensResourceWithStreamingResponse
 
         return AccessTokensResourceWithStreamingResponse(self._client.access_tokens)
 
     @cached_property
     def notifications(self) -> notifications.NotificationsResourceWithStreamingResponse:
-        """Notifications"""
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import NotificationsResourceWithStreamingResponse
 
         return NotificationsResourceWithStreamingResponse(self._client.notifications)
 
     @cached_property
     def disputes(self) -> disputes.DisputesResourceWithStreamingResponse:
-        """Disputes"""
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import DisputesResourceWithStreamingResponse
 
         return DisputesResourceWithStreamingResponse(self._client.disputes)
 
     @cached_property
     def refunds(self) -> refunds.RefundsResourceWithStreamingResponse:
-        """Refunds"""
         from .resources.refunds import RefundsResourceWithStreamingResponse
 
         return RefundsResourceWithStreamingResponse(self._client.refunds)
 
     @cached_property
     def withdrawals(self) -> withdrawals.WithdrawalsResourceWithStreamingResponse:
-        """Withdrawals"""
         from .resources.withdrawals import WithdrawalsResourceWithStreamingResponse
 
         return WithdrawalsResourceWithStreamingResponse(self._client.withdrawals)
 
     @cached_property
     def account_links(self) -> account_links.AccountLinksResourceWithStreamingResponse:
-        """Account links"""
         from .resources.account_links import AccountLinksResourceWithStreamingResponse
 
         return AccountLinksResourceWithStreamingResponse(self._client.account_links)
 
     @cached_property
     def accounts(self) -> accounts.AccountsResourceWithStreamingResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
         from .resources.accounts import AccountsResourceWithStreamingResponse
 
         return AccountsResourceWithStreamingResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.WalletsResourceWithStreamingResponse:
-        from .resources.wallets import WalletsResourceWithStreamingResponse
-
-        return WalletsResourceWithStreamingResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.FinancialActivityResourceWithStreamingResponse:
+        """
+        A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+        Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+        """
         from .resources.financial_activity import FinancialActivityResourceWithStreamingResponse
 
         return FinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
 
     @cached_property
+    def stats(self) -> stats.StatsResourceWithStreamingResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
+        from .resources.stats import StatsResourceWithStreamingResponse
+
+        return StatsResourceWithStreamingResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.PayoutsResourceWithStreamingResponse:
+        """
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
+
+        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        """
+        from .resources.payouts import PayoutsResourceWithStreamingResponse
+
+        return PayoutsResourceWithStreamingResponse(self._client.payouts)
+
+    @cached_property
+    def partners(self) -> partners.PartnersResourceWithStreamingResponse:
+        """
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
+        from .resources.partners import PartnersResourceWithStreamingResponse
+
+        return PartnersResourceWithStreamingResponse(self._client.partners)
+
+    @cached_property
+    def cards(self) -> cards.CardsResourceWithStreamingResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.cards import CardsResourceWithStreamingResponse
+
+        return CardsResourceWithStreamingResponse(self._client.cards)
+
+    @cached_property
+    def card_transactions(self) -> card_transactions.CardTransactionsResourceWithStreamingResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import CardTransactionsResourceWithStreamingResponse
+
+        return CardTransactionsResourceWithStreamingResponse(self._client.card_transactions)
+
+    @cached_property
     def swaps(self) -> swaps.SwapsResourceWithStreamingResponse:
+        """
+        Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+        Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+        """
         from .resources.swaps import SwapsResourceWithStreamingResponse
 
         return SwapsResourceWithStreamingResponse(self._client.swaps)
 
     @cached_property
     def deposits(self) -> deposits.DepositsResourceWithStreamingResponse:
+        """
+        Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+        Use the Deposits API to create deposit instructions for an account.
+        """
         from .resources.deposits import DepositsResourceWithStreamingResponse
 
         return DepositsResourceWithStreamingResponse(self._client.deposits)
 
     @cached_property
     def setup_intents(self) -> setup_intents.SetupIntentsResourceWithStreamingResponse:
-        """Setup intents"""
         from .resources.setup_intents import SetupIntentsResourceWithStreamingResponse
 
         return SetupIntentsResourceWithStreamingResponse(self._client.setup_intents)
 
     @cached_property
     def payment_methods(self) -> payment_methods.PaymentMethodsResourceWithStreamingResponse:
-        """Payment methods"""
         from .resources.payment_methods import PaymentMethodsResourceWithStreamingResponse
 
         return PaymentMethodsResourceWithStreamingResponse(self._client.payment_methods)
 
     @cached_property
     def fee_markups(self) -> fee_markups.FeeMarkupsResourceWithStreamingResponse:
-        """Fee markups"""
         from .resources.fee_markups import FeeMarkupsResourceWithStreamingResponse
 
         return FeeMarkupsResourceWithStreamingResponse(self._client.fee_markups)
 
     @cached_property
-    def payout_methods(self) -> payout_methods.PayoutMethodsResourceWithStreamingResponse:
-        """Payout methods"""
-        from .resources.payout_methods import PayoutMethodsResourceWithStreamingResponse
-
-        return PayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
-
-    @cached_property
     def verifications(self) -> verifications.VerificationsResourceWithStreamingResponse:
-        """Verifications"""
+        """A Verification represents a legal identity for a person or business.
+
+        Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+        Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+        """
         from .resources.verifications import VerificationsResourceWithStreamingResponse
 
         return VerificationsResourceWithStreamingResponse(self._client.verifications)
 
     @cached_property
     def leads(self) -> leads.LeadsResourceWithStreamingResponse:
-        """Leads"""
         from .resources.leads import LeadsResourceWithStreamingResponse
 
         return LeadsResourceWithStreamingResponse(self._client.leads)
 
     @cached_property
     def topups(self) -> topups.TopupsResourceWithStreamingResponse:
-        """Topups"""
         from .resources.topups import TopupsResourceWithStreamingResponse
 
         return TopupsResourceWithStreamingResponse(self._client.topups)
 
     @cached_property
     def files(self) -> files.FilesResourceWithStreamingResponse:
-        """Files"""
         from .resources.files import FilesResourceWithStreamingResponse
 
         return FilesResourceWithStreamingResponse(self._client.files)
@@ -2731,98 +3850,117 @@ class WhopWithStreamedResponse:
     def company_token_transactions(
         self,
     ) -> company_token_transactions.CompanyTokenTransactionsResourceWithStreamingResponse:
-        """Company token transactions"""
         from .resources.company_token_transactions import CompanyTokenTransactionsResourceWithStreamingResponse
 
         return CompanyTokenTransactionsResourceWithStreamingResponse(self._client.company_token_transactions)
 
     @cached_property
     def dm_members(self) -> dm_members.DmMembersResourceWithStreamingResponse:
-        """Dm members"""
         from .resources.dm_members import DmMembersResourceWithStreamingResponse
 
         return DmMembersResourceWithStreamingResponse(self._client.dm_members)
 
     @cached_property
     def ai_chats(self) -> ai_chats.AIChatsResourceWithStreamingResponse:
-        """Ai chats"""
         from .resources.ai_chats import AIChatsResourceWithStreamingResponse
 
         return AIChatsResourceWithStreamingResponse(self._client.ai_chats)
 
     @cached_property
     def dm_channels(self) -> dm_channels.DmChannelsResourceWithStreamingResponse:
-        """Dm channels"""
         from .resources.dm_channels import DmChannelsResourceWithStreamingResponse
 
         return DmChannelsResourceWithStreamingResponse(self._client.dm_channels)
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.DisputeAlertsResourceWithStreamingResponse:
-        """Dispute alerts"""
         from .resources.dispute_alerts import DisputeAlertsResourceWithStreamingResponse
 
         return DisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)
 
     @cached_property
     def resolution_center_cases(self) -> resolution_center_cases.ResolutionCenterCasesResourceWithStreamingResponse:
-        """Resolution center cases"""
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import ResolutionCenterCasesResourceWithStreamingResponse
 
         return ResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
 
     @cached_property
     def payout_accounts(self) -> payout_accounts.PayoutAccountsResourceWithStreamingResponse:
-        """Payout accounts"""
         from .resources.payout_accounts import PayoutAccountsResourceWithStreamingResponse
 
         return PayoutAccountsResourceWithStreamingResponse(self._client.payout_accounts)
 
     @cached_property
     def affiliates(self) -> affiliates.AffiliatesResourceWithStreamingResponse:
-        """Affiliates"""
         from .resources.affiliates import AffiliatesResourceWithStreamingResponse
 
         return AffiliatesResourceWithStreamingResponse(self._client.affiliates)
 
     @cached_property
     def bounties(self) -> bounties.BountiesResourceWithStreamingResponse:
-        """Bounties"""
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import BountiesResourceWithStreamingResponse
 
         return BountiesResourceWithStreamingResponse(self._client.bounties)
 
     @cached_property
+    def bounty_submissions(self) -> bounty_submissions.BountySubmissionsResourceWithStreamingResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
+
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import BountySubmissionsResourceWithStreamingResponse
+
+        return BountySubmissionsResourceWithStreamingResponse(self._client.bounty_submissions)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AdCampaignsResourceWithStreamingResponse:
-        """Ad campaigns"""
+        """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+        It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+        Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+        """
         from .resources.ad_campaigns import AdCampaignsResourceWithStreamingResponse
 
         return AdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AdGroupsResourceWithStreamingResponse:
-        """Ad groups"""
+        """
+        An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+        Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
+        """
         from .resources.ad_groups import AdGroupsResourceWithStreamingResponse
 
         return AdGroupsResourceWithStreamingResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AdsResourceWithStreamingResponse:
-        """Ads"""
+        """
+        An Ad is the individual creative unit delivered by an [ad group](/api-reference/beta/ad-groups/ad-group). It holds the copy, creative assets, and destination URL for one ad.
+
+        Use the Ads API to list ads for an account, create ads inside ad groups, retrieve or update creative details, delete ads that should stop running, and pause or resume delivery.
+        """
         from .resources.ads import AdsResourceWithStreamingResponse
 
         return AdsResourceWithStreamingResponse(self._client.ads)
 
     @cached_property
-    def conversions(self) -> conversions.ConversionsResourceWithStreamingResponse:
-        """Conversions"""
-        from .resources.conversions import ConversionsResourceWithStreamingResponse
-
-        return ConversionsResourceWithStreamingResponse(self._client.conversions)
-
-    @cached_property
     def ad_reports(self) -> ad_reports.AdReportsResourceWithStreamingResponse:
-        """Ad reports"""
         from .resources.ad_reports import AdReportsResourceWithStreamingResponse
 
         return AdReportsResourceWithStreamingResponse(self._client.ad_reports)
@@ -2836,14 +3974,41 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def apps(self) -> apps.AsyncAppsResourceWithStreamingResponse:
-        """Apps"""
+        """An App is software you build on Whop.
+
+        It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        """
         from .resources.apps import AsyncAppsResourceWithStreamingResponse
 
         return AsyncAppsResourceWithStreamingResponse(self._client.apps)
 
     @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:
+        """An API Key is a programmatic credential owned by an account or app.
+
+        Each key carries its own permissions policy — explicit permission statements or an inherited system role — and can be restricted with an expiration date and an IP allowlist.
+
+        Use the API Keys API to list an account or app's keys, create a key (the full secret is returned once, on creation), inspect a key's effective grants, update its name or restrictions, rotate its secret, and revoke it. These endpoints require a user session — they cannot be called with an API key.
+        """
+        from .resources.api_keys import AsyncAPIKeysResourceWithStreamingResponse
+
+        return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
+
+    @cached_property
+    def permissions(self) -> permissions.AsyncPermissionsResourceWithStreamingResponse:
+        """
+        A Permission is one action, such as `stats:read`, paired with whether your credential is granted it on a given resource. It answers for whatever you authenticated with, so you can decide what to show or attempt instead of discovering a `403`.
+
+        Use the Permissions API to check an account, product, experience, or app, narrowing to the actions you care about. It reports only your own access — to manage who else can reach an account, use the Team Members API.
+        """
+        from .resources.permissions import AsyncPermissionsResourceWithStreamingResponse
+
+        return AsyncPermissionsResourceWithStreamingResponse(self._client.permissions)
+
+    @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithStreamingResponse:
-        """Invoices"""
         from .resources.invoices import AsyncInvoicesResourceWithStreamingResponse
 
         return AsyncInvoicesResourceWithStreamingResponse(self._client.invoices)
@@ -2852,91 +4017,191 @@ class AsyncWhopWithStreamedResponse:
     def course_lesson_interactions(
         self,
     ) -> course_lesson_interactions.AsyncCourseLessonInteractionsResourceWithStreamingResponse:
-        """Course lesson interactions"""
         from .resources.course_lesson_interactions import AsyncCourseLessonInteractionsResourceWithStreamingResponse
 
         return AsyncCourseLessonInteractionsResourceWithStreamingResponse(self._client.course_lesson_interactions)
 
     @cached_property
     def products(self) -> products.AsyncProductsResourceWithStreamingResponse:
-        """Products"""
+        """A Product is a digital good or service sold on Whop.
+
+        Products may contain plans for pricing and/or experiences for content delivery.
+
+        Use the Products API to create products, list products visible to your credentials, retrieve product details, update product metadata or merchandising fields, and delete products that should no longer be sold.
+        """
         from .resources.products import AsyncProductsResourceWithStreamingResponse
 
         return AsyncProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
+    def social_accounts(self) -> social_accounts.AsyncSocialAccountsResourceWithStreamingResponse:
+        """
+        A Social Account represents an external profile connected to a Whop account or user, such as a Facebook page or Instagram account. Connecting a social account lets Whop run [ads](/api-reference/beta/ads/ad) under that profile's identity and promote its existing posts.
+
+        Use the Social Accounts API to list connected accounts, create a Whop-managed Facebook page, start an OAuth connection, disconnect a social account, and list a connected profile's posts or a Facebook page's lead forms.
+        """
+        from .resources.social_accounts import AsyncSocialAccountsResourceWithStreamingResponse
+
+        return AsyncSocialAccountsResourceWithStreamingResponse(self._client.social_accounts)
+
+    @cached_property
+    def audiences(self) -> audiences.AsyncAudiencesResourceWithStreamingResponse:
+        """An Audience represents a customer list uploaded to Whop for ad targeting.
+
+        Audiences belong to an account and sync to supported ad platforms as custom audiences.
+
+        Use the Audiences API to create audiences from CSV uploads, monitor processing status, and list or delete audiences for an account. Created audiences are usable for targeting after processing reaches `ready` or `partial`.
+        """
+        from .resources.audiences import AsyncAudiencesResourceWithStreamingResponse
+
+        return AsyncAudiencesResourceWithStreamingResponse(self._client.audiences)
+
+    @cached_property
+    def media(self) -> media.AsyncMediaResourceWithStreamingResponse:
+        """
+        A Media Asset is an AI-generated image or video created from a prompt and billed from an account balance. When generation finishes, the asset includes a file that can be attached anywhere Whop accepts files.
+
+        Use the Media API to start a generation job and retrieve the asset while it processes or after it is ready.
+        """
+        from .resources.media import AsyncMediaResourceWithStreamingResponse
+
+        return AsyncMediaResourceWithStreamingResponse(self._client.media)
+
+    @cached_property
+    def people(self) -> people.AsyncPeopleResourceWithStreamingResponse:
+        """
+        A Person is an identity-linked profile of a visitor or customer of an account, assembled from every [event](/api-reference/beta/events/event) the person generated — pixel page views, ad clicks, leads, identifies, and payments. Each profile carries the person's known identities (names, emails, phones, user IDs), purchase history and LTV, geo/device profile, traffic sources, and the first and last marketing touches that reached them.
+
+        Use the People API to list and segment the people of an account — filter by activity, purchases, traffic source, location, or marketing touch, and sort by value — or retrieve one person by person ID, user ID, email address, or phone number.
+        """
+        from .resources.people import AsyncPeopleResourceWithStreamingResponse
+
+        return AsyncPeopleResourceWithStreamingResponse(self._client.people)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+        """
+        An Event records conversion or engagement activity for an account, such as page views, purchases, or leads. Each event ties the action to the [person](/api-reference/beta/people/person) who took it, so activity can be attributed to the ads and links that drove it.
+
+        Use the Events API to send new tracking events, list recent identity-linked events for an account, and inspect the events recorded for a person. The resource also exposes an anonymized read mode — the pulse feed — a platform-wide snapshot of recent purchases that carries nothing identifying. The pulse feed is public; other Events endpoints require authentication and are scoped to an account.
+
+        Events are only as good as the pixel sending them, so [Validate Pixel](/api-reference/beta/events/validate-pixel) answers whether an account's pixel is working: it reads the events the pixel has sent, and when you pass a `url` whose page hasn't sent any lately, it fetches that page and looks for the pixel in its source. Use it before launching an ad to confirm its destination is tracked, or in a setup flow to tell a merchant whether their install is live.
+        """
+        from .resources.events import AsyncEventsResourceWithStreamingResponse
+
+        return AsyncEventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
     def companies(self) -> companies.AsyncCompaniesResourceWithStreamingResponse:
-        """Companies"""
         from .resources.companies import AsyncCompaniesResourceWithStreamingResponse
 
         return AsyncCompaniesResourceWithStreamingResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.AsyncWebhooksResourceWithStreamingResponse:
-        """Webhooks"""
         from .resources.webhooks import AsyncWebhooksResourceWithStreamingResponse
 
         return AsyncWebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
     def plans(self) -> plans.AsyncPlansResourceWithStreamingResponse:
-        """Plans"""
+        """A Plan defines how customers buy a product.
+
+        It controls pricing, billing cadence, availability, tax behavior, checkout fields, and purchase visibility.
+
+        Use the Plans API to create plans for products, list existing plans, retrieve or update plan configuration, calculate tax for checkout, and delete plans that should no longer be offered.
+        """
         from .resources.plans import AsyncPlansResourceWithStreamingResponse
 
         return AsyncPlansResourceWithStreamingResponse(self._client.plans)
 
     @cached_property
+    def exports(self) -> exports.AsyncExportsResourceWithStreamingResponse:
+        """
+        An Export is an asynchronous CSV of one resource for one account — members, payments, disputes, ads, and the other tables the Whop dashboard can export. Generating a full table takes longer than a request, so an export is created in `pending`, moves through `processing`, and lands on `completed` with a download link. Each resource requires that resource's own export scope.
+
+        Use the Exports API to start an export, poll it until `download_url` is set, and list the exports already requested for an account. Finished CSVs are retained for 30 days, after which the file is deleted and the export moves to `expired`.
+        """
+        from .resources.exports import AsyncExportsResourceWithStreamingResponse
+
+        return AsyncExportsResourceWithStreamingResponse(self._client.exports)
+
+    @cached_property
     def entries(self) -> entries.AsyncEntriesResourceWithStreamingResponse:
-        """Entries"""
         from .resources.entries import AsyncEntriesResourceWithStreamingResponse
 
         return AsyncEntriesResourceWithStreamingResponse(self._client.entries)
 
     @cached_property
     def forum_posts(self) -> forum_posts.AsyncForumPostsResourceWithStreamingResponse:
-        """Forum posts"""
         from .resources.forum_posts import AsyncForumPostsResourceWithStreamingResponse
 
         return AsyncForumPostsResourceWithStreamingResponse(self._client.forum_posts)
 
     @cached_property
     def transfers(self) -> transfers.AsyncTransfersResourceWithStreamingResponse:
-        """Transfers"""
+        """Transfers move value between identities on Whop.
+
+        They are used for account-to-account money movement, user payouts inside Whop, crypto transfers, and claim links depending on the destination type.
+
+        Use the Transfers API to create a transfer, list previous transfers, and retrieve a transfer by ID when reconciling money movement between accounts or users.
+        """
         from .resources.transfers import AsyncTransfersResourceWithStreamingResponse
 
         return AsyncTransfersResourceWithStreamingResponse(self._client.transfers)
 
     @cached_property
     def ledger_accounts(self) -> ledger_accounts.AsyncLedgerAccountsResourceWithStreamingResponse:
-        """Ledger accounts"""
         from .resources.ledger_accounts import AsyncLedgerAccountsResourceWithStreamingResponse
 
         return AsyncLedgerAccountsResourceWithStreamingResponse(self._client.ledger_accounts)
 
     @cached_property
     def memberships(self) -> memberships.AsyncMembershipsResourceWithStreamingResponse:
-        """Memberships"""
+        """
+        A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+        Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+        """
         from .resources.memberships import AsyncMembershipsResourceWithStreamingResponse
 
         return AsyncMembershipsResourceWithStreamingResponse(self._client.memberships)
 
     @cached_property
     def authorized_users(self) -> authorized_users.AsyncAuthorizedUsersResourceWithStreamingResponse:
-        """Authorized users"""
         from .resources.authorized_users import AsyncAuthorizedUsersResourceWithStreamingResponse
 
         return AsyncAuthorizedUsersResourceWithStreamingResponse(self._client.authorized_users)
 
     @cached_property
+    def team_members(self) -> team_members.AsyncTeamMembersResourceWithStreamingResponse:
+        """
+        A Team Member is a member of an account's team: the link between a user and an account, carrying the role that controls what they can do. Roles are either system roles (like `admin` or `moderator`) or `custom` roles managed from the dashboard.
+
+        Use the Team Members API to list an account's team, add a user to the team with a system role, change a member's role, and remove members. Adding a user who has not yet accepted sends an invitation instead.
+        """
+        from .resources.team_members import AsyncTeamMembersResourceWithStreamingResponse
+
+        return AsyncTeamMembersResourceWithStreamingResponse(self._client.team_members)
+
+    @cached_property
     def app_builds(self) -> app_builds.AsyncAppBuildsResourceWithStreamingResponse:
-        """App builds"""
+        """
+        An App Build is a versioned artifact uploaded for an app — a hosted web archive, or an iOS/Android bundle. Builds start as drafts, go through review, and one approved build per platform is served to users as the production build.
+
+        Use the App Builds API to upload a build for an app, list an app's builds with platform and status filters, retrieve a build, and promote a draft or approved build to production.
+        """
         from .resources.app_builds import AsyncAppBuildsResourceWithStreamingResponse
 
         return AsyncAppBuildsResourceWithStreamingResponse(self._client.app_builds)
 
     @cached_property
     def shipments(self) -> shipments.AsyncShipmentsResourceWithStreamingResponse:
-        """Shipments"""
+        """
+        A Shipment attaches a carrier tracking number to a payment and follows the package from label creation to delivery, exposing the current delivery status and a customer-facing tracking URL.
+
+        Use the Shipments API to list an account's shipments, retrieve one by its id or the payment it fulfills, attach a tracking number to a payment, and update the tracking number on an existing shipment.
+        """
         from .resources.shipments import AsyncShipmentsResourceWithStreamingResponse
 
         return AsyncShipmentsResourceWithStreamingResponse(self._client.shipments)
@@ -2945,239 +4210,315 @@ class AsyncWhopWithStreamedResponse:
     def checkout_configurations(
         self,
     ) -> checkout_configurations.AsyncCheckoutConfigurationsResourceWithStreamingResponse:
-        """Checkout configurations"""
+        """A Checkout Configuration is a reusable checkout link owned by an account.
+
+        In `payment` mode it sells a specific plan; in `setup` mode it collects and saves payment details without charging. Each configuration can also override which payment methods are accepted and how 3D Secure is enforced for that checkout.
+
+        Use the Checkout Configurations API to create checkout links for an existing or inline plan, list configurations for an account, retrieve the configuration behind a checkout URL, and delete links that should no longer be used.
+        """
         from .resources.checkout_configurations import AsyncCheckoutConfigurationsResourceWithStreamingResponse
 
         return AsyncCheckoutConfigurationsResourceWithStreamingResponse(self._client.checkout_configurations)
 
     @cached_property
     def messages(self) -> messages.AsyncMessagesResourceWithStreamingResponse:
-        """Messages"""
         from .resources.messages import AsyncMessagesResourceWithStreamingResponse
 
         return AsyncMessagesResourceWithStreamingResponse(self._client.messages)
 
     @cached_property
     def chat_channels(self) -> chat_channels.AsyncChatChannelsResourceWithStreamingResponse:
-        """Chat channels"""
         from .resources.chat_channels import AsyncChatChannelsResourceWithStreamingResponse
 
         return AsyncChatChannelsResourceWithStreamingResponse(self._client.chat_channels)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
+        """A User represents a person on Whop.
+
+        Users have a public profile and can buy products, join accounts, and access experiences.
+
+        Use the Users API to search for users, retrieve or update profiles, and check whether a user has access to an account, product, or experience.
+        """
         from .resources.users import AsyncUsersResourceWithStreamingResponse
 
         return AsyncUsersResourceWithStreamingResponse(self._client.users)
 
     @cached_property
     def payments(self) -> payments.AsyncPaymentsResourceWithStreamingResponse:
-        """Payments"""
+        """A Payment is one charge against a buyer.
+
+        Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+        Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+        """
         from .resources.payments import AsyncPaymentsResourceWithStreamingResponse
 
         return AsyncPaymentsResourceWithStreamingResponse(self._client.payments)
 
     @cached_property
     def support_channels(self) -> support_channels.AsyncSupportChannelsResourceWithStreamingResponse:
-        """Support channels"""
         from .resources.support_channels import AsyncSupportChannelsResourceWithStreamingResponse
 
         return AsyncSupportChannelsResourceWithStreamingResponse(self._client.support_channels)
 
     @cached_property
     def experiences(self) -> experiences.AsyncExperiencesResourceWithStreamingResponse:
-        """Experiences"""
         from .resources.experiences import AsyncExperiencesResourceWithStreamingResponse
 
         return AsyncExperiencesResourceWithStreamingResponse(self._client.experiences)
 
     @cached_property
     def reactions(self) -> reactions.AsyncReactionsResourceWithStreamingResponse:
-        """Reactions"""
         from .resources.reactions import AsyncReactionsResourceWithStreamingResponse
 
         return AsyncReactionsResourceWithStreamingResponse(self._client.reactions)
 
     @cached_property
     def members(self) -> members.AsyncMembersResourceWithStreamingResponse:
-        """Members"""
+        """
+        A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+        Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+        """
         from .resources.members import AsyncMembersResourceWithStreamingResponse
 
         return AsyncMembersResourceWithStreamingResponse(self._client.members)
 
     @cached_property
     def forums(self) -> forums.AsyncForumsResourceWithStreamingResponse:
-        """Forums"""
         from .resources.forums import AsyncForumsResourceWithStreamingResponse
 
         return AsyncForumsResourceWithStreamingResponse(self._client.forums)
 
     @cached_property
     def promo_codes(self) -> promo_codes.AsyncPromoCodesResourceWithStreamingResponse:
-        """Promo codes"""
         from .resources.promo_codes import AsyncPromoCodesResourceWithStreamingResponse
 
         return AsyncPromoCodesResourceWithStreamingResponse(self._client.promo_codes)
 
     @cached_property
     def courses(self) -> courses.AsyncCoursesResourceWithStreamingResponse:
-        """Courses"""
         from .resources.courses import AsyncCoursesResourceWithStreamingResponse
 
         return AsyncCoursesResourceWithStreamingResponse(self._client.courses)
 
     @cached_property
     def course_chapters(self) -> course_chapters.AsyncCourseChaptersResourceWithStreamingResponse:
-        """Course chapters"""
         from .resources.course_chapters import AsyncCourseChaptersResourceWithStreamingResponse
 
         return AsyncCourseChaptersResourceWithStreamingResponse(self._client.course_chapters)
 
     @cached_property
     def course_lessons(self) -> course_lessons.AsyncCourseLessonsResourceWithStreamingResponse:
-        """Course lessons"""
         from .resources.course_lessons import AsyncCourseLessonsResourceWithStreamingResponse
 
         return AsyncCourseLessonsResourceWithStreamingResponse(self._client.course_lessons)
 
     @cached_property
     def reviews(self) -> reviews.AsyncReviewsResourceWithStreamingResponse:
-        """Reviews"""
         from .resources.reviews import AsyncReviewsResourceWithStreamingResponse
 
         return AsyncReviewsResourceWithStreamingResponse(self._client.reviews)
 
     @cached_property
     def course_students(self) -> course_students.AsyncCourseStudentsResourceWithStreamingResponse:
-        """Course students"""
         from .resources.course_students import AsyncCourseStudentsResourceWithStreamingResponse
 
         return AsyncCourseStudentsResourceWithStreamingResponse(self._client.course_students)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithStreamingResponse:
-        """Access tokens"""
         from .resources.access_tokens import AsyncAccessTokensResourceWithStreamingResponse
 
         return AsyncAccessTokensResourceWithStreamingResponse(self._client.access_tokens)
 
     @cached_property
     def notifications(self) -> notifications.AsyncNotificationsResourceWithStreamingResponse:
-        """Notifications"""
+        """
+        A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+        Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+        Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+        """
         from .resources.notifications import AsyncNotificationsResourceWithStreamingResponse
 
         return AsyncNotificationsResourceWithStreamingResponse(self._client.notifications)
 
     @cached_property
     def disputes(self) -> disputes.AsyncDisputesResourceWithStreamingResponse:
-        """Disputes"""
+        """
+        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+
+        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        """
         from .resources.disputes import AsyncDisputesResourceWithStreamingResponse
 
         return AsyncDisputesResourceWithStreamingResponse(self._client.disputes)
 
     @cached_property
     def refunds(self) -> refunds.AsyncRefundsResourceWithStreamingResponse:
-        """Refunds"""
         from .resources.refunds import AsyncRefundsResourceWithStreamingResponse
 
         return AsyncRefundsResourceWithStreamingResponse(self._client.refunds)
 
     @cached_property
     def withdrawals(self) -> withdrawals.AsyncWithdrawalsResourceWithStreamingResponse:
-        """Withdrawals"""
         from .resources.withdrawals import AsyncWithdrawalsResourceWithStreamingResponse
 
         return AsyncWithdrawalsResourceWithStreamingResponse(self._client.withdrawals)
 
     @cached_property
     def account_links(self) -> account_links.AsyncAccountLinksResourceWithStreamingResponse:
-        """Account links"""
         from .resources.account_links import AsyncAccountLinksResourceWithStreamingResponse
 
         return AsyncAccountLinksResourceWithStreamingResponse(self._client.account_links)
 
     @cached_property
     def accounts(self) -> accounts.AsyncAccountsResourceWithStreamingResponse:
+        """
+        An Account represents a person or business on Whop that can have its own profile, wallet, and account-scoped settings. Use accounts for customers, creators, merchants, sellers, or connected businesses your integration supports.
+
+        Use the Accounts API to create accounts, list accounts visible to your credentials, retrieve or update an account, and retrieve the account associated with the current API key.
+        """
         from .resources.accounts import AsyncAccountsResourceWithStreamingResponse
 
         return AsyncAccountsResourceWithStreamingResponse(self._client.accounts)
 
     @cached_property
-    def wallets(self) -> wallets.AsyncWalletsResourceWithStreamingResponse:
-        from .resources.wallets import AsyncWalletsResourceWithStreamingResponse
-
-        return AsyncWalletsResourceWithStreamingResponse(self._client.wallets)
-
-    @cached_property
     def financial_activity(self) -> financial_activity.AsyncFinancialActivityResourceWithStreamingResponse:
+        """
+        A Ledger Activity row is a single financial event on an account's ledger — a payment, withdrawal, refund, transfer, on-chain deposit, swap, or card transaction. Each row is derived from the underlying ledger lines and carries a typed `resource` and `source` so you can present and link the event without extra lookups.
+
+        Use Ledger Activity to build a statement or transaction feed for an account or user. Reconcile against your own records with `amount` (signed, in the currency's smallest precision units) and `posted_at`, and use `available_at` to know when inflows became withdrawable.
+        """
         from .resources.financial_activity import AsyncFinancialActivityResourceWithStreamingResponse
 
         return AsyncFinancialActivityResourceWithStreamingResponse(self._client.financial_activity)
 
     @cached_property
+    def stats(self) -> stats.AsyncStatsResourceWithStreamingResponse:
+        """Stats represent aggregated activity for an account over time.
+
+        They help you understand revenue, transactions, disputes, members, referrals, and advertising performance across reporting periods like days, weeks, or months.
+
+        Use the Stats API to list available metrics and their filterable properties, then retrieve time-series values for a date range.
+        """
+        from .resources.stats import AsyncStatsResourceWithStreamingResponse
+
+        return AsyncStatsResourceWithStreamingResponse(self._client.stats)
+
+    @cached_property
+    def payouts(self) -> payouts.AsyncPayoutsResourceWithStreamingResponse:
+        """
+        Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
+
+        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        """
+        from .resources.payouts import AsyncPayoutsResourceWithStreamingResponse
+
+        return AsyncPayoutsResourceWithStreamingResponse(self._client.payouts)
+
+    @cached_property
+    def partners(self) -> partners.AsyncPartnersResourceWithStreamingResponse:
+        """
+        The Partners API covers your Whop partner activity: the users you referred onto Whop, the businesses you referred and the earnings generated from their processing volume, and the partner leaderboard.
+
+        Use it to enroll as a Whop partner, list the users you referred, list your referred businesses and review their earnings, and see the partner leaderboard.
+        """
+        from .resources.partners import AsyncPartnersResourceWithStreamingResponse
+
+        return AsyncPartnersResourceWithStreamingResponse(self._client.partners)
+
+    @cached_property
+    def cards(self) -> cards.AsyncCardsResourceWithStreamingResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.cards import AsyncCardsResourceWithStreamingResponse
+
+        return AsyncCardsResourceWithStreamingResponse(self._client.cards)
+
+    @cached_property
+    def card_transactions(self) -> card_transactions.AsyncCardTransactionsResourceWithStreamingResponse:
+        """
+        Cards represent Whop-issued virtual payment cards that spend from an account or user balance. Cards can be assigned to cardholders and configured with spending limits for controlled spending.
+
+        Use the Cards API to issue cards, list cards for an account or user, and retrieve active card details such as the card number and CVC.
+        """
+        from .resources.card_transactions import AsyncCardTransactionsResourceWithStreamingResponse
+
+        return AsyncCardTransactionsResourceWithStreamingResponse(self._client.card_transactions)
+
+    @cached_property
     def swaps(self) -> swaps.AsyncSwapsResourceWithStreamingResponse:
+        """
+        Swaps convert value between supported tokens, chains, or wallet destinations for an account. A swap quote describes the expected output, fees, and approval requirements before you create the swap.
+
+        Use the Swaps API to quote a conversion, create the swap, list recent swaps, and retrieve status until the transaction completes.
+        """
         from .resources.swaps import AsyncSwapsResourceWithStreamingResponse
 
         return AsyncSwapsResourceWithStreamingResponse(self._client.swaps)
 
     @cached_property
     def deposits(self) -> deposits.AsyncDepositsResourceWithStreamingResponse:
+        """
+        Deposits describe ways to add funds to an account balance, including hosted deposit pages, bank deposit instructions, and supported crypto wallet addresses.
+
+        Use the Deposits API to create deposit instructions for an account.
+        """
         from .resources.deposits import AsyncDepositsResourceWithStreamingResponse
 
         return AsyncDepositsResourceWithStreamingResponse(self._client.deposits)
 
     @cached_property
     def setup_intents(self) -> setup_intents.AsyncSetupIntentsResourceWithStreamingResponse:
-        """Setup intents"""
         from .resources.setup_intents import AsyncSetupIntentsResourceWithStreamingResponse
 
         return AsyncSetupIntentsResourceWithStreamingResponse(self._client.setup_intents)
 
     @cached_property
     def payment_methods(self) -> payment_methods.AsyncPaymentMethodsResourceWithStreamingResponse:
-        """Payment methods"""
         from .resources.payment_methods import AsyncPaymentMethodsResourceWithStreamingResponse
 
         return AsyncPaymentMethodsResourceWithStreamingResponse(self._client.payment_methods)
 
     @cached_property
     def fee_markups(self) -> fee_markups.AsyncFeeMarkupsResourceWithStreamingResponse:
-        """Fee markups"""
         from .resources.fee_markups import AsyncFeeMarkupsResourceWithStreamingResponse
 
         return AsyncFeeMarkupsResourceWithStreamingResponse(self._client.fee_markups)
 
     @cached_property
-    def payout_methods(self) -> payout_methods.AsyncPayoutMethodsResourceWithStreamingResponse:
-        """Payout methods"""
-        from .resources.payout_methods import AsyncPayoutMethodsResourceWithStreamingResponse
-
-        return AsyncPayoutMethodsResourceWithStreamingResponse(self._client.payout_methods)
-
-    @cached_property
     def verifications(self) -> verifications.AsyncVerificationsResourceWithStreamingResponse:
-        """Verifications"""
+        """A Verification represents a legal identity for a person or business.
+
+        Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+        Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+        """
         from .resources.verifications import AsyncVerificationsResourceWithStreamingResponse
 
         return AsyncVerificationsResourceWithStreamingResponse(self._client.verifications)
 
     @cached_property
     def leads(self) -> leads.AsyncLeadsResourceWithStreamingResponse:
-        """Leads"""
         from .resources.leads import AsyncLeadsResourceWithStreamingResponse
 
         return AsyncLeadsResourceWithStreamingResponse(self._client.leads)
 
     @cached_property
     def topups(self) -> topups.AsyncTopupsResourceWithStreamingResponse:
-        """Topups"""
         from .resources.topups import AsyncTopupsResourceWithStreamingResponse
 
         return AsyncTopupsResourceWithStreamingResponse(self._client.topups)
 
     @cached_property
     def files(self) -> files.AsyncFilesResourceWithStreamingResponse:
-        """Files"""
         from .resources.files import AsyncFilesResourceWithStreamingResponse
 
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
@@ -3186,35 +4527,30 @@ class AsyncWhopWithStreamedResponse:
     def company_token_transactions(
         self,
     ) -> company_token_transactions.AsyncCompanyTokenTransactionsResourceWithStreamingResponse:
-        """Company token transactions"""
         from .resources.company_token_transactions import AsyncCompanyTokenTransactionsResourceWithStreamingResponse
 
         return AsyncCompanyTokenTransactionsResourceWithStreamingResponse(self._client.company_token_transactions)
 
     @cached_property
     def dm_members(self) -> dm_members.AsyncDmMembersResourceWithStreamingResponse:
-        """Dm members"""
         from .resources.dm_members import AsyncDmMembersResourceWithStreamingResponse
 
         return AsyncDmMembersResourceWithStreamingResponse(self._client.dm_members)
 
     @cached_property
     def ai_chats(self) -> ai_chats.AsyncAIChatsResourceWithStreamingResponse:
-        """Ai chats"""
         from .resources.ai_chats import AsyncAIChatsResourceWithStreamingResponse
 
         return AsyncAIChatsResourceWithStreamingResponse(self._client.ai_chats)
 
     @cached_property
     def dm_channels(self) -> dm_channels.AsyncDmChannelsResourceWithStreamingResponse:
-        """Dm channels"""
         from .resources.dm_channels import AsyncDmChannelsResourceWithStreamingResponse
 
         return AsyncDmChannelsResourceWithStreamingResponse(self._client.dm_channels)
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.AsyncDisputeAlertsResourceWithStreamingResponse:
-        """Dispute alerts"""
         from .resources.dispute_alerts import AsyncDisputeAlertsResourceWithStreamingResponse
 
         return AsyncDisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)
@@ -3223,63 +4559,87 @@ class AsyncWhopWithStreamedResponse:
     def resolution_center_cases(
         self,
     ) -> resolution_center_cases.AsyncResolutionCenterCasesResourceWithStreamingResponse:
-        """Resolution center cases"""
+        """
+        A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+        Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+        """
         from .resources.resolution_center_cases import AsyncResolutionCenterCasesResourceWithStreamingResponse
 
         return AsyncResolutionCenterCasesResourceWithStreamingResponse(self._client.resolution_center_cases)
 
     @cached_property
     def payout_accounts(self) -> payout_accounts.AsyncPayoutAccountsResourceWithStreamingResponse:
-        """Payout accounts"""
         from .resources.payout_accounts import AsyncPayoutAccountsResourceWithStreamingResponse
 
         return AsyncPayoutAccountsResourceWithStreamingResponse(self._client.payout_accounts)
 
     @cached_property
     def affiliates(self) -> affiliates.AsyncAffiliatesResourceWithStreamingResponse:
-        """Affiliates"""
         from .resources.affiliates import AsyncAffiliatesResourceWithStreamingResponse
 
         return AsyncAffiliatesResourceWithStreamingResponse(self._client.affiliates)
 
     @cached_property
     def bounties(self) -> bounties.AsyncBountiesResourceWithStreamingResponse:
-        """Bounties"""
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
         from .resources.bounties import AsyncBountiesResourceWithStreamingResponse
 
         return AsyncBountiesResourceWithStreamingResponse(self._client.bounties)
 
     @cached_property
+    def bounty_submissions(self) -> bounty_submissions.AsyncBountySubmissionsResourceWithStreamingResponse:
+        """A Bounty Submission is one worker's attempt on a bounty.
+
+        It starts as an in-progress attempt, enters the review queue when proof is submitted, and ends approved (paid from the bounty's escrowed pool) or denied.
+
+        Use the Bounty Submissions API to submit proof of completed work to a bounty, list the submissions you authored, and review the submissions on your bounties — across every bounty or narrowed to one.
+        """
+        from .resources.bounty_submissions import AsyncBountySubmissionsResourceWithStreamingResponse
+
+        return AsyncBountySubmissionsResourceWithStreamingResponse(self._client.bounty_submissions)
+
+    @cached_property
     def ad_campaigns(self) -> ad_campaigns.AsyncAdCampaignsResourceWithStreamingResponse:
-        """Ad campaigns"""
+        """An Ad Campaign is the top-level container for paid ads on an ad network.
+
+        It sets the platform, objective, and budget strategy shared by its [ad groups](/api-reference/beta/ad-groups/ad-group) and ads.
+
+        Use the Ad Campaigns API to create campaigns, list campaigns for an account, retrieve or update campaign settings, and pause or resume campaign delivery.
+        """
         from .resources.ad_campaigns import AsyncAdCampaignsResourceWithStreamingResponse
 
         return AsyncAdCampaignsResourceWithStreamingResponse(self._client.ad_campaigns)
 
     @cached_property
     def ad_groups(self) -> ad_groups.AsyncAdGroupsResourceWithStreamingResponse:
-        """Ad groups"""
+        """
+        An Ad Group sits inside an [ad campaign](/api-reference/beta/ad-campaigns/ad-campaign) and controls delivery for [ads](/api-reference/beta/ads/ad). It sets the audience, placements, schedule, budget, and optimization goal for its ads.
+
+        Use the Ad Groups API to create ad groups in campaigns, list or retrieve targeting and delivery settings, update budgets or targeting, delete groups that should stop running, and pause or resume delivery. It can also search the ad platform's targeting taxonomy for options to target and estimate how many people a draft targeting spec can reach.
+        """
         from .resources.ad_groups import AsyncAdGroupsResourceWithStreamingResponse
 
         return AsyncAdGroupsResourceWithStreamingResponse(self._client.ad_groups)
 
     @cached_property
     def ads(self) -> ads.AsyncAdsResourceWithStreamingResponse:
-        """Ads"""
+        """
+        An Ad is the individual creative unit delivered by an [ad group](/api-reference/beta/ad-groups/ad-group). It holds the copy, creative assets, and destination URL for one ad.
+
+        Use the Ads API to list ads for an account, create ads inside ad groups, retrieve or update creative details, delete ads that should stop running, and pause or resume delivery.
+        """
         from .resources.ads import AsyncAdsResourceWithStreamingResponse
 
         return AsyncAdsResourceWithStreamingResponse(self._client.ads)
 
     @cached_property
-    def conversions(self) -> conversions.AsyncConversionsResourceWithStreamingResponse:
-        """Conversions"""
-        from .resources.conversions import AsyncConversionsResourceWithStreamingResponse
-
-        return AsyncConversionsResourceWithStreamingResponse(self._client.conversions)
-
-    @cached_property
     def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithStreamingResponse:
-        """Ad reports"""
         from .resources.ad_reports import AsyncAdReportsResourceWithStreamingResponse
 
         return AsyncAdReportsResourceWithStreamingResponse(self._client.ad_reports)

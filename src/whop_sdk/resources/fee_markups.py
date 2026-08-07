@@ -28,8 +28,6 @@ __all__ = ["FeeMarkupsResource", "AsyncFeeMarkupsResource"]
 
 
 class FeeMarkupsResource(SyncAPIResource):
-    """Fee markups"""
-
     @cached_property
     def with_raw_response(self) -> FeeMarkupsResourceWithRawResponse:
         """
@@ -64,6 +62,7 @@ class FeeMarkupsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> FeeMarkupCreateResponse:
         """Create or update a fee markup for a company.
 
@@ -94,6 +93,8 @@ class FeeMarkupsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/fee_markups",
@@ -109,7 +110,11 @@ class FeeMarkupsResource(SyncAPIResource):
                 fee_markup_create_params.FeeMarkupCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=FeeMarkupCreateResponse,
         )
@@ -190,6 +195,7 @@ class FeeMarkupsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> FeeMarkupDeleteResponse:
         """Delete a fee markup configuration for a company.
 
@@ -208,21 +214,25 @@ class FeeMarkupsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/fee_markups/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=FeeMarkupDeleteResponse,
         )
 
 
 class AsyncFeeMarkupsResource(AsyncAPIResource):
-    """Fee markups"""
-
     @cached_property
     def with_raw_response(self) -> AsyncFeeMarkupsResourceWithRawResponse:
         """
@@ -257,6 +267,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> FeeMarkupCreateResponse:
         """Create or update a fee markup for a company.
 
@@ -287,6 +298,8 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/fee_markups",
@@ -302,7 +315,11 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
                 fee_markup_create_params.FeeMarkupCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=FeeMarkupCreateResponse,
         )
@@ -383,6 +400,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> FeeMarkupDeleteResponse:
         """Delete a fee markup configuration for a company.
 
@@ -401,13 +419,19 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/fee_markups/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=FeeMarkupDeleteResponse,
         )

@@ -20,3 +20,9 @@ class SupportChannelCreateParams(TypedDict, total=False):
 
     custom_name: Optional[str]
     """Optional custom display name for the support channel."""
+
+    notifications_enabled: Optional[bool]
+    """Whether Whop app notifications are enabled for this support channel.
+
+    Webhooks still fire.
+    """
