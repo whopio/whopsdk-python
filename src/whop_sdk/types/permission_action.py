@@ -122,6 +122,7 @@ PermissionAction: TypeAlias = Literal[
     "member:email:read",
     "member:phone:read",
     "member:payment_methods:read",
+    "member:payment_methods:use",
     "member:payment_methods:manage",
     "member:manage",
     "membership:cancel",
