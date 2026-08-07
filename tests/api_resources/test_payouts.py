@@ -37,6 +37,7 @@ class TestPayouts:
             payout_method_id="payout_method_id",
             currency="currency",
             api_idempotency_key="idempotency_key",
+            platform_covers_fees=True,
             speed="standard",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
@@ -138,6 +139,7 @@ class TestAsyncPayouts:
             payout_method_id="payout_method_id",
             currency="currency",
             api_idempotency_key="idempotency_key",
+            platform_covers_fees=True,
             speed="standard",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])

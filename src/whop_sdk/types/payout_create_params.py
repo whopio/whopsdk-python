@@ -35,6 +35,15 @@ class PayoutCreateParams(TypedDict, total=False):
     twice. Also accepted as the `Idempotency-Key` header.
     """
 
+    platform_covers_fees: bool
+    """
+    Whether the parent platform covers the payout fee instead of the account being
+    paid out. Omit to use the platform's configured fee coverage policy; pass
+    `false` to opt out of it. `true` is only accepted for accounts that belong to a
+    platform, and requires the platform's policy to cover this payout method's
+    category or a caller authorized to manage the platform's child account fees.
+    """
+
     speed: Literal["standard", "instant"]
     """How fast the funds should arrive.
 

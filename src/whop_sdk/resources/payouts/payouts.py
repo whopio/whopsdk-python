@@ -94,6 +94,7 @@ class PayoutsResource(SyncAPIResource):
         payout_method_id: str,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
+        platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -122,6 +123,12 @@ class PayoutsResource(SyncAPIResource):
               original payout instead of paying out twice. Also accepted as the
               `Idempotency-Key` header.
 
+          platform_covers_fees: Whether the parent platform covers the payout fee instead of the account being
+              paid out. Omit to use the platform's configured fee coverage policy; pass
+              `false` to opt out of it. `true` is only accepted for accounts that belong to a
+              platform, and requires the platform's policy to cover this payout method's
+              category or a caller authorized to manage the platform's child account fees.
+
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
@@ -144,6 +151,7 @@ class PayoutsResource(SyncAPIResource):
                     "payout_method_id": payout_method_id,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
+                    "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
                 },
                 payout_create_params.PayoutCreateParams,
@@ -278,6 +286,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         payout_method_id: str,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
+        platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -306,6 +315,12 @@ class AsyncPayoutsResource(AsyncAPIResource):
               original payout instead of paying out twice. Also accepted as the
               `Idempotency-Key` header.
 
+          platform_covers_fees: Whether the parent platform covers the payout fee instead of the account being
+              paid out. Omit to use the platform's configured fee coverage policy; pass
+              `false` to opt out of it. `true` is only accepted for accounts that belong to a
+              platform, and requires the platform's policy to cover this payout method's
+              category or a caller authorized to manage the platform's child account fees.
+
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
@@ -328,6 +343,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "payout_method_id": payout_method_id,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
+                    "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
                 },
                 payout_create_params.PayoutCreateParams,
