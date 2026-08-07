@@ -14,6 +14,7 @@ __all__ = [
     "EarningsUsdOwnedAccounts",
     "EarningsUsdPersonal",
     "EarningsUsdTotal",
+    "ProfilePicture",
     "Staff",
 ]
 
@@ -117,6 +118,18 @@ class EarningsUsd(BaseModel):
     """
 
 
+class ProfilePicture(BaseModel):
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    """
+
+    url: str
+    """Avatar image URL.
+
+    Always present — a generated placeholder when the user set no picture.
+    """
+
+
 class Staff(BaseModel):
     """Whop staff access flags.
 
@@ -181,8 +194,11 @@ class User(BaseModel):
     name: Optional[str] = None
     """The user's display name"""
 
-    profile_picture: Optional[object] = None
-    """The user's profile picture, an object with a url"""
+    profile_picture: ProfilePicture
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when
+    the user set no picture.
+    """
 
     social_accounts: List[SocialAccount]
 
