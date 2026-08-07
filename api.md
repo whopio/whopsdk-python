@@ -1266,6 +1266,7 @@ Types:
 from whop_sdk.types import (
     SetupIntent,
     SetupIntentStatus,
+    SetupIntentCreateResponse,
     SetupIntentListResponse,
     SetupIntentRetrieveStatusResponse,
     SetupIntentUpdateReturnURLResponse,
@@ -1274,7 +1275,7 @@ from whop_sdk.types import (
 
 Methods:
 
-- <code title="post /setup_intents">client.setup_intents.<a href="./src/whop_sdk/resources/setup_intents.py">create</a>(\*\*<a href="src/whop_sdk/types/setup_intent_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/setup_intent.py">SetupIntent</a></code>
+- <code title="post /setup_intents">client.setup_intents.<a href="./src/whop_sdk/resources/setup_intents.py">create</a>(\*\*<a href="src/whop_sdk/types/setup_intent_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/setup_intent_create_response.py">SetupIntentCreateResponse</a></code>
 - <code title="get /setup_intents/{id}">client.setup_intents.<a href="./src/whop_sdk/resources/setup_intents.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/setup_intent.py">SetupIntent</a></code>
 - <code title="get /setup_intents">client.setup_intents.<a href="./src/whop_sdk/resources/setup_intents.py">list</a>(\*\*<a href="src/whop_sdk/types/setup_intent_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/setup_intent_list_response.py">SyncCursorPage[SetupIntentListResponse]</a></code>
 - <code title="get /setup_intents/{setup_intent_id}/status">client.setup_intents.<a href="./src/whop_sdk/resources/setup_intents.py">retrieve_status</a>(setup_intent_id) -> <a href="./src/whop_sdk/types/setup_intent_retrieve_status_response.py">SetupIntentRetrieveStatusResponse</a></code>

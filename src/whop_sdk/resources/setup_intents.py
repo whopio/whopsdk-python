@@ -25,6 +25,7 @@ from ..types.setup_intent import SetupIntent
 from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.setup_intent_list_response import SetupIntentListResponse
+from ..types.setup_intent_create_response import SetupIntentCreateResponse
 from ..types.setup_intent_retrieve_status_response import SetupIntentRetrieveStatusResponse
 from ..types.setup_intent_update_return_url_response import SetupIntentUpdateReturnURLResponse
 
@@ -68,7 +69,7 @@ class SetupIntentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
-    ) -> SetupIntent:
+    ) -> SetupIntentCreateResponse:
         """Save a buyer's payment method for later without charging it.
 
         Provide a
@@ -130,7 +131,7 @@ class SetupIntentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
-    ) -> SetupIntent:
+    ) -> SetupIntentCreateResponse:
         """Save a buyer's payment method for later without charging it.
 
         Provide a
@@ -193,7 +194,7 @@ class SetupIntentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
-    ) -> SetupIntent:
+    ) -> SetupIntentCreateResponse:
         return self._post(
             "/setup_intents",
             body=maybe_transform(
@@ -215,7 +216,7 @@ class SetupIntentsResource(SyncAPIResource):
                 timeout=timeout,
                 idempotency_key=idempotency_key,
             ),
-            cast_to=SetupIntent,
+            cast_to=SetupIntentCreateResponse,
         )
 
     def retrieve(
@@ -459,7 +460,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
-    ) -> SetupIntent:
+    ) -> SetupIntentCreateResponse:
         """Save a buyer's payment method for later without charging it.
 
         Provide a
@@ -521,7 +522,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
-    ) -> SetupIntent:
+    ) -> SetupIntentCreateResponse:
         """Save a buyer's payment method for later without charging it.
 
         Provide a
@@ -584,7 +585,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
-    ) -> SetupIntent:
+    ) -> SetupIntentCreateResponse:
         return await self._post(
             "/setup_intents",
             body=await async_maybe_transform(
@@ -606,7 +607,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
                 timeout=timeout,
                 idempotency_key=idempotency_key,
             ),
-            cast_to=SetupIntent,
+            cast_to=SetupIntentCreateResponse,
         )
 
     async def retrieve(

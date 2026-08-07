@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     SetupIntent,
     SetupIntentListResponse,
+    SetupIntentCreateResponse,
     SetupIntentRetrieveStatusResponse,
     SetupIntentUpdateReturnURLResponse,
 )
@@ -31,7 +32,7 @@ class TestSetupIntents:
             company_id="biz_xxxxxxxxxxxxxx",
             confirmation_token="ctok_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -44,7 +45,7 @@ class TestSetupIntents:
             metadata={"foo": "bar"},
             return_url="https://example.com/path",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -57,7 +58,7 @@ class TestSetupIntents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         setup_intent = response.parse()
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -70,7 +71,7 @@ class TestSetupIntents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             setup_intent = response.parse()
-            assert_matches_type(SetupIntent, setup_intent, path=["response"])
+            assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -81,7 +82,7 @@ class TestSetupIntents:
             company_id="biz_xxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -94,7 +95,7 @@ class TestSetupIntents:
             metadata={"foo": "bar"},
             return_url="https://example.com/path",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -107,7 +108,7 @@ class TestSetupIntents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         setup_intent = response.parse()
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -120,7 +121,7 @@ class TestSetupIntents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             setup_intent = response.parse()
-            assert_matches_type(SetupIntent, setup_intent, path=["response"])
+            assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -316,7 +317,7 @@ class TestAsyncSetupIntents:
             company_id="biz_xxxxxxxxxxxxxx",
             confirmation_token="ctok_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -329,7 +330,7 @@ class TestAsyncSetupIntents:
             metadata={"foo": "bar"},
             return_url="https://example.com/path",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -342,7 +343,7 @@ class TestAsyncSetupIntents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         setup_intent = await response.parse()
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -355,7 +356,7 @@ class TestAsyncSetupIntents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             setup_intent = await response.parse()
-            assert_matches_type(SetupIntent, setup_intent, path=["response"])
+            assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -366,7 +367,7 @@ class TestAsyncSetupIntents:
             company_id="biz_xxxxxxxxxxxxxx",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -379,7 +380,7 @@ class TestAsyncSetupIntents:
             metadata={"foo": "bar"},
             return_url="https://example.com/path",
         )
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -392,7 +393,7 @@ class TestAsyncSetupIntents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         setup_intent = await response.parse()
-        assert_matches_type(SetupIntent, setup_intent, path=["response"])
+        assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -405,7 +406,7 @@ class TestAsyncSetupIntents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             setup_intent = await response.parse()
-            assert_matches_type(SetupIntent, setup_intent, path=["response"])
+            assert_matches_type(SetupIntentCreateResponse, setup_intent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
