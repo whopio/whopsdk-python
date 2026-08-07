@@ -354,6 +354,7 @@ from .ad_campaign_update_params import AdCampaignUpdateParams as AdCampaignUpdat
 from .ad_group_duplicate_params import AdGroupDuplicateParams as AdGroupDuplicateParams
 from .ad_report_retrieve_params import AdReportRetrieveParams as AdReportRetrieveParams
 from .assessment_question_types import AssessmentQuestionTypes as AssessmentQuestionTypes
+from .card_frozen_webhook_event import CardFrozenWebhookEvent as CardFrozenWebhookEvent
 from .company_token_transaction import CompanyTokenTransaction as CompanyTokenTransaction
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
 from .dispute_alert_list_params import DisputeAlertListParams as DisputeAlertListParams
@@ -365,6 +366,8 @@ from .access_token_create_params import AccessTokenCreateParams as AccessTokenCr
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams
 from .affiliate_archive_response import AffiliateArchiveResponse as AffiliateArchiveResponse
 from .audience_add_people_params import AudienceAddPeopleParams as AudienceAddPeopleParams
+from .card_created_webhook_event import CardCreatedWebhookEvent as CardCreatedWebhookEvent
+from .card_updated_webhook_event import CardUpdatedWebhookEvent as CardUpdatedWebhookEvent
 from .chat_channel_list_response import ChatChannelListResponse as ChatChannelListResponse
 from .chat_channel_update_params import ChatChannelUpdateParams as ChatChannelUpdateParams
 from .course_chapter_list_params import CourseChapterListParams as CourseChapterListParams
@@ -402,6 +405,7 @@ from .ad_campaign_retrieve_params import AdCampaignRetrieveParams as AdCampaignR
 from .ad_group_duplicate_response import AdGroupDuplicateResponse as AdGroupDuplicateResponse
 from .ad_report_retrieve_response import AdReportRetrieveResponse as AdReportRetrieveResponse
 from .authorized_user_list_params import AuthorizedUserListParams as AuthorizedUserListParams
+from .card_canceled_webhook_event import CardCanceledWebhookEvent as CardCanceledWebhookEvent
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
 from .course_lesson_list_response import CourseLessonListResponse as CourseLessonListResponse
 from .course_lesson_update_params import CourseLessonUpdateParams as CourseLessonUpdateParams
@@ -437,6 +441,7 @@ from .refund_created_webhook_event import RefundCreatedWebhookEvent as RefundCre
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent as RefundUpdatedWebhookEvent
 from .social_account_create_params import SocialAccountCreateParams as SocialAccountCreateParams
 from .social_account_delete_params import SocialAccountDeleteParams as SocialAccountDeleteParams
+from .swap_completed_webhook_event import SwapCompletedWebhookEvent as SwapCompletedWebhookEvent
 from .verification_create_response import VerificationCreateResponse as VerificationCreateResponse
 from .verification_update_response import VerificationUpdateResponse as VerificationUpdateResponse
 from .account_form_company_response import AccountFormCompanyResponse as AccountFormCompanyResponse
@@ -534,6 +539,9 @@ from .resolution_center_case_events_params import ResolutionCenterCaseEventsPara
 from .resolution_center_case_list_response import ResolutionCenterCaseListResponse as ResolutionCenterCaseListResponse
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent as SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent as VerificationSucceededWebhookEvent
+from .card_application_denied_webhook_event import (
+    CardApplicationDeniedWebhookEvent as CardApplicationDeniedWebhookEvent,
+)
 from .company_token_transaction_list_params import (
     CompanyTokenTransactionListParams as CompanyTokenTransactionListParams,
 )
@@ -550,6 +558,12 @@ from .setup_intent_retrieve_status_response import (
     SetupIntentRetrieveStatusResponse as SetupIntentRetrieveStatusResponse,
 )
 from .setup_intent_update_return_url_params import SetupIntentUpdateReturnURLParams as SetupIntentUpdateReturnURLParams
+from .card_application_created_webhook_event import (
+    CardApplicationCreatedWebhookEvent as CardApplicationCreatedWebhookEvent,
+)
+from .card_application_updated_webhook_event import (
+    CardApplicationUpdatedWebhookEvent as CardApplicationUpdatedWebhookEvent,
+)
 from .card_transaction_created_webhook_event import (
     CardTransactionCreatedWebhookEvent as CardTransactionCreatedWebhookEvent,
 )
@@ -579,6 +593,9 @@ from .resolution_center_case_create_response import (
 )
 from .resolution_center_case_events_response import (
     ResolutionCenterCaseEventsResponse as ResolutionCenterCaseEventsResponse,
+)
+from .card_application_approved_webhook_event import (
+    CardApplicationApprovedWebhookEvent as CardApplicationApprovedWebhookEvent,
 )
 from .card_transaction_declined_webhook_event import (
     CardTransactionDeclinedWebhookEvent as CardTransactionDeclinedWebhookEvent,

@@ -4,11 +4,15 @@ from typing import Union
 from typing_extensions import Annotated, TypeAlias
 
 from .._utils import PropertyInfo
+from .card_frozen_webhook_event import CardFrozenWebhookEvent
+from .card_created_webhook_event import CardCreatedWebhookEvent
+from .card_updated_webhook_event import CardUpdatedWebhookEvent
 from .entry_denied_webhook_event import EntryDeniedWebhookEvent
 from .invoice_paid_webhook_event import InvoicePaidWebhookEvent
 from .plan_created_webhook_event import PlanCreatedWebhookEvent
 from .plan_deleted_webhook_event import PlanDeletedWebhookEvent
 from .plan_updated_webhook_event import PlanUpdatedWebhookEvent
+from .card_canceled_webhook_event import CardCanceledWebhookEvent
 from .entry_created_webhook_event import EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent
 from .export_failed_webhook_event import ExportFailedWebhookEvent
@@ -18,6 +22,7 @@ from .member_created_webhook_event import MemberCreatedWebhookEvent
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent
 from .refund_created_webhook_event import RefundCreatedWebhookEvent
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent
+from .swap_completed_webhook_event import SwapCompletedWebhookEvent
 from .dispute_created_webhook_event import DisputeCreatedWebhookEvent
 from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent
@@ -47,9 +52,13 @@ from .setup_intent_canceled_webhook_event import SetupIntentCanceledWebhookEvent
 from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEvent
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
+from .card_application_denied_webhook_event import CardApplicationDeniedWebhookEvent
+from .card_application_created_webhook_event import CardApplicationCreatedWebhookEvent
+from .card_application_updated_webhook_event import CardApplicationUpdatedWebhookEvent
 from .card_transaction_created_webhook_event import CardTransactionCreatedWebhookEvent
 from .card_transaction_updated_webhook_event import CardTransactionUpdatedWebhookEvent
 from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhookEvent
+from .card_application_approved_webhook_event import CardApplicationApprovedWebhookEvent
 from .card_transaction_declined_webhook_event import CardTransactionDeclinedWebhookEvent
 from .card_transaction_reversed_webhook_event import CardTransactionReversedWebhookEvent
 from .card_transaction_completed_webhook_event import CardTransactionCompletedWebhookEvent
@@ -68,6 +77,14 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        CardCanceledWebhookEvent,
+        CardCreatedWebhookEvent,
+        CardFrozenWebhookEvent,
+        CardUpdatedWebhookEvent,
+        CardApplicationApprovedWebhookEvent,
+        CardApplicationCreatedWebhookEvent,
+        CardApplicationDeniedWebhookEvent,
+        CardApplicationUpdatedWebhookEvent,
         CardTransactionCompletedWebhookEvent,
         CardTransactionCreatedWebhookEvent,
         CardTransactionDeclinedWebhookEvent,
@@ -122,6 +139,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         SetupIntentSucceededWebhookEvent,
         ShipmentCreatedWebhookEvent,
         ShipmentUpdatedWebhookEvent,
+        SwapCompletedWebhookEvent,
         TransferCompletedWebhookEvent,
         TransferCreatedWebhookEvent,
         VerificationSucceededWebhookEvent,

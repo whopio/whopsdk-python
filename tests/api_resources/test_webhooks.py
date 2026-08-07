@@ -376,7 +376,7 @@ class TestWebhooks:
 
         client = client.with_options(webhook_key=client_opt)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"id","card_id":"card_id","cardholder_id":"cardholder_id","cashback_usd_amount":0,"created_at":"created_at","currency":"currency","declined_reason":"declined_reason","international":true,"local_amount":0,"merchant_category":"merchant_category","merchant_category_code":"merchant_category_code","merchant_icon_url":"merchant_icon_url","merchant_name":"merchant_name","posted_at":"posted_at","status":"pending","transaction_type":"spend","usd_amount":0},"timestamp":"2025-01-01T00:00:00.000Z","type":"card_transaction.completed","company_id":"biz_xxxxxxxxxxxxxx"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"id","billing":{"city":"city","country_code":"country_code","line1":"line1","line2":"line2","postal_code":"postal_code","region":"region"},"canceled_at":"2019-12-27T18:11:19.117Z","created_at":"2019-12-27T18:11:19.117Z","expiration_month":"expiration_month","expiration_year":"expiration_year","last4":"last4","limit":{"amount":0,"frequency":"daily"},"name":"name","object":"card","spent_last_month":0,"status":"active","type":"virtual","user_id":"user_id","secrets":{"card_number":"card_number","cvc":"cvc","name_on_card":"name_on_card","pin":"pin"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"card.canceled","company_id":"biz_xxxxxxxxxxxxxx"}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)
@@ -756,7 +756,7 @@ class TestAsyncWebhooks:
 
         async_client = async_client.with_options(webhook_key=client_opt)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"id","card_id":"card_id","cardholder_id":"cardholder_id","cashback_usd_amount":0,"created_at":"created_at","currency":"currency","declined_reason":"declined_reason","international":true,"local_amount":0,"merchant_category":"merchant_category","merchant_category_code":"merchant_category_code","merchant_icon_url":"merchant_icon_url","merchant_name":"merchant_name","posted_at":"posted_at","status":"pending","transaction_type":"spend","usd_amount":0},"timestamp":"2025-01-01T00:00:00.000Z","type":"card_transaction.completed","company_id":"biz_xxxxxxxxxxxxxx"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"id","billing":{"city":"city","country_code":"country_code","line1":"line1","line2":"line2","postal_code":"postal_code","region":"region"},"canceled_at":"2019-12-27T18:11:19.117Z","created_at":"2019-12-27T18:11:19.117Z","expiration_month":"expiration_month","expiration_year":"expiration_year","last4":"last4","limit":{"amount":0,"frequency":"daily"},"name":"name","object":"card","spent_last_month":0,"status":"active","type":"virtual","user_id":"user_id","secrets":{"card_number":"card_number","cvc":"cvc","name_on_card":"name_on_card","pin":"pin"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"card.canceled","company_id":"biz_xxxxxxxxxxxxxx"}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)
