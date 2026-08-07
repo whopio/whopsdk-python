@@ -814,6 +814,12 @@ class Account(BaseModel):
     for valid values.
     """
 
+    can_transfer_pending_balance_to_children: bool
+    """
+    Whether pending funds may be transferred from this platform account to its
+    connected accounts.
+    """
+
     capabilities: Optional[Capabilities] = None
     """
     Payment rails enabled for this account, each `active`, `inactive`, or `pending`
