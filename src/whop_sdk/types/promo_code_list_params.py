@@ -2,44 +2,49 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
-from .promo_code_status import PromoCodeStatus
 
 __all__ = ["PromoCodeListParams"]
 
 
 class PromoCodeListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list promo codes for."""
+    account_id: Required[str]
+    """Account whose promo codes are listed (`biz_` tag)."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    after: str
+    """Cursor to paginate forwards from."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    before: str
+    """Cursor to paginate backwards from."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return promo codes created after this timestamp."""
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Only promo codes created after this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return promo codes created before this timestamp."""
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Only promo codes created before this ISO 8601 timestamp."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    first: int
+    """Number of promo codes to return from the start of the window."""
 
-    plan_ids: Optional[SequenceNotStr[str]]
-    """Filter to only promo codes scoped to these plan identifiers."""
+    last: int
+    """Number of promo codes to return from the end of the window."""
 
-    product_ids: Optional[SequenceNotStr[str]]
-    """Filter to only promo codes scoped to these product identifiers."""
+    order: Literal["created_at"]
+    """Sort field."""
 
-    status: Optional[PromoCodeStatus]
-    """Statuses for promo codes"""
+    plan_ids: SequenceNotStr[str]
+    """Only promo codes scoped to these plan IDs."""
+
+    product_ids: SequenceNotStr[str]
+    """Only promo codes scoped to these product IDs."""
+
+    status: Literal["active", "inactive", "archived", "expired"]
+    """Promo-code status. `expired` groups inactive and archived codes."""
