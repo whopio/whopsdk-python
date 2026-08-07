@@ -11,14 +11,14 @@ __all__ = ["PayoutCreateParams"]
 
 
 class PayoutCreateParams(TypedDict, total=False):
-    account_id: Required[str]
-    """The account to pay out from (a biz\\__ identifier)."""
-
     amount: Required[float]
     """The amount to pay out in the specified currency."""
 
     payout_method_id: Required[str]
     """The saved payout method to deliver to (a potk\\__ identifier)."""
+
+    account_id: str
+    """The account to pay out from (a biz\\__ identifier). Provide this or user_id."""
 
     currency: str
     """The currency to pay out.
@@ -50,3 +50,6 @@ class PayoutCreateParams(TypedDict, total=False):
     `instant` is only accepted when the account and payout method are eligible;
     otherwise the payout is rejected.
     """
+
+    user_id: str
+    """The user to pay out from (a user\\__ identifier). Provide this or account_id."""

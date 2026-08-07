@@ -89,13 +89,14 @@ class PayoutsResource(SyncAPIResource):
     def create(
         self,
         *,
-        account_id: str,
         amount: float,
         payout_method_id: str,
+        account_id: str | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -105,14 +106,15 @@ class PayoutsResource(SyncAPIResource):
         idempotency_key: str | None = None,
     ) -> PayoutCreateResponse:
         """
-        Sends money from an account's balance to one of its saved payout methods.
+        Sends money from an account's or user's balance to one of its saved payout
+        methods.
 
         Args:
-          account_id: The account to pay out from (a biz\\__ identifier).
-
           amount: The amount to pay out in the specified currency.
 
           payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
+
+          account_id: The account to pay out from (a biz\\__ identifier). Provide this or user_id.
 
           currency: The currency to pay out. Balances are held per currency and the payout draws
               only from the balance in this currency, so match the currency the funds arrived
@@ -132,6 +134,8 @@ class PayoutsResource(SyncAPIResource):
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
+          user_id: The user to pay out from (a user\\__ identifier). Provide this or account_id.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -146,13 +150,14 @@ class PayoutsResource(SyncAPIResource):
             "/payouts",
             body=maybe_transform(
                 {
-                    "account_id": account_id,
                     "amount": amount,
                     "payout_method_id": payout_method_id,
+                    "account_id": account_id,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
+                    "user_id": user_id,
                 },
                 payout_create_params.PayoutCreateParams,
             ),
@@ -281,13 +286,14 @@ class AsyncPayoutsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        account_id: str,
         amount: float,
         payout_method_id: str,
+        account_id: str | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -297,14 +303,15 @@ class AsyncPayoutsResource(AsyncAPIResource):
         idempotency_key: str | None = None,
     ) -> PayoutCreateResponse:
         """
-        Sends money from an account's balance to one of its saved payout methods.
+        Sends money from an account's or user's balance to one of its saved payout
+        methods.
 
         Args:
-          account_id: The account to pay out from (a biz\\__ identifier).
-
           amount: The amount to pay out in the specified currency.
 
           payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
+
+          account_id: The account to pay out from (a biz\\__ identifier). Provide this or user_id.
 
           currency: The currency to pay out. Balances are held per currency and the payout draws
               only from the balance in this currency, so match the currency the funds arrived
@@ -324,6 +331,8 @@ class AsyncPayoutsResource(AsyncAPIResource):
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
+          user_id: The user to pay out from (a user\\__ identifier). Provide this or account_id.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -338,13 +347,14 @@ class AsyncPayoutsResource(AsyncAPIResource):
             "/payouts",
             body=await async_maybe_transform(
                 {
-                    "account_id": account_id,
                     "amount": amount,
                     "payout_method_id": payout_method_id,
+                    "account_id": account_id,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
+                    "user_id": user_id,
                 },
                 payout_create_params.PayoutCreateParams,
             ),

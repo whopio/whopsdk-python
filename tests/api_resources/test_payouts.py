@@ -22,7 +22,6 @@ class TestPayouts:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         payout = client.payouts.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
         )
@@ -32,13 +31,14 @@ class TestPayouts:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         payout = client.payouts.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
+            account_id="account_id",
             currency="currency",
             api_idempotency_key="idempotency_key",
             platform_covers_fees=True,
             speed="standard",
+            user_id="user_id",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 
@@ -46,7 +46,6 @@ class TestPayouts:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.payouts.with_raw_response.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
         )
@@ -60,7 +59,6 @@ class TestPayouts:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.payouts.with_streaming_response.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
         ) as response:
@@ -124,7 +122,6 @@ class TestAsyncPayouts:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         payout = await async_client.payouts.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
         )
@@ -134,13 +131,14 @@ class TestAsyncPayouts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         payout = await async_client.payouts.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
+            account_id="account_id",
             currency="currency",
             api_idempotency_key="idempotency_key",
             platform_covers_fees=True,
             speed="standard",
+            user_id="user_id",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 
@@ -148,7 +146,6 @@ class TestAsyncPayouts:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.with_raw_response.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
         )
@@ -162,7 +159,6 @@ class TestAsyncPayouts:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.with_streaming_response.create(
-            account_id="account_id",
             amount=0,
             payout_method_id="payout_method_id",
         ) as response:
