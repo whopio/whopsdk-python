@@ -41,6 +41,7 @@ class TestExperiences:
             is_public=True,
             logo={"id": "id"},
             name="name",
+            notifications_enabled=True,
             section_id="section_id",
         )
         assert_matches_type(Experience, experience, path=["response"])
@@ -132,6 +133,7 @@ class TestExperiences:
             is_public=True,
             logo={"id": "id"},
             name="name",
+            notifications_enabled=True,
             order="123.45",
             section_id="section_id",
         )
@@ -430,6 +432,7 @@ class TestAsyncExperiences:
             is_public=True,
             logo={"id": "id"},
             name="name",
+            notifications_enabled=True,
             section_id="section_id",
         )
         assert_matches_type(Experience, experience, path=["response"])
@@ -521,6 +524,7 @@ class TestAsyncExperiences:
             is_public=True,
             logo={"id": "id"},
             name="name",
+            notifications_enabled=True,
             order="123.45",
             section_id="section_id",
         )
