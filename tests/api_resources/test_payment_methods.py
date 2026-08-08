@@ -91,6 +91,7 @@ class TestPaymentMethods:
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
+            future_usage="off_session",
             last=42,
             member_id="mber_xxxxxxxxxxxxx",
         )
@@ -193,6 +194,7 @@ class TestAsyncPaymentMethods:
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
             first=42,
+            future_usage="off_session",
             last=42,
             member_id="mber_xxxxxxxxxxxxx",
         )
