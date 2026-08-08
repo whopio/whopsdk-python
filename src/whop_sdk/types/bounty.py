@@ -65,6 +65,14 @@ class CaptureSpecVideo(BaseModel):
     fps: int
     """Target capture frame rate."""
 
+    frame_gap_tolerance_ms: int
+    """
+    Longest stall between consecutive frames a clip may contain before the client
+    rejects it, in milliseconds. Every frame is timestamped in the frame log, so a
+    stall stays alignable downstream — this bounds how broken a capture may be, not
+    how evenly it must be paced.
+    """
+
     height: int
     """Required frame height in pixels — recorded footage must match exactly."""
 
@@ -114,6 +122,12 @@ class CaptureSpec(BaseModel):
 
     min_clip_duration_seconds: int
     """Minimum length of a single clip, in seconds."""
+
+    min_total_verified_duration_seconds: int
+    """
+    Total verified footage a submission must accumulate across all its clips before
+    it can be submitted, in seconds. Always a whole number of hours.
+    """
 
     required_metadata_fields: List[str]
 

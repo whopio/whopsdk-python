@@ -106,8 +106,23 @@ class CaptureSpec(TypedDict, total=False):
     container's metadata.
     """
 
+    frame_gap_tolerance_ms: int
+    """
+    Longest stall between consecutive frames a clip may contain before the client
+    rejects it, in milliseconds. Unlike the recording fields this one can also be
+    tuned after the bounty is created, since it bounds what is accepted rather than
+    how footage is captured.
+    """
+
     min_clip_duration_seconds: int
     """Minimum length of a single clip, in seconds."""
+
+    min_total_verified_duration_seconds: int
+    """
+    Total verified footage a submission must accumulate across all its clips before
+    it can be submitted, in seconds. Must be a whole number of hours between 1
+    and 12. Editable after create, until someone starts an attempt.
+    """
 
     stabilization_mode: Literal["off", "on", "any"]
     """How the recorder configures video stabilization.

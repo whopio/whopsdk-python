@@ -42,7 +42,9 @@ class TestBounties:
             capture_spec={
                 "bitrate_target_mbps": 0,
                 "embed_camera_metadata": True,
+                "frame_gap_tolerance_ms": 0,
                 "min_clip_duration_seconds": 0,
+                "min_total_verified_duration_seconds": 0,
                 "stabilization_mode": "off",
             },
             experience_id="experience_id",
@@ -302,7 +304,9 @@ class TestAsyncBounties:
             capture_spec={
                 "bitrate_target_mbps": 0,
                 "embed_camera_metadata": True,
+                "frame_gap_tolerance_ms": 0,
                 "min_clip_duration_seconds": 0,
+                "min_total_verified_duration_seconds": 0,
                 "stabilization_mode": "off",
             },
             experience_id="experience_id",
