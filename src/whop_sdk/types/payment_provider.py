@@ -20,4 +20,6 @@ PaymentProvider: TypeAlias = Literal[
     "coinflow",
     "sequra",
     "dlocal",
+    "masspay",
+    "braintree",
 ]
