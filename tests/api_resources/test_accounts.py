@@ -472,6 +472,16 @@ class TestAccounts:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_transfer_ownership_with_all_params(self, client: Whop) -> None:
+        account = client.accounts.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+            as_partner=True,
+        )
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_transfer_ownership(self, client: Whop) -> None:
         response = client.accounts.with_raw_response.transfer_ownership(
             account_id="account_id",
@@ -957,6 +967,16 @@ class TestAsyncAccounts:
         account = await async_client.accounts.transfer_ownership(
             account_id="account_id",
             identifier="identifier",
+        )
+        assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_transfer_ownership_with_all_params(self, async_client: AsyncWhop) -> None:
+        account = await async_client.accounts.transfer_ownership(
+            account_id="account_id",
+            identifier="identifier",
+            as_partner=True,
         )
         assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
 

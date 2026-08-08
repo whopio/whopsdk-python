@@ -2900,6 +2900,7 @@ class AccountsResource(SyncAPIResource):
         account_id: str,
         *,
         identifier: str,
+        as_partner: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2910,21 +2911,16 @@ class AccountsResource(SyncAPIResource):
     ) -> AccountTransferOwnershipResponse:
         """
         Transfers ownership of the account to another user, identified by user ID or
-        email address. When the recipient already holds the owner role on the account,
-        ownership transfers immediately and the response is `{ "success": true }`.
-        Otherwise they are sent an ownership transfer invite and the request returns
-        `201` with `{ "object": "team_member_invite", "invitation_sent": true }` —
-        ownership moves when they accept it, and nothing changes if they never do. A
-        recipient who is already a team member without the owner role is rejected; grant
-        them the owner role first. The previous owner keeps their team membership and
-        can remove it by deleting their own team member record. User tokens require the
-        caller to be the original account owner and a step-up verified session. Business
-        account API keys require the `company:transfer_ownership` scope, must belong to
-        that exact account, and must have been created by its current owner.
+        email address. If the recipient already holds the owner role, ownership moves
+        immediately; otherwise they get an invite and ownership moves when they accept.
 
         Args:
           identifier: The user to transfer ownership to: a user ID (`user_*`) or an email address. An
               email address with no Whop account yet is sent an invite to create one.
+
+          as_partner: If true, the current owner is credited as the account's Whop partner, earning
+              partner commission on its sales. Requires the current owner to already be an
+              enrolled Whop partner. Skipped if the account already has an active partner.
 
           extra_headers: Send extra headers
 
@@ -2941,7 +2937,11 @@ class AccountsResource(SyncAPIResource):
         return self._post(
             path_template("/accounts/{account_id}/transfer_ownership", account_id=account_id),
             body=maybe_transform(
-                {"identifier": identifier}, account_transfer_ownership_params.AccountTransferOwnershipParams
+                {
+                    "identifier": identifier,
+                    "as_partner": as_partner,
+                },
+                account_transfer_ownership_params.AccountTransferOwnershipParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -5804,6 +5804,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         account_id: str,
         *,
         identifier: str,
+        as_partner: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -5814,21 +5815,16 @@ class AsyncAccountsResource(AsyncAPIResource):
     ) -> AccountTransferOwnershipResponse:
         """
         Transfers ownership of the account to another user, identified by user ID or
-        email address. When the recipient already holds the owner role on the account,
-        ownership transfers immediately and the response is `{ "success": true }`.
-        Otherwise they are sent an ownership transfer invite and the request returns
-        `201` with `{ "object": "team_member_invite", "invitation_sent": true }` —
-        ownership moves when they accept it, and nothing changes if they never do. A
-        recipient who is already a team member without the owner role is rejected; grant
-        them the owner role first. The previous owner keeps their team membership and
-        can remove it by deleting their own team member record. User tokens require the
-        caller to be the original account owner and a step-up verified session. Business
-        account API keys require the `company:transfer_ownership` scope, must belong to
-        that exact account, and must have been created by its current owner.
+        email address. If the recipient already holds the owner role, ownership moves
+        immediately; otherwise they get an invite and ownership moves when they accept.
 
         Args:
           identifier: The user to transfer ownership to: a user ID (`user_*`) or an email address. An
               email address with no Whop account yet is sent an invite to create one.
+
+          as_partner: If true, the current owner is credited as the account's Whop partner, earning
+              partner commission on its sales. Requires the current owner to already be an
+              enrolled Whop partner. Skipped if the account already has an active partner.
 
           extra_headers: Send extra headers
 
@@ -5845,7 +5841,11 @@ class AsyncAccountsResource(AsyncAPIResource):
         return await self._post(
             path_template("/accounts/{account_id}/transfer_ownership", account_id=account_id),
             body=await async_maybe_transform(
-                {"identifier": identifier}, account_transfer_ownership_params.AccountTransferOwnershipParams
+                {
+                    "identifier": identifier,
+                    "as_partner": as_partner,
+                },
+                account_transfer_ownership_params.AccountTransferOwnershipParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
