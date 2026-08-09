@@ -199,3 +199,10 @@ class MethodListResponse(BaseModel):
 
     supported_payout_method: Optional[SupportedPayoutMethod] = None
     """The supported payout method this saved method was created from."""
+
+    unavailable_reason: Optional[Literal["destination_retired"]] = None
+    """
+    Why this method can no longer receive payouts: `destination_retired` (the payout
+    provider stopped offering the destination — the method must be re-added), `null`
+    (usable).
+    """

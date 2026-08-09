@@ -68,6 +68,13 @@ class MethodCreateResponse(BaseModel):
 
     supported_payout_method: Optional[SupportedPayoutMethod] = None
 
+    unavailable_reason: Optional[Literal["destination_retired"]] = None
+    """
+    Why this method can no longer receive payouts: `destination_retired` (the payout
+    provider stopped offering the destination — the method must be re-added), `null`
+    (usable).
+    """
+
     bank_verification_state: Optional[Literal["checking", "verified", "no_data", "warning", "broken"]] = None
     """
     Lifecycle trust state: `checking` (verification still running), `verified` (bank

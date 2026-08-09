@@ -78,3 +78,10 @@ class MethodUpdateResponse(BaseModel):
     status: Literal["created", "active", "broken"]
 
     supported_payout_method: Optional[SupportedPayoutMethod] = None
+
+    unavailable_reason: Optional[Literal["destination_retired"]] = None
+    """
+    Why this method can no longer receive payouts: `destination_retired` (the payout
+    provider stopped offering the destination — the method must be re-added), `null`
+    (usable).
+    """
