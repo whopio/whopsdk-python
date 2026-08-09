@@ -79,10 +79,14 @@ class SocialAccountsResource(SyncAPIResource):
         Creates or returns a Whop-managed Facebook page for an account.
 
         Args:
-          platform: The platform to create the social account on.
+          platform: The platform to create the social account on. `facebook` requires the account's
+              `banner_image`, `logo`, and `description`; configure them with
+              [Update Account](/api-reference/beta/accounts/update-account).
 
           account_id: The Account (biz\\__ identifier) to create the social account for. An
-              account-scoped API key may omit this to default to its own account.
+              account-scoped API key may omit this to default to its own account. Account API
+              keys cannot update their own account's branding through Update Account; use a
+              user-authenticated path.
 
           extra_headers: Send extra headers
 
@@ -463,10 +467,14 @@ class AsyncSocialAccountsResource(AsyncAPIResource):
         Creates or returns a Whop-managed Facebook page for an account.
 
         Args:
-          platform: The platform to create the social account on.
+          platform: The platform to create the social account on. `facebook` requires the account's
+              `banner_image`, `logo`, and `description`; configure them with
+              [Update Account](/api-reference/beta/accounts/update-account).
 
           account_id: The Account (biz\\__ identifier) to create the social account for. An
-              account-scoped API key may omit this to default to its own account.
+              account-scoped API key may omit this to default to its own account. Account API
+              keys cannot update their own account's branding through Update Account; use a
+              user-authenticated path.
 
           extra_headers: Send extra headers
 

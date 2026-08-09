@@ -5,7 +5,15 @@ from __future__ import annotations
 from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["AccountUpdateParams", "BusinessAddress", "StorePageConfig", "TaxIdentifier"]
+__all__ = [
+    "AccountUpdateParams",
+    "BannerImage",
+    "BusinessAddress",
+    "Logo",
+    "OpengraphImage",
+    "StorePageConfig",
+    "TaxIdentifier",
+]
 
 
 class AccountUpdateParams(TypedDict, total=False):
@@ -18,8 +26,12 @@ class AccountUpdateParams(TypedDict, total=False):
     affiliate_instructions: Optional[str]
     """Guidelines shown to affiliates promoting this account."""
 
-    banner_image: Optional[Dict[str, object]]
-    """Attachment input for the account banner image."""
+    banner_image: Optional[BannerImage]
+    """
+    Account banner image, used as the cover photo when creating a Whop-managed
+    Facebook page. Image files up to 10 MB, except `image/gif`. Pass a JSON object
+    containing an `id` from [Create File](/api-reference/files/create-file).
+    """
 
     business_address: BusinessAddress
     """Account business address used to calculate tax.
@@ -69,7 +81,11 @@ class AccountUpdateParams(TypedDict, total=False):
     """Country where the account is located."""
 
     description: Optional[str]
-    """Account promotional description."""
+    """Account promotional description.
+
+    When creating a Whop-managed Facebook page, it is truncated to 155 characters
+    and used as the About text.
+    """
 
     featured_affiliate_product_id: Optional[str]
     """The ID of the product to feature for affiliates. Pass `null` to clear."""
@@ -2203,8 +2219,12 @@ class AccountUpdateParams(TypedDict, total=False):
     invoice_prefix: Optional[str]
     """Prefix used for account invoices."""
 
-    logo: Optional[Dict[str, object]]
-    """Attachment input for the account logo."""
+    logo: Optional[Logo]
+    """
+    Account logo, used as the profile picture when creating a Whop-managed Facebook
+    page. Image files up to 5 MB. Pass a JSON object containing an `id` from
+    [Create File](/api-reference/files/create-file).
+    """
 
     metadata: Dict[str, object]
     """Arbitrary key/value metadata to store on the account."""
@@ -2212,8 +2232,12 @@ class AccountUpdateParams(TypedDict, total=False):
     onboarding_type: Optional[Literal["platform", "seller"]]
     """The type of onboarding the account has completed."""
 
-    opengraph_image: Optional[Dict[str, object]]
-    """Attachment input for the account Open Graph image."""
+    opengraph_image: Optional[OpengraphImage]
+    """Open Graph preview media used when the account is shared.
+
+    Image and video files up to 5 MB. Pass a JSON object containing an `id` from
+    [Create File](/api-reference/files/create-file).
+    """
 
     opengraph_image_variant: Optional[Literal["white", "black", "orange"]]
     """The account Open Graph image variant."""
@@ -2345,6 +2369,22 @@ class AccountUpdateParams(TypedDict, total=False):
     """Whether the account uses its logo as the fallback Open Graph image."""
 
 
+class BannerImage(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
+    """
+    Account banner image, used as the cover photo when creating a Whop-managed Facebook page. Image files up to 10 MB, except `image/gif`. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file).
+    """
+
+    id: str
+    """
+    ID of a file from [Create File](/api-reference/files/create-file), prefixed
+    `file_`.
+    """
+
+
 class BusinessAddress(TypedDict, total=False):
     """Account business address used to calculate tax.
 
@@ -2368,6 +2408,39 @@ class BusinessAddress(TypedDict, total=False):
 
     state: Optional[str]
     """State, province, or region code, for example `CA`."""
+
+
+class Logo(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
+    """
+    Account logo, used as the profile picture when creating a Whop-managed Facebook page. Image files up to 5 MB. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file).
+    """
+
+    id: str
+    """
+    ID of a file from [Create File](/api-reference/files/create-file), prefixed
+    `file_`.
+    """
+
+
+class OpengraphImage(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
+    """Open Graph preview media used when the account is shared.
+
+    Image and video files up to 5 MB. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file).
+    """
+
+    id: str
+    """
+    ID of a file from [Create File](/api-reference/files/create-file), prefixed
+    `file_`.
+    """
 
 
 class StorePageConfig(TypedDict, total=False):

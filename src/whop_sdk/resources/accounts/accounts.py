@@ -198,7 +198,7 @@ class AccountsResource(SyncAPIResource):
         *,
         affiliate_application_required: bool | Omit = omit,
         affiliate_instructions: Optional[str] | Omit = omit,
-        banner_image: Optional[Dict[str, object]] | Omit = omit,
+        banner_image: Optional[account_update_params.BannerImage] | Omit = omit,
         business_address: account_update_params.BusinessAddress | Omit = omit,
         business_type: Optional[
             Literal[
@@ -2342,10 +2342,10 @@ class AccountsResource(SyncAPIResource):
         ]
         | Omit = omit,
         invoice_prefix: Optional[str] | Omit = omit,
-        logo: Optional[Dict[str, object]] | Omit = omit,
+        logo: Optional[account_update_params.Logo] | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         onboarding_type: Optional[Literal["platform", "seller"]] | Omit = omit,
-        opengraph_image: Optional[Dict[str, object]] | Omit = omit,
+        opengraph_image: Optional[account_update_params.OpengraphImage] | Omit = omit,
         opengraph_image_variant: Optional[Literal["white", "black", "orange"]] | Omit = omit,
         other_business_description: Optional[str] | Omit = omit,
         other_industry_description: Optional[str] | Omit = omit,
@@ -2439,7 +2439,9 @@ class AccountsResource(SyncAPIResource):
 
           affiliate_instructions: Guidelines shown to affiliates promoting this account.
 
-          banner_image: Attachment input for the account banner image.
+          banner_image: Account banner image, used as the cover photo when creating a Whop-managed
+              Facebook page. Image files up to 10 MB, except `image/gif`. Pass a JSON object
+              containing an `id` from [Create File](/api-reference/files/create-file).
 
           business_address: Account business address used to calculate tax. A complete address in a
               supported country is required when `tax_remitted_by` is `self`.
@@ -2453,7 +2455,8 @@ class AccountsResource(SyncAPIResource):
 
           country: Country where the account is located.
 
-          description: Account promotional description.
+          description: Account promotional description. When creating a Whop-managed Facebook page, it
+              is truncated to 155 characters and used as the About text.
 
           featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass `null` to clear.
 
@@ -2469,13 +2472,17 @@ class AccountsResource(SyncAPIResource):
 
           invoice_prefix: Prefix used for account invoices.
 
-          logo: Attachment input for the account logo.
+          logo: Account logo, used as the profile picture when creating a Whop-managed Facebook
+              page. Image files up to 5 MB. Pass a JSON object containing an `id` from
+              [Create File](/api-reference/files/create-file).
 
           metadata: Arbitrary key/value metadata to store on the account.
 
           onboarding_type: The type of onboarding the account has completed.
 
-          opengraph_image: Attachment input for the account Open Graph image.
+          opengraph_image: Open Graph preview media used when the account is shared. Image and video files
+              up to 5 MB. Pass a JSON object containing an `id` from
+              [Create File](/api-reference/files/create-file).
 
           opengraph_image_variant: The account Open Graph image variant.
 
@@ -3102,7 +3109,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         *,
         affiliate_application_required: bool | Omit = omit,
         affiliate_instructions: Optional[str] | Omit = omit,
-        banner_image: Optional[Dict[str, object]] | Omit = omit,
+        banner_image: Optional[account_update_params.BannerImage] | Omit = omit,
         business_address: account_update_params.BusinessAddress | Omit = omit,
         business_type: Optional[
             Literal[
@@ -5246,10 +5253,10 @@ class AsyncAccountsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         invoice_prefix: Optional[str] | Omit = omit,
-        logo: Optional[Dict[str, object]] | Omit = omit,
+        logo: Optional[account_update_params.Logo] | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         onboarding_type: Optional[Literal["platform", "seller"]] | Omit = omit,
-        opengraph_image: Optional[Dict[str, object]] | Omit = omit,
+        opengraph_image: Optional[account_update_params.OpengraphImage] | Omit = omit,
         opengraph_image_variant: Optional[Literal["white", "black", "orange"]] | Omit = omit,
         other_business_description: Optional[str] | Omit = omit,
         other_industry_description: Optional[str] | Omit = omit,
@@ -5343,7 +5350,9 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           affiliate_instructions: Guidelines shown to affiliates promoting this account.
 
-          banner_image: Attachment input for the account banner image.
+          banner_image: Account banner image, used as the cover photo when creating a Whop-managed
+              Facebook page. Image files up to 10 MB, except `image/gif`. Pass a JSON object
+              containing an `id` from [Create File](/api-reference/files/create-file).
 
           business_address: Account business address used to calculate tax. A complete address in a
               supported country is required when `tax_remitted_by` is `self`.
@@ -5357,7 +5366,8 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           country: Country where the account is located.
 
-          description: Account promotional description.
+          description: Account promotional description. When creating a Whop-managed Facebook page, it
+              is truncated to 155 characters and used as the About text.
 
           featured_affiliate_product_id: The ID of the product to feature for affiliates. Pass `null` to clear.
 
@@ -5373,13 +5383,17 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           invoice_prefix: Prefix used for account invoices.
 
-          logo: Attachment input for the account logo.
+          logo: Account logo, used as the profile picture when creating a Whop-managed Facebook
+              page. Image files up to 5 MB. Pass a JSON object containing an `id` from
+              [Create File](/api-reference/files/create-file).
 
           metadata: Arbitrary key/value metadata to store on the account.
 
           onboarding_type: The type of onboarding the account has completed.
 
-          opengraph_image: Attachment input for the account Open Graph image.
+          opengraph_image: Open Graph preview media used when the account is shared. Image and video files
+              up to 5 MB. Pass a JSON object containing an `id` from
+              [Create File](/api-reference/files/create-file).
 
           opengraph_image_variant: The account Open Graph image variant.
 
