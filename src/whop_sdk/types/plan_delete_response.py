@@ -1,7 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing_extensions import TypeAlias
+from .._models import BaseModel
 
 __all__ = ["PlanDeleteResponse"]
 
-PlanDeleteResponse: TypeAlias = bool
+
+class PlanDeleteResponse(BaseModel):
+    id: str
+    """ID of the deleted plan."""
+
+    deleted: bool
+    """Always true."""
