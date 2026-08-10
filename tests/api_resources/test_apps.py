@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from whop_sdk.types import (
     AppListResponse,
     AppLogsResponse,
+    AppDeleteResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -234,6 +235,48 @@ class TestApps:
             assert_matches_type(SyncCursorPage[AppListResponse], app, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Whop) -> None:
+        app = client.apps.delete(
+            "id",
+        )
+        assert_matches_type(AppDeleteResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Whop) -> None:
+        response = client.apps.with_raw_response.delete(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        app = response.parse()
+        assert_matches_type(AppDeleteResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Whop) -> None:
+        with client.apps.with_streaming_response.delete(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            app = response.parse()
+            assert_matches_type(AppDeleteResponse, app, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.apps.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -580,6 +623,48 @@ class TestAsyncApps:
             assert_matches_type(AsyncCursorPage[AppListResponse], app, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWhop) -> None:
+        app = await async_client.apps.delete(
+            "id",
+        )
+        assert_matches_type(AppDeleteResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
+        response = await async_client.apps.with_raw_response.delete(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        app = await response.parse()
+        assert_matches_type(AppDeleteResponse, app, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
+        async with async_client.apps.with_streaming_response.delete(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            app = await response.parse()
+            assert_matches_type(AppDeleteResponse, app, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.apps.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

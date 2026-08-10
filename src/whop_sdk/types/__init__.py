@@ -173,6 +173,7 @@ from .account_social_link import AccountSocialLink as AccountSocialLink
 from .ad_duplicate_params import AdDuplicateParams as AdDuplicateParams
 from .ai_chat_list_params import AIChatListParams as AIChatListParams
 from .api_key_list_params import APIKeyListParams as APIKeyListParams
+from .app_delete_response import AppDeleteResponse as AppDeleteResponse
 from .bounty_capture_clip import BountyCaptureClip as BountyCaptureClip
 from .company_list_params import CompanyListParams as CompanyListParams
 from .course_visibilities import CourseVisibilities as CourseVisibilities
