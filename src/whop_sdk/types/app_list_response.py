@@ -1,152 +1,118 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .app_type import AppType
-from .shared.app_statuses import AppStatuses
 
-__all__ = ["AppListResponse", "Company", "Creator", "Icon"]
+__all__ = ["AppListResponse", "Account", "Creator", "Icon"]
 
 
-class Company(BaseModel):
-    """The company that owns and publishes this app."""
+class Account(BaseModel):
+    """The account that owns the app."""
 
     id: str
-    """The unique identifier for the company."""
+    """Account ID, prefixed `biz_`."""
 
     title: str
-    """The display name of the company shown to customers."""
+    """Account display name."""
 
 
 class Creator(BaseModel):
-    """The user who created and owns the company that published this app."""
+    """The user who owns the publishing account."""
 
     id: str
-    """The unique identifier for the user."""
+    """User ID, prefixed `user_`."""
 
     name: Optional[str] = None
-    """The user's display name shown on their public profile."""
+    """Display name."""
 
     username: str
-    """The user's unique username shown on their public profile."""
+    """Public username."""
 
 
 class Icon(BaseModel):
-    """
-    The icon image for this app, displayed on the app store, product pages, checkout, and as the default icon for experiences using this app.
-    """
+    """The app's icon. Falls back to the default app icon when none is uploaded."""
 
-    url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
+    url: str
+    """Icon image URL. Always present — the default app icon when none is uploaded."""
 
 
 class AppListResponse(BaseModel):
-    """An app is an integration built on Whop.
-
-    Apps can serve consumers as experiences within products, or serve companies as business tools.
-    """
-
     id: str
-    """The unique identifier for the app."""
+    """App ID, prefixed `app_`."""
 
-    app_type: AppType
-    """
-    The target audience classification for this app (e.g., 'b2b_app', 'b2c_app',
-    'company_app', 'component').
-    """
+    account: Account
+    """The account that owns the app."""
+
+    app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
+    """The type of end-user the app is built for."""
 
     base_url: Optional[str] = None
-    """The production base URL where the app is hosted.
-
-    Null if no base URL is configured.
-    """
-
-    company: Company
-    """The company that owns and publishes this app."""
+    """Production base URL where the app is hosted, or `null` if none is configured."""
 
     creator: Creator
-    """The user who created and owns the company that published this app."""
+    """The user who owns the publishing account."""
 
     dashboard_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
-    """
+    """URL path for the account dashboard view, or `null` when not configured."""
 
     description: Optional[str] = None
     """
-    A written description of what this app does, displayed on the app store listing
-    page. Null if no description has been set.
+    Short description shown in listings and search results, or `null` if none has
+    been set.
     """
 
     discover_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
-    """
+    """URL path for the discover view, or `null` when not configured."""
 
     domain_id: str
-    """The unique subdomain identifier for this app's proxied URL on the Whop platform.
-
-    Forms the URL pattern https://{domain_id}.apps.whop.com.
+    """
+    Subdomain identifier for the app's proxied URL, forming
+    https://{domain_id}.apps.whop.com.
     """
 
     experience_path: Optional[str] = None
+    """URL path for the member-facing hub view, or `null` when not configured."""
+
+    hosted_url: Optional[str] = None
     """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
+    Full URL where the app's hosted web build is served, or `null` if no route is
+    claimed.
     """
 
-    icon: Optional[Icon] = None
-    """
-    The icon image for this app, displayed on the app store, product pages,
-    checkout, and as the default icon for experiences using this app.
-    """
+    icon: Icon
+    """The app's icon. Falls back to the default app icon when none is uploaded."""
 
     name: str
-    """The display name of this app shown on the app store and in experience
-    navigation.
-
-    Maximum 30 characters.
-    """
+    """Display name shown on the app store and in experience navigation."""
 
     openapi_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
-    """
+    """URL path to the app's OpenAPI spec file, or `null` when not configured."""
 
     origin: Optional[str] = None
     """
-    The full origin URL for this app's proxied domain (e.g.,
-    'https://myapp.apps.whop.com'). Null if no proxy domain is configured.
+    Full origin URL of the app's proxied domain, for example
+    https://ab1c2d3e4f.apps.whop.com.
+    """
+
+    route: Optional[str] = None
+    """
+    Claimed subdomain route where hosted web builds are served (`myapp` for
+    myapp.whop.app), or `null` if no route is claimed.
     """
 
     skills_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
-    """
+    """URL path to the app's skills directory, or `null` when not configured."""
 
-    status: AppStatuses
-    """The current visibility status of this app on the Whop app store.
-
-    'live' means publicly discoverable, 'unlisted' means accessible only via direct
-    link, and 'hidden' means not visible anywhere.
+    status: Literal["live", "unlisted", "hidden"]
+    """
+    Visibility on the Whop app store: `live` is publicly discoverable, `unlisted` is
+    accessible only via direct link, `hidden` is not visible anywhere.
     """
 
     verified: bool
-    """Whether this app has been verified by Whop.
-
-    Verified apps are endorsed by Whop and displayed in the featured apps section of
-    the app store.
+    """
+    Whether the app has been verified by Whop and is eligible for the featured apps
+    section.
     """
