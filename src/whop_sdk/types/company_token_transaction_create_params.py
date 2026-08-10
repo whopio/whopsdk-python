@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = [
     "CompanyTokenTransactionCreateParams",
@@ -40,7 +42,7 @@ class CreateCompanyTokenTransactionInputTransactionTypeTransfer(TypedDict, total
     description: Optional[str]
     """A human-readable description of why the transaction was created."""
 
-    idempotency_key: Optional[str]
+    api_idempotency_key: Annotated[Optional[str], PropertyInfo(alias="idempotency_key")]
     """A unique key to prevent duplicate transactions.
 
     Use a UUID or similar unique string.
@@ -68,7 +70,7 @@ class CreateCompanyTokenTransactionInputTransactionTypeAdd(TypedDict, total=Fals
     description: Optional[str]
     """A human-readable description of why the transaction was created."""
 
-    idempotency_key: Optional[str]
+    api_idempotency_key: Annotated[Optional[str], PropertyInfo(alias="idempotency_key")]
     """A unique key to prevent duplicate transactions.
 
     Use a UUID or similar unique string.
@@ -96,7 +98,7 @@ class CreateCompanyTokenTransactionInputTransactionTypeSubtract(TypedDict, total
     description: Optional[str]
     """A human-readable description of why the transaction was created."""
 
-    idempotency_key: Optional[str]
+    api_idempotency_key: Annotated[Optional[str], PropertyInfo(alias="idempotency_key")]
     """A unique key to prevent duplicate transactions.
 
     Use a UUID or similar unique string.
