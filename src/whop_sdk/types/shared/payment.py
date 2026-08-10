@@ -37,6 +37,7 @@ __all__ = [
     "Shipment",
     "ShippingAddress",
     "User",
+    "VerificationChecks",
 ]
 
 
@@ -473,6 +474,34 @@ class User(BaseModel):
     """The user's unique username shown on their public profile."""
 
 
+class VerificationChecks(BaseModel):
+    """The issuer's address and card security code check results for this payment.
+
+    Null when the processor returned none.
+    """
+
+    address_line1: Optional[str] = None
+    """
+    Whether the billing street address the customer entered matched the address the
+    issuer has on file.
+    """
+
+    card_holder_name: Optional[str] = None
+    """
+    Whether the cardholder name the customer entered matched the name the issuer has
+    on file.
+    """
+
+    card_security_code: Optional[str] = None
+    """Whether the CVV / CVC the customer entered matched the card."""
+
+    zip_code: Optional[str] = None
+    """
+    Whether the billing postal code the customer entered matched the postal code the
+    issuer has on file.
+    """
+
+
 class Payment(BaseModel):
     """A payment represents a completed or attempted charge.
 
@@ -822,6 +851,12 @@ class Payment(BaseModel):
 
     user: Optional[User] = None
     """The user that made this payment."""
+
+    verification_checks: Optional[VerificationChecks] = None
+    """The issuer's address and card security code check results for this payment.
+
+    Null when the processor returned none.
+    """
 
     voidable: bool
     """
