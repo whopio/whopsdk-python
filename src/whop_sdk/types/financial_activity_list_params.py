@@ -42,6 +42,13 @@ class FinancialActivityListParams(TypedDict, total=False):
     settlement-date filters. Each returned row includes the owning `account`.
     """
 
+    include_resource: bool
+    """Whether to include the `resource` field in the response or not.
+
+    Consider passing `false` if you need a fast response without as many rich
+    details.
+    """
+
     limit: int
     """Maximum number of rows to return."""
 

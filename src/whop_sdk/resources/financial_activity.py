@@ -60,6 +60,7 @@ class FinancialActivityResource(SyncAPIResource):
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
         include_owned_accounts: bool | Omit = omit,
+        include_resource: bool | Omit = omit,
         limit: int | Omit = omit,
         line_types: List[
             Literal[
@@ -191,6 +192,9 @@ class FinancialActivityResource(SyncAPIResource):
               user_id to be the authenticated user; cannot be combined with account_id or the
               settlement-date filters. Each returned row includes the owning `account`.
 
+          include_resource: Whether to include the `resource` field in the response or not. Consider passing
+              `false` if you need a fast response without as many rich details.
+
           limit: Maximum number of rows to return.
 
           line_types: Optional ledger line categories to include. Some categories (for example
@@ -226,6 +230,7 @@ class FinancialActivityResource(SyncAPIResource):
                         "currency": currency,
                         "cursor": cursor,
                         "include_owned_accounts": include_owned_accounts,
+                        "include_resource": include_resource,
                         "limit": limit,
                         "line_types": line_types,
                         "posted_after": posted_after,
@@ -274,6 +279,7 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
         currency: str | Omit = omit,
         cursor: str | Omit = omit,
         include_owned_accounts: bool | Omit = omit,
+        include_resource: bool | Omit = omit,
         limit: int | Omit = omit,
         line_types: List[
             Literal[
@@ -405,6 +411,9 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
               user_id to be the authenticated user; cannot be combined with account_id or the
               settlement-date filters. Each returned row includes the owning `account`.
 
+          include_resource: Whether to include the `resource` field in the response or not. Consider passing
+              `false` if you need a fast response without as many rich details.
+
           limit: Maximum number of rows to return.
 
           line_types: Optional ledger line categories to include. Some categories (for example
@@ -440,6 +449,7 @@ class AsyncFinancialActivityResource(AsyncAPIResource):
                         "currency": currency,
                         "cursor": cursor,
                         "include_owned_accounts": include_owned_accounts,
+                        "include_resource": include_resource,
                         "limit": limit,
                         "line_types": line_types,
                         "posted_after": posted_after,
