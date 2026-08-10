@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import payout_list_params, payout_create_params
+from ...types import payout_list_params, payout_create_params, payout_retrieve_params
 from .methods import (
     MethodsResource,
     AsyncMethodsResource,
@@ -17,7 +17,7 @@ from .methods import (
     AsyncMethodsResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -38,6 +38,7 @@ from .supported_methods import (
 )
 from ...types.payout_list_response import PayoutListResponse
 from ...types.payout_create_response import PayoutCreateResponse
+from ...types.payout_retrieve_response import PayoutRetrieveResponse
 
 __all__ = ["PayoutsResource", "AsyncPayoutsResource"]
 
@@ -169,6 +170,58 @@ class PayoutsResource(SyncAPIResource):
                 idempotency_key=idempotency_key,
             ),
             cast_to=PayoutCreateResponse,
+        )
+
+    def retrieve(
+        self,
+        payout_id: str,
+        *,
+        account_id: str | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PayoutRetrieveResponse:
+        """Fetches a single payout.
+
+        Accepts a `wdrl_` payout id from GET /payouts, or the
+        `cofr_` payout request id returned by POST /payouts on stablecoin accounts —
+        poll it to watch a requested payout settle.
+
+        Args:
+          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payout_id:
+            raise ValueError(f"Expected a non-empty value for `payout_id` but received {payout_id!r}")
+        return self._get(
+            path_template("/payouts/{payout_id}", payout_id=payout_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "user_id": user_id,
+                    },
+                    payout_retrieve_params.PayoutRetrieveParams,
+                ),
+            ),
+            cast_to=PayoutRetrieveResponse,
         )
 
     def list(
@@ -368,6 +421,58 @@ class AsyncPayoutsResource(AsyncAPIResource):
             cast_to=PayoutCreateResponse,
         )
 
+    async def retrieve(
+        self,
+        payout_id: str,
+        *,
+        account_id: str | Omit = omit,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PayoutRetrieveResponse:
+        """Fetches a single payout.
+
+        Accepts a `wdrl_` payout id from GET /payouts, or the
+        `cofr_` payout request id returned by POST /payouts on stablecoin accounts —
+        poll it to watch a requested payout settle.
+
+        Args:
+          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+
+          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payout_id:
+            raise ValueError(f"Expected a non-empty value for `payout_id` but received {payout_id!r}")
+        return await self._get(
+            path_template("/payouts/{payout_id}", payout_id=payout_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "account_id": account_id,
+                        "user_id": user_id,
+                    },
+                    payout_retrieve_params.PayoutRetrieveParams,
+                ),
+            ),
+            cast_to=PayoutRetrieveResponse,
+        )
+
     def list(
         self,
         *,
@@ -443,6 +548,9 @@ class PayoutsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             payouts.create,
         )
+        self.retrieve = to_raw_response_wrapper(
+            payouts.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             payouts.list,
         )
@@ -472,6 +580,9 @@ class AsyncPayoutsResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             payouts.create,
+        )
+        self.retrieve = async_to_raw_response_wrapper(
+            payouts.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
             payouts.list,
@@ -503,6 +614,9 @@ class PayoutsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             payouts.create,
         )
+        self.retrieve = to_streamed_response_wrapper(
+            payouts.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             payouts.list,
         )
@@ -532,6 +646,9 @@ class AsyncPayoutsResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             payouts.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            payouts.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
             payouts.list,

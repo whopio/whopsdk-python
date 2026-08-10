@@ -1097,12 +1097,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import PayoutCreateResponse, PayoutListResponse
+from whop_sdk.types import PayoutCreateResponse, PayoutRetrieveResponse, PayoutListResponse
 ```
 
 Methods:
 
 - <code title="post /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts/payouts.py">create</a>(\*\*<a href="src/whop_sdk/types/payout_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_create_response.py">PayoutCreateResponse</a></code>
+- <code title="get /payouts/{payout_id}">client.payouts.<a href="./src/whop_sdk/resources/payouts/payouts.py">retrieve</a>(payout_id, \*\*<a href="src/whop_sdk/types/payout_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_retrieve_response.py">PayoutRetrieveResponse</a></code>
 - <code title="get /payouts">client.payouts.<a href="./src/whop_sdk/resources/payouts/payouts.py">list</a>(\*\*<a href="src/whop_sdk/types/payout_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payout_list_response.py">SyncCursorPage[PayoutListResponse]</a></code>
 
 ## Methods
