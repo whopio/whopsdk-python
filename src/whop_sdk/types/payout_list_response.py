@@ -51,6 +51,12 @@ class PayoutListResponse(BaseModel):
     fee_amount: float
     """The fee charged for the payout, in the payout currency."""
 
+    notes: Optional[str] = None
+    """
+    Free-form notes the payout's creator attached, visible only to the paying
+    account.
+    """
+
     object: Literal["payout"]
 
     payer_name: Optional[str] = None

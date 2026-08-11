@@ -95,6 +95,7 @@ class PayoutsResource(SyncAPIResource):
         account_id: str | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -126,6 +127,9 @@ class PayoutsResource(SyncAPIResource):
               original payout instead of paying out twice. Also accepted as the
               `Idempotency-Key` header.
 
+          notes: Optional free-form notes to attach to the payout, visible only to the paying
+              account.
+
           platform_covers_fees: Whether the parent platform covers the payout fee instead of the account being
               paid out. Omit to use the platform's configured fee coverage policy; pass
               `false` to opt out of it. `true` is only accepted for accounts that belong to a
@@ -156,6 +160,7 @@ class PayoutsResource(SyncAPIResource):
                     "account_id": account_id,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
+                    "notes": notes,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
                     "user_id": user_id,
@@ -344,6 +349,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -375,6 +381,9 @@ class AsyncPayoutsResource(AsyncAPIResource):
               original payout instead of paying out twice. Also accepted as the
               `Idempotency-Key` header.
 
+          notes: Optional free-form notes to attach to the payout, visible only to the paying
+              account.
+
           platform_covers_fees: Whether the parent platform covers the payout fee instead of the account being
               paid out. Omit to use the platform's configured fee coverage policy; pass
               `false` to opt out of it. `true` is only accepted for accounts that belong to a
@@ -405,6 +414,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "account_id": account_id,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
+                    "notes": notes,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
                     "user_id": user_id,

@@ -35,6 +35,12 @@ class PayoutCreateParams(TypedDict, total=False):
     twice. Also accepted as the `Idempotency-Key` header.
     """
 
+    notes: Optional[str]
+    """
+    Optional free-form notes to attach to the payout, visible only to the paying
+    account.
+    """
+
     platform_covers_fees: bool
     """
     Whether the parent platform covers the payout fee instead of the account being
