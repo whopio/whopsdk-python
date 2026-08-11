@@ -14,6 +14,12 @@ class Account(BaseModel):
     id: str
     """Account ID, prefixed `biz_`."""
 
+    logo_url: Optional[str] = None
+    """Account logo image URL."""
+
+    route: str
+    """Account public route identifier."""
+
     title: str
     """Account display name."""
 
