@@ -182,7 +182,7 @@ class AppsResource(SyncAPIResource):
         *,
         app_store_description: str | Omit = omit,
         app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
-        base_url: str | Omit = omit,
+        base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: str | Omit = omit,
         discover_path: Optional[str] | Omit = omit,
@@ -219,7 +219,8 @@ class AppsResource(SyncAPIResource):
           app_type: The type of end-user the app is built for. Cannot be changed on an app whose
               type is already `website`.
 
-          base_url: The base production URL where the app is hosted.
+          base_url: The base production URL where the app is hosted. Set to `null` to take the app
+              proxy offline.
 
           dashboard_path: The URL path for the account dashboard view.
 
@@ -722,7 +723,7 @@ class AsyncAppsResource(AsyncAPIResource):
         *,
         app_store_description: str | Omit = omit,
         app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
-        base_url: str | Omit = omit,
+        base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
         description: str | Omit = omit,
         discover_path: Optional[str] | Omit = omit,
@@ -759,7 +760,8 @@ class AsyncAppsResource(AsyncAPIResource):
           app_type: The type of end-user the app is built for. Cannot be changed on an app whose
               type is already `website`.
 
-          base_url: The base production URL where the app is hosted.
+          base_url: The base production URL where the app is hosted. Set to `null` to take the app
+              proxy offline.
 
           dashboard_path: The URL path for the account dashboard view.
 

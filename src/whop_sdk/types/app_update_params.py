@@ -20,8 +20,11 @@ class AppUpdateParams(TypedDict, total=False):
     Cannot be changed on an app whose type is already `website`.
     """
 
-    base_url: str
-    """The base production URL where the app is hosted."""
+    base_url: Optional[str]
+    """The base production URL where the app is hosted.
+
+    Set to `null` to take the app proxy offline.
+    """
 
     dashboard_path: Optional[str]
     """The URL path for the account dashboard view."""
