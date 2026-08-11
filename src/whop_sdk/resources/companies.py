@@ -35,8 +35,6 @@ __all__ = ["CompaniesResource", "AsyncCompaniesResource"]
 
 
 class CompaniesResource(SyncAPIResource):
-    """Companies"""
-
     @cached_property
     def with_raw_response(self) -> CompaniesResourceWithRawResponse:
         """
@@ -60,6 +58,253 @@ class CompaniesResource(SyncAPIResource):
         self,
         *,
         title: str,
+        country: Optional[
+            Literal[
+                "us",
+                "ca",
+                "gb",
+                "ab",
+                "af",
+                "al",
+                "dz",
+                "as",
+                "ad",
+                "ao",
+                "ai",
+                "aq",
+                "ag",
+                "ar",
+                "am",
+                "aw",
+                "au",
+                "at",
+                "az",
+                "bs",
+                "bh",
+                "bd",
+                "bb",
+                "by",
+                "be",
+                "bz",
+                "bj",
+                "bm",
+                "bt",
+                "bo",
+                "ba",
+                "bw",
+                "br",
+                "io",
+                "vg",
+                "bn",
+                "bg",
+                "bf",
+                "bi",
+                "kh",
+                "cm",
+                "cv",
+                "ky",
+                "cf",
+                "td",
+                "cl",
+                "cn",
+                "cx",
+                "cc",
+                "co",
+                "km",
+                "cg",
+                "ck",
+                "cr",
+                "ci",
+                "hr",
+                "cu",
+                "cw",
+                "cy",
+                "cz",
+                "cd",
+                "dk",
+                "dj",
+                "dm",
+                "do",
+                "ec",
+                "eg",
+                "sv",
+                "gq",
+                "ee",
+                "et",
+                "fk",
+                "fo",
+                "fj",
+                "fi",
+                "fr",
+                "gf",
+                "pf",
+                "ga",
+                "gm",
+                "ge",
+                "de",
+                "gh",
+                "gi",
+                "gr",
+                "gl",
+                "gd",
+                "gp",
+                "gu",
+                "gt",
+                "gg",
+                "gn",
+                "gw",
+                "gy",
+                "ht",
+                "hn",
+                "hk",
+                "hu",
+                "is",
+                "in",
+                "id",
+                "iq",
+                "ie",
+                "im",
+                "il",
+                "it",
+                "jm",
+                "sj",
+                "jp",
+                "je",
+                "jo",
+                "kz",
+                "ke",
+                "ki",
+                "xk",
+                "kw",
+                "kg",
+                "la",
+                "lv",
+                "lb",
+                "ls",
+                "lr",
+                "ly",
+                "li",
+                "lt",
+                "lu",
+                "mo",
+                "mk",
+                "mg",
+                "mw",
+                "my",
+                "mv",
+                "ml",
+                "mt",
+                "mh",
+                "mq",
+                "mr",
+                "mu",
+                "yt",
+                "mx",
+                "fm",
+                "md",
+                "mc",
+                "mn",
+                "me",
+                "ms",
+                "ma",
+                "mz",
+                "mm",
+                "na",
+                "nr",
+                "np",
+                "nl",
+                "an",
+                "nc",
+                "nz",
+                "ni",
+                "ne",
+                "ng",
+                "nu",
+                "mp",
+                "no",
+                "om",
+                "pk",
+                "pw",
+                "ps",
+                "pa",
+                "pg",
+                "py",
+                "pe",
+                "ph",
+                "pn",
+                "pl",
+                "pt",
+                "pr",
+                "qa",
+                "re",
+                "ro",
+                "ru",
+                "rw",
+                "bl",
+                "sh",
+                "kn",
+                "lc",
+                "mf",
+                "pm",
+                "vc",
+                "ws",
+                "sm",
+                "st",
+                "sa",
+                "sn",
+                "rs",
+                "sc",
+                "sl",
+                "sg",
+                "sx",
+                "sk",
+                "si",
+                "sb",
+                "so",
+                "za",
+                "kr",
+                "ss",
+                "es",
+                "lk",
+                "sd",
+                "sr",
+                "sz",
+                "se",
+                "ch",
+                "tw",
+                "tj",
+                "tz",
+                "th",
+                "tl",
+                "tg",
+                "tk",
+                "to",
+                "tt",
+                "tn",
+                "tr",
+                "tm",
+                "tc",
+                "tv",
+                "vi",
+                "ug",
+                "ua",
+                "ae",
+                "um",
+                "uy",
+                "uz",
+                "vu",
+                "va",
+                "ve",
+                "vn",
+                "wf",
+                "eh",
+                "ye",
+                "zm",
+                "zw",
+                "sy",
+            ]
+        ]
+        | Omit = omit,
         description: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         logo: Optional[company_create_params.Logo] | Omit = omit,
@@ -72,6 +317,7 @@ class CompaniesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Company:
         """Create a new company.
 
@@ -85,6 +331,8 @@ class CompaniesResource(SyncAPIResource):
 
         Args:
           title: The display name of the company shown to customers.
+
+          country: The available countries on the platform
 
           description: A promotional pitch displayed to potential customers on the company's store
               page.
@@ -110,12 +358,15 @@ class CompaniesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/companies",
             body=maybe_transform(
                 {
                     "title": title,
+                    "country": country,
                     "description": description,
                     "email": email,
                     "logo": logo,
@@ -126,7 +377,11 @@ class CompaniesResource(SyncAPIResource):
                 company_create_params.CompanyCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Company,
         )
@@ -189,6 +444,7 @@ class CompaniesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Company:
         """
         Update a company's title, description, logo, and other settings.
@@ -237,6 +493,8 @@ class CompaniesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -259,7 +517,11 @@ class CompaniesResource(SyncAPIResource):
                 company_update_params.CompanyUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Company,
         )
@@ -358,6 +620,7 @@ class CompaniesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyCreateAPIKeyResponse:
         """
         Create an API key for a connected account (child company) owned by a parent
@@ -381,6 +644,8 @@ class CompaniesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not parent_company_id:
             raise ValueError(f"Expected a non-empty value for `parent_company_id` but received {parent_company_id!r}")
@@ -396,15 +661,17 @@ class CompaniesResource(SyncAPIResource):
                 company_create_api_key_params.CompanyCreateAPIKeyParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CompanyCreateAPIKeyResponse,
         )
 
 
 class AsyncCompaniesResource(AsyncAPIResource):
-    """Companies"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCompaniesResourceWithRawResponse:
         """
@@ -428,6 +695,253 @@ class AsyncCompaniesResource(AsyncAPIResource):
         self,
         *,
         title: str,
+        country: Optional[
+            Literal[
+                "us",
+                "ca",
+                "gb",
+                "ab",
+                "af",
+                "al",
+                "dz",
+                "as",
+                "ad",
+                "ao",
+                "ai",
+                "aq",
+                "ag",
+                "ar",
+                "am",
+                "aw",
+                "au",
+                "at",
+                "az",
+                "bs",
+                "bh",
+                "bd",
+                "bb",
+                "by",
+                "be",
+                "bz",
+                "bj",
+                "bm",
+                "bt",
+                "bo",
+                "ba",
+                "bw",
+                "br",
+                "io",
+                "vg",
+                "bn",
+                "bg",
+                "bf",
+                "bi",
+                "kh",
+                "cm",
+                "cv",
+                "ky",
+                "cf",
+                "td",
+                "cl",
+                "cn",
+                "cx",
+                "cc",
+                "co",
+                "km",
+                "cg",
+                "ck",
+                "cr",
+                "ci",
+                "hr",
+                "cu",
+                "cw",
+                "cy",
+                "cz",
+                "cd",
+                "dk",
+                "dj",
+                "dm",
+                "do",
+                "ec",
+                "eg",
+                "sv",
+                "gq",
+                "ee",
+                "et",
+                "fk",
+                "fo",
+                "fj",
+                "fi",
+                "fr",
+                "gf",
+                "pf",
+                "ga",
+                "gm",
+                "ge",
+                "de",
+                "gh",
+                "gi",
+                "gr",
+                "gl",
+                "gd",
+                "gp",
+                "gu",
+                "gt",
+                "gg",
+                "gn",
+                "gw",
+                "gy",
+                "ht",
+                "hn",
+                "hk",
+                "hu",
+                "is",
+                "in",
+                "id",
+                "iq",
+                "ie",
+                "im",
+                "il",
+                "it",
+                "jm",
+                "sj",
+                "jp",
+                "je",
+                "jo",
+                "kz",
+                "ke",
+                "ki",
+                "xk",
+                "kw",
+                "kg",
+                "la",
+                "lv",
+                "lb",
+                "ls",
+                "lr",
+                "ly",
+                "li",
+                "lt",
+                "lu",
+                "mo",
+                "mk",
+                "mg",
+                "mw",
+                "my",
+                "mv",
+                "ml",
+                "mt",
+                "mh",
+                "mq",
+                "mr",
+                "mu",
+                "yt",
+                "mx",
+                "fm",
+                "md",
+                "mc",
+                "mn",
+                "me",
+                "ms",
+                "ma",
+                "mz",
+                "mm",
+                "na",
+                "nr",
+                "np",
+                "nl",
+                "an",
+                "nc",
+                "nz",
+                "ni",
+                "ne",
+                "ng",
+                "nu",
+                "mp",
+                "no",
+                "om",
+                "pk",
+                "pw",
+                "ps",
+                "pa",
+                "pg",
+                "py",
+                "pe",
+                "ph",
+                "pn",
+                "pl",
+                "pt",
+                "pr",
+                "qa",
+                "re",
+                "ro",
+                "ru",
+                "rw",
+                "bl",
+                "sh",
+                "kn",
+                "lc",
+                "mf",
+                "pm",
+                "vc",
+                "ws",
+                "sm",
+                "st",
+                "sa",
+                "sn",
+                "rs",
+                "sc",
+                "sl",
+                "sg",
+                "sx",
+                "sk",
+                "si",
+                "sb",
+                "so",
+                "za",
+                "kr",
+                "ss",
+                "es",
+                "lk",
+                "sd",
+                "sr",
+                "sz",
+                "se",
+                "ch",
+                "tw",
+                "tj",
+                "tz",
+                "th",
+                "tl",
+                "tg",
+                "tk",
+                "to",
+                "tt",
+                "tn",
+                "tr",
+                "tm",
+                "tc",
+                "tv",
+                "vi",
+                "ug",
+                "ua",
+                "ae",
+                "um",
+                "uy",
+                "uz",
+                "vu",
+                "va",
+                "ve",
+                "vn",
+                "wf",
+                "eh",
+                "ye",
+                "zm",
+                "zw",
+                "sy",
+            ]
+        ]
+        | Omit = omit,
         description: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         logo: Optional[company_create_params.Logo] | Omit = omit,
@@ -440,6 +954,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Company:
         """Create a new company.
 
@@ -453,6 +968,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
 
         Args:
           title: The display name of the company shown to customers.
+
+          country: The available countries on the platform
 
           description: A promotional pitch displayed to potential customers on the company's store
               page.
@@ -478,12 +995,15 @@ class AsyncCompaniesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/companies",
             body=await async_maybe_transform(
                 {
                     "title": title,
+                    "country": country,
                     "description": description,
                     "email": email,
                     "logo": logo,
@@ -494,7 +1014,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
                 company_create_params.CompanyCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Company,
         )
@@ -557,6 +1081,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Company:
         """
         Update a company's title, description, logo, and other settings.
@@ -605,6 +1130,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -627,7 +1154,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
                 company_update_params.CompanyUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Company,
         )
@@ -726,6 +1257,7 @@ class AsyncCompaniesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyCreateAPIKeyResponse:
         """
         Create an API key for a connected account (child company) owned by a parent
@@ -749,6 +1281,8 @@ class AsyncCompaniesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not parent_company_id:
             raise ValueError(f"Expected a non-empty value for `parent_company_id` but received {parent_company_id!r}")
@@ -764,7 +1298,11 @@ class AsyncCompaniesResource(AsyncAPIResource):
                 company_create_api_key_params.CompanyCreateAPIKeyParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CompanyCreateAPIKeyResponse,
         )
