@@ -25,3 +25,9 @@ class DmChannelCreateParams(TypedDict, total=False):
 
     custom_name: Optional[str]
     """A custom display name for the DM channel. For example, 'Project Discussion'."""
+
+    notifications_enabled: Optional[bool]
+    """Whether Whop app notifications are enabled for this direct message channel.
+
+    Webhooks still fire.
+    """
