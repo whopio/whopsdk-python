@@ -8,6 +8,7 @@ from .._models import BaseModel
 
 __all__ = [
     "SetupIntentUpdateReturnURLResponse",
+    "LastSetupError",
     "NextAction",
     "NextActionPaymentNextActionRedirect",
     "NextActionPaymentNextActionRedirectData",
@@ -25,6 +26,22 @@ __all__ = [
     "NextActionPaymentNextActionAwaitConfirmation",
     "NextActionPaymentNextActionAwaitConfirmationData",
 ]
+
+
+class LastSetupError(BaseModel):
+    """Why the setup ended where it did, or `null` when nothing has failed.
+
+    Present on `canceled` — a buyer who abandoned carries no code, one refused by the provider does.
+    """
+
+    code: Optional[str] = None
+    """A machine-readable classification of the failure, e.g.
+
+    `enrollment_declined`. Absent when the buyer simply abandoned the setup.
+    """
+
+    message: Optional[str] = None
+    """A human-readable explanation of the failure."""
 
 
 class NextActionPaymentNextActionRedirectData(BaseModel):
@@ -379,6 +396,13 @@ class SetupIntentUpdateReturnURLResponse(BaseModel):
     id: str
     """The setup this status describes, prefixed `sint_`."""
 
+    last_setup_error: Optional[LastSetupError] = None
+    """Why the setup ended where it did, or `null` when nothing has failed.
+
+    Present on `canceled` — a buyer who abandoned carries no code, one refused by
+    the provider does.
+    """
+
     next_action: Optional[NextAction] = None
     """What the buyer must do to finish.
 
@@ -398,7 +422,9 @@ class SetupIntentUpdateReturnURLResponse(BaseModel):
     status: Literal["processing", "succeeded", "canceled", "requires_action"]
     """How far the setup has got.
 
-    `requires_action` — the buyer has a step outstanding; see `next_action`.
+    **A 200 means we answered, not that the method was saved — always branch on
+    this.** `requires_action` — the buyer has a step outstanding; see `next_action`.
     `processing` — the buyer has done their part and the processor is deciding.
-    `succeeded` — the payment method is saved. `canceled` — abandoned or refused.
+    `succeeded` — the payment method is saved, and only this one means saved.
+    `canceled` — abandoned or refused; see `last_setup_error` to tell which.
     """
