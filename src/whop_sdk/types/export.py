@@ -27,6 +27,9 @@ class Export(BaseModel):
     timestamp. Exports are retained for 30 days.
     """
 
+    progress_percent: Optional[int] = None
+    """Estimated completion percentage from 0 to 100."""
+
     resource: Literal[
         "ad_campaigns",
         "ad_groups",
@@ -77,4 +80,4 @@ class Export(BaseModel):
     """
 
     updated_at: str
-    """When the export last changed status, as an ISO 8601 timestamp."""
+    """When the export last changed, as an ISO 8601 timestamp."""
