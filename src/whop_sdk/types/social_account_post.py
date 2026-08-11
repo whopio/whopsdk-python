@@ -76,7 +76,7 @@ class SocialAccountPost(BaseModel):
     Meta URLs are signed and expire after roughly 24 hours, so don't store them.
     """
 
-    restrictions: List[Literal["lead_form_ineligible"]]
+    restrictions: List[Literal["lead_form_ineligible", "promotion_ineligible", "copyrighted_music"]]
 
     thumbnail_url: Optional[str] = None
     """
