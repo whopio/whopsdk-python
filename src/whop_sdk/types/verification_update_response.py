@@ -158,11 +158,12 @@ class VerificationUpdateResponse(BaseModel):
     """Current verification state.
 
     `not_started` before any session exists; `pending` while a session needs the
-    user's input; `processing` while the provider reviews documents;
-    `action_required` when `requested_information` needs answers; `manual_review`
-    during a manual compliance review — nothing to submit, usually done within 3
-    business days; `approved` on success; `rejected` on failure. Call Create
-    Verification again to start a new session.
+    user's input; `processing` while the provider's automated checks run on a fresh
+    submission; `action_required` when `requested_information` needs answers;
+    `manual_review` while information already sent is under review — an audit
+    answer, or a document the payout provider holds — nothing to submit, usually
+    done within 3 business days; `approved` on success; `rejected` on failure. Call
+    Create Verification again to start a new session.
     """
 
     updated_at: Optional[str] = None
