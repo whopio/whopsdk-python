@@ -169,7 +169,7 @@ class BountySubmissionsResource(SyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at"] | Omit = omit,
+        order: Literal["created_at", "updated_at"] | Omit = omit,
         status: Literal["in_progress", "submitted", "approved", "denied"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -181,7 +181,8 @@ class BountySubmissionsResource(SyncAPIResource):
         """
         Lists bounty submissions visible to the credential — for a user token, the
         submissions they authored plus those on bounties they posted; for an account API
-        key, the submissions on the account's bounties.
+        key, the submissions on the account's bounties. For the anonymous view of one
+        bounty's reviewed work, use the submissions list under the bounty instead.
 
         Args:
           account_id: Scope the list to submissions on this account's bounties (`biz_` tag). Requires
@@ -488,7 +489,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at"] | Omit = omit,
+        order: Literal["created_at", "updated_at"] | Omit = omit,
         status: Literal["in_progress", "submitted", "approved", "denied"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -500,7 +501,8 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         """
         Lists bounty submissions visible to the credential — for a user token, the
         submissions they authored plus those on bounties they posted; for an account API
-        key, the submissions on the account's bounties.
+        key, the submissions on the account's bounties. For the anonymous view of one
+        bounty's reviewed work, use the submissions list under the bounty instead.
 
         Args:
           account_id: Scope the list to submissions on this account's bounties (`biz_` tag). Requires

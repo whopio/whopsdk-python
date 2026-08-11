@@ -4,24 +4,15 @@ from __future__ import annotations
 
 from typing_extensions import Literal, TypedDict
 
-__all__ = ["BountySubmissionListParams"]
+__all__ = ["SubmissionListParams"]
 
 
-class BountySubmissionListParams(TypedDict, total=False):
-    account_id: str
-    """Scope the list to submissions on this account's bounties (`biz_` tag).
-
-    Requires read access to the account.
-    """
-
+class SubmissionListParams(TypedDict, total=False):
     after: str
     """Cursor to paginate forwards from."""
 
     before: str
     """Cursor to paginate backwards from."""
-
-    bounty_id: str
-    """Only submissions on this bounty (`bnty_` tag)."""
 
     created_after: str
     """Only submissions created after this ISO 8601 timestamp."""
@@ -41,5 +32,5 @@ class BountySubmissionListParams(TypedDict, total=False):
     order: Literal["created_at", "updated_at"]
     """Sort field."""
 
-    status: Literal["in_progress", "submitted", "approved", "denied"]
+    status: Literal["submitted", "approved", "denied"]
     """Filter by lifecycle state."""

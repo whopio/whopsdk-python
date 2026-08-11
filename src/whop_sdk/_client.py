@@ -135,7 +135,6 @@ if TYPE_CHECKING:
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
     from .resources.ai_chats import AIChatsResource, AsyncAIChatsResource
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
-    from .resources.bounties import BountiesResource, AsyncBountiesResource
     from .resources.deposits import DepositsResource, AsyncDepositsResource
     from .resources.disputes import DisputesResource, AsyncDisputesResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
@@ -181,6 +180,7 @@ if TYPE_CHECKING:
     from .resources.authorized_users import AuthorizedUsersResource, AsyncAuthorizedUsersResource
     from .resources.support_channels import SupportChannelsResource, AsyncSupportChannelsResource
     from .resources.accounts.accounts import AccountsResource, AsyncAccountsResource
+    from .resources.bounties.bounties import BountiesResource, AsyncBountiesResource
     from .resources.card_transactions import CardTransactionsResource, AsyncCardTransactionsResource
     from .resources.partners.partners import PartnersResource, AsyncPartnersResource
     from .resources.bounty_submissions import BountySubmissionsResource, AsyncBountySubmissionsResource

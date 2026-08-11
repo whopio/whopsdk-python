@@ -6,7 +6,7 @@ from typing_extensions import Literal
 from .._models import BaseModel
 from .bounty_capture_clip import BountyCaptureClip
 
-__all__ = ["BountySubmission", "File", "Worker", "WorkerProfilePicture"]
+__all__ = ["BountySubmission", "File", "LatestProofLivestreamFeed", "Worker", "WorkerProfilePicture"]
 
 
 class File(BaseModel):
@@ -29,6 +29,25 @@ class File(BaseModel):
 
     url: Optional[str] = None
     """Temporary download URL for the file."""
+
+
+class LatestProofLivestreamFeed(BaseModel):
+    """Latest public proof livestream attached to the submission."""
+
+    id: str
+    """Livestream feed ID."""
+
+    recording_status: Optional[Literal["recording", "processing", "completed", "failed"]] = None
+    """Recording lifecycle state."""
+
+    recording_url: Optional[str] = None
+    """Playback URL for a completed proof recording, when available."""
+
+    thumbnail_url: Optional[str] = None
+    """Current proof thumbnail URL, when available."""
+
+    title: str
+    """Display title for the proof livestream."""
 
 
 class WorkerProfilePicture(BaseModel):
@@ -95,6 +114,9 @@ class BountySubmission(BaseModel):
     `null` unless capture metadata was provided.
     """
 
+    claimed_at: Optional[str] = None
+    """When the worker claimed the submission, as an ISO 8601 timestamp."""
+
     content: Optional[str] = None
     """Written proof the worker submitted with their work."""
 
@@ -136,6 +158,9 @@ class BountySubmission(BaseModel):
 
     `null` when not reported.
     """
+
+    latest_proof_livestream_feed: Optional[LatestProofLivestreamFeed] = None
+    """Latest public proof livestream attached to the submission."""
 
     operator: Optional[str] = None
     """Capture metadata: identifier of the person who recorded the footage.

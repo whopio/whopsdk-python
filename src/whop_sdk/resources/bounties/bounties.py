@@ -7,21 +7,29 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import bounty_list_params, bounty_create_params, bounty_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import bounty_list_params, bounty_create_params, bounty_update_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.bounty import Bounty
-from ..types.bounty_list_item import BountyListItem
+from .submissions import (
+    SubmissionsResource,
+    AsyncSubmissionsResource,
+    SubmissionsResourceWithRawResponse,
+    AsyncSubmissionsResourceWithRawResponse,
+    SubmissionsResourceWithStreamingResponse,
+    AsyncSubmissionsResourceWithStreamingResponse,
+)
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.bounty import Bounty
+from ...types.bounty_list_item import BountyListItem
 
 __all__ = ["BountiesResource", "AsyncBountiesResource"]
 
@@ -33,6 +41,16 @@ class BountiesResource(SyncAPIResource):
 
     Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
     """
+
+    @cached_property
+    def submissions(self) -> SubmissionsResource:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
+        return SubmissionsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> BountiesResourceWithRawResponse:
@@ -442,6 +460,16 @@ class AsyncBountiesResource(AsyncAPIResource):
 
     Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
     """
+
+    @cached_property
+    def submissions(self) -> AsyncSubmissionsResource:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
+        return AsyncSubmissionsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncBountiesResourceWithRawResponse:
@@ -864,6 +892,16 @@ class BountiesResourceWithRawResponse:
             bounties.cancel,
         )
 
+    @cached_property
+    def submissions(self) -> SubmissionsResourceWithRawResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
+        return SubmissionsResourceWithRawResponse(self._bounties.submissions)
+
 
 class AsyncBountiesResourceWithRawResponse:
     def __init__(self, bounties: AsyncBountiesResource) -> None:
@@ -884,6 +922,16 @@ class AsyncBountiesResourceWithRawResponse:
         self.cancel = async_to_raw_response_wrapper(
             bounties.cancel,
         )
+
+    @cached_property
+    def submissions(self) -> AsyncSubmissionsResourceWithRawResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
+        return AsyncSubmissionsResourceWithRawResponse(self._bounties.submissions)
 
 
 class BountiesResourceWithStreamingResponse:
@@ -906,6 +954,16 @@ class BountiesResourceWithStreamingResponse:
             bounties.cancel,
         )
 
+    @cached_property
+    def submissions(self) -> SubmissionsResourceWithStreamingResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
+        return SubmissionsResourceWithStreamingResponse(self._bounties.submissions)
+
 
 class AsyncBountiesResourceWithStreamingResponse:
     def __init__(self, bounties: AsyncBountiesResource) -> None:
@@ -926,3 +984,13 @@ class AsyncBountiesResourceWithStreamingResponse:
         self.cancel = async_to_streamed_response_wrapper(
             bounties.cancel,
         )
+
+    @cached_property
+    def submissions(self) -> AsyncSubmissionsResourceWithStreamingResponse:
+        """A Bounty is a paid task posted by an account or user.
+
+        The reward is held in escrow when the bounty publishes, workers submit proof of completed work, and each accepted submission is paid out until every winner slot fills.
+
+        Use the Bounties API to create and publish a bounty, list an account's bounties for reporting or dashboards, list the bounties a user can work or has participated in, and retrieve a single bounty by ID.
+        """
+        return AsyncSubmissionsResourceWithStreamingResponse(self._bounties.submissions)

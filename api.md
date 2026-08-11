@@ -1583,11 +1583,23 @@ from whop_sdk.types import Bounty, BountyListItem
 
 Methods:
 
-- <code title="post /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
-- <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
-- <code title="patch /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">update</a>(id, \*\*<a href="src/whop_sdk/types/bounty_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
-- <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_item.py">SyncCursorPage[BountyListItem]</a></code>
-- <code title="post /bounties/{id}/cancel">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">cancel</a>(id) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
+- <code title="post /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties/bounties.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
+- <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
+- <code title="patch /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties/bounties.py">update</a>(id, \*\*<a href="src/whop_sdk/types/bounty_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
+- <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_item.py">SyncCursorPage[BountyListItem]</a></code>
+- <code title="post /bounties/{id}/cancel">client.bounties.<a href="./src/whop_sdk/resources/bounties/bounties.py">cancel</a>(id) -> <a href="./src/whop_sdk/types/bounty.py">Bounty</a></code>
+
+## Submissions
+
+Types:
+
+```python
+from whop_sdk.types.bounties import PublicBountySubmission
+```
+
+Methods:
+
+- <code title="get /bounties/{bounty_id}/submissions">client.bounties.submissions.<a href="./src/whop_sdk/resources/bounties/submissions.py">list</a>(bounty_id, \*\*<a href="src/whop_sdk/types/bounties/submission_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounties/public_bounty_submission.py">SyncCursorPage[PublicBountySubmission]</a></code>
 
 # BountySubmissions
 
