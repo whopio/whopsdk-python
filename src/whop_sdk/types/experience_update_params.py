@@ -21,6 +21,12 @@ class ExperienceUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """The display name of the experience."""
 
+    notifications_enabled: Optional[bool]
+    """Whether Whop app notifications are enabled for this experience.
+
+    Webhooks still fire.
+    """
+
     order: Optional[str]
     """The position of the experience within its section for display ordering."""
 
