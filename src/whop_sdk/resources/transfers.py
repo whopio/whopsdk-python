@@ -285,17 +285,21 @@ class TransfersResource(SyncAPIResource):
         Lists the people and accounts you can send money to.
 
         Args:
-          origin_id: The originating account ID, prefixed `biz_`.
+          origin_id: The account sending the money: a company account ID (`biz_`), or a user ID
+              (`user_`) for that user's own personal balance.
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
           first: Number of recipients per page. Search queries preserve the dashboard's 20-result
               maximum.
 
-          query: Search users and accounts by name, username, or ID, in the dashboard's relevance
-              order — this additionally requires the member:basic:read scope. Omit it to get
-              the origin account's team members followed by your own other accounts. Complete
-              email addresses return no matches.
+          query: Search anyone on Whop by name or username, plus your own accounts by name or ID.
+              Omit it to get the team around the balance, the people you follow, and your own
+              accounts. The list is the same whether the balance belongs to a company or to
+              you. Searching from a `biz_` origin additionally requires the member:basic:read
+              scope. A credential scoped to a single company is the exception to the search
+              itself: it only ever sees that company's own people. Complete email addresses
+              return no matches.
 
           extra_headers: Send extra headers
 
@@ -585,17 +589,21 @@ class AsyncTransfersResource(AsyncAPIResource):
         Lists the people and accounts you can send money to.
 
         Args:
-          origin_id: The originating account ID, prefixed `biz_`.
+          origin_id: The account sending the money: a company account ID (`biz_`), or a user ID
+              (`user_`) for that user's own personal balance.
 
           after: Cursor to fetch the page after (from page_info.end_cursor).
 
           first: Number of recipients per page. Search queries preserve the dashboard's 20-result
               maximum.
 
-          query: Search users and accounts by name, username, or ID, in the dashboard's relevance
-              order — this additionally requires the member:basic:read scope. Omit it to get
-              the origin account's team members followed by your own other accounts. Complete
-              email addresses return no matches.
+          query: Search anyone on Whop by name or username, plus your own accounts by name or ID.
+              Omit it to get the team around the balance, the people you follow, and your own
+              accounts. The list is the same whether the balance belongs to a company or to
+              you. Searching from a `biz_` origin additionally requires the member:basic:read
+              scope. A credential scoped to a single company is the exception to the search
+              itself: it only ever sees that company's own people. Complete email addresses
+              return no matches.
 
           extra_headers: Send extra headers
 

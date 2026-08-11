@@ -9,7 +9,10 @@ __all__ = ["TransferListRecipientsParams"]
 
 class TransferListRecipientsParams(TypedDict, total=False):
     origin_id: Required[str]
-    """The originating account ID, prefixed `biz_`."""
+    """
+    The account sending the money: a company account ID (`biz_`), or a user ID
+    (`user_`) for that user's own personal balance.
+    """
 
     after: str
     """Cursor to fetch the page after (from page_info.end_cursor)."""
@@ -21,9 +24,12 @@ class TransferListRecipientsParams(TypedDict, total=False):
     """
 
     query: str
-    """
-    Search users and accounts by name, username, or ID, in the dashboard's relevance
-    order — this additionally requires the member:basic:read scope. Omit it to get
-    the origin account's team members followed by your own other accounts. Complete
-    email addresses return no matches.
+    """Search anyone on Whop by name or username, plus your own accounts by name or ID.
+
+    Omit it to get the team around the balance, the people you follow, and your own
+    accounts. The list is the same whether the balance belongs to a company or to
+    you. Searching from a `biz_` origin additionally requires the member:basic:read
+    scope. A credential scoped to a single company is the exception to the search
+    itself: it only ever sees that company's own people. Complete email addresses
+    return no matches.
     """
