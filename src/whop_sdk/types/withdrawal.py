@@ -102,6 +102,7 @@ class Withdrawal(BaseModel):
             "junk_failure_reason",
             "technical_problem",
             "provider_temporarily_unavailable",
+            "provider_validation_failed",
             "identification_number_invalid",
             "invalid_account_number",
             "invalid_bank_code",
