@@ -5,7 +5,6 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .payout_destination_category import PayoutDestinationCategory
 
 __all__ = ["PayoutMethodCreatedWebhookEvent", "Data", "DataCompany", "DataDestination"]
 
@@ -26,7 +25,7 @@ class DataDestination(BaseModel):
     Null if not yet configured.
     """
 
-    category: PayoutDestinationCategory
+    category: Literal["crypto", "rtp", "next_day_bank", "bank_wire", "digital_wallet", "unknown"]
     """The category of the payout destination"""
 
     country_code: str
@@ -97,6 +96,9 @@ class PayoutMethodCreatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """
     A configured payout destination where a user receives earned funds, such as a
@@ -110,4 +112,4 @@ class PayoutMethodCreatedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""
