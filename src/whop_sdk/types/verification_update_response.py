@@ -125,11 +125,17 @@ class VerificationUpdateResponse(BaseModel):
     date_of_birth: Optional[str] = None
     """Formatted as `YYYY-MM-DD`."""
 
+    email: Optional[str] = None
+    """Email address on the verification profile."""
+
     first_name: Optional[str] = None
 
     kind: Optional[Literal["individual", "business"]] = None
 
     last_name: Optional[str] = None
+
+    phone: Optional[str] = None
+    """Phone number on the verification profile."""
 
     requested_information: Optional[List[RequestedInformation]] = None
     """What Whop still needs before review can continue — one requirement per entry.
