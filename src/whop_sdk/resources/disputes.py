@@ -28,9 +28,9 @@ __all__ = ["DisputesResource", "AsyncDisputesResource"]
 
 class DisputesResource(SyncAPIResource):
     """
-    A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+    A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-    Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+    Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
     """
 
     @cached_property
@@ -328,9 +328,9 @@ class DisputesResource(SyncAPIResource):
 
 class AsyncDisputesResource(AsyncAPIResource):
     """
-    A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+    A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-    Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+    Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
     """
 
     @cached_property

@@ -95,6 +95,7 @@ from .notification import Notification as Notification
 from .setup_intent import SetupIntent as SetupIntent
 from .user_balance import UserBalance as UserBalance
 from .checkout_font import CheckoutFont as CheckoutFont
+from .dispute_alert import DisputeAlert as DisputeAlert
 from .granularities import Granularities as Granularities
 from .refund_status import RefundStatus as RefundStatus
 from .review_status import ReviewStatus as ReviewStatus
@@ -413,7 +414,6 @@ from .card_canceled_webhook_event import CardCanceledWebhookEvent as CardCancele
 from .course_lesson_create_params import CourseLessonCreateParams as CourseLessonCreateParams
 from .course_lesson_list_response import CourseLessonListResponse as CourseLessonListResponse
 from .course_lesson_update_params import CourseLessonUpdateParams as CourseLessonUpdateParams
-from .dispute_alert_list_response import DisputeAlertListResponse as DisputeAlertListResponse
 from .entry_created_webhook_event import EntryCreatedWebhookEvent as EntryCreatedWebhookEvent
 from .entry_deleted_webhook_event import EntryDeletedWebhookEvent as EntryDeletedWebhookEvent
 from .event_validate_pixel_params import EventValidatePixelParams as EventValidatePixelParams
@@ -492,7 +492,6 @@ from .bounty_submission_create_params import BountySubmissionCreateParams as Bou
 from .bounty_submission_submit_params import BountySubmissionSubmitParams as BountySubmissionSubmitParams
 from .company_create_api_key_response import CompanyCreateAPIKeyResponse as CompanyCreateAPIKeyResponse
 from .deposit_succeeded_webhook_event import DepositSucceededWebhookEvent as DepositSucceededWebhookEvent
-from .dispute_alert_retrieve_response import DisputeAlertRetrieveResponse as DisputeAlertRetrieveResponse
 from .notification_mark_read_response import NotificationMarkReadResponse as NotificationMarkReadResponse
 from .partner_referred_users_response import PartnerReferredUsersResponse as PartnerReferredUsersResponse
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent as PaymentSucceededWebhookEvent

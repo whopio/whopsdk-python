@@ -261,7 +261,7 @@ class Whop(SyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-08-05-1"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-08-10"
         self.version = version
 
         if base_url is None:
@@ -664,9 +664,9 @@ class Whop(SyncAPIClient):
     @cached_property
     def disputes(self) -> DisputesResource:
         """
-        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+        A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
         """
         from .resources.disputes import DisputesResource
 
@@ -886,6 +886,11 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def dispute_alerts(self) -> DisputeAlertsResource:
+        """
+        A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+        Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+        """
         from .resources.dispute_alerts import DisputeAlertsResource
 
         return DisputeAlertsResource(self)
@@ -1156,7 +1161,7 @@ class AsyncWhop(AsyncAPIClient):
         self.app_id = app_id
 
         if version is None:
-            version = os.environ.get("WHOP_API_VERSION") or "2026-08-05-1"
+            version = os.environ.get("WHOP_API_VERSION") or "2026-08-10"
         self.version = version
 
         if base_url is None:
@@ -1559,9 +1564,9 @@ class AsyncWhop(AsyncAPIClient):
     @cached_property
     def disputes(self) -> AsyncDisputesResource:
         """
-        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+        A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
         """
         from .resources.disputes import AsyncDisputesResource
 
@@ -1781,6 +1786,11 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def dispute_alerts(self) -> AsyncDisputeAlertsResource:
+        """
+        A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+        Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+        """
         from .resources.dispute_alerts import AsyncDisputeAlertsResource
 
         return AsyncDisputeAlertsResource(self)
@@ -2372,9 +2382,9 @@ class WhopWithRawResponse:
     @cached_property
     def disputes(self) -> disputes.DisputesResourceWithRawResponse:
         """
-        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+        A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
         """
         from .resources.disputes import DisputesResourceWithRawResponse
 
@@ -2594,6 +2604,11 @@ class WhopWithRawResponse:
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.DisputeAlertsResourceWithRawResponse:
+        """
+        A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+        Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+        """
         from .resources.dispute_alerts import DisputeAlertsResourceWithRawResponse
 
         return DisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
@@ -3067,9 +3082,9 @@ class AsyncWhopWithRawResponse:
     @cached_property
     def disputes(self) -> disputes.AsyncDisputesResourceWithRawResponse:
         """
-        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+        A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
         """
         from .resources.disputes import AsyncDisputesResourceWithRawResponse
 
@@ -3291,6 +3306,11 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.AsyncDisputeAlertsResourceWithRawResponse:
+        """
+        A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+        Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+        """
         from .resources.dispute_alerts import AsyncDisputeAlertsResourceWithRawResponse
 
         return AsyncDisputeAlertsResourceWithRawResponse(self._client.dispute_alerts)
@@ -3764,9 +3784,9 @@ class WhopWithStreamedResponse:
     @cached_property
     def disputes(self) -> disputes.DisputesResourceWithStreamingResponse:
         """
-        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+        A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
         """
         from .resources.disputes import DisputesResourceWithStreamingResponse
 
@@ -3988,6 +4008,11 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.DisputeAlertsResourceWithStreamingResponse:
+        """
+        A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+        Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+        """
         from .resources.dispute_alerts import DisputeAlertsResourceWithStreamingResponse
 
         return DisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)
@@ -4463,9 +4488,9 @@ class AsyncWhopWithStreamedResponse:
     @cached_property
     def disputes(self) -> disputes.AsyncDisputesResourceWithStreamingResponse:
         """
-        A Dispute is a chargeback a customer files against a payment through their bank, or a pre-dispute inquiry that may become one. It carries the disputed payment, a deadline to respond, the evidence packet you send to the payment processor, and the outcome once the processor rules.
+        A Dispute is a chargeback a customer files against a payment through their bank, or an inquiry that may become one. It carries the disputed payment, a deadline to respond, your evidence, and the outcome once the processor rules.
 
-        Disputes are opened by the customer's bank, never through the API, so you can read them but not create or delete them. Use the Disputes API to list and filter disputes, summarize them by status and currency for a queue view, edit the evidence packet while the dispute is still contestable, and submit that evidence for review.
+        Use the Disputes API to list disputes, edit the evidence packet while a dispute is still contestable, and submit it for review.
         """
         from .resources.disputes import AsyncDisputesResourceWithStreamingResponse
 
@@ -4687,6 +4712,11 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def dispute_alerts(self) -> dispute_alerts.AsyncDisputeAlertsResourceWithStreamingResponse:
+        """
+        A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+        Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+        """
         from .resources.dispute_alerts import AsyncDisputeAlertsResourceWithStreamingResponse
 
         return AsyncDisputeAlertsResourceWithStreamingResponse(self._client.dispute_alerts)

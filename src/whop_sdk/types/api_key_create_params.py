@@ -49,6 +49,7 @@ class APIKeyCreateParams(TypedDict, total=False):
         "2026-08-03",
         "2026-08-05",
         "2026-08-05-1",
+        "2026-08-10",
     ]
     """
     Dated API version used when requests authenticated with this key omit the

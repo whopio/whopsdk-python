@@ -1470,13 +1470,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import DisputeAlertType, DisputeAlertRetrieveResponse, DisputeAlertListResponse
+from whop_sdk.types import DisputeAlert, DisputeAlertType
 ```
 
 Methods:
 
-- <code title="get /dispute_alerts/{id}">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dispute_alert_retrieve_response.py">DisputeAlertRetrieveResponse</a></code>
-- <code title="get /dispute_alerts">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_alert_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_alert_list_response.py">SyncCursorPage[DisputeAlertListResponse]</a></code>
+- <code title="get /dispute_alerts/{id}">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dispute_alert.py">DisputeAlert</a></code>
+- <code title="get /dispute_alerts">client.dispute_alerts.<a href="./src/whop_sdk/resources/dispute_alerts.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_alert_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_alert.py">SyncCursorPage[DisputeAlert]</a></code>
 
 # ResolutionCenterCases
 
