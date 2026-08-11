@@ -17,9 +17,13 @@ class PixelValidation(BaseModel):
     host_events: List[str]
 
     installed: bool
-    """
-    True when the account has sent events recently, the pixel is present in the page
-    at `url`, or `url` is hosted on Whop.
+    """Whether the pixel was seen.
+
+    Without a `url` this answers for the whole account: true when it has sent events
+    recently. With a `url` it answers for THAT page only — true when the page is
+    hosted on Whop, when the page itself has sent events recently, or when the pixel
+    was found in its source. Events the account sent from other pages do not make a
+    given `url` installed.
     """
 
     last_fired_days: object
