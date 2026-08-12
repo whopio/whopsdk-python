@@ -2,1223 +2,463 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import List, Union, Iterable
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .ad_budget_type import AdBudgetType
-from .ad_group_status import AdGroupStatus
 
 __all__ = [
     "AdGroupUpdateParams",
-    "Config",
-    "ConfigTargeting",
-    "PlatformConfig",
-    "PlatformConfigMeta",
-    "PlatformConfigMetaAttributionSpec",
-    "PlatformConfigMetaExcludedGeoLocations",
-    "PlatformConfigMetaExcludedGeoLocationsCity",
-    "PlatformConfigMetaExcludedGeoLocationsRegion",
-    "PlatformConfigMetaExcludedGeoLocationsZip",
-    "PlatformConfigMetaGeoCity",
-    "PlatformConfigMetaGeoLocations",
-    "PlatformConfigMetaGeoLocationsCity",
-    "PlatformConfigMetaGeoLocationsRegion",
-    "PlatformConfigMetaGeoLocationsZip",
-    "PlatformConfigMetaGeoRegion",
-    "PlatformConfigMetaLeadFormConfig",
-    "PlatformConfigMetaLeadFormConfigQuestion",
-    "PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestion",
-    "PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestionOption",
-    "PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestionOptionLogic",
-    "PlatformConfigMetaLeadFormConfigQuestionOption",
-    "PlatformConfigMetaLeadFormConfigQuestionOptionLogic",
-    "PlatformConfigMetaLeadFormConfigCustomDisclaimerCheckbox",
-    "PlatformConfigMetaLeadFormConfigThankYouPage",
-    "PlatformConfigMetaPromotedObject",
-    "PlatformConfigMetaTargetingAutomation",
-    "PlatformConfigTiktok",
-    "PlatformConfigTiktokAction",
-    "PlatformConfigTiktokInstantFormConfig",
-    "PlatformConfigTiktokInstantFormConfigQuestion",
+    "Audiences",
+    "Demographics",
+    "DetailedTargeting",
+    "DetailedTargetingBehavior",
+    "DetailedTargetingDemographic",
+    "DetailedTargetingInterest",
+    "Devices",
+    "DevicesOperatingSystem",
+    "FrequencyCap",
+    "PlacementsUnionMember1",
+    "Regions",
+    "RegionsExclude",
+    "RegionsExcludeCity",
+    "RegionsExcludeCustomLocation",
+    "RegionsExcludeZip",
+    "RegionsExcludeZipKey",
+    "RegionsInclude",
+    "RegionsIncludeCity",
+    "RegionsIncludeCustomLocation",
+    "RegionsIncludeZip",
+    "RegionsIncludeZipKey",
 ]
 
 
 class AdGroupUpdateParams(TypedDict, total=False):
-    budget: Optional[float]
-    """Budget amount in dollars."""
+    audiences: Audiences
+    """Saved audiences to deliver to or exclude.
 
-    budget_type: Optional[AdBudgetType]
-    """The budget type for an ad campaign or ad group."""
+    Can't be combined with demographics.automatic.
+    """
 
-    config: Optional[Config]
-    """Unified ad group configuration (bidding, optimization, targeting)."""
+    bid_type: Literal["minimum_cost", "average_target", "maximum_target"]
+    """How delivery bids are set in the ad auction.
 
-    daily_budget: Optional[float]
-    """Daily budget in dollars."""
+    Target-based strategies use `desired_cost_per_result`.
+    """
 
-    name: Optional[str]
-    """Human-readable ad group name."""
+    budget_amount: float
+    """This ad group's budget, in the ad account's currency.
 
-    platform_config: Optional[PlatformConfig]
-    """Platform-specific ad group configuration."""
+    Omit when the budget is set on the campaign instead.
+    """
 
-    status: Optional[AdGroupStatus]
-    """The status of an external ad group."""
+    budget_type: Literal["daily", "lifetime"]
+    """
+    Whether budget_amount is spent per day (`daily`) or over the ad group's full run
+    (`lifetime`).
+    """
 
-    title: Optional[str]
-    """Human-readable ad group title."""
-
-
-class ConfigTargeting(TypedDict, total=False):
-    """Audience targeting settings (demographics, geo, interests, audiences, devices)."""
-
-    age_max: Optional[int]
-    """Maximum age for demographic targeting."""
-
-    age_min: Optional[int]
-    """Minimum age for demographic targeting."""
-
-    countries: Optional[SequenceNotStr[str]]
-    """ISO 3166-1 alpha-2 country codes to target."""
-
-    device_platforms: Optional[List[Literal["mobile", "desktop"]]]
-    """Device platforms to target."""
-
-    exclude_audience_ids: Optional[SequenceNotStr[str]]
-    """Platform audience IDs to exclude."""
-
-    genders: Optional[List[Literal["male", "female", "all"]]]
-    """Genders to target."""
-
-    include_audience_ids: Optional[SequenceNotStr[str]]
-    """Platform audience IDs to include."""
-
-    interest_ids: Optional[SequenceNotStr[str]]
-    """Platform-specific interest IDs to target."""
-
-    languages: Optional[SequenceNotStr[str]]
-    """Language codes to target."""
-
-    placement_type: Optional[Literal["automatic", "manual"]]
-    """Placement strategy for ad delivery."""
-
-
-class Config(TypedDict, total=False):
-    """Unified ad group configuration (bidding, optimization, targeting)."""
-
-    bid_amount: Optional[int]
-    """Bid cap amount in cents. Used when bid_strategy is bid_cap or cost_cap."""
-
-    bid_strategy: Optional[Literal["lowest_cost", "bid_cap", "cost_cap"]]
-    """Bid strategy: lowest_cost, bid_cap, or cost_cap."""
-
-    billing_event: Optional[Literal["impressions", "clicks", "optimized_cpm", "video_views"]]
-    """How you are billed (e.g., impressions, clicks)."""
-
-    end_time: Optional[str]
-    """Scheduled end time (ISO8601). Required for lifetime budgets."""
-
-    frequency_cap: Optional[int]
-    """Maximum number of times to show ads to each person in the frequency interval."""
-
-    frequency_cap_interval_days: Optional[int]
-    """Number of days for the frequency cap interval."""
-
-    optimization_goal: Optional[
+    conversion_event: Union[
         Literal[
-            "conversions",
-            "link_clicks",
-            "landing_page_views",
-            "reach",
-            "impressions",
-            "app_installs",
-            "video_views",
-            "lead_generation",
-            "value",
-            "page_likes",
-            "conversations",
-            "ad_recall_lift",
-            "two_second_continuous_video_views",
-            "post_engagement",
-            "event_responses",
-            "reminders_set",
-            "quality_lead",
-        ]
+            "purchase",
+            "add_to_cart",
+            "initiated_checkout",
+            "add_payment_info",
+            "complete_registration",
+            "lead",
+            "content_view",
+            "search",
+            "contact",
+            "customize_product",
+            "donate",
+            "find_location",
+            "schedule",
+            "start_trial",
+            "submit_application",
+            "subscribe",
+        ],
+        str,
+        None,
     ]
-    """What the ad group optimizes for (e.g., conversions, link_clicks, reach)."""
+    """The pixel event optimized for.
 
-    pacing: Optional[Literal["standard", "accelerated"]]
-    """Budget pacing: standard (even) or accelerated (fast)."""
-
-    start_time: Optional[str]
-    """Scheduled start time (ISO8601)."""
-
-    targeting: Optional[ConfigTargeting]
-    """Audience targeting settings (demographics, geo, interests, audiences, devices)."""
-
-
-class PlatformConfigMetaAttributionSpec(TypedDict, total=False):
-    """Meta conversion attribution window."""
-
-    event_type: Required[str]
-    """Attribution event type (e.g., CLICK_THROUGH, VIEW_THROUGH)."""
-
-    window_days: Required[int]
-    """Attribution window in days (1, 7, 28)."""
-
-
-class PlatformConfigMetaExcludedGeoLocationsCity(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaExcludedGeoLocationsRegion(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaExcludedGeoLocationsZip(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaExcludedGeoLocations(TypedDict, total=False):
-    """Geo locations to exclude."""
-
-    cities: Optional[Iterable[PlatformConfigMetaExcludedGeoLocationsCity]]
-    """City targets."""
-
-    countries: Optional[SequenceNotStr[str]]
-    """ISO 3166-1 alpha-2 country codes."""
-
-    location_types: Optional[SequenceNotStr[str]]
-    """Location types (home, recent, travel_in)."""
-
-    regions: Optional[Iterable[PlatformConfigMetaExcludedGeoLocationsRegion]]
-    """Region/state targets."""
-
-    zips: Optional[Iterable[PlatformConfigMetaExcludedGeoLocationsZip]]
-    """Zip/postal code targets."""
-
-
-class PlatformConfigMetaGeoCity(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaGeoLocationsCity(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaGeoLocationsRegion(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaGeoLocationsZip(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaGeoLocations(TypedDict, total=False):
-    """Geo targeting (countries, regions, cities, zips)."""
-
-    cities: Optional[Iterable[PlatformConfigMetaGeoLocationsCity]]
-    """City targets."""
-
-    countries: Optional[SequenceNotStr[str]]
-    """ISO 3166-1 alpha-2 country codes."""
-
-    location_types: Optional[SequenceNotStr[str]]
-    """Location types (home, recent, travel_in)."""
-
-    regions: Optional[Iterable[PlatformConfigMetaGeoLocationsRegion]]
-    """Region/state targets."""
-
-    zips: Optional[Iterable[PlatformConfigMetaGeoLocationsZip]]
-    """Zip/postal code targets."""
-
-
-class PlatformConfigMetaGeoRegion(TypedDict, total=False):
-    """A Meta geo target entry (region, city, or zip)."""
-
-    key: Required[str]
-    """Meta geo target key/ID."""
-
-    country: Optional[str]
-    """Country code for this entry."""
-
-    name: Optional[str]
-    """Display name."""
-
-    radius: Optional[int]
-    """Radius in miles (cities only)."""
-
-
-class PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestionOptionLogic(TypedDict, total=False):
-    """Conditional logic routing for this answer option."""
-
-    type: Required[str]
-    """Logic type: go_to_question, submit_form, or close_form."""
-
-    target_end_page_index: Optional[int]
-    """Index of the end page to route to (for submit_form type)."""
-
-    target_question_index: Optional[int]
-    """Index of the question to route to (for go_to_question type)."""
-
-
-class PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestionOption(TypedDict, total=False):
-    """An answer option for a multiple choice lead form question."""
-
-    key: Required[str]
-    """Unique key for this option."""
-
-    value: Required[str]
-    """Display text for this option."""
-
-    logic: Optional[PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestionOptionLogic]
-    """Conditional logic routing for this answer option."""
-
-
-class PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestion(TypedDict, total=False):
-    """A dependent conditional question (non-recursive to avoid schema recursion)."""
-
-    type: Required[str]
-    """Question type (EMAIL, FULL_NAME, PHONE, CUSTOM, DATE_TIME, etc.)."""
-
-    inline_context: Optional[str]
-    """Helper text shown below the question."""
-
-    key: Optional[str]
-    """Unique key for this question."""
-
-    label: Optional[str]
-    """Custom label for CUSTOM questions."""
-
-    options: Optional[Iterable[PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestionOption]]
-    """Answer options for multiple choice questions."""
-
-
-class PlatformConfigMetaLeadFormConfigQuestionOptionLogic(TypedDict, total=False):
-    """Conditional logic routing for this answer option."""
-
-    type: Required[str]
-    """Logic type: go_to_question, submit_form, or close_form."""
-
-    target_end_page_index: Optional[int]
-    """Index of the end page to route to (for submit_form type)."""
-
-    target_question_index: Optional[int]
-    """Index of the question to route to (for go_to_question type)."""
-
-
-class PlatformConfigMetaLeadFormConfigQuestionOption(TypedDict, total=False):
-    """An answer option for a multiple choice lead form question."""
-
-    key: Required[str]
-    """Unique key for this option."""
-
-    value: Required[str]
-    """Display text for this option."""
-
-    logic: Optional[PlatformConfigMetaLeadFormConfigQuestionOptionLogic]
-    """Conditional logic routing for this answer option."""
-
-
-class PlatformConfigMetaLeadFormConfigQuestion(TypedDict, total=False):
-    """A question on a Meta lead gen form."""
-
-    type: Required[str]
-    """Question type (EMAIL, FULL_NAME, PHONE, CUSTOM, DATE_TIME, etc.)."""
-
-    conditional_questions_group_id: Optional[str]
-    """Group ID for conditional question routing."""
-
-    dependent_conditional_questions: Optional[
-        Iterable[PlatformConfigMetaLeadFormConfigQuestionDependentConditionalQuestion]
-    ]
-    """Questions shown conditionally based on this question's answer."""
-
-    inline_context: Optional[str]
-    """Helper text shown below the question."""
-
-    key: Optional[str]
-    """Unique key for this question."""
-
-    label: Optional[str]
-    """Custom label for CUSTOM questions."""
-
-    options: Optional[Iterable[PlatformConfigMetaLeadFormConfigQuestionOption]]
-    """Answer options for multiple choice CUSTOM questions."""
-
-    question_format: Optional[str]
-    """UI hint: short_answer, multiple_choice, or appointment."""
-
-
-class PlatformConfigMetaLeadFormConfigCustomDisclaimerCheckbox(TypedDict, total=False):
-    """A consent checkbox for the custom disclaimer section."""
-
-    key: Required[str]
-    """Unique key for this checkbox."""
-
-    text: Required[str]
-    """Label text for the checkbox."""
-
-    is_checked_by_default: Optional[bool]
-    """Whether the checkbox is checked by default."""
-
-    is_required: Optional[bool]
-    """Whether the checkbox must be checked to submit."""
-
-
-class PlatformConfigMetaLeadFormConfigThankYouPage(TypedDict, total=False):
-    """A thank-you / ending page for a Meta lead gen form."""
-
-    body: Optional[str]
-    """Body text for this ending page."""
-
-    business_phone: Optional[str]
-    """Business phone number for call CTA."""
-
-    button_text: Optional[str]
-    """Custom button text."""
-
-    button_type: Optional[str]
-    """CTA button type: VIEW_WEBSITE, CALL_BUSINESS, DOWNLOAD."""
-
-    conditional_question_group_id: Optional[str]
-    """Question group ID for conditional routing to this page."""
-
-    enable_messenger: Optional[bool]
-    """Enable Messenger follow-up."""
-
-    gated_file_url: Optional[str]
-    """Uploaded file URL for gated content download."""
-
-    link: Optional[str]
-    """URL the button links to."""
-
-    name: Optional[str]
-    """Internal name for this ending page."""
-
-    title: Optional[str]
-    """Headline for this ending page."""
-
-
-class PlatformConfigMetaLeadFormConfig(TypedDict, total=False):
-    """Configuration for a Meta lead gen instant form."""
-
-    name: Required[str]
-    """Name of the lead form."""
-
-    privacy_policy_url: Required[str]
-    """URL to your privacy policy. Required by Meta."""
-
-    questions: Required[Iterable[PlatformConfigMetaLeadFormConfigQuestion]]
-    """Questions to ask on the form."""
-
-    background_image_source: Optional[str]
-    """Background image source: from_ad or custom."""
-
-    background_image_url: Optional[str]
-    """URL of custom background image."""
-
-    conditional_logic_enabled: Optional[bool]
-    """Whether conditional logic is enabled for questions."""
-
-    context_card_button_text: Optional[str]
-    """CTA button text on the greeting card."""
-
-    context_card_content: Optional[SequenceNotStr[str]]
-    """Optional greeting card bullet points."""
-
-    context_card_style: Optional[str]
-    """Greeting layout: PARAGRAPH_STYLE or LIST_STYLE."""
-
-    context_card_title: Optional[str]
-    """Optional greeting card title."""
-
-    custom_disclaimer_body: Optional[str]
-    """Custom disclaimer body text."""
-
-    custom_disclaimer_checkboxes: Optional[Iterable[PlatformConfigMetaLeadFormConfigCustomDisclaimerCheckbox]]
-    """Consent checkboxes for the custom disclaimer."""
-
-    custom_disclaimer_title: Optional[str]
-    """Custom disclaimer section title."""
-
-    form_type: Optional[str]
-    """Form type: more_volume, higher_intent, or rich_creative."""
-
-    messenger_enabled: Optional[bool]
-    """Enable Messenger follow-up after form submission."""
-
-    phone_verification_enabled: Optional[bool]
-    """Require phone number verification via OTP (higher_intent only)."""
-
-    privacy_policy_link_text: Optional[str]
-    """Custom link text for privacy policy (max 70 chars)."""
-
-    question_page_custom_headline: Optional[str]
-    """Custom headline for the questions page."""
-
-    rich_creative_headline: Optional[str]
-    """Headline for rich creative form intro."""
-
-    rich_creative_overview: Optional[str]
-    """Overview description for rich creative form intro."""
-
-    rich_creative_url: Optional[str]
-    """Uploaded image URL for rich creative form type."""
-
-    thank_you_pages: Optional[Iterable[PlatformConfigMetaLeadFormConfigThankYouPage]]
-    """Thank you / ending pages (supports multiple for conditional routing)."""
-
-
-class PlatformConfigMetaPromotedObject(TypedDict, total=False):
-    """The object this ad set promotes (pixel, page, etc.)."""
-
-    custom_conversion_id: Optional[str]
-    """Custom conversion rule ID (numeric, from Meta Events Manager)."""
-
-    custom_event_str: Optional[str]
-    """Pixel event name, used when custom_event_type is OTHER."""
-
-    custom_event_type: Optional[str]
-    """Custom event type (e.g., PURCHASE, COMPLETE_REGISTRATION, OTHER)."""
-
-    page_id: Optional[str]
-    """Facebook Page ID."""
-
-    pixel_id: Optional[str]
-    """Meta Pixel ID for conversion tracking."""
-
-    whatsapp_phone_number: Optional[str]
-    """WhatsApp phone number for messaging campaigns."""
-
-
-class PlatformConfigMetaTargetingAutomation(TypedDict, total=False):
-    """Advantage+ audience expansion settings."""
-
-    advantage_audience: Optional[int]
-    """0 = off (use exact targeting), 1 = on (let Meta expand audience)."""
-
-
-class PlatformConfigMeta(TypedDict, total=False):
-    """Meta (Facebook/Instagram) ad set configuration."""
-
-    android_devices: Optional[SequenceNotStr[str]]
-
-    attribution_setting: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    A standard event, or any custom pixel event name.
     """
 
-    attribution_spec: Optional[Iterable[PlatformConfigMetaAttributionSpec]]
-    """Conversion attribution windows."""
-
-    audience_network_positions: Optional[SequenceNotStr[str]]
-
-    audience_type: Optional[str]
-    """Audience type for retargeting."""
-
-    bid_amount: Optional[int]
-    """Bid amount in cents."""
-
-    bid_strategy: Optional[
-        Literal["LOWEST_COST_WITHOUT_CAP", "LOWEST_COST_WITH_BID_CAP", "COST_CAP", "LOWEST_COST_WITH_MIN_ROAS"]
-    ]
-    """Meta bid strategy."""
-
-    billing_event: Optional[
-        Literal[
-            "APP_INSTALLS",
-            "CLICKS",
-            "IMPRESSIONS",
-            "LINK_CLICKS",
-            "NONE",
-            "OFFER_CLAIMS",
-            "PAGE_LIKES",
-            "POST_ENGAGEMENT",
-            "THRUPLAY",
-            "PURCHASE",
-            "LISTING_INTERACTION",
-        ]
-    ]
-    """How you are billed on Meta."""
-
-    brand_safety_content_filter_levels: Optional[SequenceNotStr[str]]
-
-    budget_remaining: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    cost_per_result_goal: Optional[float]
-    """
-    Represents signed double-precision fractional values as specified by
-    [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
-    """
-
-    created_time: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    daily_budget: Optional[int]
-    """Daily budget in cents."""
-
-    daily_min_spend_target: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    daily_spend_cap: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    destination_type: Optional[
-        Literal[
-            "UNDEFINED",
-            "WEBSITE",
-            "APP",
-            "FACEBOOK",
-            "MESSENGER",
-            "WHATSAPP",
-            "INSTAGRAM_DIRECT",
-            "INSTAGRAM_PROFILE",
-            "PHONE_CALL",
-            "SHOP_AUTOMATIC",
-            "APPLINKS_AUTOMATIC",
-            "ON_AD",
-            "ON_POST",
-            "ON_VIDEO",
-            "ON_PAGE",
-            "ON_EVENT",
-            "MESSAGING_MESSENGER_WHATSAPP",
-            "MESSAGING_INSTAGRAM_DIRECT_MESSENGER",
-            "MESSAGING_INSTAGRAM_DIRECT_WHATSAPP",
-            "MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP",
-            "INSTAGRAM_PROFILE_AND_FACEBOOK_PAGE",
-            "FACEBOOK_PAGE",
-            "INSTAGRAM_LIVE",
-            "FACEBOOK_LIVE",
-            "IMAGINE",
-            "LEAD_FROM_IG_DIRECT",
-            "LEAD_FROM_MESSENGER",
-            "LEAD_FORM_MESSENGER",
-            "WEBSITE_AND_LEAD_FORM",
-            "WEBSITE_AND_PHONE_CALL",
-            "BROADCAST_CHANNEL",
-        ]
-    ]
-    """Where ads in this ad set direct people."""
-
-    dsa_beneficiary: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    dsa_payor: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    end_time: Optional[str]
-    """End time (ISO8601). Required for lifetime budgets."""
-
-    excluded_geo_locations: Optional[PlatformConfigMetaExcludedGeoLocations]
-    """Geo locations to exclude."""
-
-    facebook_positions: Optional[SequenceNotStr[str]]
-    """Facebook ad placements (feed, reels, stories, etc.)."""
-
-    frequency_control_count: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
-
-    frequency_control_days: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
-    """
-
-    frequency_control_type: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    geo_cities: Optional[Iterable[PlatformConfigMetaGeoCity]]
-
-    geo_locations: Optional[PlatformConfigMetaGeoLocations]
-    """Geo targeting (countries, regions, cities, zips)."""
-
-    geo_regions: Optional[Iterable[PlatformConfigMetaGeoRegion]]
-
-    geo_zips: Optional[SequenceNotStr[str]]
-
-    instagram_actor_id: Optional[str]
-    """Instagram account ID for this ad set."""
-
-    instagram_positions: Optional[SequenceNotStr[str]]
-    """Instagram ad placements (stream, story, reels, etc.)."""
-
-    ios_devices: Optional[SequenceNotStr[str]]
-
-    is_dynamic_creative: Optional[bool]
-    """Represents `true` or `false` values."""
-
-    lead_conversion_location: Optional[
-        Literal["website", "instant_forms", "website_and_instant_forms", "messenger", "instagram", "calls", "app"]
-    ]
-
-    lead_form_config: Optional[PlatformConfigMetaLeadFormConfig]
-    """Configuration for a Meta lead gen instant form."""
-
-    lead_gen_form_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    lifetime_budget: Optional[int]
-    """Lifetime budget in cents."""
-
-    lifetime_min_spend_target: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    lifetime_spend_cap: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    location_types: Optional[SequenceNotStr[str]]
-
-    messenger_positions: Optional[SequenceNotStr[str]]
-
-    optimization_goal: Optional[
-        Literal[
-            "NONE",
-            "APP_INSTALLS",
-            "AD_RECALL_LIFT",
-            "ENGAGED_USERS",
-            "EVENT_RESPONSES",
-            "IMPRESSIONS",
-            "LEAD_GENERATION",
-            "QUALITY_LEAD",
-            "LINK_CLICKS",
-            "OFFSITE_CONVERSIONS",
-            "PAGE_LIKES",
-            "POST_ENGAGEMENT",
-            "QUALITY_CALL",
-            "REACH",
-            "LANDING_PAGE_VIEWS",
-            "VISIT_INSTAGRAM_PROFILE",
-            "VALUE",
-            "THRUPLAY",
-            "DERIVED_EVENTS",
-            "APP_INSTALLS_AND_OFFSITE_CONVERSIONS",
-            "CONVERSATIONS",
-            "IN_APP_VALUE",
-            "MESSAGING_PURCHASE_CONVERSION",
-            "SUBSCRIBERS",
-            "REMINDERS_SET",
-            "MEANINGFUL_CALL_ATTEMPT",
-            "PROFILE_VISIT",
-            "PROFILE_AND_PAGE_ENGAGEMENT",
-            "TWO_SECOND_CONTINUOUS_VIDEO_VIEWS",
-            "ENGAGED_REACH",
-            "ENGAGED_PAGE_VIEWS",
-            "MESSAGING_DEEP_CONVERSATION_AND_FOLLOW",
-            "ADVERTISER_SILOED_VALUE",
-            "AUTOMATIC_OBJECTIVE",
-            "MESSAGING_APPOINTMENT_CONVERSION",
-        ]
-    ]
-    """What this ad set optimizes for on Meta."""
-
-    page_id: Optional[str]
-    """Facebook Page ID for this ad set."""
-
-    pixel_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    promoted_object: Optional[PlatformConfigMetaPromotedObject]
-    """The object this ad set promotes (pixel, page, etc.)."""
-
-    publisher_platforms: Optional[SequenceNotStr[str]]
-    """Platforms to publish on (facebook, instagram, messenger, audience_network)."""
-
-    source_adset_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    start_time: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    status: Optional[Literal["ACTIVE", "PAUSED"]]
-
-    targeting_automation: Optional[PlatformConfigMetaTargetingAutomation]
-    """Advantage+ audience expansion settings."""
-
-    threads_positions: Optional[SequenceNotStr[str]]
-
-    updated_time: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    user_device: Optional[SequenceNotStr[str]]
-
-    user_os: Optional[SequenceNotStr[str]]
-
-    whatsapp_phone_number: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    whatsapp_positions: Optional[SequenceNotStr[str]]
-
-
-class PlatformConfigTiktokAction(TypedDict, total=False):
-    """A single TikTok behavioral targeting entry.
-
-    One category of past user behavior (what they did, over what window, on which kind of content). See docs/tiktok_api/ad_group.md § actions.
-    """
-
-    action_category_ids: Optional[SequenceNotStr[str]]
-    """Behavioral category IDs. Use /tool/action_category/ to list them."""
-
-    action_period: Optional[int]
-    """Lookback window in days. TikTok accepts 7, 15, 30, 60, 90, or 180."""
-
-    action_scene: Optional[Literal["VIDEO_RELATED", "CREATOR_RELATED", "HASHTAG_RELATED", "LIVE_RELATED"]]
-    """The category of TikTok content a behavioral targeting rule applies to.
-
-    See docs/tiktok_api/ad_group.md § actions.
-    """
-
-    video_user_actions: Optional[
-        List[Literal["WATCHED_TO_END", "LIKED", "COMMENTED", "SHARED", "FOLLOWED", "PROFILE_VISITED"]]
+    conversion_location: Literal[
+        "website",
+        "profile",
+        "instagram_and_facebook",
+        "instagram_profile",
+        "messaging",
+        "on_ad",
+        "instant_forms",
+        "instant_forms_and_messenger",
+        "website_and_instant_forms",
     ]
     """
-    Specific video interactions (WATCHED_TO_END, LIKED, COMMENTED, SHARED, FOLLOWED,
-    PROFILE_VISITED).
+    Where the outcome being optimized for occurs, such as a website visit,
+    social-profile visit, messaging conversation, ad interaction, or lead-form
+    submission. The lead form itself is set on the ad.
     """
 
+    demographics: Demographics
+    """Age, gender, and automatic-audience targeting."""
 
-class PlatformConfigTiktokInstantFormConfigQuestion(TypedDict, total=False):
-    """A question for a TikTok instant form."""
+    desired_cost_per_result: float
+    """
+    Cost per result to aim for (`average_target`) or never exceed
+    (`maximum_target`).
+    """
 
-    field_type: Required[str]
-    """Question type (EMAIL, PHONE_NUMBER, NAME, CUSTOM)."""
+    detailed_targeting: DetailedTargeting
+    """
+    Interest, behavior, and demographic targeting, using categories from the ad
+    platform's targeting taxonomy. At most 100 entries per section. Can't be
+    combined with demographics.automatic, and unavailable to campaigns with
+    special_ad_categories. Send the complete intended state — a section you omit is
+    cleared.
+    """
 
-    label: Optional[str]
-    """Custom label for the question."""
+    devices: Devices
+    """Device platforms and operating systems to target."""
 
+    ends_at: str
+    """When the ad group stops delivering, as an ISO 8601 timestamp.
 
-class PlatformConfigTiktokInstantFormConfig(TypedDict, total=False):
-    """Instant form configuration for lead generation campaigns."""
+    Omit to run until paused.
+    """
 
-    privacy_policy_url: Required[str]
-    """URL to your privacy policy."""
+    frequency_cap: FrequencyCap
+    """Cap on how often one person sees ads from this ad group.
 
-    questions: Required[Iterable[PlatformConfigTiktokInstantFormConfigQuestion]]
-    """Form questions (at least one required)."""
+    Only available on campaigns with the `awareness` objective.
+    """
 
-    button_text: Optional[str]
-    """Submit button text."""
+    languages: SequenceNotStr[str]
+    """Languages to target, as ISO 639 codes such as `en` or `es`.
 
-    greeting: Optional[str]
-    """Greeting text shown at the top of the form."""
+    Empty or omitted targets all languages.
+    """
 
-    name: Optional[str]
-    """Form name. Auto-generated if omitted."""
+    message_apps: List[Literal["messenger", "instagram", "whatsapp"]]
+    """Apps the conversation opens in.
 
+    Required when setting `conversion_location` to `messaging`, and rejected unless
+    the ad group's conversion location is `messaging`.
+    """
 
-class PlatformConfigTiktok(TypedDict, total=False):
-    """TikTok ad group configuration."""
+    minimum_daily_spend: float
+    """Minimum the ad group tries to spend each day."""
 
-    actions: Optional[Iterable[PlatformConfigTiktokAction]]
-
-    age_groups: Optional[List[Literal["AGE_13_17", "AGE_18_24", "AGE_25_34", "AGE_35_44", "AGE_45_54", "AGE_55_100"]]]
-
-    app_id: Optional[str]
-    """App ID for app promotion campaigns."""
-
-    attribution_event_count: Optional[Literal["UNSET", "EVERY", "ONCE"]]
-
-    audience_ids: Optional[SequenceNotStr[str]]
-
-    audience_rule: Optional[Dict[str, object]]
-    """Represents untyped JSON"""
-
-    audience_type: Optional[Literal["NORMAL", "SMART_INTERESTS_BEHAVIORS"]]
-
-    bid_price: Optional[float]
-    """Bid price (cost per result for Cost Cap)."""
-
-    bid_type: Optional[Literal["BID_TYPE_NO_BID", "BID_TYPE_CUSTOM"]]
-    """Bidding strategy (BID_TYPE_NO_BID, BID_TYPE_CUSTOM)."""
-
-    billing_event: Optional[Literal["CPC", "CPM", "OCPM", "CPV"]]
-    """How you are billed on TikTok (CPC, CPM, OCPM, CPV)."""
-
-    brand_safety_type: Optional[
-        Literal["NO_BRAND_SAFETY", "STANDARD_INVENTORY", "LIMITED_INVENTORY", "FULL_INVENTORY", "EXPANDED_INVENTORY"]
+    optimization_goal: Literal[
+        "conversions",
+        "link_clicks",
+        "landing_page_views",
+        "reach",
+        "impressions",
+        "engagement",
+        "conversations",
+        "video_views",
+        "two_second_views",
+        "page_likes",
+        "social_profile",
+        "ad_recall_lift",
+        "event_responses",
+        "reminders_set",
+        "lead_generation",
+        "quality_lead",
+        "value",
+        "profile_and_page_engagement",
     ]
+    """The result the ad group's delivery is optimized to get the most of."""
 
-    budget_mode: Optional[Literal["BUDGET_MODE_DAY", "BUDGET_MODE_TOTAL", "BUDGET_MODE_DYNAMIC_DAILY_BUDGET"]]
+    placements: Union[Literal["automatic"], Iterable[PlacementsUnionMember1]]
     """
-    Budget mode (BUDGET_MODE_DAY, BUDGET_MODE_TOTAL,
-    BUDGET_MODE_DYNAMIC_DAILY_BUDGET).
-    """
+    `automatic` to let the ad platform choose placements, or the list of platforms
+    and positions to target. Omit a platform's positions to target all of them.
 
-    carrier_ids: Optional[SequenceNotStr[str]]
+    Valid positions per platform:
 
-    category_exclusion_ids: Optional[SequenceNotStr[str]]
-
-    click_attribution_window: Optional[Literal["OFF", "ONE_DAY", "SEVEN_DAYS", "FOURTEEN_DAYS", "TWENTY_EIGHT_DAYS"]]
-
-    comment_disabled: Optional[bool]
-    """Represents `true` or `false` values."""
-
-    contextual_tag_ids: Optional[SequenceNotStr[str]]
-
-    conversion_bid_price: Optional[float]
-    """Target cost per conversion for oCPM."""
-
-    creative_material_mode: Optional[str]
-    """Creative delivery strategy."""
-
-    dayparting: Optional[str]
-    """Ad delivery schedule (48x7 character string)."""
-
-    deep_funnel_event_source: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`,
+      `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`,
+      `facebook_reels_overlay`, `biz_disco_feed`
+    - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`,
+      `profile_feed`, `profile_reels`, `ig_search`
+    - `messenger`: `story`
+    - `audience_network`: `classic`, `rewarded_video`
+    - `threads`: `threads_stream`
+    - `whatsapp`: `status`
     """
 
-    deep_funnel_event_source_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
+    regions: Regions
+    """Locations to target and exclude."""
 
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    starts_at: str
+    """When the ad group starts delivering, as an ISO 8601 timestamp.
+
+    Omit to start as soon as it's active.
     """
 
-    deep_funnel_optimization_status: Optional[Literal["ON", "OFF"]]
+    status: Literal["active", "paused"]
+    """Initial status (default: `active`)."""
 
-    device_model_ids: Optional[SequenceNotStr[str]]
+    title: str
+    """The display name of the ad group."""
 
-    device_price_ranges: Optional[SequenceNotStr[str]]
 
-    engaged_view_attribution_window: Optional[Literal["OFF", "ONE_DAY", "SEVEN_DAYS"]]
+class Audiences(TypedDict, total=False):
+    """Saved audiences to deliver to or exclude.
 
-    excluded_audience_ids: Optional[SequenceNotStr[str]]
-
-    excluded_location_ids: Optional[SequenceNotStr[str]]
-    """TikTok location/region IDs to exclude."""
-
-    frequency: Optional[int]
-    """Represents non-fractional signed whole numeric values.
-
-    Int can represent values between -(2^31) and 2^31 - 1.
+    Can't be combined with demographics.automatic.
     """
 
-    frequency_schedule: Optional[int]
-    """Represents non-fractional signed whole numeric values.
+    exclude: SequenceNotStr[str]
+    """IDs of saved audiences to exclude from delivery, prefixed `adaud_`."""
 
-    Int can represent values between -(2^31) and 2^31 - 1.
+    include: SequenceNotStr[str]
+    """IDs of saved audiences to deliver to, prefixed `adaud_`."""
+
+
+class Demographics(TypedDict, total=False):
+    """Age, gender, and automatic-audience targeting."""
+
+    automatic: bool
+    """
+    Turn on automatic audience targeting (Advantage+ on Meta): the platform can
+    deliver beyond the ages, genders, and detailed targeting you set, treating them
+    as suggestions.
     """
 
-    gender: Optional[Literal["GENDER_UNLIMITED", "GENDER_MALE", "GENDER_FEMALE"]]
+    gender: Literal["all", "male", "female"]
+    """Gender to target."""
 
-    identity_authorized_bc_id: Optional[str]
-    """Business Center ID for BC_AUTH_TT identity."""
+    maximum_age: int
+    """Oldest age to target."""
 
-    identity_id: Optional[str]
-    """TikTok identity ID for the ad group."""
+    minimum_age: int
+    """Youngest age to target."""
 
-    identity_type: Optional[str]
-    """Identity type (AUTH_CODE, TT_USER, BC_AUTH_TT)."""
 
-    instant_form_config: Optional[PlatformConfigTiktokInstantFormConfig]
-    """Instant form configuration for lead generation campaigns."""
+class DetailedTargetingBehavior(TypedDict, total=False):
+    id: Required[str]
+    """The ad platform's ID for the category in its targeting taxonomy."""
 
-    instant_form_id: Optional[str]
+    name: str
+    """Category name, such as `Movies`."""
+
+
+class DetailedTargetingDemographic(TypedDict, total=False):
+    id: Required[str]
+    """The ad platform's ID for the category in its targeting taxonomy."""
+
+    type: Required[Literal["life_events", "industries", "income", "family_statuses"]]
+    """Kind of demographic the category belongs to."""
+
+    name: str
+    """Category name, such as `Recently moved`."""
+
+
+class DetailedTargetingInterest(TypedDict, total=False):
+    id: Required[str]
+    """The ad platform's ID for the category in its targeting taxonomy."""
+
+    name: str
+    """Category name, such as `Movies`."""
+
+
+class DetailedTargeting(TypedDict, total=False):
     """
-    TikTok instant form ID (set automatically when instant_form_config is provided).
-    """
-
-    interest_category_ids: Optional[SequenceNotStr[str]]
-
-    interest_keyword_ids: Optional[SequenceNotStr[str]]
-
-    inventory_filter_enabled: Optional[bool]
-    """Represents `true` or `false` values."""
-
-    ios14_targeting: Optional[Literal["UNSET", "IOS14_MINUS", "IOS14_PLUS", "ALL"]]
-
-    isp_ids: Optional[SequenceNotStr[str]]
-
-    languages: Optional[SequenceNotStr[str]]
-
-    location_ids: Optional[SequenceNotStr[str]]
-    """TikTok location/region IDs for geo targeting."""
-
-    min_android_version: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
-    """
-
-    min_ios_version: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
     """
 
-    network_types: Optional[SequenceNotStr[str]]
+    behaviors: Iterable[DetailedTargetingBehavior]
+    """Behavior categories to target, such as frequent travelers."""
 
-    operating_systems: Optional[List[Literal["ANDROID", "IOS"]]]
+    demographics: Iterable[DetailedTargetingDemographic]
+    """Demographic categories to target, such as life events or industries."""
 
-    operation_status: Optional[Literal["ENABLE", "DISABLE"]]
-    """Initial status (ENABLE, DISABLE)."""
+    interests: Iterable[DetailedTargetingInterest]
+    """Interest categories to target, such as an interest in movies."""
 
-    optimization_event: Optional[str]
-    """Conversion event (e.g., COMPLETE_PAYMENT)."""
 
-    optimization_goal: Optional[
-        Literal[
-            "CLICK",
-            "CONVERT",
-            "INSTALL",
-            "IN_APP_EVENT",
-            "REACH",
-            "SHOW",
-            "VIDEO_VIEW",
-            "ENGAGED_VIEW",
-            "ENGAGED_VIEW_FIFTEEN",
-            "LEAD_GENERATION",
-            "PREFERRED_LEAD",
-            "CONVERSATION",
-            "FOLLOWERS",
-            "PROFILE_VIEWS",
-            "PAGE_VISIT",
-            "VALUE",
-            "AUTOMATIC_VALUE_OPTIMIZATION",
-            "TRAFFIC_LANDING_PAGE_VIEW",
-            "DESTINATION_VISIT",
-            "MT_LIVE_ROOM",
-            "PRODUCT_CLICK_IN_LIVE",
-        ]
-    ]
-    """What this ad group optimizes for on TikTok."""
+class DevicesOperatingSystem(TypedDict, total=False):
+    os: Required[Literal["ios", "android"]]
+    """Operating system to target."""
 
-    pacing: Optional[Literal["PACING_MODE_SMOOTH", "PACING_MODE_FAST"]]
-    """Budget pacing (PACING_MODE_SMOOTH, PACING_MODE_FAST)."""
+    minimum_version: str
+    """Lowest OS version to target, such as `18.0`. Omit to target any version."""
 
-    pangle_audience_package_exclude_ids: Optional[SequenceNotStr[str]]
 
-    pangle_audience_package_include_ids: Optional[SequenceNotStr[str]]
+class Devices(TypedDict, total=False):
+    """Device platforms and operating systems to target."""
 
-    pangle_block_app_ids: Optional[SequenceNotStr[str]]
+    operating_systems: Iterable[DevicesOperatingSystem]
+    """Operating systems to target. Empty targets all operating systems."""
 
-    pixel_id: Optional[str]
-    """TikTok Pixel ID for conversion tracking."""
+    platforms: List[Literal["mobile", "desktop"]]
+    """Device types to target. Empty targets all devices."""
 
-    placement_type: Optional[Literal["PLACEMENT_TYPE_AUTOMATIC", "PLACEMENT_TYPE_NORMAL"]]
-    """Placement strategy (PLACEMENT_TYPE_AUTOMATIC, PLACEMENT_TYPE_NORMAL)."""
 
-    placements: Optional[SequenceNotStr[str]]
-    """Placements (PLACEMENT_TIKTOK, PLACEMENT_PANGLE, etc.)."""
+class FrequencyCap(TypedDict, total=False):
+    """Cap on how often one person sees ads from this ad group.
 
-    product_set_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    Only available on campaigns with the `awareness` objective.
     """
 
-    product_source: Optional[Literal["CATALOG", "STORE", "SHOWCASE"]]
+    maximum_impressions: int
+    """Most times one person can be shown ads from this ad group within the window."""
 
-    promotion_type: Optional[str]
-    """Promotion type (optimization location)."""
+    per_days: int
+    """Length of the rolling window, in days."""
 
-    schedule_end_time: Optional[str]
-    """Schedule end time (UTC, YYYY-MM-DD HH:MM:SS)."""
 
-    schedule_start_time: Optional[str]
-    """Schedule start time (UTC, YYYY-MM-DD HH:MM:SS)."""
+class PlacementsUnionMember1(TypedDict, total=False):
+    platform: Required[Literal["facebook", "instagram", "messenger", "audience_network", "threads", "whatsapp"]]
+    """Platform the ads run on."""
 
-    schedule_type: Optional[Literal["SCHEDULE_START_END", "SCHEDULE_FROM_NOW"]]
-    """Schedule type (SCHEDULE_START_END, SCHEDULE_FROM_NOW)."""
+    positions: SequenceNotStr[str]
+    """Positions to target within the platform, such as `feed` or `story`.
 
-    secondary_optimization_event: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    Omit to target all of the platform's positions.
     """
 
-    shopping_ads_retargeting_actions_days: Optional[int]
-    """Represents non-fractional signed whole numeric values.
 
-    Int can represent values between -(2^31) and 2^31 - 1.
+class RegionsExcludeCity(TypedDict, total=False):
+    key: Required[str]
+    """The ad platform's key for the city in its location taxonomy."""
+
+    name: str
+    """City name, such as `Austin`."""
+
+
+class RegionsExcludeCustomLocation(TypedDict, total=False):
+    latitude: Required[float]
+    """Latitude of the center point."""
+
+    longitude: Required[float]
+    """Longitude of the center point."""
+
+    radius: Required[float]
+    """Radius around the center point: 1-50 miles or 1-80 kilometers."""
+
+    distance_unit: Literal["mile", "kilometer"]
+    """Unit for `radius`. Defaults to `mile`."""
+
+    name: str
+    """Label for the location, such as a city or address."""
+
+
+class RegionsExcludeZipKey(TypedDict, total=False):
+    key: Required[str]
+    """The ZIP or postal code."""
+
+
+RegionsExcludeZip: TypeAlias = Union[str, RegionsExcludeZipKey]
+
+
+class RegionsExclude(TypedDict, total=False):
+    """Locations excluded from targeting. Country groups can't be excluded."""
+
+    cities: Iterable[RegionsExcludeCity]
+    """Cities, keyed by the ad platform's location taxonomy."""
+
+    countries: SequenceNotStr[str]
+    """Countries, as ISO 3166-1 alpha-2 codes such as `US`."""
+
+    country_groups: SequenceNotStr[str]
+    """Multi-country groups such as `worldwide` or `europe`.
+
+    Include-only — groups can't be excluded.
     """
 
-    shopping_ads_retargeting_type: Optional[Literal["OFF", "LAB1", "LAB2", "LAB3", "LAB4", "LAB5"]]
+    custom_locations: Iterable[RegionsExcludeCustomLocation]
+    """Circular areas, each a coordinate plus a radius.
 
-    spending_power: Optional[Literal["ALL", "HIGH"]]
-
-    tiktok_subplacements: Optional[SequenceNotStr[str]]
-    """TikTok subplacements (IN_FEED, SEARCH_FEED, etc.)."""
-
-    vertical_sensitivity_id: Optional[str]
-    """Represents textual data as UTF-8 character sequences.
-
-    This type is most often used by GraphQL to represent free-form human-readable
-    text.
+    At most 200 across include and exclude.
     """
 
-    video_download_disabled: Optional[bool]
-    """Represents `true` or `false` values."""
+    regions: SequenceNotStr[str]
+    """US states and DC, as ISO 3166-2 codes such as `US-CA`.
 
-    video_user_actions: Optional[SequenceNotStr[str]]
+    US territories (`PR`, `GU`, `VI`, `AS`, `MP`) and everywhere outside the US are
+    targeted through `countries`.
+    """
 
-    view_attribution_window: Optional[Literal["OFF", "ONE_DAY", "SEVEN_DAYS"]]
+    zips: SequenceNotStr[RegionsExcludeZip]
+    """ZIP and postal codes, as bare strings or objects with a key."""
 
 
-class PlatformConfig(TypedDict, total=False):
-    """Platform-specific ad group configuration."""
+class RegionsIncludeCity(TypedDict, total=False):
+    key: Required[str]
+    """The ad platform's key for the city in its location taxonomy."""
 
-    meta: Optional[PlatformConfigMeta]
-    """Meta (Facebook/Instagram) ad set configuration."""
+    name: str
+    """City name, such as `Austin`."""
 
-    tiktok: Optional[PlatformConfigTiktok]
-    """TikTok ad group configuration."""
+
+class RegionsIncludeCustomLocation(TypedDict, total=False):
+    latitude: Required[float]
+    """Latitude of the center point."""
+
+    longitude: Required[float]
+    """Longitude of the center point."""
+
+    radius: Required[float]
+    """Radius around the center point: 1-50 miles or 1-80 kilometers."""
+
+    distance_unit: Literal["mile", "kilometer"]
+    """Unit for `radius`. Defaults to `mile`."""
+
+    name: str
+    """Label for the location, such as a city or address."""
+
+
+class RegionsIncludeZipKey(TypedDict, total=False):
+    key: Required[str]
+    """The ZIP or postal code."""
+
+
+RegionsIncludeZip: TypeAlias = Union[str, RegionsIncludeZipKey]
+
+
+class RegionsInclude(TypedDict, total=False):
+    """Locations the ad group targets."""
+
+    cities: Iterable[RegionsIncludeCity]
+    """Cities, keyed by the ad platform's location taxonomy."""
+
+    countries: SequenceNotStr[str]
+    """Countries, as ISO 3166-1 alpha-2 codes such as `US`."""
+
+    country_groups: SequenceNotStr[str]
+    """Multi-country groups such as `worldwide` or `europe`.
+
+    Include-only — groups can't be excluded.
+    """
+
+    custom_locations: Iterable[RegionsIncludeCustomLocation]
+    """Circular areas, each a coordinate plus a radius.
+
+    At most 200 across include and exclude.
+    """
+
+    regions: SequenceNotStr[str]
+    """US states and DC, as ISO 3166-2 codes such as `US-CA`.
+
+    US territories (`PR`, `GU`, `VI`, `AS`, `MP`) and everywhere outside the US are
+    targeted through `countries`.
+    """
+
+    zips: SequenceNotStr[RegionsIncludeZip]
+    """ZIP and postal codes, as bare strings or objects with a key."""
+
+
+class Regions(TypedDict, total=False):
+    """Locations to target and exclude."""
+
+    exclude: RegionsExclude
+    """Locations excluded from targeting. Country groups can't be excluded."""
+
+    include: RegionsInclude
+    """Locations the ad group targets."""
