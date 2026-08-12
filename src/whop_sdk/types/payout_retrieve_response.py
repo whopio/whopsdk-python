@@ -34,7 +34,10 @@ class PayoutMethod(BaseModel):
 
 class PayoutRetrieveResponse(BaseModel):
     id: str
-    """Payout ID."""
+    """
+    Payout ID, prefixed `wdrl_` for a payout returned by `GET /payouts` or `cofr_`
+    for a payout request returned by `POST /payouts`.
+    """
 
     amount: float
     """The payout amount in whole currency units."""
@@ -53,8 +56,8 @@ class PayoutRetrieveResponse(BaseModel):
 
     notes: Optional[str] = None
     """
-    Free-form notes the payout's creator attached, visible only to the paying
-    account.
+    Free-form notes attached by the payout creator, or `null` when none were
+    provided. Maximum 255 characters.
     """
 
     object: Literal["payout"]
@@ -69,10 +72,10 @@ class PayoutRetrieveResponse(BaseModel):
     """
 
     payout_request_id: Optional[str] = None
-    """The ID returned by POST /payouts when this payout was requested.
+    """Payout request ID, prefixed `cofr_`, returned by `POST /payouts`.
 
-    For a payout request retrieved by its own cofr\\__ id, this is that same id. Null
-    for payouts not created by POST /payouts.
+    For a request retrieved by its own `cofr_` ID, this equals `id`. Returns `null`
+    for payouts not created by `POST /payouts`.
     """
 
     speed: Literal["standard", "instant"]

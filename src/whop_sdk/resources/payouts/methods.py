@@ -32,7 +32,7 @@ class MethodsResource(SyncAPIResource):
     """
     Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+    Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
@@ -81,23 +81,24 @@ class MethodsResource(SyncAPIResource):
           supported_payout_method_id: The supported payout method to save (a podst\\__ identifier from a previous
               listing).
 
-          account_id: The account to add the payout method for (a biz\\__ identifier). Provide this or
-              user_id.
+          account_id: The account to add the payout method for, prefixed `biz_`. Provide this or
+              `user_id`.
 
           destination_currency: Currency the supported payout method delivers payouts in.
 
           fields: The supported payout method's required field values, keyed by field id — list
               them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
-              Basis Theory token id may be passed in place of a raw value. A validation
-              failure returns the method's full required_fields schema alongside the error.
-              Required whenever the account details are supplied directly.
+              Basis Theory token id may be passed in place of a raw value. For a U.S. bank
+              routing-number field, a raw nine-digit value must also pass the ABA checksum. A
+              validation failure returns the method's full required_fields schema alongside
+              the error. Required whenever the account details are supplied directly.
 
           is_default: Whether to make this the account's default payout method.
 
           nickname: A label for the payout method, unique per destination.
 
-          user_id: The user to add the payout method for (a user\\__ identifier). Provide this or
-              account_id.
+          user_id: The user to add the payout method for, prefixed `user_`. Provide this or
+              `account_id`.
 
           extra_headers: Send extra headers
 
@@ -150,7 +151,8 @@ class MethodsResource(SyncAPIResource):
         Changes the label used to identify a saved payout method.
 
         Args:
-          nickname: New label for the payout method.
+          nickname: New label for the payout method, with at least one non-whitespace character and
+              a maximum of 100 characters.
 
           extra_headers: Send extra headers
 
@@ -309,7 +311,7 @@ class AsyncMethodsResource(AsyncAPIResource):
     """
     Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+    Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
@@ -358,23 +360,24 @@ class AsyncMethodsResource(AsyncAPIResource):
           supported_payout_method_id: The supported payout method to save (a podst\\__ identifier from a previous
               listing).
 
-          account_id: The account to add the payout method for (a biz\\__ identifier). Provide this or
-              user_id.
+          account_id: The account to add the payout method for, prefixed `biz_`. Provide this or
+              `user_id`.
 
           destination_currency: Currency the supported payout method delivers payouts in.
 
           fields: The supported payout method's required field values, keyed by field id — list
               them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
-              Basis Theory token id may be passed in place of a raw value. A validation
-              failure returns the method's full required_fields schema alongside the error.
-              Required whenever the account details are supplied directly.
+              Basis Theory token id may be passed in place of a raw value. For a U.S. bank
+              routing-number field, a raw nine-digit value must also pass the ABA checksum. A
+              validation failure returns the method's full required_fields schema alongside
+              the error. Required whenever the account details are supplied directly.
 
           is_default: Whether to make this the account's default payout method.
 
           nickname: A label for the payout method, unique per destination.
 
-          user_id: The user to add the payout method for (a user\\__ identifier). Provide this or
-              account_id.
+          user_id: The user to add the payout method for, prefixed `user_`. Provide this or
+              `account_id`.
 
           extra_headers: Send extra headers
 
@@ -427,7 +430,8 @@ class AsyncMethodsResource(AsyncAPIResource):
         Changes the label used to identify a saved payout method.
 
         Args:
-          nickname: New label for the payout method.
+          nickname: New label for the payout method, with at least one non-whitespace character and
+              a maximum of 100 characters.
 
           extra_headers: Send extra headers
 

@@ -70,15 +70,18 @@ class MethodCreateResponse(BaseModel):
 
     unavailable_reason: Optional[Literal["destination_retired"]] = None
     """
-    Why this method can no longer receive payouts: `destination_retired` (the payout
-    provider stopped offering the destination — the method must be re-added), `null`
-    (usable).
+    Why this method is unavailable: `destination_retired` means the payout provider
+    stopped offering the destination. Whop may automatically remap an eligible
+    method that was not linked through Plaid to a compatible replacement; otherwise,
+    the account owner must re-add it. `null` means no unavailability reason is
+    known.
     """
 
     bank_verification_state: Optional[Literal["checking", "verified", "no_data", "warning", "broken"]] = None
     """
     Lifecycle trust state: `checking` (verification still running), `verified` (bank
-    confirmed ownership or a payout already completed to it), `no_data` (bank had
-    nothing on file), `warning` (bank could not confirm ownership), `broken`
-    (payouts failed with a permanent account error), `null` (never checked).
+    confirmed ownership or a payout already completed to it), `no_data`
+    (verification unavailable or bank returned no ownership data), `warning` (bank
+    could not confirm the destination's owner), `broken` (payouts failed with a
+    permanent account error), `null` (never checked).
     """

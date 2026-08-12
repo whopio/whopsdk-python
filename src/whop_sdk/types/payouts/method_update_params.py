@@ -9,4 +9,7 @@ __all__ = ["MethodUpdateParams"]
 
 class MethodUpdateParams(TypedDict, total=False):
     nickname: Required[str]
-    """New label for the payout method."""
+    """
+    New label for the payout method, with at least one non-whitespace character and
+    a maximum of 100 characters.
+    """

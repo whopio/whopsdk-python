@@ -47,7 +47,7 @@ class PayoutsResource(SyncAPIResource):
     """
     Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+    Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
@@ -55,7 +55,7 @@ class PayoutsResource(SyncAPIResource):
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return MethodsResource(self._client)
 
@@ -64,7 +64,7 @@ class PayoutsResource(SyncAPIResource):
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return SupportedMethodsResource(self._client)
 
@@ -93,6 +93,7 @@ class PayoutsResource(SyncAPIResource):
         amount: float,
         payout_method_id: str,
         account_id: str | Omit = omit,
+        acknowledge_bank_warning: bool | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
         notes: Optional[str] | Omit = omit,
@@ -108,15 +109,21 @@ class PayoutsResource(SyncAPIResource):
         idempotency_key: str | None = None,
     ) -> PayoutCreateResponse:
         """
-        Sends money from an account's or user's balance to one of its saved payout
-        methods.
+        Sends money from an account or user balance to a saved payout method for that
+        owner.
 
         Args:
           amount: The amount to pay out in the specified currency.
 
           payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
 
-          account_id: The account to pay out from (a biz\\__ identifier). Provide this or user_id.
+          account_id: Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or
+              `user_id`.
+
+          acknowledge_bank_warning: Set to `true` to continue when the destination bank could not confirm the payout
+              method account holder's name. Defaults to `false`; when this warning applies,
+              the payout is refused so the account holder can correct the name or link their
+              bank first.
 
           currency: The currency to pay out. Balances are held per currency and the payout draws
               only from the balance in this currency, so match the currency the funds arrived
@@ -127,8 +134,8 @@ class PayoutsResource(SyncAPIResource):
               original payout instead of paying out twice. Also accepted as the
               `Idempotency-Key` header.
 
-          notes: Optional free-form notes to attach to the payout, visible only to the paying
-              account.
+          notes: Free-form notes to attach to the payout, with a maximum of 255 characters. Omit
+              or pass `null` for no notes.
 
           platform_covers_fees: Whether the parent platform covers the payout fee instead of the account being
               paid out. Omit to use the platform's configured fee coverage policy; pass
@@ -139,7 +146,8 @@ class PayoutsResource(SyncAPIResource):
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
-          user_id: The user to pay out from (a user\\__ identifier). Provide this or account_id.
+          user_id: User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or
+              `user_id`.
 
           extra_headers: Send extra headers
 
@@ -158,6 +166,7 @@ class PayoutsResource(SyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "account_id": account_id,
+                    "acknowledge_bank_warning": acknowledge_bank_warning,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
                     "notes": notes,
@@ -190,16 +199,18 @@ class PayoutsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutRetrieveResponse:
-        """Fetches a single payout.
+        """Fetches one payout by its `wdrl_` or `cofr_` ID.
 
-        Accepts a `wdrl_` payout id from GET /payouts, or the
-        `cofr_` payout request id returned by POST /payouts on stablecoin accounts —
-        poll it to watch a requested payout settle.
+        Use the `cofr_` payout request
+        ID returned by `POST /payouts` for a stablecoin account to poll until the payout
+        settles.
 
         Args:
-          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+          account_id: Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or
+              `user_id`.
 
-          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+          user_id: Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or
+              `user_id`.
 
           extra_headers: Send extra headers
 
@@ -301,7 +312,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
     """
     Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-    Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+    Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
     """
 
     @cached_property
@@ -309,7 +320,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return AsyncMethodsResource(self._client)
 
@@ -318,7 +329,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return AsyncSupportedMethodsResource(self._client)
 
@@ -347,6 +358,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         amount: float,
         payout_method_id: str,
         account_id: str | Omit = omit,
+        acknowledge_bank_warning: bool | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
         notes: Optional[str] | Omit = omit,
@@ -362,15 +374,21 @@ class AsyncPayoutsResource(AsyncAPIResource):
         idempotency_key: str | None = None,
     ) -> PayoutCreateResponse:
         """
-        Sends money from an account's or user's balance to one of its saved payout
-        methods.
+        Sends money from an account or user balance to a saved payout method for that
+        owner.
 
         Args:
           amount: The amount to pay out in the specified currency.
 
           payout_method_id: The saved payout method to deliver to (a potk\\__ identifier).
 
-          account_id: The account to pay out from (a biz\\__ identifier). Provide this or user_id.
+          account_id: Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or
+              `user_id`.
+
+          acknowledge_bank_warning: Set to `true` to continue when the destination bank could not confirm the payout
+              method account holder's name. Defaults to `false`; when this warning applies,
+              the payout is refused so the account holder can correct the name or link their
+              bank first.
 
           currency: The currency to pay out. Balances are held per currency and the payout draws
               only from the balance in this currency, so match the currency the funds arrived
@@ -381,8 +399,8 @@ class AsyncPayoutsResource(AsyncAPIResource):
               original payout instead of paying out twice. Also accepted as the
               `Idempotency-Key` header.
 
-          notes: Optional free-form notes to attach to the payout, visible only to the paying
-              account.
+          notes: Free-form notes to attach to the payout, with a maximum of 255 characters. Omit
+              or pass `null` for no notes.
 
           platform_covers_fees: Whether the parent platform covers the payout fee instead of the account being
               paid out. Omit to use the platform's configured fee coverage policy; pass
@@ -393,7 +411,8 @@ class AsyncPayoutsResource(AsyncAPIResource):
           speed: How fast the funds should arrive. `instant` is only accepted when the account
               and payout method are eligible; otherwise the payout is rejected.
 
-          user_id: The user to pay out from (a user\\__ identifier). Provide this or account_id.
+          user_id: User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or
+              `user_id`.
 
           extra_headers: Send extra headers
 
@@ -412,6 +431,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "amount": amount,
                     "payout_method_id": payout_method_id,
                     "account_id": account_id,
+                    "acknowledge_bank_warning": acknowledge_bank_warning,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
                     "notes": notes,
@@ -444,16 +464,18 @@ class AsyncPayoutsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutRetrieveResponse:
-        """Fetches a single payout.
+        """Fetches one payout by its `wdrl_` or `cofr_` ID.
 
-        Accepts a `wdrl_` payout id from GET /payouts, or the
-        `cofr_` payout request id returned by POST /payouts on stablecoin accounts —
-        poll it to watch a requested payout settle.
+        Use the `cofr_` payout request
+        ID returned by `POST /payouts` for a stablecoin account to poll until the payout
+        settles.
 
         Args:
-          account_id: The owning account ID (a biz\\__ identifier). Provide this or user_id.
+          account_id: Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or
+              `user_id`.
 
-          user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
+          user_id: Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or
+              `user_id`.
 
           extra_headers: Send extra headers
 
@@ -570,7 +592,7 @@ class PayoutsResourceWithRawResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return MethodsResourceWithRawResponse(self._payouts.methods)
 
@@ -579,7 +601,7 @@ class PayoutsResourceWithRawResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return SupportedMethodsResourceWithRawResponse(self._payouts.supported_methods)
 
@@ -603,7 +625,7 @@ class AsyncPayoutsResourceWithRawResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return AsyncMethodsResourceWithRawResponse(self._payouts.methods)
 
@@ -612,7 +634,7 @@ class AsyncPayoutsResourceWithRawResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return AsyncSupportedMethodsResourceWithRawResponse(self._payouts.supported_methods)
 
@@ -636,7 +658,7 @@ class PayoutsResourceWithStreamingResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return MethodsResourceWithStreamingResponse(self._payouts.methods)
 
@@ -645,7 +667,7 @@ class PayoutsResourceWithStreamingResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return SupportedMethodsResourceWithStreamingResponse(self._payouts.supported_methods)
 
@@ -669,7 +691,7 @@ class AsyncPayoutsResourceWithStreamingResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return AsyncMethodsResourceWithStreamingResponse(self._payouts.methods)
 
@@ -678,6 +700,6 @@ class AsyncPayoutsResourceWithStreamingResponse:
         """
         Payouts represent money sent from an account or user balance to an external destination, such as a bank account, wallet, or other saved payout method.
 
-        Use the Payouts API to create payouts from accounts, list payout history for accounts or users, monitor payout statuses, and show expected arrival details for funds leaving Whop.
+        Use the Payouts API to create and track payouts, manage saved payout methods, and show expected arrival details for funds leaving Whop.
         """
         return AsyncSupportedMethodsResourceWithStreamingResponse(self._payouts.supported_methods)

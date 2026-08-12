@@ -18,7 +18,18 @@ class PayoutCreateParams(TypedDict, total=False):
     """The saved payout method to deliver to (a potk\\__ identifier)."""
 
     account_id: str
-    """The account to pay out from (a biz\\__ identifier). Provide this or user_id."""
+    """Account to pay out from, prefixed `biz_`.
+
+    Provide exactly one of `account_id` or `user_id`.
+    """
+
+    acknowledge_bank_warning: bool
+    """
+    Set to `true` to continue when the destination bank could not confirm the payout
+    method account holder's name. Defaults to `false`; when this warning applies,
+    the payout is refused so the account holder can correct the name or link their
+    bank first.
+    """
 
     currency: str
     """The currency to pay out.
@@ -36,9 +47,9 @@ class PayoutCreateParams(TypedDict, total=False):
     """
 
     notes: Optional[str]
-    """
-    Optional free-form notes to attach to the payout, visible only to the paying
-    account.
+    """Free-form notes to attach to the payout, with a maximum of 255 characters.
+
+    Omit or pass `null` for no notes.
     """
 
     platform_covers_fees: bool
@@ -58,4 +69,7 @@ class PayoutCreateParams(TypedDict, total=False):
     """
 
     user_id: str
-    """The user to pay out from (a user\\__ identifier). Provide this or account_id."""
+    """User to pay out from, prefixed `user_`.
+
+    Provide exactly one of `account_id` or `user_id`.
+    """

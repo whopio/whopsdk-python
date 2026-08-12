@@ -76,7 +76,7 @@ class TestMethods:
     def test_method_update(self, client: Whop) -> None:
         method = client.payouts.methods.update(
             payout_method_id="payout_method_id",
-            nickname="nickname",
+            nickname="x",
         )
         assert_matches_type(MethodUpdateResponse, method, path=["response"])
 
@@ -85,7 +85,7 @@ class TestMethods:
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.payouts.methods.with_raw_response.update(
             payout_method_id="payout_method_id",
-            nickname="nickname",
+            nickname="x",
         )
 
         assert response.is_closed is True
@@ -98,7 +98,7 @@ class TestMethods:
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.payouts.methods.with_streaming_response.update(
             payout_method_id="payout_method_id",
-            nickname="nickname",
+            nickname="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -114,7 +114,7 @@ class TestMethods:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
             client.payouts.methods.with_raw_response.update(
                 payout_method_id="",
-                nickname="nickname",
+                nickname="x",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -263,7 +263,7 @@ class TestAsyncMethods:
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.update(
             payout_method_id="payout_method_id",
-            nickname="nickname",
+            nickname="x",
         )
         assert_matches_type(MethodUpdateResponse, method, path=["response"])
 
@@ -272,7 +272,7 @@ class TestAsyncMethods:
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.methods.with_raw_response.update(
             payout_method_id="payout_method_id",
-            nickname="nickname",
+            nickname="x",
         )
 
         assert response.is_closed is True
@@ -285,7 +285,7 @@ class TestAsyncMethods:
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.methods.with_streaming_response.update(
             payout_method_id="payout_method_id",
-            nickname="nickname",
+            nickname="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -301,7 +301,7 @@ class TestAsyncMethods:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
             await async_client.payouts.methods.with_raw_response.update(
                 payout_method_id="",
-                nickname="nickname",
+                nickname="x",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

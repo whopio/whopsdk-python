@@ -56,8 +56,8 @@ class PayoutCreateResponse(BaseModel):
 
     notes: Optional[str] = None
     """
-    Free-form notes the payout's creator attached, visible only to the paying
-    account.
+    Free-form notes attached by the payout creator, or `null` when none were
+    provided. Maximum 255 characters.
     """
 
     object: Literal["payout"]

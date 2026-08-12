@@ -9,7 +9,13 @@ __all__ = ["PayoutRetrieveParams"]
 
 class PayoutRetrieveParams(TypedDict, total=False):
     account_id: str
-    """The owning account ID (a biz\\__ identifier). Provide this or user_id."""
+    """Owning account ID, prefixed `biz_`.
+
+    Provide exactly one of `account_id` or `user_id`.
+    """
 
     user_id: str
-    """The owning user ID (a user\\__ identifier). Provide this or account_id."""
+    """Owning user ID, prefixed `user_`.
+
+    Provide exactly one of `account_id` or `user_id`.
+    """
