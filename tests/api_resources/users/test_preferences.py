@@ -55,6 +55,7 @@ class TestPreferences:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         preference = client.users.preferences.update(
+            bounty_worker_onboarding_dismissed=True,
             investigation_enabled=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
@@ -125,6 +126,7 @@ class TestAsyncPreferences:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         preference = await async_client.users.preferences.update(
+            bounty_worker_onboarding_dismissed=True,
             investigation_enabled=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])

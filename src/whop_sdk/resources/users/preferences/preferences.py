@@ -93,6 +93,7 @@ class PreferencesResource(SyncAPIResource):
     def update(
         self,
         *,
+        bounty_worker_onboarding_dismissed: bool | Omit = omit,
         investigation_enabled: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -108,6 +109,9 @@ class PreferencesResource(SyncAPIResource):
         it is given and leaves the rest untouched.
 
         Args:
+          bounty_worker_onboarding_dismissed: Whether the user has dismissed the first-time bounty worker onboarding. Set to
+              `false` to show it again.
+
           investigation_enabled: Whether investigation mode is enabled for the user. Only meaningful for staff
               users with investigation access.
 
@@ -124,7 +128,11 @@ class PreferencesResource(SyncAPIResource):
         return self._patch(
             "/users/me/preferences",
             body=maybe_transform(
-                {"investigation_enabled": investigation_enabled}, preference_update_params.PreferenceUpdateParams
+                {
+                    "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
+                    "investigation_enabled": investigation_enabled,
+                },
+                preference_update_params.PreferenceUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -200,6 +208,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
     async def update(
         self,
         *,
+        bounty_worker_onboarding_dismissed: bool | Omit = omit,
         investigation_enabled: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -215,6 +224,9 @@ class AsyncPreferencesResource(AsyncAPIResource):
         it is given and leaves the rest untouched.
 
         Args:
+          bounty_worker_onboarding_dismissed: Whether the user has dismissed the first-time bounty worker onboarding. Set to
+              `false` to show it again.
+
           investigation_enabled: Whether investigation mode is enabled for the user. Only meaningful for staff
               users with investigation access.
 
@@ -231,7 +243,11 @@ class AsyncPreferencesResource(AsyncAPIResource):
         return await self._patch(
             "/users/me/preferences",
             body=await async_maybe_transform(
-                {"investigation_enabled": investigation_enabled}, preference_update_params.PreferenceUpdateParams
+                {
+                    "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
+                    "investigation_enabled": investigation_enabled,
+                },
+                preference_update_params.PreferenceUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,

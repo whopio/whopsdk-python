@@ -6,6 +6,12 @@ __all__ = ["PreferenceRetrieveResponse"]
 
 
 class PreferenceRetrieveResponse(BaseModel):
+    bounty_worker_onboarding_dismissed: bool
+    """Whether the user has dismissed the first-time bounty worker onboarding.
+
+    Set to `false` to show it again.
+    """
+
     investigation_enabled: bool
     """Whether investigation mode is enabled for the user.
 
