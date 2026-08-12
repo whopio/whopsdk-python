@@ -275,6 +275,7 @@ from whop_sdk.types import (
     WebhookListResponse,
     WebhookDeleteResponse,
     WebhookListDeliveriesResponse,
+    WebhookReplayDeliveryResponse,
     WebhookTestResponse,
     CardCanceledWebhookEvent,
     CardCreatedWebhookEvent,
@@ -356,6 +357,7 @@ Methods:
 - <code title="get /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">list</a>(\*\*<a href="src/whop_sdk/types/webhook_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_list_response.py">SyncCursorPage[WebhookListResponse]</a></code>
 - <code title="delete /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">delete</a>(id) -> <a href="./src/whop_sdk/types/webhook_delete_response.py">WebhookDeleteResponse</a></code>
 - <code title="get /webhooks/{id}/deliveries">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">list_deliveries</a>(id, \*\*<a href="src/whop_sdk/types/webhook_list_deliveries_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_list_deliveries_response.py">SyncCursorPage[WebhookListDeliveriesResponse]</a></code>
+- <code title="post /webhooks/{id}/deliveries/{delivery_id}/replay">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">replay_delivery</a>(delivery_id, \*, id) -> <a href="./src/whop_sdk/types/webhook_replay_delivery_response.py">WebhookReplayDeliveryResponse</a></code>
 - <code title="post /webhooks/{id}/test">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">test</a>(id, \*\*<a href="src/whop_sdk/types/webhook_test_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_test_response.py">WebhookTestResponse</a></code>
 
 # Plans
