@@ -203,8 +203,8 @@ class AppsResource(SyncAPIResource):
 
           app_type: The type of end-user an app is built for
 
-          base_url: The base production URL where the app is hosted, such as
-              'https://myapp.example.com'.
+          base_url: The base production URL where the app is hosted. Pass null to take the app proxy
+              offline.
 
           dashboard_path: The URL path for the company dashboard view of the app, such as '/dashboard'.
 
@@ -556,8 +556,8 @@ class AsyncAppsResource(AsyncAPIResource):
 
           app_type: The type of end-user an app is built for
 
-          base_url: The base production URL where the app is hosted, such as
-              'https://myapp.example.com'.
+          base_url: The base production URL where the app is hosted. Pass null to take the app proxy
+              offline.
 
           dashboard_path: The URL path for the company dashboard view of the app, such as '/dashboard'.
 

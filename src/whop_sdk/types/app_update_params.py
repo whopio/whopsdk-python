@@ -20,9 +20,9 @@ class AppUpdateParams(TypedDict, total=False):
     """The type of end-user an app is built for"""
 
     base_url: Optional[str]
-    """
-    The base production URL where the app is hosted, such as
-    'https://myapp.example.com'.
+    """The base production URL where the app is hosted.
+
+    Pass null to take the app proxy offline.
     """
 
     dashboard_path: Optional[str]
