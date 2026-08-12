@@ -128,6 +128,7 @@ class AccountRequiredAction(BaseModel):
         "deposit_funds",
         "submit_information_request",
         "verify_identity",
+        "sign_formation_documents",
         "connect_fulfillment_tracker",
         "setup_apple_pay_domains",
         "configure_tax_remitter",
