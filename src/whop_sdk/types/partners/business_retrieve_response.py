@@ -84,6 +84,7 @@ class AccountRecommendedAction(BaseModel):
         "fix_ad_billing",
         "exclude_customers_from_ads",
         "retarget_abandoned_checkouts",
+        "fix_funnel_dropoff",
         "invite_team_member",
         "enable_tax_collection",
         "create_card",
