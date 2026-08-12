@@ -100,7 +100,8 @@ class SetupIntentsResource(SyncAPIResource):
           metadata: Custom metadata to attach to the setup intent.
 
           return_url: Where the buyer continues after completing an off-site step. Must be an absolute
-              https URL without credentials, at most 2,048 characters.
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
 
           extra_headers: Send extra headers
 
@@ -162,7 +163,8 @@ class SetupIntentsResource(SyncAPIResource):
           metadata: Custom metadata to attach to the setup intent.
 
           return_url: Where the buyer continues after completing an off-site step. Must be an absolute
-              https URL without credentials, at most 2,048 characters.
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
 
           extra_headers: Send extra headers
 
@@ -393,7 +395,8 @@ class SetupIntentsResource(SyncAPIResource):
 
         Args:
           return_url: Where the buyer continues after completing an off-site step. Must be an absolute
-              https URL without credentials, at most 2,048 characters.
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
 
           extra_headers: Send extra headers
 
@@ -491,7 +494,8 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
           metadata: Custom metadata to attach to the setup intent.
 
           return_url: Where the buyer continues after completing an off-site step. Must be an absolute
-              https URL without credentials, at most 2,048 characters.
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
 
           extra_headers: Send extra headers
 
@@ -553,7 +557,8 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
           metadata: Custom metadata to attach to the setup intent.
 
           return_url: Where the buyer continues after completing an off-site step. Must be an absolute
-              https URL without credentials, at most 2,048 characters.
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
 
           extra_headers: Send extra headers
 
@@ -784,7 +789,8 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
 
         Args:
           return_url: Where the buyer continues after completing an off-site step. Must be an absolute
-              https URL without credentials, at most 2,048 characters.
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
 
           extra_headers: Send extra headers
 

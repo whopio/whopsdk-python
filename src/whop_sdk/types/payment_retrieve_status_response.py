@@ -136,6 +136,13 @@ class LastPaymentError(BaseModel):
 class NextActionPaymentNextActionRedirectData(BaseModel):
     """Where to send the buyer."""
 
+    frame_max_width: Optional[int] = None
+    """
+    The widest the provider's page lays out usefully, in CSS pixels — cap a frame or
+    dialog presenting it at this width. `null` when the page fills whatever width it
+    is given.
+    """
+
     url: str
     """
     The provider's page for this payment, as an absolute URL — take the buyer there.

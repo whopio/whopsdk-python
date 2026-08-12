@@ -41,7 +41,8 @@ class CreateSetupIntentInputWithConfirmationToken(TypedDict, total=False):
     return_url: Optional[str]
     """Where the buyer continues after completing an off-site step.
 
-    Must be an absolute https URL without credentials, at most 2,048 characters.
+    Must be an absolute https URL without credentials (http is allowed for
+    localhost), at most 2,048 characters.
     """
 
 
@@ -72,7 +73,8 @@ class CreateSetupIntentInputWithPaymentMethodID(TypedDict, total=False):
     return_url: Optional[str]
     """Where the buyer continues after completing an off-site step.
 
-    Must be an absolute https URL without credentials, at most 2,048 characters.
+    Must be an absolute https URL without credentials (http is allowed for
+    localhost), at most 2,048 characters.
     """
 
 

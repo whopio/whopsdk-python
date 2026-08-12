@@ -11,5 +11,6 @@ class SetupIntentUpdateReturnURLParams(TypedDict, total=False):
     return_url: Required[str]
     """Where the buyer continues after completing an off-site step.
 
-    Must be an absolute https URL without credentials, at most 2,048 characters.
+    Must be an absolute https URL without credentials (http is allowed for
+    localhost), at most 2,048 characters.
     """
