@@ -50,11 +50,11 @@ class Data(BaseModel):
     """The unique identifier for the company member."""
 
     access_level: AccessLevel
-    """The access level of the product member.
+    """The member's content access level.
 
-    If its admin, the member is an authorized user of the company. If its customer,
-    the member has a valid membership to any product on the company. If its
-    no_access, the member does not have access to the product.
+    `admin` means their team role grants administrative content access, `customer`
+    means they hold a valid product membership, and `no_access` means they cannot
+    access company content.
     """
 
     company: DataCompany
