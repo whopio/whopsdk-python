@@ -549,6 +549,7 @@ class RequiredAction(BaseModel):
     action: Literal[
         "deposit_funds",
         "submit_information_request",
+        "card_usage_review",
         "verify_identity",
         "sign_formation_documents",
         "connect_fulfillment_tracker",

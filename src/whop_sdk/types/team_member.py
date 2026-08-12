@@ -66,7 +66,16 @@ class TeamMember(BaseModel):
     """
 
     role: Literal[
-        "owner", "admin", "sales_manager", "moderator", "advertiser", "app_manager", "support", "manager", "custom"
+        "owner",
+        "admin",
+        "sales_manager",
+        "moderator",
+        "advertiser",
+        "app_manager",
+        "support",
+        "manager",
+        "workforce",
+        "custom",
     ]
     """The member's role on the account.
 

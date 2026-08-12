@@ -211,7 +211,16 @@ class TeamMembersResource(SyncAPIResource):
         first: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
         role: Literal[
-            "owner", "admin", "sales_manager", "moderator", "advertiser", "app_manager", "support", "manager", "custom"
+            "owner",
+            "admin",
+            "sales_manager",
+            "moderator",
+            "advertiser",
+            "app_manager",
+            "support",
+            "manager",
+            "workforce",
+            "custom",
         ]
         | Omit = omit,
         status: Literal["joined", "pending"] | Omit = omit,
@@ -516,7 +525,16 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         first: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
         role: Literal[
-            "owner", "admin", "sales_manager", "moderator", "advertiser", "app_manager", "support", "manager", "custom"
+            "owner",
+            "admin",
+            "sales_manager",
+            "moderator",
+            "advertiser",
+            "app_manager",
+            "support",
+            "manager",
+            "workforce",
+            "custom",
         ]
         | Omit = omit,
         status: Literal["joined", "pending"] | Omit = omit,

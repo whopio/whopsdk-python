@@ -30,7 +30,16 @@ class TeamMemberListParams(TypedDict, total=False):
     """Field used to sort members."""
 
     role: Literal[
-        "owner", "admin", "sales_manager", "moderator", "advertiser", "app_manager", "support", "manager", "custom"
+        "owner",
+        "admin",
+        "sales_manager",
+        "moderator",
+        "advertiser",
+        "app_manager",
+        "support",
+        "manager",
+        "workforce",
+        "custom",
     ]
     """Only return members with this role.
 
