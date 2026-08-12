@@ -2,24 +2,25 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AdGroupRetrieveParams"]
 
 
 class AdGroupRetrieveParams(TypedDict, total=False):
-    stats_from: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """
-    Inclusive start of the window for the ad group's metric fields (spend,
-    impressions, …). Omit both statsFrom and statsTo for all-time stats.
+    attribution_model: Literal["last_touch", "first_touch"]
+    """Attribution model the conversion stats count under (defaults to last_touch).
+
+    Under both models a journey with any whop ad touch attributes to whop; the model
+    picks which whop touch credits the entity and which non-whop source wins
+    otherwise.
     """
 
-    stats_to: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Inclusive end of the window for the ad group's metric fields.
+    stats_from: str
+    """Start of the stats window."""
 
-    Omit both statsFrom and statsTo for all-time stats.
-    """
+    stats_to: str
+    """End of the stats window."""
+
+    time_zone: str
+    """IANA timezone the stats window is interpreted in. Defaults to UTC."""

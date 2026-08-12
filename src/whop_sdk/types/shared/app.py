@@ -1,258 +1,334 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
-from ..app_type import AppType
-from .app_statuses import AppStatuses
 
 __all__ = [
     "App",
+    "Account",
     "APIKey",
-    "Company",
     "Creator",
+    "DefaultAPIKey",
     "Icon",
+    "ProductionAndroidBuild",
+    "ProductionIosBuild",
+    "ProductionWebBuild",
     "RequestedPermission",
     "RequestedPermissionPermissionAction",
-    "Stats",
 ]
 
 
-class APIKey(BaseModel):
-    """The API key used to authenticate requests on behalf of this app.
-
-    Null if no API key has been generated. Requires the 'developer:manage_api_key' permission.
-    """
+class Account(BaseModel):
+    """The account that owns the app."""
 
     id: str
-    """The unique identifier for the private api key."""
+    """Account ID, prefixed `biz_`."""
 
-    token: str
-    """This is the API key used to authenticate requests"""
+    logo_url: Optional[str] = None
+    """Account logo image URL."""
 
-    created_at: datetime
-    """The datetime the private api key was created."""
-
-
-class Company(BaseModel):
-    """The company that owns and publishes this app."""
-
-    id: str
-    """The unique identifier for the company."""
+    route: str
+    """Account public route identifier."""
 
     title: str
-    """The display name of the company shown to customers."""
+    """Account display name."""
+
+
+class APIKey(BaseModel):
+    """Legacy app API key used to authenticate requests on the app's behalf.
+
+    `null` when no key exists or the caller lacks the `developer:manage_api_key` permission.
+    """
+
+    token: str
+    """
+    The key's secret token, sent as a bearer token to authenticate requests on the
+    app's behalf.
+    """
+
+    created_at: str
+    """When the key was created, as an ISO 8601 timestamp."""
 
 
 class Creator(BaseModel):
-    """The user who created and owns the company that published this app."""
+    """The user who owns the publishing account."""
 
     id: str
-    """The unique identifier for the user."""
+    """User ID, prefixed `user_`."""
 
     name: Optional[str] = None
-    """The user's display name shown on their public profile."""
+    """Display name."""
 
     username: str
-    """The user's unique username shown on their public profile."""
+    """Public username."""
+
+
+class DefaultAPIKey(BaseModel):
+    """The app's default API key.
+
+    `null` when the app has no default key or the caller lacks the `developer:manage_api_key` permission; `secret_key` is additionally `null` unless the caller could have created the key themselves.
+    """
+
+    id: str
+    """API key ID, prefixed `apik_`."""
+
+    name: Optional[str] = None
+    """Human-readable name identifying the API key, or `null` when none was set."""
+
+    obfuscated_secret_key: str
+    """
+    Masked version of the secret key, so the key can be recognized without revealing
+    the full secret.
+    """
+
+    secret_key: Optional[str] = None
+    """The full secret used to authenticate requests.
+
+    `null` unless the caller could have created the key themselves.
+    """
 
 
 class Icon(BaseModel):
+    """The app's icon. Falls back to the default app icon when none is uploaded."""
+
+    url: str
+    """Icon image URL. Always present — the default app icon when none is uploaded."""
+
+
+class ProductionAndroidBuild(BaseModel):
     """
-    The icon image for this app, displayed on the app store, product pages, checkout, and as the default icon for experiences using this app.
-    """
-
-    url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
-
-
-class RequestedPermissionPermissionAction(BaseModel):
-    """The action that the app will request off of users when a user installs the app."""
-
-    action: str
-    """The identifier of the action."""
-
-    name: str
-    """The human readable name of the action."""
-
-
-class RequestedPermission(BaseModel):
-    """
-    A permission that the app requests from the admin of a company during the oauth flow.
-    """
-
-    is_required: bool
-    """Whether the action is required for the app to function."""
-
-    justification: str
-    """The reason for requesting the action."""
-
-    permission_action: RequestedPermissionPermissionAction
-    """The action that the app will request off of users when a user installs the app."""
-
-
-class Stats(BaseModel):
-    """
-    Aggregate usage statistics for this app, including daily, weekly, and monthly active user counts.
-    """
-
-    dau: int
-    """The number of unique users who have spent time in this app in the last 24 hours.
-
-    Returns 0 if no usage data is available.
-    """
-
-    mau: int
-    """The number of unique users who have spent time in this app in the last 28 days.
-
-    Returns 0 if no usage data is available.
-    """
-
-    time_spent_last24_hours: int
-    """
-    The total time, in seconds, that all users have spent in this app over the last
-    24 hours. Returns 0 if no usage data is available.
-    """
-
-    wau: int
-    """The number of unique users who have spent time in this app in the last 7 days.
-
-    Returns 0 if no usage data is available.
-    """
-
-
-class App(BaseModel):
-    """An app is an integration built on Whop.
-
-    Apps can serve consumers as experiences within products, or serve companies as business tools.
+    The approved build currently served on Android, or `null` when none is deployed.
     """
 
     id: str
-    """The unique identifier for the app."""
+    """App build ID, prefixed `abld_`."""
+
+    checksum: Optional[str] = None
+    """Client-generated checksum of the build file, used to verify file integrity."""
+
+    file_url: Optional[str] = None
+    """URL to download the uploaded build artifact."""
+
+    source_url: Optional[str] = None
+    """
+    URL to download the compressed source code archive that produced this build, or
+    `null` when the build was uploaded without a source archive.
+    """
+
+    status: Literal["draft", "pending", "approved", "rejected"]
+    """The build's review status."""
+
+
+class ProductionIosBuild(BaseModel):
+    """The approved build currently served on iOS, or `null` when none is deployed."""
+
+    id: str
+    """App build ID, prefixed `abld_`."""
+
+    checksum: Optional[str] = None
+    """Client-generated checksum of the build file, used to verify file integrity."""
+
+    file_url: Optional[str] = None
+    """URL to download the uploaded build artifact."""
+
+    source_url: Optional[str] = None
+    """
+    URL to download the compressed source code archive that produced this build, or
+    `null` when the build was uploaded without a source archive.
+    """
+
+    status: Literal["draft", "pending", "approved", "rejected"]
+    """The build's review status."""
+
+
+class ProductionWebBuild(BaseModel):
+    """The approved build currently served on web, or `null` when none is deployed."""
+
+    id: str
+    """App build ID, prefixed `abld_`."""
+
+    checksum: Optional[str] = None
+    """Client-generated checksum of the build file, used to verify file integrity."""
+
+    file_url: Optional[str] = None
+    """URL to download the uploaded build artifact."""
+
+    source_url: Optional[str] = None
+    """
+    URL to download the compressed source code archive that produced this build, or
+    `null` when the build was uploaded without a source archive.
+    """
+
+    status: Literal["draft", "pending", "approved", "rejected"]
+    """The build's review status."""
+
+
+class RequestedPermissionPermissionAction(BaseModel):
+    """The permission action the app requests."""
+
+    action: str
+    """The permission action's identifier, for example `company:basic:read`."""
+
+    name: str
+    """Human-readable name of the action."""
+
+
+class RequestedPermission(BaseModel):
+    """Permissions the app requests on install."""
+
+    is_required: bool
+    """
+    Whether the app requires the permission to be granted on install, as opposed to
+    requesting it optionally.
+    """
+
+    justification: Optional[str] = None
+    """
+    The developer's explanation of why the app needs the permission, or `null` when
+    none was provided.
+    """
+
+    permission_action: RequestedPermissionPermissionAction
+    """The permission action the app requests."""
+
+
+class App(BaseModel):
+    id: str
+    """App ID, prefixed `app_`."""
+
+    account: Account
+    """The account that owns the app."""
 
     api_key: Optional[APIKey] = None
-    """The API key used to authenticate requests on behalf of this app.
+    """Legacy app API key used to authenticate requests on the app's behalf.
 
-    Null if no API key has been generated. Requires the 'developer:manage_api_key'
+    `null` when no key exists or the caller lacks the `developer:manage_api_key`
     permission.
     """
 
-    app_type: AppType
+    app_store_description: Optional[str] = None
     """
-    The target audience classification for this app (e.g., 'b2b_app', 'b2c_app',
-    'company_app', 'component').
+    Detailed description shown on the app store's in-depth app page, or `null` when
+    none has been set.
     """
+
+    app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
+    """The type of end-user the app is built for."""
 
     base_url: Optional[str] = None
-    """The production base URL where the app is hosted.
-
-    Null if no base URL is configured.
-    """
-
-    company: Company
-    """The company that owns and publishes this app."""
+    """Production base URL where the app is hosted, or `null` if none is configured."""
 
     creator: Creator
-    """The user who created and owns the company that published this app."""
+    """The user who owns the publishing account."""
 
     dashboard_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
+    """URL path for the account dashboard view, or `null` when not configured."""
+
+    default_api_key: Optional[DefaultAPIKey] = None
+    """The app's default API key.
+
+    `null` when the app has no default key or the caller lacks the
+    `developer:manage_api_key` permission; `secret_key` is additionally `null`
+    unless the caller could have created the key themselves.
     """
 
     description: Optional[str] = None
     """
-    A written description of what this app does, displayed on the app store listing
-    page. Null if no description has been set.
+    Short description shown in listings and search results, or `null` if none has
+    been set.
     """
 
     discover_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
-    """
+    """URL path for the discover view, or `null` when not configured."""
 
     domain_id: str
-    """The unique subdomain identifier for this app's proxied URL on the Whop platform.
-
-    Forms the URL pattern https://{domain_id}.apps.whop.com.
+    """
+    Subdomain identifier for the app's proxied URL, forming
+    https://{domain_id}.apps.whop.com.
     """
 
     experience_path: Optional[str] = None
+    """URL path for the member-facing hub view, or `null` when not configured."""
+
+    hosted_url: Optional[str] = None
     """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
+    Full URL where the app's hosted web build is served, or `null` if no route is
+    claimed.
     """
 
-    icon: Optional[Icon] = None
+    icon: Icon
+    """The app's icon. Falls back to the default app icon when none is uploaded."""
+
+    marketplace_status: Optional[Literal["not_available", "pending_review", "live_marketplace"]] = None
     """
-    The icon image for this app, displayed on the app store, product pages,
-    checkout, and as the default icon for experiences using this app.
+    Approval status of the app's product listing on the Whop app store, or `null`
+    when the app has no associated product.
     """
 
     name: str
-    """The display name of this app shown on the app store and in experience
-    navigation.
+    """Display name shown on the app store and in experience navigation."""
 
-    Maximum 30 characters.
-    """
+    oauth_client_type: Literal["public", "confidential"]
+    """How the app authenticates at the OAuth token endpoint."""
 
     openapi_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
-    """
+    """URL path to the app's OpenAPI spec file, or `null` when not configured."""
 
     origin: Optional[str] = None
     """
-    The full origin URL for this app's proxied domain (e.g.,
-    'https://myapp.apps.whop.com'). Null if no proxy domain is configured.
+    Full origin URL of the app's proxied domain, for example
+    https://ab1c2d3e4f.apps.whop.com.
     """
+
+    product_id: Optional[str] = None
+    """
+    ID of the app's product listing on the Whop app store, or `null` when the app
+    has no associated product.
+    """
+
+    production_android_build: Optional[ProductionAndroidBuild] = None
+    """
+    The approved build currently served on Android, or `null` when none is deployed.
+    """
+
+    production_ios_build: Optional[ProductionIosBuild] = None
+    """The approved build currently served on iOS, or `null` when none is deployed."""
+
+    production_web_build: Optional[ProductionWebBuild] = None
+    """The approved build currently served on web, or `null` when none is deployed."""
 
     redirect_uris: List[str]
-    """
-    The whitelisted OAuth callback URLs that users are redirected to after
-    authorizing the app.
-    """
 
     requested_permissions: List[RequestedPermission]
+
+    required_scopes: List[Literal["read_user"]]
+
+    route: Optional[str] = None
     """
-    The list of permissions this app requests when installed, including both
-    required and optional permissions with justifications.
+    Claimed subdomain route where hosted web builds are served (`myapp` for
+    myapp.whop.app), or `null` if no route is claimed.
+    """
+
+    secrets: Optional[object] = None
+    """
+    The app's production secrets as an object of string values, injected into the
+    hosted server runtime. `null` when the caller lacks the `developer:update_app`
+    permission.
     """
 
     skills_path: Optional[str] = None
-    """
-    The URL path template for a specific view of this app, appended to the base
-    domain (e.g., '/experiences/[experienceId]'). Null if the specified view type is
-    not configured.
-    """
+    """URL path to the app's skills directory, or `null` when not configured."""
 
-    stats: Optional[Stats] = None
+    status: Literal["live", "unlisted", "hidden"]
     """
-    Aggregate usage statistics for this app, including daily, weekly, and monthly
-    active user counts.
-    """
-
-    status: AppStatuses
-    """The current visibility status of this app on the Whop app store.
-
-    'live' means publicly discoverable, 'unlisted' means accessible only via direct
-    link, and 'hidden' means not visible anywhere.
+    Visibility on the Whop app store: `live` is publicly discoverable, `unlisted` is
+    accessible only via direct link, `hidden` is not visible anywhere.
     """
 
     verified: bool
-    """Whether this app has been verified by Whop.
-
-    Verified apps are endorsed by Whop and displayed in the featured apps section of
-    the app store.
+    """
+    Whether the app has been verified by Whop and is eligible for the featured apps
+    section.
     """
