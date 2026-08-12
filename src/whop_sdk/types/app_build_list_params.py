@@ -2,41 +2,36 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
-from .shared.app_build_statuses import AppBuildStatuses
-from .shared.app_build_platforms import AppBuildPlatforms
+from typing import Union
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AppBuildListParams"]
 
 
 class AppBuildListParams(TypedDict, total=False):
     app_id: Required[str]
-    """The unique identifier of the app to list builds for."""
+    """The app to list builds for, prefixed `app_`."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    after: str
+    """A cursor; returns builds after this position."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    before: str
+    """A cursor; returns builds before this position."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return builds created after this timestamp."""
+    created_after: Union[int, str]
+    """Only return builds created after this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return builds created before this timestamp."""
+    created_before: Union[int, str]
+    """Only return builds created before this ISO 8601 timestamp."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    first: int
+    """The number of builds to return (default 20, max 100)."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    last: int
+    """The number of builds to return from the end of the range."""
 
-    platform: Optional[AppBuildPlatforms]
-    """The different platforms an app build can target."""
+    platform: Literal["ios", "android", "web"]
+    """Filter builds by target platform."""
 
-    status: Optional[AppBuildStatuses]
-    """The different statuses an AppBuild can be in."""
+    status: Literal["draft", "pending", "approved", "rejected"]
+    """Filter builds by review status."""
