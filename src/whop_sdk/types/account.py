@@ -3106,6 +3106,13 @@ class Account(BaseModel):
     unset; `null` only when the account has no payment connection.
     """
 
+    three_ds_level: Optional[Literal["mandate_challenge"]] = None
+    """Account-level 3D Secure behavior.
+
+    `mandate_challenge` requires cardholder verification on supported card payments;
+    `null` uses the standard checkout flow.
+    """
+
     title: str
     """Account display name."""
 

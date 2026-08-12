@@ -2362,6 +2362,13 @@ class AccountUpdateParams(TypedDict, total=False):
     tax_type: Literal["inclusive", "exclusive"]
     """Determines whether tax is included in the listed price or added at checkout."""
 
+    three_ds_level: Optional[Literal["mandate_challenge"]]
+    """Account-level 3D Secure behavior.
+
+    Set `mandate_challenge` to require cardholder verification on supported card
+    payments, or `null` to use the standard checkout flow.
+    """
+
     title: Optional[str]
     """The display name of the account."""
 

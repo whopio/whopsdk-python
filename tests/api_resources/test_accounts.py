@@ -168,6 +168,7 @@ class TestAccounts:
             ],
             tax_remitted_by="whop",
             tax_type="inclusive",
+            three_ds_level="mandate_challenge",
             title="title",
             use_logo_as_opengraph_image_fallback=True,
         )
@@ -668,6 +669,7 @@ class TestAsyncAccounts:
             ],
             tax_remitted_by="whop",
             tax_type="inclusive",
+            three_ds_level="mandate_challenge",
             title="title",
             use_logo_as_opengraph_image_fallback=True,
         )

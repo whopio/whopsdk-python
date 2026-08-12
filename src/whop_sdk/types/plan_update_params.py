@@ -84,7 +84,7 @@ class PlanUpdateParams(TypedDict, total=False):
     strike_through_renewal_price: Optional[float]
     """A comparison price displayed with a strikethrough for the renewal price."""
 
-    three_ds_level: Literal["mandate_challenge", "frictionless"]
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
     """3D Secure behavior for this plan. Send `null` to inherit the account default."""
 
     title: Optional[str]

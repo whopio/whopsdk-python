@@ -90,7 +90,7 @@ class PlanCreateParams(TypedDict, total=False):
     Ignored when unlimited_stock is true.
     """
 
-    three_ds_level: Literal["mandate_challenge", "frictionless"]
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
     """3D Secure behavior for this plan. Send `null` to inherit the account default."""
 
     title: Optional[str]

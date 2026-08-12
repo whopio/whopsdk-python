@@ -2418,6 +2418,7 @@ class AccountsResource(SyncAPIResource):
         tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
         tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
         tax_type: Literal["inclusive", "exclusive"] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -2525,6 +2526,10 @@ class AccountsResource(SyncAPIResource):
 
           tax_type: Determines whether tax is included in the listed price or added at checkout.
 
+          three_ds_level: Account-level 3D Secure behavior. Set `mandate_challenge` to require cardholder
+              verification on supported card payments, or `null` to use the standard checkout
+              flow.
+
           title: The display name of the account.
 
           use_logo_as_opengraph_image_fallback: Whether the account uses its logo as the fallback Open Graph image.
@@ -2579,6 +2584,7 @@ class AccountsResource(SyncAPIResource):
                     "tax_identifiers": tax_identifiers,
                     "tax_remitted_by": tax_remitted_by,
                     "tax_type": tax_type,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },
@@ -5329,6 +5335,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         tax_identifiers: Iterable[account_update_params.TaxIdentifier] | Omit = omit,
         tax_remitted_by: Literal["whop", "self", "none"] | Omit = omit,
         tax_type: Literal["inclusive", "exclusive"] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge"]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         use_logo_as_opengraph_image_fallback: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -5436,6 +5443,10 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           tax_type: Determines whether tax is included in the listed price or added at checkout.
 
+          three_ds_level: Account-level 3D Secure behavior. Set `mandate_challenge` to require cardholder
+              verification on supported card payments, or `null` to use the standard checkout
+              flow.
+
           title: The display name of the account.
 
           use_logo_as_opengraph_image_fallback: Whether the account uses its logo as the fallback Open Graph image.
@@ -5490,6 +5501,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "tax_identifiers": tax_identifiers,
                     "tax_remitted_by": tax_remitted_by,
                     "tax_type": tax_type,
+                    "three_ds_level": three_ds_level,
                     "title": title,
                     "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 },
