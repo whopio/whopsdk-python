@@ -86,8 +86,9 @@ class WithdrawalsResource(SyncAPIResource):
           currency: The currency that is being withdrawn.
 
           acknowledge_bank_warning: Set to true to continue when the bank could not confirm the account holder's
-              name. The withdrawal is refused without it so the creator can fix the account or
-              link their bank first.
+              name, or false to be refused in that case so the creator can fix the account or
+              link their bank first. Omitting the argument skips the warning gate — a client
+              that cannot show the warning keeps its pre-gate behavior.
 
           api_idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
               returns the original withdrawal instead of creating a second one.
@@ -352,8 +353,9 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
           currency: The currency that is being withdrawn.
 
           acknowledge_bank_warning: Set to true to continue when the bank could not confirm the account holder's
-              name. The withdrawal is refused without it so the creator can fix the account or
-              link their bank first.
+              name, or false to be refused in that case so the creator can fix the account or
+              link their bank first. Omitting the argument skips the warning gate — a client
+              that cannot show the warning keeps its pre-gate behavior.
 
           api_idempotency_key: A client-generated key that makes retries safe. Retrying with the same key
               returns the original withdrawal instead of creating a second one.

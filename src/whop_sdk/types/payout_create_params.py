@@ -26,9 +26,10 @@ class PayoutCreateParams(TypedDict, total=False):
     acknowledge_bank_warning: bool
     """
     Set to `true` to continue when the destination bank could not confirm the payout
-    method account holder's name. Defaults to `false`; when this warning applies,
-    the payout is refused so the account holder can correct the name or link their
-    bank first.
+    method account holder's name, or `false` to have the payout refused in that case
+    so the account holder can correct the name or link their bank first. Omitting
+    the field skips the warning gate — a client that cannot show the warning keeps
+    its pre-gate behavior.
     """
 
     currency: str
