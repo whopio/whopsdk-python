@@ -180,7 +180,9 @@ class AdGroupsResource(SyncAPIResource):
               (`maximum_target`).
 
           detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
-              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              platform's targeting taxonomy. Entries across interests, behaviors, and
+              demographics are OR'd together (anyone matching any entry is reached), matching
+              Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be
               combined with demographics.automatic, and unavailable to campaigns with
               special_ad_categories. Send the complete intended state — a section you omit is
               cleared.
@@ -457,7 +459,9 @@ class AdGroupsResource(SyncAPIResource):
               (`maximum_target`).
 
           detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
-              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              platform's targeting taxonomy. Entries across interests, behaviors, and
+              demographics are OR'd together (anyone matching any entry is reached), matching
+              Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be
               combined with demographics.automatic, and unavailable to campaigns with
               special_ad_categories. Send the complete intended state — a section you omit is
               cleared.
@@ -927,6 +931,10 @@ class AdGroupsResource(SyncAPIResource):
                 "industries",
                 "income",
                 "family_statuses",
+                "work_employers",
+                "work_positions",
+                "education_schools",
+                "education_majors",
                 "languages",
                 "locations",
             ]
@@ -943,8 +951,9 @@ class AdGroupsResource(SyncAPIResource):
         Searches the ad platform's targeting taxonomy for options to target an ad group
         with. Each result comes back in the exact shape the ad-group body accepts for
         its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages`
-        as-is. A blank `query` browses the small fixed lists (behaviors, demographic
-        categories, languages); interests and locations need a search term.
+        as-is. A blank `query` browses the small fixed lists (behaviors, browse
+        demographic categories, languages); interests, work employers, job titles,
+        schools, majors, and locations need a search term.
 
         Args:
           platform: The ad network whose targeting taxonomy to search.
@@ -959,8 +968,8 @@ class AdGroupsResource(SyncAPIResource):
           location_types: Narrow location results to these kinds of places. Only applies when `types`
               includes `locations`.
 
-          query: The search term. Blank browses the fixed lists; interests and locations return
-              nothing without one.
+          query: The search term. Blank browses the fixed lists; interests, work employers, job
+              titles, schools, majors, and locations return nothing without one.
 
           types: Kinds of targeting options to search. Defaults to all of them.
 
@@ -1179,7 +1188,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
               (`maximum_target`).
 
           detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
-              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              platform's targeting taxonomy. Entries across interests, behaviors, and
+              demographics are OR'd together (anyone matching any entry is reached), matching
+              Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be
               combined with demographics.automatic, and unavailable to campaigns with
               special_ad_categories. Send the complete intended state — a section you omit is
               cleared.
@@ -1456,7 +1467,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
               (`maximum_target`).
 
           detailed_targeting: Interest, behavior, and demographic targeting, using categories from the ad
-              platform's targeting taxonomy. At most 100 entries per section. Can't be
+              platform's targeting taxonomy. Entries across interests, behaviors, and
+              demographics are OR'd together (anyone matching any entry is reached), matching
+              Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be
               combined with demographics.automatic, and unavailable to campaigns with
               special_ad_categories. Send the complete intended state — a section you omit is
               cleared.
@@ -1926,6 +1939,10 @@ class AsyncAdGroupsResource(AsyncAPIResource):
                 "industries",
                 "income",
                 "family_statuses",
+                "work_employers",
+                "work_positions",
+                "education_schools",
+                "education_majors",
                 "languages",
                 "locations",
             ]
@@ -1942,8 +1959,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         Searches the ad platform's targeting taxonomy for options to target an ad group
         with. Each result comes back in the exact shape the ad-group body accepts for
         its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages`
-        as-is. A blank `query` browses the small fixed lists (behaviors, demographic
-        categories, languages); interests and locations need a search term.
+        as-is. A blank `query` browses the small fixed lists (behaviors, browse
+        demographic categories, languages); interests, work employers, job titles,
+        schools, majors, and locations need a search term.
 
         Args:
           platform: The ad network whose targeting taxonomy to search.
@@ -1958,8 +1976,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           location_types: Narrow location results to these kinds of places. Only applies when `types`
               includes `locations`.
 
-          query: The search term. Blank browses the fixed lists; interests and locations return
-              nothing without one.
+          query: The search term. Blank browses the fixed lists; interests, work employers, job
+              titles, schools, majors, and locations return nothing without one.
 
           types: Kinds of targeting options to search. Defaults to all of them.
 

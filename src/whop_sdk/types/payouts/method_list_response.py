@@ -110,6 +110,9 @@ class Quote(BaseModel):
 class SupportedPayoutMethod(BaseModel):
     """The supported payout method this saved method was created from."""
 
+    country_code: Optional[str] = None
+    """ISO 3166-1 alpha-3 country the destination pays out to."""
+
     delivery_type: Literal[
         "cash_pickup",
         "bank_deposit",
@@ -130,6 +133,12 @@ class SupportedPayoutMethod(BaseModel):
     """Supported payout method display name."""
 
     supports_instant_delivery: bool
+
+    supports_plaid: bool
+    """
+    Whether the payer can link this method by signing in to their bank instead of
+    typing account details.
+    """
 
     supports_standard_delivery: bool
 
@@ -175,8 +184,23 @@ class MethodListResponse(BaseModel):
     institution_name: Optional[str] = None
     """Name of the bank or institution receiving payouts."""
 
+    is_clone: bool
+    """Whether this method is a copy of one saved on another of the payer's accounts."""
+
     is_default: bool
     """Whether this is the default payout method for the account."""
+
+    linked_via_plaid: bool
+    """
+    Whether the payer added this method by signing in to their bank rather than
+    typing account details.
+    """
+
+    needs_plaid_reconnect: bool
+    """
+    Whether the bank sign-in behind this method has expired and must be redone
+    before it counts as linked.
+    """
 
     nickname: Optional[str] = None
     """User-defined label for the payout method."""

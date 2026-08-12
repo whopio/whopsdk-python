@@ -117,7 +117,9 @@ class AdGroupCreateParams(TypedDict, total=False):
     detailed_targeting: DetailedTargeting
     """
     Interest, behavior, and demographic targeting, using categories from the ad
-    platform's targeting taxonomy. At most 100 entries per section. Can't be
+    platform's targeting taxonomy. Entries across interests, behaviors, and
+    demographics are OR'd together (anyone matching any entry is reached), matching
+    Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be
     combined with demographics.automatic, and unavailable to campaigns with
     special_ad_categories. Send the complete intended state — a section you omit is
     cleared.
@@ -262,7 +264,18 @@ class DetailedTargetingDemographic(TypedDict, total=False):
     id: Required[str]
     """The ad platform's ID for the category in its targeting taxonomy."""
 
-    type: Required[Literal["life_events", "industries", "income", "family_statuses"]]
+    type: Required[
+        Literal[
+            "life_events",
+            "industries",
+            "income",
+            "family_statuses",
+            "work_employers",
+            "work_positions",
+            "education_schools",
+            "education_majors",
+        ]
+    ]
     """Kind of demographic the category belongs to."""
 
     name: str
@@ -279,14 +292,17 @@ class DetailedTargetingInterest(TypedDict, total=False):
 
 class DetailedTargeting(TypedDict, total=False):
     """
-    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
+    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
     """
 
     behaviors: Iterable[DetailedTargetingBehavior]
     """Behavior categories to target, such as frequent travelers."""
 
     demographics: Iterable[DetailedTargetingDemographic]
-    """Demographic categories to target, such as life events or industries."""
+    """
+    Demographic categories to target, such as life events, industries, work
+    employers, job titles, schools, or majors.
+    """
 
     interests: Iterable[DetailedTargetingInterest]
     """Interest categories to target, such as an interest in movies."""

@@ -33,10 +33,23 @@ class DetailedTargetingOption(BaseModel):
     name: str
     """Display name, such as `Movies`."""
 
-    type: Literal["interests", "behaviors", "life_events", "industries", "income", "family_statuses"]
+    type: Literal[
+        "interests",
+        "behaviors",
+        "life_events",
+        "industries",
+        "income",
+        "family_statuses",
+        "work_employers",
+        "work_positions",
+        "education_schools",
+        "education_majors",
+    ]
     """
     Which detailed-targeting field the option belongs in: `interests`/`behaviors` go
-    in `detailed_targeting.interests`/`.behaviors`; the demographic categories go in
+    in `detailed_targeting.interests`/`.behaviors`; demographic categories
+    (`life_events`, `industries`, `income`, `family_statuses`, `work_employers`,
+    `work_positions`, `education_schools`, `education_majors`) go in
     `detailed_targeting.demographics` with this value as the entry's `type`.
     """
 

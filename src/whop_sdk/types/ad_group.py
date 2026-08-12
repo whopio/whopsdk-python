@@ -91,12 +91,23 @@ class DetailedTargetingBehavior(BaseModel):
 
 
 class DetailedTargetingDemographic(BaseModel):
-    """Demographic categories targeted, such as life events or industries."""
+    """
+    Demographic categories targeted, such as life events, industries, work employers, job titles, schools, or majors. OR'd with interests and behaviors.
+    """
 
     id: str
     """The ad platform's ID for the category in its targeting taxonomy."""
 
-    type: Literal["life_events", "industries", "income", "family_statuses"]
+    type: Literal[
+        "life_events",
+        "industries",
+        "income",
+        "family_statuses",
+        "work_employers",
+        "work_positions",
+        "education_schools",
+        "education_majors",
+    ]
     """Kind of demographic the category belongs to."""
 
     name: Optional[str] = None
@@ -115,7 +126,7 @@ class DetailedTargetingInterest(BaseModel):
 
 class DetailedTargeting(BaseModel):
     """
-    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Can't be combined with automatic audience targeting, and unavailable to campaigns with special_ad_categories.
+    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. Can't be combined with automatic audience targeting, and unavailable to campaigns with special_ad_categories.
     """
 
     behaviors: List[DetailedTargetingBehavior]
@@ -662,7 +673,9 @@ class AdGroup(BaseModel):
     detailed_targeting: Optional[DetailedTargeting] = None
     """
     Interest, behavior, and demographic targeting, using categories from the ad
-    platform's targeting taxonomy. Can't be combined with automatic audience
+    platform's targeting taxonomy. Entries across interests, behaviors, and
+    demographics are OR'd together (anyone matching any entry is reached), matching
+    Ads Manager's detailed-targeting box. Can't be combined with automatic audience
     targeting, and unavailable to campaigns with special_ad_categories.
     """
 

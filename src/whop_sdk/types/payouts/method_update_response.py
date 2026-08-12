@@ -11,6 +11,9 @@ __all__ = ["MethodUpdateResponse", "SupportedPayoutMethod"]
 
 
 class SupportedPayoutMethod(BaseModel):
+    country_code: Optional[str] = None
+    """ISO 3166-1 alpha-3 country the destination pays out to."""
+
     delivery_type: Literal[
         "cash_pickup",
         "bank_deposit",
@@ -29,6 +32,12 @@ class SupportedPayoutMethod(BaseModel):
     name: Optional[str] = None
 
     supports_instant_delivery: bool
+
+    supports_plaid: bool
+    """
+    Whether the payer can link this method by signing in to their bank instead of
+    typing account details.
+    """
 
     supports_standard_delivery: bool
 
@@ -64,7 +73,22 @@ class MethodUpdateResponse(BaseModel):
 
     institution_name: Optional[str] = None
 
+    is_clone: bool
+    """Whether this method is a copy of one saved on another of the payer's accounts."""
+
     is_default: bool
+
+    linked_via_plaid: bool
+    """
+    Whether the payer added this method by signing in to their bank rather than
+    typing account details.
+    """
+
+    needs_plaid_reconnect: bool
+    """
+    Whether the bank sign-in behind this method has expired and must be redone
+    before it counts as linked.
+    """
 
     nickname: Optional[str] = None
     """User-defined label for the payout method."""

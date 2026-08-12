@@ -33,13 +33,24 @@ class AdGroupSearchTargetingOptionsParams(TypedDict, total=False):
     query: str
     """The search term.
 
-    Blank browses the fixed lists; interests and locations return nothing without
-    one.
+    Blank browses the fixed lists; interests, work employers, job titles, schools,
+    majors, and locations return nothing without one.
     """
 
     types: List[
         Literal[
-            "interests", "behaviors", "life_events", "industries", "income", "family_statuses", "languages", "locations"
+            "interests",
+            "behaviors",
+            "life_events",
+            "industries",
+            "income",
+            "family_statuses",
+            "work_employers",
+            "work_positions",
+            "education_schools",
+            "education_majors",
+            "languages",
+            "locations",
         ]
     ]
     """Kinds of targeting options to search. Defaults to all of them."""

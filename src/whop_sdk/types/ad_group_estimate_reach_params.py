@@ -111,7 +111,18 @@ class DetailedTargetingDemographic(TypedDict, total=False):
     id: Required[str]
     """The ad platform's ID for the category in its targeting taxonomy."""
 
-    type: Required[Literal["life_events", "industries", "income", "family_statuses"]]
+    type: Required[
+        Literal[
+            "life_events",
+            "industries",
+            "income",
+            "family_statuses",
+            "work_employers",
+            "work_positions",
+            "education_schools",
+            "education_majors",
+        ]
+    ]
     """Kind of demographic the category belongs to."""
 
     name: str
@@ -135,7 +146,10 @@ class DetailedTargeting(TypedDict, total=False):
     """Behavior categories to target, such as frequent travelers."""
 
     demographics: Iterable[DetailedTargetingDemographic]
-    """Demographic categories to target, such as life events or industries."""
+    """
+    Demographic categories to target, such as life events, industries, work
+    employers, job titles, schools, or majors.
+    """
 
     interests: Iterable[DetailedTargetingInterest]
     """Interest categories to target, such as an interest in movies."""

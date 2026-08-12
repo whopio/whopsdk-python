@@ -32,6 +32,15 @@ class SupportedPayoutMethod(BaseModel):
 
     supports_standard_delivery: bool
 
+    country_code: Optional[str] = None
+    """ISO 3166-1 alpha-3 country the destination pays out to."""
+
+    supports_plaid: Optional[bool] = None
+    """
+    Whether the payer can link this method by signing in to their bank instead of
+    typing account details.
+    """
+
 
 class MethodCreateResponse(BaseModel):
     id: str
@@ -84,4 +93,19 @@ class MethodCreateResponse(BaseModel):
     (verification unavailable or bank returned no ownership data), `warning` (bank
     could not confirm the destination's owner), `broken` (payouts failed with a
     permanent account error), `null` (never checked).
+    """
+
+    is_clone: Optional[bool] = None
+    """Whether this method is a copy of one saved on another of the payer's accounts."""
+
+    linked_via_plaid: Optional[bool] = None
+    """
+    Whether the payer added this method by signing in to their bank rather than
+    typing account details.
+    """
+
+    needs_plaid_reconnect: Optional[bool] = None
+    """
+    Whether the bank sign-in behind this method has expired and must be redone
+    before it counts as linked.
     """
