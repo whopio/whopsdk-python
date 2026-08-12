@@ -76,3 +76,11 @@ class PayoutCreateResponse(BaseModel):
 
     status: Literal["requested", "awaiting_payment", "in_transit", "completed", "failed", "canceled", "denied"]
     """Current payout status, in the same vocabulary as GET /payouts."""
+
+    trace_code: Optional[str] = None
+    """ACH trace number the recipient's bank can use to locate this payout.
+
+    Always `null` here — it is assigned when the payout is submitted to the bank,
+    and appears on the payout in GET /payouts once it has been sent; payouts not
+    sent over ACH never get one.
+    """
