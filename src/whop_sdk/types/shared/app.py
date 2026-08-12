@@ -218,7 +218,12 @@ class App(BaseModel):
     """The type of end-user the app is built for."""
 
     base_url: Optional[str] = None
-    """Production base URL where the app is hosted, or `null` if none is configured."""
+    """The production base URL where the app is hosted.
+
+    `null` if no base URL is configured, if the caller lacks the
+    `developer:basic:read` permission on the app's account, or on list responses,
+    which never expose it.
+    """
 
     creator: Creator
     """The user who owns the publishing account."""
