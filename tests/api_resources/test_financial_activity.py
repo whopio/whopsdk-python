@@ -10,7 +10,7 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import FinancialActivityListResponse
-from whop_sdk._utils import parse_datetime
+from whop_sdk._utils import parse_date, parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -29,10 +29,14 @@ class TestFinancialActivity:
     def test_method_list_with_all_params(self, client: Whop) -> None:
         financial_activity = client.financial_activity.list(
             account_id="account_id",
+            available_after=parse_date("2019-12-27"),
+            available_before=parse_date("2019-12-27"),
             currency="currency",
             cursor="cursor",
+            include_owned_accounts=True,
+            include_resource=True,
             limit=100,
-            line_types=["string"],
+            line_types=["ad_budget_release"],
             posted_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             posted_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             user_id="user_id",
@@ -78,10 +82,14 @@ class TestAsyncFinancialActivity:
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         financial_activity = await async_client.financial_activity.list(
             account_id="account_id",
+            available_after=parse_date("2019-12-27"),
+            available_before=parse_date("2019-12-27"),
             currency="currency",
             cursor="cursor",
+            include_owned_accounts=True,
+            include_resource=True,
             limit=100,
-            line_types=["string"],
+            line_types=["ad_budget_release"],
             posted_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             posted_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             user_id="user_id",

@@ -1,163 +1,196 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Optional
 from typing_extensions import Literal
 
-from .currency import Currency
 from ..._models import BaseModel
-from .plan_type import PlanType
-from .visibility import Visibility
-from .release_method import ReleaseMethod
-from ..checkout_modes import CheckoutModes
-from ..payment_method_types import PaymentMethodTypes
 
-__all__ = ["CheckoutConfiguration", "PaymentMethodConfiguration", "Plan"]
-
-
-class PaymentMethodConfiguration(BaseModel):
-    """The explicit payment method configuration for the session, if any.
-
-    This currently only works in 'setup' mode. Use the plan's payment_method_configuration for payment method.
-    """
-
-    disabled: List[PaymentMethodTypes]
-    """An array of payment method identifiers that are explicitly disabled.
-
-    Only applies if the include_platform_defaults is true.
-    """
-
-    enabled: List[PaymentMethodTypes]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: bool
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
+__all__ = ["CheckoutConfiguration", "Plan"]
 
 
 class Plan(BaseModel):
-    """The plan to use for the checkout configuration"""
+    """Plan used for payment checkout. `null` in setup mode."""
 
     id: str
-    """The unique identifier for the plan."""
+    """Plan ID, prefixed `plan_`."""
 
     adaptive_pricing_enabled: bool
-    """Whether the creator has turned on adaptive pricing for this plan.
-
-    Raw setting — does not check processor compatibility or feature flags.
-    """
+    """Whether this plan accepts local currency payments via adaptive pricing."""
 
     billing_period: Optional[int] = None
-    """The number of days between each recurring charge.
+    """Recurring billing interval in days."""
 
-    Null for one-time plans. For example, 30 for monthly or 365 for annual billing.
-    """
-
-    currency: Currency
-    """The currency used for all prices on this plan (e.g., 'usd', 'eur').
-
-    All monetary amounts on the plan are denominated in this currency.
-    """
+    currency: str
+    """Three-letter ISO currency code for the plan's prices."""
 
     expiration_days: Optional[int] = None
-    """The number of days until the membership expires (for expiration-based plans).
-
-    For example, 365 for a one-year access pass.
-    """
+    """Access duration in days for expiration-based plans."""
 
     initial_price: float
-    """The initial purchase price in the plan's base_currency (e.g., 49.99 for $49.99).
+    """Initial purchase price in the plan currency."""
 
-    For one-time plans, this is the full price. For renewal plans, this is charged
-    on top of the first renewal_price.
-    """
+    plan_type: Literal["renewal", "one_time"]
+    """Billing model for the plan."""
 
-    plan_type: PlanType
-    """
-    The billing model for this plan: 'renewal' for recurring subscriptions or
-    'one_time' for single payments.
-    """
-
-    release_method: ReleaseMethod
-    """
-    The method used to sell this plan: 'buy_now' for immediate purchase or
-    'waitlist' for waitlist-based access.
-    """
+    release_method: Literal["buy_now", "waitlist"]
+    """Sales method for the plan."""
 
     renewal_price: float
-    """
-    The recurring price charged every billing_period in the plan's base_currency
-    (e.g., 9.99 for $9.99/period). Zero for one-time plans.
-    """
+    """Recurring price charged each billing period."""
 
     three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
-    """The 3D Secure behavior for a plan."""
+    """3D Secure behavior for this plan, or `null` to use the account default."""
 
     trial_period_days: Optional[int] = None
-    """The number of free trial days before the first charge on a renewal plan.
+    """Free trial days before the first renewal charge."""
 
-    Null if no trial is configured or the current user has already used a trial for
-    this plan.
-    """
-
-    visibility: Visibility
-    """Controls whether the plan is visible to customers.
-
-    When set to 'hidden', the plan is only accessible via direct link.
-    """
+    visibility: Literal["visible", "hidden", "archived", "quick_link"]
+    """Whether the plan is visible to customers or hidden from public view."""
 
 
 class CheckoutConfiguration(BaseModel):
-    """
-    A checkout configuration is a reusable configuration for a checkout, including the plan, affiliate, and custom metadata. Payments and memberships created from a checkout session inherit its metadata.
-    """
-
     id: str
-    """The unique identifier for the checkout session."""
+
+    account_id: str
+    """Account ID, prefixed `biz_`."""
 
     affiliate_code: Optional[str] = None
-    """The affiliate code to use for the checkout configuration"""
+    """Affiliate code applied at checkout, or `null` when none is set."""
 
-    allow_promo_codes: bool
-    """Whether the checkout configuration allows promo codes.
+    created_at: str
+    """When the checkout configuration was created, as an ISO 8601 timestamp."""
 
-    When false, the promo code input is hidden and promo codes are rejected.
+    currency: Optional[
+        Literal[
+            "usd",
+            "sgd",
+            "inr",
+            "aud",
+            "brl",
+            "cad",
+            "dkk",
+            "eur",
+            "nok",
+            "gbp",
+            "sek",
+            "chf",
+            "hkd",
+            "huf",
+            "jpy",
+            "mxn",
+            "myr",
+            "pln",
+            "czk",
+            "nzd",
+            "aed",
+            "eth",
+            "ape",
+            "cop",
+            "ron",
+            "thb",
+            "bgn",
+            "idr",
+            "dop",
+            "php",
+            "try",
+            "krw",
+            "twd",
+            "vnd",
+            "pkr",
+            "clp",
+            "uyu",
+            "ars",
+            "zar",
+            "dzd",
+            "tnd",
+            "mad",
+            "kes",
+            "kwd",
+            "jod",
+            "all",
+            "xcd",
+            "amd",
+            "bsd",
+            "bhd",
+            "bob",
+            "bam",
+            "khr",
+            "crc",
+            "xof",
+            "egp",
+            "etb",
+            "gmd",
+            "ghs",
+            "gtq",
+            "gyd",
+            "ils",
+            "jmd",
+            "mop",
+            "mga",
+            "mur",
+            "mdl",
+            "mnt",
+            "nad",
+            "ngn",
+            "mkd",
+            "omr",
+            "pyg",
+            "pen",
+            "qar",
+            "rwf",
+            "sar",
+            "rsd",
+            "lkr",
+            "tzs",
+            "ttd",
+            "uzs",
+            "rub",
+            "btc",
+            "cny",
+            "usdt",
+            "kzt",
+            "awg",
+            "whop_usd",
+            "xau",
+        ]
+    ] = None
+    """
+    Currency used for setup-mode payment method availability; defaults to `usd` when
+    omitted.
     """
 
-    company_id: str
-    """The ID of the company to use for the checkout configuration"""
+    metadata: Optional[object] = None
+    """Custom key-value metadata copied to payments and memberships.
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    `null` without the `checkout_configuration:basic:read` scope.
+    """
 
-    metadata: Optional[Dict[str, object]] = None
-    """The metadata to use for the checkout configuration"""
+    mode: Literal["payment", "setup"]
+    """
+    Controls whether checkout charges the buyer immediately or saves payment details
+    for later.
+    """
 
-    mode: CheckoutModes
-    """The mode of the checkout session."""
+    payment_method_configuration: Optional[object] = None
+    """Payment method overrides for this checkout.
 
-    payment_method_configuration: Optional[PaymentMethodConfiguration] = None
-    """The explicit payment method configuration for the session, if any.
-
-    This currently only works in 'setup' mode. Use the plan's
-    payment_method_configuration for payment method.
+    `null` when it uses the plan or platform defaults.
     """
 
     plan: Optional[Plan] = None
-    """The plan to use for the checkout configuration"""
+    """Plan used for payment checkout. `null` in setup mode."""
 
-    purchase_url: str
-    """A URL you can send to customers to complete a checkout.
-
-    It looks like `/checkout/plan_xxxx?session={id}`
-    """
+    purchase_url: Optional[str] = None
+    """Checkout URL you can send to customers."""
 
     redirect_url: Optional[str] = None
-    """The URL to redirect the user to after the checkout configuration is created"""
+    """
+    URL customers are sent to after checkout, or `null` when no redirect is
+    configured.
+    """
+
+    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
+    """3D Secure behavior for this checkout, or `null` to use the account default."""
+
+    updated_at: str
+    """When the checkout configuration was last updated, as an ISO 8601 timestamp."""

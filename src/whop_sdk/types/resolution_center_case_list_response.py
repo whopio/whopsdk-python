@@ -1,99 +1,138 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .resolution_center_case_status import ResolutionCenterCaseStatus
-from .resolution_center_case_issue_type import ResolutionCenterCaseIssueType
-from .resolution_center_case_customer_response import ResolutionCenterCaseCustomerResponse
-from .resolution_center_case_merchant_response import ResolutionCenterCaseMerchantResponse
 
-__all__ = ["ResolutionCenterCaseListResponse", "Company", "Payment", "User"]
+__all__ = ["ResolutionCenterCaseListResponse", "Account", "Buyer", "Payment"]
 
 
-class Company(BaseModel):
-    """The company involved in this resolution case.
-
-    Null if the company no longer exists.
-    """
+class Account(BaseModel):
+    """The account the case was filed against."""
 
     id: str
-    """The unique identifier for the company."""
+    """Account ID, prefixed `biz_`."""
 
     title: str
-    """The display name of the company shown to customers."""
+    """Account display name."""
+
+
+class Buyer(BaseModel):
+    """The customer who opened the case."""
+
+    email: Optional[str] = None
+    """The customer's email address.
+
+    Requires the `member:email:read` scope; `null` without it.
+    """
+
+    member_id: Optional[str] = None
+    """The customer's member row on the account, prefixed `mem_`."""
+
+    name: Optional[str] = None
+    """The customer's display name."""
+
+    user_id: Optional[str] = None
+    """The customer's user ID, prefixed `user_`."""
+
+    username: Optional[str] = None
+    """The customer's Whop username."""
 
 
 class Payment(BaseModel):
-    """The payment record that is the subject of this resolution case."""
+    """The payment the case was opened against."""
 
     id: str
-    """The unique identifier for the payment."""
+    """Payment ID, prefixed `pay_`."""
 
+    card_brand: Optional[str] = None
+    """Card brand, when the customer paid by card."""
 
-class User(BaseModel):
-    """The customer (buyer) who filed this resolution case."""
+    card_last4: Optional[str] = None
+    """Last four digits of the card, when the customer paid by card."""
 
-    id: str
-    """The unique identifier for the user."""
+    created_at: str
+    """When the payment was made, as an ISO 8601 timestamp."""
 
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
-
-    username: str
-    """The user's unique username shown on their public profile."""
+    payment_method_type: Optional[str] = None
+    """How the customer paid, such as `card` or `paypal`."""
 
 
 class ResolutionCenterCaseListResponse(BaseModel):
-    """
-    A resolution center case is a dispute or support case between a user and a company, tracking the issue, status, and outcome.
-    """
-
     id: str
-    """The unique identifier for the resolution."""
+    """Resolution center case ID, prefixed `reso_`."""
 
-    company: Optional[Company] = None
-    """The company involved in this resolution case.
+    account: Optional[Account] = None
+    """The account the case was filed against."""
 
-    Null if the company no longer exists.
-    """
+    amount: float
+    """The amount in question, in whole units of `currency`."""
 
-    created_at: datetime
-    """The datetime the resolution was created."""
+    available_actions: List[Literal["accept", "deny", "request_info", "reply", "appeal", "withdraw"]]
+
+    buyer: Buyer
+    """The customer who opened the case."""
+
+    created_at: str
+    """When the case was opened, as an ISO 8601 timestamp."""
+
+    currency: Optional[str] = None
+    """Three-letter ISO currency code of the amount."""
 
     customer_appealed: bool
-    """Whether the customer has filed an appeal after the initial resolution decision."""
+    """Whether the customer has appealed a decision on this case."""
 
-    customer_response_actions: List[ResolutionCenterCaseCustomerResponse]
-    """The list of actions currently available to the customer."""
-
-    due_date: Optional[datetime] = None
-    """The deadline by which the next response is required.
-
-    Null if no deadline is currently active. As a Unix timestamp.
+    escalated: bool
+    """
+    Whether Whop is involved — either reviewing the case, or waiting on the side
+    named by `status` for something it asked for while reviewing.
     """
 
-    issue: ResolutionCenterCaseIssueType
-    """The category of the dispute."""
+    outcome: Optional[Literal["customer_won", "merchant_won", "withdrawn"]] = None
+    """Who prevailed on the claim.
 
-    merchant_appealed: bool
-    """Whether the merchant has filed an appeal after the initial resolution decision."""
-
-    merchant_response_actions: List[ResolutionCenterCaseMerchantResponse]
-    """The list of actions currently available to the merchant."""
+    `null` until the case closes. Read `refund` for whether any money actually
+    moved.
+    """
 
     payment: Payment
-    """The payment record that is the subject of this resolution case."""
+    """The payment the case was opened against."""
 
-    status: ResolutionCenterCaseStatus
+    plan_id: Optional[str] = None
+    """The plan the payment was made on, prefixed `plan_`."""
+
+    product_id: Optional[str] = None
+    """The product the payment was for, prefixed `prod_`."""
+
+    reason: Literal[
+        "fraudulent", "product_not_received", "not_as_described", "product_unacceptable", "subscription_canceled"
+    ]
+    """What the customer says went wrong.
+
+    Shares the `/disputes` vocabulary, so a case that later becomes a chargeback
+    reports the same complaint.
     """
-    The current status of the resolution case, indicating which party needs to
-    respond or if the case is closed.
+
+    refund: Optional[Literal["none", "merchant", "platform"]] = None
+    """
+    Whether money moved and off whose balance: `none`, `merchant`, or `platform`
+    (Whop refunded the customer and the merchant kept the funds). Independent of
+    `outcome` — a case the merchant won can still carry a platform refund. `null`
+    while the case is open, and on older closed cases that predate this being
+    recorded.
     """
 
-    updated_at: datetime
-    """The datetime the resolution was last updated."""
+    response_due_at: Optional[str] = None
+    """When the next response is due, as an ISO 8601 timestamp."""
 
-    user: User
-    """The customer (buyer) who filed this resolution case."""
+    status: Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]
+    """Who the case is waiting on.
+
+    `awaiting_merchant` and `awaiting_customer` name the side that owes a response,
+    `under_review` means Whop is deciding, and `closed` means it is settled — read
+    `outcome` for how.
+    """
+
+    updated_at: str
+    """When the case was last changed, as an ISO 8601 timestamp."""
