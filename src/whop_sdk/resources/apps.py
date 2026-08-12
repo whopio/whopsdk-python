@@ -77,6 +77,7 @@ class AppsResource(SyncAPIResource):
 
         - `developer:create_app`
         - `developer:manage_api_key`
+        - `developer:basic:read`
         - `developer:update_app`
 
         Args:
@@ -140,6 +141,7 @@ class AppsResource(SyncAPIResource):
         Required permissions:
 
         - `developer:manage_api_key`
+        - `developer:basic:read`
         - `developer:update_app`
 
         Args:
@@ -197,6 +199,7 @@ class AppsResource(SyncAPIResource):
 
         - `developer:update_app`
         - `developer:manage_api_key`
+        - `developer:basic:read`
 
         Args:
           app_store_description: The detailed description shown on the app store's in-depth app view page.
@@ -430,6 +433,7 @@ class AsyncAppsResource(AsyncAPIResource):
 
         - `developer:create_app`
         - `developer:manage_api_key`
+        - `developer:basic:read`
         - `developer:update_app`
 
         Args:
@@ -493,6 +497,7 @@ class AsyncAppsResource(AsyncAPIResource):
         Required permissions:
 
         - `developer:manage_api_key`
+        - `developer:basic:read`
         - `developer:update_app`
 
         Args:
@@ -550,6 +555,7 @@ class AsyncAppsResource(AsyncAPIResource):
 
         - `developer:update_app`
         - `developer:manage_api_key`
+        - `developer:basic:read`
 
         Args:
           app_store_description: The detailed description shown on the app store's in-depth app view page.

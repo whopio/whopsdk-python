@@ -209,7 +209,8 @@ class App(BaseModel):
     base_url: Optional[str] = None
     """The production base URL where the app is hosted.
 
-    Null if no base URL is configured.
+    `null` if no base URL is configured, or if the caller lacks the
+    `developer:basic:read` permission on the app's account.
     """
 
     company: Company

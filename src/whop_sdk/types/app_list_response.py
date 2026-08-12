@@ -59,12 +59,6 @@ class AppListResponse(BaseModel):
     'company_app', 'component').
     """
 
-    base_url: Optional[str] = None
-    """The production base URL where the app is hosted.
-
-    Null if no base URL is configured.
-    """
-
     company: Company
     """The company that owns and publishes this app."""
 
