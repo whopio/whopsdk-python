@@ -88,7 +88,6 @@ class AccountRecommendedAction(BaseModel):
         "invite_team_member",
         "enable_tax_collection",
         "create_card",
-        "join_whop_university",
         "apply_for_financing",
     ]
     """
