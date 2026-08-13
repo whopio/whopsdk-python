@@ -9,6 +9,7 @@ __all__ = [
     "App",
     "Account",
     "APIKey",
+    "BannerImage",
     "Creator",
     "DefaultAPIKey",
     "Icon",
@@ -50,6 +51,13 @@ class APIKey(BaseModel):
 
     created_at: str
     """When the key was created, as an ISO 8601 timestamp."""
+
+
+class BannerImage(BaseModel):
+    """Banner image from the app's product listing, or `null` when none is uploaded."""
+
+    url: str
+    """Banner image URL, taken from the app's product listing."""
 
 
 class Creator(BaseModel):
@@ -216,6 +224,9 @@ class App(BaseModel):
 
     app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
     """The type of end-user the app is built for."""
+
+    banner_image: Optional[BannerImage] = None
+    """Banner image from the app's product listing, or `null` when none is uploaded."""
 
     base_url: Optional[str] = None
     """The production base URL where the app is hosted.

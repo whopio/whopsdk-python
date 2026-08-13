@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AppListResponse", "Account", "Creator", "Icon"]
+__all__ = ["AppListResponse", "Account", "BannerImage", "Creator", "Icon"]
 
 
 class Account(BaseModel):
@@ -22,6 +22,13 @@ class Account(BaseModel):
 
     title: str
     """Account display name."""
+
+
+class BannerImage(BaseModel):
+    """Banner image from the app's product listing, or `null` when none is uploaded."""
+
+    url: str
+    """Banner image URL, taken from the app's product listing."""
 
 
 class Creator(BaseModel):
@@ -53,6 +60,9 @@ class AppListResponse(BaseModel):
 
     app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
     """The type of end-user the app is built for."""
+
+    banner_image: Optional[BannerImage] = None
+    """Banner image from the app's product listing, or `null` when none is uploaded."""
 
     base_url: Optional[str] = None
     """The production base URL where the app is hosted.

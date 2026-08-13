@@ -45,7 +45,11 @@ class AppListParams(TypedDict, total=False):
     """A search string matched against app names."""
 
     verified_apps_only: bool
-    """Whether to only return apps verified by Whop."""
+    """Whether to only return apps verified by Whop.
+
+    Verified website templates — websites with a published web build — are included,
+    even though websites are otherwise left out of app lists.
+    """
 
     view_type: Literal["hub", "discover", "dash", "dashboard", "analytics", "skills", "openapi"]
     """Only return apps supporting this view type, such as `dashboard` or `hub`."""

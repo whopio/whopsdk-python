@@ -342,6 +342,8 @@ class AppsResource(SyncAPIResource):
         """
         Lists apps on the Whop platform: the app store's live apps, or — with
         `account_id` and developer access to that account — every app the account owns.
+        Requires authentication, except when `verified_apps_only=true`, which is
+        publicly readable.
 
         Args:
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
@@ -365,7 +367,9 @@ class AppsResource(SyncAPIResource):
 
           query: A search string matched against app names.
 
-          verified_apps_only: Whether to only return apps verified by Whop.
+          verified_apps_only: Whether to only return apps verified by Whop. Verified website templates —
+              websites with a published web build — are included, even though websites are
+              otherwise left out of app lists.
 
           view_type: Only return apps supporting this view type, such as `dashboard` or `hub`.
 
@@ -883,6 +887,8 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         Lists apps on the Whop platform: the app store's live apps, or — with
         `account_id` and developer access to that account — every app the account owns.
+        Requires authentication, except when `verified_apps_only=true`, which is
+        publicly readable.
 
         Args:
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
@@ -906,7 +912,9 @@ class AsyncAppsResource(AsyncAPIResource):
 
           query: A search string matched against app names.
 
-          verified_apps_only: Whether to only return apps verified by Whop.
+          verified_apps_only: Whether to only return apps verified by Whop. Verified website templates —
+              websites with a published web build — are included, even though websites are
+              otherwise left out of app lists.
 
           view_type: Only return apps supporting this view type, such as `dashboard` or `hub`.
 
