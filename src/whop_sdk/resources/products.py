@@ -226,6 +226,7 @@ class ProductsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
         headline: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
@@ -245,6 +246,10 @@ class ProductsResource(SyncAPIResource):
         Updates an existing product.
 
         Args:
+          banner_image: A wide image for the product, shown on the product page and on listing cards.
+              Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a
+              completed direct upload; `null` removes it.
+
           description: A written description displayed on the product page.
 
           headline: A short marketing headline for the product page.
@@ -277,6 +282,7 @@ class ProductsResource(SyncAPIResource):
             path_template("/products/{id}", id=id),
             body=maybe_transform(
                 {
+                    "banner_image": banner_image,
                     "description": description,
                     "headline": headline,
                     "metadata": metadata,
@@ -698,6 +704,7 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
         headline: Optional[str] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
@@ -717,6 +724,10 @@ class AsyncProductsResource(AsyncAPIResource):
         Updates an existing product.
 
         Args:
+          banner_image: A wide image for the product, shown on the product page and on listing cards.
+              Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a
+              completed direct upload; `null` removes it.
+
           description: A written description displayed on the product page.
 
           headline: A short marketing headline for the product page.
@@ -749,6 +760,7 @@ class AsyncProductsResource(AsyncAPIResource):
             path_template("/products/{id}", id=id),
             body=await async_maybe_transform(
                 {
+                    "banner_image": banner_image,
                     "description": description,
                     "headline": headline,
                     "metadata": metadata,

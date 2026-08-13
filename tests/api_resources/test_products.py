@@ -133,6 +133,10 @@ class TestProducts:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         product = client.products.update(
             id="id",
+            banner_image={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             description="description",
             headline="headline",
             metadata={},
@@ -473,6 +477,10 @@ class TestAsyncProducts:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.update(
             id="id",
+            banner_image={
+                "id": "id",
+                "direct_upload_id": "direct_upload_id",
+            },
             description="description",
             headline="headline",
             metadata={},
