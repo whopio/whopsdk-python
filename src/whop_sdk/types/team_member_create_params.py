@@ -11,7 +11,7 @@ class TeamMemberCreateParams(TypedDict, total=False):
     account_id: Required[str]
     """Account ID, prefixed `biz_`."""
 
-    role: Required[Literal["owner", "admin", "sales_manager", "moderator", "advertiser"]]
+    role: Required[Literal["owner", "admin", "sales_manager", "moderator", "advertiser", "workforce"]]
     """The system role to grant."""
 
     email: str

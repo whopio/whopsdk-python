@@ -55,7 +55,7 @@ class TeamMembersResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser", "workforce"],
         email: str | Omit = omit,
         user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -157,7 +157,7 @@ class TeamMembersResource(SyncAPIResource):
         self,
         id: str,
         *,
-        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser", "workforce"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -369,7 +369,7 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser", "workforce"],
         email: str | Omit = omit,
         user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -471,7 +471,7 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser", "workforce"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

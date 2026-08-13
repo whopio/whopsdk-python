@@ -8,5 +8,5 @@ __all__ = ["TeamMemberUpdateParams"]
 
 
 class TeamMemberUpdateParams(TypedDict, total=False):
-    role: Required[Literal["owner", "admin", "sales_manager", "moderator", "advertiser"]]
+    role: Required[Literal["owner", "admin", "sales_manager", "moderator", "advertiser", "workforce"]]
     """The system role to grant."""

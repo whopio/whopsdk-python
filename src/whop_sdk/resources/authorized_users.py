@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -52,7 +53,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        role: AuthorizedUserRoles,
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
         user_id: str,
         elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
         send_emails: Optional[bool] | Omit = omit,
@@ -313,7 +314,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        role: AuthorizedUserRoles,
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
         user_id: str,
         elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
         send_emails: Optional[bool] | Omit = omit,
