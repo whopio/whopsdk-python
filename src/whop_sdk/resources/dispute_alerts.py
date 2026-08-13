@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -20,15 +19,17 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.direction import Direction
-from ..types.dispute_alert_list_response import DisputeAlertListResponse
-from ..types.dispute_alert_retrieve_response import DisputeAlertRetrieveResponse
+from ..types.dispute_alert import DisputeAlert
 
 __all__ = ["DisputeAlertsResource", "AsyncDisputeAlertsResource"]
 
 
 class DisputeAlertsResource(SyncAPIResource):
-    """Dispute alerts"""
+    """
+    A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+    Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+    """
 
     @cached_property
     def with_raw_response(self) -> DisputeAlertsResourceWithRawResponse:
@@ -59,18 +60,9 @@ class DisputeAlertsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DisputeAlertRetrieveResponse:
+    ) -> DisputeAlert:
         """
-        Retrieves the details of an existing dispute alert.
-
-        Required permissions:
-
-        - `payment:dispute_alert:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
-        - `payment:dispute:read`
+        Retrieves a single dispute alert or early fraud warning by ID.
 
         Args:
           extra_headers: Send extra headers
@@ -88,53 +80,59 @@ class DisputeAlertsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DisputeAlertRetrieveResponse,
+            cast_to=DisputeAlert,
         )
 
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "reported_at", "amount"] | Omit = omit,
+        payment_id: str | Omit = omit,
+        type: Literal["early_fraud_warning", "dispute_alert", "rapid_dispute_resolution"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[DisputeAlertListResponse]:
+    ) -> SyncCursorPage[DisputeAlert]:
         """
-        Returns a paginated list of dispute alerts for a company, with optional
-        filtering by creation date.
-
-        Required permissions:
-
-        - `payment:dispute_alert:read`
-        - `payment:basic:read`
-        - `payment:dispute:read`
+        Lists the dispute alerts and early fraud warnings across the accounts you can
+        read.
 
         Args:
-          company_id: The unique identifier of the company to list dispute alerts for.
+          account_id: Only alerts on this account's payments (`biz_` tag). Omit it to cover every
+              account you can read.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns alerts after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: A cursor; returns alerts before this position.
 
-          created_after: Only return dispute alerts created after this timestamp.
+          created_after: Only alerts Whop received after this ISO 8601 timestamp.
 
-          created_before: Only return dispute alerts created before this timestamp.
+          created_before: Only alerts Whop received before this ISO 8601 timestamp.
 
-          direction: The direction of the sort.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of alerts to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of alerts to return from the end of the range.
+
+          order: The field to sort alerts by.
+
+          payment_id: Only alerts on this payment (`pay_` tag). A payment can carry several.
+
+          type: Only alerts of this kind. `early_fraud_warning` for issuer fraud reports,
+              `dispute_alert` for pre-dispute notices, `rapid_dispute_resolution` for Visa RDR
+              cases the network already closed.
 
           extra_headers: Send extra headers
 
@@ -146,7 +144,7 @@ class DisputeAlertsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dispute_alerts",
-            page=SyncCursorPage[DisputeAlertListResponse],
+            page=SyncCursorPage[DisputeAlert],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -154,7 +152,7 @@ class DisputeAlertsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -162,16 +160,23 @@ class DisputeAlertsResource(SyncAPIResource):
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "payment_id": payment_id,
+                        "type": type,
                     },
                     dispute_alert_list_params.DisputeAlertListParams,
                 ),
             ),
-            model=DisputeAlertListResponse,
+            model=DisputeAlert,
         )
 
 
 class AsyncDisputeAlertsResource(AsyncAPIResource):
-    """Dispute alerts"""
+    """
+    A Dispute alert is an early warning from a card issuer that a settled payment is being questioned, ahead of any chargeback. `type` separates fraud reports (`early_fraud_warning`), pre-dispute notices (`dispute_alert`), and Visa RDR cases the network already closed by refunding (`rapid_dispute_resolution`).
+
+    Use the Dispute alerts API to list alerts for an account, filter them by type or payment, and read `actionable` to see whether refunding can still avoid the chargeback.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncDisputeAlertsResourceWithRawResponse:
@@ -202,18 +207,9 @@ class AsyncDisputeAlertsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DisputeAlertRetrieveResponse:
+    ) -> DisputeAlert:
         """
-        Retrieves the details of an existing dispute alert.
-
-        Required permissions:
-
-        - `payment:dispute_alert:read`
-        - `payment:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
-        - `payment:dispute:read`
+        Retrieves a single dispute alert or early fraud warning by ID.
 
         Args:
           extra_headers: Send extra headers
@@ -231,53 +227,59 @@ class AsyncDisputeAlertsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DisputeAlertRetrieveResponse,
+            cast_to=DisputeAlert,
         )
 
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at", "reported_at", "amount"] | Omit = omit,
+        payment_id: str | Omit = omit,
+        type: Literal["early_fraud_warning", "dispute_alert", "rapid_dispute_resolution"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[DisputeAlertListResponse, AsyncCursorPage[DisputeAlertListResponse]]:
+    ) -> AsyncPaginator[DisputeAlert, AsyncCursorPage[DisputeAlert]]:
         """
-        Returns a paginated list of dispute alerts for a company, with optional
-        filtering by creation date.
-
-        Required permissions:
-
-        - `payment:dispute_alert:read`
-        - `payment:basic:read`
-        - `payment:dispute:read`
+        Lists the dispute alerts and early fraud warnings across the accounts you can
+        read.
 
         Args:
-          company_id: The unique identifier of the company to list dispute alerts for.
+          account_id: Only alerts on this account's payments (`biz_` tag). Omit it to cover every
+              account you can read.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns alerts after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: A cursor; returns alerts before this position.
 
-          created_after: Only return dispute alerts created after this timestamp.
+          created_after: Only alerts Whop received after this ISO 8601 timestamp.
 
-          created_before: Only return dispute alerts created before this timestamp.
+          created_before: Only alerts Whop received before this ISO 8601 timestamp.
 
-          direction: The direction of the sort.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of alerts to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of alerts to return from the end of the range.
+
+          order: The field to sort alerts by.
+
+          payment_id: Only alerts on this payment (`pay_` tag). A payment can carry several.
+
+          type: Only alerts of this kind. `early_fraud_warning` for issuer fraud reports,
+              `dispute_alert` for pre-dispute notices, `rapid_dispute_resolution` for Visa RDR
+              cases the network already closed.
 
           extra_headers: Send extra headers
 
@@ -289,7 +291,7 @@ class AsyncDisputeAlertsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dispute_alerts",
-            page=AsyncCursorPage[DisputeAlertListResponse],
+            page=AsyncCursorPage[DisputeAlert],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -297,7 +299,7 @@ class AsyncDisputeAlertsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -305,11 +307,14 @@ class AsyncDisputeAlertsResource(AsyncAPIResource):
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "payment_id": payment_id,
+                        "type": type,
                     },
                     dispute_alert_list_params.DisputeAlertListParams,
                 ),
             ),
-            model=DisputeAlertListResponse,
+            model=DisputeAlert,
         )
 
 
